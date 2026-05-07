@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 type Status = 'loading' | 'ok' | 'unreachable'
 
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL ?? 'http://localhost:8000'
+  import.meta.env.VITE_BACKEND_URL ?? 'http://localhost:8001'
 
 export default function HealthCheck() {
   const [status, setStatus] = useState<Status>('loading')

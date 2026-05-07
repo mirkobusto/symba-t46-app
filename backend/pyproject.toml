@@ -32,7 +32,13 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "N"]
-ignore = []
+# B008: FastAPI uses Depends(...) in defaults — its canonical pattern.
+ignore = ["B008"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests deliberately encode pathway / block IDs (LCSA-P1, BLOCK-01, RULE-04)
+# in function names for traceability.
+"tests/**/*.py" = ["N802", "N806"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

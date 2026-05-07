@@ -14,10 +14,12 @@
 
 ### Sprint 0 — Review critica logic table Kimi
 - **Owner**: Architect chat
-- **Branch**: n/a (output diretto in `coordination/reviews/kimi_logic_table_review.md`)
-- **Status**: in corso
-- **Output atteso**: verdict (OK / OK-con-patch / da-rifare) + eventuale patch al JSON logic table
-- **Gate**: nessuno sprint codifica della logic table (Sprint 4 in poi) può iniziare prima della chiusura di Sprint 0
+- **Output Pass 1**: `coordination/reviews/kimi_logic_table_review.md` (consegnato)
+- **Verdict Pass 1**: OK con patch significative — 4 incoerenze identificate, 1 bloccante. Strategia consolidamento: Opzione A (riscrittura logic table v2 sotto nostra responsabilità).
+- **Pass residui**: Pass 2 spot check vs D4.1/D4.2/D4.3 (~2h, splittabile per metodo); Pass 3 stress test su caso "Sunflower-Compost-Park" (~1h); stesura `lcsa_decision_engine.json` v2 (~1.5h).
+- **Status**: Pass 1 chiuso, Pass 2 in attesa.
+- **Gate**: Sprint 2 bloccato fino a chiusura Sprint 0.
+  
 
 ### Sprint 1 — Repo scaffold
 - **Owner**: Claude Code on the web (SPEC: `coordination/specs/SPRINT_1_SPEC_scaffold.md`)

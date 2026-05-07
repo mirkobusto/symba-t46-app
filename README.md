@@ -6,10 +6,12 @@ See [`coordination/master-plan/MASTER_PLAN.md`](coordination/master-plan/MASTER_
 for the full vision; per-sprint specs and reports live under
 [`coordination/`](coordination/).
 
-This repository is a public monorepo. As of Sprint 2, the backend ships
-the LCSA decision engine (10 questions → 10 pathways), session persistence
-on SQLite, and a REST API under `/api/`. The frontend questionnaire is the
-target of Sprint 3.
+This repository is a public monorepo. As of Sprint 3, both halves of the MVP
+are wired up: the backend ships the LCSA decision engine (10 questions →
+10 pathways), session persistence on SQLite, and a REST API under `/api/`;
+the frontend ships the questionnaire flow (Home → Questionnaire → Result /
+Error) consuming that API via `react-router-dom`, `zustand` and a typed
+`fetch` client.
 
 ## Stack
 

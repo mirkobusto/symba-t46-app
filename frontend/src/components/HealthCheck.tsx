@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 
+import { apiBaseUrl } from '../services/api'
+
 type Status = 'loading' | 'ok' | 'unreachable'
 
-const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL ?? 'http://localhost:8000'
+interface HealthCheckProps {
+  compact?: boolean
+}
 
-export default function HealthCheck() {
+export default function HealthCheck({ compact = false }: HealthCheckProps) {
   const [status, setStatus] = useState<Status>('loading')
 
   useEffect(() => {
     let cancelled = false
-    fetch(`${BACKEND_URL}/health`)
+    fetch(`${apiBaseUrl}/health`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         return res.json()
@@ -26,7 +29,33 @@ export default function HealthCheck() {
     }
   }, [])
 
-  if (status === 'loading') return <p>Backend: checking…</p>
-  if (status === 'ok') return <p>Backend: OK</p>
-  return <p>Backend: unreachable</p>
+  const dotClass =
+    status === 'ok'
+      ? 'status-dot status-dot-ok'
+      : status === 'unreachable'
+        ? 'status-dot status-dot-error'
+        : 'status-dot status-dot-loading'
+
+  const label =
+    status === 'loading'
+      ? 'checking…'
+      : status === 'ok'
+        ? 'OK'
+        : 'unreachable'
+
+  if (compact) {
+    return (
+      <span className="health-check health-check-compact">
+        <span className={dotClass} aria-hidden="true" />
+        <span>Backend: {label}</span>
+      </span>
+    )
+  }
+
+  return (
+    <p className="health-check">
+      <span className={dotClass} aria-hidden="true" />
+      Backend: {label}
+    </p>
+  )
 }

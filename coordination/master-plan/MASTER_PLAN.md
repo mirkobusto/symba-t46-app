@@ -43,11 +43,13 @@ L'app **non esegue calcoli LCSA**, non valida dati inseriti, non sostituisce sof
 **Decision**: monorepo con tre cartelle top-level: `frontend/`, `backend/`, `coordination/`.
 **Consequences**: CI deve gestire path-based filters (modifica solo frontend → solo lint+test frontend). Coordination è pubblico (le SPEC e i report sono leggibili da chiunque).
 
-### ADR-003 — Logic table Kimi come **input critico da validare prima di codifica**
-**Status**: accepted (2026-05-07)
-**Context**: Kimi ha prodotto IS_Decision_Engine_UNIFIED.md con 10 domande, 10 pathway, 39 conflitti risolti. Mirko ha richiesto esplicitamente review prima di costruire codice sopra (rischio di propagare errori).
-**Decision**: Sprint 0 = review critica della logic table Kimi (a campione, contro i 3 deliverable). Output `coordination/reviews/kimi_logic_table_review.md` con verdict OK / OK con patch / da rifare. Gate: senza Sprint 0 chiuso, non si scrive logica business sopra al JSON logic table.
-**Consequences**: ritardo di 1 turno, ma riduce rischio rework massivo.
+### ADR-003 — Logic table v2 sotto nostra responsabilità (Opzione A)
+**Status**: accepted (2026-05-07, after Sprint 0 Pass 1)
+**Context**: review Sprint 0 Pass 1 ha identificato 4 incoerenze nel materiale Kimi, di cui una bloccante (due decision tree divergenti con stessi nomi pathway LCSA-P1..P10 nei file fase vs Section 4 di IS_Decision_Engine_UNIFIED). Vedi `coordination/reviews/kimi_logic_table_review.md`.
+**Decision**: il materiale Kimi è usato come **input di riferimento**, non come codice. Phase 1 (atomic nodes), Phase 2 (compatibility matrix), Phase 5 (clash analysis) sono knowledge base riusabile. Phase 4 viene **riscritto come `lcsa_decision_engine.json` v2** sotto nostra responsabilità, usando `phase4_logic_table.md` + `phase4_mermaid_tree.md` + `phase4_traceability.md` come baseline (non Section 4 del UNIFIED), con validazione spot-check esplicita vs D4.1/D4.2/D4.3.
+**Requisiti del JSON v2**: (a) traceability machine-readable per ogni answer→config map (`trace: [...refs]`); (b) validazione di ogni LCSA-Pn vs almeno una sezione di un deliverable per ogni metodologia; (c) versioning con `version` field; (d) ogni patch successivo è ADR documentato.
+**Consequences**: Sprint 2 (Domain layer backend) non parte prima di chiusura Sprint 0 completa (Pass 2 + Pass 3 + JSON v2 stesura). Stima residuo Sprint 0: ~3.5h Architect chat distribuite su 3-4 turni.
+
 
 ## 4. Roadmap MVP (alto livello, sprint pianificati)
 

@@ -6,8 +6,10 @@ See [`coordination/master-plan/MASTER_PLAN.md`](coordination/master-plan/MASTER_
 for the full vision; per-sprint specs and reports live under
 [`coordination/`](coordination/).
 
-This repository is a public monorepo. It is greenfield as of Sprint 1
-(scaffold only — no domain logic yet).
+This repository is a public monorepo. As of Sprint 2, the backend ships
+the LCSA decision engine (10 questions → 10 pathways), session persistence
+on SQLite, and a REST API under `/api/`. The frontend questionnaire is the
+target of Sprint 3.
 
 ## Stack
 

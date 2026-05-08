@@ -1,0 +1,100 @@
+{
+  "$schema": "SYMBA-T46-ComputedFields",
+  "version": "1.0",
+  "extracted_from": "field_classification.md Category B + Mirko NOTA on lca/lcc.capital_goods.amortized derivation",
+  "purpose": "Fields derived during engine pipeline execution from Phase 1 nodes, per-flow Q5 outputs, calculation sequence, or analytical-level architecture. NOT set directly by individual Phase 1 nodes; emerge as composite/computed state.",
+  "fields": [
+    {
+      "field": "lca.zero_burden_classification",
+      "type": "object",
+      "scope": "per_flow",
+      "computed_from": "lca_mc_17 evaluated against flow.q5",
+      "used_by_rules": ["IR-15"],
+      "derivation": "For each flow: q5=a -> 'zero_burden_applied'; q5=b -> 'evt_with_sensitivity'; q5=c -> 'substitution_q_corrected'; q5=d -> 'no_zero_burden_integrated_remodel'; q5=e -> 'system_expansion_uniform'."
+    },
+    {
+      "field": "lcc.avoidable_unavoidable_classification",
+      "type": "object",
+      "scope": "per_flow",
+      "computed_from": "lcc_hc_12 + lcc_hc_13 evaluated against flow.q5 (only when q5 != 'e')",
+      "used_by_rules": ["IR-15"],
+      "derivation": "Per-flow output of the LCC avoidable/unavoidable test. Must align per-flow with lca.zero_burden_classification per IR-15."
+    },
+    {
+      "field": "lca.calculation_order",
+      "type": "array",
+      "default_value": ["entity", "network"],
+      "computed_from": "engine config (procedural)",
+      "used_by_rules": ["IR-16"],
+      "derivation": "Constant per LCA method: entity-first then network consolidation."
+    },
+    {
+      "field": "lcc.calculation_order",
+      "type": "array",
+      "default_value": ["entity", "flow", "network", "baseline"],
+      "computed_from": "engine config (procedural per LCC HC-09, LCC HC-19)",
+      "used_by_rules": ["IR-16"],
+      "derivation": "Strict 4-step sequence: entity -> flow -> network -> baseline."
+    },
+    {
+      "field": "slca.calculation_order",
+      "type": "array",
+      "default_value": ["stakeholder", "system"],
+      "computed_from": "engine config (procedural per S-LCA HC-31)",
+      "used_by_rules": ["IR-16"],
+      "derivation": "Stakeholder-first then system-level aggregation."
+    },
+    {
+      "field": "lca.analytical_levels",
+      "type": "array",
+      "default_value": ["network", "entity", "flow"],
+      "computed_from": "engine architecture",
+      "used_by_rules": ["IR-20"],
+      "derivation": "Three-level analytical exposition for LCA output: network, entity, flow."
+    },
+    {
+      "field": "lcc.analytical_levels",
+      "type": "array",
+      "default_value": ["network", "entity", "flow"],
+      "computed_from": "engine architecture (per LCC HC-01, LCC HC-19)",
+      "used_by_rules": ["IR-20"],
+      "derivation": "Three-level analytical exposition for LCC output: network, entity, flow."
+    },
+    {
+      "field": "slca.analytical_levels",
+      "type": "array",
+      "default_value": ["system", "stakeholder", "indicator"],
+      "computed_from": "engine architecture (per S-LCA HC-31, HC-44)",
+      "used_by_rules": ["IR-20"],
+      "derivation": "Three-level analytical exposition for S-LCA output: system, stakeholder, indicator."
+    },
+    {
+      "field": "lcc.reference_scenario.type",
+      "type": "string",
+      "computed_from": "alias / cross-method consistency check vs lca.reference_scenario.type (set by lca_mc_26)",
+      "used_by_rules": ["IR-07", "FU-05"],
+      "derivation": "When LCA active: required to equal lca.reference_scenario.type by IR-07 (FU+boundary+temporal+geographic). When LCC standalone: derived from Q1 (Q1=A -> alt-disposal, Q1=B -> hypothetical-no-IS, Q1=C -> BAU national mix). Not stored on a Phase 1 node; computed aliasing instead. NOTE: post field_gaps round 2 design call — the .type/.content split applies only to LCA (lca_mc_26 sets .type; lca_mc_27 sets .content). LCC/SLCA only need .type because their cross-method alignment is type-level."
+    },
+    {
+      "field": "slca.reference_scenario.type",
+      "type": "string",
+      "computed_from": "alias / cross-method consistency check vs lca.reference_scenario.type (when LCA active) or lcc.reference_scenario.type",
+      "used_by_rules": ["IR-07", "FU-05"],
+      "derivation": "Symmetric to lcc.reference_scenario.type. Equality enforced by IR-07; computed aliasing rather than separate Phase 1 storage."
+    },
+    {
+      "field": "lca.capital_goods.amortized",
+      "type": "boolean",
+      "computed_from": "lca.capital_goods.included AND lca.capital_goods.amortization_period",
+      "used_by_rules": ["B-06 (referenced in human-readable assertion; formal assertion uses source fields)"],
+      "derivation": "amortized = (included == true) AND (amortization_period is not null AND amortization_period > 0). NOT a stored field; computed on demand."
+    },
+    {
+      "field": "lcc.capital_goods.amortized",
+      "type": "boolean",
+      "computed_from": "lcc.capital_goods.included AND lcc.capital_goods.amortization_period",
+      "used_by_rules": ["B-06 (referenced in human-readable assertion; formal assertion uses source fields)"],
+      "derivation": "Symmetric to lca version. Same boolean rule."
+    }
+  ]
+}

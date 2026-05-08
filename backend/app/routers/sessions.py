@@ -17,8 +17,8 @@ from app.domain.engine import (
     get_decision_engine,
 )
 from app.models import Answer, PathwayResolutionRecord, Session
-from app.schemas.pathway_schemas import PathwayResolutionResponse
-from app.schemas.session_schemas import (
+from app.wire.pathway_schemas import PathwayResolutionResponse
+from app.wire.session_schemas import (
     AnswerOut,
     AnswersBulkSubmitRequest,
     AnswersSubmitResponse,

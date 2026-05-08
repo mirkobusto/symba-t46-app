@@ -132,3 +132,30 @@ def client(sqlite_engine) -> Generator[TestClient, None, None]:
         app.dependency_overrides.pop(get_db, None)
         db_module._engine = None  # type: ignore[attr-defined]
         db_module._SessionLocal = None  # type: ignore[attr-defined]
+
+
+# =============================================================================
+# Sprint 4 Step 2 — schema fixtures
+# =============================================================================
+
+from pathlib import Path  # noqa: E402
+
+from app.engine.loader import LoadedSchemas, load_schemas, reset_cache  # noqa: E402
+
+
+@pytest.fixture(scope="session")
+def schemas() -> LoadedSchemas:
+    """Load the 5 schema JSON files once per test session.
+
+    Uses the default `app/schemas/` location. Tests that need to override
+    the location should call `app.engine.loader.load_schemas(custom_dir)`
+    directly and call `reset_cache()` afterwards.
+    """
+    reset_cache()
+    return load_schemas()
+
+
+@pytest.fixture
+def schemas_dir() -> Path:
+    """Absolute path to the schemas directory (for tests that read JSON directly)."""
+    return Path(__file__).resolve().parent.parent / "app" / "schemas"

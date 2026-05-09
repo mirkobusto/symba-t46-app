@@ -36,6 +36,7 @@ ignore = ["B008"]
 # One-off validation/diagnostic scripts: long log strings and unused loop vars
 # are part of the script style; not worth refactoring for lint compliance.
 "scripts/**/*.py" = ["E501", "B007", "F541"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"

@@ -90,15 +90,16 @@ def test_pipeline_orchestrator_exists():
 
 def test_pipeline_propagates_phase_stub_errors(schemas):
     """Running the orchestrator raises NotImplementedError from the first
-    remaining phase stub (currently l1_blocks, after l0_compute landed in
-    Sprint 4 Step 3 commit 2). A minimum Q1 is supplied so l0 succeeds
-    and the pipeline reaches the first downstream stub.
+    remaining phase stub (currently activate, after l0/l1/pathway landed
+    in Sprint 4 Step 3 commits 1-3). Minimum Q1=A and Q3.env=True so l0
+    succeeds, no L1 BLOCK fires, and the pipeline reaches the first
+    downstream stub.
     """
-    from app.domain.enums import Q1
-    from app.domain.models import Case
+    from app.domain.enums import Q1, Q2
+    from app.domain.models import Q3, Case
     from app.engine.pipeline import run as run_pipeline
 
-    case = Case(q1=Q1.A)
+    case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True))
     with pytest.raises(NotImplementedError):
         run_pipeline(case, schemas)
 

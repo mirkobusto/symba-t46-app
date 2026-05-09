@@ -149,8 +149,12 @@ class Case(BaseModel):
     lcc_type: Optional[LccType] = None
     slca_activation_state: Optional[SlcaActivationState] = None
 
-    # --- Pathway (set by app/engine/activate.py:derive_pathway) ---
+    # --- Pathway (set by app/engine/pathway.py:derive) ---
     pathway_id: Optional[PathwayId] = None
+    is_01_extended: bool = Field(default=False,
+        description="True iff pathway_id is IS-01 AND q2 is Q2.D — captures "
+                    "the 'IS-01 extended' annotation (baseline + N alternative "
+                    "scenarios; WorkingDoc §3.3). Set by pathway.derive.")
 
     # --- Engine-written config (free-form dotted-path-keyed dicts per pillar) ---
     lca: dict[str, Any] = Field(default_factory=dict,

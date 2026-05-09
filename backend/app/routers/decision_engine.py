@@ -5,7 +5,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.domain.engine import DecisionEngine, UnknownPathwayError, get_decision_engine
-from app.schemas.pathway_schemas import PathwaysListResponse, QuestionsListResponse
+from app.wire.pathway_schemas import PathwaysListResponse, QuestionsListResponse
 
 router = APIRouter(tags=["decision-engine"])
 

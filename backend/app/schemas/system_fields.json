@@ -1,0 +1,136 @@
+{
+  "$schema": "SYMBA-T46-SystemFields",
+  "version": "1.0",
+  "extracted_from": "field_classification.md Category A (15 system-level engine state fields)",
+  "purpose": "Engine-level state not specific to LCA/LCC/SLCA pillars. Initialized by the engine during case lifecycle (case creation, charter signing, panel composition, reporting layer assembly). Referenced by L2/L3 cross-method rules but NOT set by individual Phase 1 nodes.",
+  "fields": [
+    {
+      "field": "governance.facilitator",
+      "type": "string|null",
+      "default_value": null,
+      "set_by": "case lifecycle (populated when LCC HC-02 triggers facilitator selection)",
+      "used_by_rules": ["IR-06"],
+      "notes": "Required when Q3 has >=2 dims AND Q1 in {A,B,C,E}; populated as identifier of the neutral 3rd-party facilitator coordinating multi-actor IS data collection."
+    },
+    {
+      "field": "governance.ndas_signed",
+      "type": "boolean",
+      "default_value": false,
+      "set_by": "case lifecycle (LCC HC-03 enforces signing before confidential data exchange)",
+      "used_by_rules": ["IR-06"],
+      "notes": "Must be true before any confidential data exchange in multi-actor multi-dim assessments."
+    },
+    {
+      "field": "methodological_charter.fe_documented",
+      "type": "boolean",
+      "default_value": false,
+      "set_by": "charter signing process (LCA HC-16, LCA HC-20, LCC HC-31)",
+      "used_by_rules": ["FU-03"],
+      "notes": "True when Functional Equivalent has been formally documented in the methodological charter signed by all parties."
+    },
+    {
+      "field": "methodological_charter.signed",
+      "type": "boolean",
+      "default_value": false,
+      "set_by": "charter signing process (lca_hc_16, lcc_hc_31 are co-asserters)",
+      "used_by_rules": [],
+      "notes": "True when the methodological charter is signed before any modeling begins. Cross-method gate: LCA mandates it (lca_hc_16) and LCC mandates it (lcc_hc_31); both nodes set this same field. Added per Mirko approval in field_gaps round 2 (DESIGN CALL 2)."
+    },
+    {
+      "field": "report.aggregation_method",
+      "type": "string|null",
+      "default_value": null,
+      "set_by": "reporting layer (post-compute)",
+      "used_by_rules": ["IR-04"],
+      "notes": "Must NOT equal 'single_score' when Q3 has >=2 active dimensions. L3 enforcement."
+    },
+    {
+      "field": "report.blind_spots",
+      "type": "array",
+      "default_value": [],
+      "set_by": "reporting layer (truncations declared during inventory completeness checks)",
+      "used_by_rules": ["B-07"],
+      "notes": "List of declared boundary truncations per active dimension. Mandatory transparency artifact."
+    },
+    {
+      "field": "report.dimensions",
+      "type": "array",
+      "default_value": [],
+      "set_by": "engine (derived from Q3 multi-checkbox: subset of {LCA, LCC, SLCA})",
+      "used_by_rules": ["IR-05"],
+      "notes": "Each dimension entry retains its own units (no cross-dim normalization). Items have shape {pillar, units, methodology}."
+    },
+    {
+      "field": "report.framing",
+      "type": "string",
+      "default_value": "comparative_outcomes",
+      "set_by": "engine (universal IS default)",
+      "used_by_rules": ["IR-19"],
+      "notes": "Always 'comparative_outcomes' for IS context (per IR-19, S-LCA HC-47). Absolute framing forbidden."
+    },
+    {
+      "field": "report.layers",
+      "type": "array",
+      "default_value": ["Layer1_confidential", "Layer2_individual", "Layer3_public"],
+      "set_by": "engine (3-layer reporting architecture per IR-11, LCA MC-35, LCC HC-29, S-LCA HC-44)",
+      "used_by_rules": ["IR-11"],
+      "notes": "Must be isomorphic across all active dimensions when Q4 in {C,D} AND Q3 has >=2 dims."
+    },
+    {
+      "field": "report.public_disclosure.aggregation",
+      "type": "null|string",
+      "default_value": null,
+      "set_by": "engine (L3 enforcement when Q4 includes B/C/D)",
+      "used_by_rules": ["IR-10"],
+      "notes": "Must remain null for any external use (Q4 in {B,C,D}). Internal dashboards may aggregate."
+    },
+    {
+      "field": "review.panel.experts",
+      "type": "integer",
+      "default_value": 0,
+      "set_by": "review panel composition (mandatory >=3 if Q4=C per IR-18, LCA HC-08)",
+      "used_by_rules": ["IR-18"],
+      "notes": "Number of independent expert reviewers. Must be >=3 when Q4=C (public superiority claim)."
+    },
+    {
+      "field": "review.panel.independent",
+      "type": "boolean",
+      "default_value": false,
+      "set_by": "review panel composition",
+      "used_by_rules": ["IR-18"],
+      "notes": "True iff all panel members are independent of project parties. Mandatory true when Q4=C."
+    },
+    {
+      "field": "review.scope",
+      "type": "string|null",
+      "default_value": null,
+      "set_by": "review panel scoping",
+      "used_by_rules": ["IR-18"],
+      "notes": "Must be 'all_dimensions' when Q4=C and Q3 has >=2 active dimensions."
+    },
+    {
+      "field": "study.phase",
+      "type": "string",
+      "default_value": "screening",
+      "set_by": "engine pipeline state machine (transitions screening -> detailed)",
+      "used_by_rules": ["IR-17"],
+      "notes": "Allowed values: 'screening' | 'detailed'. Phase 1 is screening; detailed phase requires screening completion first."
+    },
+    {
+      "field": "system.physical_backbone",
+      "type": "string",
+      "default_value": "MFA",
+      "set_by": "engine (per IR-08, LCA MC-33, LCC HC-38 when Q3.ENV+Q3.ECO active)",
+      "used_by_rules": ["IR-08"],
+      "notes": "Must be 'MFA' (Material Flow Analysis / MFCA bridge) when both LCA and LCC are active."
+    },
+    {
+      "field": "report.dimensions[*].units",
+      "type": "object",
+      "default_value": null,
+      "set_by": "per-dim engine output (each dim retains own units)",
+      "used_by_rules": ["IR-05"],
+      "notes": "Sub-field of report.dimensions array. Examples: LCA -> {kg CO2-eq, MJ, ...}; LCC -> {EUR_NPV, EUR_LCOE, ...}; SLCA -> {score_-2_to_+2, ...}. NO cross-dim unit normalization allowed."
+    }
+  ]
+}

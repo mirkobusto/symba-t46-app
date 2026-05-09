@@ -1,0 +1,991 @@
+{
+  "$schema": "SYMBA-T46-CrossMethodRules",
+  "version": "2.0",
+  "extracted_from": "docs/implementation/PHASE1_NODE_MAPPING_v2.md §3 (BLOCKs) + §4 (54 rules)",
+  "lifecycle_layer_legend": {
+    "L1": "trigger validation (BLOCK cells; STOP on violation, before any computation)",
+    "L2": "configuration assertion (IR/CIR/FU/B; WARN on violation, before computation)",
+    "L3": "result interpretation (IR-04, IR-10, CDP-01..CDP-12; enforced at reporting time)"
+  },
+  "totals": {
+    "blocks": 4,
+    "integration_rules": 20,
+    "conditional_integration_rules": 10,
+    "fu_rules": 5,
+    "boundary_rules": 7,
+    "critical_decision_points": 12,
+    "grand_total": 58
+  },
+  "extraction_notes": [
+    "Rule IDs preserved verbatim from Kimi (IR-XX, CIR-XX, FU-XX, B-XX, CDP-XX); NOT renamed to INV-XX/RULE-NN.",
+    "source_nodes references normalized to phase1_nodes.json convention (lowercase snake_case): 'LCA HC-22' -> 'lca_hc_22', 'S-LCA HC-06' -> 'slca_hc_06'.",
+    "IR-04 (Parallel Interpretation) and IR-10 (Anti-Aggregation) placed at L3 per v2 §2 ('fires at L3 reporting'). Other 18 IRs at L2.",
+    "All 12 CDPs at L3 (informative; enforced via referenced IRs).",
+    "v2 §4.2 CIR rules describe activations not assertions: schema uses 'actions' field instead of 'assertion'/'violation_message'.",
+    "v2 §4.3-4.4 FU/B rules don't list source_nodes explicitly; derived best-effort from assertion fields. Validation script flags mismatches.",
+    "Some v2 source_nodes references look semantically off relative to the cited node's content (e.g., IR-02 cites lca_hc_20 'methodological charter' under 'Consistent boundaries'; IR-05 cites lca_hc_13 'Pedigree Matrix' under 'Methodological Autonomy'). Preserved verbatim — validation script (commit 2) surfaces these as warnings rather than silently fixing.",
+    "CIR source_nodes derived from v2 §9.2 example for CIR-05 + analogous derivation for CIR-01..04, 06..10 from action descriptions. Not authoritative.",
+    "trigger_condition_raw preserves v2 §3-§4 wording; trigger_condition is the formal expression (Python-like with set membership IN, intersection ∩, count_true helper).",
+    "BLOCK triggers use formal expressions referencing case.* fields and lcc_type derived state. lcc_type is computed by lcc_trig_01 (phase1_nodes.json L0 trigger node) before L1 BLOCK evaluation."
+  ],
+  "blocks": [
+    {
+      "id": "block_C2_plus_E-LCC",
+      "lifecycle_layer": "L1",
+      "trigger_condition_raw": "Q1=D (corporate ESG, ILCD C2) AND lcc_type includes E-LCC",
+      "trigger_condition": "case.q1 == 'D' AND lcc_type IN ['E-LCC', 'C+E', 'C+E+S']",
+      "user_message": "Corporate accounting (Q1=D) requires allocation-based LCC. Combination with E-LCC (system expansion) is forbidden by ILCD framework. Either change Q1 to A/B/C/E, or drop E-LCC from your LCC type.",
+      "action_on_violation": "STOP"
+    },
+    {
+      "id": "block_anyQ1_plus_AbsoluteSLCA",
+      "lifecycle_layer": "L1",
+      "trigger_condition_raw": "Q3.SOC=true AND user explicitly selects 'Absolute' S-LCA mode (advanced override)",
+      "trigger_condition": "case.q3.soc == true AND case.advanced.slca_framework_override == 'absolute'",
+      "user_message": "S-LCA in Industrial Symbiosis context must be Comparative (default). Absolute mode disables IS-specific methodology. Select Comparative S-LCA or remove SOC from Q3.",
+      "action_on_violation": "STOP"
+    },
+    {
+      "id": "block_Q3_emptySelection",
+      "lifecycle_layer": "L1",
+      "trigger_condition_raw": "Q3 = no checkboxes selected (all three ENV/ECO/SOC false)",
+      "trigger_condition": "case.q3.env == false AND case.q3.eco == false AND case.q3.soc == false",
+      "user_message": "Select at least one sustainability dimension (Environmental, Economic, or Social) to proceed.",
+      "action_on_violation": "STOP"
+    },
+    {
+      "id": "block_Q1A_plus_Q5e",
+      "lifecycle_layer": "L1",
+      "trigger_condition_raw": "Q1=A (specific exchange) AND Q5=e (aggregated/black-box) for all flows",
+      "trigger_condition": "case.q1 == 'A' AND all(flow.q5 == 'e' for flow in case.flows)",
+      "user_message": "A specific exchange between two companies cannot be analyzed as black-box aggregated. Specify the nature of each flow (a/b/c/d) in Q5, or change Q1 to B/C.",
+      "action_on_violation": "STOP"
+    }
+  ],
+  "integration_rules": [
+    {
+      "id": "IR-01",
+      "name": "Shared Functional Unit",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "lca.functional_unit == lcc.functional_equivalent == slca.shared_reference_unit",
+      "fields": [
+        "lca.functional_unit",
+        "lcc.functional_equivalent",
+        "slca.shared_reference_unit"
+      ],
+      "source_nodes": [
+        "lca_hc_22",
+        "lcc_hc_04",
+        "slca_hc_06"
+      ],
+      "violation_message": "Functional Unit must be identical across active dimensions per IR-01."
+    },
+    {
+      "id": "IR-02",
+      "name": "Consistent System Boundaries",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV+ECO AND lcc_type ∈ {E-LCC, C+E, C+E+S}",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND lcc_type IN ['E-LCC','C+E','C+E+S']",
+      "assertion": "lca.system_boundary == lcc.physical_boundary",
+      "fields": [
+        "lca.system_boundary",
+        "lcc.physical_boundary"
+      ],
+      "source_nodes": [
+        "lca_hc_20",
+        "lcc_hc_05",
+        "slca_hc_09"
+      ],
+      "violation_message": "LCA system boundary and E-LCC physical boundary must be identical per IR-02."
+    },
+    {
+      "id": "IR-03",
+      "name": "S-LCA Comparative",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.SOC=true",
+      "trigger_condition": "case.q3.soc == true",
+      "assertion": "slca.logic == 'comparative'",
+      "fields": [
+        "slca.logic"
+      ],
+      "source_nodes": [
+        "slca_hc_01",
+        "slca_hc_41"
+      ],
+      "violation_message": "S-LCA must be Comparative when active in IS context (no Absolute mode in user-mode) per IR-03."
+    },
+    {
+      "id": "IR-04",
+      "name": "Parallel Interpretation",
+      "lifecycle_layer": "L3",
+      "trigger_condition_raw": "Q3 has ≥2 dims active (fires at L3 reporting)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "report.aggregation_method != 'single_score'",
+      "fields": [
+        "report.aggregation_method"
+      ],
+      "source_nodes": [
+        "slca_hc_42",
+        "slca_hc_43"
+      ],
+      "violation_message": "Parallel interpretation enforced: no single-score aggregation across dimensions per IR-04."
+    },
+    {
+      "id": "IR-05",
+      "name": "Methodological Autonomy",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "each dim retains own units in report.dimensions[*].units",
+      "fields": [
+        "report.dimensions"
+      ],
+      "source_nodes": [
+        "slca_hc_43",
+        "lca_hc_13",
+        "lcc_hc_21"
+      ],
+      "violation_message": "Each dimension must retain its own units per IR-05 (no cross-dimensional unit normalization)."
+    },
+    {
+      "id": "IR-06",
+      "name": "Unified Data Governance",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND Q1∈{A,B,C,E}",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.q1 IN ['A','B','C','E']",
+      "assertion": "governance.facilitator != null AND governance.ndas_signed == true",
+      "fields": [
+        "governance.facilitator",
+        "governance.ndas_signed"
+      ],
+      "source_nodes": [
+        "lcc_hc_02",
+        "lcc_hc_03",
+        "lca_mc_17"
+      ],
+      "violation_message": "Multi-actor IS multi-dim assessments require facilitator + signed NDAs per IR-06."
+    },
+    {
+      "id": "IR-07",
+      "name": "Identical Reference Scenarios",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "lca.reference_scenario.type == lcc.reference_scenario.type == slca.reference_scenario.type",
+      "fields": [
+        "lca.reference_scenario.type",
+        "lcc.reference_scenario.type",
+        "slca.reference_scenario.type"
+      ],
+      "source_nodes": [
+        "lcc_hc_11",
+        "slca_hc_37",
+        "lca_mc_26"
+      ],
+      "violation_message": "Reference scenario type (FU+boundary+temporal+geographic) must be identical across active dimensions per IR-07."
+    },
+    {
+      "id": "IR-08",
+      "name": "MFCA/MFA Common Backbone",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV=true AND Q3.ECO=true",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true",
+      "assertion": "system.physical_backbone == 'MFA'",
+      "fields": [
+        "system.physical_backbone"
+      ],
+      "source_nodes": [
+        "lca_mc_33",
+        "lcc_hc_38"
+      ],
+      "violation_message": "When LCA and LCC both active, MFA/MFCA must be the common physical backbone per IR-08."
+    },
+    {
+      "id": "IR-09",
+      "name": "Multifunctionality Alignment",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV+ECO AND any flow has Q5=c (substitution)",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND any(flow.q5 == 'c' for flow in case.flows)",
+      "assertion": "lca.q_factor == lcc.q_factor",
+      "fields": [
+        "lca.q_factor",
+        "lcc.q_factor"
+      ],
+      "source_nodes": [
+        "lca_hc_07",
+        "lcc_hc_10",
+        "lcc_hc_27"
+      ],
+      "violation_message": "Quality correction factor must be identical across LCA and LCC for substitution flows per IR-09."
+    },
+    {
+      "id": "IR-10",
+      "name": "Anti-Aggregation",
+      "lifecycle_layer": "L3",
+      "trigger_condition_raw": "Q4 in {C, D, B} (any external use; fires at L3)",
+      "trigger_condition": "case.q4 ∩ {'B','C','D'} ≠ ∅",
+      "assertion": "report.public_disclosure.aggregation == null",
+      "fields": [
+        "report.public_disclosure.aggregation"
+      ],
+      "source_nodes": [
+        "lca_hc_09",
+        "slca_hc_35",
+        "slca_hc_42"
+      ],
+      "violation_message": "Public-facing reports cannot use aggregated single scores per IR-10."
+    },
+    {
+      "id": "IR-11",
+      "name": "Layered Reporting Isomorphism",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q4 ∈ {C, D} AND Q3 has ≥2 dims",
+      "trigger_condition": "case.q4 ∩ {'C','D'} ≠ ∅ AND count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "report.layers == ['Layer1_confidential', 'Layer2_individual', 'Layer3_public'] for all dims",
+      "fields": [
+        "report.layers"
+      ],
+      "source_nodes": [
+        "lca_mc_35",
+        "lcc_hc_29",
+        "slca_hc_44"
+      ],
+      "violation_message": "Three-layer reporting structure must be isomorphic across active dimensions per IR-11."
+    },
+    {
+      "id": "IR-12",
+      "name": "Transport-Spatial Co-Modeling",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q7 ∈ {B, C, D}",
+      "trigger_condition": "case.q7 IN ['B','C','D']",
+      "assertion": "lca.transport.foreground != null AND lcc.transport_costs != null AND slca.territorial_dimension != null",
+      "fields": [
+        "lca.transport.foreground",
+        "lcc.transport_costs",
+        "slca.territorial_dimension"
+      ],
+      "source_nodes": [
+        "lca_hc_21",
+        "lcc_hc_06",
+        "slca_hc_10"
+      ],
+      "violation_message": "When geographic spread is non-trivial, transport modeling must be coupled across all active dimensions per IR-12."
+    },
+    {
+      "id": "IR-13",
+      "name": "Capital Goods Alignment",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV+ECO AND IS-unique capital goods present",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.is_specific_capital_goods == true",
+      "assertion": "lca.capital_goods.included == true AND lcc.capital_goods.included == true",
+      "fields": [
+        "lca.capital_goods.included",
+        "lcc.capital_goods.included"
+      ],
+      "source_nodes": [
+        "lca_hc_18",
+        "lcc_hc_07"
+      ],
+      "violation_message": "IS-unique capital goods must be amortized identically across LCA and LCC per IR-13."
+    },
+    {
+      "id": "IR-14",
+      "name": "Uncertainty Complementarity",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "lca.uncertainty.method IN ['Pedigree+MC'] AND lcc.uncertainty.method IN ['MC+Pedigree'] AND slca.uncertainty.method == 'qualitative'",
+      "fields": [
+        "lca.uncertainty.method",
+        "lcc.uncertainty.method",
+        "slca.uncertainty.method"
+      ],
+      "source_nodes": [
+        "lca_hc_14",
+        "lcc_hc_24",
+        "slca_mc_17"
+      ],
+      "violation_message": "Each dimension must use its proper uncertainty paradigm; cross-dim normalization not allowed per IR-14."
+    },
+    {
+      "id": "IR-15",
+      "name": "Zero-Valuation Hierarchy",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV+ECO AND any flow has Q5=a or Q5=b",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND any(flow.q5 IN ['a','b'] for flow in case.flows)",
+      "assertion": "lca_4step_classification == lcc_avoidable_unavoidable_classification (per flow)",
+      "fields": [
+        "lca.zero_burden_classification",
+        "lcc.avoidable_unavoidable_classification"
+      ],
+      "source_nodes": [
+        "lca_hc_16",
+        "lca_hc_17",
+        "lcc_hc_12",
+        "lcc_hc_13",
+        "lcc_hc_36"
+      ],
+      "violation_message": "LCA 4-step zero-burden hierarchy and LCC avoidable/unavoidable test must yield same classification per flow per IR-15."
+    },
+    {
+      "id": "IR-16",
+      "name": "Entity-First Calculation",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "lca.calculation_order == ['entity', 'network'] AND lcc.calculation_order == ['entity', 'flow', 'network', 'baseline'] AND slca.calculation_order == ['stakeholder', 'system']",
+      "fields": [
+        "lca.calculation_order",
+        "lcc.calculation_order",
+        "slca.calculation_order"
+      ],
+      "source_nodes": [
+        "lca_mc_34",
+        "lcc_hc_09",
+        "lcc_hc_19",
+        "slca_hc_31"
+      ],
+      "violation_message": "Calculation must proceed entity-first within each method per IR-16."
+    },
+    {
+      "id": "IR-17",
+      "name": "Screening Before Detail",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Always when Phase 1 is screening",
+      "trigger_condition": "true",
+      "assertion": "study.phase == 'screening' precedes study.phase == 'detailed'",
+      "fields": [
+        "study.phase"
+      ],
+      "source_nodes": [
+        "lca_mc_16",
+        "lcc_hc_17",
+        "slca_hc_15"
+      ],
+      "violation_message": "Screening study must precede detailed study per IR-17."
+    },
+    {
+      "id": "IR-18",
+      "name": "Critical Review for Public Assertions",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q4 = C",
+      "trigger_condition": "case.q4 ∩ {'C'} ≠ ∅",
+      "assertion": "review.panel.experts >= 3 AND review.panel.independent == true AND review.scope == 'all_dimensions'",
+      "fields": [
+        "review.panel.experts",
+        "review.panel.independent",
+        "review.scope"
+      ],
+      "source_nodes": [
+        "lca_hc_08",
+        "lcc_hc_29",
+        "slca_hc_47"
+      ],
+      "violation_message": "Public superiority claims (Q4=C) require panel of 3+ independent experts covering all active dimensions per IR-18."
+    },
+    {
+      "id": "IR-19",
+      "name": "Comparative Framing",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "All cases (universal IS)",
+      "trigger_condition": "true",
+      "assertion": "report.framing == 'comparative_outcomes'",
+      "fields": [
+        "report.framing"
+      ],
+      "source_nodes": [
+        "slca_hc_47",
+        "lcc_hc_11",
+        "lca_mc_26"
+      ],
+      "violation_message": "All IS reports must be framed as comparative outcomes (NOT absolute) per IR-19."
+    },
+    {
+      "id": "IR-20",
+      "name": "Three-Level Analytical Isomorphism",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "each method exposes 3 analytical levels (network+entity+flow for LCA/LCC; system+stakeholder+indicator for S-LCA)",
+      "fields": [
+        "lca.analytical_levels",
+        "lcc.analytical_levels",
+        "slca.analytical_levels"
+      ],
+      "source_nodes": [
+        "lca_mc_34",
+        "lcc_hc_01",
+        "lcc_hc_19",
+        "slca_hc_31"
+      ],
+      "violation_message": "Each method must expose three analytical levels for cross-method comparison per IR-20."
+    }
+  ],
+  "conditional_integration_rules": [
+    {
+      "id": "CIR-01",
+      "name": "Dynamic Climate Scenarios LCA-LCC",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q2 ∈ {C, D} AND asset_lifetime > 15y",
+      "trigger_condition": "case.q2 IN ['C','D'] AND case.asset_lifetime > 15",
+      "actions": [
+        "lca.background_futurisation = 'SSP_RCP'",
+        "lcc.background_dynamic = 'SSP_RCP'"
+      ],
+      "source_nodes": [
+        "lca_mc_21",
+        "lcc_mc_13",
+        "lcc_hc_23"
+      ]
+    },
+    {
+      "id": "CIR-02",
+      "name": "Pedigree Matrix LCA+LCC",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q2 ∈ {B, C, D} (any ex-ante component)",
+      "trigger_condition": "case.q2 IN ['B','C','D']",
+      "actions": [
+        "lca.uncertainty.pedigree = true",
+        "lcc.uncertainty.pedigree = true"
+      ],
+      "source_nodes": [
+        "lca_hc_13",
+        "lcc_hc_39"
+      ]
+    },
+    {
+      "id": "CIR-03",
+      "name": "GIS-Coupled Spatial Modeling",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q7 ∈ {B, C, D} OR transport-sensitive exchanges",
+      "trigger_condition": "case.q7 IN ['B','C','D'] OR case.transport_sensitive == true",
+      "actions": [
+        "lca.spatial_coupling = 'GIS'",
+        "lcc.spatial_coupling = 'GIS'",
+        "slca.territorial_coupling = 'GIS'"
+      ],
+      "source_nodes": [
+        "lca_mc_29",
+        "lcc_mc_14",
+        "slca_hc_10"
+      ]
+    },
+    {
+      "id": "CIR-04",
+      "name": "Percolation Counterparty Risk",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q1=B AND network_nodes >= 3 AND interdependent_flows == true",
+      "trigger_condition": "case.q1 == 'B' AND case.network_nodes >= 3 AND case.interdependent_flows == true",
+      "actions": [
+        "lcc.counterparty_risk = 'percolation_theory'"
+      ],
+      "source_nodes": [
+        "lcc_mc_16"
+      ]
+    },
+    {
+      "id": "CIR-05",
+      "name": "PEF CFF Activation",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q4 = D",
+      "trigger_condition": "case.q4 ∩ {'D'} ≠ ∅",
+      "actions": [
+        "lca.allocation_method = 'pef_cff'",
+        "lcc.externality_monetization = 'CE_Delft_EU'",
+        "lcc.allocation = 'NTF'",
+        "lca.lcia_method = 'EF_3.1'"
+      ],
+      "source_nodes": [
+        "lca_mc_13",
+        "lca_mc_14",
+        "lcc_mc_19"
+      ]
+    },
+    {
+      "id": "CIR-06",
+      "name": "Frontier Categories Cascade",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "frontier_categories_active == true",
+      "trigger_condition": "case.frontier_categories_active == true",
+      "actions": [
+        "lca.frontier_categories = active_set",
+        "lcc.externalities = matching_set",
+        "slca.indicators = adapted_set"
+      ],
+      "source_nodes": [
+        "lca_hc_19"
+      ]
+    },
+    {
+      "id": "CIR-07",
+      "name": "Engineering Scale-up Frameworks",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q6b ≤ TRL 7",
+      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5']",
+      "actions": [
+        "lca.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']",
+        "lcc.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']"
+      ],
+      "source_nodes": [
+        "lca_mc_20",
+        "lcc_hc_15"
+      ]
+    },
+    {
+      "id": "CIR-08",
+      "name": "Shared CAPEX Stakeholder Indicators",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q1 ∈ {B, C} AND IS-specific capital goods present",
+      "trigger_condition": "case.q1 IN ['B','C'] AND case.is_specific_capital_goods == true",
+      "actions": [
+        "slca.indicators += stakeholder_group_indicators (if Q3.SOC active)"
+      ],
+      "source_nodes": [
+        "lca_hc_18",
+        "lcc_hc_07"
+      ]
+    },
+    {
+      "id": "CIR-09",
+      "name": "Iterative Update Protocol",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q6b ≤ TRL 7 AND Q2 ∈ {C, D}",
+      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5'] AND case.q2 IN ['C','D']",
+      "actions": [
+        "case.iterative_update_triggers = ['commissioning', 'ramp_up', 'contract_renewal']"
+      ],
+      "source_nodes": [
+        "lcc_hc_37"
+      ]
+    },
+    {
+      "id": "CIR-10",
+      "name": "Real-World Failure Modes",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Always (in IS context)",
+      "trigger_condition": "true",
+      "actions": [
+        "lca.report.failure_modes = required",
+        "lcc.report.failure_modes = required",
+        "slca.report.failure_modes = required"
+      ],
+      "source_nodes": [
+        "lcc_hc_30"
+      ]
+    }
+  ],
+  "fu_rules": [
+    {
+      "id": "FU-01",
+      "name": "Function-Oriented FU Default",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Always when Q3.ENV active",
+      "trigger_condition": "case.q3.env == true",
+      "assertion": "lca.functional_unit == 'function-oriented'",
+      "fields": [
+        "lca.functional_unit"
+      ],
+      "source_nodes": [
+        "lca_hc_22",
+        "lca_mc_04",
+        "lca_mc_07"
+      ],
+      "violation_message": "LCA Functional Unit must be function-oriented (LCA MC-07 authoritative) per FU-01."
+    },
+    {
+      "id": "FU-02",
+      "name": "System of Functional Units (Multi-Actor)",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q1 ∈ {B, C} AND multi-actor IS network",
+      "trigger_condition": "case.q1 IN ['B','C'] AND case.multi_actor == true",
+      "assertion": "lca.functional_unit == 'system-of-functional-units (SFU)'",
+      "fields": [
+        "lca.functional_unit"
+      ],
+      "source_nodes": [
+        "lca_hc_22",
+        "lca_mc_04",
+        "lca_mc_07"
+      ],
+      "violation_message": "Multi-actor IS networks require System of Functional Units (SFU) for aggregation per FU-02."
+    },
+    {
+      "id": "FU-03",
+      "name": "FE-FU Equality (LCA+LCC)",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV+ECO active",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true",
+      "assertion": "methodological_charter.fe_documented == true AND lcc.functional_equivalent == lca.functional_unit",
+      "fields": [
+        "methodological_charter.fe_documented",
+        "lcc.functional_equivalent",
+        "lca.functional_unit"
+      ],
+      "source_nodes": [
+        "lca_hc_22",
+        "lcc_hc_04",
+        "lcc_mc_03"
+      ],
+      "violation_message": "When LCA+LCC active, FE must be documented in charter and identical to LCA FU per FU-03."
+    },
+    {
+      "id": "FU-04",
+      "name": "S-LCA Dual Unit Layer",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.SOC active",
+      "trigger_condition": "case.q3.soc == true",
+      "assertion": "slca.shared_reference_unit != null AND slca.stakeholder_unit != null",
+      "fields": [
+        "slca.shared_reference_unit",
+        "slca.stakeholder_unit"
+      ],
+      "source_nodes": [
+        "slca_hc_06",
+        "slca_hc_07",
+        "slca_mc_03"
+      ],
+      "violation_message": "S-LCA must populate both shared FU and stakeholder-based unit per FU-04."
+    },
+    {
+      "id": "FU-05",
+      "name": "Reference Scenario Uniformity",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "All cases",
+      "trigger_condition": "true",
+      "assertion": "all three methods use the same reference scenario type for FU benchmarks",
+      "fields": [
+        "lca.reference_scenario.type",
+        "lcc.reference_scenario.type",
+        "slca.reference_scenario.type"
+      ],
+      "source_nodes": [
+        "lca_mc_26",
+        "lcc_hc_11",
+        "slca_hc_37"
+      ],
+      "violation_message": "Reference scenario type must be uniform across active methods for FU benchmarks per FU-05."
+    }
+  ],
+  "boundary_rules": [
+    {
+      "id": "B-01",
+      "name": "E-LCC Physical Boundary Equals LCA",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "lcc_type ∈ {E-LCC, C+E, C+E+S} AND Q3.ENV active",
+      "trigger_condition": "lcc_type IN ['E-LCC','C+E','C+E+S'] AND case.q3.env == true",
+      "assertion": "lcc.physical_boundary == lca.system_boundary",
+      "fields": [
+        "lcc.physical_boundary",
+        "lca.system_boundary"
+      ],
+      "source_nodes": [
+        "lcc_hc_05",
+        "lcc_hc_04"
+      ],
+      "violation_message": "E-LCC physical boundary must equal LCA system boundary per B-01."
+    },
+    {
+      "id": "B-02",
+      "name": "Cross-Method System Boundary Consistency",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3 has ≥2 dims",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "assertion": "lca.system_boundary consistent with lcc.economic_boundary and slca.boundary",
+      "fields": [
+        "lca.system_boundary",
+        "lcc.economic_boundary",
+        "slca.boundary"
+      ],
+      "source_nodes": [
+        "lca_mc_05",
+        "lcc_mc_05",
+        "slca_hc_09"
+      ],
+      "violation_message": "System boundaries across active methods must be consistent per B-02."
+    },
+    {
+      "id": "B-03",
+      "name": "S-LCA Boundary Alignment",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.SOC active AND (Q3.ENV OR Q3.ECO active) AND lcc_type ∈ {E-LCC, C+E, C+E+S}",
+      "trigger_condition": "case.q3.soc == true AND (case.q3.env == true OR case.q3.eco == true) AND lcc_type IN ['E-LCC','C+E','C+E+S']",
+      "assertion": "lca.system_boundary == lcc.physical_boundary == slca.boundary",
+      "fields": [
+        "lca.system_boundary",
+        "lcc.physical_boundary",
+        "slca.boundary"
+      ],
+      "source_nodes": [
+        "slca_hc_09",
+        "lca_mc_05",
+        "lcc_hc_05"
+      ],
+      "violation_message": "S-LCA boundary must be aligned with LCA system boundary and LCC physical boundary when E-LCC active per B-03."
+    },
+    {
+      "id": "B-04",
+      "name": "S-LCA Territorial Dimension Mandatory",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.SOC active",
+      "trigger_condition": "case.q3.soc == true",
+      "assertion": "slca.territorial_dimension != null",
+      "fields": [
+        "slca.territorial_dimension"
+      ],
+      "source_nodes": [
+        "slca_hc_10"
+      ],
+      "violation_message": "S-LCA territorial dimension is mandatory in addition to organizational per B-04."
+    },
+    {
+      "id": "B-05",
+      "name": "Geographic Spread Transport Coupling",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q7 ∈ {B, C, D}",
+      "trigger_condition": "case.q7 IN ['B','C','D']",
+      "assertion": "lca.transport.foreground == true AND lcc.transport_costs != null",
+      "fields": [
+        "lca.transport.foreground",
+        "lcc.transport_costs"
+      ],
+      "source_nodes": [
+        "lca_hc_21",
+        "lcc_hc_06"
+      ],
+      "violation_message": "Geographic spread requires explicit transport in both LCA foreground and LCC costs per B-05."
+    },
+    {
+      "id": "B-06",
+      "name": "Capital Goods Amortization Alignment",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "Q3.ENV+ECO AND IS-unique capital goods present",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.is_specific_capital_goods == true",
+      "assertion": "lca.capital_goods.included == true AND lcc.capital_goods.included == true AND lca.capital_goods.amortization_period == lcc.capital_goods.amortization_period",
+      "fields": [
+        "lca.capital_goods.included",
+        "lcc.capital_goods.included",
+        "lca.capital_goods.amortization_period",
+        "lcc.capital_goods.amortization_period"
+      ],
+      "source_nodes": [
+        "lca_hc_18",
+        "lcc_hc_07"
+      ],
+      "violation_message": "Capital goods must be included in both LCA and LCC AND amortization periods must match per B-06."
+    },
+    {
+      "id": "B-07",
+      "name": "Boundary Truncation Documentation",
+      "lifecycle_layer": "L2",
+      "trigger_condition_raw": "All cases",
+      "trigger_condition": "true",
+      "assertion": "all boundary truncations documented in report.blind_spots for all active dimensions",
+      "fields": [
+        "report.blind_spots"
+      ],
+      "source_nodes": [
+        "lca_hc_06"
+      ],
+      "violation_message": "Boundary truncations must be transparently declared in blind_spots for each active dimension per B-07."
+    }
+  ],
+  "critical_decision_points": [
+    {
+      "id": "CDP-01",
+      "name": "Displaced Products Divergence",
+      "lifecycle_layer": "L3",
+      "tension": "LCA/LCC system expansion may use different displaced products",
+      "severity": "HIGH",
+      "methods": [
+        "LCA",
+        "LCC"
+      ],
+      "resolution_at_l3": "Identical reference scenario + identical Q factor enforced (IR-09)",
+      "related_rules": [
+        "IR-09",
+        "IR-07"
+      ]
+    },
+    {
+      "id": "CDP-02",
+      "name": "Discounting Mismatch",
+      "lifecycle_layer": "L3",
+      "tension": "LCA forbids discounting; LCC mandates it",
+      "severity": "MEDIUM",
+      "methods": [
+        "LCA",
+        "LCC"
+      ],
+      "resolution_at_l3": "Each retains own convention (IR-05); LCC uses annualized costs for eco-efficiency",
+      "related_rules": [
+        "IR-05"
+      ]
+    },
+    {
+      "id": "CDP-03",
+      "name": "Single-Score vs NPV",
+      "lifecycle_layer": "L3",
+      "tension": "S-LCA prohibits single-score; LCC produces NPV",
+      "severity": "HIGH",
+      "methods": [
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "Parallel interpretation per IR-04; NPV reported as economic dim only",
+      "related_rules": [
+        "IR-04"
+      ]
+    },
+    {
+      "id": "CDP-04",
+      "name": "Uncertainty Paradigm Mismatch",
+      "lifecycle_layer": "L3",
+      "tension": "Different uncertainty propagation paradigms",
+      "severity": "MEDIUM",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "Quantitative for LCA/LCC, qualitative for S-LCA reported side-by-side",
+      "related_rules": [
+        "IR-14"
+      ]
+    },
+    {
+      "id": "CDP-05",
+      "name": "Zero-Burden vs Avoidable Test",
+      "lifecycle_layer": "L3",
+      "tension": "LCA zero-burden hierarchy vs LCC avoidable test divergence",
+      "severity": "HIGH",
+      "methods": [
+        "LCA",
+        "LCC"
+      ],
+      "resolution_at_l3": "Consolidated 4-step decision tree per IR-15; resolved by neutral facilitator",
+      "related_rules": [
+        "IR-15",
+        "IR-06"
+      ]
+    },
+    {
+      "id": "CDP-06",
+      "name": "FU Definition Tri-Method Divergence",
+      "lifecycle_layer": "L3",
+      "tension": "LCA function-oriented vs LCC flow-oriented vs S-LCA stakeholder-based FU",
+      "severity": "HIGH",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "FU-01 to FU-05 applied; LCA function-oriented authoritative",
+      "related_rules": [
+        "FU-01",
+        "FU-02",
+        "FU-03",
+        "FU-04",
+        "FU-05"
+      ]
+    },
+    {
+      "id": "CDP-07",
+      "name": "Reporting Architecture Divergence",
+      "lifecycle_layer": "L3",
+      "tension": "Three different reporting architectures",
+      "severity": "MEDIUM",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "Unified 3-layer reporting per IR-11 + multi-level disaggregation per IR-20",
+      "related_rules": [
+        "IR-11",
+        "IR-20"
+      ]
+    },
+    {
+      "id": "CDP-08",
+      "name": "Weighting/Aggregation Tension",
+      "lifecycle_layer": "L3",
+      "tension": "LCA bans weighting (public); S-LCA bans single-score; users want single scores",
+      "severity": "HIGH",
+      "methods": [
+        "LCA",
+        "SLCA"
+      ],
+      "resolution_at_l3": "No single-score for public disclosure per IR-10; internal dashboards remain 3 separate",
+      "related_rules": [
+        "IR-10",
+        "IR-04"
+      ]
+    },
+    {
+      "id": "CDP-09",
+      "name": "Futurization Asymmetry",
+      "lifecycle_layer": "L3",
+      "tension": "LCA/LCC futurization paradigms differ; S-LCA has no futurization",
+      "severity": "MEDIUM",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "LCA and LCC use identical SSP/RCP per CIR-01; S-LCA uses current-period",
+      "related_rules": [
+        "CIR-01"
+      ]
+    },
+    {
+      "id": "CDP-10",
+      "name": "Computational Intensity Variance",
+      "lifecycle_layer": "L3",
+      "tension": "Different computational intensity across methods",
+      "severity": "LOW",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "Runs are additive, not multiplicative",
+      "related_rules": []
+    },
+    {
+      "id": "CDP-11",
+      "name": "Governance Structure Divergence",
+      "lifecycle_layer": "L3",
+      "tension": "Three different governance structures (panel, facilitator, engagement)",
+      "severity": "MEDIUM",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "Facilitator coordinates; panel reviews independently; engagement parallel",
+      "related_rules": [
+        "IR-06",
+        "IR-18"
+      ]
+    },
+    {
+      "id": "CDP-12",
+      "name": "MFCA/MFA Cross-Method Alignment",
+      "lifecycle_layer": "L3",
+      "tension": "MFCA/MFA may not match LCA process tree or S-LCA stakeholder groups",
+      "severity": "MEDIUM",
+      "methods": [
+        "LCA",
+        "LCC",
+        "SLCA"
+      ],
+      "resolution_at_l3": "MFCA/MFA for LCA-LCC only; S-LCA uses parallel interpretation",
+      "related_rules": [
+        "IR-08",
+        "IR-04"
+      ]
+    }
+  ]
+}

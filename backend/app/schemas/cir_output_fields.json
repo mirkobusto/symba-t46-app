@@ -1,0 +1,168 @@
+{
+  "$schema": "SYMBA-T46-CirOutputFields",
+  "version": "1.0",
+  "extracted_from": "field_classification.md Category C (19 fields imperatively set as CIR rule activation side-effects)",
+  "purpose": "Fields populated as side-effects of Conditional Integration Rule (CIR) activation. Each CIR has an actions[] array; when its trigger fires, the engine assigns the listed values to these fields. They are NOT Phase 1 nodes nor mandatory always-on configuration — they are conditional outputs of cross-method coordination logic.",
+  "fields": [
+    {
+      "field": "lca.background_futurisation",
+      "type": "string|null",
+      "set_by_cir": "CIR-01",
+      "default_value_when_set": "SSP_RCP",
+      "trigger_summary": "Q2 in {C,D} AND asset_lifetime > 15y",
+      "notes": "Activates dynamic SSP/RCP background scenarios across LCA + LCC."
+    },
+    {
+      "field": "lcc.background_dynamic",
+      "type": "string|null",
+      "set_by_cir": "CIR-01",
+      "default_value_when_set": "SSP_RCP",
+      "trigger_summary": "Q2 in {C,D} AND asset_lifetime > 15y",
+      "notes": "LCC counterpart of lca.background_futurisation; same SSP/RCP scenario family for cross-method coherence."
+    },
+    {
+      "field": "lca.uncertainty.pedigree",
+      "type": "boolean",
+      "set_by_cir": "CIR-02",
+      "default_value_when_set": true,
+      "trigger_summary": "Q2 in {B,C,D} (any ex-ante component)",
+      "notes": "Pedigree Matrix scoring activated for LCA when ex-ante data is in use."
+    },
+    {
+      "field": "lcc.uncertainty.pedigree",
+      "type": "boolean",
+      "set_by_cir": "CIR-02",
+      "default_value_when_set": true,
+      "trigger_summary": "Q2 in {B,C,D} (any ex-ante component)",
+      "notes": "Pedigree Matrix scoring activated for LCC; matches LCA per CIR-02."
+    },
+    {
+      "field": "lca.spatial_coupling",
+      "type": "string|null",
+      "set_by_cir": "CIR-03",
+      "default_value_when_set": "GIS",
+      "trigger_summary": "Q7 in {B,C,D} OR transport-sensitive exchanges",
+      "notes": "GIS-coupled spatial modeling for LCA transport / location-sensitive flows."
+    },
+    {
+      "field": "lcc.spatial_coupling",
+      "type": "string|null",
+      "set_by_cir": "CIR-03",
+      "default_value_when_set": "GIS",
+      "trigger_summary": "Q7 in {B,C,D} OR transport-sensitive exchanges",
+      "notes": "GIS-coupled cost computation for LCC; matches LCA per CIR-03."
+    },
+    {
+      "field": "slca.territorial_coupling",
+      "type": "string|null",
+      "set_by_cir": "CIR-03",
+      "default_value_when_set": "GIS",
+      "trigger_summary": "Q7 in {B,C,D} OR transport-sensitive exchanges",
+      "notes": "S-LCA territorial dimension coupled to spatial GIS layer; relates to slca.territorial_dimension (set by slca_hc_10) but is a runtime coupling artifact, not a node config."
+    },
+    {
+      "field": "lcc.counterparty_risk",
+      "type": "string|null",
+      "set_by_cir": "CIR-04",
+      "default_value_when_set": "percolation_theory",
+      "trigger_summary": "Q1=B AND network_nodes >= 3 AND interdependent_flows == true",
+      "notes": "Activates structural counterparty risk model (percolation theory) for multi-actor networks. Distinct from lcc.counterparty_risk node-default (lcc_mc_16) which is the user-facing choice."
+    },
+    {
+      "field": "lca.lcia_method",
+      "type": "string",
+      "set_by_cir": "CIR-05",
+      "default_value_when_set": "EF_3.1",
+      "trigger_summary": "Q4 includes 'D' (EU policy alignment)",
+      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default ('ReCiPe 2016 hierarchic + EF 3.1 backup') is set by lca_mc_25; CIR-05 overrides to 'EF_3.1' when Q4=D for PEF compliance. Read order at runtime: node default first, CIR override last."
+    },
+    {
+      "field": "lcc.allocation",
+      "type": "string",
+      "set_by_cir": "CIR-05",
+      "default_value_when_set": "NTF",
+      "trigger_summary": "Q4 includes 'D'",
+      "notes": "Net Transfer Function allocation; CIR-05 side-effect distinct from the primary lcc.allocation_method node field (set by lcc_hc_10/lcc_mc_07)."
+    },
+    {
+      "field": "lcc.externality_monetization",
+      "type": "string",
+      "set_by_cir": "CIR-05",
+      "default_value_when_set": "CE_Delft_EU",
+      "trigger_summary": "Q4 includes 'D'",
+      "notes": "CE Delft EU shadow prices for externality monetization in PEF-aligned reports. Default elsewhere is 'optional' (lcc_mc_19)."
+    },
+    {
+      "field": "lca.frontier_categories",
+      "type": "array",
+      "set_by_cir": "CIR-06",
+      "default_value_when_set": "active_set (sector-driven)",
+      "trigger_summary": "frontier_categories_active == true",
+      "notes": "List of frontier impact categories (microplastic, soil, biodiversity) activated per Q6a sector overlay (lca_hc_19)."
+    },
+    {
+      "field": "lcc.externalities",
+      "type": "array",
+      "set_by_cir": "CIR-06",
+      "default_value_when_set": "matching_set",
+      "trigger_summary": "frontier_categories_active == true",
+      "notes": "LCC externality categories matched to lca.frontier_categories. Cross-method coherence via CIR-06."
+    },
+    {
+      "field": "slca.indicators",
+      "type": "array",
+      "set_by_cir": "CIR-06, CIR-08",
+      "default_value_when_set": "adapted_set",
+      "trigger_summary": "frontier_categories_active OR (Q1 in {B,C} AND IS-specific capital goods AND Q3.SOC active)",
+      "notes": "S-LCA indicators set adapted to: (1) sector frontier categories via CIR-06; (2) shared CAPEX stakeholder-group indicators via CIR-08."
+    },
+    {
+      "field": "lca.scale_up_framework",
+      "type": "string",
+      "set_by_cir": "CIR-07",
+      "default_value_when_set": "Six-Tenths|Lang|CEPCI",
+      "trigger_summary": "Q6b <= TRL 7",
+      "notes": "Engineering scale-up framework for low-TRL inventory. lca_mc_20 sets the activation flag; CIR-07 enforces same framework family for LCC."
+    },
+    {
+      "field": "lcc.scale_up_framework",
+      "type": "string",
+      "set_by_cir": "CIR-07",
+      "default_value_when_set": "Six-Tenths|Lang|CEPCI",
+      "trigger_summary": "Q6b <= TRL 7",
+      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default is set by lcc_hc_15 when Q6b<=TRL7; CIR-07 enforces same framework family for cross-method coherence with lca.scale_up_framework. Read order at runtime: node default first, CIR override last."
+    },
+    {
+      "field": "lca.report.failure_modes",
+      "type": "string",
+      "set_by_cir": "CIR-10",
+      "default_value_when_set": "required",
+      "trigger_summary": "Always (in IS context)",
+      "notes": "LCA report must include real-world failure mode analysis per CIR-10 (D4.2 HC-30)."
+    },
+    {
+      "field": "lcc.report.failure_modes",
+      "type": "string",
+      "set_by_cir": "CIR-10",
+      "default_value_when_set": "required",
+      "trigger_summary": "Always (in IS context)",
+      "notes": "LCC report must include failure mode analysis per CIR-10."
+    },
+    {
+      "field": "slca.report.failure_modes",
+      "type": "string",
+      "set_by_cir": "CIR-10",
+      "default_value_when_set": "required",
+      "trigger_summary": "Always (in IS context)",
+      "notes": "S-LCA report must include failure mode analysis per CIR-10."
+    },
+    {
+      "field": "case.iterative_update_triggers",
+      "type": "array",
+      "set_by_cir": "CIR-09",
+      "default_value_when_set": ["commissioning", "ramp_up", "contract_renewal"],
+      "trigger_summary": "Q6b <= TRL 7 AND Q2 in {C,D}",
+      "notes": "Event triggers that activate the iterative update protocol on the case object. Distinct from other CIR outputs in that it lives under case.* prefix (not pillar-specific) because the protocol is case-level, not method-level. NOTE: this entry was added post-classification — Mirko's original Category C table listed 19 fields and missed CIR-09's action LHS; corrected here to reach ZERO unknown."
+    }
+  ]
+}

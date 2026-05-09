@@ -120,12 +120,6 @@ def test_derive_mutates_and_returns_same_instance(schemas):
 
 
 # ---------------------------------------------------------------------------
-# 5. 12-paper benchmark sanity (skipped until fixtures land)
+# 5. 12-paper benchmark — superseded by tests/test_12_papers_regression.py
+#    (Sprint 4 Step 3 commit 7). Removed from this module to avoid duplication.
 # ---------------------------------------------------------------------------
-
-
-def test_12_paper_benchmark(schemas):
-    """Once backend/tests/fixtures/12_papers/ is populated (planned in
-    a later Step 3 commit), assert each paper's expected (q1,q2) →
-    pathway matches the γ matrix. Skipped until then."""
-    pytest.skip("12-paper fixtures not yet present — see SPRINT4_BOOTSTRAP §8")

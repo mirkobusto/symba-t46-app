@@ -166,6 +166,15 @@ class Case(BaseModel):
     review: dict[str, Any] = Field(default_factory=dict)
     system: dict[str, Any] = Field(default_factory=dict)
 
+    # --- Advanced overrides (Step 4 layer; defensive readers in
+    #     l1_blocks/activate/l2_validate already handle missing keys) ---
+    advanced: dict[str, Any] = Field(default_factory=dict,
+        description="Advanced expert-mode overrides. Free-form dict keyed "
+                    "by override name (e.g. 'slca_framework_override', "
+                    "'allocation_method_override', 'asset_lifetime'). "
+                    "Engine modules read this via getattr/dict.get; missing "
+                    "keys mean 'use the default'.")
+
     # --- Engine output (populated as pipeline runs) ---
     activated_nodes: list[str] = Field(default_factory=list,
         description="Phase 1 node IDs that have been activated for this case")

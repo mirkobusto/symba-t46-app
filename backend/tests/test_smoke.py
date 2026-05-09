@@ -89,14 +89,16 @@ def test_pipeline_orchestrator_exists():
 
 
 def test_pipeline_propagates_phase_stub_errors(schemas):
-    """Running the orchestrator on a fresh case raises NotImplementedError
-    from the first phase stub it calls (l0_compute), confirming the
-    chi-chiama-cosa wiring is in place even though phase logic is deferred.
+    """Running the orchestrator raises NotImplementedError from the first
+    remaining phase stub (currently l1_blocks, after l0_compute landed in
+    Sprint 4 Step 3 commit 2). A minimum Q1 is supplied so l0 succeeds
+    and the pipeline reaches the first downstream stub.
     """
+    from app.domain.enums import Q1
     from app.domain.models import Case
     from app.engine.pipeline import run as run_pipeline
 
-    case = Case()
+    case = Case(q1=Q1.A)
     with pytest.raises(NotImplementedError):
         run_pipeline(case, schemas)
 

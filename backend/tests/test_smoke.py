@@ -88,20 +88,20 @@ def test_pipeline_orchestrator_exists():
     assert callable(pipeline.run)
 
 
-def test_pipeline_propagates_phase_stub_errors(schemas):
-    """Running the orchestrator raises NotImplementedError from the first
-    remaining phase stub (currently l3_report, after l0/l1/pathway/
-    activate/l2_validate landed in Sprint 4 Step 3 commits 1-5).
-    Minimum Q1=A, Q2=A and Q3.env=True so all earlier phases succeed
-    and the pipeline reaches l3_report.
-    """
+def test_pipeline_runs_end_to_end(schemas):
+    """All 6 phases (l0/l1/pathway/activate/l2/l3) implemented after
+    Sprint 4 Step 3 commits 1-6. Pipeline.run on a minimal valid case
+    completes without raising and populates derived state."""
     from app.domain.enums import Q1, Q2
     from app.domain.models import Q3, Case
     from app.engine.pipeline import run as run_pipeline
 
     case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True))
-    with pytest.raises(NotImplementedError):
-        run_pipeline(case, schemas)
+    result = run_pipeline(case, schemas)
+    assert result is case
+    assert case.ilcd_situation is not None
+    assert case.pathway_id is not None
+    assert len(case.activated_nodes) > 0
 
 
 def test_pathway_module_exists():

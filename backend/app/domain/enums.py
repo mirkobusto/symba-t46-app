@@ -10,15 +10,14 @@ References:
 """
 from __future__ import annotations
 
-from enum import Enum
-
+from enum import StrEnum
 
 # =============================================================================
 # Q1-Q7 user-facing answer domains
 # =============================================================================
 
 
-class Q1(str, Enum):
+class Q1(StrEnum):
     """Q1 — IS scenario archetype (single select). Drives ILCD situation."""
 
     A = "A"  # specific exchange between two companies
@@ -28,7 +27,7 @@ class Q1(str, Enum):
     E = "E"  # public-sector / regulator perspective
 
 
-class Q2(str, Enum):
+class Q2(StrEnum):
     """Q2 — Temporal stance (single select). Drives ex-post / ex-ante / dynamic."""
 
     A = "A"  # ex-post (operating IS, retrospective)
@@ -41,7 +40,7 @@ class Q2(str, Enum):
 # Modeled as 3 booleans on the Case object, not as an Enum.
 
 
-class Q4(str, Enum):
+class Q4(StrEnum):
     """Q4 — Use-of-results (multi-select). Drives review and disclosure."""
 
     A = "A"  # internal-only (R&D / decision support)
@@ -51,7 +50,7 @@ class Q4(str, Enum):
     E = "E"  # academic publication (peer review)
 
 
-class Q5(str, Enum):
+class Q5(StrEnum):
     """Q5 — Per-flow valuation type (one row per IS-flow)."""
 
     a = "a"  # waste/by-product, zero burden
@@ -61,7 +60,7 @@ class Q5(str, Enum):
     e = "e"  # aggregated / black-box
 
 
-class Q6a(str, Enum):
+class Q6a(StrEnum):
     """Q6a — Sector overlay (single select).
 
     TODO(sprint4-step3): v2 §3 enumerates 14 sectors. Current scaffold
@@ -77,7 +76,7 @@ class Q6a(str, Enum):
     OTHER = "other"
 
 
-class Q6b(str, Enum):
+class Q6b(StrEnum):
     """Q6b — TRL band (single select). Drives scale-up frameworks."""
 
     TRL9 = "TRL9"
@@ -86,7 +85,7 @@ class Q6b(str, Enum):
     TRL_LT_5 = "TRL<5"
 
 
-class Q7(str, Enum):
+class Q7(StrEnum):
     """Q7 — Geographic spread (single select). Drives transport+spatial coupling."""
 
     A = "A"  # single site / co-located
@@ -100,7 +99,7 @@ class Q7(str, Enum):
 # =============================================================================
 
 
-class IlcdSituation(str, Enum):
+class IlcdSituation(StrEnum):
     """Set by lca_t1 (and co-asserted by lca_mc_01).
 
     Values are parens-free for clean URL/JSON serialization. Display labels
@@ -114,7 +113,7 @@ class IlcdSituation(str, Enum):
     SITUATION_C2 = "ILCD Situation C2"
 
 
-class LccType(str, Enum):
+class LccType(StrEnum):
     """Set by lcc_trig_01."""
 
     DEACTIVATED = "deactivated"           # Q3.ECO=false
@@ -123,14 +122,14 @@ class LccType(str, Enum):
     C_LCC_ONLY = "C-LCC"                  # Q1=D AND Q3.ECO=true
 
 
-class SlcaActivationState(str, Enum):
+class SlcaActivationState(StrEnum):
     """Set by slca_t_01."""
 
     ACTIVE = "active"
     DEACTIVATED = "deactivated"
 
 
-class StudyPhase(str, Enum):
+class StudyPhase(StrEnum):
     """system_fields.study.phase — case lifecycle phase (call 4 = simple)."""
 
     SCREENING = "screening"
@@ -142,7 +141,7 @@ class StudyPhase(str, Enum):
 # =============================================================================
 
 
-class PathwayId(str, Enum):
+class PathwayId(StrEnum):
     """The 5 IS pathways derived from Q1 × Q2."""
 
     IS_01 = "IS-01"

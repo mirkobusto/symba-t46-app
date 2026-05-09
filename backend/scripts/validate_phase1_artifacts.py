@@ -189,7 +189,7 @@ def check_phase1_counts(nodes_doc: dict, r: Report) -> None:
         r.add("CRITICAL", "node_total_count",
               f"Expected 186 nodes, got {len(nodes)}", where="phase1_nodes.json")
     else:
-        r.add("INFO", "node_total_count", f"186 nodes total ✓")
+        r.add("INFO", "node_total_count", "186 nodes total ✓")
     by_method = Counter(n["method"] for n in nodes)
     for method, expected in EXPECTED_NODE_COUNTS.items():
         actual = by_method.get(method, 0)
@@ -294,7 +294,7 @@ def check_phase1_per_flow(nodes_doc: dict, r: Report) -> None:
                   f"per_flow nodes unexpected: {sorted(extra)}", where="phase1_nodes.json")
     else:
         r.add("INFO", "node_per_flow_set",
-              f"Per-flow set matches v1 §5.4 (11 nodes) ✓")
+              "Per-flow set matches v1 §5.4 (11 nodes) ✓")
 
 
 # =============================================================================
@@ -621,7 +621,7 @@ def write_field_gaps_md(r: Report, out_path: Path,
             lines.append(f"\n### {i}. `{gap['field']}`\n")
             lines.append(f"- **Used by**: {', '.join(gap['used_by'])}")
             lines.append(f"- **Diagnosis**: {gap['diagnosis']}")
-            lines.append(f"- **Resolution**: _to be filled by Mirko_")
+            lines.append("- **Resolution**: _to be filled by Mirko_")
     lines.append("\n---\n")
     lines.append("\n## Allowlists loaded by the validator\n")
     lines.append(f"\n### system_fields.json ({len(system_fields)})\n")
@@ -720,8 +720,8 @@ def main() -> int:
 
     print_console_summary(r)
     print(f"\nReports written to: {args.out_dir}/")
-    print(f"  - validation_report.md")
-    print(f"  - validation_report.json")
+    print("  - validation_report.md")
+    print("  - validation_report.json")
     print(f"  - field_gaps.md ({len(r.field_gaps)} unknown field(s))")
 
     return 1 if r.critical_count > 0 else 0

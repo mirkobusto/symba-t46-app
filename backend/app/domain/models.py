@@ -16,7 +16,7 @@ level is a CI concern, not a runtime one.
 """
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -26,16 +26,15 @@ from app.domain.enums import (
     Q2,
     Q4,
     Q5,
-    Q6a,
-    Q6b,
     Q7,
     IlcdSituation,
     LccType,
     PathwayId,
+    Q6a,
+    Q6b,
     SlcaActivationState,
     StudyPhase,
 )
-
 
 # =============================================================================
 # Sub-models
@@ -67,9 +66,9 @@ class Flow(BaseModel):
     q5: Q5
 
     # Optional descriptors (engine consumes if present)
-    physical_quantity: Optional[float] = None
-    physical_unit: Optional[str] = None
-    notes: Optional[str] = None
+    physical_quantity: float | None = None
+    physical_unit: str | None = None
+    notes: str | None = None
 
 
 class Site(BaseModel):
@@ -81,9 +80,9 @@ class Site(BaseModel):
 
     id: str
     name: str
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    country_iso2: Optional[str] = None
+    latitude: float | None = None
+    longitude: float | None = None
+    country_iso2: str | None = None
 
 
 class AlternativeScenario(BaseModel):
@@ -129,15 +128,15 @@ class Case(BaseModel):
     study_phase: StudyPhase = StudyPhase.SCREENING
 
     # --- User answers (Q1-Q7) ---
-    q1: Optional[Q1] = None
-    q2: Optional[Q2] = None
+    q1: Q1 | None = None
+    q2: Q2 | None = None
     q3: Q3 = Field(default_factory=Q3)
     # Q4 is multi-select: stored as a set of Q4 values
     q4: set[Q4] = Field(default_factory=set)
-    q5: Optional[Q5] = None  # legacy single-flow fallback; per-flow primary
-    q6a: Optional[Q6a] = None
-    q6b: Optional[Q6b] = None
-    q7: Optional[Q7] = None
+    q5: Q5 | None = None  # legacy single-flow fallback; per-flow primary
+    q6a: Q6a | None = None
+    q6b: Q6b | None = None
+    q7: Q7 | None = None
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)
@@ -145,12 +144,12 @@ class Case(BaseModel):
     alternative_scenarios: list[AlternativeScenario] = Field(default_factory=list)
 
     # --- Derived state (set by L0 triggers in app/engine/l0_compute.py) ---
-    ilcd_situation: Optional[IlcdSituation] = None
-    lcc_type: Optional[LccType] = None
-    slca_activation_state: Optional[SlcaActivationState] = None
+    ilcd_situation: IlcdSituation | None = None
+    lcc_type: LccType | None = None
+    slca_activation_state: SlcaActivationState | None = None
 
     # --- Pathway (set by app/engine/pathway.py:derive) ---
-    pathway_id: Optional[PathwayId] = None
+    pathway_id: PathwayId | None = None
     is_01_extended: bool = Field(default=False,
         description="True iff pathway_id is IS-01 AND q2 is Q2.D — captures "
                     "the 'IS-01 extended' annotation (baseline + N alternative "

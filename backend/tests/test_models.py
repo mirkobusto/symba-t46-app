@@ -17,10 +17,10 @@ from app.domain.enums import (
     StudyPhase,
 )
 from app.domain.models import (
+    Q3,
     AlternativeScenario,
     Case,
     Flow,
-    Q3,
     Site,
 )
 

@@ -15,6 +15,7 @@ const es: Locale = {
     optional: 'opcional',
     skip: '(saltar)',
     required: 'Obligatorio',
+    examplesAndContext: 'Ejemplos y contexto',
   },
 
   layout: {
@@ -81,6 +82,12 @@ const es: Locale = {
       title: 'Q1 — ¿Qué estás analizando? *',
       help:
         '¿Selecciona la coincidencia más cercana. En caso de ambigüedad pregúntate: ¿quién es el SUJETO del informe? (Obligatorio.)',
+      details:
+        'A — intercambio bilateral (p. ej. calor residual de Planta X a Planta Y, o yeso subproducto de una térmica a una cementera). El sujeto es el FLUJO COMPARTIDO entre dos empresas. ' +
+        'B — parque eco-industrial o red simbiótica con 3+ actores (p. ej. Kalundborg, cluster NISP, masterplan de un parque industrial). El sujeto es la RED como sistema. ' +
+        'C — decisión de política o programa público a escala regional/nacional (p. ej. un esquema de subvención IS, un marco regulatorio, una estrategia industrial UE). El sujeto es la DECISIÓN/PROGRAMA, no una planta concreta. ' +
+        'D — empresa única que cuantifica su contribución simbiótica para reporting ESG / CSRD / sostenibilidad (p. ej. "vendimos 12 kt de escoria a cementeras, este es nuestro crédito"). El sujeto es UNA SOLA EMPRESA. ' +
+        'E — monitorización periódica de una simbiosis ya operativa (actualizaciones KPI anuales, vigilancia post-implementación). El sujeto es la SERIE TEMPORAL, no un estudio puntual.',
       options: {
         A: { label: 'A. Intercambio específico', description: 'Un intercambio simbiótico entre dos empresas existentes.' },
         B: { label: 'B. Eco-park / red', description: 'Un parque eco-industrial o una red simbiótica multi-actor.' },
@@ -92,6 +99,11 @@ const es: Locale = {
 
     q2: {
       title: 'Q2 — ¿En qué fase está el sistema?',
+      details:
+        'A — intercambio o parque existente operando desde hace años; hay datos primarios de planta. (Ej. Kalundborg hoy, Sokka 2011 reportando un IES existente.) ' +
+        'B — construido recientemente o en commissioning; los datos son en parte medidos, en parte estimación de ingeniería. ' +
+        'C — estudio de diseño pre-construcción; sin datos operativos medidos; solo modelos de ingeniería. (Ej. estudio ex-ante Daddi 2017.) ' +
+        'D — baseline operativa + uno o más escenarios "what-if" futuros a comparar (p. ej. expansión, ramp-up TRL, mix eléctrico descarbonizado). Elegir D habilita el editor de escenarios alternativos abajo.',
       options: {
         A: { label: 'A. Operativo', description: 'Existe y opera desde hace años (datos operativos reales).' },
         B: { label: 'B. En construcción', description: 'En construcción o recientemente puesto en marcha.' },
@@ -103,6 +115,11 @@ const es: Locale = {
     q3: {
       title: 'Q3 — ¿Qué dimensiones de sostenibilidad incluir? *',
       help: 'Al menos una es obligatoria. Predeterminado: ENV + ECO.',
+      details:
+        'ENV — Análisis de Ciclo de Vida ambiental (LCA): impactos en clima, ecosistemas, uso de recursos. Casi siempre seleccionada. ' +
+        'ECO — dimensión económica; la herramienta por defecto es LCC (Life Cycle Costing), pero el motor también acepta MFCA (Material Flow Cost Accounting), CBA (Cost-Benefit Analysis) o TEA (Techno-Economic Analysis) según Q4 y contexto de reporting. ' +
+        'SOC — S-LCA. Seleccionarla activa una cadena de reglas más larga (categorías stakeholder worker / comunidad local / cadena de valor) y fuerza L1 BLOCK 2 si el override avanzado slca_framework_override está en "absolute". ' +
+        'La mayoría de papers IS publicados ejecutan solo ENV (p. ej. Sokka, Daddi); algunos acoplan ENV+ECO (Hashimoto, Wiktor); solo unos pocos añaden SOC.',
       warning: 'Selecciona al menos una dimensión para continuar.',
       env: 'Ambiental (LCA)',
       eco: 'Económica (LCC / MFCA / CBA / TEA)',
@@ -112,6 +129,13 @@ const es: Locale = {
     q4: {
       title: 'Q4 — ¿Para qué es el informe?',
       help: 'Selección múltiple. Algunos usos se combinan (ej. D + E para un paper EU PEF).',
+      details:
+        'A — uso interno: dashboards de gestión, screening I+D, decisiones a nivel de planta. Pocas restricciones metodológicas. ' +
+        'B — comunicación externa SIN claims comparativos (informes de sostenibilidad, brochures de marketing sin afirmación "mejor que X"). ' +
+        'C — CLAIM público de superioridad ambiental frente a una alternativa (p. ej. "este cemento es más verde que el OPC"). Activa la critical review obligatoria ISO 14044 por 3+ expertos independientes y desactiva la ponderación. Usar con cuidado. ' +
+        'D — alineamiento con instrumentos de política UE (disclosure CSRD, digital product passport ESPR, reglas de categoría PEFCR). Fuerza la PEF Circular Footprint Formula vía CIR-05. ' +
+        'E — publicación académica peer-reviewed. Requiere transparencia total (fuentes de datos, decisiones de allocation, sensibilidad). A menudo combinada con B o D. ' +
+        'Selección múltiple posible: un paper PEF típico elige D + E.',
       options: {
         A: { label: 'A. Interno', description: 'Uso interno (gestión, I+D, planificación).' },
         B: { label: 'B. Externo (sin claim)', description: 'Comunicación externa sin afirmaciones comparativas.' },
@@ -133,12 +157,24 @@ const es: Locale = {
       title: 'Q5 — Naturaleza de cada flujo simbiótico (por flujo)',
       help:
         'Añade una fila por cada flujo simbiótico principal y elige su categoría Q5. Obligatorio para Q1 ∈ {A, B, D}; opcional en otros casos.',
+      details:
+        'Para cada flujo principal intercambiado entre actores (calor, CO₂, escoria, aguas residuales, hidrógeno…) elige la relación económica: ' +
+        'a — A paga a B para que se lleve el flujo (el flujo es un RESIDUO para A): contrato típico de gestión de residuos. Activa reglas de allocation paradigma-residuo. ' +
+        'b — flujo intercambiado de FORMA GRATUITA (estatus ambiguo): el motor encamina a la cadena de desambiguación free-flow. ' +
+        'c — B paga a A por el flujo (el flujo es un CO-PRODUCTO para A): activa reglas de allocation económica y la ruta PEF Circular Footprint Formula. ' +
+        'd — flujo INTERDEPENDIENTE: ninguna parte podría operar sin la otra; tratado como sistema integrado, a menudo con system expansion. ' +
+        'e — AGREGADO / black-box: el caso publicado no aporta detalle por flujo (típico de papers IES agregados como Sokka 2011). ' +
+        'Para estudios de policy Q1=C, Q5 suele ser opcional.',
     },
 
     q6a: {
       title: 'Q6a — Sector',
       help:
         '14 sectores canónicos según WorkingDoc §3 + Otro. Las activaciones sector-specific de los nodos (p. ej. lca_mc_30 wastewater) leen este enum.',
+      details:
+        'El sector controla un pequeño conjunto de activaciones sector-specific de nodos y los defaults de overlay. Elige la coincidencia más cercana al sector dominante del caso (el actor que aporta más masa/energía/valor). ' +
+        'Ejemplos: pulp_paper para Sokka 2011 (UPM Kymi); chemicals_fertilizers para Hashimoto / Wiktor; cement_construction para Leiva 2025 Escombreras; biobased_polymers para Briassoulis; food_production / agri-food para Daddi. ' +
+        'Para casos mixtos usa multi_sector. Las entradas "(legacy)" abajo existen para la carga backward-compatible de fixtures antiguas — prefiere la nueva lista de 14 sectores.',
       options: {
         none: '(ninguno)',
         agriculture_agrifood_biorefineries: 'Agricultura / agroalimentario / biorrefinerías',
@@ -164,6 +200,12 @@ const es: Locale = {
 
     q6b: {
       title: 'Q6b — Technology Readiness Level (TRL)',
+      details:
+        'TRL de la tecnología dominante o crítica en la red simbiótica. Determina la elección de la calidad de los datos de inventory (medidos vs literatura vs estimación de ingeniería) y el presupuesto de incertidumbre downstream. ' +
+        'TRL 9 = pleno funcionamiento comercial (Kalundborg, Sokka). ' +
+        'TRL 7-8 = piloto first-of-a-kind / unidad pre-comercial. ' +
+        'TRL 5-6 = prototipo validado en laboratorio, demo a escala relevante. ' +
+        'TRL <5 = I+D temprana, solo bench-scale — gran incertidumbre, escenarios recomendados.',
       options: {
         TRL9: 'TRL 9 — plenamente operativo',
         'TRL7-8': 'TRL 7-8 — piloto / pre-comercial',
@@ -175,6 +217,12 @@ const es: Locale = {
     q7: {
       title: 'Q7 — Distribución geográfica',
       help: 'Si las coordenadas de los actores se cargan más tarde, esto puede inferirse automáticamente y mostrarse como info.',
+      details:
+        'La distribución geográfica modifica el peso relativo del transporte en el inventory y puede activar CIR-03 si el override avanzado transport_sensitive=true. ' +
+        'A — co-localizados en un mismo emplazamiento (<5 km, p. ej. Kalundborg, parque eco-industrial). El transporte es esencialmente despreciable. ' +
+        'B — cluster regional (5-100 km, misma región — típico Sokka 2011 / Hashimoto). ' +
+        'C — área amplia, transregional o transfronterizo (>100 km). El modo y la distancia de transporte se vuelven partidas no triviales del inventory. ' +
+        'D — programas multi-escala nacionales o industria-wide (estudios de policy Q1=C, geográficamente variables).',
       options: {
         A: { label: 'A. Co-localizados', description: 'Eco-park, <5 km entre actores.' },
         B: { label: 'B. Regional', description: '5-100 km, misma región.' },
@@ -335,6 +383,7 @@ const es: Locale = {
     help:
       '13 fixtures del sample de validación (12 papers + Leiva Escombreras / Frövi). Carga las Q1-Q7 + Q5 por flujo en el cuestionario para inspeccionar y ejecutar el motor end-to-end.',
     loadButton: 'Cargar preset',
+    rationaleToggle: '¿Por qué estas respuestas? (rationale de compilación)',
   },
 
   toast: {

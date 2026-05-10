@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
+import PresetLoader from '../components/PresetLoader'
 import { useCaseStore } from '../store/caseStore'
 
 export default function HomePage() {
@@ -34,6 +35,10 @@ export default function HomePage() {
         Start new assessment
         <ArrowRight size={18} />
       </button>
+
+      <hr className="home-divider" />
+
+      <PresetLoader />
     </div>
   )
 }

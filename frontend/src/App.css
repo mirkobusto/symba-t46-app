@@ -648,6 +648,85 @@
   margin-top: 16px;
 }
 
+/* ---- PresetLoader (HomePage) ---------------------------------------- */
+
+.home-divider {
+  margin: 32px 0 24px;
+  border: none;
+  border-top: 1px solid var(--slate-200);
+}
+
+.preset-loader {
+  margin-top: 16px;
+}
+.preset-loader-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: var(--slate-800);
+  letter-spacing: -0.2px;
+}
+.preset-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.preset-row .select {
+  flex: 1 1 auto;
+  min-width: 240px;
+}
+.preset-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 145%;
+}
+
+/* ---- LoadingOverlay -------------------------------------------------- */
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+.loading-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  background: var(--surface-input);
+  color: var(--slate-800);
+  border: 1px solid var(--slate-200);
+  border-radius: 10px;
+  font-size: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--slate-200);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- run-bar tip ----------------------------------------------------- */
+
+.run-tip {
+  font-size: 12px;
+  color: var(--slate-500);
+}
+
 /* ---- Mobile / narrow-screen responsiveness (UX polish) --------------- */
 
 @media (max-width: 640px) {

@@ -1,0 +1,25 @@
+{
+  "$schema": "SYMBA-T46-SectorOverlays",
+  "version": "0.1-stub",
+  "extracted_from": "SPRINT4_BOOTSTRAP_v2.md §3 Q6a (14 sectors + Other)",
+  "purpose": "Stub schema for Q6a sector overlays. Currently lists the 14 sector IDs as the canonical enumeration source so the Q6a enum can be expanded from this file later. The `overlays` map is intentionally empty: per-sector node activations and rule overrides land here when sector-specific logic is wired (post Sprint 4 Step 3).",
+  "extraction_notes": "Sector IDs follow snake_case for stable JSON keys. Display labels (with slashes, parentheses, etc.) are a frontend concern. The current Q6a enum (5 placeholder values) covers a subset; expanding to all 14 is tracked as a follow-up.",
+  "sectors": [
+    {"id": "agriculture_agrifood_biorefineries", "label": "Agriculture / agri-food / biorefineries"},
+    {"id": "biobased_polymers", "label": "Bio-based polymers"},
+    {"id": "plastics_packaging", "label": "Plastics & packaging"},
+    {"id": "pulp_paper", "label": "Pulp & paper"},
+    {"id": "chemicals_fertilizers", "label": "Chemicals / fertilizers"},
+    {"id": "cement_construction", "label": "Cement / construction"},
+    {"id": "steel_metals", "label": "Steel & metals"},
+    {"id": "energy_utilities", "label": "Energy / utilities"},
+    {"id": "wastewater_sludge_biofactories", "label": "Wastewater / sludge / biofactories"},
+    {"id": "textile_leather", "label": "Textile / leather"},
+    {"id": "waste_valorization", "label": "Waste valorization (CCP, C&DW, SRF, e-waste)"},
+    {"id": "food_production", "label": "Food production"},
+    {"id": "multi_tenant_urban_building", "label": "Multi-tenant urban building"},
+    {"id": "multi_sector", "label": "Multi-sector"},
+    {"id": "other", "label": "Other (specify)"}
+  ],
+  "overlays": {}
+}

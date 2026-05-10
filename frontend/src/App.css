@@ -346,6 +346,222 @@
   color: var(--error);
 }
 
+/* ---- Advanced editor card (4-D) -------------------------------------- */
+
+.advanced-card {
+  margin: 20px 0;
+  padding: 12px 16px;
+  border: 1px dashed var(--slate-300);
+  border-radius: 10px;
+  background: var(--slate-50);
+}
+.advanced-card summary {
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--slate-700);
+}
+.advanced-card-body {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--slate-200);
+}
+
+/* ---- Reasoning panel (4-D) ------------------------------------------- */
+
+.reasoning-toggle {
+  margin: 16px 0;
+}
+
+.reasoning {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 16px 0;
+}
+.reasoning-section h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: var(--slate-800);
+}
+
+.node-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.node-group {
+  padding: 8px 12px;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 6px;
+}
+.node-group summary {
+  cursor: pointer;
+  font-size: 14px;
+}
+.node-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+.node-list li code {
+  font-size: 12px;
+  background: #fff;
+  padding: 2px 6px;
+  border: 1px solid var(--slate-200);
+  border-radius: 3px;
+}
+
+.pillar-config {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 6px;
+}
+.pillar-config summary {
+  cursor: pointer;
+  font-size: 14px;
+}
+.pillar-dl {
+  margin: 8px 0 0;
+}
+.pillar-row {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 2fr;
+  gap: 8px;
+  padding: 4px 0;
+  border-top: 1px solid var(--slate-100);
+  font-size: 13px;
+}
+.pillar-row dt {
+  margin: 0;
+}
+.pillar-row dt code {
+  font-size: 12px;
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--slate-200);
+}
+.pillar-row dd {
+  margin: 0;
+  color: var(--slate-700);
+  word-break: break-word;
+}
+
+.violation-list,
+.cdp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.violation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--warning-text);
+}
+.violation-id {
+  font-size: 12px;
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--warning-border);
+  flex-shrink: 0;
+}
+
+.cdp-card {
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--slate-200);
+  border-radius: 6px;
+}
+.cdp-card header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.cdp-id {
+  font-size: 12px;
+  background: var(--slate-100);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.cdp-tension {
+  margin: 0 0 6px;
+  color: var(--slate-700);
+  font-size: 14px;
+}
+.cdp-resolution {
+  margin: 0 0 8px;
+  color: var(--slate-700);
+  font-size: 13px;
+}
+.cdp-methods {
+  margin: 0;
+  display: flex;
+  gap: 6px;
+}
+.chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--primary-bg);
+  color: var(--primary);
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.severity {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  background: var(--slate-200);
+  color: var(--slate-700);
+}
+.severity-high {
+  background: var(--error-bg);
+  color: var(--error);
+}
+.severity-medium {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+.severity-low {
+  background: var(--primary-bg);
+  color: var(--primary);
+}
+
+.blocked-banner {
+  margin: 16px 0;
+  padding: 16px;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 8px;
+  color: var(--error);
+}
+.blocked-banner h3 {
+  margin: 0 0 6px;
+  color: var(--error);
+}
+.blocked-banner ul {
+  margin: 8px 0 0;
+}
+
 .run-bar {
   position: sticky;
   bottom: 0;

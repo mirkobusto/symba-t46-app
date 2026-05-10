@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import AdvancedEditor from '../components/AdvancedEditor'
 import FlowsEditor from '../components/FlowsEditor'
 import QuestionCard from '../components/QuestionCard'
 import ScenariosEditor from '../components/ScenariosEditor'
@@ -93,6 +94,9 @@ export default function QuestionnairePage() {
   const [q6a, setQ6a] = useState<Q6a | undefined>(draft.q6a ?? undefined)
   const [q6b, setQ6b] = useState<Q6b | undefined>(draft.q6b ?? undefined)
   const [q7, setQ7] = useState<Q7 | undefined>(draft.q7 ?? undefined)
+  const [advanced, setAdvanced] = useState<Record<string, unknown>>(
+    draft.advanced ?? {},
+  )
 
   function toggleQ4(value: Q4) {
     const next = new Set(q4)
@@ -117,6 +121,7 @@ export default function QuestionnairePage() {
       q6a,
       q6b,
       q7,
+      advanced,
     })
     const result = await runDraft()
     if (result) navigate('/result')
@@ -288,6 +293,21 @@ export default function QuestionnairePage() {
           </label>
         ))}
       </QuestionCard>
+
+      {/* Advanced overrides — collapsible expert mode (4-D) */}
+      <details className="advanced-card">
+        <summary>
+          <strong>Advanced overrides (expert mode)</strong>
+          <span className="muted">
+            {' · '}
+            {Object.keys(advanced).length} active key
+            {Object.keys(advanced).length === 1 ? '' : 's'}
+          </span>
+        </summary>
+        <div className="advanced-card-body">
+          <AdvancedEditor advanced={advanced} onChange={setAdvanced} />
+        </div>
+      </details>
 
       <div className="run-bar">
         <button

@@ -24,7 +24,24 @@ import type {
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
 const Q2_KEYS: Q2[] = ['A', 'B', 'C', 'D']
 const Q4_KEYS: Q4[] = ['A', 'B', 'C', 'D', 'E']
-const Q6A_KEYS: Q6a[] = ['none', 'wastewater_biofactories', 'agri_food', 'process_industry', 'other']
+const Q6A_KEYS: Q6a[] = [
+  'none',
+  'agriculture_agrifood_biorefineries',
+  'biobased_polymers',
+  'plastics_packaging',
+  'pulp_paper',
+  'chemicals_fertilizers',
+  'cement_construction',
+  'steel_metals',
+  'energy_utilities',
+  'wastewater_sludge_biofactories',
+  'textile_leather',
+  'waste_valorization',
+  'food_production',
+  'multi_tenant_urban_building',
+  'multi_sector',
+  'other',
+]
 const Q6B_KEYS: Q6b[] = ['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5']
 const Q7_KEYS: Q7[] = ['A', 'B', 'C', 'D']
 

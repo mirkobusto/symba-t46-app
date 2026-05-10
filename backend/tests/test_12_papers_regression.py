@@ -23,10 +23,12 @@ the γ matrix (ADR-005) both produce IS-04. The mapping table is
 inconsistent with its own rule. Engine follows the rule (IS-04). The
 fixture below reflects engine behaviour with an inline note.
 
-Q6a note: the sector enum currently has 5 placeholder values; the full
-14 sectors arrive with `sector_overlays.json` wiring (post-Step-3). All
-fixtures here use `Q6a.OTHER` except Wiktor (`WASTEWATER_BIOFACTORIES`)
-and Kerdlap (`AGRI_FOOD`).
+Q6a note: the sector enum was expanded in Feature B to all 14
+canonical sectors (per WorkingDoc §3.1). Each fixture uses the
+sector that matches the paper's actual industry. Legacy aliases
+(WASTEWATER_BIOFACTORIES, AGRI_FOOD, PROCESS_INDUSTRY) are kept on
+the enum for backwards-compat but new fixtures use the canonical
+IDs.
 """
 from __future__ import annotations
 
@@ -69,7 +71,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.e),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -83,7 +85,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -97,7 +99,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -111,7 +113,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True),
         "q4": {Q4.D, Q4.E},  # multi-select: PEF + academic
         "flows": _flows(Q5.e),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.D,
+        "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D,
         "expected_pathway": PathwayId.IS_02,
         "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_B,
@@ -125,7 +127,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.PLASTICS_PACKAGING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": False,  # Q2=A, not D
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -139,7 +141,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c, Q5.c),
-        "q6a": Q6a.WASTEWATER_BIOFACTORIES, "q6b": Q6b.TRL7_8, "q7": Q7.B,
+        "q6a": Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -153,7 +155,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(eco=True),  # ECO-only per WorkingDoc §3.1
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.CHEMICALS_FERTILIZERS, "q6b": Q6b.TRL9, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
@@ -167,7 +169,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
+        "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -181,7 +183,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.C},
         "flows": _flows(Q5.e),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -198,7 +200,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.AGRI_FOOD, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES, "q6b": Q6b.TRL9, "q7": Q7.A,
         "expected_pathway": PathwayId.IS_04,  # γ rule, NOT WorkingDoc mapping
         "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -212,7 +214,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True, eco=True, soc=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.MULTI_TENANT_URBAN_BUILDING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A_MULTI,
@@ -227,7 +229,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.MULTI_SECTOR, "q6b": Q6b.TRL9, "q7": Q7.A,
         "expected_pathway": PathwayId.IS_04,  # Q2=C with Q1=A
         "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_A,
@@ -242,7 +244,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True, eco=True, soc=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": None,
+        "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
         "expected_pathway": PathwayId.IS_02,  # Q1=C → IS-02 (Q2 ignored)
         "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_B,

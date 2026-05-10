@@ -73,7 +73,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "3 reference scenarios (RS1 NG, RS2 peat, RS3 improvement)",
         "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.e),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Q1=B: eco-park (six-actor IES). Q2=D: existing baseline + RS3 "
             "improvement scenario. Q3=ENV: pure LCA. Q4=E: academic. Q5=e: "
@@ -95,7 +95,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "4 (S1 baseline no-IS, S2 current IS, S3 cluster-improved, S4 regional-extended)",
         "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Q1=B: subject is the network's CO2 savings, not corporate ESG. "
             "Disambiguation rule 'who is the SUBJECT?' applies. Q2=D: "
@@ -117,7 +117,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "4 (S1 current IS, S2 hypothetical no-IS, S3a/S3b future water reuse)",
         "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": "Cluster of 6 municipalities + WWT facility = Q1=B. S3a/S3b alternatives = Q2=D.",
     },
     {
@@ -134,7 +134,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "2 (current state + symbiotic optimised)",
         "q1": Q1.C, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
         "flows": _flows(Q5.e),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.D,
+        "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D,
         "rationale": (
             "Pure policy assessment at national scale = Q1=C. Q4=D+E "
             "(EU PEF policy + academic publication, multi-select). "
@@ -155,7 +155,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "Symbiotic vs non-symbiotic per entity",
         "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.PLASTICS_PACKAGING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
             "3-entity network + ex-post analysis = Q1=B, Q2=A (operational). "
             "Methodological exploration paper (3 allocation methods) — tool "
@@ -198,7 +198,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "1+1 (baseline + post-IS)",
         "q1": Q1.A, "q2": Q2.D, "q3": Q3(eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.CHEMICALS_FERTILIZERS, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Single-site process optimisation between QSr and neighbours = "
             "Q1=A. Pure ECO (MFCA + CBA + TEA, no LCA) = Q3 ECO-only. "
@@ -219,7 +219,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "4 (A CCU / B Scrubber / C External / D Baseline NG)",
         "q1": Q1.B, "q2": Q2.D, "q3": Q3(eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
+        "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "rationale": "Multi-actor eco-park = Q1=B. CCU scenario at TRL 7-8.",
     },
     {
@@ -236,7 +236,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "3 (Baseline 2015, 2018, 2019)",
         "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
         "flows": _flows(Q5.e),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.B,
+        "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Most iconic IS network (8 actors, 50+ years operational) = Q1=B "
             "canonical. Q4=C public-claim (Symbiosis Center DK promotes "
@@ -280,7 +280,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "3 (S1 natural gas, S2 biogas symbiotic, S3 renewable electricity)",
         "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.MULTI_TENANT_URBAN_BUILDING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
             "Multi-tenant urban building = Q1=B. Q3 full LCSA. Capital-based "
             "framework requires expert-mode override 'alternative S-LCA "
@@ -301,7 +301,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "19 scenarios varying FU, transport distance, waste quality, prices, allocation",
         "q1": Q1.A, "q2": Q2.C, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": Q7.A,
+        "q6a": Q6a.MULTI_SECTOR, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
             "Generic 2-firm exchange in design phase = Q1=A, Q2=C. Most "
             "scenario-rich case in sample (19 scenarios). Engine maps to "
@@ -322,7 +322,7 @@ PAPERS: list[dict[str, Any]] = [
         "scenarios": "Multi-scenario, framework propositional",
         "q1": Q1.C, "q2": Q2.C, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
-        "q6a": Q6a.OTHER, "q6b": Q6b.TRL9, "q7": None,
+        "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
         "rationale": (
             "Industry-wide bio-polymer framework = Q1=C. Propositional "
             "framework in design = Q2=C. Q1=C overrides Q2 in gamma matrix "

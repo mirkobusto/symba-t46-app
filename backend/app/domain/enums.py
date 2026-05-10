@@ -61,19 +61,37 @@ class Q5(StrEnum):
 
 
 class Q6a(StrEnum):
-    """Q6a — Sector overlay (single select).
-
-    TODO(sprint4-step3): v2 §3 enumerates 14 sectors. Current scaffold
-    has only 5 + NONE + OTHER as placeholder. Expand to the full 14
-    when sector_overlays.json (v2 §7) is wired in. Sector-specific
+    """Q6a — Sector overlay (single select). 14 official sectors per
+    SPRINT4_BOOTSTRAP_v2 §3 + NONE + OTHER, mirroring the IDs in
+    backend/app/schemas/sector_overlays.json. Sector-specific
     activations (e.g., lca_mc_30 wastewater AWARE) read this enum.
     """
 
+    # Special placeholders
     NONE = "none"
+    OTHER = "other"
+
+    # 14 canonical sectors (snake_case stable IDs)
+    AGRICULTURE_AGRIFOOD_BIOREFINERIES = "agriculture_agrifood_biorefineries"
+    BIOBASED_POLYMERS = "biobased_polymers"
+    PLASTICS_PACKAGING = "plastics_packaging"
+    PULP_PAPER = "pulp_paper"
+    CHEMICALS_FERTILIZERS = "chemicals_fertilizers"
+    CEMENT_CONSTRUCTION = "cement_construction"
+    STEEL_METALS = "steel_metals"
+    ENERGY_UTILITIES = "energy_utilities"
+    WASTEWATER_SLUDGE_BIOFACTORIES = "wastewater_sludge_biofactories"
+    TEXTILE_LEATHER = "textile_leather"
+    WASTE_VALORIZATION = "waste_valorization"
+    FOOD_PRODUCTION = "food_production"
+    MULTI_TENANT_URBAN_BUILDING = "multi_tenant_urban_building"
+    MULTI_SECTOR = "multi_sector"
+
+    # --- Legacy aliases (Step 4 placeholders, kept for backwards-
+    # compatibility of stored cases / older fixtures) ---
     WASTEWATER_BIOFACTORIES = "wastewater_biofactories"
     AGRI_FOOD = "agri_food"
     PROCESS_INDUSTRY = "process_industry"
-    OTHER = "other"
 
 
 class Q6b(StrEnum):

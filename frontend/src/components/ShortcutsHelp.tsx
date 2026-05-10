@@ -1,33 +1,38 @@
-// Shortcuts help dialog. Triggered by `?` key (when no input is
-// focused), closed by Esc or backdrop click. Lists the global
-// keyboard shortcuts available in the app.
+// Shortcuts help dialog. Triggered by `?` (when no input is focused),
+// closed by Esc or backdrop click.
 
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-interface Shortcut {
+interface Item {
   keys: string
-  description: string
-  context?: string
+  descriptionKey: string
+  contextKey?: string
 }
 
-const SHORTCUTS: Shortcut[] = [
-  { keys: '?', description: 'Show this shortcuts help' },
-  { keys: 'Ctrl/⌘ + Enter', description: 'Run pipeline', context: 'Questionnaire' },
-  { keys: 'Esc', description: 'Close this dialog' },
+const ITEMS: Item[] = [
+  { keys: '?', descriptionKey: 'shortcuts.items.help' },
+  { keys: 'Ctrl/⌘ + Enter', descriptionKey: 'shortcuts.items.run', contextKey: 'shortcuts.items.runContext' },
+  { keys: 'Esc', descriptionKey: 'shortcuts.items.esc' },
 ]
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
   const tag = target.tagName.toLowerCase()
-  return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable
+  return (
+    tag === 'input' ||
+    tag === 'textarea' ||
+    tag === 'select' ||
+    target.isContentEditable
+  )
 }
 
 export default function ShortcutsHelp() {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      // Open with `?` (Shift+/), but only when not typing into an input
       if (e.key === '?' && !isTextInputTarget(e.target)) {
         e.preventDefault()
         setOpen((v) => !v)
@@ -52,19 +57,19 @@ export default function ShortcutsHelp() {
     >
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
         <h2 id="shortcuts-title" className="modal-title">
-          Keyboard shortcuts
+          {t('shortcuts.title')}
         </h2>
         <table className="shortcuts-table">
           <tbody>
-            {SHORTCUTS.map((s) => (
-              <tr key={s.keys}>
+            {ITEMS.map((item) => (
+              <tr key={item.keys}>
                 <td>
-                  <kbd>{s.keys}</kbd>
+                  <kbd>{item.keys}</kbd>
                 </td>
                 <td>
-                  {s.description}
-                  {s.context ? (
-                    <span className="muted"> · {s.context}</span>
+                  {t(item.descriptionKey)}
+                  {item.contextKey ? (
+                    <span className="muted"> · {t(item.contextKey)}</span>
                   ) : null}
                 </td>
               </tr>
@@ -72,7 +77,9 @@ export default function ShortcutsHelp() {
           </tbody>
         </table>
         <p className="muted modal-hint">
-          Press <kbd>Esc</kbd> or click outside to close.
+          {t('shortcuts.closeHint', { esc: 'Esc' }).split('Esc')[0]}
+          <kbd>Esc</kbd>
+          {t('shortcuts.closeHint', { esc: 'Esc' }).split('Esc')[1]}
         </p>
       </div>
     </div>

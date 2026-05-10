@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { useHealth } from '../hooks/useHealth'
 
 interface Props {
@@ -5,6 +7,7 @@ interface Props {
 }
 
 export default function HealthCheck({ compact = false }: Props) {
+  const { t } = useTranslation()
   const status = useHealth()
 
   const dotClass =
@@ -16,15 +19,17 @@ export default function HealthCheck({ compact = false }: Props) {
 
   const label =
     status === 'loading'
-      ? 'checking'
+      ? t('health.checking')
       : status === 'ok'
-        ? 'OK'
-        : 'unreachable'
+        ? t('health.ok')
+        : t('health.unreachable')
 
   return (
     <span className={`health-check ${compact ? 'health-check-compact' : ''}`}>
       <span className={dotClass} aria-hidden="true" />
-      <span>Backend: {label}</span>
+      <span>
+        {t('health.backendLabel')}: {label}
+      </span>
     </span>
   )
 }

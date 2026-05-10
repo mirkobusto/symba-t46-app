@@ -1,21 +1,11 @@
-// Per-flow Q5 editor (Step 4-C).
-//
-// Dynamic table: one row per Flow. Each row carries id (auto), name,
-// q5 (a..e). Add/remove rows. Per-flow Q5 supersedes the legacy
-// case.q5 single-value field; downstream engine activation walks
-// case.flows for per_flow nodes (lcc_hc_12/13, lca_mc_17, etc.).
+// Per-flow Q5 editor — i18n.
 
 import { Plus, Trash2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import type { Flow, Q5 } from '../types/api'
 
-const Q5_OPTIONS: { value: Q5; label: string }[] = [
-  { value: 'a', label: 'a — A pays B (waste)' },
-  { value: 'b', label: 'b — Free (ambiguous)' },
-  { value: 'c', label: 'c — B pays A (co-product)' },
-  { value: 'd', label: 'd — Interdependent' },
-  { value: 'e', label: 'e — Aggregated / black-box' },
-]
+const Q5_KEYS: Q5[] = ['a', 'b', 'c', 'd', 'e']
 
 interface Props {
   flows: Flow[]
@@ -30,11 +20,10 @@ function nextId(existing: Flow[]): string {
 }
 
 export default function FlowsEditor({ flows, onChange }: Props) {
+  const { t } = useTranslation()
+
   function addFlow() {
-    onChange([
-      ...flows,
-      { id: nextId(flows), name: '', q5: 'c' },
-    ])
+    onChange([...flows, { id: nextId(flows), name: '', q5: 'c' }])
   }
 
   function removeFlow(id: string) {
@@ -48,16 +37,14 @@ export default function FlowsEditor({ flows, onChange }: Props) {
   return (
     <div className="flows-editor">
       {flows.length === 0 ? (
-        <p className="muted">
-          No flows yet. Add at least one to characterise per-flow Q5.
-        </p>
+        <p className="muted">{t('flows.emptyHint')}</p>
       ) : (
         <table className="flows-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Q5</th>
+              <th>{t('flows.headers.id')}</th>
+              <th>{t('flows.headers.name')}</th>
+              <th>{t('flows.headers.q5')}</th>
               <th aria-label="actions"></th>
             </tr>
           </thead>
@@ -72,7 +59,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     type="text"
                     className="row-input"
                     value={f.name}
-                    placeholder="e.g. heat, CO2"
+                    placeholder={t('flows.namePlaceholder')}
                     onChange={(e) => updateFlow(f.id, { name: e.target.value })}
                   />
                 </td>
@@ -84,9 +71,9 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                       updateFlow(f.id, { q5: e.target.value as Q5 })
                     }
                   >
-                    {Q5_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
+                    {Q5_KEYS.map((k) => (
+                      <option key={k} value={k}>
+                        {t(`flows.options.${k}`)}
                       </option>
                     ))}
                   </select>
@@ -96,7 +83,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     type="button"
                     className="icon-btn"
                     onClick={() => removeFlow(f.id)}
-                    aria-label={`Remove ${f.id}`}
+                    aria-label={t('flows.removeAria', { id: f.id })}
                   >
                     <Trash2 size={16} />
                   </button>
@@ -109,7 +96,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
 
       <button type="button" className="btn btn-secondary" onClick={addFlow}>
         <Plus size={16} />
-        Add flow
+        {t('flows.addButton')}
       </button>
     </div>
   )

@@ -78,6 +78,7 @@ export default function QuestionnairePage() {
   const draft = useCaseStore((s) => s.draft)
   const patchDraft = useCaseStore((s) => s.patchDraft)
   const runDraft = useCaseStore((s) => s.runDraft)
+  const reset = useCaseStore((s) => s.reset)
   const loading = useCaseStore((s) => s.loading)
   const error = useCaseStore((s) => s.error)
 
@@ -317,6 +318,34 @@ export default function QuestionnairePage() {
           disabled={!canRun}
         >
           {loading ? 'Running…' : 'Run pipeline'}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => {
+            if (
+              window.confirm(
+                'Discard all answers and start over? This cannot be undone.',
+              )
+            ) {
+              reset()
+              // Reset local UI state to match the cleared draft
+              setQ1(undefined)
+              setQ2(undefined)
+              setEnv(true)
+              setEco(false)
+              setSoc(false)
+              setQ4(new Set())
+              setFlows([])
+              setScenarios([])
+              setQ6a(undefined)
+              setQ6b(undefined)
+              setQ7(undefined)
+              setAdvanced({})
+            }
+          }}
+        >
+          Reset draft
         </button>
         {!q1 ? <span className="muted">Q1 is required.</span> : null}
       </div>

@@ -1,5 +1,7 @@
-/* Sprint 4 Step 4-A — frontend foundation styles. Palette restored from
- * Sprint 3 commit c22c766; component selectors trimmed to what 4-A uses. */
+/* Sprint 4 frontend styles. Palette established in 4-A; dark-mode +
+ * mobile responsiveness added in UX polish (Step 6). The slate-* +
+ * primary/success/warning/error vars are semantic — components never
+ * hardcode raw hex; dark-mode is a single :root override below. */
 
 :root {
   --primary: #4f46e5;
@@ -20,6 +22,35 @@
   --slate-600: #475569;
   --slate-700: #334155;
   --slate-800: #1e293b;
+  --surface: #ffffff;
+  --surface-muted: var(--slate-50);
+  --surface-input: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #818cf8;
+    --primary-hover: #a5b4fc;
+    --primary-bg: rgba(129, 140, 248, 0.18);
+    --success: #4ade80;
+    --warning-bg: rgba(245, 158, 11, 0.18);
+    --warning-border: #f59e0b;
+    --warning-text: #fde68a;
+    --error: #f87171;
+    --error-bg: rgba(220, 38, 38, 0.18);
+    --error-border: #f87171;
+    --slate-50: #1e2230;
+    --slate-100: #252a39;
+    --slate-200: #2e3445;
+    --slate-300: #3d4459;
+    --slate-500: #94a3b8;
+    --slate-600: #cbd5e1;
+    --slate-700: #e2e8f0;
+    --slate-800: #f1f5f9;
+    --surface: #16171d;
+    --surface-muted: #1c1e26;
+    --surface-input: #1f2230;
+  }
 }
 
 /* ---- Layout ---------------------------------------------------------- */
@@ -134,7 +165,7 @@
   background: var(--primary-hover);
 }
 .btn-secondary {
-  background: #fff;
+  background: var(--surface-input);
   color: var(--slate-700);
   border-color: var(--slate-300);
 }
@@ -191,7 +222,7 @@
   padding: 16px 20px;
   border: 1px solid var(--slate-200);
   border-radius: 10px;
-  background: #fff;
+  background: var(--surface-input);
 }
 .qcard-title {
   margin: 0 0 6px;
@@ -262,7 +293,7 @@
   padding: 8px 12px;
   border: 1px solid var(--slate-300);
   border-radius: 6px;
-  background: #fff;
+  background: var(--surface-input);
   font-size: 14px;
   font-family: inherit;
   color: var(--slate-800);
@@ -319,7 +350,7 @@
   border-radius: 5px;
   font-size: 14px;
   font-family: inherit;
-  background: #fff;
+  background: var(--surface-input);
 }
 .row-input:focus,
 .row-select:focus {
@@ -336,7 +367,7 @@
   padding: 0;
   border: 1px solid var(--slate-300);
   border-radius: 5px;
-  background: #fff;
+  background: var(--surface-input);
   color: var(--slate-600);
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s;
@@ -409,7 +440,7 @@
 }
 .node-list li code {
   font-size: 12px;
-  background: #fff;
+  background: var(--surface-input);
   padding: 2px 6px;
   border: 1px solid var(--slate-200);
   border-radius: 3px;
@@ -442,7 +473,7 @@
 }
 .pillar-row dt code {
   font-size: 12px;
-  background: #fff;
+  background: var(--surface-input);
   padding: 2px 6px;
   border-radius: 3px;
   border: 1px solid var(--slate-200);
@@ -475,7 +506,7 @@
 }
 .violation-id {
   font-size: 12px;
-  background: #fff;
+  background: var(--surface-input);
   padding: 2px 6px;
   border-radius: 3px;
   border: 1px solid var(--warning-border);
@@ -484,7 +515,7 @@
 
 .cdp-card {
   padding: 12px;
-  background: #fff;
+  background: var(--surface-input);
   border: 1px solid var(--slate-200);
   border-radius: 6px;
 }
@@ -571,7 +602,7 @@
   padding: 14px 0;
   margin-top: 20px;
   border-top: 1px solid var(--slate-200);
-  background: #fff;
+  background: var(--surface-input);
 }
 
 /* ---- Result page ----------------------------------------------------- */
@@ -615,4 +646,59 @@
   display: flex;
   gap: 12px;
   margin-top: 16px;
+}
+
+/* ---- Mobile / narrow-screen responsiveness (UX polish) --------------- */
+
+@media (max-width: 640px) {
+  .layout-header,
+  .layout-footer {
+    padding: 12px 16px;
+  }
+  .layout-main {
+    padding: 16px 12px;
+  }
+  .qcard {
+    padding: 12px 14px;
+  }
+  .qcard-title {
+    font-size: 16px;
+  }
+  .home h1,
+  .questionnaire h1,
+  .result h1,
+  .about h1,
+  .error-page h1 {
+    font-size: 24px;
+  }
+  /* Stack the run bar (Run pipeline + Reset draft) vertically */
+  .run-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .run-bar .btn {
+    width: 100%;
+  }
+  /* Allow flows / scenarios / advanced tables to scroll horizontally */
+  .flows-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .result-actions {
+    flex-direction: column;
+  }
+  .result-actions .btn {
+    width: 100%;
+  }
+  .pillar-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Fallback: ensure body inherits the dark surface in dark mode (some
+ * browsers don't honour the index.css --bg cascade through #root). */
+body {
+  background: var(--surface);
+  color: var(--slate-700);
 }

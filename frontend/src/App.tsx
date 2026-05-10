@@ -1,14 +1,24 @@
-import HealthCheck from './components/HealthCheck'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+
+import Layout from './components/Layout'
+import AboutPage from './pages/AboutPage'
+import HomePage from './pages/HomePage'
+import QuestionnairePage from './pages/QuestionnairePage'
+import ResultPage from './pages/ResultPage'
 import './App.css'
 
-function App() {
+export default function App() {
   return (
-    <main className="app">
-      <h1>SYMBA T4.6 — IS Assessment App</h1>
-      <p>Industrial Symbiosis scoping tool (LCA / LCC / S-LCA).</p>
-      <HealthCheck />
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/questionnaire" element={<QuestionnairePage />} />
+          <Route path="/result" element={<ResultPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App

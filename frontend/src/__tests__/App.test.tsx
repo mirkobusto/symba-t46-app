@@ -15,11 +15,11 @@ describe('App', () => {
     )
   })
 
-  it('renders the application title', () => {
+  it('renders the home page heading on /', () => {
     render(<App />)
     expect(
       screen.getByRole('heading', {
-        name: /SYMBA T4\.6 — IS Assessment App/i,
+        name: /SYMBA T4\.6 — IS Assessment Tool/i,
       }),
     ).toBeInTheDocument()
   })

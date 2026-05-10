@@ -636,8 +636,59 @@
   background: var(--surface-input);
 }
 
-/* ---- Result page ----------------------------------------------------- */
+/* ---- Result page metric cards ---------------------------------------- */
 
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+.metric-card {
+  padding: 14px 16px;
+  background: var(--surface-input);
+  border: 1px solid var(--slate-200);
+  border-left-width: 4px;
+  border-left-color: var(--slate-300);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 88px;
+}
+.metric-card-primary {
+  border-left-color: var(--primary);
+}
+.metric-card-success {
+  border-left-color: var(--success);
+}
+.metric-card-warning {
+  border-left-color: var(--warning-border);
+}
+.metric-card-error {
+  border-left-color: var(--error);
+}
+.metric-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate-600);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.metric-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--slate-800);
+  font-family: var(--mono, ui-monospace, Consolas, monospace);
+  word-break: break-word;
+}
+.metric-subtitle {
+  font-size: 11px;
+  color: var(--slate-500);
+  font-style: italic;
+}
+
+/* Legacy result-summary (kept for the print stylesheet's reference) */
 .result-summary {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -656,6 +707,54 @@
   margin: 0;
   color: var(--slate-800);
   font-family: var(--mono);
+}
+
+/* ---- Error boundary fallback ----------------------------------------- */
+
+.error-boundary {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--surface);
+}
+.error-boundary-card {
+  max-width: 560px;
+  background: var(--surface-input);
+  border: 1px solid var(--slate-200);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.error-boundary-card h1 {
+  margin: 8px 0 12px;
+  font-size: 24px;
+  color: var(--slate-800);
+}
+.error-boundary-icon {
+  color: var(--error);
+}
+.error-boundary-details {
+  margin: 16px 0;
+  padding: 12px;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 6px;
+  font-size: 13px;
+}
+.error-boundary-details summary {
+  cursor: pointer;
+  color: var(--slate-700);
+  font-weight: 500;
+}
+.error-boundary-details pre {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 12px;
+  color: var(--slate-700);
 }
 .result-raw {
   margin: 16px 0;
@@ -1061,6 +1160,17 @@ kbd {
   }
   .result-summary dd,
   .result-summary dt {
+    color: #000 !important;
+  }
+  /* Metric cards: keep their grid but force B/W with visible borders */
+  .metric-card {
+    background: #fff !important;
+    border: 1px solid #999 !important;
+    page-break-inside: avoid;
+  }
+  .metric-label,
+  .metric-value,
+  .metric-subtitle {
     color: #000 !important;
   }
   h1 {

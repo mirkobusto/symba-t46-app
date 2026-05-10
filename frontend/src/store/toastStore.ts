@@ -26,11 +26,18 @@ export interface ToastState {
 
 let _next = 1
 
+// Cap the visible-toast stack so a flurry of errors can't overwhelm
+// the screen. Older toasts are dropped FIFO when the cap is exceeded.
+const MAX_TOASTS = 3
+
 export const useToastStore = create<ToastState>((set, get) => ({
   toasts: [],
   push: ({ type, message, durationMs = 5000 }) => {
     const id = _next++
-    set({ toasts: [...get().toasts, { id, type, message }] })
+    const next = [...get().toasts, { id, type, message }]
+    // Drop oldest if over the cap (keep last MAX_TOASTS)
+    const trimmed = next.length > MAX_TOASTS ? next.slice(-MAX_TOASTS) : next
+    set({ toasts: trimmed })
     if (durationMs > 0) {
       setTimeout(() => get().dismiss(id), durationMs)
     }

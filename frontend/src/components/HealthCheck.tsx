@@ -3,9 +3,14 @@ import { useEffect, useState } from 'react'
 type Status = 'loading' | 'ok' | 'unreachable'
 
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL ?? 'http://localhost:8000'
+  (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
+  'http://localhost:8001'
 
-export default function HealthCheck() {
+interface Props {
+  compact?: boolean
+}
+
+export default function HealthCheck({ compact = false }: Props) {
   const [status, setStatus] = useState<Status>('loading')
 
   useEffect(() => {
@@ -26,7 +31,24 @@ export default function HealthCheck() {
     }
   }, [])
 
-  if (status === 'loading') return <p>Backend: checking…</p>
-  if (status === 'ok') return <p>Backend: OK</p>
-  return <p>Backend: unreachable</p>
+  const dotClass =
+    status === 'ok'
+      ? 'status-dot status-dot-ok'
+      : status === 'unreachable'
+        ? 'status-dot status-dot-error'
+        : 'status-dot status-dot-loading'
+
+  const label =
+    status === 'loading'
+      ? 'checking'
+      : status === 'ok'
+        ? 'OK'
+        : 'unreachable'
+
+  return (
+    <span className={`health-check ${compact ? 'health-check-compact' : ''}`}>
+      <span className={dotClass} aria-hidden="true" />
+      <span>Backend: {label}</span>
+    </span>
+  )
 }

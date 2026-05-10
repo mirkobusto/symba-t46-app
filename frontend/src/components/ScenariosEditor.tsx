@@ -1,6 +1,13 @@
-// Q2-D scenarios editor — i18n.
+// Q2-D scenarios editor — i18n + per-scenario JSON overrides editor
+// (Follow-up E completing Feature C).
+//
+// Each scenario row exposes a textarea where the user pastes a JSON
+// dict of Case-shaped overrides. Live validation: invalid JSON shows
+// a red border + an error chip; valid JSON updates scenario.overrides
+// on the parent immediately.
 
-import { Plus, Trash2 } from 'lucide-react'
+import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { AlternativeScenario } from '../types/api'
@@ -19,6 +26,11 @@ function nextId(existing: AlternativeScenario[]): string {
 
 export default function ScenariosEditor({ scenarios, onChange }: Props) {
   const { t } = useTranslation()
+  // Track per-scenario raw textarea content + parse error so the user
+  // can edit invalid JSON without losing keystrokes.
+  const [rawOverrides, setRawOverrides] = useState<Record<string, string>>({})
+  const [parseErrors, setParseErrors] = useState<Record<string, boolean>>({})
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   function addScenario() {
     onChange([
@@ -35,28 +47,60 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
     onChange(scenarios.map((s) => (s.id === id ? { ...s, ...patch } : s)))
   }
 
+  function getRaw(s: AlternativeScenario): string {
+    if (rawOverrides[s.id] !== undefined) return rawOverrides[s.id]
+    if (Object.keys(s.overrides).length === 0) return ''
+    return JSON.stringify(s.overrides, null, 2)
+  }
+
+  function handleOverridesChange(id: string, raw: string) {
+    setRawOverrides({ ...rawOverrides, [id]: raw })
+    if (raw.trim() === '') {
+      setParseErrors({ ...parseErrors, [id]: false })
+      updateScenario(id, { overrides: {} })
+      return
+    }
+    try {
+      const parsed = JSON.parse(raw) as unknown
+      if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+        throw new Error('Overrides must be a JSON object')
+      }
+      setParseErrors({ ...parseErrors, [id]: false })
+      updateScenario(id, { overrides: parsed as Record<string, unknown> })
+    } catch {
+      setParseErrors({ ...parseErrors, [id]: true })
+    }
+  }
+
+  function toggleExpanded(id: string) {
+    setExpanded({ ...expanded, [id]: !expanded[id] })
+  }
+
   return (
     <div className="scenarios-editor">
       <p className="muted">{t('scenarios.intro')}</p>
+      <p className="muted">{t('scenariosResult.overrideHelp')}</p>
 
       {scenarios.length === 0 ? (
         <p className="muted">{t('scenarios.emptyHint')}</p>
       ) : (
-        <table className="flows-table">
-          <thead>
-            <tr>
-              <th>{t('scenarios.headers.id')}</th>
-              <th>{t('scenarios.headers.label')}</th>
-              <th aria-label="actions"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {scenarios.map((s) => (
-              <tr key={s.id}>
-                <td>
+        <div className="scenarios-list">
+          {scenarios.map((s) => {
+            const isOpen = expanded[s.id] ?? false
+            const hasError = parseErrors[s.id] ?? false
+            const overrideKeys = Object.keys(s.overrides).length
+            return (
+              <div key={s.id} className="scenario-row">
+                <div className="scenario-row-header">
+                  <button
+                    type="button"
+                    className="scenario-toggle"
+                    onClick={() => toggleExpanded(s.id)}
+                    aria-label={isOpen ? 'Collapse' : 'Expand'}
+                  >
+                    {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                  </button>
                   <code>{s.id}</code>
-                </td>
-                <td>
                   <input
                     type="text"
                     className="row-input"
@@ -66,8 +110,11 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                       updateScenario(s.id, { label: e.target.value })
                     }
                   />
-                </td>
-                <td>
+                  <span className="muted scenario-overrides-count">
+                    {overrideKeys === 0
+                      ? '—'
+                      : `${overrideKeys} override${overrideKeys === 1 ? '' : 's'}`}
+                  </span>
                   <button
                     type="button"
                     className="icon-btn"
@@ -76,11 +123,28 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                   >
                     <Trash2 size={16} />
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+                {isOpen ? (
+                  <div className="scenario-overrides">
+                    <textarea
+                      className={`row-input scenario-overrides-input${hasError ? ' has-error' : ''}`}
+                      value={getRaw(s)}
+                      placeholder={t('scenariosResult.overridesPlaceholder')}
+                      onChange={(e) => handleOverridesChange(s.id, e.target.value)}
+                      rows={4}
+                      spellCheck={false}
+                    />
+                    {hasError ? (
+                      <p className="opt-warn">
+                        {t('scenariosResult.overridesParseError', { id: s.id })}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
+            )
+          })}
+        </div>
       )}
 
       <button

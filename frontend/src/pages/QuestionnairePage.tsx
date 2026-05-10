@@ -1,21 +1,27 @@
-// 4-B — full per-question UI for Q1-Q7.
-//
-// Out of scope (deferred to 4-C):
-//   - Q5 per-flow tabular UI (this commit uses the legacy single-value
-//     `q5` field; the per-flow `flows[]` editor lands in 4-C)
-//   - Q2-D baseline + alternative scenarios editor (Q2-D is selectable
-//     but the secondary scenarios editor is in 4-C)
+// 4-C — full per-question UI for Q1-Q7 with per-flow Q5 table and
+// Q2-D alternative-scenarios editor.
 //
 // Out of scope (deferred to 4-D):
 //   - "Show reasoning" panel
-//   - case.advanced editor
+//   - case.advanced editor (per-scenario overrides included)
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import FlowsEditor from '../components/FlowsEditor'
 import QuestionCard from '../components/QuestionCard'
+import ScenariosEditor from '../components/ScenariosEditor'
 import { useCaseStore } from '../store/caseStore'
-import type { Q1, Q2, Q4, Q5, Q6a, Q6b, Q7 } from '../types/api'
+import type {
+  AlternativeScenario,
+  Flow,
+  Q1,
+  Q2,
+  Q4,
+  Q6a,
+  Q6b,
+  Q7,
+} from '../types/api'
 
 // ---- Option metadata (labels + descriptions) ----
 
@@ -40,14 +46,6 @@ const Q4_OPTIONS: { value: Q4; label: string; description: string; warn?: string
   { value: 'C', label: 'C. Public superiority claim', description: 'Public claim of environmental superiority.', warn: 'Activates MANDATORY panel review of 3+ independent experts (ISO 14044), no weighting allowed.' },
   { value: 'D', label: 'D. EU policy alignment', description: 'EU policy alignment (CSRD, ESPR, PEFCR).', warn: 'Activates PEF Circular Footprint Formula (CIR-05).' },
   { value: 'E', label: 'E. Academic publication', description: 'Academic peer-reviewed publication.' },
-]
-
-const Q5_OPTIONS: { value: Q5; label: string; description: string }[] = [
-  { value: 'a', label: 'a. Waste (A pays B)', description: 'A pays B for disposal — gate fee → waste/zero-burden.' },
-  { value: 'b', label: 'b. Free exchange (ambiguous)', description: 'Free exchange — EVT mandatory + sensitivity (HC-35).' },
-  { value: 'c', label: 'c. Co-product (B pays A)', description: 'B pays A for the co-product → substitution + Q correction.' },
-  { value: 'd', label: 'd. Interdependent', description: 'A modified its process to produce flow for B — NO zero-burden allowed.' },
-  { value: 'e', label: 'e. Aggregated / black-box', description: 'No per-flow data — system expansion uniform.' },
 ]
 
 const Q6A_OPTIONS: { value: Q6a; label: string }[] = [
@@ -88,7 +86,10 @@ export default function QuestionnairePage() {
   const [eco, setEco] = useState(draft.q3?.eco ?? false)
   const [soc, setSoc] = useState(draft.q3?.soc ?? false)
   const [q4, setQ4] = useState<Set<Q4>>(new Set(draft.q4 ?? []))
-  const [q5, setQ5] = useState<Q5 | undefined>(draft.q5 ?? undefined)
+  const [flows, setFlows] = useState<Flow[]>(draft.flows ?? [])
+  const [scenarios, setScenarios] = useState<AlternativeScenario[]>(
+    draft.alternative_scenarios ?? [],
+  )
   const [q6a, setQ6a] = useState<Q6a | undefined>(draft.q6a ?? undefined)
   const [q6b, setQ6b] = useState<Q6b | undefined>(draft.q6b ?? undefined)
   const [q7, setQ7] = useState<Q7 | undefined>(draft.q7 ?? undefined)
@@ -109,7 +110,10 @@ export default function QuestionnairePage() {
       q2,
       q3: { env, eco, soc },
       q4: Array.from(q4),
-      q5,
+      // Per-flow Q5 supersedes the legacy single-value q5 field
+      q5: undefined,
+      flows,
+      alternative_scenarios: q2 === 'D' ? scenarios : [],
       q6a,
       q6b,
       q7,
@@ -165,6 +169,17 @@ export default function QuestionnairePage() {
         ))}
       </QuestionCard>
 
+      {/* Q2-D — Alternative scenarios editor (visible only when Q2=D) */}
+      {q2 === 'D' ? (
+        <QuestionCard
+          id="q2d-scenarios"
+          title="Q2-D — Alternative scenarios"
+          help="Define one or more future alternative scenarios to compare against the baseline. Triggers the dynamic SSP/RCP background and scenario-matrix support downstream."
+        >
+          <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
+        </QuestionCard>
+      ) : null}
+
       {/* Q3 — Sustainability dimensions */}
       <QuestionCard
         id="q3"
@@ -208,35 +223,13 @@ export default function QuestionnairePage() {
         ))}
       </QuestionCard>
 
-      {/* Q5 — Single-value placeholder; per-flow table arrives in 4-C */}
+      {/* Q5 — Per-flow tabular editor (4-C) */}
       <QuestionCard
         id="q5"
-        title="Q5 — Nature of the symbiotic flow"
-        help="Single-value selector for now. The per-flow table arrives in 4-C."
+        title="Q5 — Nature of each symbiotic flow (per flow)"
+        help="Add one row per main symbiotic flow and pick its Q5 category. Mandatory for Q1 ∈ {A, B, D}; optional otherwise."
       >
-        <label className="opt">
-          <input
-            type="radio"
-            name="q5"
-            value=""
-            checked={q5 === undefined}
-            onChange={() => setQ5(undefined)}
-          />
-          <span className="opt-label">(skip)</span>
-        </label>
-        {Q5_OPTIONS.map((opt) => (
-          <label key={opt.value} className="opt">
-            <input
-              type="radio"
-              name="q5"
-              value={opt.value}
-              checked={q5 === opt.value}
-              onChange={() => setQ5(opt.value)}
-            />
-            <span className="opt-label">{opt.label}</span>
-            <span className="opt-desc">{opt.description}</span>
-          </label>
-        ))}
+        <FlowsEditor flows={flows} onChange={setFlows} />
       </QuestionCard>
 
       {/* Q6a — Sector */}

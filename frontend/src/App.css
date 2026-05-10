@@ -184,31 +184,106 @@
   margin: 12px 0;
 }
 
-/* ---- Form fields (Q1-Q3 stub in 4-A) ---------------------------------- */
+/* ---- QuestionCard (4-B form layout) ---------------------------------- */
 
-.field {
-  margin: 16px 0;
-  padding: 12px 16px;
+.qcard {
+  margin: 20px 0;
+  padding: 16px 20px;
   border: 1px solid var(--slate-200);
-  border-radius: 8px;
+  border-radius: 10px;
+  background: #fff;
 }
-.field legend {
-  font-weight: 600;
-  color: var(--slate-700);
-  padding: 0 4px;
+.qcard-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: var(--slate-800);
+  letter-spacing: -0.2px;
 }
-.radio,
-.check {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-right: 16px;
-  margin-top: 6px;
+.qcard-help {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--slate-600);
+}
+.qcard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qcard-warning {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text);
+  font-size: 14px;
+}
+
+.opt {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 4px 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
   cursor: pointer;
 }
-.check {
+.opt:hover {
+  background: var(--slate-50);
+}
+.opt input[type="radio"],
+.opt input[type="checkbox"] {
+  margin-top: 4px;
+  cursor: pointer;
+}
+.opt-label {
+  font-weight: 500;
+  color: var(--slate-800);
+  font-size: 15px;
+}
+.opt-desc {
+  grid-column: 2;
+  color: var(--slate-600);
+  font-size: 13px;
+  line-height: 145%;
+}
+.opt-warn {
+  grid-column: 2;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: var(--warning-bg);
+  border-left: 3px solid var(--warning-border);
+  border-radius: 3px;
+  color: var(--warning-text);
+  font-size: 12px;
+}
+
+.select {
+  padding: 8px 12px;
+  border: 1px solid var(--slate-300);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--slate-800);
+  width: 100%;
+  max-width: 480px;
+}
+.select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.run-bar {
+  position: sticky;
+  bottom: 0;
   display: flex;
-  margin-right: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  margin-top: 20px;
+  border-top: 1px solid var(--slate-200);
+  background: #fff;
 }
 
 /* ---- Result page ----------------------------------------------------- */

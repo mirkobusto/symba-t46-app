@@ -49,9 +49,30 @@ def test_block_C2_plus_ELCC_no_fire_for_natural_q1D(schemas):
 # ---------------------------------------------------------------------------
 
 
-def test_block_AbsoluteSLCA_inert_today_even_with_soc_true(schemas):
-    """Without `case.advanced` field, block 2 cannot fire under any case."""
+def test_block_AbsoluteSLCA_inactive_when_advanced_empty(schemas):
+    """Default empty `case.advanced` dict means no override → block dormant."""
     case = Case(q1=Q1.A, q3=Q3(soc=True))
+    assert case.advanced == {}
+    run(case, schemas)
+    assert "block_anyQ1_plus_AbsoluteSLCA" not in case.blocked_by
+
+
+def test_block_AbsoluteSLCA_fires_when_advanced_override_set(schemas):
+    """Q3.soc=true AND advanced['slca_framework_override']='absolute' → fire."""
+    case = Case(
+        q1=Q1.A, q3=Q3(soc=True),
+        advanced={"slca_framework_override": "absolute"},
+    )
+    run(case, schemas)
+    assert "block_anyQ1_plus_AbsoluteSLCA" in case.blocked_by
+
+
+def test_block_AbsoluteSLCA_no_fire_without_soc_even_with_override(schemas):
+    """The override alone is not enough; Q3.soc must also be true."""
+    case = Case(
+        q1=Q1.A, q3=Q3(env=True, soc=False),
+        advanced={"slca_framework_override": "absolute"},
+    )
     run(case, schemas)
     assert "block_anyQ1_plus_AbsoluteSLCA" not in case.blocked_by
 

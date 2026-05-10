@@ -1,11 +1,14 @@
 import { Link, Outlet } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import HealthBanner from './HealthBanner'
 import HealthCheck from './HealthCheck'
+import LanguageSwitcher from './LanguageSwitcher'
 import ShortcutsHelp from './ShortcutsHelp'
 import ToastHost from './ToastHost'
 
 export default function Layout() {
+  const { t } = useTranslation()
   return (
     <div className="layout">
       <a href="#main-content" className="skip-link">
@@ -13,10 +16,11 @@ export default function Layout() {
       </a>
       <header className="layout-header">
         <Link to="/" className="layout-brand">
-          SYMBA T4.6
+          {t('layout.brand')}
         </Link>
         <nav className="layout-nav" aria-label="Primary">
-          <Link to="/about">About</Link>
+          <Link to="/about">{t('layout.about')}</Link>
+          <LanguageSwitcher />
         </nav>
       </header>
       <HealthBanner />
@@ -25,10 +29,12 @@ export default function Layout() {
       </main>
       <footer className="layout-footer">
         <span>
-          SYMBA T4.6 — IS Assessment Tool · MVP
-          <span className="muted"> · Press </span>
+          {t('layout.footer')}
+          <span className="muted"> · </span>
+          <span>
+            {t('layout.shortcutsHint', { key: '?' }).split('?')[0]}
+          </span>
           <kbd>?</kbd>
-          <span className="muted"> for shortcuts</span>
         </span>
         <HealthCheck compact />
       </footer>

@@ -1,15 +1,16 @@
 // Preset loader — load one of the 13 paper fixtures into the case
-// draft and jump to the questionnaire so the user can inspect, tweak,
-// or run the pipeline against a known-good case.
+// draft and jump to the questionnaire.
 
 import { FileText } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { PRESETS } from '../presets/papers'
 import { useCaseStore } from '../store/caseStore'
 
 export default function PresetLoader() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
   const [presetId, setPresetId] = useState<string>(PRESETS[0]?.id ?? '')
@@ -17,9 +18,6 @@ export default function PresetLoader() {
   function handleLoad() {
     const preset = PRESETS.find((p) => p.id === presetId)
     if (!preset) return
-    // Populate draft with the preset's Case fields. Initialise empty
-    // dicts/arrays the engine expects so the form doesn't have to
-    // null-check.
     setDraft({
       q3: { env: false, eco: false, soc: false },
       q4: [],
@@ -36,12 +34,8 @@ export default function PresetLoader() {
 
   return (
     <div className="preset-loader">
-      <h2 className="preset-loader-title">Load a published case as preset</h2>
-      <p className="muted">
-        13 fixtures from the validation sample (12 papers + Leiva
-        Escombreras / Frövi). Loads the Q1-Q7 + per-flow Q5 into the
-        questionnaire so you can inspect and run the engine end-to-end.
-      </p>
+      <h2 className="preset-loader-title">{t('preset.title')}</h2>
+      <p className="muted">{t('preset.help')}</p>
       <div className="preset-row">
         <select
           className="select"
@@ -60,7 +54,7 @@ export default function PresetLoader() {
           onClick={handleLoad}
         >
           <FileText size={16} />
-          Load preset
+          {t('preset.loadButton')}
         </button>
       </div>
       {selected ? (

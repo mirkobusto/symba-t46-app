@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+
+import '../i18n'
 import App from '../App'
 
 describe('App', () => {
@@ -17,9 +19,10 @@ describe('App', () => {
 
   it('renders the home page heading on /', () => {
     render(<App />)
+    // EN default: home.title contains "SYMBA T4.6"
     expect(
       screen.getByRole('heading', {
-        name: /SYMBA T4\.6 — IS Assessment Tool/i,
+        name: /SYMBA T4\.6/i,
       }),
     ).toBeInTheDocument()
   })

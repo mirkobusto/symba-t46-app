@@ -1,10 +1,6 @@
-// "Show reasoning" panel — Step 4-D.
-//
-// Renders the engine output trace in structured form:
-//   - Activated nodes grouped by id-prefix (lca_*, lcc_*, slca_*, system, ...)
-//   - Per-pillar config dicts (collapsible)
-//   - Rule violations as warning cards
-//   - CDP flags as info cards with severity badge
+// "Show reasoning" panel — i18n.
+
+import { useTranslation } from 'react-i18next'
 
 import type { CdpFlag, RuleViolation } from '../types/api'
 
@@ -18,8 +14,6 @@ interface Props {
 function groupByPrefix(nodes: string[]): Record<string, string[]> {
   const out: Record<string, string[]> = {}
   for (const id of nodes) {
-    // id-prefix is everything up to the first underscore for lca/lcc/slca,
-    // otherwise the full id (e.g. lca_t1, lcc_hc_12, slca_hc_42, system_*)
     const prefix = id.split('_')[0] ?? id
     if (!out[prefix]) out[prefix] = []
     out[prefix].push(id)
@@ -47,6 +41,7 @@ export default function ReasoningPanel({
   cdp_flags,
   pillars,
 }: Props) {
+  const { t } = useTranslation()
   const grouped = groupByPrefix(activatedNodes)
   const groupKeys = Object.keys(grouped).sort()
 
@@ -54,7 +49,7 @@ export default function ReasoningPanel({
     <div className="reasoning">
       {/* Activated nodes by pillar */}
       <section className="reasoning-section">
-        <h3>Activated nodes ({activatedNodes.length})</h3>
+        <h3>{t('reasoning.activatedNodes', { count: activatedNodes.length })}</h3>
         <div className="node-groups">
           {groupKeys.map((prefix) => (
             <details key={prefix} className="node-group">
@@ -76,14 +71,17 @@ export default function ReasoningPanel({
 
       {/* Pillar configs */}
       <section className="reasoning-section">
-        <h3>Pillar configurations</h3>
+        <h3>{t('reasoning.pillarConfigs')}</h3>
         {pillars
           .filter((p) => Object.keys(p.data).length > 0)
           .map((p) => (
             <details key={p.name} className="pillar-config">
               <summary>
                 <strong>{p.name}</strong>
-                <span className="muted"> · {Object.keys(p.data).length} keys</span>
+                <span className="muted">
+                  {' · '}
+                  {t('reasoning.pillarKeys', { count: Object.keys(p.data).length })}
+                </span>
               </summary>
               <dl className="pillar-dl">
                 {Object.entries(p.data).map(([k, v]) => (
@@ -98,15 +96,15 @@ export default function ReasoningPanel({
             </details>
           ))}
         {pillars.every((p) => Object.keys(p.data).length === 0) ? (
-          <p className="muted">No pillar values written.</p>
+          <p className="muted">{t('reasoning.noPillarValues')}</p>
         ) : null}
       </section>
 
       {/* Violations */}
       <section className="reasoning-section">
-        <h3>L2 rule violations ({rule_violations.length})</h3>
+        <h3>{t('reasoning.l2Violations', { count: rule_violations.length })}</h3>
         {rule_violations.length === 0 ? (
-          <p className="muted">No violations.</p>
+          <p className="muted">{t('reasoning.noViolations')}</p>
         ) : (
           <ul className="violation-list">
             {rule_violations.map((v, i) => (
@@ -121,9 +119,9 @@ export default function ReasoningPanel({
 
       {/* CDPs */}
       <section className="reasoning-section">
-        <h3>L3 critical decision points ({cdp_flags.length})</h3>
+        <h3>{t('reasoning.l3Cdps', { count: cdp_flags.length })}</h3>
         {cdp_flags.length === 0 ? (
-          <p className="muted">No CDPs surfaced.</p>
+          <p className="muted">{t('reasoning.noCdps')}</p>
         ) : (
           <ul className="cdp-list">
             {cdp_flags.map((cdp) => (
@@ -137,7 +135,8 @@ export default function ReasoningPanel({
                 </header>
                 <p className="cdp-tension">{cdp.tension}</p>
                 <p className="cdp-resolution">
-                  <span className="muted">Resolution:</span> {cdp.resolution_at_l3}
+                  <span className="muted">{t('reasoning.resolution')}:</span>{' '}
+                  {cdp.resolution_at_l3}
                 </p>
                 {cdp.methods.length > 0 ? (
                   <p className="cdp-methods">

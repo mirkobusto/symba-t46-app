@@ -1,12 +1,7 @@
-// Q2-D baseline + alternative scenarios editor (Step 4-C).
-//
-// Visible only when Q2='D'. Edits case.alternative_scenarios: a list
-// of {id, label, overrides}. For 4-C MVP each scenario is just id +
-// label; the per-scenario overrides dict (Q-answer overrides vs
-// baseline) is left empty and will be exposed via the advanced editor
-// in 4-D.
+// Q2-D scenarios editor — i18n.
 
 import { Plus, Trash2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import type { AlternativeScenario } from '../types/api'
 
@@ -23,6 +18,8 @@ function nextId(existing: AlternativeScenario[]): string {
 }
 
 export default function ScenariosEditor({ scenarios, onChange }: Props) {
+  const { t } = useTranslation()
+
   function addScenario() {
     onChange([
       ...scenarios,
@@ -40,21 +37,16 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
 
   return (
     <div className="scenarios-editor">
-      <p className="muted">
-        Add one row per alternative scenario you want to compare against
-        the baseline. The overrides dict (Q-answer deltas vs baseline)
-        is configured in the advanced editor (Step 4-D); for now each
-        scenario carries an empty overrides map.
-      </p>
+      <p className="muted">{t('scenarios.intro')}</p>
 
       {scenarios.length === 0 ? (
-        <p className="muted">No alternative scenarios yet.</p>
+        <p className="muted">{t('scenarios.emptyHint')}</p>
       ) : (
         <table className="flows-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Label</th>
+              <th>{t('scenarios.headers.id')}</th>
+              <th>{t('scenarios.headers.label')}</th>
               <th aria-label="actions"></th>
             </tr>
           </thead>
@@ -69,7 +61,7 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                     type="text"
                     className="row-input"
                     value={s.label}
-                    placeholder="e.g. Future expansion / TRL9 ramp-up"
+                    placeholder={t('scenarios.labelPlaceholder')}
                     onChange={(e) =>
                       updateScenario(s.id, { label: e.target.value })
                     }
@@ -80,7 +72,7 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                     type="button"
                     className="icon-btn"
                     onClick={() => removeScenario(s.id)}
-                    aria-label={`Remove ${s.id}`}
+                    aria-label={t('scenarios.removeAria', { id: s.id })}
                   >
                     <Trash2 size={16} />
                   </button>
@@ -97,7 +89,7 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
         onClick={addScenario}
       >
         <Plus size={16} />
-        Add scenario
+        {t('scenarios.addButton')}
       </button>
     </div>
   )

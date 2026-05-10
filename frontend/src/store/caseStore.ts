@@ -9,6 +9,7 @@
 // 4-B+ will add per-question setters; 4-A only exposes setDraft / runDraft
 // / reset so the foundation is exercised end-to-end.
 
+import i18n from 'i18next'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -58,7 +59,10 @@ export const useCaseStore = create<CaseState>()(
           const ms = Math.round(performance.now() - t0)
           useToastStore.getState().push({
             type: 'success',
-            message: `Pipeline completed in ${ms} ms — pathway ${result.pathway_id ?? '—'}`,
+            message: i18n.t('toast.pipelineCompleted', {
+              ms,
+              pathway: result.pathway_id ?? '—',
+            }),
           })
           return result
         } catch (e) {
@@ -71,7 +75,7 @@ export const useCaseStore = create<CaseState>()(
           set({ loading: false, error: detail, result: null })
           useToastStore.getState().push({
             type: 'error',
-            message: `Pipeline error — ${detail}`,
+            message: i18n.t('toast.pipelineError', { detail }),
             durationMs: 8000,
           })
           return null

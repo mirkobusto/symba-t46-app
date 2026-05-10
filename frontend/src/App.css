@@ -78,13 +78,44 @@
   letter-spacing: -0.2px;
 }
 
+.layout-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .layout-nav a {
   color: var(--text);
   text-decoration: none;
-  margin-left: 16px;
 }
 .layout-nav a:hover {
   color: var(--primary);
+}
+
+.lang-switcher select {
+  padding: 4px 8px;
+  border: 1px solid var(--slate-300);
+  border-radius: 5px;
+  background: var(--surface-input);
+  color: var(--slate-800);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+.lang-switcher select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .layout-main {

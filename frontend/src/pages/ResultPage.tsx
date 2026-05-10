@@ -1,19 +1,12 @@
-// 4-D — structured result page with "Show reasoning" panel.
-//
-// Replaces the 4-A JSON dump with:
-//   - Summary header (pathway + derived states + counts)
-//   - Blocked-by warning banner (if any L1 BLOCK fired)
-//   - Toggleable "Show reasoning" panel: activated nodes by pillar,
-//     pillar configs, L2 violations, L3 CDPs
-//   - Collapsible raw JSON (kept for debugging)
-
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import ReasoningPanel from '../components/ReasoningPanel'
 import { useCaseStore } from '../store/caseStore'
 
 export default function ResultPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const result = useCaseStore((s) => s.result)
   const error = useCaseStore((s) => s.error)
@@ -21,11 +14,7 @@ export default function ResultPage() {
   const [showReasoning, setShowReasoning] = useState(true)
 
   function handleStartFresh() {
-    if (
-      window.confirm(
-        'Discard the current case and start a new one? This cannot be undone.',
-      )
-    ) {
+    if (window.confirm(t('result.confirmStartFresh'))) {
       reset()
       navigate('/')
     }
@@ -34,10 +23,10 @@ export default function ResultPage() {
   if (error) {
     return (
       <div className="result">
-        <h1>Pipeline error</h1>
+        <h1>{t('result.error.title')}</h1>
         <p className="error-text">{error}</p>
         <Link to="/questionnaire" className="btn btn-secondary">
-          Back to questionnaire
+          {t('result.error.back')}
         </Link>
       </div>
     )
@@ -46,12 +35,10 @@ export default function ResultPage() {
   if (!result) {
     return (
       <div className="result">
-        <h1>No result yet</h1>
-        <p className="muted">
-          Submit a questionnaire to see the engine output here.
-        </p>
+        <h1>{t('result.noResult.title')}</h1>
+        <p className="muted">{t('result.noResult.desc')}</p>
         <Link to="/questionnaire" className="btn btn-primary">
-          Open questionnaire
+          {t('result.noResult.cta')}
         </Link>
       </div>
     )
@@ -61,46 +48,41 @@ export default function ResultPage() {
 
   return (
     <div className="result">
-      <h1>Engine output</h1>
+      <h1>{t('result.title')}</h1>
 
-      {/* Summary header */}
       <dl className="result-summary">
-        <dt>Pathway</dt>
+        <dt>{t('result.summary.pathway')}</dt>
         <dd>
           {result.pathway_id ?? '—'}
-          {result.is_01_extended ? ' (extended)' : ''}
+          {result.is_01_extended ? ` ${t('result.summary.extended')}` : ''}
         </dd>
 
-        <dt>ILCD situation</dt>
+        <dt>{t('result.summary.ilcdSituation')}</dt>
         <dd>{result.ilcd_situation ?? '—'}</dd>
 
-        <dt>LCC type</dt>
+        <dt>{t('result.summary.lccType')}</dt>
         <dd>{result.lcc_type ?? '—'}</dd>
 
-        <dt>S-LCA</dt>
+        <dt>{t('result.summary.slca')}</dt>
         <dd>{result.slca_activation_state ?? '—'}</dd>
 
-        <dt>Activated nodes</dt>
+        <dt>{t('result.summary.activatedNodes')}</dt>
         <dd>{result.activated_nodes?.length ?? 0}</dd>
 
-        <dt>L1 blocks fired</dt>
+        <dt>{t('result.summary.l1Blocks')}</dt>
         <dd>{blockedBy.length}</dd>
 
-        <dt>L2 violations</dt>
+        <dt>{t('result.summary.l2Violations')}</dt>
         <dd>{result.rule_violations?.length ?? 0}</dd>
 
-        <dt>L3 CDPs surfaced</dt>
+        <dt>{t('result.summary.l3Cdps')}</dt>
         <dd>{result.cdp_flags?.length ?? 0}</dd>
       </dl>
 
-      {/* L1 BLOCK banner — pipeline short-circuited */}
       {blockedBy.length > 0 ? (
         <div className="blocked-banner">
-          <h3>Pipeline blocked at L1</h3>
-          <p>
-            The engine stopped at L1. No activation, L2 or L3 logic ran.
-            Resolve the blocking constraint(s) below and re-run:
-          </p>
+          <h3>{t('result.blocked.title')}</h3>
+          <p>{t('result.blocked.desc')}</p>
           <ul>
             {blockedBy.map((id) => (
               <li key={id}>
@@ -111,14 +93,13 @@ export default function ResultPage() {
         </div>
       ) : null}
 
-      {/* Reasoning panel toggle */}
       <div className="reasoning-toggle">
         <button
           type="button"
           className="btn btn-secondary"
           onClick={() => setShowReasoning((v) => !v)}
         >
-          {showReasoning ? 'Hide reasoning' : 'Show reasoning'}
+          {showReasoning ? t('result.toggleHide') : t('result.toggleShow')}
         </button>
       </div>
 
@@ -140,22 +121,21 @@ export default function ResultPage() {
         />
       ) : null}
 
-      {/* Raw JSON (debug fallback) */}
       <details className="result-raw">
-        <summary>Raw JSON response</summary>
+        <summary>{t('result.rawJson')}</summary>
         <pre>{JSON.stringify(result, null, 2)}</pre>
       </details>
 
       <div className="result-actions">
         <Link to="/questionnaire" className="btn btn-secondary">
-          Adjust answers
+          {t('result.actions.adjust')}
         </Link>
         <button
           type="button"
           className="btn btn-secondary"
           onClick={handleStartFresh}
         >
-          Start fresh (clear all)
+          {t('result.actions.startFresh')}
         </button>
       </div>
     </div>

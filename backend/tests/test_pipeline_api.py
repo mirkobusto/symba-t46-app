@@ -108,6 +108,86 @@ def test_pipeline_report_q1_none_returns_400(client):
     assert resp.status_code == 400
 
 
+# ---------------------------------------------------------------------------
+# /run-scenarios (Feature C)
+# ---------------------------------------------------------------------------
+
+
+def test_run_scenarios_baseline_only(client):
+    """Empty scenarios list -> just the baseline result."""
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": {
+            "q1": "B", "q2": "D",
+            "q3": {"env": True, "eco": False, "soc": False},
+        },
+        "scenarios": [],
+    })
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["baseline"]["pathway_id"] == "IS-01"
+    assert body["scenarios"] == []
+
+
+def test_run_scenarios_with_two_alternatives(client):
+    """Baseline + 2 scenarios with Q-overrides."""
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": {
+            "q1": "B", "q2": "D",
+            "q3": {"env": True, "eco": False, "soc": False},
+        },
+        "scenarios": [
+            {"id": "alt1", "label": "Add ECO", "overrides": {
+                "q3": {"env": True, "eco": True, "soc": False}
+            }},
+            {"id": "alt2", "label": "Switch to Q1=C", "overrides": {
+                "q1": "C"
+            }},
+        ],
+    })
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["baseline"]["pathway_id"] == "IS-01"
+    assert body["baseline"]["lcc_type"] == "deactivated"
+    # Scenario 1: ECO added -> still IS-01 but lcc_type now C+E
+    assert body["scenarios"][0]["id"] == "alt1"
+    assert body["scenarios"][0]["result"]["pathway_id"] == "IS-01"
+    assert body["scenarios"][0]["result"]["lcc_type"] == "C+E"
+    # Scenario 2: Q1 switched to C -> pathway IS-02
+    assert body["scenarios"][1]["id"] == "alt2"
+    assert body["scenarios"][1]["result"]["pathway_id"] == "IS-02"
+
+
+def test_run_scenarios_baseline_q1_none_returns_400(client):
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": {
+            "q3": {"env": True, "eco": False, "soc": False},
+        },
+        "scenarios": [],
+    })
+    assert resp.status_code == 400
+    assert "baseline" in resp.json()["detail"]
+
+
+def test_run_scenarios_scenario_engine_failure_does_not_400_the_batch(client):
+    """If one scenario's overrides break the engine (e.g. q1=null),
+    the batch still returns 200 with the failed scenario surfaced
+    via empty engine output."""
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": {
+            "q1": "B", "q2": "D",
+            "q3": {"env": True, "eco": False, "soc": False},
+        },
+        "scenarios": [
+            {"id": "broken", "label": "Strip Q1",
+             "overrides": {"q1": None}},
+        ],
+    })
+    assert resp.status_code == 200
+    body = resp.json()
+    # Failed scenario has no pathway_id
+    assert body["scenarios"][0]["result"]["pathway_id"] is None
+
+
 def test_pipeline_run_with_advanced_override(client):
     """advanced['slca_framework_override']='absolute' + Q3.soc=True →
     L1 BLOCK 2 fires."""

@@ -4,11 +4,17 @@
 // `request<T>` helper is generic so future routes (sessions, etc.)
 // can reuse the error-handling and JSON-marshalling convention.
 
-import type { Case } from '../types/api'
+import type {
+  Case,
+  CaseDetail,
+  CaseSummary,
+  ScenarioInput,
+  ScenariosResponse,
+} from '../types/api'
 
 const API_BASE_URL: string =
   (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
-  'http://localhost:8001'
+  'http://localhost:8088'
 
 export class ApiError extends Error {
   status: number
@@ -92,4 +98,50 @@ export async function fetchReportDocx(input: Case): Promise<Blob> {
 
 export function checkHealth(): Promise<{ status: string; version: string }> {
   return request('/health')
+}
+
+export function runScenarios(
+  baseline: Case,
+  scenarios: ScenarioInput[],
+): Promise<ScenariosResponse> {
+  return request<ScenariosResponse>('/api/pipeline/run-scenarios', {
+    method: 'POST',
+    body: JSON.stringify({ baseline, scenarios }),
+  })
+}
+
+// ----- Cases CRUD (Feature D) -----
+
+export function listCases(): Promise<CaseSummary[]> {
+  return request<CaseSummary[]>('/api/cases')
+}
+
+export function getCase(id: string): Promise<CaseDetail> {
+  return request<CaseDetail>(`/api/cases/${encodeURIComponent(id)}`)
+}
+
+export function createCase(name: string, kase: Case): Promise<CaseDetail> {
+  return request<CaseDetail>('/api/cases', {
+    method: 'POST',
+    body: JSON.stringify({ name, case: kase }),
+  })
+}
+
+export function updateCase(
+  id: string, name: string, kase: Case,
+): Promise<CaseDetail> {
+  return request<CaseDetail>(`/api/cases/${encodeURIComponent(id)}`, {
+    method: 'PUT',
+    body: JSON.stringify({ name, case: kase }),
+  })
+}
+
+export function deleteCase(id: string): Promise<void> {
+  return fetch(`${API_BASE_URL}/api/cases/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  }).then((res) => {
+    if (!res.ok) {
+      throw new ApiError(res.status, res.statusText)
+    }
+  })
 }

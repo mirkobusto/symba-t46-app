@@ -13,8 +13,8 @@ import i18n from 'i18next'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { ApiError, runPipeline } from '../services/api'
-import type { Case } from '../types/api'
+import { ApiError, runPipeline, runScenarios } from '../services/api'
+import type { Case, ScenariosResponse } from '../types/api'
 import { useToastStore } from './toastStore'
 
 const EMPTY_DRAFT: Case = {
@@ -29,6 +29,7 @@ const EMPTY_DRAFT: Case = {
 export interface CaseState {
   draft: Case
   result: Case | null
+  scenariosResult: ScenariosResponse | null
   loading: boolean
   error: string | null
   lastSavedAt: number | null
@@ -36,6 +37,7 @@ export interface CaseState {
   setDraft: (next: Case) => void
   patchDraft: (patch: Partial<Case>) => void
   runDraft: () => Promise<Case | null>
+  runScenariosFromDraft: () => Promise<ScenariosResponse | null>
   reset: () => void
 }
 
@@ -44,6 +46,7 @@ export const useCaseStore = create<CaseState>()(
     (set, get) => ({
       draft: { ...EMPTY_DRAFT },
       result: null,
+      scenariosResult: null,
       loading: false,
       error: null,
       lastSavedAt: null,
@@ -85,21 +88,58 @@ export const useCaseStore = create<CaseState>()(
         }
       },
 
+      async runScenariosFromDraft() {
+        const draft = get().draft
+        const scenarios = (draft.alternative_scenarios ?? []).map((s) => ({
+          id: s.id,
+          label: s.label,
+          overrides: s.overrides ?? {},
+        }))
+        set({ loading: true, error: null })
+        try {
+          const response = await runScenarios(draft, scenarios)
+          set({ scenariosResult: response, loading: false })
+          useToastStore.getState().push({
+            type: 'success',
+            message: i18n.t('toast.scenariosCompleted', {
+              n: response.scenarios.length,
+            }),
+          })
+          return response
+        } catch (e) {
+          const detail =
+            e instanceof ApiError
+              ? `${e.status}: ${e.detail}`
+              : e instanceof Error
+                ? e.message
+                : 'Unknown error'
+          set({ loading: false, error: detail, scenariosResult: null })
+          useToastStore.getState().push({
+            type: 'error',
+            message: i18n.t('toast.scenariosError', { detail }),
+            durationMs: 8000,
+          })
+          return null
+        }
+      },
+
       reset: () =>
         set({
           draft: { ...EMPTY_DRAFT },
           result: null,
+          scenariosResult: null,
           error: null,
           lastSavedAt: null,
         }),
     }),
     {
       name: 'symba-case-draft',
-      // Persist draft + result + lastSavedAt; transient flags
-      // (loading/error) reset on hydration.
+      // Persist draft + result + scenariosResult + lastSavedAt; transient
+      // flags (loading/error) reset on hydration.
       partialize: (state) => ({
         draft: state.draft,
         result: state.result,
+        scenariosResult: state.scenariosResult,
         lastSavedAt: state.lastSavedAt,
       }),
     },

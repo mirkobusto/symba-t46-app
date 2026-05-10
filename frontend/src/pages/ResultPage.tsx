@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import ReasoningPanel from '../components/ReasoningPanel'
-import { ApiError, fetchReportDocx } from '../services/api'
+import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 
@@ -45,9 +45,47 @@ export default function ResultPage() {
   const error = useCaseStore((s) => s.error)
   const reset = useCaseStore((s) => s.reset)
   const draft = useCaseStore((s) => s.draft)
+  const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
+  const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
   const [showReasoning, setShowReasoning] = useState(true)
   const [downloadingReport, setDownloadingReport] = useState(false)
+  const [savingCase, setSavingCase] = useState(false)
+
+  async function handleSaveCase() {
+    const name = window.prompt(
+      t('cases.saveDialog'),
+      t('cases.namePlaceholder'),
+    )
+    if (!name) return
+    setSavingCase(true)
+    try {
+      // Save the result Case (post-pipeline) so pathway_id + engine
+      // output are persisted along with the inputs.
+      await createCase(name, result ?? draft)
+      pushToast({
+        type: 'success',
+        message: t('cases.saveSuccess', { name }),
+      })
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.detail : (e as Error).message
+      pushToast({
+        type: 'error',
+        message: t('cases.saveError', { detail: msg }),
+        durationMs: 8000,
+      })
+    } finally {
+      setSavingCase(false)
+    }
+  }
+
+  const hasScenarios =
+    draft.q2 === 'D' && (draft.alternative_scenarios ?? []).length > 0
+
+  async function handleRunScenarios() {
+    const out = await runScenariosFromDraft()
+    if (out) navigate('/scenarios-result')
+  }
 
   // Keyboard shortcuts on the Result page:
   //   R -> toggle reasoning panel
@@ -242,6 +280,18 @@ export default function ResultPage() {
         <Link to="/questionnaire" className="btn btn-secondary">
           {t('result.actions.adjust')}
         </Link>
+        {hasScenarios ? (
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleRunScenarios}
+            disabled={loading}
+          >
+            {loading
+              ? t('result.actions.runningScenarios')
+              : t('result.actions.runScenarios')}
+          </button>
+        ) : null}
         <button
           type="button"
           className="btn btn-secondary"
@@ -258,6 +308,14 @@ export default function ResultPage() {
           {downloadingReport
             ? t('result.actions.downloadingReport')
             : t('result.actions.downloadReport')}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleSaveCase}
+          disabled={savingCase}
+        >
+          {savingCase ? t('cases.saving') : t('cases.saveAsButton')}
         </button>
         <button
           type="button"

@@ -8,21 +8,21 @@ services:
       - ./backend:/app
       - ./backend/data:/app/data
     ports:
-      - "8001:8000"
+      - "8088:8000"
     environment:
       - PYTHONUNBUFFERED=1
 
   frontend:
     build:
       context: ./frontend
-    command: npm run dev -- --host 0.0.0.0
+    command: npm run dev -- --host 0.0.0.0 --port 5180
     volumes:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - "5174:5173"
+      - "5180:5180"
     environment:
-      - VITE_BACKEND_URL=http://192.168.1.146:8001
+      - VITE_BACKEND_URL=http://192.168.1.146:8088
 
     depends_on:
       - backend

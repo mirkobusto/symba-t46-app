@@ -10,11 +10,28 @@ export type Q2 = 'A' | 'B' | 'C' | 'D'
 export type Q4 = 'A' | 'B' | 'C' | 'D' | 'E'
 export type Q5 = 'a' | 'b' | 'c' | 'd' | 'e'
 export type Q6a =
+  // Special placeholders
   | 'none'
+  | 'other'
+  // 14 canonical sectors (mirror app/schemas/sector_overlays.json)
+  | 'agriculture_agrifood_biorefineries'
+  | 'biobased_polymers'
+  | 'plastics_packaging'
+  | 'pulp_paper'
+  | 'chemicals_fertilizers'
+  | 'cement_construction'
+  | 'steel_metals'
+  | 'energy_utilities'
+  | 'wastewater_sludge_biofactories'
+  | 'textile_leather'
+  | 'waste_valorization'
+  | 'food_production'
+  | 'multi_tenant_urban_building'
+  | 'multi_sector'
+  // Legacy aliases (backwards-compat for stored cases / older fixtures)
   | 'wastewater_biofactories'
   | 'agri_food'
   | 'process_industry'
-  | 'other'
 export type Q6b = 'TRL9' | 'TRL7-8' | 'TRL5-6' | 'TRL<5'
 export type Q7 = 'A' | 'B' | 'C' | 'D'
 
@@ -58,6 +75,44 @@ export interface AlternativeScenario {
   id: string
   label: string
   overrides: Record<string, unknown>
+}
+
+// ----- /api/pipeline/run-scenarios payloads -----
+
+export interface ScenarioInput {
+  id: string
+  label: string
+  overrides: Record<string, unknown>
+}
+
+export interface ScenarioResult {
+  id: string
+  label: string
+  result: Case
+}
+
+export interface ScenariosResponse {
+  baseline: Case
+  scenarios: ScenarioResult[]
+}
+
+// ----- /api/cases payloads (Feature D) -----
+
+export interface CaseSummary {
+  id: string
+  name: string
+  pathway_id: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface CaseDetail {
+  id: string
+  name: string
+  pathway_id: string | null
+  created_at: string
+  updated_at: string
+  case: Case
 }
 
 export interface RuleViolation {

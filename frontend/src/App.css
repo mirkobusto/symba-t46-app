@@ -290,6 +290,30 @@
   color: var(--warning-text);
   font-size: 14px;
 }
+.qcard-details {
+  margin: 0 0 12px;
+  padding: 6px 10px;
+  border-left: 3px solid var(--slate-300);
+  background: var(--slate-50);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--slate-700);
+}
+.qcard-details summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--slate-700);
+  font-size: 13px;
+  user-select: none;
+}
+.qcard-details summary:hover {
+  color: var(--primary);
+}
+.qcard-details p {
+  margin: 8px 0 4px;
+  line-height: 150%;
+  white-space: pre-line;
+}
 
 .opt {
   display: grid;
@@ -713,6 +737,98 @@
   font-style: italic;
 }
 
+/* ---- Scenarios editor with per-scenario overrides (Follow-up E) ----- */
+
+.scenarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0;
+}
+.scenario-row {
+  border: 1px solid var(--slate-200);
+  border-radius: 6px;
+  background: var(--surface-input);
+  overflow: hidden;
+}
+.scenario-row-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+}
+.scenario-row-header code {
+  background: var(--slate-100);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.scenario-row-header .row-input {
+  flex: 1 1 auto;
+}
+.scenario-overrides-count {
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.scenario-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--slate-600);
+  padding: 4px;
+  border-radius: 3px;
+  display: inline-flex;
+}
+.scenario-toggle:hover {
+  background: var(--slate-100);
+}
+.scenario-overrides {
+  padding: 8px 12px 12px;
+  border-top: 1px solid var(--slate-100);
+}
+.scenario-overrides-input {
+  width: 100%;
+  font-family: var(--mono, ui-monospace, Consolas, monospace);
+  font-size: 12px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+.scenario-overrides-input.has-error {
+  border-color: var(--error);
+}
+
+/* ---- Scenarios comparison table (Feature C) ------------------------- */
+
+.scenarios-table-wrap {
+  margin: 16px 0 24px;
+  overflow-x: auto;
+}
+.scenarios-table {
+  font-size: 13px;
+}
+.scenarios-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--slate-50);
+}
+.scenarios-table tbody td {
+  vertical-align: top;
+  padding: 8px 10px;
+}
+.scenarios-table tbody tr.row-baseline {
+  background: var(--primary-bg);
+}
+.scenarios-table tbody tr.row-baseline strong {
+  color: var(--primary);
+}
+.scenarios-table tbody td.cell-diff {
+  background: var(--warning-bg);
+  font-weight: 600;
+  color: var(--warning-text);
+}
+
 /* Legacy result-summary (kept for the print stylesheet's reference) */
 .result-summary {
   display: grid;
@@ -835,6 +951,32 @@
   margin-top: 10px;
   font-size: 13px;
   line-height: 145%;
+}
+.preset-details {
+  margin-top: 10px;
+}
+.preset-rationale {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--primary);
+  background: var(--slate-50);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--slate-700);
+}
+.preset-rationale summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--slate-700);
+  font-size: 13px;
+  user-select: none;
+}
+.preset-rationale summary:hover {
+  color: var(--primary);
+}
+.preset-rationale p {
+  margin: 8px 0 4px;
+  line-height: 155%;
 }
 
 /* ---- LoadingOverlay -------------------------------------------------- */

@@ -1,21 +1,22 @@
 """Pipeline HTTP endpoint.
 
-Exposes the engine pipeline (`app.engine.pipeline.run`) over HTTP so
-that frontends, scripts, and external clients can submit a Case payload
-and receive the fully-evaluated Case back. Stateless: no persistence,
-no session affinity — every POST is an independent run.
+Exposes the engine pipeline (`app.engine.pipeline.run`) over HTTP.
+Stateless: every POST is an independent run.
 
-Request: a Case JSON body (Pydantic v2 model in `app.domain.models`).
-Response: the mutated Case JSON, with derived state populated:
-  ilcd_situation, lcc_type, slca_activation_state, pathway_id,
-  is_01_extended, activated_nodes, blocked_by, rule_violations,
-  cdp_flags, and pillar dicts (lca/lcc/slca/report/...).
+Endpoints:
+  POST /api/pipeline/run             -> single Case in, mutated Case out
+  POST /api/pipeline/report          -> single Case in, .docx out
+  POST /api/pipeline/run-scenarios   -> baseline Case + N scenarios in,
+                                       baseline result + N scenario results out
 
 Errors: 400 for ValueError (e.g. Q1=None on a partial questionnaire).
 """
 from __future__ import annotations
 
+from typing import Any
+
 from fastapi import APIRouter, Depends, HTTPException, Response
+from pydantic import BaseModel
 
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas, load_schemas
@@ -73,4 +74,103 @@ def generate_report(
                 'attachment; filename="symba-case-report.docx"'
             ),
         },
+    )
+
+
+# ---------------------------------------------------------------------------
+# Scenarios runner (Q2-D)
+# ---------------------------------------------------------------------------
+
+
+class ScenarioInput(BaseModel):
+    """One scenario in a run-scenarios request.
+
+    `overrides` is a sparse dict of Case-shaped key/values that are
+    shallow-merged onto the baseline before the pipeline runs. Keys
+    not present on Case are silently ignored by Pydantic
+    (extra='forbid' applies at construction; we therefore validate
+    via Case.model_copy(update=...) which is permissive on unknowns).
+    """
+
+    id: str
+    label: str
+    overrides: dict[str, Any] = {}
+
+
+class ScenariosRequest(BaseModel):
+    baseline: Case
+    scenarios: list[ScenarioInput] = []
+
+
+class ScenarioResult(BaseModel):
+    id: str
+    label: str
+    result: Case
+
+
+class ScenariosResponse(BaseModel):
+    baseline: Case
+    scenarios: list[ScenarioResult]
+
+
+def _apply_overrides(baseline: Case, overrides: dict[str, Any]) -> Case:
+    """Build a fresh Case from `baseline` with `overrides` merged in.
+
+    Uses Pydantic v2 `model_dump` + dict merge + re-construct so we get
+    fresh validation (the model_copy(update=...) shortcut bypasses
+    field validators for nested models, which can produce inconsistent
+    state for q3 / q4 etc.).
+    """
+    base = baseline.model_dump(mode="python")
+    base.update(overrides)
+    # Strip engine-output fields so the new pipeline run starts clean
+    for k in (
+        "activated_nodes", "blocked_by", "rule_violations", "cdp_flags",
+        "pathway_id", "is_01_extended", "ilcd_situation", "lcc_type",
+        "slca_activation_state",
+        "lca", "lcc", "slca", "report", "governance",
+        "methodological_charter", "review", "system",
+    ):
+        base.pop(k, None)
+    return Case(**base)
+
+
+@router.post("/run-scenarios", response_model=ScenariosResponse)
+def run_scenarios(
+    payload: ScenariosRequest,
+    schemas: LoadedSchemas = Depends(_get_schemas),
+) -> ScenariosResponse:
+    """Run the pipeline once for the baseline and once per scenario
+    (overrides shallow-merged onto the baseline before each run).
+
+    Returns the baseline result + a list of per-scenario results in
+    input order. Each scenario gets its own fresh Case instance — no
+    state leakage between scenarios.
+
+    On a per-scenario ValueError the response still includes successful
+    scenarios; the failed one is returned with the engine output
+    untouched (so the client can detect by inspecting blocked_by /
+    pathway_id == None). The endpoint itself returns 400 only if the
+    baseline itself fails.
+    """
+    try:
+        baseline_result = pipeline_run(payload.baseline, schemas)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=f"baseline: {exc}") from exc
+
+    scenario_results: list[ScenarioResult] = []
+    for scenario in payload.scenarios:
+        try:
+            sc_case = _apply_overrides(payload.baseline, scenario.overrides)
+            sc_result = pipeline_run(sc_case, schemas)
+        except ValueError:
+            # On scenario failure, return an empty Case shell so the
+            # client can flag it. Don't 400 the whole batch.
+            sc_result = _apply_overrides(payload.baseline, scenario.overrides)
+        scenario_results.append(
+            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result)
+        )
+
+    return ScenariosResponse(
+        baseline=baseline_result, scenarios=scenario_results
     )

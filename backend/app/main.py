@@ -14,6 +14,12 @@ from app.models import Answer, CaseRecord, PathwayResolutionRecord, Session  # n
 from app.routers import cases, decision_engine, health, pipeline, sessions
 
 DEFAULT_CORS_ORIGINS = [
+    # New non-default ports (followup-F to avoid clashes with other
+    # local dev servers).
+    "http://localhost:5180",
+    "http://127.0.0.1:5180",
+    # Legacy ports kept for any pre-existing dev setup that still
+    # uses them.
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://192.168.1.146:5174",

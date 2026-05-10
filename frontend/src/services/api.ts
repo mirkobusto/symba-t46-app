@@ -14,7 +14,7 @@ import type {
 
 const API_BASE_URL: string =
   (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
-  'http://localhost:8001'
+  'http://localhost:8088'
 
 export class ApiError extends Error {
   status: number

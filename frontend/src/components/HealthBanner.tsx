@@ -5,7 +5,7 @@ import { useHealth } from '../hooks/useHealth'
 
 export default function HealthBanner() {
   const { t } = useTranslation()
-  const status = useHealth()
+  const { status } = useHealth()
   if (status !== 'unreachable') return null
   return (
     <div className="health-banner" role="alert">

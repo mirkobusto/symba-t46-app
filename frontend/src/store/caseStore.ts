@@ -31,6 +31,7 @@ export interface CaseState {
   result: Case | null
   loading: boolean
   error: string | null
+  lastSavedAt: number | null
 
   setDraft: (next: Case) => void
   patchDraft: (patch: Partial<Case>) => void
@@ -45,10 +46,12 @@ export const useCaseStore = create<CaseState>()(
       result: null,
       loading: false,
       error: null,
+      lastSavedAt: null,
 
-      setDraft: (next) => set({ draft: next }),
+      setDraft: (next) => set({ draft: next, lastSavedAt: Date.now() }),
 
-      patchDraft: (patch) => set({ draft: { ...get().draft, ...patch } }),
+      patchDraft: (patch) =>
+        set({ draft: { ...get().draft, ...patch }, lastSavedAt: Date.now() }),
 
       async runDraft() {
         const t0 = performance.now()
@@ -83,13 +86,22 @@ export const useCaseStore = create<CaseState>()(
       },
 
       reset: () =>
-        set({ draft: { ...EMPTY_DRAFT }, result: null, error: null }),
+        set({
+          draft: { ...EMPTY_DRAFT },
+          result: null,
+          error: null,
+          lastSavedAt: null,
+        }),
     }),
     {
       name: 'symba-case-draft',
-      // Persist only draft + result; transient flags (loading/error) reset
-      // on hydration.
-      partialize: (state) => ({ draft: state.draft, result: state.result }),
+      // Persist draft + result + lastSavedAt; transient flags
+      // (loading/error) reset on hydration.
+      partialize: (state) => ({
+        draft: state.draft,
+        result: state.result,
+        lastSavedAt: state.lastSavedAt,
+      }),
     },
   ),
 )

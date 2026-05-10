@@ -8,7 +8,7 @@ interface Props {
 
 export default function HealthCheck({ compact = false }: Props) {
   const { t } = useTranslation()
-  const status = useHealth()
+  const { status, version } = useHealth()
 
   const dotClass =
     status === 'ok'
@@ -29,6 +29,7 @@ export default function HealthCheck({ compact = false }: Props) {
       <span className={dotClass} aria-hidden="true" />
       <span>
         {t('health.backendLabel')}: {label}
+        {status === 'ok' && version ? <span className="muted"> · v{version}</span> : null}
       </span>
     </span>
   )

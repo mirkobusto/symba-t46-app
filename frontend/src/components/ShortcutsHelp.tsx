@@ -13,6 +13,8 @@ interface Item {
 const ITEMS: Item[] = [
   { keys: '?', descriptionKey: 'shortcuts.items.help' },
   { keys: 'Ctrl/⌘ + Enter', descriptionKey: 'shortcuts.items.run', contextKey: 'shortcuts.items.runContext' },
+  { keys: 'R', descriptionKey: 'shortcuts.items.toggleReasoning', contextKey: 'shortcuts.items.toggleReasoningContext' },
+  { keys: 'P', descriptionKey: 'shortcuts.items.print', contextKey: 'shortcuts.items.printContext' },
   { keys: 'Esc', descriptionKey: 'shortcuts.items.esc' },
 ]
 

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import HealthBanner from './HealthBanner'
 import HealthCheck from './HealthCheck'
 import LanguageSwitcher from './LanguageSwitcher'
+import SaveStatus from './SaveStatus'
 import ShortcutsHelp from './ShortcutsHelp'
 import ToastHost from './ToastHost'
 
@@ -36,7 +37,10 @@ export default function Layout() {
           </span>
           <kbd>?</kbd>
         </span>
-        <HealthCheck compact />
+        <span className="layout-footer-right">
+          <SaveStatus />
+          <HealthCheck compact />
+        </span>
       </footer>
       <ToastHost />
       <ShortcutsHelp />

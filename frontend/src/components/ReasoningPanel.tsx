@@ -1,5 +1,6 @@
 // "Show reasoning" panel — i18n.
 
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { CdpFlag, RuleViolation } from '../types/api'
@@ -42,7 +43,13 @@ export default function ReasoningPanel({
   pillars,
 }: Props) {
   const { t } = useTranslation()
-  const grouped = groupByPrefix(activatedNodes)
+  const [filter, setFilter] = useState('')
+
+  const filterLower = filter.trim().toLowerCase()
+  const filteredNodes = filterLower
+    ? activatedNodes.filter((id) => id.toLowerCase().includes(filterLower))
+    : activatedNodes
+  const grouped = groupByPrefix(filteredNodes)
   const groupKeys = Object.keys(grouped).sort()
 
   return (
@@ -50,23 +57,45 @@ export default function ReasoningPanel({
       {/* Activated nodes by pillar */}
       <section className="reasoning-section">
         <h3>{t('reasoning.activatedNodes', { count: activatedNodes.length })}</h3>
-        <div className="node-groups">
-          {groupKeys.map((prefix) => (
-            <details key={prefix} className="node-group">
-              <summary>
-                <strong>{PREFIX_LABELS[prefix] ?? prefix}</strong>
-                <span className="muted"> · {grouped[prefix].length}</span>
-              </summary>
-              <ul className="node-list">
-                {grouped[prefix].map((id) => (
-                  <li key={id}>
-                    <code>{id}</code>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          ))}
+        <div className="node-filter">
+          <input
+            type="text"
+            className="row-input"
+            placeholder={t('reasoning.filterPlaceholder')}
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            aria-label={t('reasoning.filterPlaceholder')}
+          />
+          {filter ? (
+            <span className="muted node-filter-meta">
+              {t('reasoning.showingFiltered', {
+                shown: filteredNodes.length,
+                total: activatedNodes.length,
+              })}
+            </span>
+          ) : null}
         </div>
+        {filter && filteredNodes.length === 0 ? (
+          <p className="muted">{t('reasoning.noMatch')}</p>
+        ) : (
+          <div className="node-groups">
+            {groupKeys.map((prefix) => (
+              <details key={prefix} className="node-group" open={!!filter}>
+                <summary>
+                  <strong>{PREFIX_LABELS[prefix] ?? prefix}</strong>
+                  <span className="muted"> · {grouped[prefix].length}</span>
+                </summary>
+                <ul className="node-list">
+                  {grouped[prefix].map((id) => (
+                    <li key={id}>
+                      <code>{id}</code>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Pillar configs */}

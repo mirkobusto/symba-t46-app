@@ -175,11 +175,11 @@ export default function QuestionnairePage() {
         improves the engine output.
       </p>
 
-      {/* Q1 — IS scenario archetype */}
+      {/* Q1 — IS scenario archetype (required) */}
       <QuestionCard
         id="q1"
-        title="Q1 — What are you analyzing?"
-        help="Pick the closest match. If ambiguous, ask: who is the SUBJECT of the report?"
+        title="Q1 — What are you analyzing? *"
+        help="Pick the closest match. If ambiguous, ask: who is the SUBJECT of the report? (Required.)"
       >
         {Q1_OPTIONS.map((opt) => (
           <label key={opt.value} className="opt">
@@ -189,6 +189,8 @@ export default function QuestionnairePage() {
               value={opt.value}
               checked={q1 === opt.value}
               onChange={() => setQ1(opt.value)}
+              aria-required="true"
+              aria-invalid={!q1}
             />
             <span className="opt-label">{opt.label}</span>
             <span className="opt-desc">{opt.description}</span>
@@ -224,23 +226,35 @@ export default function QuestionnairePage() {
         </QuestionCard>
       ) : null}
 
-      {/* Q3 — Sustainability dimensions */}
+      {/* Q3 — Sustainability dimensions (required: ≥1) */}
       <QuestionCard
         id="q3"
-        title="Q3 — Which sustainability dimensions to include?"
+        title="Q3 — Which sustainability dimensions to include? *"
         help="At least one is required. Default: ENV + ECO."
         warning={q3Empty ? 'Select at least one dimension to proceed.' : undefined}
       >
         <label className="opt">
-          <input type="checkbox" checked={env} onChange={(e) => setEnv(e.target.checked)} />
+          <input
+            type="checkbox" checked={env}
+            onChange={(e) => setEnv(e.target.checked)}
+            aria-invalid={q3Empty}
+          />
           <span className="opt-label">Environmental (LCA)</span>
         </label>
         <label className="opt">
-          <input type="checkbox" checked={eco} onChange={(e) => setEco(e.target.checked)} />
+          <input
+            type="checkbox" checked={eco}
+            onChange={(e) => setEco(e.target.checked)}
+            aria-invalid={q3Empty}
+          />
           <span className="opt-label">Economic (LCC / MFCA / CBA / TEA)</span>
         </label>
         <label className="opt">
-          <input type="checkbox" checked={soc} onChange={(e) => setSoc(e.target.checked)} />
+          <input
+            type="checkbox" checked={soc}
+            onChange={(e) => setSoc(e.target.checked)}
+            aria-invalid={q3Empty}
+          />
           <span className="opt-label">Social (S-LCA)</span>
         </label>
       </QuestionCard>

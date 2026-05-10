@@ -782,6 +782,114 @@ body {
   color: var(--slate-700);
 }
 
+/* ---- Accessibility utilities (a11y polish) --------------------------- */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 0 0 6px 0;
+  text-decoration: none;
+  font-size: 14px;
+  z-index: 300;
+}
+.skip-link:focus {
+  left: 0;
+  top: 0;
+}
+
+.layout-main:focus {
+  outline: none;
+}
+
+/* Visual indicator for invalid required radios/checkboxes (aria-invalid) */
+input[type="radio"][aria-invalid="true"],
+input[type="checkbox"][aria-invalid="true"] {
+  outline: 2px solid var(--error);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+input[type="checkbox"][aria-invalid="true"] {
+  border-radius: 3px;
+}
+
+/* Honour prefers-reduced-motion: no spinner, no toast slide */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: var(--slate-300);
+  }
+  .toast {
+    animation: none;
+  }
+}
+
+/* ---- Shortcuts help modal -------------------------------------------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+  backdrop-filter: blur(2px);
+}
+.modal-card {
+  max-width: min(90vw, 480px);
+  background: var(--surface-input);
+  color: var(--slate-800);
+  padding: 24px 28px;
+  border: 1px solid var(--slate-200);
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+}
+.modal-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  color: var(--slate-800);
+  letter-spacing: -0.2px;
+}
+.modal-hint {
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+.shortcuts-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+.shortcuts-table td {
+  padding: 8px 6px;
+  vertical-align: top;
+  border-top: 1px solid var(--slate-100);
+}
+.shortcuts-table tr:first-child td {
+  border-top: none;
+}
+.shortcuts-table td:first-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+kbd {
+  display: inline-block;
+  font-family: var(--mono, ui-monospace, Consolas, monospace);
+  font-size: 12px;
+  padding: 2px 6px;
+  background: var(--slate-100);
+  color: var(--slate-800);
+  border: 1px solid var(--slate-300);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+
 /* ---- HealthBanner (top-of-page warning when backend unreachable) ----- */
 
 .health-banner {

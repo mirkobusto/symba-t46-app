@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest tests/ -q)",
+      "Bash(python -m pytest tests/test_pathway.py -v)",
+      "Bash(python -m ruff check app/engine/pathway.py app/domain/models.py tests/test_pathway.py)",
+      "Bash(pip install *)",
+      "Bash(python -m ruff check backend/app/engine/pathway.py backend/app/domain/models.py backend/tests/test_pathway.py)",
+      "Bash(python -m ruff check backend/app/engine/pathway.py backend/tests/test_pathway.py)",
+      "Bash(python -m ruff check .)"
+    ]
+  }
+}

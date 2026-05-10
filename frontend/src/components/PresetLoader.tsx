@@ -58,9 +58,15 @@ export default function PresetLoader() {
         </button>
       </div>
       {selected ? (
-        <p className="preset-desc muted">
-          <em>{selected.citation}</em> — {selected.description}
-        </p>
+        <div className="preset-details">
+          <p className="preset-desc muted">
+            <em>{selected.citation}</em> — {selected.description}
+          </p>
+          <details className="preset-rationale">
+            <summary>{t('preset.rationaleToggle')}</summary>
+            <p>{selected.rationale}</p>
+          </details>
+        </div>
       ) : null}
     </div>
   )

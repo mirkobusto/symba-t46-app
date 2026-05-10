@@ -148,7 +148,12 @@ export default function QuestionnairePage() {
       <p className="muted">{t('questionnaire.intro')}</p>
 
       {/* Q1 */}
-      <QuestionCard id="q1" title={t('questionnaire.q1.title')} help={t('questionnaire.q1.help')}>
+      <QuestionCard
+        id="q1"
+        title={t('questionnaire.q1.title')}
+        help={t('questionnaire.q1.help')}
+        details={t('questionnaire.q1.details')}
+      >
         {Q1_KEYS.map((v) => (
           <label key={v} className="opt">
             <input
@@ -163,7 +168,11 @@ export default function QuestionnairePage() {
       </QuestionCard>
 
       {/* Q2 */}
-      <QuestionCard id="q2" title={t('questionnaire.q2.title')}>
+      <QuestionCard
+        id="q2"
+        title={t('questionnaire.q2.title')}
+        details={t('questionnaire.q2.details')}
+      >
         {Q2_KEYS.map((v) => (
           <label key={v} className="opt">
             <input
@@ -192,6 +201,7 @@ export default function QuestionnairePage() {
         id="q3"
         title={t('questionnaire.q3.title')}
         help={t('questionnaire.q3.help')}
+        details={t('questionnaire.q3.details')}
         warning={q3Empty ? t('questionnaire.q3.warning') : undefined}
       >
         <label className="opt">
@@ -221,7 +231,12 @@ export default function QuestionnairePage() {
       </QuestionCard>
 
       {/* Q4 */}
-      <QuestionCard id="q4" title={t('questionnaire.q4.title')} help={t('questionnaire.q4.help')}>
+      <QuestionCard
+        id="q4"
+        title={t('questionnaire.q4.title')}
+        help={t('questionnaire.q4.help')}
+        details={t('questionnaire.q4.details')}
+      >
         {Q4_KEYS.map((v) => {
           const warnKey = Q4_WARN_KEYS[v]
           return (
@@ -241,12 +256,22 @@ export default function QuestionnairePage() {
       </QuestionCard>
 
       {/* Q5 — flows table */}
-      <QuestionCard id="q5" title={t('questionnaire.q5.title')} help={t('questionnaire.q5.help')}>
+      <QuestionCard
+        id="q5"
+        title={t('questionnaire.q5.title')}
+        help={t('questionnaire.q5.help')}
+        details={t('questionnaire.q5.details')}
+      >
         <FlowsEditor flows={flows} onChange={setFlows} />
       </QuestionCard>
 
       {/* Q6a */}
-      <QuestionCard id="q6a" title={t('questionnaire.q6a.title')} help={t('questionnaire.q6a.help')}>
+      <QuestionCard
+        id="q6a"
+        title={t('questionnaire.q6a.title')}
+        help={t('questionnaire.q6a.help')}
+        details={t('questionnaire.q6a.details')}
+      >
         <select
           value={q6a ?? ''}
           onChange={(e) => setQ6a((e.target.value || undefined) as Q6a | undefined)}
@@ -262,7 +287,11 @@ export default function QuestionnairePage() {
       </QuestionCard>
 
       {/* Q6b */}
-      <QuestionCard id="q6b" title={t('questionnaire.q6b.title')}>
+      <QuestionCard
+        id="q6b"
+        title={t('questionnaire.q6b.title')}
+        details={t('questionnaire.q6b.details')}
+      >
         <select
           value={q6b ?? ''}
           onChange={(e) => setQ6b((e.target.value || undefined) as Q6b | undefined)}
@@ -278,7 +307,12 @@ export default function QuestionnairePage() {
       </QuestionCard>
 
       {/* Q7 */}
-      <QuestionCard id="q7" title={t('questionnaire.q7.title')} help={t('questionnaire.q7.help')}>
+      <QuestionCard
+        id="q7"
+        title={t('questionnaire.q7.title')}
+        help={t('questionnaire.q7.help')}
+        details={t('questionnaire.q7.details')}
+      >
         {Q7_KEYS.map((v) => (
           <label key={v} className="opt">
             <input

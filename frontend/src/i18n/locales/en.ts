@@ -16,6 +16,7 @@ const en = {
     optional: 'optional',
     skip: '(skip)',
     required: 'Required',
+    examplesAndContext: 'Examples & context',
   },
 
   layout: {
@@ -82,6 +83,12 @@ const en = {
       title: 'Q1 — What are you analyzing? *',
       help:
         'Pick the closest match. If ambiguous, ask: who is the SUBJECT of the report? (Required.)',
+      details:
+        'A — bilateral exchange (e.g. waste heat from Plant X to Plant Y, or by-product gypsum from a power plant to a cement kiln). The subject is the SHARED FLOW between two companies. ' +
+        'B — eco-industrial park or symbiotic network with 3+ actors (e.g. Kalundborg, NISP cluster, an industrial park master plan). The subject is the NETWORK as a system. ' +
+        'C — public-policy or programme decision at regional/national scale (e.g. an IS subsidy scheme, a regulatory framework, an EU industrial strategy). The subject is the DECISION/PROGRAMME, not a specific plant. ' +
+        'D — a single company quantifying its symbiotic contribution for ESG / CSRD / sustainability reporting (e.g. "we sold 12 kt of slag to cement makers, here is our credit"). The subject is ONE COMPANY. ' +
+        'E — periodic monitoring of an already-operating symbiosis (annual KPI updates, post-implementation surveillance). The subject is the TIME SERIES, not a one-off study.',
       options: {
         A: { label: 'A. Specific exchange', description: 'A symbiotic exchange between two existing companies.' },
         B: { label: 'B. Eco-park / network', description: 'An eco-industrial park or multi-actor symbiotic network.' },
@@ -93,6 +100,11 @@ const en = {
 
     q2: {
       title: 'Q2 — What phase is the system in?',
+      details:
+        'A — existing exchange or park running for years; primary plant data is available. (e.g. Kalundborg today, Sokka 2011 reporting an existing IES.) ' +
+        'B — built recently or in commissioning; data is partly measured, partly engineering estimate. ' +
+        'C — pre-construction design study; no measured operating data; engineering models only. (e.g. Daddi 2017 ex-ante study.) ' +
+        'D — operational baseline + one or more future "what-if" scenarios you want to compare (e.g. expansion, TRL ramp-up, decarbonised electricity grid). Choosing D enables the alternative-scenarios editor below.',
       options: {
         A: { label: 'A. Operational', description: 'Exists and has been operating for years (real operational data).' },
         B: { label: 'B. Under construction', description: 'Under construction or recently commissioned.' },
@@ -104,6 +116,11 @@ const en = {
     q3: {
       title: 'Q3 — Which sustainability dimensions to include? *',
       help: 'At least one is required. Default: ENV + ECO.',
+      details:
+        'ENV — Environmental Life Cycle Assessment (LCA): impacts on climate, ecosystems, resource use. Almost always selected. ' +
+        'ECO — economic dimension; default tool is LCC (Life Cycle Costing), but the engine also accepts MFCA (Material Flow Cost Accounting), CBA (Cost-Benefit Analysis), or TEA (Techno-Economic Analysis) depending on Q4 and reporting context. ' +
+        'SOC — Social LCA. Selecting it activates a longer rule chain (worker / local-community / value-chain stakeholder categories) and forces L1 BLOCK 2 if the advanced override slca_framework_override is set to "absolute". ' +
+        'Most published IS papers run ENV-only (e.g. Sokka, Daddi); a few couple ENV+ECO (Hashimoto, Wiktor); only a handful add SOC.',
       warning: 'Select at least one dimension to proceed.',
       env: 'Environmental (LCA)',
       eco: 'Economic (LCC / MFCA / CBA / TEA)',
@@ -113,6 +130,13 @@ const en = {
     q4: {
       title: 'Q4 — What is the report for?',
       help: 'Multi-select. Some uses combine (e.g. D + E for an EU PEF paper).',
+      details:
+        'A — internal use: management dashboards, R&D screening, plant-level decisions. Few methodological constraints. ' +
+        'B — external communication WITHOUT comparative claims (sustainability reports, marketing brochures with no "better than X" statement). ' +
+        'C — public CLAIM of environmental superiority vs an alternative product (e.g. "this cement is greener than OPC"). Activates the mandatory ISO 14044 critical review by 3+ independent experts and disables weighting. Use with care. ' +
+        'D — alignment with EU policy instruments (CSRD disclosure, ESPR digital product passport, PEFCR category rules). Forces the PEF Circular Footprint Formula via CIR-05. ' +
+        'E — academic peer-reviewed publication. Requires full transparency (data sources, allocation choices, sensitivity). Often combined with B or D. ' +
+        'You can multi-select: a typical PEF paper picks D + E.',
       options: {
         A: { label: 'A. Internal', description: 'Internal use (managerial, R&D, planning).' },
         B: { label: 'B. External (no claim)', description: 'External communication without comparative claims.' },
@@ -134,12 +158,24 @@ const en = {
       title: 'Q5 — Nature of each symbiotic flow (per flow)',
       help:
         'Add one row per main symbiotic flow and pick its Q5 category. Mandatory for Q1 ∈ {A, B, D}; optional otherwise.',
+      details:
+        'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick the economic relationship: ' +
+        'a — A pays B to take the flow (the flow is a WASTE for A): typical waste-disposal contract. Triggers waste-paradigm allocation rules. ' +
+        'b — flow exchanged for FREE (ambiguous status): the engine routes to the free-flow disambiguation chain. ' +
+        'c — B pays A for the flow (the flow is a CO-PRODUCT for A): triggers economic-allocation rules and the PEF Circular Footprint Formula path. ' +
+        'd — INTERDEPENDENT flow: neither side could operate without the other; treated as an integrated system, often with system expansion. ' +
+        'e — AGGREGATED / black-box: the published case does not give per-flow detail (typical of aggregate IES papers like Sokka 2011). ' +
+        'For policy-level Q1=C studies, Q5 is usually optional.',
     },
 
     q6a: {
       title: 'Q6a — Sector',
       help:
         '14 canonical sectors per WorkingDoc §3 + Other. Sector-specific node activations (e.g. lca_mc_30 wastewater) read this enum.',
+      details:
+        'Sector controls a small set of sector-specific node activations and overlay defaults. Pick the closest match to the dominant sector of the case (the actor that contributes most mass/energy/value). ' +
+        'Examples: pulp_paper for Sokka 2011 (UPM Kymi); chemicals_fertilizers for Hashimoto / Wiktor; cement_construction for Leiva 2025 Escombreras; biobased_polymers for Briassoulis; food_production / agri-food for Daddi. ' +
+        'For mixed cases use multi_sector. The "(legacy)" entries at the bottom exist for backward-compatible loading of older fixtures — prefer the new 14-sector list.',
       options: {
         none: '(none)',
         agriculture_agrifood_biorefineries: 'Agriculture / agri-food / biorefineries',
@@ -165,6 +201,12 @@ const en = {
 
     q6b: {
       title: 'Q6b — Technology Readiness Level (TRL)',
+      details:
+        'TRL of the dominant or critical technology in the symbiotic network. Drives the choice of inventory data quality (measured vs literature vs engineering estimate) and the uncertainty budget downstream. ' +
+        'TRL 9 = full commercial operation (Kalundborg, Sokka). ' +
+        'TRL 7-8 = first-of-a-kind pilot / pre-commercial unit. ' +
+        'TRL 5-6 = lab-validated prototype, demo at relevant scale. ' +
+        'TRL <5 = early R&D, bench-scale only — large uncertainty, scenarios recommended.',
       options: {
         TRL9: 'TRL 9 — fully operational',
         'TRL7-8': 'TRL 7-8 — pilot / pre-commercial',
@@ -176,6 +218,12 @@ const en = {
     q7: {
       title: 'Q7 — Geographic spread',
       help: 'If actor coordinates are loaded later, this can be auto-inferred and shown as info.',
+      details:
+        'Geographic spread changes the relative weight of transport in the inventory and may activate CIR-03 if the advanced override transport_sensitive=true. ' +
+        'A — co-located inside one site (<5 km, e.g. Kalundborg, eco-industrial park). Transport is essentially negligible. ' +
+        'B — regional cluster (5-100 km, same region — typical Sokka 2011 / Hashimoto). ' +
+        'C — wide-area, cross-region or cross-border (>100 km). Transport mode and distance become non-trivial inventory items. ' +
+        'D — multi-scale national or industry-wide programmes (Q1=C policy studies, geographically variable).',
       options: {
         A: { label: 'A. Co-located', description: 'Eco-park, <5 km between actors.' },
         B: { label: 'B. Regional', description: '5-100 km, same region.' },
@@ -335,6 +383,7 @@ const en = {
     help:
       '13 fixtures from the validation sample (12 papers + Leiva Escombreras / Frövi). Loads the Q1-Q7 + per-flow Q5 into the questionnaire so you can inspect and run the engine end-to-end.',
     loadButton: 'Load preset',
+    rationaleToggle: 'Why these answers? (compilation rationale)',
   },
 
   toast: {

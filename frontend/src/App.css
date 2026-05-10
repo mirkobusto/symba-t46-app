@@ -290,6 +290,30 @@
   color: var(--warning-text);
   font-size: 14px;
 }
+.qcard-details {
+  margin: 0 0 12px;
+  padding: 6px 10px;
+  border-left: 3px solid var(--slate-300);
+  background: var(--slate-50);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--slate-700);
+}
+.qcard-details summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--slate-700);
+  font-size: 13px;
+  user-select: none;
+}
+.qcard-details summary:hover {
+  color: var(--primary);
+}
+.qcard-details p {
+  margin: 8px 0 4px;
+  line-height: 150%;
+  white-space: pre-line;
+}
 
 .opt {
   display: grid;
@@ -927,6 +951,32 @@
   margin-top: 10px;
   font-size: 13px;
   line-height: 145%;
+}
+.preset-details {
+  margin-top: 10px;
+}
+.preset-rationale {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--primary);
+  background: var(--slate-50);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--slate-700);
+}
+.preset-rationale summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--slate-700);
+  font-size: 13px;
+  user-select: none;
+}
+.preset-rationale summary:hover {
+  color: var(--primary);
+}
+.preset-rationale p {
+  margin: 8px 0 4px;
+  line-height: 155%;
 }
 
 /* ---- LoadingOverlay -------------------------------------------------- */

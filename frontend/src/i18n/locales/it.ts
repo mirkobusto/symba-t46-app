@@ -249,6 +249,10 @@ const it: Locale = {
     actions: {
       adjust: 'Modifica risposte',
       startFresh: 'Ricomincia (cancella tutto)',
+      downloadJson: 'Scarica caso (.json)',
+      downloadReport: 'Scarica report (.docx)',
+      downloadingReport: 'Generazione report…',
+      reportError: 'Generazione report fallita',
     },
     confirmStartFresh: 'Scartare il caso corrente e ricominciare? Operazione non reversibile.',
     noResult: { title: 'Nessun risultato', desc: 'Invia un questionario per vedere l\'output del motore qui.', cta: 'Apri questionario' },

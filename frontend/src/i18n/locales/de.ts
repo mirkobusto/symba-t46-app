@@ -249,6 +249,10 @@ const de: Locale = {
     actions: {
       adjust: 'Antworten anpassen',
       startFresh: 'Neu starten (alles löschen)',
+      downloadJson: 'Fall herunterladen (.json)',
+      downloadReport: 'Bericht herunterladen (.docx)',
+      downloadingReport: 'Bericht wird generiert…',
+      reportError: 'Berichtserstellung fehlgeschlagen',
     },
     confirmStartFresh: 'Aktuellen Fall verwerfen und einen neuen starten? Dies kann nicht rückgängig gemacht werden.',
     noResult: { title: 'Noch kein Ergebnis', desc: 'Senden Sie einen Fragebogen ab, um die Engine-Ausgabe hier zu sehen.', cta: 'Fragebogen öffnen' },

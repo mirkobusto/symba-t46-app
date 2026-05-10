@@ -69,7 +69,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente: **240 backend (pytest) + 14 frontend (vitest)**.
+- Test devono sempre passare prima del commit. Baseline corrente: **190 backend (pytest) + 14 frontend (vitest)**.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).
@@ -98,9 +98,7 @@ backend/app/
 │   ├── l2_validate.py         40 regole (trigger / assertion / actions parsing)
 │   └── l3_report.py           IR-04 + IR-10 enforcement + 12 CDP surfacing
 ├── api/                       FastAPI routers (pipeline run/report/scenarios + cases CRUD)
-├── services/                  reports.py (.docx generation)
-├── _legacy/                   Engine vecchio v2 JSON-driven (deprecato — cleanup deferito)
-└── wire/                      Pydantic DTOs HTTP
+└── services/                  reports.py (.docx generation)
 
 frontend/src/
 ├── pages/                     Home, Questionnaire, Result, ScenariosResult, CasesList, About, Error
@@ -138,9 +136,9 @@ Tutti i moduli engine sono implementati. Endpoint HTTP: `/api/pipeline/run`, `/a
 
 ## Lavoro deferito noto
 
-- `backend/app/_legacy/`: engine v2 deprecato. Da rimuovere/archiviare in PR dedicata, non in mezzo ad altro lavoro.
 - Production deployment fuori scope MVP (`docker-compose.yml` è dev-only).
 - Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
+- Tabelle DB legacy (`Session`, `Answer`, `PathwayResolutionRecord`) ancora registrate in `app/models/` ma senza endpoint che le usano. Da decidere se droppare in migrazione futura.
 
 ---
 

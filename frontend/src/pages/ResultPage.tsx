@@ -5,6 +5,26 @@ import { Link, useNavigate } from 'react-router-dom'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { useCaseStore } from '../store/caseStore'
 
+type Tone = 'primary' | 'success' | 'warning' | 'error'
+
+interface MetricCardProps {
+  label: string
+  value: string | number
+  subtitle?: string
+  tone?: Tone
+}
+
+function MetricCard({ label, value, subtitle, tone }: MetricCardProps) {
+  const cls = tone ? `metric-card metric-card-${tone}` : 'metric-card'
+  return (
+    <div className={cls}>
+      <div className="metric-label">{label}</div>
+      <div className="metric-value">{value}</div>
+      {subtitle ? <div className="metric-subtitle">{subtitle}</div> : null}
+    </div>
+  )
+}
+
 export default function ResultPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -50,34 +70,45 @@ export default function ResultPage() {
     <div className="result">
       <h1>{t('result.title')}</h1>
 
-      <dl className="result-summary">
-        <dt>{t('result.summary.pathway')}</dt>
-        <dd>
-          {result.pathway_id ?? '—'}
-          {result.is_01_extended ? ` ${t('result.summary.extended')}` : ''}
-        </dd>
-
-        <dt>{t('result.summary.ilcdSituation')}</dt>
-        <dd>{result.ilcd_situation ?? '—'}</dd>
-
-        <dt>{t('result.summary.lccType')}</dt>
-        <dd>{result.lcc_type ?? '—'}</dd>
-
-        <dt>{t('result.summary.slca')}</dt>
-        <dd>{result.slca_activation_state ?? '—'}</dd>
-
-        <dt>{t('result.summary.activatedNodes')}</dt>
-        <dd>{result.activated_nodes?.length ?? 0}</dd>
-
-        <dt>{t('result.summary.l1Blocks')}</dt>
-        <dd>{blockedBy.length}</dd>
-
-        <dt>{t('result.summary.l2Violations')}</dt>
-        <dd>{result.rule_violations?.length ?? 0}</dd>
-
-        <dt>{t('result.summary.l3Cdps')}</dt>
-        <dd>{result.cdp_flags?.length ?? 0}</dd>
-      </dl>
+      <div className="metric-grid">
+        <MetricCard
+          label={t('result.summary.pathway')}
+          value={result.pathway_id ?? '—'}
+          tone="primary"
+          subtitle={result.is_01_extended ? t('result.summary.extended') : undefined}
+        />
+        <MetricCard
+          label={t('result.summary.ilcdSituation')}
+          value={result.ilcd_situation ?? '—'}
+        />
+        <MetricCard
+          label={t('result.summary.lccType')}
+          value={result.lcc_type ?? '—'}
+        />
+        <MetricCard
+          label={t('result.summary.slca')}
+          value={result.slca_activation_state ?? '—'}
+        />
+        <MetricCard
+          label={t('result.summary.activatedNodes')}
+          value={result.activated_nodes?.length ?? 0}
+          tone="success"
+        />
+        <MetricCard
+          label={t('result.summary.l1Blocks')}
+          value={blockedBy.length}
+          tone={blockedBy.length > 0 ? 'error' : undefined}
+        />
+        <MetricCard
+          label={t('result.summary.l2Violations')}
+          value={result.rule_violations?.length ?? 0}
+          tone={(result.rule_violations?.length ?? 0) > 0 ? 'warning' : undefined}
+        />
+        <MetricCard
+          label={t('result.summary.l3Cdps')}
+          value={result.cdp_flags?.length ?? 0}
+        />
+      </div>
 
       {blockedBy.length > 0 ? (
         <div className="blocked-banner">

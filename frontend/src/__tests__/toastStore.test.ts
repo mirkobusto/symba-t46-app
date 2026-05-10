@@ -60,4 +60,16 @@ describe('toastStore', () => {
     vi.advanceTimersByTime(60000)
     expect(useToastStore.getState().toasts.length).toBe(1)
   })
+
+  it('caps the visible toast stack at 3, dropping oldest FIFO', () => {
+    const push = useToastStore.getState().push
+    push({ type: 'info', message: '1', durationMs: 0 })
+    push({ type: 'info', message: '2', durationMs: 0 })
+    push({ type: 'info', message: '3', durationMs: 0 })
+    push({ type: 'info', message: '4', durationMs: 0 })
+    push({ type: 'info', message: '5', durationMs: 0 })
+    const messages = useToastStore.getState().toasts.map((t) => t.message)
+    // Oldest two ('1', '2') dropped
+    expect(messages).toEqual(['3', '4', '5'])
+  })
 })

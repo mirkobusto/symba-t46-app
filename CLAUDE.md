@@ -19,13 +19,21 @@ nel definire metodologie LCSA (LCA + LCC + S-LCA) per casi di Industrial Symbios
 È parte di un PhD su simbiosi industriale.
 
 Stack:
-- Backend: FastAPI (Python 3.12) + SQLAlchemy + Pydantic v2
-- Frontend: React (separato, non in questo repo)
-- Engine decisionale: schema-driven (5 JSON files) + activation pipeline
+- Backend: FastAPI (Python 3.12) + SQLAlchemy 2.0 + Pydantic v2
+- Frontend: React 19 + TypeScript + Vite 8 + Zustand 5 + react-router-dom v7 + react-i18next (in `frontend/`, stesso repo)
+- Engine decisionale: schema-driven (5 JSON files) + activation pipeline + sector overlays
+- Persistence: SQLite via SQLAlchemy (server-side cases) + localStorage via Zustand persist (client-side draft)
+- Dev ports: backend 8088, frontend 5180
 
-Sprint corrente: **Sprint 4 Step 3** (engine implementation).
-Sprint 4 Step 2 (scaffold) chiuso il 2026-05-08, branch `sprint4-step2-scaffold`
-mergeato in `main`.
+Sprint corrente: **MVP completo, in attesa di prossima direzione**.
+
+Cronologia sintetica (tutto su `main`):
+- Sprint 4 Step 2 (scaffold) chiuso 2026-05-08
+- Sprint 4 Step 3 (engine) chiuso: 7 commit + regression suite 12-paper, tutti i moduli phase implementati
+- Step 4 (frontend Q1-Q7 + reasoning panel) chiuso
+- Step 5 (12 .docx validation reports) chiuso
+- 6 round di UX polish + i18n 5 lingue (en/it/fr/de/es)
+- Features A-D + Follow-ups E-G (export/report, Q6a 14 settori, scenarios runner, cases CRUD, JSON overrides editor, port change, rich help & rationale)
 
 ---
 
@@ -50,18 +58,22 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 
 ## Workflow git
 
-- **Una branch per ogni Step** (`sprint4-step3-commit1-pathway`, `sprint4-step3-commit2-l0-compute`, ecc.).
+- **Una branch per ogni feature/follow-up** (`feature-X-…`, `followup-X-…`).
 - **Mai commit diretto su main**.
 - Branch → push → PR → merge.
 - Stile commit: `chore(area):`, `feat(area):`, `test(area):`, `docs(area):`.
-- Body 1-2 paragrafi, riferimenti a SPRINT4_BOOTSTRAP_v2.md §X dove applicabile.
+- Body 1-2 paragrafi, riferimenti a doc autoritative dove applicabile.
 - Mai squash silenzioso — un commit = una unità logica.
+- Stacked PR ammessi (base = branch precedente). Attenzione: GitHub non cascata sul merge di main — al termine dello stack, retargetare l'ultimo PR aperto direttamente su `main` per flush in un colpo.
 
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit (baseline post-Step 2: **77 passed**).
-- Comando test: `cd backend && python -m pytest tests/ -q` (su Windows aggiungere `$env:PYTHONPATH = "."` prima).
+- Test devono sempre passare prima del commit. Baseline corrente: **240 backend (pytest) + 14 frontend (vitest)**.
+- Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
+- Comando test frontend: `cd frontend && npm test -- --run`.
+- Lint frontend: `cd frontend && npm run lint` (eslint).
+- Build frontend: `cd frontend && npm run build` (tsc + vite).
 - Validation script: `python backend/scripts/validate_phase1_artifacts.py --schema-dir backend/app/schemas --out-dir backend/coordination`
   Atteso: 0 critical / 0 warning / 0 UNKNOWN / status PASS.
 
@@ -71,26 +83,36 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 
 ```
 backend/app/
-├── schemas/                    5 JSON schema files (data, NOT Python)
+├── schemas/                    5 JSON schema files (data, NOT Python) + sector_overlays.json
 ├── domain/
 │   ├── enums.py               Q1-Q7 + derived states (IlcdSituation, LccType, ecc.)
 │   ├── models.py              Case, Flow, Site (Pydantic v2 con extra='forbid')
 │   └── case_state.py          StudyPhase reference (no FSM, design call 4)
 ├── engine/
-│   ├── loader.py              Carica i 5 JSON in LoadedSchemas (impl. completa)
-│   ├── pipeline.py            Orchestrator L0→L1→pathway→activate→L2→L3 (impl. completa)
-│   ├── l0_compute.py          STUB — Sprint 4 Step 3 commit 2
-│   ├── l1_blocks.py           STUB — Sprint 4 Step 3 commit 3
-│   ├── pathway.py             STUB — Sprint 4 Step 3 commit 1 (next)
-│   ├── activate.py            STUB — Sprint 4 Step 3 commit 4
-│   ├── l2_validate.py         STUB — Sprint 4 Step 3 commit 5
-│   └── l3_report.py           STUB — Sprint 4 Step 3 commit 7
-├── _legacy/                   Engine vecchio v2 JSON-driven (deprecato, vedi README.md)
-└── wire/                      Pydantic DTOs HTTP (era app/schemas/*.py prima del rename)
+│   ├── loader.py              Carica i 5 JSON in LoadedSchemas
+│   ├── pipeline.py            Orchestrator L0→L1→pathway→activate→L2→L3 + mutation contract
+│   ├── l0_compute.py          3 trigger nodes deterministici
+│   ├── l1_blocks.py           4 BLOCK cells
+│   ├── pathway.py             γ matrix Q1×Q2 → IS-01..IS-05 (ADR-005)
+│   ├── activate.py            186 nodi, dotted-path → pillar dict, per_flow handling
+│   ├── l2_validate.py         40 regole (trigger / assertion / actions parsing)
+│   └── l3_report.py           IR-04 + IR-10 enforcement + 12 CDP surfacing
+├── api/                       FastAPI routers (pipeline run/report/scenarios + cases CRUD)
+├── services/                  reports.py (.docx generation)
+├── _legacy/                   Engine vecchio v2 JSON-driven (deprecato — cleanup deferito)
+└── wire/                      Pydantic DTOs HTTP
+
+frontend/src/
+├── pages/                     Home, Questionnaire, Result, ScenariosResult, CasesList, About, Error
+├── components/                QuestionCard, FlowsEditor, ScenariosEditor, AdvancedEditor,
+│                              PresetLoader, LoadingOverlay, …
+├── store/caseStore.ts         Zustand store con persist middleware (localStorage)
+├── i18n/locales/              en.ts (source of truth) + it/fr/de/es
+├── presets/papers.ts          13 fixture (12 papers + Leiva Escombreras/Frövi)
+└── types/api.ts               TS mirror dei DTO Pydantic
 ```
 
-L'orchestrator in `pipeline.py` è già completo (chiama in ordine i 6 phase modules).
-Il lavoro Step 3 = riempire i 6 stub con logica reale + test.
+Tutti i moduli engine sono implementati. Endpoint HTTP: `/api/pipeline/run`, `/api/pipeline/report`, `/api/pipeline/run-scenarios`, `/api/cases` (CRUD).
 
 ---
 
@@ -114,19 +136,11 @@ Il lavoro Step 3 = riempire i 6 stub con logica reale + test.
 
 ---
 
-## Sprint 4 Step 3 — piano commit (l'attuale obiettivo)
+## Lavoro deferito noto
 
-Ordine concordato:
-
-1. `engine/pathway.py` — banale, deriva IS-01..IS-05 da Q1×Q2 (next)
-2. `engine/l0_compute.py` — 3 trigger nodes deterministici
-3. `engine/l1_blocks.py` — 4 BLOCK cells
-4. `engine/activate.py` — 186 nodi, dotted-path → pillar dict, per_flow handling
-5. `engine/l2_validate.py` — 40 regole (trigger / assertion / actions parsing)
-6. `engine/pipeline.py` — già scaffoldato in Step 2, qui si rifinisce dopo che le 5 phase sono complete
-7. Test 12-paper regression suite
-
-Ogni step un commit con test associati. **Nessuno step può saltare in avanti senza il precedente** — l2_validate richiede activate, activate richiede l0_compute. Disciplina.
+- `backend/app/_legacy/`: engine v2 deprecato. Da rimuovere/archiviare in PR dedicata, non in mezzo ad altro lavoro.
+- Production deployment fuori scope MVP (`docker-compose.yml` è dev-only).
+- Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
 
 ---
 

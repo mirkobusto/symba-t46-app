@@ -274,6 +274,78 @@
   outline-offset: 1px;
 }
 
+/* ---- FlowsEditor + ScenariosEditor (4-C) ----------------------------- */
+
+.flows-editor,
+.scenarios-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flows-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.flows-table thead th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--slate-700);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--slate-200);
+  background: var(--slate-50);
+}
+.flows-table tbody td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--slate-100);
+  vertical-align: middle;
+}
+.flows-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.flows-table code {
+  background: var(--slate-100);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.row-input,
+.row-select {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--slate-300);
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+}
+.row-input:focus,
+.row-select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--slate-300);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.icon-btn:hover {
+  border-color: var(--error);
+  color: var(--error);
+}
+
 .run-bar {
   position: sticky;
   bottom: 0;

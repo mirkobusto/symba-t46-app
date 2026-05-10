@@ -20,6 +20,7 @@ export default function Layout() {
           {t('layout.brand')}
         </Link>
         <nav className="layout-nav" aria-label="Primary">
+          <Link to="/cases">{t('cases.navLink')}</Link>
           <Link to="/about">{t('layout.about')}</Link>
           <LanguageSwitcher />
         </nav>

@@ -352,6 +352,31 @@ const en = {
     de: 'Deutsch',
     es: 'Español',
   },
+
+  cases: {
+    navLink: 'My cases',
+    title: 'My cases',
+    intro: 'Cases saved on the server. Load to populate the questionnaire, or delete to remove permanently.',
+    empty: 'No saved cases yet. Save one from the questionnaire or result page.',
+    columns: {
+      name: 'Name',
+      pathway: 'Pathway',
+      updated: 'Updated',
+    },
+    loadButton: 'Load',
+    deleteButton: 'Delete',
+    confirmDelete: 'Delete "{{name}}" permanently? This cannot be undone.',
+    saveButton: 'Save case',
+    saveAsButton: 'Save as new…',
+    saveTitle: 'Save case',
+    namePlaceholder: 'My case name',
+    saveDialog: 'Save the current case to the server. Pick a name to identify it later.',
+    saving: 'Saving…',
+    saveError: 'Save failed — {{detail}}',
+    saveSuccess: 'Saved as "{{name}}"',
+    loadError: 'Load failed — {{detail}}',
+    deleteError: 'Delete failed — {{detail}}',
+  },
 }
 
 export default en

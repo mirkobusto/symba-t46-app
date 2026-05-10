@@ -352,6 +352,31 @@ const fr: Locale = {
     de: 'Deutsch',
     es: 'Español',
   },
+
+  cases: {
+    navLink: 'Mes cas',
+    title: 'Mes cas',
+    intro: 'Cas sauvegardés sur le serveur. Chargez pour remplir le questionnaire, ou supprimez pour retirer définitivement.',
+    empty: 'Aucun cas sauvegardé. Sauvegardez un cas depuis le questionnaire ou la page de résultat.',
+    columns: {
+      name: 'Nom',
+      pathway: 'Pathway',
+      updated: 'Mis à jour',
+    },
+    loadButton: 'Charger',
+    deleteButton: 'Supprimer',
+    confirmDelete: 'Supprimer "{{name}}" définitivement ? Opération irréversible.',
+    saveButton: 'Sauvegarder',
+    saveAsButton: 'Sauvegarder comme nouveau…',
+    saveTitle: 'Sauvegarder le cas',
+    namePlaceholder: 'Nom de mon cas',
+    saveDialog: 'Sauvegarder le cas actuel sur le serveur. Choisissez un nom pour l\'identifier plus tard.',
+    saving: 'Sauvegarde…',
+    saveError: 'Échec de la sauvegarde — {{detail}}',
+    saveSuccess: 'Sauvegardé sous "{{name}}"',
+    loadError: 'Échec du chargement — {{detail}}',
+    deleteError: 'Échec de la suppression — {{detail}}',
+  },
 }
 
 export default fr

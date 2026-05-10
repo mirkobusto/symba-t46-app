@@ -96,6 +96,25 @@ export interface ScenariosResponse {
   scenarios: ScenarioResult[]
 }
 
+// ----- /api/cases payloads (Feature D) -----
+
+export interface CaseSummary {
+  id: string
+  name: string
+  pathway_id: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface CaseDetail {
+  id: string
+  name: string
+  pathway_id: string | null
+  created_at: string
+  updated_at: string
+  case: Case
+}
+
 export interface RuleViolation {
   rule_id: string
   message: string

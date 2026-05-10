@@ -352,6 +352,31 @@ const de: Locale = {
     de: 'Deutsch',
     es: 'Español',
   },
+
+  cases: {
+    navLink: 'Meine Fälle',
+    title: 'Meine Fälle',
+    intro: 'Auf dem Server gespeicherte Fälle. Laden, um den Fragebogen zu befüllen, oder löschen, um endgültig zu entfernen.',
+    empty: 'Noch keine gespeicherten Fälle. Speichern Sie einen Fall aus dem Fragebogen oder der Ergebnisseite.',
+    columns: {
+      name: 'Name',
+      pathway: 'Pathway',
+      updated: 'Aktualisiert',
+    },
+    loadButton: 'Laden',
+    deleteButton: 'Löschen',
+    confirmDelete: '"{{name}}" endgültig löschen? Dies kann nicht rückgängig gemacht werden.',
+    saveButton: 'Fall speichern',
+    saveAsButton: 'Als neu speichern…',
+    saveTitle: 'Fall speichern',
+    namePlaceholder: 'Name meines Falls',
+    saveDialog: 'Aktuellen Fall auf dem Server speichern. Wählen Sie einen Namen zur späteren Identifikation.',
+    saving: 'Speichern…',
+    saveError: 'Speichern fehlgeschlagen — {{detail}}',
+    saveSuccess: 'Gespeichert als "{{name}}"',
+    loadError: 'Laden fehlgeschlagen — {{detail}}',
+    deleteError: 'Löschen fehlgeschlagen — {{detail}}',
+  },
 }
 
 export default de

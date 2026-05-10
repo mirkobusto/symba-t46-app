@@ -352,6 +352,31 @@ const es: Locale = {
     de: 'Deutsch',
     es: 'Español',
   },
+
+  cases: {
+    navLink: 'Mis casos',
+    title: 'Mis casos',
+    intro: 'Casos guardados en el servidor. Carga para rellenar el cuestionario, o elimina para borrar permanentemente.',
+    empty: 'Sin casos guardados aún. Guarda uno desde el cuestionario o la página de resultado.',
+    columns: {
+      name: 'Nombre',
+      pathway: 'Pathway',
+      updated: 'Actualizado',
+    },
+    loadButton: 'Cargar',
+    deleteButton: 'Eliminar',
+    confirmDelete: '¿Eliminar "{{name}}" permanentemente? No se puede deshacer.',
+    saveButton: 'Guardar caso',
+    saveAsButton: 'Guardar como nuevo…',
+    saveTitle: 'Guardar caso',
+    namePlaceholder: 'Nombre de mi caso',
+    saveDialog: 'Guardar el caso actual en el servidor. Elige un nombre para identificarlo después.',
+    saving: 'Guardando…',
+    saveError: 'Guardado fallido — {{detail}}',
+    saveSuccess: 'Guardado como "{{name}}"',
+    loadError: 'Carga fallida — {{detail}}',
+    deleteError: 'Eliminación fallida — {{detail}}',
+  },
 }
 
 export default es

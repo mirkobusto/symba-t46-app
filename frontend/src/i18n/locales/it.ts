@@ -352,6 +352,31 @@ const it: Locale = {
     de: 'Deutsch',
     es: 'Español',
   },
+
+  cases: {
+    navLink: 'I miei casi',
+    title: 'I miei casi',
+    intro: 'Casi salvati sul server. Carica per popolare il questionario, o elimina per rimuovere definitivamente.',
+    empty: 'Nessun caso salvato. Salva un caso dal questionario o dalla result page.',
+    columns: {
+      name: 'Nome',
+      pathway: 'Pathway',
+      updated: 'Aggiornato',
+    },
+    loadButton: 'Carica',
+    deleteButton: 'Elimina',
+    confirmDelete: 'Eliminare "{{name}}" definitivamente? Operazione non reversibile.',
+    saveButton: 'Salva caso',
+    saveAsButton: 'Salva come nuovo…',
+    saveTitle: 'Salva caso',
+    namePlaceholder: 'Nome del mio caso',
+    saveDialog: 'Salva il caso corrente sul server. Scegli un nome per identificarlo in futuro.',
+    saving: 'Salvataggio…',
+    saveError: 'Salvataggio fallito — {{detail}}',
+    saveSuccess: 'Salvato come "{{name}}"',
+    loadError: 'Caricamento fallito — {{detail}}',
+    deleteError: 'Eliminazione fallita — {{detail}}',
+  },
 }
 
 export default it

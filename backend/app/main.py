@@ -10,8 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
 from app.db import Base, get_engine
-from app.models import Answer, PathwayResolutionRecord, Session  # noqa: F401 — register
-from app.routers import decision_engine, health, pipeline, sessions
+from app.models import Answer, CaseRecord, PathwayResolutionRecord, Session  # noqa: F401 — register
+from app.routers import cases, decision_engine, health, pipeline, sessions
 
 DEFAULT_CORS_ORIGINS = [
     "http://localhost:5173",
@@ -57,6 +57,7 @@ def create_app() -> FastAPI:
     app.include_router(decision_engine.router, prefix="/api/decision-engine")
     app.include_router(sessions.router, prefix="/api/sessions")
     app.include_router(pipeline.router, prefix="/api/pipeline")
+    app.include_router(cases.router, prefix="/api/cases")
 
     # Backwards compatibility: keep the un-prefixed /health route used by
     # Sprint 1 smoke tests + the Docker healthcheck.

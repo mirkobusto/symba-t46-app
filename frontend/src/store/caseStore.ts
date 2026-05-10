@@ -14,6 +14,7 @@ import { persist } from 'zustand/middleware'
 
 import { ApiError, runPipeline } from '../services/api'
 import type { Case } from '../types/api'
+import { useToastStore } from './toastStore'
 
 const EMPTY_DRAFT: Case = {
   q3: { env: false, eco: false, soc: false },
@@ -49,10 +50,16 @@ export const useCaseStore = create<CaseState>()(
       patchDraft: (patch) => set({ draft: { ...get().draft, ...patch } }),
 
       async runDraft() {
+        const t0 = performance.now()
         set({ loading: true, error: null })
         try {
           const result = await runPipeline(get().draft)
           set({ result, loading: false })
+          const ms = Math.round(performance.now() - t0)
+          useToastStore.getState().push({
+            type: 'success',
+            message: `Pipeline completed in ${ms} ms — pathway ${result.pathway_id ?? '—'}`,
+          })
           return result
         } catch (e) {
           const detail =
@@ -62,6 +69,11 @@ export const useCaseStore = create<CaseState>()(
                 ? e.message
                 : 'Unknown error'
           set({ loading: false, error: detail, result: null })
+          useToastStore.getState().push({
+            type: 'error',
+            message: `Pipeline error — ${detail}`,
+            durationMs: 8000,
+          })
           return null
         }
       },

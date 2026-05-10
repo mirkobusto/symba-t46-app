@@ -49,3 +49,6 @@ Thumbs.db
 *.tmp
 *.bak
 frontend/.vite/
+
+# Auto-generated deliverables (regenerable from fixtures + engine)
+deliverables/**/*.docx

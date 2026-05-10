@@ -268,10 +268,34 @@ const en = {
       downloadReport: 'Download report (.docx)',
       downloadingReport: 'Generating report…',
       reportError: 'Report generation failed',
+      runScenarios: 'Run scenarios',
+      runningScenarios: 'Running scenarios…',
     },
     confirmStartFresh: 'Discard the current case and start a new one? This cannot be undone.',
     noResult: { title: 'No result yet', desc: 'Submit a questionnaire to see the engine output here.', cta: 'Open questionnaire' },
     error: { title: 'Pipeline error', back: 'Back to questionnaire' },
+  },
+
+  scenariosResult: {
+    title: 'Scenario comparison',
+    description: 'Pipeline run for the baseline + {{n}} alternative scenario(s). Diffs highlighted vs baseline.',
+    backToResult: 'Back to single result',
+    columns: {
+      scenario: 'Scenario',
+      pathway: 'Pathway',
+      ilcd: 'ILCD',
+      lccType: 'LCC type',
+      slca: 'S-LCA',
+      activated: 'Activated',
+      blocks: 'L1 blocks',
+      violations: 'L2 violations',
+      cdps: 'L3 CDPs',
+    },
+    baselineLabel: 'Baseline',
+    diffSuffix: '(diff)',
+    overrideHelp: 'Each scenario inherits Q1-Q7 from the baseline; populate `overrides` (JSON dict) per scenario to differ. Empty overrides → same case as baseline.',
+    overridesPlaceholder: 'e.g. {"q1": "C"} or {"q3": {"env": true, "eco": true}}',
+    overridesParseError: 'Overrides must be valid JSON for {{id}}',
   },
 
   reasoning: {
@@ -316,6 +340,8 @@ const en = {
   toast: {
     pipelineCompleted: 'Pipeline completed in {{ms}} ms — pathway {{pathway}}',
     pipelineError: 'Pipeline error — {{detail}}',
+    scenariosCompleted: '{{n}} scenarios run',
+    scenariosError: 'Scenarios run failed — {{detail}}',
   },
 
   language: {

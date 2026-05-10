@@ -267,11 +267,36 @@ const it: Locale = {
       downloadReport: 'Scarica report (.docx)',
       downloadingReport: 'Generazione report…',
       reportError: 'Generazione report fallita',
+      runScenarios: 'Esegui scenari',
+      runningScenarios: 'Esecuzione scenari…',
     },
     confirmStartFresh: 'Scartare il caso corrente e ricominciare? Operazione non reversibile.',
     noResult: { title: 'Nessun risultato', desc: 'Invia un questionario per vedere l\'output del motore qui.', cta: 'Apri questionario' },
     error: { title: 'Errore della pipeline', back: 'Torna al questionario' },
   },
+
+  scenariosResult: {
+    title: 'Confronto scenari',
+    description: 'Pipeline eseguita per la baseline + {{n}} scenari alternativi. Differenze evidenziate vs baseline.',
+    backToResult: 'Torna al risultato singolo',
+    columns: {
+      scenario: 'Scenario',
+      pathway: 'Pathway',
+      ilcd: 'ILCD',
+      lccType: 'Tipo LCC',
+      slca: 'S-LCA',
+      activated: 'Attivati',
+      blocks: 'BLOCK L1',
+      violations: 'Violazioni L2',
+      cdps: 'CDP L3',
+    },
+    baselineLabel: 'Baseline',
+    diffSuffix: '(diff)',
+    overrideHelp: 'Ogni scenario eredita Q1-Q7 dalla baseline; popola overrides (dict JSON) per scenario per differenziare. Overrides vuoti → stesso caso della baseline.',
+    overridesPlaceholder: 'es. {"q1": "C"} oppure {"q3": {"env": true, "eco": true}}',
+    overridesParseError: 'Overrides devono essere JSON valido per {{id}}',
+  },
+
 
   reasoning: {
     activatedNodes: 'Nodi attivati ({{count}})',
@@ -315,6 +340,8 @@ const it: Locale = {
   toast: {
     pipelineCompleted: 'Pipeline completata in {{ms}} ms — pathway {{pathway}}',
     pipelineError: 'Errore pipeline — {{detail}}',
+    scenariosCompleted: '{{n}} scenari eseguiti',
+    scenariosError: 'Esecuzione scenari fallita — {{detail}}',
   },
 
   language: {

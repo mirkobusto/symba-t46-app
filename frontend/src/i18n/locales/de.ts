@@ -267,11 +267,36 @@ const de: Locale = {
       downloadReport: 'Bericht herunterladen (.docx)',
       downloadingReport: 'Bericht wird generiert…',
       reportError: 'Berichtserstellung fehlgeschlagen',
+      runScenarios: 'Szenarien ausführen',
+      runningScenarios: 'Szenarien werden ausgeführt…',
     },
     confirmStartFresh: 'Aktuellen Fall verwerfen und einen neuen starten? Dies kann nicht rückgängig gemacht werden.',
     noResult: { title: 'Noch kein Ergebnis', desc: 'Senden Sie einen Fragebogen ab, um die Engine-Ausgabe hier zu sehen.', cta: 'Fragebogen öffnen' },
     error: { title: 'Pipeline-Fehler', back: 'Zurück zum Fragebogen' },
   },
+
+  scenariosResult: {
+    title: 'Szenarienvergleich',
+    description: 'Pipeline für die Baseline + {{n}} alternative Szenarien ausgeführt. Unterschiede vs Baseline hervorgehoben.',
+    backToResult: 'Zurück zum Einzelergebnis',
+    columns: {
+      scenario: 'Szenario',
+      pathway: 'Pathway',
+      ilcd: 'ILCD',
+      lccType: 'LCC-Typ',
+      slca: 'S-LCA',
+      activated: 'Aktiviert',
+      blocks: 'L1-BLOCK',
+      violations: 'L2-Verletzungen',
+      cdps: 'L3-CDPs',
+    },
+    baselineLabel: 'Baseline',
+    diffSuffix: '(Diff)',
+    overrideHelp: 'Jedes Szenario erbt Q1-Q7 von der Baseline; befüllen Sie overrides (JSON-Dict) pro Szenario, um zu differieren. Leere Overrides → gleicher Fall wie Baseline.',
+    overridesPlaceholder: 'z. B. {"q1": "C"} oder {"q3": {"env": true, "eco": true}}',
+    overridesParseError: 'Overrides müssen gültiges JSON für {{id}} sein',
+  },
+
 
   reasoning: {
     activatedNodes: 'Aktivierte Knoten ({{count}})',
@@ -315,6 +340,8 @@ const de: Locale = {
   toast: {
     pipelineCompleted: 'Pipeline abgeschlossen in {{ms}} ms — Pathway {{pathway}}',
     pipelineError: 'Pipeline-Fehler — {{detail}}',
+    scenariosCompleted: '{{n}} Szenarien ausgeführt',
+    scenariosError: 'Szenarienausführung fehlgeschlagen — {{detail}}',
   },
 
   language: {

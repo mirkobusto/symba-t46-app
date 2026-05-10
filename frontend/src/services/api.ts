@@ -4,7 +4,7 @@
 // `request<T>` helper is generic so future routes (sessions, etc.)
 // can reuse the error-handling and JSON-marshalling convention.
 
-import type { Case } from '../types/api'
+import type { Case, ScenarioInput, ScenariosResponse } from '../types/api'
 
 const API_BASE_URL: string =
   (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
@@ -92,4 +92,14 @@ export async function fetchReportDocx(input: Case): Promise<Blob> {
 
 export function checkHealth(): Promise<{ status: string; version: string }> {
   return request('/health')
+}
+
+export function runScenarios(
+  baseline: Case,
+  scenarios: ScenarioInput[],
+): Promise<ScenariosResponse> {
+  return request<ScenariosResponse>('/api/pipeline/run-scenarios', {
+    method: 'POST',
+    body: JSON.stringify({ baseline, scenarios }),
+  })
 }

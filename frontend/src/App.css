@@ -713,6 +713,36 @@
   font-style: italic;
 }
 
+/* ---- Scenarios comparison table (Feature C) ------------------------- */
+
+.scenarios-table-wrap {
+  margin: 16px 0 24px;
+  overflow-x: auto;
+}
+.scenarios-table {
+  font-size: 13px;
+}
+.scenarios-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--slate-50);
+}
+.scenarios-table tbody td {
+  vertical-align: top;
+  padding: 8px 10px;
+}
+.scenarios-table tbody tr.row-baseline {
+  background: var(--primary-bg);
+}
+.scenarios-table tbody tr.row-baseline strong {
+  color: var(--primary);
+}
+.scenarios-table tbody td.cell-diff {
+  background: var(--warning-bg);
+  font-weight: 600;
+  color: var(--warning-text);
+}
+
 /* Legacy result-summary (kept for the print stylesheet's reference) */
 .result-summary {
   display: grid;

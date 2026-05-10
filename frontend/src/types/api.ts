@@ -77,6 +77,25 @@ export interface AlternativeScenario {
   overrides: Record<string, unknown>
 }
 
+// ----- /api/pipeline/run-scenarios payloads -----
+
+export interface ScenarioInput {
+  id: string
+  label: string
+  overrides: Record<string, unknown>
+}
+
+export interface ScenarioResult {
+  id: string
+  label: string
+  result: Case
+}
+
+export interface ScenariosResponse {
+  baseline: Case
+  scenarios: ScenarioResult[]
+}
+
 export interface RuleViolation {
   rule_id: string
   message: string

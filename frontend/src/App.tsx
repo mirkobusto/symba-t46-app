@@ -6,6 +6,7 @@ import AboutPage from './pages/AboutPage'
 import HomePage from './pages/HomePage'
 import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
+import ScenariosResultPage from './pages/ScenariosResultPage'
 import './App.css'
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/questionnaire" element={<QuestionnairePage />} />
             <Route path="/result" element={<ResultPage />} />
+            <Route path="/scenarios-result" element={<ScenariosResultPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

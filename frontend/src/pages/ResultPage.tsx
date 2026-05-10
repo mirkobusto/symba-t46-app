@@ -45,9 +45,19 @@ export default function ResultPage() {
   const error = useCaseStore((s) => s.error)
   const reset = useCaseStore((s) => s.reset)
   const draft = useCaseStore((s) => s.draft)
+  const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
+  const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
   const [showReasoning, setShowReasoning] = useState(true)
   const [downloadingReport, setDownloadingReport] = useState(false)
+
+  const hasScenarios =
+    draft.q2 === 'D' && (draft.alternative_scenarios ?? []).length > 0
+
+  async function handleRunScenarios() {
+    const out = await runScenariosFromDraft()
+    if (out) navigate('/scenarios-result')
+  }
 
   // Keyboard shortcuts on the Result page:
   //   R -> toggle reasoning panel
@@ -242,6 +252,18 @@ export default function ResultPage() {
         <Link to="/questionnaire" className="btn btn-secondary">
           {t('result.actions.adjust')}
         </Link>
+        {hasScenarios ? (
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleRunScenarios}
+            disabled={loading}
+          >
+            {loading
+              ? t('result.actions.runningScenarios')
+              : t('result.actions.runScenarios')}
+          </button>
+        ) : null}
         <button
           type="button"
           className="btn btn-secondary"

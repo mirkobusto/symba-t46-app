@@ -34,6 +34,7 @@ SCHEMA_FILES = (
     "system_fields.json",
     "computed_fields.json",
     "cir_output_fields.json",
+    "sector_overlays.json",
 )
 
 
@@ -60,6 +61,8 @@ class LoadedSchemas:
     system_fields: dict[str, dict[str, Any]]
     computed_fields: dict[str, dict[str, Any]]
     cir_output_fields: dict[str, dict[str, Any]]
+    sector_overlays: dict[str, Any] = field(default_factory=dict)
+    sectors_by_id: dict[str, dict[str, Any]] = field(default_factory=dict)
     all_known_fields: frozenset[str] = field(default_factory=frozenset)
 
 
@@ -126,6 +129,27 @@ def _index_fields(doc: dict[str, Any], fname: str) -> dict[str, dict[str, Any]]:
     return {e["field"]: e for e in entries if "field" in e}
 
 
+def _index_sectors(doc: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Index `sector_overlays.json` sectors by ID. Currently a stub:
+    `overlays` is empty until per-sector logic is wired in.
+    """
+    sectors = doc.get("sectors")
+    if not isinstance(sectors, list):
+        raise SchemaLoadError(
+            "sector_overlays.json: top-level 'sectors' is missing or not a list")
+    by_id: dict[str, dict[str, Any]] = {}
+    for s in sectors:
+        sid = s.get("id")
+        if not sid:
+            raise SchemaLoadError(
+                f"sector_overlays.json: sector missing 'id': {s!r}")
+        if sid in by_id:
+            raise SchemaLoadError(
+                f"sector_overlays.json: duplicate sector id {sid!r}")
+        by_id[sid] = s
+    return by_id
+
+
 def _maybe_strict_validate(schema_dir: Path) -> None:
     """If STRICT_LOAD=1 in env, run the full validator and raise on failure."""
     if os.environ.get("STRICT_LOAD", "").lower() not in {"1", "true", "yes"}:
@@ -172,12 +196,14 @@ def load_schemas(schema_dir: Path | None = None) -> LoadedSchemas:
     system_doc = _read_json(sd / "system_fields.json")
     computed_doc = _read_json(sd / "computed_fields.json")
     cir_doc = _read_json(sd / "cir_output_fields.json")
+    sector_doc = _read_json(sd / "sector_overlays.json")
 
     phase1_nodes, nodes_by_id, node_fields = _index_nodes(nodes_doc)
     rules_by_id = _index_rules(rules_doc)
     system_fields = _index_fields(system_doc, "system_fields.json")
     computed_fields = _index_fields(computed_doc, "computed_fields.json")
     cir_output_fields = _index_fields(cir_doc, "cir_output_fields.json")
+    sectors_by_id = _index_sectors(sector_doc)
 
     all_known = frozenset(node_fields
                           | set(system_fields)
@@ -194,6 +220,8 @@ def load_schemas(schema_dir: Path | None = None) -> LoadedSchemas:
         system_fields=system_fields,
         computed_fields=computed_fields,
         cir_output_fields=cir_output_fields,
+        sector_overlays=sector_doc,
+        sectors_by_id=sectors_by_id,
         all_known_fields=all_known,
     )
 

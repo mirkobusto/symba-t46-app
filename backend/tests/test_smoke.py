@@ -1,8 +1,8 @@
-"""Smoke tests — Sprint 4 Step 2.
+"""Smoke tests — Sprint 4 Step 2 (extended at follow-up γ-4 to cover the
+6th schema file `sector_overlays.json`).
 
-Verifies that the 5 schema JSON files are present, parseable, and indexed
-correctly by the loader. NO logical tests of engine behavior — those
-arrive in Sprint 4 Step 3 as each phase module is implemented.
+Verifies that all schema JSON files are present, parseable, and indexed
+correctly by the loader.
 """
 from __future__ import annotations
 
@@ -19,14 +19,14 @@ from app.engine.loader import (
 )
 
 
-def test_all_5_json_files_exist(schemas_dir):
+def test_all_schema_json_files_exist(schemas_dir):
     for fname in SCHEMA_FILES:
         path = schemas_dir / fname
         assert path.exists(), f"missing schema file: {path}"
         assert path.stat().st_size > 0, f"empty schema file: {path}"
 
 
-def test_all_5_json_files_parse(schemas_dir):
+def test_all_schema_json_files_parse(schemas_dir):
     for fname in SCHEMA_FILES:
         with (schemas_dir / fname).open(encoding="utf-8") as f:
             doc = json.load(f)
@@ -45,6 +45,15 @@ def test_loader_indexes_186_phase1_nodes(schemas: LoadedSchemas):
 def test_loader_indexes_58_cross_method_rules(schemas: LoadedSchemas):
     # 4 BLOCK + 20 IR + 10 CIR + 5 FU + 7 B + 12 CDP = 58
     assert len(schemas.rules_by_id) == 58
+
+
+def test_loader_indexes_14_sectors_plus_other(schemas: LoadedSchemas):
+    """sector_overlays.json stub: 14 sectors + 'other' = 15 entries.
+    `overlays` map intentionally empty until sector logic is wired."""
+    assert len(schemas.sectors_by_id) == 15
+    assert "wastewater_sludge_biofactories" in schemas.sectors_by_id
+    assert "other" in schemas.sectors_by_id
+    assert schemas.sector_overlays.get("overlays") == {}
 
 
 def test_loader_indexes_field_allowlists(schemas: LoadedSchemas):

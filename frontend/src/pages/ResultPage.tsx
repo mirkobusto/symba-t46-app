@@ -8,15 +8,28 @@
 //   - Collapsible raw JSON (kept for debugging)
 
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import ReasoningPanel from '../components/ReasoningPanel'
 import { useCaseStore } from '../store/caseStore'
 
 export default function ResultPage() {
+  const navigate = useNavigate()
   const result = useCaseStore((s) => s.result)
   const error = useCaseStore((s) => s.error)
+  const reset = useCaseStore((s) => s.reset)
   const [showReasoning, setShowReasoning] = useState(true)
+
+  function handleStartFresh() {
+    if (
+      window.confirm(
+        'Discard the current case and start a new one? This cannot be undone.',
+      )
+    ) {
+      reset()
+      navigate('/')
+    }
+  }
 
   if (error) {
     return (
@@ -137,9 +150,13 @@ export default function ResultPage() {
         <Link to="/questionnaire" className="btn btn-secondary">
           Adjust answers
         </Link>
-        <Link to="/" className="btn btn-secondary">
-          New case
-        </Link>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleStartFresh}
+        >
+          Start fresh (clear all)
+        </button>
       </div>
     </div>
   )

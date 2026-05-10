@@ -10,6 +10,7 @@
 // / reset so the foundation is exercised end-to-end.
 
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { ApiError, runPipeline } from '../services/api'
 import type { Case } from '../types/api'
@@ -35,33 +36,44 @@ export interface CaseState {
   reset: () => void
 }
 
-export const useCaseStore = create<CaseState>((set, get) => ({
-  draft: { ...EMPTY_DRAFT },
-  result: null,
-  loading: false,
-  error: null,
+export const useCaseStore = create<CaseState>()(
+  persist(
+    (set, get) => ({
+      draft: { ...EMPTY_DRAFT },
+      result: null,
+      loading: false,
+      error: null,
 
-  setDraft: (next) => set({ draft: next }),
+      setDraft: (next) => set({ draft: next }),
 
-  patchDraft: (patch) => set({ draft: { ...get().draft, ...patch } }),
+      patchDraft: (patch) => set({ draft: { ...get().draft, ...patch } }),
 
-  async runDraft() {
-    set({ loading: true, error: null })
-    try {
-      const result = await runPipeline(get().draft)
-      set({ result, loading: false })
-      return result
-    } catch (e) {
-      const detail =
-        e instanceof ApiError
-          ? `${e.status}: ${e.detail}`
-          : e instanceof Error
-            ? e.message
-            : 'Unknown error'
-      set({ loading: false, error: detail, result: null })
-      return null
-    }
-  },
+      async runDraft() {
+        set({ loading: true, error: null })
+        try {
+          const result = await runPipeline(get().draft)
+          set({ result, loading: false })
+          return result
+        } catch (e) {
+          const detail =
+            e instanceof ApiError
+              ? `${e.status}: ${e.detail}`
+              : e instanceof Error
+                ? e.message
+                : 'Unknown error'
+          set({ loading: false, error: detail, result: null })
+          return null
+        }
+      },
 
-  reset: () => set({ draft: { ...EMPTY_DRAFT }, result: null, error: null }),
-}))
+      reset: () =>
+        set({ draft: { ...EMPTY_DRAFT }, result: null, error: null }),
+    }),
+    {
+      name: 'symba-case-draft',
+      // Persist only draft + result; transient flags (loading/error) reset
+      // on hydration.
+      partialize: (state) => ({ draft: state.draft, result: state.result }),
+    },
+  ),
+)

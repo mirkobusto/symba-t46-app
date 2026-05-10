@@ -1,17 +1,16 @@
 """Shared pytest fixtures.
 
 Provides:
-* a process-wide :class:`DecisionEngine` instance backed by the committed
-  JSON, useful for engine/validator tests;
 * an in-memory SQLite database wired into the FastAPI app so that the
-  ``Session`` ORM model is fully isolated per test;
-* a :class:`fastapi.testclient.TestClient` already pointing at that DB.
+  ORM-backed tests are fully isolated per test;
+* a :class:`fastapi.testclient.TestClient` already pointing at that DB;
+* the loaded engine schemas (5 JSON files) for engine / pipeline tests.
 """
 
 from __future__ import annotations
 
 from collections.abc import Generator
-from typing import Any
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -21,60 +20,8 @@ from sqlalchemy.orm import sessionmaker
 
 from app import db as db_module
 from app.db import Base, get_db
-from app.domain.engine import DecisionEngine, get_decision_engine
+from app.engine.loader import LoadedSchemas, load_schemas, reset_cache
 from app.main import app
-
-# Sample answers reused across tests.
-SUNFLOWER_ANSWERS_P1: dict[str, Any] = {
-    "q1": "A",
-    "q2": "ex-ante",
-    "q3": "C+E-LCC",
-    "q4": "function-oriented",
-    "q5": "design",
-    "q6": False,
-    "q7": "system-expansion",
-    "q8": True,
-    "q9": "single-site",
-    "q10": "standard",
-}
-
-P1_FINGERPRINT_ANSWERS: dict[str, Any] = {
-    **SUNFLOWER_ANSWERS_P1,
-    "q8": False,  # exact P1 fingerprint
-}
-
-BLOCKED_C2_ELCC_ANSWERS: dict[str, Any] = {
-    "q1": "C2",
-    "q2": "ex-post",
-    "q3": "C+E-LCC",
-    "q4": "function-oriented",
-    "q5": "analysis",
-    "q6": False,
-    "q7": "allocation",
-    "q8": False,
-    "q9": "single-site",
-    "q10": "standard",
-}
-
-
-@pytest.fixture(scope="session")
-def engine() -> DecisionEngine:
-    return get_decision_engine()
-
-
-@pytest.fixture()
-def sample_answers_p1() -> dict[str, Any]:
-    return dict(P1_FINGERPRINT_ANSWERS)
-
-
-@pytest.fixture()
-def sample_answers_sunflower() -> dict[str, Any]:
-    return dict(SUNFLOWER_ANSWERS_P1)
-
-
-@pytest.fixture()
-def sample_answers_blocked() -> dict[str, Any]:
-    return dict(BLOCKED_C2_ELCC_ANSWERS)
 
 
 @pytest.fixture()
@@ -132,15 +79,6 @@ def client(sqlite_engine) -> Generator[TestClient, None, None]:
         app.dependency_overrides.pop(get_db, None)
         db_module._engine = None  # type: ignore[attr-defined]
         db_module._SessionLocal = None  # type: ignore[attr-defined]
-
-
-# =============================================================================
-# Sprint 4 Step 2 — schema fixtures
-# =============================================================================
-
-from pathlib import Path  # noqa: E402
-
-from app.engine.loader import LoadedSchemas, load_schemas, reset_cache  # noqa: E402
 
 
 @pytest.fixture(scope="session")

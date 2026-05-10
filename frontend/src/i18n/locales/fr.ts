@@ -249,6 +249,10 @@ const fr: Locale = {
     actions: {
       adjust: 'Modifier les réponses',
       startFresh: 'Recommencer (tout effacer)',
+      downloadJson: 'Télécharger le cas (.json)',
+      downloadReport: 'Télécharger le rapport (.docx)',
+      downloadingReport: 'Génération du rapport…',
+      reportError: 'Échec de la génération du rapport',
     },
     confirmStartFresh: 'Effacer le cas actuel et en démarrer un nouveau ? Opération irréversible.',
     noResult: { title: 'Aucun résultat', desc: 'Soumettez un questionnaire pour voir la sortie du moteur ici.', cta: 'Ouvrir le questionnaire' },

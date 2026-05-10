@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import ReasoningPanel from '../components/ReasoningPanel'
+import { ApiError, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
+import { useToastStore } from '../store/toastStore'
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -42,7 +44,10 @@ export default function ResultPage() {
   const result = useCaseStore((s) => s.result)
   const error = useCaseStore((s) => s.error)
   const reset = useCaseStore((s) => s.reset)
+  const draft = useCaseStore((s) => s.draft)
+  const pushToast = useToastStore((s) => s.push)
   const [showReasoning, setShowReasoning] = useState(true)
+  const [downloadingReport, setDownloadingReport] = useState(false)
 
   // Keyboard shortcuts on the Result page:
   //   R -> toggle reasoning panel
@@ -70,6 +75,50 @@ export default function ResultPage() {
       reset()
       navigate('/')
     }
+  }
+
+  function handleDownloadJson() {
+    // Export the result Case (mutated) — the engine output is the
+    // most useful payload for re-importing or sharing. Falls back to
+    // draft if for some reason result is missing.
+    const payload = result ?? draft
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: 'application/json',
+    })
+    triggerDownload(blob, 'symba-case.json')
+  }
+
+  async function handleDownloadReport() {
+    setDownloadingReport(true)
+    try {
+      const blob = await fetchReportDocx(draft)
+      triggerDownload(blob, 'symba-case-report.docx')
+    } catch (e) {
+      const detail =
+        e instanceof ApiError
+          ? `${e.status}: ${e.detail}`
+          : e instanceof Error
+            ? e.message
+            : 'unknown'
+      pushToast({
+        type: 'error',
+        message: `${t('result.actions.reportError')} — ${detail}`,
+        durationMs: 8000,
+      })
+    } finally {
+      setDownloadingReport(false)
+    }
+  }
+
+  function triggerDownload(blob: Blob, filename: string) {
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
 
   if (error) {
@@ -193,6 +242,23 @@ export default function ResultPage() {
         <Link to="/questionnaire" className="btn btn-secondary">
           {t('result.actions.adjust')}
         </Link>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleDownloadJson}
+        >
+          {t('result.actions.downloadJson')}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleDownloadReport}
+          disabled={downloadingReport}
+        >
+          {downloadingReport
+            ? t('result.actions.downloadingReport')
+            : t('result.actions.downloadReport')}
+        </button>
         <button
           type="button"
           className="btn btn-secondary"

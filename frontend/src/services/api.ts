@@ -60,6 +60,36 @@ export function runPipeline(input: Case): Promise<Case> {
   })
 }
 
+/**
+ * POST the case to /api/pipeline/report and return the .docx as a Blob.
+ * Caller is responsible for triggering the browser download (e.g. via
+ * URL.createObjectURL + a temporary <a download>).
+ */
+export async function fetchReportDocx(input: Case): Promise<Blob> {
+  const res = await fetch(`${API_BASE_URL}/api/pipeline/report`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
+  if (!res.ok) {
+    let detail = res.statusText
+    try {
+      const text = await res.text()
+      try {
+        const parsed = JSON.parse(text) as { detail?: unknown }
+        if (parsed && typeof parsed.detail === 'string') detail = parsed.detail
+        else detail = text
+      } catch {
+        detail = text
+      }
+    } catch {
+      // keep statusText
+    }
+    throw new ApiError(res.status, detail)
+  }
+  return res.blob()
+}
+
 export function checkHealth(): Promise<{ status: string; version: string }> {
   return request('/health')
 }

@@ -250,6 +250,10 @@ const en = {
     actions: {
       adjust: 'Adjust answers',
       startFresh: 'Start fresh (clear all)',
+      downloadJson: 'Download case (.json)',
+      downloadReport: 'Download report (.docx)',
+      downloadingReport: 'Generating report…',
+      reportError: 'Report generation failed',
     },
     confirmStartFresh: 'Discard the current case and start a new one? This cannot be undone.',
     noResult: { title: 'No result yet', desc: 'Submit a questionnaire to see the engine output here.', cta: 'Open questionnaire' },

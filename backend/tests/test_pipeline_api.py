@@ -85,6 +85,29 @@ def test_pipeline_run_with_flows(client):
     }
 
 
+def test_pipeline_report_returns_docx(client):
+    """POST /api/pipeline/report runs pipeline + streams a .docx."""
+    resp = client.post("/api/pipeline/report", json={
+        "q1": "A", "q2": "A",
+        "q3": {"env": True, "eco": False, "soc": False},
+    })
+    assert resp.status_code == 200
+    assert resp.headers["content-type"].startswith(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    )
+    assert "symba-case-report.docx" in resp.headers["content-disposition"]
+    # .docx is a ZIP container — first two magic bytes PK
+    assert resp.content[:2] == b"PK"
+    assert len(resp.content) > 2000
+
+
+def test_pipeline_report_q1_none_returns_400(client):
+    resp = client.post("/api/pipeline/report", json={
+        "q3": {"env": True, "eco": False, "soc": False},
+    })
+    assert resp.status_code == 400
+
+
 def test_pipeline_run_with_advanced_override(client):
     """advanced['slca_framework_override']='absolute' + Q3.soc=True →
     L1 BLOCK 2 fires."""

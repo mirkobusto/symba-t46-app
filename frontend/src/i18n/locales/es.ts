@@ -249,6 +249,10 @@ const es: Locale = {
     actions: {
       adjust: 'Ajustar respuestas',
       startFresh: 'Empezar de cero (limpiar todo)',
+      downloadJson: 'Descargar caso (.json)',
+      downloadReport: 'Descargar informe (.docx)',
+      downloadingReport: 'Generando informe…',
+      reportError: 'Generación del informe fallida',
     },
     confirmStartFresh: '¿Descartar el caso actual y empezar uno nuevo? No se puede deshacer.',
     noResult: { title: 'Aún sin resultado', desc: 'Envía un cuestionario para ver la salida del motor aquí.', cta: 'Abrir cuestionario' },

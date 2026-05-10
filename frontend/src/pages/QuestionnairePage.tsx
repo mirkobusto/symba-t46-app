@@ -5,11 +5,12 @@
 //   - "Show reasoning" panel
 //   - case.advanced editor (per-scenario overrides included)
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import AdvancedEditor from '../components/AdvancedEditor'
 import FlowsEditor from '../components/FlowsEditor'
+import LoadingOverlay from '../components/LoadingOverlay'
 import QuestionCard from '../components/QuestionCard'
 import ScenariosEditor from '../components/ScenariosEditor'
 import { useCaseStore } from '../store/caseStore'
@@ -99,6 +100,29 @@ export default function QuestionnairePage() {
     draft.advanced ?? {},
   )
 
+  // Re-sync local state when the draft object identity changes — i.e.
+  // store.setDraft / store.reset replaced it (preset loader, "Reset
+  // draft" button, persistence hydration). Local edits use patchDraft
+  // which keeps the same object so this effect doesn't fire on each
+  // keystroke. The rule disables below are intentional: this is the
+  // documented "external store hydration" pattern.
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    setQ1(draft.q1 ?? undefined)
+    setQ2(draft.q2 ?? undefined)
+    setEnv(draft.q3?.env ?? true)
+    setEco(draft.q3?.eco ?? false)
+    setSoc(draft.q3?.soc ?? false)
+    setQ4(new Set(draft.q4 ?? []))
+    setFlows(draft.flows ?? [])
+    setScenarios(draft.alternative_scenarios ?? [])
+    setQ6a(draft.q6a ?? undefined)
+    setQ6b(draft.q6b ?? undefined)
+    setQ7(draft.q7 ?? undefined)
+    setAdvanced(draft.advanced ?? {})
+  }, [draft])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
   function toggleQ4(value: Q4) {
     const next = new Set(q4)
     if (next.has(value)) next.delete(value)
@@ -108,6 +132,20 @@ export default function QuestionnairePage() {
 
   const q3Empty = !env && !eco && !soc
   const canRun = !!q1 && !q3Empty && !loading
+
+  // Ctrl/Cmd + Enter to submit (skipping if disabled).
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && canRun) {
+        e.preventDefault()
+        void handleRun()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+    // handleRun is recreated each render — relying on canRun gate is fine
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -347,10 +385,16 @@ export default function QuestionnairePage() {
         >
           Reset draft
         </button>
-        {!q1 ? <span className="muted">Q1 is required.</span> : null}
+        {!q1 ? (
+          <span className="muted">Q1 is required.</span>
+        ) : (
+          <span className="muted run-tip">Tip: Ctrl/⌘+Enter to run</span>
+        )}
       </div>
 
       {error ? <p className="error-text">{error}</p> : null}
+
+      {loading ? <LoadingOverlay /> : null}
     </div>
   )
 }

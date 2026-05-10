@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import ReasoningPanel from '../components/ReasoningPanel'
 import { useCaseStore } from '../store/caseStore'
+
+function isTextInputTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false
+  const tag = target.tagName.toLowerCase()
+  return (
+    tag === 'input' ||
+    tag === 'textarea' ||
+    tag === 'select' ||
+    target.isContentEditable
+  )
+}
 
 type Tone = 'primary' | 'success' | 'warning' | 'error'
 
@@ -32,6 +43,27 @@ export default function ResultPage() {
   const error = useCaseStore((s) => s.error)
   const reset = useCaseStore((s) => s.reset)
   const [showReasoning, setShowReasoning] = useState(true)
+
+  // Keyboard shortcuts on the Result page:
+  //   R -> toggle reasoning panel
+  //   P -> trigger browser print
+  // Suppressed when focus is on a text input (so typing 'r' in a
+  // form field doesn't toggle the panel).
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.ctrlKey || e.metaKey || e.altKey) return
+      if (isTextInputTarget(e.target)) return
+      if (e.key === 'r' || e.key === 'R') {
+        e.preventDefault()
+        setShowReasoning((v) => !v)
+      } else if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault()
+        window.print()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
 
   function handleStartFresh() {
     if (window.confirm(t('result.confirmStartFresh'))) {

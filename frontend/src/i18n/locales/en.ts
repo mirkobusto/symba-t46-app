@@ -35,6 +35,14 @@ const en = {
       'is unreachable. The questionnaire works but pipeline runs will fail until the backend is back online.',
   },
 
+  savedStatus: {
+    empty: 'No draft yet',
+    justNow: 'Draft saved · just now',
+    secondsAgo: 'Draft saved · {{n}}s ago',
+    minutesAgo: 'Draft saved · {{n}}m ago',
+    hoursAgo: 'Draft saved · {{n}}h ago',
+  },
+
   home: {
     title: 'SYMBA T4.6 — IS Assessment Tool',
     tagline: 'Industrial Symbiosis methodology selection for LCA / LCC / S-LCA.',
@@ -258,6 +266,9 @@ const en = {
     noCdps: 'No CDPs surfaced.',
     pillarKeys: '{{count}} keys',
     resolution: 'Resolution',
+    filterPlaceholder: 'Filter by node ID…',
+    noMatch: 'No nodes match the filter.',
+    showingFiltered: '{{shown}} of {{total}} shown',
   },
 
   loading: { default: 'Running pipeline…' },
@@ -269,6 +280,10 @@ const en = {
       help: 'Show this shortcuts help',
       run: 'Run pipeline',
       runContext: 'Questionnaire',
+      toggleReasoning: 'Toggle reasoning panel',
+      toggleReasoningContext: 'Result',
+      print: 'Print result page',
+      printContext: 'Result',
       esc: 'Close this dialog',
     },
   },

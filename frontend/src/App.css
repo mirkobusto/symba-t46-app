@@ -138,6 +138,16 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+.layout-footer-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.save-status {
+  font-size: 12px;
+  white-space: nowrap;
+}
 
 /* ---- HealthCheck ----------------------------------------------------- */
 
@@ -444,6 +454,21 @@
   margin: 0 0 8px;
   font-size: 16px;
   color: var(--slate-800);
+}
+
+.node-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.node-filter .row-input {
+  flex: 1 1 auto;
+  max-width: 320px;
+}
+.node-filter-meta {
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .node-groups {

@@ -34,6 +34,14 @@ const de: Locale = {
       'ist nicht erreichbar. Der Fragebogen funktioniert, aber Pipeline-Läufe schlagen fehl, bis das Backend wieder online ist.',
   },
 
+  savedStatus: {
+    empty: 'Noch kein Entwurf',
+    justNow: 'Entwurf gespeichert · gerade eben',
+    secondsAgo: 'Entwurf gespeichert · vor {{n}}s',
+    minutesAgo: 'Entwurf gespeichert · vor {{n}}m',
+    hoursAgo: 'Entwurf gespeichert · vor {{n}}h',
+  },
+
   home: {
     title: 'SYMBA T4.6 — IS-Bewertungstool',
     tagline: 'Methodische Auswahl für Industrielle Symbiose (LCA / LCC / S-LCA).',
@@ -257,6 +265,9 @@ const de: Locale = {
     noCdps: 'Keine CDPs aufgetreten.',
     pillarKeys: '{{count}} Schlüssel',
     resolution: 'Lösung',
+    filterPlaceholder: 'Nach Knoten-ID filtern…',
+    noMatch: 'Keine Knoten entsprechen dem Filter.',
+    showingFiltered: '{{shown}} von {{total}} angezeigt',
   },
 
   loading: { default: 'Pipeline läuft…' },
@@ -268,6 +279,10 @@ const de: Locale = {
       help: 'Diese Tastenkürzel-Hilfe anzeigen',
       run: 'Pipeline ausführen',
       runContext: 'Fragebogen',
+      toggleReasoning: 'Reasoning-Panel umschalten',
+      toggleReasoningContext: 'Ergebnis',
+      print: 'Ergebnisseite drucken',
+      printContext: 'Ergebnis',
       esc: 'Diesen Dialog schließen',
     },
   },

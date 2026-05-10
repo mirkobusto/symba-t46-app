@@ -34,6 +34,14 @@ const it: Locale = {
       "non è raggiungibile. Il questionario funziona ma le esecuzioni della pipeline falliranno finché il backend non torna online.",
   },
 
+  savedStatus: {
+    empty: 'Nessuna bozza',
+    justNow: 'Bozza salvata · adesso',
+    secondsAgo: 'Bozza salvata · {{n}}s fa',
+    minutesAgo: 'Bozza salvata · {{n}}m fa',
+    hoursAgo: 'Bozza salvata · {{n}}h fa',
+  },
+
   home: {
     title: 'SYMBA T4.6 — Strumento di valutazione IS',
     tagline: 'Selezione metodologica per Simbiosi Industriale (LCA / LCC / S-LCA).',
@@ -257,6 +265,9 @@ const it: Locale = {
     noCdps: 'Nessun CDP emerso.',
     pillarKeys: '{{count}} chiavi',
     resolution: 'Risoluzione',
+    filterPlaceholder: 'Filtra per ID nodo…',
+    noMatch: 'Nessun nodo corrisponde al filtro.',
+    showingFiltered: '{{shown}} di {{total}} mostrati',
   },
 
   loading: { default: 'Esecuzione pipeline…' },
@@ -268,6 +279,10 @@ const it: Locale = {
       help: 'Mostra questo aiuto scorciatoie',
       run: 'Esegui pipeline',
       runContext: 'Questionario',
+      toggleReasoning: 'Mostra/nascondi pannello reasoning',
+      toggleReasoningContext: 'Risultato',
+      print: 'Stampa pagina risultato',
+      printContext: 'Risultato',
       esc: 'Chiudi questa finestra',
     },
   },

@@ -12,6 +12,7 @@ import type {
   ScenariosResponse,
 } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
+import type { CasesAggregate, ScoringPayload } from '../types/scoring'
 
 const API_BASE_URL: string =
   (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
@@ -187,4 +188,33 @@ export function fetchDcfXlsx(input: Case): Promise<Blob> {
 
 export function fetchDcfDocx(input: Case): Promise<Blob> {
   return fetchDcfBlob('/api/dcf/export/docx', input)
+}
+
+// ----- Scoring (Phase B — CIRCE I/O specification still TBD) -----
+
+/**
+ * Returns the scoring payload for `caseId` if any has been ingested.
+ * Throws ApiError(404) when no scoring is available yet; callers
+ * typically interpret 404 as "scoring not yet provided by CIRCE".
+ */
+export function fetchScoring(caseId: string): Promise<ScoringPayload> {
+  return request<ScoringPayload>(
+    `/api/scoring/${encodeURIComponent(caseId)}`,
+  )
+}
+
+export function putScoring(
+  caseId: string,
+  payload: ScoringPayload,
+): Promise<ScoringPayload> {
+  return request<ScoringPayload>(`/api/scoring/${encodeURIComponent(caseId)}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  })
+}
+
+// ----- Aggregate (Phase B — multi-stakeholder dashboard) -----
+
+export function fetchCasesAggregate(): Promise<CasesAggregate> {
+  return request<CasesAggregate>('/api/cases/aggregate/breakdown')
 }

@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import EuFooter from './EuFooter'
 import HealthBanner from './HealthBanner'
 import HealthCheck from './HealthCheck'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -17,10 +18,14 @@ export default function Layout() {
       </a>
       <header className="layout-header">
         <Link to="/" className="layout-brand">
-          {t('layout.brand')}
+          <span className="layout-brand-symba">SYMBA</span>
+          <span className="layout-brand-divider">·</span>
+          <span className="layout-brand-task">T4.6</span>
+          <span className="layout-brand-tag">{t('layout.brandTag')}</span>
         </Link>
         <nav className="layout-nav" aria-label="Primary">
           <Link to="/cases">{t('cases.navLink')}</Link>
+          <Link to="/aggregate">{t('aggregate.navLink')}</Link>
           <Link to="/about">{t('layout.about')}</Link>
           <LanguageSwitcher />
         </nav>
@@ -29,6 +34,7 @@ export default function Layout() {
       <main className="layout-main" id="main-content" tabIndex={-1}>
         <Outlet />
       </main>
+      <EuFooter />
       <footer className="layout-footer">
         <span>
           {t('layout.footer')}

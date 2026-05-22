@@ -1,0 +1,33 @@
+# SYMBA T4.6 — production compose.
+#
+# Single service that bundles frontend (static) + backend (FastAPI) per
+# the multi-stage Dockerfile.prod. The SQLite DB lives in a named
+# volume so the data survives container rebuilds.
+#
+# Usage:
+#   docker compose -f docker-compose.prod.yml up -d --build
+#   docker compose -f docker-compose.prod.yml logs -f
+#   docker compose -f docker-compose.prod.yml down
+#
+# Behind a public reverse proxy (Caddy / Traefik / nginx), terminate TLS
+# at the proxy and forward to symba:8088 over the internal network.
+
+services:
+  symba:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: symba-t46:prod
+    container_name: symba-t46
+    restart: unless-stopped
+    ports:
+      - "${SYMBA_PUBLIC_PORT:-8088}:8088"
+    environment:
+      SYMBA_DB_URL: "sqlite:////app/backend/data/app.db"
+      BACKEND_CORS_ORIGINS: "${BACKEND_CORS_ORIGINS:-}"
+    volumes:
+      - symba-data:/app/backend/data
+
+volumes:
+  symba-data:
+    driver: local

@@ -1,13 +1,27 @@
-/* Sprint 4 frontend styles. Palette established in 4-A; dark-mode +
- * mobile responsiveness added in UX polish (Step 6). The slate-* +
- * primary/success/warning/error vars are semantic — components never
- * hardcode raw hex; dark-mode is a single :root override below. */
+/* SYMBA T4.6 frontend styles.
+ *
+ * Visual identity per project templates (white / blue / green geometric,
+ * Horizon Europe / circular-economy aesthetic — see Deliverable Template
+ * V3, WP_template pptx, SYMBA News template).
+ *
+ * Palette:
+ *   - primary blue   #1F4E79  (matches the .docx header / xlsx SYMBA blue)
+ *   - accent green   #2D8B43  (project secondary, used for ENV / circular CTAs)
+ *   - white surface  #ffffff
+ *   - slate text     (kept from prior palette for body copy)
+ *
+ * EU funding footer + www.symbaproject.eu visible on every page via the
+ * Layout component (mandatory per Grant Agreement).
+ */
 
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-bg: rgba(79, 70, 229, 0.08);
-  --success: #16a34a;
+  --primary: #1F4E79;
+  --primary-hover: #163657;
+  --primary-bg: rgba(31, 78, 121, 0.08);
+  --accent: #2D8B43;
+  --accent-hover: #226c34;
+  --accent-bg: rgba(45, 139, 67, 0.08);
+  --success: #2D8B43;
   --warning-bg: #fef3c7;
   --warning-border: #f59e0b;
   --warning-text: #78350f;
@@ -29,10 +43,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #818cf8;
-    --primary-hover: #a5b4fc;
-    --primary-bg: rgba(129, 140, 248, 0.18);
-    --success: #4ade80;
+    --primary: #5e9bd1;
+    --primary-hover: #82b3dc;
+    --primary-bg: rgba(94, 155, 209, 0.18);
+    --accent: #6cba7a;
+    --accent-hover: #8acc97;
+    --accent-bg: rgba(108, 186, 122, 0.18);
+    --success: #6cba7a;
     --warning-bg: rgba(245, 158, 11, 0.18);
     --warning-border: #f59e0b;
     --warning-text: #fde68a;
@@ -1751,4 +1768,182 @@ kbd {
 .aggregate-actions {
   display: flex;
   gap: 10px;
+}
+
+/* ---- SYMBA brand + EU footer (visual identity per project templates) - */
+
+.layout-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.layout-brand-symba {
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+.layout-brand-divider {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.layout-brand-task {
+  color: var(--accent);
+}
+
+.layout-brand-tag {
+  margin-left: 8px;
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--slate-700);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.eu-footer {
+  background: var(--surface);
+  border-top: 3px solid var(--primary);
+  padding: 16px 24px;
+  font-size: 0.82rem;
+  color: var(--slate-700);
+  line-height: 1.4;
+}
+
+.eu-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.eu-footer-funding {
+  font-weight: 500;
+}
+
+.eu-footer-flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.eu-footer-meta {
+  margin: 4px 0 6px;
+  font-size: 0.78rem;
+  color: var(--slate-500);
+}
+
+.eu-footer-meta a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.eu-footer-meta a:hover {
+  text-decoration: underline;
+}
+
+.eu-footer-divider {
+  opacity: 0.6;
+}
+
+.eu-footer-disclaimer {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--slate-500);
+  max-width: 920px;
+}
+
+/* SYMBA palette tweaks across existing classes -------------------------- */
+
+/* Hero accents on home page use accent green for circular-economy feel */
+.home-cta-primary {
+  background: var(--accent);
+}
+.home-cta-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+/* Wizard mode toggle on HomePage ---------------------------------------- */
+
+.home-mode-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0 6px;
+  padding: 6px 12px;
+  background: var(--surface-muted);
+  border: 1px solid var(--slate-300);
+  border-radius: 6px;
+}
+
+.home-mode-label {
+  font-size: 0.85rem;
+  color: var(--slate-700);
+  font-weight: 500;
+}
+
+.home-mode-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--slate-700);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.home-mode-btn:hover {
+  background: var(--surface);
+}
+
+.home-mode-btn-active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.home-mode-btn-active:hover {
+  background: var(--primary-hover);
+}
+
+.home-mode-hint {
+  font-size: 0.85rem;
+  color: var(--slate-700);
+  font-style: italic;
+  margin: 0 0 18px;
+  max-width: 720px;
+}
+
+/* Guided-mode banner on Questionnaire ----------------------------------- */
+
+.guided-banner {
+  background: var(--accent-bg);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 14px 16px;
+  margin: 12px 0 22px;
+}
+
+.guided-banner strong {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.guided-banner p {
+  margin: 0;
+  color: var(--slate-700);
+  font-size: 0.92rem;
+}
+
+/* In guided mode, gently emphasise the help text */
+.questionnaire-mode-guided .qcard-help {
+  font-size: 0.95rem;
+  color: var(--slate-700);
 }

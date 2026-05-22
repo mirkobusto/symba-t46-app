@@ -1,0 +1,63 @@
+# SYMBA T4.6 — Production Dockerfile (multi-stage).
+#
+# Stage 1: build the React/Vite frontend → static bundle in dist/
+# Stage 2: install backend (FastAPI) + copy frontend dist as static assets
+# Single container exposes both: backend serves the SPA static files on /
+# (StaticFiles mount) and the API on /api/*.
+#
+# Build: docker build -f Dockerfile.prod -t symba-t46:prod .
+# Run:   docker run --rm -p 8088:8088 -v $(pwd)/data:/app/backend/data symba-t46:prod
+# Or via docker-compose.prod.yml.
+
+# ===== Stage 1: frontend build =====
+FROM node:22-alpine AS frontend-build
+
+WORKDIR /build/frontend
+
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --omit=optional
+
+COPY frontend/ ./
+RUN npm run build
+
+# ===== Stage 2: backend runtime + frontend static =====
+FROM python:3.12-slim AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install build deps that some wheels still need (e.g. for pydantic-core,
+# bcrypt). Keep slim by purging apt cache.
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y build-essential libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app/backend
+
+# Backend dependencies first (better Docker layer cache).
+COPY backend/pyproject.toml ./
+COPY backend/README.md ./
+COPY backend/app ./app
+COPY backend/scripts ./scripts
+COPY backend/coordination ./coordination
+
+RUN pip install --no-cache-dir .
+
+# Frontend dist served by FastAPI StaticFiles (see app/main.py — the mount
+# activates only if the directory exists, so dev runs are unaffected).
+COPY --from=frontend-build /build/frontend/dist /app/frontend/dist
+
+# Data directory for the SQLite database; mount a volume in compose.
+RUN mkdir -p /app/backend/data
+ENV SYMBA_DB_URL="sqlite:////app/backend/data/app.db"
+
+EXPOSE 8088
+
+# Health check hits the unprefixed /health endpoint registered for
+# backwards compat with Sprint 1 smoke tests.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import urllib.request as r; r.urlopen('http://127.0.0.1:8088/health', timeout=2)" \
+        || exit 1
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8088"]

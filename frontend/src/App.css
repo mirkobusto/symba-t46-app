@@ -1947,3 +1947,138 @@ kbd {
   font-size: 0.95rem;
   color: var(--slate-700);
 }
+
+/* ---- Auth (Phase D) -------------------------------------------------- */
+
+.login-page {
+  max-width: 460px;
+  margin: 32px auto;
+  padding: 24px;
+}
+
+.login-page h1 {
+  margin-bottom: 4px;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid var(--slate-300);
+  margin: 16px 0 24px;
+}
+
+.auth-tab {
+  padding: 8px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--slate-700);
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: -2px;
+}
+
+.auth-tab:hover {
+  color: var(--primary);
+}
+
+.auth-tab-active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  font-weight: 600;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-field > span {
+  font-size: 0.9rem;
+  color: var(--slate-700);
+  font-weight: 500;
+}
+
+.auth-field input {
+  padding: 10px 12px;
+  border: 1px solid var(--slate-300);
+  border-radius: 4px;
+  background: var(--surface-input);
+  color: var(--slate-700);
+  font-size: 0.95rem;
+}
+
+.auth-field input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.auth-skip {
+  text-align: center;
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+
+.auth-skip a {
+  color: var(--slate-500);
+}
+
+/* Layout header — user block */
+
+.layout-user-block {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 8px;
+  border-left: 1px solid var(--slate-300);
+  margin-left: 4px;
+}
+
+.layout-user-email {
+  font-size: 0.85rem;
+  color: var(--slate-700);
+}
+
+.layout-user-role {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.layout-logout-btn {
+  background: transparent;
+  border: 1px solid var(--slate-300);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.82rem;
+  color: var(--slate-700);
+  cursor: pointer;
+}
+
+.layout-logout-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.layout-login-link {
+  background: var(--primary);
+  color: #fff !important;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.layout-login-link:hover {
+  background: var(--primary-hover);
+}

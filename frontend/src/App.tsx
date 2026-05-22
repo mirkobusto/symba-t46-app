@@ -7,6 +7,7 @@ import AggregatePage from './pages/AggregatePage'
 import CasesListPage from './pages/CasesListPage'
 import DataCollectionPage from './pages/DataCollectionPage'
 import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
 import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
 import ScenariosResultPage from './pages/ScenariosResultPage'
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/aggregate" element={<AggregatePage />} />
             <Route path="/scenarios-result" element={<ScenariosResultPage />} />
             <Route path="/cases" element={<CasesListPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

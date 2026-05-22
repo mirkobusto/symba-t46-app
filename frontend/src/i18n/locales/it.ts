@@ -422,6 +422,23 @@ const it: Locale = {
     es: 'Español',
   },
 
+  auth: {
+    title: 'Accedi',
+    subtitle:
+      'Opzionale per consultare i casi legacy / pubblici. Necessario per creare casi privati o utilizzare la dashboard regionale per conto di un\'organizzazione.',
+    tabLogin: 'Accedi',
+    tabRegister: 'Crea account',
+    emailLabel: 'Email',
+    passwordLabel: 'Password',
+    passwordHelp: 'Almeno 8 caratteri.',
+    submitLogin: 'Accedi',
+    submitRegister: 'Crea account',
+    submitting: 'Invio in corso…',
+    skipLink: 'Continua senza accedere',
+    signIn: 'Accedi',
+    logout: 'Esci',
+  },
+
   stakeholder: {
     navLink: 'Report stakeholder',
     title: 'Report stakeholder',

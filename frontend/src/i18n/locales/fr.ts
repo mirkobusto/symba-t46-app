@@ -422,6 +422,22 @@ const fr: Locale = {
     es: 'Español',
   },
 
+  auth: {
+    title: 'Se connecter',
+    subtitle: 'Facultatif pour consulter les cas legacy / publics. Requis pour créer des cas privés ou utiliser le tableau de bord régional.',
+    tabLogin: 'Se connecter',
+    tabRegister: 'Créer un compte',
+    emailLabel: 'Email',
+    passwordLabel: 'Mot de passe',
+    passwordHelp: 'Au moins 8 caractères.',
+    submitLogin: 'Se connecter',
+    submitRegister: 'Créer un compte',
+    submitting: 'Envoi…',
+    skipLink: 'Continuer sans se connecter',
+    signIn: 'Se connecter',
+    logout: 'Se déconnecter',
+  },
+
   stakeholder: {
     navLink: 'Rapport parties prenantes',
     title: 'Rapport parties prenantes',

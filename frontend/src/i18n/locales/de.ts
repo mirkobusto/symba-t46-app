@@ -422,6 +422,22 @@ const de: Locale = {
     es: 'Español',
   },
 
+  auth: {
+    title: 'Anmelden',
+    subtitle: 'Optional zum Durchsuchen von Legacy-/öffentlichen Fällen. Erforderlich, um private Fälle zu erstellen.',
+    tabLogin: 'Anmelden',
+    tabRegister: 'Konto erstellen',
+    emailLabel: 'E-Mail',
+    passwordLabel: 'Passwort',
+    passwordHelp: 'Mindestens 8 Zeichen.',
+    submitLogin: 'Anmelden',
+    submitRegister: 'Konto erstellen',
+    submitting: 'Senden…',
+    skipLink: 'Ohne Anmeldung fortfahren',
+    signIn: 'Anmelden',
+    logout: 'Abmelden',
+  },
+
   stakeholder: {
     navLink: 'Stakeholder-Bericht',
     title: 'Stakeholder-Bericht',

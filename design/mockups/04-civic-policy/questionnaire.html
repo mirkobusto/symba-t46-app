@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Assessment (Civic Policy)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root { --gov-blue:#1F4E79; --gov-blue-dark:#0E2A4A; --link:#1d70b8; --link-visited:#4c2c92; --green:#00703c; --yellow:#ffdd00; --black:#0b0c0c; --grey:#505a5f; --grey-light:#b1b4b6; --bg-light:#f3f2f1; --white:#fff; --error:#d4351c; }
+  * { box-sizing: border-box; }
+  body { font-family:'Public Sans',Arial,sans-serif; color: var(--black); background: var(--white); margin: 0; line-height: 1.55; font-size: 17px; }
+  h1, h2, h3 { color: var(--black); font-weight: 700; margin: 0; }
+  a { color: var(--link); text-decoration: underline; }
+  a:focus { background: var(--yellow); color: var(--black); outline: 3px solid var(--yellow); text-decoration: none; }
+
+  .eu-stripe { background: #003399; color: var(--yellow); padding: 6px 24px; font-size: 13px; }
+  .brand-bar { background: var(--gov-blue); color: white; padding: 14px 24px; }
+  .brand-row { max-width: 1024px; margin: 0 auto; display:flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand-logo { display:flex; align-items:center; gap: 12px; }
+  .brand-logo .crown { width: 30px; height: 30px; background: white; color: var(--gov-blue); border-radius: 3px; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .brand-logo .name { font-size: 18px; font-weight: 700; }
+  nav.primary { background: var(--gov-blue-dark); padding: 0 24px; }
+  nav.primary ul { list-style: none; margin: 0; padding: 0; max-width: 1024px; margin-inline: auto; display: flex; }
+  nav.primary a { color: white; display: block; padding: 12px 16px; text-decoration: none; font-size: 15px; font-weight: 500; }
+  nav.primary a.active { background: white; color: var(--gov-blue-dark); border-bottom: 4px solid var(--yellow); }
+
+  .breadcrumbs { padding: 14px 24px; font-size: 15px; }
+  .breadcrumbs-inner { max-width: 1024px; margin: 0 auto; }
+  .breadcrumbs ol { list-style: none; padding: 0; margin: 0; display:flex; flex-wrap: wrap; gap: 6px; }
+  .breadcrumbs li::after { content: " → "; color: var(--grey); margin-left: 6px; }
+  .breadcrumbs li:last-child::after { content: ""; }
+  .breadcrumbs li:last-child { color: var(--black); font-weight: 500; }
+
+  main { max-width: 720px; margin: 0 auto; padding: 24px; }
+  .step-meta { color: var(--grey); font-size: 15px; margin-bottom: 8px; }
+  h1.page-title { font-size: 36px; margin-bottom: 20px; line-height: 1.15; max-width: 600px; }
+
+  /* Progress indicator (gov.uk style) */
+  .progress { border-left: 10px solid var(--gov-blue); padding: 10px 16px; background: var(--bg-light); margin-bottom: 28px; font-size: 16px; }
+  .progress strong { display:block; font-size: 14px; color: var(--gov-blue); }
+
+  /* Guided banner */
+  .guided-notice { border-left: 10px solid var(--green); padding: 14px 18px; background: #effaf3; margin-bottom: 28px; }
+  .guided-notice h2 { font-size: 18px; color: var(--green); margin-bottom: 4px; }
+  .guided-notice p { margin: 0; font-size: 16px; line-height: 1.55; }
+
+  /* Fieldset / question card */
+  fieldset.q { border: none; padding: 0; margin: 32px 0; }
+  legend.q-legend { font-size: 24px; font-weight: 700; margin-bottom: 6px; padding: 0; }
+  .q-hint { color: var(--grey); font-size: 16px; margin-bottom: 16px; line-height: 1.55; }
+  .q-req { background: var(--error); color: white; font-size: 11px; padding: 2px 8px; font-weight: 700; letter-spacing: 0.5px; margin-left: 6px; vertical-align: middle; }
+
+  /* Plain radio/checkbox list (high contrast, large click targets) */
+  .opt-list { display: flex; flex-direction: column; gap: 4px; }
+  .opt { display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; padding: 14px 16px; background: var(--bg-light); cursor: pointer; border: 4px solid transparent; transition: border-color 0.1s; }
+  .opt:hover { background: #e5e3e0; }
+  .opt:focus-within { border-color: var(--yellow); background: var(--yellow); }
+  .opt input { width: 28px; height: 28px; margin-top: 2px; accent-color: var(--gov-blue); }
+  .opt-key { grid-row: 1 / span 2; align-self: start; font-weight: 700; font-size: 22px; color: var(--gov-blue); width: 28px; text-align: center; }
+  .opt-label { font-weight: 700; font-size: 18px; }
+  .opt-desc { color: var(--grey); font-size: 15px; line-height: 1.5; }
+
+  /* Details / accordion */
+  details.help { background: var(--bg-light); padding: 14px 18px; margin: 16px 0 24px; border-left: 4px solid var(--gov-blue); }
+  details.help summary { cursor: pointer; font-weight: 700; font-size: 16px; color: var(--link); }
+  details.help summary:hover { color: var(--gov-blue-dark); }
+  details.help p { margin: 12px 0 0; line-height: 1.6; }
+
+  /* Flow table */
+  table.flows { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  table.flows th, table.flows td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--grey-light); font-size: 16px; }
+  table.flows th { background: var(--bg-light); border-bottom: 2px solid var(--black); }
+  table.flows input, table.flows select { padding: 8px 10px; border: 2px solid var(--grey); font-family: inherit; font-size: 16px; width: 100%; }
+  table.flows input:focus, table.flows select:focus { outline: 3px solid var(--yellow); border-color: var(--black); }
+  .id-cell { font-weight: 700; }
+  .add-btn { background: white; color: var(--link); border: 2px solid var(--link); padding: 10px 18px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: inherit; margin-top: 14px; }
+
+  select.wide { width: 100%; padding: 12px 14px; border: 2px solid var(--grey); font-family: inherit; font-size: 17px; background: white; }
+  select.wide:focus { outline: 3px solid var(--yellow); border-color: var(--black); }
+
+  /* Footer actions */
+  .actions { margin-top: 40px; padding-top: 24px; border-top: 2px solid var(--grey-light); display:flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { background: var(--green); color: white; border: 2px solid var(--green); border-bottom: 4px solid #002d18; padding: 12px 24px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: inherit; }
+  .btn-primary:hover { background: #005a30; border-color: #005a30; }
+  .btn-secondary { background: transparent; color: var(--link); border: 2px solid var(--link); padding: 10px 20px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: inherit; }
+
+  /* Sidebar tip */
+  .save-tip { font-size: 14px; color: var(--grey); margin-top: 12px; }
+
+  footer { background: var(--gov-blue-dark); color: white; padding: 28px 24px 20px; margin-top: 60px; }
+  footer .inner { max-width: 1024px; margin: 0 auto; font-size: 14px; line-height: 1.6; }
+  footer .disclaimer { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 10px; }
+  footer a { color: white; }
+</style>
+</head>
+<body>
+
+<div class="eu-stripe">🇪🇺 EU funded service · Horizon Europe · GA 101135562</div>
+
+<div class="brand-bar">
+  <div class="brand-row">
+    <div class="brand-logo">
+      <div class="crown">S</div>
+      <div class="name">SYMBA T4.6</div>
+    </div>
+    <a href="#" style="color: white;">Sign in</a>
+  </div>
+</div>
+
+<nav class="primary" aria-label="Primary">
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="questionnaire.html" class="active">Start an assessment</a></li>
+    <li><a href="result.html">Results</a></li>
+    <li><a href="stakeholder.html">Stakeholder reports</a></li>
+    <li><a href="#">Regional dashboard</a></li>
+    <li><a href="#">Guidance</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumbs">
+  <div class="breadcrumbs-inner">
+    <ol>
+      <li><a href="home.html">Home</a></li>
+      <li>Start an assessment</li>
+    </ol>
+  </div>
+</div>
+
+<main>
+  <p class="step-meta">Step 2 of 5</p>
+  <h1 class="page-title">Tell us about your industrial symbiosis case</h1>
+
+  <div class="progress">
+    <strong>Your progress</strong>
+    You have answered 5 of 7 questions. <a href="#">Skip to summary</a>
+  </div>
+
+  <div class="guided-notice">
+    <h2>Guided mode is on</h2>
+    <p>Examples and detailed explanations are shown for each question. If you're an experienced sustainability analyst, you can switch to <a href="home.html">Expert mode</a> on the homepage.</p>
+  </div>
+
+  <form>
+    <fieldset class="q">
+      <legend class="q-legend">1. What are you analysing?<span class="q-req">Required</span></legend>
+      <p class="q-hint">Choose the option that best matches your case. If you're not sure, ask yourself: <em>who is the subject of the report — a single firm, a network, or a policy?</em></p>
+      <details class="help">
+        <summary>Show examples and detailed guidance</summary>
+        <p><strong>Option A</strong> — a bilateral exchange (e.g. waste heat from Plant X is reused by Plant Y). The "subject" is the FLOW.</p>
+        <p><strong>Option B</strong> — an eco-industrial park or multi-actor network like Kalundborg in Denmark. The "subject" is the NETWORK.</p>
+        <p><strong>Option C</strong> — a public-sector policy or programme at regional or national scale. The "subject" is the DECISION.</p>
+        <p><strong>Option D</strong> — a single firm quantifying its symbiotic contribution for ESG / CSRD reporting.</p>
+        <p><strong>Option E</strong> — periodic monitoring of an already-operating IS.</p>
+      </details>
+      <div class="opt-list">
+        <label class="opt"><span class="opt-key">A</span><input type="radio" name="q1" checked><span class="opt-label">A specific exchange between two existing companies</span><div class="opt-desc">For example, slag from a steel mill reused by a cement plant.</div></label>
+        <label class="opt"><span class="opt-key">B</span><input type="radio" name="q1"><span class="opt-label">An eco-industrial park or multi-actor network</span><div class="opt-desc">For example, Kalundborg in Denmark.</div></label>
+        <label class="opt"><span class="opt-key">C</span><input type="radio" name="q1"><span class="opt-label">A policy or programme at regional / national scale</span><div class="opt-desc">For example, a national circular-economy strategy.</div></label>
+        <label class="opt"><span class="opt-key">D</span><input type="radio" name="q1"><span class="opt-label">A single company's symbiotic contribution (ESG / CSRD)</span><div class="opt-desc">For example, a corporate sustainability report.</div></label>
+        <label class="opt"><span class="opt-key">E</span><input type="radio" name="q1"><span class="opt-label">Periodic monitoring of an operating symbiosis</span><div class="opt-desc">For example, annual KPI updates of a known eco-park.</div></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="q">
+      <legend class="q-legend">2. What stage is the system in?</legend>
+      <p class="q-hint">Choose the option that best describes the current state of the symbiosis you're documenting.</p>
+      <div class="opt-list">
+        <label class="opt"><span class="opt-key">A</span><input type="radio" name="q2"><span class="opt-label">Operational — existing and running for years</span><div class="opt-desc">You have access to measured operational data.</div></label>
+        <label class="opt"><span class="opt-key">B</span><input type="radio" name="q2"><span class="opt-label">Construction / commissioning</span><div class="opt-desc">Recently built or being commissioned.</div></label>
+        <label class="opt"><span class="opt-key">C</span><input type="radio" name="q2"><span class="opt-label">Design phase only</span><div class="opt-desc">Engineering models, no operational data yet.</div></label>
+        <label class="opt"><span class="opt-key">D</span><input type="radio" name="q2" checked><span class="opt-label">Existing baseline + future alternative scenarios</span><div class="opt-desc">You want to compare what's there now with possible improvements.</div></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="q">
+      <legend class="q-legend">3. Which sustainability dimensions?<span class="q-req">Required</span></legend>
+      <p class="q-hint">Select all that apply. At least one is required. Most published IS studies cover environment and economics; only some add the social dimension.</p>
+      <div class="opt-list">
+        <label class="opt"><span class="opt-key">✓</span><input type="checkbox" checked><span class="opt-label">Environmental impacts (LCA)</span><div class="opt-desc">Climate, ecosystems, resource use.</div></label>
+        <label class="opt"><span class="opt-key">✓</span><input type="checkbox" checked><span class="opt-label">Economic performance (LCC)</span><div class="opt-desc">Costs over the full life cycle.</div></label>
+        <label class="opt"><span class="opt-key">○</span><input type="checkbox"><span class="opt-label">Social impacts (S-LCA)</span><div class="opt-desc">Workers, local community, value chain.</div></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="q">
+      <legend class="q-legend">5. What flows are exchanged?</legend>
+      <p class="q-hint">List each material or energy flow between the actors of the symbiosis. You can edit, add or remove rows.</p>
+      <table class="flows">
+        <thead><tr><th style="width: 80px;">ID</th><th>Name of the flow</th><th style="width: 220px;">Valuation class</th><th style="width: 80px;"></th></tr></thead>
+        <tbody>
+          <tr><td class="id-cell">f1</td><td><input value="Sewage sludge"></td><td><select><option>a — waste / by-product</option><option selected>c — substitution</option><option>e — black-box</option></select></td><td><a href="#">Remove</a></td></tr>
+          <tr><td class="id-cell">f2</td><td><input value="Recovered heat"></td><td><select><option>a</option><option selected>c</option><option>e</option></select></td><td><a href="#">Remove</a></td></tr>
+          <tr><td class="id-cell">f3</td><td><input value="Mono-incineration ash"></td><td><select><option selected>a</option><option>c</option><option>e</option></select></td><td><a href="#">Remove</a></td></tr>
+        </tbody>
+      </table>
+      <button class="add-btn" type="button">+ Add another flow</button>
+    </fieldset>
+
+    <fieldset class="q">
+      <legend class="q-legend">6a. Sector of the symbiosis</legend>
+      <p class="q-hint">Pick the sector that best describes the activities involved. This affects sector-specific methodological rules (for example, water scarcity for wastewater sectors).</p>
+      <select class="wide">
+        <option>Wastewater &amp; sludge biofactories</option>
+        <option>Pulp &amp; paper</option>
+        <option>Chemicals &amp; fertilizers</option>
+        <option>Plastics &amp; packaging</option>
+        <option>Cement &amp; construction</option>
+        <option>Bio-based polymers</option>
+        <option>Energy &amp; utilities</option>
+        <option>Agri-food &amp; biorefineries</option>
+      </select>
+    </fieldset>
+
+    <div class="actions">
+      <a href="result.html" class="btn-primary">Continue</a>
+      <button class="btn-secondary" type="button">Save and come back later</button>
+      <button class="btn-secondary" type="button">Cancel</button>
+    </div>
+    <p class="save-tip">Your draft is saved automatically. Last saved <strong>12 seconds ago</strong>.</p>
+  </form>
+</main>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+    <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

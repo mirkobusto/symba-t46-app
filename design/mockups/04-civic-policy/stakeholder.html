@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Stakeholder report (Civic Policy)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root { --gov-blue:#1F4E79; --gov-blue-dark:#0E2A4A; --link:#1d70b8; --green:#00703c; --yellow:#ffdd00; --black:#0b0c0c; --grey:#505a5f; --grey-light:#b1b4b6; --bg-light:#f3f2f1; --white:#fff; --amber:#a86c00; }
+  * { box-sizing: border-box; }
+  body { font-family:'Public Sans',Arial,sans-serif; color: var(--black); background: var(--white); margin: 0; line-height: 1.55; font-size: 17px; }
+  h1, h2, h3 { color: var(--black); font-weight: 700; margin: 0; }
+  a { color: var(--link); text-decoration: underline; }
+  a:focus { background: var(--yellow); outline: 3px solid var(--yellow); }
+  .eu-stripe { background: #003399; color: var(--yellow); padding: 6px 24px; font-size: 13px; }
+  .brand-bar { background: var(--gov-blue); color: white; padding: 14px 24px; }
+  .brand-row { max-width: 1024px; margin: 0 auto; display:flex; align-items: center; justify-content: space-between; }
+  .brand-logo { display:flex; align-items:center; gap: 12px; }
+  .brand-logo .crown { width: 30px; height: 30px; background: white; color: var(--gov-blue); border-radius: 3px; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .brand-logo .name { font-size: 18px; font-weight: 700; }
+  nav.primary { background: var(--gov-blue-dark); padding: 0 24px; }
+  nav.primary ul { list-style: none; margin: 0; padding: 0; max-width: 1024px; margin-inline: auto; display: flex; }
+  nav.primary a { color: white; display: block; padding: 12px 16px; text-decoration: none; font-size: 15px; font-weight: 500; }
+  nav.primary a.active { background: white; color: var(--gov-blue-dark); border-bottom: 4px solid var(--yellow); }
+  .breadcrumbs { padding: 14px 24px; font-size: 15px; }
+  .breadcrumbs-inner { max-width: 1024px; margin: 0 auto; }
+  .breadcrumbs ol { list-style: none; padding: 0; margin: 0; display:flex; gap: 6px; }
+  .breadcrumbs li::after { content: " → "; color: var(--grey); margin-left: 6px; }
+  .breadcrumbs li:last-child::after { content: ""; color: var(--black); font-weight: 500; }
+
+  main { max-width: 1024px; margin: 0 auto; padding: 24px 24px 60px; }
+  h1.page-title { font-size: 36px; margin-bottom: 12px; }
+  .lead { font-size: 18px; color: var(--grey); margin-bottom: 24px; max-width: 720px; line-height: 1.5; }
+
+  /* Audience selector — radio-like big tiles */
+  .audience-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 32px; }
+  @media (max-width: 720px) { .audience-tiles { grid-template-columns: repeat(2, 1fr); } }
+  .audience-tile { background: var(--bg-light); border: 3px solid transparent; padding: 16px 14px; text-align: center; cursor: pointer; }
+  .audience-tile:hover { background: #e5e3e0; }
+  .audience-tile.active { background: var(--gov-blue); color: white; border-color: var(--gov-blue-dark); }
+  .audience-tile-icon { font-size: 28px; margin-bottom: 6px; }
+  .audience-tile-label { font-weight: 700; font-size: 15px; }
+
+  /* Audience framing — gov.uk inset */
+  .framing { background: var(--bg-light); border-left: 10px solid var(--gov-blue); padding: 18px 22px; margin-bottom: 28px; }
+  .framing-tag { font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gov-blue); font-weight: 700; }
+  .framing-title { font-size: 22px; margin: 4px 0 6px; }
+  .framing-body { font-size: 16px; color: var(--grey); line-height: 1.6; margin: 0; }
+
+  h2.section-h { font-size: 26px; margin: 36px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--grey-light); }
+
+  .summary-list { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
+  .summary-list tr { border-bottom: 1px solid var(--grey-light); }
+  .summary-list th { text-align: left; padding: 12px 16px 12px 0; font-weight: 700; font-size: 17px; width: 40%; }
+  .summary-list td { padding: 12px 16px; font-size: 17px; }
+
+  /* Pending notice */
+  .pending-notice { border-left: 10px solid var(--amber); padding: 14px 18px; background: #fff7e0; margin: 16px 0 24px; }
+  .pending-notice h3 { color: var(--amber); font-size: 18px; margin-bottom: 4px; }
+  .pending-notice p { margin: 4px 0; font-size: 15px; line-height: 1.55; }
+
+  /* Compliance — table-driven */
+  .compliance-table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; }
+  .compliance-table th, .compliance-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--grey-light); font-size: 16px; vertical-align: top; }
+  .compliance-table th { background: var(--bg-light); font-size: 15px; border-bottom: 2px solid var(--black); }
+  .compliance-table small { color: var(--grey); font-size: 14px; display: block; margin-top: 2px; }
+  .tag { display:inline-block; padding: 3px 10px; font-size: 13px; font-weight: 700; }
+  .tag-green { background: var(--green); color: white; }
+  .tag-amber { background: #fff7e0; color: var(--amber); border: 2px solid var(--amber); }
+  .tag-grey { background: var(--bg-light); color: var(--grey); border: 1px solid var(--grey-light); }
+
+  .btn-secondary { background: white; color: var(--link); border: 2px solid var(--link); padding: 10px 20px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; margin-right: 10px; }
+  .btn-primary { background: var(--green); color: white; border: 2px solid var(--green); border-bottom: 4px solid #002d18; padding: 10px 20px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
+
+  footer { background: var(--gov-blue-dark); color: white; padding: 28px 24px 20px; margin-top: 60px; }
+  footer .inner { max-width: 1024px; margin: 0 auto; font-size: 14px; line-height: 1.6; }
+  footer .disclaimer { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 10px; }
+  footer a { color: white; }
+</style>
+</head>
+<body>
+
+<div class="eu-stripe">🇪🇺 EU funded service · Horizon Europe · GA 101135562</div>
+<div class="brand-bar"><div class="brand-row"><div class="brand-logo"><div class="crown">S</div><div class="name">SYMBA T4.6</div></div><a href="#" style="color:white;">Sign in</a></div></div>
+<nav class="primary"><ul>
+  <li><a href="home.html">Home</a></li><li><a href="questionnaire.html">Assessment</a></li>
+  <li><a href="result.html">Results</a></li><li><a href="stakeholder.html" class="active">Stakeholder reports</a></li>
+  <li><a href="#">Regional dashboard</a></li>
+</ul></nav>
+
+<div class="breadcrumbs"><div class="breadcrumbs-inner"><ol>
+  <li><a href="home.html">Home</a></li><li><a href="result.html">Result · 3f0b4bcf</a></li><li>Stakeholder report</li>
+</ol></div></div>
+
+<main>
+  <h1 class="page-title">Stakeholder report</h1>
+  <p class="lead">Choose your audience to see the case framed for that perspective. The underlying data is the same; only the framing and the highlighted indicators change.</p>
+
+  <h2 class="section-h" style="margin-top: 8px;">Choose your audience</h2>
+  <div class="audience-tiles">
+    <div class="audience-tile">
+      <div class="audience-tile-icon">🏭</div>
+      <div class="audience-tile-label">Industry</div>
+    </div>
+    <div class="audience-tile">
+      <div class="audience-tile-icon">🌳</div>
+      <div class="audience-tile-label">Community</div>
+    </div>
+    <div class="audience-tile active">
+      <div class="audience-tile-icon">🏛</div>
+      <div class="audience-tile-label">Local authority</div>
+    </div>
+    <div class="audience-tile">
+      <div class="audience-tile-icon">👤</div>
+      <div class="audience-tile-label">End user</div>
+    </div>
+  </div>
+
+  <div class="framing">
+    <div class="framing-tag">Showing — Local authority</div>
+    <h2 class="framing-title">Regulatory and policy view</h2>
+    <p class="framing-body">Pathway compliance, peer-review status, public-superiority claims, EU PEF and CSRD alignment, DNSH screening. This view is designed for local authorities and policy analysts who oversee the symbiosis on behalf of the host territory.</p>
+  </div>
+
+  <h2 class="section-h">Pathway summary</h2>
+  <table class="summary-list">
+    <tr><th>Pathway</th><td><strong>IS-01 extended</strong> — multi-actor eco-park</td></tr>
+    <tr><th>ILCD Situation</th><td>A multi-actor</td></tr>
+    <tr><th>Sector</th><td>Wastewater &amp; sludge biofactories</td></tr>
+    <tr><th>Geographic scope</th><td>Regional cluster (Q7 = B)</td></tr>
+    <tr><th>Reporting period</th><td>Baseline (ex-post) + 12 alternative scenarios (ex-ante)</td></tr>
+  </table>
+
+  <h2 class="section-h">Quantitative scoring (CIRCE)</h2>
+  <div class="pending-notice">
+    <h3>⏳ Awaiting CIRCE delivery</h3>
+    <p>The quantitative LCSA scoring for this case has not yet been ingested. Once CIRCE delivers the indicators (ENV / ECO / SOC), they will appear here filtered for the local-authority audience.</p>
+    <p style="font-family: monospace; font-size: 13px; color: var(--grey);">Endpoint: PUT /api/scoring/3f0b4bcf · last checked 2026-05-23T11:38Z</p>
+  </div>
+
+  <h2 class="section-h">Compliance signals</h2>
+  <p>The table below summarises the policy-relevant declarations made for this case.</p>
+  <table class="compliance-table">
+    <thead><tr><th>Requirement</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Peer-review claim</strong><small>Q4 = E · ISO 14044 reviewer eligibility</small></td><td><span class="tag tag-green">✓ Yes</span></td></tr>
+      <tr><td><strong>EU PEF alignment</strong><small>Q4 = D · Circular Footprint Formula activated (CIR-05)</small></td><td><span class="tag tag-grey">Not declared</span></td></tr>
+      <tr><td><strong>Public superiority claim</strong><small>Q4 = C · mandatory 3+ ISO panel review, no weighting allowed</small></td><td><span class="tag tag-grey">Not declared</span></td></tr>
+      <tr><td><strong>DNSH check</strong><small>Do No Significant Harm · EU Taxonomy art. 17 alignment screening</small></td><td><span class="tag tag-amber">⏳ Pending</span></td></tr>
+      <tr><td><strong>CSRD alignment</strong><small>Corporate Sustainability Reporting Directive — ESRS E5</small></td><td><span class="tag tag-grey">Not applicable</span></td></tr>
+      <tr><td><strong>Bioeconomy Strategy alignment</strong><small>EU Bioeconomy Strategy 2018 priorities</small></td><td><span class="tag tag-green">✓ Yes</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-h">What you can do next</h2>
+  <p>
+    <a href="result.html" class="btn-primary">← Back to result</a>
+    <a href="#" class="btn-secondary">Open Data Collection File</a>
+    <a href="#" class="btn-secondary">Download a PDF policy brief</a>
+  </p>
+</main>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+    <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

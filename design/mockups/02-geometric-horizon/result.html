@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Result (Geometric Horizon)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --blue:#1F4E79; --green:#2D8B43; --yellow:#F5C518; --slate-50:#f7f9fb; --slate-200:#e3e9ef; --slate-700:#334155; --slate-500:#64748b; --warning:#a86c00; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--slate-700); background: var(--slate-50); margin: 0; line-height: 1.55; font-size: 15px; }
+  h1, h2, h3 { font-family:'Space Grotesk',sans-serif; color: var(--blue); font-weight: 700; margin: 0; }
+  a { color: var(--blue); text-decoration: none; }
+
+  header { background: white; border-bottom: 1px solid var(--slate-200); padding: 14px 32px; }
+  .header-row { display:flex; align-items:center; justify-content: space-between; max-width: 1280px; margin: 0 auto; }
+  .logo { display:flex; align-items:center; gap: 12px; font-family:'Space Grotesk'; font-weight: 700; font-size: 18px; color: var(--blue); }
+  .breadcrumb { color: var(--slate-500); font-size: 13px; }
+  .breadcrumb span { color: var(--blue); font-weight: 600; }
+
+  /* Verdict banner */
+  .verdict { background: linear-gradient(135deg, var(--blue) 0%, #2a5d8f 100%); color: white; padding: 56px 32px; position: relative; overflow: hidden; }
+  .verdict-shape-1 { position:absolute; right: -50px; top: -50px; width: 280px; height: 280px; border: 3px solid var(--yellow); opacity: 0.18; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .verdict-shape-2 { position:absolute; left: 60%; bottom: -60px; width: 200px; height: 200px; background: var(--green); opacity: 0.16; border-radius: 50%; }
+  .verdict-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+  .verdict .meta { font-size: 12px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--yellow); font-weight: 600; }
+  .verdict h1 { color: white; font-size: 72px; line-height: 1; margin: 12px 0 8px; }
+  .verdict h1 em { color: var(--yellow); font-style: italic; }
+  .verdict p { font-size: 18px; color: rgba(255,255,255,0.9); margin: 0; max-width: 700px; }
+
+  .kpi-strip { background: white; border-bottom: 1px solid var(--slate-200); padding: 24px 32px; }
+  .kpi-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+  @media (max-width: 900px) { .kpi-inner { grid-template-columns: repeat(3, 1fr); } }
+  .kpi { padding: 12px 16px; border-right: 1px solid var(--slate-200); }
+  .kpi:last-child { border-right: none; }
+  .kpi-k { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--slate-500); font-weight: 500; }
+  .kpi-v { font-family:'Space Grotesk'; font-size: 22px; font-weight: 700; color: var(--blue); margin-top: 4px; }
+  .kpi-v.green { color: var(--green); }
+  .kpi-v.warn { color: var(--warning); }
+
+  .page { max-width: 1280px; margin: 0 auto; padding: 40px 32px; }
+  .col2 { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
+  @media (max-width: 900px) { .col2 { grid-template-columns: 1fr; } }
+
+  .panel { background: white; border-radius: 16px; padding: 24px 28px; border: 1px solid var(--slate-200); margin-bottom: 20px; }
+  .panel h2 { font-size: 22px; margin-bottom: 16px; display:flex; align-items: center; gap: 12px; }
+  .panel h2::before { content:""; width: 28px; height: 28px; background: var(--blue); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .panel h2.cdp::before { background: var(--yellow); }
+  .panel h2.actions::before { background: var(--green); }
+
+  /* Pillar accordion */
+  .pillar { padding: 14px 0; border-bottom: 1px solid var(--slate-200); }
+  .pillar:last-child { border-bottom: none; }
+  .pillar-head { display:flex; justify-content:space-between; align-items:center; cursor: pointer; }
+  .pillar-name { font-family:'Space Grotesk'; font-size: 16px; color: var(--blue); font-weight: 600; }
+  .pillar-name .chip { background: var(--green); color: white; font-size: 11px; padding: 2px 10px; border-radius: 999px; margin-left: 8px; font-weight: 700; }
+  .pillar-name .chip.warn { background: var(--yellow); color: var(--blue); }
+  .pillar-count { color: var(--slate-500); font-size: 13px; }
+  .pillar-nodes { font-family: 'Space Grotesk'; color: var(--slate-500); font-size: 11px; margin-top: 10px; line-height: 1.7; letter-spacing: 0.5px; }
+
+  /* CDP cards */
+  .cdp-card { background: #fffaeb; border: 1px solid var(--yellow); border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; position: relative; }
+  .cdp-card::before { content:""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--yellow); border-radius: 12px 0 0 12px; }
+  .cdp-id { font-family:'Space Grotesk'; font-weight: 700; color: var(--warning); font-size: 13px; letter-spacing: 1px; }
+  .cdp-title { font-size: 15px; font-weight: 600; color: var(--blue); margin: 4px 0 6px; }
+  .cdp-body { font-size: 13px; line-height: 1.5; color: var(--slate-700); }
+  .cdp-meta { font-family:'Space Grotesk'; font-size: 11px; color: var(--slate-500); margin-top: 6px; letter-spacing: 0.4px; }
+
+  .actions-row { display:flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
+  .btn-primary { background: var(--green); color: white; }
+  .btn-primary:hover { background: #226c34; }
+  .btn-secondary { background: var(--slate-50); color: var(--blue); border: 1px solid var(--slate-200); }
+  .btn-outline { background: white; color: var(--blue); border: 2px solid var(--blue); }
+
+  footer { background: var(--blue); color: rgba(255,255,255,0.85); padding: 20px 32px; font-size: 12px; margin-top: 60px; }
+  footer .inner { max-width: 1280px; margin: 0 auto; line-height: 1.5; }
+  footer .disc { font-style: italic; color: rgba(255,255,255,0.55); margin-top: 8px; max-width: 800px; }
+  footer a { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 40 40"><polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="none" stroke="#1F4E79" stroke-width="2.5"/><polygon points="20,10 28,15 28,25 20,30 12,25 12,15" fill="#2D8B43"/></svg>
+      SYMBA · T4.6
+    </div>
+    <div class="breadcrumb">Home / Assessment / <span>Result</span></div>
+  </div>
+</header>
+
+<section class="verdict">
+  <div class="verdict-shape-1"></div>
+  <div class="verdict-shape-2"></div>
+  <div class="verdict-inner">
+    <div class="meta">Methodological pathway derived</div>
+    <h1>IS-01 <em>extended</em></h1>
+    <p>Multi-actor eco-park · attributional modeling · ex-post baseline with N=12 alternative scenarios · wastewater &amp; sludge sector overlay</p>
+  </div>
+</section>
+
+<div class="kpi-strip">
+  <div class="kpi-inner">
+    <div class="kpi"><div class="kpi-k">Pathway</div><div class="kpi-v">IS-01 ext.</div></div>
+    <div class="kpi"><div class="kpi-k">ILCD</div><div class="kpi-v">A multi-actor</div></div>
+    <div class="kpi"><div class="kpi-k">LCC type</div><div class="kpi-v">C+E LCC</div></div>
+    <div class="kpi"><div class="kpi-k">S-LCA</div><div class="kpi-v warn">deactivated</div></div>
+    <div class="kpi"><div class="kpi-k">Activated nodes</div><div class="kpi-v green">160 / 186</div></div>
+    <div class="kpi"><div class="kpi-k">L1 blocks</div><div class="kpi-v green">0</div></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="col2">
+    <div>
+      <div class="panel">
+        <h2>Activated nodes by pillar</h2>
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-name">LCA <span class="chip">68</span></span><span class="pillar-count">▼ show ids</span></div>
+          <div class="pillar-nodes">lca_t1 · lca_hc_01 · lca_hc_02 · lca_hc_03 · lca_hc_04 · lca_hc_05 · lca_hc_06 · lca_hc_07 · lca_mc_02 · lca_mc_03 · lca_mc_07 · lca_mc_11 · lca_mc_26 · lca_hc_18 · …</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-name">LCC <span class="chip">42</span></span><span class="pillar-count">▼ show ids</span></div>
+          <div class="pillar-nodes">lcc_t1 · lcc_hc_01 · lcc_hc_07 · lcc_hc_08 · lcc_hc_09 · lcc_mc_02 · lcc_mc_10 · lcc_mc_13 · …</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-name">S-LCA <span class="chip warn">28 default</span></span><span class="pillar-count">▼ show ids</span></div>
+          <div class="pillar-nodes">slca_hc_02 · slca_hc_03 · slca_hc_04 · slca_hc_05 · slca_mc_06 · …</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-head"><span class="pillar-name">Cross-method &amp; reporting <span class="chip">22</span></span><span class="pillar-count">▼ show ids</span></div>
+          <div class="pillar-nodes">IR-04 · IR-12 · CIR-05 · FU-02 · B-01 · CDP-01 · CDP-04 · CDP-07 · …</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="cdp">Critical Decision Points</h2>
+        <div class="cdp-card">
+          <div class="cdp-id">CDP-04</div>
+          <div class="cdp-title">Allocation vs. system expansion</div>
+          <div class="cdp-body">Attributional + q5=c (substitution) jointly recommend system expansion. Document this choice in the methodological charter; switching to allocation requires an explicit override.</div>
+          <div class="cdp-meta">resolved_at: L3 · methods: [LCA, LCC] · severity: medium</div>
+        </div>
+        <div class="cdp-card">
+          <div class="cdp-id">CDP-07</div>
+          <div class="cdp-title">Capital goods amortization</div>
+          <div class="cdp-body">Q2=D activates dynamic background scenarios (SSP/RCP). Amortization defaults to 20y; verify against the host site's actual write-off policy.</div>
+          <div class="cdp-meta">resolved_at: L3 · methods: [LCC] · severity: low</div>
+        </div>
+        <div class="cdp-card">
+          <div class="cdp-id">CDP-12</div>
+          <div class="cdp-title">Sector-specific overlay (wastewater)</div>
+          <div class="cdp-body">Q6a=wastewater_sludge_biofactories activates AWARE water scarcity characterisation and a contamination-level field in the inventory.</div>
+          <div class="cdp-meta">resolved_at: L3 · methods: [LCA] · severity: low</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h2 class="actions">Next steps</h2>
+        <div class="actions-row" style="flex-direction:column;align-items:stretch;">
+          <a href="#" class="btn btn-primary">📂 Open Data Collection File →</a>
+          <a href="stakeholder.html" class="btn btn-outline">👥 Stakeholder report</a>
+          <a href="#" class="btn btn-secondary">↓ Download .docx</a>
+          <a href="#" class="btn btn-secondary">💾 Save case</a>
+          <a href="#" class="btn btn-secondary">🔁 Run scenarios</a>
+        </div>
+      </div>
+
+      <div class="panel" style="background: linear-gradient(135deg, #2D8B43 0%, #226c34 100%); color: white; border: none;">
+        <h2 style="color:white;">Symbiotic dividend</h2>
+        <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 0;">The net environmental benefit that exists only because partners cooperate. Once CIRCE delivers the quantitative scoring, it will appear here.</p>
+        <div style="background: rgba(255,255,255,0.12); padding: 12px 14px; border-radius: 10px; margin-top: 14px; font-size: 13px;">
+          <strong style="color: var(--yellow);">⏳ Pending CIRCE ingest</strong><br>
+          <span style="color: rgba(255,255,255,0.8); display:block; margin-top: 4px;">PUT /api/scoring/{case_id} awaiting partner delivery.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a> · GA 101135562 · ENCO · CIRCE · CET
+    <div class="disc">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

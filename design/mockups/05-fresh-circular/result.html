@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Result (Fresh Circular)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap">
+<style>
+  :root { --leaf:#2D8B43; --leaf-deep:#1f6831; --mint:#D4F4DD; --cream:#FFFAEC; --navy:#0F2C4D; --pumpkin:#F59E0B; --slate-50:#f7faf6; --slate-200:#e5ecdf; --slate-700:#3d4a3a; --slate-500:#7a8979; }
+  * { box-sizing: border-box; }
+  body { font-family:'DM Sans',system-ui,sans-serif; color: var(--slate-700); background: var(--cream); margin: 0; line-height: 1.55; font-size: 16px; }
+  h1, h2, h3 { font-family:'Nunito', sans-serif; color: var(--navy); font-weight: 800; margin: 0; letter-spacing: -0.4px; }
+  a { color: var(--leaf); text-decoration: none; }
+  header { background: var(--cream); padding: 16px 28px; }
+  .header-row { max-width: 1100px; margin: 0 auto; display:flex; justify-content: space-between; align-items: center; }
+  .logo { display:flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 36px; height: 36px; background: var(--leaf); border-radius: 12px; display: grid; place-items: center; font-size: 18px; color: white; }
+  .logo-text { font-family:'Nunito'; font-weight: 800; font-size: 18px; color: var(--navy); }
+  .crumb { color: var(--slate-500); font-size: 14px; }
+  .crumb span { color: var(--navy); font-weight: 600; }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 24px 28px 60px; }
+
+  /* Celebratory verdict */
+  .verdict { background: linear-gradient(135deg, var(--leaf) 0%, var(--leaf-deep) 100%); color: white; border-radius: 32px; padding: 40px 48px; position: relative; overflow: hidden; margin-bottom: 28px; }
+  .verdict::before { content: "🌿"; position:absolute; right: 30px; top: 30px; font-size: 80px; opacity: 0.18; transform: rotate(20deg); }
+  .verdict::after { content: "🌱"; position:absolute; right: 90px; bottom: 20px; font-size: 50px; opacity: 0.18; }
+  .verdict-row { display:flex; align-items: center; gap: 14px; }
+  .verdict-row .check-circle { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; font-size: 24px; }
+  .verdict-row .label { font-size: 14px; color: rgba(255,255,255,0.85); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .verdict h1 { color: white; font-size: 72px; line-height: 1; margin: 12px 0 8px; letter-spacing: -1.5px; }
+  .verdict h1 em { color: var(--mint); font-style: italic; }
+  .verdict .sub { font-size: 18px; color: rgba(255,255,255,0.92); max-width: 600px; margin: 0 0 24px; }
+  .verdict-tags { display:flex; gap: 8px; flex-wrap: wrap; }
+  .v-tag { background: rgba(255,255,255,0.15); color: white; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+
+  /* KPI tiles */
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px; }
+  @media (max-width: 800px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+  .kpi { background: white; border-radius: 20px; padding: 18px 22px; }
+  .kpi-icon { font-size: 24px; margin-bottom: 8px; }
+  .kpi-k { font-size: 12px; color: var(--slate-500); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; }
+  .kpi-v { font-family:'Nunito'; font-size: 28px; font-weight: 800; color: var(--navy); line-height: 1.1; margin-top: 4px; }
+  .kpi-v small { font-size: 14px; color: var(--slate-500); font-weight: 600; }
+
+  /* Pillar rings (CSS donut) */
+  .row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-bottom: 24px; }
+  @media (max-width: 900px) { .row { grid-template-columns: 1fr; } }
+  .card { background: white; border-radius: 24px; padding: 24px 28px; box-shadow: 0 4px 16px rgba(15,44,77,0.04); }
+  .card-head { display:flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .card-head h3 { font-size: 20px; letter-spacing: -0.2px; }
+  .card-head .meta { font-size: 13px; color: var(--slate-500); }
+
+  .pillar-list { display: flex; flex-direction: column; gap: 12px; }
+  .pillar-item { display: grid; grid-template-columns: 36px 1fr 60px; gap: 14px; align-items: center; }
+  .pillar-emoji { font-size: 28px; }
+  .pillar-info { font-size: 14px; }
+  .pillar-info .name { font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .pillar-info .desc { color: var(--slate-500); font-size: 13px; }
+  .pillar-bar { height: 6px; background: var(--slate-50); border-radius: 999px; margin-top: 6px; overflow: hidden; }
+  .pillar-bar div { height: 100%; background: var(--leaf); border-radius: 999px; }
+  .pillar-count { font-family:'Nunito'; font-weight: 800; color: var(--leaf); font-size: 22px; text-align: right; }
+
+  /* CDP friendly cards */
+  .cdp-card { background: linear-gradient(135deg, #fff8e8, #fff3d8); border-radius: 18px; padding: 16px 20px; margin-bottom: 12px; display:flex; gap: 14px; }
+  .cdp-card .ico { font-size: 28px; line-height: 1; }
+  .cdp-card .id { font-family:'Nunito'; color: var(--pumpkin); font-weight: 800; font-size: 13px; letter-spacing: 1px; }
+  .cdp-card h4 { font-size: 15px; margin: 4px 0 6px; color: var(--navy); }
+  .cdp-card p { font-size: 13px; line-height: 1.55; color: var(--slate-700); margin: 0; }
+  .cdp-card .meta { font-size: 11px; color: var(--slate-500); margin-top: 6px; }
+
+  /* Pending scoring */
+  .scoring-pending { background: linear-gradient(135deg, #fff8e8, #fff3d8); border-radius: 20px; padding: 20px; }
+  .scoring-pending h4 { color: var(--pumpkin); font-size: 16px; display:flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .scoring-pending p { margin: 0; font-size: 13px; color: var(--slate-700); line-height: 1.55; }
+  .scoring-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+  .scoring-ind { background: white; border-radius: 14px; padding: 10px 12px; text-align: center; opacity: 0.55; }
+  .scoring-ind .k { font-size: 10px; color: var(--slate-500); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+  .scoring-ind .v { font-family:'Nunito'; font-size: 22px; color: var(--slate-500); font-weight: 800; margin-top: 2px; }
+
+  /* Next steps as friendly chunky cards */
+  .next-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+  @media (max-width: 800px) { .next-row { grid-template-columns: 1fr; } }
+  .next { background: white; border-radius: 24px; padding: 24px 26px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: var(--slate-700); }
+  .next:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(15,44,77,0.08); color: var(--slate-700); }
+  .next-icon { font-size: 32px; margin-bottom: 10px; }
+  .next h3 { font-size: 18px; color: var(--navy); margin-bottom: 6px; }
+  .next p { font-size: 13px; color: var(--slate-500); margin: 0 0 10px; line-height: 1.5; }
+  .next-arrow { color: var(--leaf); font-weight: 700; font-size: 14px; }
+
+  footer { background: var(--navy); color: rgba(255,255,255,0.85); padding: 24px 28px; font-size: 13px; line-height: 1.5; }
+  footer .inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 16px; align-items: flex-start; }
+  footer .flag { font-size: 24px; line-height: 1; }
+  footer a { color: var(--mint); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a href="home.html" class="logo">
+      <div class="logo-mark">🌱</div>
+      <div class="logo-text">SYMBA T4.6</div>
+    </a>
+    <div class="crumb"><a href="home.html" style="color:var(--slate-500);">Home</a> · <a href="questionnaire.html" style="color:var(--slate-500);">Assessment</a> · <span>Result</span></div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="verdict">
+    <div class="verdict-row">
+      <div class="check-circle">✓</div>
+      <span class="label">All done — your pathway is</span>
+    </div>
+    <h1>IS-01 <em>extended</em></h1>
+    <p class="sub">Multi-actor eco-park, ex-post baseline with 12 alternative scenarios. Attributional modeling, wastewater sector overlay.</p>
+    <div class="verdict-tags">
+      <span class="v-tag">🌐 Multi-actor</span>
+      <span class="v-tag">📊 Attributional</span>
+      <span class="v-tag">💧 Wastewater</span>
+      <span class="v-tag">🇸🇪 Regional cluster</span>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-icon">🧬</div>
+      <div class="kpi-k">ILCD Situation</div>
+      <div class="kpi-v" style="font-size:20px;">A multi-actor</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">💼</div>
+      <div class="kpi-k">LCC Type</div>
+      <div class="kpi-v" style="font-size:20px;">C-LCC + E-LCC</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">🌳</div>
+      <div class="kpi-k">Activated nodes</div>
+      <div class="kpi-v">160<small>/186</small></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon">🟢</div>
+      <div class="kpi-k">Blocks fired</div>
+      <div class="kpi-v" style="color: var(--leaf);">0<small>/4</small></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <div class="card-head"><h3>Methodological pillars activated</h3><span class="meta">160 of 186 atomic nodes</span></div>
+      <div class="pillar-list">
+        <div class="pillar-item">
+          <div class="pillar-emoji">🌿</div>
+          <div class="pillar-info">
+            <div class="name">LCA · Life Cycle Assessment</div>
+            <div class="desc">Environmental impacts: climate, ecosystems, resources</div>
+            <div class="pillar-bar"><div style="width: 92%;"></div></div>
+          </div>
+          <div class="pillar-count">68</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-emoji">💰</div>
+          <div class="pillar-info">
+            <div class="name">LCC · Life Cycle Costing</div>
+            <div class="desc">CAPEX, OPEX, NPV — full life-cycle costing</div>
+            <div class="pillar-bar"><div style="width: 78%; background: var(--pumpkin);"></div></div>
+          </div>
+          <div class="pillar-count" style="color: var(--pumpkin);">42</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-emoji">👥</div>
+          <div class="pillar-info">
+            <div class="name">S-LCA · Social Life Cycle (DEFAULT subset)</div>
+            <div class="desc">S-LCA deactivated, but default mandates still active</div>
+            <div class="pillar-bar"><div style="width: 52%; background: #db2777;"></div></div>
+          </div>
+          <div class="pillar-count" style="color: #db2777;">28</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-emoji">🔗</div>
+          <div class="pillar-info">
+            <div class="name">Cross-method &amp; reporting</div>
+            <div class="desc">IR · CIR · FU · B · CDP rules</div>
+            <div class="pillar-bar"><div style="width: 42%; background: var(--navy);"></div></div>
+          </div>
+          <div class="pillar-count" style="color: var(--navy);">22</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Symbiotic dividend</h3><span class="meta">CIRCE scoring</span></div>
+      <div class="scoring-pending">
+        <h4>⏳ Waiting for CIRCE</h4>
+        <p>The quantitative LCSA scoring is being computed by CIRCE. Once it arrives, you'll see the environmental, economic and social dividends here.</p>
+        <div class="scoring-grid">
+          <div class="scoring-ind"><div class="k">🌿 ENV</div><div class="v">—</div></div>
+          <div class="scoring-ind"><div class="k">💰 ECO</div><div class="v">—</div></div>
+          <div class="scoring-ind"><div class="k">👥 SOC</div><div class="v">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3>💡 Things to think about</h3><span class="meta">3 methodological choices to document</span></div>
+    <div class="cdp-card">
+      <div class="ico">⚖️</div>
+      <div>
+        <div class="id">CDP-04</div>
+        <h4>Allocation vs system expansion</h4>
+        <p>Your case (attributional + q5=c substitution) recommends system expansion. Write this down in the methodological charter — switching to allocation later will need an explicit override.</p>
+        <div class="meta">Methods: LCA, LCC · Severity: medium</div>
+      </div>
+    </div>
+    <div class="cdp-card">
+      <div class="ico">🏭</div>
+      <div>
+        <div class="id">CDP-07</div>
+        <h4>Capital goods amortization</h4>
+        <p>With baseline + alternatives (Q2=D), dynamic background scenarios (SSP/RCP) kick in. Amortization defaults to 20 years — double-check this matches your site's policy.</p>
+        <div class="meta">Methods: LCC · Severity: low</div>
+      </div>
+    </div>
+    <div class="cdp-card">
+      <div class="ico">💧</div>
+      <div>
+        <div class="id">CDP-12</div>
+        <h4>Wastewater sector overlay</h4>
+        <p>Sector "wastewater &amp; sludge biofactories" activates AWARE water scarcity characterisation and a contamination-level field in your Data Collection File.</p>
+        <div class="meta">Methods: LCA · Severity: low</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="font-size: 28px; margin: 36px 0 16px;">What's next? 🚀</h2>
+  <div class="next-row">
+    <a href="#" class="next">
+      <div class="next-icon">📂</div>
+      <h3>Open your Data Collection File</h3>
+      <p>An Excel companion calibrated on this pathway. Share with your network partners.</p>
+      <div class="next-arrow">Open →</div>
+    </a>
+    <a href="stakeholder.html" class="next">
+      <div class="next-icon">👥</div>
+      <h3>See the stakeholder report</h3>
+      <p>Same case, different framings for industry, community, authority and end-user audiences.</p>
+      <div class="next-arrow">View →</div>
+    </a>
+    <a href="#" class="next">
+      <div class="next-icon">📄</div>
+      <h3>Download as Word</h3>
+      <p>Auto-generated .docx using the SYMBA Deliverable Template V3. Reviewer-ready.</p>
+      <div class="next-arrow">Download →</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    <span class="flag">🇪🇺</span>
+    <div>
+      This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+      <div style="font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px;">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

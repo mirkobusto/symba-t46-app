@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Home (Editorial Scientific)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ink: #0F2C4D;
+    --ink-soft: #2c4a6b;
+    --paper: #fbf9f4;
+    --rule: #d8d2c4;
+    --accent: #8B6F47;
+    --green: #2D8B43;
+    --muted: #6b6358;
+    --body: #2a2520;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--body);
+    background: var(--paper);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  h1, h2, h3, h4 { font-family: 'Lora', Georgia, serif; color: var(--ink); font-weight: 600; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .masthead { border-bottom: 4px double var(--ink); padding: 28px 48px 18px; background: var(--paper); }
+  .masthead-row { display:flex; justify-content:space-between; align-items:baseline; max-width:1100px; margin:0 auto; }
+  .masthead-brand { font-family:'Lora', serif; font-size: 28px; font-weight: 700; color: var(--ink); letter-spacing: -0.5px; }
+  .masthead-brand .small { font-weight:400; font-style:italic; color: var(--muted); font-size: 18px; margin-left:8px; }
+  .masthead-meta { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.4px; }
+  .masthead-meta span { margin-left: 14px; }
+
+  .topnav { max-width:1100px; margin:8px auto 0; display:flex; gap: 26px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+  .topnav a { color: var(--ink); }
+  .topnav .lang { margin-left: auto; color: var(--muted); }
+
+  .hero { max-width: 820px; margin: 0 auto; padding: 56px 32px 32px; text-align: center; }
+  .hero .issue { font-size: 11px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; }
+  .hero h1 { font-size: 56px; line-height: 1.05; margin: 14px 0 10px; letter-spacing: -1px; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero .deck { font-family:'Lora', serif; font-style: italic; font-size: 22px; color: var(--ink-soft); margin: 8px 0 22px; font-weight: 400; }
+  .hero .byline { font-size: 13px; color: var(--muted); font-style: italic; }
+  .hero .byline strong { color: var(--ink); font-style: normal; }
+  .hero hr { border: none; border-top: 1px solid var(--rule); width: 80px; margin: 28px auto; }
+
+  .article { max-width: 720px; margin: 0 auto; padding: 24px 32px; }
+  .article p { margin: 16px 0; line-height: 1.7; }
+  .article p:first-of-type::first-letter { font-family:'Lora', serif; float: left; font-size: 58px; line-height: 0.9; padding: 6px 10px 0 0; color: var(--ink); font-weight: 700; }
+
+  .cta-row { display: flex; gap: 16px; justify-content: center; margin: 40px 0 24px; flex-wrap: wrap; }
+  .btn { display:inline-flex; align-items:center; gap: 10px; padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; cursor: pointer; border-radius: 0; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+  .btn:hover { background: var(--green); border-color: var(--green); color: white; }
+
+  .mode-switch { text-align: center; margin: 20px 0 40px; }
+  .mode-switch span { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-right: 12px; }
+  .mode-btn { background: transparent; border: 1px solid var(--rule); padding: 6px 18px; font-family: 'Inter', sans-serif; font-size: 13px; cursor: pointer; color: var(--ink); }
+  .mode-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .mode-hint { font-style: italic; color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+  .presets { max-width: 920px; margin: 64px auto; padding: 0 32px; }
+  .presets-header { display:flex; justify-content:space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 24px; }
+  .presets-header h2 { font-size: 22px; margin: 0; }
+  .presets-header span { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); }
+  .preset-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 36px; }
+  .preset { padding: 4px 0; border-bottom: 1px solid var(--rule); padding-bottom: 18px; }
+  .preset-num { font-family:'Lora', serif; font-style: italic; font-size: 14px; color: var(--accent); }
+  .preset-title { font-family:'Lora', serif; font-size: 19px; color: var(--ink); margin: 4px 0 6px; font-weight: 600; }
+  .preset-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .preset-cite { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+  .pullquote { border-left: 4px solid var(--green); padding: 12px 0 12px 24px; margin: 40px auto; max-width: 720px; font-family:'Lora', serif; font-style: italic; font-size: 20px; color: var(--ink); line-height: 1.5; }
+
+  footer { background: var(--ink); color: #d8d2c4; padding: 36px 48px 24px; margin-top: 60px; font-size: 13px; }
+  footer .inner { max-width: 1100px; margin: 0 auto; }
+  footer .funding { display:flex; gap:14px; align-items:flex-start; }
+  footer .flag { font-size: 28px; line-height: 1; }
+  footer .meta { color: #a4d5b5; margin-top: 16px; font-size: 12px; letter-spacing: 0.4px; }
+  footer .meta a { color: #a4d5b5; }
+  footer .disclaimer { font-style: italic; font-size: 11px; color: #97a4b3; margin-top: 14px; line-height: 1.5; max-width: 820px; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-row">
+    <div class="masthead-brand">SYMBA<span class="small">T4.6 Monitoring &amp; Reporting System</span></div>
+    <div class="masthead-meta">
+      <span>VOL. I · ISSUE 1</span>
+      <span>M22–M36</span>
+      <span>D4.6 — PU</span>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="home.html">Home</a>
+    <a href="questionnaire.html">Assessment</a>
+    <a href="result.html">Results</a>
+    <a href="stakeholder.html">Stakeholder report</a>
+    <a href="#">About</a>
+    <a class="lang" href="#">EN ▾</a>
+    <a href="#">Sign in</a>
+  </nav>
+</div>
+
+<section class="hero">
+  <div class="issue">Horizon Europe · GA 101135562</div>
+  <h1>Industrial Symbiosis,<br><em>methodically.</em></h1>
+  <p class="deck">A monitoring and reporting system for the bio-based value chain — methodologically defensible LCSA configurations for industries, communities, local authorities, and end-users.</p>
+  <p class="byline">ENCO · CIRCE · CET — <strong>Task 4.6, WP4</strong></p>
+  <hr>
+</section>
+
+<article class="article">
+  <p>The SYMBA project answers a simple but stubborn question: how do we measure, credibly, the environmental, economic, and social benefits of industries cooperating instead of competing? Each cluster of partners — a paper mill sending fly ash to a cement plant, a brewery passing spent grain to a fish farm, a port reusing a neighbour's waste heat — generates a "symbiotic dividend" that firm-by-firm accounting cannot capture.</p>
+  <p>This tool operationalises the methodological charter laid out in deliverables D4.1 (LCA Guidelines), D4.2 (LCC Guidelines), and D4.3 (S-LCA Guidelines) into a seven-question assessment. From those seven answers, an engine derives one of five terminal IS pathways (IS-01 through IS-05), activates the relevant subset of 186 methodological nodes, and produces a calibrated data-collection file ready for the network partners.</p>
+  <div class="cta-row">
+    <a href="questionnaire.html" class="btn">Begin assessment →</a>
+    <a href="#" class="btn btn-secondary">Read the methodology</a>
+  </div>
+  <div class="mode-switch">
+    <span>Interface mode</span>
+    <button class="mode-btn active">Expert</button>
+    <button class="mode-btn">Guided</button>
+    <div class="mode-hint">Expert mode assumes familiarity with ILCD / LCSA terminology. Switch to <em>Guided</em> for step-by-step explanations.</div>
+  </div>
+</article>
+
+<div class="pullquote">"Industrial Symbiosis turns the waste, energy, water and by-products of one firm into inputs for another, raising the resource efficiency of an entire industrial cluster — but its environmental value is difficult to measure credibly by applying firm-centric LCA in isolation."<br><span style="font-size:13px; font-style:normal; color: var(--muted); display:block; margin-top:8px;">— D4.1 LCA Guidelines, Executive Summary</span></div>
+
+<section class="presets">
+  <div class="presets-header">
+    <h2>Validated case studies</h2>
+    <span>Twelve papers · One scaffold</span>
+  </div>
+  <div class="preset-list">
+    <div class="preset">
+      <div class="preset-num">N° I.</div>
+      <div class="preset-title">Sokka — Kymenlaakso</div>
+      <div class="preset-desc">Six-actor pulp &amp; paper IES in southern Finland. ENV-only assessment, RS3 improvement scenario. Canonical IS-01 multi-actor pathway.</div>
+      <div class="preset-cite">Sokka et al., 2011 — Finland</div>
+    </div>
+    <div class="preset">
+      <div class="preset-num">N° II.</div>
+      <div class="preset-title">Wiktor &amp; Johansson — Malmö</div>
+      <div class="preset-desc">VA Syd sewage sludge valorization. Most extensive multi-scenario design in the corpus: 12 alternatives + baseline, ENV+ECO dimensions.</div>
+      <div class="preset-cite">Wiktor &amp; Johansson, 2018 — Sweden</div>
+    </div>
+    <div class="preset">
+      <div class="preset-num">N° III.</div>
+      <div class="preset-title">Briassoulis — Bio-polymers framework</div>
+      <div class="preset-desc">Industry-wide propositional framework for bio-based polymers. Full LCSA (ENV+ECO+SOC) plus techno-economic analysis. Q1=C policy pathway IS-02.</div>
+      <div class="preset-cite">Briassoulis et al., 2023 — EU</div>
+    </div>
+    <div class="preset">
+      <div class="preset-num">N° IV.</div>
+      <div class="preset-title">Danielsson — Kalundborg</div>
+      <div class="preset-desc">The iconic eight-member symbiosis, operational since 1972. Public superiority claim triggers mandatory peer review (3+ ISO-14044 experts, no weighting).</div>
+      <div class="preset-cite">Danielsson et al., 2018 — Denmark</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div class="funding">
+      <div class="flag">🇪🇺</div>
+      <div>
+        <strong style="color:#fff; font-family:'Lora',serif;">European Union — Horizon Europe</strong><br>
+        This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562.
+        <div class="meta">
+          <a href="https://www.symbaproject.eu">www.symbaproject.eu</a> · GA 101135562 · HORIZON-CL6-2023-CIRCBIO-01 · Topic CircBio-01-7 · ENCO (coord.) · CIRCE · CET · M22–M36
+        </div>
+        <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

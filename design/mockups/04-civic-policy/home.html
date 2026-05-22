@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Home (Civic Policy)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root { --gov-blue:#1F4E79; --gov-blue-dark:#0E2A4A; --link:#1d70b8; --link-visited:#4c2c92; --green:#00703c; --yellow:#ffdd00; --black:#0b0c0c; --grey:#505a5f; --grey-light:#b1b4b6; --bg-light:#f3f2f1; --white:#fff; --error:#d4351c; }
+  * { box-sizing: border-box; }
+  body { font-family:'Public Sans',Arial,sans-serif; color: var(--black); background: var(--white); margin: 0; line-height: 1.55; font-size: 17px; }
+  h1, h2, h3 { color: var(--black); font-weight: 700; margin: 0; }
+  a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+  a:visited { color: var(--link-visited); }
+  a:hover { color: var(--gov-blue-dark); text-decoration-thickness: 3px; }
+  a:focus { background: var(--yellow); color: var(--black); outline: 3px solid var(--yellow); text-decoration: none; }
+
+  /* EU stripe at the top */
+  .eu-stripe { background: #003399; color: var(--yellow); padding: 8px 24px; font-size: 14px; display:flex; align-items: center; gap: 16px; }
+  .eu-stripe .flag { font-size: 18px; }
+  .eu-stripe strong { color: white; font-weight: 600; }
+
+  /* Brand bar */
+  .brand-bar { background: var(--gov-blue); color: white; padding: 18px 24px; }
+  .brand-row { max-width: 1024px; margin: 0 auto; display:flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .brand-logo { display:flex; align-items:center; gap: 14px; }
+  .brand-logo .crown { width: 36px; height: 36px; background: white; color: var(--gov-blue); border-radius: 4px; display: grid; place-items: center; font-weight: 700; font-size: 16px; }
+  .brand-logo .name { font-size: 22px; font-weight: 700; line-height: 1.1; }
+  .brand-logo .name small { display:block; font-weight: 400; font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 2px; }
+  .brand-actions { display:flex; gap: 16px; font-size: 15px; align-items: center; }
+  .brand-actions a { color: white; text-decoration: underline; }
+  .brand-lang select { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.5); padding: 4px 8px; font-family: inherit; font-size: 14px; }
+
+  /* Main nav */
+  nav.primary { background: var(--gov-blue-dark); padding: 0 24px; }
+  nav.primary ul { list-style: none; margin: 0; padding: 0; max-width: 1024px; margin-inline: auto; display: flex; flex-wrap: wrap; }
+  nav.primary a { color: white; display: block; padding: 14px 18px; text-decoration: none; font-size: 16px; font-weight: 500; border-bottom: 4px solid transparent; }
+  nav.primary a:hover { background: rgba(255,255,255,0.08); border-bottom-color: rgba(255,255,255,0.4); text-decoration: none; }
+  nav.primary a.active { background: white; color: var(--gov-blue-dark); border-bottom-color: var(--yellow); }
+
+  /* Phase banner (gov.uk pattern) */
+  .phase-banner { background: var(--white); border-bottom: 1px solid var(--grey-light); padding: 12px 24px; font-size: 15px; }
+  .phase-banner-inner { max-width: 1024px; margin: 0 auto; display:flex; align-items: center; gap: 12px; }
+  .phase-tag { background: var(--gov-blue); color: white; padding: 3px 10px; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* Main */
+  main { max-width: 1024px; margin: 0 auto; padding: 40px 24px 60px; }
+  h1.page-title { font-size: 48px; line-height: 1.1; margin-bottom: 20px; max-width: 800px; }
+  .lead { font-size: 19px; color: var(--black); line-height: 1.5; margin-bottom: 32px; max-width: 720px; }
+
+  /* CTA button (gov.uk green) */
+  .btn-start { background: var(--green); color: white; border: 2px solid var(--green); border-bottom: 4px solid #002d18; padding: 12px 24px; font-size: 18px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; transition: background 0.1s; }
+  .btn-start:hover { background: #005a30; border-color: #005a30; color: white; }
+  .btn-start:focus { background: var(--yellow); color: var(--black); border-color: var(--black); outline: none; }
+  .btn-start:active { background: #00482a; border-bottom-width: 0; transform: translateY(2px); }
+
+  .btn-secondary { background: transparent; color: var(--link); border: 2px solid var(--link); padding: 10px 20px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; margin-left: 12px; }
+
+  /* Two-column layout for content sections */
+  .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; margin-top: 48px; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+  .content h2 { font-size: 28px; margin-bottom: 14px; margin-top: 32px; padding-bottom: 8px; border-bottom: 1px solid var(--grey-light); }
+  .content h3 { font-size: 20px; margin: 20px 0 8px; }
+  .content p { margin: 12px 0; line-height: 1.6; }
+  .content ul { margin: 12px 0; padding-left: 24px; line-height: 1.6; }
+  .content ul li { margin: 6px 0; }
+
+  /* Sidebar with related links / contact */
+  aside.related { border-top: 6px solid var(--gov-blue); padding-top: 16px; }
+  aside.related h3 { font-size: 17px; margin: 0 0 12px; }
+  aside.related ul { list-style: none; padding: 0; margin: 0; }
+  aside.related li { padding: 10px 0; border-bottom: 1px solid var(--grey-light); }
+  aside.related li:last-child { border-bottom: none; }
+  aside.related a { font-size: 16px; }
+
+  /* Mode toggle (accessible radio group) */
+  .mode-fieldset { border: 2px solid var(--grey-light); padding: 16px 20px; margin: 24px 0; }
+  .mode-fieldset legend { padding: 0 8px; font-weight: 700; font-size: 17px; }
+  .mode-radios { display: flex; flex-direction: column; gap: 8px; }
+  .mode-radio { display: flex; gap: 12px; padding: 8px; cursor: pointer; }
+  .mode-radio input { width: 28px; height: 28px; margin-top: 2px; accent-color: var(--gov-blue); }
+  .mode-radio-label { font-weight: 700; font-size: 17px; }
+  .mode-radio-hint { color: var(--grey); font-size: 15px; margin-top: 2px; line-height: 1.5; }
+
+  /* Case list */
+  .preset-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .preset-table th, .preset-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--grey-light); vertical-align: top; }
+  .preset-table th { background: var(--bg-light); font-size: 15px; }
+  .preset-table tbody tr:hover { background: var(--bg-light); }
+  .preset-table a { font-weight: 500; }
+
+  /* Footer */
+  footer { background: var(--gov-blue-dark); color: white; padding: 36px 24px; margin-top: 60px; }
+  footer .inner { max-width: 1024px; margin: 0 auto; }
+  footer h4 { font-size: 16px; margin: 0 0 12px; color: var(--yellow); border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 6px; }
+  footer a { color: white; }
+  footer a:visited { color: white; }
+  .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 32px; }
+  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer-grid ul { list-style: none; padding: 0; margin: 0; }
+  .footer-grid li { padding: 4px 0; font-size: 15px; }
+  .footer-eu-funding { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 24px; font-size: 14px; line-height: 1.6; display: flex; gap: 16px; }
+  .footer-eu-funding .flag { font-size: 32px; line-height: 1; }
+  .footer-eu-funding p { margin: 0; }
+  .footer-eu-funding .disclaimer { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 8px; max-width: 900px; }
+</style>
+</head>
+<body>
+
+<div class="eu-stripe">
+  <span class="flag">🇪🇺</span>
+  <span>This service is funded by the European Union under <strong>Grant Agreement N. 101135562</strong> (Horizon Europe).</span>
+</div>
+
+<div class="brand-bar">
+  <div class="brand-row">
+    <div class="brand-logo">
+      <div class="crown">S</div>
+      <div class="name">SYMBA<small>Industrial Symbiosis · Monitoring &amp; Reporting · Task 4.6</small></div>
+    </div>
+    <div class="brand-actions">
+      <a href="#">Sign in</a>
+      <span class="brand-lang"><select aria-label="Language"><option>EN — English</option><option>IT — Italiano</option><option>FR — Français</option><option>DE — Deutsch</option><option>ES — Español</option></select></span>
+    </div>
+  </div>
+</div>
+
+<nav class="primary" aria-label="Primary">
+  <ul>
+    <li><a href="home.html" class="active">Home</a></li>
+    <li><a href="questionnaire.html">Start an assessment</a></li>
+    <li><a href="result.html">Results</a></li>
+    <li><a href="stakeholder.html">Stakeholder reports</a></li>
+    <li><a href="#">Regional dashboard</a></li>
+    <li><a href="#">Guidance</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+</nav>
+
+<div class="phase-banner">
+  <div class="phase-banner-inner">
+    <span class="phase-tag">Beta</span>
+    <span>This is a new service operated by the SYMBA consortium. <a href="#">Help us improve it</a> with your feedback.</span>
+  </div>
+</div>
+
+<main>
+  <h1 class="page-title">Assess the environmental, economic and social benefits of industrial symbiosis</h1>
+  <p class="lead">A free, publicly-accessible service to evaluate symbiosis networks in the bio-based industrial ecosystem. Use it as an industrial operator, a local authority, a community representative or an end-user — the report adapts to your audience.</p>
+
+  <p>
+    <a href="questionnaire.html" class="btn-start">Start now</a>
+    <a href="#" class="btn-secondary">Read the methodology</a>
+  </p>
+
+  <div class="two-col">
+    <div class="content">
+      <h2>Before you start</h2>
+      <p>You'll be asked seven questions about the industrial symbiosis case you're documenting. There are no wrong answers — the engine adapts the methodology to the answers you provide. You can save your progress and come back later.</p>
+      <p><strong>You'll need:</strong></p>
+      <ul>
+        <li>A clear idea of the actors involved (a single firm, a network, a policy)</li>
+        <li>Information about the stage of the system (operating, design, with alternatives)</li>
+        <li>The flows exchanged (waste, energy, water, by-products)</li>
+        <li>(Optional) The economic and social dimensions you want to assess</li>
+      </ul>
+
+      <fieldset class="mode-fieldset">
+        <legend>Choose your interface mode</legend>
+        <div class="mode-radios">
+          <label class="mode-radio">
+            <input type="radio" name="mode" checked>
+            <div>
+              <div class="mode-radio-label">Expert</div>
+              <div class="mode-radio-hint">Fast questionnaire for sustainability analysts and methodology reviewers familiar with ILCD / LCSA terminology.</div>
+            </div>
+          </label>
+          <label class="mode-radio">
+            <input type="radio" name="mode">
+            <div>
+              <div class="mode-radio-label">Guided</div>
+              <div class="mode-radio-hint">Step-by-step mode for industrial managers, community representatives, local authorities and decision-makers. Examples are expanded by default and explanations are written in plain language.</div>
+            </div>
+          </label>
+        </div>
+      </fieldset>
+
+      <h2>Validated case studies</h2>
+      <p>Load a pre-configured case to see how the engine works. Each case is documented in a peer-reviewed publication.</p>
+      <table class="preset-table">
+        <thead><tr><th>Case</th><th>Sector</th><th>Country</th><th>Reference</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#">Sokka — Kymenlaakso</a></td><td>Pulp &amp; paper</td><td>Finland</td><td>Sokka et al., 2011</td></tr>
+          <tr><td><a href="#">Hashimoto — Kawasaki</a></td><td>Cement</td><td>Japan</td><td>Hashimoto et al., 2010</td></tr>
+          <tr><td><a href="#">Wiktor — Malmö VA Syd</a></td><td>Wastewater &amp; sludge</td><td>Sweden</td><td>Wiktor &amp; Johansson, 2018</td></tr>
+          <tr><td><a href="#">Danielsson — Kalundborg</a></td><td>Energy / utilities</td><td>Denmark</td><td>Danielsson et al., 2018</td></tr>
+          <tr><td><a href="#">Briassoulis — bio-polymers framework</a></td><td>Bio-polymers</td><td>EU</td><td>Briassoulis et al., 2023</td></tr>
+        </tbody>
+      </table>
+
+      <h2>What you'll receive</h2>
+      <p>At the end of the assessment you'll get:</p>
+      <ul>
+        <li>A <strong>methodological pathway</strong> (IS-01 to IS-05) with the configuration of LCA, LCC and S-LCA for your case.</li>
+        <li>A <strong>Data Collection File</strong> in Excel format, calibrated on your case, to share with the partners of the symbiosis for inventory data collection.</li>
+        <li>A <strong>stakeholder report</strong> tailored to your audience: industry, community, local authority or end-user.</li>
+      </ul>
+    </div>
+
+    <aside class="related">
+      <h3>Related</h3>
+      <ul>
+        <li><a href="#">D4.1 — LCA Guidelines for IS</a></li>
+        <li><a href="#">D4.2 — LCC Guidelines for IS</a></li>
+        <li><a href="#">D4.3 — S-LCA Guidelines for IS</a></li>
+        <li><a href="#">SYMBA project website ↗</a></li>
+        <li><a href="#">European Commission — Horizon Europe ↗</a></li>
+        <li><a href="#">EU Bioeconomy Strategy ↗</a></li>
+      </ul>
+
+      <h3 style="margin-top:32px;">Contact</h3>
+      <p style="font-size: 15px; color: var(--grey); line-height: 1.55;">
+        ENCO SRL (project coordinator)<br>
+        Via Michelangelo Schipa 115<br>
+        80122 Napoli — Italy<br>
+        <a href="#">contact@symbaproject.eu</a>
+      </p>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    <div class="footer-grid">
+      <div>
+        <h4>The service</h4>
+        <ul>
+          <li><a href="#">About SYMBA T4.6</a></li>
+          <li><a href="#">Accessibility statement</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Privacy notice</a></li>
+          <li><a href="#">Open source code (GitHub)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The consortium</h4>
+        <ul>
+          <li>ENCO (coordinator) — Italy</li>
+          <li>CIRCE — Spain</li>
+          <li>CTB — Belgium</li>
+          <li>CKIC — Netherlands</li>
+          <li>BBEPP — Belgium</li>
+          <li>AIMPLAS — Spain</li>
+          <li>Novamont — Italy</li>
+          <li>CET — Spain</li>
+          <li>ICLEI — Germany</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li>Grant Agreement N. 101135562</li>
+          <li>HORIZON-CL6-2023-CIRCBIO-01</li>
+          <li>Topic CircBio-01-7</li>
+          <li>Period: M22–M36</li>
+          <li>Deliverable D4.6 — PU (Public)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-eu-funding">
+      <span class="flag">🇪🇺</span>
+      <div>
+        <p>This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. Visit <a href="https://www.symbaproject.eu">www.symbaproject.eu</a> for project updates.</p>
+        <p class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

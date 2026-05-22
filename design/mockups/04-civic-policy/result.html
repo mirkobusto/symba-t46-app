@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Result (Civic Policy)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root { --gov-blue:#1F4E79; --gov-blue-dark:#0E2A4A; --link:#1d70b8; --green:#00703c; --yellow:#ffdd00; --black:#0b0c0c; --grey:#505a5f; --grey-light:#b1b4b6; --bg-light:#f3f2f1; --white:#fff; --error:#d4351c; --amber:#a86c00; }
+  * { box-sizing: border-box; }
+  body { font-family:'Public Sans',Arial,sans-serif; color: var(--black); background: var(--white); margin: 0; line-height: 1.55; font-size: 17px; }
+  h1, h2, h3 { color: var(--black); font-weight: 700; margin: 0; }
+  a { color: var(--link); text-decoration: underline; }
+  a:focus { background: var(--yellow); color: var(--black); outline: 3px solid var(--yellow); }
+
+  .eu-stripe { background: #003399; color: var(--yellow); padding: 6px 24px; font-size: 13px; }
+  .brand-bar { background: var(--gov-blue); color: white; padding: 14px 24px; }
+  .brand-row { max-width: 1024px; margin: 0 auto; display:flex; align-items: center; justify-content: space-between; }
+  .brand-logo { display:flex; align-items:center; gap: 12px; }
+  .brand-logo .crown { width: 30px; height: 30px; background: white; color: var(--gov-blue); border-radius: 3px; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .brand-logo .name { font-size: 18px; font-weight: 700; }
+  nav.primary { background: var(--gov-blue-dark); padding: 0 24px; }
+  nav.primary ul { list-style: none; margin: 0; padding: 0; max-width: 1024px; margin-inline: auto; display: flex; }
+  nav.primary a { color: white; display: block; padding: 12px 16px; text-decoration: none; font-size: 15px; font-weight: 500; }
+  nav.primary a.active { background: white; color: var(--gov-blue-dark); border-bottom: 4px solid var(--yellow); }
+
+  .breadcrumbs { padding: 14px 24px; font-size: 15px; }
+  .breadcrumbs-inner { max-width: 1024px; margin: 0 auto; }
+  .breadcrumbs ol { list-style: none; padding: 0; margin: 0; display:flex; gap: 6px; }
+  .breadcrumbs li::after { content: " → "; color: var(--grey); margin-left: 6px; }
+  .breadcrumbs li:last-child::after { content: ""; color: var(--black); font-weight: 500; }
+
+  main { max-width: 1024px; margin: 0 auto; padding: 24px 24px 60px; }
+
+  /* Verdict panel */
+  .verdict-panel { background: var(--green); color: white; padding: 28px 32px; margin-bottom: 32px; border-bottom: 8px solid #002d18; }
+  .verdict-panel .label { font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+  .verdict-panel h1 { color: white; font-size: 56px; line-height: 1.05; margin: 6px 0 6px; }
+  .verdict-panel p { font-size: 18px; color: rgba(255,255,255,0.95); margin: 0; }
+
+  h2.section-h { font-size: 28px; margin: 40px 0 16px; padding-bottom: 6px; border-bottom: 1px solid var(--grey-light); }
+
+  /* Summary table — gov.uk pattern */
+  .summary-list { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
+  .summary-list tr { border-bottom: 1px solid var(--grey-light); }
+  .summary-list th { text-align: left; padding: 14px 16px 14px 0; font-weight: 700; font-size: 17px; width: 40%; vertical-align: top; }
+  .summary-list td { padding: 14px 16px; font-size: 17px; vertical-align: top; }
+  .summary-list .action { text-align: right; }
+  .summary-list .action a { font-weight: 500; }
+
+  /* Pillar list */
+  .pillar-table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; }
+  .pillar-table th, .pillar-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--grey-light); font-size: 16px; }
+  .pillar-table th { background: var(--bg-light); font-size: 15px; border-bottom: 2px solid var(--black); }
+  .pillar-table .count { font-weight: 700; }
+  .pillar-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Tag */
+  .tag { display:inline-block; padding: 4px 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; }
+  .tag-green { background: var(--green); color: white; }
+  .tag-amber { background: #fef3c7; color: var(--amber); border: 2px solid var(--amber); }
+  .tag-grey { background: var(--bg-light); color: var(--grey); border: 1px solid var(--grey-light); }
+
+  /* Notification banner (gov.uk) */
+  .notification { border-left: 10px solid var(--amber); padding: 14px 18px; background: #fff7e0; margin: 20px 0; }
+  .notification h3 { color: var(--amber); font-size: 18px; margin-bottom: 4px; }
+  .notification p { margin: 4px 0; font-size: 16px; line-height: 1.55; }
+
+  /* Next-steps cards (gov.uk inset) */
+  .next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px; }
+  @media (max-width: 720px) { .next-grid { grid-template-columns: 1fr; } }
+  .next-card { background: var(--bg-light); border-left: 10px solid var(--gov-blue); padding: 18px 22px; }
+  .next-card h3 { font-size: 19px; margin-bottom: 6px; }
+  .next-card p { font-size: 15px; color: var(--grey); margin: 0 0 12px; line-height: 1.5; }
+
+  .btn-primary { background: var(--green); color: white; border: 2px solid var(--green); border-bottom: 4px solid #002d18; padding: 10px 18px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: #005a30; }
+  .btn-secondary { background: white; color: var(--link); border: 2px solid var(--link); padding: 8px 16px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block; }
+
+  footer { background: var(--gov-blue-dark); color: white; padding: 28px 24px 20px; margin-top: 60px; }
+  footer .inner { max-width: 1024px; margin: 0 auto; font-size: 14px; line-height: 1.6; }
+  footer .disclaimer { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 10px; }
+  footer a { color: white; }
+</style>
+</head>
+<body>
+
+<div class="eu-stripe">🇪🇺 EU funded service · Horizon Europe · GA 101135562</div>
+<div class="brand-bar"><div class="brand-row"><div class="brand-logo"><div class="crown">S</div><div class="name">SYMBA T4.6</div></div><a href="#" style="color:white;">Sign in</a></div></div>
+<nav class="primary"><ul>
+  <li><a href="home.html">Home</a></li><li><a href="questionnaire.html">Assessment</a></li>
+  <li><a href="result.html" class="active">Results</a></li><li><a href="stakeholder.html">Stakeholder reports</a></li>
+  <li><a href="#">Regional dashboard</a></li><li><a href="#">Guidance</a></li>
+</ul></nav>
+
+<div class="breadcrumbs"><div class="breadcrumbs-inner"><ol>
+  <li><a href="home.html">Home</a></li><li><a href="questionnaire.html">Assessment</a></li><li>Result · case 3f0b4bcf</li>
+</ol></div></div>
+
+<main>
+  <div class="verdict-panel">
+    <div class="label">Assessment complete</div>
+    <h1>IS-01 <em style="color: #fff; font-style: italic;">extended</em></h1>
+    <p>Multi-actor eco-park · attributional modeling · ex-post baseline with 12 alternative scenarios.</p>
+  </div>
+
+  <h2 class="section-h">Pathway summary</h2>
+  <table class="summary-list">
+    <tr><th>Pathway</th><td><strong>IS-01 extended</strong> — multi-actor eco-park with alternative scenarios</td><td class="action"><a href="#">Change</a></td></tr>
+    <tr><th>ILCD Situation</th><td>A multi-actor</td><td></td></tr>
+    <tr><th>LCC type</th><td>C-LCC + E-LCC (consequential + economic)</td><td></td></tr>
+    <tr><th>S-LCA activation</th><td>deactivated <span style="color: var(--grey); font-size: 14px;">(DEFAULT subset of nodes still active)</span></td><td></td></tr>
+    <tr><th>Sector overlay</th><td>Wastewater &amp; sludge biofactories</td><td></td></tr>
+    <tr><th>Geographic scope</th><td>Regional cluster (Q7 = B)</td><td></td></tr>
+    <tr><th>Modeling framework</th><td>Attributional</td><td></td></tr>
+    <tr><th>Activated nodes</th><td><strong>160</strong> of 186 atomic methodological nodes</td><td></td></tr>
+  </table>
+
+  <h2 class="section-h">Methodological nodes activated</h2>
+  <p>The engine activated <strong>160 of the 186 Phase-1 atomic nodes</strong>. The table below breaks them down by pillar.</p>
+  <table class="pillar-table">
+    <thead><tr><th>Pillar</th><th>Description</th><th class="num">Nodes activated</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>LCA</strong></td><td>Life Cycle Assessment — environmental impacts</td><td class="num count">68</td><td><span class="tag tag-green">active</span></td></tr>
+      <tr><td><strong>LCC</strong></td><td>Life Cycle Costing — economic dimension</td><td class="num count">42</td><td><span class="tag tag-green">active</span></td></tr>
+      <tr><td><strong>S-LCA</strong></td><td>Social Life Cycle Assessment</td><td class="num count">28</td><td><span class="tag tag-amber">DEFAULT subset only</span></td></tr>
+      <tr><td><strong>Cross-method &amp; reporting</strong></td><td>IR / CIR / FU / B / CDP rules</td><td class="num count">22</td><td><span class="tag tag-green">active</span></td></tr>
+      <tr style="background: var(--bg-light); font-weight: 700;"><td colspan="2">Total</td><td class="num">160</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-h">Things to be aware of</h2>
+  <p>The engine surfaced <strong>3 Critical Decision Points</strong>. These are methodological choices that need explicit documentation.</p>
+
+  <div class="notification">
+    <h3>⚠ CDP-04 — Allocation vs system expansion</h3>
+    <p>The attributional modeling framework combined with q5=c (substitution) jointly recommends <strong>system expansion</strong>. You must document this choice in the methodological charter. Switching to allocation requires an explicit override.</p>
+    <p><em>Methods involved:</em> LCA, LCC · <em>Severity:</em> Medium</p>
+  </div>
+
+  <div class="notification">
+    <h3>⚠ CDP-07 — Capital goods amortization</h3>
+    <p>Because Q2 = D (baseline + alternatives), dynamic background scenarios (SSP/RCP) are activated. The amortization period for new infrastructure defaults to 20 years — please verify against the host site's actual write-off policy.</p>
+    <p><em>Methods involved:</em> LCC · <em>Severity:</em> Low</p>
+  </div>
+
+  <div class="notification">
+    <h3>⚠ CDP-12 — Sector-specific overlay (wastewater)</h3>
+    <p>The sector overlay "wastewater &amp; sludge biofactories" activates AWARE water-scarcity characterisation and a contamination-level field in the inventory. These will appear as additional columns in the Flow Matrix tab of the Data Collection File.</p>
+    <p><em>Methods involved:</em> LCA · <em>Severity:</em> Low</p>
+  </div>
+
+  <h2 class="section-h">What you can do next</h2>
+  <div class="next-grid">
+    <div class="next-card">
+      <h3>Open your Data Collection File</h3>
+      <p>An Excel companion worksheet, calibrated on this pathway. Share it with the partners of the symbiosis network to collect the inventory data.</p>
+      <a href="#" class="btn-primary">Open DCF</a>
+    </div>
+    <div class="next-card">
+      <h3>View the stakeholder report</h3>
+      <p>The same data, reframed for industry, community, local authority or end-user audiences. Useful for dissemination outside the technical team.</p>
+      <a href="stakeholder.html" class="btn-secondary">View report</a>
+    </div>
+    <div class="next-card">
+      <h3>Download as a Word document</h3>
+      <p>An auto-generated .docx aligned with the SYMBA Deliverable Template V3. Hand off to a reviewer or include in your deliverable.</p>
+      <a href="#" class="btn-secondary">Download .docx</a>
+    </div>
+    <div class="next-card">
+      <h3>Save this case</h3>
+      <p>Persist this configuration to your account. You'll be able to find it later and re-run with updated inputs.</p>
+      <a href="#" class="btn-secondary">Save case</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+    <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Assessment (Geometric Horizon)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --blue:#1F4E79; --green:#2D8B43; --yellow:#F5C518; --slate-50:#f7f9fb; --slate-200:#e3e9ef; --slate-700:#334155; --slate-500:#64748b; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--slate-700); background: var(--slate-50); margin: 0; line-height: 1.55; font-size: 15px; }
+  h1, h2, h3 { font-family:'Space Grotesk',sans-serif; color: var(--blue); font-weight: 700; margin: 0; }
+  a { color: var(--blue); text-decoration: none; }
+
+  header { background: white; border-bottom: 1px solid var(--slate-200); padding: 14px 32px; }
+  .header-row { display:flex; align-items:center; justify-content: space-between; max-width: 1280px; margin: 0 auto; }
+  .logo { display:flex; align-items:center; gap: 12px; font-family:'Space Grotesk'; font-weight: 700; font-size: 18px; color: var(--blue); }
+  .breadcrumb { color: var(--slate-500); font-size: 13px; }
+  .breadcrumb span { color: var(--blue); font-weight: 600; }
+
+  .page { max-width: 880px; margin: 0 auto; padding: 40px 32px; }
+  .stepper { display:flex; gap: 12px; margin-bottom: 32px; align-items: center; }
+  .step { flex: 1; height: 6px; border-radius: 3px; background: var(--slate-200); position: relative; }
+  .step.done { background: var(--green); }
+  .step.current { background: var(--blue); }
+  .step::before { content: attr(data-label); position: absolute; top: 14px; left: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--slate-500); font-weight: 500; }
+
+  h1 { font-size: 36px; margin-bottom: 6px; letter-spacing: -0.8px; }
+  .subtitle { color: var(--slate-500); margin-bottom: 32px; }
+
+  .guided-banner { background: linear-gradient(135deg, var(--green) 0%, #226c34 100%); color: white; padding: 18px 24px; border-radius: 14px; margin-bottom: 32px; position: relative; overflow: hidden; }
+  .guided-banner::before { content:""; position:absolute; right: -30px; top: -30px; width: 100px; height: 100px; background: var(--yellow); opacity: 0.2; border-radius: 50%; }
+  .guided-banner strong { font-family:'Space Grotesk'; font-size: 14px; letter-spacing: 1.4px; text-transform: uppercase; display:block; margin-bottom: 4px; color: var(--yellow); }
+  .guided-banner p { margin: 0; font-size: 14px; line-height: 1.5; }
+
+  .qcard { background: white; border-radius: 16px; padding: 24px 28px; margin-bottom: 20px; border: 1px solid var(--slate-200); position: relative; overflow: hidden; }
+  .qcard::before { content:""; position:absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--blue); }
+  .qcard.q3::before { background: var(--green); }
+  .qcard-num { display:inline-flex; align-items:center; gap: 8px; font-family:'Space Grotesk'; font-size: 12px; letter-spacing: 1.4px; font-weight: 600; color: var(--blue); text-transform: uppercase; margin-bottom: 8px; }
+  .qcard-num::before { content:""; width: 24px; height: 24px; background: var(--blue); display:inline-block; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .qcard.q3 .qcard-num::before { background: var(--green); }
+  .qcard.q3 .qcard-num { color: var(--green); }
+  .qcard h3 { font-size: 22px; margin-bottom: 4px; }
+  .qcard .help { color: var(--slate-500); font-size: 14px; margin-bottom: 14px; }
+  .req-pill { background: var(--yellow); color: var(--blue); font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; vertical-align: middle; margin-left: 6px; }
+
+  details { background: var(--slate-50); border-radius: 8px; padding: 10px 16px; margin: 12px 0; font-size: 13px; }
+  details summary { cursor: pointer; font-weight: 600; color: var(--blue); font-size: 13px; }
+  details p { margin: 8px 0; line-height: 1.6; color: var(--slate-700); }
+
+  .opts { display: grid; gap: 8px; }
+  .opt { display: grid; grid-template-columns: 22px 1fr; gap: 6px 12px; padding: 12px 14px; border: 2px solid var(--slate-200); border-radius: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+  .opt:hover { border-color: var(--blue); }
+  .opt input { margin-top: 4px; accent-color: var(--blue); cursor: pointer; }
+  .opt-label { font-family:'Space Grotesk'; font-size: 15px; color: var(--blue); font-weight: 600; }
+  .opt-desc { grid-column: 2; color: var(--slate-700); font-size: 13px; line-height: 1.5; }
+  .opt.selected { border-color: var(--blue); background: rgba(31,78,121,0.04); }
+
+  table.flows { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  table.flows th, table.flows td { padding: 8px 10px; text-align: left; font-size: 14px; }
+  table.flows thead { background: var(--slate-50); }
+  table.flows thead th { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--slate-500); font-weight: 600; }
+  table.flows tbody tr { border-bottom: 1px solid var(--slate-200); }
+  table.flows input, table.flows select { border: 1px solid var(--slate-200); border-radius: 6px; padding: 6px 8px; font-family: inherit; font-size: 13px; width: 100%; }
+  .id-cell { font-family: 'Space Grotesk'; color: var(--blue); font-weight: 600; font-size: 13px; }
+
+  select.wide { width: 100%; padding: 12px 14px; border: 2px solid var(--slate-200); border-radius: 10px; font-family: inherit; font-size: 15px; background: white; }
+
+  .actions { background: white; border-radius: 16px; padding: 20px 28px; margin-top: 24px; display:flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; align-items: center; border: 1px solid var(--slate-200); }
+  .btn { padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer; border: none; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-primary:hover { background: #163657; }
+  .btn-secondary { background: var(--slate-50); color: var(--blue); border: 1px solid var(--slate-200); }
+  .shortcut { font-size: 12px; color: var(--slate-500); }
+  kbd { background: var(--slate-200); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; }
+
+  footer { background: var(--blue); color: rgba(255,255,255,0.85); padding: 20px 32px; font-size: 12px; margin-top: 60px; }
+  footer .inner { max-width: 1280px; margin: 0 auto; line-height: 1.5; }
+  footer .disc { font-style: italic; color: rgba(255,255,255,0.55); margin-top: 8px; max-width: 800px; }
+  footer a { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 40 40"><polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="none" stroke="#1F4E79" stroke-width="2.5"/><polygon points="20,10 28,15 28,25 20,30 12,25 12,15" fill="#2D8B43"/></svg>
+      SYMBA · T4.6
+    </div>
+    <div class="breadcrumb">Home / <span>Assessment</span></div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="stepper">
+    <div class="step done" data-label="Setup"></div>
+    <div class="step current" data-label="Q1–Q7"></div>
+    <div class="step" data-label="Result"></div>
+    <div class="step" data-label="DCF"></div>
+    <div class="step" data-label="Report"></div>
+  </div>
+  <br>
+
+  <h1>Assessment questionnaire</h1>
+  <p class="subtitle">Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required.</p>
+
+  <div class="guided-banner">
+    <strong>★ Guided mode active</strong>
+    <p>Examples and context are expanded by default. Read each block carefully — the seven answers determine the methodological pathway and the data-collection plan you'll receive at the end.</p>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 01</div>
+    <h3>What are you analysing?<span class="req-pill">required</span></h3>
+    <p class="help">Pick the closest match. When in doubt: who is the SUBJECT of the report?</p>
+    <details open>
+      <summary>Examples &amp; context</summary>
+      <p>A — bilateral exchange (waste heat from Plant X to Y). Subject = FLOW.<br>B — eco-park / multi-actor network. Subject = NETWORK.<br>C — public-sector policy. Subject = DECISION.<br>D — single firm's symbiotic contribution (ESG/CSRD). Subject = ONE FIRM.<br>E — periodic monitoring (KPI updates).</p>
+    </details>
+    <div class="opts">
+      <label class="opt selected"><input type="radio" name="q1" checked><span><span class="opt-label">A. Specific exchange</span><br><span class="opt-desc">A symbiotic exchange between two existing companies.</span></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">B. Eco-park / network</span><br><span class="opt-desc">An eco-industrial park or a multi-actor symbiotic network.</span></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">C. Policy / programme</span><br><span class="opt-desc">A policy or programme at regional or national scale.</span></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">D. Corporate ESG report</span><br><span class="opt-desc">A single firm's symbiotic contribution for ESG/CSRD reporting.</span></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">E. Monitoring</span><br><span class="opt-desc">Periodic monitoring of an operating IS.</span></span></label>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 02</div>
+    <h3>What stage is the system in?</h3>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">A. Operational</span><br><span class="opt-desc">Exists and has been operating for years.</span></span></label>
+      <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">B. Construction</span><br><span class="opt-desc">In construction or commissioning.</span></span></label>
+      <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">C. Design</span><br><span class="opt-desc">Pre-construction study (engineering models only).</span></span></label>
+      <label class="opt selected"><input type="radio" name="q2" checked><span><span class="opt-label">D. Baseline + alternatives</span><br><span class="opt-desc">Baseline + N future "what-if" scenarios.</span></span></label>
+    </div>
+  </div>
+
+  <div class="qcard q3">
+    <div class="qcard-num">Question 03</div>
+    <h3>Sustainability dimensions<span class="req-pill">required</span></h3>
+    <p class="help">At least one must be active. Default: ENV + ECO.</p>
+    <div class="opts">
+      <label class="opt selected"><input type="checkbox" checked><span><span class="opt-label">Environmental — LCA</span><br><span class="opt-desc">Climate, ecosystems, resource use.</span></span></label>
+      <label class="opt selected"><input type="checkbox" checked><span><span class="opt-label">Economic — LCC / MFCA / CBA / TEA</span><br><span class="opt-desc">Costing over the full life cycle.</span></span></label>
+      <label class="opt"><input type="checkbox"><span><span class="opt-label">Social — S-LCA</span><br><span class="opt-desc">Stakeholder categories (workers / community / value chain).</span></span></label>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 05</div>
+    <h3>Flows — what is exchanged?</h3>
+    <p class="help">One row per IS-flow; the q5 class drives per-flow methodological nodes.</p>
+    <table class="flows">
+      <thead><tr><th>ID</th><th>Name</th><th style="width:160px;">q5 class</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">f1</td><td><input value="Sewage sludge"></td><td><select><option>a — waste / by-product</option><option selected>c — substitution</option><option>e — black-box</option></select></td><td><a href="#">×</a></td></tr>
+        <tr><td class="id-cell">f2</td><td><input value="Recovered heat"></td><td><select><option>a</option><option selected>c</option><option>e</option></select></td><td><a href="#">×</a></td></tr>
+        <tr><td class="id-cell">f3</td><td><input value="Mono-incineration ash"></td><td><select><option selected>a</option><option>c</option><option>e</option></select></td><td><a href="#">×</a></td></tr>
+      </tbody>
+    </table>
+    <button class="btn btn-secondary" style="margin-top:12px;">+ Add a flow</button>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 06a</div>
+    <h3>Sector overlay</h3>
+    <p class="help">Drives sector-specific methodological nuances (e.g. AWARE for water-stressed contexts).</p>
+    <select class="wide">
+      <option>wastewater_sludge_biofactories</option>
+      <option>pulp_paper</option>
+      <option>chemicals_fertilizers</option>
+      <option>plastics_packaging</option>
+      <option>cement_construction</option>
+      <option>biobased_polymers</option>
+      <option>energy_utilities</option>
+    </select>
+  </div>
+
+  <div class="actions">
+    <div>
+      <a href="result.html" class="btn btn-primary">▶ Run pipeline</a>
+      <button class="btn btn-secondary">Save draft</button>
+      <button class="btn btn-secondary">Reset</button>
+    </div>
+    <div class="shortcut">Tip: <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to run</div>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a> · GA 101135562 · ENCO · CIRCE · CET
+    <div class="disc">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

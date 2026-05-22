@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Assessment (Editorial Scientific)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --ink:#0F2C4D; --ink-soft:#2c4a6b; --paper:#fbf9f4; --rule:#d8d2c4; --accent:#8B6F47; --green:#2D8B43; --muted:#6b6358; --body:#2a2520; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--body); background: var(--paper); line-height:1.55; font-size: 15px; }
+  h1, h2, h3 { font-family:'Lora',serif; color: var(--ink); font-weight: 600; }
+  a { color: var(--accent); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  .masthead { border-bottom: 4px double var(--ink); padding: 22px 48px 14px; }
+  .masthead-row { display:flex; justify-content:space-between; align-items:baseline; max-width:1100px; margin:0 auto; }
+  .masthead-brand { font-family:'Lora',serif; font-size: 22px; font-weight: 700; color: var(--ink); }
+  .masthead-brand .small { font-weight:400; font-style:italic; color: var(--muted); font-size: 14px; margin-left:8px; }
+  .breadcrumb { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+  .breadcrumb span { color: var(--ink); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 48px 32px; }
+  .page > h1 { font-size: 42px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -0.8px; }
+  .page > .deck { font-family:'Lora',serif; font-style: italic; color: var(--ink-soft); font-size: 19px; margin: 0 0 32px; }
+
+  .guided-banner { background:#fdf5e6; border-left: 4px solid var(--accent); padding: 14px 18px; margin: 0 0 32px; font-family:'Lora',serif; font-style: italic; color: var(--ink); }
+  .guided-banner strong { font-style: normal; display:block; margin-bottom: 4px; font-family:'Inter',sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .qcard { margin: 36px 0; padding: 22px 28px; background: white; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--rule); position: relative; }
+  .qcard::before { content: attr(data-q); position:absolute; left: -42px; top: 22px; font-family:'Lora',serif; font-style: italic; font-size: 28px; color: var(--accent); }
+  .qcard h3 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.2px; }
+  .qcard h3 .req { color: var(--green); font-family:'Inter',sans-serif; font-size: 12px; font-weight: 500; vertical-align: top; margin-left: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .qcard .help { color: var(--ink-soft); font-style: italic; font-size: 14px; margin: 0 0 16px; font-family:'Lora',serif; }
+  .qcard details { margin: 10px 0 16px; padding: 8px 14px; background: var(--paper); border-radius: 2px; font-size: 13px; }
+  .qcard details summary { cursor: pointer; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); }
+  .qcard details p { margin: 8px 0; line-height: 1.6; font-family:'Lora',serif; color: var(--ink); }
+
+  .opt { display: grid; grid-template-columns: 24px 1fr; gap: 4px 12px; padding: 10px 0; border-top: 1px solid var(--rule); cursor: pointer; }
+  .opt:hover { background: #f5efe2; }
+  .opt input { margin-top: 5px; accent-color: var(--green); }
+  .opt-label { font-family:'Lora',serif; font-size: 17px; color: var(--ink); font-weight: 600; }
+  .opt-desc { grid-column: 2; color: var(--ink-soft); font-size: 13px; line-height: 1.5; margin-top: 2px; }
+
+  .row-flows { display: grid; grid-template-columns: 60px 1fr 90px 110px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .row-flows.head { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); border-bottom: 2px solid var(--ink); padding-bottom: 6px; }
+  .row-flows input, .row-flows select { font-family:'Inter',sans-serif; padding: 6px 8px; border: 1px solid var(--rule); background: white; font-size: 13px; }
+  .row-flows .id { font-family: 'Courier New', monospace; color: var(--muted); }
+  .add-flow { font-family:'Inter',sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); background: none; border: 1px dashed var(--rule); padding: 8px 16px; margin-top: 12px; cursor: pointer; }
+
+  select.wide { width: 100%; padding: 10px 14px; font-family:'Inter',sans-serif; font-size: 15px; border: 1px solid var(--rule); background: white; }
+
+  .actions { display: flex; gap: 14px; margin: 48px 0 32px; padding-top: 32px; border-top: 4px double var(--ink); }
+  .btn { padding: 14px 28px; font-family:'Inter',sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; border-radius: 0; border: 2px solid var(--ink); }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--green); border-color: var(--green); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+
+  footer { background: var(--ink); color: #d8d2c4; padding: 28px 48px 20px; font-size: 12px; margin-top: 60px; }
+  footer .inner { max-width: 1100px; margin: 0 auto; }
+  footer .disclaimer { font-style: italic; color: #97a4b3; font-size: 11px; line-height: 1.5; margin-top: 10px; max-width: 820px; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-row">
+    <div class="masthead-brand">SYMBA<span class="small">T4.6</span></div>
+    <div class="breadcrumb">Home · <span>Assessment</span></div>
+  </div>
+</div>
+
+<div class="page">
+  <h1>Methodological assessment</h1>
+  <p class="deck">Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required. The remainder is optional but improves the engine output.</p>
+
+  <div class="guided-banner">
+    <strong>Guided mode active</strong>
+    Examples and rationale are expanded by default. Read each block carefully — the seven answers determine the methodological pathway and the data-collection plan you'll receive at the end.
+  </div>
+
+  <section class="qcard" data-q="I.">
+    <h3>What are you analysing? <span class="req">Required</span></h3>
+    <p class="help">Pick the closest match. When in doubt: who is the SUBJECT of the report?</p>
+    <details open>
+      <summary>Examples &amp; context</summary>
+      <p>A — a bilateral exchange (e.g. waste heat from Plant X to Plant Y). The subject is the FLOW BETWEEN TWO FIRMS.<br>
+      B — an eco-industrial park or symbiotic network with 3+ actors (e.g. Kalundborg, NISP cluster). The subject is the NETWORK as a system.<br>
+      C — a public-sector policy / programme at regional or national scale. The subject is the DECISION/PROGRAMME.<br>
+      D — a single firm quantifying its symbiotic contribution for ESG / CSRD. The subject is ONE FIRM.<br>
+      E — periodic monitoring of an already-operating IS (annual KPI updates).</p>
+    </details>
+    <label class="opt"><input type="radio" name="q1" checked><span><span class="opt-label">A. Specific exchange</span><span class="opt-desc">A symbiotic exchange between two existing companies.</span></span></label>
+    <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">B. Eco-park / network</span><span class="opt-desc">An eco-industrial park or a multi-actor symbiotic network.</span></span></label>
+    <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">C. Policy / programme</span><span class="opt-desc">A policy or programme at regional or national scale.</span></span></label>
+    <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">D. Corporate ESG report</span><span class="opt-desc">A single firm's symbiotic contribution for ESG/CSRD reporting.</span></span></label>
+    <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">E. Monitoring</span><span class="opt-desc">Periodic monitoring of an operating IS.</span></span></label>
+  </section>
+
+  <section class="qcard" data-q="II.">
+    <h3>What stage is the system in?</h3>
+    <p class="help">Existing operations versus design-only changes everything downstream.</p>
+    <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">A. Operational</span><span class="opt-desc">Exists and has been operating for years — real measured data.</span></span></label>
+    <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">B. Construction / commissioning</span><span class="opt-desc">Recently built or commissioning phase.</span></span></label>
+    <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">C. Design</span><span class="opt-desc">Pre-construction study — engineering models only.</span></span></label>
+    <label class="opt"><input type="radio" name="q2" checked><span><span class="opt-label">D. Baseline + N alternatives</span><span class="opt-desc">Existing baseline plus one or more future "what-if" scenarios.</span></span></label>
+  </section>
+
+  <section class="qcard" data-q="III.">
+    <h3>Sustainability dimensions <span class="req">Required</span></h3>
+    <p class="help">At least one must be active. Default: ENV + ECO.</p>
+    <label class="opt"><input type="checkbox" checked><span><span class="opt-label">Environmental — LCA</span><span class="opt-desc">Climate, ecosystems, resource use.</span></span></label>
+    <label class="opt"><input type="checkbox" checked><span><span class="opt-label">Economic — LCC / MFCA / CBA / TEA</span><span class="opt-desc">Costing over the full life cycle.</span></span></label>
+    <label class="opt"><input type="checkbox"><span><span class="opt-label">Social — S-LCA</span><span class="opt-desc">Stakeholder categories (workers / local community / value chain).</span></span></label>
+  </section>
+
+  <section class="qcard" data-q="V.">
+    <h3>Flows — what is exchanged?</h3>
+    <p class="help">One row per IS-flow; the q5 class drives per-flow methodological nodes.</p>
+    <div class="row-flows head">
+      <div>ID</div><div>Name</div><div>q5 class</div><div></div>
+    </div>
+    <div class="row-flows">
+      <div class="id">f1</div>
+      <div><input value="Sewage sludge"></div>
+      <div><select><option>a — waste/by-prod.</option><option selected>c — substitution</option><option>e — black-box</option></select></div>
+      <div><a href="#" style="font-size:12px;">remove</a></div>
+    </div>
+    <div class="row-flows">
+      <div class="id">f2</div>
+      <div><input value="Recovered heat"></div>
+      <div><select><option>a</option><option selected>c</option><option>e</option></select></div>
+      <div><a href="#" style="font-size:12px;">remove</a></div>
+    </div>
+    <div class="row-flows">
+      <div class="id">f3</div>
+      <div><input value="Mono-incin. ash"></div>
+      <div><select><option selected>a</option><option>c</option><option>e</option></select></div>
+      <div><a href="#" style="font-size:12px;">remove</a></div>
+    </div>
+    <button class="add-flow">+ Add a flow</button>
+  </section>
+
+  <section class="qcard" data-q="VI.">
+    <h3>Sector overlay (Q6a)</h3>
+    <p class="help">Drives sector-specific methodological nuances (e.g. AWARE for water-stressed contexts).</p>
+    <select class="wide">
+      <option>wastewater_sludge_biofactories</option>
+      <option>pulp_paper</option>
+      <option>chemicals_fertilizers</option>
+      <option>plastics_packaging</option>
+      <option>cement_construction</option>
+      <option>biobased_polymers</option>
+      <option>energy_utilities</option>
+    </select>
+  </section>
+
+  <div class="actions">
+    <a href="result.html" class="btn btn-primary">Run the engine →</a>
+    <button class="btn btn-secondary">Save draft</button>
+    <button class="btn btn-secondary">Reset</button>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu" style="color:#a4d5b5;">www.symbaproject.eu</a>
+    <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

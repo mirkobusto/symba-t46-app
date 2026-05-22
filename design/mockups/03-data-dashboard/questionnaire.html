@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Assessment (Data Dashboard)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#fafbfc; --surface:#fff; --border:#e5e8ec; --text:#0a0d12; --text-soft:#475569; --muted:#94a3b8; --primary:#1F4E79; --green:#2D8B43; --sidebar:#0b1726; --sidebar-text:#cbd5e1; --sidebar-active:#162c44; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--text); background: var(--bg); margin: 0; line-height: 1.45; font-size: 14px; }
+  h1, h2, h3 { color: var(--text); letter-spacing: -0.4px; margin: 0; }
+  a { color: var(--primary); text-decoration: none; }
+  .app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+  .sidebar { background: var(--sidebar); color: var(--sidebar-text); padding: 20px 16px; }
+  .sidebar-brand { display:flex; align-items:center; gap: 10px; padding: 6px 10px 22px; border-bottom: 1px solid #1d2c40; margin-bottom: 16px; }
+  .sidebar-brand-mark { width: 28px; height: 28px; background: var(--green); border-radius: 6px; display: grid; place-items: center; color: white; font-weight: 700; font-size: 13px; font-family: 'JetBrains Mono'; }
+  .sidebar-brand-text { font-weight: 600; color: white; font-size: 14px; }
+  .sidebar-brand-text small { display:block; color: var(--muted); font-size: 11px; font-weight: 400; margin-top: 2px; }
+  .sidebar-group { font-size: 10px; text-transform: uppercase; letter-spacing: 1.3px; color: #64748b; padding: 18px 10px 6px; font-weight: 600; }
+  .sidebar a { display:flex; align-items: center; gap: 10px; padding: 7px 12px; border-radius: 6px; color: var(--sidebar-text); font-size: 13px; }
+  .sidebar a:hover, .sidebar a.active { background: var(--sidebar-active); color: white; }
+  .sidebar a .ico { width: 16px; opacity: 0.7; text-align: center; }
+
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 28px; display:flex; align-items: center; justify-content: space-between; }
+  .breadcrumb { font-size: 13px; color: var(--text-soft); }
+  .breadcrumb a { color: var(--text-soft); }
+  .breadcrumb .active { color: var(--text); font-weight: 600; }
+
+  .main { padding: 24px 32px 60px; max-width: 1200px; }
+  .header-row { display:flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+  .page-title { font-size: 24px; margin-bottom: 4px; }
+  .page-sub { color: var(--text-soft); font-size: 13px; max-width: 600px; }
+  .progress { display:flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-soft); }
+  .progress-track { width: 160px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 70%; background: linear-gradient(90deg, var(--primary), var(--green)); }
+
+  .guided-banner { background: rgba(45,139,67,0.06); border: 1px solid rgba(45,139,67,0.2); padding: 14px 16px; border-radius: 8px; display: flex; gap: 12px; margin-bottom: 24px; align-items: flex-start; }
+  .guided-banner .ico { font-size: 18px; }
+  .guided-banner strong { color: var(--green); font-size: 13px; display:block; margin-bottom: 2px; }
+  .guided-banner p { margin: 0; font-size: 13px; color: var(--text-soft); }
+
+  .qgrid { display: grid; gap: 12px; }
+  .qcard { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; }
+  .qcard-head { display:flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; gap: 12px; }
+  .qcard-id { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .qcard h3 { font-size: 16px; font-weight: 600; }
+  .qcard .req { font-size: 10px; color: var(--green); background: rgba(45,139,67,0.1); padding: 2px 6px; border-radius: 4px; font-weight: 600; margin-left: 6px; letter-spacing: 0.5px; }
+  .qcard .help { color: var(--text-soft); font-size: 13px; margin: 0 0 12px; }
+  .qcard details { background: var(--bg); border-radius: 6px; padding: 8px 12px; margin: 8px 0 12px; font-size: 12px; }
+  .qcard details summary { cursor: pointer; color: var(--primary); font-weight: 500; }
+  .qcard details p { margin: 6px 0; line-height: 1.6; color: var(--text-soft); }
+
+  .opts { display: grid; gap: 6px; }
+  .opt { display: grid; grid-template-columns: 18px 1fr auto; gap: 4px 10px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; align-items: start; }
+  .opt:hover { background: var(--bg); }
+  .opt.selected { border-color: var(--primary); background: rgba(31,78,121,0.04); }
+  .opt input { margin-top: 4px; accent-color: var(--primary); cursor: pointer; }
+  .opt-key { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--muted); align-self: start; margin-top: 2px; }
+  .opt-label { font-weight: 600; font-size: 14px; color: var(--text); }
+  .opt-desc { grid-column: 2; color: var(--text-soft); font-size: 12px; line-height: 1.5; }
+
+  table.flows { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  table.flows th { text-align: left; padding: 8px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+  table.flows td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  table.flows input, table.flows select { padding: 6px 8px; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; font-size: 13px; width: 100%; }
+  td.id-cell { font-family: 'JetBrains Mono'; color: var(--text-soft); font-size: 12px; }
+  .btn-sm { background: var(--bg); border: 1px dashed var(--border); padding: 6px 12px; font-size: 12px; border-radius: 4px; color: var(--primary); cursor: pointer; font-family: inherit; }
+
+  select.wide { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 14px; background: var(--surface); }
+
+  .footer-actions { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); margin: 24px -32px -32px; padding: 14px 32px; display: flex; gap: 12px; justify-content: space-between; align-items: center; }
+  .btn { padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; text-decoration: none; }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-secondary { background: var(--bg); border: 1px solid var(--border); color: var(--text-soft); }
+  .shortcut { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--muted); }
+  kbd { background: var(--border); padding: 2px 5px; border-radius: 3px; font-family: inherit; font-size: 10px; }
+
+  .eu-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 14px 32px; font-size: 11px; color: var(--muted); display:flex; align-items: center; gap: 12px; }
+  .eu-footer .flag { font-size: 16px; }
+  .eu-footer a { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-mark">S</div>
+      <div class="sidebar-brand-text">SYMBA<small>T4.6</small></div>
+    </div>
+    <div class="sidebar-group">Workspace</div>
+    <a href="home.html"><span class="ico">⌂</span> Home</a>
+    <a href="questionnaire.html" class="active"><span class="ico">≡</span> New assessment</a>
+    <a href="#"><span class="ico">▤</span> My cases</a>
+    <a href="result.html"><span class="ico">◷</span> Recent results</a>
+    <div class="sidebar-group">Reports</div>
+    <a href="stakeholder.html"><span class="ico">⊞</span> Stakeholder views</a>
+    <a href="#"><span class="ico">⊠</span> Regional dashboard</a>
+  </aside>
+
+  <div>
+    <div class="topbar">
+      <div class="breadcrumb"><a href="home.html">Home</a> / <span class="active">New assessment</span></div>
+      <div style="font-family:'JetBrains Mono'; font-size: 11px; color: var(--muted);">draft saved 12s ago</div>
+    </div>
+
+    <main class="main">
+      <div class="header-row">
+        <div>
+          <h1 class="page-title">New assessment</h1>
+          <p class="page-sub">Configure your IS case in 7 short questions. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.</p>
+        </div>
+        <div class="progress">
+          <div class="progress-track"><div class="progress-fill"></div></div>
+          <span>5 / 7 answered</span>
+        </div>
+      </div>
+
+      <div class="guided-banner">
+        <span class="ico">🎯</span>
+        <div><strong>Guided mode active</strong><p>Examples and context are expanded by default. Switch to Expert in Settings if you don't need the help text.</p></div>
+      </div>
+
+      <div class="qgrid">
+        <div class="qcard">
+          <div class="qcard-head"><span class="qcard-id">Q1 / required</span><span class="req">required</span></div>
+          <h3>What are you analysing?</h3>
+          <p class="help">Pick the closest match. When in doubt: who is the SUBJECT of the report?</p>
+          <details open><summary>Examples &amp; context</summary><p>A — bilateral exchange (waste heat from Plant X to Y). Subject = FLOW. B — eco-park / multi-actor network. Subject = NETWORK. C — public-sector policy. Subject = DECISION. D — single firm (ESG/CSRD). E — periodic monitoring.</p></details>
+          <div class="opts">
+            <label class="opt selected"><input type="radio" name="q1" checked><span><span class="opt-label">Specific exchange</span><span class="opt-desc">Between two existing companies</span></span><span class="opt-key">A</span></label>
+            <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">Eco-park / network</span><span class="opt-desc">Multi-actor symbiotic network</span></span><span class="opt-key">B</span></label>
+            <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">Policy / programme</span><span class="opt-desc">Regional or national scale</span></span><span class="opt-key">C</span></label>
+            <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">Corporate ESG report</span><span class="opt-desc">Single-firm symbiotic contribution</span></span><span class="opt-key">D</span></label>
+            <label class="opt"><input type="radio" name="q1"><span><span class="opt-label">Monitoring</span><span class="opt-desc">Periodic KPI updates</span></span><span class="opt-key">E</span></label>
+          </div>
+        </div>
+
+        <div class="qcard">
+          <div class="qcard-head"><span class="qcard-id">Q2</span></div>
+          <h3>What stage is the system in?</h3>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">Operational</span><span class="opt-desc">Operating for years; primary data</span></span><span class="opt-key">A</span></label>
+            <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">Construction / commissioning</span><span class="opt-desc">Recently built</span></span><span class="opt-key">B</span></label>
+            <label class="opt"><input type="radio" name="q2"><span><span class="opt-label">Design</span><span class="opt-desc">Pre-construction study</span></span><span class="opt-key">C</span></label>
+            <label class="opt selected"><input type="radio" name="q2" checked><span><span class="opt-label">Baseline + N alternatives</span><span class="opt-desc">Existing + future "what-if"</span></span><span class="opt-key">D</span></label>
+          </div>
+        </div>
+
+        <div class="qcard">
+          <div class="qcard-head"><span class="qcard-id">Q3 / required</span><span class="req">required</span></div>
+          <h3>Sustainability dimensions</h3>
+          <p class="help">At least one must be active. Default: ENV + ECO.</p>
+          <div class="opts">
+            <label class="opt selected"><input type="checkbox" checked><span><span class="opt-label">Environmental — LCA</span><span class="opt-desc">Climate, ecosystems, resource use</span></span><span class="opt-key">env</span></label>
+            <label class="opt selected"><input type="checkbox" checked><span><span class="opt-label">Economic — LCC / MFCA / CBA / TEA</span><span class="opt-desc">Costing over the full life cycle</span></span><span class="opt-key">eco</span></label>
+            <label class="opt"><input type="checkbox"><span><span class="opt-label">Social — S-LCA</span><span class="opt-desc">Stakeholder categories</span></span><span class="opt-key">soc</span></label>
+          </div>
+        </div>
+
+        <div class="qcard">
+          <div class="qcard-head"><span class="qcard-id">Q5 — flows</span></div>
+          <h3>Flows exchanged in the symbiosis</h3>
+          <p class="help">One row per IS-flow; q5 class drives per-flow methodological nodes.</p>
+          <table class="flows">
+            <thead><tr><th style="width:80px;">id</th><th>name</th><th style="width:200px;">q5 class</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="id-cell">f1</td><td><input value="Sewage sludge"></td><td><select><option>a — waste/by-product</option><option selected>c — substitution</option><option>e — black-box</option></select></td><td><a href="#">×</a></td></tr>
+              <tr><td class="id-cell">f2</td><td><input value="Recovered heat"></td><td><select><option>a</option><option selected>c</option><option>e</option></select></td><td><a href="#">×</a></td></tr>
+              <tr><td class="id-cell">f3</td><td><input value="Mono-incin. ash"></td><td><select><option selected>a</option><option>c</option><option>e</option></select></td><td><a href="#">×</a></td></tr>
+            </tbody>
+          </table>
+          <button class="btn-sm" style="margin-top: 8px;">+ Add flow</button>
+        </div>
+
+        <div class="qcard">
+          <div class="qcard-head"><span class="qcard-id">Q6a — sector overlay</span></div>
+          <h3>Sector overlay</h3>
+          <p class="help">Drives sector-specific methodological nuances.</p>
+          <select class="wide">
+            <option>wastewater_sludge_biofactories</option>
+            <option>pulp_paper</option>
+            <option>chemicals_fertilizers</option>
+            <option>plastics_packaging</option>
+            <option>cement_construction</option>
+            <option>biobased_polymers</option>
+            <option>energy_utilities</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <div style="display:flex; gap: 8px;">
+          <a href="result.html" class="btn btn-primary">▶ Run pipeline</a>
+          <button class="btn btn-secondary">Save draft</button>
+          <button class="btn btn-secondary">Reset</button>
+        </div>
+        <div class="shortcut">tip: <kbd>⌘</kbd>+<kbd>Enter</kbd> to run · <kbd>⌘</kbd>+<kbd>S</kbd> to save</div>
+      </div>
+    </main>
+
+    <div class="eu-footer">
+      <span class="flag">🇪🇺</span>
+      <div>
+        This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+        <div style="font-style:italic; font-size:10px; color:var(--muted); margin-top:4px; max-width: 700px;">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

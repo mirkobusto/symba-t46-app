@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Result (Editorial Scientific)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --ink:#0F2C4D; --ink-soft:#2c4a6b; --paper:#fbf9f4; --rule:#d8d2c4; --accent:#8B6F47; --green:#2D8B43; --muted:#6b6358; --body:#2a2520; --warning:#a86c00; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--body); background: var(--paper); line-height:1.55; font-size: 15px; margin: 0; }
+  h1, h2, h3 { font-family:'Lora',serif; color: var(--ink); font-weight: 600; }
+  a { color: var(--accent); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+  .masthead { border-bottom: 4px double var(--ink); padding: 22px 48px 14px; }
+  .masthead-row { display:flex; justify-content:space-between; align-items:baseline; max-width:1100px; margin:0 auto; }
+  .masthead-brand { font-family:'Lora',serif; font-size: 22px; font-weight: 700; color: var(--ink); }
+  .masthead-brand .small { font-weight:400; font-style:italic; color: var(--muted); font-size: 14px; margin-left:8px; }
+  .breadcrumb { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+  .breadcrumb span { color: var(--ink); }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 48px 32px; }
+  .verdict { text-align: center; padding: 32px 0 24px; border-bottom: 4px double var(--ink); }
+  .verdict .label { font-family:'Inter',sans-serif; font-size: 11px; letter-spacing: 2.2px; text-transform: uppercase; color: var(--accent); }
+  .verdict h1 { font-size: 64px; margin: 8px 0 6px; letter-spacing: -1.2px; line-height: 1; }
+  .verdict h1 em { font-style: italic; color: var(--green); }
+  .verdict .deck { font-family:'Lora',serif; font-style: italic; font-size: 20px; color: var(--ink-soft); margin: 6px 0 0; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin: 40px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .metric { padding: 18px 24px; border-right: 1px solid var(--rule); }
+  .metric:nth-child(2n) { border-right: none; }
+  .metric:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .metric .k { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); font-family:'Inter',sans-serif; }
+  .metric .v { font-family:'Lora',serif; font-size: 26px; color: var(--ink); font-weight: 600; margin-top: 4px; line-height: 1.2; }
+  .metric .v em { font-style: italic; color: var(--accent); }
+
+  .section { margin: 56px 0; }
+  .section-head { display:flex; justify-content:space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 24px; }
+  .section-head h2 { font-size: 24px; margin: 0; letter-spacing: -0.4px; }
+  .section-head span { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); }
+
+  .pillar { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+  .pillar-head { display:flex; justify-content:space-between; align-items:baseline; }
+  .pillar-name { font-family:'Lora',serif; font-style: italic; font-size: 20px; color: var(--ink); }
+  .pillar-count { font-size: 12px; color: var(--muted); }
+  .pillar-nodes { font-family: 'Courier New', monospace; font-size: 11px; color: var(--ink-soft); margin-top: 6px; line-height: 1.7; }
+
+  .cdp { background: #fdf5e6; border-left: 4px solid var(--warning); padding: 14px 18px; margin: 12px 0; }
+  .cdp-title { font-family:'Lora',serif; font-style: italic; font-size: 16px; color: var(--warning); margin: 0 0 4px; font-weight: 600; }
+  .cdp-body { font-size: 13px; color: var(--ink); line-height: 1.5; }
+  .cdp-meta { font-size: 11px; color: var(--muted); margin-top: 6px; font-family:'Courier New', monospace; }
+
+  .actions { display: flex; gap: 14px; margin: 40px 0; padding-top: 28px; border-top: 4px double var(--ink); flex-wrap: wrap; }
+  .btn { padding: 14px 24px; font-family:'Inter',sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; border-radius: 0; border: 2px solid var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--green); border-color: var(--green); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+
+  footer { background: var(--ink); color: #d8d2c4; padding: 28px 48px 20px; font-size: 12px; margin-top: 60px; }
+  footer .inner { max-width: 1100px; margin: 0 auto; }
+  footer .disclaimer { font-style: italic; color: #97a4b3; font-size: 11px; line-height: 1.5; margin-top: 10px; max-width: 820px; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-row">
+    <div class="masthead-brand">SYMBA<span class="small">T4.6</span></div>
+    <div class="breadcrumb">Home · Assessment · <span>Result</span></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="verdict">
+    <div class="label">Methodological verdict</div>
+    <h1>IS-01 <em>extended</em></h1>
+    <p class="deck">Multi-actor eco-park · attributional modeling · ex-post baseline with N=12 alternative scenarios</p>
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric"><div class="k">Pathway</div><div class="v">IS-01 extended</div></div>
+    <div class="metric"><div class="k">ILCD Situation</div><div class="v">A multi-actor</div></div>
+    <div class="metric"><div class="k">LCC Type</div><div class="v">C-LCC + E-LCC</div></div>
+    <div class="metric"><div class="k">S-LCA</div><div class="v">deactivated</div></div>
+    <div class="metric"><div class="k">Activated nodes</div><div class="v">160 <em>/ 186</em></div></div>
+    <div class="metric"><div class="k">L1 BLOCK fires</div><div class="v">0 <em>/ 4</em></div></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head"><h2>Activated nodes, by pillar</h2><span>160 of 186 Phase-1 atomic nodes</span></div>
+
+    <div class="pillar">
+      <div class="pillar-head"><div class="pillar-name">i. — Life Cycle Assessment (LCA)</div><div class="pillar-count">68 nodes</div></div>
+      <div class="pillar-nodes">lca_t1 lca_hc_01 lca_hc_02 lca_hc_03 lca_hc_04 lca_hc_05 lca_hc_06 lca_hc_07 lca_mc_02 lca_mc_03 lca_mc_07 lca_mc_11 …</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-head"><div class="pillar-name">ii. — Life Cycle Costing (LCC)</div><div class="pillar-count">42 nodes</div></div>
+      <div class="pillar-nodes">lcc_t1 lcc_hc_01 lcc_hc_07 lcc_hc_08 lcc_hc_09 lcc_mc_02 lcc_mc_10 lcc_mc_13 …</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-head"><div class="pillar-name">iii. — Social LCA (S-LCA)</div><div class="pillar-count">28 nodes <em style="color:#a86c00;">(DEFAULT subset only)</em></div></div>
+      <div class="pillar-nodes">slca_hc_02 slca_hc_03 slca_hc_04 slca_hc_05 slca_mc_06 …</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-head"><div class="pillar-name">iv. — Cross-method &amp; reporting</div><div class="pillar-count">22 nodes</div></div>
+      <div class="pillar-nodes">IR-04 IR-12 CIR-05 FU-02 B-01 CDP-01 CDP-04 CDP-07 …</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Critical Decision Points surfaced</h2><span>3 tensions, awaiting analyst attention</span></div>
+
+    <div class="cdp">
+      <p class="cdp-title">CDP-04 · Allocation vs. system expansion</p>
+      <p class="cdp-body">The chosen modelling framework (attributional, ILCD A multi-actor) and the q5 flow class (substitution) jointly recommend system expansion. The analyst must document this choice in the methodological charter; switching to allocation requires an explicit override.</p>
+      <p class="cdp-meta">resolved_at: L3 · methods: [LCA, LCC] · severity: medium</p>
+    </div>
+    <div class="cdp">
+      <p class="cdp-title">CDP-07 · Capital goods amortization</p>
+      <p class="cdp-body">Q2=D (baseline + alternatives) activates dynamic background scenarios (SSP/RCP). The amortization period for new infrastructure defaults to 20 years; verify against the host site's actual write-off policy.</p>
+      <p class="cdp-meta">resolved_at: L3 · methods: [LCC] · severity: low</p>
+    </div>
+    <div class="cdp">
+      <p class="cdp-title">CDP-12 · Sector-specific overlay (wastewater)</p>
+      <p class="cdp-body">Q6a=wastewater_sludge_biofactories activates AWARE water scarcity characterisation and a contamination-level field in the inventory. The DCF will surface these as additional columns in the Flow Matrix tab.</p>
+      <p class="cdp-meta">resolved_at: L3 · methods: [LCA] · severity: low</p>
+    </div>
+  </section>
+
+  <div class="actions">
+    <a href="#" class="btn btn-primary">Open Data Collection File →</a>
+    <a href="stakeholder.html" class="btn btn-secondary">Stakeholder report</a>
+    <a href="#" class="btn btn-secondary">Download .docx</a>
+    <a href="#" class="btn btn-secondary">Save case</a>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu" style="color:#a4d5b5;">www.symbaproject.eu</a>
+    <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

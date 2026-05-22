@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Home (Geometric Horizon)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --blue:#1F4E79; --blue-soft:#3E7AB0; --green:#2D8B43; --green-soft:#5CB373;
+    --yellow:#F5C518; --white:#fff; --slate-50:#f7f9fb; --slate-200:#e3e9ef; --slate-700:#334155; --slate-500:#64748b;
+  }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--slate-700); background: var(--white); margin: 0; line-height: 1.55; font-size: 15px; }
+  h1, h2, h3 { font-family:'Space Grotesk',sans-serif; color: var(--blue); font-weight: 700; letter-spacing: -0.6px; margin: 0; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { color: var(--green); }
+
+  /* Decorative hex pattern */
+  .hex-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0.07; z-index: 0; }
+  .hex-bg svg { width: 100%; height: 100%; }
+
+  header { background: var(--white); border-bottom: 1px solid var(--slate-200); padding: 18px 32px; position: relative; z-index: 2; }
+  .header-row { display:flex; align-items:center; justify-content: space-between; max-width: 1280px; margin: 0 auto; gap: 24px; }
+  .logo { display:flex; align-items:center; gap: 12px; font-family:'Space Grotesk'; font-weight: 700; font-size: 20px; color: var(--blue); }
+  .logo-mark { width: 36px; height: 36px; position: relative; }
+  .logo-mark svg { width: 100%; height: 100%; }
+  .tag { color: var(--green); font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 500; }
+  nav { display:flex; gap: 22px; font-size: 14px; }
+  nav a { color: var(--slate-700); font-weight: 500; }
+  nav a:hover { color: var(--blue); }
+  .lang-pill { background: var(--slate-50); border: 1px solid var(--slate-200); padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+  .sign-in { background: var(--blue); color: white; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+
+  /* Hero with geometric BG */
+  .hero { position: relative; background: linear-gradient(135deg, var(--blue) 0%, #2a5d8f 100%); color: white; padding: 80px 32px 100px; overflow: hidden; }
+  .hero-shapes { position:absolute; inset: 0; opacity: 0.15; }
+  .hero-shape-1 { position:absolute; right: -100px; top: -50px; width: 400px; height: 400px; border: 3px solid white; transform: rotate(45deg); }
+  .hero-shape-2 { position:absolute; left: -80px; bottom: -80px; width: 280px; height: 280px; border-radius: 50%; background: var(--green-soft); opacity: 0.5; }
+  .hero-shape-3 { position:absolute; right: 200px; bottom: 40px; width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 100px solid var(--yellow); opacity: 0.4; }
+  .hero-shape-4 { position:absolute; right: 60px; top: 50%; width: 120px; height: 120px; background: var(--yellow); opacity: 0.7; clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
+  .hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; }
+  @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+  .hero-meta { font-size: 12px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; font-weight: 500; }
+  .hero h1 { color: white; font-size: 64px; line-height: 1.05; margin-bottom: 16px; }
+  .hero h1 .green { color: var(--green-soft); }
+  .hero p { font-size: 19px; color: rgba(255,255,255,0.92); margin-bottom: 32px; line-height: 1.5; max-width: 540px; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 8px; font-weight: 600; font-size: 15px; font-family: inherit; cursor: pointer; border: none; text-decoration: none; }
+  .btn-primary { background: var(--yellow); color: var(--blue); }
+  .btn-primary:hover { background: #ffd633; }
+  .btn-outline { background: transparent; color: white; border: 2px solid white; }
+  .btn-outline:hover { background: white; color: var(--blue); }
+
+  .hero-stats { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; padding: 28px; }
+  .hero-stat { display:flex; justify-content:space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-stat .k { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.7); }
+  .hero-stat .v { font-family:'Space Grotesk'; font-size: 28px; font-weight: 700; color: var(--yellow); }
+
+  /* Body sections */
+  main { max-width: 1280px; margin: 0 auto; padding: 64px 32px; }
+  .section-title { display:flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+  .section-title-num { background: var(--blue); color: var(--yellow); width: 48px; height: 48px; display:grid; place-items:center; font-family:'Space Grotesk'; font-weight: 700; font-size: 22px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .section-title h2 { font-size: 32px; }
+  .section-title .sub { color: var(--slate-500); font-size: 14px; margin-top: 4px; }
+
+  .mode-section { background: var(--slate-50); padding: 32px; border-radius: 16px; margin-bottom: 56px; border: 2px dashed var(--blue); }
+  .mode-toggle { display: inline-flex; background: white; border-radius: 999px; padding: 4px; border: 2px solid var(--blue); }
+  .mode-toggle button { padding: 10px 24px; border-radius: 999px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--blue); }
+  .mode-toggle button.active { background: var(--blue); color: white; }
+  .mode-hint { color: var(--slate-700); margin-top: 14px; font-size: 14px; line-height: 1.5; }
+
+  .preset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 720px) { .preset-grid { grid-template-columns: 1fr; } }
+  .preset-card { background: white; border: 1px solid var(--slate-200); border-radius: 16px; padding: 28px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+  .preset-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(31,78,121,0.12); }
+  .preset-card::after { content: ""; position:absolute; right: -40px; top: -40px; width: 140px; height: 140px; background: var(--green-soft); opacity: 0.1; border-radius: 50%; }
+  .preset-card-num { font-family:'Space Grotesk'; font-size: 12px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; position: relative; z-index: 1; }
+  .preset-card h3 { font-size: 20px; margin-bottom: 8px; position: relative; z-index: 1; }
+  .preset-card-desc { color: var(--slate-700); font-size: 14px; line-height: 1.5; position: relative; z-index: 1; }
+  .preset-tags { display:flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; position: relative; z-index: 1; }
+  .preset-tag { background: var(--slate-50); border: 1px solid var(--slate-200); padding: 4px 10px; border-radius: 6px; font-size: 11px; color: var(--blue); font-weight: 500; }
+
+  /* Layered feature cards */
+  .layers { margin-top: 80px; }
+  .layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .layer-grid { grid-template-columns: 1fr; } }
+  .layer-card { background: var(--blue); color: white; padding: 32px; border-radius: 16px; position: relative; overflow: hidden; }
+  .layer-card.l2 { background: var(--green); }
+  .layer-card-shape { position:absolute; right: -30px; top: -30px; width: 120px; height: 120px; opacity: 0.18; }
+  .layer-num { font-family:'Space Grotesk'; font-size: 11px; letter-spacing: 2px; font-weight: 600; }
+  .layer-card h3 { color: white; font-size: 22px; margin: 8px 0 14px; }
+  .layer-card p { font-size: 14px; line-height: 1.6; opacity: 0.92; margin: 0; }
+
+  /* EU footer */
+  footer { background: var(--blue); color: white; padding: 32px; margin-top: 80px; position: relative; overflow: hidden; }
+  footer::before { content:""; position: absolute; left: -50px; bottom: -50px; width: 200px; height: 200px; background: var(--yellow); opacity: 0.06; transform: rotate(45deg); }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 20px; position: relative; }
+  .eu-flag { font-size: 40px; line-height: 1; }
+  .footer-funding { font-size: 14px; line-height: 1.5; }
+  .footer-funding strong { display:block; margin-bottom: 4px; font-family:'Space Grotesk'; color: var(--yellow); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+  .footer-meta { margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.7); }
+  .footer-meta a { color: var(--yellow); }
+  .footer-disclaimer { margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5; max-width: 800px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 40 40">
+          <polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="none" stroke="#1F4E79" stroke-width="2.5"/>
+          <polygon points="20,10 28,15 28,25 20,30 12,25 12,15" fill="#2D8B43"/>
+        </svg>
+      </div>
+      <div>SYMBA <span class="tag">T4.6</span></div>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="questionnaire.html">Assessment</a>
+      <a href="result.html">Result</a>
+      <a href="stakeholder.html">Stakeholder report</a>
+      <a href="#">Regional dashboard</a>
+      <a href="#">About</a>
+    </nav>
+    <div style="display:flex; gap:10px; align-items: center;">
+      <button class="lang-pill">EN ▾</button>
+      <a href="#" class="sign-in">Sign in</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-shapes">
+    <div class="hero-shape-1"></div>
+    <div class="hero-shape-2"></div>
+    <div class="hero-shape-3"></div>
+    <div class="hero-shape-4"></div>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-meta">Horizon Europe · GA 101135562 · M22–M36</div>
+      <h1>Monitoring &amp; Reporting<br>for <span class="green">Industrial Symbiosis.</span></h1>
+      <p>A user-oriented web tool to evaluate environmental, economic and social benefits of bio-based industrial symbiosis — across industries, communities, local authorities and end-users.</p>
+      <div class="cta-row">
+        <a href="questionnaire.html" class="btn btn-primary">Start assessment →</a>
+        <a href="#" class="btn btn-outline">Watch demo</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="k">Phase 1 nodes</span><span class="v">186</span></div>
+      <div class="hero-stat"><span class="k">Validated cases</span><span class="v">13</span></div>
+      <div class="hero-stat"><span class="k">Cross-method rules</span><span class="v">40</span></div>
+      <div class="hero-stat"><span class="k">Sector overlays</span><span class="v">14</span></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="section-title">
+    <div class="section-title-num">1</div>
+    <div><h2>Choose your interface mode</h2><div class="sub">Switch any time — your answers are preserved.</div></div>
+  </div>
+  <div class="mode-section">
+    <div class="mode-toggle">
+      <button class="active">Expert</button>
+      <button>Guided</button>
+    </div>
+    <p class="mode-hint">Fast questionnaire for IS analysts and reviewers familiar with ILCD / LCSA terminology. Switch to <strong>Guided</strong> for step-by-step explanations targeted at industrial managers and community representatives.</p>
+  </div>
+
+  <div class="section-title">
+    <div class="section-title-num">2</div>
+    <div><h2>Validated case studies</h2><div class="sub">13 fixtures from peer-reviewed papers</div></div>
+  </div>
+  <div class="preset-grid">
+    <div class="preset-card">
+      <div class="preset-card-num">01 · Pulp &amp; paper · Finland</div>
+      <h3>Sokka — Kymenlaakso</h3>
+      <p class="preset-card-desc">Six-actor industrial ecosystem, ENV-only LCA, RS3 improvement scenario.</p>
+      <div class="preset-tags"><span class="preset-tag">IS-01</span><span class="preset-tag">ENV</span><span class="preset-tag">Q1=B</span></div>
+    </div>
+    <div class="preset-card">
+      <div class="preset-card-num">02 · Wastewater · Sweden</div>
+      <h3>Wiktor &amp; Johansson — Malmö</h3>
+      <p class="preset-card-desc">VA Syd sludge valorisation, 12-alternative scenario design, ENV+ECO dimensions.</p>
+      <div class="preset-tags"><span class="preset-tag">IS-01 ext.</span><span class="preset-tag">ENV+ECO</span><span class="preset-tag">TRL 7-8</span></div>
+    </div>
+    <div class="preset-card">
+      <div class="preset-card-num">03 · Bio-polymers · EU</div>
+      <h3>Briassoulis — bio-polymers framework</h3>
+      <p class="preset-card-desc">Industry-wide propositional framework, full LCSA + TEA, Q1=C policy pathway.</p>
+      <div class="preset-tags"><span class="preset-tag">IS-02</span><span class="preset-tag">Full LCSA</span><span class="preset-tag">Policy</span></div>
+    </div>
+    <div class="preset-card">
+      <div class="preset-card-num">04 · Energy · Denmark</div>
+      <h3>Danielsson — Kalundborg</h3>
+      <p class="preset-card-desc">Iconic 8-member symbiosis since 1972. Public superiority claim → mandatory panel review.</p>
+      <div class="preset-tags"><span class="preset-tag">IS-01 ext.</span><span class="preset-tag">Q4=C panel</span></div>
+    </div>
+  </div>
+
+  <div class="section-title layers">
+    <div class="section-title-num">3</div>
+    <div><h2>Two layers, one tool</h2><div class="sub">Audience-aware reporting along the value chain</div></div>
+  </div>
+  <div class="layer-grid">
+    <div class="layer-card">
+      <div class="layer-num">LAYER 1 — MVP</div>
+      <h3>For analysts &amp; reviewers</h3>
+      <p>Configure the methodological pathway via 7 questions. Get the activation of 186 schema-driven nodes, 40 cross-method rules, and a calibrated Data Collection File for the network partners.</p>
+    </div>
+    <div class="layer-card l2">
+      <div class="layer-num">LAYER 2 — In construction</div>
+      <h3>For the full stakeholder spectrum</h3>
+      <p>Dedicated report views for industry, local community, local authority, and end-user. Multi-stakeholder accessibility plus regional/sectoral dashboards driven by CIRCE scoring.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="eu-flag">🇪🇺</div>
+    <div>
+      <div class="footer-funding">
+        <strong>European Union — Horizon Europe</strong>
+        This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562.
+      </div>
+      <div class="footer-meta">
+        <a href="https://www.symbaproject.eu">www.symbaproject.eu</a> · GA 101135562 · HORIZON-CL6-2023-CIRCBIO-01 · Topic CircBio-01-7 · ENCO (coord.) · CIRCE · CET
+      </div>
+      <div class="footer-disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

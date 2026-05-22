@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Stakeholder report (Editorial Scientific)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --ink:#0F2C4D; --ink-soft:#2c4a6b; --paper:#fbf9f4; --rule:#d8d2c4; --accent:#8B6F47; --green:#2D8B43; --muted:#6b6358; --body:#2a2520; --warning:#a86c00; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--body); background: var(--paper); line-height:1.55; font-size: 15px; margin: 0; }
+  h1, h2, h3 { font-family:'Lora',serif; color: var(--ink); font-weight: 600; }
+  a { color: var(--accent); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  .masthead { border-bottom: 4px double var(--ink); padding: 22px 48px 14px; }
+  .masthead-row { display:flex; justify-content:space-between; align-items:baseline; max-width:1100px; margin:0 auto; }
+  .masthead-brand { font-family:'Lora',serif; font-size: 22px; font-weight: 700; color: var(--ink); }
+  .masthead-brand .small { font-weight:400; font-style:italic; color: var(--muted); font-size: 14px; margin-left:8px; }
+  .breadcrumb { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+  .breadcrumb span { color: var(--ink); }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 48px 32px; }
+  .page > h1 { font-size: 42px; margin: 0 0 6px; letter-spacing: -0.8px; }
+  .page > .deck { font-family:'Lora',serif; font-style: italic; color: var(--ink-soft); font-size: 19px; margin: 0 0 36px; }
+
+  .tabs { display:flex; border-bottom: 4px double var(--ink); margin-bottom: 40px; }
+  .tab { padding: 14px 22px; font-family:'Inter',sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -3px; }
+  .tab.active { color: var(--ink); border-bottom-color: var(--green); font-weight: 600; }
+  .tab:hover:not(.active) { color: var(--ink); }
+
+  .framing { font-family:'Lora',serif; font-style: italic; font-size: 18px; color: var(--ink); padding: 20px 28px; background: #f0e9d8; border-left: 4px solid var(--green); margin-bottom: 36px; line-height: 1.5; }
+
+  .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  @media (max-width: 760px) { .col2 { grid-template-columns: 1fr; } }
+
+  .panel { padding: 24px 28px; background: white; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--rule); margin-bottom: 28px; }
+  .panel h3 { margin: 0 0 16px; font-size: 22px; }
+  .panel dl { margin: 0; }
+  .panel dt { font-family:'Inter',sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin-top: 14px; }
+  .panel dt:first-child { margin-top: 0; }
+  .panel dd { font-family:'Lora',serif; font-size: 17px; color: var(--ink); margin: 4px 0 0; font-weight: 500; }
+
+  .pending { background: #fdf5e6; border-left: 4px solid var(--warning); padding: 18px 22px; }
+  .pending h4 { font-family:'Lora',serif; font-size: 18px; color: var(--warning); margin: 0 0 6px; font-style: italic; }
+  .pending p { font-size: 14px; color: var(--ink); line-height: 1.6; margin: 0; }
+  .pending .note { font-size: 12px; color: var(--muted); margin-top: 10px; font-family:'Courier New', monospace; }
+
+  .compliance-list { list-style: none; padding: 0; margin: 0; }
+  .compliance-list li { padding: 12px 0; border-bottom: 1px solid var(--rule); display:flex; justify-content:space-between; align-items: baseline; gap: 12px; }
+  .compliance-list li:last-child { border-bottom: none; }
+  .compliance-name { font-family:'Lora',serif; font-size: 15px; color: var(--ink); flex: 1; }
+  .compliance-name span { font-family:'Inter',sans-serif; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; display:block; margin-top: 2px; }
+  .badge { font-family:'Inter',sans-serif; font-size: 11px; padding: 4px 12px; letter-spacing: 1.2px; text-transform: uppercase; border-radius: 0; }
+  .badge-ok { background: var(--green); color: white; }
+  .badge-no { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+
+  .actions { display:flex; gap: 14px; margin: 40px 0; flex-wrap: wrap; }
+  .btn { padding: 12px 22px; font-family:'Inter',sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer; border: 2px solid var(--ink); text-decoration: none; }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: var(--green); border-color: var(--green); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+
+  footer { background: var(--ink); color: #d8d2c4; padding: 28px 48px 20px; font-size: 12px; margin-top: 60px; }
+  footer .inner { max-width: 1100px; margin: 0 auto; }
+  footer .disclaimer { font-style: italic; color: #97a4b3; font-size: 11px; line-height: 1.5; margin-top: 10px; max-width: 820px; }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-row">
+    <div class="masthead-brand">SYMBA<span class="small">T4.6</span></div>
+    <div class="breadcrumb">Home · Result · <span>Stakeholder report</span></div>
+  </div>
+</div>
+
+<div class="page">
+  <h1>Stakeholder report</h1>
+  <p class="deck">Multi-audience view of the case. Switch tabs to see the framing tailored for each actor along the bio-based value chain.</p>
+
+  <div class="tabs">
+    <button class="tab">Industry</button>
+    <button class="tab">Community</button>
+    <button class="tab active">Local Authority</button>
+    <button class="tab">End user</button>
+  </div>
+
+  <div class="framing">
+    Regulatory and policy view: pathway compliance, peer-review status, public-superiority claims, EU PEF alignment. Designed for autorità locali / policy analysts who oversee the symbiosis on behalf of the host territory.
+  </div>
+
+  <div class="col2">
+    <div class="panel">
+      <h3>Pathway summary</h3>
+      <dl>
+        <dt>Pathway</dt><dd>IS-01 <em style="color:var(--accent); font-style:italic;">extended</em></dd>
+        <dt>ILCD Situation</dt><dd>A multi-actor</dd>
+        <dt>LCC type</dt><dd>C-LCC + E-LCC</dd>
+        <dt>S-LCA activation</dt><dd>deactivated</dd>
+        <dt>Sector overlay</dt><dd>Wastewater &amp; sludge biofactories</dd>
+        <dt>Geographic scope</dt><dd>Regional cluster (Q7 = B)</dd>
+      </dl>
+    </div>
+
+    <div class="panel">
+      <h3>Quantitative scoring <span style="font-family:'Inter';font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);">(CIRCE)</span></h3>
+      <div class="pending">
+        <h4>Awaiting CIRCE delivery</h4>
+        <p>The quantitative LCSA scoring for this case has not yet been ingested. Once CIRCE delivers the indicators (ENV / ECO / SOC), they will appear here grouped by stakeholder relevance.</p>
+        <div class="note">last_checked: 2026-05-22T18:21:00Z · source: pending</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Compliance signals</h3>
+    <ul class="compliance-list">
+      <li>
+        <div class="compliance-name">Peer-review claim<span>Q4 = E · ISO 14044 reviewer eligibility</span></div>
+        <span class="badge badge-ok">yes</span>
+      </li>
+      <li>
+        <div class="compliance-name">EU PEF alignment<span>Q4 = D · Circular Footprint Formula activated (CIR-05)</span></div>
+        <span class="badge badge-no">not declared</span>
+      </li>
+      <li>
+        <div class="compliance-name">Public superiority claim<span>Q4 = C · mandatory 3+ ISO panel review, no weighting allowed</span></div>
+        <span class="badge badge-no">not declared</span>
+      </li>
+      <li>
+        <div class="compliance-name">DNSH check (Do No Significant Harm)<span>EU Taxonomy art. 17 alignment screening</span></div>
+        <span class="badge badge-no">pending</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <a href="result.html" class="btn btn-primary">← Back to result</a>
+    <a href="#" class="btn btn-secondary">Open DCF</a>
+    <a href="#" class="btn btn-secondary">Export PDF brief</a>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu" style="color:#a4d5b5;">www.symbaproject.eu</a>
+    <div class="disclaimer">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

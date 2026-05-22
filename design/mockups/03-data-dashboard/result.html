@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Result (Data Dashboard)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#fafbfc; --surface:#fff; --border:#e5e8ec; --text:#0a0d12; --text-soft:#475569; --muted:#94a3b8; --primary:#1F4E79; --green:#2D8B43; --amber:#d97706; --danger:#dc2626; --sidebar:#0b1726; --sidebar-text:#cbd5e1; --sidebar-active:#162c44; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--text); background: var(--bg); margin: 0; line-height: 1.45; font-size: 14px; }
+  h1, h2, h3 { color: var(--text); letter-spacing: -0.4px; margin: 0; }
+  a { color: var(--primary); text-decoration: none; }
+  .app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+  .sidebar { background: var(--sidebar); color: var(--sidebar-text); padding: 20px 16px; }
+  .sidebar-brand { display:flex; align-items:center; gap: 10px; padding: 6px 10px 22px; border-bottom: 1px solid #1d2c40; margin-bottom: 16px; }
+  .sidebar-brand-mark { width: 28px; height: 28px; background: var(--green); border-radius: 6px; display: grid; place-items: center; color: white; font-weight: 700; font-size: 13px; font-family: 'JetBrains Mono'; }
+  .sidebar-brand-text { font-weight: 600; color: white; font-size: 14px; }
+  .sidebar-brand-text small { display:block; color: var(--muted); font-size: 11px; font-weight: 400; margin-top: 2px; }
+  .sidebar-group { font-size: 10px; text-transform: uppercase; letter-spacing: 1.3px; color: #64748b; padding: 18px 10px 6px; font-weight: 600; }
+  .sidebar a { display:flex; align-items: center; gap: 10px; padding: 7px 12px; border-radius: 6px; color: var(--sidebar-text); font-size: 13px; }
+  .sidebar a:hover, .sidebar a.active { background: var(--sidebar-active); color: white; }
+  .sidebar a .ico { width: 16px; opacity: 0.7; text-align: center; }
+
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 28px; display:flex; align-items: center; justify-content: space-between; }
+  .breadcrumb { font-size: 13px; color: var(--text-soft); }
+  .breadcrumb .active { color: var(--text); font-weight: 600; }
+  .topbar-actions { display:flex; gap: 8px; }
+  .btn { padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-primary { background: var(--green); color: white; }
+  .btn-secondary { background: var(--bg); border: 1px solid var(--border); color: var(--text-soft); }
+  .btn-secondary:hover { color: var(--primary); border-color: var(--primary); }
+
+  .main { padding: 24px 32px 60px; max-width: 1500px; }
+  .verdict-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  @media (max-width: 900px) { .verdict-row { grid-template-columns: 1fr; } }
+  .verdict-card { background: linear-gradient(135deg, var(--primary) 0%, #2a5d8f 100%); color: white; padding: 24px 28px; border-radius: 10px; position: relative; }
+  .verdict-meta { font-family: 'JetBrains Mono'; font-size: 11px; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+  .verdict-h1 { font-size: 48px; font-weight: 700; margin: 6px 0 4px; letter-spacing: -1px; line-height: 1; }
+  .verdict-h1 .ext { color: #fbbf24; font-style: italic; font-weight: 400; }
+  .verdict-sub { font-size: 14px; color: rgba(255,255,255,0.85); }
+  .pillar-bar { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 14px 18px; margin-top: 18px; display:flex; justify-content: space-between; gap: 16px; font-size: 12px; }
+  .pillar-bar .pillar-mini { text-align: center; }
+  .pillar-bar .pillar-mini-k { color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; font-size: 10px; font-weight: 500; }
+  .pillar-bar .pillar-mini-v { font-family: 'JetBrains Mono'; font-size: 18px; font-weight: 600; color: white; margin-top: 4px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .kpi-k { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-weight: 500; }
+  .kpi-v { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .kpi-v.green { color: var(--green); }
+  .kpi-v.amber { color: var(--amber); }
+  .kpi-detail { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+
+  .row { display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; }
+  @media (max-width: 900px) { .row { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; }
+  .card-head { display:flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  .card-head h3 { font-size: 15px; font-weight: 600; }
+  .card-head .meta { font-size: 12px; color: var(--muted); }
+
+  /* Pillar pie + bars */
+  .pillar-vis { display:flex; align-items: center; gap: 24px; }
+  .pillar-pie { width: 160px; height: 160px; position: relative; }
+  .pillar-list { flex: 1; }
+  .pillar-row { display: grid; grid-template-columns: 14px 1fr 36px; gap: 8px; padding: 6px 0; font-size: 13px; align-items: center; }
+  .pillar-row .dot { width: 10px; height: 10px; border-radius: 2px; }
+  .pillar-row .v { font-family: 'JetBrains Mono'; color: var(--text); text-align: right; font-weight: 600; }
+
+  /* CDP table-style */
+  .cdp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .cdp-table th { text-align: left; padding: 8px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+  .cdp-table td { padding: 10px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .cdp-table .id-cell { font-family: 'JetBrains Mono'; color: var(--amber); font-weight: 600; }
+  .pill { display:inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+  .pill-amber { background: rgba(217,119,6,0.12); color: var(--amber); }
+  .pill-green { background: rgba(45,139,67,0.12); color: var(--green); }
+  .pill-primary { background: rgba(31,78,121,0.1); color: var(--primary); }
+
+  .eu-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 14px 32px; font-size: 11px; color: var(--muted); display:flex; align-items: center; gap: 12px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-mark">S</div>
+      <div class="sidebar-brand-text">SYMBA<small>T4.6</small></div>
+    </div>
+    <div class="sidebar-group">Workspace</div>
+    <a href="home.html"><span class="ico">⌂</span> Home</a>
+    <a href="questionnaire.html"><span class="ico">≡</span> New assessment</a>
+    <a href="#"><span class="ico">▤</span> My cases</a>
+    <a href="result.html" class="active"><span class="ico">◷</span> Recent results</a>
+    <div class="sidebar-group">Reports</div>
+    <a href="stakeholder.html"><span class="ico">⊞</span> Stakeholder views</a>
+    <a href="#"><span class="ico">⊠</span> Regional dashboard</a>
+  </aside>
+
+  <div>
+    <div class="topbar">
+      <div class="breadcrumb"><a href="home.html">Home</a> / <a href="questionnaire.html">Assessment</a> / <span class="active">Result · case 3f0b4bcf</span></div>
+      <div class="topbar-actions">
+        <a href="#" class="btn btn-secondary">Save case</a>
+        <a href="#" class="btn btn-secondary">↓ .docx</a>
+        <a href="#" class="btn btn-primary">Open DCF →</a>
+      </div>
+    </div>
+
+    <main class="main">
+      <div class="verdict-row">
+        <div class="verdict-card">
+          <div class="verdict-meta">METHODOLOGICAL PATHWAY · run #2026.05.23-001</div>
+          <div class="verdict-h1">IS-01 <span class="ext">extended</span></div>
+          <div class="verdict-sub">Multi-actor eco-park · attributional · ex-post baseline + 12 alternative scenarios · wastewater overlay</div>
+          <div class="pillar-bar">
+            <div class="pillar-mini"><div class="pillar-mini-k">LCA</div><div class="pillar-mini-v">68</div></div>
+            <div class="pillar-mini"><div class="pillar-mini-k">LCC</div><div class="pillar-mini-v">42</div></div>
+            <div class="pillar-mini"><div class="pillar-mini-k">S-LCA</div><div class="pillar-mini-v">28*</div></div>
+            <div class="pillar-mini"><div class="pillar-mini-k">Cross-method</div><div class="pillar-mini-v">22</div></div>
+            <div class="pillar-mini"><div class="pillar-mini-k">TOTAL</div><div class="pillar-mini-v" style="color:#fbbf24;">160 / 186</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="display:flex; flex-direction: column; gap: 8px;">
+          <h3 style="font-size: 15px;">Quantitative scoring</h3>
+          <div style="background: rgba(217,119,6,0.06); border: 1px solid rgba(217,119,6,0.3); border-radius: 8px; padding: 14px 16px;">
+            <div style="display:flex; align-items: center; gap: 8px; color: var(--amber); font-weight: 600; font-size: 13px;">⏳ Awaiting CIRCE delivery</div>
+            <p style="font-size: 12px; color: var(--text-soft); margin: 6px 0 0;">The LCSA scoring payload has not been ingested yet. <code style="font-family:'JetBrains Mono'; font-size:11px;">PUT /api/scoring/{case_id}</code> is open for CIRCE.</p>
+          </div>
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px;">
+            <div style="text-align:center; padding: 12px; background: var(--bg); border-radius: 6px; opacity: 0.6;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">ENV</div><div style="font-size:22px;font-family:'JetBrains Mono';font-weight:600;color:var(--muted);">—</div></div>
+            <div style="text-align:center; padding: 12px; background: var(--bg); border-radius: 6px; opacity: 0.6;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">ECO</div><div style="font-size:22px;font-family:'JetBrains Mono';font-weight:600;color:var(--muted);">—</div></div>
+            <div style="text-align:center; padding: 12px; background: var(--bg); border-radius: 6px; opacity: 0.6;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">SOC</div><div style="font-size:22px;font-family:'JetBrains Mono';font-weight:600;color:var(--muted);">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-k">Pathway</div><div class="kpi-v">IS-01 ext.</div><div class="kpi-detail">extended flag = True</div></div>
+        <div class="kpi"><div class="kpi-k">ILCD Situation</div><div class="kpi-v">A multi-actor</div><div class="kpi-detail">attributional · q1=B</div></div>
+        <div class="kpi"><div class="kpi-k">LCC type</div><div class="kpi-v">C+E LCC</div><div class="kpi-detail">Q3 env + eco active</div></div>
+        <div class="kpi"><div class="kpi-k">L1 blocks fired</div><div class="kpi-v green">0 / 4</div><div class="kpi-detail">block_C2_plus_E-LCC OK</div></div>
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <div class="card-head"><h3>Activated nodes by pillar</h3><span class="meta">160 of 186 atomic nodes · click bar for IDs</span></div>
+          <div class="pillar-vis">
+            <svg class="pillar-pie" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15.91" fill="transparent" stroke="#e5e8ec" stroke-width="3.2"/>
+              <circle cx="18" cy="18" r="15.91" fill="transparent" stroke="#1F4E79" stroke-width="3.2" stroke-dasharray="42.5 100" transform="rotate(-90 18 18)"/>
+              <circle cx="18" cy="18" r="15.91" fill="transparent" stroke="#2D8B43" stroke-width="3.2" stroke-dasharray="26.25 100" stroke-dashoffset="-42.5" transform="rotate(-90 18 18)"/>
+              <circle cx="18" cy="18" r="15.91" fill="transparent" stroke="#d97706" stroke-width="3.2" stroke-dasharray="17.5 100" stroke-dashoffset="-68.75" transform="rotate(-90 18 18)"/>
+              <circle cx="18" cy="18" r="15.91" fill="transparent" stroke="#94a3b8" stroke-width="3.2" stroke-dasharray="13.75 100" stroke-dashoffset="-86.25" transform="rotate(-90 18 18)"/>
+              <text x="18" y="17" text-anchor="middle" font-size="6" fill="#0a0d12" font-weight="700">160</text>
+              <text x="18" y="22" text-anchor="middle" font-size="3" fill="#94a3b8">/ 186</text>
+            </svg>
+            <div class="pillar-list">
+              <div class="pillar-row"><span class="dot" style="background:#1F4E79;"></span><span>LCA</span><span class="v">68</span></div>
+              <div class="pillar-row"><span class="dot" style="background:#2D8B43;"></span><span>LCC</span><span class="v">42</span></div>
+              <div class="pillar-row"><span class="dot" style="background:#d97706;"></span><span>S-LCA (DEFAULT subset)</span><span class="v">28</span></div>
+              <div class="pillar-row"><span class="dot" style="background:#94a3b8;"></span><span>Cross-method &amp; reporting</span><span class="v">22</span></div>
+              <div class="pillar-row" style="border-top: 1px solid var(--border); margin-top: 6px; padding-top: 8px;"><span></span><span style="font-weight:600;">Total</span><span class="v">160</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h3>Critical Decision Points</h3><span class="meta">3 surfaced</span></div>
+          <table class="cdp-table">
+            <thead><tr><th>id</th><th>title</th><th>severity</th></tr></thead>
+            <tbody>
+              <tr><td class="id-cell">CDP-04</td><td>Allocation vs system expansion<div style="font-size:11px; color:var(--text-soft); margin-top:2px;">Document this in the methodological charter</div></td><td><span class="pill pill-amber">medium</span></td></tr>
+              <tr><td class="id-cell">CDP-07</td><td>Capital goods amortization<div style="font-size:11px; color:var(--text-soft); margin-top:2px;">Default 20y — verify policy</div></td><td><span class="pill pill-primary">low</span></td></tr>
+              <tr><td class="id-cell">CDP-12</td><td>Sector-specific overlay (wastewater)<div style="font-size:11px; color:var(--text-soft); margin-top:2px;">AWARE characterisation activated</div></td><td><span class="pill pill-primary">low</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 20px;">
+        <div class="card-head"><h3>Reasoning trace</h3><span class="meta">how the engine got here</span></div>
+        <div style="font-family: 'JetBrains Mono'; font-size: 12px; line-height: 1.7; color: var(--text-soft); background: var(--bg); padding: 14px 16px; border-radius: 6px; border-left: 3px solid var(--green);">
+          <span style="color: var(--green);">[L0]</span> q1=B + q2=D → ilcd_situation=SITUATION_A_MULTI ✓<br>
+          <span style="color: var(--green);">[L0]</span> q3.env + q3.eco + (no soc) → slca_activation_state=DEACTIVATED ✓<br>
+          <span style="color: var(--green);">[L0]</span> q1=B + q3.eco → lcc_type=C_LCC_PLUS_E_LCC ✓<br>
+          <span style="color: var(--primary);">[L1]</span> 4 BLOCK cells checked → 0 fired ✓<br>
+          <span style="color: var(--primary);">[pathway]</span> γ matrix Q1=B × Q2=D → IS-01 + extended=True ✓<br>
+          <span style="color: var(--primary);">[activate]</span> 160 / 186 nodes activated (90 procedural mandates, 70 fielded)<br>
+          <span style="color: var(--amber);">[L2]</span> 40 validation rules evaluated → 0 violations<br>
+          <span style="color: var(--amber);">[L3]</span> 12 CDP candidates → 3 surfaced (CDP-04, CDP-07, CDP-12)<br>
+          <span style="color: var(--green);">[done]</span> 142ms · 0 warnings · ready
+        </div>
+      </div>
+    </main>
+
+    <div class="eu-footer">
+      🇪🇺 GA 101135562 · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a> · This project has received funding from the European Union's Horizon Europe Programme.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Stakeholder report (Geometric Horizon)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --blue:#1F4E79; --green:#2D8B43; --yellow:#F5C518; --slate-50:#f7f9fb; --slate-200:#e3e9ef; --slate-700:#334155; --slate-500:#64748b; --warning:#a86c00; }
+  * { box-sizing: border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color: var(--slate-700); background: var(--slate-50); margin: 0; line-height: 1.55; font-size: 15px; }
+  h1, h2, h3 { font-family:'Space Grotesk',sans-serif; color: var(--blue); font-weight: 700; margin: 0; }
+  a { color: var(--blue); text-decoration: none; }
+  header { background: white; border-bottom: 1px solid var(--slate-200); padding: 14px 32px; }
+  .header-row { display:flex; align-items:center; justify-content: space-between; max-width: 1280px; margin: 0 auto; }
+  .logo { display:flex; align-items:center; gap: 12px; font-family:'Space Grotesk'; font-weight: 700; font-size: 18px; color: var(--blue); }
+  .breadcrumb { color: var(--slate-500); font-size: 13px; }
+  .breadcrumb span { color: var(--blue); font-weight: 600; }
+
+  .page { max-width: 1280px; margin: 0 auto; padding: 40px 32px; }
+  h1 { font-size: 40px; margin-bottom: 6px; }
+  .subtitle { color: var(--slate-500); font-size: 16px; margin-bottom: 32px; }
+
+  .tab-row { background: white; border-radius: 16px; padding: 8px; display:inline-flex; gap: 4px; border: 1px solid var(--slate-200); margin-bottom: 28px; }
+  .tab { background: transparent; border: none; padding: 12px 22px; border-radius: 12px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--slate-700); display:inline-flex; align-items:center; gap: 8px; }
+  .tab.active { background: var(--blue); color: white; }
+  .tab:hover:not(.active) { background: var(--slate-50); color: var(--blue); }
+  .tab-icon { width: 16px; height: 16px; display: inline-block; }
+
+  .framing { background: linear-gradient(135deg, var(--blue) 0%, #2a5d8f 100%); color: white; padding: 28px 32px; border-radius: 16px; margin-bottom: 28px; position: relative; overflow: hidden; }
+  .framing::before { content:""; position:absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: var(--yellow); opacity: 0.18; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .framing-label { font-size: 11px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--yellow); font-weight: 600; }
+  .framing h2 { color: white; font-size: 24px; margin: 6px 0 10px; }
+  .framing p { margin: 0; color: rgba(255,255,255,0.9); font-size: 15px; line-height: 1.55; max-width: 800px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+  .card { background: white; border: 1px solid var(--slate-200); border-radius: 16px; padding: 24px 28px; position: relative; overflow: hidden; }
+  .card::before { content:""; position:absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--blue); }
+  .card.green::before { background: var(--green); }
+  .card h3 { font-size: 18px; margin-bottom: 16px; display:flex; align-items: center; gap: 10px; }
+  .card h3::before { content:""; width: 24px; height: 24px; background: var(--blue); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .card.green h3::before { background: var(--green); }
+
+  dl { margin: 0; }
+  dt { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--slate-500); margin-top: 12px; font-weight: 600; }
+  dt:first-of-type { margin-top: 0; }
+  dd { font-family:'Space Grotesk'; font-size: 17px; color: var(--blue); margin: 4px 0; font-weight: 600; }
+  dd em { color: var(--green); font-style: italic; }
+
+  .pending { background: #fffaeb; border: 1px solid var(--yellow); border-radius: 12px; padding: 18px 22px; position: relative; }
+  .pending::before { content:""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--yellow); border-radius: 12px 0 0 12px; }
+  .pending h4 { font-family:'Space Grotesk'; color: var(--warning); font-size: 16px; margin: 0 0 6px; }
+  .pending p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--slate-700); }
+  .pending-mock { background: var(--slate-50); border: 1px dashed var(--slate-200); border-radius: 8px; padding: 12px; margin-top: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pending-mock .ind { padding: 8px; background: white; border-radius: 6px; text-align: center; opacity: 0.5; }
+  .pending-mock .ind-k { font-size: 10px; color: var(--slate-500); text-transform: uppercase; }
+  .pending-mock .ind-v { font-family:'Space Grotesk'; font-size: 22px; color: var(--slate-500); font-weight: 700; }
+
+  .compliance { list-style: none; padding: 0; margin: 0; }
+  .compliance li { padding: 14px 0; border-bottom: 1px solid var(--slate-200); display:flex; justify-content:space-between; align-items: center; gap: 16px; }
+  .compliance li:last-child { border-bottom: none; }
+  .compliance .name { font-family:'Space Grotesk'; font-size: 14px; color: var(--blue); font-weight: 600; }
+  .compliance .name span { display:block; font-family:'Inter'; font-weight: 400; font-size: 12px; color: var(--slate-500); margin-top: 2px; text-transform: none; letter-spacing: 0; }
+  .badge { font-family:'Space Grotesk'; font-size: 11px; padding: 4px 12px; border-radius: 999px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+  .badge-ok { background: var(--green); color: white; }
+  .badge-no { background: var(--slate-50); color: var(--slate-500); border: 1px solid var(--slate-200); }
+
+  .actions-row { display:flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+  .btn { padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-family: inherit; }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-secondary { background: white; color: var(--blue); border: 1px solid var(--slate-200); }
+
+  footer { background: var(--blue); color: rgba(255,255,255,0.85); padding: 20px 32px; font-size: 12px; margin-top: 60px; }
+  footer .inner { max-width: 1280px; margin: 0 auto; line-height: 1.5; }
+  footer .disc { font-style: italic; color: rgba(255,255,255,0.55); margin-top: 8px; max-width: 800px; }
+  footer a { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 40 40"><polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="none" stroke="#1F4E79" stroke-width="2.5"/><polygon points="20,10 28,15 28,25 20,30 12,25 12,15" fill="#2D8B43"/></svg>
+      SYMBA · T4.6
+    </div>
+    <div class="breadcrumb">Home / Result / <span>Stakeholder report</span></div>
+  </div>
+</header>
+
+<div class="page">
+  <h1>Stakeholder report</h1>
+  <p class="subtitle">Multi-audience view of the case. Switch tabs to see the framing tailored for each actor along the bio-based value chain.</p>
+
+  <div class="tab-row">
+    <button class="tab">🏭 Industry</button>
+    <button class="tab">🌳 Community</button>
+    <button class="tab active">🏛 Local Authority</button>
+    <button class="tab">👤 End user</button>
+  </div>
+
+  <div class="framing">
+    <div class="framing-label">View · Local Authority</div>
+    <h2>Regulatory &amp; policy view</h2>
+    <p>Pathway compliance, peer-review status, public-superiority claims, EU PEF alignment. Designed for local authorities and policy analysts who oversee the symbiosis on behalf of the host territory.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Pathway summary</h3>
+      <dl>
+        <dt>Pathway</dt><dd>IS-01 <em>extended</em></dd>
+        <dt>ILCD Situation</dt><dd>A multi-actor</dd>
+        <dt>LCC type</dt><dd>C-LCC + E-LCC</dd>
+        <dt>S-LCA activation</dt><dd>deactivated</dd>
+        <dt>Sector overlay</dt><dd>Wastewater &amp; sludge biofactories</dd>
+        <dt>Geographic scope</dt><dd>Regional cluster (Q7 = B)</dd>
+      </dl>
+    </div>
+
+    <div class="card green">
+      <h3>Quantitative scoring</h3>
+      <div class="pending">
+        <h4>⏳ Awaiting CIRCE delivery</h4>
+        <p>The quantitative LCSA scoring for this case has not yet been ingested. Once CIRCE delivers the indicators, they will appear here grouped by relevance to the local authority audience.</p>
+        <div class="pending-mock">
+          <div class="ind"><div class="ind-k">ENV</div><div class="ind-v">—</div></div>
+          <div class="ind"><div class="ind-k">ECO</div><div class="ind-v">—</div></div>
+          <div class="ind"><div class="ind-k">SOC</div><div class="ind-v">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 24px;">
+    <h3>Compliance signals</h3>
+    <ul class="compliance">
+      <li>
+        <div class="name">Peer-review claim<span>Q4 = E · ISO 14044 reviewer eligibility</span></div>
+        <span class="badge badge-ok">✓ yes</span>
+      </li>
+      <li>
+        <div class="name">EU PEF alignment<span>Q4 = D · Circular Footprint Formula activated (CIR-05)</span></div>
+        <span class="badge badge-no">not declared</span>
+      </li>
+      <li>
+        <div class="name">Public superiority claim<span>Q4 = C · mandatory 3+ ISO panel review, no weighting allowed</span></div>
+        <span class="badge badge-no">not declared</span>
+      </li>
+      <li>
+        <div class="name">DNSH check (Do No Significant Harm)<span>EU Taxonomy art. 17 alignment screening</span></div>
+        <span class="badge badge-no">pending</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="actions-row">
+    <a href="result.html" class="btn btn-primary">← Back to result</a>
+    <a href="#" class="btn btn-secondary">Open Data Collection File</a>
+    <a href="#" class="btn btn-secondary">Export PDF brief</a>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    🇪🇺 This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. · <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+    <div class="disc">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.</div>
+  </div>
+</footer>
+
+</body>
+</html>

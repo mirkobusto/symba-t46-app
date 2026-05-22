@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SYMBA T4.6 — Assessment (Fresh Circular)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap">
+<style>
+  :root { --leaf:#2D8B43; --leaf-deep:#1f6831; --mint:#D4F4DD; --cream:#FFFAEC; --navy:#0F2C4D; --pumpkin:#F59E0B; --slate-50:#f7faf6; --slate-200:#e5ecdf; --slate-700:#3d4a3a; --slate-500:#7a8979; }
+  * { box-sizing: border-box; }
+  body { font-family:'DM Sans',system-ui,sans-serif; color: var(--slate-700); background: var(--cream); margin: 0; line-height: 1.55; font-size: 16px; }
+  h1, h2, h3 { font-family:'Nunito', sans-serif; color: var(--navy); font-weight: 800; margin: 0; }
+  a { color: var(--leaf); text-decoration: none; }
+
+  header { background: var(--cream); padding: 16px 28px; }
+  .header-row { max-width: 920px; margin: 0 auto; display:flex; justify-content: space-between; align-items: center; }
+  .logo { display:flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 36px; height: 36px; background: var(--leaf); border-radius: 12px; display: grid; place-items: center; font-size: 18px; color: white; }
+  .logo-text { font-family:'Nunito'; font-weight: 800; font-size: 18px; color: var(--navy); }
+  .crumb { color: var(--slate-500); font-size: 14px; }
+  .crumb span { color: var(--navy); font-weight: 600; }
+
+  .page { max-width: 720px; margin: 0 auto; padding: 24px 28px 60px; }
+
+  /* Progress dots */
+  .progress { display:flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .progress-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--slate-200); }
+  .progress-dot.done { background: var(--leaf); }
+  .progress-dot.current { background: var(--navy); transform: scale(1.4); }
+  .progress-line { height: 2px; flex: 1; background: var(--slate-200); }
+  .progress-line.done { background: var(--leaf); }
+  .progress-meta { font-size: 13px; color: var(--slate-500); margin-left: auto; }
+
+  h1.page-title { font-size: 42px; letter-spacing: -0.6px; margin-bottom: 6px; line-height: 1.1; }
+  .lead { color: var(--slate-500); font-size: 17px; line-height: 1.5; margin-bottom: 28px; }
+
+  /* Guided banner */
+  .guided { background: linear-gradient(135deg, var(--mint), #b8e8c2); border-radius: 20px; padding: 20px 24px; margin-bottom: 28px; display:flex; gap: 14px; align-items: flex-start; }
+  .guided .icon { font-size: 36px; line-height: 1; }
+  .guided strong { color: var(--leaf-deep); font-size: 15px; display: block; margin-bottom: 4px; }
+  .guided p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--slate-700); }
+
+  /* Question card — softer, more conversational */
+  .qcard { background: white; border-radius: 24px; padding: 28px 32px; margin-bottom: 18px; box-shadow: 0 6px 20px rgba(15,44,77,0.04); }
+  .qcard-num { display:inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--leaf); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .qcard-num::before { content: ""; width: 8px; height: 8px; background: var(--leaf); border-radius: 50%; }
+  .qcard h3 { font-size: 24px; margin-bottom: 6px; letter-spacing: -0.3px; line-height: 1.25; }
+  .qcard .help { color: var(--slate-500); font-size: 15px; margin-bottom: 16px; line-height: 1.5; }
+  .req-chip { background: var(--pumpkin); color: white; font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 700; letter-spacing: 1px; vertical-align: middle; margin-left: 6px; }
+
+  details { background: var(--slate-50); border-radius: 14px; padding: 12px 16px; margin: 10px 0 16px; font-size: 14px; }
+  details summary { cursor: pointer; font-weight: 600; color: var(--leaf-deep); font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  details summary::before { content: "💡"; }
+  details p { margin: 8px 0 4px; line-height: 1.6; color: var(--slate-700); }
+
+  /* Options as soft cards */
+  .opts { display: grid; gap: 8px; }
+  .opt { display: grid; grid-template-columns: 24px 1fr; gap: 6px 14px; padding: 14px 18px; border: 2px solid var(--slate-50); border-radius: 16px; cursor: pointer; transition: all 0.15s; }
+  .opt:hover { border-color: var(--mint); background: rgba(212,244,221,0.3); }
+  .opt input { margin-top: 4px; accent-color: var(--leaf); cursor: pointer; }
+  .opt-label { font-weight: 700; color: var(--navy); font-size: 16px; }
+  .opt-desc { grid-column: 2; font-size: 14px; color: var(--slate-500); line-height: 1.55; }
+  .opt.selected { border-color: var(--leaf); background: rgba(45,139,67,0.05); }
+
+  /* Flows table — soft */
+  table.flows { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-top: 8px; }
+  table.flows th { text-align: left; padding: 0 12px 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--slate-500); font-weight: 700; }
+  table.flows td { padding: 8px 12px; background: var(--slate-50); border-radius: 0; vertical-align: middle; }
+  table.flows tr td:first-child { border-radius: 12px 0 0 12px; }
+  table.flows tr td:last-child { border-radius: 0 12px 12px 0; }
+  table.flows input, table.flows select { border: 1px solid var(--slate-200); padding: 8px 10px; border-radius: 8px; font-family: inherit; font-size: 14px; background: white; width: 100%; }
+  td.id-cell { font-family:'Nunito'; font-weight: 800; color: var(--leaf); font-size: 14px; width: 60px; }
+  .add-row { background: transparent; border: 2px dashed var(--slate-200); color: var(--leaf); padding: 12px; border-radius: 14px; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; width: 100%; margin-top: 8px; transition: border-color 0.15s; }
+  .add-row:hover { border-color: var(--leaf); }
+
+  select.wide { width: 100%; padding: 14px 18px; border: 2px solid var(--slate-50); border-radius: 16px; font-family: inherit; font-size: 16px; background: white; cursor: pointer; }
+  select.wide:focus { border-color: var(--leaf); outline: none; }
+
+  /* Sticky action bar */
+  .actions { position: sticky; bottom: 16px; background: white; border-radius: 20px; padding: 18px 24px; margin-top: 28px; box-shadow: 0 10px 30px rgba(15,44,77,0.1); display:flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 12px 26px; border-radius: 999px; font-weight: 700; font-size: 15px; cursor: pointer; border: none; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--leaf); color: white; box-shadow: 0 4px 14px rgba(45,139,67,0.3); }
+  .btn-secondary { background: var(--slate-50); color: var(--navy); }
+  .save-meta { font-size: 13px; color: var(--slate-500); }
+
+  footer { background: var(--navy); color: rgba(255,255,255,0.85); padding: 24px 28px; font-size: 13px; line-height: 1.5; }
+  footer .inner { max-width: 920px; margin: 0 auto; display: flex; gap: 16px; align-items: flex-start; }
+  footer .flag { font-size: 24px; line-height: 1; }
+  footer .disc { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 6px; }
+  footer a { color: var(--mint); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <a href="home.html" class="logo">
+      <div class="logo-mark">🌱</div>
+      <div class="logo-text">SYMBA T4.6</div>
+    </a>
+    <div class="crumb"><a href="home.html" style="color:var(--slate-500);">Home</a> · <span>Assessment</span></div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="progress">
+    <span class="progress-dot done"></span>
+    <span class="progress-line done"></span>
+    <span class="progress-dot current"></span>
+    <span class="progress-line"></span>
+    <span class="progress-dot"></span>
+    <span class="progress-line"></span>
+    <span class="progress-dot"></span>
+    <span class="progress-line"></span>
+    <span class="progress-dot"></span>
+    <span class="progress-meta">Step 2 of 5</span>
+  </div>
+
+  <h1 class="page-title">Tell us about your symbiosis 🌍</h1>
+  <p class="lead">Seven friendly questions. We'll handle the methodology, you just describe your case. You can save and come back any time.</p>
+
+  <div class="guided">
+    <div class="icon">🎓</div>
+    <div>
+      <strong>You're in Guided mode</strong>
+      <p>We've expanded the examples for each question. If you find them too verbose, switch to Expert mode in the menu — your answers are kept.</p>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 01</div>
+    <h3>What kind of symbiosis are you looking at?<span class="req-chip">required</span></h3>
+    <p class="help">Pick whichever feels closest. If you're not sure, think: <em>who is the main subject of your report?</em></p>
+    <details open>
+      <summary>Need examples? Tap to expand</summary>
+      <p><strong>A — bilateral exchange.</strong> Waste heat from Plant X reused by Plant Y. The "main thing" is the flow itself.<br>
+      <strong>B — eco-park / network.</strong> Multiple actors sharing flows, like Kalundborg in Denmark.<br>
+      <strong>C — policy / programme.</strong> A regulatory or strategic decision at regional / national scale.<br>
+      <strong>D — single firm.</strong> One company reporting their symbiotic contribution for ESG.<br>
+      <strong>E — monitoring.</strong> Tracking an existing IS over time (yearly KPI updates).</p>
+    </details>
+    <div class="opts">
+      <label class="opt selected"><input type="radio" name="q1" checked><span><div class="opt-label">🤝 Specific exchange (A)</div><div class="opt-desc">Two companies trading a single flow.</div></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><div class="opt-label">🌐 Eco-park / network (B)</div><div class="opt-desc">Multiple actors sharing resources, like Kalundborg.</div></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><div class="opt-label">📜 Policy / programme (C)</div><div class="opt-desc">A regulatory or strategic decision at scale.</div></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><div class="opt-label">🏢 Corporate ESG report (D)</div><div class="opt-desc">A single firm quantifying its contribution.</div></span></label>
+      <label class="opt"><input type="radio" name="q1"><span><div class="opt-label">📊 Periodic monitoring (E)</div><div class="opt-desc">Tracking KPIs over time on an existing IS.</div></span></label>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 02</div>
+    <h3>Is the system already running, or still on paper?</h3>
+    <p class="help">This is one of the biggest forks in the methodology — what data is realistically available?</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q2"><span><div class="opt-label">✅ Already operating (A)</div><div class="opt-desc">Real measured data is available.</div></span></label>
+      <label class="opt"><input type="radio" name="q2"><span><div class="opt-label">🏗 Under construction (B)</div><div class="opt-desc">Built recently or in commissioning.</div></span></label>
+      <label class="opt"><input type="radio" name="q2"><span><div class="opt-label">📐 Still in design (C)</div><div class="opt-desc">Engineering models only, no operations yet.</div></span></label>
+      <label class="opt selected"><input type="radio" name="q2" checked><span><div class="opt-label">🔀 Baseline + alternatives (D)</div><div class="opt-desc">Comparing what's there with what could be.</div></span></label>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 03</div>
+    <h3>Which sustainability dimensions matter to you?<span class="req-chip">required</span></h3>
+    <p class="help">Pick all that apply — you need at least one.</p>
+    <div class="opts">
+      <label class="opt selected"><input type="checkbox" checked><span><div class="opt-label">🌿 Environment (LCA)</div><div class="opt-desc">Climate, air, water, soil, biodiversity.</div></span></label>
+      <label class="opt selected"><input type="checkbox" checked><span><div class="opt-label">💰 Economics (LCC)</div><div class="opt-desc">CAPEX, OPEX, NPV — full life-cycle costing.</div></span></label>
+      <label class="opt"><input type="checkbox"><span><div class="opt-label">👥 Social (S-LCA)</div><div class="opt-desc">Workers, community, value chain.</div></span></label>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 05</div>
+    <h3>What's being exchanged?</h3>
+    <p class="help">List the flows that travel between your actors — waste, energy, water, by-products, anything.</p>
+    <table class="flows">
+      <thead><tr><th>id</th><th>name</th><th style="width: 200px;">valuation class</th><th style="width: 60px;"></th></tr></thead>
+      <tbody>
+        <tr><td class="id-cell">f1</td><td><input value="Sewage sludge"></td><td><select><option>a — waste / by-product</option><option selected>c — substitution</option><option>e — black-box</option></select></td><td style="text-align:center;"><a href="#" style="color:var(--slate-500);">×</a></td></tr>
+        <tr><td class="id-cell">f2</td><td><input value="Recovered heat"></td><td><select><option>a</option><option selected>c</option><option>e</option></select></td><td style="text-align:center;"><a href="#" style="color:var(--slate-500);">×</a></td></tr>
+        <tr><td class="id-cell">f3</td><td><input value="Mono-incin. ash"></td><td><select><option selected>a</option><option>c</option><option>e</option></select></td><td style="text-align:center;"><a href="#" style="color:var(--slate-500);">×</a></td></tr>
+      </tbody>
+    </table>
+    <button class="add-row" type="button">+ Add another flow</button>
+  </div>
+
+  <div class="qcard">
+    <div class="qcard-num">Question 06a</div>
+    <h3>Which sector is your symbiosis in?</h3>
+    <p class="help">We'll adjust the methodology based on sector-specific quirks (water scarcity for wastewater, by-product purity for chemicals, …).</p>
+    <select class="wide">
+      <option>🌊 Wastewater &amp; sludge biofactories</option>
+      <option>📄 Pulp &amp; paper</option>
+      <option>⚗️ Chemicals &amp; fertilizers</option>
+      <option>📦 Plastics &amp; packaging</option>
+      <option>🏗 Cement &amp; construction</option>
+      <option>🌽 Bio-based polymers</option>
+      <option>⚡ Energy &amp; utilities</option>
+      <option>🌾 Agri-food &amp; biorefineries</option>
+    </select>
+  </div>
+
+  <div class="actions">
+    <a href="result.html" class="btn btn-primary">🚀 Run the engine</a>
+    <div style="display:flex; gap: 10px; align-items: center;">
+      <span class="save-meta">Auto-saved · 12s ago</span>
+      <button class="btn btn-secondary">Save &amp; close</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    <span class="flag">🇪🇺</span>
+    <div>
+      This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562. <a href="https://www.symbaproject.eu">www.symbaproject.eu</a>
+      <div class="disc">Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

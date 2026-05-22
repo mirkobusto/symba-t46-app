@@ -176,11 +176,28 @@ Strutture coinvolte. Una riga per asset.
 - `mandate.node_id` (es. `slca_mc_11`)
 - `mandate.statement` (testo dal phase1_nodes)
 - `mandate.deliverable` (dove va documentato: report section, allegato, ecc.)
-- `mandate.category` — gruppo derivato: `data_sources`, `allocation`, `reference_scenario`, `stakeholder_mapping`, `uncertainty`, `sector_addenda`
+- `mandate.category` — gruppo derivato (vedi sotto)
 - `mandate.assignee` (free text, optional)
 - `mandate.status` (checklist: pending/done)
 
-**Decisione aperta D2**: tutti i procedural_mandate attivati appaiono qui, o solo un subset curato per categoria. Vedi §11.
+**Categorie (post-censimento 2026-05-22, vedi `backend/coordination/dcf_mandates_census.{json,md}`)** — 9 categorie effettive distribuite sui 90 procedural_mandate:
+
+| Category | Count |
+|---|---:|
+| `data_sources_quality` | 15 |
+| `allocation_substitution` | 4 |
+| `reference_scenario` | 8 |
+| `goal_scope_boundary` | 16 |
+| `stakeholder_materiality` | 17 |
+| `uncertainty_sensitivity` | 13 |
+| `reporting_disclosure` | 5 |
+| `lcc_method_specific` | 7 |
+| `lcsa_integration` | 5 |
+| **TOTAL** | **90** |
+
+Il draft originale prevedeva 6 categorie (`data_sources`, `allocation`, `reference_scenario`, `stakeholder_mapping`, `uncertainty`, `sector_addenda`). Il censimento empirico ha mostrato che `goal_scope_boundary`, `reporting_disclosure`, `lcc_method_specific`, `lcsa_integration` sono presenti in modo non trascurabile (43/90 mandates) e meritano categorie proprie. `sector_addenda` è stato rimosso: la specificità settoriale vive nei campi delle sezioni 5.1-5.4 via predicate su `q6a`, non nei procedural_mandate.
+
+**Decisione D2** (applicata): opzione (c) — tutti i procedural_mandate attivati appaiono nel DCF, raggruppati per categoria. Nessun filtro applicato.
 
 ### 5.6 § Network Diagram (derivato)
 
@@ -327,7 +344,7 @@ Entrambe minori. Da confermare con Mirko prima dell'installazione.
 | ID | Decisione | Opzioni | Mia raccomandazione |
 |---|---|---|---|
 | **D1** | Predicate language | (a) Python `eval` con namespace ristretto. (b) Mini-DSL custom (parser ad hoc). (c) JSONLogic. | (b) mini-DSL coerente con cross_method_rules.json — Kimi naming. Eval esterno è troppo aperto, JSONLogic introduce dipendenza. |
-| **D2** | Granularità sezione 5.5 | (a) Tutti i procedural_mandate attivati. (b) Subset curato per categoria. (c) Tutti, ma raggruppati. | (c) — niente perdita info, leggibilità OK. |
+| **D2** | Granularità sezione 5.5 | (a) Tutti i procedural_mandate attivati. (b) Subset curato per categoria. (c) Tutti, ma raggruppati. | **(c) — applicata in Phase 1**. Censimento in `backend/coordination/dcf_mandates_census.json`, 9 categorie. |
 | **D3** | Granularità Network Diagram | (a) Un edge per flow. (b) Aggregazione multi-flow tra stessa coppia attori. | (a) — fedele al dato, UI può collassare se serve. |
 | **D4** | Validation rules in Excel | (a) Solo dropdown + type-check. (b) Cross-field (es. status=new → capex obbligatorio). | (b) limitato — solo le 5-10 relazioni più ovvie. |
 | **D5** | Linguaggio output Excel/docx | (a) Solo EN. (b) Multi-lingua come UI (en/it/fr/de/es). | (a) per v1. Multi-lingua può venire dopo. |

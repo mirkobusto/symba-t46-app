@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import AboutPage from './pages/AboutPage'
 import CasesListPage from './pages/CasesListPage'
+import DataCollectionPage from './pages/DataCollectionPage'
 import HomePage from './pages/HomePage'
 import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/questionnaire" element={<QuestionnairePage />} />
             <Route path="/result" element={<ResultPage />} />
+            <Route path="/data-collection" element={<DataCollectionPage />} />
             <Route path="/scenarios-result" element={<ScenariosResultPage />} />
             <Route path="/cases" element={<CasesListPage />} />
             <Route path="/about" element={<AboutPage />} />

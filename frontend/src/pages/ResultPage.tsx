@@ -309,6 +309,12 @@ export default function ResultPage() {
             ? t('result.actions.downloadingReport')
             : t('result.actions.downloadReport')}
         </button>
+        <Link
+          to="/data-collection"
+          className="btn btn-primary"
+        >
+          {t('dcf.openButton')}
+        </Link>
         <button
           type="button"
           className="btn btn-secondary"

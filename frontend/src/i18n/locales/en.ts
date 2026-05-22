@@ -402,6 +402,26 @@ const en = {
     es: 'Español',
   },
 
+  dcf: {
+    navLink: 'Data Collection',
+    title: 'Data Collection File',
+    subtitle:
+      "Calibrated on the derived pathway. Download the Excel companion to collect inventory data with the symbiosis partners, then return for the final report.",
+    loading: 'Composing the Data Collection File…',
+    errorTitle: 'Could not generate Data Collection File',
+    errorNoPayload: 'No payload returned by the server.',
+    backToResult: 'Back to result',
+    networkTitle: 'Network diagram',
+    downloadXlsx: 'Download Excel (.xlsx)',
+    downloadingXlsx: 'Preparing Excel…',
+    downloadDocx: 'Download companion document (.docx)',
+    downloadingDocx: 'Preparing document…',
+    downloadError: 'Download failed',
+    footerNote:
+      'The Data Collection File is an export-ready inventory worksheet. Fill the empty rows offline (or distribute to your network partners) and return the data to the analyst leading the LCSA.',
+    openButton: 'Open Data Collection File',
+  },
+
   cases: {
     navLink: 'My cases',
     title: 'My cases',

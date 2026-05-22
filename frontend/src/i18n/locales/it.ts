@@ -402,6 +402,26 @@ const it: Locale = {
     es: 'Español',
   },
 
+  dcf: {
+    navLink: 'Raccolta dati',
+    title: 'Data Collection File',
+    subtitle:
+      'Calibrato sul pathway derivato. Scarica il foglio Excel per raccogliere i dati di inventario con i partner della simbiosi, poi torna qui per il report finale.',
+    loading: 'Sto componendo il Data Collection File…',
+    errorTitle: 'Generazione Data Collection File fallita',
+    errorNoPayload: 'Il server non ha restituito un payload.',
+    backToResult: 'Torna al risultato',
+    networkTitle: 'Diagramma di rete',
+    downloadXlsx: 'Scarica Excel (.xlsx)',
+    downloadingXlsx: 'Preparazione Excel…',
+    downloadDocx: 'Scarica documento di accompagnamento (.docx)',
+    downloadingDocx: 'Preparazione documento…',
+    downloadError: 'Download fallito',
+    footerNote:
+      'Il Data Collection File è un foglio di raccolta dati pronto per l\'export. Compila le righe vuote offline (o distribuiscilo ai partner del network) e restituisci i dati all\'analista responsabile dell\'LCSA.',
+    openButton: 'Apri Data Collection File',
+  },
+
   cases: {
     navLink: 'I miei casi',
     title: 'I miei casi',

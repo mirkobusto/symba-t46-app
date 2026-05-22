@@ -11,6 +11,7 @@ import type {
   ScenarioInput,
   ScenariosResponse,
 } from '../types/api'
+import type { DcfPayload } from '../types/dcf'
 
 const API_BASE_URL: string =
   (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
@@ -144,4 +145,46 @@ export function deleteCase(id: string): Promise<void> {
       throw new ApiError(res.status, res.statusText)
     }
   })
+}
+
+// ----- DCF (Phase 2 backend, Phase 3 frontend integration) -----
+
+export function fetchDcfPreview(input: Case): Promise<DcfPayload> {
+  return request<DcfPayload>('/api/dcf/preview', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  })
+}
+
+async function fetchDcfBlob(path: string, input: Case): Promise<Blob> {
+  const res = await fetch(`${API_BASE_URL}${path}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
+  if (!res.ok) {
+    let detail = res.statusText
+    try {
+      const text = await res.text()
+      try {
+        const parsed = JSON.parse(text) as { detail?: unknown }
+        if (parsed && typeof parsed.detail === 'string') detail = parsed.detail
+        else detail = text
+      } catch {
+        detail = text
+      }
+    } catch {
+      // keep statusText
+    }
+    throw new ApiError(res.status, detail)
+  }
+  return res.blob()
+}
+
+export function fetchDcfXlsx(input: Case): Promise<Blob> {
+  return fetchDcfBlob('/api/dcf/export/xlsx', input)
+}
+
+export function fetchDcfDocx(input: Case): Promise<Blob> {
+  return fetchDcfBlob('/api/dcf/export/docx', input)
 }

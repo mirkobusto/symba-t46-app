@@ -9,15 +9,22 @@
 
 ## 1. Scopo
 
-Il **Data Collection File (DCF)** è un artefatto generato dal tool **dopo** che la pipeline ha derivato il pathway metodologico (IS-01..IS-05) e l'ILCD Situation. Il suo scopo è **guidare l'analista LCSA nella raccolta dati a valle** del questionario Q1-Q7, fornendo un foglio strutturato di campi pronti — con header, validazioni e celle vuote — calibrati sul tipo di studio dichiarato.
+Il **Data Collection File (DCF)** è il **primo artefatto multi-stakeholder** del SYMBA T4.6 Monitoring & Reporting System. È generato dal tool **dopo** che la pipeline ha derivato il pathway metodologico (IS-01..IS-05) e l'ILCD Situation; il suo scopo è **fare da ponte tra la fase metodologica (Layer 1, audience analyst/reviewer) e la fase di analisi e reporting (Layer 2, audience full stakeholder)**.
 
-Il DCF non è un input del questionario: il questionario resta breve (Q1-Q7 + flows di base). Il DCF nasce a valle, riflette le scelte fatte, e accompagna l'analista nella fase di inventory.
+Concretamente, il DCF:
+
+1. **Guida l'IS practitioner** nel definire l'inventory necessario per il pathway derivato (Actors, Flow Matrix, Logistics, Infrastructure, Methodological Choices to Document, Network Diagram).
+2. **Funziona come strumento di coordinamento con i partner del network**: l'analista lo scarica in Excel e lo distribuisce ai partner della symbiosis (industria, autorità locale, comunità ospitante, ecc.) per la compilazione collaborativa dei dati che il singolo analista non possiede.
+3. **Alimenta i partner di analisi quantitativa** (CIRCE e altri T4.1-T4.3) con il pacchetto dati strutturato necessario al calcolo dello scoring ENV/ECO/SOC.
+4. **Riceverà l'output dello scoring esterno** (specifica I/O in attesa da CIRCE) per produrre i report multi-stakeholder di Fase B della roadmap T4.6.
+
+Il DCF non è quindi un input del questionario: il questionario resta breve (Q1-Q7 + flows di base). Il DCF nasce a valle, riflette le scelte fatte, e abilita l'intera catena downstream del monitoring & reporting system.
 
 ### 1.1 Cosa NON è il DCF (non-goals v1)
 
-- Non è un meccanismo di calcolo LCSA (rimane out-of-scope MVP per il numerical replication).
-- Non è un input re-importabile: l'analista può scaricarlo (export-ready) ma il tool **non** legge indietro Excel modificati esternamente.
-- Non è un editor della rete: il diagramma è view-only in v1.
+- **Non è un meccanismo di calcolo LCSA**: l'analisi quantitativa (kg CO2eq, NPV, social scores) è prodotta esternamente al tool da CIRCE/altri partner. Il DCF *raccoglie* l'inventory, *non* lo *processa* numericamente.
+- **Non è un input re-importabile in v1**: l'analista può scaricarlo (export-ready) ma il tool **non** legge indietro Excel modificati esternamente. Lo scoring CIRCE quando arriverà sarà integrato via un endpoint dedicato, non via re-import del DCF.
+- **Non è un editor della rete**: il diagramma è view-only in v1.
 
 ---
 

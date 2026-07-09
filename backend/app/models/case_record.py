@@ -30,6 +30,10 @@ class CaseRecord(Base):
     name: Mapped[str] = mapped_column(String(256), nullable=False)
     case_json: Mapped[str] = mapped_column(Text, nullable=False, default="{}")
     pathway_id: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    # Phase D — ownership. Nullable so legacy rows (pre-auth) stay
+    # readable by everyone; new rows created via authenticated calls
+    # carry the owner user id and are filtered by it on list/get/update/delete.
+    owner_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(), nullable=False
     )

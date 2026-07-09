@@ -422,6 +422,23 @@ const en = {
     es: 'Español',
   },
 
+  auth: {
+    title: 'Sign in',
+    subtitle:
+      'Optional for browsing legacy / public cases. Required to create private cases or use the regional dashboard on behalf of an organisation.',
+    tabLogin: 'Sign in',
+    tabRegister: 'Create account',
+    emailLabel: 'Email',
+    passwordLabel: 'Password',
+    passwordHelp: 'At least 8 characters.',
+    submitLogin: 'Sign in',
+    submitRegister: 'Create account',
+    submitting: 'Submitting…',
+    skipLink: 'Continue without signing in',
+    signIn: 'Sign in',
+    logout: 'Sign out',
+  },
+
   stakeholder: {
     navLink: 'Stakeholder report',
     title: 'Stakeholder report',

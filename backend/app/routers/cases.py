@@ -22,12 +22,13 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.orm import Session as OrmSession
 
+from app.auth.deps import get_current_user_optional
 from app.db import get_db
 from app.domain.models import Case
-from app.models import CaseRecord
+from app.models import CaseRecord, User
 
 router = APIRouter(tags=["cases"])
 
@@ -121,12 +122,53 @@ def _populate_record(rec: CaseRecord, name: str, case: Case) -> None:
 # ---------------------------------------------------------------------------
 
 
+def _visible_to(user: User | None):
+    """Build the visibility filter for a query on CaseRecord.
+
+    - Anonymous (no token): only legacy rows with owner_id IS NULL.
+    - Authenticated: legacy rows + rows owned by the user.
+    - Admins: all rows.
+    """
+    if user is None:
+        return CaseRecord.owner_id.is_(None)
+    if user.role == "admin":
+        return None  # no filter
+    return or_(CaseRecord.owner_id.is_(None), CaseRecord.owner_id == user.id)
+
+
+def _can_modify(record: CaseRecord, user: User | None) -> bool:
+    """Authorization for update/delete.
+
+    - Legacy/public rows (owner_id IS NULL): anyone can modify
+      (matches pre-Phase-D behavior; no regression for existing rows
+      and unauthenticated dev/demo flows).
+    - Owned rows: only the owner or an admin.
+    """
+    if record.owner_id is None:
+        return True
+    if user is None:
+        return False
+    if user.role == "admin":
+        return True
+    return record.owner_id == user.id
+
+
 @router.get("", response_model=list[CaseSummary])
-def list_cases(db: OrmSession = Depends(get_db)) -> list[CaseSummary]:
-    """List all saved cases, newest first."""
-    rows = db.execute(
-        select(CaseRecord).order_by(CaseRecord.updated_at.desc())
-    ).scalars().all()
+def list_cases(
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+) -> list[CaseSummary]:
+    """List saved cases visible to the caller, newest first.
+
+    - Anonymous: legacy rows only.
+    - Authenticated analyst: legacy + own rows.
+    - Admin: all rows.
+    """
+    stmt = select(CaseRecord).order_by(CaseRecord.updated_at.desc())
+    visibility = _visible_to(current_user)
+    if visibility is not None:
+        stmt = stmt.where(visibility)
+    rows = db.execute(stmt).scalars().all()
     return [_to_summary(r) for r in rows]
 
 
@@ -180,19 +222,37 @@ def aggregate_breakdown(db: OrmSession = Depends(get_db)) -> CasesAggregate:
 
 
 @router.get("/{case_id}", response_model=CaseDetail)
-def get_case(case_id: str, db: OrmSession = Depends(get_db)) -> CaseDetail:
+def get_case(
+    case_id: str,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+) -> CaseDetail:
     rec = db.get(CaseRecord, case_id)
     if rec is None:
+        raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
+    # Read-visibility: same rule as list (legacy rows + own; admins see all).
+    if rec.owner_id is not None and current_user is None:
+        raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
+    if (
+        rec.owner_id is not None
+        and current_user is not None
+        and current_user.role != "admin"
+        and rec.owner_id != current_user.id
+    ):
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
     return _to_detail(rec)
 
 
 @router.post("", response_model=CaseDetail, status_code=status.HTTP_201_CREATED)
 def create_case(
-    payload: CaseSavePayload, db: OrmSession = Depends(get_db),
+    payload: CaseSavePayload,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
 ) -> CaseDetail:
     rec = CaseRecord()
     _populate_record(rec, payload.name, payload.case)
+    if current_user is not None:
+        rec.owner_id = current_user.id
     db.add(rec)
     db.commit()
     db.refresh(rec)
@@ -201,12 +261,16 @@ def create_case(
 
 @router.put("/{case_id}", response_model=CaseDetail)
 def update_case(
-    case_id: str, payload: CaseSavePayload,
+    case_id: str,
+    payload: CaseSavePayload,
     db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
 ) -> CaseDetail:
     rec = db.get(CaseRecord, case_id)
     if rec is None:
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
+    if not _can_modify(rec, current_user):
+        raise HTTPException(status_code=403, detail="Not allowed to modify this case")
     _populate_record(rec, payload.name, payload.case)
     db.commit()
     db.refresh(rec)
@@ -214,9 +278,15 @@ def update_case(
 
 
 @router.delete("/{case_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_case(case_id: str, db: OrmSession = Depends(get_db)) -> None:
+def delete_case(
+    case_id: str,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+) -> None:
     rec = db.get(CaseRecord, case_id)
     if rec is None:
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
+    if not _can_modify(rec, current_user):
+        raise HTTPException(status_code=403, detail="Not allowed to delete this case")
     db.delete(rec)
     db.commit()

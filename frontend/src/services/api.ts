@@ -11,6 +11,13 @@ import type {
   ScenarioInput,
   ScenariosResponse,
 } from '../types/api'
+import { currentAuthToken } from '../store/authStore'
+import type {
+  LoginRequest,
+  RegisterRequest,
+  TokenResponse,
+  UserPublic,
+} from '../types/auth'
 import type { DcfPayload } from '../types/dcf'
 import type { CasesAggregate, ScoringPayload } from '../types/scoring'
 
@@ -29,11 +36,17 @@ export class ApiError extends Error {
   }
 }
 
+function authHeader(): Record<string, string> {
+  const token = currentAuthToken()
+  return token ? { Authorization: `Bearer ${token}` } : {}
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
     headers: {
       'Content-Type': 'application/json',
+      ...authHeader(),
       ...(init?.headers ?? {}),
     },
   })
@@ -160,7 +173,7 @@ export function fetchDcfPreview(input: Case): Promise<DcfPayload> {
 async function fetchDcfBlob(path: string, input: Case): Promise<Blob> {
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...authHeader() },
     body: JSON.stringify(input),
   })
   if (!res.ok) {
@@ -217,4 +230,24 @@ export function putScoring(
 
 export function fetchCasesAggregate(): Promise<CasesAggregate> {
   return request<CasesAggregate>('/api/cases/aggregate/breakdown')
+}
+
+// ----- Auth (Phase D) -----
+
+export function authRegister(payload: RegisterRequest): Promise<TokenResponse> {
+  return request<TokenResponse>('/api/auth/register', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function authLogin(payload: LoginRequest): Promise<TokenResponse> {
+  return request<TokenResponse>('/api/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function authMe(): Promise<UserPublic> {
+  return request<UserPublic>('/api/auth/me')
 }

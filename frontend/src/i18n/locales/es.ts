@@ -422,6 +422,22 @@ const es: Locale = {
     es: 'Español',
   },
 
+  auth: {
+    title: 'Iniciar sesión',
+    subtitle: 'Opcional para consultar casos legacy / públicos. Necesario para crear casos privados.',
+    tabLogin: 'Iniciar sesión',
+    tabRegister: 'Crear cuenta',
+    emailLabel: 'Email',
+    passwordLabel: 'Contraseña',
+    passwordHelp: 'Al menos 8 caracteres.',
+    submitLogin: 'Iniciar sesión',
+    submitRegister: 'Crear cuenta',
+    submitting: 'Enviando…',
+    skipLink: 'Continuar sin iniciar sesión',
+    signIn: 'Iniciar sesión',
+    logout: 'Cerrar sesión',
+  },
+
   stakeholder: {
     navLink: 'Informe stakeholder',
     title: 'Informe stakeholder',

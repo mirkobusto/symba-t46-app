@@ -315,6 +315,12 @@ export default function ResultPage() {
         >
           {t('dcf.openButton')}
         </Link>
+        <Link
+          to="/stakeholder-report"
+          className="btn btn-secondary"
+        >
+          {t('stakeholder.openButton')}
+        </Link>
         <button
           type="button"
           className="btn btn-secondary"

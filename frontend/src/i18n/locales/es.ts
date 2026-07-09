@@ -16,6 +16,8 @@ const es: Locale = {
     skip: '(saltar)',
     required: 'Obligatorio',
     examplesAndContext: 'Ejemplos y contexto',
+    yes: 'sí',
+    no: 'no',
   },
 
   layout: {
@@ -400,6 +402,78 @@ const es: Locale = {
     fr: 'Français',
     de: 'Deutsch',
     es: 'Español',
+  },
+
+  stakeholder: {
+    navLink: 'Informe stakeholder',
+    title: 'Informe stakeholder',
+    subtitle:
+      'Vista multi-stakeholder del caso. Cambia de pestaña para ver la información adaptada a cada audiencia a lo largo de la cadena de valor biobasada.',
+    openButton: 'Abrir informe stakeholder',
+    backToResult: 'Volver al resultado',
+    openDcf: 'Abrir Data Collection File',
+    loadingScoring: 'Cargando datos de scoring…',
+    tabs: {
+      industry: 'Industria',
+      community: 'Comunidad',
+      authority: 'Autoridad local',
+      'end-user': 'Usuario final',
+    },
+    framing: {
+      industry:
+        'Vista técnica completa de la configuración metodológica y del scoring cuantitativo producido por CIRCE.',
+      community:
+        'Vista de impacto local centrada en calidad ambiental y beneficios sociales para el territorio anfitrión.',
+      authority:
+        'Vista regulatoria y de política: cumplimiento del pathway, peer-review, alineación EU PEF.',
+      'end-user':
+        'Vista resumen para usuarios finales de los productos derivados de la simbiosis.',
+    },
+    pathwaySummaryTitle: 'Resumen del pathway',
+    labels: {
+      pathway: 'Pathway',
+      ilcd: 'Situación ILCD',
+      lcc: 'Tipo LCC',
+      slca: 'Activación S-LCA',
+    },
+    scoringTitle: 'Scoring (CIRCE)',
+    scoringPendingTitle: 'Datos de scoring no disponibles aún',
+    scoringPendingBody:
+      'El scoring LCSA producido por CIRCE para este caso aún no ha sido ingerido. Cuando CIRCE entregue el payload cuantitativo, los indicadores aparecerán aquí agrupados por relevancia para los stakeholders.',
+    scoringEmpty: 'No hay indicadores relevantes para este stakeholder.',
+    indicatorPending: 'pendiente',
+    engineDetailsTitle: 'Detalles del pipeline',
+    activatedNodesCount: '{{count}} nodo(s) metodológico(s) activado(s)',
+    ruleViolations: '{{count}} violación(es) de regla',
+    cdpFlagsCount: '{{count}} tensión(es) cross-dimensional(es)',
+    complianceTitle: 'Señales de cumplimiento',
+    compliance: {
+      peerReview: 'Reclamación peer-review (Q4=E): {{status}}',
+      pef: 'Alineación EU PEF (Q4=D): {{status}}',
+      publicClaim: 'Reclamación pública (Q4=C): {{status}}',
+    },
+  },
+
+  aggregate: {
+    navLink: 'Panel regional',
+    title: 'Panel regional / sectorial',
+    subtitle:
+      'Desglose de todos los casos guardados por pathway, sector, ámbito geográfico y situación ILCD. Para autoridades locales y analistas de políticas.',
+    openButton: 'Abrir panel regional',
+    backToCases: 'Volver a los casos',
+    loading: 'Cargando datos agregados…',
+    errorTitle: 'Carga de datos agregados fallida',
+    errorNoData: 'El servidor no devolvió datos.',
+    totalLabel: 'Total de casos guardados',
+    noData: '(sin datos)',
+    tableKey: 'Valor',
+    tableCount: 'Cantidad',
+    breakdownTitle: {
+      byPathway: 'Por pathway (IS-01 … IS-05)',
+      bySector: 'Por sector (Q6a)',
+      byScope: 'Por ámbito geográfico (Q7)',
+      byIlcd: 'Por situación ILCD',
+    },
   },
 
   dcf: {

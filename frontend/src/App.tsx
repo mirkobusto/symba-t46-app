@@ -3,12 +3,14 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import AboutPage from './pages/AboutPage'
+import AggregatePage from './pages/AggregatePage'
 import CasesListPage from './pages/CasesListPage'
 import DataCollectionPage from './pages/DataCollectionPage'
 import HomePage from './pages/HomePage'
 import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
 import ScenariosResultPage from './pages/ScenariosResultPage'
+import StakeholderReportPage from './pages/StakeholderReportPage'
 import './App.css'
 
 export default function App() {
@@ -21,6 +23,8 @@ export default function App() {
             <Route path="/questionnaire" element={<QuestionnairePage />} />
             <Route path="/result" element={<ResultPage />} />
             <Route path="/data-collection" element={<DataCollectionPage />} />
+            <Route path="/stakeholder-report" element={<StakeholderReportPage />} />
+            <Route path="/aggregate" element={<AggregatePage />} />
             <Route path="/scenarios-result" element={<ScenariosResultPage />} />
             <Route path="/cases" element={<CasesListPage />} />
             <Route path="/about" element={<AboutPage />} />

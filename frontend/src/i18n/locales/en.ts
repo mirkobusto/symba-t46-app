@@ -17,6 +17,8 @@ const en = {
     skip: '(skip)',
     required: 'Required',
     examplesAndContext: 'Examples & context',
+    yes: 'yes',
+    no: 'no',
   },
 
   layout: {
@@ -400,6 +402,78 @@ const en = {
     fr: 'Français',
     de: 'Deutsch',
     es: 'Español',
+  },
+
+  stakeholder: {
+    navLink: 'Stakeholder report',
+    title: 'Stakeholder report',
+    subtitle:
+      'Multi-stakeholder view of the case. Switch tabs to see the information tailored for each audience along the bio-based value chain.',
+    openButton: 'Open stakeholder report',
+    backToResult: 'Back to result',
+    openDcf: 'Open Data Collection File',
+    loadingScoring: 'Loading scoring data…',
+    tabs: {
+      industry: 'Industry',
+      community: 'Community',
+      authority: 'Local authority',
+      'end-user': 'End user',
+    },
+    framing: {
+      industry:
+        'Full technical view of the methodological configuration and the quantitative scoring produced by CIRCE. Intended for the IS analyst and the methodology reviewer.',
+      community:
+        'Local-impact view focused on environmental quality and social benefits the symbiosis brings to the host territory.',
+      authority:
+        'Regulatory and policy view: pathway compliance, peer-review status, public-superiority claims, EU PEF alignment.',
+      'end-user':
+        'Summary view for end users of the IS-derived products and services.',
+    },
+    pathwaySummaryTitle: 'Pathway summary',
+    labels: {
+      pathway: 'Pathway',
+      ilcd: 'ILCD Situation',
+      lcc: 'LCC type',
+      slca: 'S-LCA activation',
+    },
+    scoringTitle: 'Scoring (CIRCE)',
+    scoringPendingTitle: 'Scoring data not yet available',
+    scoringPendingBody:
+      'The CIRCE-produced LCSA scoring for this case has not been ingested yet. Once CIRCE delivers the quantitative payload, the indicators will appear here grouped by stakeholder relevance.',
+    scoringEmpty: 'No indicators relevant for this stakeholder.',
+    indicatorPending: 'pending',
+    engineDetailsTitle: 'Engine pipeline details',
+    activatedNodesCount: '{{count}} activated methodological node(s)',
+    ruleViolations: '{{count}} rule violation(s)',
+    cdpFlagsCount: '{{count}} cross-dimension tension flag(s)',
+    complianceTitle: 'Compliance signals',
+    compliance: {
+      peerReview: 'Peer-review claim (Q4=E): {{status}}',
+      pef: 'EU PEF alignment (Q4=D): {{status}}',
+      publicClaim: 'Public superiority claim (Q4=C): {{status}}',
+    },
+  },
+
+  aggregate: {
+    navLink: 'Regional dashboard',
+    title: 'Regional / sectoral dashboard',
+    subtitle:
+      'Breakdown of all saved cases by pathway, sector, geographic scope, and ILCD situation. Intended for local authorities and policy analysts.',
+    openButton: 'Open regional dashboard',
+    backToCases: 'Back to cases',
+    loading: 'Loading aggregate data…',
+    errorTitle: 'Could not load aggregate data',
+    errorNoData: 'No data returned by the server.',
+    totalLabel: 'Total saved cases',
+    noData: '(no data)',
+    tableKey: 'Value',
+    tableCount: 'Count',
+    breakdownTitle: {
+      byPathway: 'By pathway (IS-01 … IS-05)',
+      bySector: 'By sector (Q6a)',
+      byScope: 'By geographic scope (Q7)',
+      byIlcd: 'By ILCD situation',
+    },
   },
 
   dcf: {

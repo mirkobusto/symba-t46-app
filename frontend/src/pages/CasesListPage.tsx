@@ -75,6 +75,12 @@ export default function CasesListPage() {
       <h1>{t('cases.title')}</h1>
       <p className="muted">{t('cases.intro')}</p>
 
+      <div style={{ margin: '8px 0 16px' }}>
+        <Link to="/aggregate" className="btn btn-secondary">
+          {t('aggregate.openButton')}
+        </Link>
+      </div>
+
       {error ? <p className="error-text">{error}</p> : null}
 
       {items === null ? (

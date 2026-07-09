@@ -10,6 +10,7 @@ import LoadingOverlay from '../components/LoadingOverlay'
 import QuestionCard from '../components/QuestionCard'
 import ScenariosEditor from '../components/ScenariosEditor'
 import { useCaseStore } from '../store/caseStore'
+import { usePreferenceStore } from '../store/preferenceStore'
 import type {
   AlternativeScenario,
   Flow,
@@ -142,10 +143,19 @@ export default function QuestionnairePage() {
     }
   }
 
+  const mode = usePreferenceStore((s) => s.mode)
+
   return (
-    <div className="questionnaire">
+    <div className={`questionnaire questionnaire-mode-${mode}`}>
       <h1>{t('questionnaire.title')}</h1>
       <p className="muted">{t('questionnaire.intro')}</p>
+
+      {mode === 'guided' ? (
+        <div className="guided-banner" role="note">
+          <strong>{t('questionnaire.guidedBannerTitle')}</strong>
+          <p>{t('questionnaire.guidedBannerBody')}</p>
+        </div>
+      ) : null}
 
       {/* Q1 */}
       <QuestionCard

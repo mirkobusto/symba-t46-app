@@ -6,13 +6,16 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { usePreferenceStore } from '../store/preferenceStore'
+
 interface Props {
   id: string
   title: string
   help?: string
   /** When provided, renders as a `<details>` toggle below the help
    *  text labelled "Examples & context" (i18n). Used to surface the
-   *  longer-form per-question guidance without bloating the form. */
+   *  longer-form per-question guidance without bloating the form.
+   *  In `guided` UX mode the panel is open by default. */
   details?: string
   warning?: string
   children: ReactNode
@@ -22,6 +25,7 @@ export default function QuestionCard({
   id, title, help, details, warning, children,
 }: Props) {
   const { t } = useTranslation()
+  const guided = usePreferenceStore((s) => s.mode) === 'guided'
   return (
     <section className="qcard" aria-labelledby={`${id}-title`}>
       <h2 id={`${id}-title`} className="qcard-title">
@@ -29,7 +33,7 @@ export default function QuestionCard({
       </h2>
       {help ? <p className="qcard-help">{help}</p> : null}
       {details ? (
-        <details className="qcard-details">
+        <details className="qcard-details" open={guided}>
           <summary>{t('common.examplesAndContext')}</summary>
           <p>{details}</p>
         </details>

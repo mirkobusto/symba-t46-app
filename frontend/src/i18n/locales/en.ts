@@ -23,9 +23,17 @@ const en = {
 
   layout: {
     brand: 'SYMBA T4.6',
+    brandTag: 'Monitoring & Reporting System for Industrial Symbiosis',
     about: 'About',
-    footer: 'SYMBA T4.6 — IS Assessment Tool · MVP',
+    footer: 'SYMBA T4.6 — Monitoring & Reporting System · MVP',
     shortcutsHint: 'Press {{key}} for shortcuts',
+  },
+
+  eu: {
+    fundingStatement:
+      "This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562.",
+    disclaimer:
+      'Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.',
   },
 
   health: {
@@ -47,11 +55,18 @@ const en = {
   },
 
   home: {
-    title: 'SYMBA T4.6 — IS Assessment Tool',
-    tagline: 'Industrial Symbiosis methodology selection for LCA / LCC / S-LCA.',
+    title: 'SYMBA T4.6 — Monitoring & Reporting System',
+    tagline: 'Industrial Symbiosis methodology, inventory and multi-stakeholder reporting for LCA / LCC / S-LCA along the bio-based value chain.',
     description:
-      'Answer seven short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules.',
+      'Answer seven short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
     startButton: 'Start new assessment',
+    modeLabel: 'UX mode',
+    modeExpert: 'Expert',
+    modeGuided: 'Guided',
+    modeHint: {
+      expert: 'Fast questionnaire for IS analysts and reviewers familiar with ILCD / LCSA terminology.',
+      guided: 'Step-by-step mode for industrial managers, community representatives and policymakers. Examples are expanded by default and an intro banner explains the questionnaire flow.',
+    },
   },
 
   about: {
@@ -74,6 +89,9 @@ const en = {
     title: 'Questionnaire',
     intro:
       'Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
+    guidedBannerTitle: 'Guided mode active',
+    guidedBannerBody:
+      'Examples and contextual explanations are expanded by default. Read each block carefully — the seven questions drive the methodological pathway and the data-collection plan you will receive at the end.',
     runButton: 'Run pipeline',
     runningButton: 'Running…',
     resetButton: 'Reset draft',

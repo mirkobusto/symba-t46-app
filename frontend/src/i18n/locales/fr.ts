@@ -20,8 +20,16 @@ const fr: Locale = {
     no: 'non',
   },
 
+  eu: {
+    fundingStatement:
+      'Ce projet a reçu un financement du programme Horizon Europe Research and Innovation de l\'Union européenne au titre de la convention de subvention N. 101135562.',
+    disclaimer:
+      'Financé par l\'Union européenne. Les opinions exprimées ne sont toutefois que celles du ou des auteurs et ne reflètent pas nécessairement celles de l\'Union européenne. Ni l\'Union européenne ni l\'autorité qui accorde le financement ne peuvent en être tenues responsables.',
+  },
+
   layout: {
     brand: 'SYMBA T4.6',
+    brandTag: 'Système de Suivi et de Reporting pour la Symbiose Industrielle',
     about: 'À propos',
     footer: 'SYMBA T4.6 — IS Assessment Tool · MVP',
     shortcutsHint: 'Appuyez sur {{key}} pour les raccourcis',
@@ -51,6 +59,13 @@ const fr: Locale = {
     description:
       "Répondez à sept questions sur votre cas d'étude de symbiose industrielle. Le moteur de décision dérive le pathway IS terminal (IS-01..IS-05) et une configuration méthodologique complète à partir des 186 nœuds Phase 1 des livrables D4.1, D4.2 et D4.3, plus les 40 règles cross-method.",
     startButton: 'Démarrer une nouvelle évaluation',
+    modeLabel: 'Mode UX',
+    modeExpert: 'Expert',
+    modeGuided: 'Guidé',
+    modeHint: {
+      expert: "Questionnaire rapide pour les analystes IS et relecteurs familiers avec la terminologie ILCD / LCSA.",
+      guided: "Mode pas-à-pas pour les industriels, représentants de communautés et décideurs. Les exemples sont développés par défaut.",
+    },
   },
 
   about: {
@@ -71,6 +86,9 @@ const fr: Locale = {
 
   questionnaire: {
     title: 'Questionnaire',
+    guidedBannerTitle: 'Mode guidé actif',
+    guidedBannerBody:
+      'Les exemples et explications contextuelles sont développés par défaut. Lisez chaque bloc attentivement — les sept questions déterminent le pathway méthodologique et le plan de collecte de données que vous recevrez à la fin.',
     intro:
       "Sept questions sur votre cas de symbiose industrielle. Q1 et au moins une dimension Q3 sont requises ; le reste est optionnel mais améliore la sortie du moteur.",
     runButton: 'Exécuter la pipeline',

@@ -20,8 +20,16 @@ const de: Locale = {
     no: 'nein',
   },
 
+  eu: {
+    fundingStatement:
+      'Dieses Projekt wurde im Rahmen des Forschungs- und Innovationsprogramms Horizon Europe der Europäischen Union unter der Finanzhilfevereinbarung Nr. 101135562 finanziert.',
+    disclaimer:
+      'Finanziert von der Europäischen Union. Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autor(inn)en und spiegeln nicht unbedingt die der Europäischen Union wider. Weder die Europäische Union noch die bewilligende Behörde können dafür verantwortlich gemacht werden.',
+  },
+
   layout: {
     brand: 'SYMBA T4.6',
+    brandTag: 'Monitoring- und Reporting-System für industrielle Symbiose',
     about: 'Über',
     footer: 'SYMBA T4.6 — IS Assessment Tool · MVP',
     shortcutsHint: 'Drücken Sie {{key}} für Tastenkürzel',
@@ -51,6 +59,13 @@ const de: Locale = {
     description:
       'Beantworten Sie sieben kurze Fragen zu Ihrer industriellen Symbiose-Fallstudie. Die Entscheidungs-Engine leitet den terminalen IS-Pathway (IS-01..IS-05) und eine vollständige methodische Konfiguration aus den 186 Phase-1-Knoten der Deliverables D4.1, D4.2 und D4.3 sowie den 40 Cross-Method-Validierungsregeln ab.',
     startButton: 'Neue Bewertung starten',
+    modeLabel: 'UX-Modus',
+    modeExpert: 'Experte',
+    modeGuided: 'Geführt',
+    modeHint: {
+      expert: 'Schneller Fragebogen für IS-Analysten und Prüfer, die mit der ILCD / LCSA-Terminologie vertraut sind.',
+      guided: 'Schritt-für-Schritt-Modus für Industrielle, Gemeindevertreter und politische Entscheidungsträger. Beispiele sind standardmäßig erweitert.',
+    },
   },
 
   about: {
@@ -71,6 +86,9 @@ const de: Locale = {
 
   questionnaire: {
     title: 'Fragebogen',
+    guidedBannerTitle: 'Geführter Modus aktiv',
+    guidedBannerBody:
+      'Beispiele und kontextuelle Erklärungen sind standardmäßig erweitert. Lesen Sie jeden Block sorgfältig — die sieben Fragen bestimmen den methodischen Pathway und den Datenerhebungsplan, den Sie am Ende erhalten.',
     intro:
       'Sieben Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
     runButton: 'Pipeline ausführen',

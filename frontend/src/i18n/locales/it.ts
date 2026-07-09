@@ -20,8 +20,16 @@ const it: Locale = {
     no: 'no',
   },
 
+  eu: {
+    fundingStatement:
+      'Questo progetto ha ricevuto finanziamento dal programma Horizon Europe Research and Innovation dell\'Unione Europea ai sensi del Grant Agreement N. 101135562.',
+    disclaimer:
+      'Finanziato dall\'Unione Europea. Le opinioni espresse sono tuttavia quelle dell\'autore o degli autori e non riflettono necessariamente quelle dell\'Unione Europea. Né l\'Unione Europea né l\'autorità che concede il finanziamento possono essere ritenute responsabili.',
+  },
+
   layout: {
     brand: 'SYMBA T4.6',
+    brandTag: 'Sistema di Monitoraggio e Reporting per la Simbiosi Industriale',
     about: 'Info',
     footer: 'SYMBA T4.6 — IS Assessment Tool · MVP',
     shortcutsHint: 'Premi {{key}} per le scorciatoie',
@@ -46,11 +54,18 @@ const it: Locale = {
   },
 
   home: {
-    title: 'SYMBA T4.6 — Strumento di valutazione IS',
-    tagline: 'Selezione metodologica per Simbiosi Industriale (LCA / LCC / S-LCA).',
+    title: 'SYMBA T4.6 — Sistema di Monitoraggio e Reporting',
+    tagline: 'Metodologia, raccolta dati e report multi-stakeholder per Simbiosi Industriale (LCA / LCC / S-LCA) lungo la value chain bio-based.',
     description:
-      'Rispondi a sette domande sul tuo caso di simbiosi industriale. Il motore decisionale deriva il pathway IS terminale (IS-01..IS-05) e una configurazione metodologica completa dai 186 nodi Phase 1 dei deliverable D4.1, D4.2 e D4.3, più le 40 regole cross-method.',
+      'Rispondi a sette domande sul tuo caso di simbiosi industriale. Il motore decisionale deriva il pathway IS terminale (IS-01..IS-05) e una configurazione metodologica completa dai 186 nodi Phase 1 dei deliverable D4.1, D4.2 e D4.3, più le 40 regole cross-method. Poi raccogli i dati con i partner della simbiosi e ottieni il report multi-stakeholder.',
     startButton: 'Avvia nuova valutazione',
+    modeLabel: 'Modalità UX',
+    modeExpert: 'Esperto',
+    modeGuided: 'Guidato',
+    modeHint: {
+      expert: 'Questionario rapido per analisti IS e revisori che conoscono la terminologia ILCD / LCSA.',
+      guided: 'Modalità passo-passo per industriali, rappresentanti di comunità e decisori. Gli esempi sono espansi di default e un banner introduttivo spiega il flusso del questionario.',
+    },
   },
 
   about: {
@@ -71,6 +86,9 @@ const it: Locale = {
 
   questionnaire: {
     title: 'Questionario',
+    guidedBannerTitle: 'Modalità guidata attiva',
+    guidedBannerBody:
+      'Gli esempi e le spiegazioni contestuali sono espansi di default. Leggi ogni blocco con attenzione — le sette domande determinano il pathway metodologico e il piano di raccolta dati che riceverai al termine.',
     intro:
       'Sette domande sul tuo caso di simbiosi industriale. Q1 e almeno una dimensione Q3 sono obbligatorie; il resto è opzionale ma migliora l\'output del motore.',
     runButton: 'Esegui pipeline',

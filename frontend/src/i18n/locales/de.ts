@@ -402,6 +402,26 @@ const de: Locale = {
     es: 'Español',
   },
 
+  dcf: {
+    navLink: 'Datenerhebung',
+    title: 'Data Collection File',
+    subtitle:
+      'Auf den abgeleiteten Pathway zugeschnitten. Laden Sie die Excel-Datei herunter, um Inventardaten mit den Symbiose-Partnern zu sammeln, und kehren Sie für den finalen Report zurück.',
+    loading: 'Erstelle Data Collection File…',
+    errorTitle: 'Erstellung des Data Collection File fehlgeschlagen',
+    errorNoPayload: 'Der Server hat keine Antwort zurückgegeben.',
+    backToResult: 'Zurück zum Ergebnis',
+    networkTitle: 'Netzwerkdiagramm',
+    downloadXlsx: 'Excel (.xlsx) herunterladen',
+    downloadingXlsx: 'Excel wird vorbereitet…',
+    downloadDocx: 'Begleitdokument (.docx) herunterladen',
+    downloadingDocx: 'Dokument wird vorbereitet…',
+    downloadError: 'Download fehlgeschlagen',
+    footerNote:
+      'Das Data Collection File ist ein exportfertiges Inventarblatt. Füllen Sie die leeren Zeilen offline aus (oder verteilen Sie sie an die Netzwerkpartner) und übergeben Sie die Daten an den für die LCSA verantwortlichen Analysten.',
+    openButton: 'Data Collection File öffnen',
+  },
+
   cases: {
     navLink: 'Meine Fälle',
     title: 'Meine Fälle',

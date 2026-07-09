@@ -14,18 +14,51 @@ Codice, commenti nel codice, commit message, e nomi di file restano in inglese.
 
 ## Contesto del progetto
 
-Il progetto è **SYMBA T4.6**: un'app web che assiste analisti di sostenibilità
-nel definire metodologie LCSA (LCA + LCC + S-LCA) per casi di Industrial Symbiosis.
-È parte di un PhD su simbiosi industriale.
+Il progetto è **SYMBA T4.6 — Monitoring & Reporting System for Industrial Symbiosis**:
+applicazione web multi-stakeholder del progetto Horizon Europe **SYMBA** (GA 101135562,
+HORIZON-CL6-2023-CIRCBIO-01), task T4.6 (M22–M36), deliverable **D4.6** (PU). Lead ENCO,
+contribuiscono CIRCE e CET.
+
+Mandato GA (verbatim Annex 1): *"a monitoring system supporting all the actors along the
+biobased value chain (biomass producers; industries, local communities, local authorities,
+end-users, etc.) to evaluate the environmental, social and economic benefits of using SYMBA
+IS methodology"*. È parte di un PhD su simbiosi industriale di Mirko Busto (ENCO).
+
+**Audience layered** (decisione di framing 2026-05-22, Opzione B):
+- **Layer 1 (MVP corrente)** — IS practitioner / sustainability analyst / reviewer:
+  configura il pathway metodologico via Q1-Q7, ottiene attivazione pipeline (5 JSON
+  schema-driven) e Data Collection File (DCF) calibrato sul pathway IS-01..IS-05.
+- **Layer 2 (in costruzione, Fasi A-C della roadmap T4.6)** — full stakeholder spectrum
+  (industrie, comunità locali, autorità, end-users): viste report dedicate per tipologia
+  di stakeholder, accessibilità non-specialista (wizard), deployment pubblico.
+
+**Cosa il tool NON fa**: le analisi numeriche LCSA (kg CO2eq, NPV, social indicators
+quantitativi) **non sono calcolate dal tool**. Lo scoring system è prodotto esternamente
+(CIRCE/altri partner T4.1–T4.3 via SimaPro/OpenLCA/strumenti dedicati). Il tool integra
+i risultati scoring nel reporting multi-stakeholder ma non li computa. **Specifica I/O
+scoring CIRCE: TBD** (in attesa documento CIRCE — punto aperto).
+
+**Auth multi-utente: TBD** — MVP single-user pubblico per Fase A-C; auth/ruoli rinviati
+a Fase D opzionale post-MVP (rivedere se demo regions inseriranno dati sensibili → GDPR).
+
+**D4.3 S-LCA Guidelines (CIRCE/Leiva)**: V1 esiste, contenuto assumiamo già integrato
+nei nodi `slca_*` dei 5 JSON (verifica posticipata a Fase B quando disegneremo le viste
+S-LCA del reporting multi-stakeholder).
+
+Project context legale/funding: vedi `~/.claude/projects/.../memory/project_symba_context.md`.
+Visual identity (palette white/blue/green, EU footer obbligatorio, struttura deliverable V3):
+vedi `~/.claude/projects/.../memory/project_visual_identity.md`.
 
 Stack:
 - Backend: FastAPI (Python 3.12) + SQLAlchemy 2.0 + Pydantic v2
 - Frontend: React 19 + TypeScript + Vite 8 + Zustand 5 + react-router-dom v7 + react-i18next (in `frontend/`, stesso repo)
-- Engine decisionale: schema-driven (5 JSON files) + activation pipeline + sector overlays
+- Engine decisionale: schema-driven (6 JSON files dopo dcf_schema, separato namespace) + activation pipeline + sector overlays
 - Persistence: SQLite via SQLAlchemy (server-side cases) + localStorage via Zustand persist (client-side draft)
 - Dev ports: backend 8088, frontend 5180
 
-Sprint corrente: **MVP completo, in attesa di prossima direzione**.
+Sprint corrente: **DCF rollout Fase A** (Phase 2 backend predicate evaluator + dcf_compose).
+Phase 1 schema engineering chiuso su branch `feature-dcf-phase1-schema` (in attesa di
+merge). Spec autoritativa: `docs/implementation/DATA_COLLECTION_FILE_v1.md`.
 
 Cronologia sintetica (tutto su `main`):
 - Sprint 4 Step 2 (scaffold) chiuso 2026-05-08

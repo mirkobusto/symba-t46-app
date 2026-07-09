@@ -1,0 +1,1536 @@
+{
+  "meta": {
+    "total_procedural_mandates": 90,
+    "categorization_method": "keyword_match_on_default_value",
+    "categories_in_order": [
+      "data_sources_quality",
+      "allocation_substitution",
+      "reference_scenario",
+      "goal_scope_boundary",
+      "stakeholder_materiality",
+      "uncertainty_sensitivity",
+      "review_governance",
+      "reporting_disclosure",
+      "lcc_method_specific",
+      "lcsa_integration",
+      "uncategorized"
+    ],
+    "note": "Primary category = first matching bucket. Manual review still suggested for borderline cases (see all_matched_categories)."
+  },
+  "buckets": {
+    "data_sources_quality": [
+      {
+        "id": "lca_hc_11",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Substitution data quality and source documented",
+        "all_matched_categories": [
+          "data_sources_quality",
+          "allocation_substitution",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "data quality",
+          "substitution",
+          "documented"
+        ]
+      },
+      {
+        "id": "lca_mc_22",
+        "method": "LCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.4",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Foreground-background interface explicit",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "foreground"
+        ]
+      },
+      {
+        "id": "lcc_hc_39",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a77.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Pedigree Matrix 5 indicators (LCC)",
+        "all_matched_categories": [
+          "data_sources_quality",
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "pedigree",
+          "indicator"
+        ]
+      },
+      {
+        "id": "slca_hc_18",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "S-LCI: combination of primary and secondary data",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "secondary data"
+        ]
+      },
+      {
+        "id": "slca_hc_19",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Structured instruments (questionnaires/interviews/surveys)",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "questionnaires"
+        ]
+      },
+      {
+        "id": "slca_hc_22",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Each data point linked to indicator and stakeholder group",
+        "all_matched_categories": [
+          "data_sources_quality",
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "data point",
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_24",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Inventory completeness check before assessment",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "inventory"
+        ]
+      },
+      {
+        "id": "slca_hc_29",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Scoring criteria transparent and harmonized",
+        "all_matched_categories": [
+          "data_sources_quality",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "scoring criteria",
+          "transparent and harmonized"
+        ]
+      },
+      {
+        "id": "slca_hc_46",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a713.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Confidentiality measures for sensitive data",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "confidentiality"
+        ]
+      },
+      {
+        "id": "slca_mc_10",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Primary-secondary data combination",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "secondary data"
+        ]
+      },
+      {
+        "id": "slca_mc_11",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Data collection instruments (questionnaires/interviews/surveys)",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "data collection"
+        ]
+      },
+      {
+        "id": "slca_mc_12",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Proxy use rule (when direct measurements not available)",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "proxy use"
+        ]
+      },
+      {
+        "id": "slca_mc_13",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Multi-source consolidation (predefined criteria)",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "multi-source consolidation"
+        ]
+      },
+      {
+        "id": "slca_mc_14",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Quantitative scoring criteria (threshold-based)",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "scoring criteria"
+        ]
+      },
+      {
+        "id": "slca_mc_15",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Qualitative scoring criteria (predefined conditions)",
+        "all_matched_categories": [
+          "data_sources_quality"
+        ],
+        "matched_keywords": [
+          "scoring criteria"
+        ]
+      }
+    ],
+    "allocation_substitution": [
+      {
+        "id": "lca_hc_07",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Allocation hierarchy applied when needed",
+        "all_matched_categories": [
+          "allocation_substitution"
+        ],
+        "matched_keywords": [
+          "allocation"
+        ]
+      },
+      {
+        "id": "lca_hc_10",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Avoided products documented when system expansion used",
+        "all_matched_categories": [
+          "allocation_substitution",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "avoided product",
+          "documented"
+        ]
+      },
+      {
+        "id": "lca_hc_17",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a76.3",
+        "trigger_q": [
+          "q5"
+        ],
+        "trigger_condition": null,
+        "statement": "NO zero-burden allowed (interdependent) | Standard zero-burden test",
+        "all_matched_categories": [
+          "allocation_substitution"
+        ],
+        "matched_keywords": [
+          "zero-burden"
+        ]
+      },
+      {
+        "id": "lcc_mc_09",
+        "method": "LCC",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a76.2",
+        "trigger_q": [
+          "q5"
+        ],
+        "trigger_condition": null,
+        "statement": "zero-burden | EVT | substitution | interdependent multifunctional | uniform",
+        "all_matched_categories": [
+          "allocation_substitution"
+        ],
+        "matched_keywords": [
+          "substitution"
+        ]
+      }
+    ],
+    "reference_scenario": [
+      {
+        "id": "lca_hc_05",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a74.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Reference flow tied to Functional Unit",
+        "all_matched_categories": [
+          "reference_scenario",
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "reference flow",
+          "functional unit"
+        ]
+      },
+      {
+        "id": "lcc_hc_11",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a75.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Reference scenario for avoided cost documented",
+        "all_matched_categories": [
+          "reference_scenario",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "reference scenario",
+          "documented"
+        ]
+      },
+      {
+        "id": "slca_hc_25",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Comparative evaluation between scenarios",
+        "all_matched_categories": [
+          "reference_scenario"
+        ],
+        "matched_keywords": [
+          "comparative evaluation"
+        ]
+      },
+      {
+        "id": "slca_hc_27",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Scoring relative to reference scenario",
+        "all_matched_categories": [
+          "reference_scenario"
+        ],
+        "matched_keywords": [
+          "reference scenario"
+        ]
+      },
+      {
+        "id": "slca_hc_37",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a710.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Reference scenario consistent with symbiotic",
+        "all_matched_categories": [
+          "reference_scenario"
+        ],
+        "matched_keywords": [
+          "reference scenario"
+        ]
+      },
+      {
+        "id": "slca_hc_38",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a710.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Reference scenario assumptions documented",
+        "all_matched_categories": [
+          "reference_scenario",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "reference scenario",
+          "documented"
+        ]
+      },
+      {
+        "id": "slca_mc_01",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a72.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Comparative orientation (mandatory for IS, default for all)",
+        "all_matched_categories": [
+          "reference_scenario"
+        ],
+        "matched_keywords": [
+          "comparative orientation"
+        ]
+      },
+      {
+        "id": "slca_mc_16",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a710.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Reference scenario selection (representativeness/relevance)",
+        "all_matched_categories": [
+          "reference_scenario"
+        ],
+        "matched_keywords": [
+          "reference scenario"
+        ]
+      }
+    ],
+    "goal_scope_boundary": [
+      {
+        "id": "lca_hc_01",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Goal-driven scoping mandatory",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "goal-driven"
+        ]
+      },
+      {
+        "id": "lca_hc_02",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Multi-actor stakeholder identification before scoping",
+        "all_matched_categories": [
+          "goal_scope_boundary",
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "scoping",
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "lca_hc_03",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "System-level perspective at network boundary",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "system-level perspective"
+        ]
+      },
+      {
+        "id": "lca_hc_04",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Multi-FU analysis allowed when actors have distinct outputs",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "multi-fu"
+        ]
+      },
+      {
+        "id": "lca_hc_06",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a74.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Background system explicitly declared",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "background system"
+        ]
+      },
+      {
+        "id": "lca_hc_19",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a76.4",
+        "trigger_q": [
+          "q6a"
+        ],
+        "trigger_condition": null,
+        "statement": "Frontier categories (microplastic, soil, biodiversity) per sector overlay",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "frontier categories"
+        ]
+      },
+      {
+        "id": "lca_mc_11",
+        "method": "LCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.7",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Sensitivity on assumptions, mandatory frontier categories",
+        "all_matched_categories": [
+          "goal_scope_boundary",
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "frontier categories",
+          "sensitivity"
+        ]
+      },
+      {
+        "id": "lca_mc_23",
+        "method": "LCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.5",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Modular life-cycle structure (raw, proc, distrib, use, EoL)",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "modular life-cycle"
+        ]
+      },
+      {
+        "id": "lca_mc_28",
+        "method": "LCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.4",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Geographic differentiation in LCIA when relevant",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "geographic differentiation"
+        ]
+      },
+      {
+        "id": "lca_mc_31",
+        "method": "LCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Network-level analysis preferred for IS",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "network-level"
+        ]
+      },
+      {
+        "id": "lcc_hc_01",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a72.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "3-level structure (Network/Entity/Flow) mandatory",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "3-level structure"
+        ]
+      },
+      {
+        "id": "lcc_mc_02",
+        "method": "LCC",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a72.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "All 3 analytical levels mandatory",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "all 3 analytical levels"
+        ]
+      },
+      {
+        "id": "slca_hc_03",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a72.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "System-level perspective (network of actors)",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "system-level perspective"
+        ]
+      },
+      {
+        "id": "slca_hc_04",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a72.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Both scenarios shared FU + boundaries + temporal/geographical",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "shared fu"
+        ]
+      },
+      {
+        "id": "slca_hc_05",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a72.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "System encompasses generation/transformation/transport/use/EoL",
+        "all_matched_categories": [
+          "goal_scope_boundary"
+        ],
+        "matched_keywords": [
+          "system encompasses"
+        ]
+      },
+      {
+        "id": "slca_hc_41",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a712.1",
+        "trigger_q": [
+          "q3"
+        ],
+        "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.q3.soc == true",
+        "statement": "LCSA: shared FU + consistent boundaries + scenario-based",
+        "all_matched_categories": [
+          "goal_scope_boundary",
+          "lcsa_integration"
+        ],
+        "matched_keywords": [
+          "shared fu",
+          "lcsa"
+        ]
+      }
+    ],
+    "stakeholder_materiality": [
+      {
+        "id": "slca_hc_02",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a72.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Stakeholder-oriented approach",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_08",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a73.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Disaggregated interpretation, stakeholder link preserved",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_13",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a75.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Stakeholder mapping connects stakeholders/subcategories/indicators",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_14",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a75.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Multi-role actors: no overlooking, no double-counting",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "multi-role actor"
+        ]
+      },
+      {
+        "id": "slca_hc_15",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a76.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Materiality assessment for priority subcategories",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "materiality"
+        ]
+      },
+      {
+        "id": "slca_hc_16",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a76.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "4 materiality criteria (relevance/magnitude/influence/feasibility)",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "materiality"
+        ]
+      },
+      {
+        "id": "slca_hc_17",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a76.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Indicator 4 conditions (a..d)",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "indicator 4 conditions"
+        ]
+      },
+      {
+        "id": "slca_hc_20",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Tailored approaches for non-organizational stakeholders",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_30",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Indicator results preserve link to stakeholder/data",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_31",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a79.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "3 levels of analysis: indicator/stakeholder/system",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_32",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a79.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Trade-offs between stakeholders identified and analysed",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_hc_34",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a79.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Distribution of impacts as key aspect",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "distribution of impacts"
+        ]
+      },
+      {
+        "id": "slca_hc_36",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a79.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Identify social hotspots and improvement opportunities",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "social hotspot"
+        ]
+      },
+      {
+        "id": "slca_hc_44",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a713.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Multi-level reporting (indicator/stakeholder/system)",
+        "all_matched_categories": [
+          "stakeholder_materiality",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "stakeholder",
+          "reporting"
+        ]
+      },
+      {
+        "id": "slca_mc_02",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a73.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Stakeholder-based normalization complementary to FU-based",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      },
+      {
+        "id": "slca_mc_06",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a75.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Mapping detail (granularity adapted to scope/data)",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "mapping detail"
+        ]
+      },
+      {
+        "id": "slca_mc_08",
+        "method": "SLCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a76.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Materiality: analytical default; +stakeholder input optional",
+        "all_matched_categories": [
+          "stakeholder_materiality"
+        ],
+        "matched_keywords": [
+          "stakeholder"
+        ]
+      }
+    ],
+    "uncertainty_sensitivity": [
+      {
+        "id": "lca_hc_12",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a76.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Uncertainty analysis mandatory",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "uncertainty"
+        ]
+      },
+      {
+        "id": "lca_hc_14",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a76.1",
+        "trigger_q": [
+          "q4",
+          "q6b"
+        ],
+        "trigger_condition": "case.q4 \u2229 {'C','D','E'} \u2260 \u2205 OR case.q6b != 'TRL9'",
+        "statement": "Monte Carlo mandatory if Q4 in {C,D,E} OR Q6b<TRL9",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "monte carlo"
+        ]
+      },
+      {
+        "id": "lca_hc_15",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.7",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Sensitivity on critical assumptions",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "sensitivity"
+        ]
+      },
+      {
+        "id": "lca_hc_21",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a75.4",
+        "trigger_q": [
+          "q7"
+        ],
+        "trigger_condition": "case.q7 IN ['B','C','D']",
+        "statement": "Break-even distance sensitivity if Q7 in {B,C,D}",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "sensitivity"
+        ]
+      },
+      {
+        "id": "lcc_hc_24",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a710.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Monte Carlo mandatory, >=10,000 iterations",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "monte carlo"
+        ]
+      },
+      {
+        "id": "lcc_hc_25",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a710.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Correlations explicit in simulation",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "correlations explicit"
+        ]
+      },
+      {
+        "id": "lcc_hc_26",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a710.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Counterparty risk via structural scenario",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "counterparty risk"
+        ]
+      },
+      {
+        "id": "lcc_hc_34",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a75.3",
+        "trigger_q": [
+          "q5"
+        ],
+        "trigger_condition": "flow.q5 == 'c'",
+        "statement": "Transfer price as central sensitivity if Q5=c",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "sensitivity"
+        ]
+      },
+      {
+        "id": "lcc_hc_35",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a76.3",
+        "trigger_q": [
+          "q5"
+        ],
+        "trigger_condition": "flow.q5 IN ['a','b']",
+        "statement": "Zero-cost flows explicitly identified + sensitivity (mandatory if Q5 in {a,b})",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "sensitivity"
+        ]
+      },
+      {
+        "id": "lcc_hc_40",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a78.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Mandatory sensitivity params with ranges",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "sensitivity"
+        ]
+      },
+      {
+        "id": "slca_hc_28",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a78.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Conservative under uncertainty (no positive without evidence)",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "uncertainty"
+        ]
+      },
+      {
+        "id": "slca_hc_39",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a711.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Conservative under uncertainty (no overestimation)",
+        "all_matched_categories": [
+          "uncertainty_sensitivity"
+        ],
+        "matched_keywords": [
+          "uncertainty"
+        ]
+      },
+      {
+        "id": "slca_hc_40",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a711.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Assumptions/limitations/uncertainty reported",
+        "all_matched_categories": [
+          "uncertainty_sensitivity",
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "uncertainty",
+          "report"
+        ]
+      }
+    ],
+    "reporting_disclosure": [
+      {
+        "id": "lcc_hc_33",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a710.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "90% CI + P(NPV>0) reported",
+        "all_matched_categories": [
+          "reporting_disclosure",
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "report",
+          "npv"
+        ]
+      },
+      {
+        "id": "slca_hc_21",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Sources/assumptions/limitations documented",
+        "all_matched_categories": [
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "documented"
+        ]
+      },
+      {
+        "id": "slca_hc_23",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a77.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Proxy assumptions documented",
+        "all_matched_categories": [
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "documented"
+        ]
+      },
+      {
+        "id": "slca_hc_45",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a713.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Scores accompanied by qualitative explanations",
+        "all_matched_categories": [
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "qualitative explanation"
+        ]
+      },
+      {
+        "id": "slca_hc_47",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a713.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Results framed as comparative outcomes, NOT absolute",
+        "all_matched_categories": [
+          "reporting_disclosure"
+        ],
+        "matched_keywords": [
+          "comparative outcomes"
+        ]
+      }
+    ],
+    "lcc_method_specific": [
+      {
+        "id": "lcc_hc_08",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a74.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Market price = upstream proxy (no double counting)",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "market price"
+        ]
+      },
+      {
+        "id": "lcc_hc_09",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a75.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Entity-level before network consolidation (4-step sequence)",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "4-step"
+        ]
+      },
+      {
+        "id": "lcc_hc_16",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a77.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Mandatory harmonization protocol (currency, ref year, CBS)",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "currency"
+        ]
+      },
+      {
+        "id": "lcc_hc_17",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a77.4",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Screening LCC before Detailed LCCI",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "screening lcc"
+        ]
+      },
+      {
+        "id": "lcc_hc_19",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a78.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Strict 4-step calculation sequence (Entity->Flow->Network->Baseline)",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "4-step"
+        ]
+      },
+      {
+        "id": "lcc_hc_36",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a76.2",
+        "trigger_q": [
+          "q5"
+        ],
+        "trigger_condition": "flow.q5 == 'd'",
+        "statement": "Modified production -> multifunctional remodel if Q5=d",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "multifunctional remodel"
+        ]
+      },
+      {
+        "id": "lcc_hc_38",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a75.2",
+        "trigger_q": [
+          "q5",
+          "q3"
+        ],
+        "trigger_condition": "(flow.q5 == 'b') OR (case.q3.eco == true AND case.q3.env == false AND case.q3.soc == false)",
+        "statement": "MFCA when Q5=b (contested) or Q3=ECO-only",
+        "all_matched_categories": [
+          "lcc_method_specific"
+        ],
+        "matched_keywords": [
+          "mfca"
+        ]
+      }
+    ],
+    "lcsa_integration": [
+      {
+        "id": "lca_hc_20",
+        "method": "LCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.2",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Methodological charter requirement (cross-LCA/LCC/S-LCA)",
+        "all_matched_categories": [
+          "lcsa_integration"
+        ],
+        "matched_keywords": [
+          "cross-lca/lcc/s-lca"
+        ]
+      },
+      {
+        "id": "lca_mc_34",
+        "method": "LCA",
+        "type": "MC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.1 \u00a73.3",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "UM\u00b3-LCE\u00b3-ISN matrix integration when Q3.ECO + Q3.ENV both",
+        "all_matched_categories": [
+          "lcsa_integration"
+        ],
+        "matched_keywords": [
+          "um\u00b3-lce\u00b3-isn"
+        ]
+      },
+      {
+        "id": "lcc_hc_27",
+        "method": "LCC",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.2 \u00a711.1",
+        "trigger_q": [
+          "q3"
+        ],
+        "trigger_condition": "case.q3.env == true AND case.q3.eco == true",
+        "statement": "Perfect systemic LCA-LCC alignment when Q3.ENV+Q3.ECO both",
+        "all_matched_categories": [
+          "lcsa_integration"
+        ],
+        "matched_keywords": [
+          "perfect systemic"
+        ]
+      },
+      {
+        "id": "slca_hc_42",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a712.1",
+        "trigger_q": [
+          "q3"
+        ],
+        "trigger_condition": "case.q3.soc == true",
+        "statement": "Parallel interpretation NOT aggregation",
+        "all_matched_categories": [
+          "lcsa_integration"
+        ],
+        "matched_keywords": [
+          "parallel interpretation"
+        ]
+      },
+      {
+        "id": "slca_hc_43",
+        "method": "SLCA",
+        "type": "HC",
+        "lifecycle_layer": "L2",
+        "source_section": "D4.3 \u00a712.1",
+        "trigger_q": null,
+        "trigger_condition": null,
+        "statement": "Each dimension retains methodology + units",
+        "all_matched_categories": [
+          "lcsa_integration"
+        ],
+        "matched_keywords": [
+          "each dimension retains"
+        ]
+      }
+    ]
+  }
+}

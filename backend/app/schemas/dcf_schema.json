@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "schema_id": "dcf_schema",
+    "schema_version": "1.0-draft",
+    "generated": "2026-05-22",
+    "spec_reference": "docs/implementation/DATA_COLLECTION_FILE_v1.md",
+    "predicate_dsl_version": "v1",
+    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, pathway_id, ilcd_situation, lcc_type, slca_activation_state, is_01_extended. Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
+    "namespace": "dcf",
+    "non_authoritative_until_approved": true
+  },
+  "sections": [
+    {
+      "id": "actors",
+      "title_en": "Actors",
+      "description_en": "Roster of participants in the IS network. New first-class concept: actors are not in the current Case model — the DCF promotes them to enable origin/destination on flows and the network diagram.",
+      "applies_when": "always",
+      "row_collection": "user_added",
+      "fields": [
+        {"id": "actor.id", "label_en": "Actor ID", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "actor.name", "label_en": "Actor name", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "actor.role", "label_en": "Role", "type": "enum", "enum_values": ["producer", "consumer", "facilitator", "regulator", "intermediary"], "required": true, "activation_predicate": "always"},
+        {"id": "actor.sector", "label_en": "Sector (Q6a vocabulary)", "type": "enum", "enum_ref": "Q6a", "required": false, "activation_predicate": "always", "description_en": "Per-actor sector (may differ from case-level q6a in multi-sector networks)."},
+        {"id": "actor.site_id", "label_en": "Site (FK)", "type": "fk_site", "required": false, "activation_predicate": "q7 in [\"B\", \"C\", \"D\"]"},
+        {"id": "actor.country_iso2", "label_en": "Country (ISO 3166-1 alpha-2)", "type": "string", "required": false, "activation_predicate": "q7 in [\"B\", \"C\", \"D\"]"},
+        {"id": "actor.size_class", "label_en": "Size class", "type": "enum", "enum_values": ["micro", "SME", "mid", "large"], "required": false, "activation_predicate": "q3.soc or pathway_id == \"IS-02\""},
+        {"id": "actor.public_private", "label_en": "Public / private ownership", "type": "enum", "enum_values": ["public", "private", "mixed"], "required": false, "activation_predicate": "pathway_id in [\"IS-02\", \"IS-05\"]"},
+        {"id": "actor.contact_role", "label_en": "Contact role (data-collection workflow)", "type": "string", "required": false, "activation_predicate": "always"}
+      ]
+    },
+
+    {
+      "id": "flow_matrix",
+      "title_en": "Flow Matrix",
+      "description_en": "One row per actor-to-actor exchange. Extends the existing Flow model (id, name, q5) with origin/destination, type, quantity, quality, uncertainty.",
+      "applies_when": "always",
+      "row_collection": "pre_seeded_from_case_flows",
+      "fields": [
+        {"id": "flow.id", "label_en": "Flow ID", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "flow.origin_actor_id", "label_en": "Origin actor (FK)", "type": "fk_actor", "required": true, "activation_predicate": "always"},
+        {"id": "flow.dest_actor_id", "label_en": "Destination actor (FK)", "type": "fk_actor", "required": true, "activation_predicate": "always"},
+        {"id": "flow.name", "label_en": "Flow name", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "flow.type", "label_en": "Flow type", "type": "enum", "enum_values": ["material", "energy", "water", "waste", "by_product", "utility", "service", "info"], "required": true, "activation_predicate": "always"},
+        {"id": "flow.q5_class", "label_en": "Q5 valuation class", "type": "enum", "enum_ref": "Q5", "required": true, "activation_predicate": "always", "description_en": "Mirrors the existing flow.q5 from the questionnaire."},
+        {"id": "flow.unit", "label_en": "Unit", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "flow.regime", "label_en": "Regime", "type": "enum", "enum_values": ["continuous", "batch", "intermittent"], "required": true, "activation_predicate": "always"},
+        {"id": "flow.quantity_measured", "label_en": "Measured quantity (per year)", "type": "float", "required": false, "activation_predicate": "q2 == \"A\" or q2 == \"D\""},
+        {"id": "flow.quantity_projected", "label_en": "Projected quantity (per scenario, per year)", "type": "float_per_scenario", "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]"},
+        {"id": "flow.quality.purity_pct", "label_en": "Purity (%)", "type": "float", "min": 0, "max": 100, "required": false, "activation_predicate": "q6a in [\"chemicals_fertilizers\", \"plastics_packaging\", \"biobased_polymers\"]"},
+        {"id": "flow.quality.contamination_level", "label_en": "Contamination level", "type": "enum", "enum_values": ["low", "med", "high", "unknown"], "required": false, "activation_predicate": "q6a in [\"waste_valorization\", \"wastewater_sludge_biofactories\", \"agriculture_agrifood_biorefineries\"]"},
+        {"id": "flow.quality.reliability_of_supply", "label_en": "Reliability of supply", "type": "enum", "enum_values": ["low", "med", "high"], "required": false, "activation_predicate": "pathway_id == \"IS-01\""},
+        {"id": "flow.uncertainty.type", "label_en": "Uncertainty representation", "type": "enum", "enum_values": ["point", "range", "distribution", "qualitative"], "required": true, "activation_predicate": "always"},
+        {"id": "flow.uncertainty.value", "label_en": "Uncertainty value (depends on type)", "type": "polymorphic", "required": false, "activation_predicate": "always"},
+        {"id": "flow.marginal_market_ref", "label_en": "Marginal market reference (consequential)", "type": "string_docref", "required": false, "activation_predicate": "q1 == \"C\""},
+        {"id": "flow.scenario_assumptions", "label_en": "Scenario assumptions (ex-ante)", "type": "text", "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]"},
+        {"id": "flow.lci_dataset_ref", "label_en": "LCI background dataset reference", "type": "string_docref", "required": false, "activation_predicate": "q3.env"}
+      ]
+    },
+
+    {
+      "id": "logistics",
+      "title_en": "Logistics",
+      "description_en": "One row per route (= per flow when transport is involved). Auto-derived from the Flow Matrix when q7 != A. The whole section is gated by q7.",
+      "applies_when": "q7 in [\"B\", \"C\", \"D\"]",
+      "row_collection": "auto_from_flow_matrix",
+      "fields": [
+        {"id": "route.flow_id", "label_en": "Flow (FK)", "type": "fk_flow", "required": true, "activation_predicate": "always"},
+        {"id": "route.distance_km", "label_en": "Distance (km)", "type": "float", "required": true, "activation_predicate": "always"},
+        {"id": "route.transport_mode", "label_en": "Transport mode", "type": "enum", "enum_values": ["truck", "rail", "ship", "pipeline", "cable", "conveyor", "onsite_none"], "required": true, "activation_predicate": "always"},
+        {"id": "route.frequency", "label_en": "Frequency", "type": "enum", "enum_values": ["continuous", "daily", "weekly", "monthly", "ad_hoc"], "required": true, "activation_predicate": "always"},
+        {"id": "route.measured_volume_year", "label_en": "Measured volume (per year)", "type": "float", "required": false, "activation_predicate": "q2 == \"A\" or q2 == \"D\""},
+        {"id": "route.projected_volume_year", "label_en": "Projected volume per scenario (per year)", "type": "float_per_scenario", "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]"},
+        {"id": "route.backhaul_strategy", "label_en": "Backhaul strategy", "type": "enum", "enum_values": ["none", "partial", "full"], "required": false, "activation_predicate": "q6a in [\"waste_valorization\", \"energy_utilities\", \"pulp_paper\", \"cement_construction\"]"},
+        {"id": "route.transport_lci_dataset", "label_en": "Transport LCI dataset reference", "type": "string_docref", "required": false, "activation_predicate": "q3.env"},
+        {"id": "route.transport_cost_per_unit", "label_en": "Transport cost (per unit)", "type": "float", "required": false, "activation_predicate": "q3.eco"}
+      ]
+    },
+
+    {
+      "id": "infrastructure",
+      "title_en": "Infrastructure",
+      "description_en": "Assets involved in the IS network. One row per asset (production line, treatment plant, pipeline, storage, conversion unit, supporting facility).",
+      "applies_when": "always",
+      "row_collection": "user_added",
+      "fields": [
+        {"id": "infra.id", "label_en": "Infrastructure ID", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "infra.linked_actor_id", "label_en": "Linked actor (FK)", "type": "fk_actor", "required": true, "activation_predicate": "always"},
+        {"id": "infra.purpose", "label_en": "Purpose", "type": "enum", "enum_values": ["production", "treatment", "transport", "storage", "conversion", "supporting"], "required": true, "activation_predicate": "always"},
+        {"id": "infra.status", "label_en": "Status", "type": "enum", "enum_values": ["existing", "new", "replaced", "upgraded", "decommissioned"], "required": true, "activation_predicate": "always"},
+        {"id": "infra.capacity_value", "label_en": "Capacity (numeric)", "type": "float", "required": true, "activation_predicate": "always"},
+        {"id": "infra.capacity_unit", "label_en": "Capacity unit", "type": "string", "required": true, "activation_predicate": "always"},
+        {"id": "infra.year_built", "label_en": "Year built", "type": "int", "required": false, "activation_predicate": "always", "row_condition": "infra.status in [\"existing\", \"replaced\", \"upgraded\"]"},
+        {"id": "infra.expected_lifetime_remaining_y", "label_en": "Expected remaining lifetime (years)", "type": "int", "required": false, "activation_predicate": "always", "row_condition": "infra.status in [\"existing\", \"replaced\", \"upgraded\"]"},
+        {"id": "infra.capex_amount", "label_en": "CAPEX amount", "type": "float", "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]", "row_condition": "infra.status == \"new\""},
+        {"id": "infra.capex_currency_year", "label_en": "CAPEX currency + reference year (e.g. EUR2024)", "type": "string", "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]", "row_condition": "infra.status == \"new\""},
+        {"id": "infra.amortization_period_y", "label_en": "Amortization period (years, default 20)", "type": "int", "default": 20, "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]", "row_condition": "infra.status == \"new\"", "source_ref": "lcc_hc_07"},
+        {"id": "infra.discount_rate_pct", "label_en": "Discount rate (%)", "type": "float", "required": false, "activation_predicate": "q3.eco and q2 in [\"C\", \"D\"]", "row_condition": "infra.status == \"new\""},
+        {"id": "infra.salvage_value", "label_en": "Salvage value", "type": "float", "required": false, "activation_predicate": "q3.eco", "row_condition": "infra.status == \"replaced\""},
+        {"id": "infra.avoided_lifetime_y", "label_en": "Avoided lifetime (years, for substitution accounting)", "type": "int", "required": false, "activation_predicate": "always", "row_condition": "infra.status == \"replaced\""},
+        {"id": "infra.decommissioning_cost", "label_en": "Decommissioning cost", "type": "float", "required": false, "activation_predicate": "q1 == \"C\"", "row_condition": "infra.status == \"decommissioned\" or q1 == \"C\""},
+        {"id": "infra.ssp_rcp_scenario", "label_en": "SSP/RCP scenario (dynamic background)", "type": "enum", "enum_values": ["SSP1-26", "SSP2-45", "SSP3-70", "SSP4-60", "SSP5-85"], "required": false, "activation_predicate": "q2 in [\"C\", \"D\"]", "source_ref": "lcc_mc_13"},
+        {"id": "infra.ownership", "label_en": "Ownership model", "type": "enum", "enum_values": ["single_actor", "joint_venture", "third_party", "public"], "required": false, "activation_predicate": "pathway_id in [\"IS-01\", \"IS-02\"]"}
+      ]
+    },
+
+    {
+      "id": "methodological_choices",
+      "title_en": "Methodological Choices to Document",
+      "description_en": "Auto-populated from the procedural_mandate nodes activated for this case (Case.activated_nodes ∩ phase1_nodes where field_status='procedural_mandate'). Grouped by the 9 categories defined in backend/coordination/dcf_mandates_census.json (spec §11 D2 = option c, all activated mandates included, grouped by category).",
+      "applies_when": "always",
+      "row_collection": "auto_from_activated_nodes",
+      "auto_source": {
+        "type": "procedural_mandates",
+        "census_file": "backend/coordination/dcf_mandates_census.json",
+        "categories": [
+          "data_sources_quality",
+          "allocation_substitution",
+          "reference_scenario",
+          "goal_scope_boundary",
+          "stakeholder_materiality",
+          "uncertainty_sensitivity",
+          "reporting_disclosure",
+          "lcc_method_specific",
+          "lcsa_integration"
+        ]
+      },
+      "fields_per_mandate": [
+        {"id": "mandate.node_id", "label_en": "Mandate node ID", "type": "string", "required": true, "description_en": "Stable phase1 node id (e.g. slca_mc_11)."},
+        {"id": "mandate.statement", "label_en": "Mandate statement", "type": "string", "required": true, "description_en": "Pulled from phase1_nodes.json default_value."},
+        {"id": "mandate.category", "label_en": "Category", "type": "enum", "enum_ref": "auto_source.categories", "required": true},
+        {"id": "mandate.deliverable", "label_en": "Deliverable target (report section / annex / external doc)", "type": "string", "required": false},
+        {"id": "mandate.assignee", "label_en": "Assignee", "type": "string", "required": false},
+        {"id": "mandate.status", "label_en": "Status", "type": "enum", "enum_values": ["pending", "in_progress", "done"], "default": "pending", "required": true}
+      ]
+    },
+
+    {
+      "id": "network_diagram",
+      "title_en": "Network Diagram",
+      "description_en": "Auto-rendered from Actors + Flow Matrix. Not a user input. View-only in v1 (spec §3 P4). Editing-as-input candidate for v2.",
+      "applies_when": "always",
+      "row_collection": "derived",
+      "render_spec": {
+        "nodes": {
+          "source": "actors",
+          "color_by": "actor.sector",
+          "color_palette_ref": "Q6a",
+          "shape_by": "actor.role",
+          "shape_map": {
+            "producer": "circle",
+            "consumer": "square",
+            "facilitator": "hexagon",
+            "regulator": "diamond",
+            "intermediary": "triangle"
+          },
+          "label": "actor.name"
+        },
+        "edges": {
+          "source": "flow_matrix",
+          "from": "flow.origin_actor_id",
+          "to": "flow.dest_actor_id",
+          "thickness_by": "flow.quantity_measured_or_projected_normalized",
+          "color_by": "flow.type",
+          "label": "flow.name"
+        },
+        "annotations": {
+          "badges": ["pathway_id", "ilcd_situation"],
+          "icons_for_active_dims": ["q3.env", "q3.eco", "q3.soc"]
+        },
+        "layout": {
+          "default": "force_directed",
+          "alternative": "hierarchical"
+        },
+        "export_targets": ["svg_inline", "png_for_docx_embed"],
+        "library_candidate": "reactflow",
+        "library_license": "MIT"
+      }
+    }
+  ]
+}

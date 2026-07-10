@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
+import KpiCard from '../components/dd/KpiCard'
+import ShareReportModal from '../components/dd/ShareReportModal'
+import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
@@ -18,25 +21,7 @@ function isTextInputTarget(target: EventTarget | null): boolean {
   )
 }
 
-type Tone = 'primary' | 'success' | 'warning' | 'error'
-
-interface MetricCardProps {
-  label: string
-  value: string | number
-  subtitle?: string
-  tone?: Tone
-}
-
-function MetricCard({ label, value, subtitle, tone }: MetricCardProps) {
-  const cls = tone ? `metric-card metric-card-${tone}` : 'metric-card'
-  return (
-    <div className={cls}>
-      <div className="metric-label">{label}</div>
-      <div className="metric-value">{value}</div>
-      {subtitle ? <div className="metric-subtitle">{subtitle}</div> : null}
-    </div>
-  )
-}
+// Legacy MetricCard component was replaced by dd/KpiCard in Phase 5.
 
 export default function ResultPage() {
   const { t } = useTranslation()
@@ -50,7 +35,9 @@ export default function ResultPage() {
   const pushToast = useToastStore((s) => s.push)
   const [showReasoning, setShowReasoning] = useState(true)
   const [downloadingReport, setDownloadingReport] = useState(false)
+  const [shareOpen, setShareOpen] = useState(false)
   const [savingCase, setSavingCase] = useState(false)
+  const [savedSlug, setSavedSlug] = useState<string | null>(null)
 
   async function handleSaveCase() {
     const name = window.prompt(
@@ -62,7 +49,8 @@ export default function ResultPage() {
     try {
       // Save the result Case (post-pipeline) so pathway_id + engine
       // output are persisted along with the inputs.
-      await createCase(name, result ?? draft)
+      const saved = await createCase(name, result ?? draft)
+      if (saved.slug) setSavedSlug(saved.slug)
       pushToast({
         type: 'success',
         message: t('cases.saveSuccess', { name }),
@@ -186,46 +174,39 @@ export default function ResultPage() {
   const blockedBy = result.blocked_by ?? []
 
   return (
-    <div className="result">
-      <h1>{t('result.title')}</h1>
+    <div className="dd-page result">
+      <VerdictCard
+        eyebrow={t('result.title')}
+        pathway={result.pathway_id ?? '—'}
+        extended={!!result.is_01_extended}
+        subtitle={[result.ilcd_situation, result.lcc_type].filter(Boolean).join(' · ')}
+        tags={[
+          result.q6a ? `Q6a: ${result.q6a}` : undefined,
+          result.q7 ? `Q7: ${result.q7}` : undefined,
+          result.slca_activation_state ? `S-LCA: ${result.slca_activation_state}` : undefined,
+        ].filter(Boolean)}
+      />
 
-      <div className="metric-grid">
-        <MetricCard
-          label={t('result.summary.pathway')}
-          value={result.pathway_id ?? '—'}
-          tone="primary"
-          subtitle={result.is_01_extended ? t('result.summary.extended') : undefined}
-        />
-        <MetricCard
-          label={t('result.summary.ilcdSituation')}
-          value={result.ilcd_situation ?? '—'}
-        />
-        <MetricCard
-          label={t('result.summary.lccType')}
-          value={result.lcc_type ?? '—'}
-        />
-        <MetricCard
-          label={t('result.summary.slca')}
-          value={result.slca_activation_state ?? '—'}
-        />
-        <MetricCard
+      <div className="dd-kpi-strip">
+        <KpiCard
           label={t('result.summary.activatedNodes')}
-          value={result.activated_nodes?.length ?? 0}
+          value={<>{result.activated_nodes?.length ?? 0}<span className="dd-muted"> / 186</span></>}
           tone="success"
         />
-        <MetricCard
+        <KpiCard
           label={t('result.summary.l1Blocks')}
           value={blockedBy.length}
-          tone={blockedBy.length > 0 ? 'error' : undefined}
+          tone={blockedBy.length > 0 ? 'warning' : 'success'}
         />
-        <MetricCard
+        <KpiCard
           label={t('result.summary.l2Violations')}
           value={result.rule_violations?.length ?? 0}
-          tone={(result.rule_violations?.length ?? 0) > 0 ? 'warning' : undefined}
+          tone={(result.rule_violations?.length ?? 0) > 0 ? 'warning' : 'neutral'}
         />
-        <MetricCard
+        <KpiCard
           label={t('result.summary.l3Cdps')}
           value={result.cdp_flags?.length ?? 0}
+          tone={(result.cdp_flags?.length ?? 0) > 0 ? 'warning' : 'neutral'}
         />
       </div>
 
@@ -332,11 +313,25 @@ export default function ResultPage() {
         <button
           type="button"
           className="btn btn-secondary"
+          onClick={() => setShareOpen(true)}
+        >
+          {t('share.buttonLabel')}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
           onClick={handleStartFresh}
         >
           {t('result.actions.startFresh')}
         </button>
       </div>
+      {shareOpen ? (
+        <ShareReportModal
+          caseId={result?.id ?? null}
+          caseSlug={savedSlug}
+          onClose={() => setShareOpen(false)}
+        />
+      ) : null}
     </div>
   )
 }

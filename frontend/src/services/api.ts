@@ -19,6 +19,7 @@ import type {
   UserPublic,
 } from '../types/auth'
 import type { DcfPayload } from '../types/dcf'
+import type { PublicRegionResponse, PublicReportResponse } from '../types/reader'
 import type { CasesAggregate, ScoringPayload } from '../types/scoring'
 
 const API_BASE_URL: string =
@@ -230,6 +231,20 @@ export function putScoring(
 
 export function fetchCasesAggregate(): Promise<CasesAggregate> {
   return request<CasesAggregate>('/api/cases/aggregate/breakdown')
+}
+
+// ----- Public reader (Phase 6 — no-auth share URLs) -----
+
+export function fetchPublicReport(key: string): Promise<PublicReportResponse> {
+  return request<PublicReportResponse>(
+    `/api/public/report/${encodeURIComponent(key)}`,
+  )
+}
+
+export function fetchPublicRegion(code: string): Promise<PublicRegionResponse> {
+  return request<PublicRegionResponse>(
+    `/api/public/region/${encodeURIComponent(code)}`,
+  )
 }
 
 // ----- Auth (Phase D) -----

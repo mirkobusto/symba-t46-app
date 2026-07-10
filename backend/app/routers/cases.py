@@ -29,6 +29,7 @@ from app.auth.deps import get_current_user_optional
 from app.db import get_db
 from app.domain.models import Case
 from app.models import CaseRecord, User
+from app.services.naming import assign_unique_slug
 
 router = APIRouter(tags=["cases"])
 
@@ -43,6 +44,7 @@ class CaseSummary(BaseModel):
 
     id: str
     name: str
+    slug: str | None = None
     pathway_id: str | None
     created_at: datetime
     updated_at: datetime
@@ -60,6 +62,7 @@ class CaseDetail(BaseModel):
 
     id: str
     name: str
+    slug: str | None = None
     pathway_id: str | None
     created_at: datetime
     updated_at: datetime
@@ -94,6 +97,7 @@ def _to_summary(rec: CaseRecord) -> CaseSummary:
     return CaseSummary(
         id=rec.id,
         name=rec.name,
+        slug=rec.slug,
         pathway_id=rec.pathway_id,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
@@ -104,6 +108,7 @@ def _to_detail(rec: CaseRecord) -> CaseDetail:
     return CaseDetail(
         id=rec.id,
         name=rec.name,
+        slug=rec.slug,
         pathway_id=rec.pathway_id,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
@@ -253,7 +258,10 @@ def create_case(
     _populate_record(rec, payload.name, payload.case)
     if current_user is not None:
         rec.owner_id = current_user.id
+    # Slug generation needs a stable record id — flush first, then assign.
     db.add(rec)
+    db.flush()
+    rec.slug = assign_unique_slug(db, payload.case, rec.id)
     db.commit()
     db.refresh(rec)
     return _to_detail(rec)

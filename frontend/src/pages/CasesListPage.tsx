@@ -71,9 +71,9 @@ export default function CasesListPage() {
   }
 
   return (
-    <div className="result">
-      <h1>{t('cases.title')}</h1>
-      <p className="muted">{t('cases.intro')}</p>
+    <div className="dd-page">
+      <h1 className="dd-page-title">{t('cases.title')}</h1>
+      <p className="dd-page-sub">{t('cases.intro')}</p>
 
       <div style={{ margin: '8px 0 16px' }}>
         <Link to="/aggregate" className="btn btn-secondary">
@@ -107,6 +107,11 @@ export default function CasesListPage() {
               <tr key={item.id}>
                 <td>
                   <strong>{item.name}</strong>
+                  {item.slug ? (
+                    <div className="dd-mono" style={{ fontSize: 11, color: 'var(--dd-text-muted)' }}>
+                      {item.slug}
+                    </div>
+                  ) : null}
                 </td>
                 <td>{item.pathway_id ?? '—'}</td>
                 <td className="muted">
@@ -121,6 +126,16 @@ export default function CasesListPage() {
                     <Upload size={14} />
                     {t('cases.loadButton')}
                   </button>{' '}
+                  {item.slug ? (
+                    <Link
+                      to={`/r/${item.slug}/community`}
+                      className="btn btn-secondary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      🔗 {t('cases.publicLink', { defaultValue: 'Public' })}
+                    </Link>
+                  ) : null}{' '}
                   <button
                     type="button"
                     className="icon-btn"

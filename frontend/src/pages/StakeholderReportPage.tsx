@@ -80,20 +80,22 @@ export default function StakeholderReportPage() {
   }, [caseId])
 
   return (
-    <div className="stakeholder-page">
-      <div className="stakeholder-header">
-        <h1>{t('stakeholder.title')}</h1>
-        <p className="stakeholder-subtitle">{t('stakeholder.subtitle')}</p>
+    <div className="dd-page stakeholder-page">
+      <div className="dd-page-head">
+        <div>
+          <h1 className="dd-page-title">{t('stakeholder.title')}</h1>
+          <p className="dd-page-sub">{t('stakeholder.subtitle')}</p>
+        </div>
       </div>
 
-      <div className="stakeholder-tabs" role="tablist">
+      <div className="dd-tabs" role="tablist">
         {STAKEHOLDERS.map((s) => (
           <button
             key={s}
             type="button"
             role="tab"
             aria-selected={active === s}
-            className={`stakeholder-tab ${active === s ? 'stakeholder-tab-active' : ''}`}
+            className={`dd-tab ${active === s ? 'dd-tab-active' : ''}`}
             onClick={() => setActive(s)}
           >
             {t(`stakeholder.tabs.${s}`)}
@@ -102,7 +104,7 @@ export default function StakeholderReportPage() {
       </div>
 
       {loadingScoring ? (
-        <p className="muted">{t('stakeholder.loadingScoring')}</p>
+        <p className="dd-muted">{t('stakeholder.loadingScoring')}</p>
       ) : (
         <StakeholderView
           stakeholderType={active}
@@ -111,11 +113,11 @@ export default function StakeholderReportPage() {
         />
       )}
 
-      <div className="stakeholder-actions">
-        <Link to="/result" className="btn btn-secondary">
+      <div className="dd-page-actions">
+        <Link to="/result" className="dd-btn dd-btn-secondary">
           {t('stakeholder.backToResult')}
         </Link>
-        <Link to="/data-collection" className="btn btn-secondary">
+        <Link to="/data-collection" className="dd-btn dd-btn-secondary">
           {t('stakeholder.openDcf')}
         </Link>
       </div>

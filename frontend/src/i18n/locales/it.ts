@@ -35,6 +35,25 @@ const it: Locale = {
     shortcutsHint: 'Premi {{key}} per le scorciatoie',
   },
 
+  share: {
+    buttonLabel: 'Condividi report',
+    title: 'Condividi questo report',
+    lead: 'Manda uno di questi URL a uno stakeholder. Stesso caso, cornice diversa per ogni audience — nessun login necessario per aprirli.',
+    close: 'Chiudi',
+    done: 'Fatto',
+    copy: 'Copia',
+    copied: 'Copiato ✓',
+    copyFailed: 'Copia fallita — copia l\'URL manualmente.',
+    saveFirstTitle: 'Salva prima il caso',
+    saveFirstBody: 'Gli URL di condivisione richiedono un case id salvato. Clicca "Salva come nuovo…" qui sotto, poi riapri la finestra di condivisione.',
+    audience: {
+      industry: '🏭 Industria',
+      community: '🌳 Comunità',
+      authority: '🏛 Autorità locale',
+      enduser: '👤 End user',
+    },
+  },
+
   reader: {
     tagline: 'Report pubblico',
     loading: 'Caricamento del report…',

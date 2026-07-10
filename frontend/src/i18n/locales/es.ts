@@ -35,6 +35,16 @@ const es: Locale = {
     shortcutsHint: 'Pulsa {{key}} para los atajos',
   },
 
+  share: {
+    buttonLabel: 'Compartir informe', title: 'Compartir este informe',
+    lead: 'Envía una de estas URLs a un stakeholder. Mismo caso, encuadre diferente para cada audiencia.',
+    close: 'Cerrar', done: 'Hecho', copy: 'Copiar', copied: 'Copiado ✓',
+    copyFailed: 'No se pudo copiar — copia la URL manualmente.',
+    saveFirstTitle: 'Guarda primero el caso',
+    saveFirstBody: 'Las URLs requieren un case id guardado.',
+    audience: { industry: '🏭 Industria', community: '🌳 Comunidad', authority: '🏛 Autoridad local', enduser: '👤 Usuario' },
+  },
+
   reader: {
     tagline: 'Informe público',
     loading: 'Cargando el informe…',

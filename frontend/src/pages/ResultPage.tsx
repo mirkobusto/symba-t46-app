@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import KpiCard from '../components/dd/KpiCard'
+import ShareReportModal from '../components/dd/ShareReportModal'
 import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
@@ -34,6 +35,7 @@ export default function ResultPage() {
   const pushToast = useToastStore((s) => s.push)
   const [showReasoning, setShowReasoning] = useState(true)
   const [downloadingReport, setDownloadingReport] = useState(false)
+  const [shareOpen, setShareOpen] = useState(false)
   const [savingCase, setSavingCase] = useState(false)
 
   async function handleSaveCase() {
@@ -309,11 +311,24 @@ export default function ResultPage() {
         <button
           type="button"
           className="btn btn-secondary"
+          onClick={() => setShareOpen(true)}
+        >
+          {t('share.buttonLabel')}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
           onClick={handleStartFresh}
         >
           {t('result.actions.startFresh')}
         </button>
       </div>
+      {shareOpen ? (
+        <ShareReportModal
+          caseId={result?.id ?? null}
+          onClose={() => setShareOpen(false)}
+        />
+      ) : null}
     </div>
   )
 }

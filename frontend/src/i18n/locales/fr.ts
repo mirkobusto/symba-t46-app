@@ -35,6 +35,16 @@ const fr: Locale = {
     shortcutsHint: 'Appuyez sur {{key}} pour les raccourcis',
   },
 
+  share: {
+    buttonLabel: 'Partager le rapport', title: 'Partager ce rapport',
+    lead: 'Envoyez l\'un de ces URLs à une partie prenante. Même cas, cadrage différent pour chaque audience.',
+    close: 'Fermer', done: 'Terminé', copy: 'Copier', copied: 'Copié ✓',
+    copyFailed: 'Copie impossible — copiez l\'URL manuellement.',
+    saveFirstTitle: 'Sauvegardez d\'abord le cas',
+    saveFirstBody: 'Les URLs nécessitent un case id sauvegardé.',
+    audience: { industry: '🏭 Industrie', community: '🌳 Communauté', authority: '🏛 Autorité locale', enduser: '👤 Utilisateur' },
+  },
+
   reader: {
     tagline: 'Rapport public',
     loading: 'Chargement du rapport…',

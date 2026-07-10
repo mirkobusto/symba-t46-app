@@ -35,6 +35,16 @@ const de: Locale = {
     shortcutsHint: 'Drücken Sie {{key}} für Tastenkürzel',
   },
 
+  share: {
+    buttonLabel: 'Bericht teilen', title: 'Diesen Bericht teilen',
+    lead: 'Senden Sie eine dieser URLs an einen Stakeholder. Gleicher Fall, unterschiedliche Rahmung pro Zielgruppe.',
+    close: 'Schließen', done: 'Fertig', copy: 'Kopieren', copied: 'Kopiert ✓',
+    copyFailed: 'Kopieren nicht möglich — bitte manuell kopieren.',
+    saveFirstTitle: 'Fall zuerst speichern',
+    saveFirstBody: 'Die URLs benötigen eine gespeicherte Fall-ID.',
+    audience: { industry: '🏭 Industrie', community: '🌳 Gemeinschaft', authority: '🏛 Lokale Behörde', enduser: '👤 Endnutzer' },
+  },
+
   reader: {
     tagline: 'Öffentlicher Bericht',
     loading: 'Lade Bericht…',

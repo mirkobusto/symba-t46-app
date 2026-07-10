@@ -29,6 +29,25 @@ const en = {
     shortcutsHint: 'Press {{key}} for shortcuts',
   },
 
+  share: {
+    buttonLabel: 'Share report',
+    title: 'Share this report',
+    lead: 'Send one of these URLs to a stakeholder. Same case, different framing for each audience — no login required to open.',
+    close: 'Close',
+    done: 'Done',
+    copy: 'Copy',
+    copied: 'Copied ✓',
+    copyFailed: 'Could not copy — please copy the URL manually.',
+    saveFirstTitle: 'Save the case first',
+    saveFirstBody: 'The share URLs need a persisted case id. Click "Save as new…" below, then reopen the share dialog.',
+    audience: {
+      industry: '🏭 Industry',
+      community: '🌳 Community',
+      authority: '🏛 Local authority',
+      enduser: '👤 End user',
+    },
+  },
+
   reader: {
     tagline: 'Public report',
     loading: 'Loading the report…',

@@ -35,6 +35,31 @@ const fr: Locale = {
     shortcutsHint: 'Appuyez sur {{key}} pour les raccourcis',
   },
 
+  welcome: {
+    title: 'Bienvenue sur SYMBA T4.6',
+    lead: 'Deux questions rapides et nous vous emmenons au bon endroit. Vous pouvez modifier vos réponses à tout moment.',
+    step1: { title: 'Qui êtes-vous ?' },
+    step2: { title: 'Que souhaitez-vous faire ?' },
+    back: 'Retour',
+    next: 'Continuer',
+    finish: 'C\'est parti',
+    skip: 'Passer pour l\'instant',
+    roles: {
+      analyst: { name: 'Analyste de durabilité', desc: 'Praticien IS, relecteur LCA/LCC/S-LCA, méthodologue.' },
+      industry: { name: 'Opérateur industriel', desc: 'Vous gérez une usine ou un site dans un réseau IS.' },
+      authority: { name: 'Autorité locale', desc: 'Municipalité, région, analyste politique du territoire.' },
+      community: { name: 'Représentant de communauté', desc: 'Association, ONG, groupe de citoyens du territoire hôte.' },
+      enduser: { name: 'Utilisateur / citoyen', desc: 'Vous utilisez des produits ou services issus de la symbiose.' },
+      unknown: { name: 'Pas sûr encore', desc: 'C\'est bien — nous vous ferons une visite guidée.' },
+    },
+    tasks: {
+      assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie pour un cas IS en 7 questions.' },
+      read: { name: 'Lire un rapport partagé', desc: 'Ouvrir un cas partagé avec moi et voir le rapport.' },
+      explore: { name: 'Explorer une région / secteur', desc: 'Parcourir les insights agrégés pour ma zone.' },
+      browse: { name: 'Juste regarder', desc: 'Pas d\'objectif précis — je veux voir ce que fait l\'outil.' },
+    },
+  },
+
   adminShell: {
     searchLabel: 'Rechercher',
     searchPlaceholder: 'Rechercher des cas, pathways, partenaires… (⌘K)',

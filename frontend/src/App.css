@@ -2944,3 +2944,207 @@ kbd {
 .dd-badge-no      { background: var(--dd-bg); color: var(--dd-text-muted); border: 1px solid var(--dd-border); }
 .dd-badge-pending { background: var(--dd-amber-bg); color: var(--dd-amber); }
 .dd-badge-na      { background: var(--dd-bg); color: var(--dd-text-muted); border: 1px solid var(--dd-border); }
+
+/* ==========================================================================
+ * dd/* button primitives (Phase 4 · used by Welcome and later pages)
+ * ========================================================================== */
+
+.dd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--dd-radius);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+}
+
+.dd-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dd-btn-primary {
+  background: var(--dd-brand);
+  color: #fff;
+}
+
+.dd-btn-primary:hover:not(:disabled) {
+  background: var(--dd-brand-strong);
+}
+
+.dd-btn-secondary {
+  background: var(--dd-surface);
+  color: var(--dd-text);
+  border-color: var(--dd-border);
+}
+
+.dd-btn-secondary:hover:not(:disabled) {
+  border-color: var(--dd-brand);
+  color: var(--dd-brand);
+}
+
+.dd-btn-ghost {
+  background: transparent;
+  color: var(--dd-text-soft);
+}
+
+.dd-btn-ghost:hover:not(:disabled) {
+  color: var(--dd-brand);
+  background: var(--dd-brand-bg);
+}
+
+.dd-btn-accent {
+  background: var(--dd-accent);
+  color: #fff;
+}
+
+.dd-btn-accent:hover:not(:disabled) {
+  background: var(--dd-accent-hover);
+}
+
+/* ==========================================================================
+ * WelcomePage (Phase 4)
+ * ========================================================================== */
+
+.dd-welcome {
+  min-height: 100svh;
+  background: var(--dd-bg);
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.dd-welcome-card {
+  width: 100%;
+  max-width: 780px;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius-lg);
+  padding: 36px 40px 32px;
+  box-shadow: var(--dd-shadow-lg);
+}
+
+@media (max-width: 640px) {
+  .dd-welcome-card { padding: 24px 22px; }
+}
+
+.dd-welcome-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.dd-welcome-progress span {
+  flex: 1;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--dd-border);
+}
+
+.dd-welcome-progress .active { background: var(--dd-brand); }
+.dd-welcome-progress .done   { background: var(--dd-accent); }
+
+.dd-welcome-title {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--dd-text);
+  margin: 0 0 6px;
+}
+
+.dd-welcome-lead {
+  font-size: 15px;
+  color: var(--dd-text-soft);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.dd-welcome-step {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dd-text);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.dd-welcome-step-num {
+  font-family: var(--dd-font-mono);
+  font-size: 11px;
+  color: var(--dd-text-muted);
+  letter-spacing: 1px;
+}
+
+.dd-welcome-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.dd-welcome-grid-2col { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 640px) {
+  .dd-welcome-grid,
+  .dd-welcome-grid-2col { grid-template-columns: 1fr; }
+}
+
+.dd-welcome-tile {
+  background: var(--dd-surface-muted);
+  border: 2px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  padding: 16px 14px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.1s, background 0.1s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dd-welcome-tile:hover {
+  border-color: var(--dd-brand-soft);
+  background: var(--dd-surface);
+}
+
+.dd-welcome-tile.selected {
+  border-color: var(--dd-brand);
+  background: var(--dd-brand-bg);
+}
+
+.dd-welcome-emoji {
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.dd-welcome-tile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dd-text);
+}
+
+.dd-welcome-tile-desc {
+  font-size: 12px;
+  color: var(--dd-text-soft);
+  line-height: 1.45;
+}
+
+.dd-welcome-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.dd-welcome-actions .dd-btn-ghost { margin-left: auto; }

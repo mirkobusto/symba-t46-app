@@ -29,6 +29,32 @@ const en = {
     shortcutsHint: 'Press {{key}} for shortcuts',
   },
 
+  welcome: {
+    title: 'Welcome to SYMBA T4.6',
+    lead:
+      'Two quick questions and we\'ll take you to the right place. You can change your answers any time from the sidebar.',
+    step1: { title: 'Who are you?' },
+    step2: { title: 'What would you like to do?' },
+    back: 'Back',
+    next: 'Continue',
+    finish: 'Take me in',
+    skip: 'Skip for now',
+    roles: {
+      analyst: { name: 'Sustainability analyst', desc: 'IS practitioner, LCA/LCC/S-LCA reviewer, methodologist.' },
+      industry: { name: 'Industrial operator', desc: 'You run a plant or a site inside an IS network.' },
+      authority: { name: 'Local authority', desc: 'Municipality, region, policy analyst overseeing the territory.' },
+      community: { name: 'Community representative', desc: 'Association, NGO, host-territory citizens\' group.' },
+      enduser: { name: 'End user / citizen', desc: 'You use products or services derived from the symbiosis.' },
+      unknown: { name: 'Not sure yet', desc: 'That\'s fine — we\'ll give you a curated tour.' },
+    },
+    tasks: {
+      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via 7 questions.' },
+      read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
+      explore: { name: 'Explore a region / sector', desc: 'Browse aggregate insights for my area or industry.' },
+      browse: { name: 'Just look around', desc: 'No specific goal — I want to see what the tool does.' },
+    },
+  },
+
   adminShell: {
     searchLabel: 'Search',
     searchPlaceholder: 'Search cases, pathways, partners… (⌘K)',

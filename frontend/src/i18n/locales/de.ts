@@ -35,6 +35,31 @@ const de: Locale = {
     shortcutsHint: 'Drücken Sie {{key}} für Tastenkürzel',
   },
 
+  welcome: {
+    title: 'Willkommen bei SYMBA T4.6',
+    lead: 'Zwei kurze Fragen und wir bringen Sie an den richtigen Ort. Sie können Ihre Antworten jederzeit ändern.',
+    step1: { title: 'Wer sind Sie?' },
+    step2: { title: 'Was möchten Sie tun?' },
+    back: 'Zurück',
+    next: 'Weiter',
+    finish: 'Los geht\'s',
+    skip: 'Vorerst überspringen',
+    roles: {
+      analyst: { name: 'Nachhaltigkeitsanalyst', desc: 'IS-Praktiker, LCA/LCC/S-LCA-Prüfer, Methodologe.' },
+      industry: { name: 'Industrieller Betreiber', desc: 'Sie leiten eine Anlage oder einen Standort in einem IS-Netzwerk.' },
+      authority: { name: 'Lokale Behörde', desc: 'Gemeinde, Region, politischer Analyst für das Gebiet.' },
+      community: { name: 'Gemeinschaftsvertreter', desc: 'Verein, NGO, Bürgergruppe des Gastgebiets.' },
+      enduser: { name: 'Endnutzer / Bürger', desc: 'Sie nutzen Produkte oder Dienste aus der Symbiose.' },
+      unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir geben Ihnen eine kuratierte Tour.' },
+    },
+    tasks: {
+      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in 7 Fragen konfigurieren.' },
+      read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
+      explore: { name: 'Region / Sektor erkunden', desc: 'Aggregierte Einblicke für mein Gebiet durchsuchen.' },
+      browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel — ich möchte sehen, was das Tool tut.' },
+    },
+  },
+
   adminShell: {
     searchLabel: 'Suchen',
     searchPlaceholder: 'Fälle, Pathways, Partner suchen… (⌘K)',

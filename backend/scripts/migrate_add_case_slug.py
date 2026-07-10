@@ -63,8 +63,8 @@ def main() -> None:
         print("  · index ix_case_records_slug already present")
 
     # Backfill: assign a slug to every row that currently has NULL.
-    Session = sessionmaker(bind=eng, autoflush=False, future=True)
-    session = Session()
+    session_factory = sessionmaker(bind=eng, autoflush=False, future=True)
+    session = session_factory()
     try:
         pending = session.query(CaseRecord).filter(CaseRecord.slug.is_(None)).all()
         print(f"  · backfilling {len(pending)} row(s) …")

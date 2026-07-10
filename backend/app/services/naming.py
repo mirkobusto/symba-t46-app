@@ -26,7 +26,6 @@ from sqlalchemy.orm import Session as OrmSession
 from app.domain.models import Case
 from app.models import CaseRecord
 
-
 _SECTOR_ABBREV: dict[str, str] = {
     "agriculture_agrifood_biorefineries": "agri",
     "biobased_polymers": "biopoly",

@@ -37,6 +37,7 @@ class PublicReport(BaseModel):
     """
 
     id: str
+    slug: str | None
     name: str
     pathway_id: str | None
     created_at: datetime
@@ -46,13 +47,13 @@ class PublicReport(BaseModel):
 
 
 def _find_case(db: OrmSession, key: str) -> CaseRecord | None:
-    """Look up a case by primary key first, then by name (used as a
-    stopgap slug until Phase 8 introduces the real slug column)."""
-    rec = db.get(CaseRecord, key)
+    """Look up a case by slug first (canonical for share URLs), then
+    fall back to the primary key (in case the caller has the UUID)."""
+    stmt = select(CaseRecord).where(CaseRecord.slug == key).limit(1)
+    rec = db.execute(stmt).scalar_one_or_none()
     if rec is not None:
         return rec
-    stmt = select(CaseRecord).where(CaseRecord.name == key).limit(1)
-    return db.execute(stmt).scalar_one_or_none()
+    return db.get(CaseRecord, key)
 
 
 @router.get("/report/{key}", response_model=PublicReport)
@@ -73,6 +74,7 @@ def public_report(
 
     return PublicReport(
         id=rec.id,
+        slug=rec.slug,
         name=rec.name,
         pathway_id=rec.pathway_id,
         created_at=rec.created_at,

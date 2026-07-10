@@ -18,20 +18,21 @@ type Audience = (typeof AUDIENCES)[number]
 
 interface Props {
   caseId?: string | null
+  caseSlug?: string | null
   onClose: () => void
 }
 
-export default function ShareReportModal({ caseId, onClose }: Props) {
+export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
   const { t } = useTranslation()
   const pushToast = useToastStore((s) => s.push)
   const [copied, setCopied] = useState<Audience | null>(null)
 
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  const canShare = !!caseId
+  const key = caseSlug ?? caseId ?? null
+  const canShare = !!key
 
   function urlFor(audience: Audience): string {
-    const key = caseId ?? 'CASE_ID'
-    return `${origin}/r/${key}/${audience}`
+    return `${origin}/r/${key ?? 'CASE_ID'}/${audience}`
   }
 
   async function handleCopy(audience: Audience) {

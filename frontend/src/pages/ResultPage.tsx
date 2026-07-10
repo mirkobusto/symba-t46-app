@@ -37,6 +37,7 @@ export default function ResultPage() {
   const [downloadingReport, setDownloadingReport] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
   const [savingCase, setSavingCase] = useState(false)
+  const [savedSlug, setSavedSlug] = useState<string | null>(null)
 
   async function handleSaveCase() {
     const name = window.prompt(
@@ -48,7 +49,8 @@ export default function ResultPage() {
     try {
       // Save the result Case (post-pipeline) so pathway_id + engine
       // output are persisted along with the inputs.
-      await createCase(name, result ?? draft)
+      const saved = await createCase(name, result ?? draft)
+      if (saved.slug) setSavedSlug(saved.slug)
       pushToast({
         type: 'success',
         message: t('cases.saveSuccess', { name }),
@@ -326,6 +328,7 @@ export default function ResultPage() {
       {shareOpen ? (
         <ShareReportModal
           caseId={result?.id ?? null}
+          caseSlug={savedSlug}
           onClose={() => setShareOpen(false)}
         />
       ) : null}

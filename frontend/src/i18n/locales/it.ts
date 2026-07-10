@@ -35,6 +35,28 @@ const it: Locale = {
     shortcutsHint: 'Premi {{key}} per le scorciatoie',
   },
 
+  adminShell: {
+    searchLabel: 'Cerca',
+    searchPlaceholder: 'Cerca casi, pathway, partner… (⌘K)',
+    footerGa: 'GA',
+    footerProgramme: 'Horizon Europe · M22–M36',
+    groups: {
+      workspace: 'Workspace',
+      reports: 'Report',
+      system: 'Sistema',
+    },
+    nav: {
+      home: 'Home',
+      questionnaire: 'Nuova valutazione',
+      cases: 'I miei casi',
+      recentResult: 'Ultimo risultato',
+      stakeholder: 'Report stakeholder',
+      aggregate: 'Dashboard regionale',
+      dcf: 'Data Collection File',
+      about: 'Info',
+    },
+  },
+
   health: {
     backendLabel: 'Backend',
     checking: 'verifica',

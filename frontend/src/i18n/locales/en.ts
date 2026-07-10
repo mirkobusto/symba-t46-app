@@ -29,6 +29,28 @@ const en = {
     shortcutsHint: 'Press {{key}} for shortcuts',
   },
 
+  adminShell: {
+    searchLabel: 'Search',
+    searchPlaceholder: 'Search cases, pathways, partners… (⌘K)',
+    footerGa: 'GA',
+    footerProgramme: 'Horizon Europe · M22–M36',
+    groups: {
+      workspace: 'Workspace',
+      reports: 'Reports',
+      system: 'System',
+    },
+    nav: {
+      home: 'Home',
+      questionnaire: 'New assessment',
+      cases: 'My cases',
+      recentResult: 'Recent result',
+      stakeholder: 'Stakeholder views',
+      aggregate: 'Regional dashboard',
+      dcf: 'Data Collection File',
+      about: 'About',
+    },
+  },
+
   eu: {
     fundingStatement:
       "This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562.",

@@ -35,6 +35,28 @@ const fr: Locale = {
     shortcutsHint: 'Appuyez sur {{key}} pour les raccourcis',
   },
 
+  adminShell: {
+    searchLabel: 'Rechercher',
+    searchPlaceholder: 'Rechercher des cas, pathways, partenaires… (⌘K)',
+    footerGa: 'GA',
+    footerProgramme: 'Horizon Europe · M22–M36',
+    groups: {
+      workspace: 'Espace de travail',
+      reports: 'Rapports',
+      system: 'Système',
+    },
+    nav: {
+      home: 'Accueil',
+      questionnaire: 'Nouvelle évaluation',
+      cases: 'Mes cas',
+      recentResult: 'Résultat récent',
+      stakeholder: 'Rapports parties prenantes',
+      aggregate: 'Tableau de bord régional',
+      dcf: 'Data Collection File',
+      about: 'À propos',
+    },
+  },
+
   health: {
     backendLabel: 'Backend',
     checking: 'vérification',

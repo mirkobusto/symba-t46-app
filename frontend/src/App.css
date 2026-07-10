@@ -2166,3 +2166,354 @@ kbd {
 .layout-login-link:hover {
   background: var(--primary-hover);
 }
+
+/* ==========================================================================
+ * Data Dashboard shell (Phase 2 · AdminShell + Sidebar + Topbar)
+ * ==========================================================================
+ * All new styles namespaced under `.dd-*` so they never leak into legacy
+ * pages (Phases A–D pages keep rendering with the old .layout-* /
+ * .dcf-* / .stakeholder-* / .aggregate-* classes).
+ */
+
+.dd-app {
+  display: grid;
+  grid-template-columns: var(--dd-sidebar-width) 1fr;
+  min-height: 100svh;
+  background: var(--dd-bg);
+  color: var(--dd-text);
+  font-family: var(--dd-font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.dd-app-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* prevents inner children from overflowing the grid track */
+}
+
+/* ---- Sidebar ------------------------------------------------------------ */
+
+.dd-sidebar {
+  background: var(--dd-sidebar);
+  color: var(--dd-sidebar-text);
+  padding: 20px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--dd-sidebar-border);
+}
+
+.dd-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px 22px;
+  border-bottom: 1px solid var(--dd-sidebar-border);
+  margin-bottom: 16px;
+}
+
+.dd-sidebar-brand-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--dd-accent);
+  color: #fff;
+  border-radius: var(--dd-radius);
+  display: grid;
+  place-items: center;
+  font-family: var(--dd-font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.dd-sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dd-sidebar-brand-name {
+  color: var(--dd-sidebar-text-strong);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.dd-sidebar-brand-sub {
+  color: var(--dd-sidebar-muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.dd-sidebar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dd-sidebar-group-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--dd-sidebar-muted);
+  padding: 18px 10px 6px;
+  font-weight: 600;
+}
+
+.dd-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  color: var(--dd-sidebar-text);
+  font-size: 13px;
+  text-decoration: none;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+.dd-sidebar-link:hover {
+  background: var(--dd-sidebar-active);
+  color: var(--dd-sidebar-text-strong);
+}
+
+.dd-sidebar-link-active {
+  background: var(--dd-sidebar-active);
+  color: var(--dd-sidebar-text-strong);
+  font-weight: 500;
+}
+
+.dd-sidebar-glyph {
+  width: 16px;
+  text-align: center;
+  opacity: 0.7;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.dd-sidebar-link-active .dd-sidebar-glyph {
+  opacity: 1;
+}
+
+.dd-sidebar-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dd-sidebar-foot {
+  margin-top: auto;
+  padding: 12px 10px 4px;
+  font-size: 11px;
+  color: var(--dd-sidebar-muted);
+  line-height: 1.5;
+}
+
+.dd-sidebar-foot a {
+  color: var(--dd-accent);
+  text-decoration: none;
+}
+
+.dd-sidebar-foot a:hover {
+  color: #7fd39a;
+  text-decoration: underline;
+}
+
+.dd-sidebar-foot-meta {
+  color: #4b5563;
+  margin-top: 4px;
+}
+
+/* ---- Topbar ------------------------------------------------------------- */
+
+.dd-topbar {
+  background: var(--dd-surface);
+  border-bottom: 1px solid var(--dd-border);
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--dd-topbar-height);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dd-topbar-search {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+}
+
+.dd-topbar-search::before {
+  content: "⌕";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dd-text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.dd-topbar-search input {
+  width: 100%;
+  padding: 7px 12px 7px 32px;
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  font-family: inherit;
+  font-size: 13px;
+  background: var(--dd-bg);
+  color: var(--dd-text);
+}
+
+.dd-topbar-search input:focus {
+  outline: none;
+  box-shadow: var(--dd-focus-ring);
+  border-color: var(--dd-brand);
+}
+
+.dd-topbar-search input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.dd-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.dd-topbar-pill {
+  background: var(--dd-bg);
+  border: 1px solid var(--dd-border);
+  padding: 4px 10px;
+  border-radius: var(--dd-radius);
+  color: var(--dd-text-soft);
+  font-size: 12px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dd-topbar-lang {
+  display: inline-flex;
+  align-items: center;
+}
+
+.dd-topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  border-radius: var(--dd-radius);
+  border: 1px solid transparent;
+}
+
+.dd-topbar-avatar {
+  width: 28px;
+  height: 28px;
+  background: var(--dd-brand);
+  color: #fff;
+  border-radius: var(--dd-radius);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.dd-topbar-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.dd-topbar-user-email {
+  font-size: 13px;
+  color: var(--dd-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.dd-topbar-user-role {
+  font-family: var(--dd-font-mono);
+  font-size: 10px;
+  color: var(--dd-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dd-topbar-logout {
+  background: transparent;
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--dd-text-soft);
+  cursor: pointer;
+}
+
+.dd-topbar-logout:hover {
+  border-color: var(--dd-brand);
+  color: var(--dd-brand);
+}
+
+.dd-topbar-signin {
+  background: var(--dd-brand);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: var(--dd-radius);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.dd-topbar-signin:hover {
+  background: var(--dd-brand-strong);
+}
+
+/* ---- Main content ------------------------------------------------------- */
+
+.dd-main {
+  flex: 1 1 auto;
+  padding: 24px 32px 40px;
+  min-width: 0;
+}
+
+/* Responsive: on narrow viewports, collapse the sidebar into a static
+   block above the content (keeps the app usable on tablet portrait). */
+@media (max-width: 900px) {
+  .dd-app {
+    grid-template-columns: 1fr;
+  }
+  .dd-sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--dd-sidebar-border);
+  }
+  .dd-sidebar-brand {
+    border-bottom: none;
+    padding-bottom: 12px;
+    margin-bottom: 8px;
+  }
+  .dd-main {
+    padding: 20px 20px 32px;
+  }
+  .dd-topbar {
+    padding: 8px 16px;
+  }
+}

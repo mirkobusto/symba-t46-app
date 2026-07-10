@@ -146,9 +146,13 @@ export default function QuestionnairePage() {
   const mode = usePreferenceStore((s) => s.mode)
 
   return (
-    <div className={`questionnaire questionnaire-mode-${mode}`}>
-      <h1>{t('questionnaire.title')}</h1>
-      <p className="muted">{t('questionnaire.intro')}</p>
+    <div className={`dd-page questionnaire questionnaire-mode-${mode}`}>
+      <div className="dd-page-head">
+        <div>
+          <h1 className="dd-page-title">{t('questionnaire.title')}</h1>
+          <p className="dd-page-sub">{t('questionnaire.intro')}</p>
+        </div>
+      </div>
 
       {mode === 'guided' ? (
         <div className="guided-banner" role="note">

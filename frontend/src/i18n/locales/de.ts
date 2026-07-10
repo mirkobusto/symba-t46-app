@@ -113,6 +113,20 @@ const de: Locale = {
       expert: 'Schneller Fragebogen für IS-Analysten und Prüfer, die mit der ILCD / LCSA-Terminologie vertraut sind.',
       guided: 'Schritt-für-Schritt-Modus für Industrielle, Gemeindevertreter und politische Entscheidungsträger. Beispiele sind standardmäßig erweitert.',
     },
+    hero: { title: 'Neue IS-Bewertung starten' },
+    openCasesLink: 'Oder gespeicherten Fall öffnen',
+    kpi: {
+      savedCases: 'Gespeicherte Fälle',
+      savedCasesDetail: 'alle Nutzer',
+      withPathway: 'Mit Pathway',
+      withPathwayDetail: '{{total}} insgesamt',
+      uniquePathways: 'Eindeutige Pathways',
+      uniquePathwaysDetail: 'IS-01 … IS-05',
+      language: 'Verfügbar in',
+      languageDetail: '5 Sprachen',
+    },
+    presetsTitle: 'Validierte Fallstudien',
+    presetsMeta: '13 Fixtures aus peer-reviewten Artikeln',
   },
 
   about: {

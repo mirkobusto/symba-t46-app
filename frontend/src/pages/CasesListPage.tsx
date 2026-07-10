@@ -71,9 +71,9 @@ export default function CasesListPage() {
   }
 
   return (
-    <div className="result">
-      <h1>{t('cases.title')}</h1>
-      <p className="muted">{t('cases.intro')}</p>
+    <div className="dd-page">
+      <h1 className="dd-page-title">{t('cases.title')}</h1>
+      <p className="dd-page-sub">{t('cases.intro')}</p>
 
       <div style={{ margin: '8px 0 16px' }}>
         <Link to="/aggregate" className="btn btn-secondary">

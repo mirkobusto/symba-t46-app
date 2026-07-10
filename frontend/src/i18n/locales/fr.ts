@@ -113,6 +113,20 @@ const fr: Locale = {
       expert: "Questionnaire rapide pour les analystes IS et relecteurs familiers avec la terminologie ILCD / LCSA.",
       guided: "Mode pas-à-pas pour les industriels, représentants de communautés et décideurs. Les exemples sont développés par défaut.",
     },
+    hero: { title: 'Démarrer une nouvelle évaluation IS' },
+    openCasesLink: 'Ou ouvrir un cas sauvegardé',
+    kpi: {
+      savedCases: 'Cas sauvegardés',
+      savedCasesDetail: 'tous utilisateurs confondus',
+      withPathway: 'Avec pathway',
+      withPathwayDetail: '{{total}} au total',
+      uniquePathways: 'Pathways uniques',
+      uniquePathwaysDetail: 'IS-01 … IS-05',
+      language: 'Disponible en',
+      languageDetail: '5 langues',
+    },
+    presetsTitle: 'Études de cas validées',
+    presetsMeta: '13 fixtures issues d\'articles peer-reviewed',
   },
 
   about: {

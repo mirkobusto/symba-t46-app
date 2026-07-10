@@ -115,6 +115,22 @@ const en = {
       expert: 'Fast questionnaire for IS analysts and reviewers familiar with ILCD / LCSA terminology.',
       guided: 'Step-by-step mode for industrial managers, community representatives and policymakers. Examples are expanded by default and an intro banner explains the questionnaire flow.',
     },
+    hero: {
+      title: 'Start a new IS assessment',
+    },
+    openCasesLink: 'Or open a saved case',
+    kpi: {
+      savedCases: 'Saved cases',
+      savedCasesDetail: 'across all users',
+      withPathway: 'With pathway',
+      withPathwayDetail: '{{total}} total',
+      uniquePathways: 'Unique pathways',
+      uniquePathwaysDetail: 'IS-01 … IS-05',
+      language: 'Available in',
+      languageDetail: '5 UI languages',
+    },
+    presetsTitle: 'Validated case studies',
+    presetsMeta: '13 fixtures from peer-reviewed papers',
   },
 
   about: {

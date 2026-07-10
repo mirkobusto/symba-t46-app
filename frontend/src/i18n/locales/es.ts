@@ -113,6 +113,20 @@ const es: Locale = {
       expert: 'Cuestionario rápido para analistas IS y revisores familiarizados con la terminología ILCD / LCSA.',
       guided: 'Modo paso a paso para industriales, representantes comunitarios y responsables políticos. Los ejemplos están expandidos por defecto.',
     },
+    hero: { title: 'Iniciar una nueva evaluación IS' },
+    openCasesLink: 'O abrir un caso guardado',
+    kpi: {
+      savedCases: 'Casos guardados',
+      savedCasesDetail: 'de todos los usuarios',
+      withPathway: 'Con pathway',
+      withPathwayDetail: '{{total}} en total',
+      uniquePathways: 'Pathways únicos',
+      uniquePathwaysDetail: 'IS-01 … IS-05',
+      language: 'Disponible en',
+      languageDetail: '5 idiomas',
+    },
+    presetsTitle: 'Casos de estudio validados',
+    presetsMeta: '13 fixtures de artículos peer-reviewed',
   },
 
   about: {

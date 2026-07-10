@@ -148,27 +148,25 @@ export default function DataCollectionPage() {
   }
 
   return (
-    <div className="dcf-page">
+    <div className="dd-page dcf-page">
       <div className="dcf-header">
-        <h1>{t('dcf.title')}</h1>
-        <p className="dcf-subtitle">{t('dcf.subtitle')}</p>
-        <div className="dcf-badges">
-          <span className="dcf-badge">
+        <h1 className="dd-page-title">{t('dcf.title')}</h1>
+        <p className="dd-page-sub">{t('dcf.subtitle')}</p>
+        <div className="dcf-badges" style={{ marginTop: 12 }}>
+          <span className="dd-pill dd-pill-brand">
             <strong>Pathway:</strong> {payload.pathway_id ?? '—'}
           </span>
-          <span className="dcf-badge">
+          <span className="dd-pill dd-pill-brand">
             <strong>ILCD:</strong> {payload.ilcd_situation ?? '—'}
           </span>
-          <span className="dcf-badge">
+          <span className="dd-pill dd-pill-brand">
             <strong>LCC:</strong> {payload.lcc_type ?? '—'}
           </span>
-          <span className="dcf-badge">
+          <span className="dd-pill dd-pill-brand">
             <strong>S-LCA:</strong> {payload.slca_activation_state ?? '—'}
           </span>
           {payload.is_01_extended ? (
-            <span className="dcf-badge dcf-badge-info">
-              IS-01 extended
-            </span>
+            <span className="dd-pill dd-pill-accent">IS-01 extended</span>
           ) : null}
         </div>
       </div>

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import KpiCard from '../components/dd/KpiCard'
 import { ApiError, fetchCasesAggregate } from '../services/api'
 import type { AggregateBreakdownEntry, CasesAggregate } from '../types/scoring'
 
@@ -98,14 +99,32 @@ export default function AggregatePage() {
   }
 
   return (
-    <div className="aggregate-page">
-      <div className="aggregate-header">
-        <h1>{t('aggregate.title')}</h1>
-        <p className="aggregate-subtitle">{t('aggregate.subtitle')}</p>
-        <div className="aggregate-total">
-          <span className="aggregate-total-label">{t('aggregate.totalLabel')}</span>
-          <span className="aggregate-total-value">{data.total}</span>
+    <div className="dd-page aggregate-page">
+      <div className="dd-page-head">
+        <div>
+          <h1 className="dd-page-title">{t('aggregate.title')}</h1>
+          <p className="dd-page-sub">{t('aggregate.subtitle')}</p>
         </div>
+      </div>
+
+      <div className="dd-kpi-strip">
+        <KpiCard
+          label={t('aggregate.totalLabel')}
+          value={data.total}
+          tone="info"
+        />
+        <KpiCard
+          label={t('aggregate.breakdownTitle.byPathway')}
+          value={data.by_pathway.length}
+        />
+        <KpiCard
+          label={t('aggregate.breakdownTitle.bySector')}
+          value={data.by_q6a_sector.length}
+        />
+        <KpiCard
+          label={t('aggregate.breakdownTitle.byScope')}
+          value={data.by_q7_geographic_scope.length}
+        />
       </div>
 
       <div className="aggregate-breakdowns">

@@ -1,9 +1,6 @@
 """Integration tests for /api/scoring/* endpoints."""
 from __future__ import annotations
 
-from datetime import datetime
-
-
 WIKTOR_BODY = {
     "q1": "B",
     "q2": "D",

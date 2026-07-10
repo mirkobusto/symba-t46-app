@@ -29,7 +29,6 @@ from app.engine.pipeline import run as pipeline_run
 from app.services.dcf_docx import generate_dcf_docx_bytes
 from app.services.dcf_excel import render_xlsx
 
-
 router = APIRouter(tags=["dcf"])
 
 XLSX_MIME = (

@@ -13,19 +13,22 @@ from pathlib import Path
 import pytest
 
 from app.domain.enums import (
-    Q1, Q2, Q4, Q5, Q7,
-    Q6a, Q6b,
+    Q1,
+    Q2,
+    Q4,
+    Q5,
+    Q7,
+    Q6a,
+    Q6b,
 )
-from app.domain.models import Case, Flow, Q3
+from app.domain.models import Q3, Case, Flow
 from app.engine.dcf_compose import (
     DcfFieldDescriptor,
     DcfMandate,
     DcfPayload,
-    DcfSection,
     compose_dcf,
 )
 from app.engine.pipeline import run as pipeline_run
-
 
 # ---------------------------------------------------------------------------
 # Module-level fixtures

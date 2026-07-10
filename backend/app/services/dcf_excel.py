@@ -28,7 +28,6 @@ from openpyxl.utils import get_column_letter
 
 from app.engine.dcf_compose import DcfPayload, DcfSection
 
-
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------

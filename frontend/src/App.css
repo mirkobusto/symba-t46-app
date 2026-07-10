@@ -125,34 +125,13 @@ html {
   font-variant-numeric: tabular-nums;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #5e9bd1;
-    --primary-hover: #82b3dc;
-    --primary-bg: rgba(94, 155, 209, 0.18);
-    --accent: #6cba7a;
-    --accent-hover: #8acc97;
-    --accent-bg: rgba(108, 186, 122, 0.18);
-    --success: #6cba7a;
-    --warning-bg: rgba(245, 158, 11, 0.18);
-    --warning-border: #f59e0b;
-    --warning-text: #fde68a;
-    --error: #f87171;
-    --error-bg: rgba(220, 38, 38, 0.18);
-    --error-border: #f87171;
-    --slate-50: #1e2230;
-    --slate-100: #252a39;
-    --slate-200: #2e3445;
-    --slate-300: #3d4459;
-    --slate-500: #94a3b8;
-    --slate-600: #cbd5e1;
-    --slate-700: #e2e8f0;
-    --slate-800: #f1f5f9;
-    --surface: #16171d;
-    --surface-muted: #1c1e26;
-    --surface-input: #1f2230;
-  }
-}
+/* Legacy dark-mode override — DISABLED as of the visual-identity
+   rework. The Data Dashboard shell is light-only by design (the dark
+   surface lives only in the sidebar). Keeping the block would flip
+   .metric-* / .reasoning-* / .qcard-* colors under
+   `prefers-color-scheme: dark`, producing dark-on-dark unreadable
+   text as reported in Phase 9 QA. Re-enable only when a matching
+   dark palette exists for the .dd-* tokens too. */
 
 /* ---- Layout ---------------------------------------------------------- */
 

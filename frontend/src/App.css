@@ -3501,3 +3501,130 @@ kbd {
   flex-wrap: wrap;
   margin-top: 8px;
 }
+
+/* ==========================================================================
+ * ReaderShell (Phase 6 · public share URLs, light + mobile-first)
+ * ========================================================================== */
+
+.dd-reader {
+  min-height: 100svh;
+  background: var(--dd-bg);
+  color: var(--dd-text);
+  font-family: var(--dd-font-sans);
+  display: flex;
+  flex-direction: column;
+}
+
+.dd-reader-header {
+  background: var(--dd-surface);
+  border-bottom: 1px solid var(--dd-border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dd-reader-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dd-reader-brand-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--dd-accent);
+  color: #fff;
+  border-radius: var(--dd-radius);
+  display: grid;
+  place-items: center;
+  font-family: var(--dd-font-mono);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.dd-reader-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.dd-reader-brand-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--dd-brand);
+  letter-spacing: 0.02em;
+}
+
+.dd-reader-brand-sub {
+  font-size: 11px;
+  color: var(--dd-text-muted);
+  margin-top: 1px;
+}
+
+.dd-reader-main {
+  flex: 1 1 auto;
+  padding: 32px 20px 40px;
+}
+
+.dd-reader-article {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dd-reader-article h1 {
+  font-size: 30px;
+  letter-spacing: -0.5px;
+  margin: 0;
+  color: var(--dd-text);
+}
+
+.dd-reader-article h2.dd-section-title {
+  font-size: 17px;
+  margin-top: 8px;
+}
+
+.dd-reader-article p {
+  margin: 0;
+  color: var(--dd-text-soft);
+  line-height: 1.55;
+}
+
+.dd-reader-eyebrow {
+  font-family: var(--dd-font-mono);
+  font-size: 11px;
+  color: var(--dd-accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dd-reader-audience {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  padding: 3px;
+}
+
+.dd-reader-audience .dd-tab {
+  text-decoration: none;
+  flex: 1 1 auto;
+  min-width: 88px;
+  justify-content: center;
+}
+
+.dd-reader-note {
+  font-size: 12px;
+  color: var(--dd-text-muted);
+  text-align: center;
+  padding: 12px 0 4px;
+}

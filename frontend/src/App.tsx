@@ -12,6 +12,9 @@ import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
 import ScenariosResultPage from './pages/ScenariosResultPage'
 import StakeholderReportPage from './pages/StakeholderReportPage'
+import PublicAboutPage from './pages/reader/PublicAboutPage'
+import PublicRegionPage from './pages/reader/PublicRegionPage'
+import PublicReportPage from './pages/reader/PublicReportPage'
 import WelcomePage from './pages/WelcomePage'
 import { usePreferenceStore } from './store/preferenceStore'
 import './App.css'
@@ -42,6 +45,13 @@ export default function App() {
           <Routes>
             <Route path="/welcome" element={<WelcomePage />} />
             <Route element={<Layout />}>
+              {/* Reader shell (public share URLs, no auth) */}
+              <Route path="/r/about" element={<PublicAboutPage />} />
+              <Route path="/r/region/:code" element={<PublicRegionPage />} />
+              <Route path="/r/:caseId/:audience" element={<PublicReportPage />} />
+              <Route path="/r/:caseId" element={<PublicReportPage />} />
+
+              {/* Admin shell (analyst / internal) */}
               <Route path="/" element={<HomePage />} />
               <Route path="/questionnaire" element={<QuestionnairePage />} />
               <Route path="/result" element={<ResultPage />} />

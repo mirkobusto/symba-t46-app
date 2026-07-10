@@ -35,6 +35,45 @@ const es: Locale = {
     shortcutsHint: 'Pulsa {{key}} para los atajos',
   },
 
+  reader: {
+    tagline: 'Informe público',
+    loading: 'Cargando el informe…',
+    notFoundTitle: 'Informe no encontrado',
+    notFoundBody: 'El enlace puede estar roto.',
+    aboutLink: 'Conocer SYMBA',
+    eyebrow: 'Informe compartido · {{name}}',
+    summaryTitle: 'Resumen del pathway',
+    summary: { pathway: 'Pathway', ilcd: 'Situación ILCD', lcc: 'Tipo LCC', slca: 'Estado S-LCA', sector: 'Sector', scope: 'Ámbito geográfico' },
+    scoringTitle: 'Scoring',
+    complianceTitle: 'Señales de cumplimiento',
+    compliance: {
+      peer: { name: 'Peer-review', desc: 'Q4 = E · ISO 14044' },
+      pef: { name: 'Alineación EU PEF', desc: 'Q4 = D · Circular Footprint Formula' },
+      public: { name: 'Reclamación pública', desc: 'Q4 = C · panel ISO obligatorio' },
+      dnsh: { name: 'Verificación DNSH', desc: 'EU Taxonomy art. 17' },
+    },
+    audience: {
+      showingFor: 'Vista para — {{name}}',
+      industry: { short: '🏭 Industria', name: 'Industria', title: 'Vista operador', body: 'Vista técnica completa.' },
+      community: { short: '🌳 Comunidad', name: 'Comunidad', title: 'Impacto local', body: 'Calidad ambiental y beneficios sociales.' },
+      authority: { short: '🏛 Autoridad', name: 'Autoridad local', title: 'Vista regulatoria', body: 'Cumplimiento, peer-review, PEF, DNSH.' },
+      enduser: { short: '👤 Usuario', name: 'Usuario final', title: 'Resumen', body: 'Puntos clave.' },
+    },
+    note: 'Este informe se genera con el motor SYMBA T4.6.',
+    about: {
+      eyebrow: 'Acerca de SYMBA T4.6', title: 'Informes públicos', lead: 'Alguien compartió un caso contigo.',
+      whoTitle: '¿Quién está detrás?', whoBody: 'SYMBA es un proyecto Horizon Europe (GA 101135562).',
+      whatTitle: '¿Qué es un informe?', whatBody: 'Describe un caso de simbiosis industrial.',
+      whereTitle: '¿Dónde saber más?', whereBody: 'Visita el sitio del proyecto',
+      enterTool: 'Entrar en la herramienta',
+    },
+    region: {
+      eyebrow: 'Región · {{code}}', title: 'Panel regional', lead: 'Vista agregada.', total: 'Casos', pathways: 'Pathways', sectors: 'Sectores',
+      byPathwayTitle: 'Por pathway', bySectorTitle: 'Por sector', tableKey: 'Valor', tableCount: 'Cantidad',
+      errorTitle: 'Región no disponible', errorBody: 'No se pudieron cargar los datos.',
+    },
+  },
+
   welcome: {
     title: 'Bienvenido a SYMBA T4.6',
     lead: 'Dos preguntas rápidas y te llevamos al lugar adecuado. Puedes cambiar tus respuestas en cualquier momento.',

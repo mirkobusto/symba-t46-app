@@ -13,11 +13,15 @@ from __future__ import annotations
 import pytest
 
 from app.domain.enums import (
-    Q1, Q2, Q4, Q5, Q7,
-    IlcdSituation, LccType, PathwayId, Q6a, Q6b, SlcaActivationState,
+    Q1,
+    Q2,
+    Q4,
+    Q5,
+    Q7,
+    Q6a,
+    Q6b,
 )
-from app.domain.models import Case, Flow, Q3
-from app.engine.loader import load_schemas
+from app.domain.models import Q3, Case, Flow
 from app.engine.pipeline import run as pipeline_run
 from app.engine.predicate import (
     PredicateError,
@@ -25,7 +29,6 @@ from app.engine.predicate import (
     build_context_from_case,
     evaluate,
 )
-
 
 # ---------------------------------------------------------------------------
 # Context fixture — a representative post-pipeline Case

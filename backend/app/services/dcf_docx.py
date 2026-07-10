@@ -19,8 +19,7 @@ from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.shared import Pt, RGBColor
 
-from app.engine.dcf_compose import DcfMandate, DcfPayload, DcfSection
-
+from app.engine.dcf_compose import DcfPayload
 
 EU_FOOTER = (
     "This Project has received funding from the European Union's Horizon "

@@ -20,12 +20,11 @@ from __future__ import annotations
 
 import os
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import bcrypt
 import jwt
-
 
 # ---------------------------------------------------------------------------
 # Password hashing (bcrypt direct)
@@ -94,7 +93,7 @@ def create_access_token(
     ttl_hours: int | None = None,
 ) -> str:
     ttl_hours = ttl_hours or _DEFAULT_TTL_HOURS
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     payload: dict[str, Any] = {
         "sub": sub,
         "email": email,

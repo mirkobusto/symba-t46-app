@@ -139,7 +139,6 @@ def test_owned_case_invisible_to_other_user(client):
         json={"name": "bob-case", "case": WIKTOR_CASE},
     )
     assert create.status_code == 201
-    case_id = create.json()["id"]
 
     # Charlie (new analyst) doesn't see bob's case
     c = _register(client, "charlie@example.eu")

@@ -1,5 +1,11 @@
 # _CURRENT_STATE — SYMBA T4.6 IS Assessment App
 
+> **SUPERSEDED (2026-08-29).** Questo file è congelato allo Sprint 0/1
+> (genesi, maggio 2026) e non è più aggiornato: lo stato corrente del
+> progetto vive in `CLAUDE.md` (sezione "Contesto del progetto" →
+> cronologia + lavoro aperto) e nella cronologia delle PR su GitHub.
+> Resta qui come traccia storica del bootstrap coordination-driven.
+
 **Ultimo aggiornamento**: 2026-05-07 (genesi)
 **Sprint corrente**: Sprint 0 (review Kimi) + Sprint 1 (scaffold) in parallelo
 **Ramo principale**: `main`

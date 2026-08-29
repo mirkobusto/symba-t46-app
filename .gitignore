@@ -55,3 +55,7 @@ frontend/.vite/
 
 # Auto-generated deliverables (regenerable from fixtures + engine)
 deliverables/**/*.docx
+
+# Presentation build output (regenerable: python docs/presentation/build_deck.py)
+docs/presentation/*.pptx
+docs/*.zip

@@ -255,4 +255,57 @@ describe('dcfDataStore', () => {
     expect(state.data.case_id).toBe('case-9')
     expect(state.dirty).toBe(true)
   })
+
+  it('loadExample drops in three actors and two wired flows', () => {
+    useDcfDataStore.getState().loadExample(payloadWith(FULL_FLOW_FIELDS), {
+      producer: 'Producer plant',
+      consumer: 'Receiving plant',
+      facilitator: 'Park operator',
+      flow: 'Example flow',
+    })
+
+    const state = useDcfDataStore.getState()
+    const actors = state.data.rows_by_section[ACTORS_SECTION]
+    const flows = state.data.rows_by_section[FLOW_MATRIX_SECTION]
+    expect(actors).toHaveLength(3)
+    expect(actors[0].values['actor.name']).toBe('Producer plant')
+    expect(flows).toHaveLength(2)
+    expect(flows[0].values['flow.origin_actor_id']).toBe('ex-a1')
+    expect(flows[0].values['flow.dest_actor_id']).toBe('ex-a2')
+    expect(Object.keys(state.data.layout)).toHaveLength(3)
+    expect(state.dirty).toBe(true)
+  })
+
+  it('the example only fills fields the pathway activated', () => {
+    // no flow.unit in this payload -> the example must not invent one,
+    // or the very first save would come back 422 field_not_active
+    useDcfDataStore.getState().loadExample(
+      payloadWith(FULL_FLOW_FIELDS.filter((f) => f !== 'flow.unit')),
+      { producer: 'P', consumer: 'C', facilitator: 'F', flow: 'flow' },
+    )
+    const flows = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
+    expect(flows[0].values['flow.unit']).toBeUndefined()
+    expect(flows[0].values['flow.name']).toBe('flow 1')
+  })
+
+  it('loading the example keeps the Q5 flows but unwires them', () => {
+    const p = payloadWith(FULL_FLOW_FIELDS)
+    const store = useDcfDataStore.getState()
+    store.syncWithPayload(p, CASE_FLOWS)
+    const a1 = useDcfDataStore.getState().addActor('A')
+    const a2 = useDcfDataStore.getState().addActor('B')
+    useDcfDataStore.getState().connect(a1, a2) // wires the seeded f1
+
+    useDcfDataStore.getState().loadExample(p, {
+      producer: 'P', consumer: 'C', facilitator: 'F', flow: 'flow',
+    })
+
+    const flows = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
+    const seeded = flows.filter((r) => !r.row_id.startsWith('ex-'))
+    expect(seeded.map((r) => r.row_id)).toEqual(['f1', 'f2'])
+    // f1 pointed at an actor the example replaced: a dangling reference
+    // would be a 422 on save, so it comes back unwired.
+    expect(seeded[0].values['flow.origin_actor_id']).toBeUndefined()
+    expect(seeded[0].values['flow.name']).toBe('sludge')
+  })
 })

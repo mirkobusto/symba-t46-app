@@ -654,6 +654,26 @@ const fr: Locale = {
   },
 
   networkBuilder: {
+    loadExample: 'Charger un exemple',
+    exampleReplaceConfirm:
+      "Cela remplace le réseau actuellement sur le canevas par l'exemple. Continuer ?",
+    whyAsked: 'Demandé parce que :',
+    hint: {
+      step1: "Ajoutez un acteur par participant à la symbiose — une usine, un service public, une commune.",
+      step2: "Faites glisser du bord d'un nœud vers un autre pour les relier : cette flèche est une ligne de la matrice des flux.",
+      step3: 'Sélectionnez un nœud ou une flèche et remplissez ses champs dans le panneau latéral. Seuls les champs utiles à votre parcours sont affichés.',
+      dismiss: "J'ai compris",
+    },
+    empty: {
+      title: "Rien n'a encore été dessiné",
+      body: "Ajoutez votre premier acteur, ou chargez un exemple avec trois acteurs et deux flux pour voir comment un réseau se construit.",
+    },
+    example: {
+      producer: 'Usine productrice',
+      consumer: 'Usine réceptrice',
+      facilitator: 'Gestionnaire du parc industriel',
+      flow: 'Flux exemple',
+    },
     title: 'Éditeur de réseau',
     subtitle:
       "Dessinez le réseau de symbiose : chaque nœud est un acteur, chaque flèche une ligne de la matrice des flux. Ce que vous dessinez ici alimente l'Excel et le rapport.",

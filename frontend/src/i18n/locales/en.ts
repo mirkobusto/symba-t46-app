@@ -703,6 +703,26 @@ const en = {
   },
 
   networkBuilder: {
+    loadExample: 'Load example',
+    exampleReplaceConfirm:
+      'This replaces the network currently on the canvas with the example. Continue?',
+    whyAsked: 'Asked because:',
+    hint: {
+      step1: 'Add one actor per participant in the symbiosis — a plant, a utility, a municipality.',
+      step2: 'Drag from the edge of a node to another to connect them: that arrow is a row of the flow matrix.',
+      step3: 'Select a node or an arrow and fill its fields in the side panel. Only the fields your pathway needs are shown.',
+      dismiss: 'Got it',
+    },
+    empty: {
+      title: 'Nothing drawn yet',
+      body: 'Add your first actor, or load a worked example with three actors and two flows to see how a network is put together.',
+    },
+    example: {
+      producer: 'Producer plant',
+      consumer: 'Receiving plant',
+      facilitator: 'Industrial park operator',
+      flow: 'Example flow',
+    },
     title: 'Network builder',
     subtitle:
       'Draw the symbiosis network: every node is an actor, every arrow a row of the flow matrix. What you draw here is what the Excel and the report will carry.',

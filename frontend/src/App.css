@@ -3899,3 +3899,67 @@ kbd {
   flex-wrap: wrap;
   margin-bottom: var(--dd-space-3);
 }
+
+/* ---- Network builder guidance ---------------------------------------- */
+
+.nb-hint {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--dd-space-4);
+  background: var(--dd-brand-bg);
+  border-radius: var(--dd-radius);
+  padding: var(--dd-space-3) var(--dd-space-4);
+}
+
+.nb-hint ol {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--dd-text-soft);
+}
+
+.nb-hint-dismiss {
+  flex: none;
+  background: none;
+  border: none;
+  color: var(--dd-brand);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.nb-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dd-space-3);
+  text-align: center;
+  background: var(--dd-surface);
+  border: 1px dashed var(--dd-border-strong);
+  border-radius: var(--dd-radius-lg);
+  min-height: 460px;
+  padding: var(--dd-space-8);
+}
+
+.nb-empty h3 { margin: 0; font-size: 16px; }
+.nb-empty p { margin: 0; max-width: 46ch; color: var(--dd-text-soft); font-size: 13px; }
+.nb-empty-actions { display: flex; gap: var(--dd-space-2); flex-wrap: wrap; justify-content: center; }
+
+.nb-field-why {
+  font-size: 11px;
+  color: var(--dd-text-muted);
+}
+
+.nb-field-why code {
+  font-family: var(--dd-font-mono);
+  font-size: 10px;
+  background: var(--dd-surface-muted);
+  padding: 1px 4px;
+  border-radius: var(--dd-radius-sm);
+}

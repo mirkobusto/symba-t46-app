@@ -683,6 +683,26 @@ const it: Locale = {
   },
 
   networkBuilder: {
+    loadExample: 'Carica esempio',
+    exampleReplaceConfirm:
+      'Questo sostituisce la rete attualmente sul canvas con l\'esempio. Procedo?',
+    whyAsked: 'Richiesto perché:',
+    hint: {
+      step1: 'Aggiungi un attore per ogni partecipante alla simbiosi — un impianto, una utility, un comune.',
+      step2: 'Trascina dal bordo di un nodo a un altro per collegarli: quella freccia è una riga della flow matrix.',
+      step3: 'Seleziona un nodo o una freccia e compila i campi nel pannello laterale. Vedi solo i campi che servono al tuo pathway.',
+      dismiss: 'Ho capito',
+    },
+    empty: {
+      title: 'Non hai ancora disegnato niente',
+      body: 'Aggiungi il primo attore, oppure carica un esempio con tre attori e due flussi per vedere com\'è fatta una rete.',
+    },
+    example: {
+      producer: 'Impianto produttore',
+      consumer: 'Impianto ricevente',
+      facilitator: 'Gestore area industriale',
+      flow: 'Flusso di esempio',
+    },
     title: 'Editor di rete',
     subtitle:
       'Disegna la rete di simbiosi: ogni nodo è un attore, ogni freccia una riga della flow matrix. Quello che disegni qui è quello che finirà nell\'Excel e nel report.',

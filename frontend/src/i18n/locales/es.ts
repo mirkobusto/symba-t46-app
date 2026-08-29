@@ -649,6 +649,26 @@ const es: Locale = {
   },
 
   networkBuilder: {
+    loadExample: 'Cargar ejemplo',
+    exampleReplaceConfirm:
+      'Esto sustituye la red que hay ahora en el lienzo por el ejemplo. ¿Continuar?',
+    whyAsked: 'Se pide porque:',
+    hint: {
+      step1: 'Añade un actor por cada participante en la simbiosis — una planta, una utility, un ayuntamiento.',
+      step2: 'Arrastra desde el borde de un nodo hasta otro para conectarlos: esa flecha es una fila de la matriz de flujos.',
+      step3: 'Selecciona un nodo o una flecha y rellena sus campos en el panel lateral. Solo se muestran los campos que necesita tu pathway.',
+      dismiss: 'Entendido',
+    },
+    empty: {
+      title: 'Todavía no has dibujado nada',
+      body: 'Añade tu primer actor, o carga un ejemplo con tres actores y dos flujos para ver cómo se monta una red.',
+    },
+    example: {
+      producer: 'Planta productora',
+      consumer: 'Planta receptora',
+      facilitator: 'Gestor del parque industrial',
+      flow: 'Flujo de ejemplo',
+    },
     title: 'Editor de red',
     subtitle:
       'Dibuja la red de simbiosis: cada nodo es un actor, cada flecha una fila de la matriz de flujos. Lo que dibujes aquí es lo que llevarán el Excel y el informe.',

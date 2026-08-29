@@ -649,6 +649,26 @@ const de: Locale = {
   },
 
   networkBuilder: {
+    loadExample: 'Beispiel laden',
+    exampleReplaceConfirm:
+      'Dies ersetzt das aktuell gezeichnete Netzwerk durch das Beispiel. Fortfahren?',
+    whyAsked: 'Abgefragt, weil:',
+    hint: {
+      step1: 'Fügen Sie je einen Akteur pro Teilnehmer der Symbiose hinzu — ein Werk, einen Versorger, eine Kommune.',
+      step2: 'Ziehen Sie vom Rand eines Knotens zu einem anderen, um sie zu verbinden: dieser Pfeil ist eine Zeile der Flussmatrix.',
+      step3: 'Wählen Sie einen Knoten oder einen Pfeil und füllen Sie die Felder im Seitenpanel aus. Angezeigt werden nur die Felder, die Ihr Pathway benötigt.',
+      dismiss: 'Verstanden',
+    },
+    empty: {
+      title: 'Noch nichts gezeichnet',
+      body: 'Fügen Sie den ersten Akteur hinzu, oder laden Sie ein Beispiel mit drei Akteuren und zwei Flüssen, um den Aufbau eines Netzwerks zu sehen.',
+    },
+    example: {
+      producer: 'Erzeugerwerk',
+      consumer: 'Empfangendes Werk',
+      facilitator: 'Betreiber des Industrieparks',
+      flow: 'Beispielfluss',
+    },
     title: 'Netzwerk-Editor',
     subtitle:
       'Zeichnen Sie das Symbiose-Netzwerk: jeder Knoten ist ein Akteur, jeder Pfeil eine Zeile der Flussmatrix. Was Sie hier zeichnen, landet in der Excel-Datei und im Bericht.',

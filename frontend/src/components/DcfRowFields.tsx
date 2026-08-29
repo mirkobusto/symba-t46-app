@@ -163,6 +163,17 @@ export default function DcfRowFields({
             {field.description_en ? (
               <span className="nb-field-help">{field.description_en}</span>
             ) : null}
+
+            {/* Why this field is being asked. The predicate is the
+                methodological reason the DCF wants it for *this* case —
+                showing it turns an opaque form into a traceable one. */}
+            {field.activation_predicate &&
+            field.activation_predicate !== 'always' ? (
+              <span className="nb-field-why">
+                {t('networkBuilder.whyAsked')}{' '}
+                <code>{field.activation_predicate}</code>
+              </span>
+            ) : null}
           </label>
         )
       })}

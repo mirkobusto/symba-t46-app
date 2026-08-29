@@ -26,6 +26,7 @@ import 'reactflow/dist/style.css'
 import DcfRowFields from './DcfRowFields'
 import { actorNodes, flowEdges, nodeClassName, unwiredFlows } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
+import { usePreferenceStore } from '../store/preferenceStore'
 import type { Case } from '../types/api'
 import type { DcfPayload, DcfSection } from '../types/dcf'
 import {
@@ -46,6 +47,11 @@ interface Selection {
   sectionId: string
   rowId: string
 }
+
+/** Key for the dismissible how-it-works strip. */
+const HINT_ID = 'network-builder'
+
+const HINT_STEPS = ['step1', 'step2', 'step3'] as const
 
 function sectionOf(payload: DcfPayload, id: string): DcfSection | undefined {
   return payload.sections.find((s) => s.id === id)
@@ -74,6 +80,9 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const removeRow = useDcfDataStore((s) => s.removeRow)
   const setPosition = useDcfDataStore((s) => s.setPosition)
   const saveToServer = useDcfDataStore((s) => s.saveToServer)
+  const loadExample = useDcfDataStore((s) => s.loadExample)
+  const hintDismissed = usePreferenceStore((s) => s.dismissedHints[HINT_ID])
+  const dismissHint = usePreferenceStore((s) => s.dismissHint)
 
   const [selection, setSelection] = useState<Selection | null>(null)
 
@@ -132,6 +141,23 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     if (rowId) setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId })
   }
 
+  function handleLoadExample() {
+    // Replacing a network someone drew would be rude; ask first.
+    if (
+      actorRows.length > 0 &&
+      !window.confirm(t('networkBuilder.exampleReplaceConfirm'))
+    ) {
+      return
+    }
+    loadExample(payload, {
+      producer: t('networkBuilder.example.producer'),
+      consumer: t('networkBuilder.example.consumer'),
+      facilitator: t('networkBuilder.example.facilitator'),
+      flow: t('networkBuilder.example.flow'),
+    })
+    setSelection(null)
+  }
+
   const selectedSection = selection ? sectionOf(payload, selection.sectionId) : undefined
   const selectedRow: DcfRow | undefined = selection
     ? (data.rows_by_section[selection.sectionId] ?? []).find(
@@ -153,6 +179,10 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           }}
         >
           {t('networkBuilder.addActor')}
+        </button>
+
+        <button type="button" className="btn btn-secondary" onClick={handleLoadExample}>
+          {t('networkBuilder.loadExample')}
         </button>
 
         <span className="nb-status">
@@ -179,9 +209,51 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         </button>
       </div>
 
+      {hintDismissed ? null : (
+        <div className="nb-hint">
+          <ol>
+            {HINT_STEPS.map((key) => (
+              <li key={key}>{t(`networkBuilder.hint.${key}`)}</li>
+            ))}
+          </ol>
+          <button
+            type="button"
+            className="nb-hint-dismiss"
+            onClick={() => dismissHint(HINT_ID)}
+          >
+            {t('networkBuilder.hint.dismiss')}
+          </button>
+        </div>
+      )}
+
       {error ? <p className="error-text nb-error">{error}</p> : null}
 
       <div className="nb-canvas">
+        {actorRows.length === 0 ? (
+          <div className="nb-empty">
+            <h3>{t('networkBuilder.empty.title')}</h3>
+            <p>{t('networkBuilder.empty.body')}</p>
+            <div className="nb-empty-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  const rowId = addActor()
+                  setSelection({ sectionId: ACTORS_SECTION, rowId })
+                }}
+              >
+                {t('networkBuilder.addActor')}
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleLoadExample}
+              >
+                {t('networkBuilder.loadExample')}
+              </button>
+            </div>
+          </div>
+        ) : (
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -200,6 +272,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           <Background />
           <Controls />
         </ReactFlow>
+        )}
 
         <aside className="nb-panel">
           {selectedSection && selectedRow ? (

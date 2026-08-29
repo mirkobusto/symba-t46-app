@@ -3728,3 +3728,142 @@ kbd {
   .dd-share-item { flex-direction: column; align-items: stretch; }
   .dd-share-url { white-space: normal; word-break: break-all; }
 }
+
+/* ---------------------------------------------------------------------
+ * Tabs (Data Collection page: Overview | Network builder)
+ * ------------------------------------------------------------------ */
+
+.dd-tabs {
+  display: flex;
+  gap: var(--dd-space-1);
+  border-bottom: 1px solid var(--dd-border);
+  margin: var(--dd-space-6) 0 var(--dd-space-4);
+}
+
+.dd-tab {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--dd-space-3) var(--dd-space-4);
+  font: inherit;
+  font-weight: 500;
+  color: var(--dd-text-soft);
+  cursor: pointer;
+}
+
+.dd-tab:hover { color: var(--dd-text); }
+
+.dd-tab-active {
+  color: var(--dd-brand);
+  border-bottom-color: var(--dd-brand);
+}
+
+.btn-danger {
+  background: var(--dd-danger-bg);
+  color: var(--dd-danger);
+  border: 1px solid transparent;
+}
+
+.btn-danger:hover:not(:disabled) {
+  border-color: var(--dd-danger);
+}
+
+/* ---------------------------------------------------------------------
+ * Network builder (nb-*)
+ * ------------------------------------------------------------------ */
+
+.nb-wrap { display: flex; flex-direction: column; gap: var(--dd-space-4); }
+
+.nb-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--dd-space-3);
+  flex-wrap: wrap;
+}
+
+.nb-status { color: var(--dd-text-soft); font-size: 13px; }
+.nb-error { margin: 0; }
+
+.nb-warning {
+  background: var(--dd-amber-bg);
+  color: var(--dd-amber);
+  border-radius: var(--dd-radius);
+  padding: var(--dd-space-3) var(--dd-space-4);
+  margin: var(--dd-space-3) 0;
+}
+
+.nb-canvas {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--dd-space-4);
+  min-height: 460px;
+}
+
+.nb-canvas .react-flow {
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius-lg);
+  min-height: 460px;
+}
+
+/* Node shape encodes the actor role (DCF spec §5.6): round for
+   producers, square for consumers, cut corners for facilitators. */
+.nb-node {
+  border: 2px solid var(--dd-brand);
+  background: var(--dd-surface);
+  border-radius: var(--dd-radius);
+  padding: var(--dd-space-2) var(--dd-space-3);
+  font-size: 12px;
+  min-width: 140px;
+}
+
+.nb-node-producer { border-radius: 999px; }
+.nb-node-consumer { border-radius: var(--dd-radius-sm); }
+.nb-node-facilitator { border-color: var(--dd-accent); }
+.nb-node-regulator { border-color: var(--dd-amber); }
+.nb-node-intermediary { border-style: dashed; }
+.nb-node-unset { border-color: var(--dd-border-strong); border-style: dotted; }
+
+.nb-node-label { display: flex; flex-direction: column; gap: 2px; }
+.nb-node-label em { color: var(--dd-text-muted); font-size: 11px; font-style: normal; }
+
+.nb-panel {
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius-lg);
+  padding: var(--dd-space-4);
+  overflow-y: auto;
+  max-height: 520px;
+}
+
+.nb-panel-title { margin: 0 0 var(--dd-space-3); font-size: 14px; }
+.nb-panel-empty { color: var(--dd-text-muted); font-size: 13px; }
+.nb-panel-body { display: flex; flex-direction: column; gap: var(--dd-space-3); }
+
+.nb-field { display: flex; flex-direction: column; gap: var(--dd-space-1); font-size: 12px; }
+.nb-field-label { color: var(--dd-text-soft); font-weight: 500; }
+.nb-field-help { color: var(--dd-text-muted); font-size: 11px; }
+.nb-field input, .nb-field select, .nb-field textarea {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--dd-border-strong);
+  border-radius: var(--dd-radius-sm);
+  background: var(--dd-surface);
+  color: var(--dd-text);
+}
+.nb-field-missing .nb-field-label { color: var(--dd-amber); }
+.nb-field-missing input, .nb-field-missing select, .nb-field-missing textarea {
+  border-color: var(--dd-amber);
+}
+.nb-req { color: var(--dd-danger); }
+.nb-remove { align-self: flex-start; }
+
+.nb-unwired ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--dd-space-2); }
+.nb-unwired button { cursor: pointer; border: 1px solid var(--dd-border); }
+.nb-unwired-hint { color: var(--dd-text-muted); font-size: 12px; margin: 0 0 var(--dd-space-2); }
+
+@media (max-width: 900px) {
+  .nb-canvas { grid-template-columns: minmax(0, 1fr); }
+  .nb-panel { max-height: none; }
+}

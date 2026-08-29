@@ -75,7 +75,7 @@ Cronologia sintetica (tutto su `main`):
 **Lavoro aperto (nessuno bloccante sul codice)**:
 - Filtro region reale su `/api/public/region/{code}` (oggi echo del codice)
 - i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
-- Network Builder (editor drag-drop della rete) — mai iniziato
+- Network Builder: fasi 1-2 fatte (persistenza + editor drag-drop); manca la fase 3 (pre-compilazione xlsx/docx dal contenuto salvato + diagramma reale al posto del placeholder)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
 - Deploy pubblico D4.6 (PU): immagine e guida pronte, manca l'URL reale
 - Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
@@ -114,7 +114,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente: **328 backend (pytest) + 22 frontend (vitest)**.
+- Test devono sempre passare prima del commit. Baseline corrente: **328 backend (pytest) + 38 frontend (vitest)**.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).
@@ -156,9 +156,11 @@ frontend/src/
 │                              DataCollection, StakeholderReport, Aggregate, Login, About, Error
 │                              + pages/reader/ (viste pubbliche /r/*)
 ├── components/                QuestionCard, FlowsEditor, ScenariosEditor, AdvancedEditor,
-│                              NetworkDiagram, StakeholderView, DcfSectionViewer, …
+│                              NetworkDiagram (view), NetworkBuilder + DcfRowFields (editor),
+│                              StakeholderView, DcfSectionViewer, …
 │                              + admin/ · dd/ (design system) · reader/ (shell pubblica)
 ├── store/                     caseStore.ts (Zustand + persist) + preferenceStore (ruolo/task/onboarding)
+│                              + dcfDataStore (bozza Network Builder, sync su /api/dcf/{id}/data)
 ├── i18n/locales/              en.ts (source of truth) + it/fr/de/es
 ├── presets/papers.ts          13 fixture (12 papers + Leiva Escombreras/Frövi)
 └── types/api.ts               TS mirror dei DTO Pydantic

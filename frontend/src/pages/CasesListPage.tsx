@@ -16,6 +16,7 @@ export default function CasesListPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
+  const setServerCaseId = useCaseStore((s) => s.setServerCaseId)
   const pushToast = useToastStore((s) => s.push)
 
   const [items, setItems] = useState<CaseSummary[] | null>(null)
@@ -44,6 +45,9 @@ export default function CasesListPage() {
     try {
       const detail = await getCase(id)
       setDraft(detail.case)
+      // Remember which server case this draft mirrors, so the Network
+      // Builder syncs its DCF content to the right one.
+      setServerCaseId(detail.id)
       navigate('/questionnaire')
     } catch (e) {
       const msg = e instanceof ApiError ? e.detail : (e as Error).message

@@ -672,6 +672,31 @@ const it: Locale = {
     footerNote:
       'Il Data Collection File è un foglio di raccolta dati pronto per l\'export. Compila le righe vuote offline (o distribuiscilo ai partner del network) e restituisci i dati all\'analista responsabile dell\'LCSA.',
     openButton: 'Apri Data Collection File',
+    tabOverview: 'Panoramica',
+    tabNetworkBuilder: 'Editor di rete',
+  },
+
+  networkBuilder: {
+    title: 'Editor di rete',
+    subtitle:
+      'Disegna la rete di simbiosi: ogni nodo è un attore, ogni freccia una riga della flow matrix. Quello che disegni qui è quello che finirà nell\'Excel e nel report.',
+    addActor: 'Aggiungi attore',
+    actor: 'Attore',
+    noRole: 'ruolo non impostato',
+    save: 'Salva rete',
+    saving: 'Salvataggio…',
+    synced: 'Salvata sul server',
+    unsavedChanges: 'Modifiche non salvate',
+    unsavedCase: 'Bozza locale — salva il caso per sincronizzare',
+    saveCaseFirst:
+      'Questo caso non è ancora salvato sul server. Puoi disegnare la rete adesso; salva il caso dalla pagina del risultato per conservarla.',
+    missingRequired_one: '{{count}} campo obbligatorio ancora vuoto',
+    missingRequired_other: '{{count}} campi obbligatori ancora vuoti',
+    selectHint: 'Seleziona un attore o un flusso per modificarne i campi.',
+    removeRow: 'Rimuovi',
+    unwiredTitle: 'Flussi non ancora disegnati',
+    unwiredHint:
+      'Questi flussi vengono dalle risposte a Q5. Collega due attori sul canvas per agganciare il prossimo.',
   },
 
   cases: {

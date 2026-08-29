@@ -643,6 +643,31 @@ const fr: Locale = {
     footerNote:
       'Le Data Collection File est une feuille de collecte prête à l\'export. Remplissez les lignes vides hors ligne (ou distribuez-le aux partenaires du réseau) et restituez les données à l\'analyste responsable de l\'LCSA.',
     openButton: 'Ouvrir Data Collection File',
+    tabOverview: "Vue d'ensemble",
+    tabNetworkBuilder: 'Éditeur de réseau',
+  },
+
+  networkBuilder: {
+    title: 'Éditeur de réseau',
+    subtitle:
+      "Dessinez le réseau de symbiose : chaque nœud est un acteur, chaque flèche une ligne de la matrice des flux. Ce que vous dessinez ici alimente l'Excel et le rapport.",
+    addActor: 'Ajouter un acteur',
+    actor: 'Acteur',
+    noRole: 'rôle non défini',
+    save: 'Enregistrer le réseau',
+    saving: 'Enregistrement…',
+    synced: 'Enregistré sur le serveur',
+    unsavedChanges: 'Modifications non enregistrées',
+    unsavedCase: 'Brouillon local — enregistrez le cas pour synchroniser',
+    saveCaseFirst:
+      "Ce cas n'est pas encore enregistré sur le serveur. Vous pouvez dessiner le réseau maintenant ; enregistrez le cas depuis la page de résultat pour le conserver.",
+    missingRequired_one: '{{count}} champ obligatoire encore vide',
+    missingRequired_other: '{{count}} champs obligatoires encore vides',
+    selectHint: 'Sélectionnez un acteur ou un flux pour modifier ses champs.',
+    removeRow: 'Supprimer',
+    unwiredTitle: 'Flux pas encore dessinés',
+    unwiredHint:
+      'Ces flux proviennent de vos réponses Q5. Reliez deux acteurs sur le canevas pour raccorder le suivant.',
   },
 
   cases: {

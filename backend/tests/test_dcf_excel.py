@@ -13,7 +13,7 @@ import pytest
 from openpyxl import load_workbook
 
 from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6a, Q6b
-from app.domain.models import Case, Flow, Q3
+from app.domain.models import Q3, Case, Flow
 from app.engine.dcf_compose import compose_dcf
 from app.engine.pipeline import run as pipeline_run
 from app.services.dcf_excel import EU_FOOTER, render_xlsx

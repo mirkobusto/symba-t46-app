@@ -17,7 +17,6 @@ from app.auth.security import decode_access_token
 from app.db import get_db
 from app.models import User
 
-
 # auto_error=False so we can produce 401 with a friendlier message ourselves,
 # AND so the optional dependency can detect "no token" without an exception.
 _bearer_required = HTTPBearer(auto_error=True)

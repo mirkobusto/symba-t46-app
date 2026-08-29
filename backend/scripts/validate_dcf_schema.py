@@ -28,13 +28,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.domain.enums import (  # noqa: E402
-    Q1, Q2, Q4, Q5, Q7,
-    IlcdSituation, LccType, PathwayId, Q6a, Q6b, SlcaActivationState,
+    Q1,
+    Q2,
+    Q4,
+    Q5,
+    Q7,
+    Q6a,
+    Q6b,
 )
-from app.domain.models import Case, Flow, Q3  # noqa: E402
+from app.domain.models import Q3, Case, Flow  # noqa: E402
 from app.engine.loader import load_schemas  # noqa: E402
 from app.engine.pipeline import run as pipeline_run  # noqa: E402
-
 
 # ---------------------------------------------------------------------------
 # Fixtures — mirrored from tests/test_12_papers_regression.py (subset of
@@ -186,11 +190,9 @@ def main():
         print(f"{sec_id:<22} {total:>6d} | {counts_str}")
 
         # Sanity checks
-        min_active = min(per_paper_counts)
-        max_active = max(per_paper_counts)
         for f in fields:
             pred = f.get("activation_predicate", "always")
-            active_for = [fix["id"] for fix, c in zip(FIXTURES, per_paper_counts)
+            active_for = [fix["id"] for fix in FIXTURES
                           if f["id"] in per_paper_active_fields.get(fix["id"], [])]
             if pred == "always":
                 if len(active_for) != len(FIXTURES) and sec_predicate == "always":

@@ -9,7 +9,7 @@ import pytest
 from docx import Document
 
 from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6a, Q6b
-from app.domain.models import Case, Flow, Q3
+from app.domain.models import Q3, Case, Flow
 from app.engine.dcf_compose import compose_dcf
 from app.engine.pipeline import run as pipeline_run
 from app.services.dcf_docx import EU_FOOTER, generate_dcf_docx_bytes

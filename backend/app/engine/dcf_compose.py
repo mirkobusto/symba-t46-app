@@ -27,7 +27,6 @@ from pydantic import BaseModel, ConfigDict, Field
 from app.domain.models import Case
 from app.engine.predicate import build_context_from_case, evaluate
 
-
 # ---------------------------------------------------------------------------
 # Output models (Pydantic v2)
 # ---------------------------------------------------------------------------

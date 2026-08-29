@@ -23,7 +23,6 @@ from app.db import get_db
 from app.domain.scoring import ScoringPayload
 from app.models import CaseRecord, CaseScoring
 
-
 router = APIRouter(tags=["scoring"])
 
 

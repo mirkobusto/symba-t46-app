@@ -1,7 +1,6 @@
 """Integration tests for GET /api/cases/aggregate/breakdown."""
 from __future__ import annotations
 
-
 CASE_A = {  # q1=B q2=D q6a=wastewater q7=B → IS-01 + A multi-actor
     "q1": "B", "q2": "D",
     "q3": {"env": True}, "q4": ["E"],

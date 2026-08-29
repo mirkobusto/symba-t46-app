@@ -10,30 +10,46 @@ The Case must already exist in the case_records table (i.e. saved via
 POST /api/cases) — otherwise PUT returns 404 to keep referential
 integrity without a foreign-key constraint (SQLite-friendly).
 
-Stateless: no auth in MVP. CIRCE will call PUT from outside; the
-endpoint is open in this phase but should be protected (auth in
-Phase D) before exposing the deployed app to the public internet.
+Authorization follows the owning Case (`app.auth.ownership`): a
+scoring payload is as readable/writable as the case it scores. Legacy
+cases (`owner_id IS NULL`) stay open so the unauthenticated MVP flow and
+the CIRCE ingest against demo cases keep working; once a case is saved
+by an authenticated analyst, only that analyst (or an admin) can read,
+ingest or drop its scoring.
 """
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session as OrmSession
 
+from app.auth.deps import get_current_user_optional
+from app.auth.ownership import can_modify, can_view
 from app.db import get_db
 from app.domain.scoring import ScoringPayload
-from app.models import CaseRecord, CaseScoring
+from app.models import CaseRecord, CaseScoring, User
 
 router = APIRouter(tags=["scoring"])
 
 
 @router.get("/{case_id}", response_model=ScoringPayload)
-def get_scoring(case_id: str, db: OrmSession = Depends(get_db)) -> ScoringPayload:
+def get_scoring(
+    case_id: str,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+) -> ScoringPayload:
     """Return the most recent scoring payload for `case_id`.
 
     Raises 404 if no payload has been ingested for this case (the UI
     interprets the 404 as 'scoring not yet available' rather than
-    surfacing the HTTP error).
+    surfacing the HTTP error), and the same 404 when the caller may not
+    see the owning case — an owned case's existence is not disclosed.
     """
+    case_rec = db.get(CaseRecord, case_id)
+    if case_rec is not None and not can_view(case_rec, current_user):
+        raise HTTPException(
+            status_code=404,
+            detail=f"No scoring payload ingested for case {case_id!r}",
+        )
     rec = db.get(CaseScoring, case_id)
     if rec is None:
         raise HTTPException(
@@ -48,6 +64,7 @@ def put_scoring(
     case_id: str,
     payload: ScoringPayload,
     db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
 ) -> ScoringPayload:
     """Ingest (create or replace) the scoring payload for `case_id`.
 
@@ -73,6 +90,11 @@ def put_scoring(
                 f"/api/cases before ingesting scoring"
             ),
         )
+    if not can_modify(case_rec, current_user):
+        raise HTTPException(
+            status_code=403,
+            detail="Not allowed to ingest scoring for this case",
+        )
 
     existing = db.get(CaseScoring, case_id)
     if existing is None:
@@ -95,7 +117,17 @@ def put_scoring(
 
 
 @router.delete("/{case_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_scoring(case_id: str, db: OrmSession = Depends(get_db)) -> None:
+def delete_scoring(
+    case_id: str,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+) -> None:
+    case_rec = db.get(CaseRecord, case_id)
+    if case_rec is not None and not can_modify(case_rec, current_user):
+        raise HTTPException(
+            status_code=403,
+            detail="Not allowed to drop the scoring for this case",
+        )
     rec = db.get(CaseScoring, case_id)
     if rec is None:
         raise HTTPException(

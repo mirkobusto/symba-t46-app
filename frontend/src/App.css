@@ -496,6 +496,14 @@ html {
   font-size: 14px;
   font-family: inherit;
   background: var(--surface-input);
+  /* Explicit: a control that paints its own background must paint its
+     own text too, or the UA picks the colour from the OS scheme. */
+  color: var(--slate-800);
+}
+
+.row-select option {
+  color: var(--slate-800);
+  background: var(--surface-input);
 }
 .row-input:focus,
 .row-select:focus {

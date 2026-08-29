@@ -114,13 +114,43 @@ behind a feature-flag.
 
 ## Production hardening checklist (Phase D / post-MVP)
 
-- [ ] Auth + role-based access control (Phase D)
+- [x] Auth + role-based access control (Phase D — JWT + bcrypt, first
+      registered user becomes admin)
+- [x] `/api/scoring/*` restricted to the owner of the scored case (admins
+      included); see "Authorization model" below
 - [ ] Switch to PostgreSQL via `SYMBA_DB_URL` (Phase D)
 - [ ] Alembic migrations (post-MVP)
 - [ ] Sentry / APM (post-MVP)
 - [ ] Rate limiting on `/api/scoring` ingest endpoint (post-MVP)
 - [ ] Backup automation (cron) — see "Data backup" above
 - [ ] HTTPS via reverse proxy (Caddy / Traefik / nginx) — see above
+
+## Authorization model (what is open, what is not)
+
+| Surface | Anonymous | Authenticated analyst | Admin |
+|---|---|---|---|
+| `/api/pipeline/*`, `/api/dcf/*` | open | open | open |
+| `/api/cases` (legacy rows, `owner_id IS NULL`) | read + write | read + write | read + write |
+| `/api/cases` (owned rows) | hidden (404) | own rows only | all rows |
+| `/api/scoring/{case_id}` | follows the owning case | follows the owning case | all |
+| `/api/public/*` (share links) | open by design | open | open |
+
+Two deliberate gaps to keep in mind before announcing a public URL:
+
+1. **Cases saved without a token have no owner**, so they stay
+   world-writable — that is the pre-Phase-D MVP flow. If the deployment
+   is public and the data is not demo data, require login in front of
+   the app (reverse-proxy basic auth, or make the frontend hide the
+   anonymous save path).
+2. **Share links are unlisted, not private.** `/r/:slug/:audience`
+   and the `/api/public/*` endpoints behind them resolve for anyone who
+   has the URL, including for owned cases — that is the point of the
+   Phase 7 share modal. Do not put confidential demo-region data behind
+   a share link.
+
+The pipeline and DCF endpoints are stateless computations over the body
+the caller posts, so they carry no data of other users; they are left
+open on purpose.
 
 ---
 

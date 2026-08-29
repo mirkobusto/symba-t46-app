@@ -12,8 +12,9 @@ only indexed/projected fields. Pathway is denormalised into its own
 column so the list endpoint can return it without parsing every row's
 JSON.
 
-Stateless (no auth in MVP). For multi-tenant deployment, add an
-owner_id column + a Depends(get_current_user) dependency.
+Ownership-aware since Phase D: legacy rows (owner_id IS NULL) stay
+world-readable/writable, owned rows are restricted to their owner and
+to admins. The predicates live in `app.auth.ownership`.
 """
 from __future__ import annotations
 
@@ -26,6 +27,7 @@ from sqlalchemy import or_, select
 from sqlalchemy.orm import Session as OrmSession
 
 from app.auth.deps import get_current_user_optional
+from app.auth.ownership import can_modify, can_view
 from app.db import get_db
 from app.domain.models import Case
 from app.models import CaseRecord, User
@@ -141,23 +143,6 @@ def _visible_to(user: User | None):
     return or_(CaseRecord.owner_id.is_(None), CaseRecord.owner_id == user.id)
 
 
-def _can_modify(record: CaseRecord, user: User | None) -> bool:
-    """Authorization for update/delete.
-
-    - Legacy/public rows (owner_id IS NULL): anyone can modify
-      (matches pre-Phase-D behavior; no regression for existing rows
-      and unauthenticated dev/demo flows).
-    - Owned rows: only the owner or an admin.
-    """
-    if record.owner_id is None:
-        return True
-    if user is None:
-        return False
-    if user.role == "admin":
-        return True
-    return record.owner_id == user.id
-
-
 @router.get("", response_model=list[CaseSummary])
 def list_cases(
     db: OrmSession = Depends(get_db),
@@ -236,14 +221,8 @@ def get_case(
     if rec is None:
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
     # Read-visibility: same rule as list (legacy rows + own; admins see all).
-    if rec.owner_id is not None and current_user is None:
-        raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
-    if (
-        rec.owner_id is not None
-        and current_user is not None
-        and current_user.role != "admin"
-        and rec.owner_id != current_user.id
-    ):
+    # 404 rather than 403 so an owned case's existence is not disclosed.
+    if not can_view(rec, current_user):
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
     return _to_detail(rec)
 
@@ -277,7 +256,7 @@ def update_case(
     rec = db.get(CaseRecord, case_id)
     if rec is None:
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
-    if not _can_modify(rec, current_user):
+    if not can_modify(rec, current_user):
         raise HTTPException(status_code=403, detail="Not allowed to modify this case")
     _populate_record(rec, payload.name, payload.case)
     db.commit()
@@ -294,7 +273,7 @@ def delete_case(
     rec = db.get(CaseRecord, case_id)
     if rec is None:
         raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
-    if not _can_modify(rec, current_user):
+    if not can_modify(rec, current_user):
         raise HTTPException(status_code=403, detail="Not allowed to delete this case")
     db.delete(rec)
     db.commit()

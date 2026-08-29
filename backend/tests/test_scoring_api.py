@@ -166,3 +166,116 @@ def test_put_rejects_extra_indicator_fields(client):
     payload["indicators"][0]["foo"] = "bar"
     r = client.put(f"/api/scoring/{case_id}", json=payload)
     assert r.status_code == 422
+
+
+# ---------------------------------------------------------------------------
+# Ownership (Phase D rules applied to scoring)
+# ---------------------------------------------------------------------------
+
+
+def _register(client, email: str, password: str = "hunter2-strong") -> str:
+    """Register a user and return its access token."""
+    r = client.post("/api/auth/register", json={"email": email, "password": password})
+    assert r.status_code == 201, r.text
+    return r.json()["access_token"]
+
+
+def _auth(token: str) -> dict:
+    return {"Authorization": f"Bearer {token}"}
+
+
+def _create_owned_case(client, token: str) -> str:
+    r = client.post(
+        "/api/cases", json={"name": "wiktor", "case": WIKTOR_BODY}, headers=_auth(token)
+    )
+    assert r.status_code == 201, r.text
+    return r.json()["id"]
+
+
+def test_owner_can_ingest_and_read_own_scoring(client):
+    _admin = _register(client, "alice@example.eu")  # first user is admin
+    bob = _register(client, "bob@example.eu")
+    case_id = _create_owned_case(client, bob)
+
+    r = client.put(
+        f"/api/scoring/{case_id}", json=_sample_scoring(case_id), headers=_auth(bob)
+    )
+    assert r.status_code == 200, r.text
+    g = client.get(f"/api/scoring/{case_id}", headers=_auth(bob))
+    assert g.status_code == 200
+    assert g.json()["source"] == "CIRCE"
+
+
+def test_put_403_for_non_owner(client):
+    _register(client, "alice@example.eu")
+    bob = _register(client, "bob@example.eu")
+    carol = _register(client, "carol@example.eu")
+    case_id = _create_owned_case(client, bob)
+
+    r = client.put(
+        f"/api/scoring/{case_id}", json=_sample_scoring(case_id), headers=_auth(carol)
+    )
+    assert r.status_code == 403
+
+
+def test_put_403_for_anonymous_on_owned_case(client):
+    _register(client, "alice@example.eu")
+    bob = _register(client, "bob@example.eu")
+    case_id = _create_owned_case(client, bob)
+
+    r = client.put(f"/api/scoring/{case_id}", json=_sample_scoring(case_id))
+    assert r.status_code == 403
+
+
+def test_get_404_hides_owned_scoring_from_other_users(client):
+    _register(client, "alice@example.eu")
+    bob = _register(client, "bob@example.eu")
+    carol = _register(client, "carol@example.eu")
+    case_id = _create_owned_case(client, bob)
+    client.put(
+        f"/api/scoring/{case_id}", json=_sample_scoring(case_id), headers=_auth(bob)
+    )
+
+    assert client.get(f"/api/scoring/{case_id}", headers=_auth(carol)).status_code == 404
+    assert client.get(f"/api/scoring/{case_id}").status_code == 404
+
+
+def test_delete_403_for_non_owner(client):
+    _register(client, "alice@example.eu")
+    bob = _register(client, "bob@example.eu")
+    carol = _register(client, "carol@example.eu")
+    case_id = _create_owned_case(client, bob)
+    client.put(
+        f"/api/scoring/{case_id}", json=_sample_scoring(case_id), headers=_auth(bob)
+    )
+
+    assert client.delete(
+        f"/api/scoring/{case_id}", headers=_auth(carol)
+    ).status_code == 403
+    # the owner still can
+    assert client.delete(
+        f"/api/scoring/{case_id}", headers=_auth(bob)
+    ).status_code == 204
+
+
+def test_admin_can_ingest_scoring_for_another_users_case(client):
+    admin = _register(client, "alice@example.eu")  # first user is admin
+    bob = _register(client, "bob@example.eu")
+    case_id = _create_owned_case(client, bob)
+
+    r = client.put(
+        f"/api/scoring/{case_id}", json=_sample_scoring(case_id), headers=_auth(admin)
+    )
+    assert r.status_code == 200, r.text
+
+
+def test_legacy_anonymous_case_scoring_stays_open(client):
+    """Cases saved without a token keep the pre-Phase-D open behavior."""
+    case_id = _create_case(client)  # anonymous -> owner_id IS NULL
+    assert (
+        client.put(
+            f"/api/scoring/{case_id}", json=_sample_scoring(case_id)
+        ).status_code
+        == 200
+    )
+    assert client.get(f"/api/scoring/{case_id}").status_code == 200

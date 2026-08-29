@@ -642,6 +642,12 @@ const es: Locale = {
     tabNetworkBuilder: 'Editor de red',
   },
 
+  networkDiagram: {
+    counts: '{{actors}} actores · {{flows}} flujos',
+    placeholder:
+      'Solo vista previa — esto es un marcador construido con los flujos declarados en el cuestionario. Dibuja la red real en la pestaña Editor de red y aparecerá aquí, en el Excel y en el informe.',
+  },
+
   networkBuilder: {
     title: 'Editor de red',
     subtitle:

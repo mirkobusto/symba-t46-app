@@ -696,6 +696,12 @@ const en = {
     tabNetworkBuilder: 'Network builder',
   },
 
+  networkDiagram: {
+    counts: '{{actors}} actors · {{flows}} flows',
+    placeholder:
+      'Preview only — this is a placeholder built from the flows declared in the questionnaire. Draw the real network in the Network builder tab and it appears here, in the Excel and in the report.',
+  },
+
   networkBuilder: {
     title: 'Network builder',
     subtitle:

@@ -197,6 +197,28 @@ async function fetchDcfBlob(path: string, input: Case): Promise<Blob> {
   return res.blob()
 }
 
+async function fetchBlobGet(path: string): Promise<Blob> {
+  const res = await fetch(`${API_BASE_URL}${path}`, { headers: { ...authHeader() } })
+  if (!res.ok) {
+    throw new ApiError(res.status, res.statusText)
+  }
+  return res.blob()
+}
+
+/**
+ * Exports of a *saved* case: the workbook and the document come back
+ * pre-filled with whatever the Network Builder stored for it. The POST
+ * variants above stay for drafts that have never been saved — they have
+ * no case id to look content up by.
+ */
+export function fetchDcfXlsxForCase(caseId: string): Promise<Blob> {
+  return fetchBlobGet(`/api/dcf/${encodeURIComponent(caseId)}/export/xlsx`)
+}
+
+export function fetchDcfDocxForCase(caseId: string): Promise<Blob> {
+  return fetchBlobGet(`/api/dcf/${encodeURIComponent(caseId)}/export/docx`)
+}
+
 export function fetchDcfXlsx(input: Case): Promise<Blob> {
   return fetchDcfBlob('/api/dcf/export/xlsx', input)
 }

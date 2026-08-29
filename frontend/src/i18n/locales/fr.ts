@@ -647,6 +647,12 @@ const fr: Locale = {
     tabNetworkBuilder: 'Éditeur de réseau',
   },
 
+  networkDiagram: {
+    counts: '{{actors}} acteurs · {{flows}} flux',
+    placeholder:
+      "Aperçu seulement — ceci est un substitut construit à partir des flux déclarés dans le questionnaire. Dessinez le vrai réseau dans l'onglet Éditeur de réseau et il apparaîtra ici, dans l'Excel et dans le rapport.",
+  },
+
   networkBuilder: {
     title: 'Éditeur de réseau',
     subtitle:

@@ -1,16 +1,15 @@
-// Network diagram rendering for the DCF payload.
+// Read-only network diagram on the DCF overview.
 //
-// v1: view-only (per DCF spec §3 P4). The render_spec from the backend
-// describes WHAT to render once the Actors + Flow Matrix tabs of the
-// xlsx are filled in. In v1 the matrices are not yet populated by the
-// app (the analyst fills them offline in Excel), so this component
-// shows a small placeholder graph derived from the Case's existing
-// flows + a banner explaining what will appear once data is collected.
+// Two modes, decided by whether the Network Builder has been used:
 //
-// Future v2 (editing-as-input candidate, spec §3 P4): drag-and-drop
-// actor / edge editing that round-trips to the Flow Matrix.
+//   - **drawn** — actors and wired flows from the stored DCF content,
+//     rendered through the same mapping the builder uses, plus the
+//     pathway / ILCD badges of DCF spec §5.6.
+//   - **placeholder** — the pre-builder fallback: one anonymous pair of
+//     actors per declared flow, with a banner pointing at the builder.
 
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import ReactFlow, {
   Background,
   Controls,
@@ -19,8 +18,11 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
+import { actorNodes, flowEdges, nodeClassName } from './networkGraph'
+import { useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
+import { ACTORS_SECTION, FLOW_MATRIX_SECTION } from '../types/dcfData'
 
 interface Props {
   payload: DcfPayload
@@ -28,6 +30,46 @@ interface Props {
 }
 
 export default function NetworkDiagram({ payload, caseFlows }: Props) {
+  const { t } = useTranslation()
+  const data = useDcfDataStore((s) => s.data)
+  const actorRows = useMemo(
+    () => data.rows_by_section[ACTORS_SECTION] ?? [],
+    [data],
+  )
+  const flowRows = useMemo(
+    () => data.rows_by_section[FLOW_MATRIX_SECTION] ?? [],
+    [data],
+  )
+  const drawn = actorRows.length > 0
+
+  const drawnGraph = useMemo(() => {
+    const nodes: Node[] = actorNodes(
+      actorRows,
+      data.layout,
+      (i) => `${t('networkBuilder.actor')} ${i + 1}`,
+    ).map((node) => ({
+      id: node.id,
+      position: node.position,
+      data: {
+        label: (
+          <span className="nb-node-label">
+            <strong>{node.label}</strong>
+            <em>{node.role ?? t('networkBuilder.noRole')}</em>
+          </span>
+        ),
+      },
+      className: nodeClassName(node),
+    }))
+    const edges: Edge[] = flowEdges(flowRows).map((edge) => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+      label: edge.label ?? undefined,
+      className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
+    }))
+    return { nodes, edges }
+  }, [actorRows, flowRows, data.layout, t])
+
   // Build a placeholder graph from the Case's existing flows.
   // Convention: every flow is treated as an exchange between two
   // anonymous actors (Actor A → Actor B for flow #1, etc.). This is
@@ -86,15 +128,30 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
 
   return (
     <div className="dcf-network-diagram-wrap">
-      <div className="dcf-network-banner">
-        <strong>Preview only.</strong> The diagram shown below uses the
-        flows declared in the questionnaire as a placeholder. The full
-        actor → flow → actor network will appear once the Actors and
-        Flow Matrix tabs of the companion Excel are filled in and
-        re-imported (planned for a future release).
-      </div>
+      {drawn ? (
+        <div className="dcf-network-badges">
+          <span className="dd-pill dd-pill-brand">{payload.pathway_id ?? '—'}</span>
+          <span className="dd-pill dd-pill-brand">
+            {payload.ilcd_situation ?? '—'}
+          </span>
+          <span className="dd-pill dd-pill-muted">
+            {t('networkDiagram.counts', {
+              actors: drawnGraph.nodes.length,
+              flows: drawnGraph.edges.length,
+            })}
+          </span>
+        </div>
+      ) : (
+        <div className="dcf-network-banner">{t('networkDiagram.placeholder')}</div>
+      )}
       <div style={{ width: '100%', height: 380 }}>
-        <ReactFlow nodes={nodes} edges={edges} fitView>
+        <ReactFlow
+          nodes={drawn ? drawnGraph.nodes : nodes}
+          edges={drawn ? drawnGraph.edges : edges}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          fitView
+        >
           <Background />
           <Controls />
         </ReactFlow>

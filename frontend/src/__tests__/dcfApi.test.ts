@@ -6,6 +6,7 @@ import {
   fetchDcfDocx,
   fetchDcfPreview,
   fetchDcfXlsx,
+  fetchDcfXlsxForCase,
   putDcfData,
 } from '../services/api'
 
@@ -150,5 +151,19 @@ describe('DCF API client', () => {
         layout: {},
       }),
     ).rejects.toBeInstanceOf(ApiError)
+  })
+
+  it('fetchDcfXlsxForCase GETs the case-scoped export', async () => {
+    const mock = vi.fn(() =>
+      Promise.resolve(okBlobResponse('application/vnd.ms-excel')),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    await fetchDcfXlsxForCase('c1')
+
+    const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
+    const [url, init] = calls[0] as [string, RequestInit | undefined]
+    expect(String(url)).toContain('/api/dcf/c1/export/xlsx')
+    expect(init?.method ?? 'GET').toBe('GET')
   })
 })

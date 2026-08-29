@@ -3892,3 +3892,10 @@ kbd {
   .nb-canvas { grid-template-columns: minmax(0, 1fr); }
   .nb-panel { max-height: none; }
 }
+
+.dcf-network-badges {
+  display: flex;
+  gap: var(--dd-space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--dd-space-3);
+}

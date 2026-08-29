@@ -2,9 +2,10 @@
 
 Multi-tab structure:
 - Cover            — case metadata + EU funding statement
-- Actors           — header + 10 empty rows for data collection
-- Flow Matrix      — header + 10 empty rows
-- Logistics        — header + 10 empty rows (or placeholder note if section
+- Actors           — header + whatever the Network Builder stored, then
+                     blank rows for offline collection
+- Flow Matrix      — same
+- Logistics        — same (or placeholder note if section
                      deactivated, e.g. q7=A)
 - Infrastructure   — header + 10 empty rows
 - Methodological Choices — auto-populated checklist of activated
@@ -26,7 +27,9 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
+from app.engine.dcf_rows import cell_values, edge_list, rows_for
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -55,6 +58,9 @@ _SHEET_NAMES = {
     "infrastructure": "Infrastructure",
 }
 _EMPTY_DATA_ROWS = 10
+# Even a fully-filled section keeps a few blank rows: collection continues
+# offline after the export.
+_MIN_BLANK_ROWS = 3
 
 
 # ---------------------------------------------------------------------------
@@ -62,8 +68,14 @@ _EMPTY_DATA_ROWS = 10
 # ---------------------------------------------------------------------------
 
 
-def render_xlsx(payload: DcfPayload) -> bytes:
-    """Render the DcfPayload to an xlsx workbook and return raw bytes."""
+def render_xlsx(payload: DcfPayload, data: DcfData | None = None) -> bytes:
+    """Render the DcfPayload to an xlsx workbook and return raw bytes.
+
+    `data` is the content stored by the Network Builder, when the case
+    has any: its rows are written under the headers so the analyst gets
+    a partially-filled workbook to continue from, instead of the empty
+    grid the export produced before.
+    """
     wb = Workbook()
     wb.remove(wb.active)  # drop the default empty sheet
 
@@ -74,7 +86,7 @@ def render_xlsx(payload: DcfPayload) -> bytes:
     for sec_id in _DATA_SECTION_ORDER:
         sec = sections.get(sec_id)
         if sec is not None:
-            _write_data_section_tab(wb, sec)
+            _write_data_section_tab(wb, sec, rows_for(data, sec_id))
 
     mc = sections.get("methodological_choices")
     if mc is not None:
@@ -82,7 +94,7 @@ def render_xlsx(payload: DcfPayload) -> bytes:
 
     nw = sections.get("network_diagram")
     if nw is not None:
-        _write_network_placeholder_tab(wb, nw)
+        _write_network_tab(wb, nw, data)
 
     buf = BytesIO()
     wb.save(buf)
@@ -121,7 +133,9 @@ def _write_cover_tab(wb: Workbook, payload: DcfPayload) -> None:
     _set_print_footer(ws)
 
 
-def _write_data_section_tab(wb: Workbook, section: DcfSection) -> None:
+def _write_data_section_tab(
+    wb: Workbook, section: DcfSection, rows: list[DcfRow] | None = None
+) -> None:
     ws = wb.create_sheet(_SHEET_NAMES[section.id])
 
     if not section.active:
@@ -159,10 +173,19 @@ def _write_data_section_tab(wb: Workbook, section: DcfSection) -> None:
         c.font = _FIELDID_FONT
         c.alignment = Alignment(horizontal="center", wrap_text=True)
 
-    # Empty data rows
-    for r in range(fieldid_row + 1, fieldid_row + 1 + _EMPTY_DATA_ROWS):
+    # Stored rows first, then blank ones so collection can continue.
+    stored = rows or []
+    first_data_row = fieldid_row + 1
+    for offset, row in enumerate(stored):
+        for col_idx, value in enumerate(cell_values(section, row), start=1):
+            ws.cell(row=first_data_row + offset, column=col_idx, value=value)
+
+    blank_start = first_data_row + len(stored)
+    blank_count = max(_EMPTY_DATA_ROWS - len(stored), _MIN_BLANK_ROWS)
+    for r in range(blank_start, blank_start + blank_count):
         for col_idx in range(1, len(section.fields) + 1):
             ws.cell(row=r, column=col_idx, value=None)
+    total_data_rows = len(stored) + blank_count
 
     # Column widths
     for col_idx, field in enumerate(section.fields, start=1):
@@ -173,7 +196,7 @@ def _write_data_section_tab(wb: Workbook, section: DcfSection) -> None:
     ws.freeze_panes = ws.cell(row=fieldid_row + 1, column=1).coordinate
 
     # Footer
-    footer_row = fieldid_row + 1 + _EMPTY_DATA_ROWS + 2
+    footer_row = fieldid_row + 1 + total_data_rows + 2
     ws.cell(row=footer_row, column=1, value=EU_FOOTER).font = _FOOTER_FONT
 
     _set_print_footer(ws)
@@ -224,18 +247,58 @@ def _write_mandates_tab(
     _set_print_footer(ws)
 
 
-def _write_network_placeholder_tab(wb: Workbook, section: DcfSection) -> None:
+def _write_network_tab(
+    wb: Workbook, section: DcfSection, data: DcfData | None
+) -> None:
+    """Edge list of the drawn network, or the placeholder note when the
+    analyst has not drawn one yet."""
     ws = wb.create_sheet("Network Diagram")
     ws["A1"] = section.title_en
     ws["A1"].font = _TITLE_FONT
-    ws["A3"] = (
-        "The interactive network diagram is rendered in the SYMBA T4.6 web app. "
-        "This tab is a placeholder — refer to the 'Network Diagram' page in the "
-        "data-collection workflow for the visual representation of actors and flows."
+
+    edges = edge_list(data)
+    if not edges:
+        ws["A3"] = (
+            "No network drawn yet. Use the Network Builder in the SYMBA T4.6 web "
+            "app ('Data Collection' page) to place actors and connect them — the "
+            "edges then appear here, and the Actors / Flow Matrix tabs come "
+            "pre-filled."
+        )
+        ws["A3"].alignment = Alignment(wrap_text=True)
+        ws.column_dimensions["A"].width = 90
+        ws.cell(row=5, column=1, value=EU_FOOTER).font = _FOOTER_FONT
+        _set_print_footer(ws)
+        return
+
+    ws["A2"] = (
+        "Edge list of the network drawn in the app. The interactive diagram "
+        "itself lives on the 'Data Collection' page."
     )
-    ws["A3"].alignment = Alignment(wrap_text=True)
-    ws.column_dimensions["A"].width = 90
-    ws.cell(row=5, column=1, value=EU_FOOTER).font = _FOOTER_FONT
+    ws["A2"].font = _SUBTITLE_FONT
+    ws["A2"].alignment = Alignment(wrap_text=True)
+
+    headers = ["Flow", "Origin actor", "Destination actor", "Type", "Quantity", "Unit"]
+    header_row = 4
+    for col_idx, label in enumerate(headers, start=1):
+        c = ws.cell(row=header_row, column=col_idx, value=label)
+        c.font = _HEADER_FONT
+        c.fill = _HEADER_FILL
+        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+    for offset, edge in enumerate(edges, start=1):
+        ws.cell(row=header_row + offset, column=1, value=edge["name"])
+        ws.cell(row=header_row + offset, column=2, value=edge["origin"])
+        ws.cell(row=header_row + offset, column=3, value=edge["destination"])
+        ws.cell(row=header_row + offset, column=4, value=edge["type"])
+        ws.cell(row=header_row + offset, column=5, value=edge["quantity"])
+        ws.cell(row=header_row + offset, column=6, value=edge["unit"])
+
+    for col_idx, label in enumerate(headers, start=1):
+        ws.column_dimensions[get_column_letter(col_idx)].width = max(16, len(label) + 6)
+
+    ws.cell(
+        row=header_row + len(edges) + 2, column=1, value=EU_FOOTER
+    ).font = _FOOTER_FONT
     _set_print_footer(ws)
 
 

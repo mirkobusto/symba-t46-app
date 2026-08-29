@@ -19,7 +19,9 @@ from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.shared import Pt, RGBColor
 
+from app.domain.dcf_data import DcfData
 from app.engine.dcf_compose import DcfPayload
+from app.engine.dcf_rows import actor_label, edge_list, rows_for
 
 EU_FOOTER = (
     "This Project has received funding from the European Union's Horizon "
@@ -47,14 +49,22 @@ SYMBA_BLUE = RGBColor(0x1F, 0x4E, 0x79)
 # ---------------------------------------------------------------------------
 
 
-def generate_dcf_docx_bytes(payload: DcfPayload, case_title: str | None = None) -> bytes:
-    """Render a DCF docx from a DcfPayload and return the bytes."""
+def generate_dcf_docx_bytes(
+    payload: DcfPayload,
+    case_title: str | None = None,
+    data: DcfData | None = None,
+) -> bytes:
+    """Render a DCF docx from a DcfPayload and return the bytes.
+
+    When `data` carries a network drawn in the app, §2 reports the actual
+    actors and flows instead of describing what the diagram would show.
+    """
     doc = Document()
     doc.styles["Normal"].font.size = Pt(11)
 
     _write_cover_block(doc, payload, case_title)
     _write_methodological_section(doc, payload)
-    _write_network_section(doc, payload)
+    _write_network_section(doc, payload, data)
     _write_excel_reference_section(doc, payload)
     _write_eu_closing(doc)
 
@@ -159,12 +169,20 @@ def _write_methodological_section(doc: Document, payload: DcfPayload) -> None:
             cells[4].text = "pending"
 
 
-def _write_network_section(doc: Document, payload: DcfPayload) -> None:
+def _write_network_section(
+    doc: Document, payload: DcfPayload, data: DcfData | None = None
+) -> None:
     doc.add_heading("§2. Network diagram", level=1)
     if payload.network_render_spec is None:
         doc.add_paragraph(
             "(Network diagram section is not active for this case configuration.)"
         )
+        return
+
+    actors = rows_for(data, "actors")
+    edges = edge_list(data)
+    if actors or edges:
+        _write_drawn_network(doc, actors, edges)
         return
 
     doc.add_paragraph(
@@ -176,6 +194,49 @@ def _write_network_section(doc: Document, payload: DcfPayload) -> None:
         "the companion .xlsx — actors as nodes (colored by sector), flows as "
         "directed edges (typed and weighted)."
     )
+
+
+def _write_drawn_network(doc: Document, actors: list, edges: list[dict]) -> None:
+    """Report the network the analyst drew in the app: who takes part, and
+    what moves between them."""
+    doc.add_paragraph(
+        f"The network drawn in the SYMBA T4.6 web application counts "
+        f"{len(actors)} actor(s) and {len(edges)} wired flow(s). The "
+        f"interactive diagram lives on the 'Data Collection' page; the tables "
+        f"below are its textual form, and the companion .xlsx carries the same "
+        f"content in the Actors and Flow Matrix tabs."
+    )
+
+    if actors:
+        doc.add_heading("Actors", level=2)
+        table = doc.add_table(rows=1, cols=3)
+        table.style = "Light List Accent 1"
+        head = table.rows[0].cells
+        for i, h in enumerate(["Actor", "Role", "Sector"]):
+            head[i].text = h
+            for run in head[i].paragraphs[0].runs:
+                run.bold = True
+        for row in actors:
+            cells = table.add_row().cells
+            cells[0].text = actor_label(row)
+            cells[1].text = str(row.values.get("actor.role") or "—")
+            cells[2].text = str(row.values.get("actor.sector") or "—")
+
+    if edges:
+        doc.add_heading("Flows", level=2)
+        table = doc.add_table(rows=1, cols=4)
+        table.style = "Light List Accent 1"
+        head = table.rows[0].cells
+        for i, h in enumerate(["Flow", "From", "To", "Type"]):
+            head[i].text = h
+            for run in head[i].paragraphs[0].runs:
+                run.bold = True
+        for edge in edges:
+            cells = table.add_row().cells
+            cells[0].text = str(edge["name"])
+            cells[1].text = str(edge["origin"])
+            cells[2].text = str(edge["destination"])
+            cells[3].text = str(edge["type"] or "—")
 
 
 def _write_excel_reference_section(doc: Document, payload: DcfPayload) -> None:

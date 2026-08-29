@@ -676,6 +676,12 @@ const it: Locale = {
     tabNetworkBuilder: 'Editor di rete',
   },
 
+  networkDiagram: {
+    counts: '{{actors}} attori · {{flows}} flussi',
+    placeholder:
+      "Solo anteprima — questo è un segnaposto costruito dai flussi dichiarati nel questionario. Disegna la rete vera nel tab Editor di rete e comparirà qui, nell'Excel e nel report.",
+  },
+
   networkBuilder: {
     title: 'Editor di rete',
     subtitle:

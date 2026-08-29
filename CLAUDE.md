@@ -75,7 +75,7 @@ Cronologia sintetica (tutto su `main`):
 **Lavoro aperto (nessuno bloccante sul codice)**:
 - Filtro region reale su `/api/public/region/{code}` (oggi echo del codice)
 - i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
-- Network Builder: fasi 1-2 fatte (persistenza + editor drag-drop); manca la fase 3 (pre-compilazione xlsx/docx dal contenuto salvato + diagramma reale al posto del placeholder)
+- Network Builder: fasi 1-3 fatte (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale). Aperto: guidance in-app (help inline, esempio caricabile, empty state)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
 - Deploy pubblico D4.6 (PU): immagine e guida pronte, manca l'URL reale
 - Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
@@ -114,7 +114,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente: **328 backend (pytest) + 38 frontend (vitest)**.
+- Test devono sempre passare prima del commit. Baseline corrente: **340 backend (pytest) + 45 frontend (vitest)**.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

@@ -642,6 +642,12 @@ const de: Locale = {
     tabNetworkBuilder: 'Netzwerk-Editor',
   },
 
+  networkDiagram: {
+    counts: '{{actors}} Akteure · {{flows}} Flüsse',
+    placeholder:
+      'Nur Vorschau — dies ist ein Platzhalter aus den im Fragebogen deklarierten Flüssen. Zeichnen Sie das echte Netzwerk im Tab Netzwerk-Editor, dann erscheint es hier, in der Excel-Datei und im Bericht.',
+  },
+
   networkBuilder: {
     title: 'Netzwerk-Editor',
     subtitle:

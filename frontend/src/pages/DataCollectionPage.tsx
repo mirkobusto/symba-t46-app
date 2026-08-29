@@ -21,8 +21,10 @@ import NetworkDiagram from '../components/NetworkDiagram'
 import {
   ApiError,
   fetchDcfDocx,
+  fetchDcfDocxForCase,
   fetchDcfPreview,
   fetchDcfXlsx,
+  fetchDcfXlsxForCase,
 } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
@@ -47,6 +49,8 @@ export default function DataCollectionPage() {
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const pushToast = useToastStore((s) => s.push)
   const bindDcfData = useDcfDataStore((s) => s.bindTo)
+  const dcfDirty = useDcfDataStore((s) => s.dirty)
+  const saveDcfData = useDcfDataStore((s) => s.saveToServer)
   const loadDcfData = useDcfDataStore((s) => s.loadFromServer)
   const syncDcfWithPayload = useDcfDataStore((s) => s.syncWithPayload)
 
@@ -105,10 +109,26 @@ export default function DataCollectionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payload, JSON.stringify(sourceCase.flows)])
 
+  /**
+   * A saved case exports through the case-scoped endpoint, so the file
+   * carries the network drawn in the builder. Unsaved changes are pushed
+   * first — downloading a file that does not match what is on screen
+   * would be worse than a moment's wait.
+   */
+  async function exportBlob(kind: 'xlsx' | 'docx'): Promise<Blob> {
+    if (serverCaseId) {
+      if (dcfDirty) await saveDcfData()
+      return kind === 'xlsx'
+        ? fetchDcfXlsxForCase(serverCaseId)
+        : fetchDcfDocxForCase(serverCaseId)
+    }
+    return kind === 'xlsx' ? fetchDcfXlsx(sourceCase) : fetchDcfDocx(sourceCase)
+  }
+
   async function handleDownloadXlsx() {
     setDownloadingXlsx(true)
     try {
-      const blob = await fetchDcfXlsx(sourceCase)
+      const blob = await exportBlob('xlsx')
       const name = payload?.case_id
         ? `dcf_${payload.case_id.slice(0, 8)}.xlsx`
         : 'dcf.xlsx'
@@ -130,7 +150,7 @@ export default function DataCollectionPage() {
   async function handleDownloadDocx() {
     setDownloadingDocx(true)
     try {
-      const blob = await fetchDcfDocx(sourceCase)
+      const blob = await exportBlob('docx')
       const name = payload?.case_id
         ? `dcf_${payload.case_id.slice(0, 8)}.docx`
         : 'dcf.docx'

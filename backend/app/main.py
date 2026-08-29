@@ -21,7 +21,7 @@ from app.models import (  # noqa: F401 — register
     Session,
     User,
 )
-from app.routers import auth, cases, dcf, health, pipeline, scoring
+from app.routers import auth, cases, dcf, health, pipeline, public, scoring
 
 DEFAULT_CORS_ORIGINS = [
     # New non-default ports (followup-F to avoid clashes with other
@@ -75,6 +75,7 @@ def create_app() -> FastAPI:
     app.include_router(cases.router, prefix="/api/cases")
     app.include_router(dcf.router, prefix="/api/dcf")
     app.include_router(scoring.router, prefix="/api/scoring")
+    app.include_router(public.router, prefix="/api/public")
 
     # Backwards compatibility: keep the un-prefixed /health route used by
     # Sprint 1 smoke tests + the Docker healthcheck.

@@ -101,6 +101,7 @@ export interface ScenariosResponse {
 export interface CaseSummary {
   id: string
   name: string
+  slug?: string | null
   pathway_id: string | null
   created_at: string
   updated_at: string
@@ -109,6 +110,7 @@ export interface CaseSummary {
 export interface CaseDetail {
   id: string
   name: string
+  slug?: string | null
   pathway_id: string | null
   created_at: string
   updated_at: string

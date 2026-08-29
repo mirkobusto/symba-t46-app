@@ -34,6 +34,12 @@ class CaseRecord(Base):
     # readable by everyone; new rows created via authenticated calls
     # carry the owner user id and are filtered by it on list/get/update/delete.
     owner_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
+    # Phase 8 — human-friendly slug (unique) for public share URLs. Nullable
+    # so legacy rows created before this column existed remain valid; the
+    # migration script backfills a slug for every existing row.
+    slug: Mapped[str | None] = mapped_column(
+        String(96), nullable=True, unique=True, index=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(), nullable=False
     )

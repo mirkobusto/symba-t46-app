@@ -1,0 +1,656 @@
+{
+  "summary": {
+    "critical": 0,
+    "warning": 0,
+    "info": 25,
+    "status": "PASS"
+  },
+  "stats": {
+    "allowlist_sizes": {
+      "system_fields_loaded": 16,
+      "computed_fields_loaded": 12,
+      "cir_output_fields_loaded": 20
+    },
+    "field_classification": {
+      "total_distinct_fields_in_rules": 65,
+      "resolved_to_phase1_node": 38,
+      "system_fields_allowlist": 9,
+      "computed_fields_allowlist": 8,
+      "cir_output_fields_allowlist": 10,
+      "unknown": 0
+    },
+    "field_classification_detail": {
+      "node": {
+        "lca.functional_unit": [
+          [
+            "IR-01",
+            "fields_list"
+          ],
+          [
+            "FU-01",
+            "fields_list"
+          ],
+          [
+            "FU-02",
+            "fields_list"
+          ],
+          [
+            "FU-03",
+            "fields_list"
+          ]
+        ],
+        "lcc.functional_equivalent": [
+          [
+            "IR-01",
+            "fields_list"
+          ],
+          [
+            "FU-03",
+            "fields_list"
+          ]
+        ],
+        "slca.shared_reference_unit": [
+          [
+            "IR-01",
+            "fields_list"
+          ],
+          [
+            "FU-04",
+            "fields_list"
+          ]
+        ],
+        "lca.system_boundary": [
+          [
+            "IR-02",
+            "fields_list"
+          ],
+          [
+            "B-01",
+            "fields_list"
+          ],
+          [
+            "B-02",
+            "fields_list"
+          ],
+          [
+            "B-03",
+            "fields_list"
+          ]
+        ],
+        "lcc.physical_boundary": [
+          [
+            "IR-02",
+            "fields_list"
+          ],
+          [
+            "B-01",
+            "fields_list"
+          ],
+          [
+            "B-03",
+            "fields_list"
+          ]
+        ],
+        "slca.logic": [
+          [
+            "IR-03",
+            "fields_list"
+          ]
+        ],
+        "governance.facilitator": [
+          [
+            "IR-06",
+            "fields_list"
+          ]
+        ],
+        "governance.ndas_signed": [
+          [
+            "IR-06",
+            "fields_list"
+          ]
+        ],
+        "lca.reference_scenario.type": [
+          [
+            "IR-07",
+            "fields_list"
+          ],
+          [
+            "FU-05",
+            "fields_list"
+          ]
+        ],
+        "lca.q_factor": [
+          [
+            "IR-09",
+            "fields_list"
+          ]
+        ],
+        "lcc.q_factor": [
+          [
+            "IR-09",
+            "fields_list"
+          ]
+        ],
+        "report.layers": [
+          [
+            "IR-11",
+            "fields_list"
+          ]
+        ],
+        "lca.transport.foreground": [
+          [
+            "IR-12",
+            "fields_list"
+          ],
+          [
+            "B-05",
+            "fields_list"
+          ]
+        ],
+        "lcc.transport_costs": [
+          [
+            "IR-12",
+            "fields_list"
+          ],
+          [
+            "B-05",
+            "fields_list"
+          ]
+        ],
+        "slca.territorial_dimension": [
+          [
+            "IR-12",
+            "fields_list"
+          ],
+          [
+            "B-04",
+            "fields_list"
+          ]
+        ],
+        "lca.capital_goods.included": [
+          [
+            "IR-13",
+            "fields_list"
+          ],
+          [
+            "B-06",
+            "fields_list"
+          ]
+        ],
+        "lcc.capital_goods.included": [
+          [
+            "IR-13",
+            "fields_list"
+          ],
+          [
+            "B-06",
+            "fields_list"
+          ]
+        ],
+        "lca.uncertainty.method": [
+          [
+            "IR-14",
+            "fields_list"
+          ]
+        ],
+        "lcc.uncertainty.method": [
+          [
+            "IR-14",
+            "fields_list"
+          ]
+        ],
+        "slca.uncertainty.method": [
+          [
+            "IR-14",
+            "fields_list"
+          ]
+        ],
+        "lca.zero_burden_classification": [
+          [
+            "IR-15",
+            "fields_list"
+          ]
+        ],
+        "lcc.avoidable_unavoidable_classification": [
+          [
+            "IR-15",
+            "fields_list"
+          ]
+        ],
+        "review.panel.experts": [
+          [
+            "IR-18",
+            "fields_list"
+          ]
+        ],
+        "review.scope": [
+          [
+            "IR-18",
+            "fields_list"
+          ]
+        ],
+        "slca.stakeholder_unit": [
+          [
+            "FU-04",
+            "fields_list"
+          ]
+        ],
+        "lcc.economic_boundary": [
+          [
+            "B-02",
+            "fields_list"
+          ]
+        ],
+        "slca.boundary": [
+          [
+            "B-02",
+            "fields_list"
+          ],
+          [
+            "B-03",
+            "fields_list"
+          ]
+        ],
+        "lca.capital_goods.amortization_period": [
+          [
+            "B-06",
+            "fields_list"
+          ]
+        ],
+        "lcc.capital_goods.amortization_period": [
+          [
+            "B-06",
+            "fields_list"
+          ]
+        ],
+        "lca.background_futurisation": [
+          [
+            "CIR-01",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.background_dynamic": [
+          [
+            "CIR-01",
+            "cir_action_lhs"
+          ]
+        ],
+        "lca.uncertainty.pedigree": [
+          [
+            "CIR-02",
+            "cir_action_lhs"
+          ]
+        ],
+        "lca.spatial_coupling": [
+          [
+            "CIR-03",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.counterparty_risk": [
+          [
+            "CIR-04",
+            "cir_action_lhs"
+          ]
+        ],
+        "lca.allocation_method": [
+          [
+            "CIR-05",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.externality_monetization": [
+          [
+            "CIR-05",
+            "cir_action_lhs"
+          ]
+        ],
+        "lca.lcia_method": [
+          [
+            "CIR-05",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.report.failure_modes": [
+          [
+            "CIR-10",
+            "cir_action_lhs"
+          ]
+        ]
+      },
+      "system": {
+        "report.aggregation_method": [
+          [
+            "IR-04",
+            "fields_list"
+          ]
+        ],
+        "report.dimensions": [
+          [
+            "IR-05",
+            "fields_list"
+          ]
+        ],
+        "system.physical_backbone": [
+          [
+            "IR-08",
+            "fields_list"
+          ]
+        ],
+        "report.public_disclosure.aggregation": [
+          [
+            "IR-10",
+            "fields_list"
+          ]
+        ],
+        "study.phase": [
+          [
+            "IR-17",
+            "fields_list"
+          ]
+        ],
+        "review.panel.independent": [
+          [
+            "IR-18",
+            "fields_list"
+          ]
+        ],
+        "report.framing": [
+          [
+            "IR-19",
+            "fields_list"
+          ]
+        ],
+        "methodological_charter.fe_documented": [
+          [
+            "FU-03",
+            "fields_list"
+          ]
+        ],
+        "report.blind_spots": [
+          [
+            "B-07",
+            "fields_list"
+          ]
+        ]
+      },
+      "computed": {
+        "lcc.reference_scenario.type": [
+          [
+            "IR-07",
+            "fields_list"
+          ],
+          [
+            "FU-05",
+            "fields_list"
+          ]
+        ],
+        "slca.reference_scenario.type": [
+          [
+            "IR-07",
+            "fields_list"
+          ],
+          [
+            "FU-05",
+            "fields_list"
+          ]
+        ],
+        "lca.calculation_order": [
+          [
+            "IR-16",
+            "fields_list"
+          ]
+        ],
+        "lcc.calculation_order": [
+          [
+            "IR-16",
+            "fields_list"
+          ]
+        ],
+        "slca.calculation_order": [
+          [
+            "IR-16",
+            "fields_list"
+          ]
+        ],
+        "lca.analytical_levels": [
+          [
+            "IR-20",
+            "fields_list"
+          ]
+        ],
+        "lcc.analytical_levels": [
+          [
+            "IR-20",
+            "fields_list"
+          ]
+        ],
+        "slca.analytical_levels": [
+          [
+            "IR-20",
+            "fields_list"
+          ]
+        ]
+      },
+      "cir_output": {
+        "lcc.uncertainty.pedigree": [
+          [
+            "CIR-02",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.spatial_coupling": [
+          [
+            "CIR-03",
+            "cir_action_lhs"
+          ]
+        ],
+        "slca.territorial_coupling": [
+          [
+            "CIR-03",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.allocation": [
+          [
+            "CIR-05",
+            "cir_action_lhs"
+          ]
+        ],
+        "lca.frontier_categories": [
+          [
+            "CIR-06",
+            "cir_action_lhs"
+          ]
+        ],
+        "lcc.externalities": [
+          [
+            "CIR-06",
+            "cir_action_lhs"
+          ]
+        ],
+        "slca.indicators": [
+          [
+            "CIR-06",
+            "cir_action_lhs"
+          ],
+          [
+            "CIR-08",
+            "cir_action_lhs"
+          ]
+        ],
+        "case.iterative_update_triggers": [
+          [
+            "CIR-09",
+            "cir_action_lhs"
+          ]
+        ],
+        "lca.report.failure_modes": [
+          [
+            "CIR-10",
+            "cir_action_lhs"
+          ]
+        ],
+        "slca.report.failure_modes": [
+          [
+            "CIR-10",
+            "cir_action_lhs"
+          ]
+        ]
+      },
+      "unknown": {}
+    }
+  },
+  "findings": [
+    {
+      "severity": "INFO",
+      "check": "node_total_count",
+      "where": null,
+      "message": "186 nodes total ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_method_count",
+      "where": null,
+      "message": "LCA: 59 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_method_count",
+      "where": null,
+      "message": "LCC: 61 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_method_count",
+      "where": null,
+      "message": "SLCA: 66 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_id_uniqueness",
+      "where": null,
+      "message": "All 186 IDs unique ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_id_convention",
+      "where": null,
+      "message": "All IDs match convention ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_category_consistency",
+      "where": null,
+      "message": "DEFAULT/DERIVED pattern consistent ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_lifecycle_layer",
+      "where": null,
+      "message": "Trigger=L0, HC/MC=L2 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_simple_logic_orphan",
+      "where": null,
+      "message": "All simple-logic nodes have populated trigger_condition ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_field_status_consistency",
+      "where": null,
+      "message": "field XOR field_status ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "node_per_flow_set",
+      "where": null,
+      "message": "Per-flow set matches v1 §5.4 (11 nodes) ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_count",
+      "where": null,
+      "message": "blocks: 4 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_count",
+      "where": null,
+      "message": "integration_rules: 20 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_count",
+      "where": null,
+      "message": "conditional_integration_rules: 10 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_count",
+      "where": null,
+      "message": "fu_rules: 5 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_count",
+      "where": null,
+      "message": "boundary_rules: 7 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_count",
+      "where": null,
+      "message": "critical_decision_points: 12 ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_id_uniqueness",
+      "where": null,
+      "message": "All 58 rule IDs unique ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_id_convention",
+      "where": null,
+      "message": "All rule IDs match Kimi convention ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_layer",
+      "where": null,
+      "message": "Lifecycle layers match v2 §2 architectural invariants ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "rule_schema_completeness",
+      "where": null,
+      "message": "All rules have required fields ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "source_nodes_resolve",
+      "where": null,
+      "message": "108/108 source_nodes references resolve to valid Phase 1 IDs ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "related_rules_resolve",
+      "where": null,
+      "message": "All CDP related_rules references resolve ✓"
+    },
+    {
+      "severity": "INFO",
+      "check": "field_unknown",
+      "where": null,
+      "message": "ZERO unknown fields ✓ (all references classified)"
+    },
+    {
+      "severity": "INFO",
+      "check": "field_classification_summary",
+      "where": null,
+      "message": "Field references: 38 node + 9 system + 8 computed + 10 cir_output + 0 UNKNOWN = 65 total"
+    }
+  ]
+}

@@ -56,9 +56,8 @@ Stack:
 - Persistence: SQLite via SQLAlchemy (server-side cases) + localStorage via Zustand persist (client-side draft)
 - Dev ports: backend 8088, frontend 5180
 
-Sprint corrente: **DCF rollout Fase A** (Phase 2 backend predicate evaluator + dcf_compose).
-Phase 1 schema engineering chiuso su branch `feature-dcf-phase1-schema` (in attesa di
-merge). Spec autoritativa: `docs/implementation/DATA_COLLECTION_FILE_v1.md`.
+Stato al **2026-08-29**: roadmap T4.6 Fasi A-D **tutta mergiata su `main`**, incluso il
+rework di visual identity (PR #42, "Data Dashboard"). Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
 - Sprint 4 Step 2 (scaffold) chiuso 2026-05-08
@@ -67,6 +66,19 @@ Cronologia sintetica (tutto su `main`):
 - Step 5 (12 .docx validation reports) chiuso
 - 6 round di UX polish + i18n 5 lingue (en/it/fr/de/es)
 - Features A-D + Follow-ups E-G (export/report, Q6a 14 settori, scenarios runner, cases CRUD, JSON overrides editor, port change, rich help & rationale)
+- Rimozione `backend/app/_legacy/` + superficie engine v2 (PR #34-35)
+- DCF Phase 1-4 (PR #36-39): schema engineering, predicate DSL + `dcf_compose` + writer xlsx/docx + API, DataCollectionPage + NetworkDiagram, reporting multi-stakeholder + placeholder scoring + aggregate
+- Fase C (PR #40): wizard mode + deployment produzione (`Dockerfile.prod`, `docker-compose.prod.yml`, `docs/DEPLOY.md`)
+- Fase D (PR #41): auth JWT + bcrypt, cases ownership-aware (primo utente registrato = admin)
+- Visual identity "Data Dashboard" (PR #42, merge 2026-08-29): design token `--dd-*`, AdminShell, libreria `dd/*`, wizard `/welcome`, reader shell + rotte pubbliche `/r/*`, ShareReportModal, slug leggibili dei case
+
+**Lavoro aperto (nessuno bloccante sul codice)**:
+- Filtro region reale su `/api/public/region/{code}` (oggi echo del codice)
+- i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
+- Network Builder (editor drag-drop della rete) — mai iniziato
+- Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
+- Deploy pubblico D4.6 (PU): immagine e guida pronte, manca l'URL reale
+- Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
 
 ---
 
@@ -102,7 +114,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente: **190 backend (pytest) + 14 frontend (vitest)**.
+- Test devono sempre passare prima del commit. Baseline corrente: **308 backend (pytest) + 22 frontend (vitest)**.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).
@@ -130,20 +142,32 @@ backend/app/
 │   ├── activate.py            186 nodi, dotted-path → pillar dict, per_flow handling
 │   ├── l2_validate.py         40 regole (trigger / assertion / actions parsing)
 │   └── l3_report.py           IR-04 + IR-10 enforcement + 12 CDP surfacing
-├── api/                       FastAPI routers (pipeline run/report/scenarios + cases CRUD)
-└── services/                  reports.py (.docx generation)
+│   ├── predicate.py           DSL dei predicati DCF (Phase 2)
+│   └── dcf_compose.py         Composizione del Data Collection File
+├── auth/
+│   ├── security.py            JWT + bcrypt (Fase D)
+│   ├── deps.py                get_current_user / get_current_user_optional
+│   └── ownership.py           can_view / can_modify su CaseRecord (condiviso cases+scoring)
+├── routers/                   health, auth, pipeline, cases, dcf, scoring, public
+└── services/                  reports.py (.docx), dcf_excel.py, dcf_docx.py, naming.py (slug)
 
 frontend/src/
-├── pages/                     Home, Questionnaire, Result, ScenariosResult, CasesList, About, Error
+├── pages/                     Welcome, Home, Questionnaire, Result, ScenariosResult, CasesList,
+│                              DataCollection, StakeholderReport, Aggregate, Login, About, Error
+│                              + pages/reader/ (viste pubbliche /r/*)
 ├── components/                QuestionCard, FlowsEditor, ScenariosEditor, AdvancedEditor,
-│                              PresetLoader, LoadingOverlay, …
-├── store/caseStore.ts         Zustand store con persist middleware (localStorage)
+│                              NetworkDiagram, StakeholderView, DcfSectionViewer, …
+│                              + admin/ · dd/ (design system) · reader/ (shell pubblica)
+├── store/                     caseStore.ts (Zustand + persist) + preferenceStore (ruolo/task/onboarding)
 ├── i18n/locales/              en.ts (source of truth) + it/fr/de/es
 ├── presets/papers.ts          13 fixture (12 papers + Leiva Escombreras/Frövi)
 └── types/api.ts               TS mirror dei DTO Pydantic
 ```
 
-Tutti i moduli engine sono implementati. Endpoint HTTP: `/api/pipeline/run`, `/api/pipeline/report`, `/api/pipeline/run-scenarios`, `/api/cases` (CRUD).
+Tutti i moduli engine sono implementati. Endpoint HTTP: `/api/pipeline/*` (run / report /
+run-scenarios), `/api/cases` (CRUD + `/aggregate/breakdown`), `/api/dcf/*`, `/api/scoring/{case_id}`
+(GET/PUT/DELETE), `/api/auth/*` (register / login / me), `/api/public/*` (share link reader).
+Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization model.
 
 ---
 
@@ -169,9 +193,12 @@ Tutti i moduli engine sono implementati. Endpoint HTTP: `/api/pipeline/run`, `/a
 
 ## Lavoro deferito noto
 
-- Production deployment fuori scope MVP (`docker-compose.yml` è dev-only).
 - Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
 - Tabelle DB legacy (`Session`, `Answer`, `PathwayResolutionRecord`) ancora registrate in `app/models/` ma senza endpoint che le usano. Da decidere se droppare in migrazione futura.
+- 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
+- Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
+- Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).
+- `coordination/current-state/_CURRENT_STATE.md` è storico (fermo a Sprint 0/1): lo stato corrente è **questo file**.
 
 ---
 

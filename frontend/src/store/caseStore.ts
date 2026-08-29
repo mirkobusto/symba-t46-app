@@ -33,8 +33,15 @@ export interface CaseState {
   loading: boolean
   error: string | null
   lastSavedAt: number | null
+  /**
+   * Id of the server-side case this draft corresponds to, or null while
+   * the case only exists locally. Set when a case is saved or loaded;
+   * the Network Builder needs it to know where to sync its DCF content.
+   */
+  serverCaseId: string | null
 
   setDraft: (next: Case) => void
+  setServerCaseId: (id: string | null) => void
   patchDraft: (patch: Partial<Case>) => void
   runDraft: () => Promise<Case | null>
   runScenariosFromDraft: () => Promise<ScenariosResponse | null>
@@ -50,8 +57,11 @@ export const useCaseStore = create<CaseState>()(
       loading: false,
       error: null,
       lastSavedAt: null,
+      serverCaseId: null,
 
       setDraft: (next) => set({ draft: next, lastSavedAt: Date.now() }),
+
+      setServerCaseId: (id) => set({ serverCaseId: id }),
 
       patchDraft: (patch) =>
         set({ draft: { ...get().draft, ...patch }, lastSavedAt: Date.now() }),
@@ -130,6 +140,7 @@ export const useCaseStore = create<CaseState>()(
           scenariosResult: null,
           error: null,
           lastSavedAt: null,
+          serverCaseId: null,
         }),
     }),
     {
@@ -141,6 +152,7 @@ export const useCaseStore = create<CaseState>()(
         result: state.result,
         scenariosResult: state.scenariosResult,
         lastSavedAt: state.lastSavedAt,
+        serverCaseId: state.serverCaseId,
       }),
     },
   ),

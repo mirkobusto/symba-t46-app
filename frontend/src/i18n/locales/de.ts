@@ -638,6 +638,32 @@ const de: Locale = {
     footerNote:
       'Das Data Collection File ist ein exportfertiges Inventarblatt. Füllen Sie die leeren Zeilen offline aus (oder verteilen Sie sie an die Netzwerkpartner) und übergeben Sie die Daten an den für die LCSA verantwortlichen Analysten.',
     openButton: 'Data Collection File öffnen',
+    tabOverview: 'Übersicht',
+    tabNetworkBuilder: 'Netzwerk-Editor',
+  },
+
+  networkBuilder: {
+    title: 'Netzwerk-Editor',
+    subtitle:
+      'Zeichnen Sie das Symbiose-Netzwerk: jeder Knoten ist ein Akteur, jeder Pfeil eine Zeile der Flussmatrix. Was Sie hier zeichnen, landet in der Excel-Datei und im Bericht.',
+    addActor: 'Akteur hinzufügen',
+    actor: 'Akteur',
+    noRole: 'Rolle nicht gesetzt',
+    save: 'Netzwerk speichern',
+    saving: 'Wird gespeichert…',
+    synced: 'Auf dem Server gespeichert',
+    unsavedChanges: 'Nicht gespeicherte Änderungen',
+    unsavedCase: 'Lokaler Entwurf — Fall speichern zum Synchronisieren',
+    saveCaseFirst:
+      'Dieser Fall ist noch nicht auf dem Server gespeichert. Sie können das Netzwerk jetzt zeichnen; speichern Sie den Fall auf der Ergebnisseite, um es zu sichern.',
+    missingRequired_one: '{{count}} Pflichtfeld noch leer',
+    missingRequired_other: '{{count}} Pflichtfelder noch leer',
+    selectHint:
+      'Wählen Sie einen Akteur oder einen Fluss, um dessen Felder zu bearbeiten.',
+    removeRow: 'Entfernen',
+    unwiredTitle: 'Noch nicht gezeichnete Flüsse',
+    unwiredHint:
+      'Diese Flüsse stammen aus Ihren Q5-Antworten. Verbinden Sie zwei Akteure auf der Arbeitsfläche, um den nächsten anzuschließen.',
   },
 
   cases: {

@@ -638,6 +638,31 @@ const es: Locale = {
     footerNote:
       'El Data Collection File es una hoja de recolección lista para exportar. Rellena las filas vacías sin conexión (o distribúyelo a los socios de la red) y devuelve los datos al analista responsable de la LCSA.',
     openButton: 'Abrir Data Collection File',
+    tabOverview: 'Resumen',
+    tabNetworkBuilder: 'Editor de red',
+  },
+
+  networkBuilder: {
+    title: 'Editor de red',
+    subtitle:
+      'Dibuja la red de simbiosis: cada nodo es un actor, cada flecha una fila de la matriz de flujos. Lo que dibujes aquí es lo que llevarán el Excel y el informe.',
+    addActor: 'Añadir actor',
+    actor: 'Actor',
+    noRole: 'rol sin definir',
+    save: 'Guardar red',
+    saving: 'Guardando…',
+    synced: 'Guardada en el servidor',
+    unsavedChanges: 'Cambios sin guardar',
+    unsavedCase: 'Borrador local — guarda el caso para sincronizar',
+    saveCaseFirst:
+      'Este caso todavía no está guardado en el servidor. Puedes dibujar la red ahora; guarda el caso desde la página de resultado para conservarla.',
+    missingRequired_one: '{{count}} campo obligatorio aún vacío',
+    missingRequired_other: '{{count}} campos obligatorios aún vacíos',
+    selectHint: 'Selecciona un actor o un flujo para editar sus campos.',
+    removeRow: 'Eliminar',
+    unwiredTitle: 'Flujos aún no dibujados',
+    unwiredHint:
+      'Estos flujos provienen de tus respuestas Q5. Conecta dos actores en el lienzo para enlazar el siguiente.',
   },
 
   cases: {

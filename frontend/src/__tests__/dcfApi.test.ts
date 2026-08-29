@@ -1,6 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { fetchDcfDocx, fetchDcfPreview, fetchDcfXlsx } from '../services/api'
+import {
+  ApiError,
+  fetchDcfData,
+  fetchDcfDocx,
+  fetchDcfPreview,
+  fetchDcfXlsx,
+  putDcfData,
+} from '../services/api'
 
 const okJsonResponse = (body: unknown) =>
   ({
@@ -104,5 +111,44 @@ describe('DCF API client', () => {
       status: 400,
       detail: 'q1 missing',
     })
+  })
+
+  it('fetchDcfData GETs the stored content for a case', async () => {
+    const envelope = {
+      data: {
+        schema_version: '1.0',
+        case_id: 'c1',
+        rows_by_section: {},
+        layout: {},
+        updated_at: null,
+      },
+      validation: { errors: [], missing_required: [], completeness: [] },
+    }
+    const mock = vi.fn(() =>
+      Promise.resolve(okJsonResponse(envelope)),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    const result = await fetchDcfData('c1')
+
+    expect(result.data.case_id).toBe('c1')
+    const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
+    expect(String(calls[0][0])).toContain('/api/dcf/c1/data')
+  })
+
+  it('putDcfData surfaces a structural rejection as ApiError(422)', async () => {
+    const mock = vi.fn(() =>
+      Promise.resolve(errResponse(422, 'field_not_active')),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    await expect(
+      putDcfData('c1', {
+        schema_version: '1.0',
+        case_id: 'c1',
+        rows_by_section: {},
+        layout: {},
+      }),
+    ).rejects.toBeInstanceOf(ApiError)
   })
 })

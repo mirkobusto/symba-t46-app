@@ -692,6 +692,31 @@ const en = {
     footerNote:
       'The Data Collection File is an export-ready inventory worksheet. Fill the empty rows offline (or distribute to your network partners) and return the data to the analyst leading the LCSA.',
     openButton: 'Open Data Collection File',
+    tabOverview: 'Overview',
+    tabNetworkBuilder: 'Network builder',
+  },
+
+  networkBuilder: {
+    title: 'Network builder',
+    subtitle:
+      'Draw the symbiosis network: every node is an actor, every arrow a row of the flow matrix. What you draw here is what the Excel and the report will carry.',
+    addActor: 'Add actor',
+    actor: 'Actor',
+    noRole: 'role not set',
+    save: 'Save network',
+    saving: 'Saving…',
+    synced: 'Saved on the server',
+    unsavedChanges: 'Unsaved changes',
+    unsavedCase: 'Local draft — save the case to sync',
+    saveCaseFirst:
+      'This case is not saved on the server yet. You can draw the network now; save the case from the result page to store it.',
+    missingRequired_one: '{{count}} required field still empty',
+    missingRequired_other: '{{count}} required fields still empty',
+    selectHint: 'Select an actor or a flow to edit its fields.',
+    removeRow: 'Remove',
+    unwiredTitle: 'Flows not yet drawn',
+    unwiredHint:
+      'These flows come from your Q5 answers. Connect two actors on the canvas to wire the next one up.',
   },
 
   cases: {

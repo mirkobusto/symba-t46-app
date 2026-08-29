@@ -7,15 +7,16 @@
 //   3. Each section with its active fields (or "not active" notice)
 //   4. Download buttons: xlsx + docx
 //
-// In v1 the DCF is export-only (spec §3 P3) — the user fills the xlsx
-// offline. Future v2 will add in-app data entry that round-trips to
-// the Flow Matrix.
+// Two tabs: the read-only Overview above, and the Network Builder,
+// where the actors and the flow matrix are actually drawn and stored
+// (/api/dcf/{case_id}/data). The xlsx stays the offline companion.
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import DcfSectionViewer from '../components/DcfSectionViewer'
+import NetworkBuilder from '../components/NetworkBuilder'
 import NetworkDiagram from '../components/NetworkDiagram'
 import {
   ApiError,
@@ -24,6 +25,7 @@ import {
   fetchDcfXlsx,
 } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
+import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
 import type { DcfPayload } from '../types/dcf'
 
@@ -42,13 +44,18 @@ export default function DataCollectionPage() {
   const { t } = useTranslation()
   const result = useCaseStore((s) => s.result)
   const draft = useCaseStore((s) => s.draft)
+  const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const pushToast = useToastStore((s) => s.push)
+  const bindDcfData = useDcfDataStore((s) => s.bindTo)
+  const loadDcfData = useDcfDataStore((s) => s.loadFromServer)
+  const syncDcfWithPayload = useDcfDataStore((s) => s.syncWithPayload)
 
   const [payload, setPayload] = useState<DcfPayload | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [downloadingXlsx, setDownloadingXlsx] = useState(false)
   const [downloadingDocx, setDownloadingDocx] = useState(false)
+  const [tab, setTab] = useState<'overview' | 'network'>('overview')
 
   const sourceCase = result ?? draft
 
@@ -82,6 +89,21 @@ export default function DataCollectionPage() {
     // sourceCase changes whenever the store mutates — re-fetch.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(sourceCase)])
+
+  // Attach the Network Builder draft to the saved case (if any) and pull
+  // whatever was stored server-side for it.
+  useEffect(() => {
+    bindDcfData(serverCaseId)
+    if (serverCaseId) void loadDcfData(serverCaseId)
+  }, [serverCaseId, bindDcfData, loadDcfData])
+
+  // Seed the flow rows declared in Q5 and drop values for fields this
+  // pathway no longer activates (a Q1-Q7 edit can deactivate a field
+  // under content that was already drawn).
+  useEffect(() => {
+    if (payload) syncDcfWithPayload(payload, sourceCase.flows ?? [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [payload, JSON.stringify(sourceCase.flows)])
 
   async function handleDownloadXlsx() {
     setDownloadingXlsx(true)
@@ -171,6 +193,44 @@ export default function DataCollectionPage() {
         </div>
       </div>
 
+      <div className="dd-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === 'overview'}
+          className={`dd-tab${tab === 'overview' ? ' dd-tab-active' : ''}`}
+          onClick={() => setTab('overview')}
+        >
+          {t('dcf.tabOverview')}
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === 'network'}
+          className={`dd-tab${tab === 'network' ? ' dd-tab-active' : ''}`}
+          onClick={() => setTab('network')}
+        >
+          {t('dcf.tabNetworkBuilder')}
+        </button>
+      </div>
+
+      {tab === 'network' ? (
+        <div className="dcf-network-section">
+          <h2>{t('networkBuilder.title')}</h2>
+          <p className="dd-page-sub">{t('networkBuilder.subtitle')}</p>
+          {serverCaseId === null ? (
+            <p className="nb-warning">{t('networkBuilder.saveCaseFirst')}</p>
+          ) : null}
+          <NetworkBuilder
+            payload={payload}
+            sourceCase={sourceCase}
+            caseId={serverCaseId}
+          />
+        </div>
+      ) : null}
+
+      {tab === 'overview' ? (
+      <>
       <div className="dcf-network-section">
         <h2>{t('dcf.networkTitle')}</h2>
         <NetworkDiagram
@@ -192,6 +252,8 @@ export default function DataCollectionPage() {
           />
         ))}
       </div>
+      </>
+      ) : null}
 
       <div className="dcf-actions">
         <button

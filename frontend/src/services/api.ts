@@ -19,6 +19,7 @@ import type {
   UserPublic,
 } from '../types/auth'
 import type { DcfPayload } from '../types/dcf'
+import type { DcfData, DcfDataEnvelope } from '../types/dcfData'
 import type { PublicRegionResponse, PublicReportResponse } from '../types/reader'
 import type { CasesAggregate, ScoringPayload } from '../types/scoring'
 
@@ -202,6 +203,42 @@ export function fetchDcfXlsx(input: Case): Promise<Blob> {
 
 export function fetchDcfDocx(input: Case): Promise<Blob> {
   return fetchDcfBlob('/api/dcf/export/docx', input)
+}
+
+// ----- Stored DCF content (Network Builder) -----
+
+/**
+ * Returns the DCF content stored for a *saved* case, with a freshly
+ * computed validation report. Throws ApiError(404) when nothing has been
+ * stored yet — callers read that as "empty file, start from the seed".
+ */
+export function fetchDcfData(caseId: string): Promise<DcfDataEnvelope> {
+  return request<DcfDataEnvelope>(
+    `/api/dcf/${encodeURIComponent(caseId)}/data`,
+  )
+}
+
+/** Full replace. Rejects with ApiError(422) on structural errors; empty
+ * required fields come back in `validation.missing_required` instead. */
+export function putDcfData(
+  caseId: string,
+  data: DcfData,
+): Promise<DcfDataEnvelope> {
+  return request<DcfDataEnvelope>(
+    `/api/dcf/${encodeURIComponent(caseId)}/data`,
+    { method: 'PUT', body: JSON.stringify(data) },
+  )
+}
+
+export function deleteDcfData(caseId: string): Promise<void> {
+  return fetch(`${API_BASE_URL}/api/dcf/${encodeURIComponent(caseId)}/data`, {
+    method: 'DELETE',
+    headers: { ...authHeader() },
+  }).then((res) => {
+    if (!res.ok && res.status !== 404) {
+      throw new ApiError(res.status, res.statusText)
+    }
+  })
 }
 
 // ----- Scoring (Phase B — CIRCE I/O specification still TBD) -----

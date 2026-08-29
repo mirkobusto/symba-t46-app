@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
+import LanguageSwitcher from '../components/LanguageSwitcher'
 import {
   recommendedRouteFor,
   usePreferenceStore,
@@ -70,6 +71,13 @@ export default function WelcomePage() {
 
   return (
     <div className="dd-welcome">
+      {/* The wizard renders outside <Layout />, so the topbar switcher is
+          not available here — and this is the first screen a visitor
+          sees, which is exactly where the language matters most. */}
+      <div className="dd-welcome-lang">
+        <LanguageSwitcher />
+      </div>
+
       <div className="dd-welcome-card">
         <div className="dd-welcome-progress" aria-hidden="true">
           <span className={step === 1 ? 'active' : 'done'} />

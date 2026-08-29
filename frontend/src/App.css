@@ -2998,6 +2998,23 @@ kbd {
   display: grid;
   place-items: center;
   padding: 32px 20px;
+  position: relative;
+}
+
+/* The landing renders outside the admin shell, so it carries its own
+   language switcher — it is the first screen a visitor sees. */
+.dd-welcome-lang {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+}
+
+@media (max-width: 640px) {
+  .dd-welcome-lang {
+    position: static;
+    justify-self: end;
+    margin-bottom: 12px;
+  }
 }
 
 .dd-welcome-card {

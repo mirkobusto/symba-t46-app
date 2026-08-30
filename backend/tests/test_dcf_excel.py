@@ -178,12 +178,12 @@ def test_mandates_tab_has_mandate_rows(payload_wiktor):
         "Category", "Node ID", "Method", "Statement",
         "Deliverable target", "Assignee", "Status",
     ]
-    # At least 50 mandate rows
+    # Enough mandate rows for the fixture's active dimensions (ENV+ECO)
     row_count = 0
     for r in range(5, 200):
         if ws.cell(row=r, column=2).value:  # node_id column
             row_count += 1
-    assert row_count >= 50
+    assert row_count >= 25
 
 
 # ---------------------------------------------------------------------------

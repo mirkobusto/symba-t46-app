@@ -18,8 +18,10 @@ from app.domain.enums import (
     Q4,
     Q5,
     Q7,
+    LccType,
     Q6a,
     Q6b,
+    SlcaActivationState,
 )
 from app.domain.models import Q3, Case, Flow
 from app.engine.dcf_compose import (
@@ -286,31 +288,37 @@ def test_briassoulis_has_slca_mandates(
     assert "stakeholder_materiality" in cats
 
 
-def test_mandate_count_largely_uniform_across_cases(
+def test_mandate_count_tracks_the_active_dimensions(
     case_wiktor, case_arce, case_briassoulis, dcf_schema, mandates_census
 ):
-    """78 of the 90 procedural_mandates are DEFAULT category (always-activated),
-    only 12 are DERIVED. The §5.5 mandate set is therefore largely uniform
-    across cases — only modest variation expected, driven by the few DERIVED
-    mandates whose trigger_condition is satisfied."""
-    counts = []
-    for case in [case_wiktor, case_arce, case_briassoulis]:
+    """The §5.5 mandate set follows the dimensions the case switched on.
+
+    It used to be near-uniform across cases because every LCC and S-LCA
+    node activated regardless of Q3 — which is what `lcc_trig_01`
+    ("q3.eco=false" -> "all LCC nodes deactivated") says must not happen.
+    A case with no economic dimension is no longer handed the economic
+    mandates.
+    """
+    counts = {}
+    for label, case in (
+        ("wiktor", case_wiktor),
+        ("arce", case_arce),
+        ("briassoulis", case_briassoulis),
+    ):
         payload = compose_dcf(case, dcf_schema, mandates_census)
-        total = sum(len(v) for v in payload.mandates_by_category.values())
-        counts.append(total)
-    # all between 75 and 90 (loose bound, just sanity)
-    for c in counts:
-        assert 70 <= c <= 90, f"unexpected mandate count {c}"
-    # spread is small
-    assert max(counts) - min(counts) <= 15, (
-        f"mandate counts vary too widely across cases: {counts}"
-    )
+        counts[label] = sum(len(v) for v in payload.mandates_by_category.values())
+        methods = {
+            m.method
+            for group in payload.mandates_by_category.values()
+            for m in group
+        }
+        if case.lcc_type == LccType.DEACTIVATED:
+            assert "LCC" not in methods, f"{label}: LCC mandates on a case without LCC"
+        if case.slca_activation_state == SlcaActivationState.DEACTIVATED:
+            assert "SLCA" not in methods, f"{label}: S-LCA mandates without S-LCA"
 
-
-# ---------------------------------------------------------------------------
-# Network diagram (section 5.6)
-# ---------------------------------------------------------------------------
-
+    for label, count in counts.items():
+        assert 15 <= count <= 90, f"unexpected mandate count for {label}: {count}"
 
 def test_network_render_spec_present(case_wiktor, dcf_schema, mandates_census):
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)

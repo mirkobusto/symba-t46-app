@@ -20,7 +20,11 @@ def test_pipeline_run_minimal_case(client):
     assert body["lcc_type"] == "deactivated"
     assert body["slca_activation_state"] == "deactivated"
     assert body["blocked_by"] == []
-    assert len(body["activated_nodes"]) >= 116
+    # ECO and SOC are off in this minimal case, so the LCC and S-LCA
+    # nodes stay deactivated per lcc_trig_01 / slca_t_01: only the LCA
+    # side activates.
+    assert len(body["activated_nodes"]) >= 40
+    assert not [n for n in body["activated_nodes"] if n.startswith(("lcc_", "slca_"))]
 
 
 def test_pipeline_run_full_lcsa_case(client):

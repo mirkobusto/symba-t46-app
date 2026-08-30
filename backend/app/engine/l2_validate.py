@@ -70,7 +70,7 @@ from typing import Any
 
 from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6b
 from app.domain.models import Case
-from app.engine.activate import _write
+from app.engine.activate import _pillar_is_off, _write
 from app.engine.loader import LoadedSchemas
 
 # ---------------------------------------------------------------------------
@@ -579,13 +579,25 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         # foreground?) are made outside the tool. Presenting them as
         # obligations is what the tool can honestly support; the
         # violation list below stays for the validation reports.
+        declared = list(rule.get("fields") or [])
+        applicable = [f for f in declared if not _pillar_is_off(case, f.split(".")[0])]
+        not_applicable = [f for f in declared if f not in applicable]
+        if declared and not applicable:
+            # Every field this rule governs lives in a method the case
+            # switched off — the rule has nothing to say here.
+            continue
         case.applicable_rules.append({
             "rule_id": rule_id,
             "name": rule.get("name"),
             "statement": rule.get("violation_message",
                                   f"{rule_id} applies to this case"),
             "trigger": rule.get("trigger_condition_raw"),
-            "fields": list(rule.get("fields") or []),
+            "fields": applicable,
+            # Cross-method rules keep applying through their active half:
+            # B-05 still requires transport in the LCA foreground when the
+            # LCC is switched off. Naming the dropped half stops the rule
+            # text ("…and LCC costs") from reading as a contradiction.
+            "fields_not_applicable": not_applicable,
             "source_nodes": list(rule.get("source_nodes") or []),
         })
 

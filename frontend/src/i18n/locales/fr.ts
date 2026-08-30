@@ -73,7 +73,8 @@ const fr: Locale = {
     about: {
       eyebrow: 'À propos de SYMBA T4.6',
       title: 'Rapports publics · en bref',
-      lead: 'Quelqu\'un a partagé un cas avec vous. Voici ce que fait cet outil.',
+      lead:
+        'Pratiques méthodologiques rendues obligatoires par vos réponses, plus les décisions encore ouvertes. Chacune indique pourquoi elle concerne votre cas.',
       whoTitle: 'Qui est derrière ?',
       whoBody: 'SYMBA est un projet Horizon Europe (GA 101135562, M22–M36).',
       whatTitle: 'Qu\'est-ce qu\'un rapport ?',
@@ -510,18 +511,20 @@ const fr: Locale = {
     },
     next: {
       title: 'Que faire maintenant',
-      lead: "Points soulevés par le moteur à partir de vos réponses. Chacun indique pourquoi il concerne votre cas et ce qu'il faut renseigner.",
-      allClear: 'Rien à corriger — vos réponses sont méthodologiquement cohérentes. Étape suivante : collecter les données d\'inventaire.',
+      lead:
+        "Pratiques méthodologiques rendues obligatoires par vos réponses, plus les décisions encore ouvertes. Chacune indique pourquoi elle concerne votre cas.",
+      allClear:
+        "Aucune obligation méthodologique ne s'applique à ces réponses et aucun point de décision critique n'est apparu. Étape suivante : collecter les données d'inventaire.",
       ctaHint: 'Le Data Collection File est calibré sur ce parcours : il ne demande que ce dont votre cas a besoin.',
     },
     actionKind: {
       block: 'Bloquant',
-      violation: 'À corriger',
+      obligation: 'À documenter',
       decision: 'À décider',
     },
     action: {
       why: 'Pourquoi cela vous concerne',
-      todo: 'Ce qu\'il faut renseigner',
+      todo: "Ce qu'il faut documenter",
     },
     technical: {
       title: 'Détail technique (sortie du moteur)',

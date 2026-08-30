@@ -505,18 +505,20 @@ const es: Locale = {
     },
     next: {
       title: 'Qué hacer ahora',
-      lead: 'Puntos que el motor ha planteado sobre tus respuestas. Cada uno dice por qué afecta a tu caso y qué debes rellenar.',
-      allClear: 'Nada que corregir — tus respuestas son metodológicamente coherentes. Siguiente paso: recoger los datos de inventario.',
+      lead:
+        'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
+      allClear:
+        'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: recoger los datos de inventario.',
       ctaHint: 'El Data Collection File está calibrado en este pathway: solo pide lo que tu caso necesita.',
     },
     actionKind: {
       block: 'Bloqueante',
-      violation: 'Por corregir',
+      obligation: 'Por documentar',
       decision: 'Por decidir',
     },
     action: {
       why: 'Por qué te afecta',
-      todo: 'Qué rellenar',
+      todo: 'Qué documentar',
     },
     technical: {
       title: 'Detalle técnico (salida del motor)',

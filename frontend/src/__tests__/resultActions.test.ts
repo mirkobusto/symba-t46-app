@@ -49,21 +49,21 @@ describe('actionItems', () => {
     const items = actionItems({
       ...CASE,
       blocked_by: ['block_C2_plus_E-LCC'],
-      rule_violations: [{ rule_id: 'B-05', message: 'boom' }],
+      applicable_rules: [{ rule_id: 'B-05', statement: 'applies' }],
       cdp_flags: [
         { cdp_id: 'CDP-03', name: 'Trade-off', tension: null, severity: 'LOW', methods: [], resolution_at_l3: null },
       ],
     })
-    expect(items.map((i) => i.kind)).toEqual(['block', 'violation', 'decision'])
+    expect(items.map((i) => i.kind)).toEqual(['block', 'obligation', 'decision'])
   })
 
-  it('carries the rule row through to the card', () => {
+  it('carries the triggered rule through to the card', () => {
     const [item] = actionItems({
       ...CASE,
-      rule_violations: [
+      applicable_rules: [
         {
           rule_id: 'B-05',
-          message: 'Geographic spread requires explicit transport.',
+          statement: 'Geographic spread requires explicit transport.',
           name: 'Geographic Spread Transport Coupling',
           trigger: 'Q7 ∈ {B, C, D}',
           fields: ['lca.transport.foreground', 'lcc.transport_costs'],

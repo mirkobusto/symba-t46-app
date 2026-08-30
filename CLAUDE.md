@@ -197,6 +197,7 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 
 - Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
 - Tabelle DB legacy (`Session`, `Answer`, `PathwayResolutionRecord`) ancora registrate in `app/models/` ma senza endpoint che le usano. Da decidere se droppare in migrazione futura.
+- **Le 40 regole L2 sono presentate come obblighi metodologici da documentare, non come errori** (decisione 2026-08-30). `case.applicable_rules` è emesso sul *trigger* ed è ciò che app e report mostrano; `case.rule_violations` (assertion fallita) resta per i validation report ma non è affidabile: le assertion confrontano valori che l'engine scrive come prosa (`lca.transport.foreground` = `'explicit'`, mai il booleano testato), quindi B-05 scattava sul 100% dei casi con Q7∈{B,C,D} e IR-01 su ogni caso con ≥2 dimensioni. Renderle controlli veri richiede un posto dove l'analista dichiari quelle scelte — non esiste oggi.
 - 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
 - Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
 - Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).

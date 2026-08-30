@@ -182,5 +182,11 @@ class Case(BaseModel):
         description="L1 BLOCK IDs that fired (non-empty means STOP)")
     rule_violations: list[dict[str, Any]] = Field(default_factory=list,
         description="L2 rule violations raised during validation")
+    applicable_rules: list[dict[str, Any]] = Field(default_factory=list,
+        description=("L2 rules whose trigger fired for this case — the "
+                     "methodological practices the case has to document. "
+                     "Emitted on the trigger, not on the assertion: the "
+                     "assertions compare engine-written prose and cannot "
+                     "verify what the analyst did outside the tool."))
     cdp_flags: list[dict[str, Any]] = Field(default_factory=list,
         description="L3 CDP tensions surfaced at reporting")

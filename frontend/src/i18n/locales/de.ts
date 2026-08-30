@@ -505,18 +505,20 @@ const de: Locale = {
     },
     next: {
       title: 'Was jetzt zu tun ist',
-      lead: 'Punkte, die die Engine aus Ihren Antworten abgeleitet hat. Jeder nennt den Grund für Ihren Fall und das auszufüllende Feld.',
-      allClear: 'Nichts zu korrigieren — Ihre Antworten sind methodisch konsistent. Nächster Schritt: Inventardaten erheben.',
+      lead:
+        'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
+      allClear:
+        'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Inventardaten erheben.',
       ctaHint: 'Das Data Collection File ist auf diesen Pathway kalibriert: es fragt nur ab, was Ihr Fall braucht.',
     },
     actionKind: {
       block: 'Blockierend',
-      violation: 'Zu korrigieren',
+      obligation: 'Zu dokumentieren',
       decision: 'Zu entscheiden',
     },
     action: {
       why: 'Warum es Sie betrifft',
-      todo: 'Was auszufüllen ist',
+      todo: 'Was zu dokumentieren ist',
     },
     technical: {
       title: 'Technisches Detail (Engine-Ausgabe)',

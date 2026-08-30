@@ -7,7 +7,11 @@ bibliographic metadata; this module produces a leaner report for
 user-submitted cases (no Section 1-3 paper details, kept generic).
 
 The 8-section structure mirrors WorkingDoc §6 so end users can still
-hand the file to a reviewer who knows the canonical layout.
+hand the file to a reviewer who knows the canonical layout. That layout
+answers "is this configuration defensible", which is a reviewer's
+question; the front matter added before section 1 answers the two a
+reader has first — what did I get, and what do I do now — using the same
+sentences and citations the result page shows, from app/data/narrative.json.
 """
 from __future__ import annotations
 
@@ -19,6 +23,7 @@ from docx.shared import Pt
 
 from app.domain.enums import Q4
 from app.domain.models import Q3, Case
+from app.services.narrative import ActionItem, Verdict, action_items, verdict_for
 
 
 def _format_q3(q3: Q3) -> str:
@@ -42,6 +47,90 @@ def _add_kv(doc: Document, key: str, value: str) -> None:
     p.add_run(value)
 
 
+_KIND_LABEL = {
+    "block": "Blocking",
+    "obligation": "To document",
+    "decision": "To decide",
+}
+
+
+def _write_verdict(doc: Document, verdict: Verdict) -> None:
+    """The answer first: what the configuration is, and what it means.
+
+    The detail and the deliverable citation are printed in full rather
+    than folded away — a document is read once, often by someone who was
+    not at the keyboard when it was generated.
+    """
+    doc.add_heading("Verdict", level=1)
+    lead = doc.add_paragraph()
+    lead.add_run(verdict.title).bold = True
+    doc.add_paragraph(verdict.body)
+    if verdict.codes:
+        codes = doc.add_paragraph()
+        run = codes.add_run(" · ".join(verdict.codes))
+        run.italic = True
+        run.font.size = Pt(9)
+    if verdict.detail:
+        doc.add_paragraph(verdict.detail)
+
+    if not verdict.sections:
+        return
+
+    doc.add_heading("What this configuration means", level=2)
+    for section in verdict.sections:
+        para = doc.add_paragraph()
+        para.add_run(f"{section.short} ").bold = True
+        code_run = para.add_run(f"[{section.code}]")
+        code_run.font.size = Pt(9)
+        if section.detail:
+            doc.add_paragraph(section.detail)
+        if section.quote:
+            quoted = doc.add_paragraph(style="Intense Quote")
+            quoted.add_run(f"\u201c{section.quote}\u201d").italic = True
+            cite = doc.add_paragraph()
+            cite_run = cite.add_run(section.source)
+            cite_run.font.size = Pt(9)
+
+
+def _write_next_steps(doc: Document, items: list[ActionItem]) -> None:
+    """Blocks, methodological obligations and open decisions as one
+    ordered list, each saying why it applies to this case and what has to
+    be documented."""
+    doc.add_heading("What to do next", level=1)
+    if not items:
+        doc.add_paragraph(
+            "No methodological obligation applies to these answers and no "
+            "critical decision point was surfaced. Next step is the inventory "
+            "data collection (see the Data Collection File)."
+        )
+        return
+
+    for item in items:
+        head = doc.add_paragraph()
+        head.add_run(f"[{_KIND_LABEL.get(item.kind, item.kind)}] ").bold = True
+        head.add_run(item.title).bold = True
+        code_run = head.add_run(f"  {item.code}")
+        code_run.font.size = Pt(9)
+
+        if item.answers:
+            why = doc.add_paragraph()
+            why.add_run("Why it applies here: ").italic = True
+            why.add_run(", ".join(f"{label} = {value}" for label, value in item.answers))
+            if item.trigger:
+                trigger_run = why.add_run(f"  ({item.trigger})")
+                trigger_run.font.size = Pt(9)
+
+        if item.fields:
+            todo = doc.add_paragraph()
+            todo.add_run("What to document: ").italic = True
+            todo.add_run(", ".join(item.fields))
+
+        if item.detail:
+            detail = doc.add_paragraph()
+            detail_run = detail.add_run(item.detail)
+            detail_run.font.size = Pt(9)
+
+
 def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     """Build a .docx for `case` (assumed already pipeline-run) and return
     the bytes for streaming via FastAPI Response.
@@ -63,6 +152,11 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     ).italic = True
 
     # ----- Section 1 — Bibliographic placeholder -----
+    verdict = verdict_for(case)
+    if verdict is not None:
+        _write_verdict(doc, verdict)
+    _write_next_steps(doc, action_items(case))
+
     doc.add_heading("1. Bibliographic reference and IS context", level=1)
     doc.add_paragraph("(User-submitted case — no bibliographic source.)")
 

@@ -11,8 +11,10 @@ import type { ActionItem } from '../../pages/resultActions'
 
 const TONE: Record<ActionItem['kind'], string> = {
   block: 'danger',
-  violation: 'amber',
-  decision: 'brand',
+  // An obligation is not an error: it gets the neutral brand tone, not
+  // the amber one, or the page cries wolf on every single case.
+  obligation: 'brand',
+  decision: 'amber',
 }
 
 export default function ActionItemCard({ item }: { item: ActionItem }) {

@@ -129,6 +129,20 @@ export interface RuleViolation {
   source_nodes?: string[]
 }
 
+/**
+ * A rule whose trigger fired: a methodological practice this case has to
+ * document. Not an error — see backend/app/engine/l2_validate.py on why
+ * the assertions cannot verify choices made outside the tool.
+ */
+export interface ApplicableRule {
+  rule_id: string
+  name?: string | null
+  statement: string
+  trigger?: string | null
+  fields?: string[]
+  source_nodes?: string[]
+}
+
 export interface CdpFlag {
   cdp_id: string
   name: string | null
@@ -183,5 +197,6 @@ export interface Case {
   activated_nodes?: string[]
   blocked_by?: string[]
   rule_violations?: RuleViolation[]
+  applicable_rules?: ApplicableRule[]
   cdp_flags?: CdpFlag[]
 }

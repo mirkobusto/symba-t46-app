@@ -103,7 +103,8 @@ const en = {
     about: {
       eyebrow: 'About SYMBA T4.6',
       title: 'Public reports · at a glance',
-      lead: 'You landed here because someone shared a case with you. Here\'s what this tool does and why it matters.',
+      lead:
+        'Methodological practices your answers make mandatory, plus any decision left open. Each one says why it applies to your case.',
       whoTitle: 'Who\'s behind this?',
       whoBody: 'SYMBA is a Horizon Europe project (GA 101135562, M22–M36) building open, methodologically-sound tools for industrial symbiosis in the bio-based industrial ecosystem. Task T4.6 is the monitoring & reporting system.',
       whatTitle: 'What is a "report"?',
@@ -560,17 +561,18 @@ const en = {
     next: {
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
-      allClear: 'Nothing to fix — your answers are methodologically consistent. Next step: collect the inventory data.',
+      allClear:
+        'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: collect the inventory data.',
       ctaHint: 'The Data Collection File is calibrated on this pathway: it only asks for what your case needs.',
     },
     actionKind: {
       block: 'Blocking',
-      violation: 'To fix',
+      obligation: 'To document',
       decision: 'To decide',
     },
     action: {
       why: 'Why it applies to you',
-      todo: 'What to fill in',
+      todo: 'What to document',
     },
     technical: {
       title: 'Technical detail (engine output)',

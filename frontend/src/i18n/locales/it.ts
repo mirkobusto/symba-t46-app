@@ -89,7 +89,8 @@ const it: Locale = {
     about: {
       eyebrow: 'Cos\'è SYMBA T4.6',
       title: 'Report pubblici · in breve',
-      lead: 'Sei arrivato qui perché qualcuno ha condiviso un caso con te. Ecco cosa fa questo tool e perché è utile.',
+      lead:
+        'Pratiche metodologiche che le tue risposte rendono obbligatorie, più le decisioni rimaste aperte. Ognuna dice perché riguarda il tuo caso.',
       whoTitle: 'Chi c\'è dietro?',
       whoBody: 'SYMBA è un progetto Horizon Europe (GA 101135562, M22–M36) che sviluppa strumenti aperti e metodologicamente solidi per la simbiosi industriale nell\'ecosistema bio-based. Il task T4.6 è il sistema di monitoraggio e reporting.',
       whatTitle: 'Cos\'è un "report"?',
@@ -539,17 +540,18 @@ const it: Locale = {
     next: {
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e cosa devi valorizzare.',
-      allClear: 'Niente da correggere — le tue risposte sono metodologicamente coerenti. Prossimo passo: raccogliere i dati di inventario.',
+      allClear:
+        'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: raccogliere i dati di inventario.',
       ctaHint: 'Il Data Collection File è calibrato su questo pathway: ti chiede solo quello che serve al tuo caso.',
     },
     actionKind: {
       block: 'Bloccante',
-      violation: 'Da correggere',
+      obligation: 'Da documentare',
       decision: 'Da decidere',
     },
     action: {
       why: 'Perché riguarda te',
-      todo: 'Cosa valorizzare',
+      todo: 'Cosa documentare',
     },
     technical: {
       title: 'Dettaglio tecnico (output del motore)',

@@ -3,14 +3,19 @@
 // The result page used to restate the engine's own vocabulary — L1
 // blocks, L2 violations, L3 CDPs, one list each. What a reader needs
 // instead is a single ordered list of things to act on, each carrying
-// three answers: what is wrong, why it applies to *this* case, and what
-// to do about it.
+// three answers: what it is, why it applies to *this* case, and what to
+// do about it.
+//
+// L2 rules arrive as `applicable_rules` (trigger fired) rather than as
+// `rule_violations` (assertion failed). They are practices to document,
+// not errors: the assertions compare values the engine writes as prose,
+// and the choices they describe are made outside the tool.
 //
 // Pure data in, pure data out: the component does the wording.
 
-import type { Case, CdpFlag, RuleViolation } from '../types/api'
+import type { ApplicableRule, Case, CdpFlag } from '../types/api'
 
-export type ActionKind = 'block' | 'violation' | 'decision'
+export type ActionKind = 'block' | 'obligation' | 'decision'
 
 export interface AnsweredQuestion {
   label: string
@@ -88,16 +93,16 @@ export function answersFor(
   return out
 }
 
-function fromViolation(v: RuleViolation, kase: Case): ActionItem {
+function fromRule(rule: ApplicableRule, kase: Case): ActionItem {
   return {
-    key: `violation:${v.rule_id}`,
-    kind: 'violation',
-    code: v.rule_id,
-    title: v.name ?? null,
-    detail: v.message,
-    trigger: v.trigger ?? null,
-    answers: answersFor(v.trigger, kase),
-    fields: v.fields ?? [],
+    key: `rule:${rule.rule_id}`,
+    kind: 'obligation',
+    code: rule.rule_id,
+    title: rule.name ?? null,
+    detail: rule.statement,
+    trigger: rule.trigger ?? null,
+    answers: answersFor(rule.trigger, kase),
+    fields: rule.fields ?? [],
     severity: null,
   }
 }
@@ -134,13 +139,13 @@ const SEVERITY_RANK: Record<string, number> = { HIGH: 0, MEDIUM: 1, LOW: 2 }
 
 /**
  * Everything the analyst has to act on, hardest-stop first: blocks halt
- * the pipeline outright, violations are inconsistencies to fix, and
- * decisions (CDPs) are choices only a human can make.
+ * the pipeline outright, obligations are practices this case has to
+ * document, and decisions (CDPs) are choices only a human can make.
  */
 export function actionItems(kase: Case | null): ActionItem[] {
   if (!kase) return []
   const blocks = (kase.blocked_by ?? []).map(fromBlock)
-  const violations = (kase.rule_violations ?? []).map((v) => fromViolation(v, kase))
+  const obligations = (kase.applicable_rules ?? []).map((r) => fromRule(r, kase))
   const decisions = [...(kase.cdp_flags ?? [])]
     .sort(
       (a, b) =>
@@ -148,5 +153,5 @@ export function actionItems(kase: Case | null): ActionItem[] {
         (SEVERITY_RANK[b.severity ?? 'LOW'] ?? 3),
     )
     .map((c) => fromCdp(c, kase))
-  return [...blocks, ...violations, ...decisions]
+  return [...blocks, ...obligations, ...decisions]
 }

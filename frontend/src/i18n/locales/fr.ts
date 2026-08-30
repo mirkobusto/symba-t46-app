@@ -423,6 +423,48 @@ const fr: Locale = {
     },
   },
 
+  narrative: {
+    pathway: {
+      'IS-01': {
+        title: 'Symbiose opérationnelle — aide à la décision',
+        body: 'Un échange symbiotique entre deux entreprises, ou au sein d\'un éco-parc, évalué pour décider s\'il faut le réaliser et comment.',
+      },
+      'IS-02': {
+        title: 'Pré-faisabilité sectorielle — politique publique',
+        body: 'Une décision de politique ou de programme à l\'échelle régionale ou nationale, dont les conséquences sont structurelles et non marginales.',
+      },
+      'IS-03': {
+        title: 'Contribution de l\'entreprise — reporting',
+        body: 'La contribution symbiotique d\'une seule entreprise au sein d\'un réseau, pour le reporting ESG / CSRD.',
+      },
+      'IS-04': {
+        title: 'Réseau IS émergent — conception ex-ante',
+        body: 'Un réseau encore en conception, évalué sur des scénarios dynamiques sans référence opérationnelle.',
+      },
+      'IS-05': {
+        title: 'Suivi — symbiose en exploitation',
+        body: 'Suivi chronologique d\'une symbiose déjà opérationnelle.',
+      },
+    },
+    extendedSuffix: 'L\'évaluation compare une référence à des scénarios alternatifs.',
+    ilcd: {
+      'ILCD Situation A': 'Aide à la décision au niveau micro : l\'échange est trop petit pour modifier le système d\'arrière-plan. Modélisation attributionnelle, avec substitution sur le mix de marché moyen.',
+      'ILCD Situation A multi-actor': 'Aide à la décision au niveau micro sur un réseau multi-acteurs : même règle que la Situation A, appliquée à l\'ensemble du parc plutôt qu\'à un seul échange.',
+      'ILCD Situation B': 'Aide à la décision au niveau méso/macro : la décision provoque un changement structurel de l\'arrière-plan, donc modélisation conséquentielle sur la technologie marginale. Le D4.1 demande de prouver cette échelle avant de la choisir.',
+      'ILCD Situation C1': 'Comptabilité avec interactions — documenter ce qu\'un réseau existant apporte à l\'économie au sens large. Substitution sur le mix de marché moyen, comme en Situation A.',
+      'ILCD Situation C2': 'Comptabilité stricte pour un seul partenaire isolé : allocation, sans crédits de substitution.',
+    },
+    lcc: {
+      'deactivated': 'Pas d\'analyse économique — la dimension économique est désactivée en Q3.',
+      'C+E': 'LCC conventionnel (les flux de trésorerie réels de l\'entreprise) plus LCC environnemental (la chaîne de valeur, sur les mêmes frontières que l\'ACV).',
+      'C+E+S': 'LCC conventionnel et environnemental plus LCC sociétal : taxes et subventions ajustées par le Net Tax Factor, impacts environnementaux monétisés.',
+      'C-LCC': 'LCC conventionnel uniquement — la perspective de l\'entreprise, équivalente à une analyse du coût total de possession.',
+    },
+    slca: {
+      'active': 'S-ACV active : indicateurs sociaux par groupe de parties prenantes.',
+      'deactivated': 'S-ACV non activée — la dimension sociale est désactivée en Q3.',
+    },
+  },
   result: {
     next: {
       title: 'Que faire maintenant',

@@ -51,7 +51,7 @@ describe('actionItems', () => {
       blocked_by: ['block_C2_plus_E-LCC'],
       rule_violations: [{ rule_id: 'B-05', message: 'boom' }],
       cdp_flags: [
-        { cdp_id: 'CDP-03', name: 'Trade-off', tension: null, severity: 'LOW', methods: [] },
+        { cdp_id: 'CDP-03', name: 'Trade-off', tension: null, severity: 'LOW', methods: [], resolution_at_l3: null },
       ],
     })
     expect(items.map((i) => i.kind)).toEqual(['block', 'violation', 'decision'])
@@ -79,8 +79,8 @@ describe('actionItems', () => {
     const items = actionItems({
       ...CASE,
       cdp_flags: [
-        { cdp_id: 'CDP-01', name: 'low', tension: null, severity: 'LOW', methods: [] },
-        { cdp_id: 'CDP-02', name: 'high', tension: null, severity: 'HIGH', methods: [] },
+        { cdp_id: 'CDP-01', name: 'low', tension: null, severity: 'LOW', methods: [], resolution_at_l3: null },
+        { cdp_id: 'CDP-02', name: 'high', tension: null, severity: 'HIGH', methods: [], resolution_at_l3: null },
       ],
     })
     expect(items.map((i) => i.code)).toEqual(['CDP-02', 'CDP-01'])

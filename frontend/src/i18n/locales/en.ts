@@ -472,6 +472,48 @@ const en = {
     },
   },
 
+  narrative: {
+    pathway: {
+      'IS-01': {
+        title: 'Operational symbiosis — decision support',
+        body: 'A symbiotic exchange between two companies, or inside an eco-park, assessed to decide whether and how to run it.',
+      },
+      'IS-02': {
+        title: 'Sector-wide pre-feasibility — policy',
+        body: 'A policy or programme decision at regional or national scale, where the consequences are structural rather than marginal.',
+      },
+      'IS-03': {
+        title: 'Corporate contribution — reporting',
+        body: 'The symbiotic contribution of a single company inside a network, for ESG / CSRD reporting.',
+      },
+      'IS-04': {
+        title: 'Emerging IS network — ex-ante design',
+        body: 'A network still being designed, assessed on dynamic scenarios with no operating baseline.',
+      },
+      'IS-05': {
+        title: 'Monitoring — symbiosis in operation',
+        body: 'Time-series monitoring of an already operational symbiosis.',
+      },
+    },
+    extendedSuffix: 'The assessment compares a baseline against alternative scenarios.',
+    ilcd: {
+      'ILCD Situation A': 'Micro-level decision support: the exchange is too small to change the background system. Attributional modelling, with substitution against the average market mix.',
+      'ILCD Situation A multi-actor': 'Micro-level decision support across a multi-actor network: the same modelling rule as Situation A, applied to the whole park rather than to a single exchange.',
+      'ILCD Situation B': 'Meso/macro-level decision support: the decision causes structural change in the background system, so consequential modelling against the marginal technology. D4.1 asks you to prove that scale before choosing it.',
+      'ILCD Situation C1': 'Accounting with interactions — documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.',
+      'ILCD Situation C2': 'Strict accounting for one partner in isolation: allocation, and no substitution credits.',
+    },
+    lcc: {
+      'deactivated': 'No economic analysis — the economic dimension is off in Q3.',
+      'C+E': 'Conventional LCC (the firm\'s real cash flows) plus environmental LCC (the value chain, on the same boundary as the LCA).',
+      'C+E+S': 'Conventional and environmental LCC plus societal LCC: taxes and subsidies adjusted through the Net Tax Factor, environmental impacts monetised.',
+      'C-LCC': 'Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.',
+    },
+    slca: {
+      'active': 'S-LCA active: social indicators per stakeholder group.',
+      'deactivated': 'S-LCA not activated — the social dimension is off in Q3.',
+    },
+  },
   result: {
     next: {
       title: 'What to do next',

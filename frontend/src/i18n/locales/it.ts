@@ -451,6 +451,48 @@ const it: Locale = {
     },
   },
 
+  narrative: {
+    pathway: {
+      'IS-01': {
+        title: 'Simbiosi operativa — supporto alla decisione',
+        body: 'Uno scambio simbiotico tra due aziende, o dentro un eco-parco, valutato per decidere se e come realizzarlo.',
+      },
+      'IS-02': {
+        title: 'Pre-fattibilità settoriale — policy',
+        body: 'Una decisione di policy o di programma su scala regionale o nazionale, dove le conseguenze sono strutturali e non marginali.',
+      },
+      'IS-03': {
+        title: 'Contributo aziendale — rendicontazione',
+        body: 'Il contributo simbiotico di una singola azienda dentro un network, per rendicontazione ESG / CSRD.',
+      },
+      'IS-04': {
+        title: 'Rete IS emergente — progettazione ex-ante',
+        body: 'Una rete ancora in progettazione, valutata su scenari dinamici senza una baseline operativa.',
+      },
+      'IS-05': {
+        title: 'Monitoraggio — simbiosi in esercizio',
+        body: 'Monitoraggio a serie storica di una simbiosi già operativa.',
+      },
+    },
+    extendedSuffix: 'La valutazione confronta una baseline con scenari alternativi.',
+    ilcd: {
+      'ILCD Situation A': 'Supporto a decisione micro: lo scambio è troppo piccolo per cambiare il sistema di background. Modellazione attribuzionale, con sostituzione sul mix di mercato medio.',
+      'ILCD Situation A multi-actor': 'Supporto a decisione micro su una rete multi-attore: stessa regola della Situation A, applicata all\'intero parco anziché a un singolo scambio.',
+      'ILCD Situation B': 'Supporto a decisione meso/macro: la decisione causa un cambiamento strutturale nel background, quindi modellazione consequenziale sulla tecnologia marginale. Il D4.1 chiede di dimostrare quella scala prima di sceglierla.',
+      'ILCD Situation C1': 'Contabilità con interazioni — documentare cosa una rete esistente restituisce all\'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situation A.',
+      'ILCD Situation C2': 'Contabilità stretta su un singolo partner isolato: allocazione, senza crediti da sostituzione.',
+    },
+    lcc: {
+      'deactivated': 'Nessuna analisi economica — la dimensione economica non è attiva in Q3.',
+      'C+E': 'LCC convenzionale (i flussi di cassa reali dell\'impresa) più LCC ambientale (la catena del valore, sugli stessi confini della LCA).',
+      'C+E+S': 'LCC convenzionale e ambientale più LCC societale: tasse e sussidi corretti con il Net Tax Factor, impatti ambientali monetizzati.',
+      'C-LCC': 'Solo LCC convenzionale — la prospettiva dell\'impresa, equivalente a un\'analisi del costo totale di possesso.',
+    },
+    slca: {
+      'active': 'S-LCA attiva: indicatori sociali per gruppo di stakeholder.',
+      'deactivated': 'S-LCA non attivata — la dimensione sociale non è attiva in Q3.',
+    },
+  },
   result: {
     next: {
       title: 'Cosa fare adesso',

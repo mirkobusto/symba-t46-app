@@ -24,7 +24,7 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         <span className={`dd-pill dd-pill-${TONE[item.kind]}`}>
           {t(`result.actionKind.${item.kind}`)}
         </span>
-        <h3>{item.title ?? t(`result.actionKind.${item.kind}`)}</h3>
+        <h3>{item.title ?? item.detail ?? item.code}</h3>
         <code className="dd-action-code">{item.code}</code>
         {item.severity ? (
           <span className="dd-pill dd-pill-muted">{item.severity}</span>
@@ -60,7 +60,9 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         </div>
       ) : null}
 
-      {item.detail ? <p className="dd-action-detail">{item.detail}</p> : null}
+      {item.detail && item.title ? (
+        <p className="dd-action-detail">{item.detail}</p>
+      ) : null}
     </article>
   )
 }

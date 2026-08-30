@@ -4103,3 +4103,33 @@ kbd {
   font-size: 12px;
   margin: var(--dd-space-2) 0 var(--dd-space-4);
 }
+
+.dd-verdict-title-prose {
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+}
+
+.dd-verdict-codes {
+  display: flex;
+  gap: var(--dd-space-2);
+  flex-wrap: wrap;
+  margin-top: var(--dd-space-2);
+}
+
+.dd-verdict-codes code {
+  font-family: var(--dd-font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.dd-verdict-body {
+  margin: var(--dd-space-3) 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 76ch;
+  color: rgba(255, 255, 255, 0.92);
+}

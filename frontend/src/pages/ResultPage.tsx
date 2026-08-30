@@ -8,6 +8,7 @@ import ShareReportModal from '../components/dd/ShareReportModal'
 import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
+import { verdictFor } from './resultNarrative'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
@@ -178,19 +179,19 @@ export default function ResultPage() {
   const blockedBy = result.blocked_by ?? []
 
   const todo = actionItems(result)
+  const verdict = verdictFor(result, (key, fallback) =>
+    t(key, { defaultValue: fallback ?? '' }),
+  )
 
   return (
     <div className="dd-page result">
       <VerdictCard
         eyebrow={t('result.title')}
-        pathway={result.pathway_id ?? '—'}
+        pathway={verdict?.title ?? result.pathway_id ?? '—'}
+        codes={verdict?.codes}
+        body={verdict?.body}
         extended={!!result.is_01_extended}
-        subtitle={[result.ilcd_situation, result.lcc_type].filter(Boolean).join(' · ')}
-        tags={[
-          result.q6a ? `Q6a: ${result.q6a}` : undefined,
-          result.q7 ? `Q7: ${result.q7}` : undefined,
-          result.slca_activation_state ? `S-LCA: ${result.slca_activation_state}` : undefined,
-        ].filter(Boolean)}
+        tags={verdict?.method}
       />
 
       <section className="result-next">

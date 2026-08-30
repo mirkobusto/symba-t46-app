@@ -418,6 +418,48 @@ const es: Locale = {
     },
   },
 
+  narrative: {
+    pathway: {
+      'IS-01': {
+        title: 'Simbiosis operativa — apoyo a la decisión',
+        body: 'Un intercambio simbiótico entre dos empresas, o dentro de un eco-parque, evaluado para decidir si realizarlo y cómo.',
+      },
+      'IS-02': {
+        title: 'Prefactibilidad sectorial — política pública',
+        body: 'Una decisión de política o de programa a escala regional o nacional, cuyas consecuencias son estructurales y no marginales.',
+      },
+      'IS-03': {
+        title: 'Contribución corporativa — reporte',
+        body: 'La contribución simbiótica de una sola empresa dentro de una red, para reportes ESG / CSRD.',
+      },
+      'IS-04': {
+        title: 'Red IS emergente — diseño ex-ante',
+        body: 'Una red aún en diseño, evaluada con escenarios dinámicos y sin línea base operativa.',
+      },
+      'IS-05': {
+        title: 'Monitoreo — simbiosis en operación',
+        body: 'Monitoreo de series temporales de una simbiosis ya operativa.',
+      },
+    },
+    extendedSuffix: 'La evaluación compara una línea base con escenarios alternativos.',
+    ilcd: {
+      'ILCD Situation A': 'Apoyo a la decisión a nivel micro: el intercambio es demasiado pequeño para cambiar el sistema de fondo. Modelización atribucional, con sustitución sobre el mix de mercado medio.',
+      'ILCD Situation A multi-actor': 'Apoyo a la decisión a nivel micro en una red multiactor: la misma regla que la Situation A, aplicada a todo el parque en vez de a un solo intercambio.',
+      'ILCD Situation B': 'Apoyo a la decisión a nivel meso/macro: la decisión provoca un cambio estructural en el sistema de fondo, por tanto modelización consecuencial sobre la tecnología marginal. El D4.1 pide demostrar esa escala antes de elegirla.',
+      'ILCD Situation C1': 'Contabilidad con interacciones — documentar lo que una red existente aporta a la economía en general. Sustitución sobre el mix de mercado medio, como en la Situation A.',
+      'ILCD Situation C2': 'Contabilidad estricta para un solo socio aislado: asignación, sin créditos por sustitución.',
+    },
+    lcc: {
+      'deactivated': 'Sin análisis económico — la dimensión económica está desactivada en Q3.',
+      'C+E': 'LCC convencional (los flujos de caja reales de la empresa) más LCC ambiental (la cadena de valor, sobre los mismos límites que la ACV).',
+      'C+E+S': 'LCC convencional y ambiental más LCC societal: impuestos y subvenciones ajustados con el Net Tax Factor, impactos ambientales monetizados.',
+      'C-LCC': 'Solo LCC convencional — la perspectiva de la empresa, equivalente a un análisis de coste total de propiedad.',
+    },
+    slca: {
+      'active': 'S-ACV activa: indicadores sociales por grupo de partes interesadas.',
+      'deactivated': 'S-ACV no activada — la dimensión social está desactivada en Q3.',
+    },
+  },
   result: {
     next: {
       title: 'Qué hacer ahora',

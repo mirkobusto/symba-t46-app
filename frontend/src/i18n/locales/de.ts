@@ -418,6 +418,48 @@ const de: Locale = {
     },
   },
 
+  narrative: {
+    pathway: {
+      'IS-01': {
+        title: 'Operative Symbiose — Entscheidungsunterstützung',
+        body: 'Ein symbiotischer Austausch zwischen zwei Unternehmen oder innerhalb eines Öko-Parks, bewertet zur Entscheidung über Ob und Wie.',
+      },
+      'IS-02': {
+        title: 'Sektorweite Vorstudie — Politik',
+        body: 'Eine politik- oder programmbezogene Entscheidung auf regionaler oder nationaler Ebene, deren Folgen strukturell und nicht marginal sind.',
+      },
+      'IS-03': {
+        title: 'Unternehmensbeitrag — Berichterstattung',
+        body: 'Der symbiotische Beitrag eines einzelnen Unternehmens innerhalb eines Netzwerks, für ESG-/CSRD-Berichte.',
+      },
+      'IS-04': {
+        title: 'Entstehendes IS-Netzwerk — Ex-ante-Entwurf',
+        body: 'Ein Netzwerk in der Entwurfsphase, bewertet anhand dynamischer Szenarien ohne operative Baseline.',
+      },
+      'IS-05': {
+        title: 'Monitoring — Symbiose im Betrieb',
+        body: 'Zeitreihen-Monitoring einer bereits betriebenen Symbiose.',
+      },
+    },
+    extendedSuffix: 'Die Bewertung vergleicht eine Baseline mit alternativen Szenarien.',
+    ilcd: {
+      'ILCD Situation A': 'Entscheidungsunterstützung auf Mikroebene: der Austausch ist zu klein, um das Hintergrundsystem zu verändern. Attributionelle Modellierung mit Substitution am durchschnittlichen Marktmix.',
+      'ILCD Situation A multi-actor': 'Entscheidungsunterstützung auf Mikroebene in einem Mehr-Akteur-Netzwerk: dieselbe Regel wie Situation A, angewendet auf den gesamten Park statt auf einen einzelnen Austausch.',
+      'ILCD Situation B': 'Entscheidungsunterstützung auf Meso-/Makroebene: die Entscheidung verändert das Hintergrundsystem strukturell, daher konsequenzielle Modellierung gegen die marginale Technologie. D4.1 verlangt den Nachweis dieser Größenordnung.',
+      'ILCD Situation C1': 'Bilanzierung mit Wechselwirkungen — dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.',
+      'ILCD Situation C2': 'Strenge Bilanzierung für einen einzelnen Partner isoliert: Allokation, keine Substitutionsgutschriften.',
+    },
+    lcc: {
+      'deactivated': 'Keine ökonomische Analyse — die ökonomische Dimension ist in Q3 deaktiviert.',
+      'C+E': 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die Ökobilanz).',
+      'C+E+S': 'Konventionelle und ökologische LCC plus gesellschaftliche LCC: Steuern und Subventionen über den Net Tax Factor angepasst, Umweltwirkungen monetarisiert.',
+      'C-LCC': 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
+    },
+    slca: {
+      'active': 'S-LCA aktiv: soziale Indikatoren je Stakeholder-Gruppe.',
+      'deactivated': 'S-LCA nicht aktiviert — die soziale Dimension ist in Q3 deaktiviert.',
+    },
+  },
   result: {
     next: {
       title: 'Was jetzt zu tun ist',

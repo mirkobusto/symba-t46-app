@@ -93,6 +93,7 @@ Cronologia sintetica (tutto su `main`):
 - `backend/app/schemas/system_fields.json` — 16 system fields
 - `backend/app/schemas/computed_fields.json` — 12 computed fields
 - `backend/app/schemas/cir_output_fields.json` — 20 cir_output fields
+- `backend/app/schemas/dcf_schema.json` — namespace DCF separato (7 sezioni dopo l'aggiunta di `costs` il 2026-08-30, approvata)
 
 I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 - 96 nodi FIELDED + 90 procedural_mandate = 186

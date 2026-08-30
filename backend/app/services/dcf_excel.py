@@ -50,11 +50,14 @@ _FIELDID_FONT = Font(size=8, italic=True, color="666666")
 _LABEL_FONT = Font(bold=True)
 _FOOTER_FONT = Font(size=8, italic=True, color="888888")
 
-_DATA_SECTION_ORDER = ["actors", "flow_matrix", "logistics", "infrastructure"]
+_DATA_SECTION_ORDER = [
+    "actors", "flow_matrix", "logistics", "costs", "infrastructure",
+]
 _SHEET_NAMES = {
     "actors": "Actors",
     "flow_matrix": "Flow Matrix",
     "logistics": "Logistics",
+    "costs": "Costs & Revenues",
     "infrastructure": "Infrastructure",
 }
 _EMPTY_DATA_ROWS = 10

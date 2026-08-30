@@ -67,10 +67,10 @@ def test_preview_returns_payload():
     assert body["pathway_id"] == "IS-01"
     assert body["is_01_extended"] is True
     assert body["ilcd_situation"] == "ILCD Situation A multi-actor"
-    # 6 sections in spec order
+    # sections in spec order
     ids = [s["id"] for s in body["sections"]]
     assert ids == [
-        "actors", "flow_matrix", "logistics", "infrastructure",
+        "actors", "flow_matrix", "logistics", "costs", "infrastructure",
         "methodological_choices", "network_diagram",
     ]
 

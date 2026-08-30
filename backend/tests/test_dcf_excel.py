@@ -80,7 +80,8 @@ def test_workbook_has_expected_tabs(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
     expected = ["Cover", "Actors", "Flow Matrix", "Logistics",
-                "Infrastructure", "Methodological Choices", "Network Diagram"]
+                "Costs & Revenues", "Infrastructure",
+                "Methodological Choices", "Network Diagram"]
     assert wb.sheetnames == expected
 
 

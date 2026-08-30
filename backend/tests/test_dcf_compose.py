@@ -127,11 +127,11 @@ def test_payload_serializes_to_json(case_wiktor, dcf_schema, mandates_census):
 # ---------------------------------------------------------------------------
 
 
-def test_all_six_sections_present(case_wiktor, dcf_schema, mandates_census):
+def test_all_sections_present_in_spec_order(case_wiktor, dcf_schema, mandates_census):
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     section_ids = [s.id for s in payload.sections]
     assert section_ids == [
-        "actors", "flow_matrix", "logistics", "infrastructure",
+        "actors", "flow_matrix", "logistics", "costs", "infrastructure",
         "methodological_choices", "network_diagram",
     ]
 
@@ -376,3 +376,70 @@ def test_a_switched_off_method_contributes_no_obligation(
         assert not [o for o in payload.obligations if o.method == "SLCA"]
     if case_arce.lcc_type == LccType.DEACTIVATED:
         assert not [o for o in payload.obligations if o.method == "LCC"]
+
+
+# ---------------------------------------------------------------------------
+# Costs & Revenues section
+# ---------------------------------------------------------------------------
+
+
+def _costs(case, dcf_schema, mandates_census):
+    payload = compose_dcf(case, dcf_schema, mandates_census)
+    return next(s for s in payload.sections if s.id == "costs")
+
+
+def test_costs_section_is_off_without_the_economic_dimension(
+    schemas, dcf_schema, mandates_census
+):
+    """No LCC configured means no economic data to collect. Before this
+    section existed the analyst activated ECO, got a KPI suite promising
+    NPV and IRR, and had nowhere to write the disposal cost the symbiosis
+    avoids — the number the business case turns on."""
+    case = Case(
+        q1=Q1.B, q2=Q2.A, q3=Q3(env=True), q4={Q4.E},
+        q6a=Q6a.PULP_PAPER, q6b=Q6b.TRL9, q7=Q7.B,
+        flows=[Flow(id="f1", name="x", q5=Q5.a)],
+    )
+    pipeline_run(case, schemas)
+    section = _costs(case, dcf_schema, mandates_census)
+    assert section.active is False
+    assert section.fields == []
+
+
+def test_costs_section_asks_for_the_counterfactual(
+    schemas, dcf_schema, mandates_census
+):
+    case = Case(
+        q1=Q1.B, q2=Q2.A, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q6a=Q6a.PULP_PAPER, q6b=Q6b.TRL9, q7=Q7.B,
+        flows=[Flow(id="f1", name="x", q5=Q5.a)],
+    )
+    pipeline_run(case, schemas)
+    section = _costs(case, dcf_schema, mandates_census)
+    ids = {f.id for f in section.fields}
+    assert section.active is True
+    assert "cost.current_disposal_cost" in ids
+    assert "cost.exchange_price" in ids
+    # the currency year is the one field that makes the others comparable
+    assert next(f for f in section.fields if f.id == "cost.currency_year").required
+
+
+def test_prospective_only_cost_fields_stay_off_for_an_ex_post_study(
+    schemas, dcf_schema, mandates_census
+):
+    """Contract horizon and price volatility bound a payback; a
+    retrospective study has neither to declare."""
+    common = dict(
+        q1=Q1.B, q3=Q3(env=True, eco=True), q4={Q4.E}, q6a=Q6a.PULP_PAPER,
+        q6b=Q6b.TRL9, q7=Q7.B, flows=[Flow(id="f1", name="x", q5=Q5.a)],
+    )
+    ex_post = Case(q2=Q2.A, **common)
+    ex_ante = Case(q2=Q2.D, **common)
+    pipeline_run(ex_post, schemas)
+    pipeline_run(ex_ante, schemas)
+
+    off = {f.id for f in _costs(ex_post, dcf_schema, mandates_census).fields}
+    on = {f.id for f in _costs(ex_ante, dcf_schema, mandates_census).fields}
+    assert "cost.contract_horizon_y" not in off
+    assert "cost.contract_horizon_y" in on
+    assert "cost.price_volatility" in on

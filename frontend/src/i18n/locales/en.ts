@@ -447,7 +447,7 @@ const en = {
 
   scenarios: {
     intro:
-      'Add one row per alternative scenario you want to compare against the baseline. The overrides dict (Q-answer deltas vs baseline) is configured in the advanced editor; for now each scenario carries an empty overrides map.',
+      "A scenario here varies the *methodological* answers, not the physical network: each one inherits Q1–Q7 from the baseline and differs only through the overrides dict (\"what if this were ex-post\", \"what if the sector were different\"). Comparing where a flow goes, over what distance, or at what price is a network comparison — draw those alternatives in the Network Builder; the engine does not compare them yet.",
     emptyHint: 'No alternative scenarios yet.',
     headers: { id: 'ID', label: 'Label' },
     labelPlaceholder: 'e.g. Future expansion / TRL9 ramp-up',

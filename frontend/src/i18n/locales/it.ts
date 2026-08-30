@@ -426,7 +426,7 @@ const it: Locale = {
 
   scenarios: {
     intro:
-      'Aggiungi una riga per ogni scenario alternativo da confrontare con la baseline. Il dict di overrides (delta delle risposte Q vs baseline) viene configurato nell\'editor avanzato; per ora ogni scenario porta una mappa di overrides vuota.',
+      "Uno scenario qui fa variare le risposte *metodologiche*, non la rete fisica: eredita Q1–Q7 dalla baseline e differisce solo tramite il dict di override (\"e se fosse ex-post\", \"e se il settore fosse un altro\"). Confrontare dove va un flusso, a che distanza o a che prezzo è un confronto di rete — quelle alternative si disegnano nel Network Builder, e il motore non le confronta ancora.",
     emptyHint: 'Nessuno scenario alternativo.',
     headers: { id: 'ID', label: 'Etichetta' },
     labelPlaceholder: 'es. Espansione futura / TRL9 ramp-up',

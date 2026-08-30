@@ -398,7 +398,7 @@ const fr: Locale = {
 
   scenarios: {
     intro:
-      "Ajoutez une ligne par scénario alternatif à comparer à la baseline. Le dict d'overrides (deltas de réponses Q vs baseline) est configuré dans l'éditeur avancé ; pour l'instant chaque scénario porte une map d'overrides vide.",
+      "Un scénario fait ici varier les réponses *méthodologiques*, pas le réseau physique : il hérite de Q1–Q7 de la référence et ne diffère que par le dict d'overrides. Comparer où va un flux, sur quelle distance ou à quel prix est une comparaison de réseau — ces variantes se dessinent dans l'éditeur de réseau, et le moteur ne les compare pas encore.",
     emptyHint: 'Aucun scénario alternatif.',
     headers: { id: 'ID', label: 'Étiquette' },
     labelPlaceholder: 'ex. Expansion future / TRL9 ramp-up',

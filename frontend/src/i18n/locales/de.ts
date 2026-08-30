@@ -392,7 +392,7 @@ const de: Locale = {
 
   scenarios: {
     intro:
-      "Fügen Sie eine Zeile pro alternativem Szenario hinzu, das mit der Baseline verglichen werden soll. Das Overrides-Dict (Q-Antwort-Deltas vs Baseline) wird im erweiterten Editor konfiguriert; vorerst trägt jedes Szenario eine leere Overrides-Map.",
+      "Ein Szenario variiert hier die *methodischen* Antworten, nicht das physische Netzwerk: es erbt Q1–Q7 von der Baseline und unterscheidet sich nur über das Overrides-Dict. Wohin ein Fluss geht, über welche Distanz oder zu welchem Preis, ist ein Netzwerkvergleich — solche Varianten zeichnet man im Netzwerk-Editor, und die Engine vergleicht sie noch nicht.",
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',

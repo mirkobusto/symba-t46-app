@@ -392,7 +392,7 @@ const es: Locale = {
 
   scenarios: {
     intro:
-      'Añade una fila por cada escenario alternativo a comparar con la baseline. El dict de overrides (deltas de respuestas Q vs baseline) se configura en el editor avanzado; por ahora cada escenario lleva un mapa de overrides vacío.',
+      "Aquí un escenario varía las respuestas *metodológicas*, no la red física: hereda Q1–Q7 de la línea base y solo difiere por el dict de overrides. Comparar a dónde va un flujo, a qué distancia o a qué precio es una comparación de red — esas variantes se dibujan en el editor de red, y el motor todavía no las compara.",
     emptyHint: 'Sin escenarios alternativos.',
     headers: { id: 'ID', label: 'Etiqueta' },
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',

@@ -419,6 +419,25 @@ const es: Locale = {
   },
 
   result: {
+    next: {
+      title: 'Qué hacer ahora',
+      lead: 'Puntos que el motor ha planteado sobre tus respuestas. Cada uno dice por qué afecta a tu caso y qué debes rellenar.',
+      allClear: 'Nada que corregir — tus respuestas son metodológicamente coherentes. Siguiente paso: recoger los datos de inventario.',
+      ctaHint: 'El Data Collection File está calibrado en este pathway: solo pide lo que tu caso necesita.',
+    },
+    actionKind: {
+      block: 'Bloqueante',
+      violation: 'Por corregir',
+      decision: 'Por decidir',
+    },
+    action: {
+      why: 'Por qué te afecta',
+      todo: 'Qué rellenar',
+    },
+    technical: {
+      title: 'Detalle técnico (salida del motor)',
+      lead: 'Todo lo que la pipeline ha producido, para revisión y trazabilidad.',
+    },
     title: 'Salida del motor',
     summary: {
       pathway: 'Pathway',

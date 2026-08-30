@@ -120,6 +120,13 @@ export interface CaseDetail {
 export interface RuleViolation {
   rule_id: string
   message: string
+  /** Rule title, e.g. "Geographic Spread Transport Coupling". */
+  name?: string | null
+  /** Human-readable trigger, e.g. "Q7 ∈ {B, C, D}" — why it fired here. */
+  trigger?: string | null
+  /** Field paths the rule requires to be set — what to fill in. */
+  fields?: string[]
+  source_nodes?: string[]
 }
 
 export interface CdpFlag {

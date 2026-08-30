@@ -473,6 +473,25 @@ const en = {
   },
 
   result: {
+    next: {
+      title: 'What to do next',
+      lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
+      allClear: 'Nothing to fix — your answers are methodologically consistent. Next step: collect the inventory data.',
+      ctaHint: 'The Data Collection File is calibrated on this pathway: it only asks for what your case needs.',
+    },
+    actionKind: {
+      block: 'Blocking',
+      violation: 'To fix',
+      decision: 'To decide',
+    },
+    action: {
+      why: 'Why it applies to you',
+      todo: 'What to fill in',
+    },
+    technical: {
+      title: 'Technical detail (engine output)',
+      lead: 'Everything the pipeline produced, for review and traceability.',
+    },
     title: 'Engine output',
     summary: {
       pathway: 'Pathway',

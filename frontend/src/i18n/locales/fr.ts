@@ -424,6 +424,25 @@ const fr: Locale = {
   },
 
   result: {
+    next: {
+      title: 'Que faire maintenant',
+      lead: "Points soulevés par le moteur à partir de vos réponses. Chacun indique pourquoi il concerne votre cas et ce qu'il faut renseigner.",
+      allClear: 'Rien à corriger — vos réponses sont méthodologiquement cohérentes. Étape suivante : collecter les données d\'inventaire.',
+      ctaHint: 'Le Data Collection File est calibré sur ce parcours : il ne demande que ce dont votre cas a besoin.',
+    },
+    actionKind: {
+      block: 'Bloquant',
+      violation: 'À corriger',
+      decision: 'À décider',
+    },
+    action: {
+      why: 'Pourquoi cela vous concerne',
+      todo: 'Ce qu\'il faut renseigner',
+    },
+    technical: {
+      title: 'Détail technique (sortie du moteur)',
+      lead: 'Tout ce que le pipeline a produit, pour revue et traçabilité.',
+    },
     title: 'Sortie du moteur',
     summary: {
       pathway: 'Pathway',

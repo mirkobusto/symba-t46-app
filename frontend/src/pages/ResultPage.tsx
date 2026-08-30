@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
+import ActionItemCard from '../components/dd/ActionItemCard'
 import KpiCard from '../components/dd/KpiCard'
 import ShareReportModal from '../components/dd/ShareReportModal'
 import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
+import { actionItems } from './resultActions'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
@@ -175,6 +177,8 @@ export default function ResultPage() {
 
   const blockedBy = result.blocked_by ?? []
 
+  const todo = actionItems(result)
+
   return (
     <div className="dd-page result">
       <VerdictCard
@@ -189,74 +193,95 @@ export default function ResultPage() {
         ].filter(Boolean)}
       />
 
-      <div className="dd-kpi-strip">
-        <KpiCard
-          label={t('result.summary.activatedNodes')}
-          value={<>{result.activated_nodes?.length ?? 0}<span className="dd-muted"> / 186</span></>}
-          tone="success"
-        />
-        <KpiCard
-          label={t('result.summary.l1Blocks')}
-          value={blockedBy.length}
-          tone={blockedBy.length > 0 ? 'warning' : 'success'}
-        />
-        <KpiCard
-          label={t('result.summary.l2Violations')}
-          value={result.rule_violations?.length ?? 0}
-          tone={(result.rule_violations?.length ?? 0) > 0 ? 'warning' : 'neutral'}
-        />
-        <KpiCard
-          label={t('result.summary.l3Cdps')}
-          value={result.cdp_flags?.length ?? 0}
-          tone={(result.cdp_flags?.length ?? 0) > 0 ? 'warning' : 'neutral'}
-        />
-      </div>
+      <section className="result-next">
+        <h2 className="result-next-title">
+          {t('result.next.title')}
+          <span className="dd-pill dd-pill-muted">{todo.length}</span>
+        </h2>
 
-      {blockedBy.length > 0 ? (
-        <div className="blocked-banner">
-          <h3>{t('result.blocked.title')}</h3>
-          <p>{t('result.blocked.desc')}</p>
-          <ul>
-            {blockedBy.map((id) => (
-              <li key={id}>
-                <code>{id}</code>
-              </li>
-            ))}
-          </ul>
+        {blockedBy.length > 0 ? (
+          <p className="result-next-lead result-next-blocked">
+            {t('result.blocked.desc')}
+          </p>
+        ) : todo.length === 0 ? (
+          <p className="result-next-lead">{t('result.next.allClear')}</p>
+        ) : (
+          <p className="result-next-lead">{t('result.next.lead')}</p>
+        )}
+
+        <div className="result-next-list">
+          {todo.map((item) => (
+            <ActionItemCard key={item.key} item={item} />
+          ))}
         </div>
-      ) : null}
 
-      <div className="reasoning-toggle">
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={() => setShowReasoning((v) => !v)}
-        >
-          {showReasoning ? t('result.toggleHide') : t('result.toggleShow')}
-        </button>
-      </div>
+        <div className="result-next-cta">
+          <Link to="/data-collection" className="btn btn-primary">
+            {t('dcf.openButton')}
+          </Link>
+          <span className="result-next-cta-hint">{t('result.next.ctaHint')}</span>
+        </div>
+      </section>
 
-      {showReasoning && blockedBy.length === 0 ? (
-        <ReasoningPanel
-          activatedNodes={result.activated_nodes ?? []}
-          rule_violations={result.rule_violations ?? []}
-          cdp_flags={result.cdp_flags ?? []}
-          pillars={[
-            { name: 'lca', data: result.lca ?? {} },
-            { name: 'lcc', data: result.lcc ?? {} },
-            { name: 'slca', data: result.slca ?? {} },
-            { name: 'report', data: result.report ?? {} },
-            { name: 'governance', data: result.governance ?? {} },
-            { name: 'review', data: result.review ?? {} },
-            { name: 'methodological_charter', data: result.methodological_charter ?? {} },
-            { name: 'system', data: result.system ?? {} },
-          ]}
-        />
-      ) : null}
+      <details className="result-technical">
+        <summary>{t('result.technical.title')}</summary>
+        <p className="result-technical-lead">{t('result.technical.lead')}</p>
 
-      <details className="result-raw">
-        <summary>{t('result.rawJson')}</summary>
-        <pre>{JSON.stringify(result, null, 2)}</pre>
+        <div className="dd-kpi-strip">
+          <KpiCard
+            label={t('result.summary.activatedNodes')}
+            value={<>{result.activated_nodes?.length ?? 0}<span className="dd-muted"> / 186</span></>}
+            tone="success"
+          />
+          <KpiCard
+            label={t('result.summary.l1Blocks')}
+            value={blockedBy.length}
+            tone={blockedBy.length > 0 ? 'warning' : 'success'}
+          />
+          <KpiCard
+            label={t('result.summary.l2Violations')}
+            value={result.rule_violations?.length ?? 0}
+            tone={(result.rule_violations?.length ?? 0) > 0 ? 'warning' : 'neutral'}
+          />
+          <KpiCard
+            label={t('result.summary.l3Cdps')}
+            value={result.cdp_flags?.length ?? 0}
+            tone={(result.cdp_flags?.length ?? 0) > 0 ? 'warning' : 'neutral'}
+          />
+        </div>
+
+        <div className="reasoning-toggle">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setShowReasoning((v) => !v)}
+          >
+            {showReasoning ? t('result.toggleHide') : t('result.toggleShow')}
+          </button>
+        </div>
+
+        {showReasoning && blockedBy.length === 0 ? (
+          <ReasoningPanel
+            activatedNodes={result.activated_nodes ?? []}
+            rule_violations={result.rule_violations ?? []}
+            cdp_flags={result.cdp_flags ?? []}
+            pillars={[
+              { name: 'lca', data: result.lca ?? {} },
+              { name: 'lcc', data: result.lcc ?? {} },
+              { name: 'slca', data: result.slca ?? {} },
+              { name: 'report', data: result.report ?? {} },
+              { name: 'governance', data: result.governance ?? {} },
+              { name: 'review', data: result.review ?? {} },
+              { name: 'methodological_charter', data: result.methodological_charter ?? {} },
+              { name: 'system', data: result.system ?? {} },
+            ]}
+          />
+        ) : null}
+
+        <details className="result-raw">
+          <summary>{t('result.rawJson')}</summary>
+          <pre>{JSON.stringify(result, null, 2)}</pre>
+        </details>
       </details>
 
       <div className="result-actions">
@@ -292,12 +317,6 @@ export default function ResultPage() {
             ? t('result.actions.downloadingReport')
             : t('result.actions.downloadReport')}
         </button>
-        <Link
-          to="/data-collection"
-          className="btn btn-primary"
-        >
-          {t('dcf.openButton')}
-        </Link>
         <Link
           to="/stakeholder-report"
           className="btn btn-secondary"

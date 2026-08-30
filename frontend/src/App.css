@@ -3963,3 +3963,143 @@ kbd {
   padding: 1px 4px;
   border-radius: var(--dd-radius-sm);
 }
+
+/* ---------------------------------------------------------------------
+ * Result page — band 2 ("what to do next") and band 3 (technical)
+ * ------------------------------------------------------------------ */
+
+.result-next {
+  margin: var(--dd-space-6) 0;
+}
+
+.result-next-title {
+  display: flex;
+  align-items: center;
+  gap: var(--dd-space-2);
+  font-size: 18px;
+  margin: 0 0 var(--dd-space-2);
+}
+
+.result-next-lead {
+  color: var(--dd-text-soft);
+  font-size: 13px;
+  margin: 0 0 var(--dd-space-4);
+  max-width: 78ch;
+}
+
+.result-next-blocked { color: var(--dd-danger); }
+
+.result-next-list {
+  display: grid;
+  gap: var(--dd-space-3);
+}
+
+.result-next-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--dd-space-3);
+  flex-wrap: wrap;
+  margin-top: var(--dd-space-6);
+}
+
+.result-next-cta-hint {
+  color: var(--dd-text-muted);
+  font-size: 12px;
+  max-width: 60ch;
+}
+
+.dd-action {
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-border);
+  border-left: 3px solid var(--dd-border-strong);
+  border-radius: var(--dd-radius);
+  padding: var(--dd-space-4);
+  display: grid;
+  gap: var(--dd-space-3);
+}
+
+.dd-action-block { border-left-color: var(--dd-danger); }
+.dd-action-violation { border-left-color: var(--dd-amber); }
+.dd-action-decision { border-left-color: var(--dd-brand); }
+
+.dd-action-head {
+  display: flex;
+  align-items: center;
+  gap: var(--dd-space-2);
+  flex-wrap: wrap;
+}
+
+.dd-action-head h3 {
+  margin: 0;
+  font-size: 15px;
+  flex: 1 1 auto;
+}
+
+.dd-action-code {
+  font-family: var(--dd-font-mono);
+  font-size: 11px;
+  color: var(--dd-text-muted);
+  background: var(--dd-surface-muted);
+  padding: 2px 6px;
+  border-radius: var(--dd-radius-sm);
+}
+
+.dd-action-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--dd-text-muted);
+  margin-bottom: 4px;
+}
+
+.dd-action-answers {
+  display: inline-flex;
+  gap: var(--dd-space-2);
+  flex-wrap: wrap;
+}
+
+.dd-action-trigger {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--dd-font-mono);
+  font-size: 11px;
+  color: var(--dd-text-muted);
+}
+
+.dd-action-todo ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 2px;
+}
+
+.dd-action-todo code {
+  font-family: var(--dd-font-mono);
+  font-size: 12px;
+}
+
+.dd-action-detail {
+  margin: 0;
+  font-size: 12px;
+  color: var(--dd-text-soft);
+}
+
+.result-technical {
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  padding: var(--dd-space-3) var(--dd-space-4);
+  background: var(--dd-surface-muted);
+}
+
+.result-technical > summary {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.result-technical-lead {
+  color: var(--dd-text-muted);
+  font-size: 12px;
+  margin: var(--dd-space-2) 0 var(--dd-space-4);
+}

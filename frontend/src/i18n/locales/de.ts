@@ -419,6 +419,25 @@ const de: Locale = {
   },
 
   result: {
+    next: {
+      title: 'Was jetzt zu tun ist',
+      lead: 'Punkte, die die Engine aus Ihren Antworten abgeleitet hat. Jeder nennt den Grund für Ihren Fall und das auszufüllende Feld.',
+      allClear: 'Nichts zu korrigieren — Ihre Antworten sind methodisch konsistent. Nächster Schritt: Inventardaten erheben.',
+      ctaHint: 'Das Data Collection File ist auf diesen Pathway kalibriert: es fragt nur ab, was Ihr Fall braucht.',
+    },
+    actionKind: {
+      block: 'Blockierend',
+      violation: 'Zu korrigieren',
+      decision: 'Zu entscheiden',
+    },
+    action: {
+      why: 'Warum es Sie betrifft',
+      todo: 'Was auszufüllen ist',
+    },
+    technical: {
+      title: 'Technisches Detail (Engine-Ausgabe)',
+      lead: 'Alles, was die Pipeline erzeugt hat — für Review und Nachvollziehbarkeit.',
+    },
     title: 'Engine-Ausgabe',
     summary: {
       pathway: 'Pathway',

@@ -559,10 +559,19 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
             continue
         if rule_id in _ASSERT_FNS:
             if not _ASSERT_FNS[rule_id](case):
+                # The whole rule row travels with the violation: the UI
+                # turns "which rule fired" into "why it fired for you"
+                # (trigger_condition_raw) and "what to fill in" (fields).
+                # Without these the reader only ever sees the constraint
+                # restated at them.
                 case.rule_violations.append({
                     "rule_id": rule_id,
                     "message": rule.get("violation_message",
                                         f"{rule_id} assertion failed"),
+                    "name": rule.get("name"),
+                    "trigger": rule.get("trigger_condition_raw"),
+                    "fields": list(rule.get("fields") or []),
+                    "source_nodes": list(rule.get("source_nodes") or []),
                 })
         elif rule_id in _ACTION_FNS:
             _ACTION_FNS[rule_id](case)

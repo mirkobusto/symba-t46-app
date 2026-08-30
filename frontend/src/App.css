@@ -4133,3 +4133,74 @@ kbd {
   max-width: 76ch;
   color: rgba(255, 255, 255, 0.92);
 }
+
+/* ---- Verdict "more info" ---------------------------------------------- */
+
+.dd-verdict-more {
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  background: var(--dd-surface);
+  padding: var(--dd-space-3) var(--dd-space-4);
+  margin-top: calc(-1 * var(--dd-space-3));
+}
+
+.dd-verdict-more > summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dd-brand);
+}
+
+.dd-verdict-more-item {
+  padding-top: var(--dd-space-4);
+}
+
+.dd-verdict-more-item h4 {
+  margin: 0 0 var(--dd-space-2);
+  font-size: 13px;
+  display: flex;
+  align-items: baseline;
+  gap: var(--dd-space-2);
+  flex-wrap: wrap;
+}
+
+.dd-verdict-more-item h4 code {
+  font-family: var(--dd-font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--dd-text-muted);
+  background: var(--dd-surface-muted);
+  padding: 1px 6px;
+  border-radius: var(--dd-radius-sm);
+}
+
+.dd-verdict-more-item p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--dd-text-soft);
+  max-width: 80ch;
+}
+
+.dd-verdict-more-item blockquote {
+  margin: var(--dd-space-3) 0 0;
+  padding: var(--dd-space-2) var(--dd-space-4);
+  border-left: 2px solid var(--dd-brand);
+  background: var(--dd-surface-muted);
+  border-radius: 0 var(--dd-radius-sm) var(--dd-radius-sm) 0;
+}
+
+.dd-verdict-more-item blockquote p {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--dd-text);
+}
+
+.dd-verdict-more-item cite {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--dd-font-mono);
+  font-size: 10px;
+  font-style: normal;
+  color: var(--dd-text-muted);
+}

@@ -456,44 +456,86 @@ const it: Locale = {
       'IS-01': {
         title: 'Simbiosi operativa — supporto alla decisione',
         body: 'Uno scambio simbiotico tra due aziende, o dentro un eco-parco, valutato per decidere se e come realizzarlo.',
+        detail: 'Q1 dice che l\'oggetto è uno scambio specifico o un parco; Q2 dice che stai decidendo, non rendicontando. La pipeline configura quindi un supporto alla decisione: modellazione attribuzionale con sostituzione, un LCC legato alla prospettiva che hai scelto e — quando Q2 è baseline più alternative — un confronto tra scenari.',
       },
       'IS-02': {
         title: 'Pre-fattibilità settoriale — policy',
         body: 'Una decisione di policy o di programma su scala regionale o nazionale, dove le conseguenze sono strutturali e non marginali.',
+        detail: 'Poiché l\'oggetto è una decisione pubblica, tutto a valle è dimensionato su conseguenze che il sistema di background sentirà davvero: la situazione ILCD passa a B e l\'LCC acquisisce la prospettiva societale, perché una policy deve rendere conto del benessere collettivo e non solo delle imprese coinvolte.',
       },
       'IS-03': {
         title: 'Contributo aziendale — rendicontazione',
         body: 'Il contributo simbiotico di una singola azienda dentro un network, per rendicontazione ESG / CSRD.',
+        detail: 'Il motore stringe sulla contabilità stretta: allocazione anziché crediti da sostituzione (ILCD C2) e solo LCC convenzionale. Il numero deve descrivere la posizione della singola azienda in modo che un auditor possa ricostruirla, non il beneficio che la rete produce collettivamente.',
       },
       'IS-04': {
         title: 'Rete IS emergente — progettazione ex-ante',
         body: 'Una rete ancora in progettazione, valutata su scenari dinamici senza una baseline operativa.',
+        detail: 'Q1 è uno scambio o un parco, ma Q2 dice che il sistema è ancora sulla carta ed è esplorato con scenari dinamici invece che contro una baseline operativa. L\'ADR-005 lo tiene come pathway a sé solo per Q1 ∈ {A, B}: per una policy o un report aziendale è l\'oggetto di studio a prevalere sulla postura temporale.',
       },
       'IS-05': {
         title: 'Monitoraggio — simbiosi in esercizio',
         body: 'Monitoraggio a serie storica di una simbiosi già operativa.',
+        detail: 'Non c\'è nessuna decisione sul tavolo: lo studio documenta una rete che già funziona. Questo lo colloca in ILCD C1 — contabilità che mostra comunque cosa la rete restituisce all\'economia più ampia — e il valore dell\'esercizio è la serie storica, quindi la raccolta dati deve essere ripetibile periodo dopo periodo.',
       },
     },
     extendedSuffix: 'La valutazione confronta una baseline con scenari alternativi.',
     ilcd: {
-      'ILCD Situation A': 'Supporto a decisione micro: lo scambio è troppo piccolo per cambiare il sistema di background. Modellazione attribuzionale, con sostituzione sul mix di mercato medio.',
-      'ILCD Situation A multi-actor': 'Supporto a decisione micro su una rete multi-attore: stessa regola della Situation A, applicata all\'intero parco anziché a un singolo scambio.',
-      'ILCD Situation B': 'Supporto a decisione meso/macro: la decisione causa un cambiamento strutturale nel background, quindi modellazione consequenziale sulla tecnologia marginale. Il D4.1 chiede di dimostrare quella scala prima di sceglierla.',
-      'ILCD Situation C1': 'Contabilità con interazioni — documentare cosa una rete esistente restituisce all\'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situation A.',
-      'ILCD Situation C2': 'Contabilità stretta su un singolo partner isolato: allocazione, senza crediti da sostituzione.',
+      'ILCD Situation A': {
+        short: 'Supporto a decisione micro: lo scambio è troppo piccolo per cambiare il sistema di background. Modellazione attribuzionale, con sostituzione sul mix di mercato medio.',
+        detail: 'Lo scambio riguarda gli attori coinvolti, non cosa l\'economia più ampia produce o come. Modelli quindi con dati medi, di tipo contabile, e rappresenti ciò che la simbiosi sostituisce usando il mix di mercato medio — il mix di rete nazionale per l\'elettricità, la produzione vergine media per un materiale. Il D4.1 mette esplicitamente in guardia dal passare al consequenziale solo perché c\'è una decisione di mezzo.',
+      },
+      'ILCD Situation A multi-actor': {
+        short: 'Supporto a decisione micro su una rete multi-attore: stessa regola della Situation A, applicata all\'intero parco anziché a un singolo scambio.',
+        detail: 'La regola di modellazione non cambia: le conseguenze restano micro, quindi dati medi e sostituzione sul mix di mercato. Cambia la contabilità: più partner condividono un sistema, quindi confini e flussi condivisi vanno concordati tra loro prima di modellare, altrimenti lo stesso flusso viene contato due volte o il contributo di un partner sparisce.',
+      },
+      'ILCD Situation B': {
+        short: 'Supporto a decisione meso/macro: la decisione causa un cambiamento strutturale nel background, quindi modellazione consequenziale sulla tecnologia marginale. Il D4.1 chiede di dimostrare quella scala prima di sceglierla.',
+        detail: 'La decisione è abbastanza grande da spostare capacità installata o produzione di una tecnologia specifica. La modellazione diventa consequenziale e ciò che la simbiosi sostituisce è la tecnologia marginale, identificata con un\'analisi di mercato e non presa come mix medio. L\'onere della prova è tuo: questa strada va dimostrata, non assunta.',
+      },
+      'ILCD Situation C1': {
+        short: 'Contabilità con interazioni — documentare cosa una rete esistente restituisce all\'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situation A.',
+        detail: 'Stai documentando una rete che esiste, non supportando una decisione, quindi lo studio è descrittivo. Ma dato che il punto è mostrare cosa la rete restituisce all\'economia più ampia, la multifunzionalità si risolve comunque per sostituzione sul mix di mercato medio — operativamente la stessa regola della Situation A.',
+      },
+      'ILCD Situation C2': {
+        short: 'Contabilità stretta su un singolo partner isolato: allocazione, senza crediti da sostituzione.',
+        detail: 'Contabilità stretta su un singolo partner isolato, tipicamente rendicontazione aziendale. La multifunzionalità si risolve per allocazione e non si rivendica alcun credito per ciò che la simbiosi sostituisce altrove: il numero descrive la quota di carichi di quel partner, non il beneficio prodotto dalla rete.',
+      },
     },
     lcc: {
-      'deactivated': 'Nessuna analisi economica — la dimensione economica non è attiva in Q3.',
-      'C+E': 'LCC convenzionale (i flussi di cassa reali dell\'impresa) più LCC ambientale (la catena del valore, sugli stessi confini della LCA).',
-      'C+E+S': 'LCC convenzionale e ambientale più LCC societale: tasse e sussidi corretti con il Net Tax Factor, impatti ambientali monetizzati.',
-      'C-LCC': 'Solo LCC convenzionale — la prospettiva dell\'impresa, equivalente a un\'analisi del costo totale di possesso.',
+      'deactivated': {
+        short: 'Nessuna analisi economica — la dimensione economica non è attiva in Q3.',
+        detail: 'In Q3 non è selezionata la dimensione economica, quindi il motore non configura alcun costing. Se il caso ha bisogno di un business case — e per una simbiosi che deve essere firmata da più imprese di solito serve — torna su Q3 e attiva la dimensione economica.',
+      },
+      'C+E': {
+        short: 'LCC convenzionale (i flussi di cassa reali dell\'impresa) più LCC ambientale (la catena del valore, sugli stessi confini della LCA).',
+        detail: 'Due viste in parallelo. L\'LCC convenzionale risponde se conviene alla singola impresa: flussi di cassa reali, tasse e oneri come costi, sussidi come riduzioni. L\'LCC ambientale allarga il confine a tutti gli attori del ciclo di vita e resta coerente con la LCA parallela, così le due si leggono affiancate. Attenzione al doppio conteggio: una carbon tax o una tassa di discarica già nei flussi di cassa non deve ricomparire come esternalità monetizzata.',
+      },
+      'C+E+S': {
+        short: 'LCC convenzionale e ambientale più LCC societale: tasse e sussidi corretti con il Net Tax Factor, impatti ambientali monetizzati.',
+        detail: 'Sopra la vista d\'impresa e quella di catena del valore arriva quella di benessere collettivo. Tasse e sussidi sono trasferimenti interni alla società più che costi reali per essa, quindi vengono esclusi o convertiti in prezzi ombra con il Net Tax Factor, e gli impatti ambientali della LCA parallela vengono monetizzati. È la configurazione che serve a una decisione pubblica, ed è per questo che arriva col pathway di policy.',
+      },
+      'C-LCC': {
+        short: 'Solo LCC convenzionale — la prospettiva dell\'impresa, equivalente a un\'analisi del costo totale di possesso.',
+        detail: 'Solo la prospettiva dell\'impresa. Ogni strumento di policy è un flusso di cassa reale: tasse e oneri sono costi, i sussidi riducono capex o opex. È il taglio giusto per la rendicontazione aziendale, e deliberatamente non dice nulla sugli effetti di catena del valore o societali — rivendicarli sovrastimerebbe ciò che un conto mono-attore può sostenere.',
+      },
     },
     slca: {
-      'active': 'S-LCA attiva: indicatori sociali per gruppo di stakeholder.',
-      'deactivated': 'S-LCA non attivata — la dimensione sociale non è attiva in Q3.',
+      'active': {
+        short: 'S-LCA attiva: indicatori sociali per gruppo di stakeholder.',
+        detail: 'La dimensione sociale è attiva. Ogni gruppo di stakeholder — lavoratori, consumatori, comunità locali, attori della catena del valore — viene mappato sui processi da cui è interessato, e da lì su sottocategorie di impatto e indicatori. La mappatura vale quanto l\'ascolto che c\'è dietro, quindi parlare con i gruppi coinvolti fa parte della raccolta dati, non è un extra.',
+      },
+      'deactivated': {
+        short: 'S-LCA non attivata — la dimensione sociale non è attiva in Q3.',
+        detail: 'In Q3 non è selezionata la dimensione sociale, quindi non viene configurata né mappatura degli stakeholder né alcun indicatore sociale. Attivala in Q3 se il caso deve dire qualcosa su lavoratori o comunità locali — cosa che di solito serve quando una simbiosi viene presentata a un comune o a una comunità.',
+      },
     },
   },
+
   result: {
+    verdict: {
+      moreInfo: 'Approfondisci questa configurazione',
+    },
     next: {
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e cosa devi valorizzare.',

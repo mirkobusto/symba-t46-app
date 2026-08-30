@@ -9,7 +9,21 @@
 // (the .docx report reads the same table); the locales mirror it and a
 // test checks the two have not drifted.
 
+import { NARRATIVE_SOURCES } from '../i18n/narrativeSources'
 import type { Case } from '../types/api'
+
+export interface VerdictDetail {
+  /** The code this expands on, e.g. "ILCD Situation A". */
+  code: string
+  /** Short line, as shown collapsed. */
+  short: string
+  /** Faithful paraphrase of the deliverable. */
+  detail: string
+  /** Verbatim citation — English, never translated. */
+  quote?: string
+  /** Where it comes from, e.g. "D4.1 Part 1 §8.2.1". */
+  source?: string
+}
 
 export interface Verdict {
   /** Human title, e.g. "Operational symbiosis — decision support". */
@@ -20,6 +34,10 @@ export interface Verdict {
   method: string[]
   /** The codes, kept for traceability. */
   codes: string[]
+  /** Long-form explanation behind the "more info" disclosure. */
+  details: VerdictDetail[]
+  /** Paraphrase of what the pathway itself means. */
+  pathwayDetail: string | null
 }
 
 type Translate = (key: string, fallback?: string) => string
@@ -38,13 +56,28 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
   const bodyParts = [lookup(t, `narrative.pathway.${pathway}.body`)]
   if (kase.is_01_extended) bodyParts.push(lookup(t, 'narrative.extendedSuffix'))
 
-  const method = [
-    kase.ilcd_situation ? lookup(t, `narrative.ilcd.${kase.ilcd_situation}`) : null,
-    kase.lcc_type ? lookup(t, `narrative.lcc.${kase.lcc_type}`) : null,
-    kase.slca_activation_state
-      ? lookup(t, `narrative.slca.${kase.slca_activation_state}`)
-      : null,
-  ].filter((s): s is string => Boolean(s))
+  const entries: [string, string | null | undefined][] = [
+    ['ilcd', kase.ilcd_situation],
+    ['lcc', kase.lcc_type],
+    ['slca', kase.slca_activation_state],
+  ]
+
+  const method: string[] = []
+  const details: VerdictDetail[] = []
+  for (const [section, code] of entries) {
+    if (!code) continue
+    const short = lookup(t, `narrative.${section}.${code}.short`)
+    if (!short) continue
+    method.push(short)
+    const citation = NARRATIVE_SOURCES[section]?.[code]
+    details.push({
+      code,
+      short,
+      detail: lookup(t, `narrative.${section}.${code}.detail`) ?? short,
+      quote: citation?.quote,
+      source: citation?.source,
+    })
+  }
 
   const codes = [
     pathway + (kase.is_01_extended ? ' extended' : ''),
@@ -57,5 +90,7 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
     body: bodyParts.filter(Boolean).join(' '),
     method,
     codes,
+    details,
+    pathwayDetail: lookup(t, `narrative.pathway.${pathway}.detail`),
   }
 }

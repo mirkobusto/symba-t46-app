@@ -423,44 +423,86 @@ const de: Locale = {
       'IS-01': {
         title: 'Operative Symbiose — Entscheidungsunterstützung',
         body: 'Ein symbiotischer Austausch zwischen zwei Unternehmen oder innerhalb eines Öko-Parks, bewertet zur Entscheidung über Ob und Wie.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
       },
       'IS-02': {
         title: 'Sektorweite Vorstudie — Politik',
         body: 'Eine politik- oder programmbezogene Entscheidung auf regionaler oder nationaler Ebene, deren Folgen strukturell und nicht marginal sind.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
       },
       'IS-03': {
         title: 'Unternehmensbeitrag — Berichterstattung',
         body: 'Der symbiotische Beitrag eines einzelnen Unternehmens innerhalb eines Netzwerks, für ESG-/CSRD-Berichte.',
+        detail: 'The engine narrows to strict accounting: allocation rather than substitution credits (ILCD C2) and conventional LCC alone. The figure has to describe one company\'s own position in a way an auditor can trace, not the benefit the network produces collectively.',
       },
       'IS-04': {
         title: 'Entstehendes IS-Netzwerk — Ex-ante-Entwurf',
         body: 'Ein Netzwerk in der Entwurfsphase, bewertet anhand dynamischer Szenarien ohne operative Baseline.',
+        detail: 'Q1 is an exchange or a park, but Q2 says the system is still on the drawing board and is explored through dynamic scenarios rather than against an operating baseline. ADR-005 keeps this as its own pathway only for Q1 ∈ {A, B}: for a policy or a corporate report the object of study dominates the temporal stance.',
       },
       'IS-05': {
         title: 'Monitoring — Symbiose im Betrieb',
         body: 'Zeitreihen-Monitoring einer bereits betriebenen Symbiose.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
       },
     },
     extendedSuffix: 'Die Bewertung vergleicht eine Baseline mit alternativen Szenarien.',
     ilcd: {
-      'ILCD Situation A': 'Entscheidungsunterstützung auf Mikroebene: der Austausch ist zu klein, um das Hintergrundsystem zu verändern. Attributionelle Modellierung mit Substitution am durchschnittlichen Marktmix.',
-      'ILCD Situation A multi-actor': 'Entscheidungsunterstützung auf Mikroebene in einem Mehr-Akteur-Netzwerk: dieselbe Regel wie Situation A, angewendet auf den gesamten Park statt auf einen einzelnen Austausch.',
-      'ILCD Situation B': 'Entscheidungsunterstützung auf Meso-/Makroebene: die Entscheidung verändert das Hintergrundsystem strukturell, daher konsequenzielle Modellierung gegen die marginale Technologie. D4.1 verlangt den Nachweis dieser Größenordnung.',
-      'ILCD Situation C1': 'Bilanzierung mit Wechselwirkungen — dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.',
-      'ILCD Situation C2': 'Strenge Bilanzierung für einen einzelnen Partner isoliert: Allokation, keine Substitutionsgutschriften.',
+      'ILCD Situation A': {
+        short: 'Entscheidungsunterstützung auf Mikroebene: der Austausch ist zu klein, um das Hintergrundsystem zu verändern. Attributionelle Modellierung mit Substitution am durchschnittlichen Marktmix.',
+        detail: 'The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.',
+      },
+      'ILCD Situation A multi-actor': {
+        short: 'Entscheidungsunterstützung auf Mikroebene in einem Mehr-Akteur-Netzwerk: dieselbe Regel wie Situation A, angewendet auf den gesamten Park statt auf einen einzelnen Austausch.',
+        detail: 'The modelling rule does not change — consequences stay micro-level, so average data and substitution at the market mix. What changes is the bookkeeping: several partners share one system, so the boundary and the shared flows have to be agreed between them before modelling starts, otherwise the same flow is counted twice or a partner\'s contribution disappears.',
+      },
+      'ILCD Situation B': {
+        short: 'Entscheidungsunterstützung auf Meso-/Makroebene: die Entscheidung verändert das Hintergrundsystem strukturell, daher konsequenzielle Modellierung gegen die marginale Technologie. D4.1 verlangt den Nachweis dieser Größenordnung.',
+        detail: 'The decision is large enough to shift installed capacity or the output of a specific technology. Modelling goes consequential, and what the symbiosis displaces is the marginal technology, identified through a market analysis rather than taken as the average mix. The burden of proof is on you: this route has to be demonstrated, not assumed.',
+      },
+      'ILCD Situation C1': {
+        short: 'Bilanzierung mit Wechselwirkungen — dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.',
+        detail: 'You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.',
+      },
+      'ILCD Situation C2': {
+        short: 'Strenge Bilanzierung für einen einzelnen Partner isoliert: Allokation, keine Substitutionsgutschriften.',
+        detail: 'Strict accounting for a single partner on its own, typically corporate reporting. Multifunctionality is resolved by allocation, and no credit is claimed for what the symbiosis displaces elsewhere: the number describes that partner\'s share of the burdens, not the benefit the network produces.',
+      },
     },
     lcc: {
-      'deactivated': 'Keine ökonomische Analyse — die ökonomische Dimension ist in Q3 deaktiviert.',
-      'C+E': 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die Ökobilanz).',
-      'C+E+S': 'Konventionelle und ökologische LCC plus gesellschaftliche LCC: Steuern und Subventionen über den Net Tax Factor angepasst, Umweltwirkungen monetarisiert.',
-      'C-LCC': 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
+      'deactivated': {
+        short: 'Keine ökonomische Analyse — die ökonomische Dimension ist in Q3 deaktiviert.',
+        detail: 'Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on.',
+      },
+      'C+E': {
+        short: 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die Ökobilanz).',
+        detail: 'Two views run together. The conventional LCC answers whether it pays for the individual firm: real cash flows, taxes and fees as costs, subsidies as reductions. The environmental LCC widens the boundary to every actor in the life cycle and is kept consistent with the parallel LCA, so the two can be read side by side. Watch for double counting: a carbon or landfill tax already in the cash flows must not reappear as a monetised externality.',
+      },
+      'C+E+S': {
+        short: 'Konventionelle und ökologische LCC plus gesellschaftliche LCC: Steuern und Subventionen über den Net Tax Factor angepasst, Umweltwirkungen monetarisiert.',
+        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why it comes with the policy pathway.',
+      },
+      'C-LCC': {
+        short: 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
+        detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
+      },
     },
     slca: {
-      'active': 'S-LCA aktiv: soziale Indikatoren je Stakeholder-Gruppe.',
-      'deactivated': 'S-LCA nicht aktiviert — die soziale Dimension ist in Q3 deaktiviert.',
+      'active': {
+        short: 'S-LCA aktiv: soziale Indikatoren je Stakeholder-Gruppe.',
+        detail: 'The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.',
+      },
+      'deactivated': {
+        short: 'S-LCA nicht aktiviert — die soziale Dimension ist in Q3 deaktiviert.',
+        detail: 'Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community.',
+      },
     },
   },
+
   result: {
+    verdict: {
+      moreInfo: 'Mehr zu dieser Konfiguration',
+    },
     next: {
       title: 'Was jetzt zu tun ist',
       lead: 'Punkte, die die Engine aus Ihren Antworten abgeleitet hat. Jeder nennt den Grund für Ihren Fall und das auszufüllende Feld.',

@@ -477,44 +477,86 @@ const en = {
       'IS-01': {
         title: 'Operational symbiosis — decision support',
         body: 'A symbiotic exchange between two companies, or inside an eco-park, assessed to decide whether and how to run it.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
       },
       'IS-02': {
         title: 'Sector-wide pre-feasibility — policy',
         body: 'A policy or programme decision at regional or national scale, where the consequences are structural rather than marginal.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
       },
       'IS-03': {
         title: 'Corporate contribution — reporting',
         body: 'The symbiotic contribution of a single company inside a network, for ESG / CSRD reporting.',
+        detail: 'The engine narrows to strict accounting: allocation rather than substitution credits (ILCD C2) and conventional LCC alone. The figure has to describe one company\'s own position in a way an auditor can trace, not the benefit the network produces collectively.',
       },
       'IS-04': {
         title: 'Emerging IS network — ex-ante design',
         body: 'A network still being designed, assessed on dynamic scenarios with no operating baseline.',
+        detail: 'Q1 is an exchange or a park, but Q2 says the system is still on the drawing board and is explored through dynamic scenarios rather than against an operating baseline. ADR-005 keeps this as its own pathway only for Q1 ∈ {A, B}: for a policy or a corporate report the object of study dominates the temporal stance.',
       },
       'IS-05': {
         title: 'Monitoring — symbiosis in operation',
         body: 'Time-series monitoring of an already operational symbiosis.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
       },
     },
     extendedSuffix: 'The assessment compares a baseline against alternative scenarios.',
     ilcd: {
-      'ILCD Situation A': 'Micro-level decision support: the exchange is too small to change the background system. Attributional modelling, with substitution against the average market mix.',
-      'ILCD Situation A multi-actor': 'Micro-level decision support across a multi-actor network: the same modelling rule as Situation A, applied to the whole park rather than to a single exchange.',
-      'ILCD Situation B': 'Meso/macro-level decision support: the decision causes structural change in the background system, so consequential modelling against the marginal technology. D4.1 asks you to prove that scale before choosing it.',
-      'ILCD Situation C1': 'Accounting with interactions — documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.',
-      'ILCD Situation C2': 'Strict accounting for one partner in isolation: allocation, and no substitution credits.',
+      'ILCD Situation A': {
+        short: 'Micro-level decision support: the exchange is too small to change the background system. Attributional modelling, with substitution against the average market mix.',
+        detail: 'The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.',
+      },
+      'ILCD Situation A multi-actor': {
+        short: 'Micro-level decision support across a multi-actor network: the same modelling rule as Situation A, applied to the whole park rather than to a single exchange.',
+        detail: 'The modelling rule does not change — consequences stay micro-level, so average data and substitution at the market mix. What changes is the bookkeeping: several partners share one system, so the boundary and the shared flows have to be agreed between them before modelling starts, otherwise the same flow is counted twice or a partner\'s contribution disappears.',
+      },
+      'ILCD Situation B': {
+        short: 'Meso/macro-level decision support: the decision causes structural change in the background system, so consequential modelling against the marginal technology. D4.1 asks you to prove that scale before choosing it.',
+        detail: 'The decision is large enough to shift installed capacity or the output of a specific technology. Modelling goes consequential, and what the symbiosis displaces is the marginal technology, identified through a market analysis rather than taken as the average mix. The burden of proof is on you: this route has to be demonstrated, not assumed.',
+      },
+      'ILCD Situation C1': {
+        short: 'Accounting with interactions — documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.',
+        detail: 'You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.',
+      },
+      'ILCD Situation C2': {
+        short: 'Strict accounting for one partner in isolation: allocation, and no substitution credits.',
+        detail: 'Strict accounting for a single partner on its own, typically corporate reporting. Multifunctionality is resolved by allocation, and no credit is claimed for what the symbiosis displaces elsewhere: the number describes that partner\'s share of the burdens, not the benefit the network produces.',
+      },
     },
     lcc: {
-      'deactivated': 'No economic analysis — the economic dimension is off in Q3.',
-      'C+E': 'Conventional LCC (the firm\'s real cash flows) plus environmental LCC (the value chain, on the same boundary as the LCA).',
-      'C+E+S': 'Conventional and environmental LCC plus societal LCC: taxes and subsidies adjusted through the Net Tax Factor, environmental impacts monetised.',
-      'C-LCC': 'Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.',
+      'deactivated': {
+        short: 'No economic analysis — the economic dimension is off in Q3.',
+        detail: 'Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on.',
+      },
+      'C+E': {
+        short: 'Conventional LCC (the firm\'s real cash flows) plus environmental LCC (the value chain, on the same boundary as the LCA).',
+        detail: 'Two views run together. The conventional LCC answers whether it pays for the individual firm: real cash flows, taxes and fees as costs, subsidies as reductions. The environmental LCC widens the boundary to every actor in the life cycle and is kept consistent with the parallel LCA, so the two can be read side by side. Watch for double counting: a carbon or landfill tax already in the cash flows must not reappear as a monetised externality.',
+      },
+      'C+E+S': {
+        short: 'Conventional and environmental LCC plus societal LCC: taxes and subsidies adjusted through the Net Tax Factor, environmental impacts monetised.',
+        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why it comes with the policy pathway.',
+      },
+      'C-LCC': {
+        short: 'Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.',
+        detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
+      },
     },
     slca: {
-      'active': 'S-LCA active: social indicators per stakeholder group.',
-      'deactivated': 'S-LCA not activated — the social dimension is off in Q3.',
+      'active': {
+        short: 'S-LCA active: social indicators per stakeholder group.',
+        detail: 'The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.',
+      },
+      'deactivated': {
+        short: 'S-LCA not activated — the social dimension is off in Q3.',
+        detail: 'Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community.',
+      },
     },
   },
+
   result: {
+    verdict: {
+      moreInfo: 'More on this configuration',
+    },
     next: {
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',

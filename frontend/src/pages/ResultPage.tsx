@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import ActionItemCard from '../components/dd/ActionItemCard'
+import VerdictDetails from '../components/dd/VerdictDetails'
 import KpiCard from '../components/dd/KpiCard'
 import ShareReportModal from '../components/dd/ShareReportModal'
 import VerdictCard from '../components/dd/VerdictCard'
@@ -193,6 +194,8 @@ export default function ResultPage() {
         extended={!!result.is_01_extended}
         tags={verdict?.method}
       />
+
+      {verdict ? <VerdictDetails verdict={verdict} /> : null}
 
       <section className="result-next">
         <h2 className="result-next-title">

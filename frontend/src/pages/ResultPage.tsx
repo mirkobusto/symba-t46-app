@@ -179,7 +179,12 @@ export default function ResultPage() {
 
   const blockedBy = result.blocked_by ?? []
 
-  const todo = actionItems(result)
+  const allItems = actionItems(result)
+  // Methodological obligations live in the Data Collection File — that is
+  // where documenting them happens, and 30 cards would bury the two or
+  // three things that actually need a decision here.
+  const todo = allItems.filter((item) => item.kind !== 'obligation')
+  const obligationCount = allItems.length - todo.length
   const verdict = verdictFor(result, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )
@@ -218,6 +223,12 @@ export default function ResultPage() {
             <ActionItemCard key={item.key} item={item} />
           ))}
         </div>
+
+        {obligationCount > 0 ? (
+          <p className="result-next-obligations">
+            {t('result.next.obligations', { count: obligationCount })}
+          </p>
+        ) : null}
 
         <div className="result-next-cta">
           <Link to="/data-collection" className="btn btn-primary">

@@ -133,40 +133,53 @@ def _write_cover_block(doc: Document, payload: DcfPayload, case_title: str | Non
 
 
 def _write_methodological_section(doc: Document, payload: DcfPayload) -> None:
+    """Everything the case has to document, in one table.
+
+    Procedural mandates (what each method requires) and the cross-method
+    rules whose trigger fired (what has to line up between methods) are
+    the same job for the analyst, so they share a table; `Origin` keeps
+    them distinguishable for review.
+    """
     doc.add_heading("§1. Methodological choices to document", level=1)
 
-    if not payload.mandates_by_category:
+    if not payload.obligations:
         doc.add_paragraph(
-            "(No procedural mandates activated for this case — anomalous; "
-            "every case should activate the DEFAULT-category mandates.)"
+            "(Nothing to document for this case — anomalous; every case "
+            "should activate at least the DEFAULT-category mandates.)"
         )
         return
 
+    mandates = sum(1 for o in payload.obligations if o.origin == "mandate")
+    rules = len(payload.obligations) - mandates
     intro = doc.add_paragraph()
     intro.add_run(
-        "The following procedural mandates have been activated by the pipeline "
-        "for the present case. Each mandate is a methodological commitment to "
-        "document in the LCSA report or its annexes; the 'Status' column lets "
-        "the analyst track completion."
+        f"{len(payload.obligations)} items apply to this case: {mandates} "
+        f"procedural mandate(s) activated by the pipeline and {rules} "
+        f"cross-method rule(s) triggered by the answers. Each is a "
+        f"methodological commitment to document in the LCSA report or its "
+        f"annexes; 'Applies because' records what made it apply here, and "
+        f"'Status' lets the analyst track completion."
     )
 
-    table = doc.add_table(rows=1, cols=5)
+    table = doc.add_table(rows=1, cols=6)
     table.style = "Light List Accent 1"
     head = table.rows[0].cells
-    headers = ["Category", "Node ID", "Method", "Statement", "Status"]
+    headers = ["Category", "Origin", "ID", "Statement", "Applies because", "Status"]
     for i, h in enumerate(headers):
         head[i].text = h
         for run in head[i].paragraphs[0].runs:
             run.bold = True
 
-    for category, mandates in payload.mandates_by_category.items():
-        for m in mandates:
-            cells = table.add_row().cells
-            cells[0].text = category
-            cells[1].text = m.node_id
-            cells[2].text = m.method
-            cells[3].text = m.statement
-            cells[4].text = "pending"
+    for item in payload.obligations:
+        cells = table.add_row().cells
+        cells[0].text = item.category
+        cells[1].text = item.origin
+        cells[2].text = item.id
+        cells[3].text = (
+            f"{item.title} — {item.statement}" if item.title else item.statement
+        )
+        cells[4].text = item.trigger or "—"
+        cells[5].text = "pending"
 
 
 def _write_network_section(

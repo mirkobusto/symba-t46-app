@@ -86,6 +86,37 @@ class DcfMandate(BaseModel):
     source_section: str | None = None
 
 
+# The rules and the mandates are the same kind of thing — practices this
+# case has to document — arriving from two different files. The DCF is
+# where documenting happens, so they are merged into one list here rather
+# than shown twice in two formats.
+CROSS_METHOD_CATEGORY = "Cross-method consistency"
+
+
+class DcfObligation(BaseModel):
+    """One practice the case has to document.
+
+    `origin` says where it comes from: a procedural_mandate node of
+    Phase 1, or a cross-method rule whose trigger fired for this case.
+    Keeping the distinction visible matters for traceability — a reviewer
+    checks a rule differently from a mandate — but the analyst's job is
+    the same for both.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    origin: str  # "mandate" | "rule"
+    title: str | None = None
+    statement: str
+    method: str
+    category: str
+    trigger: str | None = None
+    fields: list[str] = Field(default_factory=list)
+    fields_not_applicable: list[str] = Field(default_factory=list)
+    source_section: str | None = None
+
+
 class DcfPayload(BaseModel):
     """Full DCF descriptor for a single Case.
 
@@ -106,6 +137,7 @@ class DcfPayload(BaseModel):
 
     sections: list[DcfSection] = Field(default_factory=list)
     mandates_by_category: dict[str, list[DcfMandate]] = Field(default_factory=dict)
+    obligations: list[DcfObligation] = Field(default_factory=list)
     network_render_spec: dict[str, Any] | None = None
 
 
@@ -200,6 +232,7 @@ def compose_dcf(
         is_01_extended=case.is_01_extended,
         sections=sections_out,
         mandates_by_category=mandates_by_category,
+        obligations=_compose_obligations(case, mandates_by_category),
         network_render_spec=network_render_spec,
     )
 
@@ -252,6 +285,51 @@ def _compose_mandates(
                 source_section=item.get("source_section"),
             ))
     return by_category
+
+
+def _method_of(fields: list[str]) -> str:
+    """Which pillar(s) a rule governs, from its field paths."""
+    prefixes = {f.split(".")[0].upper() for f in fields}
+    known = {p for p in prefixes if p in {"LCA", "LCC", "SLCA"}}
+    if len(known) == 1:
+        return known.pop()
+    return "cross-method"
+
+
+def _compose_obligations(
+    case: Case, by_category: dict[str, list[DcfMandate]]
+) -> list[DcfObligation]:
+    """Merge the procedural mandates with the cross-method rules that
+    fired, in that order: the mandates describe the practice of each
+    method, the rules describe what has to line up between them."""
+    out = [
+        DcfObligation(
+            id=mandate.node_id,
+            origin="mandate",
+            statement=mandate.statement,
+            method=mandate.method,
+            category=category,
+            trigger=mandate.trigger_condition,
+            source_section=mandate.source_section,
+        )
+        for category, mandates in by_category.items()
+        for mandate in mandates
+    ]
+    out.extend(
+        DcfObligation(
+            id=str(rule.get("rule_id", "")),
+            origin="rule",
+            title=rule.get("name"),
+            statement=str(rule.get("statement", "")),
+            method=_method_of(list(rule.get("fields") or [])),
+            category=CROSS_METHOD_CATEGORY,
+            trigger=rule.get("trigger"),
+            fields=list(rule.get("fields") or []),
+            fields_not_applicable=list(rule.get("fields_not_applicable") or []),
+        )
+        for rule in case.applicable_rules
+    )
+    return out
 
 
 def _case_id_str(case_id: UUID | str) -> str:

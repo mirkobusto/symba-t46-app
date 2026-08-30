@@ -559,6 +559,7 @@ const en = {
       moreInfo: 'More on this configuration',
     },
     next: {
+      obligations: "{{count}} methodological practices apply to your answers. They are listed, with what triggered each one, in the Data Collection File.",
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
       allClear:
@@ -779,7 +780,19 @@ const en = {
     },
   },
 
+  obligations: {
+    empty: "Nothing to document for this case.",
+    lead:
+      "{{total}} items apply to this case: {{mandates}} methodological mandates and {{rules}} cross-method rules triggered by your answers. Each one is a commitment to document in the LCSA report.",
+    because: "Applies because:",
+    notApplicable: "Does not apply here: {{fields}} — that method is switched off in Q3.",
+    origin: {
+      mandate: "Mandate",
+      rule: "Cross-method rule",
+    },
+  },
   dcf: {
+    obligationsTitle: "Methodological choices to document",
     navLink: 'Data Collection',
     title: 'Data Collection File',
     subtitle:

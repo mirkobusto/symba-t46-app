@@ -69,6 +69,24 @@ export interface NetworkRenderSpec {
   library_license?: string
 }
 
+/**
+ * One practice the case has to document. `origin` distinguishes a Phase 1
+ * procedural mandate from a cross-method rule that fired — the analyst's
+ * job is the same for both, the traceability is not.
+ */
+export interface DcfObligation {
+  id: string
+  origin: 'mandate' | 'rule'
+  title?: string | null
+  statement: string
+  method: string
+  category: string
+  trigger?: string | null
+  fields: string[]
+  fields_not_applicable: string[]
+  source_section?: string | null
+}
+
 export interface DcfPayload {
   schema_version: string
   case_id: string
@@ -79,5 +97,6 @@ export interface DcfPayload {
   is_01_extended: boolean
   sections: DcfSection[]
   mandates_by_category: Record<string, DcfMandate[]>
+  obligations: DcfObligation[]
   network_render_spec: NetworkRenderSpec | null
 }

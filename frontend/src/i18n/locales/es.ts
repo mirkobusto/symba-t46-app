@@ -504,6 +504,7 @@ const es: Locale = {
       moreInfo: 'Más sobre esta configuración',
     },
     next: {
+      obligations: "{{count}} prácticas metodológicas afectan a tus respuestas. Están listadas, con lo que las ha activado, en el Data Collection File.",
       title: 'Qué hacer ahora',
       lead:
         'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
@@ -725,7 +726,19 @@ const es: Locale = {
     },
   },
 
+  obligations: {
+    empty: "Nada que documentar para este caso.",
+    lead:
+      "{{total}} elementos afectan a este caso: {{mandates}} mandatos metodológicos y {{rules}} reglas entre métodos activadas por tus respuestas. Cada uno es un compromiso que documentar en el informe LCSA.",
+    because: "Se aplica porque:",
+    notApplicable: "Aquí no se aplica: {{fields}} — ese método está desactivado en Q3.",
+    origin: {
+      mandate: "Mandato",
+      rule: "Regla entre métodos",
+    },
+  },
   dcf: {
+    obligationsTitle: "Decisiones metodológicas por documentar",
     navLink: 'Recolección de datos',
     title: 'Data Collection File',
     subtitle:

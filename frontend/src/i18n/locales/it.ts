@@ -538,6 +538,7 @@ const it: Locale = {
       moreInfo: 'Approfondisci questa configurazione',
     },
     next: {
+      obligations: "{{count}} pratiche metodologiche riguardano le tue risposte. Sono elencate, con quello che le ha attivate, nel Data Collection File.",
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e cosa devi valorizzare.',
       allClear:
@@ -759,7 +760,19 @@ const it: Locale = {
     },
   },
 
+  obligations: {
+    empty: "Niente da documentare per questo caso.",
+    lead:
+      "{{total}} voci riguardano questo caso: {{mandates}} mandati metodologici e {{rules}} regole cross-method attivate dalle tue risposte. Ognuna è un impegno da documentare nel report LCSA.",
+    because: "Si applica perché:",
+    notApplicable: "Qui non si applica: {{fields}} — quel metodo è spento in Q3.",
+    origin: {
+      mandate: "Mandato",
+      rule: "Regola cross-method",
+    },
+  },
   dcf: {
+    obligationsTitle: "Scelte metodologiche da documentare",
     navLink: 'Raccolta dati',
     title: 'Data Collection File',
     subtitle:

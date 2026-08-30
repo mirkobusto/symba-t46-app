@@ -168,22 +168,25 @@ def test_logistics_inactive_tab_shows_placeholder(payload_arce):
 # ---------------------------------------------------------------------------
 
 
-def test_mandates_tab_has_mandate_rows(payload_wiktor):
+def test_mandates_tab_lists_mandates_and_triggered_rules(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
     ws = wb["Methodological Choices"]
     # Header row at 4
-    headers = [ws.cell(row=4, column=c).value for c in range(1, 8)]
+    headers = [ws.cell(row=4, column=c).value for c in range(1, 10)]
     assert headers == [
-        "Category", "Node ID", "Method", "Statement",
+        "Category", "Origin", "ID", "Method", "Statement", "Applies because",
         "Deliverable target", "Assignee", "Status",
     ]
     # Enough mandate rows for the fixture's active dimensions (ENV+ECO)
     row_count = 0
     for r in range(5, 200):
-        if ws.cell(row=r, column=2).value:  # node_id column
+        if ws.cell(row=r, column=3).value:  # id column
             row_count += 1
     assert row_count >= 25
+    # both origins share the tab
+    origins = {ws.cell(row=r, column=2).value for r in range(5, 5 + row_count)}
+    assert origins == {"mandate", "rule"}
 
 
 # ---------------------------------------------------------------------------

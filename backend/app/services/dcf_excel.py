@@ -90,7 +90,7 @@ def render_xlsx(payload: DcfPayload, data: DcfData | None = None) -> bytes:
 
     mc = sections.get("methodological_choices")
     if mc is not None:
-        _write_mandates_tab(wb, mc, payload.mandates_by_category)
+        _write_mandates_tab(wb, mc, payload.obligations)
 
     nw = sections.get("network_diagram")
     if nw is not None:
@@ -205,18 +205,25 @@ def _write_data_section_tab(
 def _write_mandates_tab(
     wb: Workbook,
     section: DcfSection,
-    mandates_by_category: dict[str, list],
+    obligations: list,
 ) -> None:
+    """One tab for everything the case has to document.
+
+    Procedural mandates and triggered cross-method rules used to live in
+    two different places in two different formats; they are the same job
+    for whoever fills the file in, so they share a tab, with `Origin`
+    keeping the traceability a reviewer needs.
+    """
     ws = wb.create_sheet("Methodological Choices")
     ws["A1"] = section.title_en
     ws["A1"].font = _TITLE_FONT
     ws["A2"] = section.description_en
     ws["A2"].font = _SUBTITLE_FONT
     ws["A2"].alignment = Alignment(wrap_text=True)
-    ws.merge_cells("A2:G2")
+    ws.merge_cells("A2:I2")
 
     headers = [
-        "Category", "Node ID", "Method", "Statement",
+        "Category", "Origin", "ID", "Method", "Statement", "Applies because",
         "Deliverable target", "Assignee", "Status",
     ]
     header_row = 4
@@ -227,18 +234,21 @@ def _write_mandates_tab(
         c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
     row = header_row + 1
-    for category, mandates in mandates_by_category.items():
-        for m in mandates:
-            ws.cell(row=row, column=1, value=category)
-            ws.cell(row=row, column=2, value=m.node_id)
-            ws.cell(row=row, column=3, value=m.method)
-            ws.cell(row=row, column=4, value=m.statement).alignment = Alignment(wrap_text=True)
-            ws.cell(row=row, column=5, value="")
-            ws.cell(row=row, column=6, value="")
-            ws.cell(row=row, column=7, value="pending")
-            row += 1
+    for item in obligations:
+        ws.cell(row=row, column=1, value=item.category)
+        ws.cell(row=row, column=2, value=item.origin)
+        ws.cell(row=row, column=3, value=item.id)
+        ws.cell(row=row, column=4, value=item.method)
+        statement = item.statement if not item.title else f"{item.title} — {item.statement}"
+        ws.cell(row=row, column=5, value=statement).alignment = Alignment(wrap_text=True)
+        ws.cell(row=row, column=6, value=item.trigger or "")
+        ws.cell(row=row, column=7, value="")
+        ws.cell(row=row, column=8, value="")
+        ws.cell(row=row, column=9, value="pending")
+        row += 1
 
-    widths = {"A": 24, "B": 14, "C": 8, "D": 60, "E": 28, "F": 18, "G": 12}
+    widths = {"A": 24, "B": 10, "C": 14, "D": 8, "E": 60, "F": 26,
+              "G": 28, "H": 18, "I": 12}
     for col, w in widths.items():
         ws.column_dimensions[col].width = w
 

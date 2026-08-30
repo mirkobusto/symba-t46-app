@@ -88,7 +88,7 @@ def test_docx_contains_eu_footer(payload_wiktor):
     assert "www.symbaproject.eu" in text or "Horizon" in text
 
 
-def test_docx_contains_mandate_rows(payload_wiktor):
+def test_docx_lists_mandates_and_triggered_rules(payload_wiktor):
     blob = generate_dcf_docx_bytes(payload_wiktor)
     doc = Document(BytesIO(blob))
     # The mandate table should have a row per activated mandate
@@ -96,7 +96,7 @@ def test_docx_contains_mandate_rows(payload_wiktor):
     for table in doc.tables:
         head_row = table.rows[0]
         head_text = " ".join(c.text for c in head_row.cells)
-        if "Node ID" in head_text and "Statement" in head_text:
+        if "Origin" in head_text and "Statement" in head_text:
             mandate_table = table
             break
     assert mandate_table is not None

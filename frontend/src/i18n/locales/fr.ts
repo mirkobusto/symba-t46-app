@@ -510,6 +510,7 @@ const fr: Locale = {
       moreInfo: 'En savoir plus sur cette configuration',
     },
     next: {
+      obligations: "{{count}} pratiques méthodologiques concernent vos réponses. Elles sont listées, avec ce qui les a déclenchées, dans le Data Collection File.",
       title: 'Que faire maintenant',
       lead:
         "Pratiques méthodologiques rendues obligatoires par vos réponses, plus les décisions encore ouvertes. Chacune indique pourquoi elle concerne votre cas.",
@@ -731,7 +732,19 @@ const fr: Locale = {
     },
   },
 
+  obligations: {
+    empty: "Rien à documenter pour ce cas.",
+    lead:
+      "{{total}} éléments concernent ce cas : {{mandates}} mandats méthodologiques et {{rules}} règles inter-méthodes déclenchées par vos réponses. Chacun est un engagement à documenter dans le rapport ACV-D.",
+    because: "S'applique parce que :",
+    notApplicable: "Ne s'applique pas ici : {{fields}} — cette méthode est désactivée en Q3.",
+    origin: {
+      mandate: "Mandat",
+      rule: "Règle inter-méthodes",
+    },
+  },
   dcf: {
+    obligationsTitle: "Choix méthodologiques à documenter",
     navLink: 'Collecte de données',
     title: 'Data Collection File',
     subtitle:

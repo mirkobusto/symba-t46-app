@@ -504,6 +504,7 @@ const de: Locale = {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },
     next: {
+      obligations: "{{count}} methodische Praktiken betreffen Ihre Antworten. Sie sind mit ihrem Auslöser im Data Collection File aufgeführt.",
       title: 'Was jetzt zu tun ist',
       lead:
         'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
@@ -725,7 +726,19 @@ const de: Locale = {
     },
   },
 
+  obligations: {
+    empty: "Für diesen Fall ist nichts zu dokumentieren.",
+    lead:
+      "{{total}} Punkte betreffen diesen Fall: {{mandates}} methodische Vorgaben und {{rules}} methodenübergreifende Regeln, ausgelöst durch Ihre Antworten. Jeder ist eine im LCSA-Bericht zu dokumentierende Verpflichtung.",
+    because: "Gilt, weil:",
+    notApplicable: "Hier nicht anwendbar: {{fields}} — diese Methode ist in Q3 deaktiviert.",
+    origin: {
+      mandate: "Vorgabe",
+      rule: "Methodenübergreifende Regel",
+    },
+  },
   dcf: {
+    obligationsTitle: "Zu dokumentierende methodische Entscheidungen",
     navLink: 'Datenerhebung',
     title: 'Data Collection File',
     subtitle:

@@ -25,6 +25,7 @@ from app.domain.enums import (
 )
 from app.domain.models import Q3, Case, Flow
 from app.engine.dcf_compose import (
+    CROSS_METHOD_CATEGORY,
     DcfFieldDescriptor,
     DcfMandate,
     DcfPayload,
@@ -332,3 +333,46 @@ def test_network_section_active(case_wiktor, dcf_schema, mandates_census):
     sec = next(s for s in payload.sections if s.id == "network_diagram")
     assert sec.active is True
     assert sec.fields == []  # derived section, no fields
+
+
+# ---------------------------------------------------------------------------
+# Unified obligations (mandates + triggered cross-method rules)
+# ---------------------------------------------------------------------------
+
+
+def test_obligations_merge_mandates_and_triggered_rules(
+    case_wiktor, dcf_schema, mandates_census
+):
+    """One list, two origins: documenting is the same job for both."""
+    payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
+    origins = {o.origin for o in payload.obligations}
+    assert origins == {"mandate", "rule"}
+
+    mandates = sum(1 for o in payload.obligations if o.origin == "mandate")
+    assert mandates == sum(len(v) for v in payload.mandates_by_category.values())
+    rules = [o for o in payload.obligations if o.origin == "rule"]
+    assert len(rules) == len(case_wiktor.applicable_rules)
+
+
+def test_rule_obligations_keep_their_traceability(
+    case_wiktor, dcf_schema, mandates_census
+):
+    payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
+    rules = {o.id: o for o in payload.obligations if o.origin == "rule"}
+    assert rules, "expected this fixture to trigger cross-method rules"
+    for rule in rules.values():
+        assert rule.title, f"{rule.id} has no rule name"
+        assert rule.category == CROSS_METHOD_CATEGORY
+        assert rule.method in {"LCA", "LCC", "SLCA", "cross-method"}
+
+
+def test_a_switched_off_method_contributes_no_obligation(
+    case_arce, dcf_schema, mandates_census
+):
+    """q3 without the social dimension means no S-LCA node activates, so
+    no S-LCA mandate can reach the list."""
+    payload = compose_dcf(case_arce, dcf_schema, mandates_census)
+    if case_arce.slca_activation_state == SlcaActivationState.DEACTIVATED:
+        assert not [o for o in payload.obligations if o.method == "SLCA"]
+    if case_arce.lcc_type == LccType.DEACTIVATED:
+        assert not [o for o in payload.obligations if o.method == "LCC"]

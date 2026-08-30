@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 
 import DcfSectionViewer from '../components/DcfSectionViewer'
 import NetworkBuilder from '../components/NetworkBuilder'
+import ObligationList from '../components/ObligationList'
 import NetworkDiagram from '../components/NetworkDiagram'
 import {
   ApiError,
@@ -259,18 +260,20 @@ export default function DataCollectionPage() {
         />
       </div>
 
+      <div className="dcf-obligations">
+        <h2>{t('dcf.obligationsTitle')}</h2>
+        <ObligationList
+          obligations={payload.obligations}
+          sourceCase={sourceCase}
+        />
+      </div>
+
       <div className="dcf-sections-list">
-        {payload.sections.map((section) => (
-          <DcfSectionViewer
-            key={section.id}
-            section={section}
-            mandatesByCategory={
-              section.id === 'methodological_choices'
-                ? payload.mandates_by_category
-                : undefined
-            }
-          />
-        ))}
+        {payload.sections
+          .filter((section) => section.id !== 'methodological_choices')
+          .map((section) => (
+            <DcfSectionViewer key={section.id} section={section} />
+          ))}
       </div>
       </>
       ) : null}

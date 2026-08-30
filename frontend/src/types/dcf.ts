@@ -6,6 +6,8 @@ export interface DcfFieldDescriptor {
   label_en: string
   type: string
   required: boolean
+  /** Filled by the engine from the row id — not something to type in. */
+  derived?: boolean
   activation_predicate: string
   enum_values?: string[] | null
   enum_ref?: string | null

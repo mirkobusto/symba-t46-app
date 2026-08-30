@@ -68,7 +68,11 @@ _MIN_BLANK_ROWS = 3
 # ---------------------------------------------------------------------------
 
 
-def render_xlsx(payload: DcfPayload, data: DcfData | None = None) -> bytes:
+def render_xlsx(
+    payload: DcfPayload,
+    data: DcfData | None = None,
+    case_title: str | None = None,
+) -> bytes:
     """Render the DcfPayload to an xlsx workbook and return raw bytes.
 
     `data` is the content stored by the Network Builder, when the case
@@ -79,7 +83,7 @@ def render_xlsx(payload: DcfPayload, data: DcfData | None = None) -> bytes:
     wb = Workbook()
     wb.remove(wb.active)  # drop the default empty sheet
 
-    _write_cover_tab(wb, payload)
+    _write_cover_tab(wb, payload, case_title)
 
     sections = {s.id: s for s in payload.sections}
 
@@ -106,9 +110,16 @@ def render_xlsx(payload: DcfPayload, data: DcfData | None = None) -> bytes:
 # ---------------------------------------------------------------------------
 
 
-def _write_cover_tab(wb: Workbook, payload: DcfPayload) -> None:
+def _write_cover_tab(
+    wb: Workbook, payload: DcfPayload, case_title: str | None = None
+) -> None:
     ws = wb.create_sheet("Cover")
-    ws["A1"] = "SYMBA T4.6 — Data Collection File"
+    # The recipient knows the case by its name, not by a uuid.
+    ws["A1"] = (
+        f"SYMBA T4.6 — Data Collection File — {case_title}"
+        if case_title
+        else "SYMBA T4.6 — Data Collection File"
+    )
     ws["A1"].font = _TITLE_FONT
 
     rows = [

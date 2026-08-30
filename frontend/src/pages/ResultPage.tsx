@@ -34,7 +34,8 @@ export default function ResultPage() {
   const error = useCaseStore((s) => s.error)
   const reset = useCaseStore((s) => s.reset)
   const draft = useCaseStore((s) => s.draft)
-  const setServerCaseId = useCaseStore((s) => s.setServerCaseId)
+  const setServerCase = useCaseStore((s) => s.setServerCase)
+  const serverCaseName = useCaseStore((s) => s.serverCaseName)
   const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
   const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
@@ -55,7 +56,7 @@ export default function ResultPage() {
       // Save the result Case (post-pipeline) so pathway_id + engine
       // output are persisted along with the inputs.
       const saved = await createCase(name, result ?? draft)
-      setServerCaseId(saved.id)
+      setServerCase(saved.id, saved.name)
       if (saved.slug) setSavedSlug(saved.slug)
       pushToast({
         type: 'success',
@@ -192,7 +193,7 @@ export default function ResultPage() {
   return (
     <div className="dd-page result">
       <VerdictCard
-        eyebrow={t('result.title')}
+        eyebrow={serverCaseName ?? t('result.title')}
         pathway={verdict?.title ?? result.pathway_id ?? '—'}
         codes={verdict?.codes}
         body={verdict?.body}

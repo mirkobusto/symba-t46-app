@@ -195,6 +195,7 @@ const de: Locale = {
   },
 
   questionnaire: {
+    scopeNote: "Dieses Werkzeug berechnet keine Ökobilanz-/LCC-/S-LCA-Zahlen. Es leitet den methodischen Pfad Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
@@ -694,7 +695,7 @@ const de: Locale = {
     indicatorPending: 'ausstehend',
     engineDetailsTitle: 'Engine-Pipeline-Details',
     activatedNodesCount: '{{count}} aktivierte(r) methodische(r) Knoten',
-    ruleViolations: '{{count}} Regelverletzung(en)',
+    obligations: "{{count}} zu dokumentierende methodische Praktik(en)",
     cdpFlagsCount: '{{count}} dimensionsübergreifende Spannung(en)',
     complianceTitle: 'Compliance-Signale',
     compliance: {
@@ -738,6 +739,7 @@ const de: Locale = {
     },
   },
   dcf: {
+    derivedField: "von der Engine gefüllt",
     obligationsTitle: "Zu dokumentierende methodische Entscheidungen",
     navLink: 'Datenerhebung',
     title: 'Data Collection File',

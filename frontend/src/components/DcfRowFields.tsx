@@ -69,8 +69,9 @@ export default function DcfRowFields({
     issues.filter((i) => i.code === 'missing_required').map((i) => i.field_id),
   )
 
-  // actor.id / flow.id are derived from row_id server-side.
-  const editable = section.fields.filter((f) => !f.id.endsWith('.id'))
+  // actor.id / flow.id are filled from row_id server-side; the composer
+  // marks them so the form and the descriptor agree on what is asked for.
+  const editable = section.fields.filter((f) => !f.derived)
 
   return (
     <div className="nb-panel-body">

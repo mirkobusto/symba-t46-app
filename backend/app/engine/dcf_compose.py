@@ -33,7 +33,14 @@ from app.engine.predicate import build_context_from_case, evaluate
 
 
 class DcfFieldDescriptor(BaseModel):
-    """One field row in a DCF section that survived the activation filter."""
+    """One field row in a DCF section that survived the activation filter.
+
+    `derived` marks a column the analyst does not fill in: the schema
+    declares `actor.id` / `flow.id` / `infra.id` as required fields, but
+    since the Network Builder they are filled from the row id the client
+    assigns, and submitting them is rejected. Marking them here keeps the
+    descriptor from asking for something the API refuses.
+    """
 
     model_config = ConfigDict(extra="ignore")
 
@@ -42,6 +49,7 @@ class DcfFieldDescriptor(BaseModel):
     type: str
     required: bool = False
     activation_predicate: str
+    derived: bool = False
     enum_values: list[str] | None = None
     enum_ref: str | None = None
     description_en: str | None = None
@@ -210,6 +218,7 @@ def compose_dcf(
                     clean = {k: v for k, v in field_schema.items() if k in _FIELD_KEYS}
                     active_fields.append(DcfFieldDescriptor(**clean))
 
+        _mark_derived_ids(active_fields)
         sections_out.append(DcfSection(
             id=sec_id,
             title_en=sec_schema["title_en"],
@@ -240,6 +249,14 @@ def compose_dcf(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+
+def _mark_derived_ids(fields: list[DcfFieldDescriptor]) -> None:
+    """Flag the section's `<prefix>.id` column as engine-filled."""
+    for field in fields:
+        if field.id.endswith(".id"):
+            field.derived = True
+            field.required = False
 
 
 def _make_derived_section(sec_schema: dict[str, Any], active: bool) -> DcfSection:

@@ -229,6 +229,7 @@ const it: Locale = {
   },
 
   questionnaire: {
+    scopeNote: "Questo strumento non calcola i numeri di LCA/LCC/S-LCA. Deriva il percorso metodologico che il tuo caso richiede e i dati che devi raccogliere; lo scoring quantitativo è prodotto esternamente e compare qui quando arriva.",
     title: 'Questionario',
     guidedBannerTitle: 'Modalità guidata attiva',
     guidedBannerBody:
@@ -728,7 +729,7 @@ const it: Locale = {
     indicatorPending: 'in attesa',
     engineDetailsTitle: 'Dettagli pipeline engine',
     activatedNodesCount: '{{count}} nodo/i metodologico/i attivato/i',
-    ruleViolations: '{{count}} violazione/i di regola',
+    obligations: "{{count}} pratica/e metodologica/che da documentare",
     cdpFlagsCount: '{{count}} tensione/i cross-dimensionale/i',
     complianceTitle: 'Segnali di compliance',
     compliance: {
@@ -772,6 +773,7 @@ const it: Locale = {
     },
   },
   dcf: {
+    derivedField: "compilato dal motore",
     obligationsTitle: "Scelte metodologiche da documentare",
     navLink: 'Raccolta dati',
     title: 'Data Collection File',

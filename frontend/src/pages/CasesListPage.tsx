@@ -16,7 +16,8 @@ export default function CasesListPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
-  const setServerCaseId = useCaseStore((s) => s.setServerCaseId)
+  const setServerCase = useCaseStore((s) => s.setServerCase)
+  const setResult = useCaseStore((s) => s.setResult)
   const pushToast = useToastStore((s) => s.push)
 
   const [items, setItems] = useState<CaseSummary[] | null>(null)
@@ -47,8 +48,17 @@ export default function CasesListPage() {
       setDraft(detail.case)
       // Remember which server case this draft mirrors, so the Network
       // Builder syncs its DCF content to the right one.
-      setServerCaseId(detail.id)
-      navigate('/questionnaire')
+      setServerCase(detail.id, detail.name)
+      // A saved case was stored after the pipeline ran, so it already
+      // carries its verdict: land on the result rather than making the
+      // user re-run the questionnaire to see what they just opened.
+      if (detail.case.pathway_id) {
+        setResult(detail.case)
+        navigate('/result')
+      } else {
+        setResult(null)
+        navigate('/questionnaire')
+      }
     } catch (e) {
       const msg = e instanceof ApiError ? e.detail : (e as Error).message
       pushToast({

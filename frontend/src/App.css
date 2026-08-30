@@ -4271,3 +4271,17 @@ kbd {
   font-size: 13px;
   color: var(--dd-text-soft);
 }
+
+.dcf-derived { font-size: 11px; color: var(--dd-text-muted); font-style: italic; }
+
+.questionnaire-scope-note {
+  background: var(--dd-brand-bg);
+  border-radius: var(--dd-radius);
+  padding: var(--dd-space-3) var(--dd-space-4);
+  font-size: 13px;
+  color: var(--dd-text-soft);
+  max-width: 80ch;
+  margin: var(--dd-space-6) 0 var(--dd-space-3);
+}
+
+.dd-page-case { color: var(--dd-text-muted); font-weight: 400; }

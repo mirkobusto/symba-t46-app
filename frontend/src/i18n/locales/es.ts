@@ -195,6 +195,7 @@ const es: Locale = {
   },
 
   questionnaire: {
+    scopeNote: "Esta herramienta no calcula las cifras de ACV/LCC/S-ACV. Deriva la ruta metodológica que tu caso requiere y los datos que debes recoger; la puntuación cuantitativa se produce externamente y aparece aquí cuando llega.",
     title: 'Cuestionario',
     guidedBannerTitle: 'Modo guiado activo',
     guidedBannerBody:
@@ -694,7 +695,7 @@ const es: Locale = {
     indicatorPending: 'pendiente',
     engineDetailsTitle: 'Detalles del pipeline',
     activatedNodesCount: '{{count}} nodo(s) metodológico(s) activado(s)',
-    ruleViolations: '{{count}} violación(es) de regla',
+    obligations: "{{count}} práctica(s) metodológica(s) por documentar",
     cdpFlagsCount: '{{count}} tensión(es) cross-dimensional(es)',
     complianceTitle: 'Señales de cumplimiento',
     compliance: {
@@ -738,6 +739,7 @@ const es: Locale = {
     },
   },
   dcf: {
+    derivedField: "rellenado por el motor",
     obligationsTitle: "Decisiones metodológicas por documentar",
     navLink: 'Recolección de datos',
     title: 'Data Collection File',

@@ -201,6 +201,7 @@ const fr: Locale = {
   },
 
   questionnaire: {
+    scopeNote: "Cet outil ne calcule pas les chiffres ACV/LCC/S-ACV. Il dérive le parcours méthodologique requis par votre cas et les données à collecter ; le scoring quantitatif est produit à l'extérieur et s'affiche ici une fois livré.",
     title: 'Questionnaire',
     guidedBannerTitle: 'Mode guidé actif',
     guidedBannerBody:
@@ -700,7 +701,7 @@ const fr: Locale = {
     indicatorPending: 'en attente',
     engineDetailsTitle: 'Détails du pipeline',
     activatedNodesCount: '{{count}} nœud(s) méthodologique(s) activé(s)',
-    ruleViolations: '{{count}} violation(s) de règle',
+    obligations: "{{count}} pratique(s) méthodologique(s) à documenter",
     cdpFlagsCount: '{{count}} tension(s) inter-dimension(s)',
     complianceTitle: 'Signaux de conformité',
     compliance: {
@@ -744,6 +745,7 @@ const fr: Locale = {
     },
   },
   dcf: {
+    derivedField: "rempli par le moteur",
     obligationsTitle: "Choix méthodologiques à documenter",
     navLink: 'Collecte de données',
     title: 'Data Collection File',

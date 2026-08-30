@@ -48,6 +48,7 @@ export default function DataCollectionPage() {
   const result = useCaseStore((s) => s.result)
   const draft = useCaseStore((s) => s.draft)
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
+  const serverCaseName = useCaseStore((s) => s.serverCaseName)
   const pushToast = useToastStore((s) => s.push)
   const bindDcfData = useDcfDataStore((s) => s.bindTo)
   const dcfDirty = useDcfDataStore((s) => s.dirty)
@@ -193,7 +194,12 @@ export default function DataCollectionPage() {
   return (
     <div className="dd-page dcf-page">
       <div className="dcf-header">
-        <h1 className="dd-page-title">{t('dcf.title')}</h1>
+        <h1 className="dd-page-title">
+          {t('dcf.title')}
+          {serverCaseName ? (
+            <span className="dd-page-case"> · {serverCaseName}</span>
+          ) : null}
+        </h1>
         <p className="dd-page-sub">{t('dcf.subtitle')}</p>
         <div className="dcf-badges" style={{ marginTop: 12 }}>
           <span className="dd-pill dd-pill-brand">

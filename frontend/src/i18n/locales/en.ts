@@ -250,6 +250,7 @@ const en = {
   },
 
   questionnaire: {
+    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological pathway your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
     title: 'Questionnaire',
     intro:
       'Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
@@ -748,7 +749,7 @@ const en = {
     indicatorPending: 'pending',
     engineDetailsTitle: 'Engine pipeline details',
     activatedNodesCount: '{{count}} activated methodological node(s)',
-    ruleViolations: '{{count}} rule violation(s)',
+    obligations: "{{count}} methodological practice(s) to document",
     cdpFlagsCount: '{{count}} cross-dimension tension flag(s)',
     complianceTitle: 'Compliance signals',
     compliance: {
@@ -792,6 +793,7 @@ const en = {
     },
   },
   dcf: {
+    derivedField: "engine-filled",
     obligationsTitle: "Methodological choices to document",
     navLink: 'Data Collection',
     title: 'Data Collection File',

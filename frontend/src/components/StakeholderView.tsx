@@ -105,8 +105,11 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
               })}
             </li>
             <li>
-              {t('stakeholder.ruleViolations', {
-                count: caseData.rule_violations?.length ?? 0,
+              {/* Obligations, not violations: telling a local community it
+                  is looking at "4 rule violations" reads as an accusation,
+                  and nothing has been violated. */}
+              {t('stakeholder.obligations', {
+                count: caseData.applicable_rules?.length ?? 0,
               })}
             </li>
             <li>

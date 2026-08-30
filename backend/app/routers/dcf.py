@@ -302,7 +302,7 @@ def export_xlsx_for_case(
     have never been saved (it has no case id to look content up by)."""
     rec, case = _load_case_for(case_id, db, current_user, for_write=False)
     payload = _run_and_compose(case, schemas)
-    blob = render_xlsx(payload, _stored_data(db, case_id))
+    blob = render_xlsx(payload, _stored_data(db, case_id), rec.name)
     filename = f"dcf_{rec.slug or case_id[:8]}.xlsx"
     return Response(
         content=blob,

@@ -39,9 +39,15 @@ export interface CaseState {
    * the Network Builder needs it to know where to sync its DCF content.
    */
   serverCaseId: string | null
+  /** Name of that server-side case, for the pages that should say which
+   * case you are looking at. */
+  serverCaseName: string | null
 
   setDraft: (next: Case) => void
-  setServerCaseId: (id: string | null) => void
+  /** Adopt an already-run case as the current result (loading a saved
+   * case, which was stored post-pipeline). */
+  setResult: (next: Case | null) => void
+  setServerCase: (id: string | null, name?: string | null) => void
   patchDraft: (patch: Partial<Case>) => void
   runDraft: () => Promise<Case | null>
   runScenariosFromDraft: () => Promise<ScenariosResponse | null>
@@ -58,10 +64,14 @@ export const useCaseStore = create<CaseState>()(
       error: null,
       lastSavedAt: null,
       serverCaseId: null,
+      serverCaseName: null,
 
       setDraft: (next) => set({ draft: next, lastSavedAt: Date.now() }),
 
-      setServerCaseId: (id) => set({ serverCaseId: id }),
+      setResult: (next) => set({ result: next }),
+
+      setServerCase: (id, name = null) =>
+        set({ serverCaseId: id, serverCaseName: name }),
 
       patchDraft: (patch) =>
         set({ draft: { ...get().draft, ...patch }, lastSavedAt: Date.now() }),
@@ -141,6 +151,7 @@ export const useCaseStore = create<CaseState>()(
           error: null,
           lastSavedAt: null,
           serverCaseId: null,
+          serverCaseName: null,
         }),
     }),
     {
@@ -153,6 +164,7 @@ export const useCaseStore = create<CaseState>()(
         scenariosResult: state.scenariosResult,
         lastSavedAt: state.lastSavedAt,
         serverCaseId: state.serverCaseId,
+        serverCaseName: state.serverCaseName,
       }),
     },
   ),

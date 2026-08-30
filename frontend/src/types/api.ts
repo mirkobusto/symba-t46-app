@@ -120,6 +120,27 @@ export interface CaseDetail {
 export interface RuleViolation {
   rule_id: string
   message: string
+  /** Rule title, e.g. "Geographic Spread Transport Coupling". */
+  name?: string | null
+  /** Human-readable trigger, e.g. "Q7 ∈ {B, C, D}" — why it fired here. */
+  trigger?: string | null
+  /** Field paths the rule requires to be set — what to fill in. */
+  fields?: string[]
+  source_nodes?: string[]
+}
+
+/**
+ * A rule whose trigger fired: a methodological practice this case has to
+ * document. Not an error — see backend/app/engine/l2_validate.py on why
+ * the assertions cannot verify choices made outside the tool.
+ */
+export interface ApplicableRule {
+  rule_id: string
+  name?: string | null
+  statement: string
+  trigger?: string | null
+  fields?: string[]
+  source_nodes?: string[]
 }
 
 export interface CdpFlag {
@@ -176,5 +197,6 @@ export interface Case {
   activated_nodes?: string[]
   blocked_by?: string[]
   rule_violations?: RuleViolation[]
+  applicable_rules?: ApplicableRule[]
   cdp_flags?: CdpFlag[]
 }

@@ -13,6 +13,21 @@ activated case. Rule families:
 For assertion-bearing rules (IR/FU/B): when trigger fires AND assertion
 fails, append a structured violation entry to `case.rule_violations`.
 
+Two outputs, deliberately different in kind:
+
+- `case.applicable_rules` — every rule whose **trigger** fired. These
+  are the methodological practices the case has to document, and they
+  are what the app and the report show. A triggered rule applies
+  regardless of whether its assertion can be checked.
+- `case.rule_violations` — rules whose assertion additionally evaluated
+  false. Kept for the 12-paper validation reports, but not surfaced as
+  errors to the user: the assertions compare values the engine writes as
+  descriptive prose (`lca.transport.foreground` is written as the string
+  "explicit", never the boolean the assertion tests), so a false result
+  says nothing reliable about the study. Fixing that means having a
+  place where the analyst declares those choices, which the tool does
+  not have today.
+
 For action-bearing rules (CIR): when trigger fires, execute the actions
 (write the configured RHS values to the LHS pillar fields). CIR rules
 never "fail"; they enforce configuration coherence post-activation.
@@ -55,7 +70,7 @@ from typing import Any
 
 from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6b
 from app.domain.models import Case
-from app.engine.activate import _write
+from app.engine.activate import _pillar_is_off, _write
 from app.engine.loader import LoadedSchemas
 
 # ---------------------------------------------------------------------------
@@ -557,12 +572,50 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
             continue
         if not trigger(case):
             continue
+        # Every triggered rule is a methodological practice this case has
+        # to document, whether or not the assertion can be evaluated:
+        # the assertions read values the engine writes as prose, and the
+        # choices they describe (did you include transport in the LCA
+        # foreground?) are made outside the tool. Presenting them as
+        # obligations is what the tool can honestly support; the
+        # violation list below stays for the validation reports.
+        declared = list(rule.get("fields") or [])
+        applicable = [f for f in declared if not _pillar_is_off(case, f.split(".")[0])]
+        not_applicable = [f for f in declared if f not in applicable]
+        if declared and not applicable:
+            # Every field this rule governs lives in a method the case
+            # switched off — the rule has nothing to say here.
+            continue
+        case.applicable_rules.append({
+            "rule_id": rule_id,
+            "name": rule.get("name"),
+            "statement": rule.get("violation_message",
+                                  f"{rule_id} applies to this case"),
+            "trigger": rule.get("trigger_condition_raw"),
+            "fields": applicable,
+            # Cross-method rules keep applying through their active half:
+            # B-05 still requires transport in the LCA foreground when the
+            # LCC is switched off. Naming the dropped half stops the rule
+            # text ("…and LCC costs") from reading as a contradiction.
+            "fields_not_applicable": not_applicable,
+            "source_nodes": list(rule.get("source_nodes") or []),
+        })
+
         if rule_id in _ASSERT_FNS:
             if not _ASSERT_FNS[rule_id](case):
+                # The whole rule row travels with the violation: the UI
+                # turns "which rule fired" into "why it fired for you"
+                # (trigger_condition_raw) and "what to fill in" (fields).
+                # Without these the reader only ever sees the constraint
+                # restated at them.
                 case.rule_violations.append({
                     "rule_id": rule_id,
                     "message": rule.get("violation_message",
                                         f"{rule_id} assertion failed"),
+                    "name": rule.get("name"),
+                    "trigger": rule.get("trigger_condition_raw"),
+                    "fields": list(rule.get("fields") or []),
+                    "source_nodes": list(rule.get("source_nodes") or []),
                 })
         elif rule_id in _ACTION_FNS:
             _ACTION_FNS[rule_id](case)

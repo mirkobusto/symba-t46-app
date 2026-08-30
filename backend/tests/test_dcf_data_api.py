@@ -297,3 +297,60 @@ def test_legacy_anonymous_case_dcf_data_stays_open(client):
         ).status_code
         == 200
     )
+
+
+# ---------------------------------------------------------------------------
+# Case-scoped exports (phase 3 — the drawn network reaches the artefacts)
+# ---------------------------------------------------------------------------
+
+XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+
+def test_case_export_xlsx_is_prefilled_with_the_stored_rows(client):
+    case_id = _create_case(client)
+    client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id))
+
+    r = client.get(f"/api/dcf/{case_id}/export/xlsx")
+
+    assert r.status_code == 200, r.text
+    assert r.headers["content-type"] == XLSX_MIME
+    assert "attachment" in r.headers["content-disposition"]
+
+    from io import BytesIO
+
+    from openpyxl import load_workbook
+
+    wb = load_workbook(BytesIO(r.content))
+    text = "\n".join(
+        str(c.value)
+        for row in wb["Actors"].iter_rows()
+        for c in row
+        if c.value is not None
+    )
+    assert "WWTP Alfa" in text
+
+
+def test_case_export_docx_works_without_stored_content(client):
+    case_id = _create_case(client)
+    r = client.get(f"/api/dcf/{case_id}/export/docx")
+    assert r.status_code == 200, r.text
+    assert len(r.content) > 1000
+
+
+def test_case_export_404_for_unknown_case(client):
+    r = client.get("/api/dcf/00000000-0000-0000-0000-000000000000/export/xlsx")
+    assert r.status_code == 404
+
+
+def test_case_export_hidden_from_non_owners(client):
+    _register(client, "alice@example.eu")
+    bob = _register(client, "bob@example.eu")
+    carol = _register(client, "carol@example.eu")
+    case_id = _create_case(client, _auth(bob))
+
+    assert client.get(
+        f"/api/dcf/{case_id}/export/xlsx", headers=_auth(carol)
+    ).status_code == 404
+    assert client.get(
+        f"/api/dcf/{case_id}/export/xlsx", headers=_auth(bob)
+    ).status_code == 200

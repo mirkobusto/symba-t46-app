@@ -69,8 +69,9 @@ export default function DcfRowFields({
     issues.filter((i) => i.code === 'missing_required').map((i) => i.field_id),
   )
 
-  // actor.id / flow.id are derived from row_id server-side.
-  const editable = section.fields.filter((f) => !f.id.endsWith('.id'))
+  // actor.id / flow.id are filled from row_id server-side; the composer
+  // marks them so the form and the descriptor agree on what is asked for.
+  const editable = section.fields.filter((f) => !f.derived)
 
   return (
     <div className="nb-panel-body">
@@ -162,6 +163,17 @@ export default function DcfRowFields({
 
             {field.description_en ? (
               <span className="nb-field-help">{field.description_en}</span>
+            ) : null}
+
+            {/* Why this field is being asked. The predicate is the
+                methodological reason the DCF wants it for *this* case —
+                showing it turns an opaque form into a traceable one. */}
+            {field.activation_predicate &&
+            field.activation_predicate !== 'always' ? (
+              <span className="nb-field-why">
+                {t('networkBuilder.whyAsked')}{' '}
+                <code>{field.activation_predicate}</code>
+              </span>
             ) : null}
           </label>
         )

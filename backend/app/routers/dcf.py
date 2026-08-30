@@ -5,6 +5,8 @@ Composition endpoints sit on top of `engine.dcf_compose.compose_dcf`:
   POST   /api/dcf/preview          -> Case in, DcfPayload JSON out (UI preview)
   POST   /api/dcf/export/xlsx      -> Case in, .xlsx out (download)
   POST   /api/dcf/export/docx      -> Case in, .docx out (download)
+  GET    /api/dcf/{case_id}/export/xlsx -> .xlsx of a saved case, pre-filled
+  GET    /api/dcf/{case_id}/export/docx -> .docx of a saved case, pre-filled
   GET    /api/dcf/{case_id}/data   -> stored DCF content + validation report
   PUT    /api/dcf/{case_id}/data   -> store the DCF content (Network Builder)
   DELETE /api/dcf/{case_id}/data   -> drop the stored content
@@ -281,3 +283,49 @@ def delete_dcf_data(
         )
     db.delete(rec)
     db.commit()
+
+
+def _stored_data(db: OrmSession, case_id: str) -> DcfData | None:
+    rec = db.get(CaseDcfData, case_id)
+    return DcfData.model_validate_json(rec.data_json) if rec else None
+
+
+@router.get("/{case_id}/export/xlsx")
+def export_xlsx_for_case(
+    case_id: str,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+    schemas: LoadedSchemas = Depends(_get_schemas),
+) -> Response:
+    """Excel export of a *saved* case, pre-filled with what the Network
+    Builder stored. The stateless POST /export/xlsx stays for drafts that
+    have never been saved (it has no case id to look content up by)."""
+    rec, case = _load_case_for(case_id, db, current_user, for_write=False)
+    payload = _run_and_compose(case, schemas)
+    blob = render_xlsx(payload, _stored_data(db, case_id), rec.name)
+    filename = f"dcf_{rec.slug or case_id[:8]}.xlsx"
+    return Response(
+        content=blob,
+        media_type=XLSX_MIME,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@router.get("/{case_id}/export/docx")
+def export_docx_for_case(
+    case_id: str,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+    schemas: LoadedSchemas = Depends(_get_schemas),
+) -> Response:
+    """Companion document of a saved case, with §2 reporting the drawn
+    network instead of describing it."""
+    rec, case = _load_case_for(case_id, db, current_user, for_write=False)
+    payload = _run_and_compose(case, schemas)
+    blob = generate_dcf_docx_bytes(payload, rec.name, _stored_data(db, case_id))
+    filename = f"dcf_{rec.slug or case_id[:8]}.docx"
+    return Response(
+        content=blob,
+        media_type=DOCX_MIME,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )

@@ -8,11 +8,12 @@ from __future__ import annotations
 
 import pytest
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6a, Q6b
 from app.domain.models import Q3, Case, Flow
 from app.engine.activate import run as activate_run
 from app.engine.l0_compute import run as l0_run
 from app.engine.l2_validate import _ASSERT_FNS, _TRIGGER_FNS, run
+from app.engine.pipeline import run as pipeline_run
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -240,3 +241,32 @@ def test_full_pipeline_consistency(schemas):
     # asserted pillar values directly (they're set by user/advanced layer).
     # All assertions either inconclusive or trivially-true NLP stubs.
     assert isinstance(case.rule_violations, list)
+
+
+def test_violations_carry_the_rule_row_for_the_ui(schemas):
+    """A violation must say why it fired *for this case* and what to fill.
+
+    The UI turns `trigger` into "why you are seeing this" and `fields`
+    into "what to fill in"; without them the reader only gets the
+    constraint restated at them.
+    """
+    case = Case(
+        q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
+        flows=[Flow(id="f1", name="sludge", q5=Q5.a)],
+    )
+    pipeline_run(case, schemas)
+
+    assert case.rule_violations, "expected this fixture to raise violations"
+    for violation in case.rule_violations:
+        assert violation["rule_id"]
+        assert violation["message"]
+        assert "name" in violation
+        assert "trigger" in violation
+        assert isinstance(violation["fields"], list)
+        assert isinstance(violation["source_nodes"], list)
+
+    by_id = {v["rule_id"]: v for v in case.rule_violations}
+    if "B-05" in by_id:
+        assert by_id["B-05"]["trigger"] == "Q7 ∈ {B, C, D}"
+        assert "lca.transport.foreground" in by_id["B-05"]["fields"]

@@ -75,7 +75,7 @@ Cronologia sintetica (tutto su `main`):
 **Lavoro aperto (nessuno bloccante sul codice)**:
 - Filtro region reale su `/api/public/region/{code}` (oggi echo del codice)
 - i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
-- Network Builder: fasi 1-2 fatte (persistenza + editor drag-drop); manca la fase 3 (pre-compilazione xlsx/docx dal contenuto salvato + diagramma reale al posto del placeholder)
+- Network Builder: completo (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale, guidance in-app con esempio caricabile)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
 - Deploy pubblico D4.6 (PU): immagine e guida pronte, manca l'URL reale
 - Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
@@ -93,6 +93,7 @@ Cronologia sintetica (tutto su `main`):
 - `backend/app/schemas/system_fields.json` — 16 system fields
 - `backend/app/schemas/computed_fields.json` — 12 computed fields
 - `backend/app/schemas/cir_output_fields.json` — 20 cir_output fields
+- `backend/app/schemas/dcf_schema.json` — namespace DCF separato (7 sezioni dopo l'aggiunta di `costs` il 2026-08-30, approvata)
 
 I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 - 96 nodi FIELDED + 90 procedural_mandate = 186
@@ -114,7 +115,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente: **328 backend (pytest) + 38 frontend (vitest)**.
+- Test devono sempre passare prima del commit. Baseline corrente: **340 backend (pytest) + 51 frontend (vitest)**.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).
@@ -195,8 +196,12 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 
 ## Lavoro deferito noto
 
+- **Scenari di rete** (deciso 2026-08-30, "entrambi in due tempi"): oggi uno scenario può variare solo le risposte Q1-Q7 tramite `overrides`, quindi non può esprimere "flusso in discarica vs flusso al partner" — il confronto che un analista cerca quando sceglie Q2=D. Fase 1 fatta: l'editor lo dice esplicitamente invece di promettere un confronto che non fa. Fase 2 da progettare: uno scenario come variante della rete disegnata (stessi attori, flussi/distanze/quantità diverse), il che sposta gli scenari dal Case al DCF e richiede di ripensare il runner.
+
 - Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
 - Tabelle DB legacy (`Session`, `Answer`, `PathwayResolutionRecord`) ancora registrate in `app/models/` ma senza endpoint che le usano. Da decidere se droppare in migrazione futura.
+- **I nodi di un metodo spento non si attivano** (fix 2026-08-30): `lcc_trig_01` dichiara "q3.eco=false → all LCC nodes deactivated" e `slca_t_01` l'analogo per il sociale, ma l'engine attivava comunque tutti i 61 nodi LCC e 66 SLCA. Ora `activate._method_is_off` salta il metodo e `_write` scarta le scritture nei pilastri spenti (coprendo anche le azioni CIR dell'L2). Conseguenza: il numero di nodi attivati e i mandati del DCF **dipendono da Q3** — l'invariante "almeno 116 nodi DEFAULT" non vale più ed è stato sostituito nei test da asserzioni method-aware.
+- **Le 40 regole L2 sono presentate come obblighi metodologici da documentare, non come errori** (decisione 2026-08-30). `case.applicable_rules` è emesso sul *trigger* ed è ciò che app e report mostrano; `case.rule_violations` (assertion fallita) resta per i validation report ma non è affidabile: le assertion confrontano valori che l'engine scrive come prosa (`lca.transport.foreground` = `'explicit'`, mai il booleano testato), quindi B-05 scattava sul 100% dei casi con Q7∈{B,C,D} e IR-01 su ogni caso con ≥2 dimensioni. Renderle controlli veri richiede un posto dove l'analista dichiari quelle scelte — non esiste oggi.
 - 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
 - Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
 - Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).

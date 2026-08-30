@@ -78,6 +78,15 @@ function nextFlowRowId(): string {
   return `fx${Date.now().toString(36)}${flowCounter}`
 }
 
+/** Display names for the demo network, passed in so the store stays
+ * free of i18n. */
+export interface ExampleLabels {
+  producer: string
+  consumer: string
+  facilitator: string
+  flow: string
+}
+
 export interface DcfDataState {
   /** Server case id this draft belongs to; null while the case is unsaved. */
   caseId: string | null
@@ -100,6 +109,7 @@ export interface DcfDataState {
   ) => void
   removeRow: (sectionId: string, rowId: string) => void
   setPosition: (rowId: string, pos: DcfNodePosition) => void
+  loadExample: (payload: DcfPayload, labels: ExampleLabels) => void
   loadFromServer: (caseId: string) => Promise<boolean>
   saveToServer: () => Promise<boolean>
   reset: () => void
@@ -279,6 +289,85 @@ export const useDcfDataStore = create<DcfDataState>()(
       setPosition(rowId, pos) {
         const data = get().data
         set({ data: { ...data, layout: { ...data.layout, [rowId]: pos } }, dirty: true })
+      },
+
+      loadExample(payload, labels) {
+        // A worked example is the fastest way to understand what the
+        // canvas expects: three actors, two wired flows, plausible
+        // values — but only for fields this pathway actually activated,
+        // so the example itself stays legal for the case.
+        const active = activeFieldsBySection(payload)
+        const actorFields = active[ACTORS_SECTION] ?? new Set<string>()
+        const flowFields = active[FLOW_MATRIX_SECTION] ?? new Set<string>()
+
+        const actorRow = (rowId: string, name: string, role: string): DcfRow => {
+          const values: Record<string, unknown> = {}
+          if (actorFields.has('actor.name')) values['actor.name'] = name
+          if (actorFields.has('actor.role')) values['actor.role'] = role
+          return { row_id: rowId, values }
+        }
+
+        const actors = [
+          actorRow('ex-a1', labels.producer, 'producer'),
+          actorRow('ex-a2', labels.consumer, 'consumer'),
+          actorRow('ex-a3', labels.facilitator, 'facilitator'),
+        ]
+
+        const flowRow = (
+          rowId: string,
+          name: string,
+          origin: string,
+          dest: string,
+          type: string,
+        ): DcfRow => {
+          const values: Record<string, unknown> = {
+            'flow.origin_actor_id': origin,
+            'flow.dest_actor_id': dest,
+          }
+          if (flowFields.has('flow.name')) values['flow.name'] = name
+          if (flowFields.has('flow.type')) values['flow.type'] = type
+          if (flowFields.has('flow.unit')) values['flow.unit'] = 't/y'
+          if (flowFields.has('flow.regime')) values['flow.regime'] = 'continuous'
+          if (flowFields.has('flow.uncertainty.type')) {
+            values['flow.uncertainty.type'] = 'point'
+          }
+          return { row_id: rowId, values }
+        }
+
+        // The example owns the actors, so any flow the analyst had
+        // already wired now points at actors that no longer exist. Those
+        // rows are kept — they are the flows declared in Q5 and belong in
+        // the to-do list — but unwired, since a dangling reference is a
+        // 422 on the next save.
+        const kept = rowsOf(get().data, FLOW_MATRIX_SECTION)
+          .filter((row) => !row.row_id.startsWith('ex-'))
+          .map((row) => {
+            const values = { ...row.values }
+            delete values['flow.origin_actor_id']
+            delete values['flow.dest_actor_id']
+            return { ...row, values }
+          })
+
+        set({
+          data: {
+            ...get().data,
+            rows_by_section: {
+              ...get().data.rows_by_section,
+              [ACTORS_SECTION]: actors,
+              [FLOW_MATRIX_SECTION]: [
+                flowRow('ex-f1', `${labels.flow} 1`, 'ex-a1', 'ex-a2', 'by_product'),
+                flowRow('ex-f2', `${labels.flow} 2`, 'ex-a2', 'ex-a3', 'energy'),
+                ...kept,
+              ],
+            },
+            layout: {
+              'ex-a1': autoPosition(0),
+              'ex-a2': autoPosition(1),
+              'ex-a3': autoPosition(2),
+            },
+          },
+          dirty: true,
+        })
       },
 
       async loadFromServer(caseId) {

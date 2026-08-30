@@ -50,7 +50,16 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6a, Q6b
+from app.domain.enums import (
+    Q1,
+    Q2,
+    Q5,
+    Q7,
+    LccType,
+    Q6a,
+    Q6b,
+    SlcaActivationState,
+)
 from app.domain.models import Case, Flow
 from app.engine.loader import LoadedSchemas
 
@@ -70,6 +79,12 @@ def _write(case: Case, field: str, value: Any) -> None:
     The prefix before the first '.' selects the pillar; the remainder
     becomes the flat dict key. `study.X` is routed to `case.system`
     keyed as `study.X` (study fields live in the system pillar).
+
+    Writes into a method the L0 trigger switched off are dropped. This
+    also covers the L2 cross-method actions (CIR-02 pedigree, CIR-03 GIS
+    coupling, …), which otherwise leave a handful of keys in a pillar the
+    case does not have — the reason `case.lcc` still held four entries on
+    an environment-only case after the node gate was added.
     """
     if "." not in field:
         raise ValueError(f"field path lacks pillar prefix: {field!r}")
@@ -80,8 +95,19 @@ def _write(case: Case, field: str, value: Any) -> None:
         return
     if prefix not in _PILLAR_ATTRS:
         raise ValueError(f"unknown pillar prefix in field {field!r}: {prefix!r}")
+    if _pillar_is_off(case, prefix):
+        return
     pillar: dict[str, Any] = getattr(case, prefix)
     pillar[tail] = value
+
+
+def _pillar_is_off(case: Case, prefix: str) -> bool:
+    """True when the pillar belongs to a method switched off at L0."""
+    if prefix == "lcc":
+        return case.lcc_type == LccType.DEACTIVATED
+    if prefix == "slca":
+        return case.slca_activation_state == SlcaActivationState.DEACTIVATED
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -325,6 +351,24 @@ def _activate_predicate_per_flow(
         _write(case, field, {f.id: node["default_value"] for f in matching_flows})
 
 
+def _method_is_off(case: Case, method: str | None) -> bool:
+    """True when the L0 trigger switched this whole method off.
+
+    `phase1_nodes.json` states the rule in the trigger nodes themselves:
+    `lcc_trig_01` maps "q3.eco=false" to "all LCC nodes deactivated", and
+    `slca_t_01` maps "q3.soc=false" to "all S-LCA nodes deactivated".
+    Without this gate the engine wrote all 61 LCC and 66 S-LCA nodes on a
+    case that had switched those dimensions off, so the verdict said "no
+    economic analysis" over a fully configured LCC pillar, and the DCF
+    asked for economic data nobody had asked for.
+    """
+    if method == "LCC":
+        return case.lcc_type == LccType.DEACTIVATED
+    if method == "SLCA":
+        return case.slca_activation_state == SlcaActivationState.DEACTIVATED
+    return False
+
+
 def run(case: Case, schemas: LoadedSchemas) -> Case:
     """Activate Phase 1 nodes and write their field values onto `case`.
 
@@ -332,7 +376,8 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     fluent-mutation convention; see app/engine/pipeline.py).
 
     Skips nodes with `lifecycle_layer == 'L0'` (handled upstream by
-    `l0_compute.run`).
+    `l0_compute.run`), and skips a whole method when its L0 trigger
+    switched it off — see `_method_is_off`.
 
     For each activated node, appends its ID to `case.activated_nodes`.
     Fielded nodes also write their resolved value into the appropriate
@@ -346,6 +391,8 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
 
     for node in schemas.phase1_nodes:
         if node.get("lifecycle_layer") == "L0":
+            continue
+        if _method_is_off(case, node.get("method")):
             continue
         _activate_node(case, node)
     return case

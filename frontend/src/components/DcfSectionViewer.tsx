@@ -6,6 +6,8 @@
 // (methodological_choices / network_diagram) the parent page renders a
 // different component; this viewer just shows a "see below" note.
 
+import { useTranslation } from 'react-i18next'
+
 import type { DcfMandate, DcfSection } from '../types/dcf'
 
 interface Props {
@@ -15,6 +17,8 @@ interface Props {
 }
 
 export default function DcfSectionViewer({ section, mandatesByCategory }: Props) {
+  const { t } = useTranslation()
+
   if (!section.active) {
     return (
       <div className="dcf-section dcf-section-inactive">
@@ -98,6 +102,9 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
                 <strong>{f.label_en}</strong>
                 <br />
                 <code className="dcf-field-id">{f.id}</code>
+                {f.derived ? (
+                  <span className="dcf-derived"> · {t('dcf.derivedField')}</span>
+                ) : null}
               </td>
               <td>{f.type}</td>
               <td>{f.required ? 'yes' : 'no'}</td>

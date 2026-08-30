@@ -291,8 +291,31 @@ def test_paper_pipeline_consistency(fixture, schemas):
     # No L1 BLOCK should fire on a properly-configured paper case
     assert case.blocked_by == [], (
         f"{fixture['id']}: unexpected L1 blocks {case.blocked_by}")
-    # At least all 116 DEFAULT nodes must have activated
-    assert len(case.activated_nodes) >= 116, (
+    # Node activation follows the L0 triggers: `lcc_trig_01` maps
+    # "q3.eco=false" to "all LCC nodes deactivated" and `slca_t_01` does
+    # the same for the social dimension, so a flat floor across every
+    # paper would only hold by ignoring those triggers. What must hold is
+    # that the active methods are fully activated and the switched-off
+    # ones are absent entirely.
+    activated = set(case.activated_nodes)
+    by_method: dict[str, set[str]] = {}
+    for node in schemas.phase1_nodes:
+        by_method.setdefault(node.get("method"), set()).add(node["id"])
+
+    lcc_on = case.lcc_type != LccType.DEACTIVATED
+    slca_on = case.slca_activation_state != SlcaActivationState.DEACTIVATED
+    for method, on in (("LCC", lcc_on), ("SLCA", slca_on)):
+        overlap = activated & by_method.get(method, set())
+        if on:
+            assert overlap, f"{fixture['id']}: {method} active but no node activated"
+        else:
+            assert not overlap, (
+                f"{fixture['id']}: {method} deactivated but {len(overlap)} "
+                f"nodes activated: {sorted(overlap)[:5]}")
+
+    assert activated & by_method.get("LCA", set()), (
+        f"{fixture['id']}: no LCA node activated")
+    assert len(case.activated_nodes) >= 45, (
         f"{fixture['id']}: only {len(case.activated_nodes)} nodes activated")
 
 

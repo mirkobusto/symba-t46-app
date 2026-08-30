@@ -5,6 +5,8 @@
 //   - `role`   — user self-declared role [Phase 4 onboarding]
 //   - `task`   — user's initial intent [Phase 4 onboarding]
 //   - `hasOnboarded` — set to true after the /welcome flow completes
+//   - `dismissedHints` — per-surface "I've read this" flags for the
+//     inline how-it-works strips, keyed by an arbitrary hint id
 //
 // Adding future preferences (dark-mode override, default language,
 // etc.) can happen here without changing the surface API.
@@ -33,6 +35,7 @@ interface PreferenceState {
   role: UserRole | null
   task: UserTask | null
   hasOnboarded: boolean
+  dismissedHints: Record<string, boolean>
 
   setMode: (mode: UxMode) => void
   toggleMode: () => void
@@ -41,6 +44,9 @@ interface PreferenceState {
   setTask: (task: UserTask) => void
   completeOnboarding: (role: UserRole, task: UserTask) => void
   resetOnboarding: () => void
+
+  dismissHint: (id: string) => void
+  restoreHints: () => void
 }
 
 export const usePreferenceStore = create<PreferenceState>()(
@@ -50,6 +56,7 @@ export const usePreferenceStore = create<PreferenceState>()(
       role: null,
       task: null,
       hasOnboarded: false,
+      dismissedHints: {},
 
       setMode: (mode) => set({ mode }),
       toggleMode: () =>
@@ -67,6 +74,10 @@ export const usePreferenceStore = create<PreferenceState>()(
         }),
       resetOnboarding: () =>
         set({ role: null, task: null, hasOnboarded: false }),
+
+      dismissHint: (id) =>
+        set({ dismissedHints: { ...get().dismissedHints, [id]: true } }),
+      restoreHints: () => set({ dismissedHints: {} }),
     }),
     { name: 'symba-preferences' },
   ),

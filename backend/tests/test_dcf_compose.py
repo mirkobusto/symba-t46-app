@@ -18,11 +18,14 @@ from app.domain.enums import (
     Q4,
     Q5,
     Q7,
+    LccType,
     Q6a,
     Q6b,
+    SlcaActivationState,
 )
 from app.domain.models import Q3, Case, Flow
 from app.engine.dcf_compose import (
+    CROSS_METHOD_CATEGORY,
     DcfFieldDescriptor,
     DcfMandate,
     DcfPayload,
@@ -124,11 +127,11 @@ def test_payload_serializes_to_json(case_wiktor, dcf_schema, mandates_census):
 # ---------------------------------------------------------------------------
 
 
-def test_all_six_sections_present(case_wiktor, dcf_schema, mandates_census):
+def test_all_sections_present_in_spec_order(case_wiktor, dcf_schema, mandates_census):
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     section_ids = [s.id for s in payload.sections]
     assert section_ids == [
-        "actors", "flow_matrix", "logistics", "infrastructure",
+        "actors", "flow_matrix", "logistics", "costs", "infrastructure",
         "methodological_choices", "network_diagram",
     ]
 
@@ -286,31 +289,37 @@ def test_briassoulis_has_slca_mandates(
     assert "stakeholder_materiality" in cats
 
 
-def test_mandate_count_largely_uniform_across_cases(
+def test_mandate_count_tracks_the_active_dimensions(
     case_wiktor, case_arce, case_briassoulis, dcf_schema, mandates_census
 ):
-    """78 of the 90 procedural_mandates are DEFAULT category (always-activated),
-    only 12 are DERIVED. The §5.5 mandate set is therefore largely uniform
-    across cases — only modest variation expected, driven by the few DERIVED
-    mandates whose trigger_condition is satisfied."""
-    counts = []
-    for case in [case_wiktor, case_arce, case_briassoulis]:
+    """The §5.5 mandate set follows the dimensions the case switched on.
+
+    It used to be near-uniform across cases because every LCC and S-LCA
+    node activated regardless of Q3 — which is what `lcc_trig_01`
+    ("q3.eco=false" -> "all LCC nodes deactivated") says must not happen.
+    A case with no economic dimension is no longer handed the economic
+    mandates.
+    """
+    counts = {}
+    for label, case in (
+        ("wiktor", case_wiktor),
+        ("arce", case_arce),
+        ("briassoulis", case_briassoulis),
+    ):
         payload = compose_dcf(case, dcf_schema, mandates_census)
-        total = sum(len(v) for v in payload.mandates_by_category.values())
-        counts.append(total)
-    # all between 75 and 90 (loose bound, just sanity)
-    for c in counts:
-        assert 70 <= c <= 90, f"unexpected mandate count {c}"
-    # spread is small
-    assert max(counts) - min(counts) <= 15, (
-        f"mandate counts vary too widely across cases: {counts}"
-    )
+        counts[label] = sum(len(v) for v in payload.mandates_by_category.values())
+        methods = {
+            m.method
+            for group in payload.mandates_by_category.values()
+            for m in group
+        }
+        if case.lcc_type == LccType.DEACTIVATED:
+            assert "LCC" not in methods, f"{label}: LCC mandates on a case without LCC"
+        if case.slca_activation_state == SlcaActivationState.DEACTIVATED:
+            assert "SLCA" not in methods, f"{label}: S-LCA mandates without S-LCA"
 
-
-# ---------------------------------------------------------------------------
-# Network diagram (section 5.6)
-# ---------------------------------------------------------------------------
-
+    for label, count in counts.items():
+        assert 15 <= count <= 90, f"unexpected mandate count for {label}: {count}"
 
 def test_network_render_spec_present(case_wiktor, dcf_schema, mandates_census):
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
@@ -324,3 +333,113 @@ def test_network_section_active(case_wiktor, dcf_schema, mandates_census):
     sec = next(s for s in payload.sections if s.id == "network_diagram")
     assert sec.active is True
     assert sec.fields == []  # derived section, no fields
+
+
+# ---------------------------------------------------------------------------
+# Unified obligations (mandates + triggered cross-method rules)
+# ---------------------------------------------------------------------------
+
+
+def test_obligations_merge_mandates_and_triggered_rules(
+    case_wiktor, dcf_schema, mandates_census
+):
+    """One list, two origins: documenting is the same job for both."""
+    payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
+    origins = {o.origin for o in payload.obligations}
+    assert origins == {"mandate", "rule"}
+
+    mandates = sum(1 for o in payload.obligations if o.origin == "mandate")
+    assert mandates == sum(len(v) for v in payload.mandates_by_category.values())
+    rules = [o for o in payload.obligations if o.origin == "rule"]
+    assert len(rules) == len(case_wiktor.applicable_rules)
+
+
+def test_rule_obligations_keep_their_traceability(
+    case_wiktor, dcf_schema, mandates_census
+):
+    payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
+    rules = {o.id: o for o in payload.obligations if o.origin == "rule"}
+    assert rules, "expected this fixture to trigger cross-method rules"
+    for rule in rules.values():
+        assert rule.title, f"{rule.id} has no rule name"
+        assert rule.category == CROSS_METHOD_CATEGORY
+        assert rule.method in {"LCA", "LCC", "SLCA", "cross-method"}
+
+
+def test_a_switched_off_method_contributes_no_obligation(
+    case_arce, dcf_schema, mandates_census
+):
+    """q3 without the social dimension means no S-LCA node activates, so
+    no S-LCA mandate can reach the list."""
+    payload = compose_dcf(case_arce, dcf_schema, mandates_census)
+    if case_arce.slca_activation_state == SlcaActivationState.DEACTIVATED:
+        assert not [o for o in payload.obligations if o.method == "SLCA"]
+    if case_arce.lcc_type == LccType.DEACTIVATED:
+        assert not [o for o in payload.obligations if o.method == "LCC"]
+
+
+# ---------------------------------------------------------------------------
+# Costs & Revenues section
+# ---------------------------------------------------------------------------
+
+
+def _costs(case, dcf_schema, mandates_census):
+    payload = compose_dcf(case, dcf_schema, mandates_census)
+    return next(s for s in payload.sections if s.id == "costs")
+
+
+def test_costs_section_is_off_without_the_economic_dimension(
+    schemas, dcf_schema, mandates_census
+):
+    """No LCC configured means no economic data to collect. Before this
+    section existed the analyst activated ECO, got a KPI suite promising
+    NPV and IRR, and had nowhere to write the disposal cost the symbiosis
+    avoids — the number the business case turns on."""
+    case = Case(
+        q1=Q1.B, q2=Q2.A, q3=Q3(env=True), q4={Q4.E},
+        q6a=Q6a.PULP_PAPER, q6b=Q6b.TRL9, q7=Q7.B,
+        flows=[Flow(id="f1", name="x", q5=Q5.a)],
+    )
+    pipeline_run(case, schemas)
+    section = _costs(case, dcf_schema, mandates_census)
+    assert section.active is False
+    assert section.fields == []
+
+
+def test_costs_section_asks_for_the_counterfactual(
+    schemas, dcf_schema, mandates_census
+):
+    case = Case(
+        q1=Q1.B, q2=Q2.A, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q6a=Q6a.PULP_PAPER, q6b=Q6b.TRL9, q7=Q7.B,
+        flows=[Flow(id="f1", name="x", q5=Q5.a)],
+    )
+    pipeline_run(case, schemas)
+    section = _costs(case, dcf_schema, mandates_census)
+    ids = {f.id for f in section.fields}
+    assert section.active is True
+    assert "cost.current_disposal_cost" in ids
+    assert "cost.exchange_price" in ids
+    # the currency year is the one field that makes the others comparable
+    assert next(f for f in section.fields if f.id == "cost.currency_year").required
+
+
+def test_prospective_only_cost_fields_stay_off_for_an_ex_post_study(
+    schemas, dcf_schema, mandates_census
+):
+    """Contract horizon and price volatility bound a payback; a
+    retrospective study has neither to declare."""
+    common = dict(
+        q1=Q1.B, q3=Q3(env=True, eco=True), q4={Q4.E}, q6a=Q6a.PULP_PAPER,
+        q6b=Q6b.TRL9, q7=Q7.B, flows=[Flow(id="f1", name="x", q5=Q5.a)],
+    )
+    ex_post = Case(q2=Q2.A, **common)
+    ex_ante = Case(q2=Q2.D, **common)
+    pipeline_run(ex_post, schemas)
+    pipeline_run(ex_ante, schemas)
+
+    off = {f.id for f in _costs(ex_post, dcf_schema, mandates_census).fields}
+    on = {f.id for f in _costs(ex_ante, dcf_schema, mandates_census).fields}
+    assert "cost.contract_horizon_y" not in off
+    assert "cost.contract_horizon_y" in on
+    assert "cost.price_volatility" in on

@@ -195,6 +195,7 @@ const de: Locale = {
   },
 
   questionnaire: {
+    scopeNote: "Dieses Werkzeug berechnet keine Ökobilanz-/LCC-/S-LCA-Zahlen. Es leitet den methodischen Pfad Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
@@ -375,6 +376,7 @@ const de: Locale = {
   },
 
   flows: {
+    q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
     headers: { id: 'ID', name: 'Name', q5: 'Q5' },
     namePlaceholder: 'z. B. Wärme, CO2',
@@ -391,7 +393,7 @@ const de: Locale = {
 
   scenarios: {
     intro:
-      "Fügen Sie eine Zeile pro alternativem Szenario hinzu, das mit der Baseline verglichen werden soll. Das Overrides-Dict (Q-Antwort-Deltas vs Baseline) wird im erweiterten Editor konfiguriert; vorerst trägt jedes Szenario eine leere Overrides-Map.",
+      "Ein Szenario variiert hier die *methodischen* Antworten, nicht das physische Netzwerk: es erbt Q1–Q7 von der Baseline und unterscheidet sich nur über das Overrides-Dict. Wohin ein Fluss geht, über welche Distanz oder zu welchem Preis, ist ein Netzwerkvergleich — solche Varianten zeichnet man im Netzwerk-Editor, und die Engine vergleicht sie noch nicht.",
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',
@@ -418,7 +420,113 @@ const de: Locale = {
     },
   },
 
+  narrative: {
+    pathway: {
+      'IS-01': {
+        title: 'Operative Symbiose — Entscheidungsunterstützung',
+        body: 'Ein symbiotischer Austausch zwischen zwei Unternehmen oder innerhalb eines Öko-Parks, bewertet zur Entscheidung über Ob und Wie.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
+      },
+      'IS-02': {
+        title: 'Sektorweite Vorstudie — Politik',
+        body: 'Eine politik- oder programmbezogene Entscheidung auf regionaler oder nationaler Ebene, deren Folgen strukturell und nicht marginal sind.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
+      },
+      'IS-03': {
+        title: 'Unternehmensbeitrag — Berichterstattung',
+        body: 'Der symbiotische Beitrag eines einzelnen Unternehmens innerhalb eines Netzwerks, für ESG-/CSRD-Berichte.',
+        detail: 'The engine narrows to strict accounting: allocation rather than substitution credits (ILCD C2) and conventional LCC alone. The figure has to describe one company\'s own position in a way an auditor can trace, not the benefit the network produces collectively.',
+      },
+      'IS-04': {
+        title: 'Entstehendes IS-Netzwerk — Ex-ante-Entwurf',
+        body: 'Ein Netzwerk in der Entwurfsphase, bewertet anhand dynamischer Szenarien ohne operative Baseline.',
+        detail: 'Q1 is an exchange or a park, but Q2 says the system is still on the drawing board and is explored through dynamic scenarios rather than against an operating baseline. ADR-005 keeps this as its own pathway only for Q1 ∈ {A, B}: for a policy or a corporate report the object of study dominates the temporal stance.',
+      },
+      'IS-05': {
+        title: 'Monitoring — Symbiose im Betrieb',
+        body: 'Zeitreihen-Monitoring einer bereits betriebenen Symbiose.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
+      },
+    },
+    extendedSuffix: 'Die Bewertung vergleicht eine Baseline mit alternativen Szenarien.',
+    ilcd: {
+      'ILCD Situation A': {
+        short: 'Entscheidungsunterstützung auf Mikroebene: der Austausch ist zu klein, um das Hintergrundsystem zu verändern. Attributionelle Modellierung mit Substitution am durchschnittlichen Marktmix.',
+        detail: 'The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.',
+      },
+      'ILCD Situation A multi-actor': {
+        short: 'Entscheidungsunterstützung auf Mikroebene in einem Mehr-Akteur-Netzwerk: dieselbe Regel wie Situation A, angewendet auf den gesamten Park statt auf einen einzelnen Austausch.',
+        detail: 'The modelling rule does not change — consequences stay micro-level, so average data and substitution at the market mix. What changes is the bookkeeping: several partners share one system, so the boundary and the shared flows have to be agreed between them before modelling starts, otherwise the same flow is counted twice or a partner\'s contribution disappears.',
+      },
+      'ILCD Situation B': {
+        short: 'Entscheidungsunterstützung auf Meso-/Makroebene: die Entscheidung verändert das Hintergrundsystem strukturell, daher konsequenzielle Modellierung gegen die marginale Technologie. D4.1 verlangt den Nachweis dieser Größenordnung.',
+        detail: 'The decision is large enough to shift installed capacity or the output of a specific technology. Modelling goes consequential, and what the symbiosis displaces is the marginal technology, identified through a market analysis rather than taken as the average mix. The burden of proof is on you: this route has to be demonstrated, not assumed.',
+      },
+      'ILCD Situation C1': {
+        short: 'Bilanzierung mit Wechselwirkungen — dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.',
+        detail: 'You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.',
+      },
+      'ILCD Situation C2': {
+        short: 'Strenge Bilanzierung für einen einzelnen Partner isoliert: Allokation, keine Substitutionsgutschriften.',
+        detail: 'Strict accounting for a single partner on its own, typically corporate reporting. Multifunctionality is resolved by allocation, and no credit is claimed for what the symbiosis displaces elsewhere: the number describes that partner\'s share of the burdens, not the benefit the network produces.',
+      },
+    },
+    lcc: {
+      'deactivated': {
+        short: 'Keine ökonomische Analyse — die ökonomische Dimension ist in Q3 deaktiviert.',
+        detail: 'Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on.',
+      },
+      'C+E': {
+        short: 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die Ökobilanz).',
+        detail: 'Two views run together. The conventional LCC answers whether it pays for the individual firm: real cash flows, taxes and fees as costs, subsidies as reductions. The environmental LCC widens the boundary to every actor in the life cycle and is kept consistent with the parallel LCA, so the two can be read side by side. Watch for double counting: a carbon or landfill tax already in the cash flows must not reappear as a monetised externality.',
+      },
+      'C+E+S': {
+        short: 'Konventionelle und ökologische LCC plus gesellschaftliche LCC: Steuern und Subventionen über den Net Tax Factor angepasst, Umweltwirkungen monetarisiert.',
+        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why it comes with the policy pathway.',
+      },
+      'C-LCC': {
+        short: 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
+        detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
+      },
+    },
+    slca: {
+      'active': {
+        short: 'S-LCA aktiv: soziale Indikatoren je Stakeholder-Gruppe.',
+        detail: 'The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.',
+      },
+      'deactivated': {
+        short: 'S-LCA nicht aktiviert — die soziale Dimension ist in Q3 deaktiviert.',
+        detail: 'Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community.',
+      },
+    },
+  },
+
   result: {
+    verdict: {
+      moreInfo: 'Mehr zu dieser Konfiguration',
+    },
+    next: {
+      obligations: "{{count}} methodische Praktiken betreffen Ihre Antworten. Sie sind mit ihrem Auslöser im Data Collection File aufgeführt.",
+      title: 'Was jetzt zu tun ist',
+      lead:
+        'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
+      allClear:
+        'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Inventardaten erheben.',
+      ctaHint: 'Das Data Collection File ist auf diesen Pathway kalibriert: es fragt nur ab, was Ihr Fall braucht.',
+    },
+    actionKind: {
+      block: 'Blockierend',
+      obligation: 'Zu dokumentieren',
+      decision: 'Zu entscheiden',
+    },
+    action: {
+      why: 'Warum es Sie betrifft',
+      todo: 'Was zu dokumentieren ist',
+    },
+    technical: {
+      title: 'Technisches Detail (Engine-Ausgabe)',
+      lead: 'Alles, was die Pipeline erzeugt hat — für Review und Nachvollziehbarkeit.',
+    },
     title: 'Engine-Ausgabe',
     summary: {
       pathway: 'Pathway',
@@ -549,6 +657,12 @@ const de: Locale = {
   },
 
   stakeholder: {
+    noVerdict: "Für diesen Fall wurde noch kein Pathway abgeleitet.",
+    notAssessed: {
+      social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",
+      economic: "Diese Studie bewertet keine Kosten: die ökonomische Dimension wurde bei der Fallkonfiguration deaktiviert.",
+    },
+    flowsLine: "{{count}} ausgetauschte(r) Fluss/Flüsse: {{names}}.",
     navLink: 'Stakeholder-Bericht',
     title: 'Stakeholder-Bericht',
     subtitle:
@@ -588,7 +702,7 @@ const de: Locale = {
     indicatorPending: 'ausstehend',
     engineDetailsTitle: 'Engine-Pipeline-Details',
     activatedNodesCount: '{{count}} aktivierte(r) methodische(r) Knoten',
-    ruleViolations: '{{count}} Regelverletzung(en)',
+    obligations: "{{count}} zu dokumentierende methodische Praktik(en)",
     cdpFlagsCount: '{{count}} dimensionsübergreifende Spannung(en)',
     complianceTitle: 'Compliance-Signale',
     compliance: {
@@ -620,7 +734,20 @@ const de: Locale = {
     },
   },
 
+  obligations: {
+    empty: "Für diesen Fall ist nichts zu dokumentieren.",
+    lead:
+      "{{total}} Punkte betreffen diesen Fall: {{mandates}} methodische Vorgaben und {{rules}} methodenübergreifende Regeln, ausgelöst durch Ihre Antworten. Jeder ist eine im LCSA-Bericht zu dokumentierende Verpflichtung.",
+    because: "Gilt, weil:",
+    notApplicable: "Hier nicht anwendbar: {{fields}} — diese Methode ist in Q3 deaktiviert.",
+    origin: {
+      mandate: "Vorgabe",
+      rule: "Methodenübergreifende Regel",
+    },
+  },
   dcf: {
+    derivedField: "von der Engine gefüllt",
+    obligationsTitle: "Zu dokumentierende methodische Entscheidungen",
     navLink: 'Datenerhebung',
     title: 'Data Collection File',
     subtitle:
@@ -642,7 +769,33 @@ const de: Locale = {
     tabNetworkBuilder: 'Netzwerk-Editor',
   },
 
+  networkDiagram: {
+    counts: '{{actors}} Akteure · {{flows}} Flüsse',
+    placeholder:
+      'Nur Vorschau — dies ist ein Platzhalter aus den im Fragebogen deklarierten Flüssen. Zeichnen Sie das echte Netzwerk im Tab Netzwerk-Editor, dann erscheint es hier, in der Excel-Datei und im Bericht.',
+  },
+
   networkBuilder: {
+    loadExample: 'Beispiel laden',
+    exampleReplaceConfirm:
+      'Dies ersetzt das aktuell gezeichnete Netzwerk durch das Beispiel. Fortfahren?',
+    whyAsked: 'Abgefragt, weil:',
+    hint: {
+      step1: 'Fügen Sie je einen Akteur pro Teilnehmer der Symbiose hinzu — ein Werk, einen Versorger, eine Kommune.',
+      step2: 'Ziehen Sie vom Rand eines Knotens zu einem anderen, um sie zu verbinden: dieser Pfeil ist eine Zeile der Flussmatrix.',
+      step3: 'Wählen Sie einen Knoten oder einen Pfeil und füllen Sie die Felder im Seitenpanel aus. Angezeigt werden nur die Felder, die Ihr Pathway benötigt.',
+      dismiss: 'Verstanden',
+    },
+    empty: {
+      title: 'Noch nichts gezeichnet',
+      body: 'Fügen Sie den ersten Akteur hinzu, oder laden Sie ein Beispiel mit drei Akteuren und zwei Flüssen, um den Aufbau eines Netzwerks zu sehen.',
+    },
+    example: {
+      producer: 'Erzeugerwerk',
+      consumer: 'Empfangendes Werk',
+      facilitator: 'Betreiber des Industrieparks',
+      flow: 'Beispielfluss',
+    },
     title: 'Netzwerk-Editor',
     subtitle:
       'Zeichnen Sie das Symbiose-Netzwerk: jeder Knoten ist ein Akteur, jeder Pfeil eine Zeile der Flussmatrix. Was Sie hier zeichnen, landet in der Excel-Datei und im Bericht.',

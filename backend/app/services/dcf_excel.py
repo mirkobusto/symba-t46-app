@@ -24,8 +24,10 @@ from __future__ import annotations
 from io import BytesIO
 
 from openpyxl import Workbook
+from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
 
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
@@ -87,6 +89,7 @@ def render_xlsx(
     wb.remove(wb.active)  # drop the default empty sheet
 
     _write_cover_tab(wb, payload, case_title)
+    _write_instructions_tab(wb, payload, case_title)
 
     sections = {s.id: s for s in payload.sections}
 
@@ -172,20 +175,19 @@ def _write_data_section_tab(
     ws["A2"].alignment = Alignment(wrap_text=True)
     ws.merge_cells("A2:H2")
 
-    # Row 4: header labels
+    # Row 4: header labels. The technical field id and the description
+    # ride along as a cell comment instead of a second visible row: the
+    # sheet has to read as a form to whoever fills it in, while the id
+    # stays available to whoever maps the file back to the schema.
     header_row = 4
     for col_idx, field in enumerate(section.fields, start=1):
-        c = ws.cell(row=header_row, column=col_idx, value=field.label_en)
+        c = ws.cell(row=header_row, column=col_idx, value=_header_label(field))
         c.font = _HEADER_FONT
         c.fill = _HEADER_FILL
         c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        c.comment = Comment(_field_note(field), "SYMBA T4.6")
 
-    # Row 5: technical field IDs (small italic gray)
-    fieldid_row = header_row + 1
-    for col_idx, field in enumerate(section.fields, start=1):
-        c = ws.cell(row=fieldid_row, column=col_idx, value=field.id)
-        c.font = _FIELDID_FONT
-        c.alignment = Alignment(horizontal="center", wrap_text=True)
+    fieldid_row = header_row
 
     # Stored rows first, then blank ones so collection can continue.
     stored = rows or []
@@ -201,6 +203,8 @@ def _write_data_section_tab(
             ws.cell(row=r, column=col_idx, value=None)
     total_data_rows = len(stored) + blank_count
 
+    _add_enum_dropdowns(ws, section, first_data_row, blank_start + blank_count)
+
     # Column widths
     for col_idx, field in enumerate(section.fields, start=1):
         col_letter = get_column_letter(col_idx)
@@ -214,6 +218,113 @@ def _write_data_section_tab(
     ws.cell(row=footer_row, column=1, value=EU_FOOTER).font = _FOOTER_FONT
 
     _set_print_footer(ws)
+
+
+_INSTRUCTIONS = [
+    ("What this file is",
+     "A data collection worksheet generated for one industrial-symbiosis "
+     "case. The columns were selected by the assessment's methodological "
+     "pathway: you are only asked for what this case needs."),
+    ("How to fill it in",
+     "One row per item. Columns marked * are required. Hover a column "
+     "header for the definition, the allowed values and the reason the "
+     "field is asked. Cells with a dropdown only accept the listed values "
+     "— do not overwrite them with free text."),
+    ("If you do not know a value",
+     "Leave it empty rather than guessing, and say so to the analyst. An "
+     "empty cell is a known gap; a guessed number is an unknown error."),
+    ("Units and currency",
+     "Always state the unit next to the quantity where a unit column "
+     "exists, and use the currency and reference year the Costs sheet "
+     "asks for. Figures without a unit cannot be aggregated."),
+    ("Confidentiality",
+     "This workbook may carry data from every partner in the network. "
+     "Before circulating it outside the assessment team, check the "
+     "confidentiality arrangement between the partners — the "
+     "methodology requires it to be settled before data collection "
+     "starts."),
+    ("Who to return it to",
+     "The analyst who sent you this file. Agree a date with them: an "
+     "assessment stalls on the last missing sheet."),
+]
+
+
+def _write_instructions_tab(
+    wb: Workbook, payload: DcfPayload, case_title: str | None = None
+) -> None:
+    """A sheet for the person who has to fill this in.
+
+    The workbook used to arrive with no instructions, no deadline and no
+    contact — a recipient outside the assessment team had no way of
+    knowing what was expected of them.
+    """
+    ws = wb.create_sheet("Instructions")
+    ws["A1"] = "How to fill in this Data Collection File"
+    ws["A1"].font = _TITLE_FONT
+    if case_title:
+        ws["A2"] = f"Case: {case_title}"
+        ws["A2"].font = _SUBTITLE_FONT
+
+    row = 4
+    for heading, body in _INSTRUCTIONS:
+        c = ws.cell(row=row, column=1, value=heading)
+        c.font = _HEADER_FONT
+        c.fill = _HEADER_FILL
+        ws.cell(row=row, column=2, value=body).alignment = Alignment(wrap_text=True)
+        row += 2
+
+    ws.cell(row=row, column=1, value="Return by").font = _HEADER_FONT
+    ws.cell(row=row, column=2, value="(agree a date with the analyst)")
+    row += 1
+    ws.cell(row=row, column=1, value="Contact").font = _HEADER_FONT
+    ws.cell(row=row, column=2, value="(analyst name and e-mail)")
+
+    ws.column_dimensions["A"].width = 26
+    ws.column_dimensions["B"].width = 96
+    ws.cell(row=row + 3, column=1, value=EU_FOOTER).font = _FOOTER_FONT
+    _set_print_footer(ws)
+
+
+def _header_label(field) -> str:
+    """Column header as a person reads it: the label, and a star when the
+    field has to be filled in."""
+    return f"{field.label_en} *" if field.required else field.label_en
+
+
+def _field_note(field) -> str:
+    parts = [f"Field id: {field.id}", f"Type: {field.type}"]
+    if field.description_en:
+        parts.append(str(field.description_en))
+    if field.enum_values:
+        parts.append("Allowed: " + ", ".join(field.enum_values))
+    if field.activation_predicate and field.activation_predicate != "always":
+        parts.append(f"Asked because: {field.activation_predicate}")
+    return "\n".join(parts)
+
+
+def _add_enum_dropdowns(ws, section: DcfSection, first_row: int, last_row: int) -> None:
+    """Turn every inline enum into a dropdown.
+
+    Typing an allowed value from memory is how a collection file comes
+    back with 'medium', 'Med' and 'M' in the same column.
+    """
+    for col_idx, field in enumerate(section.fields, start=1):
+        values = field.enum_values or []
+        if not values:
+            continue
+        joined = ",".join(values)
+        # Excel caps an inline list at 255 characters; a longer vocabulary
+        # would silently break the sheet, so it stays free text.
+        if len(joined) > 250:
+            continue
+        dv = DataValidation(
+            type="list", formula1=f'"{joined}"', allow_blank=True, showDropDown=False
+        )
+        dv.error = "Pick one of the listed values."
+        dv.errorTitle = "Value not allowed"
+        ws.add_data_validation(dv)
+        letter = get_column_letter(col_idx)
+        dv.add(f"{letter}{first_row}:{letter}{last_row}")
 
 
 def _write_mandates_tab(
@@ -231,7 +342,10 @@ def _write_mandates_tab(
     ws = wb.create_sheet("Methodological Choices")
     ws["A1"] = section.title_en
     ws["A1"].font = _TITLE_FONT
-    ws["A2"] = section.description_en
+    ws["A2"] = (
+        "FOR THE ASSESSMENT TEAM — not part of what a data provider fills "
+        "in. " + section.description_en
+    )
     ws["A2"].font = _SUBTITLE_FONT
     ws["A2"].alignment = Alignment(wrap_text=True)
     ws.merge_cells("A2:I2")

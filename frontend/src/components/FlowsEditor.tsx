@@ -36,6 +36,11 @@ export default function FlowsEditor({ flows, onChange }: Props) {
 
   return (
     <div className="flows-editor">
+      {/* Q5 asks for a valuation direction, which an analyst often only
+          settles *during* the study. Saying it is a revisable starting
+          assumption stops it reading as a question you must already know
+          the answer to. */}
+      <p className="flows-q5-note">{t('flows.q5Note')}</p>
       {flows.length === 0 ? (
         <p className="muted">{t('flows.emptyHint')}</p>
       ) : (

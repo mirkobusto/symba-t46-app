@@ -376,6 +376,7 @@ const es: Locale = {
   },
 
   flows: {
+    q5Note: "Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «gratuito / ambiguo» cuando esté realmente sin decidir.",
     emptyHint: 'Sin flujos. Añade al menos uno para caracterizar la Q5 por flujo.',
     headers: { id: 'ID', name: 'Nombre', q5: 'Q5' },
     namePlaceholder: 'ej. calor, CO2',
@@ -656,6 +657,12 @@ const es: Locale = {
   },
 
   stakeholder: {
+    noVerdict: "Todavía no se ha derivado ninguna ruta para este caso.",
+    notAssessed: {
+      social: "Este estudio no evalúa impactos sociales: la dimensión social se desactivó al configurar el caso. Pide al analista que la active si los trabajadores o la comunidad local forman parte de la pregunta.",
+      economic: "Este estudio no evalúa costes: la dimensión económica se desactivó al configurar el caso.",
+    },
+    flowsLine: "{{count}} flujo(s) intercambiado(s): {{names}}.",
     navLink: 'Informe stakeholder',
     title: 'Informe stakeholder',
     subtitle:

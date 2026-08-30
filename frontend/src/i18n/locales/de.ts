@@ -376,6 +376,7 @@ const de: Locale = {
   },
 
   flows: {
+    q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
     headers: { id: 'ID', name: 'Name', q5: 'Q5' },
     namePlaceholder: 'z. B. Wärme, CO2',
@@ -656,6 +657,12 @@ const de: Locale = {
   },
 
   stakeholder: {
+    noVerdict: "Für diesen Fall wurde noch kein Pathway abgeleitet.",
+    notAssessed: {
+      social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",
+      economic: "Diese Studie bewertet keine Kosten: die ökonomische Dimension wurde bei der Fallkonfiguration deaktiviert.",
+    },
+    flowsLine: "{{count}} ausgetauschte(r) Fluss/Flüsse: {{names}}.",
     navLink: 'Stakeholder-Bericht',
     title: 'Stakeholder-Bericht',
     subtitle:

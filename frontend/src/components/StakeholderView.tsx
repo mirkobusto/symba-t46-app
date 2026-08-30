@@ -5,13 +5,19 @@
 // All four views share the same underlying data; what differs is
 // (a) the highlighted indicators (filtered by dimension / id),
 // (b) the framing text,
-// (c) the calls-to-action.
+// (c) which parts of the verdict are shown.
 //
-// When `scoring` is null the CIRCE payload has not been ingested yet;
-// each view shows a placeholder banner saying so.
+// When `scoring` is null the CIRCE payload has not been ingested yet —
+// which is the normal state today. The views used to degrade to the same
+// table of codes for everyone, so a community representative and an
+// industrial operator read an identical screen. They now show the
+// verdict in words, restricted to the axes that audience is there for,
+// and say plainly when a dimension the audience cares about is not being
+// assessed at all.
 
 import { useTranslation } from 'react-i18next'
 
+import { verdictFor, type VerdictDetail } from '../pages/resultNarrative'
 import type { Case } from '../types/api'
 import type { Dimension, ScoringIndicator, ScoringPayload } from '../types/scoring'
 
@@ -21,6 +27,14 @@ interface Props {
   stakeholderType: StakeholderType
   caseData: Case
   scoring: ScoringPayload | null
+}
+
+/** Which axes of the verdict each audience is shown. */
+const AXIS_FILTER: Record<StakeholderType, VerdictDetail['section'][]> = {
+  industry: ['ilcd', 'lcc'],
+  community: ['ilcd', 'slca'],
+  authority: ['ilcd', 'lcc', 'slca'],
+  'end-user': ['ilcd', 'slca'],
 }
 
 const DIMENSION_FILTER: Record<StakeholderType, Dimension[]> = {
@@ -59,22 +73,62 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
   const dimensions = DIMENSION_FILTER[stakeholderType]
   const filteredIndicators = scoring ? filterIndicators(scoring.indicators, dimensions) : []
 
+  const verdict = verdictFor(caseData, (key, fallback) =>
+    t(key, { defaultValue: fallback ?? '' }),
+  )
+  const axes = AXIS_FILTER[stakeholderType]
+  const shown = (verdict?.details ?? []).filter((d) => axes.includes(d.section))
+  // "Not assessed" is news for the audience that came for that dimension.
+  const socialOff =
+    axes.includes('slca') && caseData.slca_activation_state === 'deactivated'
+  const economicOff =
+    axes.includes('lcc') && caseData.lcc_type === 'deactivated'
+
   return (
     <div className="stakeholder-view">
       <p className="stakeholder-framing">{t(`stakeholder.framing.${stakeholderType}`)}</p>
 
       <section className="stakeholder-section">
         <h3>{t('stakeholder.pathwaySummaryTitle')}</h3>
-        <dl className="stakeholder-dl">
-          <dt>{t('stakeholder.labels.pathway')}</dt>
-          <dd>{caseData.pathway_id ?? '—'}</dd>
-          <dt>{t('stakeholder.labels.ilcd')}</dt>
-          <dd>{caseData.ilcd_situation ?? '—'}</dd>
-          <dt>{t('stakeholder.labels.lcc')}</dt>
-          <dd>{caseData.lcc_type ?? '—'}</dd>
-          <dt>{t('stakeholder.labels.slca')}</dt>
-          <dd>{caseData.slca_activation_state ?? '—'}</dd>
-        </dl>
+        {verdict ? (
+          <>
+            <p className="stakeholder-verdict-title">{verdict.title}</p>
+            <p className="stakeholder-verdict-body">{verdict.body}</p>
+            <ul className="stakeholder-ul">
+              {shown.map((axis) => (
+                <li key={axis.code}>{axis.short}</li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="muted">{t('stakeholder.noVerdict')}</p>
+        )}
+
+        {socialOff ? (
+          <p className="stakeholder-not-assessed">
+            {t('stakeholder.notAssessed.social')}
+          </p>
+        ) : null}
+        {economicOff ? (
+          <p className="stakeholder-not-assessed">
+            {t('stakeholder.notAssessed.economic')}
+          </p>
+        ) : null}
+
+        {caseData.flows?.length ? (
+          <p className="stakeholder-flows">
+            {t('stakeholder.flowsLine', {
+              count: caseData.flows.length,
+              names: caseData.flows.map((f) => f.name).join(', '),
+            })}
+          </p>
+        ) : null}
+
+        <p className="stakeholder-codes">
+          {[caseData.pathway_id, caseData.ilcd_situation, caseData.lcc_type]
+            .filter(Boolean)
+            .join(' · ')}
+        </p>
       </section>
 
       <section className="stakeholder-section">

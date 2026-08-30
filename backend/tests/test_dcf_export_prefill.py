@@ -104,16 +104,16 @@ def test_actors_tab_carries_the_stored_rows(payload, drawn_network):
 def test_the_derived_id_column_is_filled_from_the_row_id(payload, drawn_network):
     wb = load_workbook(BytesIO(render_xlsx(payload, drawn_network)))
     ws = wb["Actors"]
-    # header row 4, field ids row 5, first data row 6; actor.id is column A
-    assert ws.cell(row=6, column=1).value == "a1"
-    assert ws.cell(row=7, column=1).value == "a2"
+    # header row 4, first data row 5; actor.id is column A
+    assert ws.cell(row=5, column=1).value == "a1"
+    assert ws.cell(row=6, column=1).value == "a2"
 
 
 def test_blank_rows_remain_for_offline_collection(payload, drawn_network):
     wb = load_workbook(BytesIO(render_xlsx(payload, drawn_network)))
     ws = wb["Actors"]
-    # two stored rows then blanks: row 8 is past the stored ones
-    assert ws.cell(row=8, column=2).value is None
+    # two stored rows then blanks: row 7 is past the stored ones
+    assert ws.cell(row=7, column=2).value is None
 
 
 def test_network_tab_lists_the_edges(payload, drawn_network):

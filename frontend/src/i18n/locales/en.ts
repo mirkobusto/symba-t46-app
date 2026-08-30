@@ -431,6 +431,7 @@ const en = {
   },
 
   flows: {
+    q5Note: "Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick \"free / ambiguous\" when it is genuinely undecided rather than forcing a direction.",
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
     headers: { id: 'ID', name: 'Name', q5: 'Q5' },
     namePlaceholder: 'e.g. heat, CO2',
@@ -710,6 +711,12 @@ const en = {
   },
 
   stakeholder: {
+    noVerdict: "No pathway derived yet for this case.",
+    notAssessed: {
+      social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
+      economic: "This study does not assess costs: the economic dimension was switched off when the case was set up.",
+    },
+    flowsLine: "{{count}} flow(s) exchanged: {{names}}.",
     navLink: 'Stakeholder report',
     title: 'Stakeholder report',
     subtitle:

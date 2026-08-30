@@ -382,6 +382,7 @@ const fr: Locale = {
   },
 
   flows: {
+    q5Note: "Répondez selon l'arrangement actuel — convenu, ou prévu si l'échange n'existe pas encore. C'est une hypothèse de départ, pas un résultat : si l'étude change qui paie qui, revenez le modifier. Choisissez « gratuit / ambigu » quand c'est réellement indécis.",
     emptyHint: 'Aucun flux. Ajoutez-en au moins un pour caractériser la Q5 par-flux.',
     headers: { id: 'ID', name: 'Nom', q5: 'Q5' },
     namePlaceholder: 'ex. chaleur, CO2',
@@ -662,6 +663,12 @@ const fr: Locale = {
   },
 
   stakeholder: {
+    noVerdict: "Aucun parcours dérivé pour ce cas.",
+    notAssessed: {
+      social: "Cette étude n'évalue pas les impacts sociaux : la dimension sociale a été désactivée à la configuration du cas. Demandez à l'analyste de l'activer si les travailleurs ou la communauté locale font partie de la question.",
+      economic: "Cette étude n'évalue pas les coûts : la dimension économique a été désactivée à la configuration du cas.",
+    },
+    flowsLine: "{{count}} flux échangé(s) : {{names}}.",
     navLink: 'Rapport parties prenantes',
     title: 'Rapport parties prenantes',
     subtitle:

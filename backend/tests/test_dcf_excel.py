@@ -79,7 +79,7 @@ def test_render_returns_bytes(payload_wiktor):
 def test_workbook_has_expected_tabs(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
-    expected = ["Cover", "Actors", "Flow Matrix", "Logistics",
+    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Logistics",
                 "Costs & Revenues", "Infrastructure",
                 "Methodological Choices", "Network Diagram"]
     assert wb.sheetnames == expected
@@ -126,14 +126,46 @@ def test_actors_tab_has_header_row(payload_wiktor):
     assert "Actor ID" in header_values
 
 
-def test_actors_tab_has_field_id_subheader(payload_wiktor):
+def test_actors_tab_keeps_the_field_ids_in_the_header_comments(payload_wiktor):
+    """The technical ids used to occupy a second visible row, which made
+    the sheet read as a schema dump to whoever had to fill it in. They now
+    live in the header comment, so the mapping survives without being in
+    the way."""
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
     ws = wb["Actors"]
-    # Row 5 should be the technical field IDs
-    ids = [ws.cell(row=5, column=c).value for c in range(1, 10)]
-    assert "actor.id" in ids
-    assert "actor.role" in ids
+    notes = [
+        ws.cell(row=4, column=c).comment.text
+        for c in range(1, 10)
+        if ws.cell(row=4, column=c).comment
+    ]
+    joined = "\n".join(notes)
+    assert "actor.id" in joined
+    assert "actor.role" in joined
+    # and row 5 is data, not a second header
+    assert ws.cell(row=5, column=2).value is None
+
+
+def test_required_columns_are_starred(payload_wiktor):
+    ws = load_workbook(BytesIO(render_xlsx(payload_wiktor)))["Actors"]
+    headers = [ws.cell(row=4, column=c).value for c in range(1, 10)]
+    assert any(h and h.endswith(" *") for h in headers)
+
+
+def test_enum_columns_get_a_dropdown(payload_wiktor):
+    """Free text is how a column comes back with 'medium', 'Med' and 'M'."""
+    ws = load_workbook(BytesIO(render_xlsx(payload_wiktor)))["Actors"]
+    assert ws.data_validations.dataValidation, "no dropdown on the Actors tab"
+
+
+def test_instructions_tab_tells_the_recipient_what_to_do(payload_wiktor):
+    ws = load_workbook(BytesIO(render_xlsx(payload_wiktor, None, "Wiktor")))["Instructions"]
+    text = "\n".join(
+        str(c.value) for row in ws.iter_rows() for c in row if c.value is not None
+    )
+    assert "Case: Wiktor" in text
+    assert "Confidentiality" in text
+    assert "Return by" in text
 
 
 def test_flow_matrix_tab_has_marginal_market_when_q1c(
@@ -150,9 +182,12 @@ def test_flow_matrix_tab_has_marginal_market_when_q1c(
     blob = render_xlsx(payload)
     wb = load_workbook(BytesIO(blob))
     ws = wb["Flow Matrix"]
-    # field IDs row 5
-    ids = [ws.cell(row=5, column=c).value for c in range(1, 30) if ws.cell(row=5, column=c).value]
-    assert "flow.marginal_market_ref" in ids
+    notes = "\n".join(
+        ws.cell(row=4, column=c).comment.text
+        for c in range(1, 30)
+        if ws.cell(row=4, column=c).comment
+    )
+    assert "flow.marginal_market_ref" in notes
 
 
 def test_logistics_inactive_tab_shows_placeholder(payload_arce):

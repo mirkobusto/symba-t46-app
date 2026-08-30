@@ -13,6 +13,8 @@ import { NARRATIVE_SOURCES } from '../i18n/narrativeSources'
 import type { Case } from '../types/api'
 
 export interface VerdictDetail {
+  /** Which axis this is — the audience views show only some of them. */
+  section: 'ilcd' | 'lcc' | 'slca'
   /** The code this expands on, e.g. "ILCD Situation A". */
   code: string
   /** Short line, as shown collapsed. */
@@ -56,7 +58,7 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
   const bodyParts = [lookup(t, `narrative.pathway.${pathway}.body`)]
   if (kase.is_01_extended) bodyParts.push(lookup(t, 'narrative.extendedSuffix'))
 
-  const entries: [string, string | null | undefined][] = [
+  const entries: [VerdictDetail['section'], string | null | undefined][] = [
     ['ilcd', kase.ilcd_situation],
     ['lcc', kase.lcc_type],
     ['slca', kase.slca_activation_state],
@@ -71,6 +73,7 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
     method.push(short)
     const citation = NARRATIVE_SOURCES[section]?.[code]
     details.push({
+      section,
       code,
       short,
       detail: lookup(t, `narrative.${section}.${code}.detail`) ?? short,

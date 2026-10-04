@@ -45,25 +45,45 @@ The container does not terminate TLS — front it with a reverse proxy
 (Caddy / Traefik / nginx). Example Caddy config:
 
 ```caddyfile
-symba.example.eu {
+biobasedisadvisor.symbaproject.eu {
     reverse_proxy symba:8088
 }
 ```
 
-When fronting the app, **also set `BACKEND_CORS_ORIGINS`** in the
-`.env` file so the in-app fetch() calls from the browser hit the same
-origin without CORS errors:
+The frontend is built to call the API on **the same origin** it was loaded from (an empty
+`VITE_BACKEND_URL` in a production build), so behind any domain no CORS configuration is
+needed. Set `BACKEND_CORS_ORIGINS` only if the page is served from a different origin than the API.
 
-```env
-BACKEND_CORS_ORIGINS=https://symba.example.eu
-```
+## The public domain: biobasedisadvisor.symbaproject.eu
+
+The tool is to live on a subdomain of the project website. Host names are case-insensitive: write it
+in lowercase in every configuration (`biobasedisadvisor.symbaproject.eu`). What has to happen, and who does it:
+
+1. **DNS** (whoever manages `symbaproject.eu`, which is the website's administrator): an `A` record (and
+   `AAAA` if the server has IPv6) for `biobasedisadvisor` pointing at the public address of the server
+   that runs this container, or a `CNAME` to the host name of the hosting provider. Until it exists the
+   name does not resolve.
+2. **A server with a public address** where ports 80 and 443 reach the reverse proxy. A machine reachable
+   only through Tailscale (as the development one) is not publicly reachable under a custom domain; Tailscale
+   Funnel serves `*.ts.net` names, not this one.
+3. **TLS**: Caddy obtains and renews the certificate by itself (Let's Encrypt) once the DNS record points
+   at the server and ports 80/443 are open; with nginx or Traefik use certbot or their ACME support.
+4. **Secrets and data**: set `SYMBA_JWT_SECRET` (see below) before the first start, put the SQLite volume on
+   disk that is backed up, and decide the hosting and retention details that the privacy notice
+   (`/privacy`, currently a draft) leaves as placeholders.
+5. **After the first start**, check from outside: `https://biobasedisadvisor.symbaproject.eu/health`,
+   `/brand/logo.png` (image/png), `/fonts/pt-sans-latin-400.woff2` (font/woff2), `/privacy`, and that
+   `/api/...` calls from the page succeed (open the browser's network tab once).
+6. **Existing saved cases**: after an upgrade run `scripts/rerun_saved_cases.py` (see CLAUDE.md) so they show the
+   current engine's output.
 
 ## Environment variables
 
 | Variable | Default | Purpose |
 |---|---|---|
 | `SYMBA_PUBLIC_PORT` | 8088 | Host port to publish |
-| `BACKEND_CORS_ORIGINS` | (defaults to localhost ports) | Comma-separated allowed CORS origins for the API |
+| `BACKEND_CORS_ORIGINS` | (defaults to localhost ports) | Comma-separated allowed CORS origins; only needed when the page and the API are on different origins |
+| `SYMBA_JWT_SECRET` | (random per process) | Signing secret of the sign-in tokens. **Set it** (for instance `openssl rand -hex 32`) for any public deployment: without it every restart signs everybody out and the secret is not under your control |
 | `SYMBA_DB_URL` | `sqlite:////app/backend/data/app.db` | SQLAlchemy URL for the database (production = SQLite; can point to PostgreSQL once auth + multi-tenant land in Phase D) |
 
 ## Data backup

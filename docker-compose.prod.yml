@@ -25,6 +25,8 @@ services:
     environment:
       SYMBA_DB_URL: "sqlite:////app/backend/data/app.db"
       BACKEND_CORS_ORIGINS: "${BACKEND_CORS_ORIGINS:-}"
+      # Sign-in token secret (openssl rand -hex 32). Empty = a random one per process.
+      SYMBA_JWT_SECRET: "${SYMBA_JWT_SECRET:-}"
     volumes:
       - symba-data:/app/backend/data
     # The access log carries visitors' IP addresses (uvicorn, to stdout): rotate it so it

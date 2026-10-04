@@ -23,9 +23,29 @@ import type { DcfData, DcfDataEnvelope } from '../types/dcfData'
 import type { PublicRegionResponse, PublicReportResponse } from '../types/reader'
 import type { CasesAggregate, ScoringPayload } from '../types/scoring'
 
-const API_BASE_URL: string =
-  (import.meta.env.VITE_BACKEND_URL as string | undefined) ??
-  'http://localhost:8088'
+/**
+ * Where the browser finds the API.
+ *
+ * `VITE_BACKEND_URL` wins when set (an empty string means "same origin").
+ * Otherwise: in a production build the backend serves the frontend, so the API is on the
+ * same origin and the base is empty (this is what makes the Docker image work behind any
+ * domain); in development Vite serves the page on another port, so the API is on
+ * localhost:8088. The production image used to bake in localhost:8088, which a visitor's
+ * browser would have taken for its own machine.
+ */
+export function resolveApiBase(env: { VITE_BACKEND_URL?: string; PROD?: boolean }): string {
+  return env.VITE_BACKEND_URL ?? (env.PROD ? '' : 'http://localhost:8088')
+}
+
+const API_BASE_URL: string = resolveApiBase({
+  VITE_BACKEND_URL: import.meta.env.VITE_BACKEND_URL as string | undefined,
+  PROD: import.meta.env.PROD,
+})
+
+/** The address to show when the backend is unreachable: the API base, or this origin when it is the same. */
+export function apiOriginLabel(): string {
+  return API_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')
+}
 
 export class ApiError extends Error {
   status: number

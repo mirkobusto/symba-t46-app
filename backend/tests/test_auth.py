@@ -253,3 +253,21 @@ def test_registration_stays_open_by_default(client, monkeypatch):
     monkeypatch.delenv("SYMBA_ADMIN_EMAIL", raising=False)
     assert _try_register(client, "a@example.eu").status_code == 201
     assert _try_register(client, "b@example.eu").status_code == 201
+
+
+def test_register_duplicate_is_400_even_when_the_check_is_raced(client, monkeypatch):
+    """Two simultaneous sign-ups for one address: the loser hits the unique index, not a 500."""
+    from app.routers import auth as auth_router
+
+    _register(client, "racer@example.eu")
+    # the second request passes the "already registered?" check before the first one commits
+    monkeypatch.setattr(auth_router, "_find_user_by_email", lambda db, email: None)
+    r = client.post(
+        "/api/auth/register", json={"email": "racer@example.eu", "password": "hunter2-strong"}
+    )
+    assert r.status_code == 400, r.text
+    assert "already registered" in r.json()["detail"]
+    # and the loser did not leave the session unusable: the next request still works
+    assert client.post(
+        "/api/auth/login", json={"email": "racer@example.eu", "password": "hunter2-strong"}
+    ).status_code == 200

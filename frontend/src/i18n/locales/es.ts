@@ -784,6 +784,11 @@ const es: Locale = {
     skipLink: 'Continuar sin iniciar sesión',
     signIn: 'Iniciar sesión',
     logout: 'Cerrar sesión',
+    errors: {
+      registrationClosed: 'El registro está cerrado en esta instancia. Pide una cuenta al administrador.',
+      emailTaken: 'Ya existe una cuenta con este email. Intenta iniciar sesión.',
+      invalidCredentials: 'Email o contraseña incorrectos.',
+    },
   },
 
   stakeholder: {

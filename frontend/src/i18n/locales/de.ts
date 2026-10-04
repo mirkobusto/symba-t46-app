@@ -784,6 +784,11 @@ const de: Locale = {
     skipLink: 'Ohne Anmeldung fortfahren',
     signIn: 'Anmelden',
     logout: 'Abmelden',
+    errors: {
+      registrationClosed: 'Die Registrierung ist auf dieser Instanz geschlossen. Bitten Sie den Administrator um ein Konto.',
+      emailTaken: 'Mit dieser E-Mail-Adresse existiert bereits ein Konto. Versuchen Sie, sich anzumelden.',
+      invalidCredentials: 'E-Mail oder Passwort falsch.',
+    },
   },
 
   stakeholder: {

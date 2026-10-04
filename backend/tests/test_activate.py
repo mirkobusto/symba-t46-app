@@ -10,9 +10,10 @@ from __future__ import annotations
 
 import pytest
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q6a, Q7, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6a, Q6b
 from app.domain.models import Q3, Case, Flow
-from app.engine.activate import run
+from app.engine.activate import _resolve_discriminative, run
+from app.engine.branch_keys import BranchKeyError
 from app.engine.l0_compute import run as l0_run
 
 # ---------------------------------------------------------------------------
@@ -262,6 +263,148 @@ def test_lca_mc_30_dormant_for_other_sectors(schemas, sector):
     run(case, schemas)
     assert "lca_mc_30" not in case.activated_nodes
     assert "water_stress_method" not in case.lca
+
+
+# ---------------------------------------------------------------------------
+# 7c. Discriminative branch keys — every notation the schema uses
+#     (grammar: engine/branch_keys.py; the schema-wide checks are in
+#     test_branch_keys.py). Before the grammar these keys were skipped.
+# ---------------------------------------------------------------------------
+
+
+def _activated(schemas, **kw):
+    """Run L0 + activation (LCC needs L0 for its gate) on a case built from `kw`."""
+    case = _baseline_case(**kw)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def _flows(*qs):
+    return [Flow(id=f"f{i}", name=f"flow{i}", q5=q) for i, q in enumerate(qs)]
+
+
+def test_unknown_branch_key_raises_instead_of_being_skipped():
+    with pytest.raises(BranchKeyError):
+        _resolve_discriminative(_baseline_case(), {"q9=A": "x", "default": "y"}, [])
+
+
+def test_q4_in_set_and_includes(schemas):
+    """lca_hc_13 `q4 in {C,D,E}`, lca_mc_25 `q4 includes 'D'`, lcc_hc_29 `q4 includes 'C'`."""
+    c = _activated(schemas, q4={Q4.E})
+    assert c.lca["uncertainty.pedigree"] == "Pedigree Matrix mandatory"
+    assert c.lca["lcia_method"] == "ReCiPe 2016 hierarchic + EF 3.1 backup"
+    d = _activated(schemas, q4={Q4.D})
+    assert d.lca["lcia_method"] == "EF 3.1 + ReCiPe backup"
+    a = _activated(schemas, q4={Q4.A})
+    assert a.lca["uncertainty.pedigree"] == "Pedigree Matrix recommended"
+    layers = lambda case: _activated(schemas, q3=Q3(env=True, eco=True), **case).report["layers"]  # noqa: E731
+    assert layers({"q4": {Q4.C}}) == "3-layer reporting mandatory"
+    assert layers({"q4": {Q4.A}}) == "3-layer reporting recommended"
+
+
+def test_gsa_tier_was_dead_and_now_follows_q4(schemas):
+    """lca_mc_32 had only unreadable keys and no default: it never activated."""
+    assert _activated(schemas, q4={Q4.A}).lca["gsa_tier"] == "Morris first"
+    assert _activated(schemas, q4={Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
+    assert "lca_mc_32" not in _activated(schemas, q4=set()).activated_nodes
+
+
+def test_first_matching_branch_wins_when_q4_branches_overlap(schemas):
+    """Convention (branch_keys.py): dict order decides. {A,E} gets the A branch
+    and {C,D} the C branch even though D is the stricter one; see the pinned
+    overlaps in test_branch_keys.py."""
+    assert _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"] == "Morris first"
+    assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"] == "panel ISO"
+    assert _activated(schemas, q4={Q4.D}).review["scope"] == "panel + EU compliance"
+
+
+def test_q6b_set_and_ordinal_keys(schemas):
+    """lca_hc_18 `q6b in {TRL7-8, TRL5-6, TRL<5}`; lca_mc_10 `q6b<TRL7`."""
+    mid = _activated(schemas, q6b=Q6b.TRL7_8)
+    assert "lca_hc_18" in mid.activated_nodes and "lca_mc_10" not in mid.activated_nodes
+    assert mid.lca["capital_goods.included"] == "Capital goods full inclusion + scale-up frameworks"
+    low = _activated(schemas, q6b=Q6b.TRL5_6)
+    assert "lca_mc_10" in low.activated_nodes
+    assert low.lca["capital_goods.included"] == "full + scale-up frameworks"  # lca_mc_10 writes last
+    mature = _activated(schemas, q6b=Q6b.TRL9)
+    assert "lca_hc_18" in mature.activated_nodes  # q6b=TRL9 already worked
+    assert mature.lca["capital_goods.included"] == "amortized"
+
+
+@pytest.mark.parametrize(
+    "q7, expected",
+    [(Q7.A, "minimal"), (Q7.B, "explicit"), (Q7.C, "GIS-coupled"), (Q7.D, "GIS-coupled")],
+)
+def test_q7_in_set(schemas, q7, expected):
+    assert _activated(schemas, q7=q7).lca["transport.foreground"] == expected
+
+
+def test_q3_env_only_branch(schemas):
+    """lca_mc_05: Q1 branches first, `q3.env-only` for the other Q1 values."""
+    assert _activated(schemas, q1=Q1.D).lca["system_boundary"] == "cradle-to-gate default"
+    assert _activated(schemas, q1=Q1.A).lca["system_boundary"] == "exchange-only"
+    both = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True))
+    assert "lca_mc_05" not in both.activated_nodes  # env+eco is not env-only
+
+
+def test_q3_env_plus_eco_and_eco_only_branches(schemas):
+    """lcc_mc_18: `q3.env+eco` ignores soc; `q3.eco-only` is strict."""
+    ind = lambda **q3: _activated(schemas, q3=Q3(**q3))  # noqa: E731
+    assert ind(env=True, eco=True).lcc["eco_efficiency_indicator"] == "Both ECOF+IEE"
+    assert ind(env=True, eco=True, soc=True).lcc["eco_efficiency_indicator"] == "Both ECOF+IEE"
+    assert ind(eco=True).lcc["eco_efficiency_indicator"] == "IEE only"
+    assert "lcc_mc_18" not in ind(eco=True, soc=True).activated_nodes
+    # lcc_mc_05: Q1 branches first, `q3.env+eco` for the rest
+    assert _activated(schemas, q1=Q1.C, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "aligned with LCA"
+    assert _activated(schemas, q1=Q1.A, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "Gate-to-Gate"
+
+
+def test_q3_eco_false_branch_leaves_lcc_off(schemas):
+    """lcc_mc_01 `q3.eco=false`: no economic dimension, the whole LCC method is
+    off and the node is skipped by the method gate."""
+    off = _activated(schemas, q1=Q1.B, q3=Q3(env=True))
+    assert "lcc_mc_01" not in off.activated_nodes
+    on = _activated(schemas, q1=Q1.B, q3=Q3(env=True, eco=True))
+    assert on.lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+    assert _activated(schemas, q1=Q1.E, q3=Q3(eco=True)).lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+
+
+def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
+    eco = Q3(env=True, eco=True)
+    assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"] == "partner-specific"
+    assert _activated(schemas, q1=Q1.B, q3=eco).lcc["counterparty_risk"] == "Percolation theory"
+    assert "lcc_mc_16" not in _activated(schemas, q1=Q1.D, q3=eco).activated_nodes
+    assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"] == "Dynamic SSP/RCP"
+    assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"] == "single break-even"
+    assert _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"] == "GIS-coupled"
+
+
+def test_sector_key_is_an_alias_of_q6a(schemas):
+    """lcc_mc_03: `q1=A` first, then `sector=textile_leather`."""
+    eco = Q3(env=True, eco=True)
+    textile = _activated(schemas, q1=Q1.C, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
+    assert textile.lcc["functional_equivalent"] == "PSS variant"
+    assert "lcc_mc_03" not in _activated(schemas, q1=Q1.C, q3=eco, q6a=Q6a.PULP_PAPER).activated_nodes
+    first = _activated(schemas, q1=Q1.A, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
+    assert first.lcc["functional_equivalent"] == "Single"  # first match wins
+
+
+def test_per_flow_in_set_key(schemas):
+    """lcc_hc_13 `q5 in {c,d}` used to give every flow the default."""
+    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.a, Q5.d))
+    assert c.lcc["avoidable_unavoidable_classification"] == {
+        "f0": "price = negotiated transfer",
+        "f1": "C-LCC: zero-cost not default",
+        "f2": "price = negotiated transfer",
+    }
+
+
+def test_contested_branch_is_inert_per_flow(schemas):
+    """lcc_mc_04: `contested` never matches, so a Q5=e flow gets no entry and
+    Q5=b keeps its explicit branch."""
+    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.b, Q5.e))
+    assert c.lcc["flow_valuation_method"] == {"f0": "Transfer Price", "f1": "Market Proxy"}
 
 
 # ---------------------------------------------------------------------------

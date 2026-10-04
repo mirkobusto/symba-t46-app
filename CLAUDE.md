@@ -207,10 +207,10 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 - Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).
 - `coordination/current-state/_CURRENT_STATE.md` è storico (fermo a Sprint 0/1): lo stato corrente è **questo file**.
 - **Divergenze dai deliverable tenute di proposito** (decisione 2026-10-04, dalla verifica app-vs-deliverable; versione di riferimento: REVISED del 30/06/2026):
-  - **Q1=D → "C-LCC only"** è una scelta dichiarata di T4.6, non derivata da D4.2, che lega il tipo di LCC allo scopo dello studio e non a Q1. BLOCK 1 ("forbidden by ILCD") non può mai scattare, perché con Q1=D il tipo è già forzato a company-only.
+  - **Q1=D → "C-LCC only"** è una scelta dichiarata di T4.6, non derivata da D4.2, che lega il tipo di LCC allo scopo dello studio e non a Q1. BLOCK 1 non può mai scattare, perché con Q1=D il tipo è già forzato a company-only; il suo messaggio dice ora che è una scelta di progetto, non una regola ILCD.
   - **Q4=D** attiva in CIR-05 i prezzi CE Delft e l'allocazione NTF, che D4.2 lega all'S-LCC (Q1=C). Regola Kimi tenuta; impatto basso.
   - **Pedigree, Monte Carlo, break-even e trasporti** restano condizionati dalle risposte, mentre D4.1/D4.2 li dicono "sempre". Si segue il deliverable solo dove dice "senza eccezioni" (i tre strati di reporting, `lcc_hc_29`); il testo delle soglie km di Q7 è da rivedere.
-  - **Q1–Q7 restano congelate.** I determinanti che i deliverable usano e le domande non chiedono (decisione sì/no e scala, obiettivo di policy, vita degli asset, natura/evitabilità/End-of-Waste per flusso) sono in valutazione come nuove domande: richiede di sbloccare Q1–Q7, quindi una decisione esplicita.
+  - **Q1–Q7 vengono sbloccate in modo incrementale** (decisione del proprietario, 2026-10-04). I determinanti che i deliverable usano e le domande non chiedono si aggiungono come campi opzionali, con `null` = comportamento di oggi, in questo ordine: vita tecnica degli asset (oggi nascosta in `advanced.asset_lifetime`), scopo di policy/pianificazione territoriale (aggiunge l'S-LCC), decisione sì/no e scala (deriva la situazione ILCD). Per flusso (natura fisica, evitabilità, Freedom-to-Act, End-of-Waste) in un secondo giro. Fino ad allora Q1–Q7 restano come in `SPRINT4_BOOTSTRAP_v2.md` ("FROZEN").
 
 ---
 

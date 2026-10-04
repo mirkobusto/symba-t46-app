@@ -876,6 +876,7 @@ const es: Locale = {
     },
   },
   dcf: {
+    noCase: { title: 'Aún no hay caso', desc: 'El Data Collection File se construye a partir de tu evaluación: responde primero el cuestionario (o abre un caso guardado) y vuelve aquí.', cta: 'Abrir el cuestionario' },
     derivedField: "rellenado por el motor",
     obligationsTitle: "Decisiones metodológicas por documentar",
     navLink: 'Recolección de datos',

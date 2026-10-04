@@ -64,8 +64,12 @@ export default function DataCollectionPage() {
   const [tab, setTab] = useState<'overview' | 'network'>('overview')
 
   const sourceCase = result ?? draft
+  // Without an answered Q1 there is no case to build a file from: the API would answer
+  // "400: Invalid Q1: None". Say so, with a way forward, instead of calling it.
+  const hasCase = !!sourceCase.q1
 
   useEffect(() => {
+    if (!hasCase) return   // nothing to fetch; the empty state is rendered below
     // Stale-while-revalidate: keep the previous payload visible while the
     // new one loads. Avoids synchronous setState inside the effect body
     // (eslint react-hooks/set-state-in-effect).
@@ -169,6 +173,18 @@ export default function DataCollectionPage() {
     } finally {
       setDownloadingDocx(false)
     }
+  }
+
+  if (!hasCase) {
+    return (
+      <div className="dd-page dcf-page">
+        <h1 className="dd-page-title">{t('dcf.noCase.title')}</h1>
+        <p className="muted">{t('dcf.noCase.desc')}</p>
+        <Link to="/questionnaire" className="btn btn-primary">
+          {t('dcf.noCase.cta')}
+        </Link>
+      </div>
+    )
   }
 
   if (loading) {

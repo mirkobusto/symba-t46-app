@@ -930,6 +930,7 @@ const en = {
     },
   },
   dcf: {
+    noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire' },
     derivedField: "engine-filled",
     obligationsTitle: "Methodological choices to document",
     navLink: 'Data Collection',

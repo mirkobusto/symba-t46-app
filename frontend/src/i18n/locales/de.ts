@@ -876,6 +876,7 @@ const de: Locale = {
     },
   },
   dcf: {
+    noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen' },
     derivedField: "von der Engine gefüllt",
     obligationsTitle: "Zu dokumentierende methodische Entscheidungen",
     navLink: 'Datenerhebung',

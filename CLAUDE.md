@@ -115,7 +115,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente: **340 backend (pytest) + 51 frontend (vitest)**.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-04): **359 backend (pytest, +1 skipped) + 63 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

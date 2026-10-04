@@ -39,7 +39,7 @@ Conventions established in earlier commits and reused here:
     action functions below are the source of truth (same convention
     as l0_compute / l1_blocks / pathway / activate).
   - Defensive `getattr` for `case.X` references not yet on the Case
-    model (`asset_lifetime`, `transport_sensitive`, `network_nodes`,
+    model (`transport_sensitive`, `network_nodes`,
     `interdependent_flows`, `frontier_categories_active`,
     `is_specific_capital_goods`, `multi_actor`): treated as falsy
     defaults so the rule stays inert until the field arrives.
@@ -70,7 +70,7 @@ from typing import Any
 
 from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6b
 from app.domain.models import Case
-from app.engine.activate import _pillar_is_off, _write
+from app.engine.activate import _pillar_is_off, _write, asset_lifetime_years
 from app.engine.loader import LoadedSchemas
 
 # ---------------------------------------------------------------------------
@@ -153,7 +153,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-19": lambda c: True,
     "IR-20": lambda c: _q3_dims_active(c) >= 2,
     # --- CIR (10) ---
-    "CIR-01": lambda c: c.q2 in {Q2.C, Q2.D} and _attr(c, "asset_lifetime", 0) > 15,
+    "CIR-01": lambda c: c.q2 in {Q2.C, Q2.D} and asset_lifetime_years(c) > 15,
     "CIR-02": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
     "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D} or bool(_attr(c, "transport_sensitive")),
     "CIR-04": lambda c: (c.q1 == Q1.B

@@ -86,6 +86,26 @@ def test_trigger_CIR_07_fires_below_trl_7_only(schemas):
         assert _TRIGGER_FNS["CIR-07"](_ready_case(q6b=q6b)) is expected
 
 
+def test_trigger_CIR_01_reads_asset_lifetime_from_advanced(schemas):
+    """CIR-01 = Q2 in {C,D} AND asset_lifetime > 15, the latter stored in
+    case.advanced (it is not a Case field)."""
+    long_lived = _ready_case(q2=Q2.D, advanced={"asset_lifetime": 30})
+    short_lived = _ready_case(q2=Q2.D, advanced={"asset_lifetime": 15})
+    unset = _ready_case(q2=Q2.D)
+    ex_post = _ready_case(q2=Q2.A, advanced={"asset_lifetime": 30})
+    assert _TRIGGER_FNS["CIR-01"](long_lived) is True
+    assert _TRIGGER_FNS["CIR-01"](short_lived) is False
+    assert _TRIGGER_FNS["CIR-01"](unset) is False
+    assert _TRIGGER_FNS["CIR-01"](ex_post) is False
+
+
+def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
+    case = _ready_case(q2=Q2.D, q3=Q3(env=True, eco=True), advanced={"asset_lifetime": 30})
+    pipeline_run(case, schemas)
+    assert "CIR-01" in {r["rule_id"] for r in case.applicable_rules}
+    assert case.lca.get("background_futurisation") == "SSP_RCP"
+
+
 def test_trigger_FU_04_fires_when_soc(schemas):
     case = _ready_case(q3=Q3(env=True, soc=True))
     assert _TRIGGER_FNS["FU-04"](case) is True

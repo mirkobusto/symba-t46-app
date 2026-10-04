@@ -42,12 +42,10 @@ Out of scope for this commit (documented for future work):
 - override_path semantics (Step 4 advanced-overrides layer)
 - sector_overlays.json wiring for `lca_hc_19` (the node still
   activates with its generic mandate string)
-- `case.asset_lifetime` referenced by lca_mc_21 / lcc_hc_23: not yet
-  on the Case model; defensive `getattr(case, 'asset_lifetime', 0)`
-  keeps those predicates inert today, auto-active when the field lands
 """
 from __future__ import annotations
 
+import math
 from collections.abc import Callable
 from typing import Any
 
@@ -149,10 +147,27 @@ def _q4_intersects(case: Case, members: set[str]) -> bool:
     return any(q.value in members for q in case.q4)
 
 
-def _asset_lifetime(case: Case) -> float:
-    """Defensive: case.asset_lifetime is not yet on the Case model
-    (Step 4 territory). Returns 0 today so > 15 predicates stay False."""
-    return getattr(case, "asset_lifetime", 0)
+def asset_lifetime_years(case: Case) -> float:
+    """Asset lifetime in years, read from the advanced overrides.
+
+    The AdvancedEditor stores it under `case.advanced["asset_lifetime"]`;
+    it is not a field on `Case` (extra='forbid'), so the former
+    `getattr(case, "asset_lifetime", 0)` always returned 0 and the
+    `> 15` triggers (lca_mc_21, lcc_hc_23, CIR-01) never fired.
+
+    A missing, boolean, non-numeric or non-finite value reads as 0, which
+    keeps those triggers inert exactly as before. Numeric strings are
+    accepted: the editor coerces them, but a case posted straight to the
+    API may still carry "20".
+    """
+    raw = case.advanced.get("asset_lifetime")
+    if raw is None or isinstance(raw, bool):
+        return 0.0
+    try:
+        years = float(raw)
+    except (TypeError, ValueError):
+        return 0.0
+    return years if math.isfinite(years) else 0.0
 
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
@@ -172,8 +187,8 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
     # simple
     "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # conjunctive — case.asset_lifetime defensive
-    "lca_mc_21": lambda c: c.q2 == Q2.D and _asset_lifetime(c) > 15,
+    # conjunctive — asset lifetime comes from case.advanced
+    "lca_mc_21": lambda c: c.q2 == Q2.D and asset_lifetime_years(c) > 15,
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
@@ -190,8 +205,8 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lcc_hc_12": lambda c, f: f.q5 != Q5.e,
     # simple
     "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # conjunctive — asset_lifetime defensive
-    "lcc_hc_23": lambda c: c.q2 in {Q2.C, Q2.D} and _asset_lifetime(c) > 15,
+    # conjunctive — asset lifetime comes from case.advanced
+    "lcc_hc_23": lambda c: c.q2 in {Q2.C, Q2.D} and asset_lifetime_years(c) > 15,
     # conjunctive
     "lcc_hc_27": lambda c: c.q3.env and c.q3.eco,
     "lcc_hc_28": lambda c: c.q3.env and c.q3.eco,

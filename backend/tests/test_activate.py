@@ -227,16 +227,67 @@ def test_procedural_mandate_activates_without_field_write(schemas):
 
 
 # ---------------------------------------------------------------------------
-# 7. asset_lifetime defensive (predicate stays False today)
+# 7. asset_lifetime — read from case.advanced (AdvancedEditor writes it there)
 # ---------------------------------------------------------------------------
 
 
-def test_asset_lifetime_defensive_predicates_inert(schemas):
-    """lca_mc_21 and lcc_hc_23 reference case.asset_lifetime which is
-    not on the Case model. They must NOT activate today."""
-    case = _baseline_case(q2=Q2.D, q3=Q3(env=True, eco=True))
+def _lifetime_case(schemas, lifetime=None, q2=Q2.D):
+    """ENV+ECO case (LCC active), Q2=D by default, with an optional advanced asset_lifetime."""
+    advanced = {} if lifetime is None else {"asset_lifetime": lifetime}
+    case = _baseline_case(q2=q2, q3=Q3(env=True, eco=True), advanced=advanced)
     l0_run(case, schemas)
     run(case, schemas)
+    return case
+
+
+def test_asset_lifetime_unset_predicates_inert(schemas):
+    """Without an asset_lifetime override lca_mc_21 and lcc_hc_23 stay dormant."""
+    case = _lifetime_case(schemas)
+    assert "lca_mc_21" not in case.activated_nodes
+    assert "lcc_hc_23" not in case.activated_nodes
+
+
+def test_asset_lifetime_over_15_activates_both_nodes(schemas):
+    case = _lifetime_case(schemas, 30)
+    assert "lca_mc_21" in case.activated_nodes
+    assert "lcc_hc_23" in case.activated_nodes
+
+
+def test_asset_lifetime_threshold_is_strictly_greater_than_15(schemas):
+    assert "lca_mc_21" not in _lifetime_case(schemas, 15).activated_nodes
+    assert "lca_mc_21" in _lifetime_case(schemas, 16).activated_nodes
+
+
+def test_asset_lifetime_q2_C_activates_lcc_node_only(schemas):
+    """lcc_hc_23 accepts Q2 in {C,D}; lca_mc_21 is Q2=D only."""
+    case = _lifetime_case(schemas, 30, q2=Q2.C)
+    assert "lcc_hc_23" in case.activated_nodes
+    assert "lca_mc_21" not in case.activated_nodes
+
+
+def test_asset_lifetime_ignored_for_ex_post_q2(schemas):
+    case = _lifetime_case(schemas, 30, q2=Q2.A)
+    assert "lca_mc_21" not in case.activated_nodes
+    assert "lcc_hc_23" not in case.activated_nodes
+
+
+def test_asset_lifetime_lcc_node_off_when_lcc_deactivated(schemas):
+    """The method gate still wins: no economic dimension, no lcc_hc_23."""
+    case = _baseline_case(q2=Q2.D, q3=Q3(env=True), advanced={"asset_lifetime": 30})
+    l0_run(case, schemas)
+    run(case, schemas)
+    assert "lca_mc_21" in case.activated_nodes
+    assert "lcc_hc_23" not in case.activated_nodes
+
+
+def test_asset_lifetime_accepts_numeric_string(schemas):
+    """A case posted straight to the API may carry "20"; it must not raise."""
+    assert "lca_mc_21" in _lifetime_case(schemas, "20").activated_nodes
+
+
+@pytest.mark.parametrize("junk", ["", "abc", True, False, [], {}, "nan", "inf", -5])
+def test_asset_lifetime_junk_values_read_as_zero(schemas, junk):
+    case = _lifetime_case(schemas, junk)
     assert "lca_mc_21" not in case.activated_nodes
     assert "lcc_hc_23" not in case.activated_nodes
 

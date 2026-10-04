@@ -59,7 +59,13 @@ export default function Sidebar() {
   return (
     <aside className="dd-sidebar" aria-label="Primary navigation">
       <div className="dd-sidebar-brand">
-        <div className="dd-sidebar-brand-mark" aria-hidden="true">S</div>
+        <img
+          className="dd-sidebar-brand-icon"
+          src="/brand/cropped-icona-192x192.png"
+          alt=""
+          width={30}
+          height={30}
+        />
         <div className="dd-sidebar-brand-text">
           <span className="dd-sidebar-brand-name">SYMBA</span>
           <span className="dd-sidebar-brand-sub">T4.6 · Monitoring &amp; Reporting</span>
@@ -88,7 +94,6 @@ export default function Sidebar() {
       ))}
 
       <div className="dd-sidebar-foot">
-        <span aria-hidden="true">🇪🇺</span>{' '}
         {t('adminShell.footerGa')} <a href="https://www.symbaproject.eu" target="_blank" rel="noopener noreferrer">101135562</a>
         <div className="dd-sidebar-foot-meta">{t('adminShell.footerProgramme')}</div>
       </div>

@@ -20,11 +20,44 @@ const es: Locale = {
     no: 'no',
   },
 
+  // Funding acknowledgement, worded as on the SYMBA website footer.
   eu: {
-    fundingStatement:
-      'Este proyecto ha recibido financiación del programa Horizon Europe de Investigación e Innovación de la Unión Europea en el marco del Acuerdo de Subvención N. 101135562.',
+    emblemAlt: 'Financiado por la Unión Europea',
+    fundingStatement: 'Financiado por la Unión Europea en virtud del Acuerdo de Subvención N. 101135562.',
     disclaimer:
-      'Financiado por la Unión Europea. Sin embargo, las opiniones expresadas son las del autor o autores únicamente y no reflejan necesariamente las de la Unión Europea. Ni la Unión Europea ni la autoridad que concede la financiación pueden ser consideradas responsables.',
+      'Sin embargo, las opiniones expresadas son las del autor o autores únicamente y no reflejan necesariamente las de la Unión Europea. Ni la Unión Europea ni la Agencia Ejecutiva Europea de Investigación pueden ser consideradas responsables.',
+  },
+
+  footer: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Ir al sitio web del proyecto SYMBA',
+    toolLine: 'Monitoring & Reporting System · Tarea T4.6',
+    followUs: 'Síguenos',
+    projectInfo: 'Información del proyecto',
+    projectWebsite: 'Sitio web del proyecto',
+    publicDeliverables: 'Entregables públicos',
+    copyright: 'Copyright © {{year}} Symba Project, todos los derechos reservados.',
+    privacy: 'Política de privacidad',
+    cookies: 'Política de cookies',
+  },
+
+  siteHeader: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Ir al sitio web del proyecto SYMBA',
+    navLabel: 'Sitio web del proyecto SYMBA',
+    menuOpen: 'Abrir el menú',
+    menuClose: 'Cerrar el menú',
+    backToSite: 'Sitio web del proyecto',
+    tool: 'Seguimiento',
+    // Labels of the sections of the project website, which is in English.
+    nav: {
+      about: 'About',
+      project: 'Project',
+      partners: 'Partners',
+      news: 'News & Events',
+      download: 'Download',
+      contact: 'Contact Us',
+    },
   },
 
   layout: {

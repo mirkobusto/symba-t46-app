@@ -20,11 +20,44 @@ const it: Locale = {
     no: 'no',
   },
 
+  // Funding acknowledgement, worded as on the SYMBA website footer.
   eu: {
-    fundingStatement:
-      'Questo progetto ha ricevuto finanziamento dal programma Horizon Europe Research and Innovation dell\'Unione Europea ai sensi del Grant Agreement N. 101135562.',
+    emblemAlt: 'Finanziato dall\'Unione europea',
+    fundingStatement: 'Finanziato dall\'Unione Europea ai sensi del Grant Agreement N. 101135562.',
     disclaimer:
-      'Finanziato dall\'Unione Europea. Le opinioni espresse sono tuttavia quelle dell\'autore o degli autori e non riflettono necessariamente quelle dell\'Unione Europea. Né l\'Unione Europea né l\'autorità che concede il finanziamento possono essere ritenute responsabili.',
+      'Le opinioni espresse sono tuttavia quelle dell\'autore o degli autori e non riflettono necessariamente quelle dell\'Unione Europea. Né l\'Unione Europea né l\'Agenzia esecutiva europea per la ricerca possono essere ritenute responsabili.',
+  },
+
+  footer: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Vai al sito del progetto SYMBA',
+    toolLine: 'Monitoring & Reporting System · Task T4.6',
+    followUs: 'Seguici',
+    projectInfo: 'Informazioni sul progetto',
+    projectWebsite: 'Sito del progetto',
+    publicDeliverables: 'Deliverable pubblici',
+    copyright: 'Copyright © {{year}} Symba Project, tutti i diritti riservati.',
+    privacy: 'Informativa sulla privacy',
+    cookies: 'Cookie policy',
+  },
+
+  siteHeader: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Vai al sito del progetto SYMBA',
+    navLabel: 'Sito del progetto SYMBA',
+    menuOpen: 'Apri il menu',
+    menuClose: 'Chiudi il menu',
+    backToSite: 'Sito del progetto',
+    tool: 'Monitoraggio',
+    // Labels of the sections of the project website, which is in English.
+    nav: {
+      about: 'About',
+      project: 'Project',
+      partners: 'Partners',
+      news: 'News & Events',
+      download: 'Download',
+      contact: 'Contact Us',
+    },
   },
 
   layout: {

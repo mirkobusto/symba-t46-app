@@ -177,11 +177,45 @@ const en = {
     },
   },
 
+  // Funding acknowledgement, worded as on the SYMBA website footer.
   eu: {
-    fundingStatement:
-      "This project has received funding from the European Union's Horizon Europe Research and Innovation Programme under Grant Agreement N. 101135562.",
+    emblemAlt: 'Funded by the European Union',
+    fundingStatement: 'Funded by the European Union under G.A. 101135562.',
     disclaimer:
-      'Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. The European Union cannot be held responsible for them.',
+      'Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the European Research Executive Agency can be held responsible for them.',
+  },
+
+  // Footer (EuFooter) — mirrors the structure of the project website footer.
+  footer: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Go to the SYMBA project website',
+    toolLine: 'Monitoring & Reporting System · Task T4.6',
+    followUs: 'Follow us',
+    projectInfo: 'Project information',
+    projectWebsite: 'Project website',
+    publicDeliverables: 'Public deliverables',
+    copyright: 'Copyright © {{year}} Symba Project, All Rights Reserved.',
+    privacy: 'Privacy policy',
+    cookies: 'Cookie policy',
+  },
+
+  // Header (SiteHeader) — website-style navigation back to symbaproject.eu.
+  siteHeader: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Go to the SYMBA project website',
+    navLabel: 'SYMBA project website',
+    menuOpen: 'Open menu',
+    menuClose: 'Close menu',
+    backToSite: 'Project website',
+    tool: 'Monitoring tool',
+    nav: {
+      about: 'About',
+      project: 'Project',
+      partners: 'Partners',
+      news: 'News & Events',
+      download: 'Download',
+      contact: 'Contact Us',
+    },
   },
 
   health: {

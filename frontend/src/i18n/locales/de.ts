@@ -20,11 +20,44 @@ const de: Locale = {
     no: 'nein',
   },
 
+  // Funding acknowledgement, worded as on the SYMBA website footer.
   eu: {
-    fundingStatement:
-      'Dieses Projekt wurde im Rahmen des Forschungs- und Innovationsprogramms Horizon Europe der Europäischen Union unter der Finanzhilfevereinbarung Nr. 101135562 finanziert.',
+    emblemAlt: 'Finanziert von der Europäischen Union',
+    fundingStatement: 'Finanziert von der Europäischen Union im Rahmen der Finanzhilfevereinbarung Nr. 101135562.',
     disclaimer:
-      'Finanziert von der Europäischen Union. Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autor(inn)en und spiegeln nicht unbedingt die der Europäischen Union wider. Weder die Europäische Union noch die bewilligende Behörde können dafür verantwortlich gemacht werden.',
+      'Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autor(inn)en und spiegeln nicht unbedingt die der Europäischen Union wider. Weder die Europäische Union noch die Europäische Exekutivagentur für die Forschung können dafür verantwortlich gemacht werden.',
+  },
+
+  footer: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Zur Website des SYMBA-Projekts',
+    toolLine: 'Monitoring & Reporting System · Aufgabe T4.6',
+    followUs: 'Folgen Sie uns',
+    projectInfo: 'Projektinformationen',
+    projectWebsite: 'Projekt-Website',
+    publicDeliverables: 'Öffentliche Deliverables',
+    copyright: 'Copyright © {{year}} Symba Project, alle Rechte vorbehalten.',
+    privacy: 'Datenschutzerklärung',
+    cookies: 'Cookie-Richtlinie',
+  },
+
+  siteHeader: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Zur Website des SYMBA-Projekts',
+    navLabel: 'Website des SYMBA-Projekts',
+    menuOpen: 'Menü öffnen',
+    menuClose: 'Menü schließen',
+    backToSite: 'Projekt-Website',
+    tool: 'Monitoring-Tool',
+    // Labels of the sections of the project website, which is in English.
+    nav: {
+      about: 'About',
+      project: 'Project',
+      partners: 'Partners',
+      news: 'News & Events',
+      download: 'Download',
+      contact: 'Contact Us',
+    },
   },
 
   layout: {

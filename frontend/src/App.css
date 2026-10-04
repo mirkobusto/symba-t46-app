@@ -112,6 +112,7 @@
   --dd-sidebar-width: 240px;
   --dd-topbar-height: 52px;
   --dd-site-header-height: 72px;    /* website-style header (SiteHeader) */
+  --dd-shell-max: 1440px;           /* widest the app frame / footer grow */
 
   /* -------------------------------------------------------------------
    * Legacy tokens (preserved for pages shipped by Phases A–D). They
@@ -165,6 +166,13 @@ html {
 :where(.dd-app, .dd-reader, .dd-welcome, .layout) :where(h1, h2, h3, h4, h5, h6),
 :where(.dd-sidebar, .dd-topbar) {
   font-family: var(--dd-font-ui);
+}
+
+/* The root line-height is a % that computes to a fixed length (26px) and
+   is inherited as such, which squeezes wrapped headings; give them a
+   proportional one. */
+:where(.dd-app, .dd-reader, .dd-welcome, .layout) :where(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.25;
 }
 
 /* Legacy dark-mode override — DISABLED as of the visual-identity
@@ -1921,57 +1929,390 @@ kbd {
   letter-spacing: 0.06em;
 }
 
-.eu-footer {
-  background: var(--surface);
-  border-top: 3px solid var(--primary);
-  padding: 16px 24px;
-  font-size: 0.82rem;
-  color: var(--slate-700);
-  line-height: 1.4;
+/* ---- SiteHeader ----------------------------------------------------------
+ * The website's header carried into the tool: white bar, logo left, the
+ * website menu in uppercase Noto Sans, burger below 1200px (the site's own
+ * breakpoint). Hover/current state is a lime underline: the site turns the
+ * label lime, which is 1.75:1 on white, so the label stays ink here. */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--dd-border-strong);
+  font-family: var(--dd-font-ui);
+  text-align: left;
 }
 
-.eu-footer-row {
+.site-header-inner {
+  position: relative;
+  max-width: var(--dd-shell-max);
+  height: var(--dd-site-header-height);
+  margin: 0 auto;
+  padding: 0 24px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 40px;
 }
 
-.eu-footer-funding {
-  font-weight: 500;
+.site-header-logo {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
 }
 
-.eu-footer-flag {
-  font-size: 1.1rem;
-  line-height: 1;
+.site-header-logo img {
+  display: block;
+  height: 45px;
+  width: auto;
 }
 
-.eu-footer-meta {
-  margin: 4px 0 6px;
-  font-size: 0.78rem;
-  color: var(--slate-500);
+.site-nav {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
-.eu-footer-meta a {
-  color: var(--primary);
+.site-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 4px 28px;
+}
+
+.site-nav-list a {
+  position: relative;
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--dd-ink);
   text-decoration: none;
-  font-weight: 500;
 }
 
-.eu-footer-meta a:hover {
-  text-decoration: underline;
+.site-nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--dd-accent-vivid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
 }
 
-.eu-footer-divider {
-  opacity: 0.6;
+.site-nav-list a:hover::after,
+.site-nav-list a:focus-visible::after,
+.site-nav-list a.site-nav-current::after {
+  transform: scaleX(1);
+}
+
+.site-nav-list a:focus-visible,
+.site-header-burger:focus-visible {
+  outline: 2px solid var(--dd-brand);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* "Project website": the website's pill button, pushed to the right. */
+.site-nav-back {
+  margin-left: auto;
+}
+
+.site-nav-list .site-nav-back a {
+  padding: 8px 22px;
+  border: 1px solid var(--dd-ink);
+  border-radius: var(--dd-radius-pill);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.site-nav-list .site-nav-back a::after {
+  display: none;
+}
+
+.site-nav-list .site-nav-back a:hover {
+  background: var(--dd-accent-vivid);
+  border-color: var(--dd-accent-vivid);
+}
+
+/* Tighter between the full desktop menu and the burger breakpoint, so the
+   longest label (translated "Monitoring tool") still fits on one line. */
+@media (max-width: 1320px) {
+  .site-nav-list {
+    gap: 4px 20px;
+  }
+  .site-nav-list .site-nav-back a {
+    padding: 8px 16px;
+  }
+}
+
+/* Right-hand slot (language switcher on pages without a topbar) and the
+   burger: whichever comes first takes the free space. */
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.site-header-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  color: var(--dd-ink);
+  cursor: pointer;
+}
+
+.site-header-burger svg path {
+  fill: currentColor;
+}
+
+.site-header-actions + .site-header-burger {
+  margin-left: 0;
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --dd-site-header-height: 64px;
+  }
+
+  .site-header-inner {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .site-header-logo img {
+    height: 38px;
+  }
+
+  .site-header-burger {
+    display: inline-flex;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--dd-border-strong);
+    box-shadow: var(--dd-shadow);
+    padding: 4px 16px 16px;
+    max-height: calc(100svh - var(--dd-site-header-height));
+    overflow-y: auto;
+  }
+
+  .site-nav-open {
+    display: block;
+  }
+
+  .site-nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-nav-list li {
+    border-bottom: 1px solid var(--dd-border);
+  }
+
+  .site-nav-list a {
+    display: block;
+    padding: 14px 4px;
+  }
+
+  .site-nav-list a::after {
+    display: none;
+  }
+
+  .site-nav-list a.site-nav-current {
+    padding-left: 14px;
+    box-shadow: inset 4px 0 0 var(--dd-accent-vivid);
+  }
+
+  .site-nav-back {
+    margin-left: 0;
+    border-bottom: 0 !important;
+    padding-top: 12px;
+  }
+
+  .site-nav-list .site-nav-back a {
+    display: inline-block;
+    padding: 10px 22px;
+  }
+}
+
+/* ---- Site-style footer (EuFooter) --------------------------------------
+ * Same language as the footer of www.symbaproject.eu: ink background,
+ * three columns (logo + social, EU emblem + acknowledgement, project
+ * information), a bottom strip with copyright and legal links. Dark in
+ * every theme because the EU emblem is the negative (white-lettered)
+ * variant. */
+
+.eu-footer {
+  background: var(--dd-footer-bg);
+  color: var(--dd-footer-text);
+  border-top: 3px solid var(--dd-accent-vivid);
+  font-family: var(--dd-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.eu-footer-inner {
+  max-width: var(--dd-shell-max);
+  margin: 0 auto;
+  padding: 40px 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 32px 48px;
+}
+
+.eu-footer-col {
+  min-width: 0;
+}
+
+.eu-footer-title {
+  font-family: var(--dd-font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 20px 0 10px;
+}
+
+.eu-footer-col > .eu-footer-title:first-child {
+  margin-top: 0;
+}
+
+.eu-footer-logo {
+  display: inline-block;
+  line-height: 0;
+}
+
+.eu-footer-logo img {
+  display: block;
+  height: 45px;
+  width: auto;
+}
+
+.eu-footer-tool {
+  margin: 12px 0 0;
+  color: var(--dd-footer-muted);
+}
+
+.eu-footer-emblem {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 14px;
+}
+
+.eu-footer-statement {
+  margin: 0 0 8px;
+  font-weight: 700;
+  color: #fff;
 }
 
 .eu-footer-disclaimer {
-  margin-top: 6px;
-  font-size: 0.75rem;
-  font-style: italic;
-  color: var(--slate-500);
-  max-width: 920px;
+  margin: 0;
+  color: var(--dd-footer-muted);
+  font-size: 13px;
+  max-width: 62ch;
+}
+
+.eu-footer-ids {
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--dd-font-mono);
+  font-size: 12px;
+  color: var(--dd-footer-muted);
+}
+
+.eu-footer a {
+  color: var(--dd-footer-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(213, 219, 229, 0.4);
+}
+
+.eu-footer a:hover {
+  color: var(--dd-accent-vivid);
+  text-decoration-color: var(--dd-accent-vivid);
+}
+
+.eu-footer a:focus-visible {
+  outline: 2px solid var(--dd-accent-vivid);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.eu-footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eu-footer-social {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.eu-footer-bottom {
+  border-top: 1px solid var(--dd-footer-border);
+}
+
+.eu-footer-bottom-inner {
+  max-width: var(--dd-shell-max);
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  font-size: 13px;
+  color: var(--dd-footer-muted);
+}
+
+.eu-footer-legal {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+@media (max-width: 900px) {
+  .eu-footer-inner {
+    grid-template-columns: 1fr;
+    padding: 28px 16px 20px;
+    gap: 28px;
+  }
+  .eu-footer-bottom-inner {
+    padding: 14px 16px;
+  }
 }
 
 /* SYMBA palette tweaks across existing classes -------------------------- */
@@ -2209,10 +2550,21 @@ kbd {
  * .dcf-* / .stakeholder-* / .aggregate-* classes).
  */
 
+/* Page frame: SiteHeader on top, the app grid, EuFooter at the bottom. */
+.dd-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--dd-bg);
+}
+
 .dd-app {
   display: grid;
   grid-template-columns: var(--dd-sidebar-width) 1fr;
-  min-height: 100svh;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--dd-shell-max);
+  margin: 0 auto;
   background: var(--dd-bg);
   color: var(--dd-text);
   font-family: var(--dd-font-sans);
@@ -2236,8 +2588,8 @@ kbd {
   flex-direction: column;
   gap: 4px;
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--dd-site-header-height);
+  height: calc(100vh - var(--dd-site-header-height));
   overflow-y: auto;
   border-right: 1px solid var(--dd-sidebar-border);
 }
@@ -2251,17 +2603,9 @@ kbd {
   margin-bottom: 16px;
 }
 
-.dd-sidebar-brand-mark {
-  width: 28px;
-  height: 28px;
-  background: var(--dd-accent);
-  color: #fff;
-  border-radius: var(--dd-radius);
-  display: grid;
-  place-items: center;
-  font-family: var(--dd-font-mono);
-  font-weight: 700;
-  font-size: 13px;
+.dd-sidebar-brand-icon {
+  width: 30px;
+  height: 30px;
   flex-shrink: 0;
 }
 
@@ -2377,7 +2721,7 @@ kbd {
   gap: 16px;
   min-height: var(--dd-topbar-height);
   position: sticky;
-  top: 0;
+  top: var(--dd-site-header-height);
   z-index: 10;
 }
 
@@ -3058,30 +3402,32 @@ kbd {
   min-height: 100svh;
   background: var(--dd-bg);
   display: grid;
+  /* minmax(0, 1fr): the track must not grow to the card's min-content, or
+     the card overflows the padding on a phone. */
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   padding: 32px 20px;
   position: relative;
 }
 
 /* The landing renders outside the admin shell, so it carries its own
-   language switcher — it is the first screen a visitor sees. */
-.dd-welcome-lang {
-  position: absolute;
-  top: 20px;
-  right: 24px;
+   SiteHeader (with the language switcher in its actions slot) and footer. */
+.dd-welcome-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  background: var(--dd-bg);
 }
 
-@media (max-width: 640px) {
-  .dd-welcome-lang {
-    position: static;
-    justify-self: end;
-    margin-bottom: 12px;
-  }
+.dd-welcome-page > .dd-welcome {
+  flex: 1 0 auto;
+  min-height: 0;
 }
 
 .dd-welcome-card {
+  box-sizing: border-box; /* width:100% + padding overflowed phones by ~3px */
   width: 100%;
-  max-width: 780px;
+  max-width: 862px; /* the 780px content width + padding it always had */
   background: var(--dd-surface);
   border: 1px solid var(--dd-border);
   border-radius: var(--dd-radius-lg);
@@ -3592,17 +3938,10 @@ kbd {
   color: inherit;
 }
 
-.dd-reader-brand-mark {
+.dd-reader-brand-icon {
   width: 28px;
   height: 28px;
-  background: var(--dd-accent);
-  color: #fff;
-  border-radius: var(--dd-radius);
-  display: grid;
-  place-items: center;
-  font-family: var(--dd-font-mono);
-  font-weight: 700;
-  font-size: 13px;
+  flex-shrink: 0;
 }
 
 .dd-reader-brand-text {
@@ -3653,6 +3992,11 @@ kbd {
   margin: 0;
   color: var(--dd-text-soft);
   line-height: 1.55;
+}
+
+.dd-reader-article a {
+  color: var(--dd-brand);
+  text-underline-offset: 3px;
 }
 
 .dd-reader-eyebrow {

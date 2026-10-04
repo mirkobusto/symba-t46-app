@@ -289,13 +289,13 @@ const es: Locale = {
       help:
         'Añade una fila por cada flujo simbiótico principal y elige su categoría Q5. Obligatorio para Q1 ∈ {A, B, D}; opcional en otros casos.',
       details:
-        'Para cada flujo principal intercambiado entre actores (calor, CO₂, escoria, aguas residuales, hidrógeno…) elige la relación económica: ' +
-        'a — A paga a B para que se lleve el flujo (el flujo es un RESIDUO para A): contrato típico de gestión de residuos. Activa reglas de allocation paradigma-residuo. ' +
-        'b — flujo intercambiado de FORMA GRATUITA (estatus ambiguo): el motor encamina a la cadena de desambiguación free-flow. ' +
-        'c — B paga a A por el flujo (el flujo es un CO-PRODUCTO para A): activa reglas de allocation económica y la ruta PEF Circular Footprint Formula. ' +
-        'd — flujo INTERDEPENDIENTE: ninguna parte podría operar sin la otra; tratado como sistema integrado, a menudo con system expansion. ' +
-        'e — AGREGADO / black-box: el caso publicado no aporta detalle por flujo (típico de papers IES agregados como Sokka 2011). ' +
-        'Para estudios de policy Q1=C, Q5 suele ser opcional.',
+        'Para cada flujo principal intercambiado entre actores (calor, CO₂, escoria, aguas residuales, hidrógeno…) indica quién paga a quién: ' +
+        'a — A paga a B por llevarse el flujo (una tarifa de admisión: valor de mercado negativo, un RESIDUO para A, D4.1 §9.3.2). El cero-carga se aplica desde el punto en que el residuo alcanza por primera vez un valor no negativo, no en la puerta. Pagar no significa inevitable: D4.2 §6.2 exige además la prueba causal de evitabilidad, declarada por flujo en el Data Collection File. ' +
+        'b — flujo intercambiado GRATIS (estado ambiguo): el motor lo encamina a la cadena de desambiguación de flujos gratuitos. ' +
+        'c — B paga a A por el flujo (valor de mercado positivo: un COPRODUCTO para A): sustitución del material virgen desplazado, con una razón corregida por calidad. La Circular Footprint Formula del PEF no depende de Q5: viene de Q4=D. Si ningún tercero pagaría por el flujo (prueba de Freedom-to-Act, D4.1 §9.3.3), el precio es administrativo y el flujo se modela como residuo. ' +
+        'd — flujo INTERDEPENDIENTE: A modificó deliberadamente su proceso (calidad, cantidad, postratamiento) para abastecer a B; un coproducto sea cual sea el precio, nunca cero-carga. ' +
+        'e — AGREGADO / caja negra: la fuente no da detalle por flujo (típico de trabajos agregados como Sokka 2011). Es una limitación de la fuente, no una decisión de modelado: D4.1 §9.3.1 prohíbe una regla única para toda la red, así que el Data Collection File pide igualmente la clasificación de cada flujo que puedas nombrar. ' +
+        'Q5 registra quién paga a quién; las pruebas jurídicas y económicas (Freedom-to-Act, End-of-Waste, clase de subproducto, evitabilidad, punto de cero-carga) se declaran por flujo en la sección Flow classification del Data Collection File. En estudios de política con Q1=C, Q5 suele ser opcional.',
     },
 
     q6a: {

@@ -323,13 +323,13 @@ const it: Locale = {
       help:
         'Aggiungi una riga per ogni flusso simbiotico principale e scegli la categoria Q5. Obbligatorio per Q1 ∈ {A, B, D}; opzionale altrimenti.',
       details:
-        'Per ogni flusso principale scambiato tra attori (calore, CO₂, scoria, acque reflue, idrogeno…) scegli la relazione economica: ' +
-        'a — A paga B per portare via il flusso (il flusso è un RIFIUTO per A): tipico contratto di smaltimento. Attiva regole di allocazione paradigma-rifiuto. ' +
-        'b — flusso scambiato GRATUITAMENTE (status ambiguo): il motore instrada alla catena di disambiguazione free-flow. ' +
-        'c — B paga A per il flusso (il flusso è un CO-PRODOTTO per A): attiva regole di allocazione economica e il path PEF Circular Footprint Formula. ' +
-        'd — flusso INTERDIPENDENTE: nessuna delle due parti potrebbe operare senza l\'altra; trattato come sistema integrato, spesso con system expansion. ' +
-        'e — AGGREGATO / black-box: il caso pubblicato non fornisce dettaglio per-flusso (tipico dei paper IES aggregati come Sokka 2011). ' +
-        'Per studi di policy a livello Q1=C, Q5 è di solito opzionale.',
+        'Per ogni flusso principale scambiato tra attori (calore, CO₂, scorie, acque reflue, idrogeno…) scegli chi paga chi: ' +
+        'a — A paga B per ritirare il flusso (una tariffa di conferimento: valore di mercato negativo, un RIFIUTO per A, D4.1 §9.3.2). Lo zero-burden vale dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, non al cancello. Pagare non significa inevitabile: D4.2 §6.2 richiede anche il test causale di evitabilità, dichiarato per flusso nel Data Collection File. ' +
+        'b — flusso scambiato GRATIS (stato ambiguo): il motore instrada verso la catena di disambiguazione dei flussi gratuiti. ' +
+        'c — B paga A per il flusso (valore di mercato positivo: un CO-PRODOTTO per A): sostituzione del materiale vergine spiazzato, con un rapporto corretto per qualità. La Circular Footprint Formula del PEF non dipende da Q5: viene da Q4=D. Se nessun terzo pagherebbe per il flusso (test di Freedom-to-Act, D4.1 §9.3.3), il prezzo è amministrativo e il flusso è modellato come rifiuto. ' +
+        'd — flusso INTERDIPENDENTE: A ha modificato deliberatamente il proprio processo (qualità, quantità, post-trattamento) per fornire B; un co-prodotto qualunque sia il prezzo, mai zero-burden. ' +
+        'e — AGGREGATO / black-box: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §9.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. ' +
+        'Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.',
     },
 
     q6a: {

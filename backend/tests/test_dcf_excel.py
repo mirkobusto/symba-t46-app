@@ -79,8 +79,8 @@ def test_render_returns_bytes(payload_wiktor):
 def test_workbook_has_expected_tabs(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
-    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Logistics",
-                "Costs & Revenues", "Infrastructure",
+    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Flow Classification",
+                "Logistics", "Costs & Revenues", "Infrastructure",
                 "Methodological Choices", "Network Diagram"]
     assert wb.sheetnames == expected
 
@@ -150,6 +150,14 @@ def test_required_columns_are_starred(payload_wiktor):
     ws = load_workbook(BytesIO(render_xlsx(payload_wiktor)))["Actors"]
     headers = [ws.cell(row=4, column=c).value for c in range(1, 10)]
     assert any(h and h.endswith(" *") for h in headers)
+
+
+def test_flow_classification_tab_has_its_columns_and_dropdowns(payload_wiktor):
+    wb = load_workbook(BytesIO(render_xlsx(payload_wiktor)))
+    ws = wb["Flow Classification"]
+    headers = [c.value for c in ws[4] if c.value]
+    assert any("Freedom-to-Act" in h for h in headers) and any("End-of-Waste" in h for h in headers)
+    assert ws.data_validations.dataValidation, "no dropdown on the Flow Classification tab"
 
 
 def test_enum_columns_get_a_dropdown(payload_wiktor):

@@ -295,13 +295,13 @@ const fr: Locale = {
       help:
         "Ajoutez une ligne par flux symbiotique principal et choisissez sa catégorie Q5. Obligatoire pour Q1 ∈ {A, B, D} ; optionnel sinon.",
       details:
-        "Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), choisissez la relation économique : " +
-        "a — A paie B pour évacuer le flux (le flux est un DÉCHET pour A) : contrat d'élimination typique. Active les règles d'allocation paradigme-déchet. " +
-        "b — flux échangé GRATUITEMENT (statut ambigu) : le moteur route vers la chaîne de désambiguïsation free-flow. " +
-        "c — B paie A pour le flux (le flux est un CO-PRODUIT pour A) : active les règles d'allocation économique et le path PEF Circular Footprint Formula. " +
-        "d — flux INTERDÉPENDANT : aucune des deux parties ne pourrait fonctionner sans l'autre ; traité comme système intégré, souvent avec system expansion. " +
-        "e — AGRÉGÉ / black-box : le cas publié ne donne pas le détail par-flux (typique des papiers IES agrégés comme Sokka 2011). " +
-        "Pour les études de policy Q1=C, Q5 est généralement optionnel.",
+        'Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), indiquez qui paie qui : ' +
+        'a — A paie B pour reprendre le flux (un tarif de prise en charge : valeur de marché négative, un DÉCHET pour A, D4.1 §9.3.2). Le zéro-charge s\'applique à partir du point où le résidu atteint pour la première fois une valeur non négative, pas à la porte. Payer ne veut pas dire inévitable : D4.2 §6.2 exige aussi le test causal d\'évitabilité, déclaré par flux dans le Data Collection File. ' +
+        'b — flux échangé GRATUITEMENT (statut ambigu) : le moteur oriente vers la chaîne de désambiguïsation des flux gratuits. ' +
+        'c — B paie A pour le flux (valeur de marché positive : un CO-PRODUIT pour A) : substitution de la matière vierge déplacée, avec un ratio corrigé de la qualité. La Circular Footprint Formula du PEF n\'est pas liée à Q5 : elle vient de Q4=D. Si aucun tiers ne paierait pour le flux (test de Freedom-to-Act, D4.1 §9.3.3), le prix est administratif et le flux est modélisé comme un déchet. ' +
+        'd — flux INTERDÉPENDANT : A a délibérément modifié son procédé (qualité, quantité, post-traitement) pour fournir B ; un co-produit quel que soit le prix, jamais zéro-charge. ' +
+        'e — AGRÉGÉ / boîte noire : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C\'est une limite de la source, pas un choix de modélisation : D4.1 §9.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. ' +
+        'Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de zéro-charge) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.',
     },
 
     q6a: {

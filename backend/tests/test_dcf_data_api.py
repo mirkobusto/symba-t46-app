@@ -354,3 +354,41 @@ def test_case_export_hidden_from_non_owners(client):
     assert client.get(
         f"/api/dcf/{case_id}/export/xlsx", headers=_auth(bob)
     ).status_code == 200
+
+
+# ---------------------------------------------------------------------------
+# Flow classification (audit I-09): rows per flow, validated like the others
+# ---------------------------------------------------------------------------
+
+
+def _with_classification(case_id: str, **values) -> dict:
+    body = _two_actors_one_flow(case_id)
+    body["rows_by_section"]["flow_classification"] = [
+        {"row_id": "c1", "values": {"classif.flow_id": "f1", **values}}
+    ]
+    return body
+
+
+def test_flow_classification_row_is_stored(client):
+    case_id = _create_case(client)
+    r = client.put(f"/api/dcf/{case_id}/data",
+                   json=_with_classification(case_id, **{"classif.eow_status": "achieved"}))
+    assert r.status_code == 200, r.text
+    assert r.json()["validation"]["errors"] == []
+    stored = client.get(f"/api/dcf/{case_id}/data").json()["data"]["rows_by_section"]
+    assert stored["flow_classification"][0]["values"]["classif.eow_status"] == "achieved"
+
+
+def test_flow_classification_rejects_a_value_outside_the_enum(client):
+    case_id = _create_case(client)
+    data = _with_classification(case_id, **{"classif.eow_status": "maybe"})
+    assert _put_expect_422(client, case_id, data)[0]["code"] == "invalid_enum"
+
+
+def test_flow_classification_rejects_an_unknown_flow(client):
+    case_id = _create_case(client)
+    body = _two_actors_one_flow(case_id)
+    body["rows_by_section"]["flow_classification"] = [
+        {"row_id": "c1", "values": {"classif.flow_id": "nope"}}
+    ]
+    assert _put_expect_422(client, case_id, body)[0]["code"] == "broken_reference"

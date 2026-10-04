@@ -93,7 +93,7 @@ Cronologia sintetica (tutto su `main`):
 - `backend/app/schemas/system_fields.json` — 16 system fields
 - `backend/app/schemas/computed_fields.json` — 12 computed fields
 - `backend/app/schemas/cir_output_fields.json` — 20 cir_output fields
-- `backend/app/schemas/dcf_schema.json` — namespace DCF separato (7 sezioni dopo l'aggiunta di `costs` il 2026-08-30, approvata)
+- `backend/app/schemas/dcf_schema.json` — namespace DCF separato (8 sezioni: `costs` aggiunta il 2026-08-30, `flow_classification` il 2026-10-04, entrambe approvate)
 
 I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 - 95 nodi FIELDED + 91 procedural_mandate = 186 (erano 96 + 90 fino al 2026-10-04: `lcc_hc_06` è diventato un puro mandato, vedi audit I-08)
@@ -202,6 +202,7 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 - Tabelle DB legacy (`Session`, `Answer`, `PathwayResolutionRecord`) ancora registrate in `app/models/` ma senza endpoint che le usano. Da decidere se droppare in migrazione futura.
 - **I nodi di un metodo spento non si attivano** (fix 2026-08-30): `lcc_trig_01` dichiara "q3.eco=false → all LCC nodes deactivated" e `slca_t_01` l'analogo per il sociale, ma l'engine attivava comunque tutti i 61 nodi LCC e 66 SLCA. Ora `activate._method_is_off` salta il metodo e `_write` scarta le scritture nei pilastri spenti (coprendo anche le azioni CIR dell'L2). Conseguenza: il numero di nodi attivati e i mandati del DCF **dipendono da Q3** — l'invariante "almeno 116 nodi DEFAULT" non vale più ed è stato sostituito nei test da asserzioni method-aware.
 - **Le 40 regole L2 sono presentate come obblighi metodologici da documentare, non come errori** (decisione 2026-08-30). `case.applicable_rules` è emesso sul *trigger* ed è ciò che app e report mostrano; `case.rule_violations` (assertion fallita) resta per i validation report ma non è affidabile: le assertion confrontano valori che l'engine scrive come prosa (`lca.transport.foreground` = `'explicit'`, mai il booleano testato), quindi B-05 scattava sul 100% dei casi con Q7∈{B,C,D} e IR-01 su ogni caso con ≥2 dimensioni. Renderle controlli veri richiede un posto dove l'analista dichiari quelle scelte — non esiste oggi.
+- **Flow classification è solo nel DCF** (audit I-09, 2026-10-04): i test giuridici ed economici per flusso (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) sono campi della sezione `flow_classification`, giudizi dell'analista. La pipeline non legge i dati del DCF, quindi nessun nodo li consuma e IR-15/CDP-05 restano non verificati. Per Q5=e l'esenzione di `lcc_hc_12` è sovrascritta da `lcc_hc_13` (scrittore successivo, ramo `default`): resta solo in `activated_nodes`.
 - 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
 - Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
 - Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).

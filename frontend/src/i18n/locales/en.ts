@@ -344,13 +344,13 @@ const en = {
       help:
         'Add one row per main symbiotic flow and pick its Q5 category. Mandatory for Q1 ∈ {A, B, D}; optional otherwise.',
       details:
-        'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick the economic relationship: ' +
-        'a — A pays B to take the flow (the flow is a WASTE for A): typical waste-disposal contract. Triggers waste-paradigm allocation rules. ' +
+        'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick who pays whom: ' +
+        'a — A pays B to take the flow (a gate fee: negative market value, a WASTE for A, D4.1 §9.3.2). Zero-burden applies from the point where the residue first reaches non-negative value, not at the gate. Paying is not the same as unavoidable: D4.2 §6.2 also requires the causal avoidability test, declared per flow in the Data Collection File. ' +
         'b — flow exchanged for FREE (ambiguous status): the engine routes to the free-flow disambiguation chain. ' +
-        'c — B pays A for the flow (the flow is a CO-PRODUCT for A): triggers economic-allocation rules and the PEF Circular Footprint Formula path. ' +
-        'd — INTERDEPENDENT flow: neither side could operate without the other; treated as an integrated system, often with system expansion. ' +
-        'e — AGGREGATED / black-box: the published case does not give per-flow detail (typical of aggregate IES papers like Sokka 2011). ' +
-        'For policy-level Q1=C studies, Q5 is usually optional.',
+        'c — B pays A for the flow (positive market value: a CO-PRODUCT for A): substitution against the displaced virgin material, with a quality-corrected ratio. The PEF Circular Footprint Formula is not tied to Q5: it comes from Q4=D. If no third party would pay for the flow (Freedom-to-Act test, D4.1 §9.3.3), the price is administrative and the flow is modeled as waste. ' +
+        'd — INTERDEPENDENT flow: A deliberately altered its process (quality, quantity, post-treatment) to supply B; a co-product whatever the price, never zero-burden. ' +
+        'e — AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §9.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
+        'Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.',
     },
 
     q6a: {

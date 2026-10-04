@@ -53,11 +53,12 @@ _LABEL_FONT = Font(bold=True)
 _FOOTER_FONT = Font(size=8, italic=True, color="888888")
 
 _DATA_SECTION_ORDER = [
-    "actors", "flow_matrix", "logistics", "costs", "infrastructure",
+    "actors", "flow_matrix", "flow_classification", "logistics", "costs", "infrastructure",
 ]
 _SHEET_NAMES = {
     "actors": "Actors",
     "flow_matrix": "Flow Matrix",
+    "flow_classification": "Flow Classification",
     "logistics": "Logistics",
     "costs": "Costs & Revenues",
     "infrastructure": "Infrastructure",

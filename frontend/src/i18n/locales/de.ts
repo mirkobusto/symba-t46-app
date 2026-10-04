@@ -289,13 +289,13 @@ const de: Locale = {
       help:
         'Fügen Sie eine Zeile pro symbiotischem Hauptfluss hinzu und wählen Sie dessen Q5-Kategorie. Pflicht für Q1 ∈ {A, B, D}; sonst optional.',
       details:
-        'Wählen Sie für jeden Hauptfluss zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…) die ökonomische Beziehung: ' +
-        'a — A zahlt B, um den Fluss abzunehmen (Fluss ist ABFALL für A): typischer Entsorgungsvertrag. Aktiviert Allokationsregeln im Abfall-Paradigma. ' +
-        'b — Fluss KOSTENFREI ausgetauscht (mehrdeutiger Status): Engine routet zur Free-Flow-Disambiguierungskette. ' +
-        'c — B zahlt A für den Fluss (Fluss ist CO-PRODUKT für A): aktiviert ökonomische Allokationsregeln und den PEF Circular Footprint Formula Pfad. ' +
-        'd — INTERDEPENDENTER Fluss: keine Seite könnte ohne die andere arbeiten; als integriertes System behandelt, oft mit System Expansion. ' +
-        'e — AGGREGIERT / Black-box: der veröffentlichte Fall liefert keine Pro-Fluss-Details (typisch für aggregierte IES-Papers wie Sokka 2011). ' +
-        'Für Policy-Studien Q1=C ist Q5 üblicherweise optional.',
+        'Wählen Sie für jeden Hauptstrom zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…), wer wen bezahlt: ' +
+        'a — A zahlt B für die Abnahme des Stroms (eine Annahmegebühr: negativer Marktwert, ein ABFALL für A, D4.1 §9.3.2). Zero-Burden gilt ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Strom im Data Collection File erklärt. ' +
+        'b — Strom wird KOSTENLOS abgegeben (unklarer Status): Die Engine leitet in die Klärungskette für kostenlose Ströme. ' +
+        'c — B zahlt A für den Strom (positiver Marktwert: ein KOPPELPRODUKT für A): Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Strom zahlen (Freedom-to-Act-Test, D4.1 §9.3.3), ist der Preis administrativ und der Strom wird als Abfall modelliert. ' +
+        'd — INTERDEPENDENTER Strom: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
+        'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Strom (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Stroms trotzdem ab. ' +
+        'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Strom im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
     },
 
     q6a: {

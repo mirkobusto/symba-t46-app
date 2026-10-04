@@ -131,9 +131,36 @@ def test_all_sections_present_in_spec_order(case_wiktor, dcf_schema, mandates_ce
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     section_ids = [s.id for s in payload.sections]
     assert section_ids == [
-        "actors", "flow_matrix", "logistics", "costs", "infrastructure",
-        "methodological_choices", "network_diagram",
+        "actors", "flow_matrix", "flow_classification", "logistics", "costs",
+        "infrastructure", "methodological_choices", "network_diagram",
     ]
+
+
+def test_flow_classification_follows_the_dimensions_not_q5(
+        case_wiktor, case_arce, dcf_schema, mandates_census):
+    """Audit I-09: the legal and economic tests are the analyst's judgements for
+    every flow; only the dimension decides which of them apply (the DCF predicates
+    cannot read Q5 anyway)."""
+    def ids(case):
+        sec = next(s for s in compose_dcf(case, dcf_schema, mandates_census).sections
+                   if s.id == "flow_classification")
+        return sec.active, {f.id for f in sec.fields}
+    w_active, wiktor = ids(case_wiktor)          # ENV + ECO
+    a_active, arce = ids(case_arce)              # ENV only
+    assert w_active and a_active
+    assert {"classif.flow_id", "classif.independent_market", "classif.legal_class",
+            "classif.eow_status", "classif.edge_case", "classif.evidence"} <= arce
+    assert "classif.avoidable" in wiktor and "classif.avoidable" not in arce       # q3.eco
+    assert "classif.zero_burden_point" in wiktor and "classif.zero_burden_point" in arce  # q3.env
+
+
+def test_flow_classification_is_off_for_a_social_only_case(schemas, dcf_schema, mandates_census):
+    case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(soc=True), q4={Q4.E}, q6a=Q6a.PLASTICS_PACKAGING,
+                q6b=Q6b.TRL9, q7=Q7.A, flows=_flows(Q5.a))
+    pipeline_run(case, schemas)
+    sec = next(s for s in compose_dcf(case, dcf_schema, mandates_census).sections
+               if s.id == "flow_classification")
+    assert sec.active is False
 
 
 def test_data_sections_have_active_fields(case_wiktor, dcf_schema, mandates_census):

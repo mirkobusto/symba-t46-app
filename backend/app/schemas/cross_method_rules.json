@@ -34,7 +34,7 @@
       "lifecycle_layer": "L1",
       "trigger_condition_raw": "Q1=D (corporate ESG, ILCD C2) AND lcc_type includes E-LCC",
       "trigger_condition": "case.q1 == 'D' AND lcc_type IN ['E-LCC', 'C+E', 'C+E+S']",
-      "user_message": "Corporate accounting (Q1=D) requires allocation-based LCC. Combination with E-LCC (system expansion) is forbidden by ILCD framework. Either change Q1 to A/B/C/E, or drop E-LCC from your LCC type.",
+      "user_message": "Corporate reporting (Q1=D) is costed at company level only (C-LCC) in this tool, so network-level E-LCC cannot be combined with it. This is a T4.6 design choice: D4.2 ties the LCC type to the study's purpose, not to Q1. To cost the network, use Q1=A/B/C/E.",
       "action_on_violation": "STOP"
     },
     {

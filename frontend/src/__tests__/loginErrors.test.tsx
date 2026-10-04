@@ -59,6 +59,14 @@ describe('LoginPage refusals', () => {
     expect(await screen.findByText('Wrong email or password.')).toBeInTheDocument()
   })
 
+  it('drops the message when the visitor switches tab', async () => {
+    refuseWith(401, 'Invalid credentials')
+    await submit('Sign in')
+    expect(await screen.findByText('Wrong email or password.')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('tab', { name: 'Create account' }))
+    expect(screen.queryByText('Wrong email or password.')).toBeNull()
+  })
+
   it('translates with the interface language', async () => {
     await i18n.changeLanguage('it')
     refuseWith(403, 'Registration is closed')

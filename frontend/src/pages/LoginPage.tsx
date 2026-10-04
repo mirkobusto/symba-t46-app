@@ -62,7 +62,7 @@ export default function LoginPage() {
           role="tab"
           aria-selected={tab === 'login'}
           className={`auth-tab ${tab === 'login' ? 'auth-tab-active' : ''}`}
-          onClick={() => setTab('login')}
+          onClick={() => { setTab('login'); setError(null) }}
         >
           {t('auth.tabLogin')}
         </button>
@@ -71,7 +71,7 @@ export default function LoginPage() {
           role="tab"
           aria-selected={tab === 'register'}
           className={`auth-tab ${tab === 'register' ? 'auth-tab-active' : ''}`}
-          onClick={() => setTab('register')}
+          onClick={() => { setTab('register'); setError(null) }}
         >
           {t('auth.tabRegister')}
         </button>

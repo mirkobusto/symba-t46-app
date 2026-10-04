@@ -792,8 +792,8 @@ const fr: Locale = {
     logout: 'Se déconnecter',
     errors: {
       registrationClosed: 'L\'inscription est fermée sur cette instance. Demandez un compte à l\'administrateur.',
-      emailTaken: 'Un compte existe déjà avec cette adresse e-mail. Essayez de vous connecter.',
-      invalidCredentials: 'E-mail ou mot de passe incorrect.',
+      emailTaken: 'Un compte existe déjà avec cet email. Essayez de vous connecter.',
+      invalidCredentials: 'Email ou mot de passe incorrect.',
     },
   },
 

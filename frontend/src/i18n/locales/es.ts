@@ -785,9 +785,9 @@ const es: Locale = {
     signIn: 'Iniciar sesión',
     logout: 'Cerrar sesión',
     errors: {
-      registrationClosed: 'El registro está cerrado en esta instancia. Pida una cuenta al administrador.',
-      emailTaken: 'Ya existe una cuenta con este correo electrónico. Intente iniciar sesión.',
-      invalidCredentials: 'Correo electrónico o contraseña incorrectos.',
+      registrationClosed: 'El registro está cerrado en esta instancia. Pide una cuenta al administrador.',
+      emailTaken: 'Ya existe una cuenta con este email. Intenta iniciar sesión.',
+      invalidCredentials: 'Email o contraseña incorrectos.',
     },
   },
 

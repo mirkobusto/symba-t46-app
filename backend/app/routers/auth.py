@@ -15,6 +15,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as OrmSession
 
 from app.auth import create_access_token, hash_password, verify_password
@@ -62,6 +63,14 @@ def _to_public(user: User) -> UserPublic:
     )
 
 
+def _find_user_by_email(db: OrmSession, email: str) -> User | None:
+    return db.execute(select(User).where(User.email == email)).scalar_one_or_none()
+
+
+def _already_registered(email: str) -> HTTPException:
+    return HTTPException(status_code=400, detail=f"Email {email!r} already registered")
+
+
 def _registration_closed() -> bool:
     return (os.environ.get("SYMBA_REGISTRATION_OPEN") or "true").strip().lower() in {"false", "0", "no"}
 
@@ -97,14 +106,8 @@ def register(
         (admin_email and email == admin_email) or (not admin_email and no_users_yet)
     ):
         raise HTTPException(status_code=403, detail="Registration is closed")
-    existing = db.execute(
-        select(User).where(User.email == payload.email.lower())
-    ).scalar_one_or_none()
-    if existing is not None:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Email {payload.email!r} already registered",
-        )
+    if _find_user_by_email(db, email) is not None:
+        raise _already_registered(payload.email)
 
     is_admin = (email == admin_email) if admin_email else no_users_yet
     user = User(
@@ -113,7 +116,13 @@ def register(
         role="admin" if is_admin else "analyst",
     )
     db.add(user)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Two requests for the same address passed the check above at once: the unique index
+        # lets one in and refuses the other, which is the same answer as a plain duplicate.
+        db.rollback()
+        raise _already_registered(payload.email) from None
     db.refresh(user)
 
     token = create_access_token(sub=user.id, email=user.email, role=user.role)

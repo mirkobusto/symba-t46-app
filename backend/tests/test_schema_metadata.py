@@ -1,6 +1,8 @@
 """Metadata guards on phase1_nodes.json (not behaviour)."""
 from __future__ import annotations
 
+import re
+
 
 def test_renumbered_source_sections_keep_the_old_reference(schemas):
     """Audit I-15: 63 nodes (56 LCA, 7 LCC) were renumbered to the REVISED
@@ -10,4 +12,5 @@ def test_renumbered_source_sections_keep_the_old_reference(schemas):
     assert len(renumbered) == 63
     for n in renumbered:
         assert n["source_section"].split(" §")[0] in {"D4.1", "D4.2"}
-        assert f"cited {n['source_section']}" not in n["extraction_notes"]   # the old one, not the new
+        old = re.search(r"cited (.+?)\);", n["extraction_notes"]).group(1)
+        assert old != n["source_section"]   # the note holds the number it had, not the new one

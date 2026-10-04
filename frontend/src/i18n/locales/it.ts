@@ -402,6 +402,17 @@ const it: Locale = {
       placeholder: 'es. 20',
       unit: 'anni',
     },
+    q9: {
+      title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
+      help: 'Facoltativa. Se non rispondi, il motore la deduce da Q1.',
+      details: 'La Tabella 1 di D4.1 classifica lo studio in base al fatto che si prenda una decisione e alla scala delle sue conseguenze, non in base al soggetto. Q1 è solo un surrogato (A/B → conseguenze limitate, C → strutturali, D/E → nessuna decisione). Rispondi quando il surrogato è sbagliato. “Nessuna decisione” richiede una rete esistente (Q2 = A o B). Con Q1 = D resta la situazione ILCD C2 qualunque sia la risposta (scelta di progetto T4.6).',
+      options: {
+        unset: 'Non risposta (dedotta da Q1)',
+        none: 'Nessuna decisione — lo studio documenta una rete esistente (situazione ILCD C)',
+        micro: 'Sì, con conseguenze limitate: nessun cambiamento della capacità installata né dei prezzi nell\'economia più ampia (situazione A)',
+        structural: 'Sì, con conseguenze su larga scala: sposta circa l\'1% o più delle nuove costruzioni annuali nel mercato interessato (situazione B; la prova va documentata)',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Scenari alternativi',

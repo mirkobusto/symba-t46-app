@@ -17,6 +17,7 @@ from app.domain.enums import Q1, Q2, Q5, Q7, Q6a, Q6b
 from app.engine.branch_keys import (
     Answers,
     BranchKeyError,
+    IlcdCode,
     parse_branch_key,
     pick_branch,
 )
@@ -25,7 +26,7 @@ from app.engine.loader import SCHEMA_DIR, SchemaLoadError, load_schemas
 
 def _answers(**kw) -> Answers:
     base = dict(q1=None, q2=None, q4=frozenset(), q5=None, q6a=None, q6b=None,
-                q7=None, env=False, eco=False, soc=False)
+                q7=None, ilcd=None, env=False, eco=False, soc=False)
     base.update(kw)
     return Answers(**base)
 
@@ -195,6 +196,7 @@ _DOMAINS = {
     "q6a": [{"q6a": v.value} for v in Q6a],
     "q6b": [{"q6b": v.value} for v in Q6b],
     "q7": [{"q7": v.value} for v in Q7],
+    "ilcd": [{"ilcd": v.value} for v in IlcdCode],
     "q3": [dict(zip(("env", "eco", "soc"), t, strict=True))
            for t in itertools.product([False, True], repeat=3)],
 }

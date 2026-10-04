@@ -221,3 +221,33 @@ def test_pipeline_run_q8_negative_is_rejected(client):
         "q1": "A", "q2": "A", "q3": {"env": True}, "asset_lifetime_years": -3,
     })
     assert resp.status_code == 422
+
+
+def test_pipeline_run_q9_structural_decision_moves_the_situation_and_the_framework(client):
+    base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": False, "soc": False}}
+    plain = client.post("/api/pipeline/run", json=base).json()
+    scaled = client.post("/api/pipeline/run", json={**base, "decision_context": "structural"}).json()
+    assert plain["ilcd_situation"] == "ILCD Situation A" and plain["warnings"] == []
+    assert scaled["decision_context"] == "structural"
+    assert scaled["ilcd_situation"] == "ILCD Situation B"
+    assert scaled["lca"]["modeling_framework"] == "consequential"
+
+
+def test_pipeline_run_q9_null_is_identical_to_absent(client):
+    base = {"q1": "C", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    absent = client.post("/api/pipeline/run", json=base).json()
+    null = client.post("/api/pipeline/run", json={**base, "decision_context": None}).json()
+    absent.pop("id"), null.pop("id")
+    assert absent == null
+
+
+def test_pipeline_run_q9_contradiction_comes_back_as_a_note_not_an_error(client):
+    resp = client.post("/api/pipeline/run", json={
+        "q1": "E", "q2": "A", "q3": {"env": True}, "decision_context": "micro"})
+    assert resp.status_code == 200
+    assert [w["code"] for w in resp.json()["warnings"]] == ["decision_scale_vs_q1"]
+
+
+def test_pipeline_run_q9_unknown_value_is_rejected(client):
+    resp = client.post("/api/pipeline/run", json={"q1": "A", "q3": {"env": True}, "decision_context": "huge"})
+    assert resp.status_code == 422

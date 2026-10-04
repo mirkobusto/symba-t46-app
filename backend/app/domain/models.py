@@ -27,6 +27,7 @@ from app.domain.enums import (
     Q4,
     Q5,
     Q7,
+    DecisionContext,
     IlcdSituation,
     LccType,
     PathwayId,
@@ -142,6 +143,10 @@ class Case(BaseModel):
     # `asset_lifetime`. Above 15 years it activates the future-background nodes
     # (lca_mc_21, lcc_hc_23) and rule CIR-01.
     asset_lifetime_years: float | None = Field(default=None, ge=0, le=500)
+    # Q9 (optional) — decision supported and scale of its consequences (D4.1
+    # Table 1). None = not answered: the ILCD situation is inferred from Q1,
+    # exactly as before Q9 existed.
+    decision_context: DecisionContext | None = None
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)

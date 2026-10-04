@@ -255,7 +255,7 @@
           "label_en": "Marginal market reference (consequential)",
           "type": "string_docref",
           "required": false,
-          "activation_predicate": "q1 == \"C\""
+          "activation_predicate": "ilcd_situation == \"ILCD Situation B\""
         },
         {
           "id": "flow.scenario_assumptions",

@@ -659,3 +659,50 @@ def test_full_activation_count_for_complete_case(schemas):
     assert "lca_t1" not in case.activated_nodes
     assert "lcc_trig_01" not in case.activated_nodes
     assert "slca_t_01" not in case.activated_nodes
+
+
+# ---------------------------------------------------------------------------
+# Q9 — the nodes that read the situation follow the derived situation
+# ---------------------------------------------------------------------------
+
+
+def _q9_case(schemas, q1, decision, q2=Q2.A):
+    from app.domain.enums import DecisionContext
+    case = _baseline_case(q1=q1, q2=q2, decision_context=DecisionContext(decision) if decision else None)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def test_q9_structural_decision_makes_the_framework_consequential(schemas):
+    """Q1=A is Situation A (attributional) until Q9 says the consequences are
+    structural: then every node that reads the situation moves together, not
+    only the label."""
+    before = _q9_case(schemas, Q1.A, None)
+    after = _q9_case(schemas, Q1.A, "structural")
+    assert before.lca["modeling_framework"] == "attributional"
+    assert after.lca["modeling_framework"] == "consequential"
+    assert after.lca["allocation_method"] == "consequential expansion"
+    assert after.lca["reference_scenario.content"] == "marginal technology mix (market analysis)"
+    assert after.lca["ilcd_situation"] == "ILCD B"
+
+
+def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(schemas):
+    case = _q9_case(schemas, Q1.C, "none")
+    assert case.lca["modeling_framework"] == "attributional"
+    assert case.lca["allocation_method"] == "system expansion"
+    assert "lca_mc_27" not in case.activated_nodes   # no reference scenario for a documented network
+
+
+def test_q9_unanswered_keeps_every_q1_result(schemas):
+    expected = {
+        Q1.A: ("attributional", "system expansion", "ILCD A"),
+        Q1.B: ("attributional", "system expansion", "ILCD A (multi-actor)"),
+        Q1.C: ("consequential", "consequential expansion", "ILCD B"),
+        Q1.D: ("attributional", "allocation", "ILCD C2"),
+        Q1.E: ("attributional", "system expansion", "ILCD C1"),
+    }
+    for q1, (framework, allocation, ilcd) in expected.items():
+        case = _q9_case(schemas, q1, None)
+        assert (case.lca["modeling_framework"], case.lca["allocation_method"], case.lca["ilcd_situation"]) == (
+            framework, allocation, ilcd)

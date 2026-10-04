@@ -428,18 +428,18 @@
       "source_section": "D4.1 §3.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q1"
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.ilcd_situation",
       "field_status": null,
       "default_value": {
-        "q1=A": "ILCD A",
-        "q1=B": "ILCD A (multi-actor)",
-        "q1=C": "ILCD B",
-        "q1=D": "ILCD C2",
-        "q1=E": "ILCD C1"
+        "ilcd=A": "ILCD A",
+        "ilcd=A-multi": "ILCD A (multi-actor)",
+        "ilcd=B": "ILCD B",
+        "ilcd=C2": "ILCD C2",
+        "ilcd=C1": "ILCD C1"
       },
       "override_path": "q1",
       "lifecycle_layer": "L2",
@@ -452,18 +452,18 @@
       "source_section": "D4.1 §3.2",
       "category": "DERIVED",
       "trigger_q": [
-        "q1"
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.modeling_framework",
       "field_status": null,
       "default_value": {
-        "q1=A": "attributional",
-        "q1=B": "attributional",
-        "q1=C": "consequential",
-        "q1=D": "attributional",
-        "q1=E": "attributional"
+        "ilcd=A": "attributional",
+        "ilcd=A-multi": "attributional",
+        "ilcd=B": "consequential",
+        "ilcd=C2": "attributional",
+        "ilcd=C1": "attributional"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2"
@@ -561,16 +561,16 @@
       "source_section": "D4.1 §5.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q1"
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
-        "q1 in {A,B,E}": "Step1 sub-process > Step2 system expansion",
-        "q1=C": "consequential expansion",
-        "q1=D": "Step3 allocation"
+        "ilcd in {A,A-multi,C1}": "Step1 sub-process > Step2 system expansion",
+        "ilcd=B": "consequential expansion",
+        "ilcd=C2": "Step3 allocation"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2"
@@ -632,16 +632,16 @@
       "source_section": "D4.1 §3.2",
       "category": "DERIVED",
       "trigger_q": [
-        "q1"
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
-        "q1 in {A,B,E}": "system expansion",
-        "q1=C": "consequential expansion",
-        "q1=D": "allocation"
+        "ilcd in {A,A-multi,C1}": "system expansion",
+        "ilcd=B": "consequential expansion",
+        "ilcd=C2": "allocation"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2"
@@ -906,7 +906,7 @@
       "source_section": "D4.1 §5.6",
       "category": "DERIVED",
       "trigger_q": [
-        "q1",
+        "ilcd",
         "q2"
       ],
       "trigger_logic": "discriminative",
@@ -914,9 +914,9 @@
       "field": "lca.reference_scenario.content",
       "field_status": null,
       "default_value": {
-        "q1=A": "alt disposal+virgin market",
-        "q1=B": "hypothetical no-IS",
-        "q1=C": "marginal technology mix (market analysis)"
+        "ilcd=A": "alt disposal+virgin market",
+        "ilcd=A-multi": "hypothetical no-IS",
+        "ilcd=B": "marginal technology mix (market analysis)"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2"

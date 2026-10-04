@@ -368,6 +368,17 @@ const de: Locale = {
       placeholder: 'z. B. 20',
       unit: 'Jahre',
     },
+    q9: {
+      title: 'Q9 — Unterstützt die Studie eine Entscheidung, und in welchem Maßstab?',
+      help: 'Optional. Ohne Antwort leitet die Engine sie aus Q1 ab.',
+      details: 'Tabelle 1 in D4.1 klassifiziert die Studie danach, ob eine Entscheidung getroffen wird und wie groß ihre Folgen sind, nicht nach ihrem Gegenstand. Q1 ist nur ein Stellvertreter (A/B → begrenzte Folgen, C → strukturelle, D/E → keine Entscheidung). Antworten Sie, wenn der Stellvertreter falsch liegt. „Keine Entscheidung“ setzt ein bestehendes Netzwerk voraus (Q2 = A oder B). Bei Q1 = D bleibt es unabhängig von der Antwort bei ILCD-Situation C2 (T4.6-Designentscheidung).',
+      options: {
+        unset: 'Nicht beantwortet (aus Q1 abgeleitet)',
+        none: 'Keine Entscheidung — die Studie dokumentiert ein bestehendes Netzwerk (ILCD-Situation C)',
+        micro: 'Ja, mit begrenzten Folgen: keine Änderung der installierten Kapazität oder der Preise in der Gesamtwirtschaft (Situation A)',
+        structural: 'Ja, mit Folgen in großem Maßstab: verdrängt etwa 1 % oder mehr des jährlichen Neubaus im betroffenen Markt (Situation B; der Nachweis ist zu dokumentieren)',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Alternative Szenarien',

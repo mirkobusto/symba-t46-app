@@ -368,6 +368,17 @@ const es: Locale = {
       placeholder: 'p. ej. 20',
       unit: 'años',
     },
+    q9: {
+      title: 'Q9 — ¿El estudio respalda una decisión, y a qué escala?',
+      help: 'Opcional. Sin respuesta, el motor la deduce de Q1.',
+      details: 'La Tabla 1 de D4.1 clasifica el estudio según se tome una decisión y la escala de sus consecuencias, no según su objeto. Q1 es solo un sustituto (A/B → consecuencias limitadas, C → estructurales, D/E → ninguna decisión). Responde cuando el sustituto sea erróneo. «Ninguna decisión» requiere una red existente (Q2 = A o B). Con Q1 = D la situación ILCD sigue siendo C2 respondas lo que respondas (decisión de diseño T4.6).',
+      options: {
+        unset: 'Sin respuesta (deducida de Q1)',
+        none: 'Ninguna decisión — el estudio documenta una red existente (situación ILCD C)',
+        micro: 'Sí, con consecuencias limitadas: sin cambio en la capacidad instalada ni en los precios de la economía en general (situación A)',
+        structural: 'Sí, con consecuencias a gran escala: desplaza alrededor del 1 % o más de la construcción nueva anual del mercado afectado (situación B; la prueba debe documentarse)',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Escenarios alternativos',

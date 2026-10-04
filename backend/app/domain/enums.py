@@ -117,6 +117,20 @@ class Q7(StrEnum):
 # =============================================================================
 
 
+class DecisionContext(StrEnum):
+    """Q9 (optional) — does the study support a decision, and at what scale?
+
+    D4.1 Table 1 derives the ILCD situation from this, not from the subject
+    of the study: NONE documents an existing network (Situation C), MICRO
+    supports a decision with limited consequences (A), STRUCTURAL one with
+    large-scale consequences (B).
+    """
+
+    NONE = "none"
+    MICRO = "micro"
+    STRUCTURAL = "structural"
+
+
 class IlcdSituation(StrEnum):
     """Set by lca_t1 (and co-asserted by lca_mc_01).
 

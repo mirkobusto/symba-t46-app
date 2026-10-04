@@ -374,6 +374,17 @@ const fr: Locale = {
       placeholder: 'p. ex. 20',
       unit: 'ans',
     },
+    q9: {
+      title: 'Q9 — L\'étude soutient-elle une décision, et à quelle échelle ?',
+      help: 'Facultative. Sans réponse, le moteur la déduit de Q1.',
+      details: 'Le Tableau 1 de D4.1 classe l\'étude selon qu\'une décision est prise et selon l\'échelle de ses conséquences, non selon son sujet. Q1 n\'est qu\'un substitut (A/B → conséquences limitées, C → structurelles, D/E → aucune décision). Répondez lorsque le substitut est faux. « Aucune décision » suppose un réseau existant (Q2 = A ou B). Avec Q1 = D la situation ILCD reste C2 quelle que soit la réponse (choix de conception T4.6).',
+      options: {
+        unset: 'Sans réponse (déduite de Q1)',
+        none: 'Aucune décision — l\'étude documente un réseau existant (situation ILCD C)',
+        micro: 'Oui, à conséquences limitées : pas de changement de la capacité installée ni des prix dans l\'économie au sens large (situation A)',
+        structural: 'Oui, à conséquences à grande échelle : déplace environ 1 % ou plus des constructions annuelles du marché concerné (situation B ; la preuve doit être documentée)',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Scénarios alternatifs',

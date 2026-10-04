@@ -143,6 +143,8 @@ export interface ApplicableRule {
   source_nodes?: string[]
 }
 
+export type DecisionContext = 'none' | 'micro' | 'structural'
+
 /** A note on the user's answers; informational, never blocks the run. */
 export interface CaseWarning {
   code: string
@@ -177,6 +179,9 @@ export interface Case {
   // Optional Q8: expected technical lifetime of the main assets, in years.
   // null/absent = not answered (the engine falls back to advanced.asset_lifetime).
   asset_lifetime_years?: number | null
+  // Optional Q9: does the study support a decision, and at what scale
+  // (D4.1 Table 1). null/absent = the engine infers the ILCD situation from Q1.
+  decision_context?: DecisionContext | null
 
   flows?: Flow[]
   sites?: Site[]

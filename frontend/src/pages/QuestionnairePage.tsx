@@ -20,6 +20,7 @@ import type {
   Q6a,
   Q6b,
   Q7,
+  DecisionContext,
 } from '../types/api'
 
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
@@ -45,6 +46,7 @@ const Q6A_KEYS: Q6a[] = [
 ]
 const Q6B_KEYS: Q6b[] = ['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5']
 const Q7_KEYS: Q7[] = ['A', 'B', 'C', 'D']
+const DECISION_KEYS: DecisionContext[] = ['none', 'micro', 'structural']
 
 const Q4_WARN_KEYS: Partial<Record<Q4, string>> = {
   C: 'questionnaire.q4.options.C.warn',
@@ -80,6 +82,9 @@ export default function QuestionnairePage() {
   const [q6a, setQ6a] = useState<Q6a | undefined>(draft.q6a ?? undefined)
   const [q6b, setQ6b] = useState<Q6b | undefined>(draft.q6b ?? undefined)
   const [q7, setQ7] = useState<Q7 | undefined>(draft.q7 ?? undefined)
+  const [decisionContext, setDecisionContext] = useState<DecisionContext | ''>(
+    draft.decision_context ?? '',
+  )
   const [assetLifetime, setAssetLifetime] = useState<string>(
     draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
   )
@@ -103,6 +108,7 @@ export default function QuestionnairePage() {
     setAssetLifetime(
       draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
     )
+    setDecisionContext(draft.decision_context ?? '')
     setAdvanced(draft.advanced ?? {})
   }, [draft])
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -127,7 +133,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, assetLifetime, advanced])
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, assetLifetime, decisionContext, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -139,6 +145,7 @@ export default function QuestionnairePage() {
       alternative_scenarios: q2 === 'D' ? scenarios : [],
       q6a, q6b, q7,
       asset_lifetime_years: parseYears(assetLifetime),
+      decision_context: decisionContext || null,
       advanced,
     })
     const result = await runDraft()
@@ -153,6 +160,7 @@ export default function QuestionnairePage() {
       setQ4(new Set()); setFlows([]); setScenarios([])
       setQ6a(undefined); setQ6b(undefined); setQ7(undefined)
       setAssetLifetime('')
+      setDecisionContext('')
       setAdvanced({})
     }
   }
@@ -370,6 +378,27 @@ export default function QuestionnairePage() {
           />
           <span className="opt-desc">{t('questionnaire.q8.unit')}</span>
         </label>
+      </QuestionCard>
+
+      {/* Q9 — optional: unanswered keeps the Q1-derived ILCD situation */}
+      <QuestionCard
+        id="q9"
+        title={t('questionnaire.q9.title')}
+        help={t('questionnaire.q9.help')}
+        details={t('questionnaire.q9.details')}
+      >
+        <select
+          value={decisionContext}
+          onChange={(e) => setDecisionContext(e.target.value as DecisionContext | '')}
+          className="select"
+        >
+          <option value="">{t('questionnaire.q9.options.unset')}</option>
+          {DECISION_KEYS.map((k) => (
+            <option key={k} value={k}>
+              {t(`questionnaire.q9.options.${k}`)}
+            </option>
+          ))}
+        </select>
       </QuestionCard>
 
       {/* Advanced */}

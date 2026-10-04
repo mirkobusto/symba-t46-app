@@ -16,6 +16,8 @@ Grammar (anything else raises `BranchKeyError`; it is never skipped):
     q3.F=true | false       Q3 dimension F in {env, eco, soc} on / off
     q3.F-only               F on, the other two dimensions off
     q3.F+G[+H]              all the named dimensions on, the rest ignored
+    ilcd=C                  the ILCD situation, as a code: A, A-multi, B, C1, C2
+                            (derived at L0 from Q1 and, when answered, Q9)
     sector=V                alias of q6a=V
     contested               recognised, never matches (see below)
 
@@ -43,7 +45,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from functools import cache
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6a, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q7, IlcdSituation, Q6a, Q6b
 from app.domain.models import Case, Flow
 
 
@@ -51,8 +53,27 @@ class BranchKeyError(ValueError):
     """A discriminative branch key the grammar does not understand."""
 
 
+class IlcdCode(StrEnum):
+    """The ILCD situation as the short code branch keys use (`ilcd=B`)."""
+
+    A = "A"
+    A_MULTI = "A-multi"
+    B = "B"
+    C1 = "C1"
+    C2 = "C2"
+
+
+_ILCD_CODE = {
+    IlcdSituation.SITUATION_A: IlcdCode.A,
+    IlcdSituation.SITUATION_A_MULTI: IlcdCode.A_MULTI,
+    IlcdSituation.SITUATION_B: IlcdCode.B,
+    IlcdSituation.SITUATION_C1: IlcdCode.C1,
+    IlcdSituation.SITUATION_C2: IlcdCode.C2,
+}
+
 _ENUMS: dict[str, type[StrEnum]] = {
     "q1": Q1, "q2": Q2, "q4": Q4, "q5": Q5, "q6a": Q6a, "q6b": Q6b, "q7": Q7,
+    "ilcd": IlcdCode,
 }
 
 # Highest TRL each Q6b band reaches; "below TRLn" means that ceiling < n.
@@ -81,6 +102,7 @@ class Answers:
     q6a: str | None
     q6b: str | None
     q7: str | None
+    ilcd: str | None
     env: bool
     eco: bool
     soc: bool
@@ -98,6 +120,7 @@ class Answers:
             q6a=case.q6a.value if case.q6a else None,
             q6b=case.q6b.value if case.q6b else None,
             q7=case.q7.value if case.q7 else None,
+            ilcd=_ILCD_CODE[case.ilcd_situation].value if case.ilcd_situation else None,
             env=case.q3.env, eco=case.q3.eco, soc=case.q3.soc,
         )
 

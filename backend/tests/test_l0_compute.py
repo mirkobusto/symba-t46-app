@@ -146,3 +146,90 @@ def test_a_case_saved_before_warnings_existed_still_loads():
     legacy = json.loads(stored)
     legacy.pop("warnings")
     assert Case.model_validate_json(json.dumps(legacy)).warnings == []
+
+
+# ---------------------------------------------------------------------------
+# Q9 — decision and scale (D4.1 Table 1) derive the ILCD situation
+# ---------------------------------------------------------------------------
+
+from app.domain.enums import Q2, DecisionContext  # noqa: E402
+
+_S = IlcdSituation
+_N, _M, _X = DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL
+_ILCD_TABLE = {
+    #        none            micro                 structural
+    Q1.A: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+    Q1.B: (_S.SITUATION_C1, _S.SITUATION_A_MULTI, _S.SITUATION_B),
+    Q1.C: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+    Q1.D: (_S.SITUATION_C2, _S.SITUATION_C2,      _S.SITUATION_C2),
+    Q1.E: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+}
+_Q1_ONLY = {Q1.A: _S.SITUATION_A, Q1.B: _S.SITUATION_A_MULTI, Q1.C: _S.SITUATION_B,
+            Q1.D: _S.SITUATION_C2, Q1.E: _S.SITUATION_C1}
+
+
+@pytest.mark.parametrize(
+    "q1, decision, expected",
+    [(q1, d, row[i]) for q1, row in _ILCD_TABLE.items() for i, d in enumerate((_N, _M, _X))],
+)
+def test_q9_table_all_fifteen_cells(q1, decision, expected):
+    case = Case(q1=q1, q3=Q3(env=True), decision_context=decision)
+    run(case, None)
+    assert case.ilcd_situation == expected
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+def test_q9_unanswered_is_exactly_the_q1_mapping_without_notes(q1):
+    case = Case(q1=q1, q2=Q2.C, q3=Q3(env=True))   # even with an ex-ante Q2
+    run(case, None)
+    assert case.ilcd_situation == _Q1_ONLY[q1]
+    assert case.warnings == []
+
+
+@pytest.mark.parametrize(
+    "q1, decision, code",
+    [
+        (Q1.C, _M, "decision_scale_vs_q1"),
+        (Q1.D, _M, "q1_d_fixed"),
+        (Q1.D, _X, "q1_d_fixed"),
+        (Q1.E, _M, "decision_scale_vs_q1"),
+        (Q1.E, _X, "decision_scale_vs_q1"),
+    ],
+)
+def test_q9_answers_that_contradict_q1_leave_a_note(q1, decision, code):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision)
+    run(case, None)
+    assert [w["code"] for w in case.warnings] == [code]
+
+
+@pytest.mark.parametrize(
+    "q1, decision",
+    [(Q1.A, _M), (Q1.A, _X), (Q1.B, _M), (Q1.B, _X), (Q1.C, _X), (Q1.A, _N), (Q1.D, _N)],
+)
+def test_q9_answers_consistent_with_q1_leave_no_note(q1, decision):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision)
+    run(case, None)
+    assert case.warnings == []
+
+
+@pytest.mark.parametrize("q2, noted", [(Q2.A, False), (Q2.B, False), (Q2.C, True), (Q2.D, True), (None, False)])
+def test_q9_no_decision_with_an_ex_ante_q2_leaves_a_note(q2, noted):
+    case = Case(q1=Q1.A, q2=q2, q3=Q3(env=True), decision_context=_N)
+    run(case, None)
+    assert ("documentation_vs_ex_ante" in [w["code"] for w in case.warnings]) is noted
+
+
+def test_q9_q1_d_stays_c2_so_the_block_cannot_fire():
+    """Whatever Q9 says, Q1=D keeps C2 and C-LCC only; E-LCC never appears."""
+    from app.engine.l1_blocks import run as l1_run
+    for decision in DecisionContext:
+        case = Case(q1=Q1.D, q3=Q3(env=True, eco=True), decision_context=decision)
+        run(case, None)
+        assert case.ilcd_situation == _S.SITUATION_C2 and case.lcc_type == LccType.C_LCC_ONLY
+        l1_run(case, None)
+        assert case.blocked_by == []
+
+
+def test_q9_rejects_an_unknown_answer():
+    with pytest.raises(ValueError):
+        Case(q1=Q1.A, decision_context="huge")

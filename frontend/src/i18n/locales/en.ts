@@ -423,6 +423,17 @@ const en = {
       placeholder: 'e.g. 20',
       unit: 'years',
     },
+    q9: {
+      title: 'Q9 — Does the study support a decision, and at what scale?',
+      help: 'Optional. Leave unanswered and the engine infers it from Q1.',
+      details: 'D4.1 Table 1 classifies the study by whether a decision is made and by the scale of its consequences, not by its subject. Q1 is only a proxy (A/B → limited consequences, C → structural, D/E → no decision). Answer when the proxy is wrong. “No decision” needs an existing network (Q2 = A or B). Q1 = D stays ILCD Situation C2 whatever you answer (a T4.6 design choice).',
+      options: {
+        unset: 'Not answered (inferred from Q1)',
+        none: 'No decision — the study documents an existing network (ILCD Situation C)',
+        micro: 'Yes, with limited consequences: no change to installed capacity or to prices in the wider economy (Situation A)',
+        structural: 'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Alternative scenarios',

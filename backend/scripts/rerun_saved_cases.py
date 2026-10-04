@@ -6,8 +6,8 @@ schemas does not reach a saved case until it is run again. Run this once after
 deploying an engine change that moves outputs (for instance the branch-key fix
 and the allocation_method fix, which change values on existing cases).
 
-The case is rebuilt from its INPUTS only (Q1-Q7, flows, sites, scenarios,
-advanced overrides, id, study phase) and run on a fresh object, so a pillar key
+The case is rebuilt from its INPUTS only (every Case field the engine does not
+write: the questions, flows, sites, scenarios, advanced overrides, id, study phase) and run on a fresh object, so a pillar key
 that the new engine no longer writes does not survive from the old run.
 
 Dry run by default; nothing is written without --apply. Cases that fail to
@@ -34,11 +34,15 @@ from app.domain.models import Case  # noqa: E402
 from app.engine import pipeline  # noqa: E402
 from app.models import CaseRecord  # noqa: E402
 
-# Everything the user supplies; every other Case field is engine output.
-_INPUT_FIELDS = (
-    "id", "study_phase", "q1", "q2", "q3", "q4", "q5", "q6a", "q6b", "q7",
-    "flows", "sites", "alternative_scenarios", "advanced",
-)
+# What the engine writes. Every other Case field is something the user supplied,
+# so a question added to Case later (Q8 asset_lifetime_years, ...) is carried over
+# by default instead of being silently reset to None by a stale input list.
+_OUTPUT_FIELDS = frozenset({
+    "ilcd_situation", "lcc_type", "slca_activation_state", "pathway_id", "is_01_extended",
+    "lca", "lcc", "slca", "report", "governance", "methodological_charter", "review", "system",
+    "activated_nodes", "blocked_by", "rule_violations", "applicable_rules", "cdp_flags",
+})
+_INPUT_FIELDS = tuple(f for f in Case.model_fields if f not in _OUTPUT_FIELDS)
 
 
 def rerun(stored_json: str) -> Case:

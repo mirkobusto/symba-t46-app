@@ -37,6 +37,23 @@ def test_rerun_replaces_stale_outputs_and_drops_removed_keys():
     assert fresh.q1 == Q1.D and fresh.q4 == {Q4.A}
 
 
+def test_rerun_keeps_every_answer_including_q8():
+    """Q8 (asset_lifetime_years) used to be reset by a hard-coded input list."""
+    case = Case(q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), asset_lifetime_years=30)
+    pipeline.run(case)
+    fresh = script.rerun(case.model_dump_json())
+    assert fresh.asset_lifetime_years == 30
+    assert "lca_mc_21" in fresh.activated_nodes   # and it still drives the engine
+
+
+def test_every_case_field_is_classified_as_input_or_output():
+    """A new Case field is an input unless listed as engine output, so a future
+    question (policy purpose, decision scale...) survives a re-run."""
+    assert set(script._INPUT_FIELDS) | script._OUTPUT_FIELDS == set(Case.model_fields)
+    assert not set(script._INPUT_FIELDS) & script._OUTPUT_FIELDS
+    assert {"q1", "q7", "asset_lifetime_years", "flows", "advanced"} <= set(script._INPUT_FIELDS)
+
+
 def test_rerun_keeps_the_case_identity():
     stored = Case.model_validate_json(_stale_case_json())
     assert script.rerun(stored.model_dump_json()).id == stored.id

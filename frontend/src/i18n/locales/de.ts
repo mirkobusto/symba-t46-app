@@ -183,7 +183,7 @@ const de: Locale = {
     p1:
       'SYMBA T4.6 — IS Assessment App ist das operative Werkzeug von WP4 / T4.6 des SYMBA Horizon Europe Projekts. Es implementiert die Phase-1-Atomknoten-Entscheidungs-Engine, abgeleitet aus den Deliverables D4.1 (LCA), D4.2 (LCC) und D4.3 (S-LCA), und klassifiziert eine industrielle Symbiose-Fallstudie in einen von fünf terminalen IS-Pathways (IS-01..IS-05) und liefert eine vollständige methodische Konfiguration für LCA, LCC und S-LCA.',
     p2:
-      'Die 7 Benutzerfragen (Q1-Q7) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
+      'Die 7 Kernfragen (Q1-Q7) und drei optionale (Q8-Q10) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
       'Dieser MVP-Build verbindet den Fragebogen mit POST /api/pipeline/run. Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },

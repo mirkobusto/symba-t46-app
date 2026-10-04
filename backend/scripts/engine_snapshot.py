@@ -9,6 +9,9 @@
   - a Q1 x Q2 x Q3 x Q4-subset x Q6b x Q7 grid, Q6a fixed, one flow per
     Q5 value so every per-flow branch is exercised                 (prefix `g`)
   - sweeps over Q6a and over advanced.asset_lifetime               (`s6a`, `sadv`)
+  - sweeps over the optional questions Q8, Q9 and Q10, when the Case has them
+    (`sq8`, `sq9`, `sq10`): unanswered cases are in the grid, so a diff of the
+    grid alone shows whether "unanswered" changed anything
 and stores everything the engine writes per case (about 20,000 cases, a few
 seconds). `diff` summarises, per output field, each distinct old -> new value
 with its count and the answers the changed cases span.
@@ -104,8 +107,28 @@ def _sweeps() -> dict:
     return res
 
 
+def _question_sweeps() -> dict:
+    """Q8/Q9/Q10 answered over Q1 x Q2 x Q3; only for the fields the Case has."""
+    res = {}
+    fields = Case.model_fields
+    axes = []
+    if "asset_lifetime_years" in fields:
+        axes.append(("sq8", "asset_lifetime_years", (None, 10, 15, 16, 30)))
+    if "decision_context" in fields:
+        axes.append(("sq9", "decision_context", (None, "none", "micro", "structural")))
+    if "policy_objective" in fields:
+        axes.append(("sq10", "policy_objective", (None, True, False)))
+    for prefix, name, values in axes:
+        for v, q1, q2, (n3, q3) in itertools.product(values, list(Q1), list(Q2), Q3_NAMES.items()):
+            c = Case(q1=q1, q2=q2, q3=Q3(env=q3[0], eco=q3[1], soc=q3[2]), q4={Q4.A},
+                     q6a=Q6a.PLASTICS_PACKAGING, q6b=Q6b.TRL9, q7=Q7.B, flows=_flows(), **{name: v})
+            res[f"{prefix}|{name}={v!r}|q1={q1.value}|q2={q2.value}|q3={n3}"] = {
+                "inputs": {name: repr(v), "q1": q1.value, "q2": q2.value, "q3": n3}, "out": _run(c)}
+    return res
+
+
 def snapshot(path: str) -> None:
-    data = {**_papers(), **_grid(), **_sweeps()}
+    data = {**_papers(), **_grid(), **_sweeps(), **_question_sweeps()}
     with gzip.open(path, "wt") as f:
         json.dump(data, f, sort_keys=True)
     errs = sum(1 for v in data.values() if "ERR" in v["out"])

@@ -251,3 +251,29 @@ def test_pipeline_run_q9_contradiction_comes_back_as_a_note_not_an_error(client)
 def test_pipeline_run_q9_unknown_value_is_rejected(client):
     resp = client.post("/api/pipeline/run", json={"q1": "A", "q3": {"env": True}, "decision_context": "huge"})
     assert resp.status_code == 422
+
+
+def test_pipeline_run_q10_policy_purpose_adds_the_social_costing(client):
+    base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": True, "soc": False}}
+    plain = client.post("/api/pipeline/run", json=base).json()
+    policy = client.post("/api/pipeline/run", json={**base, "policy_objective": True}).json()
+    assert plain["lcc_type"] == "C+E" and plain["lcc"]["discount_rate"] == "partner-specific"
+    assert policy["policy_objective"] is True
+    assert policy["lcc_type"] == "C+E+S" and policy["lcc"]["discount_rate"] == "social (~4%)"
+
+
+def test_pipeline_run_q10_null_is_identical_to_absent(client):
+    base = {"q1": "B", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    absent = client.post("/api/pipeline/run", json=base).json()
+    null = client.post("/api/pipeline/run", json={**base, "policy_objective": None}).json()
+    absent.pop("id"), null.pop("id")
+    assert absent == null
+
+
+def test_pipeline_run_q10_q1_d_with_policy_is_a_note_not_a_block(client):
+    resp = client.post("/api/pipeline/run", json={
+        "q1": "D", "q2": "A", "q3": {"env": True, "eco": True}, "policy_objective": True})
+    body = resp.json()
+    assert resp.status_code == 200 and body["blocked_by"] == []
+    assert body["lcc_type"] == "C-LCC"
+    assert [w["code"] for w in body["warnings"]] == ["q1_d_fixed_lcc"]

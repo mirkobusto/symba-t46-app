@@ -413,6 +413,16 @@ const it: Locale = {
         structural: 'Sì, con conseguenze su larga scala: sposta circa l\'1% o più delle nuove costruzioni annuali nel mercato interessato (situazione B; la prova va documentata)',
       },
     },
+    q10: {
+      title: 'Q10 — Lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale?',
+      help: 'Facoltativa. Se non rispondi, il motore la deduce da Q1 (sì solo per Q1 = C).',
+      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale, qualunque siano Q1 o Q4. Un comune che pianifica un parco eco-industriale (Q1 = B) o un regolatore che monitora un settore (Q1 = E) può rispondere sì senza essere Q1 = C. Con Q1 = D lo strumento mantiene l\'LCC convenzionale a livello di azienda (scelta di progetto T4.6) e te lo segnala.',
+      options: {
+        unset: 'Non risposta (dedotta da Q1)',
+        yes: 'Sì — obiettivo di policy pubblica o di pianificazione territoriale (aggiunge l\'LCC sociale)',
+        no: 'No — non serve un obiettivo di policy o di pianificazione',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Scenari alternativi',

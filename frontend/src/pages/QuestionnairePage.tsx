@@ -85,6 +85,9 @@ export default function QuestionnairePage() {
   const [decisionContext, setDecisionContext] = useState<DecisionContext | ''>(
     draft.decision_context ?? '',
   )
+  const [policy, setPolicy] = useState<'' | 'yes' | 'no'>(
+    draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no',
+  )
   const [assetLifetime, setAssetLifetime] = useState<string>(
     draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
   )
@@ -109,6 +112,7 @@ export default function QuestionnairePage() {
       draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
     )
     setDecisionContext(draft.decision_context ?? '')
+    setPolicy(draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no')
     setAdvanced(draft.advanced ?? {})
   }, [draft])
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -133,7 +137,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, assetLifetime, decisionContext, advanced])
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, assetLifetime, decisionContext, policy, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -146,6 +150,7 @@ export default function QuestionnairePage() {
       q6a, q6b, q7,
       asset_lifetime_years: parseYears(assetLifetime),
       decision_context: decisionContext || null,
+      policy_objective: policy === '' ? null : policy === 'yes',
       advanced,
     })
     const result = await runDraft()
@@ -161,6 +166,7 @@ export default function QuestionnairePage() {
       setQ6a(undefined); setQ6b(undefined); setQ7(undefined)
       setAssetLifetime('')
       setDecisionContext('')
+      setPolicy('')
       setAdvanced({})
     }
   }
@@ -398,6 +404,24 @@ export default function QuestionnairePage() {
               {t(`questionnaire.q9.options.${k}`)}
             </option>
           ))}
+        </select>
+      </QuestionCard>
+
+      {/* Q10 — optional: unanswered keeps the Q1-derived LCC type */}
+      <QuestionCard
+        id="q10"
+        title={t('questionnaire.q10.title')}
+        help={t('questionnaire.q10.help')}
+        details={t('questionnaire.q10.details')}
+      >
+        <select
+          value={policy}
+          onChange={(e) => setPolicy(e.target.value as '' | 'yes' | 'no')}
+          className="select"
+        >
+          <option value="">{t('questionnaire.q10.options.unset')}</option>
+          <option value="yes">{t('questionnaire.q10.options.yes')}</option>
+          <option value="no">{t('questionnaire.q10.options.no')}</option>
         </select>
       </QuestionCard>
 

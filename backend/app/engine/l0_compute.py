@@ -6,7 +6,7 @@ violation semantics — they simply COMPUTE state that downstream phases
 read. By convention these are the only 3 nodes with lifecycle_layer=L0.
 
     lca_t1         (Q1, Q9)    -> Case.ilcd_situation   (Q9 optional; unanswered = Q1 alone)
-    lcc_trig_01    (Q1,Q3.eco) -> Case.lcc_type
+    lcc_trig_01    (Q1,Q3.eco,Q10) -> Case.lcc_type  (Q10 optional; unanswered = Q1 alone)
     slca_t_01      (Q3.soc)    -> Case.slca_activation_state
 
 Mapping source: backend/app/schemas/phase1_nodes.json — entries
@@ -116,6 +116,35 @@ def _compute_lcc_type(q1: Q1 | None, eco: bool) -> LccType:
     return LccType.C_LCC_PLUS_E_LCC
 
 
+def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
+    """LCC type and the notes about it.
+
+    Q10 unanswered: the Q1 mapping, no notes (as before Q10 existed). Q10
+    answered (D4.2 §2.3: an S-LCC is added when the study serves a public policy
+    or territorial planning objective): the answer wins over Q1, except Q1=D,
+    which stays "C-LCC only" (declared T4.6 choice; it also keeps
+    block_C2_plus_E-LCC from firing). Contradictions leave a note.
+    """
+    base = _compute_lcc_type(case.q1, case.q3.eco)   # raises on an invalid Q1 when eco is on
+    policy = case.policy_objective
+    if base == LccType.DEACTIVATED or policy is None:
+        return base, []
+    notes: list[dict[str, str]] = []
+    if case.q1 == Q1.D:
+        if policy:
+            notes.append({"code": "q1_d_fixed_lcc", "message": "Q1=D (corporate reporting) keeps the "
+                          "conventional company-level costing (C-LCC only) whatever Q10 says: it is a T4.6 "
+                          "design choice."})
+        return base, notes
+    if policy:
+        return LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, notes
+    if case.q1 == Q1.C:
+        notes.append({"code": "policy_no_but_q1_c", "message": "Q1=C (sector-wide pre-feasibility) usually serves "
+                      "a public policy; you answered that it does not, so the societal costing (S-LCC, net tax "
+                      "factor, social discount rate) is not added."})
+    return LccType.C_LCC_PLUS_E_LCC, notes
+
+
 def _compute_slca_state(soc: bool) -> SlcaActivationState:
     return SlcaActivationState.ACTIVE if soc else SlcaActivationState.DEACTIVATED
 
@@ -135,6 +164,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
             calling run.
     """
     case.ilcd_situation, case.warnings = _derive_ilcd_situation(case)   # warnings rebuilt on every run
-    case.lcc_type = _compute_lcc_type(case.q1, case.q3.eco)
+    case.lcc_type, lcc_notes = _derive_lcc_type(case)
+    case.warnings += lcc_notes
     case.slca_activation_state = _compute_slca_state(case.q3.soc)
     return case

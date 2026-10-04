@@ -1768,7 +1768,7 @@
       "source_section": "D4.2 §2.2",
       "category": "DERIVED",
       "trigger_q": [
-        "q1",
+        "lcc_type",
         "q3"
       ],
       "trigger_logic": "discriminative",
@@ -1777,9 +1777,9 @@
       "field_status": null,
       "default_value": {
         "q3.eco=false": "all LCC deactivated",
-        "q1 in {A,B,E}": "C-LCC entity + E-LCC network",
-        "q1=C": "E-LCC + S-LCC + NTF",
-        "q1=D": "C-LCC only"
+        "lcc_type=C+E": "C-LCC entity + E-LCC network",
+        "lcc_type=C+E+S": "E-LCC + S-LCC + NTF",
+        "lcc_type=C-LCC": "C-LCC only"
       },
       "override_path": "q1, q3",
       "lifecycle_layer": "L2",
@@ -1887,6 +1887,7 @@
       "source_section": "D4.2 §5.1",
       "category": "DERIVED",
       "trigger_q": [
+        "lcc_type",
         "q1",
         "q3"
       ],
@@ -1895,9 +1896,9 @@
       "field": "lcc.allocation_method",
       "field_status": null,
       "default_value": {
+        "lcc_type=C+E+S": "NTF+monetized",
         "q1=A": "negotiated",
         "q1=B": "system expansion",
-        "q1=C": "NTF+monetized",
         "q1=D": "physical"
       },
       "override_path": "q1, advanced",
@@ -1994,6 +1995,7 @@
       "source_section": "D4.2 §9.3",
       "category": "DERIVED",
       "trigger_q": [
+        "lcc_type",
         "q1"
       ],
       "trigger_logic": "discriminative",
@@ -2001,9 +2003,9 @@
       "field": "lcc.discount_rate",
       "field_status": null,
       "default_value": {
+        "lcc_type=C+E+S": "social (~4%)",
         "q1 in {A,D}": "partner-specific",
-        "q1=B": "blended",
-        "q1=C": "social (~4%)"
+        "q1=B": "blended"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2"

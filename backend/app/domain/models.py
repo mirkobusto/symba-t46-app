@@ -147,6 +147,10 @@ class Case(BaseModel):
     # Table 1). None = not answered: the ILCD situation is inferred from Q1,
     # exactly as before Q9 existed.
     decision_context: DecisionContext | None = None
+    # Q10 (optional) — does the study serve a public policy or territorial
+    # planning objective? D4.2 §2.3 adds an S-LCC in that case. None = not
+    # answered: the LCC type is inferred from Q1 (policy only for Q1=C).
+    policy_objective: bool | None = None
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)

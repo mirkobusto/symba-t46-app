@@ -379,6 +379,16 @@ const es: Locale = {
         structural: 'Sí, con consecuencias a gran escala: desplaza alrededor del 1 % o más de la construcción nueva anual del mercado afectado (situación B; la prueba debe documentarse)',
       },
     },
+    q10: {
+      title: 'Q10 — ¿El estudio sirve a un objetivo de política pública u ordenación territorial?',
+      help: 'Opcional. Sin respuesta, el motor la deduce de Q1 (sí solo para Q1 = C).',
+      details: 'D4.2 §2.3 añade un ACC societal (factor fiscal neto, externalidades monetizadas, tasa de descuento social) cuando el estudio sirve a un objetivo de política pública u ordenación territorial, sea cual sea Q1 o Q4. Un municipio que planifica un parque ecoindustrial (Q1 = B) o un regulador que supervisa un sector (Q1 = E) puede responder sí sin ser Q1 = C. Con Q1 = D la herramienta mantiene el ACC convencional a nivel de empresa (decisión de diseño T4.6) y te lo avisa.',
+      options: {
+        unset: 'Sin respuesta (deducida de Q1)',
+        yes: 'Sí — objetivo de política pública u ordenación territorial (añade el ACC societal)',
+        no: 'No — no sirve a un objetivo de política u ordenación',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Escenarios alternativos',

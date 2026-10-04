@@ -233,3 +233,66 @@ def test_q9_q1_d_stays_c2_so_the_block_cannot_fire():
 def test_q9_rejects_an_unknown_answer():
     with pytest.raises(ValueError):
         Case(q1=Q1.A, decision_context="huge")
+
+
+# ---------------------------------------------------------------------------
+# Q10 — public policy / territorial planning objective (D4.2 §2.3) adds the S-LCC
+# ---------------------------------------------------------------------------
+
+_Y, _NO, _UNSET = True, False, None
+_CE, _CES, _CC = LccType.C_LCC_PLUS_E_LCC, LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_ONLY
+_LCC_TABLE = {
+    #         unanswered  yes   no
+    Q1.A: (_CE,  _CES, _CE),
+    Q1.B: (_CE,  _CES, _CE),
+    Q1.C: (_CES, _CES, _CE),
+    Q1.D: (_CC,  _CC,  _CC),
+    Q1.E: (_CE,  _CES, _CE),
+}
+
+
+@pytest.mark.parametrize(
+    "q1, policy, expected",
+    [(q1, p, row[i]) for q1, row in _LCC_TABLE.items() for i, p in enumerate((_UNSET, _Y, _NO))],
+)
+def test_q10_table_all_fifteen_cells(q1, policy, expected):
+    case = Case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
+    run(case, None)
+    assert case.lcc_type == expected
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+@pytest.mark.parametrize("policy", [True, False, None])
+def test_q10_with_the_economic_dimension_off_the_lcc_stays_deactivated(q1, policy):
+    case = Case(q1=q1, q3=Q3(env=True), policy_objective=policy)
+    run(case, None)
+    assert case.lcc_type == LccType.DEACTIVATED and case.warnings == []
+
+
+@pytest.mark.parametrize(
+    "q1, policy, codes",
+    [(Q1.C, False, ["policy_no_but_q1_c"]), (Q1.D, True, ["q1_d_fixed_lcc"]),
+     (Q1.A, True, []), (Q1.A, False, []), (Q1.B, True, []), (Q1.E, True, []),
+     (Q1.C, True, []), (Q1.D, False, []), (Q1.C, None, [])],
+)
+def test_q10_notes_only_for_contradictions(q1, policy, codes):
+    case = Case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
+    run(case, None)
+    assert [w["code"] for w in case.warnings] == codes
+
+
+def test_q9_and_q10_notes_accumulate_and_are_rebuilt():
+    case = Case(q1=Q1.D, q2=Q2.A, q3=Q3(env=True, eco=True),
+                decision_context=DecisionContext.MICRO, policy_objective=True)
+    run(case, None)
+    assert sorted(w["code"] for w in case.warnings) == ["q1_d_fixed", "q1_d_fixed_lcc"]
+    run(case, None)   # a second run replaces the notes, it does not stack them
+    assert len(case.warnings) == 2
+
+
+def test_q10_q1_d_with_policy_never_blocks():
+    from app.engine.l1_blocks import run as l1_run
+    case = Case(q1=Q1.D, q3=Q3(env=True, eco=True), policy_objective=True)
+    run(case, None)
+    l1_run(case, None)
+    assert case.lcc_type == LccType.C_LCC_ONLY and case.blocked_by == []

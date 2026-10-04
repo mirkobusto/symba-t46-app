@@ -600,8 +600,8 @@
           "label_en": "Decommissioning cost",
           "type": "float",
           "required": false,
-          "activation_predicate": "q1 == \"C\"",
-          "row_condition": "infra.status == \"decommissioned\" or q1 == \"C\""
+          "activation_predicate": "q1 == \"C\" or lcc_type == \"C+E+S\"",
+          "row_condition": "infra.status == \"decommissioned\" or q1 == \"C\" or lcc_type == \"C+E+S\""
         },
         {
           "id": "infra.ssp_rcp_scenario",

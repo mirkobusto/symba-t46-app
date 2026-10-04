@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6a, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q7, LccType, Q6a, Q6b
 from app.domain.models import Q3, Case, Flow
 from app.engine.activate import _resolve_discriminative, run
 from app.engine.branch_keys import BranchKeyError
@@ -706,3 +706,49 @@ def test_q9_unanswered_keeps_every_q1_result(schemas):
         case = _q9_case(schemas, q1, None)
         assert (case.lca["modeling_framework"], case.lca["allocation_method"], case.lca["ilcd_situation"]) == (
             framework, allocation, ilcd)
+
+
+# ---------------------------------------------------------------------------
+# Q10 — the LCC nodes that read the type follow the derived type
+# ---------------------------------------------------------------------------
+
+
+def _q10_case(schemas, q1, policy):
+    case = _baseline_case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def test_q10_policy_purpose_moves_the_whole_lcc_not_only_the_label(schemas):
+    """Q1=A is conventional C+E costing until Q10 says the study serves a public
+    policy: then the type, the discount rate and the allocation all follow."""
+    before = _q10_case(schemas, Q1.A, None)
+    after = _q10_case(schemas, Q1.A, True)
+    assert before.lcc_type == LccType.C_LCC_PLUS_E_LCC
+    assert (before.lcc["lcc_type"], before.lcc["discount_rate"], before.lcc["allocation_method"]) == (
+        "C-LCC entity + E-LCC network", "partner-specific", "negotiated")
+    assert after.lcc_type == LccType.E_LCC_PLUS_S_LCC_PLUS_NTF
+    assert (after.lcc["lcc_type"], after.lcc["discount_rate"], after.lcc["allocation_method"]) == (
+        "E-LCC + S-LCC + NTF", "social (~4%)", "NTF+monetized")
+
+
+def test_q10_no_policy_on_a_sector_study_drops_the_social_costing(schemas):
+    case = _q10_case(schemas, Q1.C, False)
+    assert case.lcc_type == LccType.C_LCC_PLUS_E_LCC
+    assert case.lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+    assert "lcc_mc_12" not in case.activated_nodes     # no social rate without the S-LCC
+    assert "lcc_mc_07" not in case.activated_nodes
+
+
+def test_q10_unanswered_keeps_every_q1_result(schemas):
+    expected = {
+        Q1.A: ("C-LCC entity + E-LCC network", "partner-specific", "negotiated"),
+        Q1.B: ("C-LCC entity + E-LCC network", "blended", "system expansion"),
+        Q1.C: ("E-LCC + S-LCC + NTF", "social (~4%)", "NTF+monetized"),
+        Q1.D: ("C-LCC only", "partner-specific", "physical"),
+    }
+    for q1, (type_text, rate, allocation) in expected.items():
+        case = _q10_case(schemas, q1, None)
+        assert (case.lcc["lcc_type"], case.lcc["discount_rate"], case.lcc["allocation_method"]) == (
+            type_text, rate, allocation)

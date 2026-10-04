@@ -434,6 +434,16 @@ const en = {
         structural: 'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
       },
     },
+    q10: {
+      title: 'Q10 — Does the study serve a public policy or territorial planning objective?',
+      help: 'Optional. Unanswered, the engine infers it from Q1 (yes only for Q1 = C).',
+      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, whatever Q1 or Q4. A municipality planning an eco-park (Q1 = B) or a regulator monitoring a sector (Q1 = E) can answer yes without being Q1 = C. With Q1 = D the tool keeps the conventional company-level LCC (a T4.6 design choice) and tells you.',
+      options: {
+        unset: 'Not answered (inferred from Q1)',
+        yes: 'Yes — a public policy or territorial planning objective (adds the societal LCC)',
+        no: 'No — it does not serve a public policy or planning objective',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Alternative scenarios',

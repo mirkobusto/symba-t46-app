@@ -379,6 +379,16 @@ const de: Locale = {
         structural: 'Ja, mit Folgen in großem Maßstab: verdrängt etwa 1 % oder mehr des jährlichen Neubaus im betroffenen Markt (Situation B; der Nachweis ist zu dokumentieren)',
       },
     },
+    q10: {
+      title: 'Q10 — Dient die Studie einem Ziel der öffentlichen Politik oder der Raumplanung?',
+      help: 'Optional. Ohne Antwort leitet die Engine sie aus Q1 ab (ja nur bei Q1 = C).',
+      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, unabhängig von Q1 oder Q4. Eine Gemeinde, die einen Ökoindustriepark plant (Q1 = B), oder eine Behörde, die einen Sektor überwacht (Q1 = E), kann mit Ja antworten, ohne Q1 = C zu sein. Bei Q1 = D behält das Werkzeug die konventionelle LCC auf Unternehmensebene (T4.6-Designentscheidung) und weist darauf hin.',
+      options: {
+        unset: 'Nicht beantwortet (aus Q1 abgeleitet)',
+        yes: 'Ja — Ziel der öffentlichen Politik oder der Raumplanung (ergänzt die gesellschaftliche LCC)',
+        no: 'Nein — kein Ziel der Politik oder Raumplanung',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Alternative Szenarien',

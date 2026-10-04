@@ -385,6 +385,16 @@ const fr: Locale = {
         structural: 'Oui, à conséquences à grande échelle : déplace environ 1 % ou plus des constructions annuelles du marché concerné (situation B ; la preuve doit être documentée)',
       },
     },
+    q10: {
+      title: 'Q10 — L\'étude sert-elle un objectif de politique publique ou d\'aménagement du territoire ?',
+      help: 'Facultative. Sans réponse, le moteur la déduit de Q1 (oui seulement pour Q1 = C).',
+      details: 'D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, quels que soient Q1 ou Q4. Une commune qui planifie un parc éco-industriel (Q1 = B) ou un régulateur qui suit un secteur (Q1 = E) peut répondre oui sans être Q1 = C. Avec Q1 = D l\'outil conserve l\'ACC conventionnel au niveau de l\'entreprise (choix de conception T4.6) et vous le signale.',
+      options: {
+        unset: 'Sans réponse (déduite de Q1)',
+        yes: 'Oui — objectif de politique publique ou d\'aménagement du territoire (ajoute l\'ACC sociétal)',
+        no: 'Non — l\'étude ne sert pas un objectif de politique ou d\'aménagement',
+      },
+    },
 
     q2dCard: {
       title: 'Q2-D — Scénarios alternatifs',

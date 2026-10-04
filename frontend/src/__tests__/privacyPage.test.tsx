@@ -19,11 +19,12 @@ describe('PrivacyPage (draft notice)', () => {
     )
   }
 
-  it('says it is a draft and lists the seven sections, with the storage anchor the footer links to', () => {
+  it('says it is a draft and lists the seven sections, with the data anchor the footer links to', () => {
     renderPage()
     expect(screen.getByRole('note')).toHaveTextContent(/DRAFT for legal review/)
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(7)
-    expect(document.getElementById('storage')).toBeInTheDocument()
+    // the footer's "Browser storage" link targets the section that lists the browser keys
+    expect(document.getElementById('data')).toBeInTheDocument()
   })
 
   it('describes what the code really stores', () => {

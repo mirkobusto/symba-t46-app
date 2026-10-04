@@ -45,7 +45,7 @@ describe('EuFooter', () => {
     expect(screen.getByRole('link', { name: 'Privacy policy' })).toHaveAttribute('href', '/privacy')
     expect(screen.getByRole('link', { name: 'Browser storage' })).toHaveAttribute(
       'href',
-      '/privacy#storage',
+      '/privacy#data',
     )
   })
 

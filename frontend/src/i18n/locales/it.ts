@@ -290,7 +290,7 @@ const it: Locale = {
         "id": "recipients",
         "title": "5. Chi può vederli",
         "paragraphs": [
-          "Fornitore di hosting: [SEGNAPOSTO]. I link del tipo /r/… sono non elencati, non privati: chiunque abbia il link può leggere quel report. I casi salvati senza accedere possono oggi essere letti e modificati da chiunque raggiunga lo strumento: non inserire dati personali di terzi."
+          "Fornitore di hosting: [SEGNAPOSTO]. I link del tipo /r/… sono non elencati, non privati: chiunque abbia il link può leggere quel report. I casi salvati senza accedere possono oggi essere letti e modificati da chiunque raggiunga lo strumento, e l'amministratore (il primo account registrato) può leggere e modificare ogni caso, anche quelli di altri: non inserire dati personali di terzi."
         ],
         "items": []
       },

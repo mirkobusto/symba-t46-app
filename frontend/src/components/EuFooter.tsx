@@ -82,7 +82,7 @@ export default function EuFooter() {
               <a href="/privacy">{t('footer.privacy')}</a>
             </li>
             <li>
-              <a href="/privacy#storage">{t('footer.cookies')}</a>
+              <a href="/privacy#data">{t('footer.cookies')}</a>
             </li>
           </ul>
         </div>

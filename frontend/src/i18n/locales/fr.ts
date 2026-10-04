@@ -263,7 +263,7 @@ const fr: Locale = {
         "id": "recipients",
         "title": "5. Who can see it",
         "paragraphs": [
-          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Cases saved without signing in can currently be read and changed by anyone who can reach the tool: do not enter personal data of third parties."
+          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Cases saved without signing in can currently be read and changed by anyone who can reach the tool, and the administrator (the first account registered) can read and change every case, including those owned by others: do not enter personal data of third parties."
         ],
         "items": []
       },

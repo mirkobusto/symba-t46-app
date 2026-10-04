@@ -1,7 +1,7 @@
 # DCF Section 5.5 — Procedural Mandate census
 
-**Generated:** 2026-05-22 — first pass for DCF spec v1, §5.5.
-**Source:** `backend/app/schemas/phase1_nodes.json` (90 nodes with `field_status=procedural_mandate`).
+**Generated:** 2026-05-22 — first pass for DCF spec v1, §5.5. Kept in step with the nodes by `scripts/sync_dcf_census.py` (last sync 2026-10-04: REVISED section numbers, break-even mandates unconditional).
+**Source:** `backend/app/schemas/phase1_nodes.json` (91 nodes with `field_status=procedural_mandate`).
 **Method:** keyword match on `default_value` (statement).
 
 **Status:** DRAFT — review by Mirko required to finalize boundaries between categories. See `dcf_mandates_census.json` for full machine-readable data including overlapping categories.
@@ -15,11 +15,11 @@
 | `reference_scenario` | 8 |
 | `goal_scope_boundary` | 16 |
 | `stakeholder_materiality` | 17 |
-| `uncertainty_sensitivity` | 13 |
+| `uncertainty_sensitivity` | 14 |
 | `reporting_disclosure` | 5 |
 | `lcc_method_specific` | 7 |
 | `lcsa_integration` | 5 |
-| **TOTAL** | **90** |
+| **TOTAL** | **91** |
 
 ## § data_sources_quality (15)
 
@@ -106,14 +106,15 @@
 | `slca_mc_06` | SLCA | L2 | — | Mapping detail (granularity adapted to scope/data) |
 | `slca_mc_08` | SLCA | L2 | — | Materiality: analytical default; +stakeholder input optional |
 
-## § uncertainty_sensitivity (13)
+## § uncertainty_sensitivity (14)
 
 | ID | Method | Layer | Trigger | Statement |
 |---|---|---|---|---|
 | `lca_hc_12` | LCA | L2 | — | Uncertainty analysis mandatory |
 | `lca_hc_14` | LCA | L2 | q4, q6b | Monte Carlo mandatory if Q4 in {C,D,E} OR Q6b<TRL9 |
 | `lca_hc_15` | LCA | L2 | — | Sensitivity on critical assumptions |
-| `lca_hc_21` | LCA | L2 | q7 | Break-even distance sensitivity if Q7 in {B,C,D} |
+| `lca_hc_21` | LCA | L2 | — | Break-even distance sensitivity on every transport link; flow-type specific, computed from primary logistics data (D4.1 §13.2.1, §13.3.1) |
+| `lcc_hc_06` | LCC | L2 | — | Break-even distance modeled explicitly as a sensitivity parameter for every exchange, never a fixed assumption (D4.2 §4.3) |
 | `lcc_hc_24` | LCC | L2 | — | Monte Carlo mandatory, >=10,000 iterations |
 | `lcc_hc_25` | LCC | L2 | — | Correlations explicit in simulation |
 | `lcc_hc_26` | LCC | L2 | — | Counterparty risk via structural scenario |

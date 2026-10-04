@@ -203,3 +203,97 @@ def test_pipeline_run_with_advanced_override(client):
     assert resp.status_code == 200
     body = resp.json()
     assert "block_anyQ1_plus_AbsoluteSLCA" in body["blocked_by"]
+
+
+def test_pipeline_run_q8_asset_lifetime_over_15_years(client):
+    """Q8 (asset_lifetime_years) is part of the payload and drives CIR-01."""
+    base = {"q1": "B", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    short = client.post("/api/pipeline/run", json={**base, "asset_lifetime_years": 10}).json()
+    long = client.post("/api/pipeline/run", json={**base, "asset_lifetime_years": 25}).json()
+    assert long["asset_lifetime_years"] == 25
+    assert "lca_mc_21" in long["activated_nodes"] and "lca_mc_21" not in short["activated_nodes"]
+    assert "CIR-01" in {r["rule_id"] for r in long["applicable_rules"]}
+    assert "CIR-01" not in {r["rule_id"] for r in short["applicable_rules"]}
+
+
+def test_pipeline_run_q8_negative_is_rejected(client):
+    resp = client.post("/api/pipeline/run", json={
+        "q1": "A", "q2": "A", "q3": {"env": True}, "asset_lifetime_years": -3,
+    })
+    assert resp.status_code == 422
+
+
+def test_pipeline_run_q9_structural_decision_moves_the_situation_and_the_framework(client):
+    base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": False, "soc": False}}
+    plain = client.post("/api/pipeline/run", json=base).json()
+    scaled = client.post("/api/pipeline/run", json={**base, "decision_context": "structural"}).json()
+    assert plain["ilcd_situation"] == "ILCD Situation A" and plain["warnings"] == []
+    assert scaled["decision_context"] == "structural"
+    assert scaled["ilcd_situation"] == "ILCD Situation B"
+    assert scaled["lca"]["modeling_framework"] == "consequential"
+
+
+def test_pipeline_run_q9_null_is_identical_to_absent(client):
+    base = {"q1": "C", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    absent = client.post("/api/pipeline/run", json=base).json()
+    null = client.post("/api/pipeline/run", json={**base, "decision_context": None}).json()
+    absent.pop("id"), null.pop("id")
+    assert absent == null
+
+
+def test_pipeline_run_q9_contradiction_comes_back_as_a_note_not_an_error(client):
+    resp = client.post("/api/pipeline/run", json={
+        "q1": "E", "q2": "A", "q3": {"env": True}, "decision_context": "micro"})
+    assert resp.status_code == 200
+    assert [w["code"] for w in resp.json()["warnings"]] == ["decision_scale_vs_q1"]
+
+
+def test_pipeline_run_q9_unknown_value_is_rejected(client):
+    resp = client.post("/api/pipeline/run", json={"q1": "A", "q3": {"env": True}, "decision_context": "huge"})
+    assert resp.status_code == 422
+
+
+def test_pipeline_run_q10_policy_purpose_adds_the_social_costing(client):
+    base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": True, "soc": False}}
+    plain = client.post("/api/pipeline/run", json=base).json()
+    policy = client.post("/api/pipeline/run", json={**base, "policy_objective": True}).json()
+    assert plain["lcc_type"] == "C+E" and plain["lcc"]["discount_rate"] == "partner-specific"
+    assert policy["policy_objective"] is True
+    assert policy["lcc_type"] == "C+E+S" and policy["lcc"]["discount_rate"] == "social (~4%)"
+
+
+def test_pipeline_run_q10_null_is_identical_to_absent(client):
+    base = {"q1": "B", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    absent = client.post("/api/pipeline/run", json=base).json()
+    null = client.post("/api/pipeline/run", json={**base, "policy_objective": None}).json()
+    absent.pop("id"), null.pop("id")
+    assert absent == null
+
+
+def test_pipeline_run_q10_q1_d_with_policy_is_a_note_not_a_block(client):
+    resp = client.post("/api/pipeline/run", json={
+        "q1": "D", "q2": "A", "q3": {"env": True, "eco": True}, "policy_objective": True})
+    body = resp.json()
+    assert resp.status_code == 200 and body["blocked_by"] == []
+    assert body["lcc_type"] == "C-LCC"
+    assert [w["code"] for w in body["warnings"]] == ["q1_d_fixed_lcc"]
+
+
+def test_running_twice_does_not_double_the_outputs(client):
+    """Every phase appends, so a second run used to double everything:
+    186 nodes became 332, and the DCF endpoints — which re-run the
+    pipeline on a case that was stored post-pipeline — exported every
+    obligation twice while the result page showed the single count."""
+    body = {
+        "q1": "B", "q2": "D",
+        "q3": {"env": True, "eco": True, "soc": True},
+        "q4": ["E"], "q6a": "pulp_paper", "q6b": "TRL7-8", "q7": "B",
+        "flows": [{"id": "f1", "name": "spent grain", "q5": "a"}],
+    }
+    first = client.post("/api/pipeline/run", json=body).json()
+    second = client.post("/api/pipeline/run", json=first).json()
+
+    for key in ("activated_nodes", "applicable_rules", "cdp_flags",
+                "rule_violations", "blocked_by"):
+        assert len(second[key]) == len(first[key]), f"{key} doubled on re-run"
+    assert len(second["activated_nodes"]) <= 186

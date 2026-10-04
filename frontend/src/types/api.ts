@@ -143,6 +143,14 @@ export interface ApplicableRule {
   source_nodes?: string[]
 }
 
+export type DecisionContext = 'none' | 'micro' | 'structural'
+
+/** A note on the user's answers; informational, never blocks the run. */
+export interface CaseWarning {
+  code: string
+  message: string
+}
+
 export interface CdpFlag {
   cdp_id: string
   name: string | null
@@ -168,6 +176,15 @@ export interface Case {
   q6a?: Q6a | null
   q6b?: Q6b | null
   q7?: Q7 | null
+  // Optional Q8: expected technical lifetime of the main assets, in years.
+  // null/absent = not answered (the engine falls back to advanced.asset_lifetime).
+  asset_lifetime_years?: number | null
+  // Optional Q9: does the study support a decision, and at what scale
+  // (D4.1 Table 1). null/absent = the engine infers the ILCD situation from Q1.
+  decision_context?: DecisionContext | null
+  // Optional Q10: does the study serve a public policy or territorial planning
+  // objective (D4.2 §2.3, adds the S-LCC). null/absent = inferred from Q1.
+  policy_objective?: boolean | null
 
   flows?: Flow[]
   sites?: Site[]
@@ -199,4 +216,5 @@ export interface Case {
   rule_violations?: RuleViolation[]
   applicable_rules?: ApplicableRule[]
   cdp_flags?: CdpFlag[]
+  warnings?: CaseWarning[]
 }

@@ -10,10 +10,12 @@ from __future__ import annotations
 
 import pytest
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q7, LccType, Q6a, Q6b
 from app.domain.models import Q3, Case, Flow
-from app.engine.activate import run
+from app.engine.activate import _resolve_discriminative, run
+from app.engine.branch_keys import BranchKeyError
 from app.engine.l0_compute import run as l0_run
+from app.engine.pipeline import run as pipeline_run
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -39,7 +41,8 @@ def test_all_default_nodes_activate(schemas):
     run(case, schemas)
     default_ids = {n["id"] for n in schemas.phase1_nodes if n.get("category") == "DEFAULT"}
     assert default_ids.issubset(set(case.activated_nodes))
-    assert len(default_ids) == 116
+    # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08)
+    assert len(default_ids) == 118
 
 
 def test_l0_nodes_skipped(schemas):
@@ -114,16 +117,16 @@ def test_discriminative_no_match_node_dormant(schemas):
 
 
 def test_simple_predicate_q7_geographic(schemas):
-    """lca_hc_21 fires when Q7 in {B,C,D}."""
-    case = _baseline_case(q7=Q7.B)
+    """lca_mc_29 (a Q7-conditioned node) fires when Q7 in {C,D}."""
+    case = _baseline_case(q7=Q7.C)
     run(case, schemas)
-    assert "lca_hc_21" in case.activated_nodes
+    assert "lca_mc_29" in case.activated_nodes
 
 
 def test_simple_predicate_q7_no_fire_for_A(schemas):
     case = _baseline_case(q7=Q7.A)
     run(case, schemas)
-    assert "lca_hc_21" not in case.activated_nodes
+    assert "lca_mc_29" not in case.activated_nodes
 
 
 def test_conjunctive_predicate_q3_eco_and_env(schemas):
@@ -225,18 +228,424 @@ def test_procedural_mandate_activates_without_field_write(schemas):
 
 
 # ---------------------------------------------------------------------------
-# 7. asset_lifetime defensive (predicate stays False today)
+# 7. asset_lifetime — read from case.advanced (AdvancedEditor writes it there)
 # ---------------------------------------------------------------------------
 
 
-def test_asset_lifetime_defensive_predicates_inert(schemas):
-    """lca_mc_21 and lcc_hc_23 reference case.asset_lifetime which is
-    not on the Case model. They must NOT activate today."""
-    case = _baseline_case(q2=Q2.D, q3=Q3(env=True, eco=True))
+def _lifetime_case(schemas, lifetime=None, q2=Q2.D):
+    """ENV+ECO case (LCC active), Q2=D by default, with an optional advanced asset_lifetime."""
+    advanced = {} if lifetime is None else {"asset_lifetime": lifetime}
+    case = _baseline_case(q2=q2, q3=Q3(env=True, eco=True), advanced=advanced)
     l0_run(case, schemas)
     run(case, schemas)
+    return case
+
+
+def test_asset_lifetime_unset_predicates_inert(schemas):
+    """Without an asset_lifetime override lca_mc_21 and lcc_hc_23 stay dormant."""
+    case = _lifetime_case(schemas)
     assert "lca_mc_21" not in case.activated_nodes
     assert "lcc_hc_23" not in case.activated_nodes
+
+
+def test_asset_lifetime_over_15_activates_both_nodes(schemas):
+    case = _lifetime_case(schemas, 30)
+    assert "lca_mc_21" in case.activated_nodes
+    assert "lcc_hc_23" in case.activated_nodes
+
+
+def test_asset_lifetime_threshold_is_strictly_greater_than_15(schemas):
+    assert "lca_mc_21" not in _lifetime_case(schemas, 15).activated_nodes
+    assert "lca_mc_21" in _lifetime_case(schemas, 16).activated_nodes
+
+
+def test_asset_lifetime_q2_C_activates_lcc_node_only(schemas):
+    """lcc_hc_23 accepts Q2 in {C,D}; lca_mc_21 is Q2=D only."""
+    case = _lifetime_case(schemas, 30, q2=Q2.C)
+    assert "lcc_hc_23" in case.activated_nodes
+    assert "lca_mc_21" not in case.activated_nodes
+
+
+def test_asset_lifetime_ignored_for_ex_post_q2(schemas):
+    case = _lifetime_case(schemas, 30, q2=Q2.A)
+    assert "lca_mc_21" not in case.activated_nodes
+    assert "lcc_hc_23" not in case.activated_nodes
+
+
+def test_asset_lifetime_lcc_node_off_when_lcc_deactivated(schemas):
+    """The method gate still wins: no economic dimension, no lcc_hc_23."""
+    case = _baseline_case(q2=Q2.D, q3=Q3(env=True), advanced={"asset_lifetime": 30})
+    l0_run(case, schemas)
+    run(case, schemas)
+    assert "lca_mc_21" in case.activated_nodes
+    assert "lcc_hc_23" not in case.activated_nodes
+
+
+def test_asset_lifetime_accepts_numeric_string(schemas):
+    """A case posted straight to the API may carry "20"; it must not raise."""
+    assert "lca_mc_21" in _lifetime_case(schemas, "20").activated_nodes
+
+
+def _lifetime_case_q8(schemas, years, advanced=None, q2=Q2.D):
+    case = _baseline_case(q2=q2, q3=Q3(env=True, eco=True), asset_lifetime_years=years,
+                          advanced=advanced or {})
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def test_q8_asset_lifetime_over_15_activates_both_nodes(schemas):
+    case = _lifetime_case_q8(schemas, 20)
+    assert "lca_mc_21" in case.activated_nodes and "lcc_hc_23" in case.activated_nodes
+
+
+def test_q8_threshold_is_strictly_greater_than_15(schemas):
+    assert "lca_mc_21" not in _lifetime_case_q8(schemas, 15).activated_nodes
+    assert "lca_mc_21" in _lifetime_case_q8(schemas, 15.5).activated_nodes
+
+
+def test_q8_answer_wins_over_the_advanced_override(schemas):
+    short = _lifetime_case_q8(schemas, 10, advanced={"asset_lifetime": 40})
+    assert "lca_mc_21" not in short.activated_nodes
+    long = _lifetime_case_q8(schemas, 40, advanced={"asset_lifetime": 5})
+    assert "lca_mc_21" in long.activated_nodes
+
+
+def test_q8_unanswered_falls_back_to_the_advanced_override(schemas):
+    assert "lca_mc_21" in _lifetime_case_q8(schemas, None, advanced={"asset_lifetime": 30}).activated_nodes
+    assert "lca_mc_21" not in _lifetime_case_q8(schemas, None).activated_nodes
+
+
+@pytest.mark.parametrize("bad", [-1, 501, "abc"])
+def test_q8_rejects_out_of_range_or_non_numeric_values(bad):
+    with pytest.raises(ValueError):
+        Case(q1=Q1.A, asset_lifetime_years=bad)
+
+
+@pytest.mark.parametrize("junk", ["", "abc", True, False, [], {}, "nan", "inf", -5])
+def test_asset_lifetime_junk_values_read_as_zero(schemas, junk):
+    case = _lifetime_case(schemas, junk)
+    assert "lca_mc_21" not in case.activated_nodes
+    assert "lcc_hc_23" not in case.activated_nodes
+
+
+# ---------------------------------------------------------------------------
+# 7b. lca_mc_30 (AWARE) — canonical wastewater id and legacy alias both fire
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "sector", [Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES]
+)
+def test_lca_mc_30_fires_for_wastewater_sector_and_its_alias(schemas, sector):
+    case = _baseline_case(q6a=sector)
+    run(case, schemas)
+    assert "lca_mc_30" in case.activated_nodes
+    assert "AWARE" in case.lca["water_stress_method"]
+
+
+@pytest.mark.parametrize(
+    "sector", [None, Q6a.PLASTICS_PACKAGING, Q6a.WASTE_VALORIZATION, Q6a.AGRI_FOOD]
+)
+def test_lca_mc_30_dormant_for_other_sectors(schemas, sector):
+    case = _baseline_case(q6a=sector)
+    run(case, schemas)
+    assert "lca_mc_30" not in case.activated_nodes
+    assert "water_stress_method" not in case.lca
+
+
+# ---------------------------------------------------------------------------
+# 7c. Discriminative branch keys — every notation the schema uses
+#     (grammar: engine/branch_keys.py; the schema-wide checks are in
+#     test_branch_keys.py). Before the grammar these keys were skipped.
+# ---------------------------------------------------------------------------
+
+
+def _activated(schemas, **kw):
+    """Run L0 + activation (LCC needs L0 for its gate) on a case built from `kw`."""
+    case = _baseline_case(**kw)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def _flows(*qs):
+    return [Flow(id=f"f{i}", name=f"flow{i}", q5=q) for i, q in enumerate(qs)]
+
+
+def test_unknown_branch_key_raises_instead_of_being_skipped():
+    with pytest.raises(BranchKeyError):
+        _resolve_discriminative(_baseline_case(), {"q9=A": "x", "default": "y"}, [])
+
+
+def test_q4_in_set_and_includes(schemas):
+    """lca_hc_13 `q4 in {C,D,E}`, lca_mc_25 `q4 includes 'D'`."""
+    c = _activated(schemas, q4={Q4.E})
+    assert c.lca["uncertainty.pedigree"] == "Pedigree Matrix mandatory"
+    assert c.lca["lcia_method"] == "ReCiPe 2016 hierarchic + EF 3.1 backup"
+    d = _activated(schemas, q4={Q4.D})
+    assert d.lca["lcia_method"] == "EF 3.1 + ReCiPe backup"
+    a = _activated(schemas, q4={Q4.A})
+    assert a.lca["uncertainty.pedigree"] == "Pedigree Matrix recommended"
+    # lcc_hc_29: D4.2 §12 asks for the three reporting layers "without
+    # exception", so they are mandatory whatever Q4 says (audit item I-12a).
+    layers = lambda case: _activated(schemas, q3=Q3(env=True, eco=True), **case).report["layers"]  # noqa: E731
+    assert layers({"q4": {Q4.C}}) == "3-layer reporting mandatory"
+    assert layers({"q4": {Q4.A}}) == "3-layer reporting mandatory"
+
+
+def test_gsa_tier_was_dead_and_now_follows_q4(schemas):
+    """lca_mc_32 had only unreadable keys and no default: it never activated."""
+    assert _activated(schemas, q4={Q4.A}).lca["gsa_tier"] == "Morris first"
+    assert _activated(schemas, q4={Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
+    assert "lca_mc_32" not in _activated(schemas, q4=set()).activated_nodes
+
+
+def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
+    """First match wins (branch_keys.py), so the schema lists the strictest Q4
+    branch first (PHASE1_NODE_MAPPING_v2 §5.2.3: the more specific Q wins):
+    {A,E} gets the full Sobol cascade, {C,D} the EU-compliance panel. The
+    exhaustive version of this is in test_branch_keys.py."""
+    assert _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
+    assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"] == "panel + EU compliance"
+    assert _activated(schemas, q4={Q4.A, Q4.D}).review["scope"] == "panel + EU compliance"
+    assert _activated(schemas, q4={Q4.B, Q4.C}).review["scope"] == "panel ISO"
+    assert _activated(schemas, q4={Q4.D}).review["scope"] == "panel + EU compliance"
+
+
+def test_q6b_set_and_ordinal_keys(schemas):
+    """lca_hc_18 `q6b=TRL7-8` / `q6b<TRL7`; lca_mc_10 `q6b<TRL7`."""
+    mid = _activated(schemas, q6b=Q6b.TRL7_8)
+    assert "lca_hc_18" in mid.activated_nodes and "lca_mc_10" not in mid.activated_nodes
+    # Scale-up frameworks apply below TRL 7 only (I-11a), so TRL7-8 gets full
+    # inclusion without them.
+    assert mid.lca["capital_goods.included"] == "Capital goods full inclusion"
+    low = _activated(schemas, q6b=Q6b.TRL5_6)
+    assert "lca_mc_10" in low.activated_nodes
+    assert low.lca["capital_goods.included"] == "full + scale-up frameworks"  # lca_mc_10 writes last
+    mature = _activated(schemas, q6b=Q6b.TRL9)
+    assert "lca_hc_18" in mature.activated_nodes  # q6b=TRL9 already worked
+    assert mature.lca["capital_goods.included"] == "amortized"
+
+
+@pytest.mark.parametrize(
+    "q7, expected",
+    [(Q7.A, "explicit"), (Q7.B, "explicit"), (Q7.C, "GIS-coupled"), (Q7.D, "GIS-coupled")],   # A was "minimal" (I-08)
+)
+def test_q7_in_set(schemas, q7, expected):
+    assert _activated(schemas, q7=q7).lca["transport.foreground"] == expected
+
+
+def test_q3_env_only_branch(schemas):
+    """lca_mc_05: Q1 branches first, `q3.env-only` for the other Q1 values."""
+    assert _activated(schemas, q1=Q1.D).lca["system_boundary"] == "cradle-to-gate default"
+    assert _activated(schemas, q1=Q1.A).lca["system_boundary"] == "exchange-only"
+    both = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True))
+    assert "lca_mc_05" not in both.activated_nodes  # env+eco is not env-only
+
+
+def test_q3_env_plus_eco_and_eco_only_branches(schemas):
+    """lcc_mc_18: `q3.env+eco` ignores soc; `q3.eco-only` is strict."""
+    ind = lambda **q3: _activated(schemas, q3=Q3(**q3))  # noqa: E731
+    assert ind(env=True, eco=True).lcc["eco_efficiency_indicator"] == "Both ECOF+IEE"
+    assert ind(env=True, eco=True, soc=True).lcc["eco_efficiency_indicator"] == "Both ECOF+IEE"
+    assert ind(eco=True).lcc["eco_efficiency_indicator"] == "IEE only"
+    assert "lcc_mc_18" not in ind(eco=True, soc=True).activated_nodes
+    # lcc_mc_05: Q1 branches first, `q3.env+eco` for the rest
+    assert _activated(schemas, q1=Q1.C, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "aligned with LCA"
+    assert _activated(schemas, q1=Q1.A, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "Gate-to-Gate"
+
+
+def test_q3_eco_false_branch_leaves_lcc_off(schemas):
+    """lcc_mc_01 `q3.eco=false`: no economic dimension, the whole LCC method is
+    off and the node is skipped by the method gate."""
+    off = _activated(schemas, q1=Q1.B, q3=Q3(env=True))
+    assert "lcc_mc_01" not in off.activated_nodes
+    on = _activated(schemas, q1=Q1.B, q3=Q3(env=True, eco=True))
+    assert on.lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+    assert _activated(schemas, q1=Q1.E, q3=Q3(eco=True)).lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+
+
+def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
+    eco = Q3(env=True, eco=True)
+    assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"] == "partner-specific"
+    assert _activated(schemas, q1=Q1.B, q3=eco).lcc["counterparty_risk"] == "Percolation theory"
+    assert "lcc_mc_16" not in _activated(schemas, q1=Q1.D, q3=eco).activated_nodes
+    assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"] == "Dynamic SSP/RCP"
+    assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"] == "single break-even"
+    assert _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"] == "GIS-coupled"
+
+
+def test_sector_key_is_an_alias_of_q6a(schemas):
+    """lcc_mc_03: `q1=A` first, then `sector=textile_leather`."""
+    eco = Q3(env=True, eco=True)
+    textile = _activated(schemas, q1=Q1.C, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
+    assert textile.lcc["functional_equivalent"] == "PSS variant"
+    assert "lcc_mc_03" not in _activated(schemas, q1=Q1.C, q3=eco, q6a=Q6a.PULP_PAPER).activated_nodes
+    first = _activated(schemas, q1=Q1.A, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
+    assert first.lcc["functional_equivalent"] == "Single"  # first match wins
+
+
+def test_per_flow_in_set_key(schemas):
+    """lcc_hc_13 `q5 in {c,d}` used to give every flow the default."""
+    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.a, Q5.d))
+    assert c.lcc["avoidable_unavoidable_classification"] == {
+        "f0": "price = negotiated transfer",
+        "f1": "C-LCC: zero-cost not default",
+        "f2": "price = negotiated transfer",
+    }
+
+
+def test_contested_branch_is_inert_per_flow(schemas):
+    """lcc_mc_04: `contested` never matches, so a Q5=e flow gets no entry and
+    Q5=b keeps its explicit branch."""
+    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.b, Q5.e))
+    assert c.lcc["flow_valuation_method"] == {"f0": "Transfer Price", "f1": "Market Proxy"}
+
+
+# ---------------------------------------------------------------------------
+# 7d. lca.allocation_method — five writers, one field (audit item I-02)
+#
+# lca_mc_08 -> lca_mc_12 (Q1-driven), lca_mc_13 -> lca_mc_14 (Q4=D), then
+# CIR-05 at L2. The last two used to carry a `default` branch, so they always
+# ran and overwrote the Q1 result: every Q1 ended on "substitution", Q1=D
+# included, where D4.1 §8.2.3 says "use Allocation (Step 3). Do not apply
+# substitution credits". PHASE1_NODE_MAPPING_v2 §5.2 settles the order: the
+# more specific Q wins (Q4=D for PEF CFF) and a generic default does not.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q1, expected",
+    [
+        (Q1.A, "system expansion"),
+        (Q1.B, "system expansion"),
+        (Q1.E, "system expansion"),
+        (Q1.C, "consequential expansion"),
+        (Q1.D, "allocation"),
+    ],
+)
+def test_allocation_method_follows_q1_when_q4_is_not_pef(schemas, q1, expected):
+    case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.A})
+    pipeline_run(case, schemas)
+    assert case.lca["allocation_method"] == expected
+
+
+def test_pef_nodes_write_only_when_q4_includes_d(schemas):
+    plain = _activated(schemas, q4={Q4.A})
+    assert "lca_mc_13" not in plain.activated_nodes
+    assert "lca_mc_14" not in plain.activated_nodes
+    pef = _activated(schemas, q4={Q4.D})
+    assert "lca_mc_13" in pef.activated_nodes and "lca_mc_14" in pef.activated_nodes
+    assert pef.lca["allocation_method"] == "PEF CFF"  # activation only; CIR-05 comes at L2
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
+    """CIR-05 writes 'pef_cff' last. That includes Q1=D, against the "use
+    Allocation, no substitution credits" of D4.1 §8.2.3: D4.1 itself calls the
+    CFF both "mandatory" for EU-policy studies (§7.3.2) and a "valid
+    alternative" (§7.3.3), so the engine keeps the Q4=D reading on purpose.
+    `advanced.allocation_method_override` is documented on Case but no engine
+    module reads it, so the analyst cannot override this today."""
+    case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.D})
+    pipeline_run(case, schemas)
+    assert case.lca["allocation_method"] == "pef_cff"
+
+
+# ---------------------------------------------------------------------------
+# 7e. lca_mc_27 — reference scenario content per Q1 (audit item I-07)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q1, expected",
+    [
+        (Q1.A, "alt disposal+virgin market"),
+        (Q1.B, "hypothetical no-IS"),
+        # D4.1 §8.3.1 / §12.3.1: Situation B models the marginal technology,
+        # identified through a market analysis, not the national average mix.
+        (Q1.C, "marginal technology mix (market analysis)"),
+    ],
+)
+def test_reference_scenario_content_follows_q1(schemas, q1, expected):
+    assert _activated(schemas, q1=q1).lca["reference_scenario.content"] == expected
+
+
+# ---------------------------------------------------------------------------
+# 7f. Scale-up frameworks below TRL 7 only (audit item I-11a)
+#
+# D4.1 and D4.2 say "below TRL 7". lcc_hc_15 already stopped at TRL5-6; the LCA
+# node lca_mc_20 and rule CIR-07 also took TRL7-8, so the two methods disagreed.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q6b, active",
+    [(Q6b.TRL9, False), (Q6b.TRL7_8, False), (Q6b.TRL5_6, True), (Q6b.TRL_LT_5, True)],
+)
+def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
+    case = _activated(schemas, q6b=q6b, q3=Q3(env=True, eco=True))
+    assert ("lca_mc_20" in case.activated_nodes) is active
+    assert ("lcc_hc_15" in case.activated_nodes) is active  # the two methods agree
+
+
+# ---------------------------------------------------------------------------
+# 7g. slca.boundary mirrors the LCA boundary for sector-wide studies
+#     (audit item I-13; D4.3 §4.1 wants the S-LCA boundary aligned with LCA/LCC)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q1, q7, expected",
+    [
+        (Q1.A, Q7.B, "exchange-only"),
+        (Q1.B, Q7.B, "eco-park"),
+        (Q1.C, Q7.B, "sector-wide"),   # lca_mc_05 says "sector-wide" for Q1=C too
+        (Q1.C, Q7.D, "sector-wide"),   # used to become "multi-scale" through q7=D
+        (Q1.D, Q7.D, "multi-scale"),   # q7=D keeps working for the other Q1 values
+    ],
+)
+def test_slca_boundary_follows_the_lca_boundary(schemas, q1, q7, expected):
+    case = _activated(schemas, q1=q1, q7=q7, q3=Q3(env=True, soc=True))
+    assert case.slca["boundary"] == expected
+
+
+# ---------------------------------------------------------------------------
+# 7h. Transport and break-even are not optional (audit I-08)
+#
+# D4.1 §13.3.1: "All transport links ... must be modeled as distinct unit
+# processes" and a sensitivity on distance finds the break-even point; D4.2 §4.3:
+# the break-even distance is "a sensitivity parameter, not a fixed assumption".
+# Neither is conditioned on how spread out the network is, so the two mandates
+# apply to every case and Q7 only changes how logistics are asked for.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("q7", [None, Q7.A, Q7.B, Q7.C, Q7.D])
+def test_break_even_mandates_apply_whatever_q7_says(schemas, q7):
+    case = _activated(schemas, q7=q7, q3=Q3(env=True, eco=True))
+    assert "lca_hc_21" in case.activated_nodes
+    assert "lcc_hc_06" in case.activated_nodes
+
+
+def test_the_lcc_break_even_mandate_follows_the_economic_dimension(schemas):
+    assert "lcc_hc_06" not in _activated(schemas, q7=Q7.B, q3=Q3(env=True)).activated_nodes
+    assert "lca_hc_21" in _activated(schemas, q7=Q7.B, q3=Q3(env=True)).activated_nodes
+
+
+def test_transport_is_explicit_for_a_co_located_network(schemas):
+    case = _activated(schemas, q7=Q7.A)
+    assert case.lca["transport.foreground"] == "explicit"       # was "minimal"
+
+
+def test_lcc_transport_costs_now_has_a_single_writer(schemas):
+    """lcc_hc_06 used to write a prose sentence into lcc.transport_costs; it is a
+    pure mandate now, so the value is lcc_mc_14's alone."""
+    eco = Q3(env=True, eco=True)
+    assert _activated(schemas, q7=Q7.B, q3=eco).lcc["transport_costs"] == "single break-even"
+    assert _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"] == "GIS-coupled"
+    assert "transport_costs" not in _activated(schemas, q7=None, q3=eco).lcc
 
 
 # ---------------------------------------------------------------------------
@@ -288,3 +697,96 @@ def test_full_activation_count_for_complete_case(schemas):
     assert "lca_t1" not in case.activated_nodes
     assert "lcc_trig_01" not in case.activated_nodes
     assert "slca_t_01" not in case.activated_nodes
+
+
+# ---------------------------------------------------------------------------
+# Q9 — the nodes that read the situation follow the derived situation
+# ---------------------------------------------------------------------------
+
+
+def _q9_case(schemas, q1, decision, q2=Q2.A):
+    from app.domain.enums import DecisionContext
+    case = _baseline_case(q1=q1, q2=q2, decision_context=DecisionContext(decision) if decision else None)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def test_q9_structural_decision_makes_the_framework_consequential(schemas):
+    """Q1=A is Situation A (attributional) until Q9 says the consequences are
+    structural: then every node that reads the situation moves together, not
+    only the label."""
+    before = _q9_case(schemas, Q1.A, None)
+    after = _q9_case(schemas, Q1.A, "structural")
+    assert before.lca["modeling_framework"] == "attributional"
+    assert after.lca["modeling_framework"] == "consequential"
+    assert after.lca["allocation_method"] == "consequential expansion"
+    assert after.lca["reference_scenario.content"] == "marginal technology mix (market analysis)"
+    assert after.lca["ilcd_situation"] == "ILCD B"
+
+
+def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(schemas):
+    case = _q9_case(schemas, Q1.C, "none")
+    assert case.lca["modeling_framework"] == "attributional"
+    assert case.lca["allocation_method"] == "system expansion"
+    assert "lca_mc_27" not in case.activated_nodes   # no reference scenario for a documented network
+
+
+def test_q9_unanswered_keeps_every_q1_result(schemas):
+    expected = {
+        Q1.A: ("attributional", "system expansion", "ILCD A"),
+        Q1.B: ("attributional", "system expansion", "ILCD A (multi-actor)"),
+        Q1.C: ("consequential", "consequential expansion", "ILCD B"),
+        Q1.D: ("attributional", "allocation", "ILCD C2"),
+        Q1.E: ("attributional", "system expansion", "ILCD C1"),
+    }
+    for q1, (framework, allocation, ilcd) in expected.items():
+        case = _q9_case(schemas, q1, None)
+        assert (case.lca["modeling_framework"], case.lca["allocation_method"], case.lca["ilcd_situation"]) == (
+            framework, allocation, ilcd)
+
+
+# ---------------------------------------------------------------------------
+# Q10 — the LCC nodes that read the type follow the derived type
+# ---------------------------------------------------------------------------
+
+
+def _q10_case(schemas, q1, policy):
+    case = _baseline_case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def test_q10_policy_purpose_moves_the_whole_lcc_not_only_the_label(schemas):
+    """Q1=A is conventional C+E costing until Q10 says the study serves a public
+    policy: then the type, the discount rate and the allocation all follow."""
+    before = _q10_case(schemas, Q1.A, None)
+    after = _q10_case(schemas, Q1.A, True)
+    assert before.lcc_type == LccType.C_LCC_PLUS_E_LCC
+    assert (before.lcc["lcc_type"], before.lcc["discount_rate"], before.lcc["allocation_method"]) == (
+        "C-LCC entity + E-LCC network", "partner-specific", "negotiated")
+    assert after.lcc_type == LccType.E_LCC_PLUS_S_LCC_PLUS_NTF
+    assert (after.lcc["lcc_type"], after.lcc["discount_rate"], after.lcc["allocation_method"]) == (
+        "E-LCC + S-LCC + NTF", "social (~4%)", "NTF+monetized")
+
+
+def test_q10_no_policy_on_a_sector_study_drops_the_social_costing(schemas):
+    case = _q10_case(schemas, Q1.C, False)
+    assert case.lcc_type == LccType.C_LCC_PLUS_E_LCC
+    assert case.lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+    assert "lcc_mc_12" not in case.activated_nodes     # no social rate without the S-LCC
+    assert "lcc_mc_07" not in case.activated_nodes
+
+
+def test_q10_unanswered_keeps_every_q1_result(schemas):
+    expected = {
+        Q1.A: ("C-LCC entity + E-LCC network", "partner-specific", "negotiated"),
+        Q1.B: ("C-LCC entity + E-LCC network", "blended", "system expansion"),
+        Q1.C: ("E-LCC + S-LCC + NTF", "social (~4%)", "NTF+monetized"),
+        Q1.D: ("C-LCC only", "partner-specific", "physical"),
+    }
+    for q1, (type_text, rate, allocation) in expected.items():
+        case = _q10_case(schemas, q1, None)
+        assert (case.lcc["lcc_type"], case.lcc["discount_rate"], case.lcc["allocation_method"]) == (
+            type_text, rate, allocation)

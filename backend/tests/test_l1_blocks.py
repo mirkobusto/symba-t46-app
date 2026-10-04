@@ -44,6 +44,27 @@ def test_block_C2_plus_ELCC_no_fire_for_natural_q1D(schemas):
     assert "block_C2_plus_E-LCC" not in case.blocked_by
 
 
+def test_block_C2_plus_ELCC_message_names_the_design_choice(schemas):
+    """D4.2 does not forbid E-LCC for corporate reporting; ties the LCC type to
+    the study's purpose. The block is a declared T4.6 choice, and says so."""
+    block = next(b for b in schemas.cross_method_rules["blocks"] if b["id"] == "block_C2_plus_E-LCC")
+    assert "design choice" in block["user_message"]
+    assert "forbidden by ILCD" not in block["user_message"]
+
+
+def test_q1_D_is_always_company_only_so_the_block_cannot_fire(schemas):
+    """With the economic dimension on, Q1=D is derived as C-LCC only, never
+    an E-LCC family: the block above only fires on a hand-set lcc_type."""
+    from app.engine.l0_compute import run as l0_run
+
+    for q3 in (Q3(eco=True), Q3(env=True, eco=True), Q3(env=True, eco=True, soc=True)):
+        case = Case(q1=Q1.D, q3=q3)
+        l0_run(case, schemas)
+        assert case.lcc_type == LccType.C_LCC_ONLY
+        run(case, schemas)
+        assert "block_C2_plus_E-LCC" not in case.blocked_by
+
+
 # ---------------------------------------------------------------------------
 # 3. block_anyQ1_plus_AbsoluteSLCA — defensive (Case.advanced not yet wired)
 # ---------------------------------------------------------------------------

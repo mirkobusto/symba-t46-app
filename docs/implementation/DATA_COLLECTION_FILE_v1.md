@@ -85,7 +85,7 @@ Dal mapping in `PHASE1_NODE_MAPPING_v2.md` + `WorkingDoc §3.1-3.3`:
 | **Temporal frame** | `q2` | A → ex-post (measured). B/C → ex-ante (assumptions, CAPEX, SSP/RCP). D → both (baseline measured + alternative projected). |
 | **Dimensions** | `q3` | env/eco/soc accendono pillar diversi → campi diversi (LCC chiede CAPEX/OPEX, S-LCA chiede stakeholder mapping). |
 | **Sector overlay** | `q6a` | Aggiunge campi sector-specific (es. waste_valorization → contamination, energy_utilities → capacity factor, multi_tenant → tenant matrix). |
-| **Geographic scope** | `q7` | A → no transport. B/C/D → distance_km, transport_mode obbligatori. |
+| **Geographic scope** | `q7` | ~~A → no transport. B/C/D → distance_km, transport_mode obbligatori.~~ Superato il 2026-10-04: il trasporto e il break-even valgono per ogni Q7 (vedi « Aggiornamenti dopo il draft » in fondo). |
 
 ILCD Situation (A / A_multi / B / C1 / C2) è una **label riassuntiva** dei tre assi sopra, non un asse indipendente. Pathway IS-01..05 idem.
 
@@ -105,8 +105,8 @@ Tabella attori partecipanti. Non esisteva nel modello dati: è una promozione de
 | `actor.name` | string | always | |
 | `actor.role` | enum {producer, consumer, facilitator, regulator, intermediary} | always | |
 | `actor.sector` | enum Q6a | always | sector dell'attore (può differire dal Q6a del Case se multi-sector) |
-| `actor.site_id` | FK → Site | `q7 in ["B","C","D"]` | |
-| `actor.country_iso2` | string | `q7 in ["B","C","D"]` | |
+| `actor.site_id` | FK → Site | `always` | ~~gated da Q7~~ |
+| `actor.country_iso2` | string | `always` | ~~gated da Q7~~ |
 | `actor.size_class` | enum {micro, SME, mid, large} | `q3.soc or pathway_id == "IS-02"` | S-LCA & policy contexts |
 | `actor.public_private` | enum {public, private, mixed} | `pathway_id in ["IS-02","IS-05"]` | policy/monitoring contexts |
 | `actor.contact_role` | string | always (optional) | per workflow di raccolta |
@@ -138,19 +138,19 @@ Una riga per scambio attore→attore. Estende il `Flow` model esistente.
 
 ### 5.3 § Logistics
 
-Una riga per **rotta** (= per flow se Q7≠A). Auto-derivata dalla Flow Matrix.
+Una riga per **rotta** (= per flow, anche co-locato; vedi « Aggiornamenti dopo il draft »). Auto-derivata dalla Flow Matrix.
 
 | field | type | activation_predicate | note |
 |---|---|---|---|
-| `route.flow_id` | FK | `q7 in ["B","C","D"]` | tutta la sezione gated da Q7 |
-| `route.distance_km` | float | `q7 in ["B","C","D"]` | |
-| `route.transport_mode` | enum {truck, rail, ship, pipeline, cable, conveyor, onsite_none} | `q7 in ["B","C","D"]` | |
-| `route.frequency` | enum {continuous, daily, weekly, monthly, ad_hoc} | `q7 in ["B","C","D"]` | |
-| `route.measured_volume_year` | float | `q7 in ["B","C","D"] and (q2 == "A" or scenario.is_baseline)` | |
-| `route.projected_volume_year` | float (per scenario) | `q7 in ["B","C","D"] and q2 in ["C","D"] and not scenario.is_baseline` | |
-| `route.backhaul_strategy` | enum {none, partial, full} | `q7 in ["B","C","D"] and q6a in ["waste_valorization","energy_utilities","pulp_paper","cement_construction"]` | sector overlay |
-| `route.transport_lci_dataset` | string | `q7 in ["B","C","D"] and q3.env` | |
-| `route.transport_cost_per_unit` | float | `q7 in ["B","C","D"] and q3.eco` | |
+| `route.flow_id` | FK | `always` | ~~gated da Q7~~: ora la sezione è gated da `q3.env or q3.eco` |
+| `route.distance_km` | float | `always` | ~~gated da Q7~~ |
+| `route.transport_mode` | enum {truck, rail, ship, pipeline, cable, conveyor, onsite_none} | `always` | ~~gated da Q7~~ |
+| `route.frequency` | enum {continuous, daily, weekly, monthly, ad_hoc} | `always` | ~~gated da Q7~~ |
+| `route.measured_volume_year` | float | `(q2 == "A" or scenario.is_baseline)` | |
+| `route.projected_volume_year` | float (per scenario) | `q2 in ["C","D"] and not scenario.is_baseline` | |
+| `route.backhaul_strategy` | enum {none, partial, full} | `q6a in ["waste_valorization","energy_utilities","pulp_paper","cement_construction"]` | sector overlay |
+| `route.transport_lci_dataset` | string | `q3.env` | |
+| `route.transport_cost_per_unit` | float | `q3.eco` | |
 
 ### 5.4 § Infrastructure
 
@@ -381,6 +381,17 @@ Totale stimato: **4-7 settimane** di lavoro effettivo, dipendente dal time-to-de
 - [ ] §5.6 — diagramma view-only va bene per v1, o editing è blocking?
 - [ ] §7 — l'esempio Wiktor riflette quello che ti aspetti?
 - [ ] §11 D1-D6 — decisioni aperte: quale opzione per ciascuna?
+
+---
+
+## Aggiornamenti dopo il draft (2026-10-04, dalla verifica app-vs-deliverable)
+
+Il draft qui sopra descrive lo schema com'era al 2026-05-22; `backend/app/schemas/dcf_schema.json` è la fonte. Cambiamenti da allora che toccano questo documento:
+
+- **§ Logistics non è più gated da Q7.** D4.1 §13.3.1 chiede che ogni collegamento di trasporto sia un processo unitario distinto e una sensibilità sulla distanza; D4.2 §4.3 chiede il break-even come parametro di sensibilità. Ora la sezione è attiva con la dimensione ambientale o economica per ogni valore di Q7 (anche co-locato: tubazione, nastro, movimentazione interna sono rotte). Tre campi opzionali per il break-even per flusso: `route.transport_sensitivity`, `route.break_even_distance_km`, `route.break_even_basis`. Q7 non è una soglia di distanza.
+- **Nuova sezione `flow_classification`** (dopo la Flow Matrix, attiva con `q3.env or q3.eco`, una riga per flusso): i test giuridici ed economici di D4.1 §9.3 e D4.2 §6.2 (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità causale, punto dello zero-burden, passo dell'albero decisionale, casi limite), dichiarati dall'analista. Q5 registra chi paga chi; nessun nodo legge questi campi.
+- Le sezioni dello schema sono ora otto; l'ordine è `actors, flow_matrix, flow_classification, logistics, costs, infrastructure, methodological_choices, network_diagram`.
+- I mandati procedurali arrivano da `backend/coordination/dcf_mandates_census.json`, una copia dei nodi: si aggiorna con `backend/scripts/sync_dcf_census.py` e un test fallisce se è fuori passo.
 
 ---
 

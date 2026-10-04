@@ -255,7 +255,7 @@
           "label_en": "Marginal market reference (consequential)",
           "type": "string_docref",
           "required": false,
-          "activation_predicate": "q1 == \"C\""
+          "activation_predicate": "ilcd_situation == \"ILCD Situation B\""
         },
         {
           "id": "flow.scenario_assumptions",
@@ -274,10 +274,131 @@
       ]
     },
     {
+      "id": "flow_classification",
+      "title_en": "Flow classification (waste / co-product / by-product)",
+      "description_en": "One row per flow, whatever Q5 says: the legal and economic tests that decide how a flow is treated (D4.1 §9.3, D4.2 §6.2). They are the analyst's judgements: Q5 only records who pays whom, and nothing cross-checks the two, so keep this consistent with the Q5 class of the flow in the Flow Matrix.",
+      "applies_when": "q3.env or q3.eco",
+      "row_collection": "auto_from_flow_matrix",
+      "fields": [
+        {
+          "id": "classif.flow_id",
+          "label_en": "Flow (FK)",
+          "type": "fk_flow",
+          "required": true,
+          "activation_predicate": "always"
+        },
+        {
+          "id": "classif.independent_market",
+          "label_en": "Would a third party pay for it? (Freedom-to-Act)",
+          "type": "enum",
+          "enum_values": [
+            "yes",
+            "no",
+            "unknown"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "D4.1 §9.3.3: if no independent buyer exists the price is administrative and the flow is a waste, even when Q5 says B pays A."
+        },
+        {
+          "id": "classif.avoidable",
+          "label_en": "Causal avoidability",
+          "type": "enum",
+          "enum_values": [
+            "unavoidable",
+            "avoidable",
+            "unknown"
+          ],
+          "required": false,
+          "activation_predicate": "q3.eco",
+          "description_en": "D4.2 §6.2: a zero-cost treatment needs the residue to be unavoidable and without positive market value; the causal avoidability test is declared per flow."
+        },
+        {
+          "id": "classif.legal_class",
+          "label_en": "Legal classification",
+          "type": "enum",
+          "enum_values": [
+            "product",
+            "co_product",
+            "by_product_art5",
+            "waste_art3",
+            "unknown"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Product, co-product, by-product (Waste Framework Directive art. 5) or waste (art. 3)."
+        },
+        {
+          "id": "classif.eow_status",
+          "label_en": "End-of-Waste status",
+          "type": "enum",
+          "enum_values": [
+            "achieved",
+            "not_achieved",
+            "pending",
+            "not_applicable",
+            "unknown"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "D4.1 §9.3.5: documents the status, it does not reclassify the flow."
+        },
+        {
+          "id": "classif.zero_burden_point",
+          "label_en": "Where the zero-burden assumption starts",
+          "type": "enum",
+          "enum_values": [
+            "at_generation",
+            "after_generator_pretreatment",
+            "not_applicable"
+          ],
+          "required": false,
+          "activation_predicate": "q3.env",
+          "description_en": "D4.1 §9.3.6, Step 4: from the point where the residue first reaches non-negative value, not necessarily at the gate."
+        },
+        {
+          "id": "classif.tree_step_reached",
+          "label_en": "Decision-tree step reached",
+          "type": "enum",
+          "enum_values": [
+            "step1_value",
+            "step2_interdependence",
+            "step3_dependent_coproduct",
+            "step4_zero_burden"
+          ],
+          "required": false,
+          "activation_predicate": "q3.env",
+          "description_en": "D4.1 §9.3.6: the step of the decision tree at which the treatment of this flow was settled."
+        },
+        {
+          "id": "classif.edge_case",
+          "label_en": "Edge case",
+          "type": "enum",
+          "enum_values": [
+            "none",
+            "negotiated_internal_price",
+            "zero_priced_high_utility",
+            "legally_waste_but_feedstock"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Cases the tests do not settle on their own and that need an explicit, documented reading (cut-off or substitution)."
+        },
+        {
+          "id": "classif.evidence",
+          "label_en": "Evidence and reasoning",
+          "type": "text",
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Documents or reasoning behind the answers above."
+        }
+      ]
+    },
+    {
       "id": "logistics",
       "title_en": "Logistics",
-      "description_en": "One row per route (= per flow when transport is involved). Auto-derived from the Flow Matrix when q7 != A. The whole section is gated by q7.",
-      "applies_when": "q7 in [\"B\", \"C\", \"D\"]",
+      "description_en": "One row per route, i.e. per flow, co-located flows included: a pipeline, a conveyor or on-site handling is a unit process too (D4.1 §13.3.1). Auto-derived from the Flow Matrix. The break-even distance is asked for every flow, whatever Q7 says; a study with only the social dimension has no transport to model, so the section is off for it.",
+      "applies_when": "q3.env or q3.eco",
       "row_collection": "auto_from_flow_matrix",
       "fields": [
         {
@@ -363,6 +484,47 @@
           "type": "float",
           "required": false,
           "activation_predicate": "q3.eco"
+        },
+        {
+          "id": "route.transport_sensitivity",
+          "label_en": "What makes this flow sensitive to distance",
+          "type": "enum",
+          "enum_values": [
+            "bulky_low_value",
+            "high_moisture",
+            "piped_heat_steam_water",
+            "high_value_commodity",
+            "other"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity.",
+          "source_ref": "lcc_hc_06"
+        },
+        {
+          "id": "route.break_even_distance_km",
+          "label_en": "Break-even distance (km)",
+          "type": "float",
+          "min": 0,
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Distance beyond which the exchange stops paying off for this flow, from your own sensitivity run on primary logistics data (D4.1 §13.3.1). Not a fixed assumption: do not copy a literature value.",
+          "source_ref": "lca_hc_21"
+        },
+        {
+          "id": "route.break_even_basis",
+          "label_en": "Break-even basis",
+          "type": "enum",
+          "enum_values": [
+            "gwp_only",
+            "multi_category",
+            "economic",
+            "env_and_eco"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "What the break-even was computed on; a GWP-only break-even can mislead (D4.1 §13.2.1).",
+          "source_ref": "lca_hc_21"
         }
       ]
     },
@@ -600,8 +762,8 @@
           "label_en": "Decommissioning cost",
           "type": "float",
           "required": false,
-          "activation_predicate": "q1 == \"C\"",
-          "row_condition": "infra.status == \"decommissioned\" or q1 == \"C\""
+          "activation_predicate": "q1 == \"C\" or lcc_type == \"C+E+S\"",
+          "row_condition": "infra.status == \"decommissioned\" or q1 == \"C\" or lcc_type == \"C+E+S\""
         },
         {
           "id": "infra.ssp_rcp_scenario",

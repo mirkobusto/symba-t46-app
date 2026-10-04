@@ -107,3 +107,10 @@ def test_docx_lists_mandates_and_triggered_rules(payload_wiktor):
 def test_eu_footer_text_constants():
     assert "101135562" in EU_FOOTER
     assert "www.symbaproject.eu" in EU_FOOTER
+
+
+def test_docx_disclaimer_names_the_executive_agency_like_the_website():
+    from app.services.dcf_docx import EU_DISCLAIMER
+
+    assert "European Research Executive Agency" in EU_DISCLAIMER
+    assert EU_DISCLAIMER.startswith("Funded by the European Union.")

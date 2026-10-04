@@ -32,7 +32,8 @@ EU_FOOTER = (
 EU_DISCLAIMER = (
     "Funded by the European Union. Views and opinions expressed are however "
     "those of the author(s) only and do not necessarily reflect those of the "
-    "European Union. The European Union cannot be held responsible for them."
+    "European Union. Neither the European Union nor the European Research "
+    "Executive Agency can be held responsible for them."
 )
 
 PROJECT_TITLE = (
@@ -41,7 +42,8 @@ PROJECT_TITLE = (
     "ecosystem enhancing the EU competitiveness and resource independence."
 )
 
-SYMBA_BLUE = RGBColor(0x1F, 0x4E, 0x79)
+# The website heading colour (--dd-navy in the app), white-on-navy contrast above 10:1.
+SYMBA_NAVY = RGBColor(0x29, 0x36, 0x4E)
 
 
 # ---------------------------------------------------------------------------
@@ -84,7 +86,7 @@ def _write_cover_block(doc: Document, payload: DcfPayload, case_title: str | Non
         level=0,
     )
     heading.runs[0].font.size = Pt(20)
-    heading.runs[0].font.color.rgb = SYMBA_BLUE
+    heading.runs[0].font.color.rgb = SYMBA_NAVY
 
     para = doc.add_paragraph()
     run = para.add_run(

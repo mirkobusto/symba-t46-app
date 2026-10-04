@@ -18,6 +18,16 @@ If something here is unclear, say what's unclear and ask. Do not invent.
 
 ---
 
+## §0-bis Errata (2026-10-04, app-vs-deliverable verification)
+
+The text below is kept as written on 2026-05-08. `backend/app/schemas/` and `CLAUDE.md` are the reference where they differ. Approved by the owner on 2026-10-04.
+
+- **§3 Q3 "Economic (LCC, MFCA, CBA, TEA)" and the "automatic sub-choice"**: no such sub-choice exists. The economic dimension is LCC (D4.2); MFCA is a technique used inside it (ISO 14051, node `lcc_hc_38`); CBA and TEA are not offered. Audit I-16.
+- **§3 Q7 thresholds (<5 km, 5-100 km, >100 km)**: no deliverable contains them. D4.1 §13.3.1 and D4.2 §4.3 require explicit transport and a break-even sensitivity for every exchange: `lca_hc_21`, `lcc_hc_06`, IR-12, B-05 and the DCF Logistics section apply to every Q7, and the break-even ranges are per flow type, computed in the DCF. Q7 keeps its four qualitative options; only CIR-03 and the GIS branches (`lca_mc_29`, `lcc_mc_14`) depend on it. Audit I-08.
+- **§3 "7 user-facing questions" / "FROZEN"**: three optional questions were added on 2026-10-04 (Q8 asset lifetime, Q9 decision and scale, Q10 public policy purpose); unanswered, the engine behaves exactly as with Q1-Q7 alone. Q1-Q7 themselves are unchanged.
+
+---
+
 ## §1 Project context (90 seconds)
 
 **Project**: SYMBA Horizon Europe (CL6, bio-based / circular economy). Task 4.6 = "Industrial Symbiosis Methodological Assessment Tool".

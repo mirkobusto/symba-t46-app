@@ -78,3 +78,33 @@ def test_paulu_q4_multiselect_reflected(tmp_path: Path):
     full_text = "\n".join(p.text for p in doc.paragraphs)
     # The Q4 line should list both D and E (sorted)
     assert "D, E" in full_text
+
+
+def _docx_text(case) -> str:
+    from io import BytesIO
+
+    from docx import Document
+
+    from app.engine.pipeline import run
+    from app.services.reports import generate_case_report_bytes
+
+    run(case)
+    return "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(case))).paragraphs)
+
+
+def test_report_lists_q8_q9_q10_and_the_notes_only_when_answered():
+    from app.domain.enums import Q1, Q2, DecisionContext
+    from app.domain.models import Q3, Case
+
+    base = dict(q1=Q1.E, q2=Q2.A, q3=Q3(env=True, eco=True))
+    plain = _docx_text(Case(**base))
+    assert "Q8 asset lifetime" not in plain and "Q9 decision" not in plain
+    assert "Q10 public policy" not in plain and "Notes on the answers" not in plain
+
+    answered = _docx_text(Case(**base, asset_lifetime_years=20, decision_context=DecisionContext.STRUCTURAL,
+                               policy_objective=True))
+    assert "Q8 asset lifetime (years): 20" in answered
+    assert "Q9 decision and scale: structural" in answered
+    assert "Q10 public policy / planning objective: yes" in answered
+    assert "Notes on the answers" in answered       # Q1=E with a structural decision is noted
+    assert "ILCD Situation B" in answered

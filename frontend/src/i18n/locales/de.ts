@@ -284,7 +284,7 @@ const de: Locale = {
     p1:
       'SYMBA T4.6 — IS Assessment App ist das operative Werkzeug von WP4 / T4.6 des SYMBA Horizon Europe Projekts. Es implementiert die Phase-1-Atomknoten-Entscheidungs-Engine, abgeleitet aus den Deliverables D4.1 (LCA), D4.2 (LCC) und D4.3 (S-LCA), und klassifiziert eine industrielle Symbiose-Fallstudie in einen von fünf terminalen IS-Pathways (IS-01..IS-05) und liefert eine vollständige methodische Konfiguration für LCA, LCC und S-LCA.',
     p2:
-      'Die 7 Benutzerfragen (Q1-Q7) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
+      'Die 7 Kernfragen (Q1-Q7) und drei optionale (Q8-Q10) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
       'Dieser MVP-Build verbindet den Fragebogen mit POST /api/pipeline/run. Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
@@ -349,12 +349,12 @@ const de: Locale = {
       help: 'Mindestens eine ist erforderlich. Standard: ENV + ECO.',
       details:
         'ENV — Umwelt-Lebenszyklusanalyse (LCA): Auswirkungen auf Klima, Ökosysteme, Ressourcennutzung. Fast immer ausgewählt. ' +
-        'ECO — ökonomische Dimension; Standard-Tool ist LCC (Life Cycle Costing), aber die Engine akzeptiert auch MFCA (Material Flow Cost Accounting), CBA (Cost-Benefit Analysis) oder TEA (Techno-Economic Analysis), je nach Q4 und Reporting-Kontext. ' +
+        'ECO — ökonomische Dimension, bewertet mit Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb des LCC-Pfads (aktiviert durch ECO und durch umstrittene Stoffströme in Q5), keine Alternative dazu; CBA und TEA bietet diese Engine nicht an. ' +
         'SOC — S-LCA. Aktivierung löst eine längere Regelkette aus (Stakeholder-Kategorien Worker / lokale Gemeinschaft / Wertschöpfungskette) und erzwingt L1 BLOCK 2, wenn der erweiterte Override slca_framework_override auf „absolute" gesetzt ist. ' +
         'Die meisten veröffentlichten IS-Papers laufen nur mit ENV (z. B. Sokka, Daddi); einige koppeln ENV+ECO (Hashimoto, Wiktor); nur eine Handvoll fügt SOC hinzu.',
       warning: 'Mindestens eine Dimension auswählen, um fortzufahren.',
       env: 'Umwelt (LCA)',
-      eco: 'Ökonomisch (LCC / MFCA / CBA / TEA)',
+      eco: 'Ökonomisch (LCC)',
       soc: 'Sozial (S-LCA)',
     },
 
@@ -390,13 +390,13 @@ const de: Locale = {
       help:
         'Fügen Sie eine Zeile pro symbiotischem Hauptfluss hinzu und wählen Sie dessen Q5-Kategorie. Pflicht für Q1 ∈ {A, B, D}; sonst optional.',
       details:
-        'Wählen Sie für jeden Hauptfluss zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…) die ökonomische Beziehung: ' +
-        'a — A zahlt B, um den Fluss abzunehmen (Fluss ist ABFALL für A): typischer Entsorgungsvertrag. Aktiviert Allokationsregeln im Abfall-Paradigma. ' +
-        'b — Fluss KOSTENFREI ausgetauscht (mehrdeutiger Status): Engine routet zur Free-Flow-Disambiguierungskette. ' +
-        'c — B zahlt A für den Fluss (Fluss ist CO-PRODUKT für A): aktiviert ökonomische Allokationsregeln und den PEF Circular Footprint Formula Pfad. ' +
-        'd — INTERDEPENDENTER Fluss: keine Seite könnte ohne die andere arbeiten; als integriertes System behandelt, oft mit System Expansion. ' +
-        'e — AGGREGIERT / Black-box: der veröffentlichte Fall liefert keine Pro-Fluss-Details (typisch für aggregierte IES-Papers wie Sokka 2011). ' +
-        'Für Policy-Studien Q1=C ist Q5 üblicherweise optional.',
+        'Wählen Sie für jeden Hauptstrom zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…), wer wen bezahlt: ' +
+        'a — A zahlt B für die Abnahme des Stroms (eine Annahmegebühr: negativer Marktwert, ein ABFALL für A, D4.1 §9.3.2). Zero-Burden gilt ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Strom im Data Collection File erklärt. ' +
+        'b — Strom wird KOSTENLOS abgegeben (unklarer Status): Die Engine leitet in die Klärungskette für kostenlose Ströme. ' +
+        'c — B zahlt A für den Strom (positiver Marktwert: ein KOPPELPRODUKT für A): Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Strom zahlen (Freedom-to-Act-Test, D4.1 §9.3.3), ist der Preis administrativ und der Strom wird als Abfall modelliert. ' +
+        'd — INTERDEPENDENTER Strom: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
+        'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Strom (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Stroms trotzdem ab. ' +
+        'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Strom im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
     },
 
     q6a: {
@@ -448,18 +448,46 @@ const de: Locale = {
 
     q7: {
       title: 'Q7 — Geografische Verteilung',
-      help: 'Wenn Akteur-Koordinaten später geladen werden, kann dies automatisch abgeleitet und als Info angezeigt werden.',
+      help: 'Qualitative Anordnung des Netzwerks. Der Transport wird unabhängig von der Antwort explizit modelliert; die Break-even-Distanz hängt vom Stromtyp ab und wird je Strom im Data Collection File (Logistik) berechnet.',
       details:
-        'Die geografische Verteilung verändert das relative Gewicht der Transporte im Inventory und kann CIR-03 aktivieren, wenn der erweiterte Override transport_sensitive=true ist. ' +
-        'A — co-located in einem Standort (<5 km, z. B. Kalundborg, Öko-Industriepark). Transport ist im Wesentlichen vernachlässigbar. ' +
-        'B — regionales Cluster (5-100 km, gleiche Region — typisch Sokka 2011 / Hashimoto). ' +
-        'C — weiträumig, regionsübergreifend oder grenzüberschreitend (>100 km). Transportmodus und -distanz werden zu nicht-trivialen Inventory-Posten. ' +
-        'D — multi-skalige nationale oder industrieweite Programme (Q1=C-Politikstudien, geografisch variabel).',
+        'Die Antwort ändert, wie Logistikdaten abgefragt werden (GIS-Kopplung, räumliche Sensitivität), nicht ob der Transport modelliert wird: D4.1 §13.3.1 verlangt, dass jede Transportverbindung ein eigener Einheitsprozess des Vordergrunds ist, mit Primärdaten zu Entfernung, Route und Verkehrsträger sowie einer Sensitivitätsanalyse der Entfernung zur Bestimmung des Break-even-Punkts. Hinter den vier Optionen steht keine Entfernungsschwelle: Der Break-even hängt vom Stromtyp und von der verdrängten Alternative ab (D4.1 §13.2.1 und D4.2 nennen Richtwerte zur Plausibilisierung eines Modells, nie als Eingaben); jede Studie berechnet ihren eigenen, Strom für Strom. ' +
+        'A — am selben Standort: ein Standort oder benachbarte Anlagen (Ökoindustriepark). Die Verbindungen sind kurz (Rohrleitung, Förderband, innerbetrieblicher Transport), werden aber modelliert; bei Wärme, Dampf und Wasser in Rohrleitungen dominiert meist die dedizierte Infrastruktur. ' +
+        'B — regionaler Cluster: mehrere Standorte in derselben Region (typisch Sokka 2011 / Hashimoto). ' +
+        'C — großräumig: überregional oder grenzüberschreitend; Verkehrsträger und Routen werden zu wichtigen Inventar- und Kostenposten. ' +
+        'D — mehrskalig: nationale oder branchenweite Programme (typisch Politikstudien mit Q1=C). Von B bis D wird CIR-03 (GIS-Kopplung) aktiviert; von C bis D zusätzlich lca_mc_29 und der GIS-Zweig von lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-located', description: 'Eco-park, <5 km zwischen Akteuren.' },
-        B: { label: 'B. Regional', description: '5-100 km, gleiche Region.' },
-        C: { label: 'C. Weiträumig', description: '>100 km, regionsübergreifend oder grenzüberschreitend.' },
+        A: { label: 'A. Co-located', description: 'Ein Standort oder benachbarte Anlagen (Ökoindustriepark).' },
+        B: { label: 'B. Regional', description: 'Mehrere Standorte in derselben Region.' },
+        C: { label: 'C. Weiträumig', description: 'Überregional oder grenzüberschreitend.' },
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
+      },
+    },
+    q8: {
+      title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
+      help: 'Optional. Leer lassen, wenn unbekannt.',
+      details: 'Jahre, in denen die Hauptanlagen (Anlage, Ausrüstung, Infrastruktur) voraussichtlich betrieben werden. Über 15 Jahren fügt die Engine zukünftige Hintergrundszenarien (SSP/RCP) hinzu: den LCA-Futurisierungsknoten (Q2=D), den LCC-Knoten für dynamische Szenarien (Q2=C oder D) und die Regel CIR-01. D4.1 verlangt zukünftige Hintergrunddaten in jeder Ex-ante-Studie; D4.2 bindet sie an Anlagen über 15 Jahre; diese Frage speist die zweite Lesart und ändert nichts, wenn sie leer bleibt.',
+      placeholder: 'z. B. 20',
+      unit: 'Jahre',
+    },
+    q9: {
+      title: 'Q9 — Unterstützt die Studie eine Entscheidung, und in welchem Maßstab?',
+      help: 'Optional. Ohne Antwort leitet die Engine sie aus Q1 ab.',
+      details: 'Tabelle 1 in D4.1 klassifiziert die Studie danach, ob eine Entscheidung getroffen wird und wie groß ihre Folgen sind, nicht nach ihrem Gegenstand. Q1 ist nur ein Stellvertreter (A/B → begrenzte Folgen, C → strukturelle, D/E → keine Entscheidung). Antworten Sie, wenn der Stellvertreter falsch liegt. „Keine Entscheidung“ setzt ein bestehendes Netzwerk voraus (Q2 = A oder B). Bei Q1 = D bleibt es unabhängig von der Antwort bei ILCD-Situation C2 (T4.6-Designentscheidung).',
+      options: {
+        unset: 'Nicht beantwortet (aus Q1 abgeleitet)',
+        none: 'Keine Entscheidung — die Studie dokumentiert ein bestehendes Netzwerk (ILCD-Situation C)',
+        micro: 'Ja, mit begrenzten Folgen: keine Änderung der installierten Kapazität oder der Preise in der Gesamtwirtschaft (Situation A)',
+        structural: 'Ja, mit Folgen in großem Maßstab: verdrängt etwa 1 % oder mehr des jährlichen Neubaus im betroffenen Markt (Situation B; der Nachweis ist zu dokumentieren)',
+      },
+    },
+    q10: {
+      title: 'Q10 — Dient die Studie einem Ziel der öffentlichen Politik oder der Raumplanung?',
+      help: 'Optional. Ohne Antwort leitet die Engine sie aus Q1 ab (ja nur bei Q1 = C).',
+      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, unabhängig von Q1 oder Q4. Eine Gemeinde, die einen Ökoindustriepark plant (Q1 = B), oder eine Behörde, die einen Sektor überwacht (Q1 = E), kann mit Ja antworten, ohne Q1 = C zu sein. Bei Q1 = D behält das Werkzeug die konventionelle LCC auf Unternehmensebene (T4.6-Designentscheidung) und weist darauf hin.',
+      options: {
+        unset: 'Nicht beantwortet (aus Q1 abgeleitet)',
+        yes: 'Ja — Ziel der öffentlichen Politik oder der Raumplanung (ergänzt die gesellschaftliche LCC)',
+        no: 'Nein — kein Ziel der Politik oder Raumplanung',
       },
     },
 
@@ -526,12 +554,12 @@ const de: Locale = {
       'IS-01': {
         title: 'Operative Symbiose — Entscheidungsunterstützung',
         body: 'Ein symbiotischer Austausch zwischen zwei Unternehmen oder innerhalb eines Öko-Parks, bewertet zur Entscheidung über Ob und Wie.',
-        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: by default attributional modelling with substitution and an LCC tied to the perspective you chose (the ILCD situation and the LCC type below show what applies to your answers) and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
       },
       'IS-02': {
         title: 'Sektorweite Vorstudie — Politik',
         body: 'Eine politik- oder programmbezogene Entscheidung auf regionaler oder nationaler Ebene, deren Folgen strukturell und nicht marginal sind.',
-        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: by default the ILCD situation moves to B and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part. If you answered Q9 or Q10, the sections below show the situation and the costing that apply.',
       },
       'IS-03': {
         title: 'Unternehmensbeitrag — Berichterstattung',
@@ -546,7 +574,7 @@ const de: Locale = {
       'IS-05': {
         title: 'Monitoring — Symbiose im Betrieb',
         body: 'Zeitreihen-Monitoring einer bereits betriebenen Symbiose.',
-        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it, by default, in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
       },
     },
     extendedSuffix: 'Die Bewertung vergleicht eine Baseline mit alternativen Szenarien.',
@@ -603,6 +631,7 @@ const de: Locale = {
   },
 
   result: {
+    notes: { title: 'Hinweise zu Ihren Antworten' },
     verdict: {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },

@@ -27,6 +27,7 @@ from app.domain.enums import (
     Q4,
     Q5,
     Q7,
+    DecisionContext,
     IlcdSituation,
     LccType,
     PathwayId,
@@ -73,7 +74,8 @@ class Flow(BaseModel):
 
 class Site(BaseModel):
     """A geographic site participating in the IS network. Optional —
-    populated when Q7 in {B,C,D} for transport / spatial-coupling logic.
+    populated for transport / spatial-coupling logic (the DCF Logistics section
+    is open for every case since audit I-08, so co-located links are rows too).
     """
 
     model_config = ConfigDict(extra="forbid")
@@ -137,6 +139,19 @@ class Case(BaseModel):
     q6a: Q6a | None = None
     q6b: Q6b | None = None
     q7: Q7 | None = None
+    # Q8 (optional) — expected technical lifetime of the main assets, in years.
+    # None = not answered: the engine then reads the legacy advanced override
+    # `asset_lifetime`. Above 15 years it activates the future-background nodes
+    # (lca_mc_21, lcc_hc_23) and rule CIR-01.
+    asset_lifetime_years: float | None = Field(default=None, ge=0, le=500)
+    # Q9 (optional) — decision supported and scale of its consequences (D4.1
+    # Table 1). None = not answered: the ILCD situation is inferred from Q1,
+    # exactly as before Q9 existed.
+    decision_context: DecisionContext | None = None
+    # Q10 (optional) — does the study serve a public policy or territorial
+    # planning objective? D4.2 §2.3 adds an S-LCC in that case. None = not
+    # answered: the LCC type is inferred from Q1 (policy only for Q1=C).
+    policy_objective: bool | None = None
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)
@@ -188,5 +203,11 @@ class Case(BaseModel):
                      "Emitted on the trigger, not on the assertion: the "
                      "assertions compare engine-written prose and cannot "
                      "verify what the analyst did outside the tool."))
+    warnings: list[dict[str, str]] = Field(default_factory=list,
+        description=("Notes about the user's answers, each {'code', 'message'}: a new "
+                     "question that contradicts what Q1 implies, a combination the "
+                     "deliverables treat as unusual. Informational: they never block "
+                     "the run and never change a value on their own. Rebuilt on every "
+                     "run by l0_compute (the first phase), later phases append."))
     cdp_flags: list[dict[str, Any]] = Field(default_factory=list,
         description="L3 CDP tensions surfaced at reporting")

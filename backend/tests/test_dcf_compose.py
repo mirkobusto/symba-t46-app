@@ -131,9 +131,36 @@ def test_all_sections_present_in_spec_order(case_wiktor, dcf_schema, mandates_ce
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     section_ids = [s.id for s in payload.sections]
     assert section_ids == [
-        "actors", "flow_matrix", "logistics", "costs", "infrastructure",
-        "methodological_choices", "network_diagram",
+        "actors", "flow_matrix", "flow_classification", "logistics", "costs",
+        "infrastructure", "methodological_choices", "network_diagram",
     ]
+
+
+def test_flow_classification_follows_the_dimensions_not_q5(
+        case_wiktor, case_arce, dcf_schema, mandates_census):
+    """Audit I-09: the legal and economic tests are the analyst's judgements for
+    every flow; only the dimension decides which of them apply (the DCF predicates
+    cannot read Q5 anyway)."""
+    def ids(case):
+        sec = next(s for s in compose_dcf(case, dcf_schema, mandates_census).sections
+                   if s.id == "flow_classification")
+        return sec.active, {f.id for f in sec.fields}
+    w_active, wiktor = ids(case_wiktor)          # ENV + ECO
+    a_active, arce = ids(case_arce)              # ENV only
+    assert w_active and a_active
+    assert {"classif.flow_id", "classif.independent_market", "classif.legal_class",
+            "classif.eow_status", "classif.edge_case", "classif.evidence"} <= arce
+    assert "classif.avoidable" in wiktor and "classif.avoidable" not in arce       # q3.eco
+    assert "classif.zero_burden_point" in wiktor and "classif.zero_burden_point" in arce  # q3.env
+
+
+def test_flow_classification_is_off_for_a_social_only_case(schemas, dcf_schema, mandates_census):
+    case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(soc=True), q4={Q4.E}, q6a=Q6a.PLASTICS_PACKAGING,
+                q6b=Q6b.TRL9, q7=Q7.A, flows=_flows(Q5.a))
+    pipeline_run(case, schemas)
+    sec = next(s for s in compose_dcf(case, dcf_schema, mandates_census).sections
+               if s.id == "flow_classification")
+    assert sec.active is False
 
 
 def test_data_sections_have_active_fields(case_wiktor, dcf_schema, mandates_census):
@@ -146,11 +173,47 @@ def test_data_sections_have_active_fields(case_wiktor, dcf_schema, mandates_cens
     assert infra.active is True and len(infra.fields) > 0
 
 
-def test_logistics_disabled_when_q7_a(case_arce, dcf_schema, mandates_census):
+def test_logistics_enabled_even_when_q7_a(case_arce, dcf_schema, mandates_census):
+    """Q7=A used to switch Logistics off. Co-located links are routes too and the
+    break-even distance is asked for every flow (D4.1 §13.3.1, D4.2 §4.3; I-08)."""
     payload = compose_dcf(case_arce, dcf_schema, mandates_census)
     logistics = next(s for s in payload.sections if s.id == "logistics")
+    assert logistics.active is True
+    ids = {f.id for f in logistics.fields}
+    assert {"route.break_even_distance_km", "route.break_even_basis", "route.transport_sensitivity"} <= ids
+
+
+def test_break_even_mandates_reach_the_dcf_for_every_q7(case_arce, case_wiktor, dcf_schema, mandates_census):
+    """lca_hc_21 (all cases) and lcc_hc_06 (economic dimension on) are listed as
+    obligations with their new, unconditional statement."""
+    def obligations(case):
+        payload = compose_dcf(case, dcf_schema, mandates_census)
+        return {o.id: o for o in payload.obligations}
+    arce, wiktor = obligations(case_arce), obligations(case_wiktor)
+    assert "lca_hc_21" in arce and "lca_hc_21" in wiktor
+    assert "lcc_hc_06" in wiktor and "lcc_hc_06" not in arce      # arce is env-only
+    assert "if Q7" not in wiktor["lca_hc_21"].statement
+    assert wiktor["lca_hc_21"].source_section == "D4.1 §13.2.1"
+
+
+def test_transport_coupling_rules_are_listed_for_every_q7(case_arce, case_wiktor, dcf_schema, mandates_census):
+    """IR-12 and B-05 follow the dimensions that model transport (audit I-08): the
+    co-located, environment-only Arce case gets them too."""
+    for case in (case_arce, case_wiktor):
+        ids = {r["rule_id"] for r in case.applicable_rules}
+        assert {"IR-12", "B-05"} <= ids
+        obligations = {o.id for o in compose_dcf(case, dcf_schema, mandates_census).obligations}
+        assert {"IR-12", "B-05"} <= obligations
+
+
+def test_logistics_is_off_for_a_social_only_case(schemas, dcf_schema, mandates_census):
+    """With only the social dimension there is no transport to model or break-even to ask for."""
+    case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(soc=True), q4={Q4.E}, q6a=Q6a.PLASTICS_PACKAGING,
+                q6b=Q6b.TRL9, q7=Q7.B, flows=_flows(Q5.a))
+    pipeline_run(case, schemas)
+    logistics = next(s for s in compose_dcf(case, dcf_schema, mandates_census).sections
+                     if s.id == "logistics")
     assert logistics.active is False
-    assert logistics.fields == []
 
 
 def test_logistics_enabled_when_q7_b(case_wiktor, dcf_schema, mandates_census):

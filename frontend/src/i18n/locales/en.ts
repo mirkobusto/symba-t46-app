@@ -564,6 +564,7 @@ const en = {
   },
 
   result: {
+    notes: { title: 'Notes on your answers' },
     verdict: {
       moreInfo: 'More on this configuration',
     },

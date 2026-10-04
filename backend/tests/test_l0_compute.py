@@ -124,3 +124,25 @@ def test_all_three_triggers_for_q1D_eco_only_case(schemas):
     assert case.ilcd_situation is IlcdSituation.SITUATION_C2
     assert case.lcc_type is LccType.C_LCC_ONLY
     assert case.slca_activation_state is SlcaActivationState.DEACTIVATED
+
+
+# ---------------------------------------------------------------------------
+# Case.warnings — rebuilt by every L0 run, empty when nothing is flagged
+# ---------------------------------------------------------------------------
+
+
+def test_warnings_start_empty_and_are_rebuilt_on_every_run():
+    case = Case(q1=Q1.A, q3=Q3(env=True))
+    assert case.warnings == []
+    case.warnings = [{"code": "stale", "message": "from an earlier run"}]
+    run(case, None)
+    assert case.warnings == []
+
+
+def test_a_case_saved_before_warnings_existed_still_loads():
+    """case_json from an older engine has no `warnings` key."""
+    stored = Case(q1=Q1.A, q3=Q3(env=True)).model_dump_json()
+    import json
+    legacy = json.loads(stored)
+    legacy.pop("warnings")
+    assert Case.model_validate_json(json.dumps(legacy)).warnings == []

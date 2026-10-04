@@ -40,7 +40,7 @@ from app.models import CaseRecord  # noqa: E402
 _OUTPUT_FIELDS = frozenset({
     "ilcd_situation", "lcc_type", "slca_activation_state", "pathway_id", "is_01_extended",
     "lca", "lcc", "slca", "report", "governance", "methodological_charter", "review", "system",
-    "activated_nodes", "blocked_by", "rule_violations", "applicable_rules", "cdp_flags",
+    "activated_nodes", "blocked_by", "rule_violations", "applicable_rules", "cdp_flags", "warnings",
 })
 _INPUT_FIELDS = tuple(f for f in Case.model_fields if f not in _OUTPUT_FIELDS)
 

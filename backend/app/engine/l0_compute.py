@@ -76,6 +76,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
             `case.q1 is None`). The pipeline must collect Q1 before
             calling run.
     """
+    case.warnings = []   # rebuilt on every run; later phases append
     case.ilcd_situation = _compute_ilcd_situation(case.q1)
     case.lcc_type = _compute_lcc_type(case.q1, case.q3.eco)
     case.slca_activation_state = _compute_slca_state(case.q3.soc)

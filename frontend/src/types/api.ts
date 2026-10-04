@@ -143,6 +143,12 @@ export interface ApplicableRule {
   source_nodes?: string[]
 }
 
+/** A note on the user's answers; informational, never blocks the run. */
+export interface CaseWarning {
+  code: string
+  message: string
+}
+
 export interface CdpFlag {
   cdp_id: string
   name: string | null
@@ -202,4 +208,5 @@ export interface Case {
   rule_violations?: RuleViolation[]
   applicable_rules?: ApplicableRule[]
   cdp_flags?: CdpFlag[]
+  warnings?: CaseWarning[]
 }

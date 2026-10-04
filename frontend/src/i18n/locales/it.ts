@@ -543,6 +543,7 @@ const it: Locale = {
   },
 
   result: {
+    notes: { title: 'Note sulle tue risposte' },
     verdict: {
       moreInfo: 'Approfondisci questa configurazione',
     },

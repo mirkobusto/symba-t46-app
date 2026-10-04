@@ -515,6 +515,7 @@ const fr: Locale = {
   },
 
   result: {
+    notes: { title: 'Remarques sur vos réponses' },
     verdict: {
       moreInfo: 'En savoir plus sur cette configuration',
     },

@@ -3989,6 +3989,15 @@ kbd {
 
 .result-next-blocked { color: var(--dd-danger); }
 
+.result-notes {
+  margin: var(--dd-space-4) 0;
+  padding: var(--dd-space-3) var(--dd-space-4);
+  border-left: 3px solid var(--dd-warning, #c58b00);
+  background: var(--dd-surface-2, rgba(197, 139, 0, 0.08));
+}
+.result-notes-title { font-size: 1rem; margin: 0 0 var(--dd-space-2); }
+.result-notes ul { margin: 0; padding-left: 1.2rem; }
+
 .result-next-list {
   display: grid;
   gap: var(--dd-space-3);

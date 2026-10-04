@@ -509,6 +509,7 @@ const de: Locale = {
   },
 
   result: {
+    notes: { title: 'Hinweise zu Ihren Antworten' },
     verdict: {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },

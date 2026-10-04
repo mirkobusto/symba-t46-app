@@ -203,6 +203,19 @@ export default function ResultPage() {
 
       {verdict ? <VerdictDetails verdict={verdict} /> : null}
 
+      {(result.warnings?.length ?? 0) > 0 ? (
+        <section className="result-notes" aria-labelledby="result-notes-title">
+          <h2 id="result-notes-title" className="result-notes-title">
+            {t('result.notes.title')}
+          </h2>
+          <ul>
+            {result.warnings!.map((w) => (
+              <li key={w.code}>{w.message}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <section className="result-next">
         <h2 className="result-next-title">
           {t('result.next.title')}

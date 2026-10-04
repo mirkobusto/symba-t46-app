@@ -882,6 +882,7 @@ const fr: Locale = {
     },
   },
   dcf: {
+    noCase: { title: 'Aucun cas pour l\'instant', desc: 'Le Data Collection File se construit à partir de votre évaluation : remplissez d\'abord le questionnaire (ou ouvrez un cas enregistré), puis revenez ici.', cta: 'Ouvrir le questionnaire' },
     derivedField: "rempli par le moteur",
     obligationsTitle: "Choix méthodologiques à documenter",
     navLink: 'Collecte de données',

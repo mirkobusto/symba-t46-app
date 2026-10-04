@@ -909,6 +909,7 @@ const it: Locale = {
     },
   },
   dcf: {
+    noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario' },
     derivedField: "compilato dal motore",
     obligationsTitle: "Scelte metodologiche da documentare",
     navLink: 'Raccolta dati',

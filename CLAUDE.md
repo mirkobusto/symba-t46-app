@@ -81,7 +81,7 @@ Cronologia sintetica (tutto su `main`):
 - i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
 - Network Builder: completo (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale, guidance in-app con esempio caricabile)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
-- Deploy pubblico D4.6 (PU): immagine e guida pronte, manca l'URL reale
+- Deploy pubblico D4.6 (PU) su `biobasedisadvisor.symbaproject.eu` (nome scelto, DNS non ancora creato da chi gestisce symbaproject.eu): overlay Caddy (`docker-compose.public.yml`, `deploy/Caddyfile`), `SYMBA_ADMIN_EMAIL` / `SYMBA_REGISTRATION_OPEN`, guida in italiano `docs/GUIDA_DEPLOY_PASSO_PASSO.md`. **Mai provati con Docker**: la build dell'immagine (`Dockerfile.prod`) e il Caddyfile non sono stati eseguiti (il demone Docker sulla macchina di sviluppo non rispondeva); farlo sul server prima di annunciare l'indirizzo. Non fatti di proposito: rate limiting di login/registrazione, salvataggio anonimo configurabile (`SYMBA_ANON_SAVE`)
 - Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
 - **Dopo il deploy del 2026-10-04**: eseguire `cd backend && PYTHONPATH=. python scripts/rerun_saved_cases.py --apply` (i casi salvati tengono i valori e le regole del motore precedente; prima senza `--apply` per vedere quanti cambiano)
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
@@ -123,7 +123,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-04, dopo il merge dell'audit): **647 backend (pytest, +1 skipped) + 123 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-04, dopo deploy pubblico e correzioni UI): **657 backend (pytest, +1 skipped) + 132 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

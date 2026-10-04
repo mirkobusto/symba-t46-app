@@ -28,7 +28,7 @@
       "id": "lca_t1",
       "method": "LCA",
       "type": "Trigger",
-      "source_section": "D4.1 §3.1",
+      "source_section": "D4.1 §5.2.3",
       "category": "DERIVED",
       "trigger_q": [
         "q1",
@@ -46,13 +46,14 @@
         "q1=E": "ILCD Situation C1"
       },
       "override_path": "q1",
-      "lifecycle_layer": "L0"
+      "lifecycle_layer": "L0",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.1); audit 2026-10-04."
     },
     {
       "id": "lca_hc_01",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §3.2",
+      "source_section": "D4.1 §5",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -61,13 +62,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Goal-driven scoping mandatory",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04."
     },
     {
       "id": "lca_hc_02",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §3.2",
+      "source_section": "D4.1 §5.3.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -76,70 +78,11 @@
       "field_status": "procedural_mandate",
       "default_value": "Multi-actor stakeholder identification before scoping",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04."
     },
     {
       "id": "lca_hc_03",
-      "method": "LCA",
-      "type": "HC",
-      "source_section": "D4.1 §3.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
-      "trigger_condition": null,
-      "field": null,
-      "field_status": "procedural_mandate",
-      "default_value": "System-level perspective at network boundary",
-      "override_path": "fixed",
-      "lifecycle_layer": "L2"
-    },
-    {
-      "id": "lca_hc_04",
-      "method": "LCA",
-      "type": "HC",
-      "source_section": "D4.1 §3.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
-      "trigger_condition": null,
-      "field": null,
-      "field_status": "procedural_mandate",
-      "default_value": "Multi-FU analysis allowed when actors have distinct outputs",
-      "override_path": "fixed",
-      "lifecycle_layer": "L2"
-    },
-    {
-      "id": "lca_hc_05",
-      "method": "LCA",
-      "type": "HC",
-      "source_section": "D4.1 §4.1",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
-      "trigger_condition": null,
-      "field": null,
-      "field_status": "procedural_mandate",
-      "default_value": "Reference flow tied to Functional Unit",
-      "override_path": "fixed",
-      "lifecycle_layer": "L2"
-    },
-    {
-      "id": "lca_hc_06",
-      "method": "LCA",
-      "type": "HC",
-      "source_section": "D4.1 §4.2",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
-      "trigger_condition": null,
-      "field": null,
-      "field_status": "procedural_mandate",
-      "default_value": "Background system explicitly declared",
-      "override_path": "fixed",
-      "lifecycle_layer": "L2"
-    },
-    {
-      "id": "lca_hc_07",
       "method": "LCA",
       "type": "HC",
       "source_section": "D4.1 §5.1",
@@ -149,15 +92,80 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
+      "default_value": "System-level perspective at network boundary",
+      "override_path": "fixed",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
+    },
+    {
+      "id": "lca_hc_04",
+      "method": "LCA",
+      "type": "HC",
+      "source_section": "D4.1 §6.3.2",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
+      "field": null,
+      "field_status": "procedural_mandate",
+      "default_value": "Multi-FU analysis allowed when actors have distinct outputs",
+      "override_path": "fixed",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
+    },
+    {
+      "id": "lca_hc_05",
+      "method": "LCA",
+      "type": "HC",
+      "source_section": "D4.1 §6",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
+      "field": null,
+      "field_status": "procedural_mandate",
+      "default_value": "Reference flow tied to Functional Unit",
+      "override_path": "fixed",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04."
+    },
+    {
+      "id": "lca_hc_06",
+      "method": "LCA",
+      "type": "HC",
+      "source_section": "D4.1 §7.1",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
+      "field": null,
+      "field_status": "procedural_mandate",
+      "default_value": "Background system explicitly declared",
+      "override_path": "fixed",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.2); audit 2026-10-04."
+    },
+    {
+      "id": "lca_hc_07",
+      "method": "LCA",
+      "type": "HC",
+      "source_section": "D4.1 §8",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
+      "field": null,
+      "field_status": "procedural_mandate",
       "default_value": "Allocation hierarchy applied when needed",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.1); audit 2026-10-04."
     },
     {
       "id": "lca_hc_08",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.2",
+      "source_section": "D4.1 §16.3.4",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -171,13 +179,14 @@
         "q4=D": "Panel review (3+ experts ISO 14044) recommended"
       },
       "override_path": "q4",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04."
     },
     {
       "id": "lca_hc_09",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.2",
+      "source_section": "D4.1 §11.3.4",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -191,13 +200,14 @@
         "default": "Weighting discouraged"
       },
       "override_path": "q4",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04."
     },
     {
       "id": "lca_hc_10",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §5.3",
+      "source_section": "D4.1 §9.3.6",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -206,13 +216,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Avoided products documented when system expansion used",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04."
     },
     {
       "id": "lca_hc_11",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §5.3",
+      "source_section": "D4.1 §8.3.2",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -221,13 +232,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Substitution data quality and source documented",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04."
     },
     {
       "id": "lca_hc_12",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.1",
+      "source_section": "D4.1 §14",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -236,13 +248,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Uncertainty analysis mandatory",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04."
     },
     {
       "id": "lca_hc_13",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.1",
+      "source_section": "D4.1 §14.3.2",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -256,13 +269,14 @@
         "default": "Pedigree Matrix recommended"
       },
       "override_path": "q4",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04."
     },
     {
       "id": "lca_hc_14",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.1",
+      "source_section": "D4.1 §14.3.2",
       "category": "DERIVED",
       "trigger_q": [
         "q4",
@@ -274,13 +288,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Monte Carlo mandatory if Q4 in {C,D,E} OR Q6b<TRL9",
       "override_path": "q4, q6b",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04."
     },
     {
       "id": "lca_hc_15",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §5.7",
+      "source_section": "D4.1 §14.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -289,13 +304,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Sensitivity on critical assumptions",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04."
     },
     {
       "id": "lca_hc_16",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §5.7",
+      "source_section": "D4.1 §17.2",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -304,13 +320,14 @@
       "field_status": null,
       "default_value": "Methodological charter signed before modeling",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04."
     },
     {
       "id": "lca_hc_17",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.3",
+      "source_section": "D4.1 §9.2.4",
       "category": "DERIVED",
       "trigger_q": [
         "q5"
@@ -325,13 +342,14 @@
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
-      "per_flow": true
+      "per_flow": true,
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04."
     },
     {
       "id": "lca_hc_18",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §5.5",
+      "source_section": "D4.1 §7.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q6b"
@@ -354,13 +372,14 @@
           "unit": "years",
           "notes": "Per D4.1 §5.5; aligned with lcc.capital_goods.amortization_period via IR-13."
         }
-      ]
+      ],
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04."
     },
     {
       "id": "lca_hc_19",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §6.4",
+      "source_section": "D4.1 §11.3.5",
       "category": "DERIVED",
       "trigger_q": [
         "q6a"
@@ -372,13 +391,13 @@
       "default_value": "Frontier categories (microplastic, soil, biodiversity) per sector overlay",
       "override_path": "q6a",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Sector-specific overlay; full Q6a-driven logic deferred to sector_overlays.json (v2 §7)"
+      "extraction_notes": "Sector-specific overlay; full Q6a-driven logic deferred to sector_overlays.json (v2 §7) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04."
     },
     {
       "id": "lca_hc_20",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §3.2",
+      "source_section": "D4.1 §15.3.4",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -387,13 +406,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Methodological charter requirement (cross-LCA/LCC/S-LCA)",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04."
     },
     {
       "id": "lca_hc_21",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §5.4",
+      "source_section": "D4.1 §13.2.1",
       "category": "DERIVED",
       "trigger_q": [
         "q7"
@@ -404,13 +424,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Break-even distance sensitivity if Q7 in {B,C,D}",
       "override_path": "q7",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04."
     },
     {
       "id": "lca_hc_22",
       "method": "LCA",
       "type": "HC",
-      "source_section": "D4.1 §4.1",
+      "source_section": "D4.1 §6.3.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -419,13 +440,14 @@
       "field_status": null,
       "default_value": "Function-oriented FU mandatory for IS",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_01",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.1",
+      "source_section": "D4.1 §5.2.3",
       "category": "DERIVED",
       "trigger_q": [
         "ilcd"
@@ -443,13 +465,13 @@
       },
       "override_path": "q1",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Mirrors lca_t1; v1 lists both T1 and MC-01 covering ILCD situation; preserved as separate per v1"
+      "extraction_notes": "Mirrors lca_t1; v1 lists both T1 and MC-01 covering ILCD situation; preserved as separate per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_02",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.2",
+      "source_section": "D4.1 §5.3.4",
       "category": "DERIVED",
       "trigger_q": [
         "ilcd"
@@ -466,13 +488,14 @@
         "ilcd=C1": "attributional"
       },
       "override_path": "q1, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04."
     },
     {
       "id": "lca_mc_03",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.3",
+      "source_section": "D4.1 §11.3.1",
       "category": "DERIVED",
       "trigger_q": [
         "q1",
@@ -484,13 +507,14 @@
       "field_status": null,
       "default_value": "LCA-LCC integration matrix-based UM³-LCE³-ISN if Q3.ECO+Q3.ENV; standalone otherwise",
       "override_path": "q1, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_04",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §4.1",
+      "source_section": "D4.1 §6.3.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -499,13 +523,14 @@
       "field_status": null,
       "default_value": "FU function-oriented (single permitted IS choice)",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_05",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §4.2",
+      "source_section": "D4.1 §7.1",
       "category": "DERIVED",
       "trigger_q": [
         "q1",
@@ -522,7 +547,8 @@
         "q3.env-only": "cradle-to-gate default"
       },
       "override_path": "q1, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.2); audit 2026-10-04."
     },
     {
       "id": "lca_mc_06",
@@ -543,7 +569,7 @@
       "id": "lca_mc_07",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §4.1",
+      "source_section": "D4.1 §6.2.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -552,13 +578,14 @@
       "field_status": null,
       "default_value": "Function-oriented FU implementation (single option per D4.1 for IS)",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_08",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.1",
+      "source_section": "D4.1 §8.3.1",
       "category": "DERIVED",
       "trigger_q": [
         "ilcd"
@@ -573,13 +600,14 @@
         "ilcd=C2": "Step3 allocation"
       },
       "override_path": "q1, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_09",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.2",
+      "source_section": "D4.1 §5.2.4",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -588,13 +616,14 @@
       "field_status": null,
       "default_value": "Process-LCA preferred for foreground; IO for screening",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.2); audit 2026-10-04."
     },
     {
       "id": "lca_mc_10",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.5",
+      "source_section": "D4.1 §7.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q6b"
@@ -608,13 +637,14 @@
         "q6b<TRL7": "full + scale-up frameworks"
       },
       "override_path": "q6b",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04."
     },
     {
       "id": "lca_mc_11",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.7",
+      "source_section": "D4.1 §11.3.5",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -623,13 +653,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Sensitivity on assumptions, mandatory frontier categories",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04."
     },
     {
       "id": "lca_mc_12",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.2",
+      "source_section": "D4.1 §8",
       "category": "DERIVED",
       "trigger_q": [
         "ilcd"
@@ -644,13 +675,14 @@
         "ilcd=C2": "allocation"
       },
       "override_path": "q1, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04."
     },
     {
       "id": "lca_mc_13",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.3.2",
+      "source_section": "D4.1 §8.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -664,13 +696,13 @@
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3)"
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04."
     },
     {
       "id": "lca_mc_14",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.3.3",
+      "source_section": "D4.1 §8.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -684,13 +716,13 @@
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D)"
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_15",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.3",
+      "source_section": "D4.1 §9.3.6",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -699,13 +731,14 @@
       "field_status": null,
       "default_value": "Quality correction factor 0.6-1.0 (Rigamonti) for substitution",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_16",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.4",
+      "source_section": "D4.1 §13.3.1",
       "category": "DERIVED",
       "trigger_q": [
         "q7"
@@ -720,13 +753,14 @@
         "q7 in {C,D}": "GIS-coupled"
       },
       "override_path": "q7",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04."
     },
     {
       "id": "lca_mc_17",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §6.3",
+      "source_section": "D4.1 §9.3.1",
       "category": "DERIVED",
       "trigger_q": [
         "q5"
@@ -744,13 +778,14 @@
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
-      "per_flow": true
+      "per_flow": true,
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_18",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §6.1",
+      "source_section": "D4.1 §14.2.2",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -759,13 +794,14 @@
       "field_status": null,
       "default_value": "Uncertainty: OAT first + Morris GSA on critical parameters",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_19",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.3",
+      "source_section": "D4.1 §10.3.4",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -775,13 +811,13 @@
       "default_value": "MFA backbone activated when multi-actor (Q1 in {B,C,D,E})",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 marks DEFAULT but description has Q1 conditional; preserved as DEFAULT (universal mandate, trivially satisfied for Q1=A)"
+      "extraction_notes": "v1 marks DEFAULT but description has Q1 conditional; preserved as DEFAULT (universal mandate, trivially satisfied for Q1=A) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_20",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.5",
+      "source_section": "D4.1 §10.3.5",
       "category": "DERIVED",
       "trigger_q": [
         "q6b"
@@ -792,13 +828,14 @@
       "field_status": null,
       "default_value": "Scale-up frameworks (Six-Tenths, Lang, CEPCI) active if Q6b<TRL7",
       "override_path": "q6b",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04."
     },
     {
       "id": "lca_mc_21",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.6",
+      "source_section": "D4.1 §13.3.2",
       "category": "DERIVED",
       "trigger_q": [
         "q2",
@@ -810,13 +847,14 @@
       "field_status": null,
       "default_value": "Background futurisation SSP/RCP if Q2=D OR asset lifetime>15y",
       "override_path": "q2, q6b",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04."
     },
     {
       "id": "lca_mc_22",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.4",
+      "source_section": "D4.1 §7.3.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -825,7 +863,8 @@
       "field_status": "procedural_mandate",
       "default_value": "Foreground-background interface explicit",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04."
     },
     {
       "id": "lca_mc_23",
@@ -846,7 +885,7 @@
       "id": "lca_mc_24",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §6.2",
+      "source_section": "D4.1 §11",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -855,7 +894,8 @@
       "field_status": null,
       "default_value": "LCIA midpoint preferred over endpoint",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04."
     },
     {
       "id": "lca_mc_25",
@@ -881,7 +921,7 @@
       "id": "lca_mc_26",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.6",
+      "source_section": "D4.1 §12.1",
       "category": "DERIVED",
       "trigger_q": [
         "q2"
@@ -897,13 +937,13 @@
       },
       "override_path": "q2, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Field renamed from lca.reference_scenario to lca.reference_scenario.type per Mirko design call (field_gaps round, MODIFICA 2): paired with lca_mc_27 setting lca.reference_scenario.content. Avoids dotted-path duplication anti-pattern."
+      "extraction_notes": "Field renamed from lca.reference_scenario to lca.reference_scenario.type per Mirko design call (field_gaps round, MODIFICA 2): paired with lca_mc_27 setting lca.reference_scenario.content. Avoids dotted-path duplication anti-pattern. | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04."
     },
     {
       "id": "lca_mc_27",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.6",
+      "source_section": "D4.1 §12.3.1",
       "category": "DERIVED",
       "trigger_q": [
         "ilcd",
@@ -919,13 +959,14 @@
         "ilcd=B": "marginal technology mix (market analysis)"
       },
       "override_path": "q1, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04."
     },
     {
       "id": "lca_mc_28",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.4",
+      "source_section": "D4.1 §13.3.3",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -934,13 +975,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Geographic differentiation in LCIA when relevant",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04."
     },
     {
       "id": "lca_mc_29",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.4",
+      "source_section": "D4.1 §13.3.1",
       "category": "DERIVED",
       "trigger_q": [
         "q7"
@@ -951,13 +993,14 @@
       "field_status": null,
       "default_value": "Spatial coupling: Q7 in {C,D} -> GIS-coupled mandatory",
       "override_path": "q7",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04."
     },
     {
       "id": "lca_mc_30",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §6.4",
+      "source_section": "D4.1 §13.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q6a"
@@ -968,13 +1011,14 @@
       "field_status": null,
       "default_value": "AWARE water stress mandatory if Q6a=Wastewater/biofactories",
       "override_path": "q6a",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04."
     },
     {
       "id": "lca_mc_31",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.3",
+      "source_section": "D4.1 §16.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -983,13 +1027,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Network-level analysis preferred for IS",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_32",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §6.1",
+      "source_section": "D4.1 §14.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -1003,13 +1048,14 @@
         "q4 in {A,B}": "Morris first"
       },
       "override_path": "q4, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04."
     },
     {
       "id": "lca_mc_33",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.3",
+      "source_section": "D4.1 §15.3.3",
       "category": "DERIVED",
       "trigger_q": [
         "q1",
@@ -1021,13 +1067,14 @@
       "field_status": null,
       "default_value": "MFCA bridge ISO 14051 active if Q3.ECO=true",
       "override_path": "q3, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_34",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §3.3",
+      "source_section": "D4.1 §11.3.1",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -1037,13 +1084,13 @@
       "default_value": "UM³-LCE³-ISN matrix integration when Q3.ECO + Q3.ENV both",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 marks DEFAULT but description has Q3 conditional; preserved as DEFAULT per v1"
+      "extraction_notes": "v1 marks DEFAULT but description has Q3 conditional; preserved as DEFAULT per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04."
     },
     {
       "id": "lca_mc_35",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.7",
+      "source_section": "D4.1 §7.3.2",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -1052,13 +1099,14 @@
       "field_status": null,
       "default_value": "Hybrid technique selection (default Integrated for IS multi-actor)",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04."
     },
     {
       "id": "lca_mc_36",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §6.2",
+      "source_section": "D4.1 §16.3.4",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -1075,7 +1123,8 @@
         "q4=A": "none"
       },
       "override_path": "q4",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04."
     },
     {
       "id": "lcc_trig_01",
@@ -1240,7 +1289,7 @@
       "id": "lcc_hc_09",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §5.2",
+      "source_section": "D4.2 §5.3",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -1249,7 +1298,8 @@
       "field_status": "procedural_mandate",
       "default_value": "Entity-level before network consolidation (4-step sequence)",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §5.2); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_10",
@@ -1379,7 +1429,7 @@
       "id": "lcc_hc_17",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §7.4",
+      "source_section": "D4.2 §7.3",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -1388,13 +1438,14 @@
       "field_status": "procedural_mandate",
       "default_value": "Screening LCC before Detailed LCCI",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §7.4); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_18",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §8.1",
+      "source_section": "D4.2 §8",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -1403,7 +1454,8 @@
       "field_status": null,
       "default_value": "NPV principal output per ISO 15686-5",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §8.1); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_19",
@@ -1469,7 +1521,7 @@
       "id": "lcc_hc_23",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §9.2",
+      "source_section": "D4.2 §9.3",
       "category": "DERIVED",
       "trigger_q": [
         "q2",
@@ -1481,7 +1533,8 @@
       "field_status": null,
       "default_value": "Asset >15y -> SSP/RCP scenarios",
       "override_path": "q2, q6b",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_24",
@@ -1532,7 +1585,7 @@
       "id": "lcc_hc_27",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §11.1",
+      "source_section": "D4.2 §11.2",
       "category": "DERIVED",
       "trigger_q": [
         "q3"
@@ -1543,7 +1596,8 @@
       "field_status": "procedural_mandate",
       "default_value": "Perfect systemic LCA-LCC alignment when Q3.ENV+Q3.ECO both",
       "override_path": "q3",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §11.1); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_28",
@@ -2034,7 +2088,7 @@
       "id": "lcc_mc_14",
       "method": "LCC",
       "type": "MC",
-      "source_section": "D4.2 §4.3",
+      "source_section": "D4.2 §9.3",
       "category": "DERIVED",
       "trigger_q": [
         "q7"
@@ -2048,7 +2102,8 @@
         "q7 in {C,D}": "GIS-coupled"
       },
       "override_path": "q7",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §4.3); audit 2026-10-04."
     },
     {
       "id": "lcc_mc_15",
@@ -2146,7 +2201,7 @@
       "id": "lcc_mc_20",
       "method": "LCC",
       "type": "MC",
-      "source_section": "D4.2 §3.2",
+      "source_section": "D4.2 §3.3",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -2155,7 +2210,8 @@
       "field_status": null,
       "default_value": "Quality correction: physical + market price differentials",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §3.2); audit 2026-10-04."
     },
     {
       "id": "slca_t_01",

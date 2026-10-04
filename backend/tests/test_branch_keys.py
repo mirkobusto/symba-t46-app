@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import itertools
 import json
+import shutil
 
 import pytest
 
@@ -19,6 +20,7 @@ from app.engine.branch_keys import (
     parse_branch_key,
     pick_branch,
 )
+from app.engine.loader import SCHEMA_DIR, SchemaLoadError, load_schemas
 
 
 def _answers(**kw) -> Answers:
@@ -253,3 +255,17 @@ def test_q4_overlaps_resolve_to_the_strictest_selected_value(schemas, node_id):
         strictest = max(relevant, key=rank.__getitem__)
         alone = pick_branch(node["default_value"], _answers(q4=frozenset({strictest})))[1]
         assert got == alone, f"{node_id}: Q4={sorted(selected)} gives {got!r}, strictest {strictest} gives {alone!r}"
+
+
+def test_loader_rejects_an_unreadable_branch_key_at_load_time(tmp_path):
+    """A bad key must fail when the schemas load, not as a 500 on the first run."""
+    shutil.copytree(SCHEMA_DIR, tmp_path / "schemas")
+    path = tmp_path / "schemas" / "phase1_nodes.json"
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    node = next(n for n in doc["nodes"] if n["id"] == "lca_mc_08")
+    node["default_value"]["q9 in {A}"] = "typo"
+    path.write_text(json.dumps(doc), encoding="utf-8")
+    # a failed load is not cached and a different directory is a different
+    # cache key, so the shared cache the other tests rely on is untouched
+    with pytest.raises(SchemaLoadError, match="lca_mc_08"):
+        load_schemas(tmp_path / "schemas")

@@ -155,8 +155,6 @@ Per ogni domanda: (a) wording user-facing in italiano (l'inglese è meccanico), 
 
 #### Q6b (TRL della tecnologia principale)
 
-> *Aggiornamento 2026-10-04 (audit I-08): le soglie in km erano un'invenzione dell'estrazione, nessun deliverable le contiene; il break-even dipende dal tipo di flusso e si calcola nel DCF.*
-
 | Opzione | Cosa attiva |
 |---|---|
 | **TRL 9** — operativa industrialmente, dati storici disponibili | Standard data; no scale-up framework needed; static background OK |
@@ -171,6 +169,8 @@ Per ogni domanda: (a) wording user-facing in italiano (l'inglese è meccanico), 
 ### Q7 (condizionale) — "Quanto sono distribuiti geograficamente i siti coinvolti?"
 
 > *Mostrata solo se il sistema risponde "Sì" alla heuristic interna "i flussi simbiotici sono trasportati tra siti diversi?" (verificabile dai dati del caso che l'utente ha già caricato — coordinate dei siti).*
+
+> *Aggiornamento 2026-10-04 (audit I-08): le soglie in km erano un'invenzione dell'estrazione, nessun deliverable le contiene; il break-even dipende dal tipo di flusso e si calcola nel DCF.*
 
 | Opzione | Cosa attiva |
 |---|---|

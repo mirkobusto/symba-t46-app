@@ -105,8 +105,8 @@ Tabella attori partecipanti. Non esisteva nel modello dati: è una promozione de
 | `actor.name` | string | always | |
 | `actor.role` | enum {producer, consumer, facilitator, regulator, intermediary} | always | |
 | `actor.sector` | enum Q6a | always | sector dell'attore (può differire dal Q6a del Case se multi-sector) |
-| `actor.site_id` | FK → Site | `q7 in ["B","C","D"]` | |
-| `actor.country_iso2` | string | `q7 in ["B","C","D"]` | |
+| `actor.site_id` | FK → Site | `always` | ~~gated da Q7~~ |
+| `actor.country_iso2` | string | `always` | ~~gated da Q7~~ |
 | `actor.size_class` | enum {micro, SME, mid, large} | `q3.soc or pathway_id == "IS-02"` | S-LCA & policy contexts |
 | `actor.public_private` | enum {public, private, mixed} | `pathway_id in ["IS-02","IS-05"]` | policy/monitoring contexts |
 | `actor.contact_role` | string | always (optional) | per workflow di raccolta |
@@ -143,14 +143,14 @@ Una riga per **rotta** (= per flow, anche co-locato; vedi « Aggiornamenti dopo 
 | field | type | activation_predicate | note |
 |---|---|---|---|
 | `route.flow_id` | FK | `always` | ~~gated da Q7~~: ora la sezione è gated da `q3.env or q3.eco` |
-| `route.distance_km` | float | `q7 in ["B","C","D"]` | |
-| `route.transport_mode` | enum {truck, rail, ship, pipeline, cable, conveyor, onsite_none} | `q7 in ["B","C","D"]` | |
-| `route.frequency` | enum {continuous, daily, weekly, monthly, ad_hoc} | `q7 in ["B","C","D"]` | |
-| `route.measured_volume_year` | float | `q7 in ["B","C","D"] and (q2 == "A" or scenario.is_baseline)` | |
-| `route.projected_volume_year` | float (per scenario) | `q7 in ["B","C","D"] and q2 in ["C","D"] and not scenario.is_baseline` | |
-| `route.backhaul_strategy` | enum {none, partial, full} | `q7 in ["B","C","D"] and q6a in ["waste_valorization","energy_utilities","pulp_paper","cement_construction"]` | sector overlay |
-| `route.transport_lci_dataset` | string | `q7 in ["B","C","D"] and q3.env` | |
-| `route.transport_cost_per_unit` | float | `q7 in ["B","C","D"] and q3.eco` | |
+| `route.distance_km` | float | `always` | ~~gated da Q7~~ |
+| `route.transport_mode` | enum {truck, rail, ship, pipeline, cable, conveyor, onsite_none} | `always` | ~~gated da Q7~~ |
+| `route.frequency` | enum {continuous, daily, weekly, monthly, ad_hoc} | `always` | ~~gated da Q7~~ |
+| `route.measured_volume_year` | float | `(q2 == "A" or scenario.is_baseline)` | |
+| `route.projected_volume_year` | float (per scenario) | `q2 in ["C","D"] and not scenario.is_baseline` | |
+| `route.backhaul_strategy` | enum {none, partial, full} | `q6a in ["waste_valorization","energy_utilities","pulp_paper","cement_construction"]` | sector overlay |
+| `route.transport_lci_dataset` | string | `q3.env` | |
+| `route.transport_cost_per_unit` | float | `q3.eco` | |
 
 ### 5.4 § Infrastructure
 

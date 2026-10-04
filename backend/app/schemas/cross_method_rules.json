@@ -258,7 +258,7 @@
       "id": "IR-12",
       "name": "Transport-Spatial Co-Modeling",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3.ENV or Q3.ECO active (transport is modeled for every geographic spread; audit I-08, 2026-10-04)",
+      "trigger_condition_raw": "Q3.ENV or Q3.ECO active",
       "trigger_condition": "case.q3.env == true OR case.q3.eco == true",
       "assertion": "lca.transport.foreground != null AND lcc.transport_costs != null AND slca.territorial_dimension != null",
       "fields": [
@@ -743,7 +743,7 @@
       "id": "B-05",
       "name": "Geographic Spread Transport Coupling",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3.ENV or Q3.ECO active (transport is modeled for every geographic spread; audit I-08, 2026-10-04)",
+      "trigger_condition_raw": "Q3.ENV or Q3.ECO active",
       "trigger_condition": "case.q3.env == true OR case.q3.eco == true",
       "assertion": "lca.transport.foreground == true AND lcc.transport_costs != null",
       "fields": [

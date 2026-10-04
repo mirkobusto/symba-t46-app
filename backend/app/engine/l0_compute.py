@@ -96,6 +96,10 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, st
     if (case.q1, decision) in _DECISION_WARNINGS:
         code, message = _DECISION_WARNINGS[(case.q1, decision)]
         notes.append({"code": code, "message": message})
+    # Q2=B is "under construction or recently commissioned" (the questionnaire's own
+    # wording): the network exists or nearly does, so documenting it is coherent and
+    # no note is left. Q2=C (design phase, no operating data) and Q2=D (baseline plus
+    # alternatives, which imply a decision) are the ones that contradict "no decision".
     if situation in {_S.SITUATION_C1, _S.SITUATION_C2} and case.q2 in {Q2.C, Q2.D}:
         notes.append({
             "code": "documentation_vs_ex_ante",

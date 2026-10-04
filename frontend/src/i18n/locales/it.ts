@@ -817,6 +817,11 @@ const it: Locale = {
     skipLink: 'Continua senza accedere',
     signIn: 'Accedi',
     logout: 'Esci',
+    errors: {
+      registrationClosed: 'La registrazione è chiusa su questa istanza. Chiedi un account all\'amministratore.',
+      emailTaken: 'Esiste già un account con questa email. Prova ad accedere.',
+      invalidCredentials: 'Email o password errate.',
+    },
   },
 
   stakeholder: {

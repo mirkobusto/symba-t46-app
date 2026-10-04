@@ -838,6 +838,11 @@ const en = {
     skipLink: 'Continue without signing in',
     signIn: 'Sign in',
     logout: 'Sign out',
+    errors: {
+      registrationClosed: 'Registration is closed on this instance. Ask the administrator for an account.',
+      emailTaken: 'An account with this email already exists. Try signing in.',
+      invalidCredentials: 'Wrong email or password.',
+    },
   },
 
   stakeholder: {

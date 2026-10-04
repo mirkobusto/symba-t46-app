@@ -26,6 +26,15 @@ export default function LoginPage() {
 
   const redirectTo = location.state?.from || '/'
 
+  // The server answers in English; the three expected refusals are shown in the interface language.
+  function errorText(err: unknown, current: Tab): string {
+    if (!(err instanceof ApiError)) return (err as Error).message
+    if (current === 'register' && err.status === 403) return t('auth.errors.registrationClosed')
+    if (current === 'register' && err.status === 400) return t('auth.errors.emailTaken')
+    if (current === 'login' && err.status === 401) return t('auth.errors.invalidCredentials')
+    return err.detail
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
@@ -36,7 +45,7 @@ export default function LoginPage() {
       setSession(result.access_token, result.user)
       navigate(redirectTo)
     } catch (err) {
-      setError(err instanceof ApiError ? err.detail : (err as Error).message)
+      setError(errorText(err, tab))
     } finally {
       setSubmitting(false)
     }

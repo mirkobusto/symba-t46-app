@@ -999,8 +999,8 @@
       "field": "lca.gsa_tier",
       "field_status": null,
       "default_value": {
-        "q4 in {A,B}": "Morris first",
-        "q4 in {C,D,E}": "full Sobol cascade"
+        "q4 in {C,D,E}": "full Sobol cascade",
+        "q4 in {A,B}": "Morris first"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2"
@@ -1068,11 +1068,11 @@
       "field": "review.scope",
       "field_status": null,
       "default_value": {
-        "q4=A": "none",
-        "q4=B": "optional",
-        "q4=C": "panel ISO",
         "q4 includes 'D'": "panel + EU compliance",
-        "q4=E": "peer review"
+        "q4=C": "panel ISO",
+        "q4=E": "peer review",
+        "q4=B": "optional",
+        "q4=A": "none"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2"

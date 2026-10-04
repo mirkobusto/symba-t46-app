@@ -313,12 +313,15 @@ def test_gsa_tier_was_dead_and_now_follows_q4(schemas):
     assert "lca_mc_32" not in _activated(schemas, q4=set()).activated_nodes
 
 
-def test_first_matching_branch_wins_when_q4_branches_overlap(schemas):
-    """Convention (branch_keys.py): dict order decides. {A,E} gets the A branch
-    and {C,D} the C branch even though D is the stricter one; see the pinned
-    overlaps in test_branch_keys.py."""
-    assert _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"] == "Morris first"
-    assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"] == "panel ISO"
+def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
+    """First match wins (branch_keys.py), so the schema lists the strictest Q4
+    branch first (PHASE1_NODE_MAPPING_v2 §5.2.3: the more specific Q wins):
+    {A,E} gets the full Sobol cascade, {C,D} the EU-compliance panel. The
+    exhaustive version of this is in test_branch_keys.py."""
+    assert _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
+    assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"] == "panel + EU compliance"
+    assert _activated(schemas, q4={Q4.A, Q4.D}).review["scope"] == "panel + EU compliance"
+    assert _activated(schemas, q4={Q4.B, Q4.C}).review["scope"] == "panel ISO"
     assert _activated(schemas, q4={Q4.D}).review["scope"] == "panel + EU compliance"
 
 

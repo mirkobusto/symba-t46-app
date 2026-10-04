@@ -212,10 +212,9 @@ def _overlapping(node: dict) -> bool:
 
 # First match wins (branch_keys.py). Q4 is multi-select and some nodes mix
 # discriminants, so these nodes have answers where two branches disagree and
-# the dict order decides. PHASE1_NODE_MAPPING_v2 §5.2.3 would rather the more
-# specific branch won (lca_mc_36 with Q4={C,D} gives "panel ISO", not "panel +
-# EU compliance"); changing that is a separate decision. Pinned so that a new
-# overlapping node, or one that stops overlapping, shows up here.
+# the dict order decides. Pinned so that a new overlapping node, or one that
+# stops overlapping, shows up here. For the Q4-only nodes the order is also
+# pinned below: strictest first.
 _OVERLAPPING_NODES = {
     "lca_hc_08", "lca_mc_05", "lca_mc_32", "lca_mc_36",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_05", "slca_mc_04",
@@ -225,3 +224,32 @@ _OVERLAPPING_NODES = {
 def test_overlapping_branches_are_the_known_ones(schemas):
     overlapping = {n["id"] for n in _branch_nodes(schemas) if _overlapping(n)}
     assert overlapping == _OVERLAPPING_NODES
+
+
+# Strictness of each Q4 value, lowest first, per node (PHASE1_NODE_MAPPING_v2
+# §5.2.3: the more specific Q wins). The schema must list branches so that
+# first-match picks the strictest selected one.
+_Q4_STRICTNESS = {
+    "lca_hc_08": ["D", "C"],
+    "lca_mc_32": ["A", "B", "C", "D", "E"],   # {A,B} Morris first < {C,D,E} full Sobol
+    "lca_mc_36": ["A", "B", "E", "C", "D"],
+}
+
+
+def _q4_subsets():
+    return [frozenset(c) for r in range(1, 6) for c in itertools.combinations("ABCDE", r)]
+
+
+@pytest.mark.parametrize("node_id", sorted(_Q4_STRICTNESS))
+def test_q4_overlaps_resolve_to_the_strictest_selected_value(schemas, node_id):
+    node = next(n for n in schemas.phase1_nodes if n["id"] == node_id)
+    rank = {q: i for i, q in enumerate(_Q4_STRICTNESS[node_id])}
+    for selected in _q4_subsets():
+        relevant = [q for q in selected if q in rank]
+        if not relevant:
+            continue
+        got = pick_branch(node["default_value"], _answers(q4=selected))[1]
+        # the value that the strictest selected Q4 gets when it is selected alone
+        strictest = max(relevant, key=rank.__getitem__)
+        alone = pick_branch(node["default_value"], _answers(q4=frozenset({strictest})))[1]
+        assert got == alone, f"{node_id}: Q4={sorted(selected)} gives {got!r}, strictest {strictest} gives {alone!r}"

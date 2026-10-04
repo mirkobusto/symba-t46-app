@@ -2,6 +2,7 @@ import { AlertTriangle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { useHealth } from '../hooks/useHealth'
+import { apiOriginLabel } from '../services/api'
 
 export default function HealthBanner() {
   const { t } = useTranslation()
@@ -11,7 +12,7 @@ export default function HealthBanner() {
     <div className="health-banner" role="alert">
       <AlertTriangle size={18} aria-hidden="true" />
       <span>
-        {t('health.bannerPart1')} <code>http://localhost:8088</code>{' '}
+        {t('health.bannerPart1')} <code>{apiOriginLabel()}</code>{' '}
         {t('health.bannerPart2')}
       </span>
     </div>

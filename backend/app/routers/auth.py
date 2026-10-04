@@ -9,6 +9,7 @@ protected routers (e.g. ``cases.py`` once ownership is wired up).
 """
 from __future__ import annotations
 
+import os
 from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -61,6 +62,10 @@ def _to_public(user: User) -> UserPublic:
     )
 
 
+def _registration_closed() -> bool:
+    return (os.environ.get("SYMBA_REGISTRATION_OPEN") or "true").strip().lower() in {"false", "0", "no"}
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
@@ -75,10 +80,23 @@ def register(
 ) -> TokenResponse:
     """Create a new user account and return an access token.
 
-    First user signed up gets the ``admin`` role automatically; all
-    subsequent ones get ``analyst``. Simple bootstrap so the deploy
-    operator can self-serve.
+    Roles. Without configuration the first user signed up gets ``admin`` and all
+    later ones ``analyst``: a bootstrap so the deploy operator can self-serve.
+    On a public instance that means whoever registers first becomes admin, so
+    ``SYMBA_ADMIN_EMAIL`` pins the admin to one address (only that email is admin,
+    whenever it registers).
+
+    Registration. Open by default. ``SYMBA_REGISTRATION_OPEN=false`` closes it: only
+    ``SYMBA_ADMIN_EMAIL`` can still register (to create the admin account), or, when
+    that is not set, the very first user (the old bootstrap).
     """
+    email = payload.email.lower()
+    admin_email = (os.environ.get("SYMBA_ADMIN_EMAIL") or "").strip().lower()
+    no_users_yet = db.execute(select(User).limit(1)).first() is None
+    if _registration_closed() and not (
+        (admin_email and email == admin_email) or (not admin_email and no_users_yet)
+    ):
+        raise HTTPException(status_code=403, detail="Registration is closed")
     existing = db.execute(
         select(User).where(User.email == payload.email.lower())
     ).scalar_one_or_none()
@@ -88,11 +106,11 @@ def register(
             detail=f"Email {payload.email!r} already registered",
         )
 
-    is_first = db.execute(select(User).limit(1)).first() is None
+    is_admin = (email == admin_email) if admin_email else no_users_yet
     user = User(
-        email=payload.email.lower(),
+        email=email,
         password_hash=hash_password(payload.password),
-        role="admin" if is_first else "analyst",
+        role="admin" if is_admin else "analyst",
     )
     db.add(user)
     db.commit()

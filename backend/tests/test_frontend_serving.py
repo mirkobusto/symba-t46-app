@@ -50,3 +50,15 @@ def test_the_catch_all_cannot_escape_the_bundle(client):
 def test_a_nul_byte_in_the_path_is_not_a_server_error(client):
     r = client.get("/%00x")
     assert r.status_code == 200 and r.text == "<html>SPA</html>"
+
+
+def test_fonts_are_served_with_the_woff2_type(tmp_path, monkeypatch):
+    dist = tmp_path / "dist"
+    (dist / "fonts").mkdir(parents=True)
+    (dist / "index.html").write_text("<html>SPA</html>")
+    (dist / "fonts" / "f.woff2").write_bytes(b"wOF2")
+    monkeypatch.setenv("SYMBA_FRONTEND_DIST", str(dist))
+    app = FastAPI()
+    _mount_frontend(app)
+    r = TestClient(app).get("/fonts/f.woff2")
+    assert r.status_code == 200 and r.headers["content-type"].startswith("font/woff2")

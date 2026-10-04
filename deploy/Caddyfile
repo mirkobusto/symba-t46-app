@@ -1,0 +1,25 @@
+# Reverse proxy of the public deployment (docker-compose.public.yml).
+# Caddy gets and renews the TLS certificate by itself (Let's Encrypt) once the DNS record of
+# {$SYMBA_DOMAIN} points at this server and ports 80 and 443 are open.
+{$SYMBA_DOMAIN} {
+	encode zstd gzip
+
+	# The biggest thing a visitor sends is a Data Collection File or a saved case.
+	request_body {
+		max_size 20MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		# Only the project website may embed the tool in a frame.
+		Content-Security-Policy "frame-ancestors 'self' https://www.symbaproject.eu https://symbaproject.eu"
+	}
+
+	# Report links are unlisted, not private: keep them out of search engines.
+	@reader path /r/*
+	header @reader X-Robots-Tag "noindex, nofollow"
+
+	reverse_proxy symba:8088
+}

@@ -2953,6 +2953,7 @@
       "default_value": {
         "q1=A": "exchange-only",
         "q1=B": "eco-park",
+        "q1=C": "sector-wide",
         "q7=D": "multi-scale"
       },
       "override_path": "q1, q7",

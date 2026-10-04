@@ -498,6 +498,27 @@ def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
 
 
 # ---------------------------------------------------------------------------
+# 7g. slca.boundary mirrors the LCA boundary for sector-wide studies
+#     (audit item I-13; D4.3 §4.1 wants the S-LCA boundary aligned with LCA/LCC)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q1, q7, expected",
+    [
+        (Q1.A, Q7.B, "exchange-only"),
+        (Q1.B, Q7.B, "eco-park"),
+        (Q1.C, Q7.B, "sector-wide"),   # lca_mc_05 says "sector-wide" for Q1=C too
+        (Q1.C, Q7.D, "sector-wide"),   # used to become "multi-scale" through q7=D
+        (Q1.D, Q7.D, "multi-scale"),   # q7=D keeps working for the other Q1 values
+    ],
+)
+def test_slca_boundary_follows_the_lca_boundary(schemas, q1, q7, expected):
+    case = _activated(schemas, q1=q1, q7=q7, q3=Q3(env=True, soc=True))
+    assert case.slca["boundary"] == expected
+
+
+# ---------------------------------------------------------------------------
 # 8. Q1=None → ValueError (matches pathway / l0_compute convention)
 # ---------------------------------------------------------------------------
 

@@ -209,8 +209,8 @@ export default function ResultPage() {
             {t('result.notes.title')}
           </h2>
           <ul>
-            {result.warnings!.map((w) => (
-              <li key={w.code}>{w.message}</li>
+            {result.warnings!.map((w, i) => (
+              <li key={`${w.code}-${i}`}>{w.message}</li>
             ))}
           </ul>
         </section>

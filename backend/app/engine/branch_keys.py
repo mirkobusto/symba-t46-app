@@ -215,7 +215,7 @@ def parse_branch_key(key: str) -> BranchKey:
     raise BranchKeyError(
         f"branch key {raw!r} is not in the grammar of engine/branch_keys.py "
         "(qX=V | qX in {..} | q4 includes 'V' | q6b<TRLn | q3.F=true|false | "
-        "q3.F-only | q3.F+G | sector=V | contested)"
+        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V | contested)"
     )
 
 

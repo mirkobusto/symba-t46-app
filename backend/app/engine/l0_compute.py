@@ -16,10 +16,14 @@ the same logic against the typed enums in app.domain.enums (which is
 the source of truth for serialized values; the JSON strings are
 documentation).
 
-Note on `lca_t1`: schemas list `q2` in `trigger_q` but the
-`default_value` table only discriminates on `q1`; `q2` is therefore
-not consulted here. If a future revision makes Q2 discriminative for
-ILCD situation, update this module and the JSON together.
+Note on `lca_t1`: its JSON table only discriminates on `q1` and lists `q2`
+in `trigger_q`; that table documents the Q1-only mapping, which is what
+applies when the optional Q9 (decision and scale) is unanswered. With Q9
+answered the situation comes from `_derive_ilcd_situation` (D4.1 Table 1),
+and Q2 is consulted only for a note. The same holds for `lcc_trig_01` and the
+optional Q10. Nodes that read the situation or the LCC type use the derived
+state through the `ilcd=` / `lcc_type=` branch keys. Update the JSON tables
+and this module together.
 """
 from __future__ import annotations
 

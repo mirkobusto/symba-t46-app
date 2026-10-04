@@ -126,6 +126,7 @@ def _apply_overrides(baseline: Case, overrides: dict[str, Any]) -> Case:
     # Strip engine-output fields so the new pipeline run starts clean
     for k in (
         "activated_nodes", "blocked_by", "rule_violations", "cdp_flags",
+        "applicable_rules", "warnings",
         "pathway_id", "is_01_extended", "ilcd_situation", "lcc_type",
         "slca_activation_state",
         "lca", "lcc", "slca", "report", "governance",

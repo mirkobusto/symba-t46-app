@@ -120,8 +120,8 @@ def _resolve_discriminative(
     """Pick a branch from a discriminative `default_value` dict.
 
     Branch keys follow the grammar of `engine/branch_keys.py` (`qX=V`,
-    `qX in {..}`, `q4 includes 'V'`, `q6b<TRLn`, the `q3.*` forms, `sector=V`,
-    `contested`). The first matching branch in the dict's order wins; the
+    `qX in {..}`, `q4 includes 'V'`, `q6b<TRLn`, the `q3.*` forms, `ilcd=C`,
+    `lcc_type=T`, `sector=V`, `contested`). The first matching branch in the dict's order wins; the
     `default` key is the fallback. A key the grammar does not know raises
     `BranchKeyError` instead of being skipped: skipping is how 25 nodes lost
     their rules without anyone noticing.

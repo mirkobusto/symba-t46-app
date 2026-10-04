@@ -206,6 +206,11 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 - Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
 - Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).
 - `coordination/current-state/_CURRENT_STATE.md` è storico (fermo a Sprint 0/1): lo stato corrente è **questo file**.
+- **Divergenze dai deliverable tenute di proposito** (decisione 2026-10-04, dalla verifica app-vs-deliverable; versione di riferimento: REVISED del 30/06/2026):
+  - **Q1=D → "C-LCC only"** è una scelta dichiarata di T4.6, non derivata da D4.2, che lega il tipo di LCC allo scopo dello studio e non a Q1. BLOCK 1 ("forbidden by ILCD") non può mai scattare, perché con Q1=D il tipo è già forzato a company-only.
+  - **Q4=D** attiva in CIR-05 i prezzi CE Delft e l'allocazione NTF, che D4.2 lega all'S-LCC (Q1=C). Regola Kimi tenuta; impatto basso.
+  - **Pedigree, Monte Carlo, break-even e trasporti** restano condizionati dalle risposte, mentre D4.1/D4.2 li dicono "sempre". Si segue il deliverable solo dove dice "senza eccezioni" (i tre strati di reporting, `lcc_hc_29`); il testo delle soglie km di Q7 è da rivedere.
+  - **Q1–Q7 restano congelate.** I determinanti che i deliverable usano e le domande non chiedono (decisione sì/no e scala, obiettivo di policy, vita degli asset, natura/evitabilità/End-of-Waste per flusso) sono in valutazione come nuove domande: richiede di sbloccare Q1–Q7, quindi una decisione esplicita.
 
 ---
 

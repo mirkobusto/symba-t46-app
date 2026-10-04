@@ -13,8 +13,6 @@
 import { useTranslation } from 'react-i18next'
 
 import {
-  COOKIES_URL,
-  PRIVACY_URL,
   PUBLIC_DELIVERABLES_URL,
   SITE_URL,
   SOCIAL_LINKS,
@@ -81,10 +79,10 @@ export default function EuFooter() {
           <span>{t('footer.copyright', { year: new Date().getFullYear() })}</span>
           <ul className="eu-footer-legal">
             <li>
-              <a href={PRIVACY_URL}>{t('footer.privacy')}</a>
+              <a href="/privacy">{t('footer.privacy')}</a>
             </li>
             <li>
-              <a href={COOKIES_URL}>{t('footer.cookies')}</a>
+              <a href="/privacy#storage">{t('footer.cookies')}</a>
             </li>
           </ul>
         </div>

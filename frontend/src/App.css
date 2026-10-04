@@ -4739,3 +4739,19 @@ kbd {
   font-size: 11px;
   color: var(--dd-text-muted);
 }
+
+/* ---- Privacy notice (draft) ---------------------------------------------- */
+
+.privacy-draft {
+  margin: var(--dd-space-4) 0;
+  padding: var(--dd-space-3) var(--dd-space-4);
+  border-left: 3px solid var(--dd-amber);
+  background: var(--dd-amber-bg);
+  font-weight: 600;
+}
+.privacy section {
+  margin-top: var(--dd-space-6);
+}
+.privacy ul {
+  padding-left: 1.2rem;
+}

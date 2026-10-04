@@ -12,6 +12,7 @@ import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
 import ScenariosResultPage from './pages/ScenariosResultPage'
 import StakeholderReportPage from './pages/StakeholderReportPage'
+import PrivacyPage from './pages/PrivacyPage'
 import PublicAboutPage from './pages/reader/PublicAboutPage'
 import PublicRegionPage from './pages/reader/PublicRegionPage'
 import PublicReportPage from './pages/reader/PublicReportPage'
@@ -30,6 +31,7 @@ function WelcomeGate({ children }: { children: React.ReactNode }) {
   const bypass =
     pathname.startsWith('/welcome') ||
     pathname.startsWith('/login') ||
+    pathname.startsWith('/privacy') ||
     pathname.startsWith('/r/')
   if (!hasOnboarded && !bypass) {
     return <Navigate to="/welcome" replace />
@@ -62,6 +64,7 @@ export default function App() {
               <Route path="/cases" element={<CasesListPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>

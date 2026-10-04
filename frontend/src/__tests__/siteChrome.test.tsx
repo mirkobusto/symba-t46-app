@@ -40,13 +40,12 @@ describe('EuFooter', () => {
       'href',
       'https://www.symbaproject.eu/',
     )
-    expect(screen.getByRole('link', { name: 'Privacy policy' })).toHaveAttribute(
+    // This tool has its own notice (accounts, saved cases, browser storage): the footer
+    // links to it, not to the website's policy, which covers the website only.
+    expect(screen.getByRole('link', { name: 'Privacy policy' })).toHaveAttribute('href', '/privacy')
+    expect(screen.getByRole('link', { name: 'Browser storage' })).toHaveAttribute(
       'href',
-      'https://www.symbaproject.eu/privacy-policy/',
-    )
-    expect(screen.getByRole('link', { name: 'Cookie policy' })).toHaveAttribute(
-      'href',
-      'https://www.symbaproject.eu/cookie-policy/',
+      '/privacy#storage',
     )
   })
 

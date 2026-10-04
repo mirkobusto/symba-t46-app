@@ -38,7 +38,7 @@ const fr: Locale = {
     publicDeliverables: 'Livrables publics',
     copyright: 'Copyright © {{year}} Symba Project, tous droits réservés.',
     privacy: 'Politique de confidentialité',
-    cookies: 'Politique relative aux cookies',
+    cookies: 'Stockage dans le navigateur',
   },
 
   siteHeader: {
@@ -217,6 +217,74 @@ const fr: Locale = {
     presetsMeta: '13 fixtures issues d\'articles peer-reviewed',
   },
 
+  // DRAFT: English until the notice has been through legal review and is translated.
+  privacy: {
+    "title": "Privacy and data storage",
+    "draft": "DRAFT for legal review — not yet the privacy notice of record. Items in [square brackets] are for the controller of this deployment to complete.",
+    "updated": "Version: draft 1, 2026-10-04.",
+    "sections": [
+      {
+        "id": "controller",
+        "title": "1. Who is responsible",
+        "paragraphs": [
+          "[PLACEHOLDER — the SYMBA partner that operates this subdomain: name, address, contact. To be completed by the owner.]",
+          "The project website https://www.symbaproject.eu/ has its own privacy policy, which covers the website. This page covers this tool."
+        ],
+        "items": []
+      },
+      {
+        "id": "what",
+        "title": "2. What this tool does",
+        "paragraphs": [
+          "It helps practitioners configure the methodological pathway of a life-cycle study of an industrial symbiosis (Horizon Europe project SYMBA, Grant Agreement 101135562, task T4.6) and prepare the data collection file and reports. It does not compute environmental, cost or social results."
+        ],
+        "items": []
+      },
+      {
+        "id": "data",
+        "title": "3. What we keep",
+        "paragraphs": [],
+        "items": [
+          "Your account: email address, a bcrypt hash of your password (never the password itself), your role and the creation date. The email also sits inside the sign-in token (valid 12 hours) that your browser keeps. Registration is open to anyone.",
+          "The cases you save: name, questionnaire answers, flows, optional sites (coordinates, country), the content of the data collection file (actor names, contact roles, costs), scoring data, the owner, and a public link name if you share a report.",
+          "Technical logs: the server's access log records the visitor's IP address, the time, the path and the status of each request; it goes to the container log of the host, rotated at 5 files of 10 MB. [PLACEHOLDER — logs of the reverse proxy or TLS terminator in front of the tool.]",
+          "In your browser (local storage, not cookies): symba-auth (sign-in), symba-case-draft and symba-dcf-draft (unsaved work), symba-preferences and symba-language. The tool sets no cookies and loads its fonts from its own server, with no request to third parties."
+        ]
+      },
+      {
+        "id": "purposes",
+        "title": "4. Why, and on what legal basis",
+        "paragraphs": [
+          "[PLACEHOLDER — purposes and legal basis, to be completed by the controller: operating the tool and its accounts for the SYMBA project (GA 101135562), security of the service.]"
+        ],
+        "items": []
+      },
+      {
+        "id": "recipients",
+        "title": "5. Who can see it",
+        "paragraphs": [
+          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Cases saved without signing in can currently be read and changed by anyone who can reach the tool: do not enter personal data of third parties."
+        ],
+        "items": []
+      },
+      {
+        "id": "storage",
+        "title": "6. How long, and how to delete",
+        "paragraphs": [
+          "Nothing is deleted automatically. You can delete your cases and the data collection content of a case from the tool. Deleting your account is not self-service yet: write to [PLACEHOLDER — contact]. Backups: [PLACEHOLDER — frequency and retention]."
+        ],
+        "items": []
+      },
+      {
+        "id": "rights",
+        "title": "7. Your rights",
+        "paragraphs": [
+          "Under the GDPR (articles 15 to 22) you can ask for access, rectification, erasure, restriction, portability and object to processing: [PLACEHOLDER — contact]. You can complain to the supervisory authority: [PLACEHOLDER — authority]."
+        ],
+        "items": []
+      }
+    ]
+  },
   about: {
     title: 'À propos',
     p1:

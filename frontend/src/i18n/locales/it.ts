@@ -38,7 +38,7 @@ const it: Locale = {
     publicDeliverables: 'Deliverable pubblici',
     copyright: 'Copyright © {{year}} Symba Project, tutti i diritti riservati.',
     privacy: 'Informativa sulla privacy',
-    cookies: 'Cookie policy',
+    cookies: 'Archiviazione nel browser',
   },
 
   siteHeader: {
@@ -245,6 +245,73 @@ const it: Locale = {
     presetsMeta: '13 fixture da paper peer-reviewed',
   },
 
+  privacy: {
+    "title": "Privacy e conservazione dei dati",
+    "draft": "BOZZA per revisione legale — non è ancora l'informativa definitiva. Le voci tra [parentesi quadre] devono essere completate dal titolare di questa installazione.",
+    "updated": "Versione: bozza 1, 2026-10-04.",
+    "sections": [
+      {
+        "id": "controller",
+        "title": "1. Chi è responsabile",
+        "paragraphs": [
+          "[SEGNAPOSTO — il partner SYMBA che gestisce questo sottodominio: nome, indirizzo, contatto. Da completare a cura del proprietario.]",
+          "Il sito del progetto https://www.symbaproject.eu/ ha una propria informativa, che riguarda il sito. Questa pagina riguarda questo strumento."
+        ],
+        "items": []
+      },
+      {
+        "id": "what",
+        "title": "2. Cosa fa questo strumento",
+        "paragraphs": [
+          "Aiuta chi si occupa di simbiosi industriale a configurare il percorso metodologico di uno studio di ciclo di vita e a preparare il file di raccolta dati e i report (progetto Horizon Europe SYMBA, Grant Agreement 101135562, task T4.6). Non calcola risultati ambientali, economici o sociali."
+        ],
+        "items": []
+      },
+      {
+        "id": "data",
+        "title": "3. Cosa conserviamo",
+        "paragraphs": [],
+        "items": [
+          "Il tuo account: indirizzo email, un hash bcrypt della password (mai la password), il ruolo e la data di creazione. L'email è anche dentro il token di accesso (valido 12 ore) che il browser conserva. La registrazione è aperta a tutti.",
+          "I casi che salvi: nome, risposte al questionario, flussi, siti facoltativi (coordinate, paese), il contenuto del file di raccolta dati (nomi degli attori, ruoli di contatto, costi), i dati di scoring, il proprietario e il nome del link pubblico se condividi un report.",
+          "Log tecnici: il log di accesso del server registra l'indirizzo IP del visitatore, l'ora, il percorso e lo stato di ogni richiesta; finisce nel log del container dell'host, ruotato su 5 file da 10 MB. [SEGNAPOSTO — log del reverse proxy o del terminatore TLS davanti allo strumento.]",
+          "Nel tuo browser (local storage, non cookie): symba-auth (accesso), symba-case-draft e symba-dcf-draft (lavoro non salvato), symba-preferences e symba-language. Lo strumento non imposta cookie e carica i font dal proprio server, senza richieste a terzi."
+        ]
+      },
+      {
+        "id": "purposes",
+        "title": "4. Perché, e su quale base giuridica",
+        "paragraphs": [
+          "[SEGNAPOSTO — finalità e base giuridica, da completare a cura del titolare: gestione dello strumento e degli account per il progetto SYMBA (GA 101135562), sicurezza del servizio.]"
+        ],
+        "items": []
+      },
+      {
+        "id": "recipients",
+        "title": "5. Chi può vederli",
+        "paragraphs": [
+          "Fornitore di hosting: [SEGNAPOSTO]. I link del tipo /r/… sono non elencati, non privati: chiunque abbia il link può leggere quel report. I casi salvati senza accedere possono oggi essere letti e modificati da chiunque raggiunga lo strumento: non inserire dati personali di terzi."
+        ],
+        "items": []
+      },
+      {
+        "id": "storage",
+        "title": "6. Per quanto tempo, e come cancellare",
+        "paragraphs": [
+          "Nulla viene cancellato automaticamente. Puoi cancellare i tuoi casi e il contenuto del file di raccolta dati di un caso dallo strumento. La cancellazione dell'account non è ancora in autonomia: scrivi a [SEGNAPOSTO — contatto]. Backup: [SEGNAPOSTO — frequenza e conservazione]."
+        ],
+        "items": []
+      },
+      {
+        "id": "rights",
+        "title": "7. I tuoi diritti",
+        "paragraphs": [
+          "Ai sensi del GDPR (articoli da 15 a 22) puoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità e opporti al trattamento: [SEGNAPOSTO — contatto]. Puoi proporre reclamo all'autorità di controllo: [SEGNAPOSTO — autorità]."
+        ],
+        "items": []
+      }
+    ]
+  },
   about: {
     title: 'Informazioni',
     p1:

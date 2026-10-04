@@ -17,8 +17,6 @@ export const SITE_NAV: readonly { key: string; href: string }[] = [
 /** Where the public deliverables (D4.6 is one) are listed on the website. */
 export const PUBLIC_DELIVERABLES_URL = `${SITE_URL}downloads/public-deliverables/`
 
-export const PRIVACY_URL = `${SITE_URL}privacy-policy/`
-export const COOKIES_URL = `${SITE_URL}cookie-policy/`
 
 /** The project's own social accounts, as linked in the website footer. */
 export const SOCIAL_LINKS: readonly { key: string; label: string; href: string }[] = [

@@ -13,7 +13,7 @@ Multi-tab structure:
 - Network Diagram  — placeholder note (the interactive viz is in-app)
 
 Design principles:
-- SYMBA palette: blue header (#1F4E79) + white text, italic small gray
+- SYMBA palette: navy header (#29364E, the website heading colour) + white text, italic small gray
   for field-id technical reference, EU footer on every sheet (inline + page
   footer for print).
 - No macros, no VBA — Excel/LibreOffice/Google Sheets compatible.
@@ -44,9 +44,9 @@ EU_FOOTER = (
 )
 
 # SYMBA palette: white + blue + green geometric (per project visual identity).
-_HEADER_FILL = PatternFill(fill_type="solid", fgColor="1F4E79")
+_HEADER_FILL = PatternFill(fill_type="solid", fgColor="29364E")
 _HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
-_TITLE_FONT = Font(bold=True, size=14, color="1F4E79")
+_TITLE_FONT = Font(bold=True, size=14, color="29364E")
 _SUBTITLE_FONT = Font(italic=True, size=10, color="404040")
 _FIELDID_FONT = Font(size=8, italic=True, color="666666")
 _LABEL_FONT = Font(bold=True)

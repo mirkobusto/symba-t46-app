@@ -161,7 +161,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
                         and bool(_attr(c, "interdependent_flows"))),
     "CIR-05": lambda c: _q4_intersects(c, {"D"}),
     "CIR-06": lambda c: bool(_attr(c, "frontier_categories_active")),
-    "CIR-07": lambda c: c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5},
+    "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(_attr(c, "is_specific_capital_goods")),
     "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
                          and c.q2 in {Q2.C, Q2.D}),

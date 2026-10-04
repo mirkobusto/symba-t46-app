@@ -480,6 +480,24 @@ def test_reference_scenario_content_follows_q1(schemas, q1, expected):
 
 
 # ---------------------------------------------------------------------------
+# 7f. Scale-up frameworks below TRL 7 only (audit item I-11a)
+#
+# D4.1 and D4.2 say "below TRL 7". lcc_hc_15 already stopped at TRL5-6; the LCA
+# node lca_mc_20 and rule CIR-07 also took TRL7-8, so the two methods disagreed.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q6b, active",
+    [(Q6b.TRL9, False), (Q6b.TRL7_8, False), (Q6b.TRL5_6, True), (Q6b.TRL_LT_5, True)],
+)
+def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
+    case = _activated(schemas, q6b=q6b, q3=Q3(env=True, eco=True))
+    assert ("lca_mc_20" in case.activated_nodes) is active
+    assert ("lcc_hc_15" in case.activated_nodes) is active  # the two methods agree
+
+
+# ---------------------------------------------------------------------------
 # 8. Q1=None → ValueError (matches pathway / l0_compute convention)
 # ---------------------------------------------------------------------------
 

@@ -171,7 +171,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # conjunctive
     "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
     # simple
-    "lca_mc_20": lambda c: c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5},
+    "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     # conjunctive — case.asset_lifetime defensive
     "lca_mc_21": lambda c: c.q2 == Q2.D and _asset_lifetime(c) > 15,
     # simple

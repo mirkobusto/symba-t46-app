@@ -81,6 +81,11 @@ def test_trigger_CIR_05_fires_when_q4_includes_D(schemas):
     assert _TRIGGER_FNS["CIR-05"](case_other) is False
 
 
+def test_trigger_CIR_07_fires_below_trl_7_only(schemas):
+    for q6b, expected in [(Q6b.TRL9, False), (Q6b.TRL7_8, False), (Q6b.TRL5_6, True), (Q6b.TRL_LT_5, True)]:
+        assert _TRIGGER_FNS["CIR-07"](_ready_case(q6b=q6b)) is expected
+
+
 def test_trigger_FU_04_fires_when_soc(schemas):
     case = _ready_case(q3=Q3(env=True, soc=True))
     assert _TRIGGER_FNS["FU-04"](case) is True

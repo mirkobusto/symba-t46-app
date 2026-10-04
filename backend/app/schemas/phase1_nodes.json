@@ -786,10 +786,10 @@
         "q6b"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5']",
+      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5']",
       "field": "lca.scale_up_framework",
       "field_status": null,
-      "default_value": "Scale-up frameworks (Six-Tenths, Lang, CEPCI) active if Q6b<=TRL7",
+      "default_value": "Scale-up frameworks (Six-Tenths, Lang, CEPCI) active if Q6b<TRL7",
       "override_path": "q6b",
       "lifecycle_layer": "L2"
     },

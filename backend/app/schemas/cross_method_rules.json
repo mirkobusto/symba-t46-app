@@ -522,8 +522,8 @@
       "id": "CIR-07",
       "name": "Engineering Scale-up Frameworks",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q6b ≤ TRL 7",
-      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5']",
+      "trigger_condition_raw": "Q6b < TRL 7",
+      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5']",
       "actions": [
         "lca.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']",
         "lcc.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']"

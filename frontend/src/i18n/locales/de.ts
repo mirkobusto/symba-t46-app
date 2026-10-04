@@ -361,6 +361,13 @@ const de: Locale = {
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
       },
     },
+    q8: {
+      title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
+      help: 'Optional. Leer lassen, wenn unbekannt.',
+      details: 'Jahre, in denen die Hauptanlagen (Anlage, Ausrüstung, Infrastruktur) voraussichtlich betrieben werden. Über 15 Jahren fügt die Engine zukünftige Hintergrundszenarien (SSP/RCP) hinzu: den LCA-Futurisierungsknoten (Q2=D), den LCC-Knoten für dynamische Szenarien (Q2=C oder D) und die Regel CIR-01. D4.1 verlangt zukünftige Hintergrunddaten in jeder Ex-ante-Studie; D4.2 bindet sie an Anlagen über 15 Jahre; diese Frage speist die zweite Lesart und ändert nichts, wenn sie leer bleibt.',
+      placeholder: 'z. B. 20',
+      unit: 'Jahre',
+    },
 
     q2dCard: {
       title: 'Q2-D — Alternative Szenarien',

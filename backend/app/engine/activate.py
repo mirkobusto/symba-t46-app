@@ -148,18 +148,21 @@ def _q4_intersects(case: Case, members: set[str]) -> bool:
 
 
 def asset_lifetime_years(case: Case) -> float:
-    """Asset lifetime in years, read from the advanced overrides.
+    """Asset lifetime in years: the Q8 answer, else the advanced override.
 
-    The AdvancedEditor stores it under `case.advanced["asset_lifetime"]`;
-    it is not a field on `Case` (extra='forbid'), so the former
-    `getattr(case, "asset_lifetime", 0)` always returned 0 and the
-    `> 15` triggers (lca_mc_21, lcc_hc_23, CIR-01) never fired.
+    `Case.asset_lifetime_years` (Q8) wins when answered. Until Q8 existed the
+    Advanced editor stored the value under `case.advanced["asset_lifetime"]`,
+    which the engine could not see (it read `getattr(case, "asset_lifetime")`
+    on an `extra='forbid'` model), so the `> 15` triggers (lca_mc_21,
+    lcc_hc_23, CIR-01) never fired. That key is still read as a fallback for
+    cases saved before Q8.
 
-    A missing, boolean, non-numeric or non-finite value reads as 0, which
-    keeps those triggers inert exactly as before. Numeric strings are
-    accepted: the editor coerces them, but a case posted straight to the
-    API may still carry "20".
+    A missing, boolean, non-numeric or non-finite fallback reads as 0, which
+    keeps those triggers inert. Numeric strings are accepted: the editor
+    coerces them, but a case posted straight to the API may still carry "20".
     """
+    if case.asset_lifetime_years is not None:
+        return float(case.asset_lifetime_years)
     raw = case.advanced.get("asset_lifetime")
     if raw is None or isinstance(raw, bool):
         return 0.0

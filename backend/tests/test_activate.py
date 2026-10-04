@@ -285,6 +285,42 @@ def test_asset_lifetime_accepts_numeric_string(schemas):
     assert "lca_mc_21" in _lifetime_case(schemas, "20").activated_nodes
 
 
+def _lifetime_case_q8(schemas, years, advanced=None, q2=Q2.D):
+    case = _baseline_case(q2=q2, q3=Q3(env=True, eco=True), asset_lifetime_years=years,
+                          advanced=advanced or {})
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+def test_q8_asset_lifetime_over_15_activates_both_nodes(schemas):
+    case = _lifetime_case_q8(schemas, 20)
+    assert "lca_mc_21" in case.activated_nodes and "lcc_hc_23" in case.activated_nodes
+
+
+def test_q8_threshold_is_strictly_greater_than_15(schemas):
+    assert "lca_mc_21" not in _lifetime_case_q8(schemas, 15).activated_nodes
+    assert "lca_mc_21" in _lifetime_case_q8(schemas, 15.5).activated_nodes
+
+
+def test_q8_answer_wins_over_the_advanced_override(schemas):
+    short = _lifetime_case_q8(schemas, 10, advanced={"asset_lifetime": 40})
+    assert "lca_mc_21" not in short.activated_nodes
+    long = _lifetime_case_q8(schemas, 40, advanced={"asset_lifetime": 5})
+    assert "lca_mc_21" in long.activated_nodes
+
+
+def test_q8_unanswered_falls_back_to_the_advanced_override(schemas):
+    assert "lca_mc_21" in _lifetime_case_q8(schemas, None, advanced={"asset_lifetime": 30}).activated_nodes
+    assert "lca_mc_21" not in _lifetime_case_q8(schemas, None).activated_nodes
+
+
+@pytest.mark.parametrize("bad", [-1, 501, "abc"])
+def test_q8_rejects_out_of_range_or_non_numeric_values(bad):
+    with pytest.raises(ValueError):
+        Case(q1=Q1.A, asset_lifetime_years=bad)
+
+
 @pytest.mark.parametrize("junk", ["", "abc", True, False, [], {}, "nan", "inf", -5])
 def test_asset_lifetime_junk_values_read_as_zero(schemas, junk):
     case = _lifetime_case(schemas, junk)

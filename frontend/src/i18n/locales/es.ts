@@ -361,6 +361,13 @@ const es: Locale = {
         D: { label: 'D. Multi-escala', description: 'Nacional / industria-wide, distancias variables.' },
       },
     },
+    q8: {
+      title: 'Q8 — Vida técnica esperada de los activos principales (años)',
+      help: 'Opcional. Déjala vacía si no la conoces.',
+      details: 'Años durante los que se espera que funcionen los activos principales (planta, equipos, infraestructuras). Por encima de 15 años el motor añade escenarios de fondo futuros (SSP/RCP): el nodo de futurización ACV (Q2=D), el de escenarios dinámicos ACC (Q2=C o D) y la regla CIR-01. D4.1 pide datos de fondo futuros en todo estudio ex-ante; D4.2 los liga a activos de más de 15 años; esta pregunta alimenta la segunda lectura y, si se deja vacía, no cambia nada.',
+      placeholder: 'p. ej. 20',
+      unit: 'años',
+    },
 
     q2dCard: {
       title: 'Q2-D — Escenarios alternativos',

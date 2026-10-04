@@ -203,3 +203,21 @@ def test_pipeline_run_with_advanced_override(client):
     assert resp.status_code == 200
     body = resp.json()
     assert "block_anyQ1_plus_AbsoluteSLCA" in body["blocked_by"]
+
+
+def test_pipeline_run_q8_asset_lifetime_over_15_years(client):
+    """Q8 (asset_lifetime_years) is part of the payload and drives CIR-01."""
+    base = {"q1": "B", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    short = client.post("/api/pipeline/run", json={**base, "asset_lifetime_years": 10}).json()
+    long = client.post("/api/pipeline/run", json={**base, "asset_lifetime_years": 25}).json()
+    assert long["asset_lifetime_years"] == 25
+    assert "lca_mc_21" in long["activated_nodes"] and "lca_mc_21" not in short["activated_nodes"]
+    assert "CIR-01" in {r["rule_id"] for r in long["applicable_rules"]}
+    assert "CIR-01" not in {r["rule_id"] for r in short["applicable_rules"]}
+
+
+def test_pipeline_run_q8_negative_is_rejected(client):
+    resp = client.post("/api/pipeline/run", json={
+        "q1": "A", "q2": "A", "q3": {"env": True}, "asset_lifetime_years": -3,
+    })
+    assert resp.status_code == 422

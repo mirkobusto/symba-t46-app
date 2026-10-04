@@ -168,6 +168,9 @@ export interface Case {
   q6a?: Q6a | null
   q6b?: Q6b | null
   q7?: Q7 | null
+  // Optional Q8: expected technical lifetime of the main assets, in years.
+  // null/absent = not answered (the engine falls back to advanced.asset_lifetime).
+  asset_lifetime_years?: number | null
 
   flows?: Flow[]
   sites?: Site[]

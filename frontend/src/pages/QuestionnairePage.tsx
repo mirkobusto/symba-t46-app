@@ -51,6 +51,12 @@ const Q4_WARN_KEYS: Partial<Record<Q4, string>> = {
   D: 'questionnaire.q4.options.D.warn',
 }
 
+/** Asset lifetime as the API wants it: a non-negative number, or null when empty/invalid. */
+function parseYears(raw: string): number | null {
+  const n = Number(raw.trim())
+  return raw.trim() !== '' && Number.isFinite(n) && n >= 0 ? n : null
+}
+
 export default function QuestionnairePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -74,6 +80,9 @@ export default function QuestionnairePage() {
   const [q6a, setQ6a] = useState<Q6a | undefined>(draft.q6a ?? undefined)
   const [q6b, setQ6b] = useState<Q6b | undefined>(draft.q6b ?? undefined)
   const [q7, setQ7] = useState<Q7 | undefined>(draft.q7 ?? undefined)
+  const [assetLifetime, setAssetLifetime] = useState<string>(
+    draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
+  )
   const [advanced, setAdvanced] = useState<Record<string, unknown>>(
     draft.advanced ?? {},
   )
@@ -91,6 +100,9 @@ export default function QuestionnairePage() {
     setQ6a(draft.q6a ?? undefined)
     setQ6b(draft.q6b ?? undefined)
     setQ7(draft.q7 ?? undefined)
+    setAssetLifetime(
+      draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
+    )
     setAdvanced(draft.advanced ?? {})
   }, [draft])
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -115,7 +127,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, advanced])
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, assetLifetime, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -126,6 +138,7 @@ export default function QuestionnairePage() {
       flows,
       alternative_scenarios: q2 === 'D' ? scenarios : [],
       q6a, q6b, q7,
+      asset_lifetime_years: parseYears(assetLifetime),
       advanced,
     })
     const result = await runDraft()
@@ -139,6 +152,7 @@ export default function QuestionnairePage() {
       setEnv(true); setEco(false); setSoc(false)
       setQ4(new Set()); setFlows([]); setScenarios([])
       setQ6a(undefined); setQ6b(undefined); setQ7(undefined)
+      setAssetLifetime('')
       setAdvanced({})
     }
   }
@@ -337,6 +351,25 @@ export default function QuestionnairePage() {
             <span className="opt-desc">{t(`questionnaire.q7.options.${v}.description`)}</span>
           </label>
         ))}
+      </QuestionCard>
+
+      {/* Q8 — optional: empty keeps today's behaviour */}
+      <QuestionCard
+        id="q8"
+        title={t('questionnaire.q8.title')}
+        help={t('questionnaire.q8.help')}
+        details={t('questionnaire.q8.details')}
+      >
+        <label className="opt">
+          <input
+            type="number" min={0} step="any" inputMode="decimal"
+            className="input"
+            value={assetLifetime}
+            placeholder={t('questionnaire.q8.placeholder')}
+            onChange={(e) => setAssetLifetime(e.target.value)}
+          />
+          <span className="opt-desc">{t('questionnaire.q8.unit')}</span>
+        </label>
       </QuestionCard>
 
       {/* Advanced */}

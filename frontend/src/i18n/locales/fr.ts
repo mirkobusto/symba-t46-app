@@ -367,6 +367,13 @@ const fr: Locale = {
         D: { label: 'D. Multi-échelle', description: "National / industrie-wide, distances variables." },
       },
     },
+    q8: {
+      title: 'Q8 — Durée de vie technique attendue des actifs principaux (années)',
+      help: 'Facultative. Laissez vide si vous ne la connaissez pas.',
+      details: 'Années pendant lesquelles les actifs principaux (installation, équipements, infrastructures) devraient fonctionner. Au-delà de 15 ans, le moteur ajoute des scénarios d\'arrière-plan futurs (SSP/RCP) : le nœud de futurisation ACV (Q2=D), celui des scénarios dynamiques ACC (Q2=C ou D) et la règle CIR-01. D4.1 demande des données d\'arrière-plan futures dans toute étude ex-ante ; D4.2 les lie aux actifs de plus de 15 ans ; cette question alimente la seconde lecture et, laissée vide, ne change rien.',
+      placeholder: 'p. ex. 20',
+      unit: 'ans',
+    },
 
     q2dCard: {
       title: 'Q2-D — Scénarios alternatifs',

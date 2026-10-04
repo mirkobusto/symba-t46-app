@@ -416,6 +416,13 @@ const en = {
         D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
       },
     },
+    q8: {
+      title: 'Q8 — Expected technical lifetime of the main assets (years)',
+      help: 'Optional. Leave empty if you do not know.',
+      details: 'Years the main assets (plant, equipment, infrastructure) are expected to operate. Above 15 years the engine adds future background scenarios (SSP/RCP): the LCA futurisation node (Q2=D), the LCC dynamic-scenarios node (Q2=C or D) and rule CIR-01. D4.1 asks for future background data in every ex-ante study; D4.2 ties it to assets over 15 years; this question feeds the second reading and changes nothing when left empty.',
+      placeholder: 'e.g. 20',
+      unit: 'years',
+    },
 
     q2dCard: {
       title: 'Q2-D — Alternative scenarios',

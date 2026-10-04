@@ -395,6 +395,13 @@ const it: Locale = {
         D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
       },
     },
+    q8: {
+      title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',
+      help: 'Facoltativa. Lasciala vuota se non la conosci.',
+      details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Oltre 15 anni il motore aggiunge scenari di background futuri (SSP/RCP): il nodo di futurizzazione LCA (Q2=D), quello degli scenari dinamici LCC (Q2=C o D) e la regola CIR-01. D4.1 chiede dati di background futuri in ogni studio ex-ante; D4.2 li lega agli asset oltre i 15 anni; questa domanda alimenta la seconda lettura e, lasciata vuota, non cambia nulla.',
+      placeholder: 'es. 20',
+      unit: 'anni',
+    },
 
     q2dCard: {
       title: 'Q2-D — Scenari alternativi',

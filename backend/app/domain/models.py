@@ -137,6 +137,11 @@ class Case(BaseModel):
     q6a: Q6a | None = None
     q6b: Q6b | None = None
     q7: Q7 | None = None
+    # Q8 (optional) — expected technical lifetime of the main assets, in years.
+    # None = not answered: the engine then reads the legacy advanced override
+    # `asset_lifetime`. Above 15 years it activates the future-background nodes
+    # (lca_mc_21, lcc_hc_23) and rule CIR-01.
+    asset_lifetime_years: float | None = Field(default=None, ge=0, le=500)
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)

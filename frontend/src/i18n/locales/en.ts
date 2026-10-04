@@ -238,7 +238,7 @@ const en = {
     p1:
       'SYMBA T4.6 — IS Assessment App is the operational tool of WP4 / T4.6 of the SYMBA Horizon Europe project. It implements the Phase 1 atomic-node decision engine derived from deliverables D4.1 (LCA), D4.2 (LCC) and D4.3 (S-LCA), classifying an industrial-symbiosis case study into one of five terminal IS pathways (IS-01..IS-05) and returning a complete methodological configuration for LCA, LCC and S-LCA.',
     p2:
-      'The 7 user-facing questions (Q1-Q7) drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
+      'The 7 core questions (Q1-Q7), plus three optional ones (Q8-Q10), drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
       'This MVP build wires the questionnaire to POST /api/pipeline/run. Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
   },
@@ -344,13 +344,13 @@ const en = {
       help:
         'Add one row per main symbiotic flow and pick its Q5 category. Mandatory for Q1 ∈ {A, B, D}; optional otherwise.',
       details:
-        'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick the economic relationship: ' +
-        'a — A pays B to take the flow (the flow is a WASTE for A): typical waste-disposal contract. Triggers waste-paradigm allocation rules. ' +
+        'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick who pays whom: ' +
+        'a — A pays B to take the flow (a gate fee: negative market value, a WASTE for A, D4.1 §9.3.2). Zero-burden applies from the point where the residue first reaches non-negative value, not at the gate. Paying is not the same as unavoidable: D4.2 §6.2 also requires the causal avoidability test, declared per flow in the Data Collection File. ' +
         'b — flow exchanged for FREE (ambiguous status): the engine routes to the free-flow disambiguation chain. ' +
-        'c — B pays A for the flow (the flow is a CO-PRODUCT for A): triggers economic-allocation rules and the PEF Circular Footprint Formula path. ' +
-        'd — INTERDEPENDENT flow: neither side could operate without the other; treated as an integrated system, often with system expansion. ' +
-        'e — AGGREGATED / black-box: the published case does not give per-flow detail (typical of aggregate IES papers like Sokka 2011). ' +
-        'For policy-level Q1=C studies, Q5 is usually optional.',
+        'c — B pays A for the flow (positive market value: a CO-PRODUCT for A): substitution against the displaced virgin material, with a quality-corrected ratio. The PEF Circular Footprint Formula is not tied to Q5: it comes from Q4=D. If no third party would pay for the flow (Freedom-to-Act test, D4.1 §9.3.3), the price is administrative and the flow is modeled as waste. ' +
+        'd — INTERDEPENDENT flow: A deliberately altered its process (quality, quantity, post-treatment) to supply B; a co-product whatever the price, never zero-burden. ' +
+        'e — AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §9.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
+        'Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.',
     },
 
     q6a: {
@@ -402,18 +402,46 @@ const en = {
 
     q7: {
       title: 'Q7 — Geographic spread',
-      help: 'If actor coordinates are loaded later, this can be auto-inferred and shown as info.',
+      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is computed per flow in the Data Collection File (Logistics).',
       details:
-        'Geographic spread changes the relative weight of transport in the inventory and may activate CIR-03 if the advanced override transport_sensitive=true. ' +
-        'A — co-located inside one site (<5 km, e.g. Kalundborg, eco-industrial park). Transport is essentially negligible. ' +
-        'B — regional cluster (5-100 km, same region — typical Sokka 2011 / Hashimoto). ' +
-        'C — wide-area, cross-region or cross-border (>100 km). Transport mode and distance become non-trivial inventory items. ' +
-        'D — multi-scale national or industry-wide programmes (Q1=C policy studies, geographically variable).',
+        'The answer changes how logistics data are asked for (GIS coupling, spatial sensitivity), not whether transport is modeled: D4.1 §13.3.1 requires every transport link to be a distinct unit process of the foreground, with primary data on distance, route and mode, and a sensitivity on distance to find the break-even point. No distance threshold sits behind the four options: the break-even depends on the flow type and on the alternative it displaces (D4.1 §13.2.1 and D4.2 give indicative ranges, to sense-check a model, never as inputs); every study computes its own, flow by flow. ' +
+        'A — co-located: one site or adjacent plants (eco-industrial park). Links are short (pipeline, conveyor, on-site handling) but still modeled; for piped heat, steam and water the dedicated infrastructure usually dominates. ' +
+        'B — regional cluster: several sites in the same region (typical Sokka 2011 / Hashimoto). ' +
+        'C — wide-area: cross-region or cross-border; transport mode and routing become major inventory and cost items. ' +
+        'D — multi-scale: national or industry-wide programmes (typically Q1=C policy studies). B–D activate CIR-03 (GIS coupling); C–D also lca_mc_29 and the GIS-coupled branch of lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-located', description: 'Eco-park, <5 km between actors.' },
-        B: { label: 'B. Regional', description: '5-100 km, same region.' },
-        C: { label: 'C. Wide-area', description: '>100 km, cross-region or cross-border.' },
+        A: { label: 'A. Co-located', description: 'One site or adjacent plants (eco-industrial park).' },
+        B: { label: 'B. Regional', description: 'Several sites in the same region.' },
+        C: { label: 'C. Wide-area', description: 'Cross-region or cross-border.' },
         D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
+      },
+    },
+    q8: {
+      title: 'Q8 — Expected technical lifetime of the main assets (years)',
+      help: 'Optional. Leave empty if you do not know.',
+      details: 'Years the main assets (plant, equipment, infrastructure) are expected to operate. Above 15 years the engine adds future background scenarios (SSP/RCP): the LCA futurisation node (Q2=D), the LCC dynamic-scenarios node (Q2=C or D) and rule CIR-01. D4.1 asks for future background data in every ex-ante study; D4.2 ties it to assets over 15 years; this question feeds the second reading and changes nothing when left empty.',
+      placeholder: 'e.g. 20',
+      unit: 'years',
+    },
+    q9: {
+      title: 'Q9 — Does the study support a decision, and at what scale?',
+      help: 'Optional. Leave unanswered and the engine infers it from Q1.',
+      details: 'D4.1 Table 1 classifies the study by whether a decision is made and by the scale of its consequences, not by its subject. Q1 is only a proxy (A/B → limited consequences, C → structural, D/E → no decision). Answer when the proxy is wrong. “No decision” needs an existing network (Q2 = A or B). Q1 = D stays ILCD Situation C2 whatever you answer (a T4.6 design choice).',
+      options: {
+        unset: 'Not answered (inferred from Q1)',
+        none: 'No decision — the study documents an existing network (ILCD Situation C)',
+        micro: 'Yes, with limited consequences: no change to installed capacity or to prices in the wider economy (Situation A)',
+        structural: 'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
+      },
+    },
+    q10: {
+      title: 'Q10 — Does the study serve a public policy or territorial planning objective?',
+      help: 'Optional. Unanswered, the engine infers it from Q1 (yes only for Q1 = C).',
+      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, whatever Q1 or Q4. A municipality planning an eco-park (Q1 = B) or a regulator monitoring a sector (Q1 = E) can answer yes without being Q1 = C. With Q1 = D the tool keeps the conventional company-level LCC (a T4.6 design choice) and tells you.',
+      options: {
+        unset: 'Not answered (inferred from Q1)',
+        yes: 'Yes — a public policy or territorial planning objective (adds the societal LCC)',
+        no: 'No — it does not serve a public policy or planning objective',
       },
     },
 
@@ -480,12 +508,12 @@ const en = {
       'IS-01': {
         title: 'Operational symbiosis — decision support',
         body: 'A symbiotic exchange between two companies, or inside an eco-park, assessed to decide whether and how to run it.',
-        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: by default attributional modelling with substitution and an LCC tied to the perspective you chose (the ILCD situation and the LCC type below show what applies to your answers) and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
       },
       'IS-02': {
         title: 'Sector-wide pre-feasibility — policy',
         body: 'A policy or programme decision at regional or national scale, where the consequences are structural rather than marginal.',
-        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: by default the ILCD situation moves to B and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part. If you answered Q9 or Q10, the sections below show the situation and the costing that apply.',
       },
       'IS-03': {
         title: 'Corporate contribution — reporting',
@@ -500,7 +528,7 @@ const en = {
       'IS-05': {
         title: 'Monitoring — symbiosis in operation',
         body: 'Time-series monitoring of an already operational symbiosis.',
-        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it, by default, in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
       },
     },
     extendedSuffix: 'The assessment compares a baseline against alternative scenarios.',
@@ -557,6 +585,7 @@ const en = {
   },
 
   result: {
+    notes: { title: 'Notes on your answers' },
     verdict: {
       moreInfo: 'More on this configuration',
     },

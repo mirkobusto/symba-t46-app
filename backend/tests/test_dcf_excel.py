@@ -79,8 +79,8 @@ def test_render_returns_bytes(payload_wiktor):
 def test_workbook_has_expected_tabs(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
-    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Logistics",
-                "Costs & Revenues", "Infrastructure",
+    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Flow Classification",
+                "Logistics", "Costs & Revenues", "Infrastructure",
                 "Methodological Choices", "Network Diagram"]
     assert wb.sheetnames == expected
 
@@ -152,6 +152,14 @@ def test_required_columns_are_starred(payload_wiktor):
     assert any(h and h.endswith(" *") for h in headers)
 
 
+def test_flow_classification_tab_has_its_columns_and_dropdowns(payload_wiktor):
+    wb = load_workbook(BytesIO(render_xlsx(payload_wiktor)))
+    ws = wb["Flow Classification"]
+    headers = [c.value for c in ws[4] if c.value]
+    assert any("Freedom-to-Act" in h for h in headers) and any("End-of-Waste" in h for h in headers)
+    assert ws.data_validations.dataValidation, "no dropdown on the Flow Classification tab"
+
+
 def test_enum_columns_get_a_dropdown(payload_wiktor):
     """Free text is how a column comes back with 'medium', 'Med' and 'M'."""
     ws = load_workbook(BytesIO(render_xlsx(payload_wiktor)))["Actors"]
@@ -190,11 +198,13 @@ def test_flow_matrix_tab_has_marginal_market_when_q1c(
     assert "flow.marginal_market_ref" in notes
 
 
-def test_logistics_inactive_tab_shows_placeholder(payload_arce):
+def test_inactive_tab_shows_placeholder(payload_arce):
+    """A section that does not apply gets a placeholder, not a header row. The
+    Arce case is environment-only, so Costs & Revenues is the inactive one
+    (Logistics used to be, until Q7=A also got it; audit I-08)."""
     blob = render_xlsx(payload_arce)
     wb = load_workbook(BytesIO(blob))
-    ws = wb["Logistics"]
-    # Should NOT have a normal header row at row 4
+    ws = wb["Costs & Revenues"]
     a3 = ws["A3"].value
     assert a3 is not None and "NOT activated" in a3
 

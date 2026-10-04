@@ -121,7 +121,7 @@
       "type": "string",
       "set_by_cir": "CIR-07",
       "default_value_when_set": "Six-Tenths|Lang|CEPCI",
-      "trigger_summary": "Q6b <= TRL 7",
+      "trigger_summary": "Q6b < TRL 7",
       "notes": "Engineering scale-up framework for low-TRL inventory. lca_mc_20 sets the activation flag; CIR-07 enforces same framework family for LCC."
     },
     {
@@ -129,7 +129,7 @@
       "type": "string",
       "set_by_cir": "CIR-07",
       "default_value_when_set": "Six-Tenths|Lang|CEPCI",
-      "trigger_summary": "Q6b <= TRL 7",
+      "trigger_summary": "Q6b < TRL 7",
       "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default is set by lcc_hc_15 when Q6b<=TRL7; CIR-07 enforces same framework family for cross-method coherence with lca.scale_up_framework. Read order at runtime: node default first, CIR override last."
     },
     {

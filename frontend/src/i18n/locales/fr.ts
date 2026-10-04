@@ -189,7 +189,7 @@ const fr: Locale = {
     p1:
       "SYMBA T4.6 — IS Assessment App est l'outil opérationnel du WP4 / T4.6 du projet SYMBA Horizon Europe. Il implémente le moteur de décision à nœuds atomiques Phase 1 dérivé des livrables D4.1 (LCA), D4.2 (LCC) et D4.3 (S-LCA), classifiant un cas d'étude de symbiose industrielle dans l'un des cinq pathways IS terminaux (IS-01..IS-05) et retournant une configuration méthodologique complète pour LCA, LCC et S-LCA.",
     p2:
-      "Les 7 questions utilisateur (Q1-Q7) déclenchent l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
+      "Les 7 questions principales (Q1-Q7), plus trois facultatives (Q8-Q10), déclenchent l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:
       'Cette build MVP relie le questionnaire à POST /api/pipeline/run. Affichage de la configuration par pillar, overrides avancés et panneau « Show reasoning » sont tous opérationnels.',
   },
@@ -295,13 +295,13 @@ const fr: Locale = {
       help:
         "Ajoutez une ligne par flux symbiotique principal et choisissez sa catégorie Q5. Obligatoire pour Q1 ∈ {A, B, D} ; optionnel sinon.",
       details:
-        "Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), choisissez la relation économique : " +
-        "a — A paie B pour évacuer le flux (le flux est un DÉCHET pour A) : contrat d'élimination typique. Active les règles d'allocation paradigme-déchet. " +
-        "b — flux échangé GRATUITEMENT (statut ambigu) : le moteur route vers la chaîne de désambiguïsation free-flow. " +
-        "c — B paie A pour le flux (le flux est un CO-PRODUIT pour A) : active les règles d'allocation économique et le path PEF Circular Footprint Formula. " +
-        "d — flux INTERDÉPENDANT : aucune des deux parties ne pourrait fonctionner sans l'autre ; traité comme système intégré, souvent avec system expansion. " +
-        "e — AGRÉGÉ / black-box : le cas publié ne donne pas le détail par-flux (typique des papiers IES agrégés comme Sokka 2011). " +
-        "Pour les études de policy Q1=C, Q5 est généralement optionnel.",
+        'Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), indiquez qui paie qui : ' +
+        'a — A paie B pour reprendre le flux (un tarif de prise en charge : valeur de marché négative, un DÉCHET pour A, D4.1 §9.3.2). Le zéro-charge s\'applique à partir du point où le résidu atteint pour la première fois une valeur non négative, pas à la porte. Payer ne veut pas dire inévitable : D4.2 §6.2 exige aussi le test causal d\'évitabilité, déclaré par flux dans le Data Collection File. ' +
+        'b — flux échangé GRATUITEMENT (statut ambigu) : le moteur oriente vers la chaîne de désambiguïsation des flux gratuits. ' +
+        'c — B paie A pour le flux (valeur de marché positive : un CO-PRODUIT pour A) : substitution de la matière vierge déplacée, avec un ratio corrigé de la qualité. La Circular Footprint Formula du PEF n\'est pas liée à Q5 : elle vient de Q4=D. Si aucun tiers ne paierait pour le flux (test de Freedom-to-Act, D4.1 §9.3.3), le prix est administratif et le flux est modélisé comme un déchet. ' +
+        'd — flux INTERDÉPENDANT : A a délibérément modifié son procédé (qualité, quantité, post-traitement) pour fournir B ; un co-produit quel que soit le prix, jamais zéro-charge. ' +
+        'e — AGRÉGÉ / boîte noire : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C\'est une limite de la source, pas un choix de modélisation : D4.1 §9.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. ' +
+        'Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de zéro-charge) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.',
     },
 
     q6a: {
@@ -353,18 +353,46 @@ const fr: Locale = {
 
     q7: {
       title: 'Q7 — Distribution géographique',
-      help: 'Si les coordonnées des acteurs sont chargées plus tard, peut être auto-inférée et affichée comme info.',
+      help: 'Disposition qualitative du réseau. Le transport est modélisé explicitement quelle que soit la réponse ; la distance de rentabilité dépend du type de flux et se calcule flux par flux dans le Data Collection File (Logistique).',
       details:
-        "La distribution géographique modifie le poids relatif des transports dans l'inventaire et peut activer CIR-03 si l'override avancé transport_sensitive=true. " +
-        "A — co-localisés sur un même site (<5 km, ex. Kalundborg, parc éco-industriel). Les transports sont essentiellement négligeables. " +
-        "B — cluster régional (5-100 km, même région — typique Sokka 2011 / Hashimoto). " +
-        "C — zone étendue, cross-régions ou transfrontalier (>100 km). Mode et distance de transport deviennent des postes d'inventaire non triviaux. " +
-        "D — programmes multi-échelle nationaux ou industrie-wide (études de policy Q1=C, géographiquement variables).",
+        'La réponse change la façon de demander les données logistiques (couplage SIG, sensibilité spatiale), pas le fait de modéliser le transport : D4.1 §13.3.1 exige que chaque liaison de transport soit un processus unitaire distinct de l\'avant-plan, avec des données primaires sur la distance, l\'itinéraire et le mode, et une analyse de sensibilité sur la distance pour trouver le point d\'équilibre. Aucun seuil de distance ne se cache derrière les quatre options : le point d\'équilibre dépend du type de flux et de l\'alternative qu\'il remplace (D4.1 §13.2.1 et D4.2 donnent des fourchettes indicatives, pour vérifier la vraisemblance d\'un modèle, jamais comme données d\'entrée) ; chaque étude calcule le sien, flux par flux. ' +
+        'A — colocalisé : un seul site ou des installations voisines (parc éco-industriel). Les liaisons sont courtes (canalisation, convoyeur, manutention interne) mais modélisées ; pour la chaleur, la vapeur et l\'eau en canalisation, l\'infrastructure dédiée domine en général. ' +
+        'B — grappe régionale : plusieurs sites d\'une même région (typique Sokka 2011 / Hashimoto). ' +
+        'C — grande échelle : inter-régional ou transfrontalier ; le mode de transport et les itinéraires deviennent des postes majeurs de l\'inventaire et des coûts. ' +
+        'D — multi-échelle : programmes nationaux ou sectoriels (typiquement études de politique avec Q1=C). De B à D, CIR-03 (couplage SIG) s\'active ; de C à D, également lca_mc_29 et la branche SIG de lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-localisés', description: 'Eco-park, <5 km entre acteurs.' },
-        B: { label: 'B. Régional', description: '5-100 km, même région.' },
-        C: { label: 'C. Zone étendue', description: '>100 km, cross-régions ou transfrontalier.' },
+        A: { label: 'A. Co-localisés', description: 'Un seul site ou des installations voisines (parc éco-industriel).' },
+        B: { label: 'B. Régional', description: 'Plusieurs sites d\'une même région.' },
+        C: { label: 'C. Zone étendue', description: 'Inter-régional ou transfrontalier.' },
         D: { label: 'D. Multi-échelle', description: "National / industrie-wide, distances variables." },
+      },
+    },
+    q8: {
+      title: 'Q8 — Durée de vie technique attendue des actifs principaux (années)',
+      help: 'Facultative. Laissez vide si vous ne la connaissez pas.',
+      details: 'Années pendant lesquelles les actifs principaux (installation, équipements, infrastructures) devraient fonctionner. Au-delà de 15 ans, le moteur ajoute des scénarios d\'arrière-plan futurs (SSP/RCP) : le nœud de futurisation ACV (Q2=D), celui des scénarios dynamiques ACC (Q2=C ou D) et la règle CIR-01. D4.1 demande des données d\'arrière-plan futures dans toute étude ex-ante ; D4.2 les lie aux actifs de plus de 15 ans ; cette question alimente la seconde lecture et, laissée vide, ne change rien.',
+      placeholder: 'p. ex. 20',
+      unit: 'ans',
+    },
+    q9: {
+      title: 'Q9 — L\'étude soutient-elle une décision, et à quelle échelle ?',
+      help: 'Facultative. Sans réponse, le moteur la déduit de Q1.',
+      details: 'Le Tableau 1 de D4.1 classe l\'étude selon qu\'une décision est prise et selon l\'échelle de ses conséquences, non selon son sujet. Q1 n\'est qu\'un substitut (A/B → conséquences limitées, C → structurelles, D/E → aucune décision). Répondez lorsque le substitut est faux. « Aucune décision » suppose un réseau existant (Q2 = A ou B). Avec Q1 = D la situation ILCD reste C2 quelle que soit la réponse (choix de conception T4.6).',
+      options: {
+        unset: 'Sans réponse (déduite de Q1)',
+        none: 'Aucune décision — l\'étude documente un réseau existant (situation ILCD C)',
+        micro: 'Oui, à conséquences limitées : pas de changement de la capacité installée ni des prix dans l\'économie au sens large (situation A)',
+        structural: 'Oui, à conséquences à grande échelle : déplace environ 1 % ou plus des constructions annuelles du marché concerné (situation B ; la preuve doit être documentée)',
+      },
+    },
+    q10: {
+      title: 'Q10 — L\'étude sert-elle un objectif de politique publique ou d\'aménagement du territoire ?',
+      help: 'Facultative. Sans réponse, le moteur la déduit de Q1 (oui seulement pour Q1 = C).',
+      details: 'D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, quels que soient Q1 ou Q4. Une commune qui planifie un parc éco-industriel (Q1 = B) ou un régulateur qui suit un secteur (Q1 = E) peut répondre oui sans être Q1 = C. Avec Q1 = D l\'outil conserve l\'ACC conventionnel au niveau de l\'entreprise (choix de conception T4.6) et vous le signale.',
+      options: {
+        unset: 'Sans réponse (déduite de Q1)',
+        yes: 'Oui — objectif de politique publique ou d\'aménagement du territoire (ajoute l\'ACC sociétal)',
+        no: 'Non — l\'étude ne sert pas un objectif de politique ou d\'aménagement',
       },
     },
 
@@ -431,12 +459,12 @@ const fr: Locale = {
       'IS-01': {
         title: 'Symbiose opérationnelle — aide à la décision',
         body: 'Un échange symbiotique entre deux entreprises, ou au sein d\'un éco-parc, évalué pour décider s\'il faut le réaliser et comment.',
-        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: by default attributional modelling with substitution and an LCC tied to the perspective you chose (the ILCD situation and the LCC type below show what applies to your answers) and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
       },
       'IS-02': {
         title: 'Pré-faisabilité sectorielle — politique publique',
         body: 'Une décision de politique ou de programme à l\'échelle régionale ou nationale, dont les conséquences sont structurelles et non marginales.',
-        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: by default the ILCD situation moves to B and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part. If you answered Q9 or Q10, the sections below show the situation and the costing that apply.',
       },
       'IS-03': {
         title: 'Contribution de l\'entreprise — reporting',
@@ -451,7 +479,7 @@ const fr: Locale = {
       'IS-05': {
         title: 'Suivi — symbiose en exploitation',
         body: 'Suivi chronologique d\'une symbiose déjà opérationnelle.',
-        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it, by default, in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
       },
     },
     extendedSuffix: 'L\'évaluation compare une référence à des scénarios alternatifs.',
@@ -508,6 +536,7 @@ const fr: Locale = {
   },
 
   result: {
+    notes: { title: 'Remarques sur vos réponses' },
     verdict: {
       moreInfo: 'En savoir plus sur cette configuration',
     },

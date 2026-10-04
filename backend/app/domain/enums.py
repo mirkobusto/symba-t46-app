@@ -106,15 +106,31 @@ class Q6b(StrEnum):
 class Q7(StrEnum):
     """Q7 — Geographic spread (single select). Drives transport+spatial coupling."""
 
-    A = "A"  # single site / co-located
-    B = "B"  # within metropolitan area
-    C = "C"  # regional / national
-    D = "D"  # cross-border / multi-country
+    # Qualitative layout of the network; no distance threshold stands behind the
+    # values (the break-even is per flow type, audit I-08).
+    A = "A"  # co-located: one site or adjacent plants
+    B = "B"  # regional cluster: several sites in the same region
+    C = "C"  # wide-area: cross-region or cross-border
+    D = "D"  # multi-scale: national or industry-wide programmes
 
 
 # =============================================================================
 # Derived states (computed from Q1-Q3 by L0 trigger nodes)
 # =============================================================================
+
+
+class DecisionContext(StrEnum):
+    """Q9 (optional) — does the study support a decision, and at what scale?
+
+    D4.1 Table 1 derives the ILCD situation from this, not from the subject
+    of the study: NONE documents an existing network (Situation C), MICRO
+    supports a decision with limited consequences (A), STRUCTURAL one with
+    large-scale consequences (B).
+    """
+
+    NONE = "none"
+    MICRO = "micro"
+    STRUCTURAL = "structural"
 
 
 class IlcdSituation(StrEnum):

@@ -39,7 +39,7 @@ Conventions established in earlier commits and reused here:
     action functions below are the source of truth (same convention
     as l0_compute / l1_blocks / pathway / activate).
   - Defensive `getattr` for `case.X` references not yet on the Case
-    model (`asset_lifetime`, `transport_sensitive`, `network_nodes`,
+    model (`transport_sensitive`, `network_nodes`,
     `interdependent_flows`, `frontier_categories_active`,
     `is_specific_capital_goods`, `multi_actor`): treated as falsy
     defaults so the rule stays inert until the field arrives.
@@ -70,7 +70,7 @@ from typing import Any
 
 from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6b
 from app.domain.models import Case
-from app.engine.activate import _pillar_is_off, _write
+from app.engine.activate import _pillar_is_off, _write, asset_lifetime_years
 from app.engine.loader import LoadedSchemas
 
 # ---------------------------------------------------------------------------
@@ -143,7 +143,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-08": lambda c: c.q3.env and c.q3.eco,
     "IR-09": lambda c: c.q3.env and c.q3.eco and any(f.q5 == Q5.c for f in c.flows),
     "IR-11": lambda c: _q4_intersects(c, {"C", "D"}) and _q3_dims_active(c) >= 2,
-    "IR-12": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
+    "IR-12": lambda c: c.q3.env or c.q3.eco,   # transport is modeled for every Q7 (audit I-08)
     "IR-13": lambda c: c.q3.env and c.q3.eco and bool(_attr(c, "is_specific_capital_goods")),
     "IR-14": lambda c: _q3_dims_active(c) >= 2,
     "IR-15": lambda c: c.q3.env and c.q3.eco and any(f.q5 in {Q5.a, Q5.b} for f in c.flows),
@@ -153,7 +153,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-19": lambda c: True,
     "IR-20": lambda c: _q3_dims_active(c) >= 2,
     # --- CIR (10) ---
-    "CIR-01": lambda c: c.q2 in {Q2.C, Q2.D} and _attr(c, "asset_lifetime", 0) > 15,
+    "CIR-01": lambda c: c.q2 in {Q2.C, Q2.D} and asset_lifetime_years(c) > 15,
     "CIR-02": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
     "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D} or bool(_attr(c, "transport_sensitive")),
     "CIR-04": lambda c: (c.q1 == Q1.B
@@ -161,7 +161,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
                         and bool(_attr(c, "interdependent_flows"))),
     "CIR-05": lambda c: _q4_intersects(c, {"D"}),
     "CIR-06": lambda c: bool(_attr(c, "frontier_categories_active")),
-    "CIR-07": lambda c: c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5},
+    "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(_attr(c, "is_specific_capital_goods")),
     "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
                          and c.q2 in {Q2.C, Q2.D}),
@@ -177,7 +177,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "B-02": lambda c: _q3_dims_active(c) >= 2,
     "B-03": lambda c: (c.q3.soc and (c.q3.env or c.q3.eco) and _lcc_includes_e(c)),
     "B-04": lambda c: c.q3.soc,
-    "B-05": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
+    "B-05": lambda c: c.q3.env or c.q3.eco,    # transport is modeled for every Q7 (audit I-08)
     "B-06": lambda c: c.q3.env and c.q3.eco and bool(_attr(c, "is_specific_capital_goods")),
     "B-07": lambda c: True,
 }
@@ -391,11 +391,15 @@ def _assert_b_04(c: Case) -> bool:
 
 
 def _assert_b_05(c: Case) -> bool:
+    """Explicit transport in every active pillar. lca_mc_16 writes prose
+    ('explicit', 'GIS-coupled'), never a boolean, so the old `fg is True` could not
+    hold: B-05 fired on every case with Q7 in {B,C,D}. A pillar that is on and has
+    written nothing yet is inconclusive."""
     fg = _get(c, "lca.transport.foreground")
     tc = _get(c, "lcc.transport_costs")
-    if fg is None and tc is None:
+    if (c.q3.env and fg is None) or (c.q3.eco and tc is None):
         return True
-    return fg is True and tc is not None
+    return (not c.q3.env or fg in {True, "explicit", "GIS-coupled"}) and (not c.q3.eco or tc is not None)
 
 
 def _assert_b_06(c: Case) -> bool:

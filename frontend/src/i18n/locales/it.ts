@@ -217,7 +217,7 @@ const it: Locale = {
     p1:
       "SYMBA T4.6 — IS Assessment App è lo strumento operativo del WP4 / T4.6 del progetto SYMBA Horizon Europe. Implementa il motore decisionale a nodi atomici Phase 1 derivato dai deliverable D4.1 (LCA), D4.2 (LCC) e D4.3 (S-LCA), classificando un caso di simbiosi industriale in uno dei cinque pathway IS terminali (IS-01..IS-05) e restituendo una configurazione metodologica completa per LCA, LCC e S-LCA.",
     p2:
-      'Le 7 domande utente (Q1-Q7) attivano i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
+      'Le 7 domande principali (Q1-Q7), più tre facoltative (Q8-Q10), attivano i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
       'Questa build MVP collega il questionario a POST /api/pipeline/run. Display configurazione per pillar, override avanzati e pannello "Mostra ragionamento" sono tutti operativi.',
   },
@@ -323,13 +323,13 @@ const it: Locale = {
       help:
         'Aggiungi una riga per ogni flusso simbiotico principale e scegli la categoria Q5. Obbligatorio per Q1 ∈ {A, B, D}; opzionale altrimenti.',
       details:
-        'Per ogni flusso principale scambiato tra attori (calore, CO₂, scoria, acque reflue, idrogeno…) scegli la relazione economica: ' +
-        'a — A paga B per portare via il flusso (il flusso è un RIFIUTO per A): tipico contratto di smaltimento. Attiva regole di allocazione paradigma-rifiuto. ' +
-        'b — flusso scambiato GRATUITAMENTE (status ambiguo): il motore instrada alla catena di disambiguazione free-flow. ' +
-        'c — B paga A per il flusso (il flusso è un CO-PRODOTTO per A): attiva regole di allocazione economica e il path PEF Circular Footprint Formula. ' +
-        'd — flusso INTERDIPENDENTE: nessuna delle due parti potrebbe operare senza l\'altra; trattato come sistema integrato, spesso con system expansion. ' +
-        'e — AGGREGATO / black-box: il caso pubblicato non fornisce dettaglio per-flusso (tipico dei paper IES aggregati come Sokka 2011). ' +
-        'Per studi di policy a livello Q1=C, Q5 è di solito opzionale.',
+        'Per ogni flusso principale scambiato tra attori (calore, CO₂, scorie, acque reflue, idrogeno…) scegli chi paga chi: ' +
+        'a — A paga B per ritirare il flusso (una tariffa di conferimento: valore di mercato negativo, un RIFIUTO per A, D4.1 §9.3.2). Lo zero-burden vale dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, non al cancello. Pagare non significa inevitabile: D4.2 §6.2 richiede anche il test causale di evitabilità, dichiarato per flusso nel Data Collection File. ' +
+        'b — flusso scambiato GRATIS (stato ambiguo): il motore instrada verso la catena di disambiguazione dei flussi gratuiti. ' +
+        'c — B paga A per il flusso (valore di mercato positivo: un CO-PRODOTTO per A): sostituzione del materiale vergine spiazzato, con un rapporto corretto per qualità. La Circular Footprint Formula del PEF non dipende da Q5: viene da Q4=D. Se nessun terzo pagherebbe per il flusso (test di Freedom-to-Act, D4.1 §9.3.3), il prezzo è amministrativo e il flusso è modellato come rifiuto. ' +
+        'd — flusso INTERDIPENDENTE: A ha modificato deliberatamente il proprio processo (qualità, quantità, post-trattamento) per fornire B; un co-prodotto qualunque sia il prezzo, mai zero-burden. ' +
+        'e — AGGREGATO / black-box: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §9.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. ' +
+        'Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.',
     },
 
     q6a: {
@@ -381,18 +381,46 @@ const it: Locale = {
 
     q7: {
       title: 'Q7 — Distribuzione geografica',
-      help: 'Se le coordinate degli attori vengono caricate in seguito, può essere auto-inferita e mostrata come info.',
+      help: 'Disposizione qualitativa della rete. Il trasporto è modellato in modo esplicito qualunque sia la risposta; la distanza di break-even dipende dal tipo di flusso e si calcola flusso per flusso nel Data Collection File (Logistica).',
       details:
-        'La distribuzione geografica modifica il peso relativo dei trasporti in inventory e può attivare CIR-03 se l\'override avanzato transport_sensitive=true. ' +
-        'A — co-locati nello stesso sito (<5 km, es. Kalundborg, parco eco-industriale). I trasporti sono essenzialmente trascurabili. ' +
-        'B — cluster regionale (5-100 km, stessa regione — tipico Sokka 2011 / Hashimoto). ' +
-        'C — area ampia, cross-regione o transfrontaliero (>100 km). Modalità e distanza di trasporto diventano voci di inventory non-banali. ' +
-        'D — programmi multi-scala nazionali o industria-wide (studi di policy Q1=C, geograficamente variabili).',
+        'La risposta cambia come si chiedono i dati logistici (accoppiamento GIS, sensibilità spaziale), non se il trasporto viene modellato: D4.1 §13.3.1 richiede che ogni collegamento di trasporto sia un processo unitario distinto del foreground, con dati primari su distanza, percorso e modo, e un\'analisi di sensibilità sulla distanza per trovare il punto di break-even. Dietro le quattro opzioni non c\'è nessuna soglia di distanza: il break-even dipende dal tipo di flusso e dall\'alternativa che sostituisce (D4.1 §13.2.1 e D4.2 danno intervalli indicativi, per verificare la plausibilità di un modello, mai come input); ogni studio calcola il proprio, flusso per flusso. ' +
+        'A — co-locata: un solo sito o impianti adiacenti (parco eco-industriale). I collegamenti sono brevi (tubazione, nastro, movimentazione interna) ma comunque modellati; per calore, vapore e acqua in tubazione di solito domina l\'infrastruttura dedicata. ' +
+        'B — cluster regionale: più siti nella stessa regione (tipico Sokka 2011 / Hashimoto). ' +
+        'C — area vasta: tra regioni o transfrontaliera; modo di trasporto e percorsi diventano voci importanti dell\'inventario e dei costi. ' +
+        'D — multi-scala: programmi nazionali o di settore (tipicamente studi di policy con Q1=C). Da B a D si attiva CIR-03 (accoppiamento GIS); da C a D anche lca_mc_29 e il ramo GIS di lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-locati', description: 'Eco-park, <5 km tra gli attori.' },
-        B: { label: 'B. Regionale', description: '5-100 km, stessa regione.' },
-        C: { label: 'C. Area ampia', description: '>100 km, cross-regione o transfrontaliero.' },
+        A: { label: 'A. Co-locati', description: 'Un solo sito o impianti adiacenti (parco eco-industriale).' },
+        B: { label: 'B. Regionale', description: 'Più siti nella stessa regione.' },
+        C: { label: 'C. Area ampia', description: 'Tra regioni o transfrontaliera.' },
         D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
+      },
+    },
+    q8: {
+      title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',
+      help: 'Facoltativa. Lasciala vuota se non la conosci.',
+      details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Oltre 15 anni il motore aggiunge scenari di background futuri (SSP/RCP): il nodo di futurizzazione LCA (Q2=D), quello degli scenari dinamici LCC (Q2=C o D) e la regola CIR-01. D4.1 chiede dati di background futuri in ogni studio ex-ante; D4.2 li lega agli asset oltre i 15 anni; questa domanda alimenta la seconda lettura e, lasciata vuota, non cambia nulla.',
+      placeholder: 'es. 20',
+      unit: 'anni',
+    },
+    q9: {
+      title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
+      help: 'Facoltativa. Se non rispondi, il motore la deduce da Q1.',
+      details: 'La Tabella 1 di D4.1 classifica lo studio in base al fatto che si prenda una decisione e alla scala delle sue conseguenze, non in base al soggetto. Q1 è solo un surrogato (A/B → conseguenze limitate, C → strutturali, D/E → nessuna decisione). Rispondi quando il surrogato è sbagliato. “Nessuna decisione” richiede una rete esistente (Q2 = A o B). Con Q1 = D resta la situazione ILCD C2 qualunque sia la risposta (scelta di progetto T4.6).',
+      options: {
+        unset: 'Non risposta (dedotta da Q1)',
+        none: 'Nessuna decisione — lo studio documenta una rete esistente (situazione ILCD C)',
+        micro: 'Sì, con conseguenze limitate: nessun cambiamento della capacità installata né dei prezzi nell\'economia più ampia (situazione A)',
+        structural: 'Sì, con conseguenze su larga scala: sposta circa l\'1% o più delle nuove costruzioni annuali nel mercato interessato (situazione B; la prova va documentata)',
+      },
+    },
+    q10: {
+      title: 'Q10 — Lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale?',
+      help: 'Facoltativa. Se non rispondi, il motore la deduce da Q1 (sì solo per Q1 = C).',
+      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale, qualunque siano Q1 o Q4. Un comune che pianifica un parco eco-industriale (Q1 = B) o un regolatore che monitora un settore (Q1 = E) può rispondere sì senza essere Q1 = C. Con Q1 = D lo strumento mantiene l\'LCC convenzionale a livello di azienda (scelta di progetto T4.6) e te lo segnala.',
+      options: {
+        unset: 'Non risposta (dedotta da Q1)',
+        yes: 'Sì — obiettivo di policy pubblica o di pianificazione territoriale (aggiunge l\'LCC sociale)',
+        no: 'No — non serve un obiettivo di policy o di pianificazione',
       },
     },
 
@@ -459,12 +487,12 @@ const it: Locale = {
       'IS-01': {
         title: 'Simbiosi operativa — supporto alla decisione',
         body: 'Uno scambio simbiotico tra due aziende, o dentro un eco-parco, valutato per decidere se e come realizzarlo.',
-        detail: 'Q1 dice che l\'oggetto è uno scambio specifico o un parco; Q2 dice che stai decidendo, non rendicontando. La pipeline configura quindi un supporto alla decisione: modellazione attribuzionale con sostituzione, un LCC legato alla prospettiva che hai scelto e — quando Q2 è baseline più alternative — un confronto tra scenari.',
+        detail: 'Q1 dice che l\'oggetto è uno scambio specifico o un parco; Q2 dice che stai decidendo, non rendicontando. La pipeline configura quindi un supporto alla decisione: per impostazione predefinita modellazione attribuzionale con sostituzione e un LCC legato alla prospettiva che hai scelto (la situazione ILCD e il tipo di LCC qui sotto mostrano cosa vale per le tue risposte) e — quando Q2 è baseline più alternative — un confronto tra scenari.',
       },
       'IS-02': {
         title: 'Pre-fattibilità settoriale — policy',
         body: 'Una decisione di policy o di programma su scala regionale o nazionale, dove le conseguenze sono strutturali e non marginali.',
-        detail: 'Poiché l\'oggetto è una decisione pubblica, tutto a valle è dimensionato su conseguenze che il sistema di background sentirà davvero: la situazione ILCD passa a B e l\'LCC acquisisce la prospettiva societale, perché una policy deve rendere conto del benessere collettivo e non solo delle imprese coinvolte.',
+        detail: 'Poiché l\'oggetto è una decisione pubblica, tutto a valle è dimensionato su conseguenze che il sistema di background sentirà davvero: per impostazione predefinita la situazione ILCD passa a B e l\'LCC acquisisce la prospettiva societale, perché una policy deve rendere conto del benessere collettivo e non solo delle imprese coinvolte. Se hai risposto a Q9 o Q10, le sezioni qui sotto mostrano la situazione e il costing che valgono.',
       },
       'IS-03': {
         title: 'Contributo aziendale — rendicontazione',
@@ -479,7 +507,7 @@ const it: Locale = {
       'IS-05': {
         title: 'Monitoraggio — simbiosi in esercizio',
         body: 'Monitoraggio a serie storica di una simbiosi già operativa.',
-        detail: 'Non c\'è nessuna decisione sul tavolo: lo studio documenta una rete che già funziona. Questo lo colloca in ILCD C1 — contabilità che mostra comunque cosa la rete restituisce all\'economia più ampia — e il valore dell\'esercizio è la serie storica, quindi la raccolta dati deve essere ripetibile periodo dopo periodo.',
+        detail: 'Non c\'è nessuna decisione sul tavolo: lo studio documenta una rete che già funziona. Questo lo colloca, per impostazione predefinita, in ILCD C1 — contabilità che mostra comunque cosa la rete restituisce all\'economia più ampia — e il valore dell\'esercizio è la serie storica, quindi la raccolta dati deve essere ripetibile periodo dopo periodo.',
       },
     },
     extendedSuffix: 'La valutazione confronta una baseline con scenari alternativi.',
@@ -536,6 +564,7 @@ const it: Locale = {
   },
 
   result: {
+    notes: { title: 'Note sulle tue risposte' },
     verdict: {
       moreInfo: 'Approfondisci questa configurazione',
     },

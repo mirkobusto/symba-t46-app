@@ -34,7 +34,7 @@
       "lifecycle_layer": "L1",
       "trigger_condition_raw": "Q1=D (corporate ESG, ILCD C2) AND lcc_type includes E-LCC",
       "trigger_condition": "case.q1 == 'D' AND lcc_type IN ['E-LCC', 'C+E', 'C+E+S']",
-      "user_message": "Corporate accounting (Q1=D) requires allocation-based LCC. Combination with E-LCC (system expansion) is forbidden by ILCD framework. Either change Q1 to A/B/C/E, or drop E-LCC from your LCC type.",
+      "user_message": "Corporate reporting (Q1=D) is costed at company level only (C-LCC) in this tool, so network-level E-LCC cannot be combined with it. This is a T4.6 design choice: D4.2 ties the LCC type to the study's purpose, not to Q1. To cost the network, use Q1=A/B/C/E.",
       "action_on_violation": "STOP"
     },
     {
@@ -258,8 +258,8 @@
       "id": "IR-12",
       "name": "Transport-Spatial Co-Modeling",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q7 ∈ {B, C, D}",
-      "trigger_condition": "case.q7 IN ['B','C','D']",
+      "trigger_condition_raw": "Q3.ENV or Q3.ECO active",
+      "trigger_condition": "case.q3.env == true OR case.q3.eco == true",
       "assertion": "lca.transport.foreground != null AND lcc.transport_costs != null AND slca.territorial_dimension != null",
       "fields": [
         "lca.transport.foreground",
@@ -271,7 +271,7 @@
         "lcc_hc_06",
         "slca_hc_10"
       ],
-      "violation_message": "When geographic spread is non-trivial, transport modeling must be coupled across all active dimensions per IR-12."
+      "violation_message": "Transport modeling must be coupled across all active dimensions, whatever the geographic spread, per IR-12."
     },
     {
       "id": "IR-13",
@@ -522,8 +522,8 @@
       "id": "CIR-07",
       "name": "Engineering Scale-up Frameworks",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q6b ≤ TRL 7",
-      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5']",
+      "trigger_condition_raw": "Q6b < TRL 7",
+      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5']",
       "actions": [
         "lca.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']",
         "lcc.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']"
@@ -743,8 +743,8 @@
       "id": "B-05",
       "name": "Geographic Spread Transport Coupling",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q7 ∈ {B, C, D}",
-      "trigger_condition": "case.q7 IN ['B','C','D']",
+      "trigger_condition_raw": "Q3.ENV or Q3.ECO active",
+      "trigger_condition": "case.q3.env == true OR case.q3.eco == true",
       "assertion": "lca.transport.foreground == true AND lcc.transport_costs != null",
       "fields": [
         "lca.transport.foreground",
@@ -754,7 +754,7 @@
         "lca_hc_21",
         "lcc_hc_06"
       ],
-      "violation_message": "Geographic spread requires explicit transport in both LCA foreground and LCC costs per B-05."
+      "violation_message": "Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §13.3.1, D4.2 §4.3)."
     },
     {
       "id": "B-06",

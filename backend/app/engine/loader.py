@@ -27,6 +27,8 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from app.engine.branch_keys import BranchKeyError, parse_branch_key
+
 SCHEMA_DIR = Path(__file__).resolve().parent.parent / "schemas"
 SCHEMA_FILES = (
     "phase1_nodes.json",
@@ -80,6 +82,27 @@ def _read_json(path: Path) -> Any:
         raise SchemaLoadError(f"Invalid JSON in {path.name}: {e}") from e
 
 
+def _check_branch_keys(node: dict[str, Any]) -> None:
+    """Fail at load, not on the first request, if a node a resolver will read
+    carries a branch key outside the grammar of `engine.branch_keys`.
+
+    Same scope as `activate`: discriminative L2 nodes with a branch dict. L0
+    nodes are hand-coded in l0_compute and use notations (AND) the resolver
+    does not read."""
+    dv = node.get("default_value")
+    if (node.get("trigger_logic") != "discriminative"
+            or node.get("lifecycle_layer") == "L0"
+            or not isinstance(dv, dict)):
+        return
+    for key in dv:
+        if key == "default":
+            continue
+        try:
+            parse_branch_key(key)
+        except BranchKeyError as e:
+            raise SchemaLoadError(f"phase1_nodes.json: node {node.get('id')!r}: {e}") from e
+
+
 def _index_nodes(nodes_doc: dict[str, Any]) -> tuple[list, dict, frozenset]:
     nodes = nodes_doc.get("nodes")
     if not isinstance(nodes, list):
@@ -94,6 +117,7 @@ def _index_nodes(nodes_doc: dict[str, Any]) -> tuple[list, dict, frozenset]:
         if nid in by_id:
             raise SchemaLoadError(f"phase1_nodes.json: duplicate node id {nid!r}")
         by_id[nid] = n
+        _check_branch_keys(n)
         if n.get("field"):
             field_set.add(n["field"])
         for af in n.get("additional_fields") or []:

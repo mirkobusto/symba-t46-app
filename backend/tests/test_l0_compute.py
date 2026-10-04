@@ -124,3 +124,205 @@ def test_all_three_triggers_for_q1D_eco_only_case(schemas):
     assert case.ilcd_situation is IlcdSituation.SITUATION_C2
     assert case.lcc_type is LccType.C_LCC_ONLY
     assert case.slca_activation_state is SlcaActivationState.DEACTIVATED
+
+
+# ---------------------------------------------------------------------------
+# Case.warnings — rebuilt by every L0 run, empty when nothing is flagged
+# ---------------------------------------------------------------------------
+
+
+def test_warnings_start_empty_and_are_rebuilt_on_every_run():
+    case = Case(q1=Q1.A, q3=Q3(env=True))
+    assert case.warnings == []
+    case.warnings = [{"code": "stale", "message": "from an earlier run"}]
+    run(case, None)
+    assert case.warnings == []
+
+
+def test_a_case_saved_before_warnings_existed_still_loads():
+    """case_json from an older engine has no `warnings` key."""
+    stored = Case(q1=Q1.A, q3=Q3(env=True)).model_dump_json()
+    import json
+    legacy = json.loads(stored)
+    legacy.pop("warnings")
+    assert Case.model_validate_json(json.dumps(legacy)).warnings == []
+
+
+# ---------------------------------------------------------------------------
+# Q9 — decision and scale (D4.1 Table 1) derive the ILCD situation
+# ---------------------------------------------------------------------------
+
+from app.domain.enums import Q2, DecisionContext  # noqa: E402
+
+_S = IlcdSituation
+_N, _M, _X = DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL
+_ILCD_TABLE = {
+    #        none            micro                 structural
+    Q1.A: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+    Q1.B: (_S.SITUATION_C1, _S.SITUATION_A_MULTI, _S.SITUATION_B),
+    Q1.C: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+    Q1.D: (_S.SITUATION_C2, _S.SITUATION_C2,      _S.SITUATION_C2),
+    Q1.E: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+}
+_Q1_ONLY = {Q1.A: _S.SITUATION_A, Q1.B: _S.SITUATION_A_MULTI, Q1.C: _S.SITUATION_B,
+            Q1.D: _S.SITUATION_C2, Q1.E: _S.SITUATION_C1}
+
+
+@pytest.mark.parametrize(
+    "q1, decision, expected",
+    [(q1, d, row[i]) for q1, row in _ILCD_TABLE.items() for i, d in enumerate((_N, _M, _X))],
+)
+def test_q9_table_all_fifteen_cells(q1, decision, expected):
+    case = Case(q1=q1, q3=Q3(env=True), decision_context=decision)
+    run(case, None)
+    assert case.ilcd_situation == expected
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+def test_q9_unanswered_is_exactly_the_q1_mapping(q1):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True))
+    run(case, None)
+    assert case.ilcd_situation == _Q1_ONLY[q1]
+    assert case.warnings == []
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+@pytest.mark.parametrize("q2", [Q2.B, Q2.C, Q2.D])
+def test_q9_unanswered_values_never_depend_on_q2_only_the_note_does(q1, q2):
+    """Audit I-06: Situation C (Q1=D or E) on a system that does not exist yet
+    (Q2=C design phase, Q2=D baseline plus alternatives) is noted, never changed."""
+    case = Case(q1=q1, q2=q2, q3=Q3(env=True))
+    run(case, None)
+    assert case.ilcd_situation == _Q1_ONLY[q1]
+    noted = [w["code"] for w in case.warnings]
+    expected = ["documentation_vs_ex_ante"] if q1 in (Q1.D, Q1.E) and q2 in (Q2.C, Q2.D) else []
+    assert noted == expected
+
+
+@pytest.mark.parametrize(
+    "q1, decision, code",
+    [
+        (Q1.C, _M, "decision_scale_vs_q1"),
+        (Q1.D, _M, "q1_d_fixed"),
+        (Q1.D, _X, "q1_d_fixed"),
+        (Q1.E, _M, "decision_scale_vs_q1"),
+        (Q1.E, _X, "decision_scale_vs_q1"),
+    ],
+)
+def test_q9_answers_that_contradict_q1_leave_a_note(q1, decision, code):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision)
+    run(case, None)
+    assert [w["code"] for w in case.warnings] == [code]
+
+
+@pytest.mark.parametrize(
+    "q1, decision",
+    [(Q1.A, _M), (Q1.A, _X), (Q1.B, _M), (Q1.B, _X), (Q1.C, _X), (Q1.A, _N), (Q1.D, _N)],
+)
+def test_q9_answers_consistent_with_q1_leave_no_note(q1, decision):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision)
+    run(case, None)
+    assert case.warnings == []
+
+
+@pytest.mark.parametrize("q2, noted", [(Q2.A, False), (Q2.B, False), (Q2.C, True), (Q2.D, True), (None, False)])
+def test_q9_no_decision_with_an_ex_ante_q2_leaves_a_note(q2, noted):
+    case = Case(q1=Q1.A, q2=q2, q3=Q3(env=True), decision_context=_N)
+    run(case, None)
+    assert ("documentation_vs_ex_ante" in [w["code"] for w in case.warnings]) is noted
+
+
+def test_q9_q1_d_stays_c2_so_the_block_cannot_fire():
+    """Whatever Q9 says, Q1=D keeps C2 and C-LCC only; E-LCC never appears."""
+    from app.engine.l1_blocks import run as l1_run
+    for decision in DecisionContext:
+        case = Case(q1=Q1.D, q3=Q3(env=True, eco=True), decision_context=decision)
+        run(case, None)
+        assert case.ilcd_situation == _S.SITUATION_C2 and case.lcc_type == LccType.C_LCC_ONLY
+        l1_run(case, None)
+        assert case.blocked_by == []
+
+
+def test_q9_rejects_an_unknown_answer():
+    with pytest.raises(ValueError):
+        Case(q1=Q1.A, decision_context="huge")
+
+
+# ---------------------------------------------------------------------------
+# Q10 — public policy / territorial planning objective (D4.2 §2.3) adds the S-LCC
+# ---------------------------------------------------------------------------
+
+_Y, _NO, _UNSET = True, False, None
+_CE, _CES, _CC = LccType.C_LCC_PLUS_E_LCC, LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_ONLY
+_LCC_TABLE = {
+    #         unanswered  yes   no
+    Q1.A: (_CE,  _CES, _CE),
+    Q1.B: (_CE,  _CES, _CE),
+    Q1.C: (_CES, _CES, _CE),
+    Q1.D: (_CC,  _CC,  _CC),
+    Q1.E: (_CE,  _CES, _CE),
+}
+
+
+@pytest.mark.parametrize(
+    "q1, policy, expected",
+    [(q1, p, row[i]) for q1, row in _LCC_TABLE.items() for i, p in enumerate((_UNSET, _Y, _NO))],
+)
+def test_q10_table_all_fifteen_cells(q1, policy, expected):
+    case = Case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
+    run(case, None)
+    assert case.lcc_type == expected
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+@pytest.mark.parametrize("policy", [True, False, None])
+def test_q10_with_the_economic_dimension_off_the_lcc_stays_deactivated(q1, policy):
+    case = Case(q1=q1, q3=Q3(env=True), policy_objective=policy)
+    run(case, None)
+    assert case.lcc_type == LccType.DEACTIVATED and case.warnings == []
+
+
+@pytest.mark.parametrize(
+    "q1, policy, codes",
+    [(Q1.C, False, ["policy_no_but_q1_c"]), (Q1.D, True, ["q1_d_fixed_lcc"]),
+     (Q1.A, True, []), (Q1.A, False, []), (Q1.B, True, []), (Q1.E, True, []),
+     (Q1.C, True, []), (Q1.D, False, []), (Q1.C, None, [])],
+)
+def test_q10_notes_only_for_contradictions(q1, policy, codes):
+    case = Case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
+    run(case, None)
+    assert [w["code"] for w in case.warnings] == codes
+
+
+def test_q9_and_q10_notes_accumulate_and_are_rebuilt():
+    case = Case(q1=Q1.D, q2=Q2.A, q3=Q3(env=True, eco=True),
+                decision_context=DecisionContext.MICRO, policy_objective=True)
+    run(case, None)
+    assert sorted(w["code"] for w in case.warnings) == ["q1_d_fixed", "q1_d_fixed_lcc"]
+    run(case, None)   # a second run replaces the notes, it does not stack them
+    assert len(case.warnings) == 2
+
+
+def test_q10_q1_d_with_policy_never_blocks():
+    from app.engine.l1_blocks import run as l1_run
+    case = Case(q1=Q1.D, q3=Q3(env=True, eco=True), policy_objective=True)
+    run(case, None)
+    l1_run(case, None)
+    assert case.lcc_type == LccType.C_LCC_ONLY and case.blocked_by == []
+
+
+# ---------------------------------------------------------------------------
+# I-14 — S-LCA on its own
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q3, noted",
+    [(Q3(soc=True), True), (Q3(soc=True, env=True), False), (Q3(soc=True, eco=True), False),
+     (Q3(env=True), False), (Q3(env=True, eco=True, soc=True), False)],
+)
+def test_slca_alone_leaves_a_note_and_changes_nothing(q3, noted):
+    case = Case(q1=Q1.A, q2=Q2.A, q3=q3)
+    run(case, None)
+    assert ("slca_alone" in [w["code"] for w in case.warnings]) is noted
+    assert case.slca_activation_state == (SlcaActivationState.ACTIVE if q3.soc else SlcaActivationState.DEACTIVATED)

@@ -73,7 +73,7 @@
       "type": "string",
       "computed_from": "alias / cross-method consistency check vs lca.reference_scenario.type (set by lca_mc_26)",
       "used_by_rules": ["IR-07", "FU-05"],
-      "derivation": "When LCA active: required to equal lca.reference_scenario.type by IR-07 (FU+boundary+temporal+geographic). When LCC standalone: derived from Q1 (Q1=A -> alt-disposal, Q1=B -> hypothetical-no-IS, Q1=C -> BAU national mix). Not stored on a Phase 1 node; computed aliasing instead. NOTE: post field_gaps round 2 design call — the .type/.content split applies only to LCA (lca_mc_26 sets .type; lca_mc_27 sets .content). LCC/SLCA only need .type because their cross-method alignment is type-level."
+      "derivation": "When LCA active: required to equal lca.reference_scenario.type by IR-07 (FU+boundary+temporal+geographic). When LCC standalone: derived from Q1 (Q1=A -> alt-disposal, Q1=B -> hypothetical-no-IS, Q1=C -> marginal technology mix). Not stored on a Phase 1 node; computed aliasing instead. NOTE: post field_gaps round 2 design call — the .type/.content split applies only to LCA (lca_mc_26 sets .type; lca_mc_27 sets .content). LCC/SLCA only need .type because their cross-method alignment is type-level."
     },
     {
       "field": "slca.reference_scenario.type",

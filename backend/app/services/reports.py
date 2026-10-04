@@ -195,6 +195,15 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
             case.q6b.value if case.q6b else "(not set)")
     _add_kv(doc, "Q7 geographic spread",
             case.q7.value if case.q7 else "(not set)")
+    # Optional questions: listed only when answered, so a case that skips them
+    # reads exactly as before they existed.
+    if case.asset_lifetime_years is not None:
+        _add_kv(doc, "Q8 asset lifetime (years)", f"{case.asset_lifetime_years:g}")
+    if case.decision_context is not None:
+        _add_kv(doc, "Q9 decision and scale", case.decision_context.value)
+    if case.policy_objective is not None:
+        _add_kv(doc, "Q10 public policy / planning objective",
+                "yes" if case.policy_objective else "no")
     if case.alternative_scenarios:
         doc.add_paragraph(
             f"Q2-D alternative scenarios defined: "
@@ -223,6 +232,10 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
             ", ".join(case.blocked_by) if case.blocked_by else "(none)")
     _add_kv(doc, "5.7 L2 violations (count)", str(len(case.rule_violations)))
     _add_kv(doc, "5.8 L3 CDPs surfaced (count)", str(len(case.cdp_flags)))
+    if case.warnings:
+        doc.add_heading("Notes on the answers", level=3)
+        for w in case.warnings:
+            doc.add_paragraph(w["message"], style="List Bullet")
 
     # 5.9 Pillar configurations
     doc.add_heading("5.9 Pillar configurations (engine-written keys)", level=2)

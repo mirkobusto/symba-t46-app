@@ -8,17 +8,18 @@ Activation breakdown (per `phase1_nodes.json`, post-round-2 closure):
 
     Total          186 nodes
     By layer       183 L2 + 3 L0  (L0 handled by l0_compute, skipped here)
-    By category    116 DEFAULT (always activate) + 70 DERIVED (conditional)
-    By field       96 fielded + 90 procedural_mandate (no field to write)
+    By category    118 DEFAULT (always activate) + 68 DERIVED (conditional)
+    By field       95 fielded + 91 procedural_mandate (no field to write)
     Per_flow        11 nodes flagged per_flow=true (iterate case.flows)
 
 DERIVED activation by `trigger_logic`:
 
-    discriminative  42  default_value is dict {"qX=V": value, ...}; pick
-                        branch matching case.qX.value; "default" key is
-                        fallback. No match + no default → node DORMANT.
+    discriminative  42  default_value is dict {branch_key: value, ...}; the
+                        first branch whose key matches the case wins (grammar in
+                        engine/branch_keys.py); "default" key is fallback.
+                        No match + no default → node DORMANT.
 
-    simple/conjunctive/disjunctive  28 (14+11+3)  Boolean trigger_condition;
+    simple/conjunctive/disjunctive  26 (12+11+3)  Boolean trigger_condition;
                         evaluated by hand-coded predicates in _PREDICATES
                         (one entry per node_id). The JSON `trigger_condition`
                         strings are documentation; the typed predicates
@@ -41,12 +42,10 @@ Out of scope for this commit (documented for future work):
 - override_path semantics (Step 4 advanced-overrides layer)
 - sector_overlays.json wiring for `lca_hc_19` (the node still
   activates with its generic mandate string)
-- `case.asset_lifetime` referenced by lca_mc_21 / lcc_hc_23: not yet
-  on the Case model; defensive `getattr(case, 'asset_lifetime', 0)`
-  keeps those predicates inert today, auto-active when the field lands
 """
 from __future__ import annotations
 
+import math
 from collections.abc import Callable
 from typing import Any
 
@@ -61,6 +60,7 @@ from app.domain.enums import (
     SlcaActivationState,
 )
 from app.domain.models import Case, Flow
+from app.engine.branch_keys import Answers, pick_branch
 from app.engine.loader import LoadedSchemas
 
 # ---------------------------------------------------------------------------
@@ -114,25 +114,17 @@ def _pillar_is_off(case: Case, prefix: str) -> bool:
 # Discriminative branch resolver
 # ---------------------------------------------------------------------------
 
-_Q_LOOKUP: dict[str, Callable[[Case], Any]] = {
-    "q1": lambda c: c.q1.value if c.q1 else None,
-    "q2": lambda c: c.q2.value if c.q2 else None,
-    "q4": lambda c: {q.value for q in c.q4},
-    "q5": lambda c: c.q5.value if c.q5 else None,
-    "q6a": lambda c: c.q6a.value if c.q6a else None,
-    "q6b": lambda c: c.q6b.value if c.q6b else None,
-    "q7": lambda c: c.q7.value if c.q7 else None,
-}
-
-
 def _resolve_discriminative(
     case: Case, default_value: Any, trigger_q: list[str]
 ) -> tuple[bool, Any]:
     """Pick a branch from a discriminative `default_value` dict.
 
-    Keys are formatted `"qX=V"` (single match) or `"default"` (fallback).
-    For multi-select Q4 the key matches if its value is contained in the
-    Q4 set; for single-select Q1/Q2/Q5/Q6a/Q6b/Q7 the value must equal.
+    Branch keys follow the grammar of `engine/branch_keys.py` (`qX=V`,
+    `qX in {..}`, `q4 includes 'V'`, `q6b<TRLn`, the `q3.*` forms, `ilcd=C`,
+    `lcc_type=T`, `sector=V`, `contested`). The first matching branch in the dict's order wins; the
+    `default` key is the fallback. A key the grammar does not know raises
+    `BranchKeyError` instead of being skipped: skipping is how 25 nodes lost
+    their rules without anyone noticing.
 
     Returns `(activated, value)`. If no branch matches and no `default`
     key exists, returns `(False, None)` — the node is dormant.
@@ -143,34 +135,11 @@ def _resolve_discriminative(
     """
     if not isinstance(default_value, dict):
         return True, default_value
-    matched_value: Any = None
-    matched: bool = False
-    for key, branch_value in default_value.items():
-        if key == "default":
-            continue
-        if "=" not in key:
-            continue
-        q_name, expected = key.split("=", 1)
-        q_name = q_name.strip()
-        expected = expected.strip()
-        accessor = _Q_LOOKUP.get(q_name)
-        if accessor is None:
-            continue
-        actual = accessor(case)
-        if actual is None:
-            continue
-        if isinstance(actual, set):
-            if expected in actual:
-                return True, branch_value
-        elif actual == expected:
-            return True, branch_value
-    if "default" in default_value:
-        return True, default_value["default"]
-    return matched, matched_value
+    return pick_branch(default_value, Answers.from_case(case))
 
 
 # ---------------------------------------------------------------------------
-# Boolean predicates for the 28 non-discriminative DERIVED nodes
+# Boolean predicates for the 26 non-discriminative DERIVED nodes
 # ---------------------------------------------------------------------------
 
 
@@ -178,43 +147,65 @@ def _q4_intersects(case: Case, members: set[str]) -> bool:
     return any(q.value in members for q in case.q4)
 
 
-def _asset_lifetime(case: Case) -> float:
-    """Defensive: case.asset_lifetime is not yet on the Case model
-    (Step 4 territory). Returns 0 today so > 15 predicates stay False."""
-    return getattr(case, "asset_lifetime", 0)
+def asset_lifetime_years(case: Case) -> float:
+    """Asset lifetime in years: the Q8 answer, else the advanced override.
+
+    `Case.asset_lifetime_years` (Q8) wins when answered. Until Q8 existed the
+    Advanced editor stored the value under `case.advanced["asset_lifetime"]`,
+    which the engine could not see (it read `getattr(case, "asset_lifetime")`
+    on an `extra='forbid'` model), so the `> 15` triggers (lca_mc_21,
+    lcc_hc_23, CIR-01) never fired. That key is still read as a fallback for
+    cases saved before Q8.
+
+    A missing, boolean, non-numeric or non-finite fallback reads as 0, which
+    keeps those triggers inert. Numeric strings are accepted: the editor
+    coerces them, but a case posted straight to the API may still carry "20".
+    """
+    if case.asset_lifetime_years is not None:
+        return float(case.asset_lifetime_years)
+    raw = case.advanced.get("asset_lifetime")
+    if raw is None or isinstance(raw, bool):
+        return 0.0
+    try:
+        years = float(raw)
+    except (TypeError, ValueError):
+        return 0.0
+    return years if math.isfinite(years) else 0.0
 
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
 
+# lca_mc_30 is written for "Q6a=Wastewater/biofactories". The UI sends the
+# canonical id; the legacy alias is kept for stored cases and old fixtures.
+# The JSON `trigger_condition` names only the alias, which is how the node
+# came to ignore every case created from the UI.
+_WASTEWATER_SECTORS = {Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES}
+
 _PREDICATES: dict[str, Callable[..., bool]] = {
     # disjunctive
     "lca_hc_14": lambda c: _q4_intersects(c, {"C", "D", "E"}) or (c.q6b is not None and c.q6b != Q6b.TRL9),
-    # simple
-    "lca_hc_21": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
     # conjunctive
     "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
     # simple
-    "lca_mc_20": lambda c: c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # conjunctive — case.asset_lifetime defensive
-    "lca_mc_21": lambda c: c.q2 == Q2.D and _asset_lifetime(c) > 15,
+    "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
+    # conjunctive — asset lifetime comes from case.advanced
+    "lca_mc_21": lambda c: c.q2 == Q2.D and asset_lifetime_years(c) > 15,
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
-    "lca_mc_30": lambda c: c.q6a == Q6a.WASTEWATER_BIOFACTORIES,
+    "lca_mc_30": lambda c: c.q6a in _WASTEWATER_SECTORS,
     # simple
     "lca_mc_33": lambda c: c.q3.eco,
     # conjunctive
     "lcc_hc_04": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,
     "lcc_hc_05": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,
-    # simple
-    "lcc_hc_06": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
     "lcc_hc_10": lambda c: c.q3.eco,
     # per_flow simple
     "lcc_hc_12": lambda c, f: f.q5 != Q5.e,
     # simple
     "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # conjunctive — asset_lifetime defensive
-    "lcc_hc_23": lambda c: c.q2 in {Q2.C, Q2.D} and _asset_lifetime(c) > 15,
+    # conjunctive — asset lifetime comes from case.advanced
+    "lcc_hc_23": lambda c: c.q2 in {Q2.C, Q2.D} and asset_lifetime_years(c) > 15,
     # conjunctive
     "lcc_hc_27": lambda c: c.q3.env and c.q3.eco,
     "lcc_hc_28": lambda c: c.q3.env and c.q3.eco,
@@ -294,7 +285,10 @@ def _activate_node(case: Case, node: dict[str, Any]) -> None:
 
 
 def _activate_discriminative_per_flow(case: Case, node: dict[str, Any]) -> None:
-    """Per-flow discriminative node: build a {flow_id: branch_value} dict."""
+    """Per-flow discriminative node: build a {flow_id: branch_value} dict.
+
+    Each flow is resolved on its own Q5 with the same grammar and the same
+    first-match rule as the case-level nodes (`pick_branch`)."""
     nid = node["id"]
     field = node.get("field")
     field_status = node.get("field_status")
@@ -306,26 +300,11 @@ def _activate_discriminative_per_flow(case: Case, node: dict[str, Any]) -> None:
             _write(case, field, default_value)
         return
     per_flow_values: dict[str, Any] = {}
-    any_matched = False
     for flow in case.flows:
-        # discriminative per-flow always discriminates on q5 (the only
-        # per-flow Q in the schema); branch keys are "q5=X"
-        flow_q5_value = flow.q5.value if flow.q5 else None
-        for key, branch_value in default_value.items():
-            if key == "default":
-                continue
-            if "=" not in key:
-                continue
-            _, expected = key.split("=", 1)
-            if expected.strip() == flow_q5_value:
-                per_flow_values[flow.id] = branch_value
-                any_matched = True
-                break
-        else:
-            if "default" in default_value:
-                per_flow_values[flow.id] = default_value["default"]
-                any_matched = True
-    if any_matched:
+        matched, value = pick_branch(default_value, Answers.from_case(case, flow))
+        if matched:
+            per_flow_values[flow.id] = value
+    if per_flow_values:
         case.activated_nodes.append(nid)
         if field and field_status != "procedural_mandate":
             _write(case, field, per_flow_values)

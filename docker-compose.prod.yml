@@ -27,6 +27,13 @@ services:
       BACKEND_CORS_ORIGINS: "${BACKEND_CORS_ORIGINS:-}"
     volumes:
       - symba-data:/app/backend/data
+    # The access log carries visitors' IP addresses (uvicorn, to stdout): rotate it so it
+    # does not grow without bound. See the privacy notice for the retention note.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
 
 volumes:
   symba-data:

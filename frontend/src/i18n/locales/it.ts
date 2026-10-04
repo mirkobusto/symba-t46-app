@@ -487,12 +487,12 @@ const it: Locale = {
       'IS-01': {
         title: 'Simbiosi operativa — supporto alla decisione',
         body: 'Uno scambio simbiotico tra due aziende, o dentro un eco-parco, valutato per decidere se e come realizzarlo.',
-        detail: 'Q1 dice che l\'oggetto è uno scambio specifico o un parco; Q2 dice che stai decidendo, non rendicontando. La pipeline configura quindi un supporto alla decisione: modellazione attribuzionale con sostituzione, un LCC legato alla prospettiva che hai scelto e — quando Q2 è baseline più alternative — un confronto tra scenari.',
+        detail: 'Q1 dice che l\'oggetto è uno scambio specifico o un parco; Q2 dice che stai decidendo, non rendicontando. La pipeline configura quindi un supporto alla decisione: per impostazione predefinita modellazione attribuzionale con sostituzione e un LCC legato alla prospettiva che hai scelto (la situazione ILCD e il tipo di LCC qui sotto mostrano cosa vale per le tue risposte) e — quando Q2 è baseline più alternative — un confronto tra scenari.',
       },
       'IS-02': {
         title: 'Pre-fattibilità settoriale — policy',
         body: 'Una decisione di policy o di programma su scala regionale o nazionale, dove le conseguenze sono strutturali e non marginali.',
-        detail: 'Poiché l\'oggetto è una decisione pubblica, tutto a valle è dimensionato su conseguenze che il sistema di background sentirà davvero: la situazione ILCD passa a B e l\'LCC acquisisce la prospettiva societale, perché una policy deve rendere conto del benessere collettivo e non solo delle imprese coinvolte.',
+        detail: 'Poiché l\'oggetto è una decisione pubblica, tutto a valle è dimensionato su conseguenze che il sistema di background sentirà davvero: per impostazione predefinita la situazione ILCD passa a B e l\'LCC acquisisce la prospettiva societale, perché una policy deve rendere conto del benessere collettivo e non solo delle imprese coinvolte. Se hai risposto a Q9 o Q10, le sezioni qui sotto mostrano la situazione e il costing che valgono.',
       },
       'IS-03': {
         title: 'Contributo aziendale — rendicontazione',
@@ -507,7 +507,7 @@ const it: Locale = {
       'IS-05': {
         title: 'Monitoraggio — simbiosi in esercizio',
         body: 'Monitoraggio a serie storica di una simbiosi già operativa.',
-        detail: 'Non c\'è nessuna decisione sul tavolo: lo studio documenta una rete che già funziona. Questo lo colloca in ILCD C1 — contabilità che mostra comunque cosa la rete restituisce all\'economia più ampia — e il valore dell\'esercizio è la serie storica, quindi la raccolta dati deve essere ripetibile periodo dopo periodo.',
+        detail: 'Non c\'è nessuna decisione sul tavolo: lo studio documenta una rete che già funziona. Questo lo colloca, per impostazione predefinita, in ILCD C1 — contabilità che mostra comunque cosa la rete restituisce all\'economia più ampia — e il valore dell\'esercizio è la serie storica, quindi la raccolta dati deve essere ripetibile periodo dopo periodo.',
       },
     },
     extendedSuffix: 'La valutazione confronta una baseline con scenari alternativi.',

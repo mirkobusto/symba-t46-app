@@ -453,12 +453,12 @@ const de: Locale = {
       'IS-01': {
         title: 'Operative Symbiose — Entscheidungsunterstützung',
         body: 'Ein symbiotischer Austausch zwischen zwei Unternehmen oder innerhalb eines Öko-Parks, bewertet zur Entscheidung über Ob und Wie.',
-        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: attributional modelling with substitution, an LCC tied to the perspective you chose, and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
+        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: by default attributional modelling with substitution and an LCC tied to the perspective you chose (the ILCD situation and the LCC type below show what applies to your answers) and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
       },
       'IS-02': {
         title: 'Sektorweite Vorstudie — Politik',
         body: 'Eine politik- oder programmbezogene Entscheidung auf regionaler oder nationaler Ebene, deren Folgen strukturell und nicht marginal sind.',
-        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: the ILCD situation moves to B, and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part.',
+        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: by default the ILCD situation moves to B and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part. If you answered Q9 or Q10, the sections below show the situation and the costing that apply.',
       },
       'IS-03': {
         title: 'Unternehmensbeitrag — Berichterstattung',
@@ -473,7 +473,7 @@ const de: Locale = {
       'IS-05': {
         title: 'Monitoring — Symbiose im Betrieb',
         body: 'Zeitreihen-Monitoring einer bereits betriebenen Symbiose.',
-        detail: 'No decision is on the table: the study documents a network that already runs. That puts it in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
+        detail: 'No decision is on the table: the study documents a network that already runs. That puts it, by default, in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
       },
     },
     extendedSuffix: 'Die Bewertung vergleicht eine Baseline mit alternativen Szenarien.',

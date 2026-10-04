@@ -384,4 +384,15 @@ Totale stimato: **4-7 settimane** di lavoro effettivo, dipendente dal time-to-de
 
 ---
 
+## Aggiornamenti dopo il draft (2026-10-04, dalla verifica app-vs-deliverable)
+
+Il draft qui sopra descrive lo schema com'era al 2026-05-22; `backend/app/schemas/dcf_schema.json` è la fonte. Cambiamenti da allora che toccano questo documento:
+
+- **§ Logistics non è più gated da Q7.** D4.1 §13.3.1 chiede che ogni collegamento di trasporto sia un processo unitario distinto e una sensibilità sulla distanza; D4.2 §4.3 chiede il break-even come parametro di sensibilità. Ora la sezione è attiva con la dimensione ambientale o economica per ogni valore di Q7 (anche co-locato: tubazione, nastro, movimentazione interna sono rotte). Tre campi opzionali per il break-even per flusso: `route.transport_sensitivity`, `route.break_even_distance_km`, `route.break_even_basis`. Q7 non è una soglia di distanza.
+- **Nuova sezione `flow_classification`** (dopo la Flow Matrix, attiva con `q3.env or q3.eco`, una riga per flusso): i test giuridici ed economici di D4.1 §9.3 e D4.2 §6.2 (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità causale, punto dello zero-burden, passo dell'albero decisionale, casi limite), dichiarati dall'analista. Q5 registra chi paga chi; nessun nodo legge questi campi.
+- Le sezioni dello schema sono ora otto; l'ordine è `actors, flow_matrix, flow_classification, logistics, costs, infrastructure, methodological_choices, network_diagram`.
+- I mandati procedurali arrivano da `backend/coordination/dcf_mandates_census.json`, una copia dei nodi: si aggiorna con `backend/scripts/sync_dcf_census.py` e un test fallisce se è fuori passo.
+
+---
+
 *Fine draft v1.*

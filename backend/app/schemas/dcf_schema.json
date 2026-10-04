@@ -397,8 +397,8 @@
     {
       "id": "logistics",
       "title_en": "Logistics",
-      "description_en": "One row per route, i.e. per flow, co-located flows included: a pipeline, a conveyor or on-site handling is a unit process too (D4.1 §13.3.1). Auto-derived from the Flow Matrix. The break-even distance is asked for every flow, whatever Q7 says.",
-      "applies_when": "always",
+      "description_en": "One row per route, i.e. per flow, co-located flows included: a pipeline, a conveyor or on-site handling is a unit process too (D4.1 §13.3.1). Auto-derived from the Flow Matrix. The break-even distance is asked for every flow, whatever Q7 says; a study with only the social dimension has no transport to model, so the section is off for it.",
+      "applies_when": "q3.env or q3.eco",
       "row_collection": "auto_from_flow_matrix",
       "fields": [
         {

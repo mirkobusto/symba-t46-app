@@ -40,3 +40,12 @@ def test_sync_adds_a_new_mandate_only_with_an_explicit_bucket(schemas):
         script.sync(census, nodes, {})
     _, changes = script.sync(census, nodes, {"lca_hc_07_copy": "allocation_substitution"})
     assert "add lca_hc_07_copy to allocation_substitution" in changes
+
+
+def test_sync_does_not_modify_its_input(schemas):
+    census = json.loads(script.CENSUS.read_text(encoding="utf-8"))
+    before = json.dumps(census)
+    nodes = [dict(n) for n in schemas.phase1_nodes if n["id"] != "lca_hc_07"]   # forces a "drop"
+    _, changes = script.sync(census, nodes, {})
+    assert any("drop lca_hc_07" in c for c in changes)
+    assert json.dumps(census) == before

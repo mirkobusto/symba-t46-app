@@ -196,6 +196,16 @@ def test_break_even_mandates_reach_the_dcf_for_every_q7(case_arce, case_wiktor, 
     assert wiktor["lca_hc_21"].source_section == "D4.1 §13.2.1"
 
 
+def test_logistics_is_off_for_a_social_only_case(schemas, dcf_schema, mandates_census):
+    """With only the social dimension there is no transport to model or break-even to ask for."""
+    case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(soc=True), q4={Q4.E}, q6a=Q6a.PLASTICS_PACKAGING,
+                q6b=Q6b.TRL9, q7=Q7.B, flows=_flows(Q5.a))
+    pipeline_run(case, schemas)
+    logistics = next(s for s in compose_dcf(case, dcf_schema, mandates_census).sections
+                     if s.id == "logistics")
+    assert logistics.active is False
+
+
 def test_logistics_enabled_when_q7_b(case_wiktor, dcf_schema, mandates_census):
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     logistics = next(s for s in payload.sections if s.id == "logistics")

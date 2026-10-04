@@ -139,7 +139,7 @@ def _resolve_discriminative(
 
 
 # ---------------------------------------------------------------------------
-# Boolean predicates for the 28 non-discriminative DERIVED nodes
+# Boolean predicates for the 26 non-discriminative DERIVED nodes
 # ---------------------------------------------------------------------------
 
 

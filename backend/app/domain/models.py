@@ -74,7 +74,8 @@ class Flow(BaseModel):
 
 class Site(BaseModel):
     """A geographic site participating in the IS network. Optional —
-    populated when Q7 in {B,C,D} for transport / spatial-coupling logic.
+    populated for transport / spatial-coupling logic (the DCF Logistics section
+    is open for every case since audit I-08, so co-located links are rows too).
     """
 
     model_config = ConfigDict(extra="forbid")

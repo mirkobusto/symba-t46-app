@@ -19,6 +19,7 @@ Usage:
 """
 from __future__ import annotations
 
+import copy
 import json
 import sys
 from pathlib import Path
@@ -49,7 +50,8 @@ def _item_from(node: dict) -> dict:
 
 
 def sync(census: dict, nodes: list[dict], assign: dict[str, str]) -> tuple[dict, list[str]]:
-    """Return (new census, human-readable list of changes)."""
+    """Return (new census, human-readable list of changes). The input is not modified."""
+    census = copy.deepcopy(census)
     procedural = {n["id"]: n for n in nodes
                   if n.get("field_status") == "procedural_mandate" and n.get("lifecycle_layer") != "L0"}
     changes: list[str] = []

@@ -83,19 +83,21 @@ _DECISION_WARNINGS: dict[tuple[Q1, DecisionContext], tuple[str, str]] = {
 def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, str]]]:
     """ILCD situation and the notes about it.
 
-    Q9 unanswered: the Q1 mapping, no notes (the engine behaves as before Q9
-    existed). Q9 answered: D4.1 Table 1, plus a note when it contradicts Q1 and
-    when "no decision" (a documented, existing network) meets an ex-ante Q2.
+    Q9 unanswered: the Q1 mapping (the engine's values are exactly as before Q9
+    existed). Q9 answered: D4.1 Table 1, plus a note when it contradicts Q1. In
+    both cases a note when Situation C (a documented, existing network) meets an
+    ex-ante Q2: with Q9 unanswered that is Q1=D or Q1=E with Q2=C or D (audit I-06).
     """
     base = _compute_ilcd_situation(case.q1)   # raises on an invalid Q1
     decision = case.decision_context
-    if decision is None:
-        return base, []
-    situation = _ILCD_BY_DECISION[case.q1][decision]
     notes: list[dict[str, str]] = []
-    if (case.q1, decision) in _DECISION_WARNINGS:
-        code, message = _DECISION_WARNINGS[(case.q1, decision)]
-        notes.append({"code": code, "message": message})
+    if decision is None:
+        situation = base
+    else:
+        situation = _ILCD_BY_DECISION[case.q1][decision]
+        if (case.q1, decision) in _DECISION_WARNINGS:
+            code, message = _DECISION_WARNINGS[(case.q1, decision)]
+            notes.append({"code": code, "message": message})
     # Q2=B is "under construction or recently commissioned" (the questionnaire's own
     # wording): the network exists or nearly does, so documenting it is coherent and
     # no note is left. Q2=C (design phase, no operating data) and Q2=D (baseline plus
@@ -153,6 +155,18 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
     return LccType.C_LCC_PLUS_E_LCC, notes
 
 
+def _slca_notes(case: Case) -> list[dict[str, str]]:
+    """S-LCA alone (Q3 = social only) is accepted, but D4.3 §3.1 presupposes the
+    functional unit and boundaries of an LCA or an LCC to build on (audit I-14).
+    A note, not a block: nothing is invented, and slca_hc_06 stays off."""
+    q3 = case.q3
+    if q3.soc and not q3.env and not q3.eco:
+        return [{"code": "slca_alone", "message": "Q3 selects the social dimension only. D4.3 §3.1 builds the "
+                 "S-LCA on the functional unit and the boundaries of an LCA or LCC; with none selected, "
+                 "document the reference unit and the boundary in the methodological charter."}]
+    return []
+
+
 def _compute_slca_state(soc: bool) -> SlcaActivationState:
     return SlcaActivationState.ACTIVE if soc else SlcaActivationState.DEACTIVATED
 
@@ -175,4 +189,5 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     case.lcc_type, lcc_notes = _derive_lcc_type(case)
     case.warnings += lcc_notes
     case.slca_activation_state = _compute_slca_state(case.q3.soc)
+    case.warnings += _slca_notes(case)
     return case

@@ -179,11 +179,24 @@ def test_q9_table_all_fifteen_cells(q1, decision, expected):
 
 
 @pytest.mark.parametrize("q1", list(Q1))
-def test_q9_unanswered_is_exactly_the_q1_mapping_without_notes(q1):
-    case = Case(q1=q1, q2=Q2.C, q3=Q3(env=True))   # even with an ex-ante Q2
+def test_q9_unanswered_is_exactly_the_q1_mapping(q1):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True))
     run(case, None)
     assert case.ilcd_situation == _Q1_ONLY[q1]
     assert case.warnings == []
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+@pytest.mark.parametrize("q2", [Q2.B, Q2.C, Q2.D])
+def test_q9_unanswered_values_never_depend_on_q2_only_the_note_does(q1, q2):
+    """Audit I-06: Situation C (Q1=D or E) on a system that does not exist yet
+    (Q2=C design phase, Q2=D baseline plus alternatives) is noted, never changed."""
+    case = Case(q1=q1, q2=q2, q3=Q3(env=True))
+    run(case, None)
+    assert case.ilcd_situation == _Q1_ONLY[q1]
+    noted = [w["code"] for w in case.warnings]
+    expected = ["documentation_vs_ex_ante"] if q1 in (Q1.D, Q1.E) and q2 in (Q2.C, Q2.D) else []
+    assert noted == expected
 
 
 @pytest.mark.parametrize(
@@ -296,3 +309,20 @@ def test_q10_q1_d_with_policy_never_blocks():
     run(case, None)
     l1_run(case, None)
     assert case.lcc_type == LccType.C_LCC_ONLY and case.blocked_by == []
+
+
+# ---------------------------------------------------------------------------
+# I-14 — S-LCA on its own
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q3, noted",
+    [(Q3(soc=True), True), (Q3(soc=True, env=True), False), (Q3(soc=True, eco=True), False),
+     (Q3(env=True), False), (Q3(env=True, eco=True, soc=True), False)],
+)
+def test_slca_alone_leaves_a_note_and_changes_nothing(q3, noted):
+    case = Case(q1=Q1.A, q2=Q2.A, q3=q3)
+    run(case, None)
+    assert ("slca_alone" in [w["code"] for w in case.warnings]) is noted
+    assert case.slca_activation_state == (SlcaActivationState.ACTIVE if q3.soc else SlcaActivationState.DEACTIVATED)

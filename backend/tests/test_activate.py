@@ -291,7 +291,7 @@ def test_unknown_branch_key_raises_instead_of_being_skipped():
 
 
 def test_q4_in_set_and_includes(schemas):
-    """lca_hc_13 `q4 in {C,D,E}`, lca_mc_25 `q4 includes 'D'`, lcc_hc_29 `q4 includes 'C'`."""
+    """lca_hc_13 `q4 in {C,D,E}`, lca_mc_25 `q4 includes 'D'`."""
     c = _activated(schemas, q4={Q4.E})
     assert c.lca["uncertainty.pedigree"] == "Pedigree Matrix mandatory"
     assert c.lca["lcia_method"] == "ReCiPe 2016 hierarchic + EF 3.1 backup"
@@ -299,9 +299,11 @@ def test_q4_in_set_and_includes(schemas):
     assert d.lca["lcia_method"] == "EF 3.1 + ReCiPe backup"
     a = _activated(schemas, q4={Q4.A})
     assert a.lca["uncertainty.pedigree"] == "Pedigree Matrix recommended"
+    # lcc_hc_29: D4.2 §12 asks for the three reporting layers "without
+    # exception", so they are mandatory whatever Q4 says (audit item I-12a).
     layers = lambda case: _activated(schemas, q3=Q3(env=True, eco=True), **case).report["layers"]  # noqa: E731
     assert layers({"q4": {Q4.C}}) == "3-layer reporting mandatory"
-    assert layers({"q4": {Q4.A}}) == "3-layer reporting recommended"
+    assert layers({"q4": {Q4.A}}) == "3-layer reporting mandatory"
 
 
 def test_gsa_tier_was_dead_and_now_follows_q4(schemas):

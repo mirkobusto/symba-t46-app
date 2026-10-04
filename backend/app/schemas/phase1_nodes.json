@@ -1575,8 +1575,7 @@
       "field": "report.layers",
       "field_status": null,
       "default_value": {
-        "q4 includes 'C'": "3-layer reporting mandatory",
-        "default": "3-layer reporting recommended"
+        "default": "3-layer reporting mandatory"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2"

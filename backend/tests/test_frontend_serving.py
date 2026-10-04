@@ -40,6 +40,13 @@ def test_client_side_routes_get_the_spa(client):
 
 
 def test_the_catch_all_cannot_escape_the_bundle(client):
-    for path in ("/../secret.txt", "/..%2fsecret.txt", "/brand/../../secret.txt"):
+    # httpx normalises a literal "/../" before sending, so only the %2f form reaches the
+    # guard; either way the answer is the SPA, never the file outside the bundle.
+    for path in ("/../secret.txt", "/..%2fsecret.txt", "/brand/../../secret.txt", "/..%2f..%2fsecret.txt"):
         r = client.get(path)
-        assert "outside the bundle" not in r.text
+        assert r.text == "<html>SPA</html>"
+
+
+def test_a_nul_byte_in_the_path_is_not_a_server_error(client):
+    r = client.get("/%00x")
+    assert r.status_code == 200 and r.text == "<html>SPA</html>"

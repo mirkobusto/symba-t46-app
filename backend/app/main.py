@@ -129,9 +129,12 @@ def _mount_frontend(app: FastAPI) -> None:
         # made the logo and the favicon arrive as HTML in Docker. The resolved
         # path must stay inside the bundle (no ../ traversal).
         if full_path:
-            candidate = (dist_root / full_path).resolve()
-            if candidate.is_file() and candidate.is_relative_to(dist_root):
-                return FileResponse(candidate)
+            try:
+                candidate = (dist_root / full_path).resolve()
+                if candidate.is_file() and candidate.is_relative_to(dist_root):
+                    return FileResponse(candidate)
+            except (OSError, ValueError):
+                pass   # an embedded NUL byte or an unreadable path is just "not a file": serve the SPA
         return FileResponse(index_html)
 
 

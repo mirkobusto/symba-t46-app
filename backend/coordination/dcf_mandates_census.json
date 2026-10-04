@@ -328,7 +328,7 @@
         "method": "LCC",
         "type": "MC",
         "lifecycle_layer": "L2",
-        "source_section": "D4.2 \u00a76.2",
+        "source_section": "D4.2 \u00a76.1",
         "trigger_q": [
           "q5"
         ],
@@ -1095,7 +1095,7 @@
         "method": "LCC",
         "type": "HC",
         "lifecycle_layer": "L2",
-        "source_section": "D4.2 \u00a710.1",
+        "source_section": "D4.2 \u00a710.3",
         "trigger_q": null,
         "trigger_condition": null,
         "statement": "Monte Carlo mandatory, >=10,000 iterations",

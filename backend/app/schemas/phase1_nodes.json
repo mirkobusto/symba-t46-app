@@ -1196,7 +1196,7 @@
       "id": "lcc_hc_04",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §3",
+      "source_section": "D4.2 §3.1",
       "category": "DERIVED",
       "trigger_q": [
         "q3",
@@ -1208,7 +1208,8 @@
       "field_status": null,
       "default_value": "aligned_to_lca",
       "override_path": "q3",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §3); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_05",
@@ -1537,7 +1538,7 @@
       "id": "lcc_hc_24",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §10.1",
+      "source_section": "D4.2 §10.3",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
@@ -1546,7 +1547,8 @@
       "field_status": "procedural_mandate",
       "default_value": "Monte Carlo mandatory, >=10,000 iterations",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §10.1); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_25",
@@ -1617,7 +1619,7 @@
       "id": "lcc_hc_29",
       "method": "LCC",
       "type": "HC",
-      "source_section": "D4.2 §12.2",
+      "source_section": "D4.2 §12.3",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -1630,7 +1632,8 @@
         "default": "3-layer reporting mandatory"
       },
       "override_path": "q4",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §12.2); audit 2026-10-04."
     },
     {
       "id": "lcc_hc_30",
@@ -1816,7 +1819,7 @@
       "id": "lcc_mc_01",
       "method": "LCC",
       "type": "MC",
-      "source_section": "D4.2 §2.2",
+      "source_section": "D4.2 §2.3",
       "category": "DERIVED",
       "trigger_q": [
         "lcc_type",
@@ -1834,7 +1837,7 @@
       },
       "override_path": "q1, q3",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Mirrors lcc_trig_01; v1 lists both as the LCC-type derivation"
+      "extraction_notes": "Mirrors lcc_trig_01; v1 lists both as the LCC-type derivation | source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §2.2); audit 2026-10-04."
     },
     {
       "id": "lcc_mc_02",
@@ -1981,7 +1984,7 @@
       "id": "lcc_mc_09",
       "method": "LCC",
       "type": "MC",
-      "source_section": "D4.2 §6.2",
+      "source_section": "D4.2 §6.1",
       "category": "DERIVED",
       "trigger_q": [
         "q5"
@@ -2000,7 +2003,7 @@
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "v1 default text refers to 'Avoidable/Unavoidable per Q5 answer' — restated per Q5 option for clarity"
+      "extraction_notes": "v1 default text refers to 'Avoidable/Unavoidable per Q5 answer' — restated per Q5 option for clarity | source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §6.2); audit 2026-10-04."
     },
     {
       "id": "lcc_mc_10",
@@ -2065,7 +2068,7 @@
       "id": "lcc_mc_13",
       "method": "LCC",
       "type": "MC",
-      "source_section": "D4.2 §9.2",
+      "source_section": "D4.2 §9.3",
       "category": "DERIVED",
       "trigger_q": [
         "q2"
@@ -2079,7 +2082,8 @@
         "q2 in {C,D}": "Dynamic SSP/RCP"
       },
       "override_path": "q2, advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04."
     },
     {
       "id": "lcc_mc_14",

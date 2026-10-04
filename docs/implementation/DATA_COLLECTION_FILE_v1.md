@@ -85,7 +85,7 @@ Dal mapping in `PHASE1_NODE_MAPPING_v2.md` + `WorkingDoc §3.1-3.3`:
 | **Temporal frame** | `q2` | A → ex-post (measured). B/C → ex-ante (assumptions, CAPEX, SSP/RCP). D → both (baseline measured + alternative projected). |
 | **Dimensions** | `q3` | env/eco/soc accendono pillar diversi → campi diversi (LCC chiede CAPEX/OPEX, S-LCA chiede stakeholder mapping). |
 | **Sector overlay** | `q6a` | Aggiunge campi sector-specific (es. waste_valorization → contamination, energy_utilities → capacity factor, multi_tenant → tenant matrix). |
-| **Geographic scope** | `q7` | A → no transport. B/C/D → distance_km, transport_mode obbligatori. |
+| **Geographic scope** | `q7` | ~~A → no transport. B/C/D → distance_km, transport_mode obbligatori.~~ Superato il 2026-10-04: il trasporto e il break-even valgono per ogni Q7 (vedi « Aggiornamenti dopo il draft » in fondo). |
 
 ILCD Situation (A / A_multi / B / C1 / C2) è una **label riassuntiva** dei tre assi sopra, non un asse indipendente. Pathway IS-01..05 idem.
 
@@ -138,11 +138,11 @@ Una riga per scambio attore→attore. Estende il `Flow` model esistente.
 
 ### 5.3 § Logistics
 
-Una riga per **rotta** (= per flow se Q7≠A). Auto-derivata dalla Flow Matrix.
+Una riga per **rotta** (= per flow, anche co-locato; vedi « Aggiornamenti dopo il draft »). Auto-derivata dalla Flow Matrix.
 
 | field | type | activation_predicate | note |
 |---|---|---|---|
-| `route.flow_id` | FK | `q7 in ["B","C","D"]` | tutta la sezione gated da Q7 |
+| `route.flow_id` | FK | `always` | ~~gated da Q7~~: ora la sezione è gated da `q3.env or q3.eco` |
 | `route.distance_km` | float | `q7 in ["B","C","D"]` | |
 | `route.transport_mode` | enum {truck, rail, ship, pipeline, cable, conveyor, onsite_none} | `q7 in ["B","C","D"]` | |
 | `route.frequency` | enum {continuous, daily, weekly, monthly, ad_hoc} | `q7 in ["B","C","D"]` | |

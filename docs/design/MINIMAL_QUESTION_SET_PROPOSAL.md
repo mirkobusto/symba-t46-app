@@ -155,6 +155,8 @@ Per ogni domanda: (a) wording user-facing in italiano (l'inglese è meccanico), 
 
 #### Q6b (TRL della tecnologia principale)
 
+> *Aggiornamento 2026-10-04 (audit I-08): le soglie in km erano un'invenzione dell'estrazione, nessun deliverable le contiene; il break-even dipende dal tipo di flusso e si calcola nel DCF.*
+
 | Opzione | Cosa attiva |
 |---|---|
 | **TRL 9** — operativa industrialmente, dati storici disponibili | Standard data; no scale-up framework needed; static background OK |
@@ -172,9 +174,9 @@ Per ogni domanda: (a) wording user-facing in italiano (l'inglese è meccanico), 
 
 | Opzione | Cosa attiva |
 |---|---|
-| **Co-located** (eco-park, <5 km tra siti) | Break-even distance non critico; transport modeling minimo |
-| **Regional** (5-100 km) | Break-even distance sensitivity mandatory (LCA HC-21, LCC HC-06); explicit foreground transport |
-| **Wide-area** (>100 km, cross-region o cross-border) | CIR-03: GIS-coupled spatial modeling activated (LCC MC-14b + LCA MC-29); territorial dimension S-LCA (HC-10) explicit |
+| **Co-located** (eco-park, un sito o impianti adiacenti) | Trasporto esplicito e break-even per flusso comunque richiesti (LCA HC-21, LCC HC-06); nessun accoppiamento GIS |
+| **Regional** (più siti nella stessa regione) | Come sopra, più CIR-03 (accoppiamento GIS) |
+| **Wide-area** (tra regioni o transfrontaliero) | CIR-03: GIS-coupled spatial modeling activated (LCC MC-14b + LCA MC-29); territorial dimension S-LCA (HC-10) explicit |
 
 In molti casi questa domanda è derivabile dai siti che l'utente carica come "dati del caso" (geocoordinate). Mostrare la domanda solo se l'inferenza fallisce o se l'utente non ha caricato i dati.
 

@@ -56,8 +56,12 @@ Stack:
 - Persistence: SQLite via SQLAlchemy (server-side cases) + localStorage via Zustand persist (client-side draft)
 - Dev ports: backend 8088, frontend 5180
 
-Stato al **2026-08-29**: roadmap T4.6 Fasi A-D **tutta mergiata su `main`**, incluso il
-rework di visual identity (PR #42, "Data Dashboard"). Nessuna PR aperta.
+Stato al **2026-10-04**: roadmap T4.6 Fasi A-D **tutta mergiata su `main`**, incluso il
+rework di visual identity (PR #42, "Data Dashboard"). Il 2026-10-04 è stata mergiata anche la
+verifica app-vs-deliverable (PR #89, 36 commit; I-01…I-19 tranne i punti elencati sotto), insieme a
+tre domande opzionali (Q8-Q10), `Case.warnings`, la nuova sezione DCF `flow_classification`, il
+branding del sito symbaproject.eu con font in locale e una bozza di informativa privacy (PR #88).
+Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
 - Sprint 4 Step 2 (scaffold) chiuso 2026-05-08
@@ -79,6 +83,10 @@ Cronologia sintetica (tutto su `main`):
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
 - Deploy pubblico D4.6 (PU): immagine e guida pronte, manca l'URL reale
 - Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
+- **Dopo il deploy del 2026-10-04**: eseguire `cd backend && PYTHONPATH=. python scripts/rerun_saved_cases.py --apply` (i casi salvati tengono i valori e le regole del motore precedente; prima senza `--apply` per vedere quanti cambiano)
+- **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
+- Da guardare a occhio dopo il branding: proporzioni del logo, emblema UE a 300 px, hover/focus, 1201-1320 px in ES/FR su `/welcome`, Safari/Firefox, telefono reale, stampa della pagina risultato
+- Decisioni residue dell'audit: `contested` in `lcc_mc_04/08` resta inerte (D4.2 §3.2: è uno stato negoziale per flusso, non Q5=b); `infra.decommissioning_cost.row_condition` nel DCF non è valutato da nessun codice; "≥10,000 iterations" in un nodo contro D4.2 1.000-10.000 (serve approvazione); I-17 (leggere le altre chiavi di `advanced`) deferito, vedi sopra; I-18 (anno di Kerdlap) da verificare sul DOI
 
 ---
 
@@ -115,7 +123,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-04): **359 backend (pytest, +1 skipped) + 63 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-04, dopo il merge dell'audit): **647 backend (pytest, +1 skipped) + 123 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

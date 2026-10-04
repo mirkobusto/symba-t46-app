@@ -277,3 +277,23 @@ def test_pipeline_run_q10_q1_d_with_policy_is_a_note_not_a_block(client):
     assert resp.status_code == 200 and body["blocked_by"] == []
     assert body["lcc_type"] == "C-LCC"
     assert [w["code"] for w in body["warnings"]] == ["q1_d_fixed_lcc"]
+
+
+def test_running_twice_does_not_double_the_outputs(client):
+    """Every phase appends, so a second run used to double everything:
+    186 nodes became 332, and the DCF endpoints — which re-run the
+    pipeline on a case that was stored post-pipeline — exported every
+    obligation twice while the result page showed the single count."""
+    body = {
+        "q1": "B", "q2": "D",
+        "q3": {"env": True, "eco": True, "soc": True},
+        "q4": ["E"], "q6a": "pulp_paper", "q6b": "TRL7-8", "q7": "B",
+        "flows": [{"id": "f1", "name": "spent grain", "q5": "a"}],
+    }
+    first = client.post("/api/pipeline/run", json=body).json()
+    second = client.post("/api/pipeline/run", json=first).json()
+
+    for key in ("activated_nodes", "applicable_rules", "cdp_flags",
+                "rule_violations", "blocked_by"):
+        assert len(second[key]) == len(first[key]), f"{key} doubled on re-run"
+    assert len(second["activated_nodes"]) <= 186

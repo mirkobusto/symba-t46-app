@@ -118,10 +118,23 @@ def _mount_frontend(app: FastAPI) -> None:
     if assets_dir.is_dir():
         app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
+    dist_root = dist_dir.resolve()
+
     @app.get("/{full_path:path}", include_in_schema=False)
-    async def _spa_catchall(full_path: str):  # noqa: ARG001 — captured by router
+    async def _spa_catchall(full_path: str):
         # Note: requests to /api/* hit the API routers first. This
         # catch-all only matches paths the API doesn't claim.
+        # A file that exists in the bundle outside /assets (public/brand/*,
+        # favicon, fonts) is served as that file: returning index.html for it
+        # made the logo and the favicon arrive as HTML in Docker. The resolved
+        # path must stay inside the bundle (no ../ traversal).
+        if full_path:
+            try:
+                candidate = (dist_root / full_path).resolve()
+                if candidate.is_file() and candidate.is_relative_to(dist_root):
+                    return FileResponse(candidate)
+            except (OSError, ValueError):
+                pass   # an embedded NUL byte or an unreadable path is just "not a file": serve the SPA
         return FileResponse(index_html)
 
 

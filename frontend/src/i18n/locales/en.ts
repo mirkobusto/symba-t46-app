@@ -303,12 +303,12 @@ const en = {
       help: 'At least one is required. Default: ENV + ECO.',
       details:
         'ENV — Environmental Life Cycle Assessment (LCA): impacts on climate, ecosystems, resource use. Almost always selected. ' +
-        'ECO — economic dimension; default tool is LCC (Life Cycle Costing), but the engine also accepts MFCA (Material Flow Cost Accounting), CBA (Cost-Benefit Analysis), or TEA (Techno-Economic Analysis) depending on Q4 and reporting context. ' +
+        'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC pathway (activated by ECO and by contested flows in Q5), not an alternative to it; CBA and TEA are not offered by this engine. ' +
         'SOC — Social LCA. Selecting it activates a longer rule chain (worker / local-community / value-chain stakeholder categories) and forces L1 BLOCK 2 if the advanced override slca_framework_override is set to "absolute". ' +
         'Most published IS papers run ENV-only (e.g. Sokka, Daddi); a few couple ENV+ECO (Hashimoto, Wiktor); only a handful add SOC.',
       warning: 'Select at least one dimension to proceed.',
       env: 'Environmental (LCA)',
-      eco: 'Economic (LCC / MFCA / CBA / TEA)',
+      eco: 'Economic (LCC)',
       soc: 'Social (S-LCA)',
     },
 

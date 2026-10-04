@@ -39,7 +39,11 @@ export default function StakeholderReportPage() {
   const [scoring, setScoring] = useState<ScoringPayload | null>(null)
   const [loadingScoring, setLoadingScoring] = useState(true)
 
-  const caseId = sourceCase.id
+  // The scoring payload is keyed by the *server* case id (CaseRecord),
+  // which is what CIRCE ingests against. sourceCase.id is the engine's
+  // own UUID for the in-memory case: fetching by it means the report
+  // would still say "not yet available" after a successful ingest.
+  const caseId = useCaseStore((s) => s.serverCaseId)
 
   useEffect(() => {
     // Avoid synchronous setState at effect start (eslint

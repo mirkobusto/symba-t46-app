@@ -42,8 +42,22 @@ def run(case: Case, schemas: LoadedSchemas | None = None) -> Case:
     Short-circuit:
         if any L1 BLOCK fires, returns after L1 with case.blocked_by
         populated; activation/L2/L3 are skipped.
+
+    Re-runnable:
+        every phase appends to its output list, so running twice on the
+        same case used to double everything — 186 nodes became 332, and
+        an export of a saved case (which is stored post-pipeline, and
+        which the DCF endpoints re-run) listed every obligation twice.
+        The outputs are cleared here so a second run replaces the first
+        rather than accumulating onto it.
     """
     sch = schemas if schemas is not None else load_schemas()
+
+    case.activated_nodes.clear()
+    case.blocked_by.clear()
+    case.rule_violations.clear()
+    case.applicable_rules.clear()
+    case.cdp_flags.clear()
 
     # L0 — deterministic derivations from Q1-Q3
     l0_compute.run(case, sch)

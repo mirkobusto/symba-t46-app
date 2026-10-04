@@ -1,24 +1,70 @@
+/* Self-hosted web fonts (latin subset), same families as www.symbaproject.eu. See public/fonts/README.md.
+   Served from this origin so that no visitor IP address is sent to Google. */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-latin-wght-400-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-wght-400-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pt-sans-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/pt-sans-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'PT Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pt-sans-latin-400-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
+  /* SYMBA website palette (see the token block in App.css, which is the
+     source of truth; these base values only cover what loads before it). */
+  --text: #46546e;
+  --text-h: #29364e; /* website heading colour */
   --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --border: #e1e5eb;
+  --code-bg: #f4f6f9;
+  --accent: #5a7300;
+  --accent-bg: rgba(90, 115, 0, 0.09);
+  --accent-border: rgba(90, 115, 0, 0.5);
+  --social-bg: rgba(244, 246, 249, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* Website typography: PT Sans body, Noto Sans headings. */
+  --sans: 'PT Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Noto Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   /* Light-only by design: the Data Dashboard shell has no dark palette
-     (the only dark surface is the sidebar). Declaring `light dark` made
+     (the dark surfaces are the sidebar and the footer, as on the website). Declaring `light dark` made
      the OS dark preference win over the native form controls — Firefox
      on a dark Windows painted <select> text and its dropdown in
      light grey while our CSS kept the white background, leaving the Q5
@@ -43,12 +89,13 @@
    two palettes fought each other. Re-introduce only alongside a real
    dark palette for the .dd-* tokens. */
 
+/* Full width: the website-style header and footer are full-bleed. The
+   1126px boxed column of the Vite template is gone; the app frame inside
+   is centred and capped by --dd-shell-max (App.css). */
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -62,7 +109,7 @@ body {
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-h);
 }
 

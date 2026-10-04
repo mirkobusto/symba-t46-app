@@ -20,11 +20,44 @@ const es: Locale = {
     no: 'no',
   },
 
+  // Funding acknowledgement, worded as on the SYMBA website footer.
   eu: {
-    fundingStatement:
-      'Este proyecto ha recibido financiación del programa Horizon Europe de Investigación e Innovación de la Unión Europea en el marco del Acuerdo de Subvención N. 101135562.',
+    emblemAlt: 'Financiado por la Unión Europea',
+    fundingStatement: 'Financiado por la Unión Europea en virtud del Acuerdo de Subvención N. 101135562.',
     disclaimer:
-      'Financiado por la Unión Europea. Sin embargo, las opiniones expresadas son las del autor o autores únicamente y no reflejan necesariamente las de la Unión Europea. Ni la Unión Europea ni la autoridad que concede la financiación pueden ser consideradas responsables.',
+      'Sin embargo, las opiniones expresadas son las del autor o autores únicamente y no reflejan necesariamente las de la Unión Europea. Ni la Unión Europea ni la Agencia Ejecutiva Europea de Investigación pueden ser consideradas responsables.',
+  },
+
+  footer: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Ir al sitio web del proyecto SYMBA',
+    toolLine: 'Monitoring & Reporting System · Tarea T4.6',
+    followUs: 'Síguenos',
+    projectInfo: 'Información del proyecto',
+    projectWebsite: 'Sitio web del proyecto',
+    publicDeliverables: 'Entregables públicos',
+    copyright: 'Copyright © {{year}} Symba Project, todos los derechos reservados.',
+    privacy: 'Política de privacidad',
+    cookies: 'Almacenamiento del navegador',
+  },
+
+  siteHeader: {
+    logoAlt: 'Symba Project',
+    logoTitle: 'Ir al sitio web del proyecto SYMBA',
+    navLabel: 'Sitio web del proyecto SYMBA',
+    menuOpen: 'Abrir el menú',
+    menuClose: 'Cerrar el menú',
+    backToSite: 'Sitio web del proyecto',
+    tool: 'Seguimiento',
+    // Labels of the sections of the project website, which is in English.
+    nav: {
+      about: 'About',
+      project: 'Project',
+      partners: 'Partners',
+      news: 'News & Events',
+      download: 'Download',
+      contact: 'Contact Us',
+    },
   },
 
   layout: {
@@ -178,6 +211,74 @@ const es: Locale = {
     presetsMeta: '13 fixtures de artículos peer-reviewed',
   },
 
+  // DRAFT: English until the notice has been through legal review and is translated.
+  privacy: {
+    "title": "Privacy and data storage",
+    "draft": "DRAFT for legal review — not yet the privacy notice of record. Items in [square brackets] are for the controller of this deployment to complete.",
+    "updated": "Version: draft 1, 2026-10-04.",
+    "sections": [
+      {
+        "id": "controller",
+        "title": "1. Who is responsible",
+        "paragraphs": [
+          "[PLACEHOLDER — the SYMBA partner that operates this subdomain: name, address, contact. To be completed by the owner.]",
+          "The project website https://www.symbaproject.eu/ has its own privacy policy, which covers the website. This page covers this tool."
+        ],
+        "items": []
+      },
+      {
+        "id": "what",
+        "title": "2. What this tool does",
+        "paragraphs": [
+          "It helps practitioners configure the methodological pathway of a life-cycle study of an industrial symbiosis (Horizon Europe project SYMBA, Grant Agreement 101135562, task T4.6) and prepare the data collection file and reports. It does not compute environmental, cost or social results."
+        ],
+        "items": []
+      },
+      {
+        "id": "data",
+        "title": "3. What we keep",
+        "paragraphs": [],
+        "items": [
+          "Your account: email address, a bcrypt hash of your password (never the password itself), your role and the creation date. The email also sits inside the sign-in token (valid 12 hours) that your browser keeps. Registration is open to anyone.",
+          "The cases you save: name, questionnaire answers, flows, optional sites (coordinates, country), the content of the data collection file (actor names, contact roles, costs), scoring data, the owner, and a public link name if you share a report.",
+          "Technical logs: the server's access log records the visitor's IP address, the time, the path and the status of each request; it goes to the container log of the host, rotated at 5 files of 10 MB. [PLACEHOLDER — logs of the reverse proxy or TLS terminator in front of the tool.]",
+          "In your browser (local storage, not cookies): symba-auth (sign-in), symba-case-draft and symba-dcf-draft (unsaved work), symba-preferences and symba-language. The tool sets no cookies and loads its fonts from its own server, with no request to third parties."
+        ]
+      },
+      {
+        "id": "purposes",
+        "title": "4. Why, and on what legal basis",
+        "paragraphs": [
+          "[PLACEHOLDER — purposes and legal basis, to be completed by the controller: operating the tool and its accounts for the SYMBA project (GA 101135562), security of the service.]"
+        ],
+        "items": []
+      },
+      {
+        "id": "recipients",
+        "title": "5. Who can see it",
+        "paragraphs": [
+          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Cases saved without signing in can currently be read and changed by anyone who can reach the tool, and the administrator (the first account registered) can read and change every case, including those owned by others: do not enter personal data of third parties."
+        ],
+        "items": []
+      },
+      {
+        "id": "storage",
+        "title": "6. How long, and how to delete",
+        "paragraphs": [
+          "Nothing is deleted automatically. You can delete your cases and the data collection content of a case from the tool. Deleting your account is not self-service yet: write to [PLACEHOLDER — contact]. Backups: [PLACEHOLDER — frequency and retention]."
+        ],
+        "items": []
+      },
+      {
+        "id": "rights",
+        "title": "7. Your rights",
+        "paragraphs": [
+          "Under the GDPR (articles 15 to 22) you can ask for access, rectification, erasure, restriction, portability and object to processing: [PLACEHOLDER — contact]. You can complain to the supervisory authority: [PLACEHOLDER — authority]."
+        ],
+        "items": []
+      }
+    ]
+  },
   about: {
     title: 'Acerca de',
     p1:

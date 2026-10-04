@@ -12,6 +12,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
+import SiteHeader from '../components/brand/SiteHeader'
+import EuFooter from '../components/EuFooter'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import {
   recommendedRouteFor,
@@ -70,98 +72,99 @@ export default function WelcomePage() {
   }
 
   return (
-    <div className="dd-welcome">
+    <div className="dd-welcome-page">
       {/* The wizard renders outside <Layout />, so the topbar switcher is
           not available here — and this is the first screen a visitor
-          sees, which is exactly where the language matters most. */}
-      <div className="dd-welcome-lang">
-        <LanguageSwitcher />
-      </div>
+          sees, which is exactly where the language matters most. It sits
+          in the header's actions slot. */}
+      <SiteHeader actions={<LanguageSwitcher />} />
+      <div className="dd-welcome">
+        <div className="dd-welcome-card">
+          <div className="dd-welcome-progress" aria-hidden="true">
+            <span className={step === 1 ? 'active' : 'done'} />
+            <span className={step === 2 ? 'active' : ''} />
+          </div>
 
-      <div className="dd-welcome-card">
-        <div className="dd-welcome-progress" aria-hidden="true">
-          <span className={step === 1 ? 'active' : 'done'} />
-          <span className={step === 2 ? 'active' : ''} />
-        </div>
+          <h1 className="dd-welcome-title">{t('welcome.title')}</h1>
+          <p className="dd-welcome-lead">{t('welcome.lead')}</p>
 
-        <h1 className="dd-welcome-title">{t('welcome.title')}</h1>
-        <p className="dd-welcome-lead">{t('welcome.lead')}</p>
+          {step === 1 ? (
+            <>
+              <h2 className="dd-welcome-step">
+                {t('welcome.step1.title')}
+                <span className="dd-welcome-step-num">1 / 2</span>
+              </h2>
+              <div className="dd-welcome-grid" role="radiogroup" aria-label={t('welcome.step1.title')}>
+                {ROLES.map(({ key, emoji }) => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="radio"
+                    aria-checked={role === key}
+                    className={`dd-welcome-tile ${role === key ? 'selected' : ''}`}
+                    onClick={() => setRole(key)}
+                  >
+                    <div className="dd-welcome-emoji">{emoji}</div>
+                    <div className="dd-welcome-tile-name">{t(`welcome.roles.${key}.name`)}</div>
+                    <div className="dd-welcome-tile-desc">{t(`welcome.roles.${key}.desc`)}</div>
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="dd-welcome-step">
+                {t('welcome.step2.title')}
+                <span className="dd-welcome-step-num">2 / 2</span>
+              </h2>
+              <div className="dd-welcome-grid dd-welcome-grid-2col" role="radiogroup">
+                {TASKS.map(({ key, emoji }) => (
+                  <button
+                    key={key}
+                    type="button"
+                    role="radio"
+                    aria-checked={task === key}
+                    className={`dd-welcome-tile ${task === key ? 'selected' : ''}`}
+                    onClick={() => setTask(key)}
+                  >
+                    <div className="dd-welcome-emoji">{emoji}</div>
+                    <div className="dd-welcome-tile-name">{t(`welcome.tasks.${key}.name`)}</div>
+                    <div className="dd-welcome-tile-desc">{t(`welcome.tasks.${key}.desc`)}</div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
-        {step === 1 ? (
-          <>
-            <h2 className="dd-welcome-step">
-              {t('welcome.step1.title')}
-              <span className="dd-welcome-step-num">1 / 2</span>
-            </h2>
-            <div className="dd-welcome-grid" role="radiogroup" aria-label={t('welcome.step1.title')}>
-              {ROLES.map(({ key, emoji }) => (
-                <button
-                  key={key}
-                  type="button"
-                  role="radio"
-                  aria-checked={role === key}
-                  className={`dd-welcome-tile ${role === key ? 'selected' : ''}`}
-                  onClick={() => setRole(key)}
-                >
-                  <div className="dd-welcome-emoji">{emoji}</div>
-                  <div className="dd-welcome-tile-name">{t(`welcome.roles.${key}.name`)}</div>
-                  <div className="dd-welcome-tile-desc">{t(`welcome.roles.${key}.desc`)}</div>
-                </button>
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            <h2 className="dd-welcome-step">
-              {t('welcome.step2.title')}
-              <span className="dd-welcome-step-num">2 / 2</span>
-            </h2>
-            <div className="dd-welcome-grid dd-welcome-grid-2col" role="radiogroup">
-              {TASKS.map(({ key, emoji }) => (
-                <button
-                  key={key}
-                  type="button"
-                  role="radio"
-                  aria-checked={task === key}
-                  className={`dd-welcome-tile ${task === key ? 'selected' : ''}`}
-                  onClick={() => setTask(key)}
-                >
-                  <div className="dd-welcome-emoji">{emoji}</div>
-                  <div className="dd-welcome-tile-name">{t(`welcome.tasks.${key}.name`)}</div>
-                  <div className="dd-welcome-tile-desc">{t(`welcome.tasks.${key}.desc`)}</div>
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-
-        <div className="dd-welcome-actions">
-          {step === 2 ? (
+          <div className="dd-welcome-actions">
+            {step === 2 ? (
+              <button
+                type="button"
+                className="dd-btn dd-btn-secondary"
+                onClick={handleBack}
+              >
+                ← {t('welcome.back')}
+              </button>
+            ) : null}
             <button
               type="button"
-              className="dd-btn dd-btn-secondary"
-              onClick={handleBack}
+              className="dd-btn dd-btn-primary"
+              disabled={step === 1 ? !role : !task}
+              onClick={handleContinue}
             >
-              ← {t('welcome.back')}
+              {step === 1 ? t('welcome.next') : t('welcome.finish')}
             </button>
-          ) : null}
-          <button
-            type="button"
-            className="dd-btn dd-btn-primary"
-            disabled={step === 1 ? !role : !task}
-            onClick={handleContinue}
-          >
-            {step === 1 ? t('welcome.next') : t('welcome.finish')}
-          </button>
-          <button
-            type="button"
-            className="dd-btn dd-btn-ghost"
-            onClick={handleSkip}
-          >
-            {t('welcome.skip')}
-          </button>
+            <button
+              type="button"
+              className="dd-btn dd-btn-ghost"
+              onClick={handleSkip}
+            >
+              {t('welcome.skip')}
+            </button>
+          </div>
         </div>
       </div>
+      <EuFooter />
     </div>
   )
 }

@@ -15,6 +15,7 @@ from app.domain.models import Q3, Case, Flow
 from app.engine.activate import _resolve_discriminative, run
 from app.engine.branch_keys import BranchKeyError
 from app.engine.l0_compute import run as l0_run
+from app.engine.pipeline import run as pipeline_run
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -405,6 +406,56 @@ def test_contested_branch_is_inert_per_flow(schemas):
     Q5=b keeps its explicit branch."""
     c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.b, Q5.e))
     assert c.lcc["flow_valuation_method"] == {"f0": "Transfer Price", "f1": "Market Proxy"}
+
+
+# ---------------------------------------------------------------------------
+# 7d. lca.allocation_method — five writers, one field (audit item I-02)
+#
+# lca_mc_08 -> lca_mc_12 (Q1-driven), lca_mc_13 -> lca_mc_14 (Q4=D), then
+# CIR-05 at L2. The last two used to carry a `default` branch, so they always
+# ran and overwrote the Q1 result: every Q1 ended on "substitution", Q1=D
+# included, where D4.1 §8.2.3 says "use Allocation (Step 3). Do not apply
+# substitution credits". PHASE1_NODE_MAPPING_v2 §5.2 settles the order: the
+# more specific Q wins (Q4=D for PEF CFF) and a generic default does not.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q1, expected",
+    [
+        (Q1.A, "system expansion"),
+        (Q1.B, "system expansion"),
+        (Q1.E, "system expansion"),
+        (Q1.C, "consequential expansion"),
+        (Q1.D, "allocation"),
+    ],
+)
+def test_allocation_method_follows_q1_when_q4_is_not_pef(schemas, q1, expected):
+    case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.A})
+    pipeline_run(case, schemas)
+    assert case.lca["allocation_method"] == expected
+
+
+def test_pef_nodes_write_only_when_q4_includes_d(schemas):
+    plain = _activated(schemas, q4={Q4.A})
+    assert "lca_mc_13" not in plain.activated_nodes
+    assert "lca_mc_14" not in plain.activated_nodes
+    pef = _activated(schemas, q4={Q4.D})
+    assert "lca_mc_13" in pef.activated_nodes and "lca_mc_14" in pef.activated_nodes
+    assert pef.lca["allocation_method"] == "PEF CFF"  # activation only; CIR-05 comes at L2
+
+
+@pytest.mark.parametrize("q1", list(Q1))
+def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
+    """CIR-05 writes 'pef_cff' last. That includes Q1=D, against the "use
+    Allocation, no substitution credits" of D4.1 §8.2.3: D4.1 itself calls the
+    CFF both "mandatory" for EU-policy studies (§7.3.2) and a "valid
+    alternative" (§7.3.3), so the engine keeps the Q4=D reading on purpose.
+    `advanced.allocation_method_override` is documented on Case but no engine
+    module reads it, so the analyst cannot override this today."""
+    case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.D})
+    pipeline_run(case, schemas)
+    assert case.lca["allocation_method"] == "pef_cff"
 
 
 # ---------------------------------------------------------------------------

@@ -659,8 +659,7 @@
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "PEF CFF",
-        "default": "physical/Rigamonti"
+        "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
@@ -680,8 +679,7 @@
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "PEF CFF",
-        "default": "substitution"
+        "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",

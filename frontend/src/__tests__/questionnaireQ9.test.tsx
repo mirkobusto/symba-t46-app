@@ -34,19 +34,34 @@ describe('Questionnaire Q9 — decision and scale', () => {
     fireEvent.click(screen.getByLabelText(/Environmental \(LCA\)/))
   })
 
-  const q9Select = () =>
-    document.querySelector('section[aria-labelledby="q9-title"] select') as HTMLSelectElement
+  // The answers are whole sentences: radios let them wrap, a native dropdown cuts them off.
+  const q9Radios = () =>
+    Array.from(
+      document.querySelectorAll<HTMLInputElement>('section[aria-labelledby="q9-title"] input[type="radio"]'),
+    )
+  const q9Pick = (value: string) =>
+    fireEvent.click(q9Radios().find((r) => r.value === value)!)
 
   it('offers the three answers plus "not answered", unanswered by default', () => {
-    expect(q9Select().value).toBe('')
-    expect(Array.from(q9Select().options).map((o) => o.value)).toEqual(['', 'none', 'micro', 'structural'])
+    expect(q9Radios().map((r) => r.value)).toEqual(['', 'none', 'micro', 'structural'])
+    expect(q9Radios().filter((r) => r.checked).map((r) => r.value)).toEqual([''])
+    expect(document.querySelector('section[aria-labelledby="q9-title"] select')).toBeNull()
   })
 
   it('sends the chosen scale', async () => {
-    fireEvent.change(q9Select(), { target: { value: 'structural' } })
+    q9Pick('structural')
     fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].decision_context).toBe('structural')
+  })
+
+  it('shows each answer in full, not cut to a short label', () => {
+    const labels = Array.from(
+      document.querySelectorAll('section[aria-labelledby="q9-title"] .opt-label'),
+    ).map((e) => e.textContent)
+    expect(labels).toContain(
+      'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
+    )
   })
 
   it('sends null when left unanswered', async () => {

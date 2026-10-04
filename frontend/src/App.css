@@ -487,6 +487,43 @@ html {
   font-size: 12px;
 }
 
+/* An option that is one sentence (Q9, Q10): the radio sits beside the text, which wraps. */
+.opt-single {
+  align-items: baseline;
+}
+.opt-single .opt-label {
+  font-weight: 400;
+  line-height: 145%;
+}
+
+/* A short numeric answer (Q8): a roomy field with its unit beside it. The grid of .opt is
+   made for a radio in a 20px column and would squeeze the field until no digit shows. */
+.qnum {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+}
+.qnum-input {
+  box-sizing: border-box;
+  width: 9rem;
+  padding: 8px 12px;
+  border: 1px solid var(--slate-300);
+  border-radius: 6px;
+  background: var(--surface-input);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--slate-800);
+}
+.qnum-input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+.qnum-unit {
+  color: var(--slate-600);
+  font-size: 14px;
+}
+
 .select {
   padding: 8px 12px;
   border: 1px solid var(--slate-300);

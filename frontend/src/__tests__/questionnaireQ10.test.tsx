@@ -34,20 +34,24 @@ describe('Questionnaire Q10 — policy purpose', () => {
     fireEvent.click(screen.getByLabelText(/Environmental \(LCA\)/))
   })
 
-  const q10Select = () =>
-    document.querySelector('section[aria-labelledby="q10-title"] select') as HTMLSelectElement
+  const q10Radios = () =>
+    Array.from(
+      document.querySelectorAll<HTMLInputElement>('section[aria-labelledby="q10-title"] input[type="radio"]'),
+    )
+  const q10Pick = (value: string) =>
+    fireEvent.click(q10Radios().find((r) => r.value === value)!)
   const run = () => fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
 
   it('offers yes, no and "not answered", unanswered by default', () => {
-    expect(q10Select().value).toBe('')
-    expect(Array.from(q10Select().options).map((o) => o.value)).toEqual(['', 'yes', 'no'])
+    expect(q10Radios().map((r) => r.value)).toEqual(['', 'yes', 'no'])
+    expect(q10Radios().filter((r) => r.checked).map((r) => r.value)).toEqual([''])
   })
 
   it.each([
     ['yes', true],
     ['no', false],
   ])('sends %s as a boolean', async (value, expected) => {
-    fireEvent.change(q10Select(), { target: { value } })
+    q10Pick(value)
     run()
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].policy_objective).toBe(expected)

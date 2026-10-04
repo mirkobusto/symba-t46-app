@@ -374,15 +374,15 @@ export default function QuestionnairePage() {
         help={t('questionnaire.q8.help')}
         details={t('questionnaire.q8.details')}
       >
-        <label className="opt">
+        <label className="qnum">
           <input
             type="number" min={0} step="any" inputMode="decimal"
-            className="input"
+            className="qnum-input"
             value={assetLifetime}
             placeholder={t('questionnaire.q8.placeholder')}
             onChange={(e) => setAssetLifetime(e.target.value)}
           />
-          <span className="opt-desc">{t('questionnaire.q8.unit')}</span>
+          <span className="qnum-unit">{t('questionnaire.q8.unit')}</span>
         </label>
       </QuestionCard>
 
@@ -393,18 +393,19 @@ export default function QuestionnairePage() {
         help={t('questionnaire.q9.help')}
         details={t('questionnaire.q9.details')}
       >
-        <select
-          value={decisionContext}
-          onChange={(e) => setDecisionContext(e.target.value as DecisionContext | '')}
-          className="select"
-        >
-          <option value="">{t('questionnaire.q9.options.unset')}</option>
-          {DECISION_KEYS.map((k) => (
-            <option key={k} value={k}>
-              {t(`questionnaire.q9.options.${k}`)}
-            </option>
-          ))}
-        </select>
+        {/* Radios, not a dropdown: the answers are sentences, and a native menu cuts them off. */}
+        {(['', ...DECISION_KEYS] as const).map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
+            <input
+              type="radio" name="q9" value={k}
+              checked={decisionContext === k}
+              onChange={() => setDecisionContext(k)}
+            />
+            <span className="opt-label">
+              {t(`questionnaire.q9.options.${k || 'unset'}`)}
+            </span>
+          </label>
+        ))}
       </QuestionCard>
 
       {/* Q10 — optional: unanswered keeps the Q1-derived LCC type */}
@@ -414,15 +415,18 @@ export default function QuestionnairePage() {
         help={t('questionnaire.q10.help')}
         details={t('questionnaire.q10.details')}
       >
-        <select
-          value={policy}
-          onChange={(e) => setPolicy(e.target.value as '' | 'yes' | 'no')}
-          className="select"
-        >
-          <option value="">{t('questionnaire.q10.options.unset')}</option>
-          <option value="yes">{t('questionnaire.q10.options.yes')}</option>
-          <option value="no">{t('questionnaire.q10.options.no')}</option>
-        </select>
+        {(['', 'yes', 'no'] as const).map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
+            <input
+              type="radio" name="q10" value={k}
+              checked={policy === k}
+              onChange={() => setPolicy(k)}
+            />
+            <span className="opt-label">
+              {t(`questionnaire.q10.options.${k || 'unset'}`)}
+            </span>
+          </label>
+        ))}
       </QuestionCard>
 
       {/* Advanced */}

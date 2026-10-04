@@ -915,7 +915,7 @@
       "default_value": {
         "q1=A": "alt disposal+virgin market",
         "q1=B": "hypothetical no-IS",
-        "q1=C": "BAU national mix"
+        "q1=C": "marginal technology mix (market analysis)"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2"

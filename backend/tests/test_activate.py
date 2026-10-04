@@ -459,6 +459,25 @@ def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
 
 
 # ---------------------------------------------------------------------------
+# 7e. lca_mc_27 — reference scenario content per Q1 (audit item I-07)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "q1, expected",
+    [
+        (Q1.A, "alt disposal+virgin market"),
+        (Q1.B, "hypothetical no-IS"),
+        # D4.1 §8.3.1 / §12.3.1: Situation B models the marginal technology,
+        # identified through a market analysis, not the national average mix.
+        (Q1.C, "marginal technology mix (market analysis)"),
+    ],
+)
+def test_reference_scenario_content_follows_q1(schemas, q1, expected):
+    assert _activated(schemas, q1=q1).lca["reference_scenario.content"] == expected
+
+
+# ---------------------------------------------------------------------------
 # 8. Q1=None → ValueError (matches pathway / l0_compute convention)
 # ---------------------------------------------------------------------------
 

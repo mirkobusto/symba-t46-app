@@ -26,7 +26,8 @@ _SessionLocal: sessionmaker[Session] | None = None
 
 
 def _database_url() -> str:
-    url = os.environ.get("DATABASE_URL")
+    # SYMBA_DB_URL is the name the deployment files and docs use; DATABASE_URL wins if both are set.
+    url = os.environ.get("DATABASE_URL") or os.environ.get("SYMBA_DB_URL")
     if url:
         return url
     DEFAULT_DB_PATH.parent.mkdir(parents=True, exist_ok=True)

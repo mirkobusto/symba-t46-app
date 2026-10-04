@@ -60,18 +60,21 @@ The tool is to live on a subdomain of the project website. **Step by step, for n
 `docs/GUIDA_DEPLOY_PASSO_PASSO.md`** (in Italian). In short:
 
 ```bash
-cp .env.example .env     # set SYMBA_DOMAIN, SYMBA_JWT_SECRET, SYMBA_ADMIN_EMAIL, SYMBA_BIND=127.0.0.1
+cp .env.example .env     # set SYMBA_DOMAIN, SYMBA_JWT_SECRET, SYMBA_ADMIN_EMAIL
 docker compose -f docker-compose.prod.yml -f docker-compose.public.yml up -d --build
 ```
 
 `docker-compose.public.yml` adds Caddy (`deploy/Caddyfile`: automatic HTTPS, security headers, `noindex` on
 `/r/*`, a 20 MB request limit) in front of the app and makes the three secrets mandatory: the command stops
-and says which one is missing. With `SYMBA_BIND=127.0.0.1` the app is not reachable on port 8088 from outside.
+and says which one is missing. The overlay publishes the app's own port on 127.0.0.1 only (`ports: !override`, needs
+Docker Compose 2.24+), so it is not reachable on port 8088 from outside: Docker publishes ports through its own firewall
+rules, which bypass `ufw`, so this must not depend on a setting that may be forgotten.
 
 What has to exist before it works, and who does it:
 
-1. **DNS** (whoever manages `symbaproject.eu`, the website's administrator): an `A` record (and `AAAA`) for
-   `biobasedisadvisor` pointing at the server's public address. Host names are case-insensitive: lowercase in
+1. **DNS** (whoever manages `symbaproject.eu`, the website's administrator): an `A` record for
+   `biobasedisadvisor` pointing at the server's public address. Add an `AAAA` record only if the server's IPv6 is
+   known to work: Let's Encrypt validates over IPv6 first and fails if it is broken. Host names are case-insensitive: lowercase in
    every configuration. A `CAA` record on `symbaproject.eu`, if any, must allow `letsencrypt.org`.
 2. **A server with a public address** where ports 80 and 443 reach Caddy. A machine reachable only through
    Tailscale (as the development one) cannot serve a custom domain; Tailscale Funnel serves `*.ts.net` names only.
@@ -80,8 +83,10 @@ What has to exist before it works, and who does it:
    invite-only, `SYMBA_REGISTRATION_OPEN=false` (only the admin email can still register).
 4. **Privacy**: the notice at `/privacy` is a draft with placeholders (controller, legal basis, hosting, retention of
    backups, contact, authority); complete and review it before announcing the address.
-5. **After the first start**, check from outside: `/health`, `/brand/logo.png` (image/png),
-   `/fonts/pt-sans-latin-400.woff2` (font/woff2), `/privacy`, then register with the admin email.
+5. **After the first start**, check from outside with GET requests (the app answers 405 to `HEAD`, so `curl -I` reports a
+   failure on a healthy instance): `curl -s -o /dev/null -w "%{http_code} %{content_type}\n" <url>` for
+   `/health`, `/brand/logo.png` (200 image/png), `/fonts/pt-sans-latin-400.woff2` (200 font/woff2) and `/privacy` (200 text/html),
+   then register with the admin email.
 6. **Existing saved cases**: after an upgrade run `scripts/rerun_saved_cases.py` (dry run first, then `--apply`).
 
 Known limits of a public instance, to decide as owner: cases saved **without signing in** are readable and writable
@@ -102,10 +107,14 @@ limit; the report links `/r/...` are unlisted, not private.
 The application writes to a single SQLite file. Backup is a file copy:
 
 ```bash
-docker compose -f docker-compose.prod.yml exec symba \
-    sh -c 'sqlite3 /app/backend/data/app.db ".backup /tmp/backup.db"'
+docker exec symba-t46 python -c "import sqlite3; s=sqlite3.connect('/app/backend/data/app.db'); d=sqlite3.connect('/tmp/backup.db'); s.backup(d)"
 docker cp symba-t46:/tmp/backup.db ./symba-backup-$(date +%F).db
 ```
+
+(The image has no `sqlite3` command-line tool; the Python backup API used here is safe on a live database.)
+
+**Never run `docker compose down -v`**: it deletes the `symba-data` volume (every saved case) and `caddy-data`
+(the HTTPS certificate, which Let's Encrypt will not reissue more than 5 times a week).
 
 ## Upgrades
 

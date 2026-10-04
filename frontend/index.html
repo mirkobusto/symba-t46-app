@@ -13,14 +13,10 @@
       content="Monitoring and reporting system for industrial symbiosis in the bio-based value chain. Task T4.6 of the Horizon Europe project SYMBA (GA 101135562)."
     />
     <title>Monitoring &amp; Reporting System – Symba Project</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Same families as the project website: PT Sans (body) and Noto Sans
-         (headings, menu, buttons); JetBrains Mono for identifiers. -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
+    <!-- Fonts are served from this origin (see public/fonts/README.md): no request to Google.
+         Preload the two faces used above the fold; crossorigin is required for fonts. -->
+    <link rel="preload" href="/fonts/pt-sans-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/noto-sans-latin-wght-400-700.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <div id="root"></div>

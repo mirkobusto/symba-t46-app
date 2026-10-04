@@ -196,6 +196,16 @@ def test_break_even_mandates_reach_the_dcf_for_every_q7(case_arce, case_wiktor, 
     assert wiktor["lca_hc_21"].source_section == "D4.1 §13.2.1"
 
 
+def test_transport_coupling_rules_are_listed_for_every_q7(case_arce, case_wiktor, dcf_schema, mandates_census):
+    """IR-12 and B-05 follow the dimensions that model transport (audit I-08): the
+    co-located, environment-only Arce case gets them too."""
+    for case in (case_arce, case_wiktor):
+        ids = {r["rule_id"] for r in case.applicable_rules}
+        assert {"IR-12", "B-05"} <= ids
+        obligations = {o.id for o in compose_dcf(case, dcf_schema, mandates_census).obligations}
+        assert {"IR-12", "B-05"} <= obligations
+
+
 def test_logistics_is_off_for_a_social_only_case(schemas, dcf_schema, mandates_census):
     """With only the social dimension there is no transport to model or break-even to ask for."""
     case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(soc=True), q4={Q4.E}, q6a=Q6a.PLASTICS_PACKAGING,

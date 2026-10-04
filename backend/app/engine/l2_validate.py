@@ -143,7 +143,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-08": lambda c: c.q3.env and c.q3.eco,
     "IR-09": lambda c: c.q3.env and c.q3.eco and any(f.q5 == Q5.c for f in c.flows),
     "IR-11": lambda c: _q4_intersects(c, {"C", "D"}) and _q3_dims_active(c) >= 2,
-    "IR-12": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
+    "IR-12": lambda c: c.q3.env or c.q3.eco,   # transport is modeled for every Q7 (audit I-08)
     "IR-13": lambda c: c.q3.env and c.q3.eco and bool(_attr(c, "is_specific_capital_goods")),
     "IR-14": lambda c: _q3_dims_active(c) >= 2,
     "IR-15": lambda c: c.q3.env and c.q3.eco and any(f.q5 in {Q5.a, Q5.b} for f in c.flows),
@@ -177,7 +177,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "B-02": lambda c: _q3_dims_active(c) >= 2,
     "B-03": lambda c: (c.q3.soc and (c.q3.env or c.q3.eco) and _lcc_includes_e(c)),
     "B-04": lambda c: c.q3.soc,
-    "B-05": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
+    "B-05": lambda c: c.q3.env or c.q3.eco,    # transport is modeled for every Q7 (audit I-08)
     "B-06": lambda c: c.q3.env and c.q3.eco and bool(_attr(c, "is_specific_capital_goods")),
     "B-07": lambda c: True,
 }
@@ -391,11 +391,15 @@ def _assert_b_04(c: Case) -> bool:
 
 
 def _assert_b_05(c: Case) -> bool:
+    """Explicit transport in every active pillar. lca_mc_16 writes prose
+    ('explicit', 'GIS-coupled'), never a boolean, so the old `fg is True` could not
+    hold: B-05 fired on every case with Q7 in {B,C,D}. A pillar that is on and has
+    written nothing yet is inconclusive."""
     fg = _get(c, "lca.transport.foreground")
     tc = _get(c, "lcc.transport_costs")
-    if fg is None and tc is None:
+    if (c.q3.env and fg is None) or (c.q3.eco and tc is None):
         return True
-    return fg is True and tc is not None
+    return (not c.q3.env or fg in {True, "explicit", "GIS-coupled"}) and (not c.q3.eco or tc is not None)
 
 
 def _assert_b_06(c: Case) -> bool:

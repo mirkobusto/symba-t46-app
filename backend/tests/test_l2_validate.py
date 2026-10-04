@@ -111,9 +111,29 @@ def test_trigger_FU_04_fires_when_soc(schemas):
     assert _TRIGGER_FNS["FU-04"](case) is True
 
 
-def test_trigger_B_05_fires_for_q7_BCD(schemas):
-    assert _TRIGGER_FNS["B-05"](_ready_case(q7=Q7.A)) is False
-    assert _TRIGGER_FNS["B-05"](_ready_case(q7=Q7.B)) is True
+@pytest.mark.parametrize("rule", ["B-05", "IR-12"])
+def test_transport_coupling_rules_fire_whenever_transport_is_modeled(schemas, rule):
+    """Audit I-08: transport is modeled for every Q7 (D4.1 §13.3.1, D4.2 §4.3), so these
+    rules follow the dimensions that model it, not the geographic spread."""
+    for q7 in (Q7.A, Q7.B, Q7.C, Q7.D, None):
+        assert _TRIGGER_FNS[rule](_ready_case(q7=q7, q3=Q3(env=True))) is True
+        assert _TRIGGER_FNS[rule](_ready_case(q7=q7, q3=Q3(eco=True))) is True
+    assert _TRIGGER_FNS[rule](_ready_case(q7=Q7.B, q3=Q3(soc=True))) is False
+
+
+def test_b_05_assertion_accepts_the_prose_the_engine_writes(schemas):
+    """It used to require `fg is True`, which the prose 'explicit' can never satisfy."""
+    from app.engine.l2_validate import _assert_b_05
+    both = Q3(env=True, eco=True)
+    for q7 in (Q7.A, Q7.B, Q7.C, Q7.D):
+        case = _ready_case(q7=q7, q3=both)
+        _full_pipeline_until_l2(case, schemas)
+        assert _assert_b_05(case) is True
+
+
+def test_b_05_assertion_is_inconclusive_until_a_pillar_writes_its_transport(schemas):
+    from app.engine.l2_validate import _assert_b_05
+    assert _assert_b_05(_ready_case(q3=Q3(env=True, eco=True))) is True
 
 
 def test_trigger_uses_defensive_attrs(schemas):
@@ -292,6 +312,4 @@ def test_violations_carry_the_rule_row_for_the_ui(schemas):
         assert isinstance(violation["source_nodes"], list)
 
     by_id = {v["rule_id"]: v for v in case.rule_violations}
-    if "B-05" in by_id:
-        assert by_id["B-05"]["trigger"] == "Q7 ∈ {B, C, D}"
-        assert "lca.transport.foreground" in by_id["B-05"]["fields"]
+    assert "B-05" not in by_id      # its assertion now accepts the prose the engine writes

@@ -347,17 +347,17 @@ const es: Locale = {
 
     q7: {
       title: 'Q7 — Distribución geográfica',
-      help: 'Si las coordenadas de los actores se cargan más tarde, esto puede inferirse automáticamente y mostrarse como info.',
+      help: 'Disposición cualitativa de la red. El transporte se modela explícitamente respondas lo que respondas; la distancia de equilibrio depende del tipo de flujo y se calcula flujo a flujo en el Data Collection File (Logística).',
       details:
-        'La distribución geográfica modifica el peso relativo del transporte en el inventory y puede activar CIR-03 si el override avanzado transport_sensitive=true. ' +
-        'A — co-localizados en un mismo emplazamiento (<5 km, p. ej. Kalundborg, parque eco-industrial). El transporte es esencialmente despreciable. ' +
-        'B — cluster regional (5-100 km, misma región — típico Sokka 2011 / Hashimoto). ' +
-        'C — área amplia, transregional o transfronterizo (>100 km). El modo y la distancia de transporte se vuelven partidas no triviales del inventory. ' +
-        'D — programas multi-escala nacionales o industria-wide (estudios de policy Q1=C, geográficamente variables).',
+        'La respuesta cambia cómo se piden los datos logísticos (acoplamiento SIG, sensibilidad espacial), no si se modela el transporte: D4.1 §13.3.1 exige que cada enlace de transporte sea un proceso unitario distinto del primer plano, con datos primarios de distancia, ruta y modo, y un análisis de sensibilidad de la distancia para hallar el punto de equilibrio. Detrás de las cuatro opciones no hay ningún umbral de distancia: el punto de equilibrio depende del tipo de flujo y de la alternativa que desplaza (D4.1 §13.2.1 y D4.2 dan rangos indicativos, para comprobar la verosimilitud de un modelo, nunca como entradas); cada estudio calcula el suyo, flujo a flujo. ' +
+        'A — colocalizada: un solo emplazamiento o plantas contiguas (parque ecoindustrial). Los enlaces son cortos (tubería, cinta, manipulación interna) pero se modelan; para calor, vapor y agua en tubería suele dominar la infraestructura dedicada. ' +
+        'B — clúster regional: varios emplazamientos de la misma región (típico Sokka 2011 / Hashimoto). ' +
+        'C — área amplia: interregional o transfronteriza; el modo de transporte y las rutas pasan a ser partidas importantes del inventario y de los costes. ' +
+        'D — multiescala: programas nacionales o sectoriales (típicamente estudios de política con Q1=C). De B a D se activa CIR-03 (acoplamiento SIG); de C a D también lca_mc_29 y la rama SIG de lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-localizados', description: 'Eco-park, <5 km entre actores.' },
-        B: { label: 'B. Regional', description: '5-100 km, misma región.' },
-        C: { label: 'C. Área amplia', description: '>100 km, transregional o transfronterizo.' },
+        A: { label: 'A. Co-localizados', description: 'Un solo emplazamiento o plantas contiguas (parque ecoindustrial).' },
+        B: { label: 'B. Regional', description: 'Varios emplazamientos de la misma región.' },
+        C: { label: 'C. Área amplia', description: 'Interregional o transfronteriza.' },
         D: { label: 'D. Multi-escala', description: 'Nacional / industria-wide, distancias variables.' },
       },
     },

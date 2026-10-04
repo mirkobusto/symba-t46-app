@@ -146,11 +146,27 @@ def test_data_sections_have_active_fields(case_wiktor, dcf_schema, mandates_cens
     assert infra.active is True and len(infra.fields) > 0
 
 
-def test_logistics_disabled_when_q7_a(case_arce, dcf_schema, mandates_census):
+def test_logistics_enabled_even_when_q7_a(case_arce, dcf_schema, mandates_census):
+    """Q7=A used to switch Logistics off. Co-located links are routes too and the
+    break-even distance is asked for every flow (D4.1 §13.3.1, D4.2 §4.3; I-08)."""
     payload = compose_dcf(case_arce, dcf_schema, mandates_census)
     logistics = next(s for s in payload.sections if s.id == "logistics")
-    assert logistics.active is False
-    assert logistics.fields == []
+    assert logistics.active is True
+    ids = {f.id for f in logistics.fields}
+    assert {"route.break_even_distance_km", "route.break_even_basis", "route.transport_sensitivity"} <= ids
+
+
+def test_break_even_mandates_reach_the_dcf_for_every_q7(case_arce, case_wiktor, dcf_schema, mandates_census):
+    """lca_hc_21 (all cases) and lcc_hc_06 (economic dimension on) are listed as
+    obligations with their new, unconditional statement."""
+    def obligations(case):
+        payload = compose_dcf(case, dcf_schema, mandates_census)
+        return {o.id: o for o in payload.obligations}
+    arce, wiktor = obligations(case_arce), obligations(case_wiktor)
+    assert "lca_hc_21" in arce and "lca_hc_21" in wiktor
+    assert "lcc_hc_06" in wiktor and "lcc_hc_06" not in arce      # arce is env-only
+    assert "if Q7" not in wiktor["lca_hc_21"].statement
+    assert wiktor["lca_hc_21"].source_section == "D4.1 §13.2.1"
 
 
 def test_logistics_enabled_when_q7_b(case_wiktor, dcf_schema, mandates_census):

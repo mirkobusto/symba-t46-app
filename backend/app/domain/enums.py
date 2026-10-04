@@ -106,10 +106,12 @@ class Q6b(StrEnum):
 class Q7(StrEnum):
     """Q7 — Geographic spread (single select). Drives transport+spatial coupling."""
 
-    A = "A"  # single site / co-located
-    B = "B"  # within metropolitan area
-    C = "C"  # regional / national
-    D = "D"  # cross-border / multi-country
+    # Qualitative layout of the network; no distance threshold stands behind the
+    # values (the break-even is per flow type, audit I-08).
+    A = "A"  # co-located: one site or adjacent plants
+    B = "B"  # regional cluster: several sites in the same region
+    C = "C"  # wide-area: cross-region or cross-border
+    D = "D"  # multi-scale: national or industry-wide programmes
 
 
 # =============================================================================

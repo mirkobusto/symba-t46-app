@@ -190,11 +190,13 @@ def test_flow_matrix_tab_has_marginal_market_when_q1c(
     assert "flow.marginal_market_ref" in notes
 
 
-def test_logistics_inactive_tab_shows_placeholder(payload_arce):
+def test_inactive_tab_shows_placeholder(payload_arce):
+    """A section that does not apply gets a placeholder, not a header row. The
+    Arce case is environment-only, so Costs & Revenues is the inactive one
+    (Logistics used to be, until Q7=A also got it; audit I-08)."""
     blob = render_xlsx(payload_arce)
     wb = load_workbook(BytesIO(blob))
-    ws = wb["Logistics"]
-    # Should NOT have a normal header row at row 4
+    ws = wb["Costs & Revenues"]
     a3 = ws["A3"].value
     assert a3 is not None and "NOT activated" in a3
 

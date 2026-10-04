@@ -276,8 +276,8 @@
     {
       "id": "logistics",
       "title_en": "Logistics",
-      "description_en": "One row per route (= per flow when transport is involved). Auto-derived from the Flow Matrix when q7 != A. The whole section is gated by q7.",
-      "applies_when": "q7 in [\"B\", \"C\", \"D\"]",
+      "description_en": "One row per route, i.e. per flow, co-located flows included: a pipeline, a conveyor or on-site handling is a unit process too (D4.1 §13.3.1). Auto-derived from the Flow Matrix. The break-even distance is asked for every flow, whatever Q7 says.",
+      "applies_when": "always",
       "row_collection": "auto_from_flow_matrix",
       "fields": [
         {
@@ -363,6 +363,47 @@
           "type": "float",
           "required": false,
           "activation_predicate": "q3.eco"
+        },
+        {
+          "id": "route.transport_sensitivity",
+          "label_en": "What makes this flow sensitive to distance",
+          "type": "enum",
+          "enum_values": [
+            "bulky_low_value",
+            "high_moisture",
+            "piped_heat_steam_water",
+            "high_value_commodity",
+            "other"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity.",
+          "source_ref": "lcc_hc_06"
+        },
+        {
+          "id": "route.break_even_distance_km",
+          "label_en": "Break-even distance (km)",
+          "type": "float",
+          "min": 0,
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Distance beyond which the exchange stops paying off for this flow, from your own sensitivity run on primary logistics data (D4.1 §13.3.1). Not a fixed assumption: do not copy a literature value.",
+          "source_ref": "lca_hc_21"
+        },
+        {
+          "id": "route.break_even_basis",
+          "label_en": "Break-even basis",
+          "type": "enum",
+          "enum_values": [
+            "gwp_only",
+            "multi_category",
+            "economic",
+            "env_and_eco"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "What the break-even was computed on; a GWP-only break-even can mislead (D4.1 §13.2.1).",
+          "source_ref": "lca_hc_21"
         }
       ]
     },

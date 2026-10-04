@@ -347,17 +347,17 @@ const de: Locale = {
 
     q7: {
       title: 'Q7 — Geografische Verteilung',
-      help: 'Wenn Akteur-Koordinaten später geladen werden, kann dies automatisch abgeleitet und als Info angezeigt werden.',
+      help: 'Qualitative Anordnung des Netzwerks. Der Transport wird unabhängig von der Antwort explizit modelliert; die Break-even-Distanz hängt vom Stromtyp ab und wird je Strom im Data Collection File (Logistik) berechnet.',
       details:
-        'Die geografische Verteilung verändert das relative Gewicht der Transporte im Inventory und kann CIR-03 aktivieren, wenn der erweiterte Override transport_sensitive=true ist. ' +
-        'A — co-located in einem Standort (<5 km, z. B. Kalundborg, Öko-Industriepark). Transport ist im Wesentlichen vernachlässigbar. ' +
-        'B — regionales Cluster (5-100 km, gleiche Region — typisch Sokka 2011 / Hashimoto). ' +
-        'C — weiträumig, regionsübergreifend oder grenzüberschreitend (>100 km). Transportmodus und -distanz werden zu nicht-trivialen Inventory-Posten. ' +
-        'D — multi-skalige nationale oder industrieweite Programme (Q1=C-Politikstudien, geografisch variabel).',
+        'Die Antwort ändert, wie Logistikdaten abgefragt werden (GIS-Kopplung, räumliche Sensitivität), nicht ob der Transport modelliert wird: D4.1 §13.3.1 verlangt, dass jede Transportverbindung ein eigener Einheitsprozess des Vordergrunds ist, mit Primärdaten zu Entfernung, Route und Verkehrsträger sowie einer Sensitivitätsanalyse der Entfernung zur Bestimmung des Break-even-Punkts. Hinter den vier Optionen steht keine Entfernungsschwelle: Der Break-even hängt vom Stromtyp und von der verdrängten Alternative ab (D4.1 §13.2.1 und D4.2 nennen Richtwerte zur Plausibilisierung eines Modells, nie als Eingaben); jede Studie berechnet ihren eigenen, Strom für Strom. ' +
+        'A — am selben Standort: ein Standort oder benachbarte Anlagen (Ökoindustriepark). Die Verbindungen sind kurz (Rohrleitung, Förderband, innerbetrieblicher Transport), werden aber modelliert; bei Wärme, Dampf und Wasser in Rohrleitungen dominiert meist die dedizierte Infrastruktur. ' +
+        'B — regionaler Cluster: mehrere Standorte in derselben Region (typisch Sokka 2011 / Hashimoto). ' +
+        'C — großräumig: überregional oder grenzüberschreitend; Verkehrsträger und Routen werden zu wichtigen Inventar- und Kostenposten. ' +
+        'D — mehrskalig: nationale oder branchenweite Programme (typisch Politikstudien mit Q1=C). Von B bis D wird CIR-03 (GIS-Kopplung) aktiviert; von C bis D zusätzlich lca_mc_29 und der GIS-Zweig von lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-located', description: 'Eco-park, <5 km zwischen Akteuren.' },
-        B: { label: 'B. Regional', description: '5-100 km, gleiche Region.' },
-        C: { label: 'C. Weiträumig', description: '>100 km, regionsübergreifend oder grenzüberschreitend.' },
+        A: { label: 'A. Co-located', description: 'Ein Standort oder benachbarte Anlagen (Ökoindustriepark).' },
+        B: { label: 'B. Regional', description: 'Mehrere Standorte in derselben Region.' },
+        C: { label: 'C. Weiträumig', description: 'Überregional oder grenzüberschreitend.' },
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
       },
     },

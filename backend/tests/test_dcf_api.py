@@ -75,13 +75,15 @@ def test_preview_returns_payload():
     ]
 
 
-def test_preview_logistics_off_when_q7_a():
+def test_preview_logistics_on_even_when_q7_a():
+    """Co-located links are routes too (a pipeline, a conveyor, on-site handling:
+    D4.1 §13.3.1), and the break-even distance is asked for every flow (audit I-08)."""
     r = client.post("/api/dcf/preview", json=ARCE_BODY)
     assert r.status_code == 200
     body = r.json()
     logistics = next(s for s in body["sections"] if s["id"] == "logistics")
-    assert logistics["active"] is False
-    assert logistics["fields"] == []
+    assert logistics["active"] is True
+    assert "route.break_even_distance_km" in {f["id"] for f in logistics["fields"]}
 
 
 def test_preview_mandates_by_category_populated():

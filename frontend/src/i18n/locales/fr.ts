@@ -353,17 +353,17 @@ const fr: Locale = {
 
     q7: {
       title: 'Q7 — Distribution géographique',
-      help: 'Si les coordonnées des acteurs sont chargées plus tard, peut être auto-inférée et affichée comme info.',
+      help: 'Disposition qualitative du réseau. Le transport est modélisé explicitement quelle que soit la réponse ; la distance de rentabilité dépend du type de flux et se calcule flux par flux dans le Data Collection File (Logistique).',
       details:
-        "La distribution géographique modifie le poids relatif des transports dans l'inventaire et peut activer CIR-03 si l'override avancé transport_sensitive=true. " +
-        "A — co-localisés sur un même site (<5 km, ex. Kalundborg, parc éco-industriel). Les transports sont essentiellement négligeables. " +
-        "B — cluster régional (5-100 km, même région — typique Sokka 2011 / Hashimoto). " +
-        "C — zone étendue, cross-régions ou transfrontalier (>100 km). Mode et distance de transport deviennent des postes d'inventaire non triviaux. " +
-        "D — programmes multi-échelle nationaux ou industrie-wide (études de policy Q1=C, géographiquement variables).",
+        'La réponse change la façon de demander les données logistiques (couplage SIG, sensibilité spatiale), pas le fait de modéliser le transport : D4.1 §13.3.1 exige que chaque liaison de transport soit un processus unitaire distinct de l\'avant-plan, avec des données primaires sur la distance, l\'itinéraire et le mode, et une analyse de sensibilité sur la distance pour trouver le point d\'équilibre. Aucun seuil de distance ne se cache derrière les quatre options : le point d\'équilibre dépend du type de flux et de l\'alternative qu\'il remplace (D4.1 §13.2.1 et D4.2 donnent des fourchettes indicatives, pour vérifier la vraisemblance d\'un modèle, jamais comme données d\'entrée) ; chaque étude calcule le sien, flux par flux. ' +
+        'A — colocalisé : un seul site ou des installations voisines (parc éco-industriel). Les liaisons sont courtes (canalisation, convoyeur, manutention interne) mais modélisées ; pour la chaleur, la vapeur et l\'eau en canalisation, l\'infrastructure dédiée domine en général. ' +
+        'B — grappe régionale : plusieurs sites d\'une même région (typique Sokka 2011 / Hashimoto). ' +
+        'C — grande échelle : inter-régional ou transfrontalier ; le mode de transport et les itinéraires deviennent des postes majeurs de l\'inventaire et des coûts. ' +
+        'D — multi-échelle : programmes nationaux ou sectoriels (typiquement études de politique avec Q1=C). De B à D, CIR-03 (couplage SIG) s\'active ; de C à D, également lca_mc_29 et la branche SIG de lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-localisés', description: 'Eco-park, <5 km entre acteurs.' },
-        B: { label: 'B. Régional', description: '5-100 km, même région.' },
-        C: { label: 'C. Zone étendue', description: '>100 km, cross-régions ou transfrontalier.' },
+        A: { label: 'A. Co-localisés', description: 'Un seul site ou des installations voisines (parc éco-industriel).' },
+        B: { label: 'B. Régional', description: 'Plusieurs sites d\'une même région.' },
+        C: { label: 'C. Zone étendue', description: 'Inter-régional ou transfrontalier.' },
         D: { label: 'D. Multi-échelle', description: "National / industrie-wide, distances variables." },
       },
     },

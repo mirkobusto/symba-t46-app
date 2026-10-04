@@ -96,7 +96,7 @@ Cronologia sintetica (tutto su `main`):
 - `backend/app/schemas/dcf_schema.json` — namespace DCF separato (7 sezioni dopo l'aggiunta di `costs` il 2026-08-30, approvata)
 
 I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
-- 96 nodi FIELDED + 90 procedural_mandate = 186
+- 95 nodi FIELDED + 91 procedural_mandate = 186 (erano 96 + 90 fino al 2026-10-04: `lcc_hc_06` è diventato un puro mandato, vedi audit I-08)
 - 0 unknown fields nelle cross-method rules
 - Schema engineering CLOSED.
 
@@ -179,7 +179,7 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 - **Schema engineering è CLOSED**. Non inventare nuovi field paths senza approvazione.
 - Il validation script è la fonte autoritativa di "cosa è coerente".
 - I 24 NEW field paths approvati sono in `field_gaps.md` round 2 closure log.
-- I 90 nodi `procedural_mandate` non hanno un valore da settare — sono mandati di pratica metodologica, NON cercare di assegnare loro un field.
+- I 91 nodi `procedural_mandate` non hanno un valore da settare — sono mandati di pratica metodologica, NON cercare di assegnare loro un field.
 - La rule normalization usa Kimi naming verbatim (IR-XX, CIR-XX, FU-XX, B-XX, CDP-XX, block_*) — mai INV-XX o RULE-NN.
 
 ---

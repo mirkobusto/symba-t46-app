@@ -41,7 +41,8 @@ def test_all_default_nodes_activate(schemas):
     run(case, schemas)
     default_ids = {n["id"] for n in schemas.phase1_nodes if n.get("category") == "DEFAULT"}
     assert default_ids.issubset(set(case.activated_nodes))
-    assert len(default_ids) == 116
+    # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08)
+    assert len(default_ids) == 118
 
 
 def test_l0_nodes_skipped(schemas):
@@ -116,16 +117,16 @@ def test_discriminative_no_match_node_dormant(schemas):
 
 
 def test_simple_predicate_q7_geographic(schemas):
-    """lca_hc_21 fires when Q7 in {B,C,D}."""
-    case = _baseline_case(q7=Q7.B)
+    """lca_mc_29 (a Q7-conditioned node) fires when Q7 in {C,D}."""
+    case = _baseline_case(q7=Q7.C)
     run(case, schemas)
-    assert "lca_hc_21" in case.activated_nodes
+    assert "lca_mc_29" in case.activated_nodes
 
 
 def test_simple_predicate_q7_no_fire_for_A(schemas):
     case = _baseline_case(q7=Q7.A)
     run(case, schemas)
-    assert "lca_hc_21" not in case.activated_nodes
+    assert "lca_mc_29" not in case.activated_nodes
 
 
 def test_conjunctive_predicate_q3_eco_and_env(schemas):
@@ -429,7 +430,7 @@ def test_q6b_set_and_ordinal_keys(schemas):
 
 @pytest.mark.parametrize(
     "q7, expected",
-    [(Q7.A, "minimal"), (Q7.B, "explicit"), (Q7.C, "GIS-coupled"), (Q7.D, "GIS-coupled")],
+    [(Q7.A, "explicit"), (Q7.B, "explicit"), (Q7.C, "GIS-coupled"), (Q7.D, "GIS-coupled")],   # A was "minimal" (I-08)
 )
 def test_q7_in_set(schemas, q7, expected):
     assert _activated(schemas, q7=q7).lca["transport.foreground"] == expected
@@ -608,6 +609,43 @@ def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
 def test_slca_boundary_follows_the_lca_boundary(schemas, q1, q7, expected):
     case = _activated(schemas, q1=q1, q7=q7, q3=Q3(env=True, soc=True))
     assert case.slca["boundary"] == expected
+
+
+# ---------------------------------------------------------------------------
+# 7h. Transport and break-even are not optional (audit I-08)
+#
+# D4.1 §13.3.1: "All transport links ... must be modeled as distinct unit
+# processes" and a sensitivity on distance finds the break-even point; D4.2 §4.3:
+# the break-even distance is "a sensitivity parameter, not a fixed assumption".
+# Neither is conditioned on how spread out the network is, so the two mandates
+# apply to every case and Q7 only changes how logistics are asked for.
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("q7", [None, Q7.A, Q7.B, Q7.C, Q7.D])
+def test_break_even_mandates_apply_whatever_q7_says(schemas, q7):
+    case = _activated(schemas, q7=q7, q3=Q3(env=True, eco=True))
+    assert "lca_hc_21" in case.activated_nodes
+    assert "lcc_hc_06" in case.activated_nodes
+
+
+def test_the_lcc_break_even_mandate_follows_the_economic_dimension(schemas):
+    assert "lcc_hc_06" not in _activated(schemas, q7=Q7.B, q3=Q3(env=True)).activated_nodes
+    assert "lca_hc_21" in _activated(schemas, q7=Q7.B, q3=Q3(env=True)).activated_nodes
+
+
+def test_transport_is_explicit_for_a_co_located_network(schemas):
+    case = _activated(schemas, q7=Q7.A)
+    assert case.lca["transport.foreground"] == "explicit"       # was "minimal"
+
+
+def test_lcc_transport_costs_now_has_a_single_writer(schemas):
+    """lcc_hc_06 used to write a prose sentence into lcc.transport_costs; it is a
+    pure mandate now, so the value is lcc_mc_14's alone."""
+    eco = Q3(env=True, eco=True)
+    assert _activated(schemas, q7=Q7.B, q3=eco).lcc["transport_costs"] == "single break-even"
+    assert _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"] == "GIS-coupled"
+    assert "transport_costs" not in _activated(schemas, q7=None, q3=eco).lcc
 
 
 # ---------------------------------------------------------------------------

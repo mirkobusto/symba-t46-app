@@ -402,17 +402,17 @@ const en = {
 
     q7: {
       title: 'Q7 — Geographic spread',
-      help: 'If actor coordinates are loaded later, this can be auto-inferred and shown as info.',
+      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is computed per flow in the Data Collection File (Logistics).',
       details:
-        'Geographic spread changes the relative weight of transport in the inventory and may activate CIR-03 if the advanced override transport_sensitive=true. ' +
-        'A — co-located inside one site (<5 km, e.g. Kalundborg, eco-industrial park). Transport is essentially negligible. ' +
-        'B — regional cluster (5-100 km, same region — typical Sokka 2011 / Hashimoto). ' +
-        'C — wide-area, cross-region or cross-border (>100 km). Transport mode and distance become non-trivial inventory items. ' +
-        'D — multi-scale national or industry-wide programmes (Q1=C policy studies, geographically variable).',
+        'The answer changes how logistics data are asked for (GIS coupling, spatial sensitivity), not whether transport is modeled: D4.1 §13.3.1 requires every transport link to be a distinct unit process of the foreground, with primary data on distance, route and mode, and a sensitivity on distance to find the break-even point. No distance threshold sits behind the four options: the break-even depends on the flow type and on the alternative it displaces (D4.1 §13.2.1 and D4.2 give indicative ranges, to sense-check a model, never as inputs); every study computes its own, flow by flow. ' +
+        'A — co-located: one site or adjacent plants (eco-industrial park). Links are short (pipeline, conveyor, on-site handling) but still modeled; for piped heat, steam and water the dedicated infrastructure usually dominates. ' +
+        'B — regional cluster: several sites in the same region (typical Sokka 2011 / Hashimoto). ' +
+        'C — wide-area: cross-region or cross-border; transport mode and routing become major inventory and cost items. ' +
+        'D — multi-scale: national or industry-wide programmes (typically Q1=C policy studies). B–D activate CIR-03 (GIS coupling); C–D also lca_mc_29 and the GIS-coupled branch of lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-located', description: 'Eco-park, <5 km between actors.' },
-        B: { label: 'B. Regional', description: '5-100 km, same region.' },
-        C: { label: 'C. Wide-area', description: '>100 km, cross-region or cross-border.' },
+        A: { label: 'A. Co-located', description: 'One site or adjacent plants (eco-industrial park).' },
+        B: { label: 'B. Regional', description: 'Several sites in the same region.' },
+        C: { label: 'C. Wide-area', description: 'Cross-region or cross-border.' },
         D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
       },
     },

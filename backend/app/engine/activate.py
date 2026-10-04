@@ -8,8 +8,8 @@ Activation breakdown (per `phase1_nodes.json`, post-round-2 closure):
 
     Total          186 nodes
     By layer       183 L2 + 3 L0  (L0 handled by l0_compute, skipped here)
-    By category    116 DEFAULT (always activate) + 70 DERIVED (conditional)
-    By field       96 fielded + 90 procedural_mandate (no field to write)
+    By category    118 DEFAULT (always activate) + 68 DERIVED (conditional)
+    By field       95 fielded + 91 procedural_mandate (no field to write)
     Per_flow        11 nodes flagged per_flow=true (iterate case.flows)
 
 DERIVED activation by `trigger_logic`:
@@ -19,7 +19,7 @@ DERIVED activation by `trigger_logic`:
                         engine/branch_keys.py); "default" key is fallback.
                         No match + no default → node DORMANT.
 
-    simple/conjunctive/disjunctive  28 (14+11+3)  Boolean trigger_condition;
+    simple/conjunctive/disjunctive  26 (12+11+3)  Boolean trigger_condition;
                         evaluated by hand-coded predicates in _PREDICATES
                         (one entry per node_id). The JSON `trigger_condition`
                         strings are documentation; the typed predicates
@@ -184,8 +184,6 @@ _WASTEWATER_SECTORS = {Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFAC
 _PREDICATES: dict[str, Callable[..., bool]] = {
     # disjunctive
     "lca_hc_14": lambda c: _q4_intersects(c, {"C", "D", "E"}) or (c.q6b is not None and c.q6b != Q6b.TRL9),
-    # simple
-    "lca_hc_21": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
     # conjunctive
     "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
     # simple
@@ -201,8 +199,6 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # conjunctive
     "lcc_hc_04": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,
     "lcc_hc_05": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,
-    # simple
-    "lcc_hc_06": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D},
     "lcc_hc_10": lambda c: c.q3.eco,
     # per_flow simple
     "lcc_hc_12": lambda c, f: f.q5 != Q5.e,

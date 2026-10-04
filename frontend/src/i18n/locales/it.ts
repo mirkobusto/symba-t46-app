@@ -381,17 +381,17 @@ const it: Locale = {
 
     q7: {
       title: 'Q7 — Distribuzione geografica',
-      help: 'Se le coordinate degli attori vengono caricate in seguito, può essere auto-inferita e mostrata come info.',
+      help: 'Disposizione qualitativa della rete. Il trasporto è modellato in modo esplicito qualunque sia la risposta; la distanza di break-even dipende dal tipo di flusso e si calcola flusso per flusso nel Data Collection File (Logistica).',
       details:
-        'La distribuzione geografica modifica il peso relativo dei trasporti in inventory e può attivare CIR-03 se l\'override avanzato transport_sensitive=true. ' +
-        'A — co-locati nello stesso sito (<5 km, es. Kalundborg, parco eco-industriale). I trasporti sono essenzialmente trascurabili. ' +
-        'B — cluster regionale (5-100 km, stessa regione — tipico Sokka 2011 / Hashimoto). ' +
-        'C — area ampia, cross-regione o transfrontaliero (>100 km). Modalità e distanza di trasporto diventano voci di inventory non-banali. ' +
-        'D — programmi multi-scala nazionali o industria-wide (studi di policy Q1=C, geograficamente variabili).',
+        'La risposta cambia come si chiedono i dati logistici (accoppiamento GIS, sensibilità spaziale), non se il trasporto viene modellato: D4.1 §13.3.1 richiede che ogni collegamento di trasporto sia un processo unitario distinto del foreground, con dati primari su distanza, percorso e modo, e un\'analisi di sensibilità sulla distanza per trovare il punto di break-even. Dietro le quattro opzioni non c\'è nessuna soglia di distanza: il break-even dipende dal tipo di flusso e dall\'alternativa che sostituisce (D4.1 §13.2.1 e D4.2 danno intervalli indicativi, per verificare la plausibilità di un modello, mai come input); ogni studio calcola il proprio, flusso per flusso. ' +
+        'A — co-locata: un solo sito o impianti adiacenti (parco eco-industriale). I collegamenti sono brevi (tubazione, nastro, movimentazione interna) ma comunque modellati; per calore, vapore e acqua in tubazione di solito domina l\'infrastruttura dedicata. ' +
+        'B — cluster regionale: più siti nella stessa regione (tipico Sokka 2011 / Hashimoto). ' +
+        'C — area vasta: tra regioni o transfrontaliera; modo di trasporto e percorsi diventano voci importanti dell\'inventario e dei costi. ' +
+        'D — multi-scala: programmi nazionali o di settore (tipicamente studi di policy con Q1=C). Da B a D si attiva CIR-03 (accoppiamento GIS); da C a D anche lca_mc_29 e il ramo GIS di lcc_mc_14.',
       options: {
-        A: { label: 'A. Co-locati', description: 'Eco-park, <5 km tra gli attori.' },
-        B: { label: 'B. Regionale', description: '5-100 km, stessa regione.' },
-        C: { label: 'C. Area ampia', description: '>100 km, cross-regione o transfrontaliero.' },
+        A: { label: 'A. Co-locati', description: 'Un solo sito o impianti adiacenti (parco eco-industriale).' },
+        B: { label: 'B. Regionale', description: 'Più siti nella stessa regione.' },
+        C: { label: 'C. Area ampia', description: 'Tra regioni o transfrontaliera.' },
         D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
       },
     },

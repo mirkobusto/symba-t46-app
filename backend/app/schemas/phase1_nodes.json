@@ -414,18 +414,16 @@
       "method": "LCA",
       "type": "HC",
       "source_section": "D4.1 §13.2.1",
-      "category": "DERIVED",
-      "trigger_q": [
-        "q7"
-      ],
-      "trigger_logic": "simple",
-      "trigger_condition": "case.q7 IN ['B','C','D']",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Break-even distance sensitivity if Q7 in {B,C,D}",
-      "override_path": "q7",
+      "default_value": "Break-even distance sensitivity on every transport link; flow-type specific, computed from primary logistics data (D4.1 §13.2.1, §13.3.1)",
+      "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04. | made unconditional (DEFAULT): D4.1 §13.3.1 asks for the distance sensitivity on every transport link, not only for Q7 in {B,C,D}; audit I-08 2026-10-04."
     },
     {
       "id": "lca_hc_22",
@@ -748,7 +746,7 @@
       "field": "lca.transport.foreground",
       "field_status": null,
       "default_value": {
-        "q7=A": "minimal",
+        "q7=A": "explicit",
         "q7=B": "explicit",
         "q7 in {C,D}": "GIS-coupled"
       },
@@ -1235,17 +1233,16 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §4.2",
-      "category": "DERIVED",
-      "trigger_q": [
-        "q7"
-      ],
-      "trigger_logic": "simple",
-      "trigger_condition": "case.q7 IN ['B','C','D']",
-      "field": "lcc.transport_costs",
-      "field_status": null,
-      "default_value": "Break-even distance sensitivity if Q7 in {B,C,D}",
-      "override_path": "q7",
-      "lifecycle_layer": "L2"
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
+      "field": null,
+      "field_status": "procedural_mandate",
+      "default_value": "Break-even distance modeled explicitly as a sensitivity parameter for every exchange, never a fixed assumption (D4.2 §4.3)",
+      "override_path": "fixed",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "made unconditional (DEFAULT) and a pure mandate: D4.2 §4.3 asks to model the break-even distance as a sensitivity parameter for every exchange; the lcc.transport_costs value is written by lcc_mc_14 alone; audit I-08 2026-10-04."
     },
     {
       "id": "lcc_hc_07",

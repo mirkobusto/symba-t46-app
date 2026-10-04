@@ -342,7 +342,8 @@
       "field_status": null,
       "default_value": {
         "q6b=TRL9": "Capital goods amortized",
-        "q6b in {TRL7-8, TRL5-6, TRL<5}": "Capital goods full inclusion + scale-up frameworks"
+        "q6b=TRL7-8": "Capital goods full inclusion",
+        "q6b<TRL7": "Capital goods full inclusion + scale-up frameworks"
       },
       "override_path": "q6b",
       "lifecycle_layer": "L2",

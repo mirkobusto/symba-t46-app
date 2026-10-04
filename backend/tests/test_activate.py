@@ -323,10 +323,12 @@ def test_first_matching_branch_wins_when_q4_branches_overlap(schemas):
 
 
 def test_q6b_set_and_ordinal_keys(schemas):
-    """lca_hc_18 `q6b in {TRL7-8, TRL5-6, TRL<5}`; lca_mc_10 `q6b<TRL7`."""
+    """lca_hc_18 `q6b=TRL7-8` / `q6b<TRL7`; lca_mc_10 `q6b<TRL7`."""
     mid = _activated(schemas, q6b=Q6b.TRL7_8)
     assert "lca_hc_18" in mid.activated_nodes and "lca_mc_10" not in mid.activated_nodes
-    assert mid.lca["capital_goods.included"] == "Capital goods full inclusion + scale-up frameworks"
+    # Scale-up frameworks apply below TRL 7 only (I-11a), so TRL7-8 gets full
+    # inclusion without them.
+    assert mid.lca["capital_goods.included"] == "Capital goods full inclusion"
     low = _activated(schemas, q6b=Q6b.TRL5_6)
     assert "lca_mc_10" in low.activated_nodes
     assert low.lca["capital_goods.included"] == "full + scale-up frameworks"  # lca_mc_10 writes last

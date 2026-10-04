@@ -186,6 +186,12 @@ def _asset_lifetime(case: Case) -> float:
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
 
+# lca_mc_30 is written for "Q6a=Wastewater/biofactories". The UI sends the
+# canonical id; the legacy alias is kept for stored cases and old fixtures.
+# The JSON `trigger_condition` names only the alias, which is how the node
+# came to ignore every case created from the UI.
+_WASTEWATER_SECTORS = {Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES}
+
 _PREDICATES: dict[str, Callable[..., bool]] = {
     # disjunctive
     "lca_hc_14": lambda c: _q4_intersects(c, {"C", "D", "E"}) or (c.q6b is not None and c.q6b != Q6b.TRL9),
@@ -200,7 +206,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
-    "lca_mc_30": lambda c: c.q6a == Q6a.WASTEWATER_BIOFACTORIES,
+    "lca_mc_30": lambda c: c.q6a in _WASTEWATER_SECTORS,
     # simple
     "lca_mc_33": lambda c: c.q3.eco,
     # conjunctive

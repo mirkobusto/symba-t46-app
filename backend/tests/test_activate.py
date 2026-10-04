@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q7, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q6a, Q7, Q6b
 from app.domain.models import Q3, Case, Flow
 from app.engine.activate import run
 from app.engine.l0_compute import run as l0_run
@@ -237,6 +237,31 @@ def test_asset_lifetime_defensive_predicates_inert(schemas):
     run(case, schemas)
     assert "lca_mc_21" not in case.activated_nodes
     assert "lcc_hc_23" not in case.activated_nodes
+
+
+# ---------------------------------------------------------------------------
+# 7b. lca_mc_30 (AWARE) — canonical wastewater id and legacy alias both fire
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "sector", [Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES]
+)
+def test_lca_mc_30_fires_for_wastewater_sector_and_its_alias(schemas, sector):
+    case = _baseline_case(q6a=sector)
+    run(case, schemas)
+    assert "lca_mc_30" in case.activated_nodes
+    assert "AWARE" in case.lca["water_stress_method"]
+
+
+@pytest.mark.parametrize(
+    "sector", [None, Q6a.PLASTICS_PACKAGING, Q6a.WASTE_VALORIZATION, Q6a.AGRI_FOOD]
+)
+def test_lca_mc_30_dormant_for_other_sectors(schemas, sector):
+    case = _baseline_case(q6a=sector)
+    run(case, schemas)
+    assert "lca_mc_30" not in case.activated_nodes
+    assert "water_stress_method" not in case.lca
 
 
 # ---------------------------------------------------------------------------

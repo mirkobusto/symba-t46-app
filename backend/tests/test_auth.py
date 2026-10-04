@@ -207,3 +207,49 @@ def test_admin_can_modify_other_users_case(client):
     )
     assert r.status_code == 200
     assert r.json()["name"] == "admin-renamed"
+
+
+# ---------------------------------------------------------------------------
+# Public-instance safeguards: pinned admin, closed registration
+# ---------------------------------------------------------------------------
+
+
+def _try_register(client, email):
+    return client.post("/api/auth/register", json={"email": email, "password": "hunter2-strong"})
+
+
+def test_admin_email_pins_the_admin_whoever_registers_first(client, monkeypatch):
+    monkeypatch.setenv("SYMBA_ADMIN_EMAIL", "Operator@Example.eu")
+    stranger = _try_register(client, "stranger@example.eu")
+    assert stranger.status_code == 201 and stranger.json()["user"]["role"] == "analyst"
+    operator = _try_register(client, "operator@example.eu")      # case-insensitive, and not first
+    assert operator.json()["user"]["role"] == "admin"
+
+
+def test_without_admin_email_the_first_user_is_still_admin(client, monkeypatch):
+    monkeypatch.delenv("SYMBA_ADMIN_EMAIL", raising=False)
+    assert _register(client, "alice@example.eu")["user"]["role"] == "admin"
+
+
+def test_closed_registration_refuses_strangers_but_not_the_pinned_admin(client, monkeypatch):
+    monkeypatch.setenv("SYMBA_REGISTRATION_OPEN", "false")
+    monkeypatch.setenv("SYMBA_ADMIN_EMAIL", "operator@example.eu")
+    refused = _try_register(client, "stranger@example.eu")
+    assert refused.status_code == 403 and "closed" in refused.json()["detail"]
+    ok = _try_register(client, "operator@example.eu")
+    assert ok.status_code == 201 and ok.json()["user"]["role"] == "admin"
+    assert _try_register(client, "another@example.eu").status_code == 403
+
+
+def test_closed_registration_without_admin_email_allows_only_the_first_user(client, monkeypatch):
+    monkeypatch.setenv("SYMBA_REGISTRATION_OPEN", "false")
+    monkeypatch.delenv("SYMBA_ADMIN_EMAIL", raising=False)
+    assert _try_register(client, "first@example.eu").status_code == 201
+    assert _try_register(client, "second@example.eu").status_code == 403
+
+
+def test_registration_stays_open_by_default(client, monkeypatch):
+    monkeypatch.delenv("SYMBA_REGISTRATION_OPEN", raising=False)
+    monkeypatch.delenv("SYMBA_ADMIN_EMAIL", raising=False)
+    assert _try_register(client, "a@example.eu").status_code == 201
+    assert _try_register(client, "b@example.eu").status_code == 201

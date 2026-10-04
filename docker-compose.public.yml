@@ -1,0 +1,43 @@
+# Public deployment: adds Caddy (HTTPS on 80/443) in front of the app.
+#
+#   docker compose -f docker-compose.prod.yml -f docker-compose.public.yml up -d --build
+#
+# Needs a .env next to this file (see .env.example and docs/GUIDA_DEPLOY_PASSO_PASSO.md):
+# SYMBA_DOMAIN, SYMBA_JWT_SECRET, SYMBA_ADMIN_EMAIL, and SYMBA_BIND=127.0.0.1 so that the app
+# itself is not reachable in plain HTTP on port 8088, only through Caddy.
+
+services:
+  symba:
+    environment:
+      # The secret must be set: without it every restart would sign everybody out.
+      SYMBA_JWT_SECRET: "${SYMBA_JWT_SECRET:?set SYMBA_JWT_SECRET in .env (openssl rand -hex 32)}"
+      SYMBA_ADMIN_EMAIL: "${SYMBA_ADMIN_EMAIL:?set SYMBA_ADMIN_EMAIL in .env (the only address that becomes admin)}"
+      SYMBA_REGISTRATION_OPEN: "${SYMBA_REGISTRATION_OPEN:-true}"
+      # Caddy is the only thing that can reach the app, so trust its X-Forwarded-For (real visitor IPs in the log).
+      FORWARDED_ALLOW_IPS: "*"
+
+  caddy:
+    image: caddy:2
+    container_name: symba-caddy
+    restart: unless-stopped
+    depends_on:
+      - symba
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SYMBA_DOMAIN: "${SYMBA_DOMAIN:?set SYMBA_DOMAIN in .env, e.g. biobasedisadvisor.symbaproject.eu}"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  caddy-data:
+  caddy-config:

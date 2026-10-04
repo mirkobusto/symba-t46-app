@@ -272,7 +272,7 @@ const it: Locale = {
         "title": "3. Cosa conserviamo",
         "paragraphs": [],
         "items": [
-          "Il tuo account: indirizzo email, un hash bcrypt della password (mai la password), il ruolo e la data di creazione. L'email è anche dentro il token di accesso (valido 12 ore) che il browser conserva. La registrazione è aperta a tutti.",
+          "Il tuo account: indirizzo email, un hash bcrypt della password (mai la password), il ruolo e la data di creazione. L'email è anche dentro il token di accesso (valido 12 ore) che il browser conserva. La registrazione è aperta a tutti salvo che il gestore la chiuda; solo l'indirizzo del gestore diventa amministratore.",
           "I casi che salvi: nome, risposte al questionario, flussi, siti facoltativi (coordinate, paese), il contenuto del file di raccolta dati (nomi degli attori, ruoli di contatto, costi), i dati di scoring, il proprietario e il nome del link pubblico se condividi un report.",
           "Log tecnici: il log di accesso del server registra l'indirizzo IP del visitatore, l'ora, il percorso e lo stato di ogni richiesta; finisce nel log del container dell'host, ruotato su 5 file da 10 MB. [SEGNAPOSTO — log del reverse proxy o del terminatore TLS davanti allo strumento.]",
           "Nel tuo browser (local storage, non cookie): symba-auth (accesso), symba-case-draft e symba-dcf-draft (lavoro non salvato), symba-preferences e symba-language. Lo strumento non imposta cookie e carica i font dal proprio server, senza richieste a terzi."

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import mimetypes
 import os
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -119,6 +120,9 @@ def _mount_frontend(app: FastAPI) -> None:
         app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
     dist_root = dist_dir.resolve()
+    # CPython's built-in table does not know .woff2: without this the fonts may be served as
+    # text/plain on a slim image that has no /etc/mime.types.
+    mimetypes.add_type("font/woff2", ".woff2")
 
     @app.get("/{full_path:path}", include_in_schema=False)
     async def _spa_catchall(full_path: str):

@@ -56,26 +56,37 @@ needed. Set `BACKEND_CORS_ORIGINS` only if the page is served from a different o
 
 ## The public domain: biobasedisadvisor.symbaproject.eu
 
-The tool is to live on a subdomain of the project website. Host names are case-insensitive: write it
-in lowercase in every configuration (`biobasedisadvisor.symbaproject.eu`). What has to happen, and who does it:
+The tool is to live on a subdomain of the project website. **Step by step, for non-specialists:
+`docs/GUIDA_DEPLOY_PASSO_PASSO.md`** (in Italian). In short:
 
-1. **DNS** (whoever manages `symbaproject.eu`, which is the website's administrator): an `A` record (and
-   `AAAA` if the server has IPv6) for `biobasedisadvisor` pointing at the public address of the server
-   that runs this container, or a `CNAME` to the host name of the hosting provider. Until it exists the
-   name does not resolve.
-2. **A server with a public address** where ports 80 and 443 reach the reverse proxy. A machine reachable
-   only through Tailscale (as the development one) is not publicly reachable under a custom domain; Tailscale
-   Funnel serves `*.ts.net` names, not this one.
-3. **TLS**: Caddy obtains and renews the certificate by itself (Let's Encrypt) once the DNS record points
-   at the server and ports 80/443 are open; with nginx or Traefik use certbot or their ACME support.
-4. **Secrets and data**: set `SYMBA_JWT_SECRET` (see below) before the first start, put the SQLite volume on
-   disk that is backed up, and decide the hosting and retention details that the privacy notice
-   (`/privacy`, currently a draft) leaves as placeholders.
-5. **After the first start**, check from outside: `https://biobasedisadvisor.symbaproject.eu/health`,
-   `/brand/logo.png` (image/png), `/fonts/pt-sans-latin-400.woff2` (font/woff2), `/privacy`, and that
-   `/api/...` calls from the page succeed (open the browser's network tab once).
-6. **Existing saved cases**: after an upgrade run `scripts/rerun_saved_cases.py` (see CLAUDE.md) so they show the
-   current engine's output.
+```bash
+cp .env.example .env     # set SYMBA_DOMAIN, SYMBA_JWT_SECRET, SYMBA_ADMIN_EMAIL, SYMBA_BIND=127.0.0.1
+docker compose -f docker-compose.prod.yml -f docker-compose.public.yml up -d --build
+```
+
+`docker-compose.public.yml` adds Caddy (`deploy/Caddyfile`: automatic HTTPS, security headers, `noindex` on
+`/r/*`, a 20 MB request limit) in front of the app and makes the three secrets mandatory: the command stops
+and says which one is missing. With `SYMBA_BIND=127.0.0.1` the app is not reachable on port 8088 from outside.
+
+What has to exist before it works, and who does it:
+
+1. **DNS** (whoever manages `symbaproject.eu`, the website's administrator): an `A` record (and `AAAA`) for
+   `biobasedisadvisor` pointing at the server's public address. Host names are case-insensitive: lowercase in
+   every configuration. A `CAA` record on `symbaproject.eu`, if any, must allow `letsencrypt.org`.
+2. **A server with a public address** where ports 80 and 443 reach Caddy. A machine reachable only through
+   Tailscale (as the development one) cannot serve a custom domain; Tailscale Funnel serves `*.ts.net` names only.
+3. **Secrets** in `.env`: `SYMBA_JWT_SECRET` (`openssl rand -hex 32`), `SYMBA_ADMIN_EMAIL` (the only address that
+   becomes administrator; without it the first person to register would be admin) and, if the instance is
+   invite-only, `SYMBA_REGISTRATION_OPEN=false` (only the admin email can still register).
+4. **Privacy**: the notice at `/privacy` is a draft with placeholders (controller, legal basis, hosting, retention of
+   backups, contact, authority); complete and review it before announcing the address.
+5. **After the first start**, check from outside: `/health`, `/brand/logo.png` (image/png),
+   `/fonts/pt-sans-latin-400.woff2` (font/woff2), `/privacy`, then register with the admin email.
+6. **Existing saved cases**: after an upgrade run `scripts/rerun_saved_cases.py` (dry run first, then `--apply`).
+
+Known limits of a public instance, to decide as owner: cases saved **without signing in** are readable and writable
+by anyone who can reach the tool (fine for demo data, not for personal data); login and registration have no rate
+limit; the report links `/r/...` are unlisted, not private.
 
 ## Environment variables
 

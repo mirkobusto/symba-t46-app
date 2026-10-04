@@ -21,12 +21,16 @@ services:
     container_name: symba-t46
     restart: unless-stopped
     ports:
-      - "${SYMBA_PUBLIC_PORT:-8088}:8088"
+      # SYMBA_BIND=127.0.0.1 keeps the app off the network when a reverse proxy fronts it.
+      - "${SYMBA_BIND:-0.0.0.0}:${SYMBA_PUBLIC_PORT:-8088}:8088"
     environment:
       SYMBA_DB_URL: "sqlite:////app/backend/data/app.db"
       BACKEND_CORS_ORIGINS: "${BACKEND_CORS_ORIGINS:-}"
-      # Sign-in token secret (openssl rand -hex 32). Empty = a random one per process.
+      # Sign-in token secret (openssl rand -hex 32). Empty = a random one per process
+      # (fine for a local try-out; docker-compose.public.yml requires it).
       SYMBA_JWT_SECRET: "${SYMBA_JWT_SECRET:-}"
+      SYMBA_ADMIN_EMAIL: "${SYMBA_ADMIN_EMAIL:-}"
+      SYMBA_REGISTRATION_OPEN: "${SYMBA_REGISTRATION_OPEN:-true}"
     volumes:
       - symba-data:/app/backend/data
     # The access log carries visitors' IP addresses (uvicorn, to stdout): rotate it so it

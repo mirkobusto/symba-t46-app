@@ -30,7 +30,7 @@ from app.engine import pipeline
 
 PILLARS = ("lca", "lcc", "slca", "report", "governance", "methodological_charter", "review", "system")
 Q3S = [t for t in itertools.product([False, True], repeat=3) if any(t)]
-Q4S = [(), ("A",), ("B",), ("C",), ("D",), ("E",), ("C", "D"), ("D", "E")]
+Q4S = [(), ("A",), ("B",), ("C",), ("D",), ("E",), ("C", "D"), ("D", "E"), ("A", "E"), ("A", "D"), ("B", "C"), ("C", "E")]  # incl. low+high mixes: Q4 is multi-select
 Q3_NAMES = {"env": (True, False, False), "envecosoc": (True, True, True),
             "eco": (False, True, False), "enveco": (True, True, False)}
 

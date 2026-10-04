@@ -8,7 +8,7 @@
 // where the visitor currently is. `actions` is a slot on the right (the
 // language switcher on pages that have no topbar).
 
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -21,11 +21,14 @@ interface SiteHeaderProps {
 export default function SiteHeader({ actions }: SiteHeaderProps) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
 
-  // Escape closes the mobile menu (it is a disclosure, not a modal, so
-  // focus is left alone).
+  // Opening the menu moves focus to its first link: the nav precedes the burger
+  // in the DOM (desktop layout), so without this Tab would leave the open menu
+  // for the sidebar instead of entering it. Escape closes it again.
   useEffect(() => {
     if (!open) return
+    navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus()
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') setOpen(false)
     }
@@ -46,6 +49,7 @@ export default function SiteHeader({ actions }: SiteHeaderProps) {
         </a>
 
         <nav
+          ref={navRef}
           id="site-header-nav"
           className={open ? 'site-nav site-nav-open' : 'site-nav'}
           aria-label={t('siteHeader.navLabel')}

@@ -1431,6 +1431,17 @@ kbd {
   .loading-overlay {
     display: none !important;
   }
+  /* The EU footer is mandatory and its emblem is white lettering on a transparent
+     background: browsers drop backgrounds when printing unless told otherwise,
+     which would leave white-on-white. Keep it dark; the website header is chrome. */
+  .site-header {
+    display: none !important;
+  }
+  .eu-footer {
+    background: #1f242c !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   /* Force a clean white background and full-width main */
   body,
   .layout {
@@ -2014,6 +2025,15 @@ kbd {
   transform: scaleX(1);
 }
 
+/* The page you are on: ink and bold. The lime underline is only a hover cue,
+   it is 1.75:1 on white and cannot carry state (WCAG 1.4.11). */
+.site-nav-list a.site-nav-current {
+  font-weight: 700;
+}
+.site-nav-list a.site-nav-current::after {
+  background: var(--dd-ink);
+}
+
 .site-nav-list a:focus-visible,
 .site-header-burger:focus-visible {
   outline: 2px solid var(--dd-brand);
@@ -2139,7 +2159,8 @@ kbd {
 
   .site-nav-list a.site-nav-current {
     padding-left: 14px;
-    box-shadow: inset 4px 0 0 var(--dd-accent-vivid);
+    box-shadow: inset 4px 0 0 var(--dd-ink);
+    font-weight: 700;
   }
 
   .site-nav-back {
@@ -2152,6 +2173,12 @@ kbd {
     display: inline-block;
     padding: 10px 22px;
   }
+}
+
+/* Sticky site header (72px) plus the app top bar (52px) would cover an anchor target. */
+#dd-main,
+#reader-main {
+  scroll-margin-top: calc(var(--dd-site-header-height) + var(--dd-topbar-height) + 8px);
 }
 
 /* ---- Site-style footer (EuFooter) --------------------------------------

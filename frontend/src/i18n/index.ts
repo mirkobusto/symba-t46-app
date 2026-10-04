@@ -43,4 +43,9 @@ void i18n
     returnNull: false,
   })
 
+// Screen readers and hyphenation follow <html lang>; keep it in step with the language switcher.
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng
+})
+
 export default i18n

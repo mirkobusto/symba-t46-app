@@ -3,6 +3,7 @@
 // logo must link back to the project website.
 
 import '@testing-library/jest-dom'
+import { readFileSync } from 'node:fs'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -53,7 +54,9 @@ describe('EuFooter', () => {
     for (const lang of ['it', 'fr', 'de', 'es']) {
       await i18n.changeLanguage(lang)
       const { unmount } = render(<EuFooter />)
-      expect(document.body.textContent).toContain('101135562')
+      const statement = i18n.t('eu.fundingStatement')
+      expect(statement).toContain('101135562')
+      expect(document.body.textContent).toContain(statement)   // the translated text, not a hard-coded number
       unmount()
     }
   })
@@ -106,5 +109,33 @@ describe('SiteHeader', () => {
       'aria-expanded',
       'false',
     )
+  })
+
+  it('moves focus into the menu when it opens, so Tab does not leave it', () => {
+    renderHeader()
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
+    const nav = document.getElementById('site-header-nav')!
+    expect(nav.contains(document.activeElement)).toBe(true)
+    expect(document.activeElement?.tagName).toBe('A')
+  })
+})
+
+describe('language and print', () => {
+  it('keeps <html lang> in step with the language switcher', async () => {
+    await i18n.changeLanguage('de')
+    expect(document.documentElement.lang).toBe('de')
+    await i18n.changeLanguage('en')
+    expect(document.documentElement.lang).toBe('en')
+  })
+
+  it('keeps the mandatory EU footer visible on paper', () => {
+    // The emblem is white lettering on a transparent background; without an exact
+    // dark background in print it would be white on white.
+    // read the file itself: vitest replaces imported CSS with an empty module
+    const appCss = readFileSync('src/App.css', 'utf8')   // vitest runs from frontend/
+    const print = appCss.slice(appCss.indexOf('@media print'))
+    expect(print.length).toBeGreaterThan(0)
+    expect(print).toMatch(/\.eu-footer\s*\{[^}]*background:\s*#1f242c\s*!important/)
+    expect(print).toMatch(/print-color-adjust:\s*exact/)
   })
 })

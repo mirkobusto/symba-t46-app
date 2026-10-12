@@ -167,6 +167,7 @@ const fr: Locale = {
       aggregate: 'Tableau de bord régional',
       dcf: 'Data Collection File',
       about: 'À propos',
+      changeRole: 'Changer de rôle',
     },
   },
 

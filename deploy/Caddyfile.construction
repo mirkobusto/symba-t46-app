@@ -1,0 +1,61 @@
+# "Under construction" mode of the public deployment (docker-compose.construction.yml).
+# Same site as deploy/Caddyfile, but visitors see the static page in deploy/construction/ (HTTP 503,
+# not indexed) and only people with the preview link reach the application:
+#
+#   https://{$SYMBA_DOMAIN}/?preview=<SYMBA_PREVIEW_TOKEN>
+#
+# The link sets a 30-day cookie and redirects to the application. The token is a shared secret kept
+# in .env, so it is as private as the link you hand out; change it in .env and restart caddy to
+# lock everybody out again. Going public = start the stack without docker-compose.construction.yml.
+{$SYMBA_DOMAIN} {
+	encode zstd gzip
+
+	# The biggest thing a visitor sends is a Data Collection File or a saved case.
+	request_body {
+		max_size 20MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		# Only the project website may embed the tool in a frame.
+		Content-Security-Policy "frame-ancestors 'self' https://www.symbaproject.eu https://symbaproject.eu"
+	}
+
+	# Logo, emblem and fonts of the construction page: open to everybody.
+	handle_path /_construction/* {
+		root * /srv/construction
+		header Cache-Control "public, max-age=3600"
+		file_server
+	}
+
+	# Entry with the preview link: set the cookie, then go to the application.
+	@preview_link query preview={$SYMBA_PREVIEW_TOKEN}
+	handle @preview_link {
+		header Set-Cookie "symba_preview={$SYMBA_PREVIEW_TOKEN}; Path=/; Max-Age=2592000; Secure; HttpOnly; SameSite=Lax"
+		header Cache-Control "no-store"
+		redir * / 302
+	}
+
+	# Anyone holding the cookie gets the real application.
+	@preview_cookie header_regexp preview_cookie Cookie (^|;\s*)symba_preview={$SYMBA_PREVIEW_TOKEN}(;|$)
+	handle @preview_cookie {
+		# Report links are unlisted, not private: keep them out of search engines.
+		@reader path /r/*
+		header @reader X-Robots-Tag "noindex, nofollow"
+		reverse_proxy symba:8088
+	}
+
+	# Everybody else: the construction page, on every path, as "temporarily unavailable".
+	handle {
+		header X-Robots-Tag "noindex, nofollow"
+		header Cache-Control "no-store"
+		header Retry-After "86400"
+		root * /srv/construction
+		rewrite * /index.html
+		file_server {
+			status 503
+		}
+	}
+}

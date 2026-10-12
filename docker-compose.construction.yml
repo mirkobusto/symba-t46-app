@@ -1,0 +1,17 @@
+# "Under construction" mode: add this file to the public deployment and only people with the
+# preview link reach the application; everybody else sees deploy/construction/index.html.
+#
+#   docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d
+#
+# Needs SYMBA_PREVIEW_TOKEN in .env (openssl rand -hex 24); the preview link is
+# https://<SYMBA_DOMAIN>/?preview=<token>. To open the tool to the public, run the same command
+# without this file (see docs/GUIDA_DEPLOY_PASSO_PASSO.md). The application container is untouched.
+
+services:
+  caddy:
+    environment:
+      SYMBA_PREVIEW_TOKEN: "${SYMBA_PREVIEW_TOKEN:?set SYMBA_PREVIEW_TOKEN in .env (openssl rand -hex 24)}"
+    volumes:
+      # Same container path as in docker-compose.public.yml: this entry replaces that one.
+      - ./deploy/Caddyfile.construction:/etc/caddy/Caddyfile:ro
+      - ./deploy/construction:/srv/construction:ro

@@ -28,7 +28,7 @@ function isTextInputTarget(target: EventTarget | null): boolean {
 // Legacy MetricCard component was replaced by dd/KpiCard in Phase 5.
 
 export default function ResultPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const result = useCaseStore((s) => s.result)
   const error = useCaseStore((s) => s.error)
@@ -237,6 +237,10 @@ export default function ResultPage() {
             <ActionItemCard key={item.key} item={item} />
           ))}
         </div>
+
+        {todo.length > 0 && !i18n.language.startsWith('en') ? (
+          <p className="result-next-provenance">{t('result.next.provenance')}</p>
+        ) : null}
 
         {obligationCount > 0 ? (
           <p className="result-next-obligations">

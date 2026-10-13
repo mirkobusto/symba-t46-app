@@ -8,6 +8,18 @@
 import { useTranslation } from 'react-i18next'
 
 import type { ActionItem } from '../../pages/resultActions'
+import { schemaTerm, type SchemaTermKind } from '../../i18n/schemaTerms'
+
+// The wording of rules, decision points and blocks arrives from the
+// engine in English. `schemaTerms` holds the five-language table; the
+// code stays the reference, and for a reader not working in English the
+// original English name is kept next to it, because that is the string
+// the project's own rule table prints.
+const TERM_KIND: Record<ActionItem['kind'], SchemaTermKind> = {
+  block: 'block',
+  obligation: 'rule',
+  decision: 'cdp',
+}
 
 const TONE: Record<ActionItem['kind'], string> = {
   block: 'danger',
@@ -18,7 +30,18 @@ const TONE: Record<ActionItem['kind'], string> = {
 }
 
 export default function ActionItemCard({ item }: { item: ActionItem }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+
+  const kind = TERM_KIND[item.kind]
+  const term = schemaTerm(i18n.language, kind, item.code)
+  const english = schemaTerm('en', kind, item.code)
+  // A block carries no name, only a message: it becomes the heading,
+  // which is why the card used to show a bare `block_…` id and nothing
+  // else when the pipeline stopped.
+  const name = term?.name || item.title || null
+  const body = term?.body || item.detail || ''
+  const reference =
+    english?.name && english.name !== name ? english.name : null
 
   return (
     <article className={`dd-action dd-action-${item.kind}`}>
@@ -26,8 +49,11 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         <span className={`dd-pill dd-pill-${TONE[item.kind]}`}>
           {t(`result.actionKind.${item.kind}`)}
         </span>
-        <h3>{item.title ?? item.detail ?? item.code}</h3>
+        <h3>{name ?? body ?? item.code}</h3>
         <code className="dd-action-code">{item.code}</code>
+        {reference ? (
+          <span className="dd-action-reference">{reference}</span>
+        ) : null}
         {item.severity ? (
           <span className="dd-pill dd-pill-muted">{item.severity}</span>
         ) : null}
@@ -62,16 +88,16 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         </div>
       ) : null}
 
-      {item.resolution ? (
+      {term?.resolution || item.resolution ? (
         <div className="dd-action-todo">
           <span className="dd-action-label">{t('result.action.resolution')}</span>
-          <p className="dd-action-resolution">{item.resolution}</p>
+          <p className="dd-action-resolution">
+            {term?.resolution || item.resolution}
+          </p>
         </div>
       ) : null}
 
-      {item.detail && item.title ? (
-        <p className="dd-action-detail">{item.detail}</p>
-      ) : null}
+      {body && name ? <p className="dd-action-detail">{body}</p> : null}
     </article>
   )
 }

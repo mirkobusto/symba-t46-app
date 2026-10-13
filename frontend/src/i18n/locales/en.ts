@@ -694,6 +694,8 @@ const en = {
       obligations: "{{count}} methodological practices apply to your answers. They are listed, with what triggered each one, in the Data Collection File.",
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
+      provenance:
+        "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
       allClear:
         'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: collect the inventory data.',
       ctaHint: 'The Data Collection File is calibrated on this pathway: it only asks for what your case needs.',

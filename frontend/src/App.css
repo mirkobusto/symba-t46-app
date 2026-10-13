@@ -4809,3 +4809,18 @@ kbd {
   gap: var(--dd-space-2);
 }
 .dcf-obligations > summary h2 { display: inline; margin: 0; font-size: 18px; }
+
+/* The original English name of a rule, kept beside its code for a reader
+   working in another language: the project's own rule table prints that
+   string, so it has to stay findable. */
+.dd-action-reference {
+  font-size: 12px;
+  color: var(--dd-text-muted);
+  font-style: italic;
+}
+
+.result-next-provenance {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--slate-600);
+}

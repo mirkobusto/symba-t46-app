@@ -672,6 +672,8 @@ const it: Locale = {
       obligations: "{{count}} pratiche metodologiche riguardano le tue risposte. Sono elencate, con quello che le ha attivate, nel Data Collection File.",
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e cosa devi valorizzare.',
+      provenance:
+        "I nomi e gli enunciati delle regole sono tradotti dalla tabella inglese del motore. Il codice accanto a ogni voce — IR-01, CDP-02 — è il riferimento che non cambia da una lingua all'altra, e accanto resta il nome inglese.",
       allClear:
         'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: raccogliere i dati di inventario.',
       ctaHint: 'Il Data Collection File è calibrato su questo pathway: ti chiede solo quello che serve al tuo caso.',

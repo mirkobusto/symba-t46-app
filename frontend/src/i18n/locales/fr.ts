@@ -646,6 +646,8 @@ const fr: Locale = {
       title: 'Que faire maintenant',
       lead:
         "Pratiques méthodologiques rendues obligatoires par vos réponses, plus les décisions encore ouvertes. Chacune indique pourquoi elle concerne votre cas.",
+      provenance:
+        "Les intitulés des règles et des points de décision sont traduits depuis la table anglaise du moteur. Le code à côté de chaque élément — IR-01, CDP-02 — est la référence qui ne change pas d'une langue à l'autre, et le nom anglais reste à côté.",
       allClear:
         "Aucune obligation méthodologique ne s'applique à ces réponses et aucun point de décision critique n'est apparu. Étape suivante : collecter les données d'inventaire.",
       ctaHint: 'Le Data Collection File est calibré sur ce parcours : il ne demande que ce dont votre cas a besoin.',

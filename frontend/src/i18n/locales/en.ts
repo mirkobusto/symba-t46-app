@@ -104,7 +104,7 @@ const en = {
       eyebrow: 'About SYMBA T4.6',
       title: 'Public reports · at a glance',
       lead:
-        'Methodological practices your answers make mandatory, plus any decision left open. Each one says why it applies to your case.',
+        'Someone shared a case with you.',
       whoTitle: 'Who\'s behind this?',
       whoBody: 'SYMBA is a Horizon Europe project (GA 101135562, M22–M36) building open, methodologically-sound tools for industrial symbiosis in the bio-based industrial ecosystem. Task T4.6 is the monitoring & reporting system.',
       whatTitle: 'What is a "report"?',
@@ -241,7 +241,7 @@ const en = {
     title: 'SYMBA T4.6 — Monitoring & Reporting System',
     tagline: 'Industrial Symbiosis methodology, inventory and multi-stakeholder reporting for LCA / LCC / S-LCA along the bio-based value chain.',
     description:
-      'Answer seven short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
+      'Answer ten short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
     startButton: 'Start new assessment',
     modeLabel: 'UX mode',
     modeExpert: 'Expert',
@@ -355,7 +355,7 @@ const en = {
     scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological pathway your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
     title: 'Questionnaire',
     intro:
-      'Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
+      'Ten questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
       'Examples and contextual explanations are expanded by default. Read each block carefully — the seven questions drive the methodological pathway and the data-collection plan you will receive at the end.',
@@ -504,7 +504,7 @@ const en = {
 
     q7: {
       title: 'Q7 — Geographic spread',
-      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is computed per flow in the Data Collection File (Logistics).',
+      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is asked for every flow in the Data Collection File (Logistics), where you record the one your own sensitivity run produced.',
       details:
         'The answer changes how logistics data are asked for (GIS coupling, spatial sensitivity), not whether transport is modeled: D4.1 §13.3.1 requires every transport link to be a distinct unit process of the foreground, with primary data on distance, route and mode, and a sensitivity on distance to find the break-even point. No distance threshold sits behind the four options: the break-even depends on the flow type and on the alternative it displaces (D4.1 §13.2.1 and D4.2 give indicative ranges, to sense-check a model, never as inputs); every study computes its own, flow by flow. ' +
         'A — co-located: one site or adjacent plants (eco-industrial park). Links are short (pipeline, conveyor, on-site handling) but still modeled; for piped heat, steam and water the dedicated infrastructure usually dominates. ' +
@@ -705,6 +705,7 @@ const en = {
       decision: 'To decide',
     },
     action: {
+      resolution: "How it is resolved",
       why: 'Why it applies to you',
       todo: 'What to document',
     },
@@ -720,7 +721,7 @@ const en = {
       slca: 'S-LCA',
       activatedNodes: 'Activated nodes',
       l1Blocks: 'L1 blocks fired',
-      l2Violations: 'L2 violations',
+      l2Violations: "L2 assertion failures (diagnostic)",
       l3Cdps: 'L3 CDPs surfaced',
       extended: '(extended)',
     },
@@ -827,7 +828,7 @@ const en = {
   auth: {
     title: 'Sign in',
     subtitle:
-      'Optional for browsing legacy / public cases. Required to create private cases or use the regional dashboard on behalf of an organisation.',
+      'Optional for browsing legacy / public cases. Required to create private cases that only you can change.',
     tabLogin: 'Sign in',
     tabRegister: 'Create account',
     emailLabel: 'Email',
@@ -846,13 +847,29 @@ const en = {
     },
   },
 
+  scoringPending: {
+    title: "Awaiting the scoring",
+    body:
+      "The quantitative LCSA scoring for this case has not been delivered yet. When it arrives, the environmental, economic and social indicators appear here.",
+    lastChecked: "Last checked: {{date}}",
+  },
+
+  compliance: {
+    status: {
+      ok: "yes",
+      no: "not declared",
+      pending: "pending",
+      na: "not applicable",
+    },
+  },
   stakeholder: {
     noVerdict: "No pathway derived yet for this case.",
     notAssessed: {
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
       economic: "This study does not assess costs: the economic dimension was switched off when the case was set up.",
     },
-    flowsLine: "{{count}} flow(s) exchanged: {{names}}.",
+    flowsLine_one: "{{count}} flow exchanged: {{names}}.",
+    flowsLine_other: "{{count}} flows exchanged: {{names}}.",
     navLink: 'Stakeholder report',
     title: 'Stakeholder report',
     subtitle:
@@ -891,9 +908,12 @@ const en = {
     scoringEmpty: 'No indicators relevant for this stakeholder.',
     indicatorPending: 'pending',
     engineDetailsTitle: 'Engine pipeline details',
-    activatedNodesCount: '{{count}} activated methodological node(s)',
-    obligations: "{{count}} methodological practice(s) to document",
-    cdpFlagsCount: '{{count}} cross-dimension tension flag(s)',
+    activatedNodesCount_one: '{{count}} activated methodological node',
+    activatedNodesCount_other: '{{count}} activated methodological nodes',
+    obligations_one: "{{count}} methodological practice to document",
+    obligations_other: "{{count}} methodological practices to document",
+    cdpFlagsCount_one: '{{count}} cross-dimension tension flag',
+    cdpFlagsCount_other: '{{count}} cross-dimension tension flags',
     complianceTitle: 'Compliance signals',
     compliance: {
       peerReview: 'Peer-review claim (Q4=E): {{status}}',

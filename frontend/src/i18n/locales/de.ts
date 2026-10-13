@@ -187,7 +187,7 @@ const de: Locale = {
     title: 'SYMBA T4.6 — IS-Bewertungstool',
     tagline: 'Methodische Auswahl für Industrielle Symbiose (LCA / LCC / S-LCA).',
     description:
-      'Beantworten Sie sieben kurze Fragen zu Ihrer industriellen Symbiose-Fallstudie. Die Entscheidungs-Engine leitet den terminalen IS-Pathway (IS-01..IS-05) und eine vollständige methodische Konfiguration aus den 186 Phase-1-Knoten der Deliverables D4.1, D4.2 und D4.3 sowie den 40 Cross-Method-Validierungsregeln ab.',
+      'Beantworten Sie zehn kurze Fragen zu Ihrer industriellen Symbiose-Fallstudie. Die Entscheidungs-Engine leitet den terminalen IS-Pathway (IS-01..IS-05) und eine vollständige methodische Konfiguration aus den 186 Phase-1-Knoten der Deliverables D4.1, D4.2 und D4.3 sowie den 40 Cross-Method-Validierungsregeln ab.',
     startButton: 'Neue Bewertung starten',
     modeLabel: 'UX-Modus',
     modeExpert: 'Experte',
@@ -303,7 +303,7 @@ const de: Locale = {
     guidedBannerBody:
       'Beispiele und kontextuelle Erklärungen sind standardmäßig erweitert. Lesen Sie jeden Block sorgfältig — die sieben Fragen bestimmen den methodischen Pathway und den Datenerhebungsplan, den Sie am Ende erhalten.',
     intro:
-      'Sieben Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
+      'Zehn Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
     runButton: 'Pipeline ausführen',
     runningButton: 'Läuft…',
     resetButton: 'Entwurf zurücksetzen',
@@ -392,12 +392,12 @@ const de: Locale = {
         'Fügen Sie eine Zeile pro symbiotischem Hauptfluss hinzu und wählen Sie dessen Q5-Kategorie. Pflicht für Q1 ∈ {A, B, D}; sonst optional.',
       details:
         'Wählen Sie für jeden Hauptstrom zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…), wer wen bezahlt: ' +
-        'a — A zahlt B für die Abnahme des Stroms (eine Annahmegebühr: negativer Marktwert, ein ABFALL für A, D4.1 §9.3.2). Zero-Burden gilt ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Strom im Data Collection File erklärt. ' +
-        'b — Strom wird KOSTENLOS abgegeben (unklarer Status): Die Engine leitet in die Klärungskette für kostenlose Ströme. ' +
-        'c — B zahlt A für den Strom (positiver Marktwert: ein KOPPELPRODUKT für A): Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Strom zahlen (Freedom-to-Act-Test, D4.1 §9.3.3), ist der Preis administrativ und der Strom wird als Abfall modelliert. ' +
-        'd — INTERDEPENDENTER Strom: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
-        'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Strom (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Stroms trotzdem ab. ' +
-        'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Strom im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
+        'a — A zahlt B für die Abnahme des Flusses (eine Annahmegebühr: negativer Marktwert, ein ABFALL für A, D4.1 §9.3.2). Zero-Burden gilt ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Fluss im Data Collection File erklärt. ' +
+        'b — der Fluss wird KOSTENLOS abgegeben (unklarer Status): Die Engine leitet in die Klärungskette für kostenlose Flüsse. ' +
+        'c — B zahlt A für den Fluss (positiver Marktwert: ein KOPPELPRODUKT für A): Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Fluss zahlen (Freedom-to-Act-Test, D4.1 §9.3.3), ist der Preis administrativ und der Fluss wird als Abfall modelliert. ' +
+        'd — INTERDEPENDENTER Fluss: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
+        'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
+        'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
     },
 
     q6a: {
@@ -449,9 +449,9 @@ const de: Locale = {
 
     q7: {
       title: 'Q7 — Geografische Verteilung',
-      help: 'Qualitative Anordnung des Netzwerks. Der Transport wird unabhängig von der Antwort explizit modelliert; die Break-even-Distanz hängt vom Stromtyp ab und wird je Strom im Data Collection File (Logistik) berechnet.',
+      help: 'Qualitative Anordnung des Netzwerks. Der Transport wird unabhängig von der Antwort explizit modelliert; die Break-even-Distanz hängt vom Flusstyp ab und wird für jeden Fluss im Data Collection File (Logistik) abgefragt — Sie tragen dort den Wert aus Ihrer eigenen Sensitivitätsanalyse ein.',
       details:
-        'Die Antwort ändert, wie Logistikdaten abgefragt werden (GIS-Kopplung, räumliche Sensitivität), nicht ob der Transport modelliert wird: D4.1 §13.3.1 verlangt, dass jede Transportverbindung ein eigener Einheitsprozess des Vordergrunds ist, mit Primärdaten zu Entfernung, Route und Verkehrsträger sowie einer Sensitivitätsanalyse der Entfernung zur Bestimmung des Break-even-Punkts. Hinter den vier Optionen steht keine Entfernungsschwelle: Der Break-even hängt vom Stromtyp und von der verdrängten Alternative ab (D4.1 §13.2.1 und D4.2 nennen Richtwerte zur Plausibilisierung eines Modells, nie als Eingaben); jede Studie berechnet ihren eigenen, Strom für Strom. ' +
+        'Die Antwort ändert, wie Logistikdaten abgefragt werden (GIS-Kopplung, räumliche Sensitivität), nicht ob der Transport modelliert wird: D4.1 §13.3.1 verlangt, dass jede Transportverbindung ein eigener Einheitsprozess des Vordergrunds ist, mit Primärdaten zu Entfernung, Route und Verkehrsträger sowie einer Sensitivitätsanalyse der Entfernung zur Bestimmung des Break-even-Punkts. Hinter den vier Optionen steht keine Entfernungsschwelle: Der Break-even hängt vom Flusstyp und von der verdrängten Alternative ab (D4.1 §13.2.1 und D4.2 nennen Richtwerte zur Plausibilisierung eines Modells, nie als Eingaben); jede Studie berechnet ihren eigenen, Fluss für Fluss. ' +
         'A — am selben Standort: ein Standort oder benachbarte Anlagen (Ökoindustriepark). Die Verbindungen sind kurz (Rohrleitung, Förderband, innerbetrieblicher Transport), werden aber modelliert; bei Wärme, Dampf und Wasser in Rohrleitungen dominiert meist die dedizierte Infrastruktur. ' +
         'B — regionaler Cluster: mehrere Standorte in derselben Region (typisch Sokka 2011 / Hashimoto). ' +
         'C — großräumig: überregional oder grenzüberschreitend; Verkehrsträger und Routen werden zu wichtigen Inventar- und Kostenposten. ' +
@@ -651,6 +651,7 @@ const de: Locale = {
       decision: 'Zu entscheiden',
     },
     action: {
+      resolution: "Wie das aufgelöst wird",
       why: 'Warum es Sie betrifft',
       todo: 'Was zu dokumentieren ist',
     },
@@ -666,7 +667,7 @@ const de: Locale = {
       slca: 'S-LCA',
       activatedNodes: 'Aktivierte Knoten',
       l1Blocks: 'Ausgelöste L1-BLOCK',
-      l2Violations: 'L2-Verletzungen',
+      l2Violations: "Fehlgeschlagene L2-Assertions (Diagnose)",
       l3Cdps: 'L3-CDPs aufgetreten',
       extended: '(erweitert)',
     },
@@ -792,13 +793,29 @@ const de: Locale = {
     },
   },
 
+  scoringPending: {
+    title: "Warten auf die Kennzahlen",
+    body:
+      "Die quantitativen LCSA-Kennzahlen für diesen Fall liegen noch nicht vor. Sobald sie eintreffen, erscheinen hier die ökologischen, ökonomischen und sozialen Indikatoren.",
+    lastChecked: "Zuletzt geprüft: {{date}}",
+  },
+
+  compliance: {
+    status: {
+      ok: "ja",
+      no: "nicht angegeben",
+      pending: "ausstehend",
+      na: "nicht zutreffend",
+    },
+  },
   stakeholder: {
     noVerdict: "Für diesen Fall wurde noch kein Pathway abgeleitet.",
     notAssessed: {
       social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",
       economic: "Diese Studie bewertet keine Kosten: die ökonomische Dimension wurde bei der Fallkonfiguration deaktiviert.",
     },
-    flowsLine: "{{count}} ausgetauschte(r) Fluss/Flüsse: {{names}}.",
+    flowsLine_one: "{{count}} ausgetauschter Fluss: {{names}}.",
+    flowsLine_other: "{{count}} ausgetauschte Flüsse: {{names}}.",
     navLink: 'Stakeholder-Bericht',
     title: 'Stakeholder-Bericht',
     subtitle:
@@ -837,9 +854,12 @@ const de: Locale = {
     scoringEmpty: 'Keine für diesen Stakeholder relevanten Indikatoren.',
     indicatorPending: 'ausstehend',
     engineDetailsTitle: 'Engine-Pipeline-Details',
-    activatedNodesCount: '{{count}} aktivierte(r) methodische(r) Knoten',
-    obligations: "{{count}} zu dokumentierende methodische Praktik(en)",
-    cdpFlagsCount: '{{count}} dimensionsübergreifende Spannung(en)',
+    activatedNodesCount_one: '{{count}} aktivierter methodischer Knoten',
+    activatedNodesCount_other: '{{count}} aktivierte methodische Knoten',
+    obligations_one: "{{count}} zu dokumentierende methodische Praktik",
+    obligations_other: "{{count}} zu dokumentierende methodische Praktiken",
+    cdpFlagsCount_one: '{{count}} dimensionsübergreifende Spannung',
+    cdpFlagsCount_other: '{{count}} dimensionsübergreifende Spannungen',
     complianceTitle: 'Compliance-Signale',
     compliance: {
       peerReview: 'Peer-Review-Anspruch (Q4=E): {{status}}',

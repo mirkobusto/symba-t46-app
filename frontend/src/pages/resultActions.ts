@@ -37,6 +37,8 @@ export interface ActionItem {
   answers: AnsweredQuestion[]
   /** Field paths to fill in to clear the item. */
   fields: string[]
+  /** How the engine says this one is resolved (CDPs carry it). */
+  resolution: string | null
   severity: 'HIGH' | 'MEDIUM' | 'LOW' | null
 }
 
@@ -103,6 +105,7 @@ function fromRule(rule: ApplicableRule, kase: Case): ActionItem {
     trigger: rule.trigger ?? null,
     answers: answersFor(rule.trigger, kase),
     fields: rule.fields ?? [],
+    resolution: null,
     severity: null,
   }
 }
@@ -117,6 +120,10 @@ function fromCdp(c: CdpFlag, kase: Case): ActionItem {
     trigger: null,
     answers: answersFor(c.tension, kase),
     fields: [],
+    // The engine already says how the tension is resolved; the card used
+    // to drop it, so "what to do next" stated a dilemma and hid its
+    // answer inside the collapsed technical panel.
+    resolution: c.resolution_at_l3,
     severity: c.severity,
   }
 }
@@ -131,6 +138,7 @@ function fromBlock(id: string): ActionItem {
     trigger: null,
     answers: [],
     fields: [],
+    resolution: null,
     severity: 'HIGH',
   }
 }

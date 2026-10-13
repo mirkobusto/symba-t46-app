@@ -1,7 +1,14 @@
 // PendingScoringPlaceholder — banner shown when CIRCE hasn't yet
 // ingested the scoring payload for a case (typical MVP state).
+//
+// The copy used to be hardcoded English, so an Italian or Spanish
+// reader of a shared report got an English paragraph; and it printed
+// `PUT /api/scoring/<id>` — an API route — to whoever opened the link.
+// A reader does not act on an endpoint: what they need is whether the
+// numbers are there and what happens when they arrive.
 
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   caseId?: string
@@ -10,21 +17,16 @@ interface Props {
 }
 
 export default function PendingScoringPlaceholder({
-  caseId, lastCheckedIso, extra,
+  lastCheckedIso, extra,
 }: Props) {
+  const { t } = useTranslation()
   return (
     <div className="dd-pending">
-      <div className="dd-pending-head">⏳ Awaiting CIRCE delivery</div>
-      <p className="dd-pending-body">
-        The quantitative LCSA scoring for this case has not been
-        ingested yet. Once CIRCE delivers the indicators (env / eco /
-        soc), they will appear here.
-      </p>
-      {(caseId || lastCheckedIso) ? (
-        <div className="dd-pending-meta dd-mono">
-          {caseId ? <>PUT /api/scoring/{caseId.slice(0, 8)}…</> : null}
-          {caseId && lastCheckedIso ? ' · ' : null}
-          {lastCheckedIso ? <>last_checked: {lastCheckedIso}</> : null}
+      <div className="dd-pending-head">{t('scoringPending.title')}</div>
+      <p className="dd-pending-body">{t('scoringPending.body')}</p>
+      {lastCheckedIso ? (
+        <div className="dd-pending-meta">
+          {t('scoringPending.lastChecked', { date: lastCheckedIso })}
         </div>
       ) : null}
       {extra ? <div className="dd-pending-extra">{extra}</div> : null}

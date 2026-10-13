@@ -126,7 +126,7 @@ const fr: Locale = {
 
   welcome: {
     title: 'Bienvenue sur SYMBA T4.6',
-    lead: 'Deux questions rapides et nous vous emmenons au bon endroit. Vous pouvez modifier vos réponses à tout moment.',
+    lead: "Cet outil détermine quelle méthodologie votre cas de symbiose industrielle exige et quelles données vous devez collecter. Il ne calcule pas les résultats environnementaux, économiques ou sociaux. Deux questions rapides et nous vous emmenons au bon endroit — vous pouvez les modifier à tout moment depuis la barre latérale.",
     step1: { title: 'Qui êtes-vous ?' },
     step2: { title: 'Que souhaitez-vous faire ?' },
     back: 'Retour',
@@ -290,7 +290,7 @@ const fr: Locale = {
   about: {
     title: 'À propos',
     p1:
-      "SYMBA T4.6 — IS Assessment App est l'outil opérationnel du WP4 / T4.6 du projet SYMBA Horizon Europe. Il implémente le moteur de décision à nœuds atomiques Phase 1 dérivé des livrables D4.1 (LCA), D4.2 (LCC) et D4.3 (S-LCA), classifiant un cas d'étude de symbiose industrielle dans l'un des cinq pathways IS terminaux (IS-01..IS-05) et retournant une configuration méthodologique complète pour LCA, LCC et S-LCA.",
+      "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de sept questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
       "Les 7 questions principales (Q1-Q7), plus trois facultatives (Q8-Q10), déclenchent l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:

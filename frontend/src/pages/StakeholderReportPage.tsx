@@ -20,7 +20,9 @@ import StakeholderView, {
 } from '../components/StakeholderView'
 import { ApiError, fetchScoring } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
+import { usePreferenceStore } from '../store/preferenceStore'
 import type { ScoringPayload } from '../types/scoring'
+import { tabForRole } from './stakeholderTab'
 
 const STAKEHOLDERS: StakeholderType[] = [
   'industry',
@@ -35,7 +37,12 @@ export default function StakeholderReportPage() {
   const draft = useCaseStore((s) => s.draft)
   const sourceCase = result ?? draft
 
-  const [active, setActive] = useState<StakeholderType>('industry')
+  // The wizard asks who you are and then nothing used the answer: this
+  // page always opened on Industry, a tab that declares itself "for the
+  // IS analyst and the methodology reviewer". A community representative
+  // landed on the reviewer's view.
+  const role = usePreferenceStore((s) => s.role)
+  const [active, setActive] = useState<StakeholderType>(() => tabForRole(role))
   const [scoring, setScoring] = useState<ScoringPayload | null>(null)
   const [loadingScoring, setLoadingScoring] = useState(true)
 

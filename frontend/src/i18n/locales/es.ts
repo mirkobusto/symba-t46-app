@@ -120,7 +120,7 @@ const es: Locale = {
 
   welcome: {
     title: 'Bienvenido a SYMBA T4.6',
-    lead: 'Dos preguntas rápidas y te llevamos al lugar adecuado. Puedes cambiar tus respuestas en cualquier momento.',
+    lead: "Esta herramienta determina qué metodología exige tu caso de simbiosis industrial y qué datos debes recoger. No calcula los resultados ambientales, económicos ni sociales. Dos preguntas rápidas y te llevamos al sitio adecuado — puedes cambiarlas cuando quieras desde la barra lateral.",
     step1: { title: '¿Quién eres?' },
     step2: { title: '¿Qué te gustaría hacer?' },
     back: 'Atrás',
@@ -284,7 +284,7 @@ const es: Locale = {
   about: {
     title: 'Acerca de',
     p1:
-      'SYMBA T4.6 — IS Assessment App es la herramienta operativa del WP4 / T4.6 del proyecto SYMBA Horizon Europe. Implementa el motor de decisión de nodos atómicos Phase 1 derivado de los entregables D4.1 (LCA), D4.2 (LCC) y D4.3 (S-LCA), clasificando un caso de simbiosis industrial en uno de cinco pathways IS terminales (IS-01..IS-05) y devolviendo una configuración metodológica completa para LCA, LCC y S-LCA.',
+      "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de siete preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
     p2:
       'Las 7 preguntas principales (Q1-Q7), más tres opcionales (Q8-Q10), impulsan la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:

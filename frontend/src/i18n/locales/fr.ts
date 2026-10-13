@@ -368,7 +368,7 @@ const fr: Locale = {
       eco: 'Économique (LCC)',
       soc: 'Sociale (S-LCA)',
       plain:
-        "Trois évaluations distinctes, chacune avec sa méthode et ses données : environnementale, économique — les coûts sur tout le cycle de vie, pas une analyse coûts-bénéfices — et sociale. Choisissez celles que vous comptez livrer. Les deux premières sont le couple par défaut ; la sociale demande bien plus d'informations auprès des personnes concernées, prévoyez donc d'aller les recueillir.",
+        "Trois évaluations distinctes, chacune avec sa méthode et ses données : environnementale, économique — les coûts sur tout le cycle de vie, pas une analyse coûts-bénéfices — et sociale. Choisissez celles que vous comptez livrer. La plupart des études publiées ne font que l'environnementale, et ajouter l'économique est l'étape suivante habituelle ; la sociale demande bien plus d'informations auprès des personnes concernées, prévoyez donc d'aller les recueillir.",
     },
 
     q4: {
@@ -483,7 +483,7 @@ const fr: Locale = {
         D: { label: 'D. Multi-échelle', description: "National / industrie-wide, distances variables." },
       },
       plain:
-        "Comment les sites sont répartis : un seul site, plusieurs sites dans une même région, des sites entre régions ou au-delà des frontières, ou un programme national ou sectoriel. Le transport est compté quelle que soit votre réponse ; celle-ci change seulement le niveau de détail qu'on vous demandera sur les itinéraires et les modes. Aucun seuil de distance ne se cache derrière les quatre options : la distance de rentabilité de chaque flux se calcule plus tard, flux par flux.",
+        "Comment les sites sont répartis : un seul site, plusieurs sites dans une même région, des sites entre régions ou au-delà des frontières, ou un programme national ou sectoriel. Le transport est compté quelle que soit votre réponse ; celle-ci change seulement le niveau de détail qu'on vous demandera sur les itinéraires et les modes. Aucun seuil de distance ne se cache derrière les quatre options : chaque flux a sa propre distance de rentabilité, et le fichier de collecte de données vous la demande, flux par flux, d'après votre propre analyse de sensibilité.",
     },
     q8: {
       title: 'Q8 — Durée de vie technique attendue des actifs principaux (années)',

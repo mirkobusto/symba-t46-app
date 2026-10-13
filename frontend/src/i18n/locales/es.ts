@@ -362,7 +362,7 @@ const es: Locale = {
       eco: 'Económica (LCC)',
       soc: 'Social (S-LCA)',
       plain:
-        "Tres evaluaciones distintas, cada una con su método y sus datos: ambiental, económica — los costes a lo largo de todo el ciclo de vida, no un análisis coste-beneficio — y social. Elige las que piensas entregar. Las dos primeras son la pareja por defecto; la social exige mucha más información de las personas implicadas, así que cuenta con ir a recogerla.",
+        "Tres evaluaciones distintas, cada una con su método y sus datos: ambiental, económica — los costes a lo largo de todo el ciclo de vida, no un análisis coste-beneficio — y social. Elige las que piensas entregar. La mayoría de los estudios publicados hacen solo la ambiental, y añadir la económica es el paso siguiente habitual; la social exige mucha más información de las personas implicadas, así que cuenta con ir a recogerla.",
     },
 
     q4: {
@@ -477,7 +477,7 @@ const es: Locale = {
         D: { label: 'D. Multi-escala', description: 'Nacional / industria-wide, distancias variables.' },
       },
       plain:
-        "Cómo están repartidos los emplazamientos: uno solo, varios en una misma región, emplazamientos entre regiones o más allá de las fronteras, o un programa nacional o de todo un sector. El transporte se cuenta cualquiera sea tu respuesta; la respuesta solo cambia cuánto detalle se te pedirá sobre rutas y modos. Detrás de las cuatro opciones no hay ningún umbral de distancia: la distancia de rentabilidad de cada flujo se calcula después, flujo por flujo.",
+        "Cómo están repartidos los emplazamientos: uno solo, varios en una misma región, emplazamientos entre regiones o más allá de las fronteras, o un programa nacional o de todo un sector. El transporte se cuenta cualquiera sea tu respuesta; la respuesta solo cambia cuánto detalle se te pedirá sobre rutas y modos. Detrás de las cuatro opciones no hay ningún umbral de distancia: cada flujo tiene su propia distancia de rentabilidad, y el archivo de recogida de datos te la pide, flujo por flujo, a partir de tu propio análisis de sensibilidad.",
     },
     q8: {
       title: 'Q8 — Vida técnica esperada de los activos principales (años)',

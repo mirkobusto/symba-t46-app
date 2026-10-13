@@ -417,7 +417,7 @@ const en = {
       eco: 'Economic (LCC)',
       soc: 'Social (S-LCA)',
       plain:
-        "Three separate assessments, each with its own method and its own data: environmental, economic — costs over the whole life cycle, not a cost-benefit analysis — and social. Pick the ones you intend to deliver. The first two are the default pair; the social one needs a great deal more information from the people involved, so expect to go and collect it.",
+        "Three separate assessments, each with its own method and its own data: environmental, economic — costs over the whole life cycle, not a cost-benefit analysis — and social. Pick the ones you intend to deliver. Most published studies cover the environmental one alone, and adding the economic one is the usual next step; the social one needs a great deal more information from the people involved, so expect to go and collect it.",
     },
 
     q4: {
@@ -532,7 +532,7 @@ const en = {
         D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
       },
       plain:
-        "How the sites are laid out: a single site, several sites in one region, sites across regions or borders, or a national or industry-wide programme. Transport is counted whatever you answer; the answer only changes how much detail you will be asked for about routes and modes. No distance cut-off sits behind the four options — each flow's pay-off distance is worked out later, flow by flow.",
+        "How the sites are laid out: a single site, several sites in one region, sites across regions or borders, or a national or industry-wide programme. Transport is counted whatever you answer; the answer only changes how much detail you will be asked for about routes and modes. No distance cut-off sits behind the four options — each flow has its own pay-off distance, and the data collection file asks you for it, flow by flow, from your own sensitivity run.",
     },
     q8: {
       title: 'Q8 — Expected technical lifetime of the main assets (years)',

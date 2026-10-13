@@ -395,7 +395,7 @@ const it: Locale = {
       eco: 'Economica (LCC)',
       soc: 'Sociale (S-LCA)',
       plain:
-        "Tre valutazioni distinte, ognuna con il suo metodo e i suoi dati: ambientale, economica — i costi lungo tutto il ciclo di vita, non un'analisi costi-benefici — e sociale. Scegli quelle che intendi consegnare. Le prime due sono la coppia di default; quella sociale richiede molte più informazioni dalle persone coinvolte, quindi mettiti in conto di andare a raccoglierle.",
+        "Tre valutazioni distinte, ognuna con il suo metodo e i suoi dati: ambientale, economica — i costi lungo tutto il ciclo di vita, non un'analisi costi-benefici — e sociale. Scegli quelle che intendi consegnare. La maggior parte degli studi pubblicati fa solo quella ambientale, e aggiungere l'economica è il passo successivo abituale; quella sociale richiede molte più informazioni dalle persone coinvolte, quindi mettiti in conto di andare a raccoglierle.",
     },
 
     q4: {
@@ -510,7 +510,7 @@ const it: Locale = {
         D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
       },
       plain:
-        "Come sono disposti i siti: un unico sito, più siti nella stessa regione, siti fra regioni o oltre confine, o un programma nazionale o di settore. Il trasporto si conta qualunque cosa rispondi; la risposta cambia solo quanto dettaglio ti verrà chiesto su percorsi e modalità. Dietro le quattro opzioni non c'è nessuna soglia di distanza: la distanza di convenienza di ogni flusso si calcola dopo, flusso per flusso.",
+        "Come sono disposti i siti: un unico sito, più siti nella stessa regione, siti fra regioni o oltre confine, o un programma nazionale o di settore. Il trasporto si conta qualunque cosa rispondi; la risposta cambia solo quanto dettaglio ti verrà chiesto su percorsi e modalità. Dietro le quattro opzioni non c'è nessuna soglia di distanza: ogni flusso ha la sua distanza di convenienza, e il file di raccolta dati te la chiede, flusso per flusso, dalla tua analisi di sensibilità.",
     },
     q8: {
       title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',

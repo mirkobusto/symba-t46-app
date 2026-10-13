@@ -362,7 +362,7 @@ const de: Locale = {
       eco: 'Ökonomisch (LCC)',
       soc: 'Sozial (S-LCA)',
       plain:
-        "Drei getrennte Bewertungen, jede mit eigener Methode und eigenen Daten: ökologisch, wirtschaftlich — Kosten über den ganzen Lebensweg, keine Kosten-Nutzen-Analyse — und sozial. Wählen Sie die, die Sie abliefern wollen. Die ersten beiden sind das voreingestellte Paar; die soziale verlangt viel mehr Auskunft von den beteiligten Menschen, rechnen Sie also damit, sie einzuholen.",
+        "Drei getrennte Bewertungen, jede mit eigener Methode und eigenen Daten: ökologisch, wirtschaftlich — Kosten über den ganzen Lebensweg, keine Kosten-Nutzen-Analyse — und sozial. Wählen Sie die, die Sie abliefern wollen. Die meisten veröffentlichten Studien machen nur die ökologische, und die ökonomische dazuzunehmen ist der übliche nächste Schritt; die soziale verlangt viel mehr Auskunft von den beteiligten Menschen, rechnen Sie also damit, sie einzuholen.",
     },
 
     q4: {
@@ -407,7 +407,7 @@ const de: Locale = {
         'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Strom (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Stroms trotzdem ab. ' +
         'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Strom im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
       plain:
-        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie das, was auch das Geld sagen mag. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Datenerhebungsbogen entschieden, nicht hier.",
+        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Datenerhebungsbogen entschieden, nicht hier.",
     },
 
     q6a: {
@@ -477,7 +477,7 @@ const de: Locale = {
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
       },
       plain:
-        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: die Rentabilitätsentfernung jedes Flusses wird später berechnet, Fluss für Fluss.",
+        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Datenerhebungsbogen fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
     },
     q8: {
       title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',

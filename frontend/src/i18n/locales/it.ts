@@ -16,6 +16,7 @@ const it: Locale = {
     skip: '(salta)',
     required: 'Obbligatorio',
     examplesAndContext: 'Esempi e contesto',
+    methodologicalNote: 'Nota metodologica completa',
     yes: 'sì',
     no: 'no',
   },
@@ -123,7 +124,7 @@ const it: Locale = {
       eyebrow: 'Cos\'è SYMBA T4.6',
       title: 'Report pubblici · in breve',
       lead:
-        'Pratiche metodologiche che le tue risposte rendono obbligatorie, più le decisioni rimaste aperte. Ognuna dice perché riguarda il tuo caso.',
+        'Qualcuno ha condiviso un caso con te.',
       whoTitle: 'Chi c\'è dietro?',
       whoBody: 'SYMBA è un progetto Horizon Europe (GA 101135562, M22–M36) che sviluppa strumenti aperti e metodologicamente solidi per la simbiosi industriale nell\'ecosistema bio-based. Il task T4.6 è il sistema di monitoraggio e reporting.',
       whatTitle: 'Cos\'è un "report"?',
@@ -151,7 +152,7 @@ const it: Locale = {
   welcome: {
     title: 'Benvenuto in SYMBA T4.6',
     lead:
-      'Due domande veloci e ti portiamo dove serve. Puoi cambiare le risposte in qualsiasi momento dalla sidebar.',
+      "Questo strumento capisce quale metodologia richiede il tuo caso di simbiosi industriale e quali dati devi raccogliere. Non calcola i risultati ambientali, economici o sociali. Due domande veloci e ti portiamo dove serve — puoi cambiarle in qualsiasi momento dalla barra laterale.",
     step1: { title: 'Chi sei?' },
     step2: { title: 'Cosa vuoi fare?' },
     back: 'Indietro',
@@ -193,6 +194,7 @@ const it: Locale = {
       aggregate: 'Dashboard regionale',
       dcf: 'Data Collection File',
       about: 'Info',
+      changeRole: 'Cambia ruolo',
     },
   },
 
@@ -218,7 +220,7 @@ const it: Locale = {
     title: 'SYMBA T4.6 — Sistema di Monitoraggio e Reporting',
     tagline: 'Metodologia, raccolta dati e report multi-stakeholder per Simbiosi Industriale (LCA / LCC / S-LCA) lungo la value chain bio-based.',
     description:
-      'Rispondi a sette domande sul tuo caso di simbiosi industriale. Il motore decisionale deriva il pathway IS terminale (IS-01..IS-05) e una configurazione metodologica completa dai 186 nodi Phase 1 dei deliverable D4.1, D4.2 e D4.3, più le 40 regole cross-method. Poi raccogli i dati con i partner della simbiosi e ottieni il report multi-stakeholder.',
+      'Rispondi a dieci domande sul tuo caso di simbiosi industriale. Il motore decisionale deriva il pathway IS terminale (IS-01..IS-05) e una configurazione metodologica completa dai 186 nodi Phase 1 dei deliverable D4.1, D4.2 e D4.3, più le 40 regole cross-method. Poi raccogli i dati con i partner della simbiosi e ottieni il report multi-stakeholder.',
     startButton: 'Avvia nuova valutazione',
     modeLabel: 'Modalità UX',
     modeExpert: 'Esperto',
@@ -315,7 +317,7 @@ const it: Locale = {
   about: {
     title: 'Informazioni',
     p1:
-      "SYMBA T4.6 — IS Assessment App è lo strumento operativo del WP4 / T4.6 del progetto SYMBA Horizon Europe. Implementa il motore decisionale a nodi atomici Phase 1 derivato dai deliverable D4.1 (LCA), D4.2 (LCC) e D4.3 (S-LCA), classificando un caso di simbiosi industriale in uno dei cinque pathway IS terminali (IS-01..IS-05) e restituendo una configurazione metodologica completa per LCA, LCC e S-LCA.",
+      "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da sette domande sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
     p2:
       'Le 7 domande principali (Q1-Q7), più tre facoltative (Q8-Q10), attivano i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
@@ -333,9 +335,9 @@ const it: Locale = {
     title: 'Questionario',
     guidedBannerTitle: 'Modalità guidata attiva',
     guidedBannerBody:
-      'Gli esempi e le spiegazioni contestuali sono espansi di default. Leggi ogni blocco con attenzione — le sette domande determinano il pathway metodologico e il piano di raccolta dati che riceverai al termine.',
+      "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda. Le dieci risposte determinano il pathway metodologico e il piano di raccolta dati che riceverai al termine.",
     intro:
-      'Sette domande sul tuo caso di simbiosi industriale. Q1 e almeno una dimensione Q3 sono obbligatorie; il resto è opzionale ma migliora l\'output del motore.',
+      'Dieci domande sul tuo caso di simbiosi industriale. Q1 e almeno una dimensione Q3 sono obbligatorie; il resto è opzionale ma migliora l\'output del motore.',
     runButton: 'Esegui pipeline',
     runningButton: 'Esecuzione…',
     resetButton: 'Reset bozza',
@@ -360,6 +362,8 @@ const it: Locale = {
         D: { label: 'D. Report aziendale', description: "Il contributo simbiotico di una singola azienda per reportistica ESG/CSRD." },
         E: { label: 'E. Monitoraggio', description: 'Monitoraggio temporale di una simbiosi già operativa.' },
       },
+      plain:
+        "Di chi o di cosa parla il report? Di uno scambio fra due aziende, di un intero parco o rete, di un programma pubblico, del contributo che una singola azienda rendiconta per sé, oppure del monitoraggio periodico di una simbiosi già in funzione — aggiornamenti annuali, non uno studio una volta sola. Scegli quello il cui nome andrebbe sulla copertina del report.",
     },
 
     q2: {
@@ -375,6 +379,8 @@ const it: Locale = {
         C: { label: 'C. Fase di progettazione', description: 'Solo in fase di progettazione (nessun dato operativo).' },
         D: { label: 'D. Baseline + alternative', description: 'Baseline esistente + N scenari alternativi futuri.' },
       },
+      plain:
+        "Quanto è avanti il sistema? Se è già in funzione lo puoi misurare; se è ancora sulla carta lo puoi solo stimare. Scegli l'ultima opzione se vuoi confrontare la situazione di oggi con uno o più futuri possibili: è quella che apre l'editor degli scenari qui sotto.",
     },
 
     q3: {
@@ -389,6 +395,8 @@ const it: Locale = {
       env: 'Ambientale (LCA)',
       eco: 'Economica (LCC)',
       soc: 'Sociale (S-LCA)',
+      plain:
+        "Tre valutazioni distinte, ognuna con il suo metodo e i suoi dati: ambientale, economica — i costi lungo tutto il ciclo di vita, non un'analisi costi-benefici — e sociale. Scegli quelle che intendi consegnare. La maggior parte degli studi pubblicati fa solo quella ambientale, e aggiungere l'economica è il passo successivo abituale; quella sociale richiede molte più informazioni dalle persone coinvolte, quindi mettiti in conto di andare a raccoglierle.",
     },
 
     q4: {
@@ -416,6 +424,8 @@ const it: Locale = {
         },
         E: { label: 'E. Pubblicazione accademica', description: 'Pubblicazione peer-reviewed accademica.' },
       },
+      plain:
+        "Chi leggerà il risultato, e cosa ne farà, decide quanto deve essere severo il metodo. Una nota interna è il caso più leggero. Allinearsi agli strumenti UE (CSRD, passaporto di prodotto, PEF) impone il modo di contare il materiale riciclato e recuperato stabilito dall'UE. Dichiarare in pubblico che il tuo prodotto è migliore di un altro è il caso più pesante: richiede una revisione indipendente da parte di esperti esterni. Puoi scegliere più di una voce.",
     },
 
     q5: {
@@ -430,6 +440,8 @@ const it: Locale = {
         'd — flusso INTERDIPENDENTE: A ha modificato deliberatamente il proprio processo (qualità, quantità, post-trattamento) per fornire B; un co-prodotto qualunque sia il prezzo, mai zero-burden. ' +
         'e — AGGREGATO / black-box: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §9.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. ' +
         'Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.',
+      plain:
+        "Per ogni cosa che si muove fra le aziende — calore, acqua, scorie, CO₂ — qui la domanda è soltanto chi paga chi: chi manda il flusso paga per liberarsene, nessuno paga, oppure chi lo riceve lo paga. Se chi manda ha cambiato di proposito il proprio processo per fornirlo, scegli quella voce qualunque cosa dica il denaro. Se la tua fonte dà un unico numero per tutta la rete, scegli l'ultima opzione: ti verrà comunque chiesto di ogni flusso che sai nominare, perché una regola unica per tutta la rete non è ammessa. Se un flusso sia un rifiuto per la legge si decide dopo, nel file di raccolta dati, non qui.",
     },
 
     q6a: {
@@ -461,6 +473,8 @@ const it: Locale = {
         agri_food: 'Agroalimentare / bioraffinerie (legacy)',
         process_industry: 'Industria di processo (legacy)',
       },
+      plain:
+        "Il settore principale del caso: l'attività dell'azienda che contribuisce con la quota maggiore di massa, energia o valore. Accende qualche requisito e qualche default specifici di settore. Se il caso è a cavallo di più settori scegli multi-sector, e ignora le voci marcate (legacy).",
     },
 
     q6b: {
@@ -477,11 +491,13 @@ const it: Locale = {
         'TRL5-6': 'TRL 5-6 — prototipo',
         'TRL<5': 'TRL <5 — R&S iniziale',
       },
+      plain:
+        "Quanto è matura la tecnologia chiave: in esercizio commerciale, primo impianto pilota, prototipo, o ancora in laboratorio. Meno è matura, più i tuoi numeri saranno stime e non misure, e più il risultato deve portarsi dietro la propria incertezza.",
     },
 
     q7: {
       title: 'Q7 — Distribuzione geografica',
-      help: 'Disposizione qualitativa della rete. Il trasporto è modellato in modo esplicito qualunque sia la risposta; la distanza di break-even dipende dal tipo di flusso e si calcola flusso per flusso nel Data Collection File (Logistica).',
+      help: 'Disposizione qualitativa della rete. Il trasporto è modellato in modo esplicito qualunque sia la risposta; la distanza di break-even dipende dal tipo di flusso e viene chiesta per ogni flusso nel Data Collection File, dove annoti quella che hai ricavato dalla tua analisi di sensibilità (Logistica).',
       details:
         'La risposta cambia come si chiedono i dati logistici (accoppiamento GIS, sensibilità spaziale), non se il trasporto viene modellato: D4.1 §13.3.1 richiede che ogni collegamento di trasporto sia un processo unitario distinto del foreground, con dati primari su distanza, percorso e modo, e un\'analisi di sensibilità sulla distanza per trovare il punto di break-even. Dietro le quattro opzioni non c\'è nessuna soglia di distanza: il break-even dipende dal tipo di flusso e dall\'alternativa che sostituisce (D4.1 §13.2.1 e D4.2 danno intervalli indicativi, per verificare la plausibilità di un modello, mai come input); ogni studio calcola il proprio, flusso per flusso. ' +
         'A — co-locata: un solo sito o impianti adiacenti (parco eco-industriale). I collegamenti sono brevi (tubazione, nastro, movimentazione interna) ma comunque modellati; per calore, vapore e acqua in tubazione di solito domina l\'infrastruttura dedicata. ' +
@@ -494,6 +510,8 @@ const it: Locale = {
         C: { label: 'C. Area ampia', description: 'Tra regioni o transfrontaliera.' },
         D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
       },
+      plain:
+        "Come sono disposti i siti: un unico sito, più siti nella stessa regione, siti fra regioni o oltre confine, o un programma nazionale o di settore. Il trasporto si conta qualunque cosa rispondi; la risposta cambia solo quanto dettaglio ti verrà chiesto su percorsi e modalità. Dietro le quattro opzioni non c'è nessuna soglia di distanza: ogni flusso ha la sua distanza di convenienza, e il file di raccolta dati te la chiede, flusso per flusso, dalla tua analisi di sensibilità.",
     },
     q8: {
       title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',
@@ -501,6 +519,8 @@ const it: Locale = {
       details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Oltre 15 anni il motore aggiunge scenari di background futuri (SSP/RCP): il nodo di futurizzazione LCA (Q2=D), quello degli scenari dinamici LCC (Q2=C o D) e la regola CIR-01. D4.1 chiede dati di background futuri in ogni studio ex-ante; D4.2 li lega agli asset oltre i 15 anni; questa domanda alimenta la seconda lettura e, lasciata vuota, non cambia nulla.',
       placeholder: 'es. 20',
       unit: 'anni',
+      plain:
+        "Quanti anni dovrebbero funzionare impianto e attrezzature. Lascia vuoto se non lo sai: non cambia nulla. Oltre i quindici anni circa il risultato dipende da come cambiano elettricità, combustibili e mercati nei decenni; per un sistema ancora in progetto o ancora da venire il tool ti chiederà allora di prendere posizione su quel futuro.",
     },
     q9: {
       title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
@@ -512,6 +532,8 @@ const it: Locale = {
         micro: 'Sì, con conseguenze limitate: nessun cambiamento della capacità installata né dei prezzi nell\'economia più ampia (situazione A)',
         structural: 'Sì, con conseguenze su larga scala: sposta circa l\'1% o più delle nuove costruzioni annuali nel mercato interessato (situazione B; la prova va documentata)',
       },
+      plain:
+        "Da questo studio dipende una decisione, e quanto grandi sono i suoi effetti? Puoi rispondere “nessuna decisione” solo per una rete che esiste già. Gli effetti che restano dentro gli impianti coinvolti sono piccoli; quelli che spostano un mercato intero sono grandi, e la prova va documentata. Per il rendiconto di una singola azienda la risposta non cambia nulla. Lascia senza risposta e il tool la ricava dalla prima domanda.",
     },
     q10: {
       title: 'Q10 — Lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale?',
@@ -522,6 +544,8 @@ const it: Locale = {
         yes: 'Sì — obiettivo di policy pubblica o di pianificazione territoriale (aggiunge l\'LCC sociale)',
         no: 'No — non serve un obiettivo di policy o di pianificazione',
       },
+      plain:
+        "Rispondi sì se lo studio serve a una decisione pubblica — un comune, una regione, un'autorità di regolazione, un piano. Aggiunge allora una seconda lettura economica dal punto di vista della società: imposte contate in modo diverso, ed effetti che nessuno paga in denaro. Per il rendiconto di una singola azienda la lettura economica resta a livello aziendale, e il tool te lo dice. Lascia senza risposta e il tool la ricava dalla prima domanda.",
     },
 
     q2dCard: {
@@ -672,6 +696,8 @@ const it: Locale = {
       obligations: "{{count}} pratiche metodologiche riguardano le tue risposte. Sono elencate, con quello che le ha attivate, nel Data Collection File.",
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e cosa devi valorizzare.',
+      provenance:
+        "I nomi e gli enunciati delle regole sono tradotti dalla tabella inglese del motore. Il codice accanto a ogni voce — IR-01, CDP-02 — è il riferimento che non cambia da una lingua all'altra, e accanto resta il nome inglese.",
       allClear:
         'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: raccogliere i dati di inventario.',
       ctaHint: 'Il Data Collection File è calibrato su questo pathway: ti chiede solo quello che serve al tuo caso.',
@@ -682,6 +708,8 @@ const it: Locale = {
       decision: 'Da decidere',
     },
     action: {
+      appliesToCase: "Si applica a questo caso.",
+      resolution: "Come si risolve",
       why: 'Perché riguarda te',
       todo: 'Cosa documentare',
     },
@@ -697,7 +725,7 @@ const it: Locale = {
       slca: 'S-LCA',
       activatedNodes: 'Nodi attivati',
       l1Blocks: 'BLOCK L1 attivati',
-      l2Violations: 'Violazioni L2',
+      l2Violations: "Assertion L2 fallite (diagnostica)",
       l3Cdps: 'CDP L3 emersi',
       extended: '(esteso)',
     },
@@ -805,7 +833,7 @@ const it: Locale = {
   auth: {
     title: 'Accedi',
     subtitle:
-      'Opzionale per consultare i casi legacy / pubblici. Necessario per creare casi privati o utilizzare la dashboard regionale per conto di un\'organizzazione.',
+      'Opzionale per consultare i casi legacy / pubblici. Necessario per creare casi privati che solo tu puoi modificare.',
     tabLogin: 'Accedi',
     tabRegister: 'Crea account',
     emailLabel: 'Email',
@@ -824,6 +852,21 @@ const it: Locale = {
     },
   },
 
+  scoringPending: {
+    title: "In attesa dei punteggi",
+    body:
+      "I punteggi quantitativi LCSA di questo caso non sono ancora stati consegnati. Quando arriveranno, gli indicatori ambientali, economici e sociali compariranno qui.",
+    lastChecked: "Ultimo controllo: {{date}}",
+  },
+
+  compliance: {
+    status: {
+      ok: "sì",
+      no: "non dichiarato",
+      pending: "in attesa",
+      na: "non applicabile",
+    },
+  },
   stakeholder: {
     audience: {
       industry: {
@@ -859,7 +902,8 @@ const it: Locale = {
       social: "Questo studio non valuta gli impatti sociali: la dimensione sociale è stata disattivata alla configurazione del caso. Chiedi all'analista di attivarla se lavoratori o comunità locale fanno parte della domanda.",
       economic: "Questo studio non valuta i costi: la dimensione economica è stata disattivata alla configurazione del caso.",
     },
-    flowsLine: "{{count}} flusso/i scambiato/i: {{names}}.",
+    flowsLine_one: "{{count}} flusso scambiato: {{names}}.",
+    flowsLine_other: "{{count}} flussi scambiati: {{names}}.",
     navLink: 'Report stakeholder',
     title: 'Report stakeholder',
     subtitle:
@@ -898,9 +942,12 @@ const it: Locale = {
     scoringEmpty: 'Nessun indicatore rilevante per questo stakeholder.',
     indicatorPending: 'in attesa',
     engineDetailsTitle: 'Dettagli pipeline engine',
-    activatedNodesCount: '{{count}} nodo/i metodologico/i attivato/i',
-    obligations: "{{count}} pratica/e metodologica/che da documentare",
-    cdpFlagsCount: '{{count}} tensione/i cross-dimensionale/i',
+    activatedNodesCount_one: '{{count}} nodo metodologico attivato',
+    activatedNodesCount_other: '{{count}} nodi metodologici attivati',
+    obligations_one: "{{count}} pratica metodologica da documentare",
+    obligations_other: "{{count}} pratiche metodologiche da documentare",
+    cdpFlagsCount_one: '{{count}} tensione cross-dimensionale',
+    cdpFlagsCount_other: '{{count}} tensioni cross-dimensionali',
     complianceTitle: 'Segnali di compliance',
     compliance: {
       peerReview: 'Claim peer-review (Q4=E): {{status}}',

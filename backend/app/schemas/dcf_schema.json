@@ -798,7 +798,7 @@
     {
       "id": "methodological_choices",
       "title_en": "Methodological Choices to Document",
-      "description_en": "Auto-populated from the procedural_mandate nodes activated for this case (Case.activated_nodes ∩ phase1_nodes where field_status='procedural_mandate'). Grouped by the 9 categories defined in backend/coordination/dcf_mandates_census.json (spec §11 D2 = option c, all activated mandates included, grouped by category).",
+      "description_en": "The methodological practices this case has to document, grouped by category. The engine fills this sheet in from your answers: it is not something a data provider completes, it is the list the assessment team has to act on and record in the LCSA report.",
       "applies_when": "always",
       "row_collection": "auto_from_activated_nodes",
       "auto_source": {
@@ -867,7 +867,7 @@
     {
       "id": "network_diagram",
       "title_en": "Network Diagram",
-      "description_en": "Auto-rendered from Actors + Flow Matrix. Not a user input. View-only in v1 (spec §3 P4). Editing-as-input candidate for v2.",
+      "description_en": "The picture of the network, drawn from the Actors and Flow Matrix sheets. Edit it in the Network builder of the web app, where actors and flows are placed and connected; this sheet shows the result.",
       "applies_when": "always",
       "row_collection": "derived",
       "render_spec": {

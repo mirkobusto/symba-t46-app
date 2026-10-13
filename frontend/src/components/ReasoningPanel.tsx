@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { CdpFlag, RuleViolation } from '../types/api'
+import { schemaTerm } from '../i18n/schemaTerms'
 
 interface Props {
   activatedNodes: string[]
@@ -42,7 +43,10 @@ export default function ReasoningPanel({
   cdp_flags,
   pillars,
 }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  // Decision-point wording comes from the engine in English; this is
+  // the five-language table for it.
+  const termFor = (id: string) => schemaTerm(i18n.language, 'cdp', id)
   const [filter, setFilter] = useState('')
 
   const filterLower = filter.trim().toLowerCase()
@@ -160,12 +164,14 @@ export default function ReasoningPanel({
                   <span className={severityClass(cdp.severity)}>
                     {cdp.severity ?? '—'}
                   </span>
-                  <strong>{cdp.name}</strong>
+                  <strong>{termFor(cdp.cdp_id)?.name || cdp.name}</strong>
                 </header>
-                <p className="cdp-tension">{cdp.tension}</p>
+                <p className="cdp-tension">
+                  {termFor(cdp.cdp_id)?.body || cdp.tension}
+                </p>
                 <p className="cdp-resolution">
                   <span className="muted">{t('reasoning.resolution')}:</span>{' '}
-                  {cdp.resolution_at_l3}
+                  {termFor(cdp.cdp_id)?.resolution || cdp.resolution_at_l3}
                 </p>
                 {cdp.methods.length > 0 ? (
                   <p className="cdp-methods">

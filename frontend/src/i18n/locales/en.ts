@@ -17,6 +17,7 @@ const en = {
     skip: '(skip)',
     required: 'Required',
     examplesAndContext: 'Examples & context',
+    methodologicalNote: 'Full methodological note',
     yes: 'yes',
     no: 'no',
   },
@@ -104,7 +105,7 @@ const en = {
       eyebrow: 'About SYMBA T4.6',
       title: 'Public reports · at a glance',
       lead:
-        'Methodological practices your answers make mandatory, plus any decision left open. Each one says why it applies to your case.',
+        'Someone shared a case with you.',
       whoTitle: 'Who\'s behind this?',
       whoBody: 'SYMBA is a Horizon Europe project (GA 101135562, M22–M36) building open, methodologically-sound tools for industrial symbiosis in the bio-based industrial ecosystem. Task T4.6 is the monitoring & reporting system.',
       whatTitle: 'What is a "report"?',
@@ -132,7 +133,7 @@ const en = {
   welcome: {
     title: 'Welcome to SYMBA T4.6',
     lead:
-      'Two quick questions and we\'ll take you to the right place. You can change your answers any time from the sidebar.',
+      "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place — you can change them any time from the sidebar.",
     step1: { title: 'Who are you?' },
     step2: { title: 'What would you like to do?' },
     back: 'Back',
@@ -174,6 +175,7 @@ const en = {
       aggregate: 'Regional dashboard',
       dcf: 'Data Collection File',
       about: 'About',
+      changeRole: 'Change role',
     },
   },
 
@@ -240,7 +242,7 @@ const en = {
     title: 'SYMBA T4.6 — Monitoring & Reporting System',
     tagline: 'Industrial Symbiosis methodology, inventory and multi-stakeholder reporting for LCA / LCC / S-LCA along the bio-based value chain.',
     description:
-      'Answer seven short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
+      'Answer ten short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
     startButton: 'Start new assessment',
     modeLabel: 'UX mode',
     modeExpert: 'Expert',
@@ -337,7 +339,7 @@ const en = {
   about: {
     title: 'About',
     p1:
-      'SYMBA T4.6 — IS Assessment App is the operational tool of WP4 / T4.6 of the SYMBA Horizon Europe project. It implements the Phase 1 atomic-node decision engine derived from deliverables D4.1 (LCA), D4.2 (LCC) and D4.3 (S-LCA), classifying an industrial-symbiosis case study into one of five terminal IS pathways (IS-01..IS-05) and returning a complete methodological configuration for LCA, LCC and S-LCA.',
+      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from seven questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
       'The 7 core questions (Q1-Q7), plus three optional ones (Q8-Q10), drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
@@ -354,10 +356,10 @@ const en = {
     scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological pathway your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
     title: 'Questionnaire',
     intro:
-      'Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
+      'Ten questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
-      'Examples and contextual explanations are expanded by default. Read each block carefully — the seven questions drive the methodological pathway and the data-collection plan you will receive at the end.',
+      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological pathway and the data-collection plan you receive at the end.',
     runButton: 'Run pipeline',
     runningButton: 'Running…',
     resetButton: 'Reset draft',
@@ -382,6 +384,8 @@ const en = {
         D: { label: 'D. Corporate report', description: "A single company's symbiotic contribution for ESG/CSRD reporting." },
         E: { label: 'E. Monitoring', description: 'Time-series monitoring of an already operational symbiosis.' },
       },
+      plain:
+        "Who or what is the report about? One exchange between two companies, a whole park or network, a public programme, a single company's own account of what it contributes, or the periodic monitoring of a symbiosis already running — yearly updates rather than a one-off study. Pick the one whose name would go on the cover of the report.",
     },
 
     q2: {
@@ -397,6 +401,8 @@ const en = {
         C: { label: 'C. Design phase', description: 'Only in design phase (no operational data).' },
         D: { label: 'D. Baseline + alternatives', description: 'Existing baseline + N alternative future scenarios.' },
       },
+      plain:
+        "How far along is the system? Already running means you can measure it; still on paper means you can only estimate it. Pick the last option if you want to compare today's situation with one or more possible futures — that is what opens the scenarios editor below.",
     },
 
     q3: {
@@ -411,6 +417,8 @@ const en = {
       env: 'Environmental (LCA)',
       eco: 'Economic (LCC)',
       soc: 'Social (S-LCA)',
+      plain:
+        "Three separate assessments, each with its own method and its own data: environmental, economic — costs over the whole life cycle, not a cost-benefit analysis — and social. Pick the ones you intend to deliver. Most published studies cover the environmental one alone, and adding the economic one is the usual next step; the social one needs a great deal more information from the people involved, so expect to go and collect it.",
     },
 
     q4: {
@@ -438,6 +446,8 @@ const en = {
         },
         E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication.' },
       },
+      plain:
+        "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (CSRD, the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. You can pick more than one.",
     },
 
     q5: {
@@ -452,6 +462,8 @@ const en = {
         'd — INTERDEPENDENT flow: A deliberately altered its process (quality, quantity, post-treatment) to supply B; a co-product whatever the price, never zero-burden. ' +
         'e — AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §9.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
         'Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.',
+      plain:
+        "For each thing that moves between the companies — heat, water, slag, CO₂ — the question here is only who pays whom: the sender pays to be rid of it, nobody pays, or the receiver pays for it. If the sender deliberately changed its own process in order to supply it, pick that whatever the money says. If your source gives one figure for the whole network, pick the last option — but you will still be asked about every flow you can name, because one rule for the whole network is not allowed. Whether a flow counts as waste in law is settled later, in the data collection file, not here.",
     },
 
     q6a: {
@@ -483,6 +495,8 @@ const en = {
         agri_food: 'Agri-food / biorefineries (legacy)',
         process_industry: 'Process industry (legacy)',
       },
+      plain:
+        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick multi-sector, and ignore the entries marked (legacy).",
     },
 
     q6b: {
@@ -499,11 +513,13 @@ const en = {
         'TRL5-6': 'TRL 5-6 — prototype',
         'TRL<5': 'TRL <5 — early R&D',
       },
+      plain:
+        "How mature the key technology is: in commercial operation, a first pilot, a prototype, or still in the laboratory. The less mature it is, the more your figures will be estimates rather than measurements, and the more the result has to carry its own uncertainty.",
     },
 
     q7: {
       title: 'Q7 — Geographic spread',
-      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is computed per flow in the Data Collection File (Logistics).',
+      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is asked for every flow in the Data Collection File (Logistics), where you record the one your own sensitivity run produced.',
       details:
         'The answer changes how logistics data are asked for (GIS coupling, spatial sensitivity), not whether transport is modeled: D4.1 §13.3.1 requires every transport link to be a distinct unit process of the foreground, with primary data on distance, route and mode, and a sensitivity on distance to find the break-even point. No distance threshold sits behind the four options: the break-even depends on the flow type and on the alternative it displaces (D4.1 §13.2.1 and D4.2 give indicative ranges, to sense-check a model, never as inputs); every study computes its own, flow by flow. ' +
         'A — co-located: one site or adjacent plants (eco-industrial park). Links are short (pipeline, conveyor, on-site handling) but still modeled; for piped heat, steam and water the dedicated infrastructure usually dominates. ' +
@@ -516,6 +532,8 @@ const en = {
         C: { label: 'C. Wide-area', description: 'Cross-region or cross-border.' },
         D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
       },
+      plain:
+        "How the sites are laid out: a single site, several sites in one region, sites across regions or borders, or a national or industry-wide programme. Transport is counted whatever you answer; the answer only changes how much detail you will be asked for about routes and modes. No distance cut-off sits behind the four options — each flow has its own pay-off distance, and the data collection file asks you for it, flow by flow, from your own sensitivity run.",
     },
     q8: {
       title: 'Q8 — Expected technical lifetime of the main assets (years)',
@@ -523,6 +541,8 @@ const en = {
       details: 'Years the main assets (plant, equipment, infrastructure) are expected to operate. Above 15 years the engine adds future background scenarios (SSP/RCP): the LCA futurisation node (Q2=D), the LCC dynamic-scenarios node (Q2=C or D) and rule CIR-01. D4.1 asks for future background data in every ex-ante study; D4.2 ties it to assets over 15 years; this question feeds the second reading and changes nothing when left empty.',
       placeholder: 'e.g. 20',
       unit: 'years',
+      plain:
+        "How many years the plant and the equipment are expected to run. Leave it empty if you do not know — nothing changes. Beyond about fifteen years the result depends on how electricity, fuels and markets change over decades; for a system still planned or still to come, the tool will then ask you to take a view on that future.",
     },
     q9: {
       title: 'Q9 — Does the study support a decision, and at what scale?',
@@ -534,6 +554,8 @@ const en = {
         micro: 'Yes, with limited consequences: no change to installed capacity or to prices in the wider economy (Situation A)',
         structural: 'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
       },
+      plain:
+        "Is a decision being taken because of this study, and how large are its effects? You can answer “no decision” only for a network that already exists. Effects that stay inside the plants involved are small ones; effects that shift a whole market are large, and the proof of that has to be documented. For a single company's own account the answer changes nothing. Leave it unanswered and the tool reads it off the first question.",
     },
     q10: {
       title: 'Q10 — Does the study serve a public policy or territorial planning objective?',
@@ -544,6 +566,8 @@ const en = {
         yes: 'Yes — a public policy or territorial planning objective (adds the societal LCC)',
         no: 'No — it does not serve a public policy or planning objective',
       },
+      plain:
+        "Answer yes if the study is meant to feed a public decision — a municipality, a region, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a single company's own account the economic reading stays at company level, and the tool tells you. Leave it unanswered and the tool reads it off the first question.",
     },
 
     q2dCard: {
@@ -694,6 +718,8 @@ const en = {
       obligations: "{{count}} methodological practices apply to your answers. They are listed, with what triggered each one, in the Data Collection File.",
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
+      provenance:
+        "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
       allClear:
         'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: collect the inventory data.',
       ctaHint: 'The Data Collection File is calibrated on this pathway: it only asks for what your case needs.',
@@ -704,6 +730,8 @@ const en = {
       decision: 'To decide',
     },
     action: {
+      appliesToCase: "Applies to this case.",
+      resolution: "How it is resolved",
       why: 'Why it applies to you',
       todo: 'What to document',
     },
@@ -719,7 +747,7 @@ const en = {
       slca: 'S-LCA',
       activatedNodes: 'Activated nodes',
       l1Blocks: 'L1 blocks fired',
-      l2Violations: 'L2 violations',
+      l2Violations: "L2 assertion failures (diagnostic)",
       l3Cdps: 'L3 CDPs surfaced',
       extended: '(extended)',
     },
@@ -826,7 +854,7 @@ const en = {
   auth: {
     title: 'Sign in',
     subtitle:
-      'Optional for browsing legacy / public cases. Required to create private cases or use the regional dashboard on behalf of an organisation.',
+      'Optional for browsing legacy / public cases. Required to create private cases that only you can change.',
     tabLogin: 'Sign in',
     tabRegister: 'Create account',
     emailLabel: 'Email',
@@ -845,6 +873,21 @@ const en = {
     },
   },
 
+  scoringPending: {
+    title: "Awaiting the scoring",
+    body:
+      "The quantitative LCSA scoring for this case has not been delivered yet. When it arrives, the environmental, economic and social indicators appear here.",
+    lastChecked: "Last checked: {{date}}",
+  },
+
+  compliance: {
+    status: {
+      ok: "yes",
+      no: "not declared",
+      pending: "pending",
+      na: "not applicable",
+    },
+  },
   stakeholder: {
     audience: {
       industry: {
@@ -880,7 +923,8 @@ const en = {
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
       economic: "This study does not assess costs: the economic dimension was switched off when the case was set up.",
     },
-    flowsLine: "{{count}} flow(s) exchanged: {{names}}.",
+    flowsLine_one: "{{count}} flow exchanged: {{names}}.",
+    flowsLine_other: "{{count}} flows exchanged: {{names}}.",
     navLink: 'Stakeholder report',
     title: 'Stakeholder report',
     subtitle:
@@ -919,9 +963,12 @@ const en = {
     scoringEmpty: 'No indicators relevant for this stakeholder.',
     indicatorPending: 'pending',
     engineDetailsTitle: 'Engine pipeline details',
-    activatedNodesCount: '{{count}} activated methodological node(s)',
-    obligations: "{{count}} methodological practice(s) to document",
-    cdpFlagsCount: '{{count}} cross-dimension tension flag(s)',
+    activatedNodesCount_one: '{{count}} activated methodological node',
+    activatedNodesCount_other: '{{count}} activated methodological nodes',
+    obligations_one: "{{count}} methodological practice to document",
+    obligations_other: "{{count}} methodological practices to document",
+    cdpFlagsCount_one: '{{count}} cross-dimension tension flag',
+    cdpFlagsCount_other: '{{count}} cross-dimension tension flags',
     complianceTitle: 'Compliance signals',
     compliance: {
       peerReview: 'Peer-review claim (Q4=E): {{status}}',

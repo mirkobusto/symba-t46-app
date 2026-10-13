@@ -6,11 +6,13 @@
 // already on /welcome, /login, or a public reader route.
 //
 // Users can revisit /welcome anytime to change their choice — the
-// wizard reads the current values and pre-selects them.
+// wizard reads the current values and pre-selects them. With a role already
+// saved it opens on the task question; `/welcome?step=1` (the sidebar's
+// "Change role" link) opens it on the role question instead.
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import SiteHeader from '../components/brand/SiteHeader'
 import EuFooter from '../components/EuFooter'
@@ -45,7 +47,11 @@ export default function WelcomePage() {
     role: storedRole, task: storedTask, completeOnboarding,
   } = usePreferenceStore()
 
-  const [step, setStep] = useState<1 | 2>(storedRole ? 2 : 1)
+  const [searchParams] = useSearchParams()
+
+  const [step, setStep] = useState<1 | 2>(
+    searchParams.get('step') === '1' || !storedRole ? 1 : 2,
+  )
   const [role, setRole] = useState<UserRole | null>(storedRole)
   const [task, setTask] = useState<UserTask | null>(storedTask)
 
@@ -66,7 +72,7 @@ export default function WelcomePage() {
 
   function handleSkip() {
     // Skip = default analyst + browse, so the router stops sending them
-    // back to /welcome. They can revisit via Settings → Change role.
+    // back to /welcome. They can revisit via System → Change role in the sidebar.
     completeOnboarding('analyst', 'browse')
     navigate('/')
   }

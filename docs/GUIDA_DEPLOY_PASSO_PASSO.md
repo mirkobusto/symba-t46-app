@@ -148,6 +148,22 @@ docker compose -f docker-compose.prod.yml -f docker-compose.public.yml ps
 
 Devono comparire due servizi, `symba-t46` (stato *healthy*) e `symba-caddy` (stato *running*).
 
+### Modalità «in costruzione» (consigliata finché non annunci l'indirizzo)
+
+Appena il DNS risponde, il sito è raggiungibile da chiunque. Se non è ancora il momento, avvia con un terzo file: **tutti vedono una pagina «Under construction / In costruzione»** (risposta 503, non indicizzata dai motori di ricerca) e **solo chi ha il link di anteprima entra nello strumento vero**.
+
+1. Aggiungi al `.env`, sul server, una voce con un segreto (`SYMBA_PREVIEW_TOKEN`): `echo "SYMBA_PREVIEW_TOKEN=$(openssl rand -hex 24)" >> .env`
+2. Al posto del comando del passo 6 lancia:
+
+```
+docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d --build
+```
+
+3. Il **link di anteprima** è `https://biobasedisadvisor.symbaproject.eu/?preview=` seguito dal valore di `SYMBA_PREVIEW_TOKEN` (lo leggi con `grep SYMBA_PREVIEW_TOKEN .env`). Il primo accesso ricorda il browser per 30 giorni; poi basta il normale indirizzo. Chi ha il link entra: trattalo come una password condivisa. Per far uscire tutti, cambia il valore nel `.env` e rilancia il comando.
+4. Mentre sei in costruzione, i controlli del passo 7 da fuori danno 503 (è giusto: `curl.exe -s -o NUL -w "%{http_code}\n" https://biobasedisadvisor.symbaproject.eu/` deve scrivere `503`). Per provare lo strumento apri il link di anteprima nel browser.
+
+**Per aprire al pubblico** lancia il comando del passo 6 **senza** il terzo file (e senza `--build`, se non c'è codice nuovo): Caddy riparte con la configurazione normale, l'applicazione e i suoi dati non si toccano, il certificato resta.
+
 ## Passo 7: verificare dal tuo computer
 
 Apri nel browser **https://biobasedisadvisor.symbaproject.eu**. Se compare la pagina con il lucchetto, è fatto. Controlli in più (dal tuo computer):

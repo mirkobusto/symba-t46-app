@@ -194,6 +194,7 @@ export default function QuestionnairePage() {
         id="q1"
         title={t('questionnaire.q1.title')}
         help={t('questionnaire.q1.help')}
+        plain={t('questionnaire.q1.plain')}
         details={t('questionnaire.q1.details')}
       >
         {Q1_KEYS.map((v) => (
@@ -213,6 +214,7 @@ export default function QuestionnairePage() {
       <QuestionCard
         id="q2"
         title={t('questionnaire.q2.title')}
+        plain={t('questionnaire.q2.plain')}
         details={t('questionnaire.q2.details')}
       >
         {Q2_KEYS.map((v) => (
@@ -243,6 +245,7 @@ export default function QuestionnairePage() {
         id="q3"
         title={t('questionnaire.q3.title')}
         help={t('questionnaire.q3.help')}
+        plain={t('questionnaire.q3.plain')}
         details={t('questionnaire.q3.details')}
         warning={q3Empty ? t('questionnaire.q3.warning') : undefined}
       >
@@ -277,6 +280,7 @@ export default function QuestionnairePage() {
         id="q4"
         title={t('questionnaire.q4.title')}
         help={t('questionnaire.q4.help')}
+        plain={t('questionnaire.q4.plain')}
         details={t('questionnaire.q4.details')}
       >
         {Q4_KEYS.map((v) => {
@@ -302,6 +306,7 @@ export default function QuestionnairePage() {
         id="q5"
         title={t('questionnaire.q5.title')}
         help={t('questionnaire.q5.help')}
+        plain={t('questionnaire.q5.plain')}
         details={t('questionnaire.q5.details')}
       >
         <FlowsEditor flows={flows} onChange={setFlows} />
@@ -312,6 +317,7 @@ export default function QuestionnairePage() {
         id="q6a"
         title={t('questionnaire.q6a.title')}
         help={t('questionnaire.q6a.help')}
+        plain={t('questionnaire.q6a.plain')}
         details={t('questionnaire.q6a.details')}
       >
         <select
@@ -332,6 +338,7 @@ export default function QuestionnairePage() {
       <QuestionCard
         id="q6b"
         title={t('questionnaire.q6b.title')}
+        plain={t('questionnaire.q6b.plain')}
         details={t('questionnaire.q6b.details')}
       >
         <select
@@ -353,6 +360,7 @@ export default function QuestionnairePage() {
         id="q7"
         title={t('questionnaire.q7.title')}
         help={t('questionnaire.q7.help')}
+        plain={t('questionnaire.q7.plain')}
         details={t('questionnaire.q7.details')}
       >
         {Q7_KEYS.map((v) => (
@@ -372,6 +380,7 @@ export default function QuestionnairePage() {
         id="q8"
         title={t('questionnaire.q8.title')}
         help={t('questionnaire.q8.help')}
+        plain={t('questionnaire.q8.plain')}
         details={t('questionnaire.q8.details')}
       >
         <label className="qnum">
@@ -391,6 +400,7 @@ export default function QuestionnairePage() {
         id="q9"
         title={t('questionnaire.q9.title')}
         help={t('questionnaire.q9.help')}
+        plain={t('questionnaire.q9.plain')}
         details={t('questionnaire.q9.details')}
       >
         {/* Radios, not a dropdown: the answers are sentences, and a native menu cuts them off. */}
@@ -413,6 +423,7 @@ export default function QuestionnairePage() {
         id="q10"
         title={t('questionnaire.q10.title')}
         help={t('questionnaire.q10.help')}
+        plain={t('questionnaire.q10.plain')}
         details={t('questionnaire.q10.details')}
       >
         {(['', 'yes', 'no'] as const).map((k) => (

@@ -89,4 +89,34 @@ describe('actionItems', () => {
   it('is empty for a null result', () => {
     expect(actionItems(null)).toEqual([])
   })
+
+  it('carries the CDP resolution onto the card', () => {
+    // "What to do next" used to state the tension and drop the answer:
+    // resolution_at_l3 was rendered only inside the collapsed technical
+    // panel, so the section that asks a question hid its own reply.
+    const [item] = actionItems({
+      ...CASE,
+      cdp_flags: [
+        {
+          cdp_id: 'CDP-03',
+          name: 'Displaced Products Divergence',
+          tension: 'LCA/LCC system expansion may use different displaced products',
+          severity: 'HIGH',
+          methods: ['LCA', 'LCC'],
+          resolution_at_l3: 'Consolidated 4-step decision tree per IR-15',
+        },
+      ],
+    })
+    expect(item.kind).toBe('decision')
+    expect(item.resolution).toBe('Consolidated 4-step decision tree per IR-15')
+  })
+
+  it('leaves the resolution empty for obligations and blocks', () => {
+    const items = actionItems({
+      ...CASE,
+      blocked_by: ['block_C2_plus_E-LCC'],
+      applicable_rules: [{ rule_id: 'B-05', statement: 'applies' }],
+    })
+    expect(items.every((i) => i.resolution === null)).toBe(true)
+  })
 })

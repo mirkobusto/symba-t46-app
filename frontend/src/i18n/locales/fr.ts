@@ -321,7 +321,7 @@ const fr: Locale = {
     q1: {
       title: "Q1 — Qu'analysez-vous ? *",
       help:
-        "Choisissez la correspondance la plus proche. En cas d'ambiguïté, demandez-vous : qui est le SUJET du rapport ? (Requis.)",
+        "Choisissez la correspondance la plus proche : ce qui compte est le sujet de l'étude, pas qui l'a commandée. (Obligatoire.)",
       details:
         "A — échange bilatéral (ex. chaleur fatale de l'Usine X vers l'Usine Y, ou gypse co-produit d'une centrale thermique vers une cimenterie). Le sujet est le FLUX PARTAGÉ entre deux entreprises. " +
         'B — parc éco-industriel ou réseau symbiotique avec 3+ acteurs (ex. Kalundborg, cluster NISP, masterplan de parc industriel). Le sujet est le RÉSEAU comme système. ' +
@@ -336,7 +336,7 @@ const fr: Locale = {
         E: { label: 'E. Suivi', description: "Suivi temporel d'une symbiose déjà opérationnelle." },
       },
       plain:
-        "De qui ou de quoi parle le rapport ? D'un échange entre deux entreprises, d'un parc ou d'un réseau entier, d'un programme public, du bilan qu'une seule entreprise fait de sa propre contribution, ou du suivi périodique d'une symbiose déjà en service — des mises à jour annuelles, pas une étude unique. Choisissez celui dont le nom figurerait en couverture du rapport.",
+        "C'est la question qui commande toutes les autres : elle indique à l'outil quel système vous examinez, et donc quelles données il vous demandera ensuite. Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets.",
     },
 
     q2: {

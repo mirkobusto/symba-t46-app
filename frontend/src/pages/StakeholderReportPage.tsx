@@ -20,8 +20,9 @@ import StakeholderView, {
 } from '../components/StakeholderView'
 import { ApiError, fetchScoring } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
-import { usePreferenceStore, type UserRole } from '../store/preferenceStore'
+import { usePreferenceStore } from '../store/preferenceStore'
 import type { ScoringPayload } from '../types/scoring'
+import { tabForRole } from './stakeholderTab'
 
 const STAKEHOLDERS: StakeholderType[] = [
   'industry',
@@ -29,19 +30,6 @@ const STAKEHOLDERS: StakeholderType[] = [
   'authority',
   'end-user',
 ]
-
-const ROLE_TAB: Partial<Record<UserRole, StakeholderType>> = {
-  industry: 'industry',
-  community: 'community',
-  authority: 'authority',
-  enduser: 'end-user',
-}
-
-/** The tab a given role should land on; analysts and undeclared users
- * get the technical one. */
-export function tabForRole(role: UserRole | null): StakeholderType {
-  return (role && ROLE_TAB[role]) || 'industry'
-}
 
 export default function StakeholderReportPage() {
   const { t } = useTranslation()

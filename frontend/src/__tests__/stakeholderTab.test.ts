@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { tabForRole } from '../pages/StakeholderReportPage'
+import { tabForRole } from '../pages/stakeholderTab'
 
 // The welcome wizard asks who you are; until now nothing read the
 // answer, and this page always opened on the Industry tab — which

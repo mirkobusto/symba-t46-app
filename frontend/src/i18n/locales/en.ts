@@ -133,7 +133,7 @@ const en = {
   welcome: {
     title: 'Welcome to SYMBA T4.6',
     lead:
-      "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place — you can change them any time from the sidebar.",
+      "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place — you can change both later, from the menu inside the tool.",
     step1: { title: 'Who are you?' },
     step2: { title: 'What would you like to do?' },
     back: 'Back',
@@ -146,7 +146,7 @@ const en = {
       authority: { name: 'Local authority', desc: 'Municipality, region, policy analyst overseeing the territory.' },
       community: { name: 'Community representative', desc: 'Association, NGO, host-territory citizens\' group.' },
       enduser: { name: 'End user / citizen', desc: 'You use products or services derived from the symbiosis.' },
-      unknown: { name: 'Not sure yet', desc: 'That\'s fine — we\'ll give you a curated tour.' },
+      unknown: { name: 'Not sure yet', desc: 'That\'s fine — we start you on the overview page.' },
     },
     tasks: {
       assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via ten questions.' },
@@ -343,7 +343,7 @@ const en = {
     p2:
       'The 7 core questions (Q1-Q7), plus three optional ones (Q8-Q10), drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
-      'This MVP build wires the questionnaire to POST /api/pipeline/run. Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
+      'Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
   },
 
   error: {
@@ -716,7 +716,7 @@ const en = {
     next: {
       obligations: "{{count}} methodological practices apply to your answers. They are listed, with what triggered each one, in the Data Collection File.",
       title: 'What to do next',
-      lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
+      lead: 'Items the engine raised on your answers. Each one says why it applies to your case and, where the engine settles it, how.',
       provenance:
         "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
       allClear:
@@ -911,7 +911,7 @@ const en = {
           "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and the geographic scope it covers.",
         whenScoring:
           "Once the scoring arrives you will see the environmental figures and, where the study includes them, the societal costs — the two a public decision rests on.",
-        scope: "Geographic scope declared for the case: Q7 = {{q7}}.",
+        scope: "Geographic scope declared for the case: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -945,7 +945,7 @@ const en = {
     },
     framing: {
       industry:
-        'Full technical view of the methodological configuration and the quantitative scoring produced by CIRCE. Intended for the IS analyst and the methodology reviewer.',
+        'Full technical view of the methodological configuration and of the quantitative scoring, which is produced outside this tool by the SYMBA partner CIRCE. For whoever runs the site, and for the analyst behind the study.',
       community:
         'Local-impact view focused on environmental quality and social benefits the symbiosis brings to the host territory.',
       authority:
@@ -975,7 +975,7 @@ const en = {
     cdpFlagsCount_other: '{{count}} cross-dimension tension flags',
     complianceTitle: 'Compliance signals',
     compliance: {
-      peerReview: 'Peer-review claim (Q4=E): {{status}}',
+      peerReview: 'Independent peer review: {{status}}',
       pef: 'EU PEF alignment (Q4=D): {{status}}',
       publicClaim: 'Public superiority claim (Q4=C): {{status}}',
     },

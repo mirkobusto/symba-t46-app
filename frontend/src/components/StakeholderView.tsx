@@ -148,7 +148,11 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
 
         {stakeholderType === 'authority' && caseData.q7 ? (
           <p className="stakeholder-flows">
-            {t('stakeholder.audience.authority.scope', { q7: caseData.q7 })}
+            {t('stakeholder.audience.authority.scope', {
+              scope: t(`questionnaire.q7.options.${caseData.q7}.description`, {
+                defaultValue: caseData.q7,
+              }),
+            })}
           </p>
         ) : null}
 

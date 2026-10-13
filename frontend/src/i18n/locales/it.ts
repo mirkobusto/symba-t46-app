@@ -152,7 +152,7 @@ const it: Locale = {
   welcome: {
     title: 'Benvenuto in SYMBA T4.6',
     lead:
-      "Questo strumento capisce quale metodologia richiede il tuo caso di simbiosi industriale e quali dati devi raccogliere. Non calcola i risultati ambientali, economici o sociali. Due domande veloci e ti portiamo dove serve — puoi cambiarle in qualsiasi momento dalla barra laterale.",
+      "Questo strumento capisce quale metodologia richiede il tuo caso di simbiosi industriale e quali dati devi raccogliere. Non calcola i risultati ambientali, economici o sociali. Due domande veloci e ti portiamo dove serve — puoi cambiarle dopo, dal menu dentro lo strumento.",
     step1: { title: 'Chi sei?' },
     step2: { title: 'Cosa vuoi fare?' },
     back: 'Indietro',
@@ -165,7 +165,7 @@ const it: Locale = {
       authority: { name: 'Autorità locale', desc: 'Comune, regione, analista di policy per il territorio.' },
       community: { name: 'Rappresentante di comunità', desc: 'Associazione, ONG, gruppo di cittadini del territorio ospitante.' },
       enduser: { name: 'End user / cittadino', desc: 'Usi prodotti o servizi derivati dalla simbiosi.' },
-      unknown: { name: 'Non lo so ancora', desc: 'Va bene — ti facciamo vedere una panoramica curata.' },
+      unknown: { name: 'Non lo so ancora', desc: 'Va bene — ti portiamo sulla pagina di panoramica.' },
     },
     tasks: {
       assess: { name: 'Avvia una nuova valutazione', desc: 'Configura la metodologia per un caso IS in dieci domande.' },
@@ -321,7 +321,7 @@ const it: Locale = {
     p2:
       'Le 7 domande principali (Q1-Q7), più tre facoltative (Q8-Q10), attivano i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
-      'Questa build MVP collega il questionario a POST /api/pipeline/run. Display configurazione per pillar, override avanzati e pannello "Mostra ragionamento" sono tutti operativi.',
+      'Display configurazione per pillar, override avanzati e pannello "Mostra ragionamento" sono tutti operativi.',
   },
 
   error: {
@@ -694,7 +694,7 @@ const it: Locale = {
     next: {
       obligations: "{{count}} pratiche metodologiche riguardano le tue risposte. Sono elencate, con quello che le ha attivate, nel Data Collection File.",
       title: 'Cosa fare adesso',
-      lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e cosa devi valorizzare.',
+      lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e, dove il motore lo risolve, come.',
       provenance:
         "I nomi e gli enunciati delle regole sono tradotti dalla tabella inglese del motore. Il codice accanto a ogni voce — IR-01, CDP-02 — è il riferimento che non cambia da una lingua all'altra, e accanto resta il nome inglese.",
       allClear:
@@ -890,7 +890,7 @@ const it: Locale = {
           "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e qual è l'ambito geografico coperto.",
         whenScoring:
           "Quando arriveranno i punteggi vedrai i valori ambientali e, dove lo studio li include, i costi societali — i due su cui si regge una decisione pubblica.",
-        scope: "Ambito geografico dichiarato per il caso: Q7 = {{q7}}.",
+        scope: "Ambito geografico dichiarato per il caso: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -924,7 +924,7 @@ const it: Locale = {
     },
     framing: {
       industry:
-        'Vista tecnica completa della configurazione metodologica e dello scoring quantitativo prodotto da CIRCE. Per analista IS e revisore metodologico.',
+        "Vista tecnica completa della configurazione metodologica e dei punteggi quantitativi, prodotti fuori da questo strumento dal partner SYMBA CIRCE. Per chi gestisce il sito e per l'analista dietro allo studio.",
       community:
         'Vista impatto locale focalizzata su qualità ambientale e benefici sociali che la simbiosi porta al territorio ospitante.',
       authority:
@@ -954,7 +954,7 @@ const it: Locale = {
     cdpFlagsCount_other: '{{count}} tensioni cross-dimensionali',
     complianceTitle: 'Segnali di compliance',
     compliance: {
-      peerReview: 'Claim peer-review (Q4=E): {{status}}',
+      peerReview: 'Revisione indipendente fra pari: {{status}}',
       pef: 'Allineamento EU PEF (Q4=D): {{status}}',
       publicClaim: 'Claim pubblico di superiorità (Q4=C): {{status}}',
     },

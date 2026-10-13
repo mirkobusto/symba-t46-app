@@ -120,7 +120,7 @@ const es: Locale = {
 
   welcome: {
     title: 'Bienvenido a SYMBA T4.6',
-    lead: "Esta herramienta determina qué metodología exige tu caso de simbiosis industrial y qué datos debes recoger. No calcula los resultados ambientales, económicos ni sociales. Dos preguntas rápidas y te llevamos al sitio adecuado — puedes cambiarlas cuando quieras desde la barra lateral.",
+    lead: "Esta herramienta determina qué metodología exige tu caso de simbiosis industrial y qué datos debes recoger. No calcula los resultados ambientales, económicos ni sociales. Dos preguntas rápidas y te llevamos al sitio adecuado — puedes cambiarlas después, desde el menú dentro de la herramienta.",
     step1: { title: '¿Quién eres?' },
     step2: { title: '¿Qué te gustaría hacer?' },
     back: 'Atrás',
@@ -133,7 +133,7 @@ const es: Locale = {
       authority: { name: 'Autoridad local', desc: 'Municipio, región, analista de políticas del territorio.' },
       community: { name: 'Representante de comunidad', desc: 'Asociación, ONG, grupo de ciudadanos del territorio anfitrión.' },
       enduser: { name: 'Usuario final / ciudadano', desc: 'Usas productos o servicios derivados de la simbiosis.' },
-      unknown: { name: 'Aún no lo sé', desc: 'Está bien — te haremos una visita guiada.' },
+      unknown: { name: 'Aún no lo sé', desc: 'Está bien — te llevamos a la página de panorámica.' },
     },
     tasks: {
       assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología para un caso IS en diez preguntas.' },
@@ -288,7 +288,7 @@ const es: Locale = {
     p2:
       'Las 7 preguntas principales (Q1-Q7), más tres opcionales (Q8-Q10), impulsan la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:
-      'Esta build MVP conecta el cuestionario con POST /api/pipeline/run. La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
+      'La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
   },
 
   error: {
@@ -857,7 +857,7 @@ const es: Locale = {
           "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y qué ámbito geográfico cubre.",
         whenScoring:
           "Cuando lleguen los resultados verás los valores ambientales y, donde el estudio los incluya, los costes societales — los dos pilares de una decisión pública.",
-        scope: "Ámbito geográfico declarado para el caso: Q7 = {{q7}}.",
+        scope: "Ámbito geográfico declarado para el caso: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -891,7 +891,7 @@ const es: Locale = {
     },
     framing: {
       industry:
-        'Vista técnica completa de la configuración metodológica y del scoring cuantitativo producido por CIRCE.',
+        'Vista técnica completa de la configuración metodológica y de la puntuación cuantitativa, producida fuera de esta herramienta por el socio de SYMBA CIRCE.',
       community:
         'Vista de impacto local centrada en calidad ambiental y beneficios sociales para el territorio anfitrión.',
       authority:
@@ -921,7 +921,7 @@ const es: Locale = {
     cdpFlagsCount_other: '{{count}} tensiones transversales',
     complianceTitle: 'Señales de cumplimiento',
     compliance: {
-      peerReview: 'Afirmación con revisión por pares (Q4=E): {{status}}',
+      peerReview: 'Revisión independiente por pares: {{status}}',
       pef: 'Alineación EU PEF (Q4=D): {{status}}',
       publicClaim: 'Afirmación pública (Q4=C): {{status}}',
     },

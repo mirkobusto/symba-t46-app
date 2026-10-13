@@ -120,7 +120,7 @@ const de: Locale = {
 
   welcome: {
     title: 'Willkommen bei SYMBA T4.6',
-    lead: "Dieses Werkzeug ermittelt, welche Methodik Ihr Fall industrieller Symbiose verlangt und welche Daten Sie erheben müssen. Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse. Zwei kurze Fragen, dann bringen wir Sie an die richtige Stelle — änderbar jederzeit über die Seitenleiste.",
+    lead: "Dieses Werkzeug ermittelt, welche Methodik Ihr Fall industrieller Symbiose verlangt und welche Daten Sie erheben müssen. Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse. Zwei kurze Fragen, dann bringen wir Sie an die richtige Stelle — beides lässt sich später im Menü des Werkzeugs ändern.",
     step1: { title: 'Wer sind Sie?' },
     step2: { title: 'Was möchten Sie tun?' },
     back: 'Zurück',
@@ -133,7 +133,7 @@ const de: Locale = {
       authority: { name: 'Lokale Behörde', desc: 'Gemeinde, Region, politischer Analyst für das Gebiet.' },
       community: { name: 'Gemeinschaftsvertreter', desc: 'Verein, NGO, Bürgergruppe des Gastgebiets.' },
       enduser: { name: 'Endnutzer / Bürger', desc: 'Sie nutzen Produkte oder Dienste aus der Symbiose.' },
-      unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir geben Ihnen eine kuratierte Tour.' },
+      unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir bringen Sie auf die Übersichtsseite.' },
     },
     tasks: {
       assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in zehn Fragen konfigurieren.' },
@@ -288,7 +288,7 @@ const de: Locale = {
     p2:
       'Die 7 Kernfragen (Q1-Q7) und drei optionale (Q8-Q10) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
-      'Dieser MVP-Build verbindet den Fragebogen mit POST /api/pipeline/run. Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
+      'Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
 
   error: {
@@ -408,7 +408,7 @@ const de: Locale = {
         'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
         'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
       plain:
-        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Datenerhebungsbogen entschieden, nicht hier.",
+        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Data Collection File entschieden, nicht hier.",
     },
 
     q6a: {
@@ -477,7 +477,7 @@ const de: Locale = {
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
       },
       plain:
-        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Datenerhebungsbogen fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
+        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Data Collection File fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
     },
     q8: {
       title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
@@ -857,7 +857,7 @@ const de: Locale = {
           "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und welchen geografischen Umfang er abdeckt.",
         whenScoring:
           "Sobald die Kennzahlen vorliegen, sehen Sie die Umweltwerte und, wo die Studie sie einschließt, die gesellschaftlichen Kosten — die beiden Grundlagen einer öffentlichen Entscheidung.",
-        scope: "Für den Fall angegebener geografischer Umfang: Q7 = {{q7}}.",
+        scope: "Für den Fall angegebener geografischer Umfang: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -891,7 +891,7 @@ const de: Locale = {
     },
     framing: {
       industry:
-        'Vollständige technische Ansicht der methodischen Konfiguration und des von CIRCE produzierten quantitativen Scorings.',
+        'Vollständige technische Ansicht der methodischen Konfiguration und der quantitativen Bewertung, die außerhalb dieses Werkzeugs vom SYMBA-Partner CIRCE erstellt wird.',
       community:
         'Lokale Auswirkungsansicht: Umweltqualität und soziale Vorteile für das Gastgebiet.',
       authority:
@@ -921,7 +921,7 @@ const de: Locale = {
     cdpFlagsCount_other: '{{count}} dimensionsübergreifende Spannungen',
     complianceTitle: 'Compliance-Signale',
     compliance: {
-      peerReview: 'Peer-Review-Anspruch (Q4=E): {{status}}',
+      peerReview: 'Unabhängige Begutachtung: {{status}}',
       pef: 'EU-PEF-Ausrichtung (Q4=D): {{status}}',
       publicClaim: 'Öffentlicher Überlegenheitsanspruch (Q4=C): {{status}}',
     },

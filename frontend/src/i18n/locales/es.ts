@@ -641,6 +641,8 @@ const es: Locale = {
       title: 'Qué hacer ahora',
       lead:
         'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
+      provenance:
+        "Los nombres y enunciados de las reglas están traducidos de la tabla inglesa del motor. El código junto a cada elemento — IR-01, CDP-02 — es la referencia que no cambia de un idioma a otro, y el nombre en inglés se mantiene al lado.",
       allClear:
         'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: recoger los datos de inventario.',
       ctaHint: 'El Data Collection File está calibrado en este pathway: solo pide lo que tu caso necesita.',
@@ -651,6 +653,7 @@ const es: Locale = {
       decision: 'Por decidir',
     },
     action: {
+      appliesToCase: "Se aplica a este caso.",
       resolution: "Cómo se resuelve",
       why: 'Por qué te afecta',
       todo: 'Qué documentar',

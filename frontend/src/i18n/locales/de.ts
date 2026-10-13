@@ -641,6 +641,8 @@ const de: Locale = {
       title: 'Was jetzt zu tun ist',
       lead:
         'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
+      provenance:
+        "Die Bezeichnungen der Regeln und Entscheidungspunkte sind aus der englischen Tabelle des Motors übersetzt. Der Code neben jedem Eintrag — IR-01, CDP-02 — ist die Referenz, die in allen Sprachen gleich bleibt, und der englische Name steht daneben.",
       allClear:
         'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Inventardaten erheben.',
       ctaHint: 'Das Data Collection File ist auf diesen Pathway kalibriert: es fragt nur ab, was Ihr Fall braucht.',
@@ -651,6 +653,7 @@ const de: Locale = {
       decision: 'Zu entscheiden',
     },
     action: {
+      appliesToCase: "Gilt für diesen Fall.",
       resolution: "Wie das aufgelöst wird",
       why: 'Warum es Sie betrifft',
       todo: 'Was zu dokumentieren ist',

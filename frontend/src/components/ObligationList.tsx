@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import type { Case } from '../types/api'
 import type { DcfObligation } from '../types/dcf'
 import { answersFor } from '../pages/resultActions'
+import { schemaTerm } from '../i18n/schemaTerms'
 
 interface Props {
   obligations: DcfObligation[]
@@ -32,7 +33,7 @@ function groupByCategory(
 }
 
 export default function ObligationList({ obligations, sourceCase }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   if (obligations.length === 0) {
     return <p className="dcf-section-description">{t('obligations.empty')}</p>
@@ -60,11 +61,19 @@ export default function ObligationList({ obligations, sourceCase }: Props) {
           <ul>
             {items.map((item) => {
               const answers = answersFor(item.trigger, sourceCase)
+              // Rules carry translated wording; the 91 procedural
+              // mandates do not yet, so they keep what the engine sends.
+              const term =
+                item.origin === 'rule'
+                  ? schemaTerm(i18n.language, 'rule', item.id)
+                  : null
               return (
                 <li key={`${item.origin}:${item.id}`} className="obl-item">
                   <p className="obl-statement">
-                    {item.title ? <strong>{item.title} — </strong> : null}
-                    {item.statement}
+                    {term?.name ?? item.title ? (
+                      <strong>{term?.name ?? item.title} — </strong>
+                    ) : null}
+                    {term ? term.body || t('result.action.appliesToCase') : item.statement}
                   </p>
                   <p className="obl-meta">
                     <span className={`dd-pill dd-pill-${

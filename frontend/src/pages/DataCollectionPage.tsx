@@ -282,13 +282,21 @@ export default function DataCollectionPage() {
         />
       </div>
 
-      <div className="dcf-obligations">
-        <h2>{t('dcf.obligationsTitle')}</h2>
+      {/* Collapsed by default: this page exists to say which data to
+          collect, and the 100+ obligations used to stand between the
+          reader and the field tables, with the download buttons a
+          thousand lines further down. The count stays visible so the
+          list is not hidden, only folded. */}
+      <details className="dcf-obligations">
+        <summary>
+          <h2>{t('dcf.obligationsTitle')}</h2>
+          <span className="dd-pill dd-pill-muted">{payload.obligations.length}</span>
+        </summary>
         <ObligationList
           obligations={payload.obligations}
           sourceCase={sourceCase}
         />
-      </div>
+      </details>
 
       <div className="dcf-sections-list">
         {payload.sections

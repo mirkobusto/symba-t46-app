@@ -92,7 +92,7 @@ const es: Locale = {
     compliance: {
       peer: { name: 'Peer-review', desc: 'Q4 = E · ISO 14044' },
       pef: { name: 'Alineación EU PEF', desc: 'Q4 = D · Circular Footprint Formula' },
-      public: { name: 'Reclamación pública', desc: 'Q4 = C · panel ISO obligatorio' },
+      public: { name: 'Afirmación pública', desc: 'Q4 = C · panel ISO obligatorio' },
       dnsh: { name: 'Verificación DNSH', desc: 'EU Taxonomy art. 17' },
     },
     audience: {
@@ -186,7 +186,7 @@ const es: Locale = {
     title: 'SYMBA T4.6 — Herramienta de evaluación IS',
     tagline: 'Selección metodológica para Simbiosis Industrial (LCA / LCC / S-LCA).',
     description:
-      'Responde a siete preguntas breves sobre tu caso de simbiosis industrial. El motor de decisión deriva el pathway IS terminal (IS-01..IS-05) y una configuración metodológica completa a partir de los 186 nodos Phase 1 de los entregables D4.1, D4.2 y D4.3, más las 40 reglas cross-method.',
+      'Responde a diez preguntas breves sobre tu caso de simbiosis industrial. El motor de decisión deriva el pathway IS terminal (IS-01..IS-05) y una configuración metodológica completa a partir de los 186 nodos Phase 1 de los entregables D4.1, D4.2 y D4.3, más las 40 reglas cross-method.',
     startButton: 'Iniciar nueva evaluación',
     modeLabel: 'Modo UX',
     modeExpert: 'Experto',
@@ -302,7 +302,7 @@ const es: Locale = {
     guidedBannerBody:
       'Los ejemplos y explicaciones contextuales están expandidos por defecto. Lee cada bloque con atención — las siete preguntas determinan el pathway metodológico y el plan de recolección de datos que recibirás al final.',
     intro:
-      'Siete preguntas sobre tu caso de simbiosis industrial. Q1 y al menos una dimensión Q3 son obligatorias; el resto es opcional pero mejora la salida del motor.',
+      'Diez preguntas sobre tu caso de simbiosis industrial. Q1 y al menos una dimensión Q3 son obligatorias; el resto es opcional pero mejora la salida del motor.',
     runButton: 'Ejecutar pipeline',
     runningButton: 'Ejecutando…',
     resetButton: 'Reiniciar borrador',
@@ -650,6 +650,7 @@ const es: Locale = {
       decision: 'Por decidir',
     },
     action: {
+      resolution: "Cómo se resuelve",
       why: 'Por qué te afecta',
       todo: 'Qué documentar',
     },
@@ -665,7 +666,7 @@ const es: Locale = {
       slca: 'S-LCA',
       activatedNodes: 'Nodos activados',
       l1Blocks: 'BLOCK L1 disparados',
-      l2Violations: 'Violaciones L2',
+      l2Violations: "Fallos de aserción L2 (diagnóstico)",
       l3Cdps: 'CDPs L3 aflorados',
       extended: '(extendido)',
     },
@@ -791,13 +792,29 @@ const es: Locale = {
     },
   },
 
+  scoringPending: {
+    title: "A la espera de los resultados",
+    body:
+      "Los resultados cuantitativos LCSA de este caso aún no se han entregado. Cuando lleguen, los indicadores ambientales, económicos y sociales aparecerán aquí.",
+    lastChecked: "Última comprobación: {{date}}",
+  },
+
+  compliance: {
+    status: {
+      ok: "sí",
+      no: "no declarado",
+      pending: "pendiente",
+      na: "no aplicable",
+    },
+  },
   stakeholder: {
     noVerdict: "Todavía no se ha derivado ninguna ruta para este caso.",
     notAssessed: {
       social: "Este estudio no evalúa impactos sociales: la dimensión social se desactivó al configurar el caso. Pide al analista que la active si los trabajadores o la comunidad local forman parte de la pregunta.",
       economic: "Este estudio no evalúa costes: la dimensión económica se desactivó al configurar el caso.",
     },
-    flowsLine: "{{count}} flujo(s) intercambiado(s): {{names}}.",
+    flowsLine_one: "{{count}} flujo intercambiado: {{names}}.",
+    flowsLine_other: "{{count}} flujos intercambiados: {{names}}.",
     navLink: 'Informe stakeholder',
     title: 'Informe stakeholder',
     subtitle:
@@ -836,14 +853,17 @@ const es: Locale = {
     scoringEmpty: 'No hay indicadores relevantes para este stakeholder.',
     indicatorPending: 'pendiente',
     engineDetailsTitle: 'Detalles del pipeline',
-    activatedNodesCount: '{{count}} nodo(s) metodológico(s) activado(s)',
-    obligations: "{{count}} práctica(s) metodológica(s) por documentar",
-    cdpFlagsCount: '{{count}} tensión(es) cross-dimensional(es)',
+    activatedNodesCount_one: '{{count}} nodo metodológico activado',
+    activatedNodesCount_other: '{{count}} nodos metodológicos activados',
+    obligations_one: "{{count}} práctica metodológica por documentar",
+    obligations_other: "{{count}} prácticas metodológicas por documentar",
+    cdpFlagsCount_one: '{{count}} tensión transversal',
+    cdpFlagsCount_other: '{{count}} tensiones transversales',
     complianceTitle: 'Señales de cumplimiento',
     compliance: {
-      peerReview: 'Reclamación peer-review (Q4=E): {{status}}',
+      peerReview: 'Afirmación con revisión por pares (Q4=E): {{status}}',
       pef: 'Alineación EU PEF (Q4=D): {{status}}',
-      publicClaim: 'Reclamación pública (Q4=C): {{status}}',
+      publicClaim: 'Afirmación pública (Q4=C): {{status}}',
     },
   },
 

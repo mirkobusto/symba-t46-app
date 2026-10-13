@@ -4801,3 +4801,11 @@ kbd {
 .privacy ul {
   padding-left: 1.2rem;
 }
+
+.dcf-obligations > summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--dd-space-2);
+}
+.dcf-obligations > summary h2 { display: inline; margin: 0; font-size: 18px; }

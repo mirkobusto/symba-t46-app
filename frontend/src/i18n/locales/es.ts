@@ -835,6 +835,35 @@ const es: Locale = {
     },
   },
   stakeholder: {
+    audience: {
+      industry: {
+        whatYouSee:
+          "Lo que esta página te dice hoy: qué metodología seguirá la evaluación y, por tanto, qué datos se te pedirán. La petición en sí es el Data Collection File.",
+        whenScoring:
+          "Cuando lleguen los resultados verás los indicadores ambientales y económicos del caso, para juzgar si el intercambio compensa.",
+      },
+      community: {
+        whatYouSee:
+          "Lo que esta página te dice hoy: qué flujos intercambian las empresas y si este estudio examina o no los efectos sociales.",
+        whenScoring:
+          "Cuando lleguen los resultados verás los indicadores sociales — trabajadores, comunidad local — y los ambientales, cada uno con el grupo al que afecta.",
+      },
+      authority: {
+        whatYouSee:
+          "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y qué ámbito geográfico cubre.",
+        whenScoring:
+          "Cuando lleguen los resultados verás los valores ambientales y, donde el estudio los incluya, los costes societales — los dos pilares de una decisión pública.",
+        scope: "Ámbito geográfico declarado para el caso: Q7 = {{q7}}.",
+      },
+      'end-user': {
+        whatYouSee:
+          "Lo que esta página te dice hoy: qué materiales devuelve al uso esta simbiosis y si se examinan los efectos ambientales y sociales.",
+        whenScoring:
+          "Cuando lleguen los resultados verás los indicadores ambientales y sociales de la cadena que hay detrás del producto.",
+        productCaveat:
+          "Esta evaluación describe el intercambio entre las empresas, no el producto final que compras: la herramienta nunca pregunta cuál es el producto.",
+      },
+    },
     noVerdict: "Todavía no se ha derivado ninguna ruta para este caso.",
     notAssessed: {
       social: "Este estudio no evalúa impactos sociales: la dimensión social se desactivó al configurar el caso. Pide al analista que la active si los trabajadores o la comunidad local forman parte de la pregunta.",

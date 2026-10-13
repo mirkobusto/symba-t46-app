@@ -5,7 +5,15 @@
 // All four views share the same underlying data; what differs is
 // (a) the highlighted indicators (filtered by dimension / id),
 // (b) the framing text,
-// (c) which parts of the verdict are shown.
+// (c) which parts of the verdict are shown,
+// (d) what each audience is told it is looking at today and what will
+//     appear once the scoring arrives.
+//
+// (d) exists because without the CIRCE payload — the normal state — the
+// community and end-user views used to be byte-identical to each other,
+// and the community tab promised "local impacts" while showing pathway
+// codes. Four audiences are named in the Grant Agreement, so they stay
+// four; what they say now has to differ on the data we actually hold.
 //
 // When `scoring` is null the CIRCE payload has not been ingested yet —
 // which is the normal state today. The views used to degrade to the same
@@ -84,9 +92,17 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
   const economicOff =
     axes.includes('lcc') && caseData.lcc_type === 'deactivated'
 
+  // Codes are traceability for whoever checks the method; for a resident
+  // or a consumer they are noise.
+  const showCodes = stakeholderType === 'industry' || stakeholderType === 'authority'
+
   return (
     <div className="stakeholder-view">
       <p className="stakeholder-framing">{t(`stakeholder.framing.${stakeholderType}`)}</p>
+
+      <p className="stakeholder-what-you-see">
+        {t(`stakeholder.audience.${stakeholderType}.whatYouSee`)}
+      </p>
 
       <section className="stakeholder-section">
         <h3>{t('stakeholder.pathwaySummaryTitle')}</h3>
@@ -124,11 +140,25 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
           </p>
         ) : null}
 
-        <p className="stakeholder-codes">
-          {[caseData.pathway_id, caseData.ilcd_situation, caseData.lcc_type]
-            .filter(Boolean)
-            .join(' · ')}
-        </p>
+        {stakeholderType === 'end-user' ? (
+          <p className="stakeholder-not-assessed">
+            {t('stakeholder.audience.end-user.productCaveat')}
+          </p>
+        ) : null}
+
+        {stakeholderType === 'authority' && caseData.q7 ? (
+          <p className="stakeholder-flows">
+            {t('stakeholder.audience.authority.scope', { q7: caseData.q7 })}
+          </p>
+        ) : null}
+
+        {showCodes ? (
+          <p className="stakeholder-codes">
+            {[caseData.pathway_id, caseData.ilcd_situation, caseData.lcc_type]
+              .filter(Boolean)
+              .join(' · ')}
+          </p>
+        ) : null}
       </section>
 
       <section className="stakeholder-section">
@@ -136,7 +166,7 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
         {scoring === null ? (
           <div className="stakeholder-scoring-placeholder">
             <strong>{t('stakeholder.scoringPendingTitle')}</strong>
-            <p>{t('stakeholder.scoringPendingBody')}</p>
+            <p>{t(`stakeholder.audience.${stakeholderType}.whenScoring`)}</p>
           </div>
         ) : filteredIndicators.length === 0 ? (
           <p className="muted">{t('stakeholder.scoringEmpty')}</p>

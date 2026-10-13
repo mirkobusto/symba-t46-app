@@ -835,6 +835,35 @@ const de: Locale = {
     },
   },
   stakeholder: {
+    audience: {
+      industry: {
+        whatYouSee:
+          "Was diese Seite Ihnen heute sagt: welcher Methodik die Bewertung folgt und welche Daten deshalb von Ihnen verlangt werden. Die Abfrage selbst ist das Data Collection File.",
+        whenScoring:
+          "Sobald die Kennzahlen vorliegen, sehen Sie die ökologischen und ökonomischen Kennzahlen des Falls und können beurteilen, ob sich der Austausch rechnet.",
+      },
+      community: {
+        whatYouSee:
+          "Was diese Seite Ihnen heute sagt: welche Flüsse die Unternehmen austauschen, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
+        whenScoring:
+          "Sobald die Kennzahlen vorliegen, sehen Sie die sozialen Indikatoren — Beschäftigte, lokale Gemeinschaft — und die ökologischen, jeweils mit der betroffenen Gruppe.",
+      },
+      authority: {
+        whatYouSee:
+          "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und welchen geografischen Umfang er abdeckt.",
+        whenScoring:
+          "Sobald die Kennzahlen vorliegen, sehen Sie die Umweltwerte und, wo die Studie sie einschließt, die gesellschaftlichen Kosten — die beiden Grundlagen einer öffentlichen Entscheidung.",
+        scope: "Für den Fall angegebener geografischer Umfang: Q7 = {{q7}}.",
+      },
+      'end-user': {
+        whatYouSee:
+          "Was diese Seite Ihnen heute sagt: welche Materialien diese Symbiose wieder in Umlauf bringt und ob ökologische und soziale Wirkungen untersucht werden.",
+        whenScoring:
+          "Sobald die Kennzahlen vorliegen, sehen Sie die ökologischen und sozialen Indikatoren der Kette hinter dem Produkt.",
+        productCaveat:
+          "Diese Bewertung beschreibt den Austausch zwischen den Unternehmen, nicht das Endprodukt, das Sie kaufen: das Werkzeug fragt nie, welches Produkt es ist.",
+      },
+    },
     noVerdict: "Für diesen Fall wurde noch kein Pathway abgeleitet.",
     notAssessed: {
       social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",

@@ -20,6 +20,7 @@ import StakeholderView, {
 } from '../components/StakeholderView'
 import { ApiError, fetchScoring } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
+import { usePreferenceStore, type UserRole } from '../store/preferenceStore'
 import type { ScoringPayload } from '../types/scoring'
 
 const STAKEHOLDERS: StakeholderType[] = [
@@ -29,13 +30,31 @@ const STAKEHOLDERS: StakeholderType[] = [
   'end-user',
 ]
 
+const ROLE_TAB: Partial<Record<UserRole, StakeholderType>> = {
+  industry: 'industry',
+  community: 'community',
+  authority: 'authority',
+  enduser: 'end-user',
+}
+
+/** The tab a given role should land on; analysts and undeclared users
+ * get the technical one. */
+export function tabForRole(role: UserRole | null): StakeholderType {
+  return (role && ROLE_TAB[role]) || 'industry'
+}
+
 export default function StakeholderReportPage() {
   const { t } = useTranslation()
   const result = useCaseStore((s) => s.result)
   const draft = useCaseStore((s) => s.draft)
   const sourceCase = result ?? draft
 
-  const [active, setActive] = useState<StakeholderType>('industry')
+  // The wizard asks who you are and then nothing used the answer: this
+  // page always opened on Industry, a tab that declares itself "for the
+  // IS analyst and the methodology reviewer". A community representative
+  // landed on the reviewer's view.
+  const role = usePreferenceStore((s) => s.role)
+  const [active, setActive] = useState<StakeholderType>(() => tabForRole(role))
   const [scoring, setScoring] = useState<ScoringPayload | null>(null)
   const [loadingScoring, setLoadingScoring] = useState(true)
 

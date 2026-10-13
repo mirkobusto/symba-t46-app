@@ -315,7 +315,7 @@ const de: Locale = {
     q1: {
       title: 'Q1 — Was analysieren Sie? *',
       help:
-        'Wählen Sie die nächste Übereinstimmung. Bei Mehrdeutigkeit fragen Sie: Wer ist das SUBJEKT des Berichts? (Erforderlich.)',
+        "Wählen Sie die nächstliegende Antwort: Es zählt der Gegenstand der Studie, nicht wer sie beauftragt hat. (Erforderlich.)",
       details:
         'A — bilateraler Austausch (z. B. Abwärme von Werk X zu Werk Y, oder Gips als Nebenprodukt von Kraftwerk zu Zementwerk). Subjekt ist der GETEILTE FLUSS zwischen zwei Unternehmen. ' +
         'B — Öko-Industriepark oder symbiotisches Netzwerk mit 3+ Akteuren (z. B. Kalundborg, NISP-Cluster, Industriepark-Masterplan). Subjekt ist das NETZWERK als System. ' +
@@ -330,7 +330,7 @@ const de: Locale = {
         E: { label: 'E. Monitoring', description: 'Zeitliches Monitoring einer bereits operativen Symbiose.' },
       },
       plain:
-        "Um wen oder was geht es im Bericht? Um einen Austausch zwischen zwei Unternehmen, um einen ganzen Park oder ein ganzes Netz, um ein öffentliches Programm, um die Rechenschaft eines einzelnen Unternehmens über seinen eigenen Beitrag, oder um die laufende Beobachtung einer bereits betriebenen Symbiose — jährliche Fortschreibung, keine einmalige Studie. Wählen Sie das, dessen Name auf dem Deckblatt des Berichts stehen würde.",
+        "Das ist die Frage, die alle anderen steuert: Aus ihr erkennt das Werkzeug, welches System Sie untersuchen, und damit, welche Daten es später von Ihnen verlangt. Schwanken Sie zwischen zwei Optionen, nehmen Sie die, die das beschreibt, dessen Wirkungen Sie messen wollen.",
     },
 
     q2: {

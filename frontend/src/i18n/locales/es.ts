@@ -315,7 +315,7 @@ const es: Locale = {
     q1: {
       title: 'Q1 — ¿Qué estás analizando? *',
       help:
-        '¿Selecciona la coincidencia más cercana. En caso de ambigüedad pregúntate: ¿quién es el SUJETO del informe? (Obligatorio.)',
+        "Elige la opción más cercana: lo que cuenta es el sujeto del estudio, no quién lo encarga. (Obligatorio.)",
       details:
         'A — intercambio bilateral (p. ej. calor residual de Planta X a Planta Y, o yeso subproducto de una térmica a una cementera). El sujeto es el FLUJO COMPARTIDO entre dos empresas. ' +
         'B — parque eco-industrial o red simbiótica con 3+ actores (p. ej. Kalundborg, cluster NISP, masterplan de un parque industrial). El sujeto es la RED como sistema. ' +
@@ -330,7 +330,7 @@ const es: Locale = {
         E: { label: 'E. Monitorización', description: 'Monitorización temporal de una simbiosis ya operativa.' },
       },
       plain:
-        "¿De quién o de qué habla el informe? De un intercambio entre dos empresas, de todo un parque o una red, de un programa público, de la cuenta que una sola empresa rinde de su propia contribución, o del seguimiento periódico de una simbiosis ya en marcha — actualizaciones anuales, no un estudio único. Elige aquello cuyo nombre iría en la portada del informe.",
+        "Es la pregunta que manda sobre las demás: de ella la herramienta deduce qué sistema estás examinando y, por tanto, qué datos te pedirá más adelante. Si dudas entre dos opciones, quédate con la que describe aquello cuyos efectos quieres medir.",
     },
 
     q2: {

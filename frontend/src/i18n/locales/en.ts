@@ -370,7 +370,7 @@ const en = {
     q1: {
       title: 'Q1 — What are you analyzing? *',
       help:
-        'Pick the closest match. If ambiguous, ask: who is the SUBJECT of the report? (Required.)',
+        "Pick the closest match: what counts is the subject of the study, not who commissioned it. (Required.)",
       details:
         'A — bilateral exchange (e.g. waste heat from Plant X to Plant Y, or by-product gypsum from a power plant to a cement kiln). The subject is the SHARED FLOW between two companies. ' +
         'B — eco-industrial park or symbiotic network with 3+ actors (e.g. Kalundborg, NISP cluster, an industrial park master plan). The subject is the NETWORK as a system. ' +
@@ -385,7 +385,7 @@ const en = {
         E: { label: 'E. Monitoring', description: 'Time-series monitoring of an already operational symbiosis.' },
       },
       plain:
-        "Who or what is the report about? One exchange between two companies, a whole park or network, a public programme, a single company's own account of what it contributes, or the periodic monitoring of a symbiosis already running — yearly updates rather than a one-off study. Pick the one whose name would go on the cover of the report.",
+        "This is the question that governs the others: from it the tool works out which system you are examining, and therefore which data it will ask you for later. If you hesitate between two options, keep the one that describes the thing whose effects you want to measure.",
     },
 
     q2: {

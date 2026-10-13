@@ -136,7 +136,7 @@ const de: Locale = {
       unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir geben Ihnen eine kuratierte Tour.' },
     },
     tasks: {
-      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in 7 Fragen konfigurieren.' },
+      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in zehn Fragen konfigurieren.' },
       read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
       explore: { name: 'Region / Sektor erkunden', desc: 'Aggregierte Einblicke für mein Gebiet durchsuchen.' },
       browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel — ich möchte sehen, was das Tool tut.' },
@@ -195,7 +195,7 @@ const de: Locale = {
     modeGuided: 'Geführt',
     modeHint: {
       expert: 'Schneller Fragebogen für IS-Analysten und Prüfer, die mit der ILCD / LCSA-Terminologie vertraut sind.',
-      guided: 'Schritt-für-Schritt-Modus für Industrielle, Gemeindevertreter und politische Entscheidungsträger. Beispiele sind standardmäßig erweitert.',
+      guided: 'Schritt-für-Schritt-Modus für Industrielle, Gemeindevertreter und politische Entscheidungsträger. Jede Frage hat eine Erklärung in einfachen Worten; die vollständige methodische Anmerkung bleibt einen Klick entfernt.',
     },
     hero: { title: 'Neue IS-Bewertung starten' },
     openCasesLink: 'Oder gespeicherten Fall öffnen',
@@ -284,7 +284,7 @@ const de: Locale = {
   about: {
     title: 'Über',
     p1:
-      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus sieben Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
+      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus zehn Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
       'Die 7 Kernfragen (Q1-Q7) und drei optionale (Q8-Q10) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:

@@ -149,7 +149,7 @@ const en = {
       unknown: { name: 'Not sure yet', desc: 'That\'s fine — we\'ll give you a curated tour.' },
     },
     tasks: {
-      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via 7 questions.' },
+      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via ten questions.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore a region / sector', desc: 'Browse aggregate insights for my area or industry.' },
       browse: { name: 'Just look around', desc: 'No specific goal — I want to see what the tool does.' },
@@ -249,7 +249,7 @@ const en = {
     modeGuided: 'Guided',
     modeHint: {
       expert: 'Fast questionnaire for IS analysts and reviewers familiar with ILCD / LCSA terminology.',
-      guided: 'Step-by-step mode for industrial managers, community representatives and policymakers. Examples are expanded by default and an intro banner explains the questionnaire flow.',
+      guided: 'Step-by-step mode for industrial managers, community representatives and policymakers. Each question comes with a plain-language explanation; the full methodological note stays one click away.',
     },
     hero: {
       title: 'Start a new IS assessment',
@@ -339,7 +339,7 @@ const en = {
   about: {
     title: 'About',
     p1:
-      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from seven questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
+      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from ten questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
       'The 7 core questions (Q1-Q7), plus three optional ones (Q8-Q10), drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:

@@ -142,7 +142,7 @@ const fr: Locale = {
       unknown: { name: 'Pas sûr encore', desc: 'C\'est bien — nous vous ferons une visite guidée.' },
     },
     tasks: {
-      assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie pour un cas IS en 7 questions.' },
+      assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie pour un cas IS en dix questions.' },
       read: { name: 'Lire un rapport partagé', desc: 'Ouvrir un cas partagé avec moi et voir le rapport.' },
       explore: { name: 'Explorer une région / secteur', desc: 'Parcourir les insights agrégés pour ma zone.' },
       browse: { name: 'Juste regarder', desc: 'Pas d\'objectif précis — je veux voir ce que fait l\'outil.' },
@@ -201,7 +201,7 @@ const fr: Locale = {
     modeGuided: 'Guidé',
     modeHint: {
       expert: "Questionnaire rapide pour les analystes IS et relecteurs familiers avec la terminologie ILCD / LCSA.",
-      guided: "Mode pas-à-pas pour les industriels, représentants de communautés et décideurs. Les exemples sont développés par défaut.",
+      guided: "Mode pas-à-pas pour les industriels, représentants de communautés et décideurs. Chaque question est accompagnée d'une explication en mots simples ; la note méthodologique complète reste à un clic.",
     },
     hero: { title: 'Démarrer une nouvelle évaluation IS' },
     openCasesLink: 'Ou ouvrir un cas sauvegardé',
@@ -290,7 +290,7 @@ const fr: Locale = {
   about: {
     title: 'À propos',
     p1:
-      "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de sept questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
+      "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de dix questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
       "Les 7 questions principales (Q1-Q7), plus trois facultatives (Q8-Q10), déclenchent l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:

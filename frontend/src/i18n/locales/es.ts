@@ -136,7 +136,7 @@ const es: Locale = {
       unknown: { name: 'Aún no lo sé', desc: 'Está bien — te haremos una visita guiada.' },
     },
     tasks: {
-      assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología para un caso IS en 7 preguntas.' },
+      assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología para un caso IS en diez preguntas.' },
       read: { name: 'Leer un informe compartido', desc: 'Abre un caso compartido y ve el informe.' },
       explore: { name: 'Explorar una región / sector', desc: 'Navega insights agregados de tu zona.' },
       browse: { name: 'Solo mirar', desc: 'Sin objetivo específico — quiero ver qué hace la herramienta.' },
@@ -195,7 +195,7 @@ const es: Locale = {
     modeGuided: 'Guiado',
     modeHint: {
       expert: 'Cuestionario rápido para analistas IS y revisores familiarizados con la terminología ILCD / LCSA.',
-      guided: 'Modo paso a paso para industriales, representantes comunitarios y responsables políticos. Los ejemplos están expandidos por defecto.',
+      guided: 'Modo paso a paso para industriales, representantes comunitarios y responsables políticos. Cada pregunta lleva una explicación en palabras sencillas; la nota metodológica completa queda a un clic.',
     },
     hero: { title: 'Iniciar una nueva evaluación IS' },
     openCasesLink: 'O abrir un caso guardado',
@@ -284,7 +284,7 @@ const es: Locale = {
   about: {
     title: 'Acerca de',
     p1:
-      "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de siete preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
+      "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de diez preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
     p2:
       'Las 7 preguntas principales (Q1-Q7), más tres opcionales (Q8-Q10), impulsan la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:

@@ -16,6 +16,7 @@ const fr: Locale = {
     skip: '(passer)',
     required: 'Requis',
     examplesAndContext: 'Exemples et contexte',
+    methodologicalNote: 'Note méthodologique complète',
     yes: 'oui',
     no: 'non',
   },
@@ -307,7 +308,7 @@ const fr: Locale = {
     title: 'Questionnaire',
     guidedBannerTitle: 'Mode guidé actif',
     guidedBannerBody:
-      'Les exemples et explications contextuelles sont développés par défaut. Lisez chaque bloc attentivement — les sept questions déterminent le pathway méthodologique et le plan de collecte de données que vous recevrez à la fin.',
+      "Chaque question s'ouvre sur une explication courte, en mots simples. La note méthodologique complète, dans la formulation des livrables du projet, reste à un clic sous chaque question. Les dix réponses déterminent le pathway méthodologique et le plan de collecte de données que vous recevrez à la fin.",
     intro:
       "Dix questions sur votre cas de symbiose industrielle. Q1 et au moins une dimension Q3 sont requises ; le reste est optionnel mais améliore la sortie du moteur.",
     runButton: 'Exécuter la pipeline',
@@ -334,6 +335,8 @@ const fr: Locale = {
         D: { label: 'D. Rapport entreprise', description: "La contribution symbiotique d'une seule entreprise pour reporting ESG/CSRD." },
         E: { label: 'E. Suivi', description: "Suivi temporel d'une symbiose déjà opérationnelle." },
       },
+      plain:
+        "De qui ou de quoi parle le rapport ? D'un échange entre deux entreprises, d'un parc ou d'un réseau entier, d'un programme public, du bilan qu'une seule entreprise fait de sa propre contribution, ou du suivi périodique d'une symbiose déjà en service — des mises à jour annuelles, pas une étude unique. Choisissez celui dont le nom figurerait en couverture du rapport.",
     },
 
     q2: {
@@ -349,6 +352,8 @@ const fr: Locale = {
         C: { label: 'C. Phase de conception', description: 'Uniquement en phase de conception (aucune donnée opérationnelle).' },
         D: { label: 'D. Baseline + alternatives', description: 'Baseline existante + N scénarios alternatifs futurs.' },
       },
+      plain:
+        "Où en est le système ? S'il fonctionne déjà, vous pouvez le mesurer ; s'il est encore sur le papier, vous ne pouvez que l'estimer. Choisissez la dernière option si vous voulez comparer la situation actuelle à un ou plusieurs futurs possibles : c'est elle qui ouvre l'éditeur de scénarios ci-dessous.",
     },
 
     q3: {
@@ -363,6 +368,8 @@ const fr: Locale = {
       env: 'Environnementale (LCA)',
       eco: 'Économique (LCC)',
       soc: 'Sociale (S-LCA)',
+      plain:
+        "Trois évaluations distinctes, chacune avec sa méthode et ses données : environnementale, économique — les coûts sur tout le cycle de vie, pas une analyse coûts-bénéfices — et sociale. Choisissez celles que vous comptez livrer. La plupart des études publiées ne font que l'environnementale, et ajouter l'économique est l'étape suivante habituelle ; la sociale demande bien plus d'informations auprès des personnes concernées, prévoyez donc d'aller les recueillir.",
     },
 
     q4: {
@@ -390,6 +397,8 @@ const fr: Locale = {
         },
         E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed.' },
       },
+      plain:
+        "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (CSRD, passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Vous pouvez en choisir plusieurs.",
     },
 
     q5: {
@@ -404,6 +413,8 @@ const fr: Locale = {
         'd — flux INTERDÉPENDANT : A a délibérément modifié son procédé (qualité, quantité, post-traitement) pour fournir B ; un co-produit quel que soit le prix, jamais zéro-charge. ' +
         'e — AGRÉGÉ / boîte noire : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C\'est une limite de la source, pas un choix de modélisation : D4.1 §9.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. ' +
         'Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de zéro-charge) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.',
+      plain:
+        "Pour chaque chose qui circule entre les entreprises — chaleur, eau, scories, CO₂ — la question ici est seulement qui paie qui : l'expéditeur paie pour s'en débarrasser, personne ne paie, ou le destinataire paie pour l'obtenir. Si l'expéditeur a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l'argent. Si votre source ne donne qu'un chiffre pour tout le réseau, choisissez la dernière option : on vous interrogera tout de même sur chaque flux que vous savez nommer, car une règle unique pour tout le réseau n'est pas admise. Savoir si un flux est un déchet au sens du droit se décide plus tard, dans le fichier de collecte de données, pas ici.",
     },
 
     q6a: {
@@ -435,6 +446,8 @@ const fr: Locale = {
         agri_food: 'Agroalimentaire / bioraffineries (legacy)',
         process_industry: 'Industrie de process (legacy)',
       },
+      plain:
+        "Le secteur principal du cas : l'activité de l'entreprise qui apporte le plus de masse, d'énergie ou de valeur. Cela active quelques exigences et quelques valeurs par défaut propres au secteur. Si le cas chevauche plusieurs secteurs, choisissez multi-sector, et ignorez les entrées marquées (legacy).",
     },
 
     q6b: {
@@ -451,6 +464,8 @@ const fr: Locale = {
         'TRL5-6': 'TRL 5-6 — prototype',
         'TRL<5': 'TRL <5 — R&D précoce',
       },
+      plain:
+        "Le degré de maturité de la technologie clé : en exploitation commerciale, premier pilote, prototype, ou encore en laboratoire. Moins elle est mature, plus vos chiffres seront des estimations et non des mesures, et plus le résultat doit porter sa propre incertitude.",
     },
 
     q7: {
@@ -468,6 +483,8 @@ const fr: Locale = {
         C: { label: 'C. Zone étendue', description: 'Inter-régional ou transfrontalier.' },
         D: { label: 'D. Multi-échelle', description: "National / industrie-wide, distances variables." },
       },
+      plain:
+        "Comment les sites sont répartis : un seul site, plusieurs sites dans une même région, des sites entre régions ou au-delà des frontières, ou un programme national ou sectoriel. Le transport est compté quelle que soit votre réponse ; celle-ci change seulement le niveau de détail qu'on vous demandera sur les itinéraires et les modes. Aucun seuil de distance ne se cache derrière les quatre options : chaque flux a sa propre distance de rentabilité, et le fichier de collecte de données vous la demande, flux par flux, d'après votre propre analyse de sensibilité.",
     },
     q8: {
       title: 'Q8 — Durée de vie technique attendue des actifs principaux (années)',
@@ -475,6 +492,8 @@ const fr: Locale = {
       details: 'Années pendant lesquelles les actifs principaux (installation, équipements, infrastructures) devraient fonctionner. Au-delà de 15 ans, le moteur ajoute des scénarios d\'arrière-plan futurs (SSP/RCP) : le nœud de futurisation ACV (Q2=D), celui des scénarios dynamiques ACC (Q2=C ou D) et la règle CIR-01. D4.1 demande des données d\'arrière-plan futures dans toute étude ex-ante ; D4.2 les lie aux actifs de plus de 15 ans ; cette question alimente la seconde lecture et, laissée vide, ne change rien.',
       placeholder: 'p. ex. 20',
       unit: 'ans',
+      plain:
+        "Combien d'années l'installation et les équipements sont censés fonctionner. Laissez vide si vous ne savez pas : rien ne change. Au-delà d'une quinzaine d'années, le résultat dépend de l'évolution de l'électricité, des carburants et des marchés sur des décennies ; pour un système encore en projet ou encore à venir, l'outil vous demandera alors de vous prononcer sur cet avenir.",
     },
     q9: {
       title: 'Q9 — L\'étude soutient-elle une décision, et à quelle échelle ?',
@@ -486,6 +505,8 @@ const fr: Locale = {
         micro: 'Oui, à conséquences limitées : pas de changement de la capacité installée ni des prix dans l\'économie au sens large (situation A)',
         structural: 'Oui, à conséquences à grande échelle : déplace environ 1 % ou plus des constructions annuelles du marché concerné (situation B ; la preuve doit être documentée)',
       },
+      plain:
+        "Une décision découle-t-elle de cette étude, et quelle est l'ampleur de ses effets ? Vous ne pouvez répondre « aucune décision » que pour un réseau qui existe déjà. Les effets qui restent à l'intérieur des installations concernées sont faibles ; ceux qui déplacent un marché entier sont importants, et la preuve doit en être documentée. Pour le bilan propre d'une seule entreprise, la réponse ne change rien. Sans réponse, l'outil la déduit de la première question.",
     },
     q10: {
       title: 'Q10 — L\'étude sert-elle un objectif de politique publique ou d\'aménagement du territoire ?',
@@ -496,6 +517,8 @@ const fr: Locale = {
         yes: 'Oui — objectif de politique publique ou d\'aménagement du territoire (ajoute l\'ACC sociétal)',
         no: 'Non — l\'étude ne sert pas un objectif de politique ou d\'aménagement',
       },
+      plain:
+        "Répondez oui si l'étude doit alimenter une décision publique — une commune, une région, un régulateur, un plan. Elle ajoute alors une seconde lecture économique du point de vue de la société : des impôts comptés autrement, et des effets que personne ne paie en argent. Pour le bilan propre d'une seule entreprise, la lecture économique reste au niveau de l'entreprise, et l'outil vous le dit. Sans réponse, l'outil la déduit de la première question.",
     },
 
     q2dCard: {

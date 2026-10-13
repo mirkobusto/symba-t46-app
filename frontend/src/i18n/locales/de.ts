@@ -16,6 +16,7 @@ const de: Locale = {
     skip: '(überspringen)',
     required: 'Erforderlich',
     examplesAndContext: 'Beispiele und Kontext',
+    methodologicalNote: 'Vollständige methodische Anmerkung',
     yes: 'ja',
     no: 'nein',
   },
@@ -301,7 +302,7 @@ const de: Locale = {
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
-      'Beispiele und kontextuelle Erklärungen sind standardmäßig erweitert. Lesen Sie jeden Block sorgfältig — die sieben Fragen bestimmen den methodischen Pathway und den Datenerhebungsplan, den Sie am Ende erhalten.',
+      "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die zehn Antworten bestimmen den methodischen Pathway und den Datenerhebungsplan, den Sie am Ende erhalten.",
     intro:
       'Zehn Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
     runButton: 'Pipeline ausführen',
@@ -328,6 +329,8 @@ const de: Locale = {
         D: { label: 'D. Unternehmensbericht', description: 'Der symbiotische Beitrag eines einzelnen Unternehmens für ESG/CSRD-Reporting.' },
         E: { label: 'E. Monitoring', description: 'Zeitliches Monitoring einer bereits operativen Symbiose.' },
       },
+      plain:
+        "Um wen oder was geht es im Bericht? Um einen Austausch zwischen zwei Unternehmen, um einen ganzen Park oder ein ganzes Netz, um ein öffentliches Programm, um die Rechenschaft eines einzelnen Unternehmens über seinen eigenen Beitrag, oder um die laufende Beobachtung einer bereits betriebenen Symbiose — jährliche Fortschreibung, keine einmalige Studie. Wählen Sie das, dessen Name auf dem Deckblatt des Berichts stehen würde.",
     },
 
     q2: {
@@ -343,6 +346,8 @@ const de: Locale = {
         C: { label: 'C. Designphase', description: 'Nur in der Designphase (keine operativen Daten).' },
         D: { label: 'D. Baseline + Alternativen', description: 'Bestehende Baseline + N alternative Zukunftsszenarien.' },
       },
+      plain:
+        "Wie weit ist das System? Was bereits läuft, können Sie messen; was noch auf dem Papier steht, können Sie nur schätzen. Wählen Sie die letzte Option, wenn Sie die heutige Lage mit einer oder mehreren möglichen Zukünften vergleichen wollen: sie öffnet den Szenario-Editor weiter unten.",
     },
 
     q3: {
@@ -357,6 +362,8 @@ const de: Locale = {
       env: 'Umwelt (LCA)',
       eco: 'Ökonomisch (LCC)',
       soc: 'Sozial (S-LCA)',
+      plain:
+        "Drei getrennte Bewertungen, jede mit eigener Methode und eigenen Daten: ökologisch, wirtschaftlich — Kosten über den ganzen Lebensweg, keine Kosten-Nutzen-Analyse — und sozial. Wählen Sie die, die Sie abliefern wollen. Die meisten veröffentlichten Studien machen nur die ökologische, und die ökonomische dazuzunehmen ist der übliche nächste Schritt; die soziale verlangt viel mehr Auskunft von den beteiligten Menschen, rechnen Sie also damit, sie einzuholen.",
     },
 
     q4: {
@@ -384,6 +391,8 @@ const de: Locale = {
         },
         E: { label: 'E. Akademische Publikation', description: 'Akademische peer-reviewte Publikation.' },
       },
+      plain:
+        "Wer das Ergebnis liest und was damit geschieht, entscheidet, wie streng die Methode sein muss. Eine interne Notiz ist der leichteste Fall. Die Ausrichtung an EU-Instrumenten (CSRD, Produktpass, PEF) schreibt die EU-eigene Zählweise für recyceltes und zurückgewonnenes Material fest. Öffentlich zu behaupten, Ihr Produkt sei besser als ein anderes, ist der schwerste Fall: das verlangt eine unabhängige Prüfung durch externe Fachleute. Mehrfachauswahl ist möglich.",
     },
 
     q5: {
@@ -398,6 +407,8 @@ const de: Locale = {
         'd — INTERDEPENDENTER Fluss: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
         'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
         'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
+      plain:
+        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Datenerhebungsbogen entschieden, nicht hier.",
     },
 
     q6a: {
@@ -429,6 +440,8 @@ const de: Locale = {
         agri_food: 'Agri-Food / Bioraffinerien (legacy)',
         process_industry: 'Prozessindustrie (legacy)',
       },
+      plain:
+        "Der Hauptsektor des Falls: die Tätigkeit des Unternehmens, das den größten Teil der Masse, der Energie oder des Werts beiträgt. Er schaltet einige sektorspezifische Anforderungen und Voreinstellungen ein. Liegt der Fall quer zu mehreren Sektoren, wählen Sie multi-sector, und lassen Sie die mit (legacy) markierten Einträge beiseite.",
     },
 
     q6b: {
@@ -445,6 +458,8 @@ const de: Locale = {
         'TRL5-6': 'TRL 5-6 — Prototyp',
         'TRL<5': 'TRL <5 — frühe F&E',
       },
+      plain:
+        "Wie ausgereift die Schlüsseltechnologie ist: im kommerziellen Betrieb, erste Pilotanlage, Prototyp, oder noch im Labor. Je weniger ausgereift, desto mehr sind Ihre Zahlen Schätzungen statt Messungen, und desto mehr muss das Ergebnis seine eigene Unsicherheit mittragen.",
     },
 
     q7: {
@@ -462,6 +477,8 @@ const de: Locale = {
         C: { label: 'C. Weiträumig', description: 'Überregional oder grenzüberschreitend.' },
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
       },
+      plain:
+        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Datenerhebungsbogen fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
     },
     q8: {
       title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
@@ -469,6 +486,8 @@ const de: Locale = {
       details: 'Jahre, in denen die Hauptanlagen (Anlage, Ausrüstung, Infrastruktur) voraussichtlich betrieben werden. Über 15 Jahren fügt die Engine zukünftige Hintergrundszenarien (SSP/RCP) hinzu: den LCA-Futurisierungsknoten (Q2=D), den LCC-Knoten für dynamische Szenarien (Q2=C oder D) und die Regel CIR-01. D4.1 verlangt zukünftige Hintergrunddaten in jeder Ex-ante-Studie; D4.2 bindet sie an Anlagen über 15 Jahre; diese Frage speist die zweite Lesart und ändert nichts, wenn sie leer bleibt.',
       placeholder: 'z. B. 20',
       unit: 'Jahre',
+      plain:
+        "Wie viele Jahre Anlage und Ausrüstung laufen sollen. Lassen Sie das Feld leer, wenn Sie es nicht wissen — es ändert nichts. Jenseits von etwa fünfzehn Jahren hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte über Jahrzehnte verändern; bei einem noch geplanten oder noch kommenden System bittet das Werkzeug Sie dann um eine Einschätzung dieser Zukunft.",
     },
     q9: {
       title: 'Q9 — Unterstützt die Studie eine Entscheidung, und in welchem Maßstab?',
@@ -480,6 +499,8 @@ const de: Locale = {
         micro: 'Ja, mit begrenzten Folgen: keine Änderung der installierten Kapazität oder der Preise in der Gesamtwirtschaft (Situation A)',
         structural: 'Ja, mit Folgen in großem Maßstab: verdrängt etwa 1 % oder mehr des jährlichen Neubaus im betroffenen Markt (Situation B; der Nachweis ist zu dokumentieren)',
       },
+      plain:
+        "Hängt von dieser Studie eine Entscheidung ab, und wie groß sind ihre Folgen? „Keine Entscheidung“ können Sie nur für ein Netz angeben, das bereits besteht. Folgen, die innerhalb der beteiligten Anlagen bleiben, sind klein; Folgen, die einen ganzen Markt verschieben, sind groß, und der Nachweis dafür muss dokumentiert werden. Für die eigene Rechenschaft eines einzelnen Unternehmens ändert die Antwort nichts. Ohne Antwort liest das Werkzeug sie aus der ersten Frage ab.",
     },
     q10: {
       title: 'Q10 — Dient die Studie einem Ziel der öffentlichen Politik oder der Raumplanung?',
@@ -490,6 +511,8 @@ const de: Locale = {
         yes: 'Ja — Ziel der öffentlichen Politik oder der Raumplanung (ergänzt die gesellschaftliche LCC)',
         no: 'Nein — kein Ziel der Politik oder Raumplanung',
       },
+      plain:
+        "Antworten Sie ja, wenn die Studie einer öffentlichen Entscheidung dienen soll — einer Gemeinde, einer Region, einer Aufsichtsbehörde, einem Plan. Dann kommt eine zweite wirtschaftliche Lesart aus Sicht der Gesellschaft hinzu: anders gerechnete Steuern und Folgen, die niemand in Geld bezahlt. Für die eigene Rechenschaft eines einzelnen Unternehmens bleibt die wirtschaftliche Lesart auf Unternehmensebene, und das Werkzeug sagt es Ihnen. Ohne Antwort liest das Werkzeug sie aus der ersten Frage ab.",
     },
 
     q2dCard: {

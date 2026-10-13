@@ -305,8 +305,8 @@ const de: Locale = {
       "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die zehn Antworten bestimmen den methodischen Pathway und den Datenerhebungsplan, den Sie am Ende erhalten.",
     intro:
       'Zehn Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
-    runButton: 'Pipeline ausführen',
-    runningButton: 'Läuft…',
+    runButton: 'Pfad berechnen',
+    runningButton: 'Wird berechnet…',
     resetButton: 'Entwurf zurücksetzen',
     confirmReset: 'Alle Antworten verwerfen und neu beginnen? Dies kann nicht rückgängig gemacht werden.',
     q1Required: 'Q1 ist erforderlich.',
@@ -352,7 +352,7 @@ const de: Locale = {
 
     q3: {
       title: 'Q3 — Welche Nachhaltigkeitsdimensionen einbeziehen? *',
-      help: 'Mindestens eine ist erforderlich. Standard: ENV + ECO.',
+      help: 'Mindestens eine ist erforderlich. Umwelt und Ökonomie sind die übliche Paarung.',
       details:
         'ENV — Umwelt-Lebenszyklusanalyse (LCA): Auswirkungen auf Klima, Ökosysteme, Ressourcennutzung. Fast immer ausgewählt. ' +
         'ECO — ökonomische Dimension, bewertet mit Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb des LCC-Pfads (aktiviert durch ECO und durch umstrittene Stoffströme in Q5), keine Alternative dazu; CBA und TEA bietet diese Engine nicht an. ' +
@@ -367,7 +367,7 @@ const de: Locale = {
     },
 
     q4: {
-      title: 'Q4 — Wofür ist der Bericht?',
+      title: 'Q4 — Wofür wird diese Studie verwendet?',
       help: 'Mehrfachauswahl. Einige Verwendungen kombinieren sich (z. B. D + E für ein EU-PEF-Paper).',
       details:
         'A — interne Nutzung: Management-Dashboards, F&E-Screening, Werks-Entscheidungen. Wenige methodische Einschränkungen. ' +
@@ -413,8 +413,7 @@ const de: Locale = {
 
     q6a: {
       title: 'Q6a — Sektor',
-      help:
-        '14 kanonische Sektoren laut WorkingDoc §3 + Sonstige. Sektor-spezifische Knotenaktivierungen (z. B. lca_mc_30 wastewater) lesen dieses Enum.',
+      help: 'Der Hauptsektor des Falls. Er schaltet einige sektorspezifische Anforderungen ein.',
       details:
         'Der Sektor steuert eine kleine Menge sektor-spezifischer Knotenaktivierungen und Overlay-Defaults. Wählen Sie die nächste Übereinstimmung zum dominanten Sektor des Falls (Akteur mit größtem Beitrag in Masse/Energie/Wert). ' +
         'Beispiele: pulp_paper für Sokka 2011 (UPM Kymi); chemicals_fertilizers für Hashimoto / Wiktor; cement_construction für Leiva 2025 Escombreras; biobased_polymers für Briassoulis; food_production / agri-food für Daddi. ' +
@@ -441,7 +440,7 @@ const de: Locale = {
         process_industry: 'Prozessindustrie (legacy)',
       },
       plain:
-        "Der Hauptsektor des Falls: die Tätigkeit des Unternehmens, das den größten Teil der Masse, der Energie oder des Werts beiträgt. Er schaltet einige sektorspezifische Anforderungen und Voreinstellungen ein. Liegt der Fall quer zu mehreren Sektoren, wählen Sie multi-sector, und lassen Sie die mit (legacy) markierten Einträge beiseite.",
+        "Der Hauptsektor des Falls: die Tätigkeit des Unternehmens, das den größten Teil der Masse, der Energie oder des Werts beiträgt. Er schaltet einige sektorspezifische Anforderungen und Voreinstellungen ein. Liegt der Fall quer zu mehreren Sektoren, wählen Sie Multi-Sektor, und lassen Sie die mit (legacy) markierten Einträge beiseite.",
     },
 
     q6b: {
@@ -674,6 +673,11 @@ const de: Locale = {
       block: 'Blockierend',
       obligation: 'Zu dokumentieren',
       decision: 'Zu entscheiden',
+    },
+    severity: {
+      HIGH: 'Hoch',
+      MEDIUM: 'Mittel',
+      LOW: 'Niedrig',
     },
     action: {
       appliesToCase: "Gilt für diesen Fall.",

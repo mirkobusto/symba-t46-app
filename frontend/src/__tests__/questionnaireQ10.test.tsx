@@ -40,7 +40,7 @@ describe('Questionnaire Q10 — policy purpose', () => {
     )
   const q10Pick = (value: string) =>
     fireEvent.click(q10Radios().find((r) => r.value === value)!)
-  const run = () => fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
+  const run = () => fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
 
   it('offers yes, no and "not answered", unanswered by default', () => {
     expect(q10Radios().map((r) => r.value)).toEqual(['', 'yes', 'no'])

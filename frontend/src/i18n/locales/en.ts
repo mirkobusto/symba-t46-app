@@ -360,8 +360,8 @@ const en = {
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
       'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological pathway and the data-collection plan you receive at the end.',
-    runButton: 'Run pipeline',
-    runningButton: 'Running…',
+    runButton: 'Work out the pathway',
+    runningButton: 'Working it out…',
     resetButton: 'Reset draft',
     confirmReset: 'Discard all answers and start over? This cannot be undone.',
     q1Required: 'Q1 is required.',
@@ -407,7 +407,7 @@ const en = {
 
     q3: {
       title: 'Q3 — Which sustainability dimensions to include? *',
-      help: 'At least one is required. Default: ENV + ECO.',
+      help: 'At least one is required. Environmental and economic are the usual pairing.',
       details:
         'ENV — Environmental Life Cycle Assessment (LCA): impacts on climate, ecosystems, resource use. Almost always selected. ' +
         'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC pathway (activated by ECO and by contested flows in Q5), not an alternative to it; CBA and TEA are not offered by this engine. ' +
@@ -422,7 +422,7 @@ const en = {
     },
 
     q4: {
-      title: 'Q4 — What is the report for?',
+      title: 'Q4 — What will this study be used for?',
       help: 'Multi-select. Some uses combine (e.g. D + E for an EU PEF paper).',
       details:
         'A — internal use: management dashboards, R&D screening, plant-level decisions. Few methodological constraints. ' +
@@ -468,8 +468,7 @@ const en = {
 
     q6a: {
       title: 'Q6a — Sector',
-      help:
-        '14 canonical sectors per WorkingDoc §3 + Other. Sector-specific node activations (e.g. lca_mc_30 wastewater) read this enum.',
+      help: 'The main sector of the case. It switches on a few sector-specific requirements.',
       details:
         'Sector controls a small set of sector-specific node activations and overlay defaults. Pick the closest match to the dominant sector of the case (the actor that contributes most mass/energy/value). ' +
         'Examples: pulp_paper for Sokka 2011 (UPM Kymi); chemicals_fertilizers for Hashimoto / Wiktor; cement_construction for Leiva 2025 Escombreras; biobased_polymers for Briassoulis; food_production / agri-food for Daddi. ' +
@@ -496,7 +495,7 @@ const en = {
         process_industry: 'Process industry (legacy)',
       },
       plain:
-        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick multi-sector, and ignore the entries marked (legacy).",
+        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick Multi-sector, and ignore the entries marked (legacy).",
     },
 
     q6b: {
@@ -728,6 +727,11 @@ const en = {
       block: 'Blocking',
       obligation: 'To document',
       decision: 'To decide',
+    },
+    severity: {
+      HIGH: 'High',
+      MEDIUM: 'Medium',
+      LOW: 'Low',
     },
     action: {
       appliesToCase: "Applies to this case.",

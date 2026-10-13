@@ -52,14 +52,14 @@ describe('Questionnaire Q8 — asset lifetime', () => {
     renderPage()
     const input = q8Input() as HTMLInputElement
     fireEvent.change(input, { target: { value: '25' } })
-    fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].asset_lifetime_years).toBe(25)
   })
 
   it('sends null when left empty', async () => {
     renderPage()
-    fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].asset_lifetime_years).toBeNull()
   })

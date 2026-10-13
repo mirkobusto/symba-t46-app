@@ -652,6 +652,7 @@ const es: Locale = {
       decision: 'Por decidir',
     },
     action: {
+      appliesToCase: "Se aplica a este caso.",
       resolution: "Cómo se resuelve",
       why: 'Por qué te afecta',
       todo: 'Qué documentar',

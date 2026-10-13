@@ -706,6 +706,7 @@ const en = {
       decision: 'To decide',
     },
     action: {
+      appliesToCase: "Applies to this case.",
       resolution: "How it is resolved",
       why: 'Why it applies to you',
       todo: 'What to document',

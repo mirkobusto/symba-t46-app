@@ -73,7 +73,7 @@ export default function ObligationList({ obligations, sourceCase }: Props) {
                     {term?.name ?? item.title ? (
                       <strong>{term?.name ?? item.title} — </strong>
                     ) : null}
-                    {term?.body || item.statement}
+                    {term ? term.body || t('result.action.appliesToCase') : item.statement}
                   </p>
                   <p className="obl-meta">
                     <span className={`dd-pill dd-pill-${

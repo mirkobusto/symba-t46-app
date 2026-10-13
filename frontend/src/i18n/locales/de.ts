@@ -652,6 +652,7 @@ const de: Locale = {
       decision: 'Zu entscheiden',
     },
     action: {
+      appliesToCase: "Gilt für diesen Fall.",
       resolution: "Wie das aufgelöst wird",
       why: 'Warum es Sie betrifft',
       todo: 'Was zu dokumentieren ist',

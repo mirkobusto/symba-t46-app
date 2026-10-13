@@ -684,6 +684,7 @@ const it: Locale = {
       decision: 'Da decidere',
     },
     action: {
+      appliesToCase: "Si applica a questo caso.",
       resolution: "Come si risolve",
       why: 'Perché riguarda te',
       todo: 'Cosa documentare',

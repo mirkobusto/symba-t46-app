@@ -346,7 +346,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'Ogni dimensione usa il proprio paradigma di incertezza; non è ammessa una normalizzazione fra dimensioni (IR-14).',
       },
       'IR-15': {
-        name: 'Gerarchia della valorizzazione nulla',
+        name: 'Gerarchia del valore nullo',
         body: 'La gerarchia zero-burden in quattro passi dell\'LCA e il test di evitabilità dell\'LCC devono portare alla stessa classificazione, flusso per flusso (IR-15).',
       },
       'IR-16': {
@@ -523,7 +523,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
     block: {
       'block_C2_plus_E-LCC': {
         name: '',
-        body: 'In questo strumento il rendiconto aziendale (Q1=D) è costeggiato solo a livello di impresa (C-LCC), quindi non si può combinare con un E-LCC di rete. È una scelta di progetto di T4.6: D4.2 lega il tipo di LCC allo scopo dello studio, non a Q1. Per costeggiare la rete, usa Q1=A/B/C/E.',
+        body: 'In questo strumento nel rendiconto aziendale (Q1=D) i costi sono calcolati solo a livello di impresa (C-LCC), quindi non si può combinare con un E-LCC di rete. È una scelta di progetto di T4.6: D4.2 lega il tipo di LCC allo scopo dello studio, non a Q1. Per calcolare i costi della rete, usa Q1=A/B/C/E.',
       },
       'block_anyQ1_plus_AbsoluteSLCA': {
         name: '',
@@ -598,7 +598,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'Chaque dimension utilise son propre paradigme d\'incertitude ; aucune normalisation entre dimensions n\'est admise (IR-14).',
       },
       'IR-15': {
-        name: 'Hiérarchie de la valorisation nulle',
+        name: 'Hiérarchie de la valeur nulle',
         body: 'La hiérarchie zero-burden en quatre étapes de la LCA et le test d\'évitabilité de la LCC doivent aboutir à la même classification, flux par flux (IR-15).',
       },
       'IR-16': {
@@ -1027,7 +1027,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
     block: {
       'block_C2_plus_E-LCC': {
         name: '',
-        body: 'In diesem Werkzeug wird die Unternehmensberichterstattung (Q1=D) allein auf Unternehmensebene bepreist (C-LCC) und lässt sich daher nicht mit einer E-LCC auf Netzebene verbinden. Das ist eine Entwurfsentscheidung von T4.6: D4.2 knüpft den LCC-Typ an den Zweck der Studie, nicht an Q1. Um das Netz zu bepreisen, verwenden Sie Q1=A/B/C/E.',
+        body: 'In diesem Werkzeug werden die Kosten der Unternehmensberichterstattung (Q1=D) allein auf Unternehmensebene erfasst (C-LCC) und lässt sich daher nicht mit einer E-LCC auf Netzebene verbinden. Das ist eine Entwurfsentscheidung von T4.6: D4.2 knüpft den LCC-Typ an den Zweck der Studie, nicht an Q1. Um die Kosten des Netzes zu erfassen, verwenden Sie Q1=A/B/C/E.',
       },
       'block_anyQ1_plus_AbsoluteSLCA': {
         name: '',
@@ -1059,7 +1059,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-04': {
         name: 'Interpretación paralela',
-        body: 'Interpretación paralela obligatoria: ningún puntaje único que agregue dimensiones distintas (IR-04).',
+        body: 'Interpretación paralela obligatoria: ninguna puntuación única que agregue dimensiones distintas (IR-04).',
       },
       'IR-05': {
         name: 'Autonomía metodológica',
@@ -1083,7 +1083,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-10': {
         name: 'Prohibición de agregar',
-        body: 'Los informes dirigidos al público no pueden usar puntajes únicos agregados (IR-10).',
+        body: 'Los informes dirigidos al público no pueden usar puntuaciones únicas agregadas (IR-10).',
       },
       'IR-11': {
         name: 'Isomorfismo del reporte por capas',
@@ -1226,8 +1226,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         resolution: 'Cada uno mantiene su convención (IR-05); el LCC usa costes anualizados para la ecoeficiencia',
       },
       'CDP-03': {
-        name: 'Puntaje único frente a NPV',
-        body: 'El S-LCA prohíbe el puntaje único; el LCC produce un NPV',
+        name: 'Puntuación única frente a NPV',
+        body: 'El S-LCA prohíbe la puntuación única; el LCC produce un NPV',
         resolution: 'Interpretación paralela según IR-04; el NPV queda como resultado solo de la dimensión económica',
       },
       'CDP-04': {
@@ -1252,8 +1252,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CDP-08': {
         name: 'Tensión sobre ponderación y agregación',
-        body: 'El LCA prohíbe la ponderación en público y el S-LCA el puntaje único; la gente quiere una sola cifra',
-        resolution: 'Ningún puntaje único en la comunicación pública (IR-10); los paneles internos siguen siendo 3 separados',
+        body: 'El LCA prohíbe la ponderación en público y el S-LCA la puntuación única; la gente quiere una sola cifra',
+        resolution: 'Ninguna puntuación única en la comunicación pública (IR-10); los paneles internos siguen siendo 3 separados',
       },
       'CDP-09': {
         name: 'Asimetría en la proyección al futuro',
@@ -1279,7 +1279,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
     block: {
       'block_C2_plus_E-LCC': {
         name: '',
-        body: 'En esta herramienta el informe corporativo (Q1=D) se costea solo a nivel de empresa (C-LCC), así que no puede combinarse con un E-LCC de red. Es una decisión de diseño de T4.6: D4.2 ata el tipo de LCC a la finalidad del estudio, no a Q1. Para costear la red, usa Q1=A/B/C/E.',
+        body: 'En esta herramienta en el informe corporativo (Q1=D) los costes se calculan solo a nivel de empresa (C-LCC), así que no puede combinarse con un E-LCC de red. Es una decisión de diseño de T4.6: D4.2 ata el tipo de LCC a la finalidad del estudio, no a Q1. Para calcular los costes de la red, usa Q1=A/B/C/E.',
       },
       'block_anyQ1_plus_AbsoluteSLCA': {
         name: '',

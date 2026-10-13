@@ -20,6 +20,8 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 
 COPY frontend/ ./
+# narrativeSync.test.ts imports ../../../backend/app/data/narrative.json, and tsc -b type-checks tests too
+COPY backend/app/data/narrative.json ../backend/app/data/narrative.json
 RUN npm run build
 
 # ===== Stage 2: backend runtime + frontend static =====

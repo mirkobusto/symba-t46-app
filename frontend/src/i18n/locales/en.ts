@@ -851,11 +851,11 @@ const en = {
         whatYouSee:
           "What this page tells you today: which methodology the assessment will follow, and therefore which data you will be asked for. The data request itself is the Data Collection File.",
         whenScoring:
-          "Once the scoring arrives you will see the cost and environmental figures per flow, so you can judge whether the exchange pays off.",
+          "Once the scoring arrives you will see the environmental and economic indicators for the case, so you can judge whether the exchange pays off.",
       },
       community: {
         whatYouSee:
-          "What this page tells you today: who takes part in the symbiosis, what is exchanged between them, and whether this study examines social effects at all.",
+          "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
         whenScoring:
           "Once the scoring arrives you will see the social indicators — workers, local community — and the environmental ones, each with the group it concerns.",
       },

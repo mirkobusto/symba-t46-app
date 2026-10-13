@@ -830,11 +830,11 @@ const it: Locale = {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quale metodologia seguirà la valutazione, e quindi quali dati ti verranno chiesti. La richiesta vera e propria è il Data Collection File.",
         whenScoring:
-          "Quando arriveranno i punteggi vedrai i costi e gli impatti ambientali per flusso, così da giudicare se lo scambio conviene.",
+          "Quando arriveranno i punteggi vedrai gli indicatori ambientali ed economici del caso, così da giudicare se lo scambio conviene.",
       },
       community: {
         whatYouSee:
-          "Cosa ti dice questa pagina oggi: chi partecipa alla simbiosi, cosa si scambiano, e se questo studio esamina o no gli effetti sociali.",
+          "Cosa ti dice questa pagina oggi: quali flussi le aziende si scambiano, e se questo studio esamina o no gli effetti sociali.",
         whenScoring:
           "Quando arriveranno i punteggi vedrai gli indicatori sociali — lavoratori, comunità locale — e quelli ambientali, ciascuno con il gruppo che riguarda.",
       },

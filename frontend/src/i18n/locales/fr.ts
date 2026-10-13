@@ -803,11 +803,11 @@ const fr: Locale = {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quelle méthodologie l'évaluation suivra, et donc quelles données vous seront demandées. La demande elle-même, c'est le Data Collection File.",
         whenScoring:
-          "À l'arrivée des résultats chiffrés, vous verrez les coûts et les impacts environnementaux par flux, de quoi juger si l'échange est rentable.",
+          "À l'arrivée des résultats chiffrés, vous verrez les indicateurs environnementaux et économiques du cas, de quoi juger si l'échange est rentable.",
       },
       community: {
         whatYouSee:
-          "Ce que cette page vous dit aujourd'hui : qui participe à la symbiose, ce qui s'échange entre eux, et si cette étude examine ou non les effets sociaux.",
+          "Ce que cette page vous dit aujourd'hui : quels flux les entreprises échangent, et si cette étude examine ou non les effets sociaux.",
         whenScoring:
           "À l'arrivée des résultats chiffrés, vous verrez les indicateurs sociaux — travailleurs, communauté locale — et les indicateurs environnementaux, chacun avec le groupe qu'il concerne.",
       },

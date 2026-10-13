@@ -797,11 +797,11 @@ const de: Locale = {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welcher Methodik die Bewertung folgt und welche Daten deshalb von Ihnen verlangt werden. Die Abfrage selbst ist das Data Collection File.",
         whenScoring:
-          "Sobald die Kennzahlen vorliegen, sehen Sie Kosten und Umweltwirkungen je Fluss und können beurteilen, ob sich der Austausch rechnet.",
+          "Sobald die Kennzahlen vorliegen, sehen Sie die ökologischen und ökonomischen Kennzahlen des Falls und können beurteilen, ob sich der Austausch rechnet.",
       },
       community: {
         whatYouSee:
-          "Was diese Seite Ihnen heute sagt: wer an der Symbiose beteiligt ist, was zwischen den Beteiligten ausgetauscht wird, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
+          "Was diese Seite Ihnen heute sagt: welche Flüsse die Unternehmen austauschen, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
         whenScoring:
           "Sobald die Kennzahlen vorliegen, sehen Sie die sozialen Indikatoren — Beschäftigte, lokale Gemeinschaft — und die ökologischen, jeweils mit der betroffenen Gruppe.",
       },

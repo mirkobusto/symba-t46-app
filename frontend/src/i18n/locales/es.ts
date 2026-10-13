@@ -797,11 +797,11 @@ const es: Locale = {
         whatYouSee:
           "Lo que esta página te dice hoy: qué metodología seguirá la evaluación y, por tanto, qué datos se te pedirán. La petición en sí es el Data Collection File.",
         whenScoring:
-          "Cuando lleguen los resultados verás los costes y los impactos ambientales por flujo, para juzgar si el intercambio compensa.",
+          "Cuando lleguen los resultados verás los indicadores ambientales y económicos del caso, para juzgar si el intercambio compensa.",
       },
       community: {
         whatYouSee:
-          "Lo que esta página te dice hoy: quién participa en la simbiosis, qué se intercambia entre ellos y si este estudio examina o no los efectos sociales.",
+          "Lo que esta página te dice hoy: qué flujos intercambian las empresas y si este estudio examina o no los efectos sociales.",
         whenScoring:
           "Cuando lleguen los resultados verás los indicadores sociales — trabajadores, comunidad local — y los ambientales, cada uno con el grupo al que afecta.",
       },

@@ -5,6 +5,7 @@
 // by the public reader shell.
 
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export type ComplianceStatus = 'ok' | 'no' | 'pending' | 'na'
 
@@ -18,14 +19,16 @@ interface Item {
 
 interface Props { items: Item[] }
 
-const DEFAULT_LABEL: Record<ComplianceStatus, string> = {
-  ok: '✓ yes',
-  no: 'not declared',
-  pending: '⏳ pending',
-  na: 'not applicable',
-}
-
 export default function ComplianceChecklist({ items }: Props) {
+  const { t } = useTranslation()
+  // The badges were hardcoded English on a screen built for a local
+  // authority, which is exactly the reader least likely to want it.
+  const label: Record<ComplianceStatus, string> = {
+    ok: t('compliance.status.ok'),
+    no: t('compliance.status.no'),
+    pending: t('compliance.status.pending'),
+    na: t('compliance.status.na'),
+  }
   return (
     <ul className="dd-check-list">
       {items.map((it) => (
@@ -35,7 +38,7 @@ export default function ComplianceChecklist({ items }: Props) {
             {it.desc ? <div className="dd-check-desc">{it.desc}</div> : null}
           </div>
           <span className={`dd-badge dd-badge-${it.status}`}>
-            {it.label ?? DEFAULT_LABEL[it.status]}
+            {it.label ?? label[it.status]}
           </span>
         </li>
       ))}

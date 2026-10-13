@@ -62,6 +62,13 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         </div>
       ) : null}
 
+      {item.resolution ? (
+        <div className="dd-action-todo">
+          <span className="dd-action-label">{t('result.action.resolution')}</span>
+          <p className="dd-action-resolution">{item.resolution}</p>
+        </div>
+      ) : null}
+
       {item.detail && item.title ? (
         <p className="dd-action-detail">{item.detail}</p>
       ) : null}

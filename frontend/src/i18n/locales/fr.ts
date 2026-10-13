@@ -108,7 +108,7 @@ const fr: Locale = {
       eyebrow: 'À propos de SYMBA T4.6',
       title: 'Rapports publics · en bref',
       lead:
-        'Pratiques méthodologiques rendues obligatoires par vos réponses, plus les décisions encore ouvertes. Chacune indique pourquoi elle concerne votre cas.',
+        "Quelqu'un a partagé un cas avec vous.",
       whoTitle: 'Qui est derrière ?',
       whoBody: 'SYMBA est un projet Horizon Europe (GA 101135562, M22–M36).',
       whatTitle: 'Qu\'est-ce qu\'un rapport ?',
@@ -193,7 +193,7 @@ const fr: Locale = {
     title: "SYMBA T4.6 — Outil d'évaluation IS",
     tagline: 'Sélection méthodologique pour la Symbiose Industrielle (LCA / LCC / S-LCA).',
     description:
-      "Répondez à sept questions sur votre cas d'étude de symbiose industrielle. Le moteur de décision dérive le pathway IS terminal (IS-01..IS-05) et une configuration méthodologique complète à partir des 186 nœuds Phase 1 des livrables D4.1, D4.2 et D4.3, plus les 40 règles cross-method.",
+      "Répondez à dix questions sur votre cas d'étude de symbiose industrielle. Le moteur de décision dérive le pathway IS terminal (IS-01..IS-05) et une configuration méthodologique complète à partir des 186 nœuds Phase 1 des livrables D4.1, D4.2 et D4.3, plus les 40 règles cross-method.",
     startButton: 'Démarrer une nouvelle évaluation',
     modeLabel: 'Mode UX',
     modeExpert: 'Expert',
@@ -309,7 +309,7 @@ const fr: Locale = {
     guidedBannerBody:
       "Chaque question s'ouvre sur une explication courte, en mots simples. La note méthodologique complète, dans la formulation des livrables du projet, reste à un clic sous chaque question. Les dix réponses déterminent le pathway méthodologique et le plan de collecte de données que vous recevrez à la fin.",
     intro:
-      "Sept questions sur votre cas de symbiose industrielle. Q1 et au moins une dimension Q3 sont requises ; le reste est optionnel mais améliore la sortie du moteur.",
+      "Dix questions sur votre cas de symbiose industrielle. Q1 et au moins une dimension Q3 sont requises ; le reste est optionnel mais améliore la sortie du moteur.",
     runButton: 'Exécuter la pipeline',
     runningButton: 'Exécution…',
     resetButton: 'Réinitialiser le brouillon',
@@ -318,7 +318,7 @@ const fr: Locale = {
     shortcutTip: 'Astuce : Ctrl/⌘+Entrée pour exécuter',
 
     q1: {
-      title: 'Q1 — Que analysez-vous ? *',
+      title: "Q1 — Qu'analysez-vous ? *",
       help:
         "Choisissez la correspondance la plus proche. En cas d'ambiguïté, demandez-vous : qui est le SUJET du rapport ? (Requis.)",
       details:
@@ -469,7 +469,7 @@ const fr: Locale = {
 
     q7: {
       title: 'Q7 — Distribution géographique',
-      help: 'Disposition qualitative du réseau. Le transport est modélisé explicitement quelle que soit la réponse ; la distance de rentabilité dépend du type de flux et se calcule flux par flux dans le Data Collection File (Logistique).',
+      help: 'Disposition qualitative du réseau. Le transport est modélisé explicitement quelle que soit la réponse ; la distance de rentabilité dépend du type de flux et est demandée pour chaque flux dans le Data Collection File, où vous notez celle issue de votre propre analyse de sensibilité (Logistique).',
       details:
         'La réponse change la façon de demander les données logistiques (couplage SIG, sensibilité spatiale), pas le fait de modéliser le transport : D4.1 §13.3.1 exige que chaque liaison de transport soit un processus unitaire distinct de l\'avant-plan, avec des données primaires sur la distance, l\'itinéraire et le mode, et une analyse de sensibilité sur la distance pour trouver le point d\'équilibre. Aucun seuil de distance ne se cache derrière les quatre options : le point d\'équilibre dépend du type de flux et de l\'alternative qu\'il remplace (D4.1 §13.2.1 et D4.2 donnent des fourchettes indicatives, pour vérifier la vraisemblance d\'un modèle, jamais comme données d\'entrée) ; chaque étude calcule le sien, flux par flux. ' +
         'A — colocalisé : un seul site ou des installations voisines (parc éco-industriel). Les liaisons sont courtes (canalisation, convoyeur, manutention interne) mais modélisées ; pour la chaleur, la vapeur et l\'eau en canalisation, l\'infrastructure dédiée domine en général. ' +
@@ -679,6 +679,7 @@ const fr: Locale = {
       decision: 'À décider',
     },
     action: {
+      resolution: "Comment cela se résout",
       why: 'Pourquoi cela vous concerne',
       todo: "Ce qu'il faut documenter",
     },
@@ -694,7 +695,7 @@ const fr: Locale = {
       slca: 'S-LCA',
       activatedNodes: 'Nœuds activés',
       l1Blocks: 'BLOCK L1 déclenchés',
-      l2Violations: 'Violations L2',
+      l2Violations: "Échecs d'assertion L2 (diagnostic)",
       l3Cdps: 'CDP L3 émergés',
       extended: '(étendu)',
     },
@@ -801,7 +802,7 @@ const fr: Locale = {
 
   auth: {
     title: 'Se connecter',
-    subtitle: 'Facultatif pour consulter les cas legacy / publics. Requis pour créer des cas privés ou utiliser le tableau de bord régional.',
+    subtitle: 'Facultatif pour consulter les cas legacy / publics. Requis pour créer des cas privés que vous seul pouvez modifier.',
     tabLogin: 'Se connecter',
     tabRegister: 'Créer un compte',
     emailLabel: 'Email',
@@ -820,13 +821,29 @@ const fr: Locale = {
     },
   },
 
+  scoringPending: {
+    title: "En attente des résultats chiffrés",
+    body:
+      "Les résultats quantitatifs LCSA de ce cas n'ont pas encore été livrés. À leur arrivée, les indicateurs environnementaux, économiques et sociaux apparaîtront ici.",
+    lastChecked: "Dernière vérification : {{date}}",
+  },
+
+  compliance: {
+    status: {
+      ok: "oui",
+      no: "non déclaré",
+      pending: "en attente",
+      na: "sans objet",
+    },
+  },
   stakeholder: {
     noVerdict: "Aucun parcours dérivé pour ce cas.",
     notAssessed: {
       social: "Cette étude n'évalue pas les impacts sociaux : la dimension sociale a été désactivée à la configuration du cas. Demandez à l'analyste de l'activer si les travailleurs ou la communauté locale font partie de la question.",
       economic: "Cette étude n'évalue pas les coûts : la dimension économique a été désactivée à la configuration du cas.",
     },
-    flowsLine: "{{count}} flux échangé(s) : {{names}}.",
+    flowsLine_one: "{{count}} flux échangé : {{names}}.",
+    flowsLine_other: "{{count}} flux échangés : {{names}}.",
     navLink: 'Rapport parties prenantes',
     title: 'Rapport parties prenantes',
     subtitle:
@@ -865,9 +882,12 @@ const fr: Locale = {
     scoringEmpty: 'Aucun indicateur pertinent pour cette partie prenante.',
     indicatorPending: 'en attente',
     engineDetailsTitle: 'Détails du pipeline',
-    activatedNodesCount: '{{count}} nœud(s) méthodologique(s) activé(s)',
-    obligations: "{{count}} pratique(s) méthodologique(s) à documenter",
-    cdpFlagsCount: '{{count}} tension(s) inter-dimension(s)',
+    activatedNodesCount_one: '{{count}} nœud méthodologique activé',
+    activatedNodesCount_other: '{{count}} nœuds méthodologiques activés',
+    obligations_one: "{{count}} pratique méthodologique à documenter",
+    obligations_other: "{{count}} pratiques méthodologiques à documenter",
+    cdpFlagsCount_one: '{{count}} tension inter-dimensions',
+    cdpFlagsCount_other: '{{count}} tensions inter-dimensions',
     complianceTitle: 'Signaux de conformité',
     compliance: {
       peerReview: 'Relecture par les pairs (Q4=E) : {{status}}',

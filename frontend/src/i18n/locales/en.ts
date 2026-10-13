@@ -846,6 +846,35 @@ const en = {
   },
 
   stakeholder: {
+    audience: {
+      industry: {
+        whatYouSee:
+          "What this page tells you today: which methodology the assessment will follow, and therefore which data you will be asked for. The data request itself is the Data Collection File.",
+        whenScoring:
+          "Once the scoring arrives you will see the cost and environmental figures per flow, so you can judge whether the exchange pays off.",
+      },
+      community: {
+        whatYouSee:
+          "What this page tells you today: who takes part in the symbiosis, what is exchanged between them, and whether this study examines social effects at all.",
+        whenScoring:
+          "Once the scoring arrives you will see the social indicators — workers, local community — and the environmental ones, each with the group it concerns.",
+      },
+      authority: {
+        whatYouSee:
+          "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and the geographic scope it covers.",
+        whenScoring:
+          "Once the scoring arrives you will see the environmental figures and, where the study includes them, the societal costs — the two a public decision rests on.",
+        scope: "Geographic scope declared for the case: Q7 = {{q7}}.",
+      },
+      'end-user': {
+        whatYouSee:
+          "What this page tells you today: which materials this symbiosis puts back into use, and whether environmental and social effects are examined.",
+        whenScoring:
+          "Once the scoring arrives you will see the environmental and social indicators of the chain behind the product.",
+        productCaveat:
+          "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
+      },
+    },
     noVerdict: "No pathway derived yet for this case.",
     notAssessed: {
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",

@@ -825,6 +825,35 @@ const it: Locale = {
   },
 
   stakeholder: {
+    audience: {
+      industry: {
+        whatYouSee:
+          "Cosa ti dice questa pagina oggi: quale metodologia seguirà la valutazione, e quindi quali dati ti verranno chiesti. La richiesta vera e propria è il Data Collection File.",
+        whenScoring:
+          "Quando arriveranno i punteggi vedrai i costi e gli impatti ambientali per flusso, così da giudicare se lo scambio conviene.",
+      },
+      community: {
+        whatYouSee:
+          "Cosa ti dice questa pagina oggi: chi partecipa alla simbiosi, cosa si scambiano, e se questo studio esamina o no gli effetti sociali.",
+        whenScoring:
+          "Quando arriveranno i punteggi vedrai gli indicatori sociali — lavoratori, comunità locale — e quelli ambientali, ciascuno con il gruppo che riguarda.",
+      },
+      authority: {
+        whatYouSee:
+          "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e qual è l'ambito geografico coperto.",
+        whenScoring:
+          "Quando arriveranno i punteggi vedrai i valori ambientali e, dove lo studio li include, i costi societali — i due su cui si regge una decisione pubblica.",
+        scope: "Ambito geografico dichiarato per il caso: Q7 = {{q7}}.",
+      },
+      'end-user': {
+        whatYouSee:
+          "Cosa ti dice questa pagina oggi: quali materiali questa simbiosi rimette in uso, e se gli effetti ambientali e sociali sono esaminati.",
+        whenScoring:
+          "Quando arriveranno i punteggi vedrai gli indicatori ambientali e sociali della filiera dietro al prodotto.",
+        productCaveat:
+          "Questa valutazione descrive lo scambio tra le aziende, non il prodotto finale che compri: lo strumento non chiede quale sia il prodotto.",
+      },
+    },
     noVerdict: "Nessun pathway ancora derivato per questo caso.",
     notAssessed: {
       social: "Questo studio non valuta gli impatti sociali: la dimensione sociale è stata disattivata alla configurazione del caso. Chiedi all'analista di attivarla se lavoratori o comunità locale fanno parte della domanda.",

@@ -798,6 +798,35 @@ const fr: Locale = {
   },
 
   stakeholder: {
+    audience: {
+      industry: {
+        whatYouSee:
+          "Ce que cette page vous dit aujourd'hui : quelle méthodologie l'évaluation suivra, et donc quelles données vous seront demandées. La demande elle-même, c'est le Data Collection File.",
+        whenScoring:
+          "À l'arrivée des résultats chiffrés, vous verrez les coûts et les impacts environnementaux par flux, de quoi juger si l'échange est rentable.",
+      },
+      community: {
+        whatYouSee:
+          "Ce que cette page vous dit aujourd'hui : qui participe à la symbiose, ce qui s'échange entre eux, et si cette étude examine ou non les effets sociaux.",
+        whenScoring:
+          "À l'arrivée des résultats chiffrés, vous verrez les indicateurs sociaux — travailleurs, communauté locale — et les indicateurs environnementaux, chacun avec le groupe qu'il concerne.",
+      },
+      authority: {
+        whatYouSee:
+          "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et quelle est l'étendue géographique couverte.",
+        whenScoring:
+          "À l'arrivée des résultats chiffrés, vous verrez les valeurs environnementales et, lorsque l'étude les inclut, les coûts sociétaux — les deux piliers d'une décision publique.",
+        scope: "Étendue géographique déclarée pour le cas : Q7 = {{q7}}.",
+      },
+      'end-user': {
+        whatYouSee:
+          "Ce que cette page vous dit aujourd'hui : quels matériaux cette symbiose remet en usage, et si les effets environnementaux et sociaux sont examinés.",
+        whenScoring:
+          "À l'arrivée des résultats chiffrés, vous verrez les indicateurs environnementaux et sociaux de la filière derrière le produit.",
+        productCaveat:
+          "Cette évaluation décrit l'échange entre les entreprises, pas le produit final que vous achetez : l'outil ne demande jamais quel est le produit.",
+      },
+    },
     noVerdict: "Aucun parcours dérivé pour ce cas.",
     notAssessed: {
       social: "Cette étude n'évalue pas les impacts sociaux : la dimension sociale a été désactivée à la configuration du cas. Demandez à l'analyste de l'activer si les travailleurs ou la communauté locale font partie de la question.",

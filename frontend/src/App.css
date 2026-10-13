@@ -4801,3 +4801,14 @@ kbd {
 .privacy ul {
   padding-left: 1.2rem;
 }
+
+.stakeholder-what-you-see {
+  background: var(--dd-surface-muted);
+  border-left: 3px solid var(--dd-brand);
+  border-radius: 0 var(--dd-radius-sm) var(--dd-radius-sm) 0;
+  padding: var(--dd-space-3) var(--dd-space-4);
+  margin: 0 0 var(--dd-space-4);
+  font-size: 13px;
+  color: var(--dd-text-soft);
+  max-width: 80ch;
+}

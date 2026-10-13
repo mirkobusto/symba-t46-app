@@ -61,6 +61,16 @@ rework di visual identity (PR #42, "Data Dashboard"). Il 2026-10-04 è stata mer
 verifica app-vs-deliverable (PR #89, 36 commit; I-01…I-19 tranne i punti elencati sotto), insieme a
 tre domande opzionali (Q8-Q10), `Case.warnings`, la nuova sezione DCF `flow_classification`, il
 branding del sito symbaproject.eu con font in locale e una bozza di informativa privacy (PR #88).
+
+Il **2026-10-13** è stato mergiato il round di audit UX (PR #95-#102), nato da sei agenti
+tester lanciati in quattro lingue sul sito pubblico. In sintesi: promesse dei testi allineate
+a quello che l'app fa davvero; il ruolo scelto nel wizard ora decide la scheda di atterraggio;
+le quattro viste di pubblico (industria, comunità, autorità, end-user) dicono cose diverse
+invece di essere due coppie identiche; la **modalità guidata ha un registro suo**
+(`questionnaire.qN.plain`, 5 lingue) e non apre più d'ufficio la nota da analisti; e il testo
+che arriva dagli schemi (42 nomi di regola, 32 enunciati, 12 CDP, 4 messaggi di blocco) è
+tradotto in `frontend/src/i18n/schemaTerms.ts`, con il codice IR-/CDP- che resta il
+riferimento e il nome inglese accanto per chi non legge in inglese.
 Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
@@ -123,7 +133,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-04, dopo deploy pubblico e correzioni UI): **657 backend (pytest, +1 skipped) + 133 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-13, dopo il round di audit UX): **657 backend (pytest, +1 skipped) + 152 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

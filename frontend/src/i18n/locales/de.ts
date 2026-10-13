@@ -161,6 +161,7 @@ const de: Locale = {
       aggregate: 'Regionales Dashboard',
       dcf: 'Data Collection File',
       about: 'Über',
+      changeRole: 'Rolle ändern',
     },
   },
 

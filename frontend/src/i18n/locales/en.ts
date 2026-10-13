@@ -174,6 +174,7 @@ const en = {
       aggregate: 'Regional dashboard',
       dcf: 'Data Collection File',
       about: 'About',
+      changeRole: 'Change role',
     },
   },
 

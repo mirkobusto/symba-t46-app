@@ -161,6 +161,7 @@ const es: Locale = {
       aggregate: 'Panel regional',
       dcf: 'Data Collection File',
       about: 'Acerca de',
+      changeRole: 'Cambiar de rol',
     },
   },
 

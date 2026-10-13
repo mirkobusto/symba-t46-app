@@ -7,7 +7,7 @@
 // Groups:
 //   - Workspace  → Home overview / New assessment / My cases / Recent results
 //   - Reports    → Stakeholder views / Regional dashboard
-//   - System     → Settings / About (Scoring queue will land in a later phase)
+//   - System     → About / Change role (Scoring queue will land in a later phase)
 //
 // The sidebar footer surfaces the mandatory EU / GA reference so it is
 // visible without scrolling to the very bottom of the page.
@@ -52,6 +52,9 @@ export default function Sidebar() {
       title: t('adminShell.groups.system'),
       items: [
         { to: '/about', label: t('adminShell.nav.about'), glyph: 'ⓘ' },
+        // The wizard sits outside the shell, so this link never shows as active. `step=1` opens it on
+        // the role question: with a role already saved it would start on the task question.
+        { to: '/welcome?step=1', label: t('adminShell.nav.changeRole'), glyph: '⇄' },
       ],
     },
   ]

@@ -193,6 +193,7 @@ const it: Locale = {
       aggregate: 'Dashboard regionale',
       dcf: 'Data Collection File',
       about: 'Info',
+      changeRole: 'Cambia ruolo',
     },
   },
 

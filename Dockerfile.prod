@@ -20,8 +20,14 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 
 COPY frontend/ ./
-# narrativeSync.test.ts imports ../../../backend/app/data/narrative.json, and tsc -b type-checks tests too
+# `tsc -b` type-checks the tests too, and two of them read the backend's
+# canonical data so there is one copy of it in the repo rather than two:
+# narrativeSync.test.ts reads narrative.json, schemaTermsSync.test.ts the
+# rule table. Both sit outside the frontend/ this stage copies, so the
+# build fails on a missing module unless they come along. Add a line here
+# when a test starts reading another backend file.
 COPY backend/app/data/narrative.json ../backend/app/data/narrative.json
+COPY backend/app/schemas/cross_method_rules.json ../backend/app/schemas/cross_method_rules.json
 RUN npm run build
 
 # ===== Stage 2: backend runtime + frontend static =====

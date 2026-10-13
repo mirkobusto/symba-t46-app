@@ -448,7 +448,7 @@ const es: Locale = {
 
     q7: {
       title: 'Q7 — Distribución geográfica',
-      help: 'Disposición cualitativa de la red. El transporte se modela explícitamente respondas lo que respondas; la distancia de equilibrio depende del tipo de flujo y se calcula flujo a flujo en el Data Collection File (Logística).',
+      help: 'Disposición cualitativa de la red. El transporte se modela explícitamente respondas lo que respondas; la distancia de equilibrio depende del tipo de flujo y se te pide para cada flujo en el Data Collection File (Logística), donde registras la que haya dado tu propio análisis de sensibilidad.',
       details:
         'La respuesta cambia cómo se piden los datos logísticos (acoplamiento SIG, sensibilidad espacial), no si se modela el transporte: D4.1 §13.3.1 exige que cada enlace de transporte sea un proceso unitario distinto del primer plano, con datos primarios de distancia, ruta y modo, y un análisis de sensibilidad de la distancia para hallar el punto de equilibrio. Detrás de las cuatro opciones no hay ningún umbral de distancia: el punto de equilibrio depende del tipo de flujo y de la alternativa que desplaza (D4.1 §13.2.1 y D4.2 dan rangos indicativos, para comprobar la verosimilitud de un modelo, nunca como entradas); cada estudio calcula el suyo, flujo a flujo. ' +
         'A — colocalizada: un solo emplazamiento o plantas contiguas (parque ecoindustrial). Los enlaces son cortos (tubería, cinta, manipulación interna) pero se modelan; para calor, vapor y agua en tubería suele dominar la infraestructura dedicada. ' +

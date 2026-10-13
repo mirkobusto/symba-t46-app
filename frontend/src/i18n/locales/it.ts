@@ -16,6 +16,7 @@ const it: Locale = {
     skip: '(salta)',
     required: 'Obbligatorio',
     examplesAndContext: 'Esempi e contesto',
+    methodologicalNote: 'Nota metodologica completa',
     yes: 'sì',
     no: 'no',
   },
@@ -333,7 +334,7 @@ const it: Locale = {
     title: 'Questionario',
     guidedBannerTitle: 'Modalità guidata attiva',
     guidedBannerBody:
-      'Gli esempi e le spiegazioni contestuali sono espansi di default. Leggi ogni blocco con attenzione — le sette domande determinano il pathway metodologico e il piano di raccolta dati che riceverai al termine.',
+      "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda. Le dieci risposte determinano il pathway metodologico e il piano di raccolta dati che riceverai al termine.",
     intro:
       'Sette domande sul tuo caso di simbiosi industriale. Q1 e almeno una dimensione Q3 sono obbligatorie; il resto è opzionale ma migliora l\'output del motore.',
     runButton: 'Esegui pipeline',
@@ -360,6 +361,8 @@ const it: Locale = {
         D: { label: 'D. Report aziendale', description: "Il contributo simbiotico di una singola azienda per reportistica ESG/CSRD." },
         E: { label: 'E. Monitoraggio', description: 'Monitoraggio temporale di una simbiosi già operativa.' },
       },
+      plain:
+        "Di chi o di cosa parla il report? Di uno scambio fra due aziende, di un intero parco o rete, di un programma pubblico, del contributo che una singola azienda rendiconta per sé, oppure del monitoraggio periodico di una simbiosi già in funzione — aggiornamenti annuali, non uno studio una volta sola. Scegli quello il cui nome andrebbe sulla copertina del report.",
     },
 
     q2: {
@@ -375,6 +378,8 @@ const it: Locale = {
         C: { label: 'C. Fase di progettazione', description: 'Solo in fase di progettazione (nessun dato operativo).' },
         D: { label: 'D. Baseline + alternative', description: 'Baseline esistente + N scenari alternativi futuri.' },
       },
+      plain:
+        "Quanto è avanti il sistema? Se è già in funzione lo puoi misurare; se è ancora sulla carta lo puoi solo stimare. Scegli l'ultima opzione se vuoi confrontare la situazione di oggi con uno o più futuri possibili: è quella che apre l'editor degli scenari qui sotto.",
     },
 
     q3: {
@@ -389,6 +394,8 @@ const it: Locale = {
       env: 'Ambientale (LCA)',
       eco: 'Economica (LCC)',
       soc: 'Sociale (S-LCA)',
+      plain:
+        "Tre valutazioni distinte, ognuna con il suo metodo e i suoi dati: ambientale, economica — i costi lungo tutto il ciclo di vita, non un'analisi costi-benefici — e sociale. Scegli quelle che intendi consegnare. Le prime due sono la coppia di default; quella sociale richiede molte più informazioni dalle persone coinvolte, quindi mettiti in conto di andare a raccoglierle.",
     },
 
     q4: {
@@ -416,6 +423,8 @@ const it: Locale = {
         },
         E: { label: 'E. Pubblicazione accademica', description: 'Pubblicazione peer-reviewed accademica.' },
       },
+      plain:
+        "Chi leggerà il risultato, e cosa ne farà, decide quanto deve essere severo il metodo. Una nota interna è il caso più leggero. Allinearsi agli strumenti UE (CSRD, passaporto di prodotto, PEF) impone il modo di contare il materiale riciclato e recuperato stabilito dall'UE. Dichiarare in pubblico che il tuo prodotto è migliore di un altro è il caso più pesante: richiede una revisione indipendente da parte di esperti esterni. Puoi scegliere più di una voce.",
     },
 
     q5: {
@@ -430,6 +439,8 @@ const it: Locale = {
         'd — flusso INTERDIPENDENTE: A ha modificato deliberatamente il proprio processo (qualità, quantità, post-trattamento) per fornire B; un co-prodotto qualunque sia il prezzo, mai zero-burden. ' +
         'e — AGGREGATO / black-box: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §9.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. ' +
         'Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.',
+      plain:
+        "Per ogni cosa che si muove fra le aziende — calore, acqua, scorie, CO₂ — qui la domanda è soltanto chi paga chi: chi manda il flusso paga per liberarsene, nessuno paga, oppure chi lo riceve lo paga. Se chi manda ha cambiato di proposito il proprio processo per fornirlo, scegli quella voce qualunque cosa dica il denaro. Se la tua fonte dà un unico numero per tutta la rete, scegli l'ultima opzione: ti verrà comunque chiesto di ogni flusso che sai nominare, perché una regola unica per tutta la rete non è ammessa. Se un flusso sia un rifiuto per la legge si decide dopo, nel file di raccolta dati, non qui.",
     },
 
     q6a: {
@@ -461,6 +472,8 @@ const it: Locale = {
         agri_food: 'Agroalimentare / bioraffinerie (legacy)',
         process_industry: 'Industria di processo (legacy)',
       },
+      plain:
+        "Il settore principale del caso: l'attività dell'azienda che contribuisce con la quota maggiore di massa, energia o valore. Accende qualche requisito e qualche default specifici di settore. Se il caso è a cavallo di più settori scegli multi-sector, e ignora le voci marcate (legacy).",
     },
 
     q6b: {
@@ -477,6 +490,8 @@ const it: Locale = {
         'TRL5-6': 'TRL 5-6 — prototipo',
         'TRL<5': 'TRL <5 — R&S iniziale',
       },
+      plain:
+        "Quanto è matura la tecnologia chiave: in esercizio commerciale, primo impianto pilota, prototipo, o ancora in laboratorio. Meno è matura, più i tuoi numeri saranno stime e non misure, e più il risultato deve portarsi dietro la propria incertezza.",
     },
 
     q7: {
@@ -494,6 +509,8 @@ const it: Locale = {
         C: { label: 'C. Area ampia', description: 'Tra regioni o transfrontaliera.' },
         D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
       },
+      plain:
+        "Come sono disposti i siti: un unico sito, più siti nella stessa regione, siti fra regioni o oltre confine, o un programma nazionale o di settore. Il trasporto si conta qualunque cosa rispondi; la risposta cambia solo quanto dettaglio ti verrà chiesto su percorsi e modalità. Dietro le quattro opzioni non c'è nessuna soglia di distanza: la distanza di convenienza di ogni flusso si calcola dopo, flusso per flusso.",
     },
     q8: {
       title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',
@@ -501,6 +518,8 @@ const it: Locale = {
       details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Oltre 15 anni il motore aggiunge scenari di background futuri (SSP/RCP): il nodo di futurizzazione LCA (Q2=D), quello degli scenari dinamici LCC (Q2=C o D) e la regola CIR-01. D4.1 chiede dati di background futuri in ogni studio ex-ante; D4.2 li lega agli asset oltre i 15 anni; questa domanda alimenta la seconda lettura e, lasciata vuota, non cambia nulla.',
       placeholder: 'es. 20',
       unit: 'anni',
+      plain:
+        "Quanti anni dovrebbero funzionare impianto e attrezzature. Lascia vuoto se non lo sai: non cambia nulla. Oltre i quindici anni circa il risultato dipende da come cambiano elettricità, combustibili e mercati nei decenni; per un sistema ancora in progetto o ancora da venire il tool ti chiederà allora di prendere posizione su quel futuro.",
     },
     q9: {
       title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
@@ -512,6 +531,8 @@ const it: Locale = {
         micro: 'Sì, con conseguenze limitate: nessun cambiamento della capacità installata né dei prezzi nell\'economia più ampia (situazione A)',
         structural: 'Sì, con conseguenze su larga scala: sposta circa l\'1% o più delle nuove costruzioni annuali nel mercato interessato (situazione B; la prova va documentata)',
       },
+      plain:
+        "Da questo studio dipende una decisione, e quanto grandi sono i suoi effetti? Puoi rispondere “nessuna decisione” solo per una rete che esiste già. Gli effetti che restano dentro gli impianti coinvolti sono piccoli; quelli che spostano un mercato intero sono grandi, e la prova va documentata. Per il rendiconto di una singola azienda la risposta non cambia nulla. Lascia senza risposta e il tool la ricava dalla prima domanda.",
     },
     q10: {
       title: 'Q10 — Lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale?',
@@ -522,6 +543,8 @@ const it: Locale = {
         yes: 'Sì — obiettivo di policy pubblica o di pianificazione territoriale (aggiunge l\'LCC sociale)',
         no: 'No — non serve un obiettivo di policy o di pianificazione',
       },
+      plain:
+        "Rispondi sì se lo studio serve a una decisione pubblica — un comune, una regione, un'autorità di regolazione, un piano. Aggiunge allora una seconda lettura economica dal punto di vista della società: imposte contate in modo diverso, ed effetti che nessuno paga in denaro. Per il rendiconto di una singola azienda la lettura economica resta a livello aziendale, e il tool te lo dice. Lascia senza risposta e il tool la ricava dalla prima domanda.",
     },
 
     q2dCard: {

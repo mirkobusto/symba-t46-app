@@ -17,6 +17,7 @@ const en = {
     skip: '(skip)',
     required: 'Required',
     examplesAndContext: 'Examples & context',
+    methodologicalNote: 'Full methodological note',
     yes: 'yes',
     no: 'no',
   },
@@ -357,7 +358,7 @@ const en = {
       'Seven questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
-      'Examples and contextual explanations are expanded by default. Read each block carefully — the seven questions drive the methodological pathway and the data-collection plan you will receive at the end.',
+      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological pathway and the data-collection plan you receive at the end.',
     runButton: 'Run pipeline',
     runningButton: 'Running…',
     resetButton: 'Reset draft',
@@ -382,6 +383,8 @@ const en = {
         D: { label: 'D. Corporate report', description: "A single company's symbiotic contribution for ESG/CSRD reporting." },
         E: { label: 'E. Monitoring', description: 'Time-series monitoring of an already operational symbiosis.' },
       },
+      plain:
+        "Who or what is the report about? One exchange between two companies, a whole park or network, a public programme, a single company's own account of what it contributes, or the periodic monitoring of a symbiosis already running — yearly updates rather than a one-off study. Pick the one whose name would go on the cover of the report.",
     },
 
     q2: {
@@ -397,6 +400,8 @@ const en = {
         C: { label: 'C. Design phase', description: 'Only in design phase (no operational data).' },
         D: { label: 'D. Baseline + alternatives', description: 'Existing baseline + N alternative future scenarios.' },
       },
+      plain:
+        "How far along is the system? Already running means you can measure it; still on paper means you can only estimate it. Pick the last option if you want to compare today's situation with one or more possible futures — that is what opens the scenarios editor below.",
     },
 
     q3: {
@@ -411,6 +416,8 @@ const en = {
       env: 'Environmental (LCA)',
       eco: 'Economic (LCC)',
       soc: 'Social (S-LCA)',
+      plain:
+        "Three separate assessments, each with its own method and its own data: environmental, economic — costs over the whole life cycle, not a cost-benefit analysis — and social. Pick the ones you intend to deliver. The first two are the default pair; the social one needs a great deal more information from the people involved, so expect to go and collect it.",
     },
 
     q4: {
@@ -438,6 +445,8 @@ const en = {
         },
         E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication.' },
       },
+      plain:
+        "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (CSRD, the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. You can pick more than one.",
     },
 
     q5: {
@@ -452,6 +461,8 @@ const en = {
         'd — INTERDEPENDENT flow: A deliberately altered its process (quality, quantity, post-treatment) to supply B; a co-product whatever the price, never zero-burden. ' +
         'e — AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §9.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
         'Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.',
+      plain:
+        "For each thing that moves between the companies — heat, water, slag, CO₂ — the question here is only who pays whom: the sender pays to be rid of it, nobody pays, or the receiver pays for it. If the sender deliberately changed its own process in order to supply it, pick that whatever the money says. If your source gives one figure for the whole network, pick the last option — but you will still be asked about every flow you can name, because one rule for the whole network is not allowed. Whether a flow counts as waste in law is settled later, in the data collection file, not here.",
     },
 
     q6a: {
@@ -483,6 +494,8 @@ const en = {
         agri_food: 'Agri-food / biorefineries (legacy)',
         process_industry: 'Process industry (legacy)',
       },
+      plain:
+        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick multi-sector, and ignore the entries marked (legacy).",
     },
 
     q6b: {
@@ -499,6 +512,8 @@ const en = {
         'TRL5-6': 'TRL 5-6 — prototype',
         'TRL<5': 'TRL <5 — early R&D',
       },
+      plain:
+        "How mature the key technology is: in commercial operation, a first pilot, a prototype, or still in the laboratory. The less mature it is, the more your figures will be estimates rather than measurements, and the more the result has to carry its own uncertainty.",
     },
 
     q7: {
@@ -516,6 +531,8 @@ const en = {
         C: { label: 'C. Wide-area', description: 'Cross-region or cross-border.' },
         D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
       },
+      plain:
+        "How the sites are laid out: a single site, several sites in one region, sites across regions or borders, or a national or industry-wide programme. Transport is counted whatever you answer; the answer only changes how much detail you will be asked for about routes and modes. No distance cut-off sits behind the four options — each flow's pay-off distance is worked out later, flow by flow.",
     },
     q8: {
       title: 'Q8 — Expected technical lifetime of the main assets (years)',
@@ -523,6 +540,8 @@ const en = {
       details: 'Years the main assets (plant, equipment, infrastructure) are expected to operate. Above 15 years the engine adds future background scenarios (SSP/RCP): the LCA futurisation node (Q2=D), the LCC dynamic-scenarios node (Q2=C or D) and rule CIR-01. D4.1 asks for future background data in every ex-ante study; D4.2 ties it to assets over 15 years; this question feeds the second reading and changes nothing when left empty.',
       placeholder: 'e.g. 20',
       unit: 'years',
+      plain:
+        "How many years the plant and the equipment are expected to run. Leave it empty if you do not know — nothing changes. Beyond about fifteen years the result depends on how electricity, fuels and markets change over decades; for a system still planned or still to come, the tool will then ask you to take a view on that future.",
     },
     q9: {
       title: 'Q9 — Does the study support a decision, and at what scale?',
@@ -534,6 +553,8 @@ const en = {
         micro: 'Yes, with limited consequences: no change to installed capacity or to prices in the wider economy (Situation A)',
         structural: 'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
       },
+      plain:
+        "Is a decision being taken because of this study, and how large are its effects? You can answer “no decision” only for a network that already exists. Effects that stay inside the plants involved are small ones; effects that shift a whole market are large, and the proof of that has to be documented. For a single company's own account the answer changes nothing. Leave it unanswered and the tool reads it off the first question.",
     },
     q10: {
       title: 'Q10 — Does the study serve a public policy or territorial planning objective?',
@@ -544,6 +565,8 @@ const en = {
         yes: 'Yes — a public policy or territorial planning objective (adds the societal LCC)',
         no: 'No — it does not serve a public policy or planning objective',
       },
+      plain:
+        "Answer yes if the study is meant to feed a public decision — a municipality, a region, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a single company's own account the economic reading stays at company level, and the tool tells you. Leave it unanswered and the tool reads it off the first question.",
     },
 
     q2dCard: {

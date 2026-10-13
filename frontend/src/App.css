@@ -2471,6 +2471,18 @@ kbd {
   color: var(--slate-700);
 }
 
+/* The plain-language register: the first thing a non-specialist reads. */
+.qcard-plain {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--dd-accent);
+  border-radius: 0 6px 6px 0;
+  background: var(--dd-accent-bg);
+  color: var(--slate-700);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 /* ---- Auth (Phase D) -------------------------------------------------- */
 
 .login-page {

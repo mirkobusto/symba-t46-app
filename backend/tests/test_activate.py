@@ -799,3 +799,30 @@ def test_q10_unanswered_keeps_every_q1_result(schemas):
         case = _q10_case(schemas, q1, None)
         assert (case.lcc["lcc_type"], case.lcc["discount_rate"], case.lcc["allocation_method"]) == (
             type_text, rate, allocation)
+
+
+# ---------------------------------------------------------------------------
+# lca_mc_26 — reference scenario type follows the study timing (D4.1 §11.1)
+# ---------------------------------------------------------------------------
+# Aissani et al. 2019 / D4.1 §11.1: existing network -> HNSRS, prospective -> CNSRS.
+# Q2=B counts as ex-ante (owner decision 2026-10-15); Q2=D pairs an operating
+# baseline (HNSRS) with future alternatives (CNSRS).
+
+
+def _reference_type(schemas, q2):
+    case = _baseline_case(q2=q2, q3=Q3(env=True))
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case.lca.get("reference_scenario.type", "")
+
+
+@pytest.mark.parametrize("q2, starts", [(Q2.A, "HNSRS"), (Q2.B, "CNSRS"), (Q2.C, "CNSRS"), (Q2.D, "HNSRS for the operating baseline")])
+def test_reference_scenario_type_follows_the_study_timing(schemas, q2, starts):
+    value = _reference_type(schemas, q2)
+    assert value.startswith(starts), value
+    assert "§11.3.3" in value   # best, worst and most-likely variants for every study
+
+
+def test_reference_scenario_ex_ante_is_aligned_with_the_time_horizon(schemas):
+    for q2 in (Q2.B, Q2.C, Q2.D):
+        assert "CNSRS aligned with the" in _reference_type(schemas, q2)

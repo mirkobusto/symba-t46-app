@@ -482,11 +482,11 @@ const es: Locale = {
     q8: {
       title: 'Q8 — Vida técnica esperada de los activos principales (años)',
       help: 'Opcional. Déjala vacía si no la conoces.',
-      details: 'Años durante los que se espera que funcionen los activos principales (planta, equipos, infraestructuras). Por encima de 15 años el motor añade escenarios de fondo futuros (SSP/RCP): el nodo de futurización ACV (Q2=D), el de escenarios dinámicos ACC (Q2=C o D) y la regla CIR-01. D4.1 pide datos de fondo futuros en todo estudio ex-ante; D4.2 los liga a activos de más de 15 años; esta pregunta alimenta la segunda lectura y, si se deja vacía, no cambia nada.',
+      details: 'Años durante los que se espera que funcionen los activos principales (planta, equipos, infraestructuras). Los escenarios de fondo futuros (SSP/RCP) se añaden tanto al ACV como al ACC (regla CIR-01) en todo estudio ex-ante (Q2 = B, C o D), como pide D4.1, y para los activos que funcionan más de 15 años, como pide D4.2; los 15 años son un valor por defecto de T4.6 sin fuente. Por eso esta respuesta solo cuenta para un estudio ex-post (Q2 = A); si se deja vacía, no cambia nada.',
       placeholder: 'p. ej. 20',
       unit: 'años',
       plain:
-        "Cuántos años se espera que funcionen la planta y los equipos. Déjalo vacío si no lo sabes: no cambia nada. Más allá de unos quince años el resultado depende de cómo cambien la electricidad, los combustibles y los mercados a lo largo de décadas; para un sistema todavía en proyecto o todavía por venir, la herramienta te pedirá entonces tomar posición sobre ese futuro.",
+        "Cuántos años se espera que funcionen la planta y los equipos. Déjalo vacío si no lo sabes. Solo cuenta para un sistema que ya funciona: más allá de unos quince años el resultado depende de cómo cambien la electricidad, los combustibles y los mercados a lo largo de décadas, y la herramienta te pide tomar posición sobre ese futuro. Para un sistema todavía en proyecto o en construcción te lo pide de todos modos.",
     },
     q9: {
       title: 'Q9 — ¿El estudio respalda una decisión, y a qué escala?',
@@ -562,7 +562,7 @@ const es: Locale = {
     removeAria: 'Eliminar {{key}}',
     hints: {
       slca_framework_override: "Establecer a 'absolute' para probar L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Años; >15 activa lca_mc_21, lcc_hc_23, CIR-01',
+      asset_lifetime: 'Años (se usa si Q8 está vacía); >15 añade el fondo futuro a un estudio ex-post (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Booleano; true activa CIR-03',
       network_nodes: 'Entero; ≥3 (con Q1=B + interdependent_flows) activa CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) activa CIR-04',

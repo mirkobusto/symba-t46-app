@@ -537,11 +537,11 @@ const en = {
     q8: {
       title: 'Q8 — Expected technical lifetime of the main assets (years)',
       help: 'Optional. Leave empty if you do not know.',
-      details: 'Years the main assets (plant, equipment, infrastructure) are expected to operate. Above 15 years the engine adds future background scenarios (SSP/RCP): the LCA futurisation node (Q2=D), the LCC dynamic-scenarios node (Q2=C or D) and rule CIR-01. D4.1 asks for future background data in every ex-ante study; D4.2 ties it to assets over 15 years; this question feeds the second reading and changes nothing when left empty.',
+      details: 'Years the main assets (plant, equipment, infrastructure) are expected to operate. Future background scenarios (SSP/RCP) are added to both LCA and LCC (rule CIR-01) for every ex-ante study (Q2 = B, C or D), as D4.1 asks, and for assets running more than 15 years, as D4.2 asks; the 15 years are a T4.6 default without a source. So this answer matters only for an ex-post study (Q2 = A); left empty, it changes nothing.',
       placeholder: 'e.g. 20',
       unit: 'years',
       plain:
-        "How many years the plant and the equipment are expected to run. Leave it empty if you do not know — nothing changes. Beyond about fifteen years the result depends on how electricity, fuels and markets change over decades; for a system still planned or still to come, the tool will then ask you to take a view on that future.",
+        "How many years the plant and the equipment are expected to run. Leave it empty if you do not know. It matters only for a system that already runs: beyond about fifteen years the result depends on how electricity, fuels and markets change over decades, so the tool asks you to take a view on that future. For a system still planned or being built it asks you anyway.",
     },
     q9: {
       title: 'Q9 — Does the study support a decision, and at what scale?',
@@ -617,7 +617,7 @@ const en = {
     removeAria: 'Remove {{key}}',
     hints: {
       slca_framework_override: "Set to 'absolute' to test L1 BLOCK 2 (with Q3.soc=true)",
-      asset_lifetime: 'Years; >15 activates lca_mc_21, lcc_hc_23, CIR-01',
+      asset_lifetime: 'Years (used when Q8 is empty); >15 adds future background to an ex-post study (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Boolean; true activates CIR-03',
       network_nodes: 'Integer; ≥3 (with Q1=B + interdependent_flows) activates CIR-04',
       interdependent_flows: 'Boolean; true (with Q1=B + network_nodes≥3) activates CIR-04',

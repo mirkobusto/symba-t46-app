@@ -86,17 +86,14 @@ def test_trigger_CIR_07_fires_below_trl_7_only(schemas):
         assert _TRIGGER_FNS["CIR-07"](_ready_case(q6b=q6b)) is expected
 
 
-def test_trigger_CIR_01_reads_asset_lifetime_from_advanced(schemas):
-    """CIR-01 = Q2 in {C,D} AND asset_lifetime > 15, the latter stored in
-    case.advanced (it is not a Case field)."""
-    long_lived = _ready_case(q2=Q2.D, advanced={"asset_lifetime": 30})
-    short_lived = _ready_case(q2=Q2.D, advanced={"asset_lifetime": 15})
-    unset = _ready_case(q2=Q2.D)
-    ex_post = _ready_case(q2=Q2.A, advanced={"asset_lifetime": 30})
-    assert _TRIGGER_FNS["CIR-01"](long_lived) is True
-    assert _TRIGGER_FNS["CIR-01"](short_lived) is False
-    assert _TRIGGER_FNS["CIR-01"](unset) is False
-    assert _TRIGGER_FNS["CIR-01"](ex_post) is False
+def test_trigger_CIR_01_is_ex_ante_or_long_lived_assets(schemas):
+    """CIR-01 = Q2 in {B,C,D} OR asset_lifetime > 15 (owner decision 2026-10-15);
+    the lifetime is Q8, else the case.advanced override."""
+    for q2 in (Q2.B, Q2.C, Q2.D):
+        assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=q2)) is True
+    assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=Q2.A, advanced={"asset_lifetime": 30})) is True
+    assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=Q2.A, advanced={"asset_lifetime": 15})) is False
+    assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=Q2.A)) is False
 
 
 def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
@@ -104,6 +101,19 @@ def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
     pipeline_run(case, schemas)
     assert "CIR-01" in {r["rule_id"] for r in case.applicable_rules}
     assert case.lca.get("background_futurisation") == "SSP_RCP"
+
+
+@pytest.mark.parametrize("q2, lifetime, expected", [
+    (Q2.A, None, False), (Q2.A, 30, True), (Q2.B, None, True), (Q2.C, None, True), (Q2.D, None, True),
+])
+def test_lca_and_lcc_end_with_the_same_background(schemas, q2, lifetime, expected):
+    """After the whole pipeline LCA and LCC agree: SSP/RCP for ex-ante or long-lived
+    assets, static otherwise (for Q2=A lcc_mc_13 writes "Static" and CIR-01 overrides it)."""
+    case = _ready_case(q2=q2, q3=Q3(env=True, eco=True), asset_lifetime_years=lifetime)
+    pipeline_run(case, schemas)
+    future = case.lca.get("background_futurisation") == "SSP_RCP"
+    assert future is expected
+    assert (case.lcc.get("background_dynamic") == "SSP_RCP") is expected
 
 
 def test_trigger_FU_04_fires_when_soc(schemas):

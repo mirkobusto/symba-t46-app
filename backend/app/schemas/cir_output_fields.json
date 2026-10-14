@@ -9,7 +9,7 @@
       "type": "string|null",
       "set_by_cir": "CIR-01",
       "default_value_when_set": "SSP_RCP",
-      "trigger_summary": "Q2 in {C,D} AND asset_lifetime > 15y",
+      "trigger_summary": "Q2 in {B,C,D} OR asset_lifetime > 15y",
       "notes": "Activates dynamic SSP/RCP background scenarios across LCA + LCC."
     },
     {
@@ -17,7 +17,7 @@
       "type": "string|null",
       "set_by_cir": "CIR-01",
       "default_value_when_set": "SSP_RCP",
-      "trigger_summary": "Q2 in {C,D} AND asset_lifetime > 15y",
+      "trigger_summary": "Q2 in {B,C,D} OR asset_lifetime > 15y",
       "notes": "LCC counterpart of lca.background_futurisation; same SSP/RCP scenario family for cross-method coherence."
     },
     {

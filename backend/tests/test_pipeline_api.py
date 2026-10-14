@@ -206,8 +206,9 @@ def test_pipeline_run_with_advanced_override(client):
 
 
 def test_pipeline_run_q8_asset_lifetime_over_15_years(client):
-    """Q8 (asset_lifetime_years) is part of the payload and drives CIR-01."""
-    base = {"q1": "B", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    """Q8 (asset_lifetime_years) is part of the payload and drives CIR-01 for an
+    ex-post study (an ex-ante one gets future background whatever the lifetime)."""
+    base = {"q1": "B", "q2": "A", "q3": {"env": True, "eco": True, "soc": False}}
     short = client.post("/api/pipeline/run", json={**base, "asset_lifetime_years": 10}).json()
     long = client.post("/api/pipeline/run", json={**base, "asset_lifetime_years": 25}).json()
     assert long["asset_lifetime_years"] == 25

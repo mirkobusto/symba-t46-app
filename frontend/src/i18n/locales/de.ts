@@ -482,11 +482,11 @@ const de: Locale = {
     q8: {
       title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
       help: 'Optional. Leer lassen, wenn unbekannt.',
-      details: 'Jahre, in denen die Hauptanlagen (Anlage, Ausrüstung, Infrastruktur) voraussichtlich betrieben werden. Über 15 Jahren fügt die Engine zukünftige Hintergrundszenarien (SSP/RCP) hinzu: den LCA-Futurisierungsknoten (Q2=D), den LCC-Knoten für dynamische Szenarien (Q2=C oder D) und die Regel CIR-01. D4.1 verlangt zukünftige Hintergrunddaten in jeder Ex-ante-Studie; D4.2 bindet sie an Anlagen über 15 Jahre; diese Frage speist die zweite Lesart und ändert nichts, wenn sie leer bleibt.',
+      details: 'Jahre, in denen die Hauptanlagen (Anlage, Ausrüstung, Infrastruktur) voraussichtlich betrieben werden. Zukünftige Hintergrundszenarien (SSP/RCP) kommen in LCA und LCC (Regel CIR-01) in jeder Ex-ante-Studie hinzu (Q2 = B, C oder D), wie D4.1 verlangt, sowie für Anlagen mit mehr als 15 Jahren Betrieb, wie D4.2 verlangt; die 15 Jahre sind ein T4.6-Standardwert ohne Quelle. Diese Antwort zählt daher nur für eine Ex-post-Studie (Q2 = A); leer gelassen ändert sie nichts.',
       placeholder: 'z. B. 20',
       unit: 'Jahre',
       plain:
-        "Wie viele Jahre Anlage und Ausrüstung laufen sollen. Lassen Sie das Feld leer, wenn Sie es nicht wissen — es ändert nichts. Jenseits von etwa fünfzehn Jahren hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte über Jahrzehnte verändern; bei einem noch geplanten oder noch kommenden System bittet das Werkzeug Sie dann um eine Einschätzung dieser Zukunft.",
+        "Wie viele Jahre Anlage und Ausrüstung laufen sollen. Lassen Sie das Feld leer, wenn Sie es nicht wissen. Es zählt nur für ein System, das bereits läuft: jenseits von etwa fünfzehn Jahren hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte über Jahrzehnte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft. Bei einem noch geplanten oder im Bau befindlichen System fragt es ohnehin danach.",
     },
     q9: {
       title: 'Q9 — Unterstützt die Studie eine Entscheidung, und in welchem Maßstab?',
@@ -562,7 +562,7 @@ const de: Locale = {
     removeAria: '{{key}} entfernen',
     hints: {
       slca_framework_override: "Auf 'absolute' setzen, um L1 BLOCK 2 zu testen (mit Q3.soc=true)",
-      asset_lifetime: 'Jahre; >15 aktiviert lca_mc_21, lcc_hc_23, CIR-01',
+      asset_lifetime: 'Jahre (genutzt, wenn Q8 leer ist); >15 ergänzt eine Ex-post-Studie um zukünftigen Hintergrund (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Boolean; true aktiviert CIR-03',
       network_nodes: 'Integer; ≥3 (mit Q1=B + interdependent_flows) aktiviert CIR-04',
       interdependent_flows: 'Boolean; true (mit Q1=B + network_nodes≥3) aktiviert CIR-04',

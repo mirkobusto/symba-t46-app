@@ -515,11 +515,11 @@ const it: Locale = {
     q8: {
       title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',
       help: 'Facoltativa. Lasciala vuota se non la conosci.',
-      details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Oltre 15 anni il motore aggiunge scenari di background futuri (SSP/RCP): il nodo di futurizzazione LCA (Q2=D), quello degli scenari dinamici LCC (Q2=C o D) e la regola CIR-01. D4.1 chiede dati di background futuri in ogni studio ex-ante; D4.2 li lega agli asset oltre i 15 anni; questa domanda alimenta la seconda lettura e, lasciata vuota, non cambia nulla.',
+      details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Gli scenari di background futuri (SSP/RCP) si aggiungono sia all\'LCA sia all\'LCC (regola CIR-01) in ogni studio ex-ante (Q2 = B, C o D), come chiede D4.1, e per gli asset che funzionano oltre 15 anni, come chiede D4.2; i 15 anni sono un valore predefinito T4.6 senza fonte. Questa risposta conta quindi solo per uno studio ex-post (Q2 = A); lasciata vuota, non cambia nulla.',
       placeholder: 'es. 20',
       unit: 'anni',
       plain:
-        "Quanti anni dovrebbero funzionare impianto e attrezzature. Lascia vuoto se non lo sai: non cambia nulla. Oltre i quindici anni circa il risultato dipende da come cambiano elettricità, combustibili e mercati nei decenni; per un sistema ancora in progetto o ancora da venire il tool ti chiederà allora di prendere posizione su quel futuro.",
+        "Quanti anni dovrebbero funzionare impianto e attrezzature. Lascia vuoto se non lo sai. Conta solo per un sistema che già funziona: oltre i quindici anni circa il risultato dipende da come cambiano elettricità, combustibili e mercati nei decenni, e il tool ti chiede di prendere posizione su quel futuro. Per un sistema ancora in progetto o in costruzione te lo chiede comunque.",
     },
     q9: {
       title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
@@ -595,7 +595,7 @@ const it: Locale = {
     removeAria: 'Rimuovi {{key}}',
     hints: {
       slca_framework_override: "Imposta a 'absolute' per testare L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Anni; >15 attiva lca_mc_21, lcc_hc_23, CIR-01',
+      asset_lifetime: 'Anni (usato se Q8 è vuota); >15 aggiunge il background futuro a uno studio ex-post (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Booleano; true attiva CIR-03',
       network_nodes: 'Intero; ≥3 (con Q1=B + interdependent_flows) attiva CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) attiva CIR-04',

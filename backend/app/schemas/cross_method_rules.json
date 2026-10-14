@@ -754,7 +754,7 @@
         "lca_hc_21",
         "lcc_hc_06"
       ],
-      "violation_message": "Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §13.3.1, D4.2 §4.3)."
+      "violation_message": "Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §12.3.1, D4.2 §4.3)."
     },
     {
       "id": "B-06",

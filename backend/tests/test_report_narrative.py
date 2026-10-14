@@ -102,7 +102,7 @@ def test_report_opens_with_the_verdict_and_the_next_steps(wiktor):
 def test_report_prints_the_deliverable_citation_in_full(wiktor):
     text = _text(wiktor)
     assert "Attributional Modeling with Substitution" in text
-    assert "D4.1 Part 1 §8.2.1 (p. 36)" in text
+    assert "D4.1 Part 1 §7.2.1" in text
 
 
 def test_report_says_why_a_rule_applies_and_what_to_document(wiktor):

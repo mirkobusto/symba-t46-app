@@ -67,7 +67,7 @@ _ILCD_BY_DECISION: dict[Q1, dict[DecisionContext, IlcdSituation]] = {
 _DECISION_WARNINGS: dict[tuple[Q1, DecisionContext], tuple[str, str]] = {
     (Q1.C, _M): ("decision_scale_vs_q1", "Q1 (sector-wide pre-feasibility) usually means consequences at "
                  "structural scale; you answered limited consequences, so the study is treated as ILCD "
-                 "Situation A. D4.1 §5.3.4: do not choose Consequential LCA simply because a decision is "
+                 "Situation A. D4.1 §4.3.4: do not choose Consequential LCA simply because a decision is "
                  "being made."),
     (Q1.D, _M): ("q1_d_fixed", "Q1=D (corporate reporting) stays ILCD Situation C2 whatever Q9 says: it is a "
                  "T4.6 design choice."),

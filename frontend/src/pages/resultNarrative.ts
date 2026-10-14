@@ -23,7 +23,7 @@ export interface VerdictDetail {
   detail: string
   /** Verbatim citation — English, never translated. */
   quote?: string
-  /** Where it comes from, e.g. "D4.1 Part 1 §8.2.1". */
+  /** Where it comes from, e.g. "D4.1 Part 1 §7.2.1". */
   source?: string
 }
 

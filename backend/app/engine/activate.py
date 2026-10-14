@@ -185,7 +185,7 @@ EX_ANTE_Q2 = frozenset({Q2.B, Q2.C, Q2.D})
 
 def needs_future_background(case: Case) -> bool:
     """One rule for LCA and LCC (owner decision 2026-10-15): future background
-    scenarios (SSP/RCP) for every ex-ante study (D4.1 §12.3.1) OR for assets whose
+    scenarios (SSP/RCP) for every ex-ante study (D4.1 §12.3.2) OR for assets whose
     lifetime exceeds the threshold (D4.2 §9). Read by lca_mc_21, lcc_hc_23 and CIR-01."""
     return case.q2 in EX_ANTE_Q2 or asset_lifetime_years(case) > FUTURE_BACKGROUND_LIFETIME_YEARS
 

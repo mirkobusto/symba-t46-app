@@ -195,7 +195,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Geographic Spread Transport Coupling',
-        body: 'Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §13.3.1, D4.2 §4.3).',
+        body: 'Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §12.3.1, D4.2 §4.3).',
       },
       'B-06': {
         name: 'Capital Goods Amortization Alignment',
@@ -447,7 +447,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Trasporto esplicito qualunque sia la distribuzione geografica',
-        body: 'Trasporto esplicito sia nel foreground dell\'LCA sia nei costi dell\'LCC, qualunque sia la distribuzione geografica (B-05; D4.1 §13.3.1, D4.2 §4.3).',
+        body: 'Trasporto esplicito sia nel foreground dell\'LCA sia nei costi dell\'LCC, qualunque sia la distribuzione geografica (B-05; D4.1 §12.3.1, D4.2 §4.3).',
       },
       'B-06': {
         name: 'Allineamento dell\'ammortamento dei beni capitali',
@@ -699,7 +699,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Transport explicite quelle que soit la répartition géographique',
-        body: 'Transport explicite à la fois dans le premier plan de la LCA et dans les coûts de la LCC, quelle que soit la répartition géographique (B-05 ; D4.1 §13.3.1, D4.2 §4.3).',
+        body: 'Transport explicite à la fois dans le premier plan de la LCA et dans les coûts de la LCC, quelle que soit la répartition géographique (B-05 ; D4.1 §12.3.1, D4.2 §4.3).',
       },
       'B-06': {
         name: 'Alignement de l\'amortissement des biens d\'équipement',
@@ -951,7 +951,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Expliziter Transport unabhängig von der räumlichen Verteilung',
-        body: 'Expliziter Transport sowohl im Vordergrund der LCA als auch in den Kosten der LCC, unabhängig von der räumlichen Verteilung (B-05; D4.1 §13.3.1, D4.2 §4.3).',
+        body: 'Expliziter Transport sowohl im Vordergrund der LCA als auch in den Kosten der LCC, unabhängig von der räumlichen Verteilung (B-05; D4.1 §12.3.1, D4.2 §4.3).',
       },
       'B-06': {
         name: 'Abstimmung der Abschreibung von Investitionsgütern',
@@ -1203,7 +1203,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Transporte explícito sea cual sea la distribución geográfica',
-        body: 'Transporte explícito tanto en el primer plano del LCA como en los costes del LCC, sea cual sea la distribución geográfica (B-05; D4.1 §13.3.1, D4.2 §4.3).',
+        body: 'Transporte explícito tanto en el primer plano del LCA como en los costes del LCC, sea cual sea la distribución geográfica (B-05; D4.1 §12.3.1, D4.2 §4.3).',
       },
       'B-06': {
         name: 'Alineación de la amortización de los bienes de capital',

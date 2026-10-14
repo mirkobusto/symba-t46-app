@@ -370,7 +370,7 @@
           "field": "lca.capital_goods.amortization_period",
           "default_value": 20,
           "unit": "years",
-          "notes": "Per D4.1 §5.5; aligned with lcc.capital_goods.amortization_period via IR-13."
+          "notes": "D4.1 §6.3.3 asks to amortise over the equipment's expected technical lifetime; the 20-year default is a T4.6 value without a source. Aligned with lcc.capital_goods.amortization_period via IR-13."
         }
       ],
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3)."
@@ -420,7 +420,7 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Break-even distance sensitivity on every transport link; flow-type specific, computed from primary logistics data (D4.1 §13.2.1, §13.3.1)",
+      "default_value": "Break-even distance sensitivity on every transport link; flow-type specific, computed from primary logistics data (D4.1 §12.2.1, §12.3.1)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04. | made unconditional (DEFAULT): D4.1 §13.3.1 asks for the distance sensitivity on every transport link, not only for Q7 in {B,C,D}; audit I-08 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.2.1)."

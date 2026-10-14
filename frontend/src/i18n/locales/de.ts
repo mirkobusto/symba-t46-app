@@ -768,7 +768,7 @@ const de: Locale = {
     closeHint: 'Drücken Sie {{esc}} oder klicken Sie außerhalb, um zu schließen.',
     items: {
       help: 'Diese Tastenkürzel-Hilfe anzeigen',
-      run: 'Pipeline ausführen',
+      run: 'Pfad berechnen',
       runContext: 'Fragebogen',
       toggleReasoning: 'Reasoning-Panel umschalten',
       toggleReasoningContext: 'Ergebnis',

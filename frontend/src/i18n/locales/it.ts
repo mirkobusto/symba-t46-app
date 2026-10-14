@@ -800,7 +800,7 @@ const it: Locale = {
     closeHint: 'Premi {{esc}} o clicca fuori per chiudere.',
     items: {
       help: 'Mostra questo aiuto scorciatoie',
-      run: 'Esegui pipeline',
+      run: 'Calcola il percorso',
       runContext: 'Questionario',
       toggleReasoning: 'Mostra/nascondi pannello reasoning',
       toggleReasoningContext: 'Risultato',

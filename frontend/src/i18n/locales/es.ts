@@ -768,7 +768,7 @@ const es: Locale = {
     closeHint: 'Pulsa {{esc}} o haz clic fuera para cerrar.',
     items: {
       help: 'Mostrar esta ayuda de atajos',
-      run: 'Ejecutar pipeline',
+      run: 'Calcular la ruta',
       runContext: 'Cuestionario',
       toggleReasoning: 'Alternar panel de razonamiento',
       toggleReasoningContext: 'Resultado',

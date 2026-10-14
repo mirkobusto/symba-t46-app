@@ -774,7 +774,7 @@ const fr: Locale = {
     closeHint: 'Appuyez sur {{esc}} ou cliquez à l\'extérieur pour fermer.',
     items: {
       help: "Afficher cette aide raccourcis",
-      run: 'Exécuter la pipeline',
+      run: 'Calculer le parcours',
       runContext: 'Questionnaire',
       toggleReasoning: 'Afficher/masquer le panneau reasoning',
       toggleReasoningContext: 'Résultat',

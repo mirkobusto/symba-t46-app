@@ -821,7 +821,7 @@ const en = {
     closeHint: 'Press {{esc}} or click outside to close.',
     items: {
       help: 'Show this shortcuts help',
-      run: 'Run pipeline',
+      run: 'Work out the pathway',
       runContext: 'Questionnaire',
       toggleReasoning: 'Toggle reasoning panel',
       toggleReasoningContext: 'Result',

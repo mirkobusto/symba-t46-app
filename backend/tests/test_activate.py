@@ -518,7 +518,7 @@ def test_contested_branch_is_inert_per_flow(schemas):
 # lca_mc_08 -> lca_mc_12 (Q1-driven), lca_mc_13 -> lca_mc_14 (Q4=D), then
 # CIR-05 at L2. The last two used to carry a `default` branch, so they always
 # ran and overwrote the Q1 result: every Q1 ended on "substitution", Q1=D
-# included, where D4.1 §8.2.3 says "use Allocation (Step 3). Do not apply
+# included, where D4.1 §7.2.3 says "use Allocation (Step 3). Do not apply
 # substitution credits". PHASE1_NODE_MAPPING_v2 §5.2 settles the order: the
 # more specific Q wins (Q4=D for PEF CFF) and a generic default does not.
 # ---------------------------------------------------------------------------
@@ -552,7 +552,7 @@ def test_pef_nodes_write_only_when_q4_includes_d(schemas):
 @pytest.mark.parametrize("q1", list(Q1))
 def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
     """CIR-05 writes 'pef_cff' last. That includes Q1=D, against the "use
-    Allocation, no substitution credits" of D4.1 §8.2.3: D4.1 itself calls the
+    Allocation, no substitution credits" of D4.1 §7.2.3: D4.1 itself calls the
     CFF both "mandatory" for EU-policy studies (§7.3.2) and a "valid
     alternative" (§7.3.3), so the engine keeps the Q4=D reading on purpose.
     `advanced.allocation_method_override` is documented on Case but no engine

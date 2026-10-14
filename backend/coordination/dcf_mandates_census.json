@@ -1082,7 +1082,7 @@
         "source_section": "D4.1 \u00a712.2.1",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Break-even distance sensitivity on every transport link; flow-type specific, computed from primary logistics data (D4.1 \u00a713.2.1, \u00a713.3.1)",
+        "statement": "Break-even distance sensitivity on every transport link; flow-type specific, computed from primary logistics data (D4.1 \u00a712.2.1, \u00a712.3.1)",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],

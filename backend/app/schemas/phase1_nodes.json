@@ -930,9 +930,10 @@
       "field": "lca.reference_scenario.type",
       "field_status": null,
       "default_value": {
-        "q2=A": "HNSRS",
-        "q2=C": "CNSRS",
-        "q2=D": "both (baseline+counterfactual)"
+        "q2=A": "HNSRS: the links severed today, filled with modern alternatives (D4.1 §11.1, §11.2.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
+        "q2=B": "CNSRS aligned with the study's time horizon (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
+        "q2=C": "CNSRS aligned with the study's time horizon (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
+        "q2=D": "HNSRS for the operating baseline; CNSRS aligned with the time horizon for each future alternative (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)"
       },
       "override_path": "q2, advanced",
       "lifecycle_layer": "L2",

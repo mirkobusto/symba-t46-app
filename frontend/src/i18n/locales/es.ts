@@ -120,7 +120,7 @@ const es: Locale = {
 
   welcome: {
     title: 'Bienvenido a SYMBA T4.6',
-    lead: "Esta herramienta determina qué metodología exige tu caso de simbiosis industrial y qué datos debes recoger. No calcula los resultados ambientales, económicos ni sociales. Dos preguntas rápidas y te llevamos al sitio adecuado — puedes cambiarlas cuando quieras desde la barra lateral.",
+    lead: "Esta herramienta determina qué metodología exige tu caso de simbiosis industrial y qué datos debes recoger. No calcula los resultados ambientales, económicos ni sociales. Dos preguntas rápidas y te llevamos al sitio adecuado — puedes cambiarlas después, desde el menú dentro de la herramienta.",
     step1: { title: '¿Quién eres?' },
     step2: { title: '¿Qué te gustaría hacer?' },
     back: 'Atrás',
@@ -133,10 +133,10 @@ const es: Locale = {
       authority: { name: 'Autoridad local', desc: 'Municipio, región, analista de políticas del territorio.' },
       community: { name: 'Representante de comunidad', desc: 'Asociación, ONG, grupo de ciudadanos del territorio anfitrión.' },
       enduser: { name: 'Usuario final / ciudadano', desc: 'Usas productos o servicios derivados de la simbiosis.' },
-      unknown: { name: 'Aún no lo sé', desc: 'Está bien — te haremos una visita guiada.' },
+      unknown: { name: 'Aún no lo sé', desc: 'Está bien — te llevamos a la página de panorámica.' },
     },
     tasks: {
-      assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología para un caso IS en 7 preguntas.' },
+      assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología para un caso IS en diez preguntas.' },
       read: { name: 'Leer un informe compartido', desc: 'Abre un caso compartido y ve el informe.' },
       explore: { name: 'Explorar una región / sector', desc: 'Navega insights agregados de tu zona.' },
       browse: { name: 'Solo mirar', desc: 'Sin objetivo específico — quiero ver qué hace la herramienta.' },
@@ -195,7 +195,7 @@ const es: Locale = {
     modeGuided: 'Guiado',
     modeHint: {
       expert: 'Cuestionario rápido para analistas IS y revisores familiarizados con la terminología ILCD / LCSA.',
-      guided: 'Modo paso a paso para industriales, representantes comunitarios y responsables políticos. Los ejemplos están expandidos por defecto.',
+      guided: 'Modo paso a paso para industriales, representantes comunitarios y responsables políticos. Cada pregunta lleva una explicación en palabras sencillas; la nota metodológica completa queda a un clic.',
     },
     hero: { title: 'Iniciar una nueva evaluación IS' },
     openCasesLink: 'O abrir un caso guardado',
@@ -284,11 +284,11 @@ const es: Locale = {
   about: {
     title: 'Acerca de',
     p1:
-      "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de siete preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
+      "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de diez preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
     p2:
       'Las 7 preguntas principales (Q1-Q7), más tres opcionales (Q8-Q10), impulsan la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:
-      'Esta build MVP conecta el cuestionario con POST /api/pipeline/run. La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
+      'La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
   },
 
   error: {
@@ -305,8 +305,8 @@ const es: Locale = {
       "Cada pregunta empieza con una explicación breve, en palabras sencillas. La nota metodológica completa, con la redacción de los entregables del proyecto, queda a un clic debajo de cada pregunta. Las diez respuestas determinan el pathway metodológico y el plan de recolección de datos que recibirás al final.",
     intro:
       'Diez preguntas sobre tu caso de simbiosis industrial. Q1 y al menos una dimensión Q3 son obligatorias; el resto es opcional pero mejora la salida del motor.',
-    runButton: 'Ejecutar pipeline',
-    runningButton: 'Ejecutando…',
+    runButton: 'Calcular la ruta',
+    runningButton: 'Calculando…',
     resetButton: 'Reiniciar borrador',
     confirmReset: '¿Descartar todas las respuestas y empezar de nuevo? No se puede deshacer.',
     q1Required: 'Q1 es obligatoria.',
@@ -352,7 +352,7 @@ const es: Locale = {
 
     q3: {
       title: 'Q3 — ¿Qué dimensiones de sostenibilidad incluir? *',
-      help: 'Al menos una es obligatoria. Predeterminado: ENV + ECO.',
+      help: 'Al menos una es obligatoria. Ambiental y económica son la pareja habitual.',
       details:
         'ENV — Análisis de Ciclo de Vida ambiental (LCA): impactos en clima, ecosistemas, uso de recursos. Casi siempre seleccionada. ' +
         'ECO — dimensión económica, evaluada con Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) es una técnica usada dentro de la ruta LCC (activada por ECO y por los flujos discutidos en Q5), no una alternativa; CBA y TEA no las ofrece este motor. ' +
@@ -367,7 +367,7 @@ const es: Locale = {
     },
 
     q4: {
-      title: 'Q4 — ¿Para qué es el informe?',
+      title: 'Q4 — ¿Para qué se usará este estudio?',
       help: 'Selección múltiple. Algunos usos se combinan (ej. D + E para un paper EU PEF).',
       details:
         'A — uso interno: dashboards de gestión, screening I+D, decisiones a nivel de planta. Pocas restricciones metodológicas. ' +
@@ -413,8 +413,7 @@ const es: Locale = {
 
     q6a: {
       title: 'Q6a — Sector',
-      help:
-        '14 sectores canónicos según WorkingDoc §3 + Otro. Las activaciones sector-specific de los nodos (p. ej. lca_mc_30 wastewater) leen este enum.',
+      help: 'El sector principal del caso. Activa unos pocos requisitos propios del sector.',
       details:
         'El sector controla un pequeño conjunto de activaciones sector-specific de nodos y los defaults de overlay. Elige la coincidencia más cercana al sector dominante del caso (el actor que aporta más masa/energía/valor). ' +
         'Ejemplos: pulp_paper para Sokka 2011 (UPM Kymi); chemicals_fertilizers para Hashimoto / Wiktor; cement_construction para Leiva 2025 Escombreras; biobased_polymers para Briassoulis; food_production / agri-food para Daddi. ' +
@@ -441,7 +440,7 @@ const es: Locale = {
         process_industry: 'Industria de proceso (legacy)',
       },
       plain:
-        "El sector principal del caso: la actividad de la empresa que aporta la mayor parte de la masa, la energía o el valor. Activa unos pocos requisitos y valores por defecto propios del sector. Si el caso abarca varios sectores, elige multi-sector, y deja de lado las entradas marcadas (legacy).",
+        "El sector principal del caso: la actividad de la empresa que aporta la mayor parte de la masa, la energía o el valor. Activa unos pocos requisitos y valores por defecto propios del sector. Si el caso abarca varios sectores, elige Multi-sector, y deja de lado las entradas marcadas (legacy).",
     },
 
     q6b: {
@@ -675,6 +674,11 @@ const es: Locale = {
       obligation: 'Por documentar',
       decision: 'Por decidir',
     },
+    severity: {
+      HIGH: 'Alta',
+      MEDIUM: 'Media',
+      LOW: 'Baja',
+    },
     action: {
       appliesToCase: "Se aplica a este caso.",
       resolution: "Cómo se resuelve",
@@ -853,7 +857,7 @@ const es: Locale = {
           "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y qué ámbito geográfico cubre.",
         whenScoring:
           "Cuando lleguen los resultados verás los valores ambientales y, donde el estudio los incluya, los costes societales — los dos pilares de una decisión pública.",
-        scope: "Ámbito geográfico declarado para el caso: Q7 = {{q7}}.",
+        scope: "Ámbito geográfico declarado para el caso: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -887,7 +891,7 @@ const es: Locale = {
     },
     framing: {
       industry:
-        'Vista técnica completa de la configuración metodológica y del scoring cuantitativo producido por CIRCE.',
+        'Vista técnica completa de la configuración metodológica y de la puntuación cuantitativa, producida fuera de esta herramienta por el socio de SYMBA CIRCE.',
       community:
         'Vista de impacto local centrada en calidad ambiental y beneficios sociales para el territorio anfitrión.',
       authority:
@@ -917,7 +921,7 @@ const es: Locale = {
     cdpFlagsCount_other: '{{count}} tensiones transversales',
     complianceTitle: 'Señales de cumplimiento',
     compliance: {
-      peerReview: 'Afirmación con revisión por pares (Q4=E): {{status}}',
+      peerReview: 'Revisión independiente por pares: {{status}}',
       pef: 'Alineación EU PEF (Q4=D): {{status}}',
       publicClaim: 'Afirmación pública (Q4=C): {{status}}',
     },

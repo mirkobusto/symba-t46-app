@@ -50,7 +50,7 @@ describe('Questionnaire Q9 — decision and scale', () => {
 
   it('sends the chosen scale', async () => {
     q9Pick('structural')
-    fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].decision_context).toBe('structural')
   })
@@ -65,7 +65,7 @@ describe('Questionnaire Q9 — decision and scale', () => {
   })
 
   it('sends null when left unanswered', async () => {
-    fireEvent.click(screen.getByRole('button', { name: /run pipeline/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].decision_context).toBeNull()
   })

@@ -133,7 +133,7 @@ const en = {
   welcome: {
     title: 'Welcome to SYMBA T4.6',
     lead:
-      "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place — you can change them any time from the sidebar.",
+      "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place — you can change both later, from the menu inside the tool.",
     step1: { title: 'Who are you?' },
     step2: { title: 'What would you like to do?' },
     back: 'Back',
@@ -146,10 +146,10 @@ const en = {
       authority: { name: 'Local authority', desc: 'Municipality, region, policy analyst overseeing the territory.' },
       community: { name: 'Community representative', desc: 'Association, NGO, host-territory citizens\' group.' },
       enduser: { name: 'End user / citizen', desc: 'You use products or services derived from the symbiosis.' },
-      unknown: { name: 'Not sure yet', desc: 'That\'s fine — we\'ll give you a curated tour.' },
+      unknown: { name: 'Not sure yet', desc: 'That\'s fine — we start you on the overview page.' },
     },
     tasks: {
-      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via 7 questions.' },
+      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via ten questions.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore a region / sector', desc: 'Browse aggregate insights for my area or industry.' },
       browse: { name: 'Just look around', desc: 'No specific goal — I want to see what the tool does.' },
@@ -249,7 +249,7 @@ const en = {
     modeGuided: 'Guided',
     modeHint: {
       expert: 'Fast questionnaire for IS analysts and reviewers familiar with ILCD / LCSA terminology.',
-      guided: 'Step-by-step mode for industrial managers, community representatives and policymakers. Examples are expanded by default and an intro banner explains the questionnaire flow.',
+      guided: 'Step-by-step mode for industrial managers, community representatives and policymakers. Each question comes with a plain-language explanation; the full methodological note stays one click away.',
     },
     hero: {
       title: 'Start a new IS assessment',
@@ -339,11 +339,11 @@ const en = {
   about: {
     title: 'About',
     p1:
-      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from seven questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
+      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from ten questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
       'The 7 core questions (Q1-Q7), plus three optional ones (Q8-Q10), drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
-      'This MVP build wires the questionnaire to POST /api/pipeline/run. Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
+      'Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
   },
 
   error: {
@@ -360,8 +360,8 @@ const en = {
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
       'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological pathway and the data-collection plan you receive at the end.',
-    runButton: 'Run pipeline',
-    runningButton: 'Running…',
+    runButton: 'Work out the pathway',
+    runningButton: 'Working it out…',
     resetButton: 'Reset draft',
     confirmReset: 'Discard all answers and start over? This cannot be undone.',
     q1Required: 'Q1 is required.',
@@ -407,7 +407,7 @@ const en = {
 
     q3: {
       title: 'Q3 — Which sustainability dimensions to include? *',
-      help: 'At least one is required. Default: ENV + ECO.',
+      help: 'At least one is required. Environmental and economic are the usual pairing.',
       details:
         'ENV — Environmental Life Cycle Assessment (LCA): impacts on climate, ecosystems, resource use. Almost always selected. ' +
         'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC pathway (activated by ECO and by contested flows in Q5), not an alternative to it; CBA and TEA are not offered by this engine. ' +
@@ -422,7 +422,7 @@ const en = {
     },
 
     q4: {
-      title: 'Q4 — What is the report for?',
+      title: 'Q4 — What will this study be used for?',
       help: 'Multi-select. Some uses combine (e.g. D + E for an EU PEF paper).',
       details:
         'A — internal use: management dashboards, R&D screening, plant-level decisions. Few methodological constraints. ' +
@@ -468,8 +468,7 @@ const en = {
 
     q6a: {
       title: 'Q6a — Sector',
-      help:
-        '14 canonical sectors per WorkingDoc §3 + Other. Sector-specific node activations (e.g. lca_mc_30 wastewater) read this enum.',
+      help: 'The main sector of the case. It switches on a few sector-specific requirements.',
       details:
         'Sector controls a small set of sector-specific node activations and overlay defaults. Pick the closest match to the dominant sector of the case (the actor that contributes most mass/energy/value). ' +
         'Examples: pulp_paper for Sokka 2011 (UPM Kymi); chemicals_fertilizers for Hashimoto / Wiktor; cement_construction for Leiva 2025 Escombreras; biobased_polymers for Briassoulis; food_production / agri-food for Daddi. ' +
@@ -496,7 +495,7 @@ const en = {
         process_industry: 'Process industry (legacy)',
       },
       plain:
-        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick multi-sector, and ignore the entries marked (legacy).",
+        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick Multi-sector, and ignore the entries marked (legacy).",
     },
 
     q6b: {
@@ -717,7 +716,7 @@ const en = {
     next: {
       obligations: "{{count}} methodological practices apply to your answers. They are listed, with what triggered each one, in the Data Collection File.",
       title: 'What to do next',
-      lead: 'Items the engine raised on your answers. Each one says why it applies to your case and what to fill in.',
+      lead: 'Items the engine raised on your answers. Each one says why it applies to your case and, where the engine settles it, how.',
       provenance:
         "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
       allClear:
@@ -728,6 +727,11 @@ const en = {
       block: 'Blocking',
       obligation: 'To document',
       decision: 'To decide',
+    },
+    severity: {
+      HIGH: 'High',
+      MEDIUM: 'Medium',
+      LOW: 'Low',
     },
     action: {
       appliesToCase: "Applies to this case.",
@@ -907,7 +911,7 @@ const en = {
           "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and the geographic scope it covers.",
         whenScoring:
           "Once the scoring arrives you will see the environmental figures and, where the study includes them, the societal costs — the two a public decision rests on.",
-        scope: "Geographic scope declared for the case: Q7 = {{q7}}.",
+        scope: "Geographic scope declared for the case: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -941,7 +945,7 @@ const en = {
     },
     framing: {
       industry:
-        'Full technical view of the methodological configuration and the quantitative scoring produced by CIRCE. Intended for the IS analyst and the methodology reviewer.',
+        'Full technical view of the methodological configuration and of the quantitative scoring, which is produced outside this tool by the SYMBA partner CIRCE. For whoever runs the site, and for the analyst behind the study.',
       community:
         'Local-impact view focused on environmental quality and social benefits the symbiosis brings to the host territory.',
       authority:
@@ -971,7 +975,7 @@ const en = {
     cdpFlagsCount_other: '{{count}} cross-dimension tension flags',
     complianceTitle: 'Compliance signals',
     compliance: {
-      peerReview: 'Peer-review claim (Q4=E): {{status}}',
+      peerReview: 'Independent peer review: {{status}}',
       pef: 'EU PEF alignment (Q4=D): {{status}}',
       publicClaim: 'Public superiority claim (Q4=C): {{status}}',
     },

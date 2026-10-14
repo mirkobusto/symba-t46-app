@@ -59,7 +59,9 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
           <span className="dd-action-reference">{reference}</span>
         ) : null}
         {item.severity ? (
-          <span className="dd-pill dd-pill-muted">{item.severity}</span>
+          <span className="dd-pill dd-pill-muted">
+            {t(`result.severity.${item.severity}`, { defaultValue: item.severity })}
+          </span>
         ) : null}
       </header>
 

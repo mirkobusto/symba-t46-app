@@ -162,7 +162,11 @@ export default function ReasoningPanel({
                 <header>
                   <code className="cdp-id">{cdp.cdp_id}</code>
                   <span className={severityClass(cdp.severity)}>
-                    {cdp.severity ?? '—'}
+                    {cdp.severity
+                      ? t(`result.severity.${cdp.severity}`, {
+                          defaultValue: cdp.severity,
+                        })
+                      : '—'}
                   </span>
                   <strong>{termFor(cdp.cdp_id)?.name || cdp.name}</strong>
                 </header>

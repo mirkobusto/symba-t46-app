@@ -120,7 +120,7 @@ const de: Locale = {
 
   welcome: {
     title: 'Willkommen bei SYMBA T4.6',
-    lead: "Dieses Werkzeug ermittelt, welche Methodik Ihr Fall industrieller Symbiose verlangt und welche Daten Sie erheben müssen. Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse. Zwei kurze Fragen, dann bringen wir Sie an die richtige Stelle — änderbar jederzeit über die Seitenleiste.",
+    lead: "Dieses Werkzeug ermittelt, welche Methodik Ihr Fall industrieller Symbiose verlangt und welche Daten Sie erheben müssen. Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse. Zwei kurze Fragen, dann bringen wir Sie an die richtige Stelle — beides lässt sich später im Menü des Werkzeugs ändern.",
     step1: { title: 'Wer sind Sie?' },
     step2: { title: 'Was möchten Sie tun?' },
     back: 'Zurück',
@@ -133,10 +133,10 @@ const de: Locale = {
       authority: { name: 'Lokale Behörde', desc: 'Gemeinde, Region, politischer Analyst für das Gebiet.' },
       community: { name: 'Gemeinschaftsvertreter', desc: 'Verein, NGO, Bürgergruppe des Gastgebiets.' },
       enduser: { name: 'Endnutzer / Bürger', desc: 'Sie nutzen Produkte oder Dienste aus der Symbiose.' },
-      unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir geben Ihnen eine kuratierte Tour.' },
+      unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir bringen Sie auf die Übersichtsseite.' },
     },
     tasks: {
-      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in 7 Fragen konfigurieren.' },
+      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in zehn Fragen konfigurieren.' },
       read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
       explore: { name: 'Region / Sektor erkunden', desc: 'Aggregierte Einblicke für mein Gebiet durchsuchen.' },
       browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel — ich möchte sehen, was das Tool tut.' },
@@ -195,7 +195,7 @@ const de: Locale = {
     modeGuided: 'Geführt',
     modeHint: {
       expert: 'Schneller Fragebogen für IS-Analysten und Prüfer, die mit der ILCD / LCSA-Terminologie vertraut sind.',
-      guided: 'Schritt-für-Schritt-Modus für Industrielle, Gemeindevertreter und politische Entscheidungsträger. Beispiele sind standardmäßig erweitert.',
+      guided: 'Schritt-für-Schritt-Modus für Industrielle, Gemeindevertreter und politische Entscheidungsträger. Jede Frage hat eine Erklärung in einfachen Worten; die vollständige methodische Anmerkung bleibt einen Klick entfernt.',
     },
     hero: { title: 'Neue IS-Bewertung starten' },
     openCasesLink: 'Oder gespeicherten Fall öffnen',
@@ -284,11 +284,11 @@ const de: Locale = {
   about: {
     title: 'Über',
     p1:
-      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus sieben Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
+      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus zehn Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
       'Die 7 Kernfragen (Q1-Q7) und drei optionale (Q8-Q10) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
-      'Dieser MVP-Build verbindet den Fragebogen mit POST /api/pipeline/run. Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
+      'Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
 
   error: {
@@ -305,8 +305,8 @@ const de: Locale = {
       "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die zehn Antworten bestimmen den methodischen Pathway und den Datenerhebungsplan, den Sie am Ende erhalten.",
     intro:
       'Zehn Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
-    runButton: 'Pipeline ausführen',
-    runningButton: 'Läuft…',
+    runButton: 'Pfad berechnen',
+    runningButton: 'Wird berechnet…',
     resetButton: 'Entwurf zurücksetzen',
     confirmReset: 'Alle Antworten verwerfen und neu beginnen? Dies kann nicht rückgängig gemacht werden.',
     q1Required: 'Q1 ist erforderlich.',
@@ -352,7 +352,7 @@ const de: Locale = {
 
     q3: {
       title: 'Q3 — Welche Nachhaltigkeitsdimensionen einbeziehen? *',
-      help: 'Mindestens eine ist erforderlich. Standard: ENV + ECO.',
+      help: 'Mindestens eine ist erforderlich. Umwelt und Ökonomie sind die übliche Paarung.',
       details:
         'ENV — Umwelt-Lebenszyklusanalyse (LCA): Auswirkungen auf Klima, Ökosysteme, Ressourcennutzung. Fast immer ausgewählt. ' +
         'ECO — ökonomische Dimension, bewertet mit Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb des LCC-Pfads (aktiviert durch ECO und durch umstrittene Stoffströme in Q5), keine Alternative dazu; CBA und TEA bietet diese Engine nicht an. ' +
@@ -367,7 +367,7 @@ const de: Locale = {
     },
 
     q4: {
-      title: 'Q4 — Wofür ist der Bericht?',
+      title: 'Q4 — Wofür wird diese Studie verwendet?',
       help: 'Mehrfachauswahl. Einige Verwendungen kombinieren sich (z. B. D + E für ein EU-PEF-Paper).',
       details:
         'A — interne Nutzung: Management-Dashboards, F&E-Screening, Werks-Entscheidungen. Wenige methodische Einschränkungen. ' +
@@ -408,13 +408,12 @@ const de: Locale = {
         'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §9.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
         'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
       plain:
-        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Datenerhebungsbogen entschieden, nicht hier.",
+        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Data Collection File entschieden, nicht hier.",
     },
 
     q6a: {
       title: 'Q6a — Sektor',
-      help:
-        '14 kanonische Sektoren laut WorkingDoc §3 + Sonstige. Sektor-spezifische Knotenaktivierungen (z. B. lca_mc_30 wastewater) lesen dieses Enum.',
+      help: 'Der Hauptsektor des Falls. Er schaltet einige sektorspezifische Anforderungen ein.',
       details:
         'Der Sektor steuert eine kleine Menge sektor-spezifischer Knotenaktivierungen und Overlay-Defaults. Wählen Sie die nächste Übereinstimmung zum dominanten Sektor des Falls (Akteur mit größtem Beitrag in Masse/Energie/Wert). ' +
         'Beispiele: pulp_paper für Sokka 2011 (UPM Kymi); chemicals_fertilizers für Hashimoto / Wiktor; cement_construction für Leiva 2025 Escombreras; biobased_polymers für Briassoulis; food_production / agri-food für Daddi. ' +
@@ -441,7 +440,7 @@ const de: Locale = {
         process_industry: 'Prozessindustrie (legacy)',
       },
       plain:
-        "Der Hauptsektor des Falls: die Tätigkeit des Unternehmens, das den größten Teil der Masse, der Energie oder des Werts beiträgt. Er schaltet einige sektorspezifische Anforderungen und Voreinstellungen ein. Liegt der Fall quer zu mehreren Sektoren, wählen Sie multi-sector, und lassen Sie die mit (legacy) markierten Einträge beiseite.",
+        "Der Hauptsektor des Falls: die Tätigkeit des Unternehmens, das den größten Teil der Masse, der Energie oder des Werts beiträgt. Er schaltet einige sektorspezifische Anforderungen und Voreinstellungen ein. Liegt der Fall quer zu mehreren Sektoren, wählen Sie Multi-Sektor, und lassen Sie die mit (legacy) markierten Einträge beiseite.",
     },
 
     q6b: {
@@ -478,7 +477,7 @@ const de: Locale = {
         D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
       },
       plain:
-        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Datenerhebungsbogen fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
+        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Data Collection File fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
     },
     q8: {
       title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
@@ -675,6 +674,11 @@ const de: Locale = {
       obligation: 'Zu dokumentieren',
       decision: 'Zu entscheiden',
     },
+    severity: {
+      HIGH: 'Hoch',
+      MEDIUM: 'Mittel',
+      LOW: 'Niedrig',
+    },
     action: {
       appliesToCase: "Gilt für diesen Fall.",
       resolution: "Wie das aufgelöst wird",
@@ -853,7 +857,7 @@ const de: Locale = {
           "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und welchen geografischen Umfang er abdeckt.",
         whenScoring:
           "Sobald die Kennzahlen vorliegen, sehen Sie die Umweltwerte und, wo die Studie sie einschließt, die gesellschaftlichen Kosten — die beiden Grundlagen einer öffentlichen Entscheidung.",
-        scope: "Für den Fall angegebener geografischer Umfang: Q7 = {{q7}}.",
+        scope: "Für den Fall angegebener geografischer Umfang: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -887,7 +891,7 @@ const de: Locale = {
     },
     framing: {
       industry:
-        'Vollständige technische Ansicht der methodischen Konfiguration und des von CIRCE produzierten quantitativen Scorings.',
+        'Vollständige technische Ansicht der methodischen Konfiguration und der quantitativen Bewertung, die außerhalb dieses Werkzeugs vom SYMBA-Partner CIRCE erstellt wird.',
       community:
         'Lokale Auswirkungsansicht: Umweltqualität und soziale Vorteile für das Gastgebiet.',
       authority:
@@ -917,7 +921,7 @@ const de: Locale = {
     cdpFlagsCount_other: '{{count}} dimensionsübergreifende Spannungen',
     complianceTitle: 'Compliance-Signale',
     compliance: {
-      peerReview: 'Peer-Review-Anspruch (Q4=E): {{status}}',
+      peerReview: 'Unabhängige Begutachtung: {{status}}',
       pef: 'EU-PEF-Ausrichtung (Q4=D): {{status}}',
       publicClaim: 'Öffentlicher Überlegenheitsanspruch (Q4=C): {{status}}',
     },

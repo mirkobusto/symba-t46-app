@@ -193,7 +193,7 @@ def test_break_even_mandates_reach_the_dcf_for_every_q7(case_arce, case_wiktor, 
     assert "lca_hc_21" in arce and "lca_hc_21" in wiktor
     assert "lcc_hc_06" in wiktor and "lcc_hc_06" not in arce      # arce is env-only
     assert "if Q7" not in wiktor["lca_hc_21"].statement
-    assert wiktor["lca_hc_21"].source_section == "D4.1 §13.2.1"
+    assert wiktor["lca_hc_21"].source_section == "D4.1 §12.2.1"
 
 
 def test_transport_coupling_rules_are_listed_for_every_q7(case_arce, case_wiktor, dcf_schema, mandates_census):

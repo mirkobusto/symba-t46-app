@@ -488,11 +488,11 @@ const fr: Locale = {
     q8: {
       title: 'Q8 — Durée de vie technique attendue des actifs principaux (années)',
       help: 'Facultative. Laissez vide si vous ne la connaissez pas.',
-      details: 'Années pendant lesquelles les actifs principaux (installation, équipements, infrastructures) devraient fonctionner. Au-delà de 15 ans, le moteur ajoute des scénarios d\'arrière-plan futurs (SSP/RCP) : le nœud de futurisation ACV (Q2=D), celui des scénarios dynamiques ACC (Q2=C ou D) et la règle CIR-01. D4.1 demande des données d\'arrière-plan futures dans toute étude ex-ante ; D4.2 les lie aux actifs de plus de 15 ans ; cette question alimente la seconde lecture et, laissée vide, ne change rien.',
+      details: 'Années pendant lesquelles les actifs principaux (installation, équipements, infrastructures) devraient fonctionner. Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés à l\'ACV comme à l\'ACC (règle CIR-01) dans toute étude ex-ante (Q2 = B, C ou D), comme le demande D4.1, et pour les actifs fonctionnant plus de 15 ans, comme le demande D4.2 ; les 15 ans sont une valeur par défaut T4.6 sans source. Cette réponse ne compte donc que pour une étude ex-post (Q2 = A) ; laissée vide, elle ne change rien.',
       placeholder: 'p. ex. 20',
       unit: 'ans',
       plain:
-        "Combien d'années l'installation et les équipements sont censés fonctionner. Laissez vide si vous ne savez pas : rien ne change. Au-delà d'une quinzaine d'années, le résultat dépend de l'évolution de l'électricité, des carburants et des marchés sur des décennies ; pour un système encore en projet ou encore à venir, l'outil vous demandera alors de vous prononcer sur cet avenir.",
+        "Combien d'années l'installation et les équipements sont censés fonctionner. Laissez vide si vous ne savez pas. Cela ne compte que pour un système qui fonctionne déjà : au-delà d'une quinzaine d'années, le résultat dépend de l'évolution de l'électricité, des carburants et des marchés sur des décennies, et l'outil vous demande de vous prononcer sur cet avenir. Pour un système encore en projet ou en construction, il vous le demande de toute façon.",
     },
     q9: {
       title: 'Q9 — L\'étude soutient-elle une décision, et à quelle échelle ?',
@@ -568,7 +568,7 @@ const fr: Locale = {
     removeAria: 'Supprimer {{key}}',
     hints: {
       slca_framework_override: "Mettre à 'absolute' pour tester L1 BLOCK 2 (avec Q3.soc=true)",
-      asset_lifetime: 'Années ; >15 active lca_mc_21, lcc_hc_23, CIR-01',
+      asset_lifetime: 'Années (utilisé si Q8 est vide) ; >15 ajoute l\'arrière-plan futur à une étude ex-post (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Booléen ; true active CIR-03',
       network_nodes: 'Entier ; ≥3 (avec Q1=B + interdependent_flows) active CIR-04',
       interdependent_flows: 'Booléen ; true (avec Q1=B + network_nodes≥3) active CIR-04',

@@ -173,6 +173,23 @@ def asset_lifetime_years(case: Case) -> float:
     return years if math.isfinite(years) else 0.0
 
 
+# Asset lifetime above which future background scenarios are required even for an
+# ex-post study. D4.2 §9 states the 15 years without a source: it is a T4.6 default,
+# kept in one place so it can become a range to parametrise.
+FUTURE_BACKGROUND_LIFETIME_YEARS = 15.0
+
+# Q2 answers that make the study ex-ante: under construction or recently
+# commissioned (B), design phase (C), operating baseline plus future scenarios (D).
+EX_ANTE_Q2 = frozenset({Q2.B, Q2.C, Q2.D})
+
+
+def needs_future_background(case: Case) -> bool:
+    """One rule for LCA and LCC (owner decision 2026-10-15): future background
+    scenarios (SSP/RCP) for every ex-ante study (D4.1 §12.3.1) OR for assets whose
+    lifetime exceeds the threshold (D4.2 §9). Read by lca_mc_21, lcc_hc_23 and CIR-01."""
+    return case.q2 in EX_ANTE_Q2 or asset_lifetime_years(case) > FUTURE_BACKGROUND_LIFETIME_YEARS
+
+
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
 
 # lca_mc_30 is written for "Q6a=Wastewater/biofactories". The UI sends the
@@ -188,8 +205,8 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
     # simple
     "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # conjunctive — asset lifetime comes from case.advanced
-    "lca_mc_21": lambda c: c.q2 == Q2.D and asset_lifetime_years(c) > 15,
+    # disjunctive — ex-ante OR asset lifetime above the threshold
+    "lca_mc_21": needs_future_background,
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
@@ -204,8 +221,8 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lcc_hc_12": lambda c, f: f.q5 != Q5.e,
     # simple
     "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # conjunctive — asset lifetime comes from case.advanced
-    "lcc_hc_23": lambda c: c.q2 in {Q2.C, Q2.D} and asset_lifetime_years(c) > 15,
+    # disjunctive — same rule as lca_mc_21
+    "lcc_hc_23": needs_future_background,
     # conjunctive
     "lcc_hc_27": lambda c: c.q3.env and c.q3.eco,
     "lcc_hc_28": lambda c: c.q3.env and c.q3.eco,

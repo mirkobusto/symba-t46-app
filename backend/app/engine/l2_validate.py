@@ -70,7 +70,7 @@ from typing import Any
 
 from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6b
 from app.domain.models import Case
-from app.engine.activate import _pillar_is_off, _write, asset_lifetime_years
+from app.engine.activate import _pillar_is_off, _write, needs_future_background
 from app.engine.loader import LoadedSchemas
 
 # ---------------------------------------------------------------------------
@@ -153,7 +153,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-19": lambda c: True,
     "IR-20": lambda c: _q3_dims_active(c) >= 2,
     # --- CIR (10) ---
-    "CIR-01": lambda c: c.q2 in {Q2.C, Q2.D} and asset_lifetime_years(c) > 15,
+    "CIR-01": needs_future_background,
     "CIR-02": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
     "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D} or bool(_attr(c, "transport_sensitive")),
     "CIR-04": lambda c: (c.q1 == Q1.B

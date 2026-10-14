@@ -228,12 +228,16 @@ def test_procedural_mandate_activates_without_field_write(schemas):
 
 
 # ---------------------------------------------------------------------------
-# 7. asset_lifetime — read from case.advanced (AdvancedEditor writes it there)
+# 7. future background: ex-ante OR asset lifetime > threshold (one rule, LCA + LCC)
 # ---------------------------------------------------------------------------
+# Owner decision 2026-10-15: D4.1 asks for future background data in every ex-ante
+# study, D4.2 for assets over 15 years; the engine applies either. Ex-ante is
+# Q2 in {B, C, D}. The lifetime half is tested on an ex-post case (Q2=A), the only
+# one where it decides. The lifetime comes from Q8, else from the advanced override.
 
 
-def _lifetime_case(schemas, lifetime=None, q2=Q2.D):
-    """ENV+ECO case (LCC active), Q2=D by default, with an optional advanced asset_lifetime."""
+def _lifetime_case(schemas, lifetime=None, q2=Q2.A):
+    """ENV+ECO case (LCC active), ex-post by default, with an optional advanced asset_lifetime."""
     advanced = {} if lifetime is None else {"asset_lifetime": lifetime}
     case = _baseline_case(q2=q2, q3=Q3(env=True, eco=True), advanced=advanced)
     l0_run(case, schemas)
@@ -241,40 +245,45 @@ def _lifetime_case(schemas, lifetime=None, q2=Q2.D):
     return case
 
 
-def test_asset_lifetime_unset_predicates_inert(schemas):
-    """Without an asset_lifetime override lca_mc_21 and lcc_hc_23 stay dormant."""
-    case = _lifetime_case(schemas)
-    assert "lca_mc_21" not in case.activated_nodes
-    assert "lcc_hc_23" not in case.activated_nodes
+def _future(case):
+    return "lca_mc_21" in case.activated_nodes, "lcc_hc_23" in case.activated_nodes
 
 
-def test_asset_lifetime_over_15_activates_both_nodes(schemas):
-    case = _lifetime_case(schemas, 30)
-    assert "lca_mc_21" in case.activated_nodes
-    assert "lcc_hc_23" in case.activated_nodes
+@pytest.mark.parametrize("q2", [Q2.B, Q2.C, Q2.D])
+def test_ex_ante_study_gets_future_background_whatever_the_lifetime(schemas, q2):
+    assert _future(_lifetime_case(schemas, q2=q2)) == (True, True)
+    assert _future(_lifetime_case(schemas, 5, q2=q2)) == (True, True)
+
+
+def test_ex_post_study_without_lifetime_stays_static(schemas):
+    assert _future(_lifetime_case(schemas)) == (False, False)
+
+
+def test_ex_post_study_with_long_lived_assets_gets_future_background(schemas):
+    assert _future(_lifetime_case(schemas, 30)) == (True, True)
+
+
+def test_lca_and_lcc_follow_the_same_rule(schemas):
+    for q2 in (Q2.A, Q2.B, Q2.C, Q2.D):
+        for lifetime in (None, 10, 16):
+            lca, lcc = _future(_lifetime_case(schemas, lifetime, q2=q2))
+            assert lca == lcc, (q2, lifetime)
 
 
 def test_asset_lifetime_threshold_is_strictly_greater_than_15(schemas):
-    assert "lca_mc_21" not in _lifetime_case(schemas, 15).activated_nodes
-    assert "lca_mc_21" in _lifetime_case(schemas, 16).activated_nodes
+    assert _future(_lifetime_case(schemas, 15)) == (False, False)
+    assert _future(_lifetime_case(schemas, 16)) == (True, True)
 
 
-def test_asset_lifetime_q2_C_activates_lcc_node_only(schemas):
-    """lcc_hc_23 accepts Q2 in {C,D}; lca_mc_21 is Q2=D only."""
-    case = _lifetime_case(schemas, 30, q2=Q2.C)
-    assert "lcc_hc_23" in case.activated_nodes
-    assert "lca_mc_21" not in case.activated_nodes
-
-
-def test_asset_lifetime_ignored_for_ex_post_q2(schemas):
-    case = _lifetime_case(schemas, 30, q2=Q2.A)
-    assert "lca_mc_21" not in case.activated_nodes
-    assert "lcc_hc_23" not in case.activated_nodes
+def test_threshold_is_one_named_parameter():
+    from app.engine.activate import EX_ANTE_Q2, FUTURE_BACKGROUND_LIFETIME_YEARS
+    assert FUTURE_BACKGROUND_LIFETIME_YEARS == 15.0
+    assert EX_ANTE_Q2 == {Q2.B, Q2.C, Q2.D}
 
 
 def test_asset_lifetime_lcc_node_off_when_lcc_deactivated(schemas):
     """The method gate still wins: no economic dimension, no lcc_hc_23."""
-    case = _baseline_case(q2=Q2.D, q3=Q3(env=True), advanced={"asset_lifetime": 30})
+    case = _baseline_case(q2=Q2.A, q3=Q3(env=True), advanced={"asset_lifetime": 30})
     l0_run(case, schemas)
     run(case, schemas)
     assert "lca_mc_21" in case.activated_nodes
@@ -286,7 +295,7 @@ def test_asset_lifetime_accepts_numeric_string(schemas):
     assert "lca_mc_21" in _lifetime_case(schemas, "20").activated_nodes
 
 
-def _lifetime_case_q8(schemas, years, advanced=None, q2=Q2.D):
+def _lifetime_case_q8(schemas, years, advanced=None, q2=Q2.A):
     case = _baseline_case(q2=q2, q3=Q3(env=True, eco=True), asset_lifetime_years=years,
                           advanced=advanced or {})
     l0_run(case, schemas)

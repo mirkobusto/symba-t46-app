@@ -703,7 +703,7 @@
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 is explicit for strict corporate accounting, while L00894 ('mandatory for EU policy-aligned studies') and L00914 ('a valid alternative') contradict each other. Same token as lca_mc_12."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00914). Same token as lca_mc_12."
     },
     {
       "id": "lca_mc_14",
@@ -725,7 +725,7 @@
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 is explicit for strict corporate accounting, while L00894 ('mandatory for EU policy-aligned studies') and L00914 ('a valid alternative') contradict each other. Same token as lca_mc_12."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00914). Same token as lca_mc_12."
     },
     {
       "id": "lca_mc_15",
@@ -780,9 +780,9 @@
       "field": "lca.zero_burden_classification",
       "field_status": null,
       "default_value": {
-        "ilcd=C2": "allocation (Situation C2: no substitution credits, D4.1 §7.2.3)",
         "q5=a": "zero-burden",
         "q5=b": "EVT+sensitivity",
+        "ilcd=C2": "allocation (Situation C2: no substitution credits, D4.1 §7.2.3)",
         "q5=c": "substitution+Q-correction",
         "q5=d": "integrated multifunctional remodel",
         "q5=e": "system expansion uniform"
@@ -790,7 +790,7 @@
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.1). | Situation C2 test case, 2026-10-15: strict accounting of one partner uses allocation and no substitution credits (D4.1 L00868), whatever the flow; the per-flow branches gave substitution for Q5=c. The q5=e branch is a sprint-3 MEDIA item, still open."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.1). | Situation C2 test case, 2026-10-15: strict accounting of one partner uses allocation and no substitution credits (D4.1 L00868); the per-flow branches gave substitution for Q5=c. Fable review: the C2 branch comes after Q5=a and Q5=b, since Step 3 allocation partitions the products of a multifunctional process (L00812) and a waste keeps its zero-burden boundary (Step 4, L01016). The q5=e branch is a sprint-3 MEDIA item, still open."
     },
     {
       "id": "lca_mc_18",

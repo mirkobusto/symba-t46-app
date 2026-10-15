@@ -371,7 +371,7 @@ const de: Locale = {
         'B — externe Kommunikation OHNE vergleichende Aussagen (Nachhaltigkeitsberichte, Marketing-Broschüren ohne „besser als X"-Aussage). ' +
         'C — öffentliche AUSSAGE, dass das System besser als eine Alternative mit derselben Funktion oder ihr gleichwertig ist (z. B. „dieser Zement ist grüner als OPC"), in jeder Form veröffentlicht: Bericht, Website oder wissenschaftlicher Artikel (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Aktiviert die obligatorische ISO-14044-Critical-Review durch 3+ unabhängige Experten und deaktiviert Gewichtung. Mit Vorsicht verwenden. ' +
         'D — Alignment mit EU-Politikinstrumenten (ESPR-Digital-Product-Passport, PEFCR-Kategorieregeln). Erzwingt die PEF Circular Footprint Formula via CIR-05. Die strikte Berichterstattung eines einzelnen Unternehmens (CSRD, ESG) wird in Q9 angegeben, nicht hier: sie nutzt Allokation, nicht die CFF. ' +
-        'E — akademische peer-reviewte Publikation. Erfordert volle Transparenz (Datenquellen, Allokationsentscheidungen, Sensitivität). Oft mit B oder D kombiniert. Wenn der Artikel behauptet, ein System sei einer konkurrierenden Alternative überlegen oder gleichwertig, wählen Sie auch C; ein Vergleich ohne erklärten Sieger bleibt E. ' +
+        'E — akademische peer-reviewte Publikation. Erfordert volle Transparenz (Datenquellen, Allokationsentscheidungen, Sensitivität). Oft mit B oder D kombiniert. Wenn der Artikel behauptet, ein System sei einer konkurrierenden Alternative überlegen oder gleichwertig, wählen Sie auch C; ein Vergleich ohne erklärten Sieger bleibt E (Lesart T4.6). ' +
         'Mehrfachauswahl möglich: Ein typisches PEF-Paper wählt D + E.',
       options: {
         A: { label: 'A. Intern', description: 'Interne Nutzung (Management, F&E, Planung).' },
@@ -386,7 +386,7 @@ const de: Locale = {
           description: 'EU-Politik-Alignment (ESPR, PEF/PEFCR).',
           warn: 'Aktiviert die PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Akademische Publikation', description: 'Akademische peer-reviewte Publikation (zusätzlich C, wenn sie ein System über eine konkurrierende Alternative stellt).' },
+        E: { label: 'E. Akademische Publikation', description: 'Akademische peer-reviewte Publikation (zusätzlich C, wenn sie ein System über eine konkurrierende Alternative stellt oder ihr gleichstellt).' },
       },
       plain:
         "Wer das Ergebnis liest und was damit geschieht, entscheidet, wie streng die Methode sein muss. Eine interne Notiz ist der leichteste Fall. Die Ausrichtung an EU-Instrumenten (Produktpass, PEF) schreibt die EU-eigene Zählweise für recyceltes und zurückgewonnenes Material fest. Öffentlich zu behaupten, Ihr Produkt sei besser als ein anderes, ist der schwerste Fall: das verlangt eine unabhängige Prüfung durch externe Fachleute. Das gilt, wo immer Sie es sagen, auch in einem wissenschaftlichen Artikel. Mehrfachauswahl ist möglich.",
@@ -444,7 +444,7 @@ const de: Locale = {
       title: 'Q6b — Technology Readiness Level (TRL)',
       details:
         'TRL der dominanten oder kritischen Technologie im symbiotischen Netzwerk. Bestimmt die Wahl der Inventory-Datenqualität (gemessen vs Literatur vs Engineering-Schätzung) und das Unsicherheitsbudget downstream. ' +
-        'Gemeint ist der TRL der Schlüsseltechnologie selbst, nicht ihrer Einführung: eine ausgereifte Technologie, die in diesem Netzwerk oder dieser Region erstmals eingesetzt wird, bleibt TRL 9; die Neuheit der Anwendung zeigt sich in der Datenqualität, nicht im TRL (Lesart T4.6). ' +
+        'Gemeint ist der TRL der Schlüsseltechnologie selbst, nicht ihrer Einführung: eine ausgereifte Technologie, die dieselbe Art von Input im selben Maßstab wie anderswo behandelt und in diesem Netzwerk oder dieser Region erstmals eingesetzt wird, bleibt TRL 9, und die Neuheit zeigt sich in der Datenqualität (Lesart T4.6); ein ausgereiftes Verfahren, angewandt auf einen nie im großen Maßstab behandelten Input, ist ein Austausch mit niedrigem TRL (D4.1 §9.3.5). ' +
         'TRL 9 = voller kommerzieller Betrieb (Kalundborg, Sokka). ' +
         'TRL 7-8 = First-of-a-Kind-Pilot / vorkommerzielle Einheit. ' +
         'TRL 5-6 = laborvalidierter Prototyp, Demo in relevantem Maßstab. ' +
@@ -456,7 +456,7 @@ const de: Locale = {
         'TRL<5': 'TRL <5 — frühe F&E',
       },
       plain:
-        "Wie ausgereift die Schlüsseltechnologie ist: im kommerziellen Betrieb, erste Pilotanlage, Prototyp, oder noch im Labor. Je weniger ausgereift, desto mehr sind Ihre Zahlen Schätzungen statt Messungen, und desto mehr muss das Ergebnis seine eigene Unsicherheit mittragen. Beurteilen Sie die Technologie selbst, nicht ob sie hier neu ist: ein erprobtes Verfahren, das in Ihrer Region erstmals eingesetzt wird, bleibt ausgereift.",
+        "Wie ausgereift die Schlüsseltechnologie ist: im kommerziellen Betrieb, erste Pilotanlage, Prototyp, oder noch im Labor. Je weniger ausgereift, desto mehr sind Ihre Zahlen Schätzungen statt Messungen, und desto mehr muss das Ergebnis seine eigene Unsicherheit mittragen. Beurteilen Sie die Technologie selbst, nicht ob sie hier neu ist: ein erprobtes Verfahren, das in Ihrer Region erstmals eingesetzt wird, bleibt ausgereift, sofern es dieselbe Art von Material wie anderswo behandelt.",
     },
 
     q7: {
@@ -480,7 +480,7 @@ const de: Locale = {
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
-      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie, außer bei Q2 = D (zukünftige Alternativen), das als zukünftig zählt. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne. Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
+      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie, außer bei Q2 = D (zukünftige Alternativen), das als zukünftig zählt. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
         options: {

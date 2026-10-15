@@ -370,7 +370,7 @@ const de: Locale = {
         'A — interne Nutzung: Management-Dashboards, F&E-Screening, Werks-Entscheidungen. Wenige methodische Einschränkungen. ' +
         'B — externe Kommunikation OHNE vergleichende Aussagen (Nachhaltigkeitsberichte, Marketing-Broschüren ohne „besser als X"-Aussage). ' +
         'C — öffentliche AUSSAGE zur Umweltüberlegenheit gegenüber einer Alternative (z. B. „dieser Zement ist grüner als OPC"). Aktiviert die obligatorische ISO-14044-Critical-Review durch 3+ unabhängige Experten und deaktiviert Gewichtung. Mit Vorsicht verwenden. ' +
-        'D — Alignment mit EU-Politikinstrumenten (CSRD-Disclosure, ESPR-Digital-Product-Passport, PEFCR-Kategorieregeln). Erzwingt die PEF Circular Footprint Formula via CIR-05. ' +
+        'D — Alignment mit EU-Politikinstrumenten (ESPR-Digital-Product-Passport, PEFCR-Kategorieregeln). Erzwingt die PEF Circular Footprint Formula via CIR-05. Die strikte Berichterstattung eines einzelnen Unternehmens (CSRD, ESG) wird in Q9 angegeben, nicht hier: sie nutzt Allokation, nicht die CFF. ' +
         'E — akademische peer-reviewte Publikation. Erfordert volle Transparenz (Datenquellen, Allokationsentscheidungen, Sensitivität). Oft mit B oder D kombiniert. ' +
         'Mehrfachauswahl möglich: Ein typisches PEF-Paper wählt D + E.',
       options: {
@@ -383,13 +383,13 @@ const de: Locale = {
         },
         D: {
           label: 'D. EU-Politik-Alignment',
-          description: 'EU-Politik-Alignment (CSRD, ESPR, PEFCR).',
+          description: 'EU-Politik-Alignment (ESPR, PEF/PEFCR).',
           warn: 'Aktiviert die PEF Circular Footprint Formula (CIR-05).',
         },
         E: { label: 'E. Akademische Publikation', description: 'Akademische peer-reviewte Publikation.' },
       },
       plain:
-        "Wer das Ergebnis liest und was damit geschieht, entscheidet, wie streng die Methode sein muss. Eine interne Notiz ist der leichteste Fall. Die Ausrichtung an EU-Instrumenten (CSRD, Produktpass, PEF) schreibt die EU-eigene Zählweise für recyceltes und zurückgewonnenes Material fest. Öffentlich zu behaupten, Ihr Produkt sei besser als ein anderes, ist der schwerste Fall: das verlangt eine unabhängige Prüfung durch externe Fachleute. Mehrfachauswahl ist möglich.",
+        "Wer das Ergebnis liest und was damit geschieht, entscheidet, wie streng die Methode sein muss. Eine interne Notiz ist der leichteste Fall. Die Ausrichtung an EU-Instrumenten (Produktpass, PEF) schreibt die EU-eigene Zählweise für recyceltes und zurückgewonnenes Material fest. Öffentlich zu behaupten, Ihr Produkt sei besser als ein anderes, ist der schwerste Fall: das verlangt eine unabhängige Prüfung durch externe Fachleute. Mehrfachauswahl ist möglich.",
     },
 
     q5: {

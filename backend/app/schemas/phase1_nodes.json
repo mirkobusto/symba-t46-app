@@ -529,13 +529,15 @@
       "source_section": "D4.1 §6.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q1"
+        "q1",
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.system_boundary",
       "field_status": null,
       "default_value": {
+        "ilcd=C2": "company: the reporting company's own processes and its share of the symbiotic exchanges, in isolation; life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
         "q1=A": "exchange-only: the two partners and the connective tissue of the exchange (pipelines, transport, shared pre-treatment); life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
         "q1=B": "eco-park: every firm of the park and its shared infrastructure; life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
         "q1=C": "sector-wide: every participating firm across the sector or territory studied, with the enabling infrastructure; life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
@@ -543,7 +545,7 @@
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.1). | Rewritten on FINAL v2 text, review 2026-10-15: D4.1 L00734 (the IS boundary is 'primarily organizational and spatial ... must encompass all participating entities and the ancillary processes'), L00736 (connective tissue), L00728 ('the life-cycle coverage (which stages are included) is a goal-and-scope choice'; cut-off applied conservatively). The former 'cradle-to-gate default' for env-only studies had no basis and only fired for Q1 D/E. The leading labels are kept because slca_mc_04 mirrors them. Fable review 2026-10-15: 'should' restored (L00728). The scope glosses for Q1 B and C (park, sector or territory) are T4.6 readings of L00734, not sentences of the text; for a single company in strict accounting (C2) the boundary is that partner (L00868)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.1). | Rewritten on FINAL v2 text, review 2026-10-15: D4.1 L00734 (the IS boundary is 'primarily organizational and spatial ... must encompass all participating entities and the ancillary processes'), L00736 (connective tissue), L00728 ('the life-cycle coverage (which stages are included) is a goal-and-scope choice'; cut-off applied conservatively). The former 'cradle-to-gate default' for env-only studies had no basis and only fired for Q1 D/E. The leading labels are kept because slca_mc_04 mirrors them. Fable review 2026-10-15: 'should' restored (L00728). The scope glosses for Q1 B and C (park, sector or territory) are T4.6 readings of L00734, not sentences of the text; for a single company in strict accounting (C2) the boundary is that partner (L00868). | Situation C2 test case, 2026-10-15: Situation C2 draws the boundary around 'a specific partner in isolation' (D4.1 L00868), not the network."
     },
     {
       "id": "lca_mc_06",
@@ -688,18 +690,20 @@
       "source_section": "D4.1 §7.3.2",
       "category": "DERIVED",
       "trigger_q": [
-        "q4"
+        "q4",
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
+        "ilcd=C2": "allocation",
         "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3)."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 is explicit for strict corporate accounting, while L00894 ('mandatory for EU policy-aligned studies') and L00914 ('a valid alternative') contradict each other. Same token as lca_mc_12."
     },
     {
       "id": "lca_mc_14",
@@ -708,18 +712,20 @@
       "source_section": "D4.1 §7.3.3",
       "category": "DERIVED",
       "trigger_q": [
-        "q4"
+        "q4",
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
+        "ilcd=C2": "allocation",
         "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3)."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 is explicit for strict corporate accounting, while L00894 ('mandatory for EU policy-aligned studies') and L00914 ('a valid alternative') contradict each other. Same token as lca_mc_12."
     },
     {
       "id": "lca_mc_15",
@@ -766,13 +772,15 @@
       "source_section": "D4.1 §8.3.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q5"
+        "q5",
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.zero_burden_classification",
       "field_status": null,
       "default_value": {
+        "ilcd=C2": "allocation (Situation C2: no substitution credits, D4.1 §7.2.3)",
         "q5=a": "zero-burden",
         "q5=b": "EVT+sensitivity",
         "q5=c": "substitution+Q-correction",
@@ -782,7 +790,7 @@
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.1). | Situation C2 test case, 2026-10-15: strict accounting of one partner uses allocation and no substitution credits (D4.1 L00868), whatever the flow; the per-flow branches gave substitution for Q5=c. The q5=e branch is a sprint-3 MEDIA item, still open."
     },
     {
       "id": "lca_mc_18",
@@ -811,10 +819,10 @@
       "trigger_condition": null,
       "field": "lca.mfa_backbone",
       "field_status": null,
-      "default_value": "MFA backbone activated when multi-actor (Q1 in {B,C,D,E})",
+      "default_value": "Material flow analysis (or substance flow analysis) with mass balances for each process and for the network before the inventory is finalised: highly recommended in every case (D4.1 §9.3.4)",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 marks DEFAULT but description has Q1 conditional; preserved as DEFAULT (universal mandate, trivially satisfied for Q1=A) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §10.3.4)."
+      "extraction_notes": "v1 marks DEFAULT but description has Q1 conditional; preserved as DEFAULT (universal mandate, trivially satisfied for Q1=A) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §10.3.4). | Rewritten on FINAL v2 text, review 2026-10-15: L01096 ('Before finalizing the LCI, it is highly recommended to conduct a Material Flow Analysis (MFA) or, if relevant, a Substance Flow Analysis (SFA) ... mass balances ... for each process and for the network as a whole'). The former 'when multi-actor (Q1 in {B,C,D,E})' counted a single company as a network and had no basis."
     },
     {
       "id": "lca_mc_20",

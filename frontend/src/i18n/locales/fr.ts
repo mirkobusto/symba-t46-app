@@ -376,7 +376,7 @@ const fr: Locale = {
         "A — usage interne : dashboards de management, screening R&D, décisions au niveau usine. Peu de contraintes méthodologiques. " +
         "B — communication externe SANS claim comparatif (rapports de durabilité, brochures marketing sans phrase « meilleur que X »). " +
         "C — CLAIM public de supériorité environnementale vs une alternative (ex. « ce ciment est plus vert que l'OPC »). Active la critical review obligatoire ISO 14044 par 3+ experts indépendants et désactive la pondération. À utiliser avec précaution. " +
-        "D — alignement avec les instruments de politique UE (disclosure CSRD, digital product passport ESPR, règles de catégorie PEFCR). Force la PEF Circular Footprint Formula via CIR-05. " +
+        "D — alignement avec les instruments de politique UE (digital product passport ESPR, règles de catégorie PEFCR). Force la PEF Circular Footprint Formula via CIR-05. Le rapport strict d'une seule entreprise (CSRD, ESG) se déclare en Q9, pas ici : il utilise l'allocation, pas la CFF. " +
         "E — publication académique peer-reviewed. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. " +
         "Multi-sélection possible : un papier PEF typique choisit D + E.",
       options: {
@@ -389,13 +389,13 @@ const fr: Locale = {
         },
         D: {
           label: "D. Alignement politique UE",
-          description: 'Alignement politique UE (CSRD, ESPR, PEFCR).',
+          description: 'Alignement politique UE (ESPR, PEF/PEFCR).',
           warn: 'Active la PEF Circular Footprint Formula (CIR-05).',
         },
         E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed.' },
       },
       plain:
-        "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (CSRD, passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Vous pouvez en choisir plusieurs.",
+        "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Vous pouvez en choisir plusieurs.",
     },
 
     q5: {

@@ -39,6 +39,7 @@ are cited on the FINAL v2 numbering (PR #109, #111).
 | PR #124 | `lcc_mc_03/04/08/16/18` rewritten on D4.2: valuation per LCC level, node-removal scenarios, no ECOF/IEE without LCA; `contested` key removed | §5.3 | the five nodes |
 | PR #125 | `lca_mc_05/06/23/27` and `lcc_mc_05` rewritten on the text: organizational boundary with declared coverage, economic boundary per LCC type, background and reference content per ILCD situation (C1, C2 included), `lca_mc_23` declared a T4.6 choice | §5.1 MC-27 | the five nodes |
 | PR #126 | the design-choice nodes of sprint 3: `lca_hc_08`, `lca_mc_36` (a public comparative assertion keeps the mandatory panel), `lca_mc_29`, `lca_mc_35`, `lcc_hc_06`, `lcc_hc_13` (every flow classified, Q5=e included), `lcc_hc_38` (MFCA for Q5=b only), `lcc_mc_19` (monetisation mandatory in the S-LCC, none without LCA); T4.6 choices declared in the values; CIR-05 writes CE Delft only with an LCA | §4.2 CIR-05, §5.1 HC-38 | the nodes, `l2_validate._action_cir_05` |
+| PR #129 | Situation C2 checked on a worked case (sugar mill, corporate report): `lca_mc_17` per-flow treatment, `lca_mc_05` boundary and `lca_mc_13/14` allocation follow C2 (allocation, no substitution credits, D4.1 §7.2.3), also against Q4=D; CIR-05 writes `pef_cff` except in C2, with a note; `lca_mc_19` MFA highly recommended in every case | §4.2 CIR-05 | the nodes, `l2_validate._action_cir_05`, `l0_compute._c2_pef_notes` |
 
 ---
 

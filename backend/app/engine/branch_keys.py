@@ -16,12 +16,12 @@ Grammar (anything else raises `BranchKeyError`; it is never skipped):
     q3.F=true | false       Q3 dimension F in {env, eco, soc} on / off
     q3.F-only               F on, the other two dimensions off
     q3.F+G[+H]              all the named dimensions on, the rest ignored
-    lcc_type=T              the derived LCC type: deactivated, C+E, C+E+S, C-LCC
-                            (from Q1, Q3.eco and, when answered, Q10)
+    lcc_type=T              the derived LCC type: deactivated, C+E, C+E+S, C-LCC,
+                            C+N, C+N+S (from Q3, the ILCD situation and Q10,
+                            or Q1 when Q10 is unanswered)
     ilcd=C                  the ILCD situation, as a code: A, A-multi, B, C1, C2
                             (derived at L0 from Q1 and, when answered, Q9)
     sector=V                alias of q6a=V
-    contested               recognised, never matches (see below)
 
 Conventions, decided with the node owner:
 
@@ -31,11 +31,9 @@ Conventions, decided with the node owner:
   - `q3.F-only` is strict (the other two off) and `q3.F+G` is loose (the
     third dimension is ignored), matching the hand-coded predicates
     lcc_hc_38 and lcc_hc_27 in `activate._PREDICATES`.
-  - `contested` (lcc_mc_04, lcc_mc_08) is inert on purpose. It is a flow
-    state, not an answer, and Q5=b ("contested EVT") already has its own
-    explicit branch in both nodes, so mapping it to Q5=b would be a branch
-    that can never be reached. It stays in the grammar so the node does not
-    break, and in the test's allow-list so a new inert key cannot slip in.
+  - `contested`, a flow state that never matched, left the grammar on
+    2026-10-16 together with its two branches (lcc_mc_04, lcc_mc_08): MFCA
+    for contested prices is D4.2 §5.3 and lives in lcc_hc_38.
 
 `default` is not a branch key; the caller handles it.
 """
@@ -135,10 +133,9 @@ class Answers:
 @dataclass(frozen=True)
 class BranchKey:
     raw: str
-    # Answers the key reads ("sector" counts as q6a, "contested" as q5).
+    # Answers the key reads ("sector" counts as q6a).
     variables: frozenset[str]
     matches: Callable[[Answers], bool]
-    inert: bool = False
 
 
 def _check_values(var: str, values: list[str], raw: str) -> None:
@@ -161,9 +158,6 @@ def parse_branch_key(key: str) -> BranchKey:
     """Parse one branch key; raise `BranchKeyError` if it is not in the grammar."""
     raw = key
     key = key.strip()
-
-    if key == "contested":
-        return BranchKey(raw, frozenset({"q5"}), lambda a: False, inert=True)
 
     if m := _EQ.match(key):
         var, value = m.groups()
@@ -215,7 +209,7 @@ def parse_branch_key(key: str) -> BranchKey:
     raise BranchKeyError(
         f"branch key {raw!r} is not in the grammar of engine/branch_keys.py "
         "(qX=V | qX in {..} | q4 includes 'V' | q6b<TRLn | q3.F=true|false | "
-        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V | contested)"
+        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V)"
     )
 
 

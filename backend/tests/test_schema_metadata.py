@@ -45,11 +45,15 @@ def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
     nodes = {n["id"]: n for n in schemas.phase1_nodes}
     rewritten = [n for n in nodes.values()
                  if "Rewritten on FINAL v2 text" in (n.get("extraction_notes") or "")]
-    assert {n["id"] for n in rewritten} >= {"lca_hc_19", "lca_mc_31"}
+    assert {n["id"] for n in rewritten} >= {
+        "lca_hc_19", "lca_mc_31",                                        # PR #123
+        "lcc_mc_03", "lcc_mc_04", "lcc_mc_08", "lcc_mc_16", "lcc_mc_18",
+    }
     for n in rewritten:
         assert re.search(r"L\d{5}", n["extraction_notes"].split("Rewritten on FINAL v2 text")[1])
         values = n["default_value"] if isinstance(n["default_value"], dict) else {"": n["default_value"]}
-        assert all(n["source_section"] in v for v in values.values() if v)
+        # every sentence cites the section; a token such as "aligned_to_lca" cannot
+        assert all(n["source_section"] in v for v in values.values() if v and " " in v)
 
     # D4.1 §10.3.5 L01214-L01222: four categories, iLUC among them, biodiversity not
     frontier = nodes["lca_hc_19"]["default_value"]

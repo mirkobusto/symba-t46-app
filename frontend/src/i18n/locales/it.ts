@@ -695,6 +695,14 @@ const it: Locale = {
         short: 'Solo LCC convenzionale — la prospettiva dell\'impresa, equivalente a un\'analisi del costo totale di possesso.',
         detail: 'Solo la prospettiva dell\'impresa. Ogni strumento di policy è un flusso di cassa reale: tasse e oneri sono costi, i sussidi riducono capex o opex. È il taglio giusto per la rendicontazione aziendale, e deliberatamente non dice nulla sugli effetti di catena del valore o societali — rivendicarli sovrastimerebbe ciò che un conto mono-attore può sostenere.',
       },
+      'C+N': {
+        short: 'LCC convenzionale per ogni partner, consolidato a livello di rete. Nessun LCC ambientale: il caso non ha un\'LCA con cui restare coerente.',
+        detail: 'Prima i flussi di cassa reali di ogni impresa, poi gli stessi conti sommati sulla rete, dove i pagamenti fra partner si annullano. L\'LCC ambientale resta fuori perché il D4.2 lo costruisce sul confine di un\'LCA parallela, e il caso non valuta la dimensione ambientale. Attiva la dimensione ambientale in Q3 se lo studio ha bisogno della vista di catena del valore.',
+      },
+      'C+N+S': {
+        short: 'LCC convenzionale per partner e per la rete, più LCC sociale con il Net Tax Factor. Senza un\'LCA, gli impatti ambientali non sono monetizzati.',
+        detail: 'I conti di impresa e di rete come sopra, più la vista di benessere che serve a una decisione pubblica: tasse e sussidi convertiti con il Net Tax Factor, un tasso di sconto sociale e un confine che arriva al fine vita. Manca la monetizzazione degli impatti ambientali, che richiede i risultati di un\'LCA parallela: attiva la dimensione ambientale in Q3 per aggiungerla.',
+      },
     },
     slca: {
       'active': {

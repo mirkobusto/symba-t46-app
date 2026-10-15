@@ -662,6 +662,14 @@ const es: Locale = {
         short: 'Solo LCC convencional — la perspectiva de la empresa, equivalente a un análisis de coste total de propiedad.',
         detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
       },
+      'C+N': {
+        short: 'LCC convencional para cada socio, consolidado a nivel de red. Sin LCC ambiental: el caso no tiene un ACV con el que mantener la coherencia.',
+        detail: 'Primero los flujos de caja reales de cada empresa, luego las mismas cuentas sumadas en la red, donde los pagos entre socios se anulan. El LCC ambiental queda fuera porque el D4.2 lo construye sobre la frontera de un ACV paralelo, y el caso no evalúa la dimensión ambiental. Activa la dimensión ambiental en Q3 si el estudio necesita la vista de cadena de valor.',
+      },
+      'C+N+S': {
+        short: 'LCC convencional por socio y para la red, más LCC social con el Net Tax Factor. Sin un ACV, los impactos ambientales no se monetizan.',
+        detail: 'Las cuentas de empresa y de red como arriba, más la vista de bienestar que necesita una decisión pública: impuestos y subvenciones convertidos con el Net Tax Factor, una tasa de descuento social y una frontera que llega al fin de vida. Falta la monetización de los impactos ambientales, que requiere los resultados de un ACV paralelo: activa la dimensión ambiental en Q3 para añadirla.',
+      },
     },
     slca: {
       'active': {

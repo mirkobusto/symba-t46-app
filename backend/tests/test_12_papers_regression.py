@@ -159,7 +159,7 @@ _PAPERS: list[dict[str, Any]] = [
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
-        "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,  # Q1∈{A,B,E} + eco
+        "expected_lcc_type": LccType.C_LCC_PLUS_NETWORK,  # eco without env: no E-LCC (D4.2 §4.1)
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },
     # 7b. Leiva 2025 (Frövi) — Q1=B eco-park
@@ -173,7 +173,7 @@ _PAPERS: list[dict[str, Any]] = [
         "expected_pathway": PathwayId.IS_01,
         "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
-        "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
+        "expected_lcc_type": LccType.C_LCC_PLUS_NETWORK,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },
     # 8. Danielsson 2018 — Kalundborg, ENV+ECO, public-claim Q4=C

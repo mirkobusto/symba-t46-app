@@ -48,6 +48,14 @@ export const NARRATIVE_SOURCES: Record<string, Record<string, NarrativeSource>> 
       quote: 'Conventional LCC (C-LCC) — The Firm Perspective: Evaluates strict financial feasibility from the perspective of an individual actor, equivalent to a Total Cost of Ownership analysis. All policy instruments are modeled as real cash flows: taxes and fees are costs; subsidies are CAPEX or OPEX reductions.',
       source: 'D4.2 §2.2 — Selecting the LCC Type',
     },
+    'C+N': {
+      quote: 'The C-LCC analysis must be conducted at two nested levels. The primary boundary is Gate-to-Gate, drawn around each individual participating firm. […] After individual firm analyses are complete, a secondary aggregated analysis is performed by expanding the boundary to Entry-to-Gate, encompassing the entire group of collaborating firms',
+      source: 'D4.2 §4.1 — Boundary Definition by LCC Type',
+    },
+    'C+N+S': {
+      quote: 'When the study serves a public policy or territorial planning objective, the boundary must expand to Cradle-to-Grave to capture all costs to society, including end-of-life phases typically borne by municipalities or the public rather than by the firms themselves.',
+      source: 'D4.2 §4.1 — Boundary Definition by LCC Type',
+    },
   },
   slca: {
     'active': {

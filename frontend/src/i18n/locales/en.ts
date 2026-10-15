@@ -717,6 +717,14 @@ const en = {
         short: 'Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.',
         detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
       },
+      'C+N': {
+        short: 'Conventional LCC for each partner, consolidated at network level. No environmental LCC: the case has no LCA to keep it consistent with.',
+        detail: 'Each firm\'s real cash flows first, then the same accounts added up across the network, where the payments between partners cancel out. The environmental LCC is left out because D4.2 builds it on the boundary of a parallel LCA, and the case assesses no environmental dimension. Switch the environmental dimension on in Q3 if the study needs the value-chain view.',
+      },
+      'C+N+S': {
+        short: 'Conventional LCC per partner and for the network, plus societal LCC with the Net Tax Factor. Without an LCA, environmental impacts are not monetised.',
+        detail: 'The firm and network accounts as above, plus the welfare view a public decision needs: taxes and subsidies converted through the Net Tax Factor, a social discount rate, and a boundary that reaches end of life. What is missing is the monetisation of environmental impacts, which needs the results of a parallel LCA: switch the environmental dimension on in Q3 to add it.',
+      },
     },
     slca: {
       'active': {

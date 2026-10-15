@@ -41,8 +41,9 @@ def test_all_default_nodes_activate(schemas):
     run(case, schemas)
     default_ids = {n["id"] for n in schemas.phase1_nodes if n.get("category") == "DEFAULT"}
     assert default_ids.issubset(set(case.activated_nodes))
-    # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08)
-    assert len(default_ids) == 118
+    # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08), minus lca_mc_06,
+    # which branches on the ILCD situation since 2026-10-16 (D4.1 Table 1)
+    assert len(default_ids) == 117
 
 
 def test_l0_nodes_skipped(schemas):
@@ -511,12 +512,14 @@ def test_q7_in_set(schemas, q7, expected):
     assert _activated(schemas, q7=q7).lca["transport.foreground"] == expected
 
 
-def test_q3_env_only_branch(schemas):
-    """lca_mc_05: Q1 branches first, `q3.env-only` for the other Q1 values."""
-    assert _activated(schemas, q1=Q1.D).lca["system_boundary"] == "cradle-to-gate default"
-    assert _activated(schemas, q1=Q1.A).lca["system_boundary"] == "exchange-only"
-    both = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True))
-    assert "lca_mc_05" not in both.activated_nodes  # env+eco is not env-only
+def test_lca_boundary_is_organizational_and_coverage_a_declared_choice(schemas):
+    """lca_mc_05: the boundary follows the network (D4.1 §6.1, L00734) and the life-cycle
+    coverage is a goal-and-scope choice (§6, L00728), not a cradle-to-gate default."""
+    assert _activated(schemas, q1=Q1.A).lca["system_boundary"].startswith("exchange-only: the two partners")
+    for q1 in (Q1.D, Q1.E):
+        boundary = _activated(schemas, q1=q1, q3=Q3(env=True, eco=True)).lca["system_boundary"]
+        assert boundary.startswith("network: all participating entities")
+        assert "goal-and-scope choice" in boundary
 
 
 def test_q3_env_plus_eco_and_eco_only_branches(schemas):
@@ -530,9 +533,12 @@ def test_q3_env_plus_eco_and_eco_only_branches(schemas):
     c_lcc = ind(q1=Q1.D, env=True, eco=True)
     assert c_lcc.lcc_type.value == "C-LCC"
     assert c_lcc.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: a gate-to-gate C-LCC")
-    # lcc_mc_05: Q1 branches first, `q3.env+eco` for the rest
-    assert _activated(schemas, q1=Q1.C, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "aligned with LCA"
-    assert _activated(schemas, q1=Q1.A, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "Gate-to-Gate"
+    # lcc_mc_05: one boundary per LCC type (D4.2 §4.1, L00547-L00555)
+    boundary = lambda q1, **q3: _activated(schemas, q1=q1, q3=Q3(**q3)).lcc["economic_boundary"]  # noqa: E731
+    assert "E-LCC: identical to the LCA boundary" in boundary(Q1.A, env=True, eco=True)
+    assert "S-LCC: cradle-to-grave" in boundary(Q1.C, env=True, eco=True)
+    assert boundary(Q1.D, env=True, eco=True) == "Gate-to-gate around the company (D4.2 §4.1)"
+    assert "E-LCC" not in boundary(Q1.A, eco=True)                     # no LCA, no E-LCC
 
 
 def test_q3_eco_false_branch_leaves_lcc_off(schemas):
@@ -667,15 +673,25 @@ def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
 @pytest.mark.parametrize(
     "q1, expected",
     [
-        (Q1.A, "alt disposal+virgin market"),
-        (Q1.B, "alt disposal+virgin market"),   # parks are Situation A since 2026-10-15
-        # D4.1 §8.3.1 / §12.3.1: Situation B models the marginal technology,
-        # identified through a market analysis, not the national average mix.
-        (Q1.C, "marginal technology mix (market analysis)"),
+        (Q1.A, "Average market consumption mix"),
+        (Q1.B, "Average market consumption mix"),   # parks are Situation A since 2026-10-15
+        # D4.1 §11.3.1 L01293: Situation B models the marginal technology, not the average mix
+        (Q1.C, "Marginal technology mix"),
+        (Q1.D, "No substitution reference"),        # C2, L00868
+        (Q1.E, "Average market mix, as in Situation A"),   # C1, L00866
     ],
 )
-def test_reference_scenario_content_follows_q1(schemas, q1, expected):
-    assert _activated(schemas, q1=q1).lca["reference_scenario.content"] == expected
+def test_reference_scenario_content_follows_the_situation(schemas, q1, expected):
+    assert _activated(schemas, q1=q1).lca["reference_scenario.content"].startswith(expected)
+
+
+def test_background_database_follows_the_situation(schemas):
+    """lca_mc_06: background mixes per ILCD situation (D4.1 Table 1, §11.3.1); no
+    database version or system model is prescribed."""
+    a = _activated(schemas, q1=Q1.A).lca["background_database"]
+    b = _activated(schemas, q1=Q1.C).lca["background_database"]
+    assert a.startswith("Average market consumption mixes") and b.startswith("Long-term marginal")
+    assert "3.10" not in a and "none prescribed" in a
 
 
 # ---------------------------------------------------------------------------
@@ -827,7 +843,7 @@ def test_q9_structural_decision_makes_the_framework_consequential(schemas):
     assert before.lca["modeling_framework"] == "attributional"
     assert after.lca["modeling_framework"] == "consequential"
     assert after.lca["allocation_method"] == "consequential expansion"
-    assert after.lca["reference_scenario.content"] == "marginal technology mix (market analysis)"
+    assert after.lca["reference_scenario.content"].startswith("Marginal technology mix")
     assert after.lca["ilcd_situation"] == "ILCD B"
 
 
@@ -835,7 +851,7 @@ def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(sche
     case = _q9_case(schemas, Q1.C, "none")
     assert case.lca["modeling_framework"] == "attributional"
     assert case.lca["allocation_method"] == "system expansion"
-    assert "lca_mc_27" not in case.activated_nodes   # no reference scenario for a documented network
+    assert case.lca["reference_scenario.content"].startswith("Average market mix, as in Situation A")  # L00866
 
 
 def test_q9_unanswered_keeps_every_q1_result(schemas):

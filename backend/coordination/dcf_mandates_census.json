@@ -602,10 +602,10 @@
         "method": "LCA",
         "type": "MC",
         "lifecycle_layer": "L2",
-        "source_section": "D4.1 \u00a75.5",
+        "source_section": "D4.1 \u00a76",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Modular life-cycle structure (raw, proc, distrib, use, EoL)",
+        "statement": "T4.6 design choice, not prescribed by D4.1: organise the inventory by life-cycle module (raw materials, processing, distribution, use, end of life), so that the stages included \u2014 a goal-and-scope choice \u2014 stay visible (D4.1 \u00a76)",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],

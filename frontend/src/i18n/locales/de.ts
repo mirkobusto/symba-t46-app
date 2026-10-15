@@ -479,7 +479,7 @@ const de: Locale = {
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
-      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn die Studie das System länger als 15 Jahre verfolgt (D4.2 §9; die 15 Jahre sind ein T4.6-Standardwert ohne Quelle). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie, außer bei Q2 = D (zukünftige Alternativen), das als zukünftig zählt. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; ist er leer, wird die Lebensdauer der Hauptanlagen verwendet (D4.2 §9.1).',
+      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie, außer bei Q2 = D (zukünftige Alternativen), das als zukünftig zählt. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne. Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
         options: {
@@ -494,7 +494,7 @@ const de: Locale = {
         placeholder: 'z. B. 25; leer für ein Bild eines Jahres',
       },
       lifetime: {
-        label: 'Technische Lebensdauer der Hauptanlagen (nur genutzt, wenn der Analysezeitraum leer ist)',
+        label: 'Technische Lebensdauer der Hauptanlagen (zugleich ihr Abschreibungszeitraum)',
       },
       placeholder: 'z. B. 20',
       unit: 'Jahre',
@@ -584,7 +584,7 @@ const de: Locale = {
     removeAria: '{{key}} entfernen',
     hints: {
       slca_framework_override: "Auf 'absolute' setzen, um L1 BLOCK 2 zu testen (mit Q3.soc=true)",
-      asset_lifetime: 'Jahre (alt; genutzt, wenn Analysezeitraum und Lebensdauer in Q8 leer sind); ein Horizont über der Schwelle (standardmäßig 15) ergänzt LCA und LCC um zukünftigen Hintergrund (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Jahre (alt; genutzt, wenn die Lebensdauer in Q8 leer ist); ein Horizont über der Schwelle (standardmäßig 15) ergänzt LCA und LCC um zukünftigen Hintergrund (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Jahre. Der Studienhorizont, ab dem LCA und LCC einen zukünftigen Hintergrund brauchen (lca_mc_21, lcc_hc_23, CIR-01). Standard 15, der Wert, den D4.2 §9.3 ohne Quelle angibt; wenn Sie ihn ändern, begründen Sie es in der methodischen Charta',
       transport_sensitive: 'Boolean; true aktiviert CIR-03',

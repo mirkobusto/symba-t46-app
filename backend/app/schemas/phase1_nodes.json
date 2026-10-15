@@ -370,7 +370,7 @@
           "field": "lca.capital_goods.amortization_period",
           "default_value": null,
           "unit": "years",
-          "notes": "Technical lifetime of each asset, no single default: D4.1 §6.3.3 (amortise over the equipment's expected technical lifetime) and D4.1 §14.2.2 (same asset definition and period in LCA and LCC); reference lifetimes per asset class in D4.2 Table 7.1 (§7.3: buildings and infrastructure 20-30 y, processing equipment 5-8 y). Q8 asset lifetime is the fallback for the primary asset. The former 20-year default had no source. Aligned with lcc.capital_goods.amortization_period via IR-13."
+          "notes": "Technical lifetime of each asset, no single default: D4.1 §6.3.3 (amortise over the equipment's expected technical lifetime) and D4.1 §14.2.2 (same asset definition and period in LCA and LCC); reference lifetimes per asset class in D4.2 Table 7.1 (§7.3: buildings and infrastructure 20-30 y, processing equipment 5-8 y). Written from the Q8 asset lifetime when answered (primary asset); per-asset periods in the DCF. The former 20-year default had no source. Aligned with lcc.capital_goods.amortization_period via IR-13."
         }
       ],
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3)."
@@ -838,10 +838,10 @@
         "q6b"
       ],
       "trigger_logic": "conjunctive",
-      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
+      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.analysis_period > 15 OR case.asset_lifetime > 15",
       "field": "lca.background_futurisation",
       "field_status": null,
-      "default_value": "Future background (SSP/RCP) when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (D4.2 §9.3 threshold, no source cited; the analyst can change it); same horizon as the LCC (D4.2 L01261)",
+      "default_value": "Future background (SSP/RCP) when the study horizon reaches the future: future operating year, technology below TRL 7, or analysis period or asset lifetime > 15 y (D4.2 §9.3 threshold, no source cited; the analyst can change it); same horizon as the LCC (D4.2 L01261)",
       "override_path": "q2, q6b",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.2)."
@@ -1266,7 +1266,7 @@
           "field": "lcc.capital_goods.amortization_period",
           "default_value": null,
           "unit": "years",
-          "notes": "Technical lifetime of each asset, no single default (D4.2 §4.2 L00575, §7.3 formula and Table 7.1: buildings and infrastructure 20-30 y, processing equipment 5-8 y); Q8 asset lifetime is the fallback for the primary asset. The former 20-year default was attributed to D4.2 §4.2, where the 20-30 years is the LCA exclusion rationale D4.2 argues against. Aligned with lca.capital_goods.amortization_period via IR-13/B-06."
+          "notes": "Technical lifetime of each asset, no single default (D4.2 §4.2 L00575, §7.3 formula and Table 7.1: buildings and infrastructure 20-30 y, processing equipment 5-8 y); Written from the Q8 asset lifetime when answered (primary asset); per-asset periods in the DCF. The former 20-year default was attributed to D4.2 §4.2, where the 20-30 years is the LCA exclusion rationale D4.2 argues against. Aligned with lca.capital_goods.amortization_period via IR-13/B-06."
         }
       ]
     },
@@ -1531,10 +1531,10 @@
         "q6b"
       ],
       "trigger_logic": "conjunctive",
-      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
+      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.analysis_period > 15 OR case.asset_lifetime > 15",
       "field": "lcc.background_dynamic",
       "field_status": null,
-      "default_value": "Dynamic SSP/RCP scenarios when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (D4.2 §9.3 threshold, no source cited; the analyst can change it); same horizon as the LCA (D4.2 L01261)",
+      "default_value": "Dynamic SSP/RCP scenarios when the study horizon reaches the future: future operating year, technology below TRL 7, or analysis period or asset lifetime > 15 y (D4.2 §9.3 threshold, no source cited; the analyst can change it); same horizon as the LCA (D4.2 L01261)",
       "override_path": "q2, q6b",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04."

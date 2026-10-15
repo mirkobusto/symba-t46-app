@@ -534,7 +534,7 @@ const en = {
     q8: {
       title: 'Q8 — Time horizon of the study',
       help: 'Optional. One horizon for LCA and LCC alike.',
-      details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the study follows the system for more than 15 years (D4.2 §9; the 15 years are a T4.6 default without a source). Left unanswered, the operating year counts as the year of the study, except with Q2 = D (future alternatives), which counts as future. The analysis period is the time span the study covers; if it is empty, the lifetime of the main assets is used instead (D4.2 §9.1).',
+      details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study, except with Q2 = D (future alternatives), which counts as future. The analysis period is the time span the study covers. The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
       start: {
         label: 'In which year does the system operate, or is it assumed to operate?',
         options: {
@@ -549,7 +549,7 @@ const en = {
         placeholder: 'e.g. 25; empty for a one-year picture',
       },
       lifetime: {
-        label: 'Technical lifetime of the main assets (used only if the analysis period is empty)',
+        label: 'Technical lifetime of the main assets (also their amortisation period)',
       },
       placeholder: 'e.g. 20',
       unit: 'years',
@@ -639,7 +639,7 @@ const en = {
     removeAria: 'Remove {{key}}',
     hints: {
       slca_framework_override: "Set to 'absolute' to test L1 BLOCK 2 (with Q3.soc=true)",
-      asset_lifetime: 'Years (legacy; used when the Q8 analysis period and lifetime are empty); a horizon beyond the threshold (15 by default) adds future background to LCA and LCC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Years (legacy; used when the Q8 lifetime is empty); a horizon beyond the threshold (15 by default) adds future background to LCA and LCC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Years. The study horizon above which LCA and LCC need future background (lca_mc_21, lcc_hc_23, CIR-01). Default 15, the figure D4.2 §9.3 gives without a source; change it and justify it in the methodological charter',
       transport_sensitive: 'Boolean; true activates CIR-03',

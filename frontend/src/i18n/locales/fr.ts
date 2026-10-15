@@ -485,7 +485,7 @@ const fr: Locale = {
     q8: {
       title: 'Q8 — Horizon temporel de l\'étude',
       help: 'Facultative. Un seul horizon pour l\'ACV et l\'ACC.',
-      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque l\'étude suit le système pendant plus de 15 ans (D4.2 §9 ; les 15 ans sont une valeur par défaut T4.6 sans source). Sans réponse, l\'année d\'exploitation est celle de l\'étude, sauf avec Q2 = D (alternatives futures), qui compte comme future. La période d\'analyse est la durée couverte par l\'étude ; si elle est vide, la durée de vie des actifs principaux est utilisée (D4.2 §9.1).',
+      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude, sauf avec Q2 = D (alternatives futures), qui compte comme future. La période d\'analyse est la durée couverte par l\'étude. La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
       start: {
         label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
         options: {
@@ -500,7 +500,7 @@ const fr: Locale = {
         placeholder: 'ex. 25 ; vide pour une photographie d\'une année',
       },
       lifetime: {
-        label: 'Durée de vie technique des actifs principaux (utilisée seulement si la période d\'analyse est vide)',
+        label: 'Durée de vie technique des actifs principaux (aussi leur période d\'amortissement)',
       },
       placeholder: 'ex. 20',
       unit: 'ans',
@@ -590,7 +590,7 @@ const fr: Locale = {
     removeAria: 'Supprimer {{key}}',
     hints: {
       slca_framework_override: "Mettre à 'absolute' pour tester L1 BLOCK 2 (avec Q3.soc=true)",
-      asset_lifetime: 'Années (ancien ; utilisé si la période d\'analyse et la durée de vie de Q8 sont vides) ; un horizon au-delà du seuil (15 par défaut) ajoute l\'arrière-plan futur à l\'ACV et à l\'ACC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Années (ancien ; utilisé si la durée de vie de Q8 est vide) ; un horizon au-delà du seuil (15 par défaut) ajoute l\'arrière-plan futur à l\'ACV et à l\'ACC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Années. L\'horizon d\'étude au-delà duquel l\'ACV et l\'ACC exigent un arrière-plan futur (lca_mc_21, lcc_hc_23, CIR-01). Par défaut 15, le chiffre que le D4.2 §9.3 donne sans source ; si vous le changez, justifiez-le dans la charte méthodologique',
       transport_sensitive: 'Booléen ; true active CIR-03',

@@ -479,7 +479,7 @@ const es: Locale = {
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',
       help: 'Opcional. Un solo horizonte para el ACV y el ACC.',
-      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el estudio sigue el sistema durante más de 15 años (D4.2 §9; los 15 años son un valor por defecto de T4.6 sin fuente). Sin respuesta, el año de funcionamiento es el del estudio, salvo con Q2 = D (alternativas futuras), que cuenta como futuro. El periodo de análisis es el lapso que cubre el estudio; si está vacío se usa la vida útil de los activos principales (D4.2 §9.1).',
+      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio, salvo con Q2 = D (alternativas futuras), que cuenta como futuro. El periodo de análisis es el lapso que cubre el estudio. La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en ACV y ACC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
       start: {
         label: '¿En qué año funciona el sistema, o se supone que funciona?',
         options: {
@@ -494,7 +494,7 @@ const es: Locale = {
         placeholder: 'p. ej. 25; vacío para la fotografía de un año',
       },
       lifetime: {
-        label: 'Vida útil técnica de los activos principales (solo si el periodo de análisis está vacío)',
+        label: 'Vida útil técnica de los activos principales (también su periodo de amortización)',
       },
       placeholder: 'p. ej. 20',
       unit: 'años',
@@ -584,7 +584,7 @@ const es: Locale = {
     removeAria: 'Eliminar {{key}}',
     hints: {
       slca_framework_override: "Establecer a 'absolute' para probar L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Años (heredado; se usa si el periodo de análisis y la vida útil de Q8 están vacíos); un horizonte por encima del umbral (15 por defecto) añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Años (heredado; se usa si la vida útil de Q8 está vacía); un horizonte por encima del umbral (15 por defecto) añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Años. El horizonte de estudio a partir del cual el ACV y el ACC requieren fondo futuro (lca_mc_21, lcc_hc_23, CIR-01). Por defecto 15, la cifra que el D4.2 §9.3 da sin fuente; si la cambias, justifícala en la carta metodológica',
       transport_sensitive: 'Booleano; true activa CIR-03',

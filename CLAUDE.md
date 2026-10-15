@@ -72,7 +72,7 @@ che arriva dagli schemi (42 nomi di regola, 32 enunciati, 12 CDP, 4 messaggi di 
 tradotto in `frontend/src/i18n/schemaTerms.ts`, con il codice IR-/CDP- che resta il
 riferimento e il nome inglese accanto per chi non legge in inglese.
 
-Il **2026-10-14/15** è stata mergiata la **revisione sul FINAL v2** dei deliverable (PR #109-#120),
+Il **2026-10-14/15** è stata mergiata la **revisione sul FINAL v2** dei deliverable (PR #109-#121),
 nata dalla revisione di D4.1/D4.2 (report locali sulla branch `review/wp4-finalv2-2026-10`, **mai
 pushata**: il repo è pubblico) e da un test del questionario su casi reali del corpus. In sintesi:
 `source_section` dei nodi e citazioni in-app sulla numerazione FINAL v2 (#109, #111); scenario di
@@ -88,7 +88,9 @@ per ogni flusso, risposta facoltativa Freedom-to-Act e settore della Part 2 (#11
 **senza LCA niente E-LCC** (#119: tipi `C+N` e `C+N+S`, C-LCC per partner + consolidamento di rete, D4.2
 §4.1); le cifre senza fonte diventano forbici o parametri (#120: soglia dei 15 anni modificabile in
 `advanced`, Monte Carlo 1.000-10.000 decisa dalla convergenza, 1-5 % fissato dall'analista, tolto il
-default di 20 anni di ammortamento a favore della vita tecnica di ogni asset).
+default di 20 anni di ammortamento a favore della vita tecnica di ogni asset); la soglia scatta
+se la supera il periodo di analisi **o** la vita degli asset, e la vita degli asset di Q8 è scritta come
+periodo di ammortamento in LCA e LCC (#121).
 Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
@@ -151,7 +153,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-15, dopo la revisione FINAL v2): **731 backend (pytest, +1 skipped) + 156 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-15, dopo la revisione FINAL v2): **734 backend (pytest, +1 skipped) + 156 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

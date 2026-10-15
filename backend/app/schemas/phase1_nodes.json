@@ -92,10 +92,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "System-level perspective at network boundary",
+      "default_value": "System-level perspective: the boundary encloses the network and its connective infrastructure; in strict accounting of one partner (Situation C2) it encloses the reporting partner in isolation, a T4.6 reading of D4.1 §7.2.3 (D4.1 §4.1)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00538 (§4.1), L00868 (C2 reporting 'for a specific partner in isolation': the boundary is an inference, declared)."
     },
     {
       "id": "lca_hc_04",
@@ -108,10 +108,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Multi-FU analysis allowed when actors have distinct outputs",
+      "default_value": "For a network delivering several distinct functions, a system of functional units covering all jointly delivered services is the robust solution; a single aggregated FU that treats the network as a black box should be avoided (D4.1 §5.3.2; §5.2.2)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.2)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00708 ('a robust solution is to define a system of functional units'), L00686 ('should be avoided as it treats the entire network as a \"black box\"'). The former 'allowed when actors have distinct outputs' weakened the text and keyed it on actors, not on the network's functions."
     },
     {
       "id": "lca_hc_05",
@@ -265,12 +265,12 @@
       "field": "lca.uncertainty.pedigree",
       "field_status": null,
       "default_value": {
-        "q4 in {C,D,E}": "Pedigree Matrix mandatory",
-        "default": "Pedigree Matrix recommended"
+        "q4 in {C,D,E}": "Pedigree Matrix mandatory: every flow scored on the five indicators, 1-5 (D4.1 §13.3.2)",
+        "default": "Pedigree Matrix recommended: T4.6 divergence kept on 2026-10-04, since D4.1 §13.3.2 asks to score every flow in every study"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01463 ('Score every flow that enters the model on the five Pedigree indicators'). Divergence of 2026-10-04 declared in the value. CIR-02 (Q2 in {B,C,D}) writes lca.uncertainty.pedigree = True after this node."
     },
     {
       "id": "lca_hc_14",
@@ -286,10 +286,10 @@
       "trigger_condition": "case.q4 ∩ {'C','D','E'} ≠ ∅ OR case.q6b != 'TRL9'",
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Monte Carlo mandatory if Q4 in {C,D,E} OR Q6b<TRL9",
+      "default_value": "Monte Carlo mandatory if Q4 is C, D or E or the technology is below TRL 9: T4.6 divergence kept on 2026-10-04; D4.1 §13.3.2 asks Monte Carlo by default in every study, with at least 1,000 iterations and a convergence check, and its only TRL threshold is below TRL 7",
       "override_path": "q4, q6b",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01465 (Monte Carlo 'by default', at least 1 000 iterations with convergence), L01100 (TRL 7). Divergence of 2026-10-04 declared in the value; predicate unchanged."
     },
     {
       "id": "lca_hc_15",
@@ -359,9 +359,8 @@
       "field": "lca.capital_goods.included",
       "field_status": null,
       "default_value": {
-        "q6b=TRL9": "Capital goods amortized",
-        "q6b=TRL7-8": "Capital goods full inclusion",
-        "q6b<TRL7": "Capital goods full inclusion + scale-up frameworks"
+        "q6b<TRL7": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3); below TRL 7 their capital is estimated by step-to-equipment mapping with Lang-factor multipliers (D4.1 §9.3.5)",
+        "default": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3)"
       },
       "override_path": "q6b",
       "lifecycle_layer": "L2",
@@ -373,7 +372,7 @@
           "notes": "Technical lifetime of each asset, no single default: D4.1 §6.3.3 (amortise over the equipment's expected technical lifetime) and D4.1 §14.2.2 (same asset definition and period in LCA and LCC); reference lifetimes per asset class in D4.2 Table 7.1 (§7.3: buildings and infrastructure 20-30 y, processing equipment 5-8 y). Written from the Q8 asset lifetime when answered (primary asset); per-asset periods in the DCF. The former 20-year default had no source. Aligned with lcc.capital_goods.amortization_period via IR-13."
         }
       ],
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00798 ('should be included within the system boundary ... amortized ... over the equipment's expected technical lifetime'), L01106 (Lang factors below TRL 7). No TRL split in the text: the former 'full inclusion' for TRL 7-8 is gone and the node now fires for every TRL, so the Q8 asset lifetime is written as amortisation period in every study."
     },
     {
       "id": "lca_hc_19",
@@ -436,10 +435,10 @@
       "trigger_condition": null,
       "field": "lca.functional_unit",
       "field_status": null,
-      "default_value": "Function-oriented FU mandatory for IS",
+      "default_value": "Function-oriented FU, defined around the ultimate service delivered to the recipient or the market: the preferred approach for IS; a flow-oriented FU (e.g. disposal of a waste) answers a valid but narrower question and should be stated as such (D4.1 §5.3.1; also §5.2.1)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00680 ('methodologically preferred'), L00674 ('a valid question, it is limited'), L00700 ('should always be defined around the ultimate service'). Same text in the three writers of lca.functional_unit; the former 'mandatory' / 'single permitted' overstated the text. Input- or output-based FU (N8) deferred to the Part 2 step."
     },
     {
       "id": "lca_mc_01",
@@ -494,17 +493,17 @@
       "source_section": "D4.1 §14.3.2",
       "category": "DERIVED",
       "trigger_q": [
-        "q1",
-        "q3"
+        "q3",
+        "lcc_type"
       ],
       "trigger_logic": "conjunctive",
-      "trigger_condition": "case.q3.eco == true AND case.q3.env == true",
+      "trigger_condition": "case.q3.env == true AND lcc_type IN ['C+E','C+E+S']",
       "field": "lca.lcc_integration_mode",
       "field_status": null,
-      "default_value": "LCA-LCC integration matrix-based UM³-LCE³-ISN if Q3.ECO+Q3.ENV; standalone otherwise",
-      "override_path": "q1, advanced",
+      "default_value": "LCI-based E-LCC on the shared, mass-balanced MFA model: every process and flow of the LCA has a matching cost item (D4.1 §14.3.2; MFA model §14.3.1)",
+      "override_path": "q3, lcc_type, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01509 (§14.3.1, MFA as the common backbone), L01513 (§14.3.2, 'an LCI-based E-LCC is the best practice'). UM³-LCE³-ISN serves the multi-level analysis (lca_mc_34). Now only with an E-LCC (C+E, C+E+S): a C-LCC alone (C2) has no E-LCC to integrate."
     },
     {
       "id": "lca_mc_04",
@@ -517,10 +516,10 @@
       "trigger_condition": null,
       "field": "lca.functional_unit",
       "field_status": null,
-      "default_value": "FU function-oriented (single permitted IS choice)",
+      "default_value": "Function-oriented FU, defined around the ultimate service delivered to the recipient or the market: the preferred approach for IS; a flow-oriented FU (e.g. disposal of a waste) answers a valid but narrower question and should be stated as such (D4.1 §5.3.1; also §5.2.1)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00680 ('methodologically preferred'), L00674 ('a valid question, it is limited'), L00700 ('should always be defined around the ultimate service'). Same text in the three writers of lca.functional_unit; the former 'mandatory' / 'single permitted' overstated the text. Input- or output-based FU (N8) deferred to the Part 2 step."
     },
     {
       "id": "lca_mc_05",
@@ -581,10 +580,10 @@
       "trigger_condition": null,
       "field": "lca.functional_unit",
       "field_status": null,
-      "default_value": "Function-oriented FU implementation (single option per D4.1 for IS)",
+      "default_value": "Function-oriented FU, defined around the ultimate service delivered to the recipient or the market: the preferred approach for IS; a flow-oriented FU (e.g. disposal of a waste) answers a valid but narrower question and should be stated as such (D4.1 §5.2.1; also §5.3.1)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00680 ('methodologically preferred'), L00674 ('a valid question, it is limited'), L00700 ('should always be defined around the ultimate service'). Same text in the three writers of lca.functional_unit; the former 'mandatory' / 'single permitted' overstated the text. Input- or output-based FU (N8) deferred to the Part 2 step."
     },
     {
       "id": "lca_mc_08",
@@ -619,10 +618,10 @@
       "trigger_condition": null,
       "field": "lca.modeling_technique",
       "field_status": null,
-      "default_value": "Process-LCA preferred for foreground; IO for screening",
+      "default_value": "Process LCA for the foreground; environmentally extended input-output data for the background in a hybrid LCA or to fill data gaps (D4.1 §4.2.4; §6.3.2, §9.1)",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.2.4)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.2.4). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00590 (process data for the foreground, IO for the background), L00760 (hybrid LCA recommended), L01050 (EEIO for hybrid LCA or gap-filling). 'IO for screening' had no basis."
     },
     {
       "id": "lca_mc_10",
@@ -638,12 +637,12 @@
       "field": "lca.capital_goods.included",
       "field_status": null,
       "default_value": {
-        "q6b=TRL9": "amortized",
-        "q6b<TRL7": "full + scale-up frameworks"
+        "q6b<TRL7": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3); below TRL 7 their capital is estimated by step-to-equipment mapping with Lang-factor multipliers (D4.1 §9.3.5)",
+        "default": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3)"
       },
       "override_path": "q6b",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00798 ('should be included within the system boundary ... amortized ... over the equipment's expected technical lifetime'), L01106 (Lang factors below TRL 7). No TRL split in the text: the former 'full inclusion' for TRL 7-8 is gone and the node now fires for every TRL, so the Q8 asset lifetime is written as amortisation period in every study."
     },
     {
       "id": "lca_mc_11",
@@ -656,10 +655,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Sensitivity on assumptions, mandatory frontier categories",
+      "default_value": "Frontier categories reported with uncertainty intervals rather than point estimates, stating the method version and whether the factor is implemented in the software or entered manually; which categories and when: lca_hc_19 (D4.1 §10.3.5)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.5)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.5). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01224. The former 'Sensitivity on assumptions, mandatory frontier categories' overstated L01214 ('should be reported ... wherever the IS network implicates the corresponding flow')."
     },
     {
       "id": "lca_mc_12",
@@ -738,10 +737,10 @@
       "trigger_condition": null,
       "field": "lca.q_factor",
       "field_status": null,
-      "default_value": "Quality correction factor 0.6-1.0 (Rigamonti) for substitution",
+      "default_value": "Quality correction factor Q for substitution, with its basis declared — functional or performance ratio, empirical substitution, market-price ratio or the PEF CFF quality ratios — and reported as a range with sensitivity to the basis; the ranges by material class in D4.1 are indicative defaults to challenge, not constants (D4.1 §8.3.6; bases and ranges: §7.3.2)",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.6)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.6). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00886-L00894 (four bases), L00898 ('indicative defaults to challenge'), L00910 ('Report Q as a range'). Departs on purpose from L01014, which gives 'Q (0.6-1.0 for typical downcycling cases per Rigamonti et al., 2018)': sprint 2 (P1-028) does not find that range in Rigamonti 2018, and D4.1 itself goes down to 0.20-0.25 (L00904, L00908)."
     },
     {
       "id": "lca_mc_16",
@@ -785,12 +784,12 @@
         "ilcd=C2": "allocation (Situation C2: no substitution credits, D4.1 §7.2.3)",
         "q5=c": "substitution+Q-correction",
         "q5=d": "integrated multifunctional remodel",
-        "q5=e": "system expansion uniform"
+        "q5=e": "aggregated in the source: no network-wide rule; classify each flow that can be named (D4.1 §8.3.6) and justify the black box as a deviation (D4.1 §8.3.1)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.1). | Situation C2 test case, 2026-10-15: strict accounting of one partner uses allocation and no substitution credits (D4.1 L00868); the per-flow branches gave substitution for Q5=c. Fable review: the C2 branch comes after Q5=a and Q5=b, since Step 3 allocation partitions the products of a multifunctional process (L00812) and a waste keeps its zero-burden boundary (Step 4, L01016). The q5=e branch is a sprint-3 MEDIA item, still open."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.1). | Situation C2 test case, 2026-10-15: strict accounting of one partner uses allocation and no substitution credits (D4.1 L00868); the per-flow branches gave substitution for Q5=c. Fable review: the C2 branch comes after Q5=a and Q5=b, since Step 3 allocation partitions the products of a multifunctional process (L00812) and a waste keeps its zero-burden boundary (Step 4, L01016). The q5=e branch is a sprint-3 MEDIA item, still open. | Step 4b, 2026-10-15: the q5=e branch no longer applies one uniform rule (L00968 'Do not apply a single, network-wide rule'; L00686)."
     },
     {
       "id": "lca_mc_18",
@@ -803,10 +802,10 @@
       "trigger_condition": null,
       "field": "lca.uncertainty.method",
       "field_status": null,
-      "default_value": "Uncertainty: OAT first + Morris GSA on critical parameters",
+      "default_value": "Contribution analysis first, to find the hotspots; then Pedigree scores feeding Monte Carlo, with scenario analysis in parallel for structural choices; global sensitivity analysis (Morris, then Sobol on the reduced set) when the model is non-linear, parameter interactions are likely or Monte Carlo shows a wide output distribution; one-at-a-time sensitivity alone is often insufficient for IS models (D4.1 §13.3.2; §13.3.1, §13.3.3)",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.2.2)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.2.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01457 (contribution analysis first), L01461 (Pedigree → Monte Carlo, scenarios in parallel, GSA when non-linear or wide distribution), L01447 (OAT 'often insufficient'), L01471. The former 'OAT first + Morris' inverted the text."
     },
     {
       "id": "lca_mc_19",
@@ -837,10 +836,10 @@
       "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5']",
       "field": "lca.scale_up_framework",
       "field_status": null,
-      "default_value": "Scale-up frameworks (Six-Tenths, Lang, CEPCI) active if Q6b<TRL7",
+      "default_value": "Below TRL 7, scale the inventory up from lab or pilot data: stoichiometric recalculation with industrial energy and auxiliary inputs, step-to-equipment mapping with Lang-factor multipliers, batch-to-continuous conversion, technology learning curves (D4.1 §9.3.5)",
       "override_path": "q6b",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §10.3.5)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §10.3.5). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01100-L01110. Six-Tenths and CEPCI are D4.2 cost tools (L00877-L00881), not D4.1 inventory techniques; CIR-07 now writes the D4.1 list for the LCA."
     },
     {
       "id": "lca_mc_21",
@@ -914,7 +913,7 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §12.3.3",
-      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2).",
+      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01399 ('should select per category rather than imposing a single method'), L01401, L01403; EF 3.1 in L00914 and L01216. 'ReCiPe 2016 hierarchic' as a default is not in the text. CIR-05 writes 'EF_3.1' after this node for Q4=D.",
       "category": "DERIVED",
       "trigger_q": [
         "q4"
@@ -924,8 +923,8 @@
       "field": "lca.lcia_method",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "EF 3.1 + ReCiPe backup",
-        "default": "ReCiPe 2016 hierarchic + EF 3.1 backup"
+        "q4 includes 'D'": "EF method, the PEF reference, version declared: T4.6 choice for EU policy-aligned studies; CIR-05 sets EF 3.1 (D4.1 §12.3.3; EF 3.1: §7.3.3, §10.3.5)",
+        "default": "Midpoint methods chosen per impact category rather than one method for the whole LCIA — e.g. AWARE for water scarcity, ReCiPe 2016 or EF 3.0 spatially explicit factors for acidification and eutrophication — with versions declared (D4.1 §12.3.3)"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2"
@@ -1020,13 +1019,13 @@
         "q6a"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q6a == 'wastewater_biofactories'",
+      "trigger_condition": "case.q6a IN wastewater sectors OR any(flow.sector IN wastewater sectors)",
       "field": "lca.water_stress_method",
       "field_status": null,
-      "default_value": "AWARE water stress mandatory if Q6a=Wastewater/biofactories",
+      "default_value": "AWARE for reclaimed-water, cooling-water and process-water exchanges; the Pfister et al. (2009) water stress index where AWARE factors are missing for the watershed (D4.1 §12.3.3). The engine sees water exchanges only through the wastewater sector of the case or of a flow: other water exchanges are declared in the DCF",
       "override_path": "q6a",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.3)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01401 ('Use AWARE for reclaimed-water, cooling-water, and process-water exchanges', Pfister 2009 fallback). The text keys AWARE on the flow, not the sector: the trigger now also reads the Part 2 sector declared per flow (Flow.sector)."
     },
     {
       "id": "lca_mc_31",
@@ -1058,12 +1057,12 @@
       "field": "lca.gsa_tier",
       "field_status": null,
       "default_value": {
-        "q4 in {C,D,E}": "full Sobol cascade",
-        "q4 in {A,B}": "Morris first"
+        "q4 in {C,D,E}": "Global sensitivity analysis for complex models with likely parameter interactions — Morris screening, then Sobol on the reduced set — documented in full for public, EU-aligned or academic use: T4.6 tightening (D4.1 §13.3.3)",
+        "q4 in {A,B}": "Global sensitivity analysis for complex models with likely parameter interactions: Morris screening, then Sobol on the reduced set (D4.1 §13.3.3)"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.3)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01471 ('For complex IS models where parameter interactions are likely ... consider Global Sensitivity Analysis'; Morris, then Sobol). 'Full Sobol cascade' and the Q4 condition are not in the text; the Q4 split is now only a documentation tightening, declared."
     },
     {
       "id": "lca_mc_33",
@@ -1095,10 +1094,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "UM³-LCE³-ISN matrix integration when Q3.ECO + Q3.ENV both",
+      "default_value": "Multi-level contribution analysis — network, entity and flow — should structure the results of every IS LCA, e.g. with a matrix model such as UM³-LCE³-ISN or Brightway with demand-vector manipulation (D4.1 §10.3.1)",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 marks DEFAULT but description has Q3 conditional; preserved as DEFAULT per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.1)."
+      "extraction_notes": "v1 marks DEFAULT but description has Q3 conditional; preserved as DEFAULT per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01180 ('should be structured to provide a multi-level contribution analysis'), L01186, L01192. The former condition 'when Q3.ECO + Q3.ENV' is not in the text."
     },
     {
       "id": "lca_mc_35",
@@ -2184,15 +2183,17 @@
       "source_section": "D4.2 §11.3",
       "category": "DERIVED",
       "trigger_q": [
-        "q3"
+        "q3",
+        "lcc_type"
       ],
       "trigger_logic": "conjunctive",
-      "trigger_condition": "case.q3.env == true AND case.q3.eco == true",
+      "trigger_condition": "case.q3.env == true AND lcc_type IN ['C+E','C+E+S']",
       "field": "lca.lcc_integration_mode",
       "field_status": null,
-      "default_value": "LCA-LCC integration mode: Q3.ENV+ECO -> matrix-based UM³; otherwise Separate",
-      "override_path": "q3, advanced",
-      "lifecycle_layer": "L2"
+      "default_value": "LCI-based E-LCC on the shared, mass-balanced MFA model: every process and flow of the LCA has a matching cost item (D4.2 §11.3; D4.1 §14.3.1-§14.3.2)",
+      "override_path": "q3, lcc_type, advanced",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Same text as lca_mc_03, which it overwrote (same field, written later): LCI-based E-LCC on a shared MFA model (D4.1 L01509, L01513). Only with an E-LCC."
     },
     {
       "id": "lcc_mc_18",

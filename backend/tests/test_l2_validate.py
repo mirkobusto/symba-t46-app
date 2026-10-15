@@ -256,7 +256,11 @@ def test_CIR_05_monetises_externalities_only_with_an_lca(schemas):
 def test_CIR_07_writes_scale_up_framework_for_low_TRL(schemas):
     case = _ready_case(q6b=Q6b.TRL5_6)
     run(case, schemas)
-    assert case.lca.get("scale_up_framework") == ["Six-Tenths", "Lang", "CEPCI"]
+    # LCA: D4.1 §9.3.5 inventory techniques; LCC: D4.2 §7.3 cost tools
+    assert case.lca.get("scale_up_framework") == [
+        "Stoichiometric recalculation", "Lang-factor equipment mapping",
+        "Batch-to-continuous conversion", "Learning curves"]
+    assert case.lcc.get("scale_up_framework") == ["Six-Tenths", "Lang", "CEPCI"]
 
 
 def test_CIR_09_routes_to_system_pillar(schemas):

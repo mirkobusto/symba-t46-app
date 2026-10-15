@@ -521,7 +521,7 @@
         "source_section": "D4.1 \u00a74.1",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "System-level perspective at network boundary",
+        "statement": "System-level perspective: the boundary encloses the network and its connective infrastructure; in strict accounting of one partner (Situation C2) it encloses the reporting partner in isolation, a T4.6 reading of D4.1 \u00a77.2.3 (D4.1 \u00a74.1)",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],
@@ -537,7 +537,7 @@
         "source_section": "D4.1 \u00a75.3.2",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Multi-FU analysis allowed when actors have distinct outputs",
+        "statement": "For a network delivering several distinct functions, a system of functional units covering all jointly delivered services is the robust solution; a single aggregated FU that treats the network as a black box should be avoided (D4.1 \u00a75.3.2; \u00a75.2.2)",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],
@@ -587,7 +587,7 @@
         "source_section": "D4.1 \u00a710.3.5",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Sensitivity on assumptions, mandatory frontier categories",
+        "statement": "Frontier categories reported with uncertainty intervals rather than point estimates, stating the method version and whether the factor is implemented in the software or entered manually; which categories and when: lca_hc_19 (D4.1 \u00a710.3.5)",
         "all_matched_categories": [
           "goal_scope_boundary",
           "uncertainty_sensitivity"
@@ -1050,7 +1050,7 @@
           "q6b"
         ],
         "trigger_condition": "case.q4 \u2229 {'C','D','E'} \u2260 \u2205 OR case.q6b != 'TRL9'",
-        "statement": "Monte Carlo mandatory if Q4 in {C,D,E} OR Q6b<TRL9",
+        "statement": "Monte Carlo mandatory if Q4 is C, D or E or the technology is below TRL 9: T4.6 divergence kept on 2026-10-04; D4.1 \u00a713.3.2 asks Monte Carlo by default in every study, with at least 1,000 iterations and a convergence check, and its only TRL threshold is below TRL 7",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],
@@ -1482,7 +1482,7 @@
         "source_section": "D4.1 \u00a710.3.1",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "UM\u00b3-LCE\u00b3-ISN matrix integration when Q3.ECO + Q3.ENV both",
+        "statement": "Multi-level contribution analysis \u2014 network, entity and flow \u2014 should structure the results of every IS LCA, e.g. with a matrix model such as UM\u00b3-LCE\u00b3-ISN or Brightway with demand-vector manipulation (D4.1 \u00a710.3.1)",
         "all_matched_categories": [
           "lcsa_integration"
         ],

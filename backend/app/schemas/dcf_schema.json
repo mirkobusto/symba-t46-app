@@ -725,9 +725,9 @@
         },
         {
           "id": "infra.amortization_period_y",
-          "label_en": "Amortization period (years, default 20)",
+          "label_en": "Amortization period (years): technical lifetime of this asset",
           "type": "int",
-          "default": 20,
+          "description_en": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2).",
           "required": false,
           "activation_predicate": "q2 in [\"C\", \"D\"]",
           "row_condition": "infra.status == \"new\"",

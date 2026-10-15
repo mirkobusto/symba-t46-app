@@ -639,7 +639,9 @@ const en = {
     removeAria: 'Remove {{key}}',
     hints: {
       slca_framework_override: "Set to 'absolute' to test L1 BLOCK 2 (with Q3.soc=true)",
-      asset_lifetime: 'Years (legacy; used when the Q8 analysis period and lifetime are empty); a horizon >15 adds future background to LCA and LCC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Years (legacy; used when the Q8 analysis period and lifetime are empty); a horizon beyond the threshold (15 by default) adds future background to LCA and LCC (lca_mc_21, lcc_hc_23, CIR-01)',
+      future_background_threshold_years:
+        'Years. The study horizon above which LCA and LCC need future background (lca_mc_21, lcc_hc_23, CIR-01). Default 15, the figure D4.2 §9.3 gives without a source; change it and justify it in the methodological charter',
       transport_sensitive: 'Boolean; true activates CIR-03',
       network_nodes: 'Integer; ≥3 (with Q1=B + interdependent_flows) activates CIR-04',
       interdependent_flows: 'Boolean; true (with Q1=B + network_nodes≥3) activates CIR-04',

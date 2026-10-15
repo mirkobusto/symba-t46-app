@@ -175,9 +175,23 @@ def asset_lifetime_years(case: Case) -> float:
 
 
 # Length of the study horizon (analysis period, else asset lifetime) above which
-# future background is required. D4.2 §9 states the 15 years without a source: a
-# T4.6 default, kept in one place so it can become a range to parametrise.
+# future background is required: D4.2 §9.3 L01131 ("asset lifetimes exceeding
+# fifteen years"), which cites no source behind the figure. Default of a parameter
+# the analyst can change through `advanced["future_background_threshold_years"]`.
 FUTURE_BACKGROUND_LIFETIME_YEARS = 15.0
+THRESHOLD_KEY = "future_background_threshold_years"
+
+
+def future_background_threshold_years(case: Case) -> float:
+    """The analyst's threshold if it is a positive finite number, else D4.2's 15."""
+    raw = case.advanced.get(THRESHOLD_KEY)
+    if raw is None or isinstance(raw, bool):
+        return FUTURE_BACKGROUND_LIFETIME_YEARS
+    try:
+        years = float(raw)
+    except (TypeError, ValueError):
+        return FUTURE_BACKGROUND_LIFETIME_YEARS
+    return years if math.isfinite(years) and years > 0 else FUTURE_BACKGROUND_LIFETIME_YEARS
 
 LOW_TRL = frozenset({Q6b.TRL5_6, Q6b.TRL_LT_5})
 
@@ -204,11 +218,12 @@ def needs_future_background(case: Case) -> bool:
     """One study horizon for LCA and LCC (D4.2 L01261, L01277; D4.1 L01521):
     future background (SSP/RCP) when the system operates in a future year
     (D4.1 L01100, L01393), when the key technology is below TRL 7 (L01100), or
-    when the horizon runs beyond the threshold (D4.2 L01131). Read by lca_mc_21,
+    when the horizon runs beyond the threshold (D4.2 L01131, 15 years by
+    default, changeable by the analyst). Read by lca_mc_21,
     lcc_hc_23 and CIR-01 (owner decision 2026-10-15, replacing ex-ante OR
     lifetime)."""
     return (operates_in_future(case) or case.q6b in LOW_TRL
-            or study_horizon_years(case) > FUTURE_BACKGROUND_LIFETIME_YEARS)
+            or study_horizon_years(case) > future_background_threshold_years(case))
 
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}

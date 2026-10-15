@@ -3,9 +3,9 @@
 import { Plus, Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-// Only the two keys the engine actually reads from `case.advanced`:
-// `asset_lifetime` (engine/activate.py) and `slca_framework_override`
-// (engine/l1_blocks.py). The other six — transport_sensitive,
+// Only the keys the engine actually reads from `case.advanced`:
+// `asset_lifetime` and `future_background_threshold_years`
+// (engine/activate.py) and `slca_framework_override` (engine/l1_blocks.py). The other six — transport_sensitive,
 // network_nodes, interdependent_flows, frontier_categories_active,
 // is_specific_capital_goods, multi_actor — were listed here with hints
 // promising "true activates CIR-03" and so on, but l2_validate reads
@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 const KNOWN_KEYS = [
   { key: 'slca_framework_override', example: 'absolute' },
   { key: 'asset_lifetime', example: '20' },
+  { key: 'future_background_threshold_years', example: '15' },
 ] as const
 
 interface Props {

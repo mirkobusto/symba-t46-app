@@ -72,7 +72,7 @@ che arriva dagli schemi (42 nomi di regola, 32 enunciati, 12 CDP, 4 messaggi di 
 tradotto in `frontend/src/i18n/schemaTerms.ts`, con il codice IR-/CDP- che resta il
 riferimento e il nome inglese accanto per chi non legge in inglese.
 
-Il **2026-10-14/15** è stata mergiata la **revisione sul FINAL v2** dei deliverable (PR #109-#118),
+Il **2026-10-14/15** è stata mergiata la **revisione sul FINAL v2** dei deliverable (PR #109-#120),
 nata dalla revisione di D4.1/D4.2 (report locali sulla branch `review/wp4-finalv2-2026-10`, **mai
 pushata**: il repo è pubblico) e da un test del questionario su casi reali del corpus. In sintesi:
 `source_section` dei nodi e citazioni in-app sulla numerazione FINAL v2 (#109, #111); scenario di
@@ -84,7 +84,11 @@ screening di mercato documentato, documentare una rete → C1, rendiconto di una
 Q1 resta solo come ripiego per i casi salvati senza Q9); ritirata la "Situazione A multi-actor",
 che D4.1 non conosce (#115); allocazione, tipo e tasso di sconto LCC per tipo di LCC (#116, D4.2
 §5.1/§9.3); **Q2 chiede se gli scambi studiati avvengono già**, non in che fase è il sistema (#117);
-per ogni flusso, risposta facoltativa Freedom-to-Act e settore della Part 2 (#118, solo note).
+per ogni flusso, risposta facoltativa Freedom-to-Act e settore della Part 2 (#118, solo note);
+**senza LCA niente E-LCC** (#119: tipi `C+N` e `C+N+S`, C-LCC per partner + consolidamento di rete, D4.2
+§4.1); le cifre senza fonte diventano forbici o parametri (#120: soglia dei 15 anni modificabile in
+`advanced`, Monte Carlo 1.000-10.000 decisa dalla convergenza, 1-5 % fissato dall'analista, tolto il
+default di 20 anni di ammortamento a favore della vita tecnica di ogni asset).
 Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
@@ -110,7 +114,7 @@ Cronologia sintetica (tutto su `main`):
 - `rerun_saved_cases.py` va eseguito sul server dopo ogni deploy che tocchi il motore (prima senza `--apply` per vedere quanti casi cambiano). Il 2026-10-13 ha riportato 0 casi: il database del server è ancora vuoto
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
 - Da guardare a occhio dopo il branding: proporzioni del logo, emblema UE a 300 px, hover/focus, 1201-1320 px in ES/FR su `/welcome`, Safari/Firefox, telefono reale, stampa della pagina risultato
-- Decisioni residue dell'audit: `contested` in `lcc_mc_04/08` resta inerte (D4.2 §3.2: è uno stato negoziale per flusso, non Q5=b); `infra.decommissioning_cost.row_condition` nel DCF non è valutato da nessun codice; "≥10,000 iterations" in un nodo contro D4.2 1.000-10.000 (serve approvazione); I-17 (leggere le altre chiavi di `advanced`) deferito, vedi sopra; I-18 (anno di Kerdlap) da verificare sul DOI
+- Decisioni residue dell'audit: `contested` in `lcc_mc_04/08` resta inerte (D4.2 §3.2: è uno stato negoziale per flusso, non Q5=b); `infra.decommissioning_cost.row_condition` nel DCF non è valutato da nessun codice; I-17 (leggere le altre chiavi di `advanced`) deferito, vedi sopra; I-18 (anno di Kerdlap) da verificare sul DOI
 
 ---
 
@@ -147,7 +151,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-15, dopo la revisione FINAL v2): **715 backend (pytest, +1 skipped) + 156 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-15, dopo la revisione FINAL v2): **731 backend (pytest, +1 skipped) + 156 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

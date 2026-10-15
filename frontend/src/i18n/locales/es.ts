@@ -584,7 +584,9 @@ const es: Locale = {
     removeAria: 'Eliminar {{key}}',
     hints: {
       slca_framework_override: "Establecer a 'absolute' para probar L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Años (heredado; se usa si el periodo de análisis y la vida útil de Q8 están vacíos); un horizonte >15 añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Años (heredado; se usa si el periodo de análisis y la vida útil de Q8 están vacíos); un horizonte por encima del umbral (15 por defecto) añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
+      future_background_threshold_years:
+        'Años. El horizonte de estudio a partir del cual el ACV y el ACC requieren fondo futuro (lca_mc_21, lcc_hc_23, CIR-01). Por defecto 15, la cifra que el D4.2 §9.3 da sin fuente; si la cambias, justifícala en la carta metodológica',
       transport_sensitive: 'Booleano; true activa CIR-03',
       network_nodes: 'Entero; ≥3 (con Q1=B + interdependent_flows) activa CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) activa CIR-04',

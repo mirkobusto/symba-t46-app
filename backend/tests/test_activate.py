@@ -309,6 +309,22 @@ def test_threshold_is_one_named_parameter():
     assert LOW_TRL == {Q6b.TRL5_6, Q6b.TRL_LT_5}
 
 
+@pytest.mark.parametrize(
+    "threshold, lifetime, fires",
+    [(None, 16, True), (None, 15, False), (20, 16, False), (20, 21, True), ("10", 12, True),
+     # unusable values fall back on D4.2's 15 years
+     (0, 16, True), (-5, 16, True), ("abc", 15, False), (True, 16, True), (float("inf"), 16, True)],
+)
+def test_threshold_is_the_analysts_to_change(threshold, lifetime, fires):
+    """D4.2 §9.3 L01131 gives 15 years without a source: a default, not a constant."""
+    from app.engine.activate import THRESHOLD_KEY, needs_future_background
+    advanced = {} if threshold is None else {THRESHOLD_KEY: threshold}
+    case = _baseline_case(q2=Q2.A, q3=Q3(env=True, eco=True), advanced=advanced)
+    case.asset_lifetime_years = lifetime
+    case.q6b = Q6b.TRL9
+    assert needs_future_background(case) is fires
+
+
 def test_asset_lifetime_lcc_node_off_when_lcc_deactivated(schemas):
     """The method gate still wins: no economic dimension, no lcc_hc_23."""
     case = _baseline_case(q2=Q2.A, q3=Q3(env=True), advanced={"asset_lifetime": 30})

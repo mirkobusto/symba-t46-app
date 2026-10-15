@@ -617,7 +617,9 @@ const it: Locale = {
     removeAria: 'Rimuovi {{key}}',
     hints: {
       slca_framework_override: "Imposta a 'absolute' per testare L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Anni (storico; usato se in Q8 periodo di analisi e vita sono vuoti); un orizzonte >15 aggiunge il background futuro a LCA e LCC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Anni (storico; usato se in Q8 periodo di analisi e vita sono vuoti); un orizzonte oltre la soglia (15 di default) aggiunge il background futuro a LCA e LCC (lca_mc_21, lcc_hc_23, CIR-01)',
+      future_background_threshold_years:
+        'Anni. L\'orizzonte di studio oltre il quale LCA e LCC richiedono il background futuro (lca_mc_21, lcc_hc_23, CIR-01). Default 15, la cifra che il D4.2 §9.3 dà senza fonte; se la cambi, giustificala nella carta metodologica',
       transport_sensitive: 'Booleano; true attiva CIR-03',
       network_nodes: 'Intero; ≥3 (con Q1=B + interdependent_flows) attiva CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) attiva CIR-04',

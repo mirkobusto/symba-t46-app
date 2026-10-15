@@ -368,9 +368,9 @@
       "additional_fields": [
         {
           "field": "lca.capital_goods.amortization_period",
-          "default_value": 20,
+          "default_value": null,
           "unit": "years",
-          "notes": "D4.1 §6.3.3 asks to amortise over the equipment's expected technical lifetime; the 20-year default is a T4.6 value without a source. Aligned with lcc.capital_goods.amortization_period via IR-13."
+          "notes": "Technical lifetime of each asset, no single default: D4.1 §6.3.3 (amortise over the equipment's expected technical lifetime) and D4.1 §14.2.2 (same asset definition and period in LCA and LCC); reference lifetimes per asset class in D4.2 Table 7.1 (§7.3: buildings and infrastructure 20-30 y, processing equipment 5-8 y). Q8 asset lifetime is the fallback for the primary asset. The former 20-year default had no source. Aligned with lcc.capital_goods.amortization_period via IR-13."
         }
       ],
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3)."
@@ -841,7 +841,7 @@
       "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
       "field": "lca.background_futurisation",
       "field_status": null,
-      "default_value": "Future background (SSP/RCP) when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (threshold: T4.6 default, no source); same horizon as the LCC (D4.2 L01261)",
+      "default_value": "Future background (SSP/RCP) when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (D4.2 §9.3 threshold, no source cited; the analyst can change it); same horizon as the LCC (D4.2 L01261)",
       "override_path": "q2, q6b",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.2)."
@@ -1258,15 +1258,15 @@
       "trigger_condition": null,
       "field": "lcc.capital_goods.included",
       "field_status": null,
-      "default_value": "CAPEX inclusion rule (1-5% threshold)",
+      "default_value": "Capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
       "additional_fields": [
         {
           "field": "lcc.capital_goods.amortization_period",
-          "default_value": 20,
+          "default_value": null,
           "unit": "years",
-          "notes": "Per D4.2 §4.2; aligned with lca.capital_goods.amortization_period via IR-13/B-06."
+          "notes": "Technical lifetime of each asset, no single default (D4.2 §4.2 L00575, §7.3 formula and Table 7.1: buildings and infrastructure 20-30 y, processing equipment 5-8 y); Q8 asset lifetime is the fallback for the primary asset. The former 20-year default was attributed to D4.2 §4.2, where the 20-30 years is the LCA exclusion rationale D4.2 argues against. Aligned with lca.capital_goods.amortization_period via IR-13/B-06."
         }
       ]
     },
@@ -1534,7 +1534,7 @@
       "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
       "field": "lcc.background_dynamic",
       "field_status": null,
-      "default_value": "Dynamic SSP/RCP scenarios when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (threshold: T4.6 default, no source); same horizon as the LCA (D4.2 L01261)",
+      "default_value": "Dynamic SSP/RCP scenarios when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (D4.2 §9.3 threshold, no source cited; the analyst can change it); same horizon as the LCA (D4.2 L01261)",
       "override_path": "q2, q6b",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04."
@@ -1550,7 +1550,7 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Monte Carlo mandatory, >=10,000 iterations",
+      "default_value": "Monte Carlo mandatory; 1,000-10,000 iterations chosen by convergence of the NPV statistics, 10,000 as the working default (D4.2 §10.3)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §10.1); audit 2026-10-04."

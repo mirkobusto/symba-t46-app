@@ -424,16 +424,16 @@ const en = {
       details:
         'A — internal use: management dashboards, R&D screening, plant-level decisions. Few methodological constraints. ' +
         'B — external communication WITHOUT comparative claims (sustainability reports, marketing brochures with no "better than X" statement). ' +
-        'C — public CLAIM of environmental superiority vs an alternative product (e.g. "this cement is greener than OPC"). Activates the mandatory ISO 14044 critical review by 3+ independent experts and disables weighting. Use with care. ' +
+        'C — public CLAIM that the system is better than, or equivalent to, an alternative with the same function (e.g. "this cement is greener than OPC"), disclosed to the public in any form: report, website or scientific article (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Activates the mandatory ISO 14044 critical review by 3+ independent experts and disables weighting. Use with care. ' +
         'D — alignment with EU policy instruments (ESPR digital product passport, PEFCR category rules). Forces the PEF Circular Footprint Formula via CIR-05. Strict reporting of one company (CSRD, ESG) is declared in Q9, not here: it uses allocation, not the CFF. ' +
-        'E — academic peer-reviewed publication. Requires full transparency (data sources, allocation choices, sensitivity). Often combined with B or D. ' +
+        'E — academic peer-reviewed publication. Requires full transparency (data sources, allocation choices, sensitivity). Often combined with B or D. If the paper claims that one system is better than or equivalent to a competing alternative, also select C; a comparison that does not declare a winner stays E. ' +
         'You can multi-select: a typical PEF paper picks D + E.',
       options: {
         A: { label: 'A. Internal', description: 'Internal use (managerial, R&D, planning).' },
         B: { label: 'B. External (no claim)', description: 'External communication without comparative claims.' },
         C: {
           label: 'C. Public superiority claim',
-          description: 'Public claim of environmental superiority.',
+          description: 'Public claim of superiority or equivalence over an alternative with the same function, in any form (papers included).',
           warn: 'Activates MANDATORY panel review of 3+ independent experts (ISO 14044), no weighting allowed.',
         },
         D: {
@@ -441,10 +441,10 @@ const en = {
           description: 'EU policy alignment (ESPR, PEF/PEFCR).',
           warn: 'Activates PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication.' },
+        E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication (add C if it claims one system beats a competing one).' },
       },
       plain:
-        "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. You can pick more than one.",
+        "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. That holds wherever you say it, a scientific article included. You can pick more than one.",
     },
 
     q5: {
@@ -499,6 +499,7 @@ const en = {
       title: 'Q6b — Technology Readiness Level (TRL)',
       details:
         'TRL of the dominant or critical technology in the symbiotic network. Drives the choice of inventory data quality (measured vs literature vs engineering estimate) and the uncertainty budget downstream. ' +
+        'It is the TRL of the key technology itself, not of its adoption: a mature technology used for the first time in this network or region is still TRL 9; the novelty of the application shows in the data quality, not in the TRL (T4.6 reading). ' +
         'TRL 9 = full commercial operation (Kalundborg, Sokka). ' +
         'TRL 7-8 = first-of-a-kind pilot / pre-commercial unit. ' +
         'TRL 5-6 = lab-validated prototype, demo at relevant scale. ' +
@@ -510,7 +511,7 @@ const en = {
         'TRL<5': 'TRL <5 — early R&D',
       },
       plain:
-        "How mature the key technology is: in commercial operation, a first pilot, a prototype, or still in the laboratory. The less mature it is, the more your figures will be estimates rather than measurements, and the more the result has to carry its own uncertainty.",
+        "How mature the key technology is: in commercial operation, a first pilot, a prototype, or still in the laboratory. The less mature it is, the more your figures will be estimates rather than measurements, and the more the result has to carry its own uncertainty. Judge the technology itself, not whether it is new here: a proven process used for the first time in your region is still mature.",
     },
 
     q7: {
@@ -545,11 +546,11 @@ const en = {
         yearPlaceholder: 'e.g. 2030',
       },
       period: {
-        label: 'For how many years does the study follow the system (analysis period)?',
+        label: 'For how many years does the study follow the system (analysis period or project horizon)?',
         placeholder: 'e.g. 25; empty for a one-year picture',
       },
       lifetime: {
-        label: 'Technical lifetime of the main assets (also their amortisation period)',
+        label: 'Technical lifetime of the main assets: how long the plants physically last, not the project horizon (also their amortisation period)',
       },
       placeholder: 'e.g. 20',
       unit: 'years',

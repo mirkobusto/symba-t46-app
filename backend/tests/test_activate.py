@@ -519,10 +519,12 @@ def test_lca_boundary_is_organizational_and_coverage_a_declared_choice(schemas):
     """lca_mc_05: the boundary follows the network (D4.1 §6.1, L00734) and the life-cycle
     coverage is a goal-and-scope choice (§6, L00728), not a cradle-to-gate default."""
     assert _activated(schemas, q1=Q1.A).lca["system_boundary"].startswith("exchange-only: the two partners")
-    for q1 in (Q1.D, Q1.E):
-        boundary = _activated(schemas, q1=q1, q3=Q3(env=True, eco=True)).lca["system_boundary"]
-        assert boundary.startswith("network: all participating entities")
-        assert "goal-and-scope choice" in boundary
+    monitoring = _activated(schemas, q1=Q1.E, q3=Q3(env=True, eco=True)).lca["system_boundary"]
+    assert monitoring.startswith("network: all participating entities")
+    assert "goal-and-scope choice" in monitoring
+    # Q1=D with Q9 unanswered is Situation C2: one partner in isolation (L00868)
+    company = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True)).lca["system_boundary"]
+    assert company.startswith("company: the reporting company's own processes")
 
 
 def test_q3_env_plus_eco_and_eco_only_branches(schemas):
@@ -683,16 +685,18 @@ def test_pef_nodes_write_only_when_q4_includes_d(schemas):
 
 
 @pytest.mark.parametrize("q1", list(Q1))
-def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
-    """CIR-05 writes 'pef_cff' last. That includes Q1=D, against the "use
-    Allocation, no substitution credits" of D4.1 §7.2.3: D4.1 itself calls the
-    CFF both "mandatory" for EU-policy studies (§7.3.2) and a "valid
-    alternative" (§7.3.3), so the engine keeps the Q4=D reading on purpose.
+def test_q4_d_ends_on_pef_cff_except_in_situation_c2(schemas, q1):
+    """CIR-05 writes 'pef_cff' last, except in Situation C2 (here Q1=D with Q9
+    unanswered), where D4.1 §7.2.3 is explicit: "use Allocation (Step 3). Do not
+    apply substitution credits". Until 2026-10-15 Q4=D won there too, on D4.1
+    calling the CFF both "mandatory" for EU-policy studies (§7.3.2) and a "valid
+    alternative" (§7.3.3); Mirko chose allocation for C2 (phase A, step 4).
     `advanced.allocation_method_override` is documented on Case but no engine
     module reads it, so the analyst cannot override this today."""
     case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.D})
     pipeline_run(case, schemas)
-    assert case.lca["allocation_method"] == "pef_cff"
+    expected = "allocation" if q1 == Q1.D else "pef_cff"
+    assert case.lca["allocation_method"] == expected
 
 
 # ---------------------------------------------------------------------------

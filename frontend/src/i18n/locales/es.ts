@@ -370,7 +370,7 @@ const es: Locale = {
         'A — uso interno: dashboards de gestión, screening I+D, decisiones a nivel de planta. Pocas restricciones metodológicas. ' +
         'B — comunicación externa SIN claims comparativos (informes de sostenibilidad, brochures de marketing sin afirmación "mejor que X"). ' +
         'C — CLAIM público de que el sistema es mejor que una alternativa con la misma función, o equivalente a ella (p. ej. "este cemento es más verde que el OPC"), hecho público en cualquier forma: informe, web o artículo científico (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Activa la critical review obligatoria ISO 14044 por 3+ expertos independientes y desactiva la ponderación. Usar con cuidado. ' +
-        'D — alineamiento con instrumentos de política UE (disclosure CSRD, digital product passport ESPR, reglas de categoría PEFCR). Fuerza la PEF Circular Footprint Formula vía CIR-05. ' +
+        'D — alineamiento con instrumentos de política UE (digital product passport ESPR, reglas de categoría PEFCR). Fuerza la PEF Circular Footprint Formula vía CIR-05. El informe estricto de una sola empresa (CSRD, ESG) se declara en Q9, no aquí: usa asignación, no la CFF. ' +
         'E — publicación académica peer-reviewed. Requiere transparencia total (fuentes de datos, decisiones de allocation, sensibilidad). A menudo combinada con B o D. Si el artículo afirma que un sistema es mejor que una alternativa competidora o equivalente a ella, marca también C; una comparación que no declara un ganador sigue siendo E. ' +
         'Selección múltiple posible: un paper PEF típico elige D + E.',
       options: {
@@ -383,13 +383,13 @@ const es: Locale = {
         },
         D: {
           label: 'D. Alineamiento con política UE',
-          description: 'Alineamiento con política UE (CSRD, ESPR, PEFCR).',
+          description: 'Alineamiento con política UE (ESPR, PEF/PEFCR).',
           warn: 'Activa la PEF Circular Footprint Formula (CIR-05).',
         },
         E: { label: 'E. Publicación académica', description: 'Publicación académica peer-reviewed (añade C si afirma que un sistema supera a una alternativa competidora).' },
       },
       plain:
-        "Quién leerá el resultado, y qué hará con él, decide cuán estricto debe ser el método. Una nota interna es el caso más ligero. Alinearse con los instrumentos de la UE (CSRD, pasaporte de producto, PEF) impone la manera europea de contar el material reciclado y recuperado. Afirmar en público que tu producto es mejor que otro es el caso más pesado: exige una revisión independiente por expertos externos. Vale dondequiera que lo digas, también en un artículo científico. Puedes elegir más de una.",
+        "Quién leerá el resultado, y qué hará con él, decide cuán estricto debe ser el método. Una nota interna es el caso más ligero. Alinearse con los instrumentos de la UE (pasaporte de producto, PEF) impone la manera europea de contar el material reciclado y recuperado. Afirmar en público que tu producto es mejor que otro es el caso más pesado: exige una revisión independiente por expertos externos. Vale dondequiera que lo digas, también en un artículo científico. Puedes elegir más de una.",
     },
 
     q5: {

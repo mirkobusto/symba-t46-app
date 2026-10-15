@@ -425,7 +425,7 @@ const en = {
         'A — internal use: management dashboards, R&D screening, plant-level decisions. Few methodological constraints. ' +
         'B — external communication WITHOUT comparative claims (sustainability reports, marketing brochures with no "better than X" statement). ' +
         'C — public CLAIM that the system is better than, or equivalent to, an alternative with the same function (e.g. "this cement is greener than OPC"), disclosed to the public in any form: report, website or scientific article (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Activates the mandatory ISO 14044 critical review by 3+ independent experts and disables weighting. Use with care. ' +
-        'D — alignment with EU policy instruments (CSRD disclosure, ESPR digital product passport, PEFCR category rules). Forces the PEF Circular Footprint Formula via CIR-05. ' +
+        'D — alignment with EU policy instruments (ESPR digital product passport, PEFCR category rules). Forces the PEF Circular Footprint Formula via CIR-05. Strict reporting of one company (CSRD, ESG) is declared in Q9, not here: it uses allocation, not the CFF. ' +
         'E — academic peer-reviewed publication. Requires full transparency (data sources, allocation choices, sensitivity). Often combined with B or D. If the paper claims that one system is better than or equivalent to a competing alternative, also select C; a comparison that does not declare a winner stays E. ' +
         'You can multi-select: a typical PEF paper picks D + E.',
       options: {
@@ -438,13 +438,13 @@ const en = {
         },
         D: {
           label: 'D. EU policy alignment',
-          description: 'EU policy alignment (CSRD, ESPR, PEFCR).',
+          description: 'EU policy alignment (ESPR, PEF/PEFCR).',
           warn: 'Activates PEF Circular Footprint Formula (CIR-05).',
         },
         E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication (add C if it claims one system beats a competing one).' },
       },
       plain:
-        "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (CSRD, the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. That holds wherever you say it, a scientific article included. You can pick more than one.",
+        "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. That holds wherever you say it, a scientific article included. You can pick more than one.",
     },
 
     q5: {

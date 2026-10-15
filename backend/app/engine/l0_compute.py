@@ -27,7 +27,7 @@ and this module together.
 """
 from __future__ import annotations
 
-from app.domain.enums import Q1, Q2, Q5, DecisionContext, IlcdSituation, LccType, Q6a, SlcaActivationState
+from app.domain.enums import Q1, Q2, Q4, Q5, DecisionContext, IlcdSituation, LccType, Q6a, SlcaActivationState
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas
 
@@ -175,6 +175,19 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
     return (LccType.E_LCC_PLUS_S_LCC_PLUS_NTF if policy else LccType.C_LCC_PLUS_E_LCC), notes
 
 
+def _c2_pef_notes(case: Case) -> list[dict[str, str]]:
+    """Q4=D asks for the PEF Circular Footprint Formula, a product method; strict
+    accounting of one partner (Situation C2) uses allocation and no substitution
+    credits (D4.1 §7.2.3). Allocation wins (lca_mc_13/14, CIR-05); say so."""
+    if case.ilcd_situation == _S.SITUATION_C2 and Q4.D in case.q4 and case.q3.env:
+        return [{"code": "c2_allocation_over_pef", "message": (
+            "Strict reporting of one company (ILCD Situation C2) uses allocation and no substitution "
+            "credits (D4.1 §7.2.3), so the PEF Circular Footprint Formula asked by Q4=D is not applied: "
+            "the CFF is a product method. If the study is a product footprint rather than a corporate "
+            "report, review Q9.")}]
+    return []
+
+
 def _slca_notes(case: Case) -> list[dict[str, str]]:
     """S-LCA alone (Q3 = social only) is accepted, but D4.3 §3.1 presupposes the
     functional unit and boundaries of an LCA or an LCC to build on (audit I-14).
@@ -262,6 +275,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     case.lcc_type, lcc_notes = _derive_lcc_type(case)
     case.warnings += lcc_notes
     case.slca_activation_state = _compute_slca_state(case.q3.soc)
+    case.warnings += _c2_pef_notes(case)
     case.warnings += _slca_notes(case)
     case.warnings += _flow_notes(case)
     return case

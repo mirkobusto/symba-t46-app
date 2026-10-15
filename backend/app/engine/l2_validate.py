@@ -68,7 +68,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6b
+from app.domain.enums import Q1, Q2, Q5, Q7, IlcdSituation, LccType, Q6b
 from app.domain.models import Case
 from app.engine.activate import _pillar_is_off, _write, needs_future_background
 from app.engine.loader import LoadedSchemas
@@ -484,7 +484,9 @@ def _action_cir_04(c: Case) -> None:
 
 
 def _action_cir_05(c: Case) -> None:
-    _write(c, "lca.allocation_method", "pef_cff")
+    if c.ilcd_situation != IlcdSituation.SITUATION_C2:
+        # strict accounting of one partner: allocation, no substitution credits (D4.1 §7.2.3)
+        _write(c, "lca.allocation_method", "pef_cff")
     if c.q3.env:
         # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
         _write(c, "lcc.externality_monetization", "CE_Delft_EU")

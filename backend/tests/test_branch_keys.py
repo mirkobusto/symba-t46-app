@@ -143,7 +143,7 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     """Guards the tests below against silently iterating nothing: 42
     discriminative nodes, minus 3 at L0 (lca_t1, lcc_trig_01, slca_t_01) and
     lca_hc_19, whose default_value is a string. 39 since lca_mc_06 branches on the
-    ILCD situation (2026-10-16)."""
+    ILCD situation (2026-10-15)."""
     assert len(_branch_nodes(schemas)) == 39
 
 
@@ -160,7 +160,7 @@ def test_every_branch_key_in_the_schema_is_interpretable(schemas):
 
 # Nodes whose keys read a question their `trigger_q` does not list. The schema
 # is authoritative, so a gap is recorded here instead of fixed. lcc_mc_03 left
-# on 2026-10-16: it no longer reads the sector.
+# on 2026-10-15: it no longer reads the sector.
 _TRIGGER_Q_GAPS: dict[str, set[str]] = {}
 
 
@@ -215,7 +215,7 @@ def _overlapping(node: dict) -> bool:
 _OVERLAPPING_NODES = {
     "lca_hc_08", "lca_mc_32", "lca_mc_36",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19", "slca_mc_04",
-    # lca_mc_05 and lcc_mc_05 left on 2026-10-16: one key family each (Q1, LCC type).
+    # lca_mc_05 and lcc_mc_05 left on 2026-10-15: one key family each (Q1, LCC type).
     # lcc_mc_07 and lcc_mc_12 left this list on 2026-10-15: they now branch on
     # the LCC type only (D4.2 §5.1, §9.3), one branch per type, no overlap.
 }

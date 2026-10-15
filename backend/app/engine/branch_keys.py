@@ -32,7 +32,7 @@ Conventions, decided with the node owner:
     third dimension is ignored), matching the hand-coded predicate of
     lcc_hc_27 in `activate._PREDICATES`.
   - `contested`, a flow state that never matched, left the grammar on
-    2026-10-16 together with its two branches (lcc_mc_04, lcc_mc_08): MFCA
+    2026-10-15 together with its two branches (lcc_mc_04, lcc_mc_08): MFCA
     for contested prices is D4.2 §5.3 and lives in lcc_hc_38.
 
 `default` is not a branch key; the caller handles it.

@@ -271,7 +271,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # simple
     "lcc_hc_37": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
     # per_flow simple
-    "lcc_hc_38": lambda c, f: f.q5 == Q5.b,   # the eco-only branch had no basis (2026-10-16)
+    "lcc_hc_38": lambda c, f: f.q5 == Q5.b,   # the eco-only branch had no basis (2026-10-15)
     # conjunctive
     "lcc_mc_17": lambda c: c.q3.env and c.q3.eco,
     "slca_hc_06": lambda c: c.q3.soc and (c.q3.env or c.q3.eco),

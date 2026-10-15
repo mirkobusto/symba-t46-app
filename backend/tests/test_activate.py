@@ -42,7 +42,7 @@ def test_all_default_nodes_activate(schemas):
     default_ids = {n["id"] for n in schemas.phase1_nodes if n.get("category") == "DEFAULT"}
     assert default_ids.issubset(set(case.activated_nodes))
     # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08), minus lca_mc_06,
-    # which branches on the ILCD situation since 2026-10-16 (D4.1 Table 1)
+    # which branches on the ILCD situation since 2026-10-15 (D4.1 Table 1)
     assert len(default_ids) == 117
 
 

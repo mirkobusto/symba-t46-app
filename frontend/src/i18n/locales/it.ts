@@ -538,17 +538,22 @@ const it: Locale = {
         'Su quali anni lo studio guarda il sistema? Se descrive come funzionano le cose oggi basta una fotografia del presente. Se riguarda un impianto che funzionerà in un anno successivo, o segue il sistema per decenni, il risultato dipende da come cambieranno elettricità, combustibili e mercati, e il tool ti chiede di prendere posizione su quel futuro: lo stesso futuro per la lettura ambientale e per quella economica.',
     },
     q9: {
-      title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
-      help: 'Facoltativa. Se non rispondi, il motore la deduce da Q1.',
-      details: 'La Tabella 1 di D4.1 classifica lo studio in base al fatto che si prenda una decisione e alla scala delle sue conseguenze, non in base al soggetto. Q1 è solo un surrogato (A/B → conseguenze limitate, C → strutturali, D/E → nessuna decisione). Rispondi quando il surrogato è sbagliato. “Nessuna decisione” richiede una rete esistente (Q2 = A o B). Con Q1 = D resta la situazione ILCD C2 qualunque sia la risposta (scelta di progetto T4.6).',
+      title: 'Q9 — A cosa serve lo studio, e fin dove arrivano i suoi effetti? *',
+      help: 'Obbligatoria. Decide la situazione di modellazione (ILCD A, B, C1 o C2); Q1 descrive solo il soggetto.',
+      details: 'La Tabella 1 di D4.1 classifica lo studio in base alla decisione che sostiene e alla scala delle sue conseguenze, non in base al soggetto (D4.1 §4.2.3). Micro (Situazione A) è il default per singoli scambi e progetti di parco o impianto, anche senza un decisore nominato (§4.3.4). Strutturale (Situazione B) richiede la prova che il cambiamento sposta capacità installata nel mercato interessato, per esempio circa l\'1% o più delle nuove installazioni (§4.3.4, §11.3.1); senza prova lo studio resta A, con la B come sensibilità. Documentare una rete esistente è la Situazione C1 (sostituzione, §7.2.3); il rendiconto di una sola azienda isolata è C2 (allocazione, nessun credito, §7.2.3), con costi solo a livello d\'impresa (scelta di progetto T4.6).',
       options: {
-        unset: 'Non risposta (dedotta da Q1)',
-        none: 'Nessuna decisione — lo studio documenta una rete esistente (situazione ILCD C)',
-        micro: 'Sì, con conseguenze limitate: nessun cambiamento della capacità installata né dei prezzi nell\'economia più ampia (situazione A)',
-        structural: 'Sì, con conseguenze su larga scala: sposta circa l\'1% o più delle nuove costruzioni annuali nel mercato interessato (situazione B; la prova va documentata)',
+        micro: 'Esplora o sostiene una scelta, anche ipotetica e senza un decisore nominato, e i suoi effetti restano negli impianti coinvolti (Situazione A)',
+        structural: 'Sostiene una scelta i cui effetti cambiano ciò che produce un intero mercato o settore (Situazione B; la prova va documentata)',
+        none: 'Nessuna scelta: documenta ciò che una rete o un sistema esistente rende, così com\'è (Situazione C1)',
+        corporate_report: 'Rendiconto di una sola azienda isolata (ESG / CSRD), senza crediti per ciò che la simbiosi evita altrove (Situazione C2)',
+      },
+      screening: {
+        label: 'È documentato che il cambiamento sposta circa l\'1% o più della nuova capacità nel mercato interessato?',
+        yes: 'Sì, è documentato (Situazione B)',
+        no: 'No (Situazione A, con la Situazione B come analisi di sensibilità)',
       },
       plain:
-        "Da questo studio dipende una decisione, e quanto grandi sono i suoi effetti? Puoi rispondere “nessuna decisione” solo per una rete che esiste già. Gli effetti che restano dentro gli impianti coinvolti sono piccoli; quelli che spostano un mercato intero sono grandi, e la prova va documentata. Per il rendiconto di una singola azienda la risposta non cambia nulla. Lascia senza risposta e il tool la ricava dalla prima domanda.",
+        'A cosa serve lo studio? Quasi sempre esplora o sostiene una scelta i cui effetti restano negli impianti coinvolti, anche se nessuno deve ancora decidere. Solo quando il cambiamento è abbastanza grande da spostare ciò che produce un intero mercato, e lo si può dimostrare, lo studio cambia natura. Se descrivi soltanto una rete che già funziona, o i numeri di una sola azienda, dillo: ogni caso si modella in modo diverso.',
     },
     q10: {
       title: 'Q10 — Lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale?',

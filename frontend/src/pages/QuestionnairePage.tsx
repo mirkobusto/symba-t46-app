@@ -46,7 +46,7 @@ const Q6A_KEYS: Q6a[] = [
 ]
 const Q6B_KEYS: Q6b[] = ['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5']
 const Q7_KEYS: Q7[] = ['A', 'B', 'C', 'D']
-const DECISION_KEYS: DecisionContext[] = ['none', 'micro', 'structural']
+const DECISION_KEYS: DecisionContext[] = ['micro', 'structural', 'none', 'corporate_report']
 
 const Q4_WARN_KEYS: Partial<Record<Q4, string>> = {
   C: 'questionnaire.q4.options.C.warn',
@@ -93,6 +93,9 @@ export default function QuestionnairePage() {
   const [decisionContext, setDecisionContext] = useState<DecisionContext | ''>(
     draft.decision_context ?? '',
   )
+  const [screening, setScreening] = useState<'' | 'yes' | 'no'>(
+    draft.market_screening_documented == null ? '' : draft.market_screening_documented ? 'yes' : 'no',
+  )
   const [policy, setPolicy] = useState<'' | 'yes' | 'no'>(
     draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no',
   )
@@ -130,6 +133,7 @@ export default function QuestionnairePage() {
       draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
     )
     setDecisionContext(draft.decision_context ?? '')
+    setScreening(draft.market_screening_documented == null ? '' : draft.market_screening_documented ? 'yes' : 'no')
     setPolicy(draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no')
     setAdvanced(draft.advanced ?? {})
   }, [draft])
@@ -143,7 +147,8 @@ export default function QuestionnairePage() {
   }
 
   const q3Empty = !env && !eco && !soc
-  const canRun = !!q1 && !q3Empty && !loading
+  // Q9 is required: the ILCD situation follows it (D4.1 Table 1), not Q1
+  const canRun = !!q1 && !q3Empty && decisionContext !== '' && !loading
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -155,7 +160,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, policy, advanced])
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -171,6 +176,7 @@ export default function QuestionnairePage() {
       analysis_period_years: parseYears(analysisPeriod),
       asset_lifetime_years: parseYears(assetLifetime),
       decision_context: decisionContext || null,
+      market_screening_documented: decisionContext === 'structural' && screening !== '' ? screening === 'yes' : null,
       policy_objective: policy === '' ? null : policy === 'yes',
       advanced,
     })
@@ -188,6 +194,7 @@ export default function QuestionnairePage() {
       setOperatingStart(''); setStartYear(''); setAnalysisPeriod('')
       setAssetLifetime('')
       setDecisionContext('')
+      setScreening('')
       setPolicy('')
       setAdvanced({})
     }
@@ -451,7 +458,7 @@ export default function QuestionnairePage() {
         </label>
       </QuestionCard>
 
-      {/* Q9 — optional: unanswered keeps the Q1-derived ILCD situation */}
+      {/* Q9 — required: the ILCD situation follows the decision and its scale (D4.1 Table 1), not Q1 */}
       <QuestionCard
         id="q9"
         title={t('questionnaire.q9.title')}
@@ -460,18 +467,32 @@ export default function QuestionnairePage() {
         details={t('questionnaire.q9.details')}
       >
         {/* Radios, not a dropdown: the answers are sentences, and a native menu cuts them off. */}
-        {(['', ...DECISION_KEYS] as const).map((k) => (
-          <label key={k || 'unset'} className="opt opt-single">
+        {DECISION_KEYS.map((k) => (
+          <label key={k} className="opt opt-single">
             <input
               type="radio" name="q9" value={k}
               checked={decisionContext === k}
+              aria-required="true"
               onChange={() => setDecisionContext(k)}
             />
-            <span className="opt-label">
-              {t(`questionnaire.q9.options.${k || 'unset'}`)}
-            </span>
+            <span className="opt-label">{t(`questionnaire.q9.options.${k}`)}</span>
           </label>
         ))}
+        {decisionContext === 'structural' && (
+          <>
+            <p className="opt-label">{t('questionnaire.q9.screening.label')}</p>
+            {(['yes', 'no'] as const).map((k) => (
+              <label key={k} className="opt opt-single">
+                <input
+                  type="radio" name="q9-screening" value={k}
+                  checked={screening === k}
+                  onChange={() => setScreening(k)}
+                />
+                <span className="opt-label">{t(`questionnaire.q9.screening.${k}`)}</span>
+              </label>
+            ))}
+          </>
+        )}
       </QuestionCard>
 
       {/* Q10 — optional: unanswered keeps the Q1-derived LCC type */}

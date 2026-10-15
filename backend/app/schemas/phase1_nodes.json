@@ -39,11 +39,11 @@
       "field": "lca.ilcd_situation",
       "field_status": null,
       "default_value": {
-        "q1=A": "ILCD Situation A",
-        "q1=B": "ILCD Situation A (multi-actor)",
-        "q1=C": "ILCD Situation B",
-        "q1=D": "ILCD Situation C2",
-        "q1=E": "ILCD Situation C1"
+        "q9=micro": "ILCD Situation A (A multi-actor if q1=B)",
+        "q9=structural": "ILCD Situation B if the market screening is documented; else A, with B as a sensitivity",
+        "q9=none": "ILCD Situation C1",
+        "q9=corporate_report": "ILCD Situation C2",
+        "q9 unanswered": "Q1 fallback: A -> A, B -> A (multi-actor), C -> B, D -> C2, E -> C1"
       },
       "override_path": "q1",
       "lifecycle_layer": "L0",
@@ -1143,9 +1143,9 @@
       "field_status": null,
       "default_value": {
         "q3.eco=false": "all LCC nodes deactivated",
-        "q1 in {A,B,E} AND q3.eco=true": "C-LCC entity + E-LCC network",
-        "q1=C AND q3.eco=true": "E-LCC + S-LCC + NTF",
-        "q1=D AND q3.eco=true": "C-LCC only"
+        "ilcd=C2 AND q3.eco=true": "C-LCC only (T4.6 design choice: one company, no network level)",
+        "q10=yes (unanswered: q1=C) AND q3.eco=true": "C-LCC entity + E-LCC network + S-LCC + NTF",
+        "otherwise, q3.eco=true": "C-LCC entity + E-LCC network"
       },
       "override_path": "q1, q3",
       "lifecycle_layer": "L0"

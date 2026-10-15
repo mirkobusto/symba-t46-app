@@ -7,7 +7,7 @@ accumulation, and the mutation contract.
 """
 from __future__ import annotations
 
-from app.domain.enums import Q1, Q5, LccType
+from app.domain.enums import Q1, Q5, IlcdSituation, LccType
 from app.domain.models import Q3, Case, Flow
 from app.engine.l1_blocks import run
 
@@ -31,8 +31,9 @@ def test_blocked_by_empty_on_fresh_case(schemas):
 
 def test_block_C2_plus_ELCC_fires_when_lcc_includes_E(schemas):
     """L0 won't naturally produce this combo, but defensive check fires
-    if someone (advanced-override layer) sets lcc_type to C+E with Q1=D."""
-    case = Case(q1=Q1.D, q3=Q3(env=True), lcc_type=LccType.C_LCC_PLUS_E_LCC)
+    if someone (advanced-override layer) sets lcc_type to C+E in Situation C2."""
+    case = Case(q1=Q1.D, q3=Q3(env=True), ilcd_situation=IlcdSituation.SITUATION_C2,
+                lcc_type=LccType.C_LCC_PLUS_E_LCC)
     run(case, schemas)
     assert "block_C2_plus_E-LCC" in case.blocked_by
 
@@ -200,6 +201,7 @@ def test_block_order_matches_enumeration(schemas):
     declared in _BLOCK_CHECKS (matches JSON `blocks` array order)."""
     case = Case(
         q1=Q1.D, q3=Q3(),  # eco=False → block_Q3_emptySelection fires
+        ilcd_situation=IlcdSituation.SITUATION_C2,
         lcc_type=LccType.C_LCC_PLUS_E_LCC,  # → block_C2_plus_E-LCC fires
     )
     run(case, schemas)

@@ -41,6 +41,8 @@ describe('Questionnaire Q8 — time horizon', () => {
     fireEvent.click(document.querySelector('input[name="q1"][value="A"]')!)
     // a reset store has no Q3 dimension on, and the run button needs one
     fireEvent.click(screen.getByLabelText(/Environmental \(LCA\)/))
+    // Q9 is required since 2026-10-15
+    fireEvent.click(document.querySelector('input[name="q9"][value="micro"]')!)
   }
 
   it('shows the Q8 field, empty by default', () => {

@@ -123,14 +123,17 @@ class DecisionContext(StrEnum):
     """Q9 (optional) — does the study support a decision, and at what scale?
 
     D4.1 Table 1 derives the ILCD situation from this, not from the subject
-    of the study: NONE documents an existing network (Situation C), MICRO
-    supports a decision with limited consequences (A), STRUCTURAL one with
-    large-scale consequences (B).
+    of the study: MICRO explores or supports a choice, even a hypothetical one,
+    with effects that stay in the plants involved (A, L00624); STRUCTURAL one
+    whose effects change what a market produces (B, proof required, L00632);
+    NONE documents an existing network (C1); CORPORATE_REPORT is the strict
+    reporting of one company in isolation, with no credits (C2, L00868).
     """
 
     NONE = "none"
     MICRO = "micro"
     STRUCTURAL = "structural"
+    CORPORATE_REPORT = "corporate_report"
 
 
 class OperatingStart(StrEnum):

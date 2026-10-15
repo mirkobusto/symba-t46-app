@@ -7,7 +7,7 @@ pipeline orchestrator short-circuits on non-empty `blocked_by` (see
 
 The 4 BLOCKs (ordered as in the JSON):
 
-    block_C2_plus_E-LCC          Q1=D AND lcc_type ∈ {C+E, C+E+S}
+    block_C2_plus_E-LCC          ilcd = C2 AND lcc_type ∈ {C+E, C+E+S}
     block_anyQ1_plus_AbsoluteSLCA Q3.soc=true AND advanced override='absolute'
     block_Q3_emptySelection      Q3 = no selection (env=eco=soc=false)
     block_Q1A_plus_Q5e           Q1=A AND ≥1 flow AND all flows Q5=e
@@ -19,7 +19,7 @@ structurally inert today (the defensive `getattr` returns None). When
 Sprint 4 Step 4 wires `advanced`, the BLOCK activates without changes
 to this module.
 
-Note on `block_C2_plus_E-LCC`: under natural L0 derivation Q1=D maps
+Note on `block_C2_plus_E-LCC`: under natural L0 derivation Situation C2 maps
 to `LccType.C_LCC_ONLY` or `LccType.DEACTIVATED`, so this BLOCK never
 fires in the current pipeline. It remains as a safety net for the
 future advanced-override path that lets users force a non-natural
@@ -33,13 +33,15 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
-from app.domain.enums import Q1, Q5, LccType
+from app.domain.enums import Q1, Q5, IlcdSituation, LccType
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas
 
 
 def _check_c2_plus_e_lcc(case: Case) -> bool:
-    return case.q1 == Q1.D and case.lcc_type in {
+    # Situation C2 (strict reporting of one company), not Q1=D: since 2026-10-15
+    # the situation follows Q9, and Q1=D with another Q9 answer is not a C2 study.
+    return case.ilcd_situation == IlcdSituation.SITUATION_C2 and case.lcc_type in {
         LccType.C_LCC_PLUS_E_LCC,
         LccType.E_LCC_PLUS_S_LCC_PLUS_NTF,
     }

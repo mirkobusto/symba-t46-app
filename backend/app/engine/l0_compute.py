@@ -49,44 +49,44 @@ def _compute_ilcd_situation(q1: Q1 | None) -> IlcdSituation:
 
 
 # Q9 (D4.1 Table 1): the situation follows the decision and its scale, not the
-# subject of the study. Rows are Q1, columns the Q9 answer. Q1=D is Situation C2
-# whatever Q9 says: "C-LCC only / C2" is a declared T4.6 choice.
+# subject of the study (owner decision 2026-10-15: Q9 wins over Q1, Q1=D included).
+# Q1 is only the fallback for cases saved without Q9. "A multi-actor" is kept for
+# Q1=B until the separate PR that removes it.
 _S = IlcdSituation
-_N, _M, _X = DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL
-_ILCD_BY_DECISION: dict[Q1, dict[DecisionContext, IlcdSituation]] = {
-    Q1.A: {_N: _S.SITUATION_C1, _M: _S.SITUATION_A, _X: _S.SITUATION_B},
-    Q1.B: {_N: _S.SITUATION_C1, _M: _S.SITUATION_A_MULTI, _X: _S.SITUATION_B},
-    Q1.C: {_N: _S.SITUATION_C1, _M: _S.SITUATION_A, _X: _S.SITUATION_B},
-    Q1.D: {_N: _S.SITUATION_C2, _M: _S.SITUATION_C2, _X: _S.SITUATION_C2},
-    Q1.E: {_N: _S.SITUATION_C1, _M: _S.SITUATION_A, _X: _S.SITUATION_B},
-}
+_N, _M, _X, _R = (DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL,
+                  DecisionContext.CORPORATE_REPORT)
+
+
+def _micro(q1: Q1) -> IlcdSituation:
+    return _S.SITUATION_A_MULTI if q1 == Q1.B else _S.SITUATION_A
+
 
 # Where the explicit answer contradicts what Q1 implies the engine says so (a
 # warning, never a block, never a silent change). Q1 implies: A/B limited
-# consequences, C structural, D/E no decision.
+# consequences, C structural, D company reporting, E no decision.
 _DECISION_WARNINGS: dict[tuple[Q1, DecisionContext], tuple[str, str]] = {
     (Q1.C, _M): ("decision_scale_vs_q1", "Q1 (sector-wide pre-feasibility) usually means consequences at "
                  "structural scale; you answered limited consequences, so the study is treated as ILCD "
                  "Situation A. D4.1 §4.3.4: do not choose Consequential LCA simply because a decision is "
                  "being made."),
-    (Q1.D, _M): ("q1_d_fixed", "Q1=D (corporate reporting) stays ILCD Situation C2 whatever Q9 says: it is a "
-                 "T4.6 design choice."),
-    (Q1.D, _X): ("q1_d_fixed", "Q1=D (corporate reporting) stays ILCD Situation C2 whatever Q9 says: it is a "
-                 "T4.6 design choice."),
     (Q1.E, _M): ("decision_scale_vs_q1", "Q1=E (monitoring) implies no decision; you answered that a decision "
                  "with limited consequences is supported, so the study is treated as ILCD Situation A."),
     (Q1.E, _X): ("decision_scale_vs_q1", "Q1=E (monitoring) implies no decision; you answered that a decision "
                  "with structural consequences is supported, so the study is treated as ILCD Situation B."),
 }
+_Q1_D_NOT_CORPORATE = ("q1_d_not_corporate", "Q1=D describes one company's sustainability reporting, but Q9 "
+                       "says the study is not a corporate report; the ILCD situation follows Q9. Strict "
+                       "corporate reporting (allocation, no credits) is ILCD Situation C2 (D4.1 §7.2.3).")
 
 
 def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, str]]]:
     """ILCD situation and the notes about it.
 
-    Q9 unanswered: the Q1 mapping (the engine's values are exactly as before Q9
-    existed). Q9 answered: D4.1 Table 1, plus a note when it contradicts Q1. In
-    both cases a note when Situation C (a documented, existing network) meets an
-    ex-ante Q2: with Q9 unanswered that is Q1=D or Q1=E with Q2=C or D (audit I-06).
+    Q9 unanswered: the Q1 mapping (cases saved before Q9 keep their values). Q9
+    answered: D4.1 Table 1 and §7.2.3, plus a note when it contradicts Q1. A
+    structural answer needs the market screening (Q9b): without it the study stays
+    Situation A, B being a sensitivity (L00632). In every case a note when
+    Situation C meets an ex-ante Q2 (audit I-06).
     """
     base = _compute_ilcd_situation(case.q1)   # raises on an invalid Q1
     decision = case.decision_context
@@ -94,10 +94,31 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, st
     if decision is None:
         situation = base
     else:
-        situation = _ILCD_BY_DECISION[case.q1][decision]
+        if decision == _X:
+            if case.market_screening_documented is False:
+                situation = _micro(case.q1)
+                notes.append({"code": "structural_without_screening", "message": (
+                    "Q9 says the effects are structural, but the market screening is not documented: the "
+                    "study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity "
+                    "(D4.1 §4.3.4, §11.3.1).")})
+            else:
+                situation = _S.SITUATION_B
+                if case.market_screening_documented is None:
+                    notes.append({"code": "structural_screening_missing", "message": (
+                        "Situation B needs proof that the change displaces about 1% or more of new capacity "
+                        "in the affected market (D4.1 §11.3.1); document it, or the study is Situation A "
+                        "with B as a sensitivity (D4.1 §4.3.4).")})
+        elif decision == _M:
+            situation = _micro(case.q1)
+        elif decision == _N:
+            situation = _S.SITUATION_C1
+        else:
+            situation = _S.SITUATION_C2
         if (case.q1, decision) in _DECISION_WARNINGS:
             code, message = _DECISION_WARNINGS[(case.q1, decision)]
             notes.append({"code": code, "message": message})
+        if case.q1 == Q1.D and decision != _R:
+            notes.append({"code": _Q1_D_NOT_CORPORATE[0], "message": _Q1_D_NOT_CORPORATE[1]})
     # Q2=B is "under construction or recently commissioned" (the questionnaire's own
     # wording): the network exists or nearly does, so documenting it is coherent and
     # no note is left. Q2=C (design phase, no operating data) and Q2=D (baseline plus
@@ -112,47 +133,34 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, st
     return situation, notes
 
 
-def _compute_lcc_type(q1: Q1 | None, eco: bool) -> LccType:
-    if not eco:
-        # Q1 irrelevant when LCC pillar is off.
-        return LccType.DEACTIVATED
-    if q1 not in _VALID_Q1:
-        raise ValueError(f"Invalid Q1: {q1!r}")
-    if q1 == Q1.C:
-        return LccType.E_LCC_PLUS_S_LCC_PLUS_NTF
-    if q1 == Q1.D:
-        return LccType.C_LCC_ONLY
-    # q1 ∈ {A, B, E}
-    return LccType.C_LCC_PLUS_E_LCC
-
-
 def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
-    """LCC type and the notes about it.
+    """LCC type and the notes about it. Runs after the ILCD situation.
 
-    Q10 unanswered: the Q1 mapping, no notes (as before Q10 existed). Q10
-    answered (D4.2 §2.3: an S-LCC is added when the study serves a public policy
-    or territorial planning objective): the answer wins over Q1, except Q1=D,
-    which stays "C-LCC only" (declared T4.6 choice; it also keeps
-    block_C2_plus_E-LCC from firing). Contradictions leave a note.
+    Strict reporting of one company (Situation C2) keeps the company-level costing,
+    "C-LCC only" (declared T4.6 choice: no network level). Otherwise C-LCC per
+    partner + E-LCC at network level, plus the S-LCC when the study serves a public
+    policy or planning objective (D4.2 §2.3, L00473). Q10 unanswered: inferred from
+    Q1 (yes only for Q1=C), as before Q10 existed.
     """
-    base = _compute_lcc_type(case.q1, case.q3.eco)   # raises on an invalid Q1 when eco is on
-    policy = case.policy_objective
-    if base == LccType.DEACTIVATED or policy is None:
-        return base, []
+    if not case.q3.eco:
+        return LccType.DEACTIVATED, []
+    if case.q1 not in _VALID_Q1:
+        raise ValueError(f"Invalid Q1: {case.q1!r}")
     notes: list[dict[str, str]] = []
-    if case.q1 == Q1.D:
+    policy = case.policy_objective
+    if case.ilcd_situation == _S.SITUATION_C2:
         if policy:
-            notes.append({"code": "q1_d_fixed_lcc", "message": "Q1=D (corporate reporting) keeps the "
-                          "conventional company-level costing (C-LCC only) whatever Q10 says: it is a T4.6 "
-                          "design choice."})
-        return base, notes
-    if policy:
-        return LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, notes
-    if case.q1 == Q1.C:
+            notes.append({"code": "c2_keeps_c_lcc", "message": "Strict reporting of one company (ILCD "
+                          "Situation C2) keeps the company-level costing (C-LCC only) whatever Q10 says: it "
+                          "is a T4.6 design choice, since a single company has no network level."})
+        return LccType.C_LCC_ONLY, notes
+    if policy is None:
+        policy = case.q1 == Q1.C
+    elif not policy and case.q1 == Q1.C:
         notes.append({"code": "policy_no_but_q1_c", "message": "Q1=C (sector-wide pre-feasibility) usually serves "
                       "a public policy; you answered that it does not, so the societal costing (S-LCC, net tax "
                       "factor, social discount rate) is not added."})
-    return LccType.C_LCC_PLUS_E_LCC, notes
+    return (LccType.E_LCC_PLUS_S_LCC_PLUS_NTF if policy else LccType.C_LCC_PLUS_E_LCC), notes
 
 
 def _slca_notes(case: Case) -> list[dict[str, str]]:

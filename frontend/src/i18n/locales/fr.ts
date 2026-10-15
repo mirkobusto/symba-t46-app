@@ -511,17 +511,22 @@ const fr: Locale = {
         'Sur quelles années l\'étude regarde-t-elle le système ? Si elle décrit comment les choses fonctionnent aujourd\'hui, une photographie du présent suffit. Si elle porte sur une installation qui fonctionnera une année ultérieure, ou suit le système sur des décennies, le résultat dépend de l\'évolution de l\'électricité, des carburants et des marchés, et l\'outil vous demande de vous prononcer sur cet avenir : le même avenir pour la lecture environnementale et pour la lecture économique.',
     },
     q9: {
-      title: 'Q9 — L\'étude soutient-elle une décision, et à quelle échelle ?',
-      help: 'Facultative. Sans réponse, le moteur la déduit de Q1.',
-      details: 'Le Tableau 1 de D4.1 classe l\'étude selon qu\'une décision est prise et selon l\'échelle de ses conséquences, non selon son sujet. Q1 n\'est qu\'un substitut (A/B → conséquences limitées, C → structurelles, D/E → aucune décision). Répondez lorsque le substitut est faux. « Aucune décision » suppose un réseau existant (Q2 = A ou B). Avec Q1 = D la situation ILCD reste C2 quelle que soit la réponse (choix de conception T4.6).',
+      title: 'Q9 — À quoi sert l\'étude, et jusqu\'où vont ses effets ? *',
+      help: 'Obligatoire. Elle fixe la situation de modélisation (ILCD A, B, C1 ou C2) ; Q1 décrit seulement le sujet.',
+      details: 'Le Tableau 1 de D4.1 classe l\'étude selon la décision qu\'elle soutient et l\'échelle de ses conséquences, non selon son sujet (D4.1 §4.2.3). Micro (Situation A) est le défaut pour les échanges isolés et les projets de parc ou d\'installation, même sans décideur nommé (§4.3.4). Structurelle (Situation B) exige la preuve que le changement déplace la capacité installée du marché concerné, par exemple environ 1 % ou plus des nouvelles installations (§4.3.4, §11.3.1) ; sans preuve, l\'étude reste A, avec B en sensibilité. Documenter un réseau existant relève de la Situation C1 (substitution, §7.2.3) ; le rapport d\'une seule entreprise isolée relève de C2 (allocation, sans crédits, §7.2.3), avec des coûts au seul niveau de l\'entreprise (choix de conception T4.6).',
       options: {
-        unset: 'Sans réponse (déduite de Q1)',
-        none: 'Aucune décision — l\'étude documente un réseau existant (situation ILCD C)',
-        micro: 'Oui, à conséquences limitées : pas de changement de la capacité installée ni des prix dans l\'économie au sens large (situation A)',
-        structural: 'Oui, à conséquences à grande échelle : déplace environ 1 % ou plus des constructions annuelles du marché concerné (situation B ; la preuve doit être documentée)',
+        micro: 'Elle explore ou soutient un choix, même hypothétique et sans décideur nommé, et ses effets restent dans les installations concernées (Situation A)',
+        structural: 'Elle soutient un choix dont les effets changent ce que produit tout un marché ou secteur (Situation B ; la preuve doit être documentée)',
+        none: 'Aucun choix : elle documente ce qu\'un réseau ou un système existant apporte, tel qu\'il est (Situation C1)',
+        corporate_report: 'Rapport d\'une seule entreprise isolée (ESG / CSRD), sans crédit pour ce que la symbiose évite ailleurs (Situation C2)',
+      },
+      screening: {
+        label: 'Est-il documenté que le changement déplace environ 1 % ou plus de la nouvelle capacité du marché concerné ?',
+        yes: 'Oui, c\'est documenté (Situation B)',
+        no: 'Non (Situation A, avec la Situation B en analyse de sensibilité)',
       },
       plain:
-        "Une décision découle-t-elle de cette étude, et quelle est l'ampleur de ses effets ? Vous ne pouvez répondre « aucune décision » que pour un réseau qui existe déjà. Les effets qui restent à l'intérieur des installations concernées sont faibles ; ceux qui déplacent un marché entier sont importants, et la preuve doit en être documentée. Pour le bilan propre d'une seule entreprise, la réponse ne change rien. Sans réponse, l'outil la déduit de la première question.",
+        'À quoi sert l\'étude ? Le plus souvent, elle explore ou soutient un choix dont les effets restent dans les installations concernées, même si personne ne doit encore décider. Ce n\'est que lorsque le changement est assez grand pour modifier ce que produit tout un marché, et qu\'on peut le montrer, que l\'étude change de nature. Si vous décrivez seulement un réseau qui fonctionne déjà, ou les chiffres d\'une seule entreprise, dites-le : chaque cas se modélise différemment.',
     },
     q10: {
       title: 'Q10 — L\'étude sert-elle un objectif de politique publique ou d\'aménagement du territoire ?',

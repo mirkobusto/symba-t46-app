@@ -277,7 +277,7 @@ def test_pipeline_run_q10_q1_d_with_policy_is_a_note_not_a_block(client):
     body = resp.json()
     assert resp.status_code == 200 and body["blocked_by"] == []
     assert body["lcc_type"] == "C-LCC"
-    assert [w["code"] for w in body["warnings"]] == ["q1_d_fixed_lcc"]
+    assert [w["code"] for w in body["warnings"]] == ["c2_keeps_c_lcc"]
 
 
 def test_running_twice_does_not_double_the_outputs(client):

@@ -560,17 +560,22 @@ const en = {
         'Over which years does the study look at the system? If it describes how things work today, a picture of the present is enough. If it is about a plant that will run in a later year, or it follows the system for decades, the result depends on how electricity, fuels and markets will change, and the tool asks you to take a view on that future: the same future for the environmental and the economic reading.',
     },
     q9: {
-      title: 'Q9 — Does the study support a decision, and at what scale?',
-      help: 'Optional. Leave unanswered and the engine infers it from Q1.',
-      details: 'D4.1 Table 1 classifies the study by whether a decision is made and by the scale of its consequences, not by its subject. Q1 is only a proxy (A/B → limited consequences, C → structural, D/E → no decision). Answer when the proxy is wrong. “No decision” needs an existing network (Q2 = A or B). Q1 = D stays ILCD Situation C2 whatever you answer (a T4.6 design choice).',
+      title: 'Q9 — What is the study for, and how far do its effects reach? *',
+      help: 'Required. It sets the modelling situation (ILCD A, B, C1 or C2); Q1 only describes the subject.',
+      details: 'D4.1 Table 1 classifies the study by the decision it supports and the scale of its consequences, not by its subject (D4.1 §4.2.3). Micro (Situation A) is the default for single exchanges and park or plant designs, even with no named decision-maker (§4.3.4). Structural (Situation B) needs proof that the change shifts installed capacity in the affected market, e.g. about 1% or more of new build (§4.3.4, §11.3.1); without it the study stays A, with B as a sensitivity. Documenting an existing network is Situation C1 (substitution, §7.2.3); strict reporting of one company in isolation is C2 (allocation, no credits, §7.2.3), costed at company level only (a T4.6 design choice).',
       options: {
-        unset: 'Not answered (inferred from Q1)',
-        none: 'No decision — the study documents an existing network (ILCD Situation C)',
-        micro: 'Yes, with limited consequences: no change to installed capacity or to prices in the wider economy (Situation A)',
-        structural: 'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
+        micro: 'It explores or supports a choice, even a hypothetical one with no named decision-maker, and its effects stay within the plants involved (Situation A)',
+        structural: 'It supports a choice whose effects change what a whole market or sector produces (Situation B; the proof must be documented)',
+        none: 'No choice: it documents what an existing network or system delivers, as it is (Situation C1)',
+        corporate_report: 'Strict reporting of one company in isolation (ESG / CSRD), with no credit for what the symbiosis avoids elsewhere (Situation C2)',
+      },
+      screening: {
+        label: 'Is it documented that the change displaces about 1% or more of the new capacity in the affected market?',
+        yes: 'Yes, it is documented (Situation B)',
+        no: 'No (Situation A, with Situation B tested as a sensitivity)',
       },
       plain:
-        "Is a decision being taken because of this study, and how large are its effects? You can answer “no decision” only for a network that already exists. Effects that stay inside the plants involved are small ones; effects that shift a whole market are large, and the proof of that has to be documented. For a single company's own account the answer changes nothing. Leave it unanswered and the tool reads it off the first question.",
+        'What is the study for? Most studies explore or back a choice whose effects stay inside the plants involved, even when nobody has to decide yet. Only when the change is big enough to shift what a whole market produces, and you can show it, does the study change kind. If you are only describing a network that already runs, or reporting one company\'s own figures, say so: each case is modelled differently.',
     },
     q10: {
       title: 'Q10 — Does the study serve a public policy or territorial planning objective?',

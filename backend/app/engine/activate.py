@@ -254,16 +254,16 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lcc_hc_05": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,
     "lcc_hc_10": lambda c: c.q3.eco,
     # per_flow simple
-    "lcc_hc_12": lambda c, f: f.q5 != Q5.e,
+    "lcc_hc_12": lambda c, f: True,   # every secondary flow, aggregated ones included (D4.2 §6.3)
     # simple
-    "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
+    "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5} or c.q2 in {Q2.B, Q2.C, Q2.D},   # planning stage (D4.2 §7.3)
     # disjunctive — same rule as lca_mc_21
     "lcc_hc_23": needs_future_background,
     # conjunctive
     "lcc_hc_27": lambda c: c.q3.env and c.q3.eco,
     "lcc_hc_28": lambda c: c.q3.env and c.q3.eco,
     # per_flow simple
-    "lcc_hc_34": lambda c, f: f.q5 == Q5.c,
+    "lcc_hc_34": lambda c, f: f.q5 in {Q5.a, Q5.b, Q5.c, Q5.d},
     # per_flow disjunctive
     "lcc_hc_35": lambda c, f: f.q5 in {Q5.a, Q5.b},
     # per_flow simple

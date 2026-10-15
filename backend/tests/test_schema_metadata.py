@@ -55,6 +55,9 @@ def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
         "lca_hc_03", "lca_hc_04", "lca_hc_13", "lca_hc_14", "lca_hc_18", "lca_hc_22",
         "lca_mc_03", "lca_mc_04", "lca_mc_07", "lca_mc_09", "lca_mc_10", "lca_mc_11",
         "lca_mc_15", "lca_mc_18", "lca_mc_20", "lca_mc_25", "lca_mc_30", "lca_mc_32", "lca_mc_34",
+        # step 4b, LCC
+        "lcc_hc_12", "lcc_hc_14", "lcc_hc_15", "lcc_hc_20", "lcc_hc_34",
+        "lcc_mc_09", "lcc_mc_10", "lcc_mc_11", "lcc_mc_14", "lcc_mc_15",
     }
     for n in rewritten:
         assert re.search(r"L\d{5}", n["extraction_notes"].split("Rewritten on FINAL v2 text")[1])

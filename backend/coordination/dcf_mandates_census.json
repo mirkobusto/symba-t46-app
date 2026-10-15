@@ -1098,7 +1098,7 @@
         "source_section": "D4.2 \u00a710.3",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Monte Carlo mandatory, >=10,000 iterations",
+        "statement": "Monte Carlo mandatory; 1,000-10,000 iterations chosen by convergence of the NPV statistics, 10,000 as the working default (D4.2 \u00a710.3)",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],

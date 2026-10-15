@@ -25,6 +25,7 @@ import type { DcfPayload } from '../types/dcf'
 import {
   ACTORS_SECTION,
   DCF_DATA_SCHEMA_VERSION,
+  FLOW_CLASSIFICATION_SECTION,
   FLOW_MATRIX_SECTION,
   type DcfData,
   type DcfDataValidation,
@@ -192,6 +193,41 @@ export const useDcfDataStore = create<DcfDataState>()(
           if (seeded.length > 0) {
             data = withRows(data, FLOW_MATRIX_SECTION, [
               ...rowsOf(data, FLOW_MATRIX_SECTION),
+              ...seeded,
+            ])
+            changed = true
+          }
+        }
+
+        // 3. seed a Flow Classification row from the Freedom-to-Act answer
+        //    given in Q5 (Flow.sellable_elsewhere), once per flow: a row the
+        //    analyst already has for that flow is theirs and is not touched
+        const classAllowed = active[FLOW_CLASSIFICATION_SECTION]
+        if (
+          classAllowed &&
+          classAllowed.has('classif.flow_id') &&
+          classAllowed.has('classif.independent_market')
+        ) {
+          const classified = new Set(
+            rowsOf(data, FLOW_CLASSIFICATION_SECTION).map(
+              (r) => r.values['classif.flow_id'],
+            ),
+          )
+          const seeded: DcfRow[] = []
+          for (const flow of flows) {
+            if (!flow.id || flow.sellable_elsewhere == null) continue
+            if (classified.has(flow.id)) continue
+            seeded.push({
+              row_id: `classif-${flow.id}`,
+              values: {
+                'classif.flow_id': flow.id,
+                'classif.independent_market': flow.sellable_elsewhere ? 'yes' : 'no',
+              },
+            })
+          }
+          if (seeded.length > 0) {
+            data = withRows(data, FLOW_CLASSIFICATION_SECTION, [
+              ...rowsOf(data, FLOW_CLASSIFICATION_SECTION),
               ...seeded,
             ])
             changed = true

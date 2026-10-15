@@ -3,7 +3,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
-import { ACTORS_SECTION, FLOW_MATRIX_SECTION } from '../types/dcfData'
+import {
+  ACTORS_SECTION,
+  FLOW_CLASSIFICATION_SECTION,
+  FLOW_MATRIX_SECTION,
+} from '../types/dcfData'
 
 function field(id: string, extra: Record<string, unknown> = {}) {
   return {
@@ -92,6 +96,33 @@ describe('dcfDataStore', () => {
     expect(rows[0].values['flow.name']).toBe('sludge')
     expect(rows[0].values['flow.unit']).toBe('t/y')
     expect(rows[0].values['flow.quantity_measured']).toBe(120)
+  })
+
+  it('seeds a classification row from the Freedom-to-Act answer, once', () => {
+    const p = payloadWith(FULL_FLOW_FIELDS)
+    p.sections.push({
+      ...p.sections[1],
+      id: FLOW_CLASSIFICATION_SECTION,
+      row_collection: 'auto_from_flow_matrix',
+      fields: [field('classif.flow_id'), field('classif.independent_market')],
+    } as (typeof p.sections)[number])
+    const flows: Flow[] = [
+      { id: 'f1', name: 'sludge', q5: 'a', sellable_elsewhere: true },
+      { id: 'f2', name: 'biogas', q5: 'c', sellable_elsewhere: false },
+      { id: 'f3', name: 'heat', q5: 'c' },
+    ]
+    const store = useDcfDataStore.getState()
+    store.syncWithPayload(p, flows)
+    store.syncWithPayload(p, flows)
+    const rows = useDcfDataStore.getState().data.rows_by_section[FLOW_CLASSIFICATION_SECTION]
+    expect(rows.map((r) => [r.values['classif.flow_id'], r.values['classif.independent_market']]))
+      .toEqual([['f1', 'yes'], ['f2', 'no']])
+    // the analyst's own row for a flow is not overwritten by a changed answer
+    store.syncWithPayload(p, [{ ...flows[0], sellable_elsewhere: false }])
+    expect(
+      useDcfDataStore.getState().data.rows_by_section[FLOW_CLASSIFICATION_SECTION][0]
+        .values['classif.independent_market'],
+    ).toBe('yes')
   })
 
   it('re-seeding is idempotent', () => {

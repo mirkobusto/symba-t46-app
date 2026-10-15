@@ -27,7 +27,7 @@ and this module together.
 """
 from __future__ import annotations
 
-from app.domain.enums import Q1, Q2, DecisionContext, IlcdSituation, LccType, SlcaActivationState
+from app.domain.enums import Q1, Q2, Q5, DecisionContext, IlcdSituation, LccType, Q6a, SlcaActivationState
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas
 
@@ -175,6 +175,59 @@ def _slca_notes(case: Case) -> list[dict[str, str]]:
     return []
 
 
+# D4.1 Part 2 sector chapters (FINAL v2 numbering, §3.3 L00349-359). Biobased
+# polymers sit in §5 ("bio-based alternatives", L00353), food production in §4.
+PART2_CHAPTER: dict[Q6a, str] = {
+    Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES: "§4 Agri-Food and Biorefineries",
+    Q6a.FOOD_PRODUCTION: "§4 Agri-Food and Biorefineries",
+    Q6a.PLASTICS_PACKAGING: "§5 Plastics and Packaging",
+    Q6a.BIOBASED_POLYMERS: "§5 Plastics and Packaging",
+    Q6a.WASTEWATER_SLUDGE_BIOFACTORIES: "§6 Wastewater and Biofactories",
+    Q6a.TEXTILE_LEATHER: "§7 Textile and Technical Textiles",
+    Q6a.WASTE_VALORIZATION: "§8 Waste Valorisation",
+}
+
+
+def _flow_notes(case: Case) -> list[dict[str, str]]:
+    """Per-flow notes from the two optional flow answers; unanswered = none.
+
+    Freedom-to-Act (D4.1 §8.3.3, L00990-994): a flow a third party would buy is a
+    co-product, one nobody would buy is a waste whatever the nominal price. The
+    test is checked against who pays whom (Q5): a = generator pays, c = recipient
+    pays, b = undecided. Q5 = d is left alone because interdependent production
+    makes the flow a co-product regardless of price (L00974, L00996); Q5 = e
+    aggregates the flow away. A note never changes Q5.
+    """
+    notes: list[dict[str, str]] = []
+    for f in case.flows:
+        label = f"Flow '{f.name or f.id}'"
+        sell = f.sellable_elsewhere
+        if sell is True and f.q5 == Q5.a:
+            notes.append({"code": "flow_sellable_but_waste", "message": (
+                f"{label}: Q5 says the generator pays to get rid of it (waste), but a third party would "
+                "pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market "
+                "value is a co-product, and its upstream burden is shared (substitution or allocation), "
+                "not cut off. Check Q5 for this flow.")})
+        elif sell is False and f.q5 == Q5.c:
+            notes.append({"code": "flow_price_without_market", "message": (
+                f"{label}: Q5 says the recipient pays for it (co-product), but no third party would. "
+                "D4.1 §8.3.3: without an independent market the price is an administrative fee and the "
+                "flow is a waste, with zero burden from where it first reaches a non-negative value "
+                "(§8.3.6 Step 4). The exception is a generator that changes its process for the partner "
+                "(Q5 = d).")})
+        elif sell is not None and f.q5 == Q5.b:
+            reading = ("a co-product (§8.3.2, burden shared)" if sell else
+                       "a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4)")
+            notes.append({"code": "flow_freedom_to_act_settles", "message": (
+                f"{label}: Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) "
+                f"reads it as {reading}.")})
+        chapter = PART2_CHAPTER.get(f.sector) if f.sector else None
+        if chapter:
+            notes.append({"code": "flow_part2_chapter", "message": (
+                f"{label}: the sector rules of D4.1 Part 2 {chapter} apply to it.")})
+    return notes
+
+
 def _compute_slca_state(soc: bool) -> SlcaActivationState:
     return SlcaActivationState.ACTIVE if soc else SlcaActivationState.DEACTIVATED
 
@@ -198,4 +251,5 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     case.warnings += lcc_notes
     case.slca_activation_state = _compute_slca_state(case.q3.soc)
     case.warnings += _slca_notes(case)
+    case.warnings += _flow_notes(case)
     return case

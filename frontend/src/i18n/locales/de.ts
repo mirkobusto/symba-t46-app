@@ -548,7 +548,11 @@ const de: Locale = {
   flows: {
     q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
-    headers: { id: 'ID', name: 'Name', q5: 'Q5' },
+    headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)' },
+    sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
+    sellableHint: 'Würde der Partner diesen Fluss nicht abnehmen: Könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt, nein zum Abfall, unabhängig vom vereinbarten Preis (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt Widersprüche zu Q5.',
+    sectorHint: 'Was der Fluss ist, falls er zu einem der Sektoren mit eigenen Regeln in Teil 2 von D4.1 gehört. Optional: Das Ergebnis nennt das maßgebliche Kapitel.',
+    sectorNone: '— keiner davon',
     namePlaceholder: 'z. B. Wärme, CO2',
     addButton: 'Fluss hinzufügen',
     removeAria: '{{id}} entfernen',

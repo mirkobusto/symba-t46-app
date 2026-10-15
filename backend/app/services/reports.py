@@ -187,6 +187,11 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     if case.flows:
         _add_kv(doc, "Q5 per-flow",
                 ", ".join(f"{f.id}={f.q5.value}" for f in case.flows))
+        answered = [f for f in case.flows if f.sellable_elsewhere is not None or f.sector]
+        if answered:
+            _add_kv(doc, "Per flow: sellable to others / Part 2 sector", ", ".join(
+                f"{f.id}={'-' if f.sellable_elsewhere is None else ('yes' if f.sellable_elsewhere else 'no')}"
+                f"/{f.sector.value if f.sector else '-'}" for f in answered))
     else:
         _add_kv(doc, "Q5 per-flow", "(no flows defined)")
     _add_kv(doc, "Q6a sector",

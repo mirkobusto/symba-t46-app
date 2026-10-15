@@ -554,7 +554,11 @@ const fr: Locale = {
   flows: {
     q5Note: "Répondez selon l'arrangement actuel — convenu, ou prévu si l'échange n'existe pas encore. C'est une hypothèse de départ, pas un résultat : si l'étude change qui paie qui, revenez le modifier. Choisissez « gratuit / ambigu » quand c'est réellement indécis.",
     emptyHint: 'Aucun flux. Ajoutez-en au moins un pour caractériser la Q5 par-flux.',
-    headers: { id: 'ID', name: 'Nom', q5: 'Q5' },
+    headers: { id: 'ID', name: 'Nom', q5: 'Q5', sellable: 'Vendable à d\'autres ?', sector: 'Secteur (Partie 2)' },
+    sellable: { unset: '— sans réponse', yes: 'Oui', no: 'Non' },
+    sellableHint: 'Si le partenaire ne prenait pas ce flux, le générateur pourrait-il le vendre à quelqu\'un d\'autre à un prix positif ? Oui en fait un coproduit, non un déchet, quel que soit le prix convenu (D4.1 §8.3.3). Facultatif : le résultat signale un désaccord avec Q5.',
+    sectorHint: 'Ce qu\'est le flux, s\'il relève d\'un des secteurs ayant leurs propres règles dans la Partie 2 du D4.1. Facultatif : le résultat indique le chapitre à suivre.',
+    sectorNone: '— aucun de ceux-ci',
     namePlaceholder: 'ex. chaleur, CO2',
     addButton: 'Ajouter un flux',
     removeAria: 'Supprimer {{id}}',

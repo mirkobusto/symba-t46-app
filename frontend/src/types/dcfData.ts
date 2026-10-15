@@ -56,3 +56,4 @@ export const DCF_DATA_SCHEMA_VERSION = '1.0'
 // Section ids the Network Builder edits.
 export const ACTORS_SECTION = 'actors'
 export const FLOW_MATRIX_SECTION = 'flow_matrix'
+export const FLOW_CLASSIFICATION_SECTION = 'flow_classification'

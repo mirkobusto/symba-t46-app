@@ -72,6 +72,15 @@ class Flow(BaseModel):
     physical_unit: str | None = None
     notes: str | None = None
 
+    # Optional, unanswered = no effect. Freedom-to-Act test (D4.1 §8.3.3): could
+    # the generator sell this flow to a third party at a positive price? Read
+    # only for notes against Q5; the DCF field classif.independent_market is
+    # seeded from it.
+    sellable_elsewhere: bool | None = None
+    # What the flow is, among the five D4.1 Part 2 sectors (Q6a IDs, see
+    # l0_compute.PART2_CHAPTER): names the sector chapter in a note.
+    sector: Q6a | None = None
+
 
 class Site(BaseModel):
     """A geographic site participating in the IS network. Optional —

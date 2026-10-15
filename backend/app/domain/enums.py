@@ -120,7 +120,8 @@ class Q7(StrEnum):
 
 
 class DecisionContext(StrEnum):
-    """Q9 (optional) — does the study support a decision, and at what scale?
+    """Q9 — does the study support a decision, and at what scale? Required in the
+    questionnaire since #114; saved cases without it fall back on Q1.
 
     D4.1 Table 1 derives the ILCD situation from this, not from the subject
     of the study: MICRO explores or supports a choice, even a hypothetical one,

@@ -61,6 +61,10 @@ export interface Flow {
   physical_quantity?: number | null
   physical_unit?: string | null
   notes?: string | null
+  /** Freedom-to-Act (D4.1 §8.3.3): would a third party pay for it? Unset = not answered. */
+  sellable_elsewhere?: boolean | null
+  /** One of the D4.1 Part 2 sectors (Q6a ids); names the sector chapter in a note. */
+  sector?: Q6a | null
 }
 
 export interface Site {

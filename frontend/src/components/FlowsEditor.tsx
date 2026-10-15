@@ -3,9 +3,26 @@
 import { Plus, Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-import type { Flow, Q5 } from '../types/api'
+import type { Flow, Q5, Q6a } from '../types/api'
 
 const Q5_KEYS: Q5[] = ['a', 'b', 'c', 'd', 'e']
+
+// Sectors that have a chapter in D4.1 Part 2 (§4-§8); the engine names it in
+// a note. Labels are the Q6a ones.
+const PART2_SECTORS: Q6a[] = [
+  'agriculture_agrifood_biorefineries',
+  'food_production',
+  'plastics_packaging',
+  'biobased_polymers',
+  'wastewater_sludge_biofactories',
+  'textile_leather',
+  'waste_valorization',
+]
+
+function sellableValue(f: Flow): string {
+  if (f.sellable_elsewhere == null) return ''
+  return f.sellable_elsewhere ? 'yes' : 'no'
+}
 
 interface Props {
   flows: Flow[]
@@ -50,6 +67,8 @@ export default function FlowsEditor({ flows, onChange }: Props) {
               <th>{t('flows.headers.id')}</th>
               <th>{t('flows.headers.name')}</th>
               <th>{t('flows.headers.q5')}</th>
+              <th title={t('flows.sellableHint')}>{t('flows.headers.sellable')}</th>
+              <th title={t('flows.sectorHint')}>{t('flows.headers.sector')}</th>
               <th aria-label="actions"></th>
             </tr>
           </thead>
@@ -79,6 +98,42 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     {Q5_KEYS.map((k) => (
                       <option key={k} value={k}>
                         {t(`flows.options.${k}`)}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <select
+                    className="row-select"
+                    aria-label={t('flows.headers.sellable')}
+                    value={sellableValue(f)}
+                    onChange={(e) =>
+                      updateFlow(f.id, {
+                        sellable_elsewhere:
+                          e.target.value === '' ? null : e.target.value === 'yes',
+                      })
+                    }
+                  >
+                    <option value="">{t('flows.sellable.unset')}</option>
+                    <option value="yes">{t('flows.sellable.yes')}</option>
+                    <option value="no">{t('flows.sellable.no')}</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    className="row-select"
+                    aria-label={t('flows.headers.sector')}
+                    value={f.sector ?? ''}
+                    onChange={(e) =>
+                      updateFlow(f.id, {
+                        sector: e.target.value === '' ? null : (e.target.value as Q6a),
+                      })
+                    }
+                  >
+                    <option value="">{t('flows.sectorNone')}</option>
+                    {PART2_SECTORS.map((k) => (
+                      <option key={k} value={k}>
+                        {t(`questionnaire.q6a.options.${k}`)}
                       </option>
                     ))}
                   </select>

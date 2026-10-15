@@ -581,7 +581,11 @@ const it: Locale = {
   flows: {
     q5Note: "Rispondi con l'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli \"gratuito / ambiguo\" quando è davvero indeciso, invece di forzare una direzione.",
     emptyHint: 'Nessun flusso. Aggiungine almeno uno per caratterizzare la Q5 per-flusso.',
-    headers: { id: 'ID', name: 'Nome', q5: 'Q5' },
+    headers: { id: 'ID', name: 'Nome', q5: 'Q5', sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)' },
+    sellable: { unset: '— senza risposta', yes: 'Sì', no: 'No' },
+    sellableHint: 'Se il partner non prendesse questo flusso, chi lo genera potrebbe venderlo a qualcun altro a un prezzo positivo? Sì lo rende un coprodotto, no un rifiuto, qualunque sia il prezzo concordato (D4.1 §8.3.3). Facoltativo: il risultato segnala quando non concorda con Q5.',
+    sectorHint: 'Che cosa è il flusso, se rientra in uno dei settori con regole proprie nella Parte 2 del D4.1. Facoltativo: il risultato indica il capitolo da seguire.',
+    sectorNone: '— nessuno di questi',
     namePlaceholder: 'es. calore, CO2',
     addButton: 'Aggiungi flusso',
     removeAria: 'Rimuovi {{id}}',

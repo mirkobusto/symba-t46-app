@@ -298,7 +298,7 @@
           ],
           "required": false,
           "activation_predicate": "always",
-          "description_en": "D4.1 §8.3.3: if no independent buyer exists the price is administrative and the flow is a waste, even when Q5 says B pays A."
+          "description_en": "D4.1 §8.3.3: if no independent buyer exists the price is administrative and the flow is a waste, even when Q5 says B pays A. Seeded from the flow's answer in the questionnaire (Sellable to others?) the first time the row is created; from then on this row is the analyst's."
         },
         {
           "id": "classif.avoidable",

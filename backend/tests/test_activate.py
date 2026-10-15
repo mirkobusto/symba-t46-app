@@ -533,12 +533,19 @@ def test_q3_env_plus_eco_and_eco_only_branches(schemas):
     c_lcc = ind(q1=Q1.D, env=True, eco=True)
     assert c_lcc.lcc_type.value == "C-LCC"
     assert c_lcc.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: a gate-to-gate C-LCC")
+    # a C-LCC without an LCA is told there is no LCA, not to show its results "alongside the LCA"
+    c_lcc_alone = ind(q1=Q1.D, eco=True)
+    assert c_lcc_alone.lcc_type.value == "C-LCC"
+    assert c_lcc_alone.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: ECOF and IEE")
+    assert c_lcc_alone.lcc["functional_equivalent"].startswith("No parallel LCA")
     # lcc_mc_05: one boundary per LCC type (D4.2 §4.1, L00547-L00555)
     boundary = lambda q1, **q3: _activated(schemas, q1=q1, q3=Q3(**q3)).lcc["economic_boundary"]  # noqa: E731
     assert "E-LCC: identical to the LCA boundary" in boundary(Q1.A, env=True, eco=True)
     assert "S-LCC: cradle-to-grave" in boundary(Q1.C, env=True, eco=True)
     assert boundary(Q1.D, env=True, eco=True) == "Gate-to-gate around the company (D4.2 §4.1)"
     assert "E-LCC" not in boundary(Q1.A, eco=True)                     # no LCA, no E-LCC
+    c_n_s = boundary(Q1.C, eco=True)                                    # C+N+S
+    assert "S-LCC: cradle-to-grave" in c_n_s and "E-LCC" not in c_n_s
 
 
 def test_q3_eco_false_branch_leaves_lcc_off(schemas):
@@ -609,10 +616,15 @@ def test_flow_valuation_names_each_lcc_level(schemas):
     assert set(valuation) == {"f0", "f1", "f3"}
     assert valuation["f0"].startswith("C-LCC: negotiated price paid by the receiver; E-LCC and S-LCC")
     assert valuation["f1"].startswith("C-LCC: actual transfer price, zero")
+    assert "the acquisition cost of the flow follows lcc_mc_08" in valuation["f0"]   # L00513 vs L00759
     cost = c.lcc["secondary_flow_valuation"]
     assert set(cost) == {"f0", "f1", "f3"}
     assert "zero cost only if the residual is unavoidable" in cost["f1"]   # L00729
     assert cost["f3"].startswith("Zero cost does not apply")              # L00741
+    assert "if the flow has no independent market" in cost["f0"]          # D4.1 L00994
+    waste = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.a))
+    assert waste.lcc["flow_valuation_method"]["f0"].startswith("C-LCC: actual transfer price, here a gate fee")
+    assert waste.lcc["secondary_flow_valuation"]["f0"].startswith("C-LCC: the gate fee as negotiated")
 
 
 # ---------------------------------------------------------------------------
@@ -677,7 +689,7 @@ def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
         (Q1.B, "Average market consumption mix"),   # parks are Situation A since 2026-10-15
         # D4.1 §11.3.1 L01293: Situation B models the marginal technology, not the average mix
         (Q1.C, "Marginal technology mix"),
-        (Q1.D, "No substitution reference"),        # C2, L00868
+        (Q1.D, "Allocation, no substitution credits"),   # C2, L00868
         (Q1.E, "Average market mix, as in Situation A"),   # C1, L00866
     ],
 )
@@ -687,10 +699,10 @@ def test_reference_scenario_content_follows_the_situation(schemas, q1, expected)
 
 def test_background_database_follows_the_situation(schemas):
     """lca_mc_06: background mixes per ILCD situation (D4.1 Table 1, §11.3.1); no
-    database version or system model is prescribed."""
+    database version is prescribed."""
     a = _activated(schemas, q1=Q1.A).lca["background_database"]
     b = _activated(schemas, q1=Q1.C).lca["background_database"]
-    assert a.startswith("Average market consumption mixes") and b.startswith("Long-term marginal")
+    assert a.startswith("Average market consumption mixes") and b.startswith("Marginal processes")
     assert "3.10" not in a and "none prescribed" in a
 
 
@@ -852,6 +864,21 @@ def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(sche
     assert case.lca["modeling_framework"] == "attributional"
     assert case.lca["allocation_method"] == "system expansion"
     assert case.lca["reference_scenario.content"].startswith("Average market mix, as in Situation A")  # L00866
+
+
+@pytest.mark.parametrize(
+    "q1, decision, background, content",
+    [
+        # Q9 decides the situation, whatever Q1 says (D4.1 Table 1, §7.2.3, §11.3.1)
+        (Q1.C, "none", "Average market mixes", "Average market mix, as in Situation A"),          # C1
+        (Q1.A, "corporate_report", "Average market mixes", "Allocation, no substitution credits"),  # C2
+        (Q1.A, "structural", "Marginal processes", "Marginal technology mix"),                   # B
+    ],
+)
+def test_q9_situation_drives_background_and_reference_content(schemas, q1, decision, background, content):
+    case = _q9_case(schemas, q1, decision)
+    assert case.lca["background_database"].startswith(background)
+    assert case.lca["reference_scenario.content"].startswith(content)
 
 
 def test_q9_unanswered_keeps_every_q1_result(schemas):

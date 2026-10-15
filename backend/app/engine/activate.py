@@ -8,13 +8,13 @@ Activation breakdown (per `phase1_nodes.json`, post-round-2 closure):
 
     Total          186 nodes
     By layer       183 L2 + 3 L0  (L0 handled by l0_compute, skipped here)
-    By category    118 DEFAULT (always activate) + 68 DERIVED (conditional)
+    By category    117 DEFAULT (always activate) + 69 DERIVED (conditional)
     By field       95 fielded + 91 procedural_mandate (no field to write)
     Per_flow        11 nodes flagged per_flow=true (iterate case.flows)
 
 DERIVED activation by `trigger_logic`:
 
-    discriminative  42  default_value is dict {branch_key: value, ...}; the
+    discriminative  43  default_value is dict {branch_key: value, ...}; the
                         first branch whose key matches the case wins (grammar in
                         engine/branch_keys.py); "default" key is fallback.
                         No match + no default → node DORMANT.

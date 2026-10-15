@@ -26,9 +26,9 @@ are cited on the FINAL v2 numbering (PR #109, #111).
 
 | when / PR | change | supersedes here | current source |
 |---|---|---|---|
-| PR #54 | `asset_lifetime` read from `case.advanced` | §4.2 CIR-01, §5.1 | `l2_validate.py` |
+| PR #89 (commit 1a8415f) | `asset_lifetime` read from `case.advanced` | §4.2 CIR-01, §5.1 | `activate.asset_lifetime_years` |
 | 2026-08-30 | nodes of a method switched off by Q3 are not activated; L2 rules shown as obligations to document (`applicable_rules`), not as errors | §5.1, §10.2 | `activate._method_is_off`, CLAUDE.md |
-| PR #89 (audit I-01…I-19) | optional Q8–Q10, `Case.warnings`, DCF section `flow_classification`; explicit transport and break-even for every Q7 | §6, §10.2 | CLAUDE.md, `dcf_schema.json` |
+| PR #89 (audit I-01…I-19, same PR) | optional Q8–Q10, `Case.warnings`, DCF section `flow_classification`; explicit transport and break-even for every Q7 | §6, §10.2 | CLAUDE.md, `dcf_schema.json` |
 | PR #112 | reference scenario type per Q2: A → HNSRS, B/C → CNSRS aligned with the study horizon, D → both (D4.1 §11.1) | §5.1 MC-26 | `lca_mc_26` |
 | PR #113, #120, #121 | one study horizon for LCA and LCC: future background if the operating year is future, TRL < 7, or analysis period or asset lifetime above a threshold (default 15 y, `advanced.future_background_threshold_years`); Q8 in three parts | §4.2 CIR-01, §5.1 HC-23 and MC-21 | CIR-01, `needs_future_background` |
 | PR #114, #115 | Q9 required and primary for the ILCD situation (micro → A, structural → B with market screening, none → C1, corporate report → C2); Q1 only a fallback; "Situation A multi-actor" retired; BLOCK C2 + E-LCC follows Situation C2 | §3, §6 T1 | `l0_compute.py` |
@@ -217,7 +217,7 @@ for each flow_object in case.flows:
 
 Per-flow rules: HC-12 LCC, HC-13 LCC, HC-17 LCA, HC-34 LCC, HC-35 LCC, HC-36 LCC, HC-38 LCC, MC-17 LCA, MC-04 LCC, MC-08 LCC, MC-09 LCC.
 
-When Q5=e (aggregated), the engine treats the entire case as a single virtual flow with `q5=e_default` and applies system-expansion uniform.
+When Q5=e (aggregated), the engine treats the entire case as a single virtual flow with `q5=e_default` and applies system-expansion uniform. *Superseded — see §0: a Q5=e flow gets no value from the per-flow LCC valuation nodes (PR #124).*
 
 ---
 

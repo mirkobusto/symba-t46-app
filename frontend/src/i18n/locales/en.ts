@@ -603,7 +603,11 @@ const en = {
   flows: {
     q5Note: "Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick \"free / ambiguous\" when it is genuinely undecided rather than forcing a direction.",
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
-    headers: { id: 'ID', name: 'Name', q5: 'Q5' },
+    headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'Sellable to others?', sector: 'Sector (Part 2)' },
+    sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
+    sellableHint: 'If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product, no makes it a waste whatever the agreed price (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.',
+    sectorHint: 'What the flow is, if it falls in one of the sectors with their own rules in D4.1 Part 2. Optional: the result names the chapter to follow.',
+    sectorNone: '— none of these',
     namePlaceholder: 'e.g. heat, CO2',
     addButton: 'Add flow',
     removeAria: 'Remove {{id}}',

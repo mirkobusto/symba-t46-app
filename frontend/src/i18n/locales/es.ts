@@ -548,7 +548,11 @@ const es: Locale = {
   flows: {
     q5Note: "Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «gratuito / ambiguo» cuando esté realmente sin decidir.",
     emptyHint: 'Sin flujos. Añade al menos uno para caracterizar la Q5 por flujo.',
-    headers: { id: 'ID', name: 'Nombre', q5: 'Q5' },
+    headers: { id: 'ID', name: 'Nombre', q5: 'Q5', sellable: '¿Vendible a otros?', sector: 'Sector (Parte 2)' },
+    sellable: { unset: '— sin respuesta', yes: 'Sí', no: 'No' },
+    sellableHint: 'Si el socio no tomara este flujo, ¿podría quien lo genera venderlo a otro a un precio positivo? Sí lo convierte en coproducto, no en residuo, sea cual sea el precio acordado (D4.1 §8.3.3). Opcional: el resultado señala cuándo no concuerda con Q5.',
+    sectorHint: 'Qué es el flujo, si entra en uno de los sectores con reglas propias en la Parte 2 del D4.1. Opcional: el resultado indica el capítulo a seguir.',
+    sectorNone: '— ninguno de estos',
     namePlaceholder: 'ej. calor, CO2',
     addButton: 'Añadir flujo',
     removeAria: 'Eliminar {{id}}',

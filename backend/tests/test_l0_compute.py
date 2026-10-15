@@ -349,3 +349,44 @@ def test_slca_alone_leaves_a_note_and_changes_nothing(q3, noted):
     run(case, None)
     assert ("slca_alone" in [w["code"] for w in case.warnings]) is noted
     assert case.slca_activation_state == (SlcaActivationState.ACTIVE if q3.soc else SlcaActivationState.DEACTIVATED)
+
+
+# ---------------------------------------------------------------------------
+# Per-flow answers: Freedom-to-Act against Q5, and the D4.1 Part 2 chapter
+# ---------------------------------------------------------------------------
+
+_FLOW_CODES = {"flow_sellable_but_waste", "flow_price_without_market", "flow_freedom_to_act_settles"}
+
+
+@pytest.mark.parametrize(
+    "q5, sellable, code",
+    [("a", True, "flow_sellable_but_waste"), ("a", False, None), ("a", None, None),
+     ("c", False, "flow_price_without_market"), ("c", True, None), ("c", None, None),
+     ("b", True, "flow_freedom_to_act_settles"), ("b", False, "flow_freedom_to_act_settles"), ("b", None, None),
+     # interdependent production is a co-product whatever the price (D4.1 L00996)
+     ("d", False, None), ("d", True, None), ("e", False, None), ("e", True, None)],
+)
+def test_freedom_to_act_is_checked_against_q5(q5, sellable, code):
+    case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True),
+                flows=[{"id": "f1", "name": "sludge", "q5": q5, "sellable_elsewhere": sellable}])
+    run(case, None)
+    codes = [w["code"] for w in case.warnings if w["code"] in _FLOW_CODES]
+    assert codes == ([code] if code else [])
+    assert all("'sludge'" in w["message"] for w in case.warnings if w["code"] in _FLOW_CODES)
+    assert case.flows[0].q5 == q5          # a note never changes Q5
+
+
+@pytest.mark.parametrize(
+    "sector, chapter",
+    [("agriculture_agrifood_biorefineries", "§4"), ("food_production", "§4"), ("plastics_packaging", "§5"),
+     ("biobased_polymers", "§5"), ("wastewater_sludge_biofactories", "§6"), ("textile_leather", "§7"),
+     ("waste_valorization", "§8"), ("steel_metals", None), (None, None)],
+)
+def test_flow_sector_names_the_part2_chapter(sector, chapter):
+    case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True),
+                flows=[{"id": "f1", "name": "x", "q5": "c", "sector": sector}])
+    run(case, None)
+    notes = [w["message"] for w in case.warnings if w["code"] == "flow_part2_chapter"]
+    assert len(notes) == (1 if chapter else 0)
+    if chapter:
+        assert f"Part 2 {chapter} " in notes[0]

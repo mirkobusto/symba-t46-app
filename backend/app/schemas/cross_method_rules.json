@@ -428,8 +428,8 @@
       "id": "CIR-01",
       "name": "Dynamic Climate Scenarios LCA-LCC",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q2 ∈ {B, C, D} OR asset_lifetime > 15y",
-      "trigger_condition": "case.q2 IN ['B','C','D'] OR case.asset_lifetime > 15",
+      "trigger_condition_raw": "operating start in a future year OR Q6b < TRL7 OR study horizon > 15y",
+      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
       "actions": [
         "lca.background_futurisation = 'SSP_RCP'",
         "lcc.background_dynamic = 'SSP_RCP'"

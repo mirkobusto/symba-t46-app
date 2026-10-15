@@ -176,8 +176,13 @@ export interface Case {
   q6a?: Q6a | null
   q6b?: Q6b | null
   q7?: Q7 | null
-  // Optional Q8: expected technical lifetime of the main assets, in years.
-  // null/absent = not answered (the engine falls back to advanced.asset_lifetime).
+  // Optional Q8: the study's time horizon, one for LCA and LCC. Q8a when the
+  // system operates (null = the year of the study; a future year if Q2 = D),
+  // Q8b analysis period in years, Q8c technical lifetime of the main assets
+  // (used only when Q8b is empty; null = falls back to advanced.asset_lifetime).
+  operating_start?: 'now' | 'future' | null
+  operating_start_year?: number | null
+  analysis_period_years?: number | null
   asset_lifetime_years?: number | null
   // Optional Q9: does the study support a decision, and at what scale
   // (D4.1 Table 1). null/absent = the engine infers the ILCD situation from Q1.

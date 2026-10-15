@@ -840,10 +840,10 @@
         "q6b"
       ],
       "trigger_logic": "conjunctive",
-      "trigger_condition": "case.q2 IN ['B','C','D'] OR case.asset_lifetime > 15",
+      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
       "field": "lca.background_futurisation",
       "field_status": null,
-      "default_value": "Background futurisation SSP/RCP for every ex-ante study (Q2 in {B,C,D}) OR asset lifetime > 15 y (threshold: T4.6 default, no source)",
+      "default_value": "Future background (SSP/RCP) when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (threshold: T4.6 default, no source); same horizon as the LCC (D4.2 L01261)",
       "override_path": "q2, q6b",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.2)."
@@ -1532,10 +1532,10 @@
         "q6b"
       ],
       "trigger_logic": "conjunctive",
-      "trigger_condition": "case.q2 IN ['B','C','D'] OR case.asset_lifetime > 15",
+      "trigger_condition": "case.operating_start == 'future' OR case.q6b IN ['TRL5-6','TRL<5'] OR case.study_horizon > 15",
       "field": "lcc.background_dynamic",
       "field_status": null,
-      "default_value": "Ex-ante study (Q2 in {B,C,D}) OR asset lifetime > 15 y -> SSP/RCP scenarios (threshold: T4.6 default, no source)",
+      "default_value": "Dynamic SSP/RCP scenarios when the study horizon reaches the future: future operating year, technology below TRL 7, or horizon > 15 y (threshold: T4.6 default, no source); same horizon as the LCA (D4.2 L01261)",
       "override_path": "q2, q6b",
       "lifecycle_layer": "L2",
       "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04."
@@ -2088,8 +2088,7 @@
       "field": "lcc.background_dynamic",
       "field_status": null,
       "default_value": {
-        "q2=A": "Static",
-        "q2 in {B,C,D}": "Dynamic SSP/RCP"
+        "default": "Static; dynamic SSP/RCP when the study horizon requires it (CIR-01)"
       },
       "override_path": "q2, advanced",
       "lifecycle_layer": "L2",

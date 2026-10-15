@@ -228,12 +228,13 @@ def test_procedural_mandate_activates_without_field_write(schemas):
 
 
 # ---------------------------------------------------------------------------
-# 7. future background: ex-ante OR asset lifetime > threshold (one rule, LCA + LCC)
+# 7. future background: one study horizon for LCA and LCC
 # ---------------------------------------------------------------------------
-# Owner decision 2026-10-15: D4.1 asks for future background data in every ex-ante
-# study, D4.2 for assets over 15 years; the engine applies either. Ex-ante is
-# Q2 in {B, C, D}. The lifetime half is tested on an ex-post case (Q2=A), the only
-# one where it decides. The lifetime comes from Q8, else from the advanced override.
+# Owner decision 2026-10-15: the deliverables require one time horizon for LCA and
+# LCC (D4.2 L01261, L01277; D4.1 L01521). Future background when the system
+# operates in a future year (Q8a; unanswered: Q2=D), when the key technology is
+# below TRL 7 (Q6b), or when the study horizon (Q8b analysis period, else Q8c asset
+# lifetime) exceeds 15 years. Lifetime tests use Q2=A, no TRL, Q8a unanswered.
 
 
 def _lifetime_case(schemas, lifetime=None, q2=Q2.A):
@@ -249,10 +250,37 @@ def _future(case):
     return "lca_mc_21" in case.activated_nodes, "lcc_hc_23" in case.activated_nodes
 
 
-@pytest.mark.parametrize("q2", [Q2.B, Q2.C, Q2.D])
-def test_ex_ante_study_gets_future_background_whatever_the_lifetime(schemas, q2):
-    assert _future(_lifetime_case(schemas, q2=q2)) == (True, True)
-    assert _future(_lifetime_case(schemas, 5, q2=q2)) == (True, True)
+def _horizon_case(schemas, **kw):
+    case = _baseline_case(q3=Q3(env=True, eco=True), **kw)
+    l0_run(case, schemas)
+    run(case, schemas)
+    return case
+
+
+@pytest.mark.parametrize("q2", [Q2.A, Q2.B, Q2.C, Q2.D])
+def test_future_operating_year_gives_future_background_whatever_q2(schemas, q2):
+    assert _future(_horizon_case(schemas, q2=q2, operating_start="future")) == (True, True)
+
+
+def test_unanswered_operating_year_reads_q2_d_as_future(schemas):
+    assert _future(_horizon_case(schemas, q2=Q2.D)) == (True, True)
+    for q2 in (Q2.A, Q2.B, Q2.C):
+        assert _future(_horizon_case(schemas, q2=q2)) == (False, False), q2
+
+
+def test_explicit_now_wins_over_q2_d(schemas):
+    assert _future(_horizon_case(schemas, q2=Q2.D, operating_start="now")) == (False, False)
+
+
+@pytest.mark.parametrize("q6b, expected", [(Q6b.TRL9, False), (Q6b.TRL7_8, False), (Q6b.TRL5_6, True), (Q6b.TRL_LT_5, True)])
+def test_technology_below_trl7_gives_future_background(schemas, q6b, expected):
+    assert _future(_horizon_case(schemas, q2=Q2.A, q6b=q6b)) == (expected, expected)
+
+
+def test_analysis_period_wins_over_asset_lifetime(schemas):
+    assert _future(_horizon_case(schemas, q2=Q2.A, analysis_period_years=20)) == (True, True)
+    short = _horizon_case(schemas, q2=Q2.A, analysis_period_years=10, asset_lifetime_years=40)
+    assert _future(short) == (False, False)
 
 
 def test_ex_post_study_without_lifetime_stays_static(schemas):
@@ -276,9 +304,9 @@ def test_asset_lifetime_threshold_is_strictly_greater_than_15(schemas):
 
 
 def test_threshold_is_one_named_parameter():
-    from app.engine.activate import EX_ANTE_Q2, FUTURE_BACKGROUND_LIFETIME_YEARS
+    from app.engine.activate import FUTURE_BACKGROUND_LIFETIME_YEARS, LOW_TRL
     assert FUTURE_BACKGROUND_LIFETIME_YEARS == 15.0
-    assert EX_ANTE_Q2 == {Q2.B, Q2.C, Q2.D}
+    assert LOW_TRL == {Q6b.TRL5_6, Q6b.TRL_LT_5}
 
 
 def test_asset_lifetime_lcc_node_off_when_lcc_deactivated(schemas):
@@ -480,7 +508,8 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
     assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"] == "partner-specific"
     assert _activated(schemas, q1=Q1.B, q3=eco).lcc["counterparty_risk"] == "Percolation theory"
     assert "lcc_mc_16" not in _activated(schemas, q1=Q1.D, q3=eco).activated_nodes
-    assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"] == "Dynamic SSP/RCP"
+    # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
+    assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
     assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"] == "single break-even"
     assert _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"] == "GIS-coupled"
 

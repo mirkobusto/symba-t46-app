@@ -55,6 +55,7 @@ from app.domain.enums import (
     Q5,
     Q7,
     LccType,
+    OperatingStart,
     Q6a,
     Q6b,
     SlcaActivationState,
@@ -173,21 +174,41 @@ def asset_lifetime_years(case: Case) -> float:
     return years if math.isfinite(years) else 0.0
 
 
-# Asset lifetime above which future background scenarios are required even for an
-# ex-post study. D4.2 §9 states the 15 years without a source: it is a T4.6 default,
-# kept in one place so it can become a range to parametrise.
+# Length of the study horizon (analysis period, else asset lifetime) above which
+# future background is required. D4.2 §9 states the 15 years without a source: a
+# T4.6 default, kept in one place so it can become a range to parametrise.
 FUTURE_BACKGROUND_LIFETIME_YEARS = 15.0
 
-# Q2 answers that make the study ex-ante: under construction or recently
-# commissioned (B), design phase (C), operating baseline plus future scenarios (D).
-EX_ANTE_Q2 = frozenset({Q2.B, Q2.C, Q2.D})
+LOW_TRL = frozenset({Q6b.TRL5_6, Q6b.TRL_LT_5})
+
+
+def study_horizon_years(case: Case) -> float:
+    """Years the study follows the system: the analysis period (Q8b), else the
+    asset lifetime (Q8c / legacy override) — D4.2 §9.1 aligns the analysis period
+    with the technical lifetime when no period is set."""
+    if case.analysis_period_years is not None:
+        return float(case.analysis_period_years)
+    return asset_lifetime_years(case)
+
+
+def operates_in_future(case: Case) -> bool:
+    """Q8a. Unanswered: Q2=D (operating baseline plus future alternatives) counts
+    as a future horizon, every other Q2 as the year of the study (owner decision
+    2026-10-15)."""
+    if case.operating_start is not None:
+        return case.operating_start == OperatingStart.FUTURE
+    return case.q2 == Q2.D
 
 
 def needs_future_background(case: Case) -> bool:
-    """One rule for LCA and LCC (owner decision 2026-10-15): future background
-    scenarios (SSP/RCP) for every ex-ante study (D4.1 §12.3.2) OR for assets whose
-    lifetime exceeds the threshold (D4.2 §9). Read by lca_mc_21, lcc_hc_23 and CIR-01."""
-    return case.q2 in EX_ANTE_Q2 or asset_lifetime_years(case) > FUTURE_BACKGROUND_LIFETIME_YEARS
+    """One study horizon for LCA and LCC (D4.2 L01261, L01277; D4.1 L01521):
+    future background (SSP/RCP) when the system operates in a future year
+    (D4.1 L01100, L01393), when the key technology is below TRL 7 (L01100), or
+    when the horizon runs beyond the threshold (D4.2 L01131). Read by lca_mc_21,
+    lcc_hc_23 and CIR-01 (owner decision 2026-10-15, replacing ex-ante OR
+    lifetime)."""
+    return (operates_in_future(case) or case.q6b in LOW_TRL
+            or study_horizon_years(case) > FUTURE_BACKGROUND_LIFETIME_YEARS)
 
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
@@ -205,7 +226,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
     # simple
     "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    # disjunctive — ex-ante OR asset lifetime above the threshold
+    # disjunctive — future operating year OR TRL < 7 OR horizon above the threshold
     "lca_mc_21": needs_future_background,
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},

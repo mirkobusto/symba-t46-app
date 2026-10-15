@@ -86,14 +86,20 @@ def test_trigger_CIR_07_fires_below_trl_7_only(schemas):
         assert _TRIGGER_FNS["CIR-07"](_ready_case(q6b=q6b)) is expected
 
 
-def test_trigger_CIR_01_is_ex_ante_or_long_lived_assets(schemas):
-    """CIR-01 = Q2 in {B,C,D} OR asset_lifetime > 15 (owner decision 2026-10-15);
-    the lifetime is Q8, else the case.advanced override."""
-    for q2 in (Q2.B, Q2.C, Q2.D):
-        assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=q2)) is True
-    assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=Q2.A, advanced={"asset_lifetime": 30})) is True
-    assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=Q2.A, advanced={"asset_lifetime": 15})) is False
-    assert _TRIGGER_FNS["CIR-01"](_ready_case(q2=Q2.A)) is False
+def test_trigger_CIR_01_follows_the_study_horizon(schemas):
+    """CIR-01 = future operating year (Q8a; unanswered: Q2=D) OR TRL < 7 OR study
+    horizon > 15 y (owner decision 2026-10-15). The horizon is Q8b, else Q8c, else
+    the case.advanced override."""
+    t = _TRIGGER_FNS["CIR-01"]
+    assert t(_ready_case(q2=Q2.C, operating_start="future")) is True
+    assert t(_ready_case(q2=Q2.D)) is True
+    assert t(_ready_case(q2=Q2.D, operating_start="now")) is False
+    for q2 in (Q2.A, Q2.B, Q2.C):
+        assert t(_ready_case(q2=q2)) is False
+    assert t(_ready_case(q6b=Q6b.TRL5_6)) is True
+    assert t(_ready_case(analysis_period_years=25)) is True
+    assert t(_ready_case(advanced={"asset_lifetime": 30})) is True
+    assert t(_ready_case(advanced={"asset_lifetime": 15})) is False
 
 
 def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
@@ -103,13 +109,16 @@ def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
     assert case.lca.get("background_futurisation") == "SSP_RCP"
 
 
-@pytest.mark.parametrize("q2, lifetime, expected", [
-    (Q2.A, None, False), (Q2.A, 30, True), (Q2.B, None, True), (Q2.C, None, True), (Q2.D, None, True),
+@pytest.mark.parametrize("extra, expected", [
+    ({"q2": Q2.A}, False), ({"q2": Q2.A, "asset_lifetime_years": 30}, True),
+    ({"q2": Q2.B}, False), ({"q2": Q2.C}, False), ({"q2": Q2.D}, True),
+    ({"q2": Q2.C, "operating_start": "future"}, True), ({"q2": Q2.D, "operating_start": "now"}, False),
+    ({"q2": Q2.A, "q6b": Q6b.TRL_LT_5}, True), ({"q2": Q2.A, "analysis_period_years": 25}, True),
 ])
-def test_lca_and_lcc_end_with_the_same_background(schemas, q2, lifetime, expected):
-    """After the whole pipeline LCA and LCC agree: SSP/RCP for ex-ante or long-lived
-    assets, static otherwise (for Q2=A lcc_mc_13 writes "Static" and CIR-01 overrides it)."""
-    case = _ready_case(q2=q2, q3=Q3(env=True, eco=True), asset_lifetime_years=lifetime)
+def test_lca_and_lcc_end_with_the_same_background(schemas, extra, expected):
+    """One study horizon for both methods (D4.2 L01261): after the whole pipeline LCA
+    and LCC agree (lcc_mc_13 writes "Static; ..." and CIR-01 overrides it)."""
+    case = _ready_case(q3=Q3(env=True, eco=True), **{k: v for k, v in extra.items() if k != "q2"}, q2=extra["q2"])
     pipeline_run(case, schemas)
     future = case.lca.get("background_futurisation") == "SSP_RCP"
     assert future is expected

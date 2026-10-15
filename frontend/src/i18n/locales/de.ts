@@ -480,13 +480,29 @@ const de: Locale = {
         "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Data Collection File fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
     },
     q8: {
-      title: 'Q8 — Erwartete technische Lebensdauer der Hauptanlagen (Jahre)',
-      help: 'Optional. Leer lassen, wenn unbekannt.',
-      details: 'Jahre, in denen die Hauptanlagen (Anlage, Ausrüstung, Infrastruktur) voraussichtlich betrieben werden. Zukünftige Hintergrundszenarien (SSP/RCP) kommen in LCA und LCC (Regel CIR-01) in jeder Ex-ante-Studie hinzu (Q2 = B, C oder D), wie D4.1 verlangt, sowie für Anlagen mit mehr als 15 Jahren Betrieb, wie D4.2 verlangt; die 15 Jahre sind ein T4.6-Standardwert ohne Quelle. Diese Antwort zählt daher nur für eine Ex-post-Studie (Q2 = A); leer gelassen ändert sie nichts.',
+      title: 'Q8 — Zeithorizont der Studie',
+      help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
+      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn die Studie das System länger als 15 Jahre verfolgt (D4.2 §9; die 15 Jahre sind ein T4.6-Standardwert ohne Quelle). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie, außer bei Q2 = D (zukünftige Alternativen), das als zukünftig zählt. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; ist er leer, wird die Lebensdauer der Hauptanlagen verwendet (D4.2 §9.1).',
+      start: {
+        label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
+        options: {
+          unset: 'Keine Antwort (das Jahr der Studie; ein zukünftiges Jahr bei Q2 = D)',
+          now: 'Jetzt: das Jahr der Studie',
+          future: 'Ein zukünftiges Jahr',
+        },
+        yearPlaceholder: 'z. B. 2030',
+      },
+      period: {
+        label: 'Wie viele Jahre verfolgt die Studie das System (Analysezeitraum)?',
+        placeholder: 'z. B. 25; leer für ein Bild eines Jahres',
+      },
+      lifetime: {
+        label: 'Technische Lebensdauer der Hauptanlagen (nur genutzt, wenn der Analysezeitraum leer ist)',
+      },
       placeholder: 'z. B. 20',
       unit: 'Jahre',
       plain:
-        "Wie viele Jahre Anlage und Ausrüstung laufen sollen. Lassen Sie das Feld leer, wenn Sie es nicht wissen. Es zählt nur für ein System, das bereits läuft: jenseits von etwa fünfzehn Jahren hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte über Jahrzehnte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft. Bei einem noch geplanten oder im Bau befindlichen System fragt es ohnehin danach.",
+        'Über welche Jahre betrachtet die Studie das System? Beschreibt sie, wie die Dinge heute funktionieren, genügt ein Bild der Gegenwart. Geht es um eine Anlage, die erst in einem späteren Jahr läuft, oder verfolgt sie das System über Jahrzehnte, hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft: dieselbe Zukunft für die ökologische und die wirtschaftliche Betrachtung.',
     },
     q9: {
       title: 'Q9 — Unterstützt die Studie eine Entscheidung, und in welchem Maßstab?',
@@ -562,7 +578,7 @@ const de: Locale = {
     removeAria: '{{key}} entfernen',
     hints: {
       slca_framework_override: "Auf 'absolute' setzen, um L1 BLOCK 2 zu testen (mit Q3.soc=true)",
-      asset_lifetime: 'Jahre (genutzt, wenn Q8 leer ist); >15 ergänzt eine Ex-post-Studie um zukünftigen Hintergrund (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Jahre (alt; genutzt, wenn Analysezeitraum und Lebensdauer in Q8 leer sind); ein Horizont >15 ergänzt LCA und LCC um zukünftigen Hintergrund (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Boolean; true aktiviert CIR-03',
       network_nodes: 'Integer; ≥3 (mit Q1=B + interdependent_flows) aktiviert CIR-04',
       interdependent_flows: 'Boolean; true (mit Q1=B + network_nodes≥3) aktiviert CIR-04',

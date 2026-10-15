@@ -150,6 +150,21 @@ export interface ApplicableRule {
 export type DecisionContext = 'micro' | 'structural' | 'none' | 'corporate_report'
 
 /** A note on the user's answers; informational, never blocks the run. */
+/** A D4.1 Part 2 sector rule for a chapter the case touches (engine/sector_rules). */
+export interface SectorRule {
+  chapter_key: string
+  chapter: string
+  activated_by: { kind: 'flow' | 'case_sector'; name?: string }[]
+  id: string
+  group: string
+  strength: 'must' | 'should' | 'descriptive'
+  applies_when: string | null
+  statement: string
+  source: string
+  lines: string
+  note?: string | null
+}
+
 export interface CaseWarning {
   code: string
   message: string
@@ -230,4 +245,5 @@ export interface Case {
   applicable_rules?: ApplicableRule[]
   cdp_flags?: CdpFlag[]
   warnings?: CaseWarning[]
+  sector_rules?: SectorRule[]
 }

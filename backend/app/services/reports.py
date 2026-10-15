@@ -251,6 +251,18 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         doc.add_heading("Notes on the answers", level=3)
         for w in case.warnings:
             doc.add_paragraph(w["message"], style="List Bullet")
+    if case.sector_rules:
+        doc.add_heading("Sector rules (D4.1 Part 2)", level=3)
+        chapter = None
+        for r in case.sector_rules:
+            if r["chapter"] != chapter:
+                chapter = r["chapter"]
+                reasons = ", ".join(f"flow {a['name']}" if a["kind"] == "flow" else "case sector (Q6a)"
+                                    for a in r["activated_by"])
+                doc.add_paragraph(f"{chapter} — applies because of: {reasons}")
+            note = f" Note: {r['note']}" if r.get("note") else ""
+            doc.add_paragraph(f"[{r['strength']}] {r['statement']} ({r['source']}, {r['lines']}){note}",
+                              style="List Bullet")
 
     # 5.9 Pillar configurations
     doc.add_heading("5.9 Pillar configurations (engine-written keys)", level=2)

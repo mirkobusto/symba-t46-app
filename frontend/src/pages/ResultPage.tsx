@@ -13,6 +13,7 @@ import { verdictFor } from './resultNarrative'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
+import type { SectorRule } from '../types/api'
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -216,6 +217,10 @@ export default function ResultPage() {
         </section>
       ) : null}
 
+      {(result.sector_rules?.length ?? 0) > 0 ? (
+        <SectorRules rules={result.sector_rules!} />
+      ) : null}
+
       <section className="result-next">
         <h2 className="result-next-title">
           {t('result.next.title')}
@@ -389,3 +394,51 @@ export default function ResultPage() {
     </div>
   )
 }
+
+
+/** D4.1 Part 2 rules of the chapters the case touches, grouped by chapter. */
+function SectorRules({ rules }: { rules: SectorRule[] }) {
+  const { t } = useTranslation()
+  const chapters = rules.reduce<Record<string, SectorRule[]>>((acc, r) => {
+    ;(acc[r.chapter] ??= []).push(r)
+    return acc
+  }, {})
+  return (
+    <section className="result-sector-rules" aria-labelledby="result-sector-rules-title">
+      <h2 id="result-sector-rules-title" className="result-notes-title">
+        {t('result.sectorRules.title')}
+      </h2>
+      <p>{t('result.sectorRules.lead')}</p>
+      {Object.entries(chapters).map(([chapter, list]) => (
+        <details key={chapter}>
+          <summary>
+            <strong>{chapter}</strong> · {t('result.sectorRules.count', { count: list.length })}
+          </summary>
+          <p className="result-sector-reason">
+            {t('result.sectorRules.activatedBy', {
+              reasons: list[0].activated_by
+                .map((a) => (a.kind === 'flow'
+                  ? t('result.sectorRules.byFlow', { name: a.name })
+                  : t('result.sectorRules.byCaseSector')))
+                .join(', '),
+            })}
+          </p>
+          <ul>
+            {list.map((r) => (
+              <li key={r.id}>
+                <span className={`dd-pill ${r.strength === 'must' ? 'dd-pill-amber' : 'dd-pill-muted'}`}>
+                  {t(`result.sectorRules.strength.${r.strength}`)}
+                </span>{' '}
+                {r.statement}
+                {' '}
+                <span className="result-sector-source">({r.source}, {r.lines})</span>
+                {r.note ? <div className="result-sector-source">{r.note}</div> : null}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </section>
+  )
+}
+

@@ -153,10 +153,48 @@ def _index_fields(doc: dict[str, Any], fname: str) -> dict[str, dict[str, Any]]:
     return {e["field"]: e for e in entries if "field" in e}
 
 
+_RULE_KEYS = {"id", "group", "strength", "applies_when", "statement", "source", "lines"}
+_STRENGTHS = {"must", "should", "descriptive"}
+
+
+def _check_overlays(doc: dict[str, Any], sector_ids: set[str]) -> None:
+    """`overlays` maps a D4.1 Part 2 chapter key to {chapter, q6a, rules}: the Q6a
+    sectors that activate it and its rules (engine/sector_rules)."""
+    overlays = doc.get("overlays", {})
+    if not isinstance(overlays, dict):
+        raise SchemaLoadError("sector_overlays.json: 'overlays' must be an object")
+    seen_rules: set[str] = set()
+    seen_sectors: set[str] = set()
+    for key, chapter in overlays.items():
+        for field_name in ("chapter", "q6a", "rules"):
+            if field_name not in chapter:
+                raise SchemaLoadError(f"sector_overlays.json: overlay {key!r} has no {field_name!r}")
+        for sector in chapter["q6a"]:
+            if sector not in sector_ids:
+                raise SchemaLoadError(f"sector_overlays.json: overlay {key!r}: unknown sector {sector!r}")
+            if sector in seen_sectors:
+                raise SchemaLoadError(f"sector_overlays.json: sector {sector!r} in two overlays")
+            seen_sectors.add(sector)
+        for rule in chapter["rules"]:
+            missing = _RULE_KEYS - set(rule)
+            if missing:
+                raise SchemaLoadError(f"sector_overlays.json: rule {rule.get('id')!r} lacks {sorted(missing)}")
+            if rule["strength"] not in _STRENGTHS:
+                raise SchemaLoadError(f"sector_overlays.json: rule {rule['id']!r}: strength {rule['strength']!r}")
+            if rule.get("when_key"):
+                from app.engine.branch_keys import BranchKeyError, parse_branch_key
+                try:
+                    parse_branch_key(rule["when_key"])
+                except BranchKeyError as e:
+                    raise SchemaLoadError(f"sector_overlays.json: rule {rule['id']!r}: {e}") from e
+            if rule["id"] in seen_rules:
+                raise SchemaLoadError(f"sector_overlays.json: duplicate rule id {rule['id']!r}")
+            seen_rules.add(rule["id"])
+
+
 def _index_sectors(doc: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Index `sector_overlays.json` sectors by ID. Currently a stub:
-    `overlays` is empty until per-sector logic is wired in.
-    """
+    """Index `sector_overlays.json` sectors by ID and check the overlays
+    (D4.1 Part 2 sector rules, engine/sector_rules)."""
     sectors = doc.get("sectors")
     if not isinstance(sectors, list):
         raise SchemaLoadError(
@@ -171,6 +209,7 @@ def _index_sectors(doc: dict[str, Any]) -> dict[str, dict[str, Any]]:
             raise SchemaLoadError(
                 f"sector_overlays.json: duplicate sector id {sid!r}")
         by_id[sid] = s
+    _check_overlays(doc, set(by_id))
     return by_id
 
 

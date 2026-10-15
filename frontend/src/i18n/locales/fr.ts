@@ -375,16 +375,16 @@ const fr: Locale = {
       details:
         "A — usage interne : dashboards de management, screening R&D, décisions au niveau usine. Peu de contraintes méthodologiques. " +
         "B — communication externe SANS claim comparatif (rapports de durabilité, brochures marketing sans phrase « meilleur que X »). " +
-        "C — CLAIM public de supériorité environnementale vs une alternative (ex. « ce ciment est plus vert que l'OPC »). Active la critical review obligatoire ISO 14044 par 3+ experts indépendants et désactive la pondération. À utiliser avec précaution. " +
+        "C — CLAIM public que le système est meilleur qu'une alternative de même fonction, ou équivalent à elle (ex. « ce ciment est plus vert que l'OPC »), rendu public sous quelque forme que ce soit : rapport, site ou article scientifique (comparative assertion, ISO 14040 §3.6 ; D4.1 §15.3.4). Active la critical review obligatoire ISO 14044 par 3+ experts indépendants et désactive la pondération. À utiliser avec précaution. " +
         "D — alignement avec les instruments de politique UE (disclosure CSRD, digital product passport ESPR, règles de catégorie PEFCR). Force la PEF Circular Footprint Formula via CIR-05. " +
-        "E — publication académique peer-reviewed. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. " +
+        "E — publication académique peer-reviewed. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. Si l'article affirme qu'un système est meilleur qu'une alternative concurrente ou équivalent à elle, cochez aussi C ; une comparaison qui ne désigne pas de gagnant reste E. " +
         "Multi-sélection possible : un papier PEF typique choisit D + E.",
       options: {
         A: { label: 'A. Interne', description: 'Usage interne (managérial, R&D, planification).' },
         B: { label: 'B. Externe (sans claim)', description: 'Communication externe sans affirmations comparatives.' },
         C: {
           label: 'C. Claim public de supériorité',
-          description: 'Affirmation publique de supériorité environnementale.',
+          description: 'Affirmation publique de supériorité ou d\'équivalence face à une alternative de même fonction, sous toute forme (articles compris).',
           warn: 'Active la revue OBLIGATOIRE par panel de 3+ experts indépendants (ISO 14044), pondération non autorisée.',
         },
         D: {
@@ -392,10 +392,10 @@ const fr: Locale = {
           description: 'Alignement politique UE (CSRD, ESPR, PEFCR).',
           warn: 'Active la PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed.' },
+        E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed (ajoutez C si elle affirme qu\'un système l\'emporte sur une alternative concurrente).' },
       },
       plain:
-        "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (CSRD, passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Vous pouvez en choisir plusieurs.",
+        "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (CSRD, passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Cela vaut où que vous le disiez, y compris dans un article scientifique. Vous pouvez en choisir plusieurs.",
     },
 
     q5: {
@@ -450,6 +450,7 @@ const fr: Locale = {
       title: 'Q6b — Niveau de maturité technologique (TRL)',
       details:
         "TRL de la technologie dominante ou critique du réseau symbiotique. Détermine le choix de la qualité des données d'inventaire (mesurées vs littérature vs estimation d'ingénierie) et le budget d'incertitude downstream. " +
+        "C'est le TRL de la technologie clé elle-même, non de son adoption : une technologie mature utilisée pour la première fois dans ce réseau ou cette région reste TRL 9 ; la nouveauté de l'application se voit dans la qualité des données, non dans le TRL (lecture T4.6). " +
         "TRL 9 = pleine exploitation commerciale (Kalundborg, Sokka). " +
         "TRL 7-8 = pilote first-of-a-kind / unité pré-commerciale. " +
         "TRL 5-6 = prototype validé en laboratoire, démo à l'échelle pertinente. " +
@@ -461,7 +462,7 @@ const fr: Locale = {
         'TRL<5': 'TRL <5 — R&D précoce',
       },
       plain:
-        "Le degré de maturité de la technologie clé : en exploitation commerciale, premier pilote, prototype, ou encore en laboratoire. Moins elle est mature, plus vos chiffres seront des estimations et non des mesures, et plus le résultat doit porter sa propre incertitude.",
+        "Le degré de maturité de la technologie clé : en exploitation commerciale, premier pilote, prototype, ou encore en laboratoire. Moins elle est mature, plus vos chiffres seront des estimations et non des mesures, et plus le résultat doit porter sa propre incertitude. Jugez la technologie elle-même, non sa nouveauté ici : un procédé éprouvé utilisé pour la première fois dans votre région reste mature.",
     },
 
     q7: {
@@ -496,11 +497,11 @@ const fr: Locale = {
         yearPlaceholder: 'ex. 2030',
       },
       period: {
-        label: 'Pendant combien d\'années l\'étude suit-elle le système (période d\'analyse) ?',
+        label: 'Pendant combien d\'années l\'étude suit-elle le système (période d\'analyse ou horizon du projet) ?',
         placeholder: 'ex. 25 ; vide pour une photographie d\'une année',
       },
       lifetime: {
-        label: 'Durée de vie technique des actifs principaux (aussi leur période d\'amortissement)',
+        label: 'Durée de vie technique des actifs principaux : combien de temps les installations durent physiquement, pas l\'horizon du projet (aussi leur période d\'amortissement)',
       },
       placeholder: 'ex. 20',
       unit: 'ans',

@@ -369,16 +369,16 @@ const es: Locale = {
       details:
         'A — uso interno: dashboards de gestión, screening I+D, decisiones a nivel de planta. Pocas restricciones metodológicas. ' +
         'B — comunicación externa SIN claims comparativos (informes de sostenibilidad, brochures de marketing sin afirmación "mejor que X"). ' +
-        'C — CLAIM público de superioridad ambiental frente a una alternativa (p. ej. "este cemento es más verde que el OPC"). Activa la critical review obligatoria ISO 14044 por 3+ expertos independientes y desactiva la ponderación. Usar con cuidado. ' +
+        'C — CLAIM público de que el sistema es mejor que una alternativa con la misma función, o equivalente a ella (p. ej. "este cemento es más verde que el OPC"), hecho público en cualquier forma: informe, web o artículo científico (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Activa la critical review obligatoria ISO 14044 por 3+ expertos independientes y desactiva la ponderación. Usar con cuidado. ' +
         'D — alineamiento con instrumentos de política UE (disclosure CSRD, digital product passport ESPR, reglas de categoría PEFCR). Fuerza la PEF Circular Footprint Formula vía CIR-05. ' +
-        'E — publicación académica peer-reviewed. Requiere transparencia total (fuentes de datos, decisiones de allocation, sensibilidad). A menudo combinada con B o D. ' +
+        'E — publicación académica peer-reviewed. Requiere transparencia total (fuentes de datos, decisiones de allocation, sensibilidad). A menudo combinada con B o D. Si el artículo afirma que un sistema es mejor que una alternativa competidora o equivalente a ella, marca también C; una comparación que no declara un ganador sigue siendo E. ' +
         'Selección múltiple posible: un paper PEF típico elige D + E.',
       options: {
         A: { label: 'A. Interno', description: 'Uso interno (gestión, I+D, planificación).' },
         B: { label: 'B. Externo (sin claim)', description: 'Comunicación externa sin afirmaciones comparativas.' },
         C: {
           label: 'C. Claim público de superioridad',
-          description: 'Afirmación pública de superioridad ambiental.',
+          description: 'Afirmación pública de superioridad o equivalencia frente a una alternativa con la misma función, en cualquier forma (artículos incluidos).',
           warn: 'Activa la revisión OBLIGATORIA por panel de 3+ expertos independientes (ISO 14044), no se permite ponderación.',
         },
         D: {
@@ -386,10 +386,10 @@ const es: Locale = {
           description: 'Alineamiento con política UE (CSRD, ESPR, PEFCR).',
           warn: 'Activa la PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Publicación académica', description: 'Publicación académica peer-reviewed.' },
+        E: { label: 'E. Publicación académica', description: 'Publicación académica peer-reviewed (añade C si afirma que un sistema supera a una alternativa competidora).' },
       },
       plain:
-        "Quién leerá el resultado, y qué hará con él, decide cuán estricto debe ser el método. Una nota interna es el caso más ligero. Alinearse con los instrumentos de la UE (CSRD, pasaporte de producto, PEF) impone la manera europea de contar el material reciclado y recuperado. Afirmar en público que tu producto es mejor que otro es el caso más pesado: exige una revisión independiente por expertos externos. Puedes elegir más de una.",
+        "Quién leerá el resultado, y qué hará con él, decide cuán estricto debe ser el método. Una nota interna es el caso más ligero. Alinearse con los instrumentos de la UE (CSRD, pasaporte de producto, PEF) impone la manera europea de contar el material reciclado y recuperado. Afirmar en público que tu producto es mejor que otro es el caso más pesado: exige una revisión independiente por expertos externos. Vale dondequiera que lo digas, también en un artículo científico. Puedes elegir más de una.",
     },
 
     q5: {
@@ -444,6 +444,7 @@ const es: Locale = {
       title: 'Q6b — Technology Readiness Level (TRL)',
       details:
         'TRL de la tecnología dominante o crítica en la red simbiótica. Determina la elección de la calidad de los datos de inventory (medidos vs literatura vs estimación de ingeniería) y el presupuesto de incertidumbre downstream. ' +
+        'Es el TRL de la tecnología clave en sí, no de su adopción: una tecnología madura usada por primera vez en esta red o región sigue siendo TRL 9; la novedad de la aplicación se ve en la calidad de los datos, no en el TRL (lectura T4.6). ' +
         'TRL 9 = pleno funcionamiento comercial (Kalundborg, Sokka). ' +
         'TRL 7-8 = piloto first-of-a-kind / unidad pre-comercial. ' +
         'TRL 5-6 = prototipo validado en laboratorio, demo a escala relevante. ' +
@@ -455,7 +456,7 @@ const es: Locale = {
         'TRL<5': 'TRL <5 — I+D temprana',
       },
       plain:
-        "Cuán madura es la tecnología clave: en explotación comercial, primera planta piloto, prototipo, o todavía en laboratorio. Cuanto menos madura, más serán tus cifras estimaciones y no medidas, y más tendrá el resultado que cargar con su propia incertidumbre.",
+        "Cuán madura es la tecnología clave: en explotación comercial, primera planta piloto, prototipo, o todavía en laboratorio. Cuanto menos madura, más serán tus cifras estimaciones y no medidas, y más tendrá el resultado que cargar con su propia incertidumbre. Juzga la tecnología en sí, no si es nueva aquí: un proceso probado usado por primera vez en tu región sigue siendo maduro.",
     },
 
     q7: {
@@ -490,11 +491,11 @@ const es: Locale = {
         yearPlaceholder: 'p. ej. 2030',
       },
       period: {
-        label: '¿Durante cuántos años sigue el estudio al sistema (periodo de análisis)?',
+        label: '¿Durante cuántos años sigue el estudio al sistema (periodo de análisis u horizonte del proyecto)?',
         placeholder: 'p. ej. 25; vacío para la fotografía de un año',
       },
       lifetime: {
-        label: 'Vida útil técnica de los activos principales (también su periodo de amortización)',
+        label: 'Vida útil técnica de los activos principales: cuánto duran físicamente las plantas, no el horizonte del proyecto (también su periodo de amortización)',
       },
       placeholder: 'p. ej. 20',
       unit: 'años',

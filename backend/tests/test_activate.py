@@ -520,12 +520,16 @@ def test_q3_env_only_branch(schemas):
 
 
 def test_q3_env_plus_eco_and_eco_only_branches(schemas):
-    """lcc_mc_18: `q3.env+eco` ignores soc; `q3.eco-only` is strict."""
-    ind = lambda **q3: _activated(schemas, q3=Q3(**q3))  # noqa: E731
-    assert ind(env=True, eco=True).lcc["eco_efficiency_indicator"] == "Both ECOF+IEE"
-    assert ind(env=True, eco=True, soc=True).lcc["eco_efficiency_indicator"] == "Both ECOF+IEE"
-    assert ind(eco=True).lcc["eco_efficiency_indicator"] == "IEE only"
-    assert "lcc_mc_18" not in ind(eco=True, soc=True).activated_nodes
+    """lcc_mc_18: ECOF and IEE both need the LCA impact (D4.2 §11.3, L01327, L01333),
+    and a C-LCC cannot be integrated with the LCA (§11.2, L01285)."""
+    ind = lambda q1=Q1.A, **q3: _activated(schemas, q1=q1, q3=Q3(**q3))  # noqa: E731
+    assert ind(env=True, eco=True).lcc["eco_efficiency_indicator"].startswith("ECOF and IEE")
+    assert ind(env=True, eco=True, soc=True).lcc["eco_efficiency_indicator"].startswith("ECOF and IEE")
+    for no_lca in (ind(eco=True), ind(eco=True, soc=True)):
+        assert no_lca.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: ECOF and IEE")
+    c_lcc = ind(q1=Q1.D, env=True, eco=True)
+    assert c_lcc.lcc_type.value == "C-LCC"
+    assert c_lcc.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: a gate-to-gate C-LCC")
     # lcc_mc_05: Q1 branches first, `q3.env+eco` for the rest
     assert _activated(schemas, q1=Q1.C, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "aligned with LCA"
     assert _activated(schemas, q1=Q1.A, q3=Q3(env=True, eco=True)).lcc["economic_boundary"] == "Gate-to-Gate"
@@ -556,22 +560,29 @@ def test_no_lca_switches_off_the_e_lcc_rules(schemas):
 def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
     eco = Q3(env=True, eco=True)
     assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"].startswith("C-LCC: each partner's WACC")
-    assert _activated(schemas, q1=Q1.B, q3=eco).lcc["counterparty_risk"] == "Percolation theory"
-    assert "lcc_mc_16" not in _activated(schemas, q1=Q1.D, q3=eco).activated_nodes
+    # lcc_mc_16: a node-removal scenario for every critical node, whatever Q1 (D4.2 §10.3, L01237)
+    assert _activated(schemas, q1=Q1.A, q3=eco).lcc["counterparty_risk"].startswith(
+        "Node-removal scenario for the exchange partner")
+    for q1 in (Q1.B, Q1.C, Q1.D, Q1.E):
+        assert _activated(schemas, q1=q1, q3=eco).lcc["counterparty_risk"].startswith(
+            "Counterparty risk by structural scenarios")
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
     assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
     assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"] == "single break-even"
     assert _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"] == "GIS-coupled"
 
 
-def test_sector_key_is_an_alias_of_q6a(schemas):
-    """lcc_mc_03: `q1=A` first, then `sector=textile_leather`."""
+def test_lcc_functional_equivalent_follows_the_lca(schemas):
+    """lcc_mc_03: the LCC takes the LCA's functional unit (D4.2 §3.1, L00493). With an
+    E-LCC lcc_hc_04 writes it; lcc_mc_03 covers the C-LCC and the case without an LCA."""
     eco = Q3(env=True, eco=True)
-    textile = _activated(schemas, q1=Q1.C, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
-    assert textile.lcc["functional_equivalent"] == "PSS variant"
-    assert "lcc_mc_03" not in _activated(schemas, q1=Q1.C, q3=eco, q6a=Q6a.PULP_PAPER).activated_nodes
-    first = _activated(schemas, q1=Q1.A, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
-    assert first.lcc["functional_equivalent"] == "Single"  # first match wins
+    for q1 in (Q1.A, Q1.B, Q1.C):
+        case = _activated(schemas, q1=q1, q3=eco, q6a=Q6a.TEXTILE_LEATHER)
+        assert case.lcc["functional_equivalent"] == "aligned_to_lca"
+        assert "lcc_mc_03" not in case.activated_nodes
+    assert _activated(schemas, q1=Q1.D, q3=eco).lcc["functional_equivalent"] == "aligned_to_lca"
+    no_lca = _activated(schemas, q1=Q1.A, q3=Q3(eco=True))
+    assert no_lca.lcc["functional_equivalent"].startswith("No parallel LCA: the functional equivalent")
 
 
 def test_per_flow_in_set_key(schemas):
@@ -584,11 +595,18 @@ def test_per_flow_in_set_key(schemas):
     }
 
 
-def test_contested_branch_is_inert_per_flow(schemas):
-    """lcc_mc_04: `contested` never matches, so a Q5=e flow gets no entry and
-    Q5=b keeps its explicit branch."""
-    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.b, Q5.e))
-    assert c.lcc["flow_valuation_method"] == {"f0": "Transfer Price", "f1": "Market Proxy"}
+def test_flow_valuation_names_each_lcc_level(schemas):
+    """lcc_mc_04 / lcc_mc_08: the key stays Q5, per flow, and the value says what each
+    LCC level uses (D4.2 §3.2, §6.2-§6.3). A Q5=e flow gets no entry."""
+    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.b, Q5.e, Q5.d))
+    valuation = c.lcc["flow_valuation_method"]
+    assert set(valuation) == {"f0", "f1", "f3"}
+    assert valuation["f0"].startswith("C-LCC: negotiated price paid by the receiver; E-LCC and S-LCC")
+    assert valuation["f1"].startswith("C-LCC: actual transfer price, zero")
+    cost = c.lcc["secondary_flow_valuation"]
+    assert set(cost) == {"f0", "f1", "f3"}
+    assert "zero cost only if the residual is unavoidable" in cost["f1"]   # L00729
+    assert cost["f3"].startswith("Zero cost does not apply")              # L00741
 
 
 # ---------------------------------------------------------------------------

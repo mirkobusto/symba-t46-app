@@ -66,7 +66,7 @@
       "set_by_cir": "CIR-04",
       "default_value_when_set": "percolation_theory",
       "trigger_summary": "Q1=B AND network_nodes >= 3 AND interdependent_flows == true",
-      "notes": "Activates structural counterparty risk model (percolation theory) for multi-actor networks. Distinct from lcc.counterparty_risk node-default (lcc_mc_16) which is the user-facing choice."
+      "notes": "Percolation theory, the recommended way to identify the critical nodes (D4.2 §10.3, L01235). The trigger reads network_nodes and interdependent_flows, which Case does not have (I-17), so CIR-04 never fires; if it did, it would overwrite lcc_mc_16 (node-removal scenario for each critical node, L01237) with the identification method alone."
     },
     {
       "field": "lca.lcia_method",

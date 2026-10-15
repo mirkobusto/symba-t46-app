@@ -74,8 +74,6 @@ def _answers(**kw) -> Answers:
         ("q3.soc=false", dict(), True),
         ("sector=textile_leather", dict(q6a="textile_leather"), True),
         ("sector=textile_leather", dict(q6a="pulp_paper"), False),
-        ("contested", dict(q5="b"), False),
-        ("contested", dict(q5="e"), False),
     ],
 )
 def test_branch_key_matching(key, answers, expected):
@@ -86,9 +84,6 @@ def test_variables_name_the_answers_a_key_reads():
     assert parse_branch_key("q4 includes 'D'").variables == {"q4"}
     assert parse_branch_key("q3.env+eco").variables == {"q3"}
     assert parse_branch_key("sector=textile_leather").variables == {"q6a"}
-    assert parse_branch_key("contested").variables == {"q5"}
-    assert parse_branch_key("contested").inert is True
-    assert parse_branch_key("q1=C").inert is False
 
 
 @pytest.mark.parametrize(
@@ -162,10 +157,10 @@ def test_every_branch_key_in_the_schema_is_interpretable(schemas):
     assert not bad, f"branch keys the resolver cannot read: {json.dumps(bad, indent=1)}"
 
 
-# lcc_mc_03 reads the sector (`sector=textile_leather`, i.e. Q6a) but its
-# `trigger_q` lists only q1. The schema is authoritative, so the gap is
-# recorded here instead of fixed.
-_TRIGGER_Q_GAPS = {"lcc_mc_03": {"q6a"}}
+# Nodes whose keys read a question their `trigger_q` does not list. The schema
+# is authoritative, so a gap is recorded here instead of fixed. lcc_mc_03 left
+# on 2026-10-16: it no longer reads the sector.
+_TRIGGER_Q_GAPS: dict[str, set[str]] = {}
 
 
 def test_branch_keys_read_only_the_questions_the_node_declares(schemas):
@@ -178,14 +173,10 @@ def test_branch_keys_read_only_the_questions_the_node_declares(schemas):
     assert not undeclared, f"keys read questions not in trigger_q: {undeclared}"
 
 
-def test_inert_keys_are_the_known_ones(schemas):
-    """`contested` parses but never matches (see branch_keys.py). A new inert
-    key would be a rule that never applies, so it must be a conscious change."""
-    inert = {
-        (n["id"], k) for n in _branch_nodes(schemas) for k in _keys(n)
-        if parse_branch_key(k).inert
-    }
-    assert inert == {("lcc_mc_04", "contested"), ("lcc_mc_08", "contested")}
+def test_contested_is_no_longer_a_branch_key():
+    """`contested` never matched; it left the grammar with its two branches."""
+    with pytest.raises(BranchKeyError):
+        parse_branch_key("contested")
 
 
 _DOMAINS = {
@@ -222,7 +213,7 @@ def _overlapping(node: dict) -> bool:
 # pinned below: strictest first.
 _OVERLAPPING_NODES = {
     "lca_hc_08", "lca_mc_05", "lca_mc_32", "lca_mc_36",
-    "lcc_mc_01", "lcc_mc_03", "lcc_mc_05", "slca_mc_04",
+    "lcc_mc_01", "lcc_mc_03", "lcc_mc_05", "lcc_mc_18", "slca_mc_04",
     # lcc_mc_07 and lcc_mc_12 left this list on 2026-10-15: they now branch on
     # the LCC type only (D4.2 §5.1, §9.3), one branch per type, no overlap.
 }

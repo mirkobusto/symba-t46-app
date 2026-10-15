@@ -36,3 +36,26 @@ def test_source_sections_follow_the_final_v2_numbering(schemas):
     assert nodes["lcc_hc_22"]["source_section"] == "D4.2 §9.3"
     assert nodes["lca_mc_06"]["source_section"] == "D4.1 §4.2"
     assert nodes["lca_mc_23"]["source_section"] == "D4.1 §5.5"
+
+
+def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
+    """Phase A of the FINAL v2 review (2026-10-16): a node rewritten on the text names
+    its section in the value and the FINAL v2 lines in the note, so a later change to the
+    deliverables shows which nodes to realign."""
+    nodes = {n["id"]: n for n in schemas.phase1_nodes}
+    rewritten = [n for n in nodes.values()
+                 if "Rewritten on FINAL v2 text" in (n.get("extraction_notes") or "")]
+    assert {n["id"] for n in rewritten} >= {"lca_hc_19", "lca_mc_31"}
+    for n in rewritten:
+        assert re.search(r"L\d{5}", n["extraction_notes"].split("Rewritten on FINAL v2 text")[1])
+        values = n["default_value"] if isinstance(n["default_value"], dict) else {"": n["default_value"]}
+        assert all(n["source_section"] in v for v in values.values() if v)
+
+    # D4.1 §10.3.5 L01214-L01222: four categories, iLUC among them, biodiversity not
+    frontier = nodes["lca_hc_19"]["default_value"]
+    for category in ("marine litter", "soil carbon", "iLUC", "fibre shedding"):
+        assert category in frontier
+    assert "Biodiversity loss is not one of the four" in frontier
+    # D4.1 §15.1 L01539: a single aggregated result is insufficient
+    levels = nodes["lca_mc_31"]["default_value"]
+    assert "three levels" in levels and "preferred" not in levels

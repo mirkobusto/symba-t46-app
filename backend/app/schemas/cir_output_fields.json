@@ -98,7 +98,7 @@
       "set_by_cir": "CIR-06",
       "default_value_when_set": "active_set (sector-driven)",
       "trigger_summary": "frontier_categories_active == true",
-      "notes": "List of frontier impact categories (microplastic, soil, biodiversity) activated per Q6a sector overlay (lca_hc_19)."
+      "notes": "List of the frontier impact categories of D4.1 §10.3.5 (marine litter and plastic leakage, biochar and soil carbon, iLUC, microplastic fibre shedding) reported where the network implicates the flow (lca_hc_19)."
     },
     {
       "field": "lcc.externalities",

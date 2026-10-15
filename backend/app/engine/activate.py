@@ -19,7 +19,7 @@ DERIVED activation by `trigger_logic`:
                         engine/branch_keys.py); "default" key is fallback.
                         No match + no default → node DORMANT.
 
-    simple/conjunctive/disjunctive  26 (12+11+3)  Boolean trigger_condition;
+    simple/conjunctive/disjunctive  26 (13+11+2)  Boolean trigger_condition;
                         evaluated by hand-coded predicates in _PREDICATES
                         (one entry per node_id). The JSON `trigger_condition`
                         strings are documentation; the typed predicates
@@ -270,8 +270,8 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lcc_hc_36": lambda c, f: f.q5 == Q5.d,
     # simple
     "lcc_hc_37": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
-    # per_flow disjunctive
-    "lcc_hc_38": lambda c, f: (f.q5 == Q5.b) or (c.q3.eco and not c.q3.env and not c.q3.soc),
+    # per_flow simple
+    "lcc_hc_38": lambda c, f: f.q5 == Q5.b,   # the eco-only branch had no basis (2026-10-16)
     # conjunctive
     "lcc_mc_17": lambda c: c.q3.env and c.q3.eco,
     "slca_hc_06": lambda c: c.q3.soc and (c.q3.env or c.q3.eco),

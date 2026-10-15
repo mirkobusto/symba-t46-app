@@ -48,7 +48,9 @@ def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
     assert {n["id"] for n in rewritten} >= {
         "lca_hc_19", "lca_mc_31",                                        # PR #123
         "lcc_mc_03", "lcc_mc_04", "lcc_mc_08", "lcc_mc_16", "lcc_mc_18",  # PR #124
-        "lca_mc_05", "lca_mc_06", "lca_mc_23", "lca_mc_27", "lcc_mc_05",
+        "lca_mc_05", "lca_mc_06", "lca_mc_23", "lca_mc_27", "lcc_mc_05",  # PR #125
+        "lca_hc_08", "lca_mc_29", "lca_mc_35", "lca_mc_36",                # design-choice nodes
+        "lcc_hc_06", "lcc_hc_13", "lcc_hc_38", "lcc_mc_19",
     }
     for n in rewritten:
         assert re.search(r"L\d{5}", n["extraction_notes"].split("Rewritten on FINAL v2 text")[1])

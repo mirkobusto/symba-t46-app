@@ -1248,7 +1248,7 @@
         "source_section": "D4.2 \u00a74.2",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Break-even distance modeled explicitly as a sensitivity parameter for every exchange, never a fixed assumption (D4.2 \u00a74.3)",
+        "statement": "Break-even distance modelled explicitly as a sensitivity parameter, never a fixed assumption, and it should be reported in the results as a decision-support output (D4.2 \u00a74.2, \u00a74.3). \u00a74.2 asks it for bulky, low-value or zero-value streams; extending it to every exchange is a T4.6 choice (2026-10-04)",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],
@@ -1445,11 +1445,10 @@
         "lifecycle_layer": "L2",
         "source_section": "D4.2 \u00a75.3",
         "trigger_q": [
-          "q5",
-          "q3"
+          "q5"
         ],
-        "trigger_condition": "(flow.q5 == 'b') OR (case.q3.eco == true AND case.q3.env == false AND case.q3.soc == false)",
-        "statement": "MFCA when Q5=b (contested) or Q3=ECO-only",
+        "trigger_condition": "flow.q5 == 'b'",
+        "statement": "MFCA should be integrated for this flow (Q5=b: free or ambiguous, so the transfer price is contested or has no market reference), as a cost-based anchor for negotiations disclosed to all partners through the neutral facilitator (D4.2 \u00a75.3); in an S-LCC, the opportunity cost of avoidable residuals should be considered, quantified with MFCA (\u00a76.3)",
         "all_matched_categories": [
           "lcc_method_specific"
         ],

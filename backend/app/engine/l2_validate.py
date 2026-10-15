@@ -485,7 +485,9 @@ def _action_cir_04(c: Case) -> None:
 
 def _action_cir_05(c: Case) -> None:
     _write(c, "lca.allocation_method", "pef_cff")
-    _write(c, "lcc.externality_monetization", "CE_Delft_EU")
+    if c.q3.env:
+        # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
+        _write(c, "lcc.externality_monetization", "CE_Delft_EU")
     _write(c, "lcc.allocation", "NTF")
     _write(c, "lca.lcia_method", "EF_3.1")
 

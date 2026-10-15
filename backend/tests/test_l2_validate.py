@@ -244,6 +244,15 @@ def test_CIR_05_writes_pef_cff_when_q4_D(schemas):
     assert case.lca.get("lcia_method") == "EF_3.1"
 
 
+def test_CIR_05_monetises_externalities_only_with_an_lca(schemas):
+    """Without the environmental dimension there are no impacts to monetise
+    (D4.2 §11.2): CIR-05 leaves lcc_mc_19's value in place."""
+    case = _full_pipeline_until_l2(_ready_case(q3=Q3(eco=True), q4={Q4.D}), schemas)
+    run(case, schemas)
+    assert case.lcc["externality_monetization"].startswith("None: without a parallel LCA")
+    assert case.lca.get("allocation_method") == "pef_cff"   # the rest of CIR-05 is unchanged
+
+
 def test_CIR_07_writes_scale_up_framework_for_low_TRL(schemas):
     case = _ready_case(q6b=Q6b.TRL5_6)
     run(case, schemas)

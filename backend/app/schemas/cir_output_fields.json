@@ -90,7 +90,7 @@
       "set_by_cir": "CIR-05",
       "default_value_when_set": "CE_Delft_EU",
       "trigger_summary": "Q4 includes 'D'",
-      "notes": "CE Delft EU shadow prices for externality monetization in PEF-aligned reports. Default elsewhere is 'optional' (lcc_mc_19)."
+      "notes": "CE Delft EU shadow prices for externality monetization in PEF-aligned reports, written only when the case has the environmental dimension: without a parallel LCA there is nothing to monetise (2026-10-16). Otherwise lcc_mc_19 decides (mandatory in the S-LCC)."
     },
     {
       "field": "lca.frontier_categories",

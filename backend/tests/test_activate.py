@@ -177,8 +177,8 @@ def test_per_flow_discriminative_writes_dict(schemas):
 
 
 def test_per_flow_predicate_writes_only_matching_flows(schemas):
-    """lcc_hc_12 (per_flow simple `flow.q5 != e`) activates only when
-    at least one flow has q5 != e. The pillar field
+    """lcc_hc_12 (per_flow simple) fires on every secondary flow, aggregated
+    ones included (D4.2 §6.3, L00751; the Q5 != e exemption is gone). The pillar field
     `lcc.avoidable_unavoidable_classification` is shared with lcc_hc_13
     (always-default discriminative), so we verify the predicate
     behaviour directly via _PREDICATES + activation flag."""
@@ -188,10 +188,9 @@ def test_per_flow_predicate_writes_only_matching_flows(schemas):
     f_match = Flow(id="f1", name="x", q5=Q5.a)
     f_no = Flow(id="f2", name="y", q5=Q5.e)
     assert pred(case, f_match) is True
-    assert pred(case, f_no) is False
+    assert pred(case, f_no) is True
 
-    # And end-to-end: with both flows, lcc_hc_12 still activates because
-    # at least one flow matches.
+    # And end-to-end: with both flows, lcc_hc_12 activates.
     case_full = _baseline_case(
         q3=Q3(env=True, eco=True), flows=[f_match, f_no])
     l0_run(case_full, schemas)
@@ -585,8 +584,8 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
             "Counterparty risk by structural scenarios")
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
     assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
-    assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"] == "single break-even"
-    assert _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"] == "GIS-coupled"
+    assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"].startswith("Break-even distance for every flow")
+    assert "GIS coupling suggested" in _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"]
 
 
 def test_lcc_functional_equivalent_follows_the_lca(schemas):
@@ -742,7 +741,11 @@ def test_background_database_follows_the_situation(schemas):
 def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
     case = _activated(schemas, q6b=q6b, q3=Q3(env=True, eco=True))
     assert ("lca_mc_20" in case.activated_nodes) is active
-    assert ("lcc_hc_15" in case.activated_nodes) is active  # the two methods agree
+    # the studied exchanges already take place (Q2=A): the LCC follows TRL alone, as the LCA does
+    assert ("lcc_hc_15" in case.activated_nodes) is active
+    # at the planning stage D4.2 §7.3 (L00875) adds the cost-scaling tools at any TRL
+    planned = _activated(schemas, q6b=q6b, q2=Q2.C, q3=Q3(env=True, eco=True))
+    assert "lcc_hc_15" in planned.activated_nodes
 
 
 # ---------------------------------------------------------------------------
@@ -798,8 +801,9 @@ def test_lcc_transport_costs_now_has_a_single_writer(schemas):
     """lcc_hc_06 used to write a prose sentence into lcc.transport_costs; it is a
     pure mandate now, so the value is lcc_mc_14's alone."""
     eco = Q3(env=True, eco=True)
-    assert _activated(schemas, q7=Q7.B, q3=eco).lcc["transport_costs"] == "single break-even"
-    assert _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"] == "GIS-coupled"
+    regional = _activated(schemas, q7=Q7.B, q3=eco).lcc["transport_costs"]
+    assert "bulky, low-value or high-moisture" in regional and "suggested" not in regional   # D4.2 L01135
+    assert "GIS coupling suggested" in _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"]
     assert "transport_costs" not in _activated(schemas, q7=None, q3=eco).lcc
 
 
@@ -1014,3 +1018,14 @@ def test_aware_follows_water_flows_and_integration_needs_an_e_lcc(schemas):
     assert network.lca["lcc_integration_mode"].startswith("LCI-based E-LCC")
     company = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True))
     assert not {"lca_mc_03", "lcc_mc_17"} & set(company.activated_nodes)
+
+
+def test_lcc_timing_and_transfer_price_sensitivity(schemas):
+    """lcc_hc_14 / lcc_mc_10: ex-post or ex-ante (D4.2 §7.1, L00829), Q2=B included;
+    lcc_hc_34: transfer-price sensitivity for gate fees and free flows too (L00757)."""
+    eco = Q3(env=True, eco=True)
+    assert _activated(schemas, q2=Q2.A, q3=eco).lcc["charter.timing"] == "ex-post (D4.2 §7.1)"
+    assert _activated(schemas, q2=Q2.B, q3=eco).lcc["charter.timing"].startswith("ex-ante, with the trigger")
+    assert "T4.6 reading" in _activated(schemas, q2=Q2.D, q3=eco).lcc["charter.timing"]
+    case = _activated(schemas, q3=eco, flows=_flows(Q5.a, Q5.b, Q5.e))
+    assert "lcc_hc_34" in case.activated_nodes

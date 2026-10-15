@@ -16,7 +16,7 @@
       "field": "lcc.avoidable_unavoidable_classification",
       "type": "object",
       "scope": "per_flow",
-      "computed_from": "lcc_hc_12 (q5 != 'e') + lcc_hc_13 evaluated against flow.q5; for q5 = 'e' lcc_hc_13 says aggregated flows must be classified before any zero cost",
+      "computed_from": "lcc_hc_12 (every flow) + lcc_hc_13 evaluated against flow.q5; for q5 = 'e' lcc_hc_13 says aggregated flows must be classified before any zero cost",
       "used_by_rules": ["IR-15"],
       "derivation": "Per-flow output of the LCC avoidable/unavoidable test. Must align per-flow with lca.zero_burden_classification per IR-15."
     },

@@ -333,7 +333,7 @@
           "q5"
         ],
         "trigger_condition": null,
-        "statement": "zero-burden | EVT | substitution | interdependent multifunctional | uniform",
+        "statement": "negative value: the generator pays a gate fee; zero burden only after the avoidability test (D4.2 \u00a76.1; \u00a76.2) | zero value: no established market demand, transferred free; checked with the Economic Value Test of D4.1 \u00a78.3.2 (D4.2 \u00a76.1) | positive value: a co-product at the agreed transfer price (D4.2 \u00a76.1) | interdependent multifunctional production: a deliberate co-product (D4.2 \u00a76.1; \u00a76.2) | aggregated in the source: no uniform rule, the valuation is decided flow by flow in the DCF (D4.2 \u00a76.1)",
         "all_matched_categories": [
           "allocation_substitution"
         ],
@@ -1147,8 +1147,8 @@
         "trigger_q": [
           "q5"
         ],
-        "trigger_condition": "flow.q5 == 'c'",
-        "statement": "Transfer price as central sensitivity if Q5=c",
+        "trigger_condition": "flow.q5 IN ['a','b','c','d']",
+        "statement": "Transfer price as a central sensitivity variable across the full negotiation space \u2014 positive, zero or negative (gate fee) \u2014 reporting the range in which both parties are better off than in the reference scenario; aggregated flows (Q5=e) have no price of their own (D4.2 \u00a76.3; \u00a710.3)",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],

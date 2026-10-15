@@ -1360,13 +1360,14 @@
         "q5"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "flow.q5 != 'e'",
+      "trigger_condition": "every flow",
       "field": "lcc.avoidable_unavoidable_classification",
       "field_status": null,
-      "default_value": "Avoidable/Unavoidable test for each secondary flow (Q5 != e)",
+      "default_value": "Avoidable/unavoidable test for every secondary flow before any valuation, aggregated flows included (D4.2 §6.2; §6.3)",
       "override_path": "q5",
       "lifecycle_layer": "L2",
-      "per_flow": true
+      "per_flow": true,
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00729 ('the classification of each secondary flow'), L00751 ('every secondary flow ... is classified'). The Q5 != e exemption had no basis; lcc_hc_13 then writes the per-Q5 guidance on the same field."
     },
     {
       "id": "lcc_hc_13",
@@ -1405,12 +1406,13 @@
       "field": "lcc.charter.timing",
       "field_status": null,
       "default_value": {
-        "q2=A": "ex-post",
-        "q2=C": "ex-ante",
-        "q2=D": "both (ex-ante + ex-post)"
+        "q2=A": "ex-post (D4.2 §7.1)",
+        "q2 in {B,C}": "ex-ante, with the trigger conditions for updating the model with operational data — network commissioning, end of ramp-up, major contract renewals (D4.2 §7.1)",
+        "q2=D": "ex-ante for the alternatives, on an operating baseline described ex-post, with the same update triggers: T4.6 reading of D4.2 §7.1, which knows only ex-ante or ex-post"
       },
       "override_path": "q2",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00829 ('must specify at the outset whether the study is ex-ante or ex-post ... for ex-ante studies — define the trigger conditions'). Q2=B now maps to ex-ante; the former 'both (ex-ante + ex-post)' for Q2=D is replaced by a declared reading."
     },
     {
       "id": "lcc_hc_15",
@@ -1419,15 +1421,17 @@
       "source_section": "D4.2 §7.3",
       "category": "DERIVED",
       "trigger_q": [
-        "q6b"
+        "q6b",
+        "q2"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5']",
+      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5'] OR case.q2 IN ['B','C','D']",
       "field": "lcc.scale_up_framework",
       "field_status": null,
-      "default_value": "TRL<7 -> Six-Tenths, Lang Factors, CEPCI mandatory",
-      "override_path": "q6b",
-      "lifecycle_layer": "L2"
+      "default_value": "Engineering cost estimation with scale-up and cost evolution for projects at the planning stage or below TRL 7: capacity scaling with the six-tenths rule, cost indices (CEPCI) to the reference year, Lang factors (D4.2 §7.3)",
+      "override_path": "q6b, q2",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00875 ('For IS projects at the planning stage or involving technologies below TRL 7'), L00851, L00877-L00881. Now also for the planning stage (Q2 in {B,C,D}); the Lang-factor values of L00883 have no source and are not exposed. The LCA counterpart (lca_mc_20) stays at TRL < 7: its scale-up lever is empty for a mature technology."
     },
     {
       "id": "lcc_hc_16",
@@ -1502,9 +1506,10 @@
       "trigger_condition": null,
       "field": "lcc.kpi_suite",
       "field_status": null,
-      "default_value": "Full KPI suite at all 3 levels (NPV, IRR/MIRR, DPP, LCOE/LCOP)",
+      "default_value": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, at the network, entity and flow levels (D4.2 §8.3; definitions §8.2)",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00992 (§8.3). Same text as lcc_mc_11, which writes the same field."
     },
     {
       "id": "lcc_hc_21",
@@ -1724,16 +1729,16 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §6.3",
-      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §5.3).",
+      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §5.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00765 ('must be treated as a central sensitivity variable'), L00757 ('positive, zero, or negative'), L01225. The former trigger (Q5=c only) missed gate fees and free flows.",
       "category": "DERIVED",
       "trigger_q": [
         "q5"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "flow.q5 == 'c'",
+      "trigger_condition": "flow.q5 IN ['a','b','c','d']",
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Transfer price as central sensitivity if Q5=c",
+      "default_value": "Transfer price as a central sensitivity variable across the full negotiation space — positive, zero or negative (gate fee) — reporting the range in which both parties are better off than in the reference scenario; aggregated flows (Q5=e) have no price of their own (D4.2 §6.3; §10.3)",
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true
@@ -2028,16 +2033,16 @@
       "field": null,
       "field_status": "procedural_mandate",
       "default_value": {
-        "q5=a": "zero-burden",
-        "q5=b": "EVT",
-        "q5=c": "substitution",
-        "q5=d": "interdependent multifunctional",
-        "q5=e": "uniform"
+        "q5=a": "negative value: the generator pays a gate fee; zero burden only after the avoidability test (D4.2 §6.1; §6.2)",
+        "q5=b": "zero value: no established market demand, transferred free; checked with the Economic Value Test of D4.1 §8.3.2 (D4.2 §6.1)",
+        "q5=c": "positive value: a co-product at the agreed transfer price (D4.2 §6.1)",
+        "q5=d": "interdependent multifunctional production: a deliberate co-product (D4.2 §6.1; §6.2)",
+        "q5=e": "aggregated in the source: no uniform rule, the valuation is decided flow by flow in the DCF (D4.2 §6.1)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "v1 default text refers to 'Avoidable/Unavoidable per Q5 answer' — restated per Q5 option for clarity | source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §6.2); audit 2026-10-04."
+      "extraction_notes": "v1 default text refers to 'Avoidable/Unavoidable per Q5 answer' — restated per Q5 option for clarity | source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §6.2); audit 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00701 ('an active methodological decision ... rather than a default assumption to be applied uniformly'), L00705-L00709 (positive, zero, negative value), L00729, L00741. 'EVT' is the Economic Value Test of D4.1 §8.3.2, now spelled out; Q5=e no longer gets 'uniform'."
     },
     {
       "id": "lcc_mc_10",
@@ -2053,13 +2058,13 @@
       "field": "lcc.charter.timing",
       "field_status": null,
       "default_value": {
-        "q2=A": "ex-post",
-        "q2=B": "ex-ante",
-        "q2=C": "ex-ante",
-        "q2=D": "both"
+        "q2=A": "ex-post (D4.2 §7.1)",
+        "q2 in {B,C}": "ex-ante, with the trigger conditions for updating the model with operational data — network commissioning, end of ramp-up, major contract renewals (D4.2 §7.1)",
+        "q2=D": "ex-ante for the alternatives, on an operating baseline described ex-post, with the same update triggers: T4.6 reading of D4.2 §7.1, which knows only ex-ante or ex-post"
       },
       "override_path": "q2",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00829 ('must specify at the outset whether the study is ex-ante or ex-post ... for ex-ante studies — define the trigger conditions'). Q2=B now maps to ex-ante; the former 'both (ex-ante + ex-post)' for Q2=D is replaced by a declared reading."
     },
     {
       "id": "lcc_mc_11",
@@ -2072,9 +2077,10 @@
       "trigger_condition": null,
       "field": "lcc.kpi_suite",
       "field_status": null,
-      "default_value": "KPI suite: NPV+IRR+MIRR+DPP+LCOE/LCOP full suite",
+      "default_value": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, at the network, entity and flow levels (D4.2 §8.2; reporting rule §8.3)",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00962-L00966 (indicator definitions, under the unnumbered heading that follows §8.1), L00992 ('NPV, IRR (or MIRR where appropriate), DPP, and LCOE/LCOP where relevant — at all three analytical levels')."
     },
     {
       "id": "lcc_mc_12",
@@ -2133,12 +2139,12 @@
       "field": "lcc.transport_costs",
       "field_status": null,
       "default_value": {
-        "q7 in {A,B}": "single break-even",
-        "q7 in {C,D}": "GIS-coupled"
+        "q7 in {A,B}": "Break-even distance for every flow as a sensitivity parameter; a GIS spatial viability map for bulky, low-value or high-moisture streams (D4.2 §9.3; §4.3)",
+        "q7 in {C,D}": "Break-even distance for every flow as a sensitivity parameter; a GIS spatial viability map for bulky, low-value or high-moisture streams, and GIS coupling suggested by the wide spread of the network: T4.6 (D4.2 §9.3; §4.3)"
       },
       "override_path": "q7",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §4.3); audit 2026-10-04."
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §4.3); audit 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01135 (GIS for 'bulky, low-value, or high-moisture waste streams'), L00593 (break-even as a variable). GIS was keyed on Q7, the text keys it on the nature of the flow."
     },
     {
       "id": "lcc_mc_15",
@@ -2151,9 +2157,10 @@
       "trigger_condition": null,
       "field": "lcc.uncertainty.method",
       "field_status": null,
-      "default_value": "Distribution defaults: Triangular for sensitivities, Log-normal for prices, Normal for engineering",
+      "default_value": "Log-normal through the Pedigree Matrix as the default for parameters with documented data, the same representation as the LCA; triangular for min-mode-max engineering or expert estimates; uniform for ranges with no most likely value; normal or log-normal for historical price series (D4.2 §10.3)",
       "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01205 (triangular 'from engineering estimates, market data, or expert judgment'), L01207 (uniform), L01209 (normal/log-normal for price series; log-normal via Pedigree as default). 'Normal for engineering' inverted the text."
     },
     {
       "id": "lcc_mc_16",

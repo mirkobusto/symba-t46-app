@@ -1,6 +1,6 @@
 # SYMBA T4.6 — Phase 1 Node Mapping v2 (Sprint 4 ingestion-ready)
 
-> **Read this first (2026-10-16).** This is the May 2026 design document. The engine has moved on since:
+> **Read this first (2026-10-15).** This is the May 2026 design document. The engine has moved on since:
 > the current value of every node is in `backend/app/schemas/phase1_nodes.json`, the current rules are in
 > `backend/app/schemas/cross_method_rules.json`, and the state of the project is in the repository's `CLAUDE.md`.
 > Where this document and the schemas disagree, the schemas win. **§0 lists what changed after May 2026** and which

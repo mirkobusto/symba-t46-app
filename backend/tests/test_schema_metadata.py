@@ -19,7 +19,7 @@ def test_renumbered_source_sections_keep_the_old_reference(schemas):
 def test_source_sections_follow_the_final_v2_numbering(schemas):
     """Review 2026-10-15: 65 nodes (57 LCA, 8 LCC) point at the FINAL v2 deliverables.
     Each note keeps the section it cited before; lca_mc_06 and lca_mc_23 had no basis in
-    the text and were reformulated on 2026-10-16 (see the test below)."""
+    the text and were reformulated on 2026-10-15 (see the test below)."""
     nodes = {n["id"]: n for n in schemas.phase1_nodes}
     moved = [n for n in nodes.values()
              if "FINAL v2 numbering, review 2026-10-15" in (n.get("extraction_notes") or "")]
@@ -39,7 +39,7 @@ def test_source_sections_follow_the_final_v2_numbering(schemas):
 
 
 def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
-    """Phase A of the FINAL v2 review (2026-10-16): a node rewritten on the text names
+    """Phase A of the FINAL v2 review (2026-10-15): a node rewritten on the text names
     its section in the value and the FINAL v2 lines in the note, so a later change to the
     deliverables shows which nodes to realign."""
     nodes = {n["id"]: n for n in schemas.phase1_nodes}

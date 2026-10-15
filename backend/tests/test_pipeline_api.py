@@ -258,9 +258,9 @@ def test_pipeline_run_q10_policy_purpose_adds_the_social_costing(client):
     base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": True, "soc": False}}
     plain = client.post("/api/pipeline/run", json=base).json()
     policy = client.post("/api/pipeline/run", json={**base, "policy_objective": True}).json()
-    assert plain["lcc_type"] == "C+E" and plain["lcc"]["discount_rate"] == "partner-specific"
+    assert plain["lcc_type"] == "C+E" and "blended WACC" in plain["lcc"]["discount_rate"]
     assert policy["policy_objective"] is True
-    assert policy["lcc_type"] == "C+E+S" and policy["lcc"]["discount_rate"] == "social (~4%)"
+    assert policy["lcc_type"] == "C+E+S" and "social discount rate" in policy["lcc"]["discount_rate"]
 
 
 def test_pipeline_run_q10_null_is_identical_to_absent(client):

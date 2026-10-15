@@ -512,7 +512,7 @@ const it: Locale = {
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',
       help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
-      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando lo studio segue il sistema per più di 15 anni (D4.2 §9; i 15 anni sono un valore predefinito T4.6 senza fonte). Senza risposta, l\'anno di esercizio è quello dello studio, tranne con Q2 = D (alternative future), che vale come futuro. Il periodo di analisi è l\'arco di tempo coperto dallo studio; se è vuoto si usa la vita degli asset principali (D4.2 §9.1).',
+      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio, tranne con Q2 = D (alternative future), che vale come futuro. Il periodo di analisi è l\'arco di tempo coperto dallo studio. La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
       start: {
         label: 'In quale anno opera il sistema, o si assume che operi?',
         options: {
@@ -527,7 +527,7 @@ const it: Locale = {
         placeholder: 'es. 25; vuoto per la fotografia di un anno',
       },
       lifetime: {
-        label: 'Vita tecnica degli asset principali (usata solo se il periodo di analisi è vuoto)',
+        label: 'Vita tecnica degli asset principali (anche il loro periodo di ammortamento)',
       },
       placeholder: 'es. 20',
       unit: 'anni',
@@ -617,7 +617,7 @@ const it: Locale = {
     removeAria: 'Rimuovi {{key}}',
     hints: {
       slca_framework_override: "Imposta a 'absolute' per testare L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Anni (storico; usato se in Q8 periodo di analisi e vita sono vuoti); un orizzonte oltre la soglia (15 di default) aggiunge il background futuro a LCA e LCC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Anni (storico; usato se in Q8 la vita è vuota); un orizzonte oltre la soglia (15 di default) aggiunge il background futuro a LCA e LCC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Anni. L\'orizzonte di studio oltre il quale LCA e LCC richiedono il background futuro (lca_mc_21, lcc_hc_23, CIR-01). Default 15, la cifra che il D4.2 §9.3 dà senza fonte; se la cambi, giustificala nella carta metodologica',
       transport_sensitive: 'Booleano; true attiva CIR-03',

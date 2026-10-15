@@ -196,13 +196,13 @@ def future_background_threshold_years(case: Case) -> float:
 LOW_TRL = frozenset({Q6b.TRL5_6, Q6b.TRL_LT_5})
 
 
-def study_horizon_years(case: Case) -> float:
-    """Years the study follows the system: the analysis period (Q8b), else the
-    asset lifetime (Q8c / legacy override) — D4.2 §9.1 aligns the analysis period
-    with the technical lifetime when no period is set."""
-    if case.analysis_period_years is not None:
-        return float(case.analysis_period_years)
-    return asset_lifetime_years(case)
+def horizon_exceeds_threshold(case: Case) -> bool:
+    """D4.2 L01131 speaks of asset lifetimes, the study of its analysis period
+    (L01044 aligns the two): either one beyond the threshold is enough (owner
+    decision 2026-10-15, after Fable's review)."""
+    threshold = future_background_threshold_years(case)
+    period = case.analysis_period_years
+    return (period is not None and float(period) > threshold) or asset_lifetime_years(case) > threshold
 
 
 def operates_in_future(case: Case) -> bool:
@@ -218,12 +218,12 @@ def needs_future_background(case: Case) -> bool:
     """One study horizon for LCA and LCC (D4.2 L01261, L01277; D4.1 L01521):
     future background (SSP/RCP) when the system operates in a future year
     (D4.1 L01100, L01393), when the key technology is below TRL 7 (L01100), or
-    when the horizon runs beyond the threshold (D4.2 L01131, 15 years by
-    default, changeable by the analyst). Read by lca_mc_21,
+    when the analysis period or the asset lifetime runs beyond the threshold
+    (D4.2 L01131, 15 years by default, changeable by the analyst). Read by lca_mc_21,
     lcc_hc_23 and CIR-01 (owner decision 2026-10-15, replacing ex-ante OR
     lifetime)."""
     return (operates_in_future(case) or case.q6b in LOW_TRL
-            or study_horizon_years(case) > future_background_threshold_years(case))
+            or horizon_exceeds_threshold(case))
 
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
@@ -427,4 +427,21 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         if _method_is_off(case, node.get("method")):
             continue
         _activate_node(case, node)
+    _write_amortisation_period(case)
     return case
+
+
+# Capital goods are amortised over the technical lifetime of each asset, the same
+# period in LCA and LCC (D4.1 §6.3.3, §14.2.2; D4.2 §4.2 L00575). The Q8 asset
+# lifetime is the primary asset's; per-asset periods belong to the DCF.
+_AMORTISATION_FIELDS = (("lca_hc_18", "lca.capital_goods.amortization_period"),
+                        ("lcc_hc_07", "lcc.capital_goods.amortization_period"))
+
+
+def _write_amortisation_period(case: Case) -> None:
+    years = asset_lifetime_years(case)
+    if years <= 0:
+        return
+    for node_id, field in _AMORTISATION_FIELDS:
+        if node_id in case.activated_nodes:
+            _write(case, field, years)

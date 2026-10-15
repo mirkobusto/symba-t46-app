@@ -277,10 +277,32 @@ def test_technology_below_trl7_gives_future_background(schemas, q6b, expected):
     assert _future(_horizon_case(schemas, q2=Q2.A, q6b=q6b)) == (expected, expected)
 
 
-def test_analysis_period_wins_over_asset_lifetime(schemas):
+def test_either_analysis_period_or_asset_lifetime_beyond_threshold(schemas):
+    """D4.2 L01131 names the asset lifetime, the study its analysis period:
+    either one beyond 15 years is enough (owner decision 2026-10-15)."""
     assert _future(_horizon_case(schemas, q2=Q2.A, analysis_period_years=20)) == (True, True)
     short = _horizon_case(schemas, q2=Q2.A, analysis_period_years=10, asset_lifetime_years=40)
-    assert _future(short) == (False, False)
+    assert _future(short) == (True, True)
+    long_period = _horizon_case(schemas, q2=Q2.A, analysis_period_years=25, asset_lifetime_years=10)
+    assert _future(long_period) == (True, True)
+    both_short = _horizon_case(schemas, q2=Q2.A, analysis_period_years=10, asset_lifetime_years=12)
+    assert _future(both_short) == (False, False)
+
+
+@pytest.mark.parametrize("lifetime, expected", [(25, 25.0), (None, None)])
+def test_q8_asset_lifetime_is_the_amortisation_period(schemas, lifetime, expected):
+    """Same period in LCA and LCC (D4.1 §14.2.2); no Q8 answer, no number written."""
+    case = _horizon_case(schemas, q2=Q2.A, q6b=Q6b.TRL9, asset_lifetime_years=lifetime)
+    assert case.lca.get("capital_goods.amortization_period") == expected
+    assert case.lcc.get("capital_goods.amortization_period") == expected
+
+
+def test_amortisation_period_stays_out_of_a_switched_off_pillar(schemas):
+    case = _baseline_case(q2=Q2.A, q3=Q3(env=True), q6b=Q6b.TRL9, asset_lifetime_years=25)
+    l0_run(case, schemas)
+    run(case, schemas)
+    assert case.lca["capital_goods.amortization_period"] == 25.0
+    assert "capital_goods.amortization_period" not in case.lcc
 
 
 def test_ex_post_study_without_lifetime_stays_static(schemas):

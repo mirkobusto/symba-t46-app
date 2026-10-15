@@ -505,7 +505,7 @@ def test_q3_eco_false_branch_leaves_lcc_off(schemas):
 
 def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
     eco = Q3(env=True, eco=True)
-    assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"] == "partner-specific"
+    assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"].startswith("C-LCC: each partner's WACC")
     assert _activated(schemas, q1=Q1.B, q3=eco).lcc["counterparty_risk"] == "Percolation theory"
     assert "lcc_mc_16" not in _activated(schemas, q1=Q1.D, q3=eco).activated_nodes
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
@@ -789,6 +789,20 @@ def test_q9_unanswered_keeps_every_q1_result(schemas):
 # ---------------------------------------------------------------------------
 
 
+# LCC rules keyed on the LCC type (D4.2 §5.1, §9.3), not on Q1 (2026-10-15)
+_TYPE_CE = "C-LCC entity + E-LCC network"
+_TYPE_CES = "C-LCC entity + E-LCC network + S-LCC + NTF"
+_TYPE_C = "C-LCC only (one company, no network level: T4.6 design choice)"
+_RATE_CE = "C-LCC: each partner's WACC; network level: blended WACC weighted by investment share (D4.2 §9.3)"
+_RATE_CES = "C-LCC: each partner's WACC; network level: blended WACC; S-LCC: social discount rate (D4.2 §9.3)"
+_RATE_C = "C-LCC: the company's WACC or hurdle rate (D4.2 §9.3)"
+_ALLOC_CE = ("C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced "
+             "material, mirroring the CFF if the LCA follows PEF (D4.2 §5.1)")
+_ALLOC_CES = ("C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced "
+              "material; S-LCC: the same, with net tax factor and monetised externalities (D4.2 §5.1)")
+_ALLOC_C = "C-LCC: negotiated transfer price (D4.2 §5.1)"
+
+
 def _q10_case(schemas, q1, policy):
     case = _baseline_case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
     l0_run(case, schemas)
@@ -803,26 +817,26 @@ def test_q10_policy_purpose_moves_the_whole_lcc_not_only_the_label(schemas):
     after = _q10_case(schemas, Q1.A, True)
     assert before.lcc_type == LccType.C_LCC_PLUS_E_LCC
     assert (before.lcc["lcc_type"], before.lcc["discount_rate"], before.lcc["allocation_method"]) == (
-        "C-LCC entity + E-LCC network", "partner-specific", "negotiated")
+        _TYPE_CE, _RATE_CE, _ALLOC_CE)
     assert after.lcc_type == LccType.E_LCC_PLUS_S_LCC_PLUS_NTF
     assert (after.lcc["lcc_type"], after.lcc["discount_rate"], after.lcc["allocation_method"]) == (
-        "E-LCC + S-LCC + NTF", "social (~4%)", "NTF+monetized")
+        _TYPE_CES, _RATE_CES, _ALLOC_CES)
 
 
 def test_q10_no_policy_on_a_sector_study_drops_the_social_costing(schemas):
     case = _q10_case(schemas, Q1.C, False)
     assert case.lcc_type == LccType.C_LCC_PLUS_E_LCC
     assert case.lcc["lcc_type"] == "C-LCC entity + E-LCC network"
-    assert "lcc_mc_12" not in case.activated_nodes     # no social rate without the S-LCC
-    assert "lcc_mc_07" not in case.activated_nodes
+    assert case.lcc["discount_rate"] == _RATE_CE      # no social rate without the S-LCC
+    assert case.lcc["allocation_method"] == _ALLOC_CE
 
 
 def test_q10_unanswered_keeps_every_q1_result(schemas):
-    expected = {
-        Q1.A: ("C-LCC entity + E-LCC network", "partner-specific", "negotiated"),
-        Q1.B: ("C-LCC entity + E-LCC network", "blended", "system expansion"),
-        Q1.C: ("E-LCC + S-LCC + NTF", "social (~4%)", "NTF+monetized"),
-        Q1.D: ("C-LCC only", "partner-specific", "physical"),
+    expected = {   # Q9 and Q10 unanswered: Q1 is the fallback for situation and policy
+        Q1.A: (_TYPE_CE, _RATE_CE, _ALLOC_CE),
+        Q1.B: (_TYPE_CE, _RATE_CE, _ALLOC_CE),
+        Q1.C: (_TYPE_CES, _RATE_CES, _ALLOC_CES),
+        Q1.D: (_TYPE_C, _RATE_C, _ALLOC_C),
     }
     for q1, (type_text, rate, allocation) in expected.items():
         case = _q10_case(schemas, q1, None)

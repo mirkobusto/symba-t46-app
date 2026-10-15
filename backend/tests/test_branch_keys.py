@@ -223,9 +223,8 @@ def _overlapping(node: dict) -> bool:
 _OVERLAPPING_NODES = {
     "lca_hc_08", "lca_mc_05", "lca_mc_32", "lca_mc_36",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_05", "slca_mc_04",
-    # By design (Q10): `lcc_type=C+E+S` is listed first and wins over the Q1
-    # branches, so a policy purpose gives Q1=A the social costing values.
-    "lcc_mc_07", "lcc_mc_12",
+    # lcc_mc_07 and lcc_mc_12 left this list on 2026-10-15: they now branch on
+    # the LCC type only (D4.2 §5.1, §9.3), one branch per type, no overlap.
 }
 
 

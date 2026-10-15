@@ -1839,8 +1839,8 @@
       "default_value": {
         "q3.eco=false": "all LCC deactivated",
         "lcc_type=C+E": "C-LCC entity + E-LCC network",
-        "lcc_type=C+E+S": "E-LCC + S-LCC + NTF",
-        "lcc_type=C-LCC": "C-LCC only"
+        "lcc_type=C+E+S": "C-LCC entity + E-LCC network + S-LCC + NTF",
+        "lcc_type=C-LCC": "C-LCC only (one company, no network level: T4.6 design choice)"
       },
       "override_path": "q1, q3",
       "lifecycle_layer": "L2",
@@ -1949,7 +1949,6 @@
       "category": "DERIVED",
       "trigger_q": [
         "lcc_type",
-        "q1",
         "q3"
       ],
       "trigger_logic": "discriminative",
@@ -1957,12 +1956,11 @@
       "field": "lcc.allocation_method",
       "field_status": null,
       "default_value": {
-        "lcc_type=C+E+S": "NTF+monetized",
-        "q1=A": "negotiated",
-        "q1=B": "system expansion",
-        "q1=D": "physical"
+        "lcc_type=C-LCC": "C-LCC: negotiated transfer price (D4.2 §5.1)",
+        "lcc_type=C+E": "C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced material, mirroring the CFF if the LCA follows PEF (D4.2 §5.1)",
+        "lcc_type=C+E+S": "C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced material; S-LCC: the same, with net tax factor and monetised externalities (D4.2 §5.1)"
       },
-      "override_path": "q1, advanced",
+      "override_path": "lcc_type, advanced",
       "lifecycle_layer": "L2"
     },
     {
@@ -2056,19 +2054,18 @@
       "source_section": "D4.2 §9.3",
       "category": "DERIVED",
       "trigger_q": [
-        "lcc_type",
-        "q1"
+        "lcc_type"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lcc.discount_rate",
       "field_status": null,
       "default_value": {
-        "lcc_type=C+E+S": "social (~4%)",
-        "q1 in {A,D}": "partner-specific",
-        "q1=B": "blended"
+        "lcc_type=C-LCC": "C-LCC: the company's WACC or hurdle rate (D4.2 §9.3)",
+        "lcc_type=C+E": "C-LCC: each partner's WACC; network level: blended WACC weighted by investment share (D4.2 §9.3)",
+        "lcc_type=C+E+S": "C-LCC: each partner's WACC; network level: blended WACC; S-LCC: social discount rate (D4.2 §9.3)"
       },
-      "override_path": "q1, advanced",
+      "override_path": "lcc_type, advanced",
       "lifecycle_layer": "L2"
     },
     {

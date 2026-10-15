@@ -1,5 +1,11 @@
 # SYMBA T4.6 — Phase 1 Node Mapping v2 (Sprint 4 ingestion-ready)
 
+> **Read this first (2026-10-16).** This is the May 2026 design document. The engine has moved on since:
+> the current value of every node is in `backend/app/schemas/phase1_nodes.json`, the current rules are in
+> `backend/app/schemas/cross_method_rules.json`, and the state of the project is in the repository's `CLAUDE.md`.
+> Where this document and the schemas disagree, the schemas win. **§0 lists what changed after May 2026** and which
+> sections below it supersedes; rows that no longer hold are marked *superseded — see §0*.
+
 **Status**: final consolidation. Supersedes v1.
 
 **Purpose**: complete schema for backend Sprint 4 ingestion. Includes:
@@ -10,6 +16,28 @@
 - JSON-exportable schema for backend.
 - Sector overlay (Q6a) clarification.
 - Multi-Q precedence logic for DERIVED nodes.
+
+---
+
+## §0 Changes after May 2026
+
+Each row is a change to the decision logic; section numbers are those of this document. Deliverable sections
+are cited on the FINAL v2 numbering (PR #109, #111).
+
+| when / PR | change | supersedes here | current source |
+|---|---|---|---|
+| PR #54 | `asset_lifetime` read from `case.advanced` | §4.2 CIR-01, §5.1 | `l2_validate.py` |
+| 2026-08-30 | nodes of a method switched off by Q3 are not activated; L2 rules shown as obligations to document (`applicable_rules`), not as errors | §5.1, §10.2 | `activate._method_is_off`, CLAUDE.md |
+| PR #89 (audit I-01…I-19) | optional Q8–Q10, `Case.warnings`, DCF section `flow_classification`; explicit transport and break-even for every Q7 | §6, §10.2 | CLAUDE.md, `dcf_schema.json` |
+| PR #112 | reference scenario type per Q2: A → HNSRS, B/C → CNSRS aligned with the study horizon, D → both (D4.1 §11.1) | §5.1 MC-26 | `lca_mc_26` |
+| PR #113, #120, #121 | one study horizon for LCA and LCC: future background if the operating year is future, TRL < 7, or analysis period or asset lifetime above a threshold (default 15 y, `advanced.future_background_threshold_years`); Q8 in three parts | §4.2 CIR-01, §5.1 HC-23 and MC-21 | CIR-01, `needs_future_background` |
+| PR #114, #115 | Q9 required and primary for the ILCD situation (micro → A, structural → B with market screening, none → C1, corporate report → C2); Q1 only a fallback; "Situation A multi-actor" retired; BLOCK C2 + E-LCC follows Situation C2 | §3, §6 T1 | `l0_compute.py` |
+| PR #116, #119 | LCC per type: `lcc_mc_01/07/12` keyed on `lcc_type`; without the environmental dimension no E-LCC (types `C+N`, `C+N+S`) | §6 TRIG-01 | `l0_compute.py`, `LccType` |
+| PR #117, #118 | Q2 asks whether the studied exchanges already take place; per flow, optional "sellable elsewhere" (Freedom-to-Act) and D4.1 Part 2 sector, notes only | §10.2 | `Flow`, `Case.warnings` |
+| PR #120 | unsourced figures become ranges or parameters (Monte Carlo 1,000–10,000 by convergence, 1–5 % set by the analyst, no 20-year amortisation default) | — | `lcc_hc_07`, `lcc_hc_24`, `lca_hc_18` |
+| PR #123 | `lca_hc_19` (four frontier categories of D4.1 §10.3.5) and `lca_mc_31` (three levels, §15.1) rewritten on the text | §4.2 CIR-06, §7 | the two nodes |
+| PR #124 | `lcc_mc_03/04/08/16/18` rewritten on D4.2: valuation per LCC level, node-removal scenarios, no ECOF/IEE without LCA; `contested` key removed | §5.3 | the five nodes |
+| PR #125 | `lca_mc_05/06/23/27` and `lcc_mc_05` rewritten on the text: organizational boundary with declared coverage, economic boundary per LCC type, background and reference content per ILCD situation (C1, C2 included), `lca_mc_23` declared a T4.6 choice | §5.1 MC-27 | the five nodes |
 
 ---
 
@@ -48,7 +76,7 @@ The 4 forbidden trigger combinations from Kimi UNIFIED Section 2.1. These fire B
 
 | Block ID | Trigger combination | User-facing message |
 |---|---|---|
-| **block_C2_plus_E-LCC** | Q1=D (corporate ESG, ILCD C2) AND `lcc_type` includes E-LCC | "Corporate accounting (Q1=D) requires allocation-based LCC. Combination with E-LCC (system expansion) is forbidden by ILCD framework. Either change Q1 to A/B/C/E, or drop E-LCC from your LCC type." |
+| **block_C2_plus_E-LCC** | Q1=D (corporate ESG, ILCD C2) AND `lcc_type` includes E-LCC — *superseded — see §0: follows Situation C2* | "Corporate accounting (Q1=D) requires allocation-based LCC. Combination with E-LCC (system expansion) is forbidden by ILCD framework. Either change Q1 to A/B/C/E, or drop E-LCC from your LCC type." |
 | **block_anyQ1_plus_AbsoluteSLCA** | Q3.SOC=true AND user explicitly selects "Absolute" S-LCA mode (advanced override) | "S-LCA in Industrial Symbiosis context must be Comparative (default). Absolute mode disables IS-specific methodology. Select Comparative S-LCA or remove SOC from Q3." |
 | **block_Q3_emptySelection** | Q3 = no checkboxes selected (all three ENV/ECO/SOC false) | "Select at least one sustainability dimension (Environmental, Economic, or Social) to proceed." |
 | **block_Q1A_plus_Q5e** | Q1=A (specific exchange) AND Q5=e (aggregated/black-box) for all flows | "A specific exchange between two companies cannot be analyzed as black-box aggregated. Specify the nature of each flow (a/b/c/d) in Q5, or change Q1 to B/C." |
@@ -90,10 +118,10 @@ All rule names preserved verbatim from Kimi `IS_Decision_Engine_UNIFIED.md` §2.
 
 | Rule ID | Activation condition | What it activates |
 |---|---|---|
-| CIR-01 | Q2 ∈ {C, D} AND `asset_lifetime > 15y` | Dynamic SSP/RCP scenarios identical across LCA and LCC |
+| CIR-01 | Operating year in the future OR Q6b < TRL 7 OR analysis period > threshold OR asset lifetime > threshold (default 15 y; was Q2 ∈ {C, D} AND `asset_lifetime > 15y`, see §0) | Dynamic SSP/RCP scenarios identical across LCA and LCC |
 | CIR-02 | Q2 ∈ {B, C, D} (any ex-ante component) | Pedigree Matrix scoring applies to both LCA and LCC |
 | CIR-03 | Q7 ∈ {B, C, D} OR `transport-sensitive exchanges` | GIS-coupled spatial modeling activates |
-| CIR-04 | Q1=B AND `network_nodes >= 3 AND interdependent_flows == true` | Percolation theory counterparty risk activates |
+| CIR-04 | Q1=B AND `network_nodes >= 3 AND interdependent_flows == true` | Percolation theory counterparty risk activates. **Never fires**: `Case` has neither attribute (I-17); if it did, it would overwrite `lcc_mc_16` (node-removal scenario for each critical node) |
 | **CIR-05** | **Q4 = D** | **PEF CFF in LCA triggers NTF + monetized externality in LCC** |
 | CIR-06 | `frontier_categories_active == true` | LCA frontier categories trigger corresponding LCC externalities and S-LCA indicator adaptation |
 | CIR-07 | Q6b ≤ TRL 7 | Engineering scale-up frameworks (Six-Tenths, Lang, CEPCI) apply identically to LCA and LCC |
@@ -157,16 +185,16 @@ These are the dominant pattern: nodes activated only when ALL listed Q's match.
 | Node | Trigger | Logic |
 |---|---|---|
 | LCA HC-14 (MC mandatory) | Q4 ∈ {C,D,E} OR Q6b<TRL9 | DISJUNCTIVE OR |
-| LCC HC-23 (SSP/RCP) | Q2 ∈ {C,D} AND `asset_lifetime > 15y` | CONJUNCTIVE AND |
-| LCA MC-21 (background futurisation) | Q2=D AND `asset_lifetime > 15y` | CONJUNCTIVE AND |
+| LCC HC-23 (SSP/RCP) | Q2 ∈ {C,D} AND `asset_lifetime > 15y` — *superseded — see §0* | CONJUNCTIVE AND |
+| LCA MC-21 (background futurisation) | Q2=D AND `asset_lifetime > 15y` — *superseded — see §0* | CONJUNCTIVE AND |
 | LCC HC-04 (FE = LCA FU) | Q3.ENV=true AND `lcc_type ∈ {E-LCC, C+E, C+E+S}` | CONJUNCTIVE AND |
 | LCC HC-05 (physical boundary) | same as HC-04 | CONJUNCTIVE AND |
 | LCC HC-27 (LCA-LCC alignment) | Q3.ENV=true AND Q3.ECO=true | CONJUNCTIVE AND |
 | LCC MC-17 (matrix integration) | Q3.ENV=true AND Q3.ECO=true | CONJUNCTIVE AND |
 | LCC HC-38 (MFCA bridge) | Q5 includes 'b' OR Q3 = ECO-only | DISJUNCTIVE OR |
 | S-LCA HC-06 (shared FU) | Q3.SOC=true AND (Q3.ENV OR Q3.ECO) | CONJUNCTIVE AND with disjunctive sub-clause |
-| LCA MC-26 (reference scenario type) | Q2=A→HNSRS; Q2=C→CNSRS; Q2=D→both | DISCRIMINATIVE (per Q2 value) |
-| LCA MC-27 (reference scenario content) | (Q1=A→alt-disposal+market) OR (Q1=B→hypothetical no-IS) OR (Q1=C→BAU national) | DISCRIMINATIVE (per Q1 value) |
+| LCA MC-26 (reference scenario type) | Q2=A→HNSRS; Q2=C→CNSRS; Q2=D→both — *superseded — see §0* | DISCRIMINATIVE (per Q2 value) |
+| LCA MC-27 (reference scenario content) | (Q1=A→alt-disposal+market) OR (Q1=B→hypothetical no-IS) OR (Q1=C→BAU national) — *superseded — see §0* | DISCRIMINATIVE (per Q1 value) |
 
 ### 5.2 Default precedence rule
 
@@ -199,8 +227,8 @@ The three "trigger" nodes T1 (LCA), TRIG-01 (LCC), T-01 (S-LCA) in Kimi's Phase 
 
 | Trigger | Source Q | Derivation logic |
 |---|---|---|
-| **T1 (LCA ILCD Situation)** | Q1, Q2 | Q1=A→A; Q1=B→A; Q1=C→B; Q1=D→C2; Q1=E→C1 (deterministic) |
-| **TRIG-01 (LCC Type)** | Q1, Q3 | Q1∈{A,B,E} AND Q3.ECO→C-LCC entity + E-LCC network; Q1=C AND Q3.ECO→E-LCC + S-LCC + NTF; Q1=D AND Q3.ECO→C-LCC only; Q3.ECO=false→all LCC nodes deactivated |
+| **T1 (LCA ILCD Situation)** | Q1, Q2 | Q1=A→A; Q1=B→A; Q1=C→B; Q1=D→C2; Q1=E→C1 (deterministic) — *superseded — see §0: Q9 decides, Q1 is the fallback* |
+| **TRIG-01 (LCC Type)** | Q1, Q3 | Q1∈{A,B,E} AND Q3.ECO→C-LCC entity + E-LCC network; Q1=C AND Q3.ECO→E-LCC + S-LCC + NTF; Q1=D AND Q3.ECO→C-LCC only; Q3.ECO=false→all LCC nodes deactivated — *superseded — see §0: Situation C2, Q10 and Q3.ENV decide (types C+E, C+E+S, C-LCC, C+N, C+N+S)* |
 | **T-01 (S-LCA activation)** | Q3 | Q3.SOC=true→all S-LCA nodes active; Q3.SOC=false→all S-LCA nodes deactivated |
 
 These are NOT additional questions. The user never sees them. They are computed once Q1-Q3 are answered and used to drive subsequent DERIVED nodes.
@@ -222,7 +250,7 @@ Q6a (sector) drives sector-specific guidance from D4.1 Part 2. **Status of D4.1 
 - Q6a activates a **sector overlay layer** that is loaded on top of the 186 base nodes.
 - Sector overlay rules are **additive**, not replacements: they refine the LCA configuration without changing the underlying Phase 1 logic.
 - Examples of sector-specific rules (extracted from D4.1 Part 2 review, not all enumerated):
-  - **Bio-based polymers**: microplastic frontier category mandatory (LCA HC-19 specialization)
+  - **Bio-based polymers**: frontier categories of D4.1 §10.3.5 where the network implicates the flow — marine litter and plastic leakage; iLUC to be treated as mandatory for high-TRL bio-based assessments (LCA HC-19, rewritten in PR #123)
   - **Wastewater/biofactories**: AWARE water stress mandatory (LCA MC-30)
   - **Energy/bioenergy**: iLUC mandatory; biochar/soil sequestration consideration
   - **Cement/construction**: carbonation consideration

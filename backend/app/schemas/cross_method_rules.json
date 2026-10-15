@@ -525,7 +525,7 @@
       "trigger_condition_raw": "Q6b < TRL 7",
       "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5']",
       "actions": [
-        "lca.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']",
+        "lca.scale_up_framework IN ['Stoichiometric recalculation','Lang-factor equipment mapping','Batch-to-continuous conversion','Learning curves']",
         "lcc.scale_up_framework IN ['Six-Tenths','Lang','CEPCI']"
       ],
       "source_nodes": [

@@ -457,12 +457,12 @@ def test_unknown_branch_key_raises_instead_of_being_skipped():
 def test_q4_in_set_and_includes(schemas):
     """lca_hc_13 `q4 in {C,D,E}`, lca_mc_25 `q4 includes 'D'`."""
     c = _activated(schemas, q4={Q4.E})
-    assert c.lca["uncertainty.pedigree"] == "Pedigree Matrix mandatory"
-    assert c.lca["lcia_method"] == "ReCiPe 2016 hierarchic + EF 3.1 backup"
+    assert c.lca["uncertainty.pedigree"].startswith("Pedigree Matrix mandatory")
+    assert c.lca["lcia_method"].startswith("Midpoint methods chosen per impact category")   # D4.1 L01399
     d = _activated(schemas, q4={Q4.D})
-    assert d.lca["lcia_method"] == "EF 3.1 + ReCiPe backup"
+    assert d.lca["lcia_method"].startswith("EF method, the PEF reference")
     a = _activated(schemas, q4={Q4.A})
-    assert a.lca["uncertainty.pedigree"] == "Pedigree Matrix recommended"
+    assert a.lca["uncertainty.pedigree"].startswith("Pedigree Matrix recommended: T4.6 divergence")
     # lcc_hc_29: D4.2 §12 asks for the three reporting layers "without
     # exception", so they are mandatory whatever Q4 says (audit item I-12a).
     layers = lambda case: _activated(schemas, q3=Q3(env=True, eco=True), **case).report["layers"]  # noqa: E731
@@ -472,8 +472,9 @@ def test_q4_in_set_and_includes(schemas):
 
 def test_gsa_tier_was_dead_and_now_follows_q4(schemas):
     """lca_mc_32 had only unreadable keys and no default: it never activated."""
-    assert _activated(schemas, q4={Q4.A}).lca["gsa_tier"] == "Morris first"
-    assert _activated(schemas, q4={Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
+    morris_sobol = "Morris screening, then Sobol on the reduced set"     # D4.1 L01471
+    assert morris_sobol in _activated(schemas, q4={Q4.A}).lca["gsa_tier"]
+    assert "T4.6 tightening" in _activated(schemas, q4={Q4.E}).lca["gsa_tier"]
     assert "lca_mc_32" not in _activated(schemas, q4=set()).activated_nodes
 
 
@@ -483,7 +484,7 @@ def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
     {A,E} gets the full Sobol cascade; for the review a public comparative
     assertion (C) wins, since D4.1 §15.3.4 makes its panel mandatory (L01599).
     The exhaustive version of this is in test_branch_keys.py."""
-    assert _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
+    assert "T4.6 tightening" in _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"]
     mandatory = "Independent panel of at least three experts, mandatory"
     assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"].startswith(mandatory)
     assert _activated(schemas, q4={Q4.B, Q4.C}).review["scope"].startswith(mandatory)
@@ -493,18 +494,16 @@ def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
 
 
 def test_q6b_set_and_ordinal_keys(schemas):
-    """lca_hc_18 `q6b=TRL7-8` / `q6b<TRL7`; lca_mc_10 `q6b<TRL7`."""
-    mid = _activated(schemas, q6b=Q6b.TRL7_8)
-    assert "lca_hc_18" in mid.activated_nodes and "lca_mc_10" not in mid.activated_nodes
-    # Scale-up frameworks apply below TRL 7 only (I-11a), so TRL7-8 gets full
-    # inclusion without them.
-    assert mid.lca["capital_goods.included"] == "Capital goods full inclusion"
+    """lca_hc_18 / lca_mc_10: capital goods included and amortised at every TRL
+    (D4.1 §6.3.3, L00798); below TRL 7 the Lang-factor estimate is added (§9.3.5)."""
+    included = "Significant capital goods and infrastructure unique to the IS scenario should be included"
+    for q6b in (Q6b.TRL9, Q6b.TRL7_8):
+        case = _activated(schemas, q6b=q6b)
+        assert {"lca_hc_18", "lca_mc_10"} <= set(case.activated_nodes)
+        assert case.lca["capital_goods.included"].startswith(included)
+        assert "Lang" not in case.lca["capital_goods.included"]
     low = _activated(schemas, q6b=Q6b.TRL5_6)
-    assert "lca_mc_10" in low.activated_nodes
-    assert low.lca["capital_goods.included"] == "full + scale-up frameworks"  # lca_mc_10 writes last
-    mature = _activated(schemas, q6b=Q6b.TRL9)
-    assert "lca_hc_18" in mature.activated_nodes  # q6b=TRL9 already worked
-    assert mature.lca["capital_goods.included"] == "amortized"
+    assert "Lang-factor multipliers" in low.lca["capital_goods.included"]
 
 
 @pytest.mark.parametrize(
@@ -1002,3 +1001,16 @@ def test_reference_scenario_type_follows_the_study_timing(schemas, q2, starts):
 def test_reference_scenario_ex_ante_is_aligned_with_the_time_horizon(schemas):
     for q2 in (Q2.B, Q2.C, Q2.D):
         assert "CNSRS aligned with the" in _reference_type(schemas, q2)
+
+
+def test_aware_follows_water_flows_and_integration_needs_an_e_lcc(schemas):
+    """lca_mc_30: D4.1 L01401 keys AWARE on water exchanges, so a flow declared in the
+    wastewater chapter switches it on whatever the case sector. lca_mc_03 / lcc_mc_17:
+    an LCI-based E-LCC (D4.1 §14.3.2) needs an E-LCC, which a C-LCC alone (C2) lacks."""
+    water = Flow(id="w", name="Process water", q5=Q5.c, sector=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES)
+    assert "lca_mc_30" in _activated(schemas, q6a=Q6a.CEMENT_CONSTRUCTION, flows=[water]).activated_nodes
+    assert "lca_mc_30" not in _activated(schemas, q6a=Q6a.CEMENT_CONSTRUCTION).activated_nodes
+    network = _activated(schemas, q1=Q1.A, q3=Q3(env=True, eco=True))
+    assert network.lca["lcc_integration_mode"].startswith("LCI-based E-LCC")
+    company = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True))
+    assert not {"lca_mc_03", "lcc_mc_17"} & set(company.activated_nodes)

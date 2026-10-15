@@ -506,9 +506,10 @@ def _action_cir_07(c: Case) -> None:
     # The JSON encodes this as an `IN` membership constraint rather than
     # an assignment; we record the allowed set so downstream selection
     # can pick from it.
-    allowed = ["Six-Tenths", "Lang", "CEPCI"]
-    _write(c, "lca.scale_up_framework", allowed)
-    _write(c, "lcc.scale_up_framework", allowed)
+    # LCA: the inventory techniques of D4.1 §9.3.5; LCC: the cost tools of D4.2 §7.3.
+    _write(c, "lca.scale_up_framework", ["Stoichiometric recalculation", "Lang-factor equipment mapping",
+                                         "Batch-to-continuous conversion", "Learning curves"])
+    _write(c, "lcc.scale_up_framework", ["Six-Tenths", "Lang", "CEPCI"])
 
 
 def _action_cir_08(c: Case) -> None:

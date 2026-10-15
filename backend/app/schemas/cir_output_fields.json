@@ -120,9 +120,9 @@
       "field": "lca.scale_up_framework",
       "type": "string",
       "set_by_cir": "CIR-07",
-      "default_value_when_set": "Six-Tenths|Lang|CEPCI",
+      "default_value_when_set": "Stoichiometric recalculation|Lang-factor equipment mapping|Batch-to-continuous conversion|Learning curves",
       "trigger_summary": "Q6b < TRL 7",
-      "notes": "Engineering scale-up framework for low-TRL inventory. lca_mc_20 sets the activation flag; CIR-07 enforces same framework family for LCC."
+      "notes": "Inventory scale-up techniques of D4.1 §9.3.5 (L01104-L01110) for a technology below TRL 7, the same list lca_mc_20 names. Six-Tenths and CEPCI are D4.2 cost tools and stay on lcc.scale_up_framework (2026-10-15)."
     },
     {
       "field": "lcc.scale_up_framework",
@@ -130,7 +130,7 @@
       "set_by_cir": "CIR-07",
       "default_value_when_set": "Six-Tenths|Lang|CEPCI",
       "trigger_summary": "Q6b < TRL 7",
-      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default is set by lcc_hc_15 when Q6b<=TRL7; CIR-07 enforces same framework family for cross-method coherence with lca.scale_up_framework. Read order at runtime: node default first, CIR override last."
+      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default is set by lcc_hc_15 when Q6b<=TRL7; CIR-07 writes the D4.2 cost tools (Six-Tenths rule, Lang factors, CEPCI, D4.2 §7.3, L00877-L00881); the LCA gets the D4.1 inventory techniques instead (2026-10-15). Read order at runtime: node default first, CIR override last."
     },
     {
       "field": "lca.report.failure_modes",

@@ -238,7 +238,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # disjunctive
     "lca_hc_14": lambda c: _q4_intersects(c, {"C", "D", "E"}) or (c.q6b is not None and c.q6b != Q6b.TRL9),
     # conjunctive
-    "lca_mc_03": lambda c: c.q3.eco and c.q3.env,
+    "lca_mc_03": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,   # an E-LCC to integrate (D4.1 §14.3.2)
     # simple
     "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     # disjunctive — future operating year OR TRL < 7 OR horizon above the threshold
@@ -246,7 +246,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
-    "lca_mc_30": lambda c: c.q6a in _WASTEWATER_SECTORS,
+    "lca_mc_30": lambda c: c.q6a in _WASTEWATER_SECTORS or any(f.sector in _WASTEWATER_SECTORS for f in c.flows),
     # simple
     "lca_mc_33": lambda c: c.q3.eco,
     # conjunctive
@@ -273,7 +273,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # per_flow simple
     "lcc_hc_38": lambda c, f: f.q5 == Q5.b,   # the eco-only branch had no basis (2026-10-15)
     # conjunctive
-    "lcc_mc_17": lambda c: c.q3.env and c.q3.eco,
+    "lcc_mc_17": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,
     "slca_hc_06": lambda c: c.q3.soc and (c.q3.env or c.q3.eco),
     "slca_hc_09": lambda c: c.q3.soc and (c.q3.env or c.q3.eco),
     # simple

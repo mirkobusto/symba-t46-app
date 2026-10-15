@@ -44,7 +44,7 @@ export type IlcdSituation =
   | 'ILCD Situation C1'
   | 'ILCD Situation C2'
 
-export type LccType = 'deactivated' | 'C+E' | 'C+E+S' | 'C-LCC'
+export type LccType = 'deactivated' | 'C+E' | 'C+E+S' | 'C-LCC' | 'C+N' | 'C+N+S'
 export type SlcaActivationState = 'active' | 'deactivated'
 export type StudyPhase = 'screening' | 'detailed'
 

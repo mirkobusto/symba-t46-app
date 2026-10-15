@@ -1141,6 +1141,8 @@
       "default_value": {
         "q3.eco=false": "all LCC nodes deactivated",
         "ilcd=C2 AND q3.eco=true": "C-LCC only (T4.6 design choice: one company, no network level)",
+        "q3.env=false AND q3.eco=true AND q10=yes (unanswered: q1=C)": "C-LCC entity + network consolidation + S-LCC + NTF; no E-LCC and no monetised externalities without a parallel LCA",
+        "q3.env=false AND q3.eco=true": "C-LCC entity + network consolidation (Entry-to-Gate); no E-LCC without a parallel LCA",
         "q10=yes (unanswered: q1=C) AND q3.eco=true": "C-LCC entity + E-LCC network + S-LCC + NTF",
         "otherwise, q3.eco=true": "C-LCC entity + E-LCC network"
       },
@@ -1840,7 +1842,9 @@
         "q3.eco=false": "all LCC deactivated",
         "lcc_type=C+E": "C-LCC entity + E-LCC network",
         "lcc_type=C+E+S": "C-LCC entity + E-LCC network + S-LCC + NTF",
-        "lcc_type=C-LCC": "C-LCC only (one company, no network level: T4.6 design choice)"
+        "lcc_type=C-LCC": "C-LCC only (one company, no network level: T4.6 design choice)",
+        "lcc_type=C+N": "C-LCC entity + network consolidation (Entry-to-Gate); no E-LCC without a parallel LCA (D4.2 §4.1)",
+        "lcc_type=C+N+S": "C-LCC entity + network consolidation + S-LCC + NTF (Cradle-to-Grave); no E-LCC and no monetised externalities without a parallel LCA (D4.2 §4.1, §11.2)"
       },
       "override_path": "q1, q3",
       "lifecycle_layer": "L2",
@@ -1958,7 +1962,9 @@
       "default_value": {
         "lcc_type=C-LCC": "C-LCC: negotiated transfer price (D4.2 §5.1)",
         "lcc_type=C+E": "C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced material, mirroring the CFF if the LCA follows PEF (D4.2 §5.1)",
-        "lcc_type=C+E+S": "C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced material; S-LCC: the same, with net tax factor and monetised externalities (D4.2 §5.1)"
+        "lcc_type=C+E+S": "C-LCC: negotiated transfer price; E-LCC: system expansion at the market price of the displaced material; S-LCC: the same, with net tax factor and monetised externalities (D4.2 §5.1)",
+        "lcc_type=C+N": "C-LCC: negotiated transfer price, which cancels out in the network consolidation; the avoided costs show in the comparison with the baseline (D4.2 §5.1, §8.3 Step 4). No E-LCC without a parallel LCA",
+        "lcc_type=C+N+S": "C-LCC: negotiated transfer price, cancelled in the network consolidation; S-LCC: system expansion at the market price of the displaced material, with net tax factor; externalities not monetised without a parallel LCA (D4.2 §5.1, §11.2)"
       },
       "override_path": "lcc_type, advanced",
       "lifecycle_layer": "L2"
@@ -2063,7 +2069,9 @@
       "default_value": {
         "lcc_type=C-LCC": "C-LCC: the company's WACC or hurdle rate (D4.2 §9.3)",
         "lcc_type=C+E": "C-LCC: each partner's WACC; network level: blended WACC weighted by investment share (D4.2 §9.3)",
-        "lcc_type=C+E+S": "C-LCC: each partner's WACC; network level: blended WACC; S-LCC: social discount rate (D4.2 §9.3)"
+        "lcc_type=C+E+S": "C-LCC: each partner's WACC; network level: blended WACC; S-LCC: social discount rate (D4.2 §9.3)",
+        "lcc_type=C+N": "C-LCC: each partner's WACC; network consolidation: blended WACC weighted by investment share (D4.2 §9.3)",
+        "lcc_type=C+N+S": "C-LCC: each partner's WACC; network consolidation: blended WACC; S-LCC: social discount rate (D4.2 §9.3)"
       },
       "override_path": "lcc_type, advanced",
       "lifecycle_layer": "L2"

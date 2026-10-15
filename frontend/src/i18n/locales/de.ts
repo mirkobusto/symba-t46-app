@@ -662,6 +662,14 @@ const de: Locale = {
         short: 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
         detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
       },
+      'C+N': {
+        short: 'Konventionelle LCC je Partner, auf Netzwerkebene konsolidiert. Keine ökologische LCC: Der Fall hat keine Ökobilanz, mit der sie konsistent sein könnte.',
+        detail: 'Zuerst die realen Zahlungsströme jedes Unternehmens, dann dieselben Konten über das Netzwerk summiert, wobei sich die Zahlungen zwischen Partnern aufheben. Die ökologische LCC entfällt, weil D4.2 sie auf der Systemgrenze einer parallelen Ökobilanz aufbaut und der Fall keine Umweltdimension bewertet. Aktivieren Sie die Umweltdimension in Q3, wenn die Studie die Sicht der Wertschöpfungskette braucht.',
+      },
+      'C+N+S': {
+        short: 'Konventionelle LCC je Partner und für das Netzwerk, plus gesellschaftliche LCC mit dem Net Tax Factor. Ohne Ökobilanz werden Umweltwirkungen nicht monetarisiert.',
+        detail: 'Unternehmens- und Netzwerkkonten wie oben, plus die Wohlfahrtssicht, die eine öffentliche Entscheidung braucht: Steuern und Subventionen über den Net Tax Factor umgerechnet, ein sozialer Diskontsatz und eine Systemgrenze bis zum Lebensende. Es fehlt die Monetarisierung der Umweltwirkungen, die die Ergebnisse einer parallelen Ökobilanz erfordert: Aktivieren Sie die Umweltdimension in Q3, um sie hinzuzufügen.',
+      },
     },
     slca: {
       'active': {

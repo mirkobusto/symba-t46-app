@@ -173,6 +173,10 @@ class LccType(StrEnum):
     C_LCC_PLUS_E_LCC = "C+E"              # Q1∈{A,B,E} AND Q3.ECO=true
     E_LCC_PLUS_S_LCC_PLUS_NTF = "C+E+S"   # Q1=C AND Q3.ECO=true
     C_LCC_ONLY = "C-LCC"                  # Q1=D AND Q3.ECO=true
+    # Q3.ENV=false: no parallel LCA, so no E-LCC (D4.2 §4.1, L00551). The network
+    # level is the Entry-to-Gate consolidation of the C-LCC (L00547, L00601).
+    C_LCC_PLUS_NETWORK = "C+N"
+    C_LCC_PLUS_NETWORK_PLUS_S_LCC = "C+N+S"  # + S-LCC and NTF, no monetised externalities (L01293)
 
 
 class SlcaActivationState(StrEnum):

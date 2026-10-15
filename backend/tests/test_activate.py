@@ -500,7 +500,19 @@ def test_q3_eco_false_branch_leaves_lcc_off(schemas):
     assert "lcc_mc_01" not in off.activated_nodes
     on = _activated(schemas, q1=Q1.B, q3=Q3(env=True, eco=True))
     assert on.lcc["lcc_type"] == "C-LCC entity + E-LCC network"
-    assert _activated(schemas, q1=Q1.E, q3=Q3(eco=True)).lcc["lcc_type"] == "C-LCC entity + E-LCC network"
+    assert _activated(schemas, q1=Q1.E, q3=Q3(eco=True)).lcc["lcc_type"].startswith(
+        "C-LCC entity + network consolidation")          # no LCA, no E-LCC
+
+
+def test_no_lca_switches_off_the_e_lcc_rules(schemas):
+    """Without env the type is C+N / C+N+S: the E-LCC nodes stay off by themselves."""
+    eco = _activated(schemas, q1=Q1.A, q3=Q3(eco=True, soc=True))
+    assert eco.lcc_type.value == "C+N"
+    assert not {"lcc_hc_04", "lcc_hc_05"} & set(eco.activated_nodes)
+    assert eco.lcc["allocation_method"].startswith("C-LCC: negotiated transfer price, which cancels out")
+    pol = _activated(schemas, q1=Q1.C, q3=Q3(eco=True))
+    assert pol.lcc_type.value == "C+N+S"
+    assert pol.lcc["discount_rate"].endswith("S-LCC: social discount rate (D4.2 §9.3)")
 
 
 def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):

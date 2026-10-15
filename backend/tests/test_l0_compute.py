@@ -48,15 +48,35 @@ def test_lcc_deactivated_when_eco_false_overrides_any_q1(schemas):
 @pytest.mark.parametrize("q1", [Q1.A, Q1.B, Q1.E],
                          ids=lambda q: q.value)
 def test_lcc_C_plus_E_for_q1_in_ABE_with_eco(q1, schemas):
-    case = Case(q1=q1, q3=Q3(eco=True))
+    case = Case(q1=q1, q3=Q3(env=True, eco=True))
     run(case, schemas)
     assert case.lcc_type is LccType.C_LCC_PLUS_E_LCC
 
 
 def test_lcc_C_plus_E_plus_S_for_q1_C_with_eco(schemas):
-    case = Case(q1=Q1.C, q3=Q3(eco=True))
+    case = Case(q1=Q1.C, q3=Q3(env=True, eco=True))
     run(case, schemas)
     assert case.lcc_type is LccType.E_LCC_PLUS_S_LCC_PLUS_NTF
+
+
+@pytest.mark.parametrize(
+    "q1, q3, policy, expected",
+    [(Q1.A, Q3(eco=True), None, LccType.C_LCC_PLUS_NETWORK),
+     (Q1.C, Q3(eco=True), None, LccType.C_LCC_PLUS_NETWORK_PLUS_S_LCC),
+     (Q1.A, Q3(eco=True, soc=True), True, LccType.C_LCC_PLUS_NETWORK_PLUS_S_LCC),
+     (Q1.C, Q3(eco=True), False, LccType.C_LCC_PLUS_NETWORK),
+     (Q1.D, Q3(eco=True), True, LccType.C_LCC_ONLY)],   # C2 keeps the company-only costing
+)
+def test_no_lca_means_no_e_lcc(q1, q3, policy, expected):
+    """D4.2 §4.1: the E-LCC is built on the parallel LCA boundary (L00551); without
+    it the network level is the C-LCC consolidation (L00547, L00601)."""
+    case = Case(q1=q1, q3=q3, policy_objective=policy)
+    run(case, None)
+    assert case.lcc_type is expected
+    noted = [w["message"] for w in case.warnings if w["code"] == "lcc_without_lca"]
+    assert len(noted) == (0 if expected is LccType.C_LCC_ONLY else 1)
+    if expected is LccType.C_LCC_PLUS_NETWORK_PLUS_S_LCC:
+        assert "externalities cannot be monetised" in noted[0]
 
 
 def test_lcc_C_only_for_q1_D_with_eco(schemas):

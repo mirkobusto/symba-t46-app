@@ -139,7 +139,9 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
     Strict reporting of one company (Situation C2) keeps the company-level costing,
     "C-LCC only" (declared T4.6 choice: no network level). Otherwise C-LCC per
     partner + E-LCC at network level, plus the S-LCC when the study serves a public
-    policy or planning objective (D4.2 §2.3, L00473). Q10 unanswered: inferred from
+    policy or planning objective (D4.2 §2.3, L00473). Without the environmental
+    dimension there is no E-LCC: C-LCC per partner + network consolidation (C+N),
+    plus the S-LCC on a policy objective (C+N+S). Q10 unanswered: inferred from
     Q1 (yes only for Q1=C), as before Q10 existed.
     """
     if not case.q3.eco:
@@ -160,6 +162,16 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
         notes.append({"code": "policy_no_but_q1_c", "message": "Q1=C (sector-wide pre-feasibility) usually serves "
                       "a public policy; you answered that it does not, so the societal costing (S-LCC, net tax "
                       "factor, social discount rate) is not added."})
+    if not case.q3.env:
+        # No parallel LCA: the E-LCC has nothing to stay consistent with (D4.2 §4.1,
+        # L00551); the network level is the C-LCC consolidation (L00547, L00601).
+        notes.append({"code": "lcc_without_lca", "message": (
+            "Q3 has no environmental dimension, so there is no parallel LCA: the costing is the "
+            "conventional LCC of each partner, consolidated at network level (D4.2 §4.1), without the "
+            "environmental LCC, which D4.2 builds on the LCA boundary." + (
+                " The societal LCC keeps the net tax factor and the social discount rate, but "
+                "externalities cannot be monetised without the LCA results (D4.2 §11.2)." if policy else ""))})
+        return (LccType.C_LCC_PLUS_NETWORK_PLUS_S_LCC if policy else LccType.C_LCC_PLUS_NETWORK), notes
     return (LccType.E_LCC_PLUS_S_LCC_PLUS_NTF if policy else LccType.C_LCC_PLUS_E_LCC), notes
 
 

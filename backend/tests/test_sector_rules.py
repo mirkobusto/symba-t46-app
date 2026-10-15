@@ -1,0 +1,110 @@
+"""D4.1 Part 2 sector rules (phase A, step 5, 2026-10-15).
+
+The rules live in schemas/sector_overlays.json, one entry per Part 2 chapter;
+engine/sector_rules lists those of the chapters a case touches.
+"""
+from __future__ import annotations
+
+import io
+import json
+
+import pytest
+from docx import Document
+
+from app.domain.enums import Q1, Q2, Q5, DecisionContext, Q6a, Q6b
+from app.domain.models import Q3, Case, Flow
+from app.engine.l0_compute import PART2_CHAPTER
+from app.engine.loader import SchemaLoadError, _check_overlays
+from app.engine.pipeline import run
+from app.services.reports import generate_case_report_bytes
+
+
+def _case(**kw) -> Case:
+    base = dict(q1=Q1.A, q2=Q2.A, q3=Q3(env=True, eco=True), q6a=Q6a.OTHER, q6b=Q6b.TRL9)
+    base.update(kw)
+    return run(Case(**base))
+
+
+def _ids(case: Case) -> set[str]:
+    return {r["id"] for r in case.sector_rules}
+
+
+def test_no_part2_chapter_no_rules():
+    assert _case().sector_rules == []
+    assert _case(flows=[Flow(id="f1", name="Heat", q5=Q5.c)]).sector_rules == []
+
+
+def test_the_case_sector_activates_its_chapter():
+    case = _case(q6a=Q6a.FOOD_PRODUCTION)
+    assert {r["chapter_key"] for r in case.sector_rules} == {"agrifood"}
+    assert case.sector_rules[0]["activated_by"] == [{"kind": "case_sector"}]
+    assert {"strength", "statement", "source", "lines", "note"} <= set(case.sector_rules[0])
+
+
+def test_a_flow_activates_its_chapter_whatever_the_case_sector():
+    """The chapters follow what is exchanged, not the industry of the company."""
+    sludge = Flow(id="s", name="Sewage sludge", q5=Q5.a, sector=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES)
+    case = _case(q6a=Q6a.CEMENT_CONSTRUCTION, flows=[sludge])
+    assert {r["chapter_key"] for r in case.sector_rules} == {"wastewater"}
+    assert case.sector_rules[0]["activated_by"] == [{"kind": "flow", "name": "Sewage sludge"}]
+    both = _case(q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, flows=[sludge])
+    assert both.sector_rules[0]["activated_by"] == [
+        {"kind": "flow", "name": "Sewage sludge"}, {"kind": "case_sector"}]
+
+
+def test_substitution_rules_follow_part1_in_situation_c2():
+    """Part 1 L00868: strict accounting of one partner uses allocation, no credits."""
+    network = _case(q6a=Q6a.FOOD_PRODUCTION)
+    report = _case(q6a=Q6a.FOOD_PRODUCTION, decision_context=DecisionContext.CORPORATE_REPORT)
+    assert "p2_agrifood_06" in _ids(network)
+    assert "p2_agrifood_06" not in _ids(report)
+
+
+def test_background_rules_framed_on_situation_a_are_not_shown_for_situation_b():
+    """Part 1 L01293: Situation B uses long-run marginal technologies."""
+    structural = _case(q6a=Q6a.FOOD_PRODUCTION, decision_context=DecisionContext.STRUCTURAL,
+                       market_screening_documented=True)
+    assert structural.ilcd_situation.value == "ILCD Situation B"
+    assert "p2_agrifood_05" not in _ids(structural)
+    assert "p2_agrifood_05" in _ids(_case(q6a=Q6a.FOOD_PRODUCTION))
+
+
+def test_scale_up_rules_only_below_trl_7():
+    """Lab or pilot data = below TRL 7 (Part 1 L01100)."""
+    assert {"p2_agrifood_09", "p2_agrifood_10"} <= _ids(_case(q6a=Q6a.FOOD_PRODUCTION, q6b=Q6b.TRL5_6))
+    assert not {"p2_agrifood_09", "p2_agrifood_10"} & _ids(_case(q6a=Q6a.FOOD_PRODUCTION))
+
+
+def test_overlays_match_the_chapter_map_of_the_flow_notes(schemas):
+    """l0_compute.PART2_CHAPTER (the flow note of #118) and the overlays agree."""
+    overlays = schemas.sector_overlays["overlays"]
+    from_overlays = {sector: o["chapter"] for o in overlays.values() for sector in o["q6a"]}
+    assert from_overlays == {k.value: v for k, v in PART2_CHAPTER.items()}
+
+
+def test_every_rule_cites_part2_lines(schemas):
+    for chapter in schemas.sector_overlays["overlays"].values():
+        for rule in chapter["rules"]:
+            assert rule["source"].startswith("D4.1 Part 2 §")
+            assert rule["lines"].startswith("L0")
+            assert rule["verbatim"]
+
+
+@pytest.mark.parametrize("mutate, message", [
+    (lambda o: o["agrifood"]["rules"][0].update(when_key="q99=Z"), "branch key"),
+    (lambda o: o["agrifood"]["rules"].append(dict(o["agrifood"]["rules"][0])), "duplicate rule id"),
+    (lambda o: o["agrifood"]["q6a"].append("no_such_sector"), "unknown sector"),
+    (lambda o: o["agrifood"]["rules"][0].update(strength="maybe"), "strength"),
+])
+def test_loader_rejects_malformed_overlays(schemas, mutate, message):
+    doc = json.loads(json.dumps(schemas.sector_overlays))
+    mutate(doc["overlays"])
+    with pytest.raises(SchemaLoadError, match=message):
+        _check_overlays(doc, {s["id"] for s in doc["sectors"]})
+
+
+def test_report_lists_the_sector_rules():
+    case = _case(q6a=Q6a.FOOD_PRODUCTION)
+    text = "\n".join(p.text for p in Document(io.BytesIO(generate_case_report_bytes(case))).paragraphs)
+    assert "Sector rules (D4.1 Part 2)" in text
+    assert "§4 Agri-Food and Biorefineries — applies because of: case sector (Q6a)" in text

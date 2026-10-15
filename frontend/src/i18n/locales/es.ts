@@ -688,6 +688,15 @@ const es: Locale = {
 
   result: {
     notes: { title: 'Notas sobre tus respuestas' },
+    sectorRules: {
+      title: 'Reglas sectoriales (D4.1 Part 2)',
+      lead: 'Las reglas que la D4.1 Part 2 da para los sectores que toca tu caso. La herramienta no las aplica por ti: documenta en el estudio cómo se cumplió cada una.',
+      activatedBy: 'Se aplican por: {{reasons}}',
+      byFlow: 'el flujo «{{name}}»',
+      byCaseSector: 'el sector del caso (Q6a)',
+      count: '{{count}} reglas',
+      strength: { must: 'obligatorio', should: 'recomendado', descriptive: 'práctica' },
+    },
     verdict: {
       moreInfo: 'Más sobre esta configuración',
     },

@@ -4471,6 +4471,17 @@ kbd {
 }
 .result-notes-title { font-size: 1rem; margin: 0 0 var(--dd-space-2); }
 .result-notes ul { margin: 0; padding-left: 1.2rem; }
+.result-sector-rules {
+  margin: var(--dd-space-4) 0;
+  padding: var(--dd-space-3) var(--dd-space-4);
+  border-left: 3px solid var(--dd-brand);
+}
+.result-sector-rules details { margin: var(--dd-space-2) 0; }
+.result-sector-rules summary { cursor: pointer; font-size: 0.95rem; padding: var(--dd-space-1) 0; }
+.result-sector-rules .result-sector-reason { font-size: 0.85rem; color: var(--dd-text-muted); margin: 0 0 var(--dd-space-2); }
+.result-sector-rules ul { margin: 0; padding-left: 1.2rem; }
+.result-sector-rules li { margin-bottom: var(--dd-space-1); }
+.result-sector-rules .result-sector-source { font-size: 0.8rem; color: var(--dd-text-muted); }
 
 .result-next-list {
   display: grid;

@@ -249,7 +249,7 @@ def _flow_notes(case: Case) -> list[dict[str, str]]:
         chapter = PART2_CHAPTER.get(f.sector) if f.sector else None
         if chapter:
             notes.append({"code": "flow_part2_chapter", "message": (
-                f"{label}: the sector rules of D4.1 Part 2 {chapter} apply to it.")})
+                f"{label}: the sector rules of D4.1 Part 2 {chapter} apply to it; they are listed under Sector rules.")})
     return notes
 
 

@@ -694,6 +694,15 @@ const fr: Locale = {
 
   result: {
     notes: { title: 'Remarques sur vos réponses' },
+    sectorRules: {
+      title: 'Règles sectorielles (D4.1 Part 2)',
+      lead: "Les règles que la D4.1 Part 2 donne pour les secteurs touchés par votre cas. L'outil ne les applique pas à votre place : documentez dans l'étude comment chacune a été respectée.",
+      activatedBy: 'S’appliquent en raison de : {{reasons}}',
+      byFlow: 'le flux « {{name}} »',
+      byCaseSector: 'le secteur du cas (Q6a)',
+      count: '{{count}} règles',
+      strength: { must: 'obligatoire', should: 'recommandé', descriptive: 'pratique' },
+    },
     verdict: {
       moreInfo: 'En savoir plus sur cette configuration',
     },

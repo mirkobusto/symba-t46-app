@@ -72,11 +72,11 @@
 | `lca_hc_03` | LCA | L2 | — | System-level perspective at network boundary |
 | `lca_hc_04` | LCA | L2 | — | Multi-FU analysis allowed when actors have distinct outputs |
 | `lca_hc_06` | LCA | L2 | — | Background system explicitly declared |
-| `lca_hc_19` | LCA | L2 | q6a | Frontier categories (microplastic, soil, biodiversity) per sector overlay |
+| `lca_hc_19` | LCA | L2 | q6a | Four frontier categories (marine litter, soil carbon, iLUC, fibre shedding) where the network implicates the flow; omission = explicit blind spot |
 | `lca_mc_11` | LCA | L2 | — | Sensitivity on assumptions, mandatory frontier categories |
 | `lca_mc_23` | LCA | L2 | — | Modular life-cycle structure (raw, proc, distrib, use, EoL) |
 | `lca_mc_28` | LCA | L2 | — | Geographic differentiation in LCIA when relevant |
-| `lca_mc_31` | LCA | L2 | — | Network-level analysis preferred for IS |
+| `lca_mc_31` | LCA | L2 | — | Interpretation on three levels (network, entity, flow), not a single aggregated result |
 | `lcc_hc_01` | LCC | L2 | — | 3-level structure (Network/Entity/Flow) mandatory |
 | `lcc_mc_02` | LCC | L2 | — | All 3 analytical levels mandatory |
 | `slca_hc_03` | SLCA | L2 | — | System-level perspective (network of actors) |

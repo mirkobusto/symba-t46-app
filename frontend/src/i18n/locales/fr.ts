@@ -340,20 +340,17 @@ const fr: Locale = {
     },
 
     q2: {
-      title: 'Q2 — Dans quelle phase est le système ?',
+      title: 'Q2 — Les échanges mesurés par l\'étude ont-ils déjà lieu ?',
       details:
-        'A — échange ou parc existant en exploitation depuis des années ; données primaires usine disponibles. (Ex. Kalundborg aujourd\'hui, Sokka 2011 décrivant un IES existant.) ' +
-        'B — construit récemment ou en commissioning ; données partiellement mesurées, partiellement estimées par ingénierie. ' +
-        "C — étude de design pré-construction ; aucune donnée opérationnelle mesurée ; uniquement modèles d'ingénierie. (Ex. étude ex-ante Daddi 2017.) " +
-        "D — baseline opérationnelle + un ou plusieurs scénarios « what-if » futurs à comparer (ex. expansion, ramp-up TRL, mix électrique décarboné). Choisir D active l'éditeur de scénarios alternatifs ci-dessous.",
+        'Répondez sur les échanges symbiotiques, pas sur les installations : une installation peut exister alors que l\'échange étudié n\'est encore qu\'un projet. A — les échanges ont lieu depuis un certain temps ; des données d\'exploitation primaires existent (ex. Kalundborg aujourd\'hui, Sokka 2011). La référence est ce que chaque entreprise ferait aujourd\'hui si les liens étaient rompus (HNSRS, D4.1 §11.1). B — les échanges viennent de commencer, ou les installations sont en mise en service ; données en partie mesurées, en partie estimées. C — les échanges n\'ont pas encore lieu : prévus, conçus ou hypothétiques, même si les installations fonctionnent déjà (ex. Daddi 2017, résidus réutilisés dans une exploitation existante). La référence est la situation actuelle sans les échanges (CNSRS, D4.1 §11.1). D — les échanges ont lieu et l\'étude compare aussi des alternatives futures (extension, nouvelle technologie, réseau électrique décarboné) : le réseau existant face au HNSRS, chaque alternative face au CNSRS. D ouvre l\'éditeur de scénarios alternatifs ci-dessous. Le moment où le système fonctionne est demandé en Q8.',
       options: {
-        A: { label: 'A. Opérationnel', description: 'Existe et opère depuis des années (données opérationnelles réelles).' },
-        B: { label: 'B. En construction', description: 'En construction ou récemment commissionné.' },
-        C: { label: 'C. Phase de conception', description: 'Uniquement en phase de conception (aucune donnée opérationnelle).' },
-        D: { label: 'D. Baseline + alternatives', description: 'Baseline existante + N scénarios alternatifs futurs.' },
+        A: { label: 'A. Déjà en cours', description: 'Les échanges ont déjà lieu (données d\'exploitation réelles).' },
+        B: { label: 'B. Tout juste démarrés', description: 'Les échanges viennent de démarrer, ou les installations sont en mise en service.' },
+        C: { label: 'C. Pas encore', description: 'Échanges prévus, conçus ou hypothétiques, même entre des installations qui existent déjà.' },
+        D: { label: 'D. En cours, plus alternatives', description: 'Les échanges sont en cours et l\'étude les compare à des alternatives futures.' },
       },
       plain:
-        "Où en est le système ? S'il fonctionne déjà, vous pouvez le mesurer ; s'il est encore sur le papier, vous ne pouvez que l'estimer. Choisissez la dernière option si vous voulez comparer la situation actuelle à un ou plusieurs futurs possibles : c'est elle qui ouvre l'éditeur de scénarios ci-dessous.",
+        'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Choisissez la dernière option pour comparer les échanges d\'aujourd\'hui avec un ou plusieurs avenirs possibles : elle ouvre l\'éditeur de scénarios ci-dessous.',
     },
 
     q3: {

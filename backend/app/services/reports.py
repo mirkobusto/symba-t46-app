@@ -180,7 +180,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     doc.add_heading("4. Compilation of the seven user-facing tool questions", level=1)
     _add_kv(doc, "Q1 (IS scenario archetype)",
             case.q1.value if case.q1 else "(not set)")
-    _add_kv(doc, "Q2 (temporal stance)",
+    _add_kv(doc, "Q2 (exchanges already take place?)",
             case.q2.value if case.q2 else "(not set)")
     _add_kv(doc, "Q3 (sustainability dimensions)", _format_q3(case.q3))
     _add_kv(doc, "Q4 (use of results, multi-select)", _format_q4(case.q4))

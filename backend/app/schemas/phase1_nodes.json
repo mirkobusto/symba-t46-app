@@ -388,10 +388,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Report the four frontier categories wherever the network implicates the corresponding flow, even when the characterisation factors are highly uncertain (D4.1 §10.3.5): (1) marine litter and plastic leakage; (2) biochar and soil carbon sequestration; (3) indirect land-use change (iLUC), to be treated as mandatory for any high-TRL bio-based assessment; (4) microplastic fibre shedding in textile loops. For each, state the method version and whether the factor is built into the software or entered manually, and give results with uncertainty intervals. A category left out appears in the interpretation as an explicit known blind spot, not a silent zero. Biodiversity loss is not one of the four: D4.1 Part 2 §9.1 lists it among under-assessed categories for agri-food and biorefineries.",
+      "default_value": "The four frontier categories should be reported wherever the network implicates the corresponding flow, even when the characterisation factors are highly uncertain (D4.1 §10.3.5): (1) marine litter and plastic leakage; (2) biochar and soil carbon sequestration; (3) indirect land-use change (iLUC), which should be treated as mandatory for any high-TRL bio-based assessment; (4) microplastic fibre shedding in textile loops, where synthetic-fibre recycling must not be claimed as net-positive on GWP alone. For each, state the method version and whether the factor is built into the software or entered manually, and give results with uncertainty intervals. A category left out should appear in the interpretation as an explicit known blind spot, not a silent zero. Biodiversity loss is not one of the four: D4.1 Part 2 §9.1 lists it among under-assessed categories for agri-food and biorefineries.",
       "override_path": "q6a",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Sector-specific overlay; full Q6a-driven logic deferred to sector_overlays.json (v2 §7) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.5) | Rewritten on FINAL v2 text, review 2026-10-16: D4.1 L01214 (the four categories, condition = the network implicates the flow), L01216-L01222, L01220 ('iLUC should be treated as mandatory for any high-TRL bio-based IS assessment'), L01224 (blind spot); biodiversity from D4.1 Part 2 L00775, not Part 1. The former text listed 'microplastic, soil, biodiversity'."
+      "extraction_notes": "Sector-specific overlay; full Q6a-driven logic deferred to sector_overlays.json (v2 §7) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.5) | Rewritten on FINAL v2 text, review 2026-10-16: D4.1 L01214 (the four categories, condition = the network implicates the flow), L01216-L01222, L01220 ('iLUC should be treated as mandatory for any high-TRL bio-based IS assessment'), L01224 (blind spot); biodiversity from D4.1 Part 2 L00775, not Part 1. The former text listed 'microplastic, soil, biodiversity'. Fable review 2026-10-16: 'should' restored (L01214, L01220, L01224); L01222 added ('Synthetic-fibre recycling scenarios must not be claimed as net-positive on the basis of GWP alone')."
     },
     {
       "id": "lca_hc_20",
@@ -529,37 +529,44 @@
       "source_section": "D4.1 §6.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q1",
-        "q3"
+        "q1"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.system_boundary",
       "field_status": null,
       "default_value": {
-        "q1=A": "exchange-only",
-        "q1=B": "eco-park",
-        "q1=C": "sector-wide",
-        "q3.env-only": "cradle-to-gate default"
+        "q1=A": "exchange-only: the two partners and the connective tissue of the exchange (pipelines, transport, shared pre-treatment); life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
+        "q1=B": "eco-park: every firm of the park and its shared infrastructure; life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
+        "q1=C": "sector-wide: every participating firm across the sector or territory studied, with the enabling infrastructure; life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)",
+        "default": "network: all participating entities and the ancillary processes that enable their exchanges; life-cycle coverage (e.g. cradle-to-gate or cradle-to-grave) is a goal-and-scope choice to declare, and cut-off criteria should be applied conservatively and their effect tested in the sensitivity analysis (D4.1 §6.1; coverage and cut-off: §6)"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.1). | Rewritten on FINAL v2 text, review 2026-10-16: D4.1 L00734 (the IS boundary is 'primarily organizational and spatial ... must encompass all participating entities and the ancillary processes'), L00736 (connective tissue), L00728 ('the life-cycle coverage (which stages are included) is a goal-and-scope choice'; cut-off applied conservatively). The former 'cradle-to-gate default' for env-only studies had no basis and only fired for Q1 D/E. The leading labels are kept because slca_mc_04 mirrors them. Fable review 2026-10-16: 'should' restored (L00728). The scope glosses for Q1 B and C (park, sector or territory) are T4.6 readings of L00734, not sentences of the text; for a single company in strict accounting (C2) the boundary is that partner (L00868)."
     },
     {
       "id": "lca_mc_06",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §4.2",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "source_section": "D4.1 §11.3.1",
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.background_database",
       "field_status": null,
-      "default_value": "Background database: Ecoinvent 3.10 cut-off + system expansion",
-      "override_path": "advanced",
-      "lifecycle_layer": "L2"
+      "default_value": {
+        "ilcd=A": "Average market consumption mixes, matched to the market the counterfactual draws on and to the year of the assessment, near-term projections in sensitivity; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
+        "ilcd=B": "Marginal processes — long-run per Table 1, short-run for operational, year-by-year displacement (see lca_mc_27) — from a consequential LCI database, capacity-expansion models or sectoral outlooks; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
+        "ilcd=C1": "Average market mixes; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
+        "ilcd=C2": "Average market mixes; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)"
+      },
+      "override_path": "ilcd, advanced",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.1 Table 1 L00574-L00576 (background data per situation), L01291 (Situation A average mix, vintage-matched), L01293 (Situation B marginal, from consequential databases, models or outlooks), L01048 (commercial LCI databases). The former 'Ecoinvent 3.10 cut-off + system expansion' (cited D4.1 §4.2) had no basis: no version or system model is prescribed, and system expansion is multifunctionality (lca_mc_08/12). Future background stays with lca_mc_21. Erratum: L01293 'ecoinvent consequential cutoff' conflates two system models. Fable review 2026-10-16: Table 1 is in §4.2.3; 'system model declared' removed (not in the text); Situation B points to the short-/long-run choice of L01293."
     },
     {
       "id": "lca_mc_07",
@@ -866,16 +873,17 @@
       "id": "lca_mc_23",
       "method": "LCA",
       "type": "MC",
-      "source_section": "D4.1 §5.5",
+      "source_section": "D4.1 §6",
       "category": "DEFAULT",
       "trigger_q": null,
       "trigger_logic": null,
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Modular life-cycle structure (raw, proc, distrib, use, EoL)",
+      "default_value": "T4.6 design choice, not prescribed by D4.1: organise the inventory by life-cycle module (raw materials, processing, distribution, use, end of life), so that the stages included — a goal-and-scope choice — stay visible (D4.1 §6)",
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: No basis in D4.1 ('modular' has no occurrence in Part 1 or Part 2; the D4.1 §5.5 it cited does not exist): declared as a T4.6 design choice, anchored to L00728 (life-cycle coverage is a goal-and-scope choice)."
     },
     {
       "id": "lca_mc_24",
@@ -944,20 +952,21 @@
       "source_section": "D4.1 §11.3.1",
       "category": "DERIVED",
       "trigger_q": [
-        "ilcd",
-        "q2"
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.reference_scenario.content",
       "field_status": null,
       "default_value": {
-        "ilcd=A": "alt disposal+virgin market",
-        "ilcd=B": "marginal technology mix (market analysis)"
+        "ilcd=A": "Average market consumption mix of each displaced commodity in the market the counterfactual draws on; no hypothetical alternative technology unless a permitted and funded plan existed; reference technology no older than the assessment year, benchmarked on BAT/BREF for permit-bound processes (D4.1 §11.3.1)",
+        "ilcd=B": "Marginal technology mix: short-run marginal for operational displacement, long-run marginal for capacity-planning horizons (typically > 5 years) or capacity-shifting symbioses, from consequential LCI databases, capacity-expansion models or sectoral outlooks; test at least one alternative marginal in sensitivity analysis; same frozen-technology rule (D4.1 §11.3.1)",
+        "ilcd=C1": "Average market mix, as in Situation A: the existing network's benefits are documented by substitution (D4.1 §11.3.1, §7.2.3)",
+        "ilcd=C2": "Allocation, no substitution credits: the reference scenario is not used to credit avoided burdens (D4.1 §11.3.1, §7.2.3); if one is reported for comparison, its type follows lca_mc_26"
       },
-      "override_path": "q1, advanced",
+      "override_path": "ilcd, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §12.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §12.3.1). | Rewritten on FINAL v2 text, review 2026-10-16: D4.1 L01291 (Situation A), L01293 (Situation B, short- vs long-run marginal), L01295 (frozen-technology fallacy, BAT/BREF), L00866 (C1: substitution with the average market mix, 'identical to Situation A'), L00868 (C2: allocation, 'Do not apply substitution credits'). C1 and C2 had no branch. The type of reference scenario (HNSRS/CNSRS, time alignment) stays with lca_mc_26. Fable review 2026-10-16: C2 reworded so it does not contradict lca_mc_26, which still types the reference scenario (L00868 is a multifunctionality rule, §7.2.3); Situation B adds L01293 'test at least one alternative marginal in sensitivity analysis'."
     },
     {
       "id": "lca_mc_28",
@@ -1022,10 +1031,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Interpretation on three levels, not a single aggregated result (D4.1 §15.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors.",
+      "default_value": "Interpretation on three levels, not a single aggregated result (D4.1 §15.1, §15.3.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors.",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.1) | Rewritten on FINAL v2 text, review 2026-10-16: L01539 ('a single, aggregated result ... is insufficient. The interpretation must be structured ...'), L01541-L01545 (the three levels), L01571 (matrix-based model, 'should'). The former text, 'Network-level analysis preferred for IS', contradicted L01539. LCC twin: lcc_hc_01."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.1) | Rewritten on FINAL v2 text, review 2026-10-16: L01539 ('a single, aggregated result ... is insufficient. The interpretation must be structured ...'), L01541-L01545 (the three levels), L01571 (matrix-based model, 'should'). The former text, 'Network-level analysis preferred for IS', contradicted L01539. LCC twin: lcc_hc_01. Fable review 2026-10-16: L01569-L01571 are in §15.3.1, now cited."
     },
     {
       "id": "lca_mc_32",
@@ -1880,12 +1889,12 @@
       "field": "lcc.functional_equivalent",
       "field_status": null,
       "default_value": {
-        "q3.env=false": "No parallel LCA: the functional equivalent is the portfolio of functions the network delivers — input-based (e.g. management of 1 t of food waste) when waste treatment is the primary goal, dual (waste treated + output generated) when product substitution drives the study; for a product-service system, the service delivered over time with trip rates and asset lifespan (D4.2 §3.1)",
+        "q3.env=false": "No parallel LCA: the functional equivalent is the portfolio of functions the network delivers, which should be input-based (e.g. management of 1 t of food waste) when waste treatment is the primary goal and dual (waste treated + output generated) when product substitution drives the study; for a product-service system, the service delivered over time with trip rates and asset lifespan (D4.2 §3.1)",
         "lcc_type=C-LCC": "aligned_to_lca"
       },
       "override_path": "q3, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00493 ('the LCC must adopt the same Functional Unit — or system of FUs — defined in the parallel LCA'), L00495 (input-based or dual FU by primary goal), L00497 (PSS: reusable packaging, rental textiles — not a sector). With an LCA and an E-LCC, lcc_hc_04 writes 'aligned_to_lca' and this node no longer overwrites it; the C-LCC branch covers Situation C2 with an LCA. The former Q1 branches ('Single', 'Dual/Portfolio') and 'sector=textile_leather' ('PSS variant') had no basis. Erratum: D4.2 L00495 'dual' vs D4.1 Part 2 L00419/L00719 output-based."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00493 ('the LCC must adopt the same Functional Unit — or system of FUs — defined in the parallel LCA'), L00495 (input-based or dual FU by primary goal), L00497 (PSS: reusable packaging, rental textiles — not a sector). With an LCA and an E-LCC, lcc_hc_04 writes 'aligned_to_lca' and this node no longer overwrites it; the C-LCC branch covers Situation C2 with an LCA. The former Q1 branches ('Single', 'Dual/Portfolio') and 'sector=textile_leather' ('PSS variant') had no basis. Erratum: D4.2 L00495 'dual' vs D4.1 Part 2 L00419/L00719 output-based. Fable review 2026-10-16: 'should' restored (L00495). The no-LCA branch extends §3.1, which presupposes a parallel LCA: a T4.6 inference."
     },
     {
       "id": "lcc_mc_04",
@@ -1901,15 +1910,15 @@
       "field": "lcc.flow_valuation_method",
       "field_status": null,
       "default_value": {
-        "q5=a": "C-LCC: actual transfer price, here a gate fee paid by the generator; E-LCC and S-LCC (where present): market price of the virgin material or service replaced. Declare whether the study values the business deal or the societal function (D4.2 §3.2)",
-        "q5=b": "C-LCC: actual transfer price, zero; E-LCC and S-LCC (where present): market price of the virgin material or service replaced. Declare whether the study values the business deal or the societal function (D4.2 §3.2)",
-        "q5=c": "C-LCC: negotiated price paid by the receiver; E-LCC and S-LCC (where present): market price of the virgin material or service replaced. Declare whether the study values the business deal or the societal function (D4.2 §3.2)",
-        "q5=d": "C-LCC: negotiated transfer price; E-LCC and S-LCC (where present): market price of the virgin material or service replaced; the upstream costs of the modified process are allocated (lcc_mc_08). Declare whether the study values the business deal or the societal function (D4.2 §3.2)"
+        "q5=a": "C-LCC: actual transfer price, here a gate fee paid by the generator; E-LCC and S-LCC (where present): the value of the function, at the market price of the virgin material or service replaced; the acquisition cost of the flow follows lcc_mc_08. Declare whether the study values the business deal or the societal function (D4.2 §3.2)",
+        "q5=b": "C-LCC: actual transfer price, zero; E-LCC and S-LCC (where present): the value of the function, at the market price of the virgin material or service replaced; the acquisition cost of the flow follows lcc_mc_08. Declare whether the study values the business deal or the societal function (D4.2 §3.2)",
+        "q5=c": "C-LCC: negotiated price paid by the receiver; E-LCC and S-LCC (where present): the value of the function, at the market price of the virgin material or service replaced; the acquisition cost of the flow follows lcc_mc_08. Declare whether the study values the business deal or the societal function (D4.2 §3.2)",
+        "q5=d": "C-LCC: negotiated transfer price; E-LCC and S-LCC (where present): the value of the function, at the market price of the virgin material or service replaced; the upstream costs of the modified process are allocated (lcc_mc_08). Declare whether the study values the business deal or the societal function (D4.2 §3.2)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00509-L00515 (transfer price 'essential for C-LCC', market price proxy 'fundamental for E-LCC and S-LCC'; declare business deal vs societal function). Valuation follows the LCC type (D4.2 §5.1 L00609): the key stays Q5, per flow, and the value names each level. Q5=e (aggregated) gets no value. The 'contested' key (inert since 2026-10-04; MFCA for contested prices is D4.2 §5.3 L00689, in lcc_hc_38) is removed."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00509-L00515 (transfer price 'essential for C-LCC', market price proxy 'fundamental for E-LCC and S-LCC'; declare business deal vs societal function). Valuation follows the LCC type (D4.2 §5.1 L00609): the key stays Q5, per flow, and the value names each level. Q5=e (aggregated) gets no value. The 'contested' key (inert since 2026-10-04; MFCA for contested prices is D4.2 §5.3 L00689, in lcc_hc_38) is removed. Fable review 2026-10-16: the market price proxy is the value of the function (L00513), the acquisition cost of the flow is lcc_mc_08 (D4.2 §6.3, L00759). Erratum: D4.2 §3.2/§5.1 (market price for E-LCC) and §6.3 (zero cost when the LCA applies zero burden) are not reconciled in the text."
     },
     {
       "id": "lcc_mc_05",
@@ -1918,20 +1927,22 @@
       "source_section": "D4.2 §4.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q1",
-        "q3"
+        "lcc_type"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lcc.economic_boundary",
       "field_status": null,
       "default_value": {
-        "q1=A": "Gate-to-Gate",
-        "q1=B": "Cradle-to-Gate",
-        "q3.env+eco": "aligned with LCA"
+        "lcc_type=C-LCC": "Gate-to-gate around the company (D4.2 §4.1)",
+        "lcc_type=C+E": "C-LCC: gate-to-gate per partner, then entry-to-gate for the group of collaborating firms, where internal transfers cancel out; E-LCC: identical to the LCA boundary, typically cradle-to-gate (D4.2 §4.1)",
+        "lcc_type=C+E+S": "C-LCC: gate-to-gate per partner, then entry-to-gate for the group of collaborating firms, where internal transfers cancel out; E-LCC: identical to the LCA boundary, typically cradle-to-gate; S-LCC: cradle-to-grave, including end-of-life costs borne by municipalities or the public (D4.2 §4.1)",
+        "lcc_type=C+N": "C-LCC: gate-to-gate per partner, then entry-to-gate for the group of collaborating firms, where internal transfers cancel out (D4.2 §4.1)",
+        "lcc_type=C+N+S": "C-LCC: gate-to-gate per partner, then entry-to-gate for the group of collaborating firms, where internal transfers cancel out; S-LCC: cradle-to-grave, including end-of-life costs borne by municipalities or the public (D4.2 §4.1)"
       },
-      "override_path": "q1, q3, advanced",
-      "lifecycle_layer": "L2"
+      "override_path": "lcc_type, advanced",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00543 (one boundary per LCC type), L00547 (C-LCC gate-to-gate per firm, then entry-to-gate), L00551 (E-LCC 'must be identical to that of the parallel LCA, typically a Cradle-to-Gate'), L00555 (S-LCC 'must expand to Cradle-to-Grave'). The former Q1 branches ('Gate-to-Gate' for Q1=A, 'Cradle-to-Gate' for Q1=B) keyed the boundary on the network shape instead of the LCC type."
     },
     {
       "id": "lcc_mc_06",
@@ -1988,13 +1999,13 @@
       "default_value": {
         "q5=a": "C-LCC: the gate fee as negotiated; zero cost only if the residual is unavoidable and has no positive market value; E-LCC: zero cost if the LCA applies zero burden, otherwise market price proxy; S-LCC: opportunity cost, quantified with MFCA, to be considered for avoidable residuals (D4.2 §6.2-§6.3)",
         "q5=b": "C-LCC: zero transfer price, but zero cost only if the residual is unavoidable and has no positive market value, otherwise it is a co-product; E-LCC: follows the LCA classification of the flow, zero cost with zero burden, market price proxy with allocation; S-LCC: opportunity cost, quantified with MFCA, to be considered for avoidable residuals (D4.2 §6.2-§6.3)",
-        "q5=c": "C-LCC: the negotiated price; E-LCC and S-LCC: market price proxy, as the LCA treats the flow as a co-product (D4.2 §6.2-§6.3)",
+        "q5=c": "C-LCC: the negotiated price; E-LCC and S-LCC: market price proxy when the LCA treats the flow as a co-product; if the flow has no independent market, the LCA treats it as a residue with zero burden despite the price and the E-LCC applies zero cost (D4.1 §8.3.3; D4.2 §6.2-§6.3)",
         "q5=d": "Zero cost does not apply: the generator modified its process for the receiver, so upstream costs are allocated between primary product and co-product — negotiated transfer price in the C-LCC, a physical or economic allocation key in the E-LCC (D4.2 §6.2)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00723 (zero cost for the C-LCC, opportunity cost for S-LCC/policy), L00729 (zero cost 'admissible only when both criteria are simultaneously satisfied'), L00741 (interdependent production), L00757 (C-LCC), L00759 (E-LCC follows the LCA), L00761 (S-LCC, 'should be considered for avoidable residuals'). The former 'opportunity' for Q5=b applied the S-LCC rule to every LCC type. The 'contested' key is removed (see lcc_mc_04)."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L00723 (zero cost for the C-LCC, opportunity cost for S-LCC/policy), L00729 (zero cost 'admissible only when both criteria are simultaneously satisfied'), L00741 (interdependent production), L00757 (C-LCC), L00759 (E-LCC follows the LCA), L00761 (S-LCC, 'should be considered for avoidable residuals'). The former 'opportunity' for Q5=b applied the S-LCC rule to every LCC type. The 'contested' key is removed (see lcc_mc_04). Fable review 2026-10-16: Q5=c made conditional: a price without an independent market is a residue for the LCA (D4.1 §8.3.3, L00994), so the E-LCC applies zero cost (D4.2 L00759)."
     },
     {
       "id": "lcc_mc_09",
@@ -2152,11 +2163,11 @@
       "field_status": null,
       "default_value": {
         "q1=A": "Node-removal scenario for the exchange partner, the critical node of a bilateral exchange: stranded assets, emergency disposal or procurement costs, residual value, presented as a discrete risk event (D4.2 §10.3)",
-        "default": "Counterparty risk by structural scenarios, not statistical uncertainty: identify the critical nodes (percolation theory recommended) and model a node-removal scenario for each, with stranded assets, emergency disposal or procurement costs and the network's residual value, as discrete risk events; compare a flexible multi-option design with a single-partner-dependent one (D4.2 §10.3)"
+        "default": "Counterparty risk by structural scenarios, not statistical uncertainty: identify the critical nodes (percolation theory recommended) and model a node-removal scenario for each, with stranded assets, emergency disposal or procurement costs and the network's residual value, as discrete risk events; the NPV of a flexible multi-option design should be compared with that of a single-partner-dependent one (D4.2 §10.3)"
       },
       "override_path": "q1, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L01235 (scenarios, not statistics; percolation theory is the 'recommended' way to identify critical nodes), L01237 ('For each critical node identified, the LCC must model a node removal scenario'), L01239 (flexible vs rigid design, 'should'). That the partner is the critical node of a bilateral exchange (Q1=A) is an inference, not a sentence of the text. The former values were 'None' for Q1=A and 'Percolation theory' for Q1 B/C, nothing for D/E. CIR-04 writes the same field but is inert (I-17)."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L01235 (scenarios, not statistics; percolation theory is the 'recommended' way to identify critical nodes), L01237 ('For each critical node identified, the LCC must model a node removal scenario'), L01239 (flexible vs rigid design, 'should'). That the partner is the critical node of a bilateral exchange (Q1=A) is an inference, not a sentence of the text. The former values were 'None' for Q1=A and 'Percolation theory' for Q1 B/C, nothing for D/E. CIR-04 writes the same field but is inert (I-17). Fable review 2026-10-16: 'should' restored (L01239)."
     },
     {
       "id": "lcc_mc_17",
@@ -2190,13 +2201,13 @@
       "field": "lcc.eco_efficiency_indicator",
       "field_status": null,
       "default_value": {
-        "lcc_type=C-LCC": "No eco-efficiency indicator: a gate-to-gate C-LCC cannot be integrated with a cradle-to-gate LCA without boundary adjustment; show C-LCC results alongside the LCA for context (D4.2 §11.3, with the C-LCC limits of §11.2)",
         "q3.env=false": "No eco-efficiency indicator: ECOF and IEE both need the environmental impact of a parallel LCA, which this study does not have (D4.2 §11.3)",
+        "lcc_type=C-LCC": "No eco-efficiency indicator: a gate-to-gate C-LCC cannot be integrated with a cradle-to-gate LCA without boundary adjustment; show C-LCC results alongside the LCA for context (D4.2 §11.3, with the C-LCC limits of §11.2)",
         "q3.env+eco": "ECOF and IEE, with annualised costs rather than discounted NPV as the economic term (D4.2 §11.3)"
       },
       "override_path": "q3, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L01285 (C-LCC results 'cannot be formally integrated into a combined eco-efficiency indicator without boundary adjustment'), L01327 and L01333 (both indicators contain the environmental impact), L01337 (annualised costs). The former 'IEE only' for an eco-only study contradicted L01333."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: D4.2 L01285 (C-LCC results 'cannot be formally integrated into a combined eco-efficiency indicator without boundary adjustment'), L01327 and L01333 (both indicators contain the environmental impact), L01337 (annualised costs). The former 'IEE only' for an eco-only study contradicted L01333. Fable review 2026-10-16: 'q3.env=false' moved before 'lcc_type=C-LCC', which gave a C-LCC study without LCA the advice to show its results 'alongside the LCA'."
     },
     {
       "id": "lcc_mc_19",

@@ -571,7 +571,7 @@
           "q6a"
         ],
         "trigger_condition": null,
-        "statement": "Report the four frontier categories wherever the network implicates the corresponding flow, even when the characterisation factors are highly uncertain (D4.1 \u00a710.3.5): (1) marine litter and plastic leakage; (2) biochar and soil carbon sequestration; (3) indirect land-use change (iLUC), to be treated as mandatory for any high-TRL bio-based assessment; (4) microplastic fibre shedding in textile loops. For each, state the method version and whether the factor is built into the software or entered manually, and give results with uncertainty intervals. A category left out appears in the interpretation as an explicit known blind spot, not a silent zero. Biodiversity loss is not one of the four: D4.1 Part 2 \u00a79.1 lists it among under-assessed categories for agri-food and biorefineries.",
+        "statement": "The four frontier categories should be reported wherever the network implicates the corresponding flow, even when the characterisation factors are highly uncertain (D4.1 \u00a710.3.5): (1) marine litter and plastic leakage; (2) biochar and soil carbon sequestration; (3) indirect land-use change (iLUC), which should be treated as mandatory for any high-TRL bio-based assessment; (4) microplastic fibre shedding in textile loops, where synthetic-fibre recycling must not be claimed as net-positive on GWP alone. For each, state the method version and whether the factor is built into the software or entered manually, and give results with uncertainty intervals. A category left out should appear in the interpretation as an explicit known blind spot, not a silent zero. Biodiversity loss is not one of the four: D4.1 Part 2 \u00a79.1 lists it among under-assessed categories for agri-food and biorefineries.",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],
@@ -602,10 +602,10 @@
         "method": "LCA",
         "type": "MC",
         "lifecycle_layer": "L2",
-        "source_section": "D4.1 \u00a75.5",
+        "source_section": "D4.1 \u00a76",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Modular life-cycle structure (raw, proc, distrib, use, EoL)",
+        "statement": "T4.6 design choice, not prescribed by D4.1: organise the inventory by life-cycle module (raw materials, processing, distribution, use, end of life), so that the stages included \u2014 a goal-and-scope choice \u2014 stay visible (D4.1 \u00a76)",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],
@@ -637,7 +637,7 @@
         "source_section": "D4.1 \u00a715.1",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Interpretation on three levels, not a single aggregated result (D4.1 \u00a715.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors.",
+        "statement": "Interpretation on three levels, not a single aggregated result (D4.1 \u00a715.1, \u00a715.3.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors.",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],

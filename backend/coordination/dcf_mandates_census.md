@@ -74,7 +74,7 @@
 | `lca_hc_06` | LCA | L2 | — | Background system explicitly declared |
 | `lca_hc_19` | LCA | L2 | q6a | Four frontier categories (marine litter, soil carbon, iLUC, fibre shedding) where the network implicates the flow; omission = explicit blind spot |
 | `lca_mc_11` | LCA | L2 | — | Sensitivity on assumptions, mandatory frontier categories |
-| `lca_mc_23` | LCA | L2 | — | Modular life-cycle structure (raw, proc, distrib, use, EoL) |
+| `lca_mc_23` | LCA | L2 | — | T4.6 design choice: inventory by life-cycle module (raw, processing, distribution, use, EoL) |
 | `lca_mc_28` | LCA | L2 | — | Geographic differentiation in LCIA when relevant |
 | `lca_mc_31` | LCA | L2 | — | Interpretation on three levels (network, entity, flow), not a single aggregated result |
 | `lcc_hc_01` | LCC | L2 | — | 3-level structure (Network/Entity/Flow) mandatory |

@@ -18,8 +18,8 @@ def test_renumbered_source_sections_keep_the_old_reference(schemas):
 
 def test_source_sections_follow_the_final_v2_numbering(schemas):
     """Review 2026-10-15: 65 nodes (57 LCA, 8 LCC) point at the FINAL v2 deliverables.
-    Each note keeps the section it cited before; lca_mc_06 and lca_mc_23 have no basis in
-    the text and keep their old number until they are reformulated."""
+    Each note keeps the section it cited before; lca_mc_06 and lca_mc_23 had no basis in
+    the text and were reformulated on 2026-10-16 (see the test below)."""
     nodes = {n["id"]: n for n in schemas.phase1_nodes}
     moved = [n for n in nodes.values()
              if "FINAL v2 numbering, review 2026-10-15" in (n.get("extraction_notes") or "")]
@@ -34,8 +34,8 @@ def test_source_sections_follow_the_final_v2_numbering(schemas):
     assert nodes["lca_mc_25"]["source_section"] == "D4.1 §12.3.3"
     assert nodes["lca_mc_03"]["source_section"] == "D4.1 §14.3.2"
     assert nodes["lcc_hc_22"]["source_section"] == "D4.2 §9.3"
-    assert nodes["lca_mc_06"]["source_section"] == "D4.1 §4.2"
-    assert nodes["lca_mc_23"]["source_section"] == "D4.1 §5.5"
+    assert nodes["lca_mc_06"]["source_section"] == "D4.1 §11.3.1"   # was D4.1 §4.2, no basis
+    assert nodes["lca_mc_23"]["source_section"] == "D4.1 §6"        # was D4.1 §5.5, T4.6 choice
 
 
 def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
@@ -47,7 +47,8 @@ def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
                  if "Rewritten on FINAL v2 text" in (n.get("extraction_notes") or "")]
     assert {n["id"] for n in rewritten} >= {
         "lca_hc_19", "lca_mc_31",                                        # PR #123
-        "lcc_mc_03", "lcc_mc_04", "lcc_mc_08", "lcc_mc_16", "lcc_mc_18",
+        "lcc_mc_03", "lcc_mc_04", "lcc_mc_08", "lcc_mc_16", "lcc_mc_18",  # PR #124
+        "lca_mc_05", "lca_mc_06", "lca_mc_23", "lca_mc_27", "lcc_mc_05",
     }
     for n in rewritten:
         assert re.search(r"L\d{5}", n["extraction_notes"].split("Rewritten on FINAL v2 text")[1])

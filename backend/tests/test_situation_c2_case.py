@@ -26,6 +26,7 @@ def _sugar_mill(q4: set[Q4]) -> Case:
         flows=[
             Flow(id="bagasse", name="Bagasse to CHP plant", q5=Q5.c, sellable_elsewhere=True),
             Flow(id="lime", name="Defecation lime to farmers", q5=Q5.b, sellable_elsewhere=False),
+            Flow(id="filter_cake", name="Filter cake taken away for a gate fee", q5=Q5.a),
         ],
     )
     return run(case)
@@ -44,8 +45,10 @@ def test_situation_and_paradigm(case):
 def test_allocation_and_no_substitution_credits_even_with_q4_d(case):
     """D4.1 L00868: 'use Allocation (Step 3). Do not apply substitution credits'."""
     assert case.lca["allocation_method"] == "allocation"
-    for flow in ("bagasse", "lime"):
-        assert case.lca["zero_burden_classification"][flow].startswith("allocation (Situation C2")
+    treatment = case.lca["zero_burden_classification"]
+    assert treatment["bagasse"].startswith("allocation (Situation C2")   # a co-product: Step 3
+    assert treatment["filter_cake"] == "zero-burden"                     # a waste keeps Step 4 (L01016)
+    assert treatment["lime"] == "EVT+sensitivity"
     assert case.lca["reference_scenario.content"].startswith("Allocation, no substitution credits")
 
 
@@ -73,3 +76,16 @@ def test_background_is_the_average_mix(case):
 
 def test_free_flow_with_no_other_buyer_reads_as_waste(case):
     assert "flow_freedom_to_act_settles" in {w["code"] for w in case.warnings}
+
+
+def test_situation_c2_comes_from_q9_not_from_q1():
+    """Q9 decides the situation (#114): a corporate report keeps C2 rules with Q1=A too."""
+    case = run(Case(
+        q1=Q1.A, q2=Q2.A, q3=Q3(env=True, eco=True), q4={Q4.D}, q6b=Q6b.TRL9, q7=Q7.A,
+        decision_context=DecisionContext.CORPORATE_REPORT,
+        flows=[Flow(id="f1", name="Bagasse", q5=Q5.c)],
+    ))
+    assert case.ilcd_situation.value == "ILCD Situation C2"
+    assert case.lca["allocation_method"] == "allocation"
+    assert case.lca["system_boundary"].startswith("company:")
+    assert "c2_allocation_over_pef" in {w["code"] for w in case.warnings}

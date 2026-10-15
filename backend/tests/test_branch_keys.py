@@ -217,7 +217,7 @@ _OVERLAPPING_NODES = {
     # Situation C2 comes first in these (allocation, no substitution credits, D4.1 §7.2.3)
     "lca_mc_05", "lca_mc_13", "lca_mc_14", "lca_mc_17",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19", "slca_mc_04",
-    # lca_mc_05 and lcc_mc_05 left on 2026-10-15: one key family each (Q1, LCC type).
+    # lcc_mc_05 left on 2026-10-15 (one key per LCC type); lca_mc_05 came back with its C2 branch.
     # lcc_mc_07 and lcc_mc_12 left this list on 2026-10-15: they now branch on
     # the LCC type only (D4.2 §5.1, §9.3), one branch per type, no overlap.
 }

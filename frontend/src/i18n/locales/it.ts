@@ -403,8 +403,8 @@ const it: Locale = {
         'A — uso interno: dashboard di management, screening R&S, decisioni a livello di impianto. Pochi vincoli metodologici. ' +
         'B — comunicazione esterna SENZA claim comparativi (report di sostenibilità, brochure marketing senza affermazioni di tipo "meglio di X"). ' +
         'C — CLAIM pubblico che il sistema è migliore di, o equivalente a, un\'alternativa con la stessa funzione (es. "questo cemento è più verde dell\'OPC"), reso pubblico in qualunque forma: rapporto, sito o articolo scientifico (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Attiva la critical review obbligatoria ISO 14044 da 3+ esperti indipendenti e disabilita la pesatura. Usare con cautela. ' +
-        'D — allineamento con strumenti di policy UE (digital product passport ESPR, regole di categoria PEFCR). Forza la PEF Circular Footprint Formula via CIR-05. Il rendiconto di una sola azienda (CSRD, ESG) si dichiara in Q9, non qui: usa l\'allocazione, non la CFF. ' +
-        'E — pubblicazione accademica peer-reviewed. Richiede piena trasparenza (fonti dati, scelte di allocazione, sensitività). Spesso combinato con B o D. Se l\'articolo dichiara che un sistema è migliore o equivalente a un\'alternativa concorrente, scegli anche C; un confronto che non proclama un vincitore resta E. ' +
+        'D — allineamento con strumenti di policy UE (digital product passport ESPR, regole di categoria PEFCR). Forza la PEF Circular Footprint Formula via CIR-05. Il rendiconto rigoroso di una sola azienda (CSRD, ESG) si dichiara in Q9, non qui: usa l\'allocazione, non la CFF. ' +
+        'E — pubblicazione accademica peer-reviewed. Richiede piena trasparenza (fonti dati, scelte di allocazione, sensitività). Spesso combinato con B o D. Se l\'articolo dichiara che un sistema è migliore di un\'alternativa concorrente o equivalente a essa, scegli anche C; un confronto che non proclama un vincitore resta E (lettura T4.6). ' +
         'È possibile selezione multipla: un tipico paper PEF sceglie D + E.',
       options: {
         A: { label: 'A. Interno', description: 'Uso interno (gestionale, R&S, pianificazione).' },
@@ -419,7 +419,7 @@ const it: Locale = {
           description: 'Allineamento policy UE (ESPR, PEF/PEFCR).',
           warn: 'Attiva la PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Pubblicazione accademica', description: 'Pubblicazione accademica peer-reviewed (aggiungi C se dichiara che un sistema batte un\'alternativa concorrente).' },
+        E: { label: 'E. Pubblicazione accademica', description: 'Pubblicazione accademica peer-reviewed (aggiungi C se dichiara che un sistema batte o eguaglia un\'alternativa concorrente).' },
       },
       plain:
         "Chi leggerà il risultato, e cosa ne farà, decide quanto deve essere severo il metodo. Una nota interna è il caso più leggero. Allinearsi agli strumenti UE (passaporto di prodotto, PEF) impone il modo di contare il materiale riciclato e recuperato stabilito dall'UE. Dichiarare in pubblico che il tuo prodotto è migliore di un altro è il caso più pesante: richiede una revisione indipendente da parte di esperti esterni. Vale ovunque lo dichiari, anche in un articolo scientifico. Puoi scegliere più di una voce.",
@@ -477,7 +477,7 @@ const it: Locale = {
       title: 'Q6b — Technology Readiness Level (TRL)',
       details:
         'TRL della tecnologia dominante o critica nella rete simbiotica. Determina la scelta della qualità dei dati di inventory (misurati vs letteratura vs stima ingegneristica) e il budget di incertezza downstream. ' +
-        'È il TRL della tecnologia chiave in sé, non della sua adozione: una tecnologia matura usata per la prima volta in questa rete o regione resta TRL 9; la novità dell\'applicazione si vede nella qualità dei dati, non nel TRL (lettura T4.6). ' +
+        'È il TRL della tecnologia chiave in sé, non della sua adozione: una tecnologia matura che tratta lo stesso tipo di input alla stessa scala che altrove, usata per la prima volta in questa rete o regione, resta TRL 9, e la novità si vede nella qualità dei dati (lettura T4.6); un processo maturo applicato a un input mai trattato su scala è uno scambio a basso TRL (D4.1 §9.3.5). ' +
         'TRL 9 = pieno funzionamento commerciale (Kalundborg, Sokka). ' +
         'TRL 7-8 = pilota first-of-a-kind / unità pre-commerciale. ' +
         'TRL 5-6 = prototipo lab-validated, demo a scala rilevante. ' +
@@ -489,7 +489,7 @@ const it: Locale = {
         'TRL<5': 'TRL <5 — R&S iniziale',
       },
       plain:
-        "Quanto è matura la tecnologia chiave: in esercizio commerciale, primo impianto pilota, prototipo, o ancora in laboratorio. Meno è matura, più i tuoi numeri saranno stime e non misure, e più il risultato deve portarsi dietro la propria incertezza. Giudica la tecnologia in sé, non se è nuova qui: un processo collaudato usato per la prima volta nella tua regione resta maturo.",
+        "Quanto è matura la tecnologia chiave: in esercizio commerciale, primo impianto pilota, prototipo, o ancora in laboratorio. Meno è matura, più i tuoi numeri saranno stime e non misure, e più il risultato deve portarsi dietro la propria incertezza. Giudica la tecnologia in sé, non se è nuova qui: un processo collaudato usato per la prima volta nella tua regione resta maturo, purché tratti lo stesso tipo di materiale che altrove.",
     },
 
     q7: {
@@ -513,7 +513,7 @@ const it: Locale = {
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',
       help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
-      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio, tranne con Q2 = D (alternative future), che vale come futuro. Il periodo di analisi è l\'arco di tempo coperto dallo studio. La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
+      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio, tranne con Q2 = D (alternative future), che vale come futuro. Il periodo di analisi è l\'arco di tempo coperto dallo studio; di norma coincide con la vita tecnica degli asset principali (D4.2 §9). La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
       start: {
         label: 'In quale anno opera il sistema, o si assume che operi?',
         options: {

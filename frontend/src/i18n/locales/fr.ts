@@ -377,7 +377,7 @@ const fr: Locale = {
         "B — communication externe SANS claim comparatif (rapports de durabilité, brochures marketing sans phrase « meilleur que X »). " +
         "C — CLAIM public que le système est meilleur qu'une alternative de même fonction, ou équivalent à elle (ex. « ce ciment est plus vert que l'OPC »), rendu public sous quelque forme que ce soit : rapport, site ou article scientifique (comparative assertion, ISO 14040 §3.6 ; D4.1 §15.3.4). Active la critical review obligatoire ISO 14044 par 3+ experts indépendants et désactive la pondération. À utiliser avec précaution. " +
         "D — alignement avec les instruments de politique UE (digital product passport ESPR, règles de catégorie PEFCR). Force la PEF Circular Footprint Formula via CIR-05. Le rapport strict d'une seule entreprise (CSRD, ESG) se déclare en Q9, pas ici : il utilise l'allocation, pas la CFF. " +
-        "E — publication académique peer-reviewed. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. Si l'article affirme qu'un système est meilleur qu'une alternative concurrente ou équivalent à elle, cochez aussi C ; une comparaison qui ne désigne pas de gagnant reste E. " +
+        "E — publication académique peer-reviewed. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. Si l'article affirme qu'un système est meilleur qu'une alternative concurrente ou équivalent à elle, cochez aussi C ; une comparaison qui ne désigne pas de gagnant reste E (lecture T4.6). " +
         "Multi-sélection possible : un papier PEF typique choisit D + E.",
       options: {
         A: { label: 'A. Interne', description: 'Usage interne (managérial, R&D, planification).' },
@@ -392,7 +392,7 @@ const fr: Locale = {
           description: 'Alignement politique UE (ESPR, PEF/PEFCR).',
           warn: 'Active la PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed (ajoutez C si elle affirme qu\'un système l\'emporte sur une alternative concurrente).' },
+        E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed (ajoutez C si elle affirme qu\'un système l\'emporte sur une alternative concurrente ou l\'égale).' },
       },
       plain:
         "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Cela vaut où que vous le disiez, y compris dans un article scientifique. Vous pouvez en choisir plusieurs.",
@@ -450,7 +450,7 @@ const fr: Locale = {
       title: 'Q6b — Niveau de maturité technologique (TRL)',
       details:
         "TRL de la technologie dominante ou critique du réseau symbiotique. Détermine le choix de la qualité des données d'inventaire (mesurées vs littérature vs estimation d'ingénierie) et le budget d'incertitude downstream. " +
-        "C'est le TRL de la technologie clé elle-même, non de son adoption : une technologie mature utilisée pour la première fois dans ce réseau ou cette région reste TRL 9 ; la nouveauté de l'application se voit dans la qualité des données, non dans le TRL (lecture T4.6). " +
+        "C'est le TRL de la technologie clé elle-même, non de son adoption : une technologie mature qui traite le même type d'intrant à la même échelle qu'ailleurs, utilisée pour la première fois dans ce réseau ou cette région, reste TRL 9, et la nouveauté se voit dans la qualité des données (lecture T4.6) ; un procédé mature appliqué à un intrant jamais traité à l'échelle est un échange à faible TRL (D4.1 §9.3.5). " +
         "TRL 9 = pleine exploitation commerciale (Kalundborg, Sokka). " +
         "TRL 7-8 = pilote first-of-a-kind / unité pré-commerciale. " +
         "TRL 5-6 = prototype validé en laboratoire, démo à l'échelle pertinente. " +
@@ -462,7 +462,7 @@ const fr: Locale = {
         'TRL<5': 'TRL <5 — R&D précoce',
       },
       plain:
-        "Le degré de maturité de la technologie clé : en exploitation commerciale, premier pilote, prototype, ou encore en laboratoire. Moins elle est mature, plus vos chiffres seront des estimations et non des mesures, et plus le résultat doit porter sa propre incertitude. Jugez la technologie elle-même, non sa nouveauté ici : un procédé éprouvé utilisé pour la première fois dans votre région reste mature.",
+        "Le degré de maturité de la technologie clé : en exploitation commerciale, premier pilote, prototype, ou encore en laboratoire. Moins elle est mature, plus vos chiffres seront des estimations et non des mesures, et plus le résultat doit porter sa propre incertitude. Jugez la technologie elle-même, non sa nouveauté ici : un procédé éprouvé utilisé pour la première fois dans votre région reste mature, pourvu qu'il traite le même type de matière qu'ailleurs.",
     },
 
     q7: {
@@ -486,7 +486,7 @@ const fr: Locale = {
     q8: {
       title: 'Q8 — Horizon temporel de l\'étude',
       help: 'Facultative. Un seul horizon pour l\'ACV et l\'ACC.',
-      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude, sauf avec Q2 = D (alternatives futures), qui compte comme future. La période d\'analyse est la durée couverte par l\'étude. La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
+      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude, sauf avec Q2 = D (alternatives futures), qui compte comme future. La période d\'analyse est la durée couverte par l\'étude ; en règle générale, elle coïncide avec la durée de vie technique des actifs principaux (D4.2 §9). La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
       start: {
         label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
         options: {

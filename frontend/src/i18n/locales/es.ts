@@ -370,8 +370,8 @@ const es: Locale = {
         'A — uso interno: dashboards de gestión, screening I+D, decisiones a nivel de planta. Pocas restricciones metodológicas. ' +
         'B — comunicación externa SIN claims comparativos (informes de sostenibilidad, brochures de marketing sin afirmación "mejor que X"). ' +
         'C — CLAIM público de que el sistema es mejor que una alternativa con la misma función, o equivalente a ella (p. ej. "este cemento es más verde que el OPC"), hecho público en cualquier forma: informe, web o artículo científico (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Activa la critical review obligatoria ISO 14044 por 3+ expertos independientes y desactiva la ponderación. Usar con cuidado. ' +
-        'D — alineamiento con instrumentos de política UE (digital product passport ESPR, reglas de categoría PEFCR). Fuerza la PEF Circular Footprint Formula vía CIR-05. El informe estricto de una sola empresa (CSRD, ESG) se declara en Q9, no aquí: usa asignación, no la CFF. ' +
-        'E — publicación académica peer-reviewed. Requiere transparencia total (fuentes de datos, decisiones de allocation, sensibilidad). A menudo combinada con B o D. Si el artículo afirma que un sistema es mejor que una alternativa competidora o equivalente a ella, marca también C; una comparación que no declara un ganador sigue siendo E. ' +
+        'D — alineamiento con instrumentos de política UE (digital product passport ESPR, reglas de categoría PEFCR). Fuerza la PEF Circular Footprint Formula vía CIR-05. El informe estricto de una sola empresa (CSRD, ESG) se declara en Q9, no aquí: usa allocation, no la CFF. ' +
+        'E — publicación académica peer-reviewed. Requiere transparencia total (fuentes de datos, decisiones de allocation, sensibilidad). A menudo combinada con B o D. Si el artículo afirma que un sistema es mejor que una alternativa competidora o equivalente a ella, marca también C; una comparación que no declara un ganador sigue siendo E (lectura T4.6). ' +
         'Selección múltiple posible: un paper PEF típico elige D + E.',
       options: {
         A: { label: 'A. Interno', description: 'Uso interno (gestión, I+D, planificación).' },
@@ -386,7 +386,7 @@ const es: Locale = {
           description: 'Alineamiento con política UE (ESPR, PEF/PEFCR).',
           warn: 'Activa la PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Publicación académica', description: 'Publicación académica peer-reviewed (añade C si afirma que un sistema supera a una alternativa competidora).' },
+        E: { label: 'E. Publicación académica', description: 'Publicación académica peer-reviewed (añade C si afirma que un sistema supera o iguala a una alternativa competidora).' },
       },
       plain:
         "Quién leerá el resultado, y qué hará con él, decide cuán estricto debe ser el método. Una nota interna es el caso más ligero. Alinearse con los instrumentos de la UE (pasaporte de producto, PEF) impone la manera europea de contar el material reciclado y recuperado. Afirmar en público que tu producto es mejor que otro es el caso más pesado: exige una revisión independiente por expertos externos. Vale dondequiera que lo digas, también en un artículo científico. Puedes elegir más de una.",
@@ -444,7 +444,7 @@ const es: Locale = {
       title: 'Q6b — Technology Readiness Level (TRL)',
       details:
         'TRL de la tecnología dominante o crítica en la red simbiótica. Determina la elección de la calidad de los datos de inventory (medidos vs literatura vs estimación de ingeniería) y el presupuesto de incertidumbre downstream. ' +
-        'Es el TRL de la tecnología clave en sí, no de su adopción: una tecnología madura usada por primera vez en esta red o región sigue siendo TRL 9; la novedad de la aplicación se ve en la calidad de los datos, no en el TRL (lectura T4.6). ' +
+        'Es el TRL de la tecnología clave en sí, no de su adopción: una tecnología madura que trata el mismo tipo de insumo a la misma escala que en otros lugares, usada por primera vez en esta red o región, sigue siendo TRL 9, y la novedad se ve en la calidad de los datos (lectura T4.6); un proceso maduro aplicado a un insumo nunca tratado a escala es un intercambio de bajo TRL (D4.1 §9.3.5). ' +
         'TRL 9 = pleno funcionamiento comercial (Kalundborg, Sokka). ' +
         'TRL 7-8 = piloto first-of-a-kind / unidad pre-comercial. ' +
         'TRL 5-6 = prototipo validado en laboratorio, demo a escala relevante. ' +
@@ -456,7 +456,7 @@ const es: Locale = {
         'TRL<5': 'TRL <5 — I+D temprana',
       },
       plain:
-        "Cuán madura es la tecnología clave: en explotación comercial, primera planta piloto, prototipo, o todavía en laboratorio. Cuanto menos madura, más serán tus cifras estimaciones y no medidas, y más tendrá el resultado que cargar con su propia incertidumbre. Juzga la tecnología en sí, no si es nueva aquí: un proceso probado usado por primera vez en tu región sigue siendo maduro.",
+        "Cuán madura es la tecnología clave: en explotación comercial, primera planta piloto, prototipo, o todavía en laboratorio. Cuanto menos madura, más serán tus cifras estimaciones y no medidas, y más tendrá el resultado que cargar con su propia incertidumbre. Juzga la tecnología en sí, no si es nueva aquí: un proceso probado usado por primera vez en tu región sigue siendo maduro, siempre que trate el mismo tipo de material que en otros lugares.",
     },
 
     q7: {
@@ -480,7 +480,7 @@ const es: Locale = {
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',
       help: 'Opcional. Un solo horizonte para el ACV y el ACC.',
-      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio, salvo con Q2 = D (alternativas futuras), que cuenta como futuro. El periodo de análisis es el lapso que cubre el estudio. La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en ACV y ACC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
+      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio, salvo con Q2 = D (alternativas futuras), que cuenta como futuro. El periodo de análisis es el lapso que cubre el estudio; por norma coincide con la vida útil técnica de los activos principales (D4.2 §9). La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en ACV y ACC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
       start: {
         label: '¿En qué año funciona el sistema, o se supone que funciona?',
         options: {

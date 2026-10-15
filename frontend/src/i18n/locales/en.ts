@@ -426,7 +426,7 @@ const en = {
         'B — external communication WITHOUT comparative claims (sustainability reports, marketing brochures with no "better than X" statement). ' +
         'C — public CLAIM that the system is better than, or equivalent to, an alternative with the same function (e.g. "this cement is greener than OPC"), disclosed to the public in any form: report, website or scientific article (comparative assertion, ISO 14040 §3.6; D4.1 §15.3.4). Activates the mandatory ISO 14044 critical review by 3+ independent experts and disables weighting. Use with care. ' +
         'D — alignment with EU policy instruments (ESPR digital product passport, PEFCR category rules). Forces the PEF Circular Footprint Formula via CIR-05. Strict reporting of one company (CSRD, ESG) is declared in Q9, not here: it uses allocation, not the CFF. ' +
-        'E — academic peer-reviewed publication. Requires full transparency (data sources, allocation choices, sensitivity). Often combined with B or D. If the paper claims that one system is better than or equivalent to a competing alternative, also select C; a comparison that does not declare a winner stays E. ' +
+        'E — academic peer-reviewed publication. Requires full transparency (data sources, allocation choices, sensitivity). Often combined with B or D. If the paper claims that one system is better than or equivalent to a competing alternative, also select C; a comparison that does not declare a winner stays E (T4.6 reading). ' +
         'You can multi-select: a typical PEF paper picks D + E.',
       options: {
         A: { label: 'A. Internal', description: 'Internal use (managerial, R&D, planning).' },
@@ -441,7 +441,7 @@ const en = {
           description: 'EU policy alignment (ESPR, PEF/PEFCR).',
           warn: 'Activates PEF Circular Footprint Formula (CIR-05).',
         },
-        E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication (add C if it claims one system beats a competing one).' },
+        E: { label: 'E. Academic publication', description: 'Academic peer-reviewed publication (add C if it claims one system beats or matches a competing one).' },
       },
       plain:
         "Who will read the result, and what they will do with it, decides how strict the method has to be. An internal note is the lightest. Aligning with EU instruments (the product passport, PEF) locks in the EU's own way of counting recycled and recovered material. Stating in public that your product is better than someone else's is the heaviest: it requires an independent review by outside experts. That holds wherever you say it, a scientific article included. You can pick more than one.",
@@ -499,7 +499,7 @@ const en = {
       title: 'Q6b — Technology Readiness Level (TRL)',
       details:
         'TRL of the dominant or critical technology in the symbiotic network. Drives the choice of inventory data quality (measured vs literature vs engineering estimate) and the uncertainty budget downstream. ' +
-        'It is the TRL of the key technology itself, not of its adoption: a mature technology used for the first time in this network or region is still TRL 9; the novelty of the application shows in the data quality, not in the TRL (T4.6 reading). ' +
+        'It is the TRL of the key technology itself, not of its adoption: a mature technology that treats the same kind of input at the same scale as elsewhere, used for the first time in this network or region, is still TRL 9, and the novelty shows in the data quality (T4.6 reading); a mature process applied to an input never treated at scale is a low-TRL exchange (D4.1 §9.3.5). ' +
         'TRL 9 = full commercial operation (Kalundborg, Sokka). ' +
         'TRL 7-8 = first-of-a-kind pilot / pre-commercial unit. ' +
         'TRL 5-6 = lab-validated prototype, demo at relevant scale. ' +
@@ -511,7 +511,7 @@ const en = {
         'TRL<5': 'TRL <5 — early R&D',
       },
       plain:
-        "How mature the key technology is: in commercial operation, a first pilot, a prototype, or still in the laboratory. The less mature it is, the more your figures will be estimates rather than measurements, and the more the result has to carry its own uncertainty. Judge the technology itself, not whether it is new here: a proven process used for the first time in your region is still mature.",
+        "How mature the key technology is: in commercial operation, a first pilot, a prototype, or still in the laboratory. The less mature it is, the more your figures will be estimates rather than measurements, and the more the result has to carry its own uncertainty. Judge the technology itself, not whether it is new here: a proven process used for the first time in your region is still mature, as long as it treats the same kind of material as elsewhere.",
     },
 
     q7: {
@@ -535,7 +535,7 @@ const en = {
     q8: {
       title: 'Q8 — Time horizon of the study',
       help: 'Optional. One horizon for LCA and LCC alike.',
-      details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study, except with Q2 = D (future alternatives), which counts as future. The analysis period is the time span the study covers. The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
+      details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study, except with Q2 = D (future alternatives), which counts as future. The analysis period is the time span the study covers; as a rule it matches the technical lifetime of the main assets (D4.2 §9). The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
       start: {
         label: 'In which year does the system operate, or is it assumed to operate?',
         options: {

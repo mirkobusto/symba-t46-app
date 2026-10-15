@@ -334,20 +334,17 @@ const de: Locale = {
     },
 
     q2: {
-      title: 'Q2 — In welcher Phase befindet sich das System?',
+      title: 'Q2 — Finden die Austausche, die die Studie misst, bereits statt?',
       details:
-        'A — bestehender Austausch oder Park, der seit Jahren läuft; primäre Werksdaten verfügbar. (Z. B. Kalundborg heute, Sokka 2011 berichtet ein bestehendes IES.) ' +
-        'B — kürzlich gebaut oder in Inbetriebnahme; Daten teilweise gemessen, teilweise Engineering-Schätzung. ' +
-        'C — Pre-Construction-Designstudie; keine gemessenen Betriebsdaten; nur Engineering-Modelle. (Z. B. Daddi 2017 Ex-ante-Studie.) ' +
-        'D — operative Baseline + ein oder mehrere Zukunfts-„What-if"-Szenarien zum Vergleich (z. B. Erweiterung, TRL-Ramp-up, dekarbonisiertes Stromnetz). Bei D wird der Editor für alternative Szenarien unten aktiviert.',
+        'Antworten Sie zu den symbiotischen Austauschen, nicht zu den Anlagen: Eine Anlage kann existieren, während der untersuchte Austausch noch ein Plan ist. A — die Austausche finden seit einiger Zeit statt; primäre Betriebsdaten liegen vor (z. B. Kalundborg heute, Sokka 2011). Die Referenz ist, was jedes Unternehmen heute täte, wenn die Verbindungen gekappt würden (HNSRS, D4.1 §11.1). B — die Austausche haben gerade begonnen, oder die Anlagen werden in Betrieb genommen; Daten teils gemessen, teils geschätzt. C — die Austausche finden noch nicht statt: geplant, entworfen oder hypothetisch, auch wenn die Anlagen schon laufen (z. B. Daddi 2017, Reststoffe in einem bestehenden Betrieb wiederverwendet). Die Referenz ist die heutige Situation ohne die Austausche (CNSRS, D4.1 §11.1). D — die Austausche finden statt, und die Studie vergleicht zusätzlich zukünftige Alternativen (Erweiterung, neue Technologie, dekarbonisiertes Stromnetz): das bestehende Netzwerk gegen das HNSRS, jede Alternative gegen das CNSRS. D öffnet unten den Editor für alternative Szenarien. Wann das System betrieben wird, fragt Q8.',
       options: {
-        A: { label: 'A. Operativ', description: 'Existiert und läuft seit Jahren (echte operative Daten).' },
-        B: { label: 'B. Im Bau', description: 'Im Bau oder kürzlich in Betrieb genommen.' },
-        C: { label: 'C. Designphase', description: 'Nur in der Designphase (keine operativen Daten).' },
-        D: { label: 'D. Baseline + Alternativen', description: 'Bestehende Baseline + N alternative Zukunftsszenarien.' },
+        A: { label: 'A. Bereits laufend', description: 'Die Austausche finden bereits statt (reale Betriebsdaten).' },
+        B: { label: 'B. Gerade begonnen', description: 'Die Austausche haben gerade begonnen, oder die Anlagen werden in Betrieb genommen.' },
+        C: { label: 'C. Noch nicht', description: 'Geplante, entworfene oder hypothetische Austausche, auch zwischen bereits bestehenden Anlagen.' },
+        D: { label: 'D. Laufend, plus Alternativen', description: 'Die Austausche laufen, und die Studie vergleicht sie mit zukünftigen Alternativen.' },
       },
       plain:
-        "Wie weit ist das System? Was bereits läuft, können Sie messen; was noch auf dem Papier steht, können Sie nur schätzen. Wählen Sie die letzte Option, wenn Sie die heutige Lage mit einer oder mehreren möglichen Zukünften vergleichen wollen: sie öffnet den Szenario-Editor weiter unten.",
+        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen Anlagen, die schon laufen, können Sie sie nur schätzen. Wählen Sie die letzte Option, wenn Sie die heutigen Austausche mit einer oder mehreren möglichen Zukünften vergleichen wollen: Sie öffnet unten den Szenario-Editor.',
     },
 
     q3: {

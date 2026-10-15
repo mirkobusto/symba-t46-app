@@ -389,20 +389,17 @@ const en = {
     },
 
     q2: {
-      title: 'Q2 — What phase is the system in?',
+      title: 'Q2 — Do the exchanges the study measures already take place?',
       details:
-        'A — existing exchange or park running for years; primary plant data is available. (e.g. Kalundborg today, Sokka 2011 reporting an existing IES.) ' +
-        'B — built recently or in commissioning; data is partly measured, partly engineering estimate. ' +
-        'C — pre-construction design study; no measured operating data; engineering models only. (e.g. Daddi 2017 ex-ante study.) ' +
-        'D — operational baseline + one or more future "what-if" scenarios you want to compare (e.g. expansion, TRL ramp-up, decarbonised electricity grid). Choosing D enables the alternative-scenarios editor below.',
+        'Answer about the symbiotic exchanges, not about the plants: a plant can exist while the exchange you study is still a plan. A — the exchanges take place and have for some time; primary operating data is available (e.g. Kalundborg today, Sokka 2011). The reference is what each firm would do today if the links were severed (HNSRS, D4.1 §11.1). B — the exchanges have just started, or the plants are being commissioned; data partly measured, partly estimated. C — the exchanges do not take place yet: planned, designed or hypothetical, even if the plants already run (e.g. Daddi 2017, residues reused in an existing farm). The reference is the current situation without the exchanges (CNSRS, D4.1 §11.1). D — the exchanges take place and the study also compares future alternatives (expansion, new technology, decarbonised grid): the existing network against the HNSRS, each alternative against the CNSRS. D opens the alternative-scenarios editor below. When the system operates is asked in Q8.',
       options: {
-        A: { label: 'A. Operational', description: 'Exists and has been operating for years (real operational data).' },
-        B: { label: 'B. Under construction', description: 'Under construction or recently commissioned.' },
-        C: { label: 'C. Design phase', description: 'Only in design phase (no operational data).' },
-        D: { label: 'D. Baseline + alternatives', description: 'Existing baseline + N alternative future scenarios.' },
+        A: { label: 'A. Already running', description: 'The exchanges already take place (real operating data).' },
+        B: { label: 'B. Just started', description: 'The exchanges have just started, or the plants are being commissioned.' },
+        C: { label: 'C. Not yet', description: 'Planned, designed or hypothetical exchanges, even between plants that already exist.' },
+        D: { label: 'D. Running, plus alternatives', description: 'The exchanges run, and the study compares them with future alternatives.' },
       },
       plain:
-        "How far along is the system? Already running means you can measure it; still on paper means you can only estimate it. Pick the last option if you want to compare today's situation with one or more possible futures — that is what opens the scenarios editor below.",
+        'Think of the exchanges, not of the plants. If the flows between the companies already happen, you can measure them. If they are still an idea, even between plants that already run, you can only estimate them. Pick the last option if you want to compare today\'s exchanges with one or more possible futures: it opens the scenarios editor below.',
     },
 
     q3: {

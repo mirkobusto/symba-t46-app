@@ -334,20 +334,17 @@ const es: Locale = {
     },
 
     q2: {
-      title: 'Q2 — ¿En qué fase está el sistema?',
+      title: 'Q2 — ¿Los intercambios que mide el estudio ya tienen lugar?',
       details:
-        'A — intercambio o parque existente operando desde hace años; hay datos primarios de planta. (Ej. Kalundborg hoy, Sokka 2011 reportando un IES existente.) ' +
-        'B — construido recientemente o en commissioning; los datos son en parte medidos, en parte estimación de ingeniería. ' +
-        'C — estudio de diseño pre-construcción; sin datos operativos medidos; solo modelos de ingeniería. (Ej. estudio ex-ante Daddi 2017.) ' +
-        'D — baseline operativa + uno o más escenarios "what-if" futuros a comparar (p. ej. expansión, ramp-up TRL, mix eléctrico descarbonizado). Elegir D habilita el editor de escenarios alternativos abajo.',
+        'Responde sobre los intercambios simbióticos, no sobre las plantas: una planta puede existir mientras el intercambio que estudias es todavía un proyecto. A — los intercambios tienen lugar desde hace tiempo; hay datos operativos primarios (p. ej. Kalundborg hoy, Sokka 2011). La referencia es lo que cada empresa haría hoy si se cortaran los vínculos (HNSRS, D4.1 §11.1). B — los intercambios acaban de empezar, o las plantas están en puesta en marcha; datos en parte medidos, en parte estimados. C — los intercambios aún no tienen lugar: previstos, diseñados o hipotéticos, aunque las plantas ya funcionen (p. ej. Daddi 2017, residuos reutilizados en una explotación existente). La referencia es la situación actual sin los intercambios (CNSRS, D4.1 §11.1). D — los intercambios tienen lugar y el estudio compara también alternativas futuras (ampliación, nueva tecnología, red eléctrica descarbonizada): la red existente frente al HNSRS, cada alternativa frente al CNSRS. D abre el editor de escenarios alternativos de abajo. Cuándo funciona el sistema se pregunta en Q8.',
       options: {
-        A: { label: 'A. Operativo', description: 'Existe y opera desde hace años (datos operativos reales).' },
-        B: { label: 'B. En construcción', description: 'En construcción o recientemente puesto en marcha.' },
-        C: { label: 'C. Fase de diseño', description: 'Solo en fase de diseño (sin datos operativos).' },
-        D: { label: 'D. Baseline + alternativas', description: 'Baseline existente + N escenarios alternativos futuros.' },
+        A: { label: 'A. Ya en marcha', description: 'Los intercambios ya tienen lugar (datos operativos reales).' },
+        B: { label: 'B. Recién iniciados', description: 'Los intercambios acaban de empezar, o las plantas están en puesta en marcha.' },
+        C: { label: 'C. Todavía no', description: 'Intercambios previstos, diseñados o hipotéticos, incluso entre plantas que ya existen.' },
+        D: { label: 'D. En marcha, más alternativas', description: 'Los intercambios están en marcha y el estudio los compara con alternativas futuras.' },
       },
       plain:
-        "¿En qué punto está el sistema? Si ya funciona, puedes medirlo; si está todavía en el papel, solo puedes estimarlo. Elige la última opción si quieres comparar la situación actual con uno o varios futuros posibles: es la que abre el editor de escenarios más abajo.",
+        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. Elige la última opción si quieres comparar los intercambios de hoy con uno o más futuros posibles: abre el editor de escenarios de abajo.',
     },
 
     q3: {

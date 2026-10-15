@@ -39,7 +39,7 @@ from app.engine.predicate import (
 def ctx_wiktor(schemas):
     """Wiktor 2018 fixture context: q1=B, q2=D, q3=ENV+ECO, q6a=wastewater,
     q7=B. Post-pipeline yields pathway IS-01 + is_01_extended=True,
-    ilcd_situation=A_MULTI, lcc_type=C_LCC_PLUS_E_LCC."""
+    ilcd_situation=A, lcc_type=C_LCC_PLUS_E_LCC."""
     case = Case(
         q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
         q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
@@ -53,7 +53,7 @@ def ctx_wiktor(schemas):
 @pytest.fixture()
 def ctx_arce(schemas):
     """Arce Bastias fixture context: q1=B, q2=A (ex-post), q3=ENV-only,
-    q7=A (single site). Yields IS-01, is_01_extended=False, A_MULTI."""
+    q7=A (single site). Yields IS-01, is_01_extended=False, A."""
     case = Case(
         q1=Q1.B, q2=Q2.A, q3=Q3(env=True), q4={Q4.E},
         q6a=Q6a.PLASTICS_PACKAGING, q6b=Q6b.TRL9, q7=Q7.A,
@@ -185,7 +185,7 @@ def test_is_01_extended_false(ctx_arce):
 
 
 def test_ilcd_situation(ctx_wiktor):
-    assert evaluate('ilcd_situation == "ILCD Situation A multi-actor"', ctx_wiktor) is True
+    assert evaluate('ilcd_situation == "ILCD Situation A"', ctx_wiktor) is True
 
 
 # ---------------------------------------------------------------------------

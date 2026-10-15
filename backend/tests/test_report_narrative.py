@@ -55,8 +55,8 @@ def test_verdict_reads_as_a_sentence_not_a_code(wiktor):
 
 def test_verdict_sections_carry_their_citation(wiktor):
     sections = {s.code: s for s in verdict_for(wiktor).sections}
-    assert "ILCD Situation A multi-actor" in sections
-    assert sections["ILCD Situation A multi-actor"].source.startswith("D4.1")
+    assert "ILCD Situation A" in sections
+    assert sections["ILCD Situation A"].source.startswith("D4.1")
     # a deactivated state is engine behaviour, not methodology: no citation
     assert sections["deactivated"].quote == ""
 

@@ -600,7 +600,7 @@ def test_q4_d_ends_on_pef_cff_for_every_q1_through_cir_05(schemas, q1):
     "q1, expected",
     [
         (Q1.A, "alt disposal+virgin market"),
-        (Q1.B, "hypothetical no-IS"),
+        (Q1.B, "alt disposal+virgin market"),   # parks are Situation A since 2026-10-15
         # D4.1 §8.3.1 / §12.3.1: Situation B models the marginal technology,
         # identified through a market analysis, not the national average mix.
         (Q1.C, "marginal technology mix (market analysis)"),
@@ -773,7 +773,7 @@ def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(sche
 def test_q9_unanswered_keeps_every_q1_result(schemas):
     expected = {
         Q1.A: ("attributional", "system expansion", "ILCD A"),
-        Q1.B: ("attributional", "system expansion", "ILCD A (multi-actor)"),
+        Q1.B: ("attributional", "system expansion", "ILCD A"),
         Q1.C: ("consequential", "consequential expansion", "ILCD B"),
         Q1.D: ("attributional", "allocation", "ILCD C2"),
         Q1.E: ("attributional", "system expansion", "ILCD C1"),

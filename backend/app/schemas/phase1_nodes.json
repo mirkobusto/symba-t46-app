@@ -39,11 +39,11 @@
       "field": "lca.ilcd_situation",
       "field_status": null,
       "default_value": {
-        "q9=micro": "ILCD Situation A (A multi-actor if q1=B)",
+        "q9=micro": "ILCD Situation A",
         "q9=structural": "ILCD Situation B if the market screening is documented; else A, with B as a sensitivity",
         "q9=none": "ILCD Situation C1",
         "q9=corporate_report": "ILCD Situation C2",
-        "q9 unanswered": "Q1 fallback: A -> A, B -> A (multi-actor), C -> B, D -> C2, E -> C1"
+        "q9 unanswered": "Q1 fallback: A -> A, B -> A, C -> B, D -> C2, E -> C1"
       },
       "override_path": "q1",
       "lifecycle_layer": "L0",
@@ -456,7 +456,6 @@
       "field_status": null,
       "default_value": {
         "ilcd=A": "ILCD A",
-        "ilcd=A-multi": "ILCD A (multi-actor)",
         "ilcd=B": "ILCD B",
         "ilcd=C2": "ILCD C2",
         "ilcd=C1": "ILCD C1"
@@ -480,7 +479,6 @@
       "field_status": null,
       "default_value": {
         "ilcd=A": "attributional",
-        "ilcd=A-multi": "attributional",
         "ilcd=B": "consequential",
         "ilcd=C2": "attributional",
         "ilcd=C1": "attributional"
@@ -593,7 +591,7 @@
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
-        "ilcd in {A,A-multi,C1}": "Step1 sub-process > Step2 system expansion",
+        "ilcd in {A,C1}": "Step1 sub-process > Step2 system expansion",
         "ilcd=B": "consequential expansion",
         "ilcd=C2": "Step3 allocation"
       },
@@ -668,7 +666,7 @@
       "field": "lca.allocation_method",
       "field_status": null,
       "default_value": {
-        "ilcd in {A,A-multi,C1}": "system expansion",
+        "ilcd in {A,C1}": "system expansion",
         "ilcd=B": "consequential expansion",
         "ilcd=C2": "allocation"
       },
@@ -955,7 +953,6 @@
       "field_status": null,
       "default_value": {
         "ilcd=A": "alt disposal+virgin market",
-        "ilcd=A-multi": "hypothetical no-IS",
         "ilcd=B": "marginal technology mix (market analysis)"
       },
       "override_path": "q1, advanced",

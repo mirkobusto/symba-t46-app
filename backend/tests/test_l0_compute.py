@@ -18,7 +18,7 @@ from app.engine.l0_compute import run
 
 _ILCD_CELLS = [
     (Q1.A, IlcdSituation.SITUATION_A),
-    (Q1.B, IlcdSituation.SITUATION_A_MULTI),
+    (Q1.B, IlcdSituation.SITUATION_A),
     (Q1.C, IlcdSituation.SITUATION_B),
     (Q1.D, IlcdSituation.SITUATION_C2),
     (Q1.E, IlcdSituation.SITUATION_C1),
@@ -107,7 +107,7 @@ def test_run_mutates_and_returns_same_instance(schemas):
     result = run(case, schemas)
 
     assert result is case
-    assert case.ilcd_situation is IlcdSituation.SITUATION_A_MULTI
+    assert case.ilcd_situation is IlcdSituation.SITUATION_A
     assert case.lcc_type is LccType.C_LCC_PLUS_E_LCC
     assert case.slca_activation_state is SlcaActivationState.ACTIVE
 
@@ -162,12 +162,12 @@ _N, _M, _X, _R = (DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.S
 _ILCD_TABLE = {
     #        none            micro                 structural      corporate report
     Q1.A: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
-    Q1.B: (_S.SITUATION_C1, _S.SITUATION_A_MULTI, _S.SITUATION_B, _S.SITUATION_C2),
+    Q1.B: (_S.SITUATION_C1, _S.SITUATION_A, _S.SITUATION_B, _S.SITUATION_C2),
     Q1.C: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
     Q1.D: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
     Q1.E: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
 }
-_Q1_ONLY = {Q1.A: _S.SITUATION_A, Q1.B: _S.SITUATION_A_MULTI, Q1.C: _S.SITUATION_B,
+_Q1_ONLY = {Q1.A: _S.SITUATION_A, Q1.B: _S.SITUATION_A, Q1.C: _S.SITUATION_B,
             Q1.D: _S.SITUATION_C2, Q1.E: _S.SITUATION_C1}
 
 

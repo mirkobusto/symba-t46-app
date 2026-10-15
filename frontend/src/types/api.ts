@@ -143,7 +143,7 @@ export interface ApplicableRule {
   source_nodes?: string[]
 }
 
-export type DecisionContext = 'none' | 'micro' | 'structural'
+export type DecisionContext = 'micro' | 'structural' | 'none' | 'corporate_report'
 
 /** A note on the user's answers; informational, never blocks the run. */
 export interface CaseWarning {
@@ -187,6 +187,10 @@ export interface Case {
   // Optional Q9: does the study support a decision, and at what scale
   // (D4.1 Table 1). null/absent = the engine infers the ILCD situation from Q1.
   decision_context?: DecisionContext | null
+  // Q9b (only with Q9 = structural): is the market screening documented
+  // (about 1% or more of new capacity, D4.1 §11.3.1)? false = Situation A with
+  // B as a sensitivity; null = B, with a note asking for the proof.
+  market_screening_documented?: boolean | null
   // Optional Q10: does the study serve a public policy or territorial planning
   // objective (D4.2 §2.3, adds the S-LCC). null/absent = inferred from Q1.
   policy_objective?: boolean | null

@@ -208,6 +208,9 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         _add_kv(doc, "Q8c asset lifetime (years)", f"{case.asset_lifetime_years:g}")
     if case.decision_context is not None:
         _add_kv(doc, "Q9 decision and scale", case.decision_context.value)
+    if case.market_screening_documented is not None:
+        _add_kv(doc, "Q9b market screening documented",
+                "yes" if case.market_screening_documented else "no")
     if case.policy_objective is not None:
         _add_kv(doc, "Q10 public policy / planning objective",
                 "yes" if case.policy_objective else "no")

@@ -155,14 +155,17 @@ def test_a_case_saved_before_warnings_existed_still_loads():
 from app.domain.enums import Q2, DecisionContext  # noqa: E402
 
 _S = IlcdSituation
-_N, _M, _X = DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL
+_N, _M, _X, _R = (DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL,
+                  DecisionContext.CORPORATE_REPORT)
+# Q9 wins over Q1, Q1=D included (owner decision 2026-10-15). Structural cells
+# assume the market screening is documented (Q9b); see the screening tests.
 _ILCD_TABLE = {
-    #        none            micro                 structural
-    Q1.A: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
-    Q1.B: (_S.SITUATION_C1, _S.SITUATION_A_MULTI, _S.SITUATION_B),
-    Q1.C: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
-    Q1.D: (_S.SITUATION_C2, _S.SITUATION_C2,      _S.SITUATION_C2),
-    Q1.E: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B),
+    #        none            micro                 structural      corporate report
+    Q1.A: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
+    Q1.B: (_S.SITUATION_C1, _S.SITUATION_A_MULTI, _S.SITUATION_B, _S.SITUATION_C2),
+    Q1.C: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
+    Q1.D: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
+    Q1.E: (_S.SITUATION_C1, _S.SITUATION_A,       _S.SITUATION_B, _S.SITUATION_C2),
 }
 _Q1_ONLY = {Q1.A: _S.SITUATION_A, Q1.B: _S.SITUATION_A_MULTI, Q1.C: _S.SITUATION_B,
             Q1.D: _S.SITUATION_C2, Q1.E: _S.SITUATION_C1}
@@ -170,10 +173,10 @@ _Q1_ONLY = {Q1.A: _S.SITUATION_A, Q1.B: _S.SITUATION_A_MULTI, Q1.C: _S.SITUATION
 
 @pytest.mark.parametrize(
     "q1, decision, expected",
-    [(q1, d, row[i]) for q1, row in _ILCD_TABLE.items() for i, d in enumerate((_N, _M, _X))],
+    [(q1, d, row[i]) for q1, row in _ILCD_TABLE.items() for i, d in enumerate((_N, _M, _X, _R))],
 )
-def test_q9_table_all_fifteen_cells(q1, decision, expected):
-    case = Case(q1=q1, q3=Q3(env=True), decision_context=decision)
+def test_q9_table_all_twenty_cells(q1, decision, expected):
+    case = Case(q1=q1, q3=Q3(env=True), decision_context=decision, market_screening_documented=True)
     run(case, None)
     assert case.ilcd_situation == expected
 
@@ -200,29 +203,43 @@ def test_q9_unanswered_values_never_depend_on_q2_only_the_note_does(q1, q2):
 
 
 @pytest.mark.parametrize(
-    "q1, decision, code",
+    "q1, decision, codes",
     [
-        (Q1.C, _M, "decision_scale_vs_q1"),
-        (Q1.D, _M, "q1_d_fixed"),
-        (Q1.D, _X, "q1_d_fixed"),
-        (Q1.E, _M, "decision_scale_vs_q1"),
-        (Q1.E, _X, "decision_scale_vs_q1"),
+        (Q1.C, _M, ["decision_scale_vs_q1"]),
+        (Q1.E, _M, ["decision_scale_vs_q1"]),
+        (Q1.E, _X, ["decision_scale_vs_q1"]),
+        (Q1.D, _M, ["q1_d_not_corporate"]),
+        (Q1.D, _N, ["q1_d_not_corporate"]),
+        (Q1.D, _X, ["q1_d_not_corporate"]),
     ],
 )
-def test_q9_answers_that_contradict_q1_leave_a_note(q1, decision, code):
-    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision)
+def test_q9_answers_that_contradict_q1_leave_a_note(q1, decision, codes):
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision, market_screening_documented=True)
     run(case, None)
-    assert [w["code"] for w in case.warnings] == [code]
+    assert [w["code"] for w in case.warnings] == codes
 
 
 @pytest.mark.parametrize(
     "q1, decision",
-    [(Q1.A, _M), (Q1.A, _X), (Q1.B, _M), (Q1.B, _X), (Q1.C, _X), (Q1.A, _N), (Q1.D, _N)],
+    [(Q1.A, _M), (Q1.A, _X), (Q1.B, _M), (Q1.B, _X), (Q1.C, _X), (Q1.A, _N), (Q1.D, _R), (Q1.A, _R)],
 )
 def test_q9_answers_consistent_with_q1_leave_no_note(q1, decision):
-    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision)
+    case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision, market_screening_documented=True)
     run(case, None)
     assert case.warnings == []
+
+
+@pytest.mark.parametrize("screening, situation, code", [
+    (True, _S.SITUATION_B, None),
+    (None, _S.SITUATION_B, "structural_screening_missing"),
+    (False, _S.SITUATION_A, "structural_without_screening"),
+])
+def test_q9_structural_needs_the_market_screening(screening, situation, code):
+    """D4.1 L00632: the burden of proof is on Situation B; L01293: the screening."""
+    case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True), decision_context=_X, market_screening_documented=screening)
+    run(case, None)
+    assert case.ilcd_situation == situation
+    assert [w["code"] for w in case.warnings] == ([code] if code else [])
 
 
 @pytest.mark.parametrize("q2, noted", [(Q2.A, False), (Q2.B, False), (Q2.C, True), (Q2.D, True), (None, False)])
@@ -232,15 +249,21 @@ def test_q9_no_decision_with_an_ex_ante_q2_leaves_a_note(q2, noted):
     assert ("documentation_vs_ex_ante" in [w["code"] for w in case.warnings]) is noted
 
 
-def test_q9_q1_d_stays_c2_so_the_block_cannot_fire():
-    """Whatever Q9 says, Q1=D keeps C2 and C-LCC only; E-LCC never appears."""
+def test_q9_c2_keeps_c_lcc_only_and_never_blocks():
+    """C2 comes from Q9 (or from Q1=D when Q9 is unanswered): C-LCC only, no block.
+    Q1=D with another Q9 answer is not a C2 study: C-LCC + E-LCC, no block either."""
     from app.engine.l1_blocks import run as l1_run
-    for decision in DecisionContext:
-        case = Case(q1=Q1.D, q3=Q3(env=True, eco=True), decision_context=decision)
+    for q1 in Q1:
+        case = Case(q1=q1, q3=Q3(env=True, eco=True), decision_context=_R)
         run(case, None)
         assert case.ilcd_situation == _S.SITUATION_C2 and case.lcc_type == LccType.C_LCC_ONLY
         l1_run(case, None)
         assert case.blocked_by == []
+    case = Case(q1=Q1.D, q3=Q3(env=True, eco=True), decision_context=_M)
+    run(case, None)
+    l1_run(case, None)
+    assert case.ilcd_situation == _S.SITUATION_A and case.lcc_type == LccType.C_LCC_PLUS_E_LCC
+    assert case.blocked_by == []
 
 
 def test_q9_rejects_an_unknown_answer():
@@ -284,7 +307,7 @@ def test_q10_with_the_economic_dimension_off_the_lcc_stays_deactivated(q1, polic
 
 @pytest.mark.parametrize(
     "q1, policy, codes",
-    [(Q1.C, False, ["policy_no_but_q1_c"]), (Q1.D, True, ["q1_d_fixed_lcc"]),
+    [(Q1.C, False, ["policy_no_but_q1_c"]), (Q1.D, True, ["c2_keeps_c_lcc"]),
      (Q1.A, True, []), (Q1.A, False, []), (Q1.B, True, []), (Q1.E, True, []),
      (Q1.C, True, []), (Q1.D, False, []), (Q1.C, None, [])],
 )
@@ -295,10 +318,10 @@ def test_q10_notes_only_for_contradictions(q1, policy, codes):
 
 
 def test_q9_and_q10_notes_accumulate_and_are_rebuilt():
-    case = Case(q1=Q1.D, q2=Q2.A, q3=Q3(env=True, eco=True),
-                decision_context=DecisionContext.MICRO, policy_objective=True)
+    case = Case(q1=Q1.C, q2=Q2.A, q3=Q3(env=True, eco=True),
+                decision_context=DecisionContext.MICRO, policy_objective=False)
     run(case, None)
-    assert sorted(w["code"] for w in case.warnings) == ["q1_d_fixed", "q1_d_fixed_lcc"]
+    assert sorted(w["code"] for w in case.warnings) == ["decision_scale_vs_q1", "policy_no_but_q1_c"]
     run(case, None)   # a second run replaces the notes, it does not stack them
     assert len(case.warnings) == 2
 

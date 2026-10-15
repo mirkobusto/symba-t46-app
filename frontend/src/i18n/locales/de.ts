@@ -505,17 +505,22 @@ const de: Locale = {
         'Über welche Jahre betrachtet die Studie das System? Beschreibt sie, wie die Dinge heute funktionieren, genügt ein Bild der Gegenwart. Geht es um eine Anlage, die erst in einem späteren Jahr läuft, oder verfolgt sie das System über Jahrzehnte, hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft: dieselbe Zukunft für die ökologische und die wirtschaftliche Betrachtung.',
     },
     q9: {
-      title: 'Q9 — Unterstützt die Studie eine Entscheidung, und in welchem Maßstab?',
-      help: 'Optional. Ohne Antwort leitet die Engine sie aus Q1 ab.',
-      details: 'Tabelle 1 in D4.1 klassifiziert die Studie danach, ob eine Entscheidung getroffen wird und wie groß ihre Folgen sind, nicht nach ihrem Gegenstand. Q1 ist nur ein Stellvertreter (A/B → begrenzte Folgen, C → strukturelle, D/E → keine Entscheidung). Antworten Sie, wenn der Stellvertreter falsch liegt. „Keine Entscheidung“ setzt ein bestehendes Netzwerk voraus (Q2 = A oder B). Bei Q1 = D bleibt es unabhängig von der Antwort bei ILCD-Situation C2 (T4.6-Designentscheidung).',
+      title: 'Q9 — Wozu dient die Studie, und wie weit reichen ihre Wirkungen? *',
+      help: 'Pflicht. Sie legt die Modellierungssituation fest (ILCD A, B, C1 oder C2); Q1 beschreibt nur den Gegenstand.',
+      details: 'Tabelle 1 in D4.1 klassifiziert die Studie nach der unterstützten Entscheidung und der Größe ihrer Folgen, nicht nach ihrem Gegenstand (D4.1 §4.2.3). Mikro (Situation A) ist der Standard für einzelne Austausche und Park- oder Anlagenplanungen, auch ohne benannten Entscheider (§4.3.4). Strukturell (Situation B) verlangt den Nachweis, dass die Änderung installierte Kapazität im betroffenen Markt verschiebt, etwa 1 % oder mehr der Neuinstallationen (§4.3.4, §11.3.1); ohne Nachweis bleibt die Studie A, mit B als Sensitivität. Ein bestehendes Netzwerk zu dokumentieren ist Situation C1 (Substitution, §7.2.3); die strikte Berichterstattung eines einzelnen Unternehmens ist C2 (Allokation, keine Gutschriften, §7.2.3), mit Kosten nur auf Unternehmensebene (T4.6-Designentscheidung).',
       options: {
-        unset: 'Nicht beantwortet (aus Q1 abgeleitet)',
-        none: 'Keine Entscheidung — die Studie dokumentiert ein bestehendes Netzwerk (ILCD-Situation C)',
-        micro: 'Ja, mit begrenzten Folgen: keine Änderung der installierten Kapazität oder der Preise in der Gesamtwirtschaft (Situation A)',
-        structural: 'Ja, mit Folgen in großem Maßstab: verdrängt etwa 1 % oder mehr des jährlichen Neubaus im betroffenen Markt (Situation B; der Nachweis ist zu dokumentieren)',
+        micro: 'Sie untersucht oder unterstützt eine Wahl, auch eine hypothetische ohne benannten Entscheider, und ihre Wirkungen bleiben in den beteiligten Anlagen (Situation A)',
+        structural: 'Sie unterstützt eine Wahl, deren Wirkungen verändern, was ein ganzer Markt oder Sektor produziert (Situation B; der Nachweis muss dokumentiert sein)',
+        none: 'Keine Wahl: Sie dokumentiert, was ein bestehendes Netzwerk oder System leistet, so wie es ist (Situation C1)',
+        corporate_report: 'Strikte Berichterstattung eines einzelnen Unternehmens (ESG / CSRD), ohne Gutschrift für das, was die Symbiose anderswo vermeidet (Situation C2)',
+      },
+      screening: {
+        label: 'Ist dokumentiert, dass die Änderung etwa 1 % oder mehr der Neukapazität im betroffenen Markt verdrängt?',
+        yes: 'Ja, es ist dokumentiert (Situation B)',
+        no: 'Nein (Situation A, mit Situation B als Sensitivitätsanalyse)',
       },
       plain:
-        "Hängt von dieser Studie eine Entscheidung ab, und wie groß sind ihre Folgen? „Keine Entscheidung“ können Sie nur für ein Netz angeben, das bereits besteht. Folgen, die innerhalb der beteiligten Anlagen bleiben, sind klein; Folgen, die einen ganzen Markt verschieben, sind groß, und der Nachweis dafür muss dokumentiert werden. Für die eigene Rechenschaft eines einzelnen Unternehmens ändert die Antwort nichts. Ohne Antwort liest das Werkzeug sie aus der ersten Frage ab.",
+        'Wozu dient die Studie? Meistens untersucht oder stützt sie eine Wahl, deren Wirkungen in den beteiligten Anlagen bleiben, auch wenn noch niemand entscheiden muss. Erst wenn die Änderung groß genug ist, um zu verändern, was ein ganzer Markt produziert, und man das zeigen kann, ändert die Studie ihre Art. Beschreiben Sie nur ein Netzwerk, das schon läuft, oder die Zahlen eines einzelnen Unternehmens, sagen Sie es: Jeder Fall wird anders modelliert.',
     },
     q10: {
       title: 'Q10 — Dient die Studie einem Ziel der öffentlichen Politik oder der Raumplanung?',

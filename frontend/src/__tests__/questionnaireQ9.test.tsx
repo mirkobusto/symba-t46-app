@@ -6,8 +6,9 @@ import '../i18n'
 import QuestionnairePage from '../pages/QuestionnairePage'
 import { useCaseStore } from '../store/caseStore'
 
-// Q9 (decision and scale) is optional: unanswered must reach the API as null
-// (the engine then infers the ILCD situation from Q1, as before Q9 existed).
+// Q9 (decision and scale) is required since 2026-10-15: the ILCD situation
+// follows it (D4.1 Table 1), not Q1. A structural answer asks for the market
+// screening (D4.1 §11.3.1).
 describe('Questionnaire Q9 — decision and scale', () => {
   let bodies: Array<Record<string, unknown>>
 
@@ -42,17 +43,34 @@ describe('Questionnaire Q9 — decision and scale', () => {
   const q9Pick = (value: string) =>
     fireEvent.click(q9Radios().find((r) => r.value === value)!)
 
-  it('offers the three answers plus "not answered", unanswered by default', () => {
-    expect(q9Radios().map((r) => r.value)).toEqual(['', 'none', 'micro', 'structural'])
-    expect(q9Radios().filter((r) => r.checked).map((r) => r.value)).toEqual([''])
+  it('offers the four answers, none chosen by default', () => {
+    expect(q9Radios().map((r) => r.value)).toEqual(['micro', 'structural', 'none', 'corporate_report'])
+    expect(q9Radios().filter((r) => r.checked)).toEqual([])
     expect(document.querySelector('section[aria-labelledby="q9-title"] select')).toBeNull()
   })
 
-  it('sends the chosen scale', async () => {
+  it('keeps the run button disabled until Q9 is answered', () => {
+    expect(screen.getByRole('button', { name: /work out the pathway/i })).toBeDisabled()
+    q9Pick('micro')
+    expect(screen.getByRole('button', { name: /work out the pathway/i })).toBeEnabled()
+  })
+
+  it('sends the chosen answer, with no screening unless structural', async () => {
+    q9Pick('corporate_report')
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    await waitFor(() => expect(bodies.length).toBe(1))
+    expect(bodies[0].decision_context).toBe('corporate_report')
+    expect(bodies[0].market_screening_documented).toBeNull()
+  })
+
+  it('asks for the market screening only with a structural answer, and sends it', async () => {
+    expect(document.querySelector('input[name="q9-screening"]')).toBeNull()
     q9Pick('structural')
+    fireEvent.click(document.querySelector('input[name="q9-screening"][value="no"]')!)
     fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].decision_context).toBe('structural')
+    expect(bodies[0].market_screening_documented).toBe(false)
   })
 
   it('shows each answer in full, not cut to a short label', () => {
@@ -60,13 +78,7 @@ describe('Questionnaire Q9 — decision and scale', () => {
       document.querySelectorAll('section[aria-labelledby="q9-title"] .opt-label'),
     ).map((e) => e.textContent)
     expect(labels).toContain(
-      'Yes, with large-scale consequences: displaces about 1% or more of the annual new build in the affected market (Situation B; the proof must be documented)',
+      'Strict reporting of one company in isolation (ESG / CSRD), with no credit for what the symbiosis avoids elsewhere (Situation C2)',
     )
-  })
-
-  it('sends null when left unanswered', async () => {
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
-    await waitFor(() => expect(bodies.length).toBe(1))
-    expect(bodies[0].decision_context).toBeNull()
   })
 })

@@ -32,6 +32,8 @@ describe('Questionnaire Q10 — policy purpose', () => {
     )
     fireEvent.click(document.querySelector('input[name="q1"][value="A"]')!)
     fireEvent.click(screen.getByLabelText(/Environmental \(LCA\)/))
+    // Q9 is required since 2026-10-15
+    fireEvent.click(document.querySelector('input[name="q9"][value="micro"]')!)
   })
 
   const q10Radios = () =>

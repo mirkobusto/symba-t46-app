@@ -133,6 +133,19 @@ class DecisionContext(StrEnum):
     STRUCTURAL = "structural"
 
 
+class OperatingStart(StrEnum):
+    """Q8a (optional) — when does the assessed system operate?
+
+    NOW: the year of the study (background of that year, near-term projections
+    in sensitivity, D4.1 §11.3.1). FUTURE: a future operating year, which calls
+    for future-projected background in LCA and LCC alike (D4.1 §9.3.5, §12.3.2;
+    D4.2 §11 requires the same time horizon in both).
+    """
+
+    NOW = "now"
+    FUTURE = "future"
+
+
 class IlcdSituation(StrEnum):
     """Set by lca_t1 (and co-asserted by lca_mc_01).
 

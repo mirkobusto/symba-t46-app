@@ -513,13 +513,29 @@ const it: Locale = {
         "Come sono disposti i siti: un unico sito, più siti nella stessa regione, siti fra regioni o oltre confine, o un programma nazionale o di settore. Il trasporto si conta qualunque cosa rispondi; la risposta cambia solo quanto dettaglio ti verrà chiesto su percorsi e modalità. Dietro le quattro opzioni non c'è nessuna soglia di distanza: ogni flusso ha la sua distanza di convenienza, e il file di raccolta dati te la chiede, flusso per flusso, dalla tua analisi di sensibilità.",
     },
     q8: {
-      title: 'Q8 — Vita tecnica attesa degli asset principali (anni)',
-      help: 'Facoltativa. Lasciala vuota se non la conosci.',
-      details: 'Anni in cui gli asset principali (impianto, attrezzature, infrastrutture) dovrebbero funzionare. Gli scenari di background futuri (SSP/RCP) si aggiungono sia all\'LCA sia all\'LCC (regola CIR-01) in ogni studio ex-ante (Q2 = B, C o D), come chiede D4.1, e per gli asset che funzionano oltre 15 anni, come chiede D4.2; i 15 anni sono un valore predefinito T4.6 senza fonte. Questa risposta conta quindi solo per uno studio ex-post (Q2 = A); lasciata vuota, non cambia nulla.',
+      title: 'Q8 — Orizzonte temporale dello studio',
+      help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
+      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando lo studio segue il sistema per più di 15 anni (D4.2 §9; i 15 anni sono un valore predefinito T4.6 senza fonte). Senza risposta, l\'anno di esercizio è quello dello studio, tranne con Q2 = D (alternative future), che vale come futuro. Il periodo di analisi è l\'arco di tempo coperto dallo studio; se è vuoto si usa la vita degli asset principali (D4.2 §9.1).',
+      start: {
+        label: 'In quale anno opera il sistema, o si assume che operi?',
+        options: {
+          unset: 'Non risposta (l\'anno dello studio; un anno futuro se Q2 = D)',
+          now: 'Adesso: l\'anno dello studio',
+          future: 'Un anno futuro',
+        },
+        yearPlaceholder: 'es. 2030',
+      },
+      period: {
+        label: 'Per quanti anni lo studio segue il sistema (periodo di analisi)?',
+        placeholder: 'es. 25; vuoto per la fotografia di un anno',
+      },
+      lifetime: {
+        label: 'Vita tecnica degli asset principali (usata solo se il periodo di analisi è vuoto)',
+      },
       placeholder: 'es. 20',
       unit: 'anni',
       plain:
-        "Quanti anni dovrebbero funzionare impianto e attrezzature. Lascia vuoto se non lo sai. Conta solo per un sistema che già funziona: oltre i quindici anni circa il risultato dipende da come cambiano elettricità, combustibili e mercati nei decenni, e il tool ti chiede di prendere posizione su quel futuro. Per un sistema ancora in progetto o in costruzione te lo chiede comunque.",
+        'Su quali anni lo studio guarda il sistema? Se descrive come funzionano le cose oggi basta una fotografia del presente. Se riguarda un impianto che funzionerà in un anno successivo, o segue il sistema per decenni, il risultato dipende da come cambieranno elettricità, combustibili e mercati, e il tool ti chiede di prendere posizione su quel futuro: lo stesso futuro per la lettura ambientale e per quella economica.',
     },
     q9: {
       title: 'Q9 — Lo studio supporta una decisione, e a quale scala?',
@@ -595,7 +611,7 @@ const it: Locale = {
     removeAria: 'Rimuovi {{key}}',
     hints: {
       slca_framework_override: "Imposta a 'absolute' per testare L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Anni (usato se Q8 è vuota); >15 aggiunge il background futuro a uno studio ex-post (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Anni (storico; usato se in Q8 periodo di analisi e vita sono vuoti); un orizzonte >15 aggiunge il background futuro a LCA e LCC (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Booleano; true attiva CIR-03',
       network_nodes: 'Intero; ≥3 (con Q1=B + interdependent_flows) attiva CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) attiva CIR-04',

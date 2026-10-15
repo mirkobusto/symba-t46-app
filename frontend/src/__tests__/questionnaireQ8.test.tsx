@@ -6,9 +6,9 @@ import '../i18n'
 import QuestionnairePage from '../pages/QuestionnairePage'
 import { useCaseStore } from '../store/caseStore'
 
-// Q8 (asset lifetime) is optional: empty must reach the API as null (the
-// engine then behaves as before Q8 existed), a number must reach it as a number.
-describe('Questionnaire Q8 — asset lifetime', () => {
+// Q8 (time horizon) is optional: empty fields must reach the API as null, numbers
+// as numbers. Q8a (operating year), Q8b (analysis period), Q8c (asset lifetime).
+describe('Questionnaire Q8 — time horizon', () => {
   let bodies: Array<Record<string, unknown>>
 
   beforeEach(() => {
@@ -28,7 +28,9 @@ describe('Questionnaire Q8 — asset lifetime', () => {
   })
 
   const q8Input = () =>
-    document.querySelector('section[aria-labelledby="q8-title"] input[type="number"]')
+    document.querySelector('section[aria-labelledby="q8-title"] input[data-field="asset-lifetime"]')
+  const q8 = (field: string) =>
+    document.querySelector(`section[aria-labelledby="q8-title"] input[data-field="${field}"]`) as HTMLInputElement | null
 
   function renderPage() {
     render(
@@ -62,5 +64,30 @@ describe('Questionnaire Q8 — asset lifetime', () => {
     fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].asset_lifetime_years).toBeNull()
+    expect(bodies[0].analysis_period_years).toBeNull()
+    expect(bodies[0].operating_start).toBeNull()
+    expect(bodies[0].operating_start_year).toBeNull()
+  })
+
+  it('asks the year only for a future operating year, and sends it', async () => {
+    renderPage()
+    expect(q8('operating-start-year')).toBeNull()
+    fireEvent.click(document.querySelector('input[name="q8-start"][value="future"]')!)
+    fireEvent.change(q8('operating-start-year')!, { target: { value: '2030' } })
+    fireEvent.change(q8('analysis-period')!, { target: { value: '25' } })
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    await waitFor(() => expect(bodies.length).toBe(1))
+    expect(bodies[0].operating_start).toBe('future')
+    expect(bodies[0].operating_start_year).toBe(2030)
+    expect(bodies[0].analysis_period_years).toBe(25)
+  })
+
+  it('sends "now" without a year', async () => {
+    renderPage()
+    fireEvent.click(document.querySelector('input[name="q8-start"][value="now"]')!)
+    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    await waitFor(() => expect(bodies.length).toBe(1))
+    expect(bodies[0].operating_start).toBe('now')
+    expect(bodies[0].operating_start_year).toBeNull()
   })
 })

@@ -30,6 +30,7 @@ from app.domain.enums import (
     DecisionContext,
     IlcdSituation,
     LccType,
+    OperatingStart,
     PathwayId,
     Q6a,
     Q6b,
@@ -139,11 +140,17 @@ class Case(BaseModel):
     q6a: Q6a | None = None
     q6b: Q6b | None = None
     q7: Q7 | None = None
-    # Q8 (optional) — expected technical lifetime of the main assets, in years.
-    # None = not answered: the engine then reads the legacy advanced override
-    # `asset_lifetime`. Future background (lca_mc_21, lcc_hc_23, CIR-01) is added
-    # for every ex-ante study and, for an ex-post one, above 15 years
-    # (activate.needs_future_background).
+    # Q8 (optional) — the study's time horizon, one for LCA and LCC (D4.2 §11,
+    # L01261). Q8a: when the system operates (now / a future year); Q8b: how many
+    # years the study follows it (analysis period); Q8c: technical lifetime of the
+    # main assets, used only when the analysis period is not given (D4.2 §9.1).
+    # None = not answered. Future background (lca_mc_21, lcc_hc_23, CIR-01) is
+    # decided by activate.needs_future_background.
+    operating_start: OperatingStart | None = None
+    operating_start_year: int | None = Field(default=None, ge=1900, le=2200)
+    analysis_period_years: float | None = Field(default=None, ge=0, le=500)
+    # Q8c. None = not answered: the engine then reads the legacy advanced
+    # override `asset_lifetime`.
     asset_lifetime_years: float | None = Field(default=None, ge=0, le=500)
     # Q9 (optional) — decision supported and scale of its consequences (D4.1
     # Table 1). None = not answered: the ILCD situation is inferred from Q1,

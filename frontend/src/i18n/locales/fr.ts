@@ -486,13 +486,29 @@ const fr: Locale = {
         "Comment les sites sont répartis : un seul site, plusieurs sites dans une même région, des sites entre régions ou au-delà des frontières, ou un programme national ou sectoriel. Le transport est compté quelle que soit votre réponse ; celle-ci change seulement le niveau de détail qu'on vous demandera sur les itinéraires et les modes. Aucun seuil de distance ne se cache derrière les quatre options : chaque flux a sa propre distance de rentabilité, et le fichier de collecte de données vous la demande, flux par flux, d'après votre propre analyse de sensibilité.",
     },
     q8: {
-      title: 'Q8 — Durée de vie technique attendue des actifs principaux (années)',
-      help: 'Facultative. Laissez vide si vous ne la connaissez pas.',
-      details: 'Années pendant lesquelles les actifs principaux (installation, équipements, infrastructures) devraient fonctionner. Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés à l\'ACV comme à l\'ACC (règle CIR-01) dans toute étude ex-ante (Q2 = B, C ou D), comme le demande D4.1, et pour les actifs fonctionnant plus de 15 ans, comme le demande D4.2 ; les 15 ans sont une valeur par défaut T4.6 sans source. Cette réponse ne compte donc que pour une étude ex-post (Q2 = A) ; laissée vide, elle ne change rien.',
-      placeholder: 'p. ex. 20',
+      title: 'Q8 — Horizon temporel de l\'étude',
+      help: 'Facultative. Un seul horizon pour l\'ACV et l\'ACC.',
+      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque l\'étude suit le système pendant plus de 15 ans (D4.2 §9 ; les 15 ans sont une valeur par défaut T4.6 sans source). Sans réponse, l\'année d\'exploitation est celle de l\'étude, sauf avec Q2 = D (alternatives futures), qui compte comme future. La période d\'analyse est la durée couverte par l\'étude ; si elle est vide, la durée de vie des actifs principaux est utilisée (D4.2 §9.1).',
+      start: {
+        label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
+        options: {
+          unset: 'Sans réponse (l\'année de l\'étude ; une année future si Q2 = D)',
+          now: 'Maintenant : l\'année de l\'étude',
+          future: 'Une année future',
+        },
+        yearPlaceholder: 'ex. 2030',
+      },
+      period: {
+        label: 'Pendant combien d\'années l\'étude suit-elle le système (période d\'analyse) ?',
+        placeholder: 'ex. 25 ; vide pour une photographie d\'une année',
+      },
+      lifetime: {
+        label: 'Durée de vie technique des actifs principaux (utilisée seulement si la période d\'analyse est vide)',
+      },
+      placeholder: 'ex. 20',
       unit: 'ans',
       plain:
-        "Combien d'années l'installation et les équipements sont censés fonctionner. Laissez vide si vous ne savez pas. Cela ne compte que pour un système qui fonctionne déjà : au-delà d'une quinzaine d'années, le résultat dépend de l'évolution de l'électricité, des carburants et des marchés sur des décennies, et l'outil vous demande de vous prononcer sur cet avenir. Pour un système encore en projet ou en construction, il vous le demande de toute façon.",
+        'Sur quelles années l\'étude regarde-t-elle le système ? Si elle décrit comment les choses fonctionnent aujourd\'hui, une photographie du présent suffit. Si elle porte sur une installation qui fonctionnera une année ultérieure, ou suit le système sur des décennies, le résultat dépend de l\'évolution de l\'électricité, des carburants et des marchés, et l\'outil vous demande de vous prononcer sur cet avenir : le même avenir pour la lecture environnementale et pour la lecture économique.',
     },
     q9: {
       title: 'Q9 — L\'étude soutient-elle une décision, et à quelle échelle ?',
@@ -568,7 +584,7 @@ const fr: Locale = {
     removeAria: 'Supprimer {{key}}',
     hints: {
       slca_framework_override: "Mettre à 'absolute' pour tester L1 BLOCK 2 (avec Q3.soc=true)",
-      asset_lifetime: 'Années (utilisé si Q8 est vide) ; >15 ajoute l\'arrière-plan futur à une étude ex-post (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Années (ancien ; utilisé si la période d\'analyse et la durée de vie de Q8 sont vides) ; un horizon >15 ajoute l\'arrière-plan futur à l\'ACV et à l\'ACC (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Booléen ; true active CIR-03',
       network_nodes: 'Entier ; ≥3 (avec Q1=B + interdependent_flows) active CIR-04',
       interdependent_flows: 'Booléen ; true (avec Q1=B + network_nodes≥3) active CIR-04',

@@ -114,6 +114,10 @@ def _question_sweeps() -> dict:
     axes = []
     if "asset_lifetime_years" in fields:
         axes.append(("sq8", "asset_lifetime_years", (None, 10, 15, 16, 30)))
+    if "operating_start" in fields:
+        axes.append(("sq8a", "operating_start", (None, "now", "future")))
+    if "analysis_period_years" in fields:
+        axes.append(("sq8b", "analysis_period_years", (None, 10, 16, 25)))
     if "decision_context" in fields:
         axes.append(("sq9", "decision_context", (None, "none", "micro", "structural")))
     if "policy_objective" in fields:

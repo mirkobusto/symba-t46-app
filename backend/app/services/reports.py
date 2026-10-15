@@ -197,8 +197,15 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
             case.q7.value if case.q7 else "(not set)")
     # Optional questions: listed only when answered, so a case that skips them
     # reads exactly as before they existed.
+    if case.operating_start is not None:
+        start = case.operating_start.value
+        if case.operating_start_year is not None:
+            start += f" ({case.operating_start_year})"
+        _add_kv(doc, "Q8a operating year", start)
+    if case.analysis_period_years is not None:
+        _add_kv(doc, "Q8b analysis period (years)", f"{case.analysis_period_years:g}")
     if case.asset_lifetime_years is not None:
-        _add_kv(doc, "Q8 asset lifetime (years)", f"{case.asset_lifetime_years:g}")
+        _add_kv(doc, "Q8c asset lifetime (years)", f"{case.asset_lifetime_years:g}")
     if case.decision_context is not None:
         _add_kv(doc, "Q9 decision and scale", case.decision_context.value)
     if case.policy_objective is not None:

@@ -53,11 +53,19 @@ const Q4_WARN_KEYS: Partial<Record<Q4, string>> = {
   D: 'questionnaire.q4.options.D.warn',
 }
 
-/** Asset lifetime as the API wants it: a non-negative number, or null when empty/invalid. */
+/** Years as the API wants them: a non-negative number, or null when empty/invalid. */
 function parseYears(raw: string): number | null {
   const n = Number(raw.trim())
   return raw.trim() !== '' && Number.isFinite(n) && n >= 0 ? n : null
 }
+
+/** A calendar year, or null when empty/invalid. */
+function parseYear(raw: string): number | null {
+  const n = Number(raw.trim())
+  return raw.trim() !== '' && Number.isInteger(n) && n >= 1900 && n <= 2200 ? n : null
+}
+
+const START_KEYS = ['', 'now', 'future'] as const
 
 export default function QuestionnairePage() {
   const { t } = useTranslation()
@@ -88,6 +96,13 @@ export default function QuestionnairePage() {
   const [policy, setPolicy] = useState<'' | 'yes' | 'no'>(
     draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no',
   )
+  const [operatingStart, setOperatingStart] = useState<'' | 'now' | 'future'>(draft.operating_start ?? '')
+  const [startYear, setStartYear] = useState<string>(
+    draft.operating_start_year != null ? String(draft.operating_start_year) : '',
+  )
+  const [analysisPeriod, setAnalysisPeriod] = useState<string>(
+    draft.analysis_period_years != null ? String(draft.analysis_period_years) : '',
+  )
   const [assetLifetime, setAssetLifetime] = useState<string>(
     draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
   )
@@ -108,6 +123,9 @@ export default function QuestionnairePage() {
     setQ6a(draft.q6a ?? undefined)
     setQ6b(draft.q6b ?? undefined)
     setQ7(draft.q7 ?? undefined)
+    setOperatingStart(draft.operating_start ?? '')
+    setStartYear(draft.operating_start_year != null ? String(draft.operating_start_year) : '')
+    setAnalysisPeriod(draft.analysis_period_years != null ? String(draft.analysis_period_years) : '')
     setAssetLifetime(
       draft.asset_lifetime_years != null ? String(draft.asset_lifetime_years) : '',
     )
@@ -137,7 +155,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, assetLifetime, decisionContext, policy, advanced])
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, policy, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -148,6 +166,9 @@ export default function QuestionnairePage() {
       flows,
       alternative_scenarios: q2 === 'D' ? scenarios : [],
       q6a, q6b, q7,
+      operating_start: operatingStart || null,
+      operating_start_year: operatingStart === 'future' ? parseYear(startYear) : null,
+      analysis_period_years: parseYears(analysisPeriod),
       asset_lifetime_years: parseYears(assetLifetime),
       decision_context: decisionContext || null,
       policy_objective: policy === '' ? null : policy === 'yes',
@@ -164,6 +185,7 @@ export default function QuestionnairePage() {
       setEnv(true); setEco(false); setSoc(false)
       setQ4(new Set()); setFlows([]); setScenarios([])
       setQ6a(undefined); setQ6b(undefined); setQ7(undefined)
+      setOperatingStart(''); setStartYear(''); setAnalysisPeriod('')
       setAssetLifetime('')
       setDecisionContext('')
       setPolicy('')
@@ -375,7 +397,7 @@ export default function QuestionnairePage() {
         ))}
       </QuestionCard>
 
-      {/* Q8 — optional: empty keeps today's behaviour */}
+      {/* Q8 — optional: one time horizon for LCA and LCC (operating year, analysis period, asset lifetime) */}
       <QuestionCard
         id="q8"
         title={t('questionnaire.q8.title')}
@@ -383,10 +405,44 @@ export default function QuestionnairePage() {
         plain={t('questionnaire.q8.plain')}
         details={t('questionnaire.q8.details')}
       >
+        <p className="opt-label">{t('questionnaire.q8.start.label')}</p>
+        {START_KEYS.map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
+            <input
+              type="radio" name="q8-start" value={k}
+              checked={operatingStart === k}
+              onChange={() => setOperatingStart(k)}
+            />
+            <span className="opt-label">{t(`questionnaire.q8.start.options.${k || 'unset'}`)}</span>
+          </label>
+        ))}
+        {operatingStart === 'future' && (
+          <label className="qnum">
+            <input
+              type="number" min={1900} max={2200} step={1} inputMode="numeric"
+              className="qnum-input" data-field="operating-start-year"
+              value={startYear}
+              placeholder={t('questionnaire.q8.start.yearPlaceholder')}
+              onChange={(e) => setStartYear(e.target.value)}
+            />
+          </label>
+        )}
+        <p className="opt-label">{t('questionnaire.q8.period.label')}</p>
         <label className="qnum">
           <input
             type="number" min={0} step="any" inputMode="decimal"
-            className="qnum-input"
+            className="qnum-input" data-field="analysis-period"
+            value={analysisPeriod}
+            placeholder={t('questionnaire.q8.period.placeholder')}
+            onChange={(e) => setAnalysisPeriod(e.target.value)}
+          />
+          <span className="qnum-unit">{t('questionnaire.q8.unit')}</span>
+        </label>
+        <p className="opt-label">{t('questionnaire.q8.lifetime.label')}</p>
+        <label className="qnum">
+          <input
+            type="number" min={0} step="any" inputMode="decimal"
+            className="qnum-input" data-field="asset-lifetime"
             value={assetLifetime}
             placeholder={t('questionnaire.q8.placeholder')}
             onChange={(e) => setAssetLifetime(e.target.value)}

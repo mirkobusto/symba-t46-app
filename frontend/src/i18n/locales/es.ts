@@ -480,13 +480,29 @@ const es: Locale = {
         "Cómo están repartidos los emplazamientos: uno solo, varios en una misma región, emplazamientos entre regiones o más allá de las fronteras, o un programa nacional o de todo un sector. El transporte se cuenta cualquiera sea tu respuesta; la respuesta solo cambia cuánto detalle se te pedirá sobre rutas y modos. Detrás de las cuatro opciones no hay ningún umbral de distancia: cada flujo tiene su propia distancia de rentabilidad, y el archivo de recogida de datos te la pide, flujo por flujo, a partir de tu propio análisis de sensibilidad.",
     },
     q8: {
-      title: 'Q8 — Vida técnica esperada de los activos principales (años)',
-      help: 'Opcional. Déjala vacía si no la conoces.',
-      details: 'Años durante los que se espera que funcionen los activos principales (planta, equipos, infraestructuras). Los escenarios de fondo futuros (SSP/RCP) se añaden tanto al ACV como al ACC (regla CIR-01) en todo estudio ex-ante (Q2 = B, C o D), como pide D4.1, y para los activos que funcionan más de 15 años, como pide D4.2; los 15 años son un valor por defecto de T4.6 sin fuente. Por eso esta respuesta solo cuenta para un estudio ex-post (Q2 = A); si se deja vacía, no cambia nada.',
+      title: 'Q8 — Horizonte temporal del estudio',
+      help: 'Opcional. Un solo horizonte para el ACV y el ACC.',
+      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el estudio sigue el sistema durante más de 15 años (D4.2 §9; los 15 años son un valor por defecto de T4.6 sin fuente). Sin respuesta, el año de funcionamiento es el del estudio, salvo con Q2 = D (alternativas futuras), que cuenta como futuro. El periodo de análisis es el lapso que cubre el estudio; si está vacío se usa la vida útil de los activos principales (D4.2 §9.1).',
+      start: {
+        label: '¿En qué año funciona el sistema, o se supone que funciona?',
+        options: {
+          unset: 'Sin respuesta (el año del estudio; un año futuro si Q2 = D)',
+          now: 'Ahora: el año del estudio',
+          future: 'Un año futuro',
+        },
+        yearPlaceholder: 'p. ej. 2030',
+      },
+      period: {
+        label: '¿Durante cuántos años sigue el estudio al sistema (periodo de análisis)?',
+        placeholder: 'p. ej. 25; vacío para la fotografía de un año',
+      },
+      lifetime: {
+        label: 'Vida útil técnica de los activos principales (solo si el periodo de análisis está vacío)',
+      },
       placeholder: 'p. ej. 20',
       unit: 'años',
       plain:
-        "Cuántos años se espera que funcionen la planta y los equipos. Déjalo vacío si no lo sabes. Solo cuenta para un sistema que ya funciona: más allá de unos quince años el resultado depende de cómo cambien la electricidad, los combustibles y los mercados a lo largo de décadas, y la herramienta te pide tomar posición sobre ese futuro. Para un sistema todavía en proyecto o en construcción te lo pide de todos modos.",
+        '¿Sobre qué años mira el estudio el sistema? Si describe cómo funcionan las cosas hoy, basta una fotografía del presente. Si trata de una planta que funcionará en un año posterior, o sigue el sistema durante décadas, el resultado depende de cómo cambien la electricidad, los combustibles y los mercados, y la herramienta te pide tomar posición sobre ese futuro: el mismo futuro para la lectura ambiental y para la económica.',
     },
     q9: {
       title: 'Q9 — ¿El estudio respalda una decisión, y a qué escala?',
@@ -562,7 +578,7 @@ const es: Locale = {
     removeAria: 'Eliminar {{key}}',
     hints: {
       slca_framework_override: "Establecer a 'absolute' para probar L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Años (se usa si Q8 está vacía); >15 añade el fondo futuro a un estudio ex-post (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Años (heredado; se usa si el periodo de análisis y la vida útil de Q8 están vacíos); un horizonte >15 añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
       transport_sensitive: 'Booleano; true activa CIR-03',
       network_nodes: 'Entero; ≥3 (con Q1=B + interdependent_flows) activa CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) activa CIR-04',

@@ -35,7 +35,7 @@ _VALID_Q1 = frozenset({Q1.A, Q1.B, Q1.C, Q1.D, Q1.E})
 
 _ILCD_BY_Q1: dict[Q1, IlcdSituation] = {
     Q1.A: IlcdSituation.SITUATION_A,
-    Q1.B: IlcdSituation.SITUATION_A_MULTI,
+    Q1.B: IlcdSituation.SITUATION_A,   # "A multi-actor" retired 2026-10-15: not a D4.1 category
     Q1.C: IlcdSituation.SITUATION_B,
     Q1.D: IlcdSituation.SITUATION_C2,
     Q1.E: IlcdSituation.SITUATION_C1,
@@ -50,15 +50,15 @@ def _compute_ilcd_situation(q1: Q1 | None) -> IlcdSituation:
 
 # Q9 (D4.1 Table 1): the situation follows the decision and its scale, not the
 # subject of the study (owner decision 2026-10-15: Q9 wins over Q1, Q1=D included).
-# Q1 is only the fallback for cases saved without Q9. "A multi-actor" is kept for
-# Q1=B until the separate PR that removes it.
+# Q1 is only the fallback for cases saved without Q9. "A multi-actor" is no longer
+# produced: D4.1 Table 1 has Situations A, B and C only (L00574-576).
 _S = IlcdSituation
 _N, _M, _X, _R = (DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL,
                   DecisionContext.CORPORATE_REPORT)
 
 
 def _micro(q1: Q1) -> IlcdSituation:
-    return _S.SITUATION_A_MULTI if q1 == Q1.B else _S.SITUATION_A
+    return _S.SITUATION_A
 
 
 # Where the explicit answer contradicts what Q1 implies the engine says so (a

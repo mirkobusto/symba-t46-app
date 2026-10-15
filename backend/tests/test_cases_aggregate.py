@@ -1,7 +1,7 @@
 """Integration tests for GET /api/cases/aggregate/breakdown."""
 from __future__ import annotations
 
-CASE_A = {  # q1=B q2=D q6a=wastewater q7=B → IS-01 + A multi-actor
+CASE_A = {  # q1=B q2=D q6a=wastewater q7=B → IS-01 + A
     "q1": "B", "q2": "D",
     "q3": {"env": True}, "q4": ["E"],
     "q6a": "wastewater_sludge_biofactories", "q6b": "TRL9", "q7": "B",
@@ -67,7 +67,7 @@ def test_aggregate_after_three_cases(client):
     assert scopes.get("D") == 1
 
     ilcd = {e["key"]: e["count"] for e in body["by_ilcd_situation"]}
-    assert ilcd.get("ILCD Situation A multi-actor") == 2
+    assert ilcd.get("ILCD Situation A") == 2
     assert ilcd.get("ILCD Situation B") == 1
 
 

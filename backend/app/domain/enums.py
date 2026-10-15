@@ -157,6 +157,8 @@ class IlcdSituation(StrEnum):
     """
 
     SITUATION_A = "ILCD Situation A"
+    # No longer produced (2026-10-15): not a D4.1 category, parks are Situation A.
+    # Kept so that cases saved with it still load.
     SITUATION_A_MULTI = "ILCD Situation A multi-actor"
     SITUATION_B = "ILCD Situation B"
     SITUATION_C1 = "ILCD Situation C1"

@@ -47,7 +47,7 @@
       },
       "override_path": "q1",
       "lifecycle_layer": "L0",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.2.3)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.2.3). | Situations C1 and C2: D4.1 §7.2.3 (L00866-L00868) besides Table 1 in §4.2.3. The value is documentation; l0_compute derives the situation."
     },
     {
       "id": "lca_hc_01",
@@ -175,12 +175,12 @@
       "field": "review.panel.experts",
       "field_status": null,
       "default_value": {
-        "q4=C": "Panel review (3+ experts ISO 14044) mandatory",
-        "q4=D": "Panel review (3+ experts ISO 14044) recommended"
+        "q4=C": "Critical review by an independent panel of at least three experts, mandatory for a comparative assertion disclosed to the public (D4.1 §15.3.4; also §4, L00530; ISO 14044)",
+        "q4=D": "Panel review of at least three experts recommended for EU policy-aligned studies: T4.6 design choice; mandatory only if the study makes a public comparative assertion (D4.1 §15.3.4)"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4). | Rewritten on FINAL v2 text, review 2026-10-16: L01599 ('it is mandatory to conduct a critical review by an independent panel of at least three experts'), L00530. No passage asks a panel for EU policy alignment as such: the Q4=D recommendation is a T4.6 choice."
     },
     {
       "id": "lca_hc_09",
@@ -462,7 +462,7 @@
       },
       "override_path": "q1",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Mirrors lca_t1; v1 lists both T1 and MC-01 covering ILCD situation; preserved as separate per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.2.3)."
+      "extraction_notes": "Mirrors lca_t1; v1 lists both T1 and MC-01 covering ILCD situation; preserved as separate per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.2.3). | Alias of lca_t1: same field, same value, written again at L2 after l0_compute; C1/C2 per D4.1 §7.2.3 (L00866-L00868)."
     },
     {
       "id": "lca_mc_02",
@@ -757,7 +757,7 @@
       },
       "override_path": "q7",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1). | Explicit transport for every Q7 is text (L01371, 'must be modeled as distinct unit processes within the foreground system'); 'GIS-coupled' for Q7 C/D is a T4.6 choice, since D4.1 recommends GIS or routing for every distance (L01373, L01387). The values stay tokens because B-05 reads them."
     },
     {
       "id": "lca_mc_17",
@@ -997,10 +997,10 @@
       "trigger_condition": "case.q7 IN ['C','D']",
       "field": "lca.spatial_coupling",
       "field_status": null,
-      "default_value": "Spatial coupling: Q7 in {C,D} -> GIS-coupled mandatory",
+      "default_value": "GIS or routing tools for real road distances, recommended by D4.1 for every exchange (D4.1 §12.3.1); for wide-area or multi-scale networks (Q7 C/D) GIS coupling is mandatory: T4.6 design choice",
       "override_path": "q7",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1). | Rewritten on FINAL v2 text, review 2026-10-16: L01373 ('Use mapping tools like Geographic Information Systems (GIS) for accuracy'), L01387 (in the list of 'fallback defaults, not prescriptive values', L01379). Known: CIR-03 fires for Q7 in {B,C,D} and writes lca.spatial_coupling = 'GIS' after this node, so this text is overwritten whenever the node fires."
     },
     {
       "id": "lca_mc_30",
@@ -1103,10 +1103,10 @@
       "trigger_condition": null,
       "field": "lca.hybrid_technique",
       "field_status": null,
-      "default_value": "Hybrid technique selection (default Integrated for IS multi-actor)",
+      "default_value": "Hybrid technique chosen and declared; integrated hybrid (matrix augmentation) by default: it gives the network, entity and flow disaggregation in one inversion, at the cost of a significantly more complex model. D4.1 recommends it for tools that must report per-entity contributions; making it the default for every IS study is a T4.6 choice (D4.1 §6.3.2)",
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.2)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.7); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.2). | Rewritten on FINAL v2 text, review 2026-10-16: L00770 ('enables multi-level disaggregation (network, entity, flow) in one inversion, at the cost of significantly more complex model construction ... Recommended for IS facilitation tools that must report per-entity contributions'). The 'four named techniques' (L00766) and the 14-15 % share (L00768) do not hold on their sources (sprint 2) and are not repeated."
     },
     {
       "id": "lca_mc_36",
@@ -1122,15 +1122,15 @@
       "field": "review.scope",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "panel + EU compliance",
-        "q4=C": "panel ISO",
-        "q4=E": "peer review",
-        "q4=B": "optional",
-        "q4=A": "none"
+        "q4=C": "Independent panel of at least three experts, mandatory for a comparative assertion disclosed to the public (D4.1 §15.3.4)",
+        "q4 includes 'D'": "Independent panel review, as for a public comparative assertion: T4.6 choice for EU policy-aligned studies; D4.1 does not define an EU-compliance review (D4.1 §15.3.4)",
+        "q4=E": "Journal peer review: T4.6 reading; D4.1 §15.3.4 requires the panel whenever a comparative assertion is disclosed to the public",
+        "q4=B": "Optional; the confidential technical report is the basis for a potential critical review, and credibility depends on adherence to standards especially when findings are communicated externally (D4.1 §15.3.4, §15.3.3)",
+        "q4=A": "None required; the confidential technical report remains the basis for a potential critical review (D4.1 §15.3.4, §15.3.3)"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4). | Rewritten on FINAL v2 text, review 2026-10-16: L01599 (panel mandatory for a public comparative assertion), L01587 (§15.3.3: the confidential report 'serves as the basis for a potential critical review'), L01595. Q4=C now comes before Q4=D, so a public comparative assertion keeps the mandatory panel when D is also selected. 'EU compliance' (Q4=D) and 'peer review' (Q4=E) are not in D4.1: declared T4.6."
     },
     {
       "id": "lcc_trig_01",
@@ -1251,10 +1251,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Break-even distance modeled explicitly as a sensitivity parameter for every exchange, never a fixed assumption (D4.2 §4.3)",
+      "default_value": "Break-even distance modelled explicitly as a sensitivity parameter, never a fixed assumption, and it should be reported in the results as a decision-support output (D4.2 §4.2, §4.3). §4.2 asks it for bulky, low-value or zero-value streams; extending it to every exchange is a T4.6 choice (2026-10-04)",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "made unconditional (DEFAULT) and a pure mandate: D4.2 §4.3 asks to model the break-even distance as a sensitivity parameter for every exchange; the lcc.transport_costs value is written by lcc_mc_14 alone; audit I-08 2026-10-04."
+      "extraction_notes": "made unconditional (DEFAULT) and a pure mandate: D4.2 §4.3 asks to model the break-even distance as a sensitivity parameter for every exchange; the lcc.transport_costs value is written by lcc_mc_14 alone; audit I-08 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-16: L00565 (§4.2, bulky/low-value streams: 'must therefore be modeled explicitly as a sensitivity parameter, not treated as a fixed assumption'), L00593 (§4.3: 'This parameter should be reported explicitly in the results')."
     },
     {
       "id": "lcc_hc_07",
@@ -1366,7 +1366,7 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §6.2",
-      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §6.3).",
+      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §6.3). | Rewritten on FINAL v2 text, review 2026-10-16: L00729 (zero cost only when both tests hold), L00735 (causal test), L00739-L00741 (interdependent production: zero cost 'methodologically incorrect'), L00751 ('every secondary flow ... is classified as avoidable or unavoidable before any cost or zero-cost assumption'; prevention scenario 'should'). Q5=e now has its own value instead of the former default 'C-LCC: zero-cost not default'; the former 'q5 in {c,d}: price = negotiated transfer' had no basis for c.",
       "category": "DERIVED",
       "trigger_q": [
         "q5"
@@ -1376,8 +1376,9 @@
       "field": "lcc.avoidable_unavoidable_classification",
       "field_status": null,
       "default_value": {
-        "q5 in {c,d}": "price = negotiated transfer",
-        "default": "C-LCC: zero-cost not default"
+        "q5=d": "Deliberately co-produced: the generator modified its process for the receiver, so zero cost is methodologically incorrect and the upstream costs are allocated — negotiated transfer price in the C-LCC, a physical or economic allocation key in the E-LCC (D4.2 §6.2); the flow is still classified in the charter (§6.3)",
+        "q5 in {a,b,c}": "Classify the flow as avoidable or unavoidable before any valuation, with a documented causal test: if the agreement disappeared, would the generator reduce or eliminate it? Only unavoidable flows with no positive market value are eligible for zero cost; avoidable flows are flagged in the results, and the LCC should include a waste-prevention scenario (D4.2 §6.2-§6.3)",
+        "q5=e": "Aggregated flows cannot be tested one by one: zero cost is not admissible until each secondary flow is classified as avoidable or unavoidable (D4.2 §6.2-§6.3)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
@@ -1788,18 +1789,17 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §5.3",
-      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §5.2).",
+      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §5.2). | Rewritten on FINAL v2 text, review 2026-10-16: L00689 ('practitioners should integrate Material Flow Cost Accounting (MFCA) ... objective cost-based anchor for negotiations'), L00761 (S-LCC, 'should be considered for avoidable residuals, using MFCA'). The former 'or Q3=ECO-only' branch had no basis in D4.2 (MFCA appears only at L00665-L00667, L00689, L00761) and is removed.",
       "category": "DERIVED",
       "trigger_q": [
-        "q5",
-        "q3"
+        "q5"
       ],
-      "trigger_logic": "disjunctive",
-      "trigger_condition": "(flow.q5 == 'b') OR (case.q3.eco == true AND case.q3.env == false AND case.q3.soc == false)",
+      "trigger_logic": "simple",
+      "trigger_condition": "flow.q5 == 'b'",
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "MFCA when Q5=b (contested) or Q3=ECO-only",
-      "override_path": "q5, q3",
+      "default_value": "MFCA should be integrated for this flow (Q5=b: free or ambiguous, so the transfer price is contested or has no market reference), as a cost-based anchor for negotiations disclosed to all partners through the neutral facilitator (D4.2 §5.3); in an S-LCC, the opportunity cost of avoidable residuals should be considered, quantified with MFCA (§6.3)",
+      "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true
     },
@@ -2216,6 +2216,8 @@
       "source_section": "D4.2 §11.2",
       "category": "DERIVED",
       "trigger_q": [
+        "q3",
+        "lcc_type",
         "q4"
       ],
       "trigger_logic": "discriminative",
@@ -2223,11 +2225,14 @@
       "field": "lcc.externality_monetization",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "CE Delft EU prices",
-        "default": "optional"
+        "q3.env=false": "None: without a parallel LCA there are no impacts to monetise (T4.6 inference, as for the LCC types C+N and C+N+S) (D4.2 §11.2)",
+        "lcc_type=C+E+S": "Mandatory: the LCA midpoint results are monetised with environmental price factors, the CE Delft Environmental Prices Handbook being the European reference (D4.2 §11.2)",
+        "q4 includes 'D'": "CE Delft EU prices: T4.6 choice kept on 2026-10-04, since D4.2 ties monetisation to the S-LCC, not to EU alignment (D4.2 §11.2)",
+        "default": "Optional outside the S-LCC; taxes already in the cash flows must not be re-entered as monetised externalities (D4.2 §11.2, §2.2)"
       },
-      "override_path": "q4, advanced",
-      "lifecycle_layer": "L2"
+      "override_path": "q4, lcc_type, advanced",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-16: L01293 (S-LCC 'requires translating the physical environmental impact results of the parallel LCA'), L01295 (CE Delft 'the primary reference framework'), L00445 (§2.2, S-LCC), L00443 (§2.2, no double counting). The former 'optional' default left the S-LCC without monetisation. CIR-05 now writes CE_Delft_EU only when the case has the environmental dimension."
     },
     {
       "id": "lcc_mc_20",

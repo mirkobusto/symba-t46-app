@@ -38,6 +38,7 @@ are cited on the FINAL v2 numbering (PR #109, #111).
 | PR #123 | `lca_hc_19` (four frontier categories of D4.1 §10.3.5) and `lca_mc_31` (three levels, §15.1) rewritten on the text | §4.2 CIR-06, §7 | the two nodes |
 | PR #124 | `lcc_mc_03/04/08/16/18` rewritten on D4.2: valuation per LCC level, node-removal scenarios, no ECOF/IEE without LCA; `contested` key removed | §5.3 | the five nodes |
 | PR #125 | `lca_mc_05/06/23/27` and `lcc_mc_05` rewritten on the text: organizational boundary with declared coverage, economic boundary per LCC type, background and reference content per ILCD situation (C1, C2 included), `lca_mc_23` declared a T4.6 choice | §5.1 MC-27 | the five nodes |
+| PR #126 | the design-choice nodes of sprint 3: `lca_hc_08`, `lca_mc_36` (a public comparative assertion keeps the mandatory panel), `lca_mc_29`, `lca_mc_35`, `lcc_hc_06`, `lcc_hc_13` (every flow classified, Q5=e included), `lcc_hc_38` (MFCA for Q5=b only), `lcc_mc_19` (monetisation mandatory in the S-LCC, none without LCA); T4.6 choices declared in the values; CIR-05 writes CE Delft only with an LCA | §4.2 CIR-05, §5.1 HC-38 | the nodes, `l2_validate._action_cir_05` |
 
 ---
 
@@ -191,7 +192,7 @@ These are the dominant pattern: nodes activated only when ALL listed Q's match.
 | LCC HC-05 (physical boundary) | same as HC-04 | CONJUNCTIVE AND |
 | LCC HC-27 (LCA-LCC alignment) | Q3.ENV=true AND Q3.ECO=true | CONJUNCTIVE AND |
 | LCC MC-17 (matrix integration) | Q3.ENV=true AND Q3.ECO=true | CONJUNCTIVE AND |
-| LCC HC-38 (MFCA bridge) | Q5 includes 'b' OR Q3 = ECO-only | DISJUNCTIVE OR |
+| LCC HC-38 (MFCA bridge) | Q5 includes 'b' OR Q3 = ECO-only — *superseded — see §0: Q5=b only* | DISJUNCTIVE OR |
 | S-LCA HC-06 (shared FU) | Q3.SOC=true AND (Q3.ENV OR Q3.ECO) | CONJUNCTIVE AND with disjunctive sub-clause |
 | LCA MC-26 (reference scenario type) | Q2=A→HNSRS; Q2=C→CNSRS; Q2=D→both — *superseded — see §0* | DISCRIMINATIVE (per Q2 value) |
 | LCA MC-27 (reference scenario content) | (Q1=A→alt-disposal+market) OR (Q1=B→hypothetical no-IS) OR (Q1=C→BAU national) — *superseded — see §0* | DISCRIMINATIVE (per Q1 value) |

@@ -480,13 +480,16 @@ def test_gsa_tier_was_dead_and_now_follows_q4(schemas):
 def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
     """First match wins (branch_keys.py), so the schema lists the strictest Q4
     branch first (PHASE1_NODE_MAPPING_v2 §5.2.3: the more specific Q wins):
-    {A,E} gets the full Sobol cascade, {C,D} the EU-compliance panel. The
-    exhaustive version of this is in test_branch_keys.py."""
+    {A,E} gets the full Sobol cascade; for the review a public comparative
+    assertion (C) wins, since D4.1 §15.3.4 makes its panel mandatory (L01599).
+    The exhaustive version of this is in test_branch_keys.py."""
     assert _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"] == "full Sobol cascade"
-    assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"] == "panel + EU compliance"
-    assert _activated(schemas, q4={Q4.A, Q4.D}).review["scope"] == "panel + EU compliance"
-    assert _activated(schemas, q4={Q4.B, Q4.C}).review["scope"] == "panel ISO"
-    assert _activated(schemas, q4={Q4.D}).review["scope"] == "panel + EU compliance"
+    mandatory = "Independent panel of at least three experts, mandatory"
+    assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"].startswith(mandatory)
+    assert _activated(schemas, q4={Q4.B, Q4.C}).review["scope"].startswith(mandatory)
+    for q4 in ({Q4.D}, {Q4.A, Q4.D}, {Q4.D, Q4.E}):
+        assert _activated(schemas, q4=q4).review["scope"].startswith("Independent panel review, as for")
+    assert _activated(schemas, q4={Q4.E}).review["scope"].startswith("Journal peer review: T4.6 reading")
 
 
 def test_q6b_set_and_ordinal_keys(schemas):
@@ -599,13 +602,28 @@ def test_lcc_functional_equivalent_follows_the_lca(schemas):
 
 
 def test_per_flow_in_set_key(schemas):
-    """lcc_hc_13 `q5 in {c,d}` used to give every flow the default."""
-    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.a, Q5.d))
-    assert c.lcc["avoidable_unavoidable_classification"] == {
-        "f0": "price = negotiated transfer",
-        "f1": "C-LCC: zero-cost not default",
-        "f2": "price = negotiated transfer",
-    }
+    """lcc_hc_13: every secondary flow is classified before any valuation (D4.2 §6.3,
+    L00751); an interdependent flow is a deliberate co-product (L00741); aggregated
+    flows cannot take zero cost untested (`q5 in {a,b,c}` is an in-set key)."""
+    c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.a, Q5.d, Q5.e))
+    classification = c.lcc["avoidable_unavoidable_classification"]
+    assert classification["f0"] == classification["f1"]
+    assert classification["f0"].startswith("Classify the flow as avoidable or unavoidable")
+    assert classification["f2"].startswith("Deliberately co-produced")
+    assert classification["f3"].startswith("Aggregated flows cannot be tested one by one")
+
+
+def test_mfca_only_for_contested_flows_and_monetisation_only_with_an_lca(schemas):
+    """lcc_hc_38: MFCA for Q5=b flows (D4.2 §5.3, L00689), no longer for every eco-only
+    study. lcc_mc_19 and CIR-05: no LCA, nothing to monetise (D4.2 §11.2)."""
+    eco_only = _activated(schemas, q3=Q3(eco=True), flows=_flows(Q5.a))
+    assert "lcc_hc_38" not in eco_only.activated_nodes
+    contested = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.b))
+    assert "lcc_hc_38" in contested.activated_nodes
+    s_lcc = _activated(schemas, q1=Q1.C, q3=Q3(env=True, eco=True))
+    assert s_lcc.lcc["externality_monetization"].startswith("Mandatory")
+    no_lca = _activated(schemas, q1=Q1.A, q3=Q3(eco=True), q4={Q4.D})
+    assert no_lca.lcc["externality_monetization"].startswith("None: without a parallel LCA")
 
 
 def test_flow_valuation_names_each_lcc_level(schemas):

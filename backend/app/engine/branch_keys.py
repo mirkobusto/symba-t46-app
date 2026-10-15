@@ -29,8 +29,8 @@ Conventions, decided with the node owner:
     for the `qX=V` keys). Q4 is multi-select, so several branches of one node
     can match; `tests/test_branch_keys.py` pins which nodes do.
   - `q3.F-only` is strict (the other two off) and `q3.F+G` is loose (the
-    third dimension is ignored), matching the hand-coded predicates
-    lcc_hc_38 and lcc_hc_27 in `activate._PREDICATES`.
+    third dimension is ignored), matching the hand-coded predicate of
+    lcc_hc_27 in `activate._PREDICATES`.
   - `contested`, a flow state that never matched, left the grammar on
     2026-10-16 together with its two branches (lcc_mc_04, lcc_mc_08): MFCA
     for contested prices is D4.2 §5.3 and lives in lcc_hc_38.

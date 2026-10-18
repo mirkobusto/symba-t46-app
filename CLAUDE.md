@@ -52,7 +52,7 @@ vedi `~/.claude/projects/.../memory/project_visual_identity.md`.
 Stack:
 - Backend: FastAPI (Python 3.12) + SQLAlchemy 2.0 + Pydantic v2
 - Frontend: React 19 + TypeScript + Vite 8 + Zustand 5 + react-router-dom v7 + react-i18next (in `frontend/`, stesso repo)
-- Engine decisionale: schema-driven (6 JSON files dopo dcf_schema, separato namespace) + activation pipeline + sector overlays
+- Engine decisionale: schema-driven (6 JSON files dopo dcf_schema, separato namespace) + activation pipeline + sector overlays (regole e configurazioni della D4.1 Part 2, dal 2026-10-18)
 - Persistence: SQLite via SQLAlchemy (server-side cases) + localStorage via Zustand persist (client-side draft)
 - Dev ports: backend 8088, frontend 5180
 
@@ -111,8 +111,22 @@ vince l'allocazione anche con Q4=D (la CFF non si applica, nota `c2_allocation_o
 Q4=D; un rifiuto resta a carico zero anche in C2 (#130); **passo 4b** i nodi MEDIA/BASSA dello sprint 3
 (#131 LCA, #132 LCC). CIR-07 scrive ora per l'LCA le tecniche di D4.1 §9.3.5 e lascia Six-Tenths/Lang/CEPCI
 all'LCC. Restano note e rinviate a I-17: CIR-02, CIR-03 e CIR-05 sovrascrivono il testo di alcuni nodi
-(CIR-03 sempre `lca_mc_29`), CIR-05 scrive NTF e CE Delft anche su un C-LCC. Prossimo: passo 5 (piano per
-la Part 2, con N8) e passo 6 (note del motore tradotte, deck).
+(CIR-03 sempre `lca_mc_29`), CIR-05 scrive NTF e CE Delft anche su un C-LCC.
+Il **2026-10-18** è stato mergiato il **passo 5, la D4.1 Part 2** (PR #134-#138): `sector_overlays.json` ha ora,
+per i cinque capitoli (§4-§8 con le categorie LCIA di §9), 64 regole di settore e 26 configurazioni tipiche;
+`engine/sector_rules.py` le elenca in `Case.sector_rules` per i capitoli toccati (settore dichiarato sul flusso,
+configurazione del flusso o Q6a), filtrate con `when_key` (grammatica delle chiavi di ramo) perché la Part 2
+non allenti mai la Part 1 (niente sostituzione in C2, background "Situazione A" non in B, scale-up solo sotto
+TRL 7); pagina risultato (sezione richiudibile per capitolo) e report. Nuova domanda facoltativa **Q11**
+(`comparison_goal`: trattamento / sostituzione di prodotto / entrambi) che decide la base dell'unità funzionale
+in `lca_mc_07` (input-based, output-based, sistema di unità; la "doppia" di D4.2 resta una nota). Nuovo campo
+facoltativo `Flow.configuration` (colonna nella tabella dei flussi) che nomina il prodotto sostituito. Verifica
+sugli 8 casi del corpus (script fuori dal repo): 64 sì / 5 no sui punti di studio, 37/53 sui capitoli per flusso;
+le discordanze sono divergenze decise o classificazioni dei flussi, da cui la guida sotto la tabella dei flussi
+(#138). **#135 è stata mergiata con il lint backend rosso** (corretto in #136): prima di ogni merge controllare
+`gh pr checks`. Prossimo: passo 6 (note del motore e testi delle regole di settore tradotti, deck); da decidere
+i resti della struttura del report pathway (IS-01..05 ancora mostrati, Q7 e localizzazione del mercato, Q10 per
+il decisore pubblico, beni capitali condivisi, scopo dello studio §4.3.2) e I-17.
 Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
@@ -133,9 +147,9 @@ Cronologia sintetica (tutto su `main`):
 - i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
 - Network Builder: completo (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale, guidance in-app con esempio caricabile)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
-- **Deploy pubblico D4.6 (PU): è in piedi** su `biobasedisadvisor.symbaproject.eu` (VPS Contabo, Ubuntu 24.04), in **modalità "in costruzione"**: chi arriva vede una pagina di cortesia (503), il team entra con `?preview=<SYMBA_PREVIEW_TOKEN>` (il token sta nel `.env` del server). DNS creato il 2026-10-12, certificato Let's Encrypt valido fino al 2027-01-10 con rinnovo automatico, backup del DB ogni notte alle 3:30 con copia giornaliera sul Mac Studio. Caddy gira con tre file: `docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d`; per aprire al pubblico, lo stesso comando **senza** il terzo `-f`, dopo aver registrato l'account admin (il primo che si registra diventa admin). La build dell'immagine e il Caddyfile sono stati eseguiti sul server più volte (ultima: 2026-10-15 notte, `main` a #132); sulla macchina di sviluppo il demone Docker non risponde, quindi **l'unico posto dove si scopre se `Dockerfile.prod` regge è il server**: `tsc -b` compila anche i test, e un test che legge un file del backend fuori da `frontend/` rompe la build senza che nulla se ne accorga in locale (è successo due volte: PR #95 e #104). Dettagli operativi e lista dei pendenti: `~/.claude/projects/.../memory/project_deploy_contabo.md`. Non fatti di proposito: rate limiting di login/registrazione, salvataggio anonimo configurabile (`SYMBA_ANON_SAVE`)
+- **Deploy pubblico D4.6 (PU): è in piedi** su `biobasedisadvisor.symbaproject.eu` (VPS Contabo, Ubuntu 24.04), in **modalità "in costruzione"**: chi arriva vede una pagina di cortesia (503), il team entra con `?preview=<SYMBA_PREVIEW_TOKEN>` (il token sta nel `.env` del server). DNS creato il 2026-10-12, certificato Let's Encrypt valido fino al 2027-01-10 con rinnovo automatico, backup del DB ogni notte alle 3:30 con copia giornaliera sul Mac Studio. Caddy gira con tre file: `docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d`; per aprire al pubblico, lo stesso comando **senza** il terzo `-f`, dopo aver registrato l'account admin (il primo che si registra diventa admin). La build dell'immagine e il Caddyfile sono stati eseguiti sul server più volte (ultima: 2026-10-18, `main` a #138); sulla macchina di sviluppo il demone Docker non risponde, quindi **l'unico posto dove si scopre se `Dockerfile.prod` regge è il server**: `tsc -b` compila anche i test, e un test che legge un file del backend fuori da `frontend/` rompe la build senza che nulla se ne accorga in locale (è successo due volte: PR #95 e #104). Dettagli operativi e lista dei pendenti: `~/.claude/projects/.../memory/project_deploy_contabo.md`. Non fatti di proposito: rate limiting di login/registrazione, salvataggio anonimo configurabile (`SYMBA_ANON_SAVE`)
 - Screenshot in `docs/presentation/screenshots/` da rifare (sono pre-PR #42)
-- `rerun_saved_cases.py` va eseguito sul server dopo ogni deploy che tocchi il motore (prima senza `--apply` per vedere quanti casi cambiano). Il 2026-10-15, dopo #109-#121, #123-#126 e #127-#132, ha riportato 0 casi: il database del server è ancora vuoto
+- `rerun_saved_cases.py` va eseguito sul server dopo ogni deploy che tocchi il motore (prima senza `--apply` per vedere quanti casi cambiano). Dopo ogni deploy fino al 2026-10-18 (#138) ha riportato 0 casi: il database del server è ancora vuoto
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
 - Da guardare a occhio dopo il branding: proporzioni del logo, emblema UE a 300 px, hover/focus, 1201-1320 px in ES/FR su `/welcome`, Safari/Firefox, telefono reale, stampa della pagina risultato
 - Decisioni residue dell'audit: `contested` in `lcc_mc_04/08` resta inerte (D4.2 §3.2: è uno stato negoziale per flusso, non Q5=b); `infra.decommissioning_cost.row_condition` nel DCF non è valutato da nessun codice; I-17 (leggere le altre chiavi di `advanced`) deferito, vedi sopra; I-18 (anno di Kerdlap) da verificare sul DOI
@@ -175,7 +189,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-15, dopo la fase A passi 1-4b): **757 backend (pytest, +1 skipped) + 156 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-18, dopo la Part 2): **781 backend (pytest, +1 skipped) + 161 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).

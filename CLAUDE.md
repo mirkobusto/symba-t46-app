@@ -26,8 +26,9 @@ IS methodology"*. È parte di un PhD su simbiosi industriale di Mirko Busto (ENC
 
 **Audience layered** (decisione di framing 2026-05-22, Opzione B):
 - **Layer 1 (MVP corrente)** — IS practitioner / sustainability analyst / reviewer:
-  configura il pathway metodologico via Q1-Q7, ottiene attivazione pipeline (5 JSON
-  schema-driven) e Data Collection File (DCF) calibrato sul pathway IS-01..IS-05.
+  risponde al questionario (Q0-Q12, costruito dal 2026-10-18 sulle variabili dei deliverable),
+  ottiene la configurazione metodologica (situazione ILCD, struttura LCC, orizzonte, scenario di
+  riferimento, capitoli della Part 2) e il Data Collection File (DCF) calibrato su di essa.
 - **Layer 2 (in costruzione, Fasi A-C della roadmap T4.6)** — full stakeholder spectrum
   (industrie, comunità locali, autorità, end-users): viste report dedicate per tipologia
   di stakeholder, accessibilità non-specialista (wizard), deployment pubblico.
@@ -124,10 +125,37 @@ facoltativo `Flow.configuration` (colonna nella tabella dei flussi) che nomina i
 sugli 8 casi del corpus (script fuori dal repo): 64 sì / 5 no sui punti di studio, 37/53 sui capitoli per flusso;
 le discordanze sono divergenze decise o classificazioni dei flussi, da cui la guida sotto la tabella dei flussi
 (#138). **#135 è stata mergiata con il lint backend rosso** (corretto in #136): prima di ogni merge controllare
-`gh pr checks`. Prossimo: passo 6 (note del motore e testi delle regole di settore tradotti, deck); da decidere
-i resti della struttura del report pathway (IS-01..05 ancora mostrati, Q7 e localizzazione del mercato, Q10 per
-il decisore pubblico, beni capitali condivisi, scopo dello studio §4.3.2) e I-17.
-Nessuna PR aperta.
+`gh pr checks`. Il passo 6 (note del motore e testi delle regole di settore tradotti) è #140-#141.
+
+Il **2026-10-18** è partita la **rifondazione** (decisione del proprietario: "non salvare qualcosa solo perché
+esiste già"): l'app si costruisce sulle variabili che i deliverable usano, non sulla struttura ereditata. Piano:
+R1 togliere i percorsi, R2 questionario ricostruito, R3 regole CIR (I-17), R4 via le "violazioni" L2 dai report,
+R5 pagina risultato e modalità guidata, R6 deck e documenti da zero; poi nuovo passaggio sui casi reali con Fable.
+Fatto e in linea lo stesso giorno (ogni passo rivisto da Fable in sola lettura, corpus sempre a 63 sì / 6 no):
+- **R1** (#142): **via i percorsi IS-01..IS-05** (costrutto T4.6 che i deliverable non conoscono) da motore, API,
+  report, DCF, viste e casi salvati (`scripts/migrate_remove_pathway.py`, eseguito sul server; via anche le tabelle
+  legacy `sessions` / `answers` / `pathway_resolutions`). In testa al risultato c'è la situazione ILCD in parole.
+- **R2 passo 1** (#143): **Q2 a due risposte** (gli scambi misurati avvengono già → HNSRS / non ancora → CNSRS;
+  le vecchie C e D si leggono B) con la domanda di seguito `network_long_standing` (controfattuale moderno, D4.1
+  §11.2.2, chiave di ramo `long_standing=true`); scenari alternativi aperti a ogni studio (`has_scenarios` nel DCF).
+- **R2 passo 2** (#144): **Q1 e Q6a descrivono, Q9 e Q10 decidono**. Senza Q9/Q10 il motore ripiega su Q1 con una
+  nota (`q9_unanswered`, `q10_unanswered`); Q10 obbligatoria con l'economico e allargata al decisore pubblico; i
+  capitoli della Part 2 e AWARE seguono i flussi (nota `case_sector_without_flow`). Q1 descrive ancora la forma
+  della rete per i tre nodi di confine (`lca_mc_05`, `slca_mc_04`, `lcc_mc_16`).
+- **R2 passo 3** (#145): **Q7 = concentrazione delle interazioni chiave** (un sito / regionale / fra regioni; la
+  vecchia D si legge C), decide la caratterizzazione regionalizzata della LCIA (D4.1 §12.2.3, §12.3.3), non il
+  trasporto (esplicito e con GIS raccomandato per ogni scambio); **Q7b mercato di riferimento**
+  (`reference_market_region` / `reference_market_scope`, D4.1 §11.3.1). Le risposte entrano nei nodi con **frasi
+  composte** (`engine/answer_phrases.py`, segnaposto `{reference_market}`, `{affected_market}`,
+  `{interaction_scale}`, `{shared_assets}` riempiti in `activate._write`; decisione del proprietario, opzione 1).
+  CIR-05 conserva la regionalizzazione; CIR-03 non legge più Q7.
+- **R2 passo 4** (#146): **Q12 beni capitali dedicati e condivisi** (`dedicated_shared_assets`, chiesta con LCA o
+  LCC; chiave `shared_assets=true`), che accende IR-13, B-06 e CIR-08 (questa solo con il sociale) e converte una
+  volta la vecchia chiave avanzata `is_specific_capital_goods`.
+- **R2 passo 5** (#147): **Q0 scopo dello studio** (D4.1 §4.3.2, dopo Mattila et al. 2012; analisi /
+  miglioramento / espansione / progettazione / ristrutturazione), non deriva niente: report, copertina del DCF e
+  una nota solo per analisi senza scambi in corso o progettazione con scambi in corso.
+Prossimo: R3 (regole CIR e I-17), poi R4-R6. Nessuna PR aperta.
 
 Cronologia sintetica (tutto su `main`):
 - Sprint 4 Step 2 (scaffold) chiuso 2026-05-08
@@ -189,7 +217,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-18, dopo la Part 2): **781 backend (pytest, +1 skipped) + 161 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-10-18, dopo R2): **780 backend (pytest, +1 skipped) + 179 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).
@@ -205,16 +233,18 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 backend/app/
 ├── schemas/                    5 JSON schema files (data, NOT Python) + sector_overlays.json
 ├── domain/
-│   ├── enums.py               Q1-Q7 + derived states (IlcdSituation, LccType, ecc.)
+│   ├── enums.py               Q0-Q12 answers + derived states (IlcdSituation, LccType, ecc.)
 │   ├── models.py              Case, Flow, Site (Pydantic v2 con extra='forbid')
 │   └── case_state.py          StudyPhase reference (no FSM, design call 4)
 ├── engine/
 │   ├── loader.py              Carica i 5 JSON in LoadedSchemas
-│   ├── pipeline.py            Orchestrator L0→L1→pathway→activate→L2→L3 + mutation contract
+│   ├── pipeline.py            Orchestrator L0→L1→activate→sector rules→L2→L3 + mutation contract
 │   ├── l0_compute.py          3 trigger nodes deterministici
 │   ├── l1_blocks.py           4 BLOCK cells
-│   ├── pathway.py             γ matrix Q1×Q2 → IS-01..IS-05 (ADR-005)
 │   ├── activate.py            186 nodi, dotted-path → pillar dict, per_flow handling
+│   ├── branch_keys.py         grammatica delle chiavi di ramo dei nodi discriminativi
+│   ├── answer_phrases.py      frasi composte dalle risposte ({reference_market}, {interaction_scale}, …)
+│   ├── sector_rules.py        regole e configurazioni della D4.1 Part 2 per i capitoli toccati
 │   ├── l2_validate.py         40 regole (trigger / assertion / actions parsing)
 │   └── l3_report.py           IR-04 + IR-10 enforcement + 12 CDP surfacing
 │   ├── predicate.py           DSL dei predicati DCF (Phase 2)
@@ -273,10 +303,9 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 - **Scenari di rete** (deciso 2026-08-30, "entrambi in due tempi"): oggi uno scenario può variare solo le risposte Q1-Q7 tramite `overrides`, quindi non può esprimere "flusso in discarica vs flusso al partner" — il confronto che un analista cerca quando sceglie Q2=D. Fase 1 fatta: l'editor lo dice esplicitamente invece di promettere un confronto che non fa. Fase 2 da progettare: uno scenario come variante della rete disegnata (stessi attori, flussi/distanze/quantità diverse), il che sposta gli scenari dal Case al DCF e richiede di ripensare il runner.
 
 - Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
-- Tabelle DB legacy (`Session`, `Answer`, `PathwayResolutionRecord`) ancora registrate in `app/models/` ma senza endpoint che le usano. Da decidere se droppare in migrazione futura.
 - **I nodi di un metodo spento non si attivano** (fix 2026-08-30): `lcc_trig_01` dichiara "q3.eco=false → all LCC nodes deactivated" e `slca_t_01` l'analogo per il sociale, ma l'engine attivava comunque tutti i 61 nodi LCC e 66 SLCA. Ora `activate._method_is_off` salta il metodo e `_write` scarta le scritture nei pilastri spenti (coprendo anche le azioni CIR dell'L2). Conseguenza: il numero di nodi attivati e i mandati del DCF **dipendono da Q3** — l'invariante "almeno 116 nodi DEFAULT" non vale più ed è stato sostituito nei test da asserzioni method-aware.
 - **Le 40 regole L2 sono presentate come obblighi metodologici da documentare, non come errori** (decisione 2026-08-30). `case.applicable_rules` è emesso sul *trigger* ed è ciò che app e report mostrano; `case.rule_violations` (assertion fallita) resta per i validation report ma non è affidabile: le assertion confrontano valori che l'engine scrive come prosa (`lca.transport.foreground` = `'explicit'`, mai il booleano testato), quindi B-05 scattava sul 100% dei casi con Q7∈{B,C,D} (corretta il 2026-10-04: ora l'assertion accetta la prosa e il trigger segue le dimensioni, non Q7) e IR-01 su ogni caso con ≥2 dimensioni. Renderle controlli veri richiede un posto dove l'analista dichiari quelle scelte — non esiste oggi.
-- **Sei regole L2 non scattano mai (e CIR-03 solo via Q7) per attributi che `Case` non ha** (verifica 2026-10-04, voce I-17): `l2_validate._attr(c, nome)` fa `getattr(case, nome)`, ma `Case` è `extra='forbid'` e l'AdvancedEditor scrive quei valori in `case.advanced`, dove `getattr` non guarda. Sono inerti IR-13, B-06 e CIR-08 (`is_specific_capital_goods`), CIR-04 (`network_nodes`, `interdependent_flows`), CIR-06 (`frontier_categories_active`), FU-02 (`multi_actor`); CIR-03 scatta solo via Q7 perché `transport_sensitive` non si legge. La UI però elenca queste chiavi tra gli override avanzati come se avessero effetto. È lo stesso difetto di `asset_lifetime` (corretto a parte in PR #54, che legge da `case.advanced`). Estendere quella lettura alle altre chiavi le accenderebbe, e cambierebbe `applicable_rules` e il DCF: va deciso, non è una correzione banale.
+- **Regole L2 che leggono attributi che `Case` non ha** (verifica 2026-10-04, voce I-17; **aggiornamento 2026-10-18**: IR-13, B-06 e CIR-08 leggono ora Q12 `dedicated_shared_assets` e scattano; CIR-03 legge solo `transport_sensitive` e resta dormiente; restano inerti CIR-04, CIR-06, FU-02 e CIR-03: tocca a R3): `l2_validate._attr(c, nome)` fa `getattr(case, nome)`, ma `Case` è `extra='forbid'` e l'AdvancedEditor scrive quei valori in `case.advanced`, dove `getattr` non guarda. Sono inerti IR-13, B-06 e CIR-08 (`is_specific_capital_goods`), CIR-04 (`network_nodes`, `interdependent_flows`), CIR-06 (`frontier_categories_active`), FU-02 (`multi_actor`); CIR-03 scatta solo via Q7 perché `transport_sensitive` non si legge. La UI però elenca queste chiavi tra gli override avanzati come se avessero effetto. È lo stesso difetto di `asset_lifetime` (corretto a parte in PR #54, che legge da `case.advanced`). Estendere quella lettura alle altre chiavi le accenderebbe, e cambierebbe `applicable_rules` e il DCF: va deciso, non è una correzione banale.
 - **Flow classification è solo nel DCF** (audit I-09, 2026-10-04): i test giuridici ed economici per flusso (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) sono campi della sezione `flow_classification`, giudizi dell'analista. La pipeline non legge i dati del DCF, quindi nessun nodo li consuma e IR-15/CDP-05 restano non verificati. Dal 2026-10-15 (#118) il test Freedom-to-Act si può dare anche per flusso nella tabella Q5 (`Flow.sellable_elsewhere`, facoltativo): il motore lo confronta con Q5 e lascia una nota se non concordano (mai su Q5=d, D4.1 L00996), e il valore inizializza una volta sola `classif.independent_market` nel DCF. Per Q5=e `lcc_hc_12` non scatta e `lcc_hc_13` scrive un valore proprio (dal 2026-10-15): i flussi aggregati non possono avere costo zero finché ognuno non è classificato evitabile/inevitabile (D4.2 §6.3, L00751).
 - 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
 - Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
@@ -286,7 +315,7 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
   - **Q1=D → "C-LCC only"** è una scelta dichiarata di T4.6, non derivata da D4.2, che lega il tipo di LCC allo scopo dello studio e non a Q1. BLOCK 1 non può mai scattare, perché con Q1=D il tipo è già forzato a company-only; il suo messaggio dice ora che è una scelta di progetto, non una regola ILCD.
   - **Q4=D** attiva in CIR-05 i prezzi CE Delft e l'allocazione NTF, che D4.2 lega all'S-LCC (Q1=C). Regola Kimi tenuta; impatto basso.
   - **Pedigree e Monte Carlo** restano condizionati dalle risposte (Q4, TRL), mentre D4.1/D4.2 li dicono "sempre". Si segue il deliverable dove dice "senza eccezioni" (i tre strati di reporting, `lcc_hc_29`) e dove il testo non lascia scelta: **trasporto esplicito e break-even della distanza valgono ora per ogni Q7** (`lca_hc_21`, `lcc_hc_06`, D4.1 §13.3.1 e D4.2 §4.3; Q7 non ha soglie di distanza).
-  - **Domande nuove, opzionali, oltre Q1–Q7** (decisione del proprietario, 2026-10-04; senza risposta il motore si comporta esattamente come prima, verificato con lo snapshot): **Q8** vita tecnica degli asset (`asset_lifetime_years`, sopra 15 anni attiva il background futuro), **Q9** decisione e scala (`decision_context`: none/micro/structural, deriva la situazione ILCD secondo D4.1 Tabella 1), **Q10** scopo di policy o pianificazione (`policy_objective`, aggiunge l'S-LCC secondo D4.2 §2.3). Una risposta esplicita vince su Q1, tranne Q1=D che resta C2 / "C-LCC only"; le contraddizioni non bloccano e non cambiano nulla in silenzio: finiscono in `Case.warnings` (note nella pagina risultato). I nodi che leggono la situazione o il tipo LCC leggono lo stato derivato (`ilcd=`, `lcc_type=` nelle chiavi di ramo), quelli sul soggetto dello studio restano su Q1. Per flusso (natura fisica, evitabilità, End-of-Waste) restano campi del DCF, non domande; Freedom-to-Act è diventato anche una risposta facoltativa per flusso (#118). **Aggiornamento 2026-10-14/15**: Q8 è ora in tre parti (anno di esercizio, periodo di analisi, vita degli asset: un solo orizzonte per LCA e LCC) e **Q9 è obbligatoria e decide la situazione ILCD**, anche contro Q1=D (#114); il "C-LCC only" e il BLOCK C2 + E-LCC seguono la Situazione C2, non più Q1=D.
+  - **Domande nuove oltre Q1–Q7** (decisione del proprietario, 2026-10-04; dal 2026-10-18 il questionario è ricostruito, vedi lo stato sopra; senza risposta il motore si comporta esattamente come prima, verificato con lo snapshot): **Q8** vita tecnica degli asset (`asset_lifetime_years`, sopra 15 anni attiva il background futuro), **Q9** decisione e scala (`decision_context`: none/micro/structural, deriva la situazione ILCD secondo D4.1 Tabella 1), **Q10** scopo di policy o pianificazione (`policy_objective`, aggiunge l'S-LCC secondo D4.2 §2.3). Una risposta esplicita vince su Q1, tranne Q1=D che resta C2 / "C-LCC only"; le contraddizioni non bloccano e non cambiano nulla in silenzio: finiscono in `Case.warnings` (note nella pagina risultato). I nodi che leggono la situazione o il tipo LCC leggono lo stato derivato (`ilcd=`, `lcc_type=` nelle chiavi di ramo), quelli sul soggetto dello studio restano su Q1. Per flusso (natura fisica, evitabilità, End-of-Waste) restano campi del DCF, non domande; Freedom-to-Act è diventato anche una risposta facoltativa per flusso (#118). **Aggiornamento 2026-10-14/15**: Q8 è ora in tre parti (anno di esercizio, periodo di analisi, vita degli asset: un solo orizzonte per LCA e LCC) e **Q9 è obbligatoria e decide la situazione ILCD**, anche contro Q1=D (#114); il "C-LCC only" e il BLOCK C2 + E-LCC seguono la Situazione C2, non più Q1=D.
 
 ---
 

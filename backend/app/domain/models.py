@@ -22,12 +22,12 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.domain.enums import (
-    ComparisonGoal,
     Q1,
     Q2,
     Q4,
     Q5,
     Q7,
+    ComparisonGoal,
     DecisionContext,
     IlcdSituation,
     LccType,

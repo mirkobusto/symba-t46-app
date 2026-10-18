@@ -257,7 +257,7 @@ def test_context_contains_expected_keys(ctx_wiktor):
     expected_keys = {
         "q1", "q2", "q3", "q4", "q5", "q6a", "q6b", "q7",
         "ilcd_situation", "lcc_type",
-        "slca_activation_state", "has_scenarios", "dedicated_shared_assets", "always",
+        "slca_activation_state", "has_scenarios", "dedicated_shared_assets", "future_background", "always",
     }
     assert set(ctx_wiktor.keys()) == expected_keys
 

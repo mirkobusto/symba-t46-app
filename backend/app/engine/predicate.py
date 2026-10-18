@@ -21,6 +21,9 @@ Allowed identifiers (built by `build_context_from_case`):
     q5                           — None at Case level (per-flow contexts override)
     ilcd_situation, lcc_type,
     slca_activation_state        — str | None
+    has_scenarios                — bool, alternative scenarios declared
+    dedicated_shared_assets      — bool | None (Q12)
+    future_background            — bool, the study needs a future background
     always                       — bool (True)
 
 Security: implementation walks the parsed AST and rejects every node
@@ -36,6 +39,8 @@ from __future__ import annotations
 import ast
 from dataclasses import dataclass
 from typing import Any
+
+from app.engine.activate import needs_future_background
 
 
 class PredicateError(ValueError):
@@ -166,5 +171,7 @@ def build_context_from_case(case: Any) -> dict[str, Any]:
         # their projected data is asked whatever Q2 says
         "has_scenarios": bool(getattr(case, "alternative_scenarios", None)),
         "dedicated_shared_assets": getattr(case, "dedicated_shared_assets", None),   # Q12
+        # the one study horizon of lca_mc_21 / lcc_hc_23 (Q8, Q6b; review 2026-10-18)
+        "future_background": needs_future_background(case),
         "always": True,
     }

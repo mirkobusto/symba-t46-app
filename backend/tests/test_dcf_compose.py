@@ -243,7 +243,37 @@ def test_wiktor_has_capex_fields_q2_d(case_wiktor, dcf_schema, mandates_census):
     ids = {f.id for f in infra.fields}
     assert "infra.capex_amount" in ids
     assert "infra.amortization_period_y" in ids
-    assert "infra.ssp_rcp_scenario" in ids
+    # no future operating year, TRL 7-8, no long horizon: present background
+    assert "infra.ssp_rcp_scenario" not in ids
+
+
+def _infra_ids(case, schemas, dcf_schema, mandates_census) -> set[str]:
+    pipeline_run(case, schemas)
+    payload = compose_dcf(case, dcf_schema, mandates_census)
+    return {f.id for f in next(s for s in payload.sections if s.id == "infrastructure").fields}
+
+
+def test_ssp_rcp_follows_the_future_background(schemas, dcf_schema, mandates_census):
+    """The SSP/RCP field follows the one study horizon of lca_mc_21 / lcc_hc_23,
+    not Q2 (review 2026-10-18): an operating park whose assets outlive the
+    threshold asks it, a planned exchange running today at TRL 9 does not."""
+    base = dict(q1=Q1.B, q3=Q3(env=True, eco=True), q4={Q4.E}, q6b=Q6b.TRL9, q7=Q7.B,
+                flows=_flows(Q5.c))
+    park = Case(q2=Q2.A, asset_lifetime_years=30, **base)
+    assert "infra.ssp_rcp_scenario" in _infra_ids(park, schemas, dcf_schema, mandates_census)
+    planned = Case(q2=Q2.B, **base)
+    assert "infra.ssp_rcp_scenario" not in _infra_ids(planned, schemas, dcf_schema, mandates_census)
+
+
+def test_shared_assets_ask_capex_and_amortisation_ex_post(schemas, dcf_schema, mandates_census):
+    """B-06 asks matching amortisation periods for dedicated shared assets (Q12)
+    whatever Q2 says, so the DCF asks them on an operating park too."""
+    base = dict(q1=Q1.B, q2=Q2.A, q3=Q3(env=True, eco=True), q4={Q4.E}, q6b=Q6b.TRL9,
+                q7=Q7.B, flows=_flows(Q5.c))
+    ids = _infra_ids(Case(dedicated_shared_assets=True, **base), schemas, dcf_schema, mandates_census)
+    assert {"infra.capex_amount", "infra.amortization_period_y", "infra.discount_rate_pct"} <= ids
+    ids = _infra_ids(Case(dedicated_shared_assets=False, **base), schemas, dcf_schema, mandates_census)
+    assert "infra.capex_amount" not in ids
 
 
 def test_arce_no_capex_q2_a(case_arce, dcf_schema, mandates_census):
@@ -273,24 +303,15 @@ def test_wiktor_no_marginal_market_q1_b(case_wiktor, dcf_schema, mandates_census
     assert "flow.marginal_market_ref" not in ids
 
 
-def test_wiktor_has_contamination_wastewater_overlay(
-    case_wiktor, dcf_schema, mandates_census
-):
-    """q6a=wastewater_sludge_biofactories → contamination_level on."""
-    payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
+@pytest.mark.parametrize("fixture", ["case_wiktor", "case_arce"])
+def test_flow_quality_is_asked_whatever_the_case_sector(fixture, request, dcf_schema, mandates_census):
+    """Q6a describes the case and decides nothing since 2026-10-18: purity and
+    contamination (optional) are asked for every flow, backhaul for every route."""
+    case = request.getfixturevalue(fixture)
+    payload = compose_dcf(case, dcf_schema, mandates_census)
     flows = next(s for s in payload.sections if s.id == "flow_matrix")
     ids = {f.id for f in flows.fields}
-    assert "flow.quality.contamination_level" in ids
-    assert "flow.quality.purity_pct" not in ids  # wrong sector for purity
-
-
-def test_arce_has_purity_plastics_overlay(case_arce, dcf_schema, mandates_census):
-    """q6a=plastics_packaging → purity_pct on."""
-    payload = compose_dcf(case_arce, dcf_schema, mandates_census)
-    flows = next(s for s in payload.sections if s.id == "flow_matrix")
-    ids = {f.id for f in flows.fields}
-    assert "flow.quality.purity_pct" in ids
-    assert "flow.quality.contamination_level" not in ids
+    assert {"flow.quality.purity_pct", "flow.quality.contamination_level"} <= ids
 
 
 def test_briassoulis_q3_soc_unlocks_actor_size(

@@ -5,7 +5,7 @@
     "generated": "2026-05-22",
     "spec_reference": "docs/implementation/DATA_COLLECTION_FILE_v1.md",
     "predicate_dsl_version": "v1",
-    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state, has_scenarios (the case defines alternative scenarios), dedicated_shared_assets (Q12: True / False / None). Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
+    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state, has_scenarios (the case defines alternative scenarios), dedicated_shared_assets (Q12: True / False / None), future_background (the study needs a future background: Q8 or TRL below 7). Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
     "namespace": "dcf",
     "non_authoritative_until_approved": true
   },
@@ -203,7 +203,7 @@
           "min": 0,
           "max": 100,
           "required": false,
-          "activation_predicate": "q6a in [\"chemicals_fertilizers\", \"plastics_packaging\", \"biobased_polymers\"]"
+          "activation_predicate": "always"
         },
         {
           "id": "flow.quality.contamination_level",
@@ -216,7 +216,7 @@
             "unknown"
           ],
           "required": false,
-          "activation_predicate": "q6a in [\"waste_valorization\", \"wastewater_sludge_biofactories\", \"agriculture_agrifood_biorefineries\"]"
+          "activation_predicate": "always"
         },
         {
           "id": "flow.quality.reliability_of_supply",
@@ -469,7 +469,7 @@
             "full"
           ],
           "required": false,
-          "activation_predicate": "q6a in [\"waste_valorization\", \"energy_utilities\", \"pulp_paper\", \"cement_construction\"]"
+          "activation_predicate": "always"
         },
         {
           "id": "route.transport_lci_dataset",
@@ -712,7 +712,7 @@
           "label_en": "CAPEX amount",
           "type": "float",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios",
+          "activation_predicate": "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -720,7 +720,7 @@
           "label_en": "CAPEX currency + reference year (e.g. EUR2024)",
           "type": "string",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios",
+          "activation_predicate": "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -729,7 +729,7 @@
           "type": "int",
           "description_en": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2).",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios",
+          "activation_predicate": "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True",
           "row_condition": "infra.status == \"new\"",
           "source_ref": "lcc_hc_07"
         },
@@ -738,7 +738,7 @@
           "label_en": "Discount rate (%)",
           "type": "float",
           "required": false,
-          "activation_predicate": "q3.eco and (q2 == \"B\" or has_scenarios)",
+          "activation_predicate": "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -777,7 +777,7 @@
             "SSP5-85"
           ],
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios",
+          "activation_predicate": "future_background and (q3.env or q3.eco)",
           "source_ref": "lcc_hc_23"
         },
         {

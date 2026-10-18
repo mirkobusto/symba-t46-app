@@ -155,6 +155,17 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     })
   }
 
+  if (env) {
+    const claim = (kase.q4 ?? []).includes('C')
+    rows.push({
+      key: 'claim',
+      label: label('claim'),
+      value: t(claim ? 'result.config.values.claim' : 'result.config.values.claimNone'),
+      why: claim ? t('result.config.why.claim') : undefined,
+      nodeText: claim ? texts((kase.review ?? {})['scope']) : [],
+    })
+  }
+
   const chapters = new Map<string, Set<string>>()
   for (const rule of kase.sector_rules ?? []) {
     const flows = chapters.get(rule.chapter) ?? new Set<string>()
@@ -207,3 +218,14 @@ export function obligationGroups(rules: ApplicableRule[]): ObligationGroup[] {
   }
   return order.map((family) => ({ family, count: counts.get(family) ?? 0 })).filter((g) => g.count > 0)
 }
+
+/** The rows of the configuration each audience is shown (R6, 2026-10-18):
+ *  costs and assets for industry, local impacts and people for the community,
+ *  the public side for the authority, the unit and the claim for the end user. */
+export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end-user', string[]> = {
+  industry: ['lcc', 'shared', 'horizon', 'reference'],
+  community: ['regional', 'slca', 'sectors'],
+  authority: ['lcc', 'reference', 'claim', 'horizon'],
+  'end-user': ['fu', 'claim'],
+}
+

@@ -660,7 +660,7 @@ const fr: Locale = {
 
   scenarios: {
     intro:
-      "Un scénario fait ici varier les réponses *méthodologiques*, pas le réseau physique : il hérite de Q1–Q7 de la référence et ne diffère que par le dict d'overrides. Comparer où va un flux, sur quelle distance ou à quel prix est une comparaison de réseau — ces variantes se dessinent dans l'éditeur de réseau, et le moteur ne les compare pas encore.",
+      "Un scénario fait ici varier les réponses *méthodologiques*, pas le réseau physique : il hérite des réponses de la référence et ne diffère que par le dict d'overrides. Comparer où va un flux, sur quelle distance ou à quel prix est une comparaison de réseau — ces variantes se dessinent dans l'éditeur de réseau, et le moteur ne les compare pas encore.",
     emptyHint: 'Aucun scénario alternatif.',
     headers: { id: 'ID', label: 'Étiquette' },
     labelPlaceholder: 'ex. Expansion future / TRL9 ramp-up',
@@ -750,6 +750,7 @@ const fr: Locale = {
       lead: 'Ce que vos réponses ont décidé, dans les termes des livrables. Ouvrez une ligne pour lire le texte du moteur, en anglais, avec la section dont il provient.',
       nodeText: 'Texte du moteur (anglais)',
       labels: {
+        claim: 'Allégation publique',
         purpose: 'Type d\'étude',
         lcc: 'Coûts',
         slca: 'Évaluation sociale',
@@ -761,6 +762,8 @@ const fr: Locale = {
         shared: 'Actifs partagés',
       },
       values: {
+        claim: 'Allégation comparative au public : revue critique par un panel d\'au moins trois experts indépendants, pas de pondération',
+        claimNone: 'Pas d\'allégation comparative publique',
         scope_continental: 'continental',
         scope_sub_national: 'infranational',
         scope_national: 'national',
@@ -783,6 +786,7 @@ const fr: Locale = {
         shared: 'Leur CAPEX et leur OPEX dans la décomposition des coûts, répartis entre les partenaires qui les utilisent',
       },
       why: {
+        claim: 'les résultats appuieront une allégation publique de supériorité ou d\'équivalence (Q4 = C)',
         horizonFutureGeneric: 'l\'horizon de l\'étude atteint le futur',
         horizonFutureYear: 'le système fonctionne une année future',
         label: 'Pourquoi :',
@@ -947,7 +951,7 @@ const fr: Locale = {
     },
     baselineLabel: 'Baseline',
     diffSuffix: '(diff)',
-    overrideHelp: 'Chaque scénario hérite Q1-Q7 de la baseline ; remplissez overrides (dict JSON) par scénario pour différer. Overrides vides → même cas que la baseline.',
+    overrideHelp: 'Chaque scénario hérite des réponses de la baseline ; remplissez overrides (dict JSON) par scénario pour différer. Overrides vides → même cas que la baseline.',
     overridesPlaceholder: 'ex. {"q1": "C"} ou {"q3": {"env": true, "eco": true}}',
     overridesParseError: 'Les overrides doivent être du JSON valide pour {{id}}',
   },
@@ -986,7 +990,7 @@ const fr: Locale = {
   preset: {
     title: 'Charger un cas publié comme preset',
     help:
-      '13 fixtures de l\'échantillon de validation (12 papers + Leiva Escombreras / Frövi). Charge les Q1-Q7 + Q5 par-flux dans le questionnaire pour inspecter et exécuter le moteur end-to-end.',
+      '13 fixtures de l\'échantillon de validation (12 papers + Leiva Escombreras / Frövi). Charge les réponses, flux compris, dans le questionnaire pour inspecter et exécuter le moteur end-to-end.',
     loadButton: 'Charger preset',
     rationaleToggle: 'Pourquoi ces réponses ? (rationale de compilation)',
   },
@@ -1105,6 +1109,7 @@ const fr: Locale = {
         'Vue résumée pour les utilisateurs finaux des produits issus de la symbiose.',
     },
     verdictTitle: 'Configuration méthodologique',
+    configTitle: 'Ce que cette étude est prévue pour examiner',
     labels: {
       ilcd: 'Situation ILCD',
       lcc: 'Type LCC',

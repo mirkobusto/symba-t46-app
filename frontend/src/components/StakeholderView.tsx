@@ -25,6 +25,8 @@
 
 import { useTranslation } from 'react-i18next'
 
+import ConfigurationSummary from './ConfigurationSummary'
+import { AUDIENCE_ROWS } from '../pages/configurationRows'
 import { verdictFor, type VerdictDetail } from '../pages/resultNarrative'
 import type { Case } from '../types/api'
 import type { Dimension, ScoringIndicator, ScoringPayload } from '../types/scoring'
@@ -85,7 +87,6 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
     t(key, { defaultValue: fallback ?? '' }),
   )
   const axes = AXIS_FILTER[stakeholderType]
-  const shown = (verdict?.details ?? []).filter((d) => axes.includes(d.section))
   // "Not assessed" is news for the audience that came for that dimension.
   const socialOff =
     axes.includes('slca') && caseData.slca_activation_state === 'deactivated'
@@ -110,11 +111,14 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
           <>
             <p className="stakeholder-verdict-title">{verdict.title}</p>
             <p className="stakeholder-verdict-body">{verdict.body}</p>
-            <ul className="stakeholder-ul">
-              {shown.map((axis) => (
-                <li key={axis.code}>{axis.short}</li>
-              ))}
-            </ul>
+            {(caseData.blocked_by ?? []).length === 0 ? (
+              <ConfigurationSummary
+                kase={caseData}
+                only={AUDIENCE_ROWS[stakeholderType]}
+                showNodeText={false}
+                title={t('stakeholder.configTitle')}
+              />
+            ) : null}
           </>
         ) : (
           <p className="muted">{t('stakeholder.noVerdict')}</p>

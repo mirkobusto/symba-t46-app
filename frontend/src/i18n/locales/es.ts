@@ -654,7 +654,7 @@ const es: Locale = {
 
   scenarios: {
     intro:
-      "Aquí un escenario varía las respuestas *metodológicas*, no la red física: hereda Q1–Q7 de la línea base y solo difiere por el dict de overrides. Comparar a dónde va un flujo, a qué distancia o a qué precio es una comparación de red — esas variantes se dibujan en el editor de red, y el motor todavía no las compara.",
+      "Aquí un escenario varía las respuestas *metodológicas*, no la red física: hereda las respuestas de la línea base y solo difiere por el dict de overrides. Comparar a dónde va un flujo, a qué distancia o a qué precio es una comparación de red — esas variantes se dibujan en el editor de red, y el motor todavía no las compara.",
     emptyHint: 'Sin escenarios alternativos.',
     headers: { id: 'ID', label: 'Etiqueta' },
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',
@@ -744,6 +744,7 @@ const es: Locale = {
       lead: 'Lo que tus respuestas han decidido, en los términos de los entregables. Abre una fila para leer el texto del motor, en inglés, con la sección de la que procede.',
       nodeText: 'Texto del motor (inglés)',
       labels: {
+        claim: 'Declaración pública',
         purpose: 'Tipo de estudio',
         lcc: 'Costes',
         slca: 'Evaluación social',
@@ -755,6 +756,8 @@ const es: Locale = {
         shared: 'Activos compartidos',
       },
       values: {
+        claim: 'Declaración comparativa al público: revisión crítica por un panel de al menos tres expertos independientes, sin ponderación',
+        claimNone: 'Sin declaración comparativa pública',
         scope_continental: 'continental',
         scope_sub_national: 'subnacional',
         scope_national: 'nacional',
@@ -777,6 +780,7 @@ const es: Locale = {
         shared: 'Su CAPEX y OPEX en el desglose de costes, repartidos entre los socios que los usan',
       },
       why: {
+        claim: 'los resultados respaldarán una declaración pública de superioridad o equivalencia (Q4 = C)',
         horizonFutureGeneric: 'el horizonte del estudio llega al futuro',
         horizonFutureYear: 'el sistema opera en un año futuro',
         label: 'Por qué:',
@@ -941,7 +945,7 @@ const es: Locale = {
     },
     baselineLabel: 'Baseline',
     diffSuffix: '(diff)',
-    overrideHelp: 'Cada escenario hereda Q1-Q7 de la baseline; rellena overrides (dict JSON) por escenario para diferir. Overrides vacíos → mismo caso que la baseline.',
+    overrideHelp: 'Cada escenario hereda las respuestas de la baseline; rellena overrides (dict JSON) por escenario para diferir. Overrides vacíos → mismo caso que la baseline.',
     overridesPlaceholder: 'p. ej. {"q1": "C"} o {"q3": {"env": true, "eco": true}}',
     overridesParseError: 'Los overrides deben ser JSON válido para {{id}}',
   },
@@ -980,7 +984,7 @@ const es: Locale = {
   preset: {
     title: 'Cargar un caso publicado como preset',
     help:
-      '13 fixtures del sample de validación (12 papers + Leiva Escombreras / Frövi). Carga las Q1-Q7 + Q5 por flujo en el cuestionario para inspeccionar y ejecutar el motor end-to-end.',
+      '13 fixtures del sample de validación (12 papers + Leiva Escombreras / Frövi). Carga las respuestas, flujos incluidos, en el cuestionario para inspeccionar y ejecutar el motor end-to-end.',
     loadButton: 'Cargar preset',
     rationaleToggle: '¿Por qué estas respuestas? (rationale de compilación)',
   },
@@ -1099,6 +1103,7 @@ const es: Locale = {
         'Vista resumen para usuarios finales de los productos derivados de la simbiosis.',
     },
     verdictTitle: 'Configuración metodológica',
+    configTitle: 'Qué está preparado para mirar este estudio',
     labels: {
       ilcd: 'Situación ILCD',
       lcc: 'Tipo LCC',

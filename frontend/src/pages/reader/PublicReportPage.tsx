@@ -21,6 +21,8 @@ import VerdictCard from '../../components/dd/VerdictCard'
 import { ApiError, fetchPublicReport } from '../../services/api'
 import type { PublicReportResponse } from '../../types/reader'
 import { verdictFor } from '../resultNarrative'
+import { AUDIENCE_ROWS } from '../configurationRows'
+import ConfigurationSummary from '../../components/ConfigurationSummary'
 
 type Audience = 'industry' | 'community' | 'authority' | 'enduser'
 
@@ -114,23 +116,14 @@ export default function PublicReportPage() {
         <p className="dd-framing-body">{t(`reader.audience.${validAudience}.body`)}</p>
       </div>
 
-      <section>
-        <h2 className="dd-section-title">{t('reader.summaryTitle')}</h2>
-        <div className="dd-card" style={{ marginTop: 8 }}>
-          <dl className="dd-dl">
-            <dt>{t('reader.summary.ilcd')}</dt>
-            <dd>{c.ilcd_situation ?? '—'}</dd>
-            <dt>{t('reader.summary.lcc')}</dt>
-            <dd>{c.lcc_type ?? '—'}</dd>
-            <dt>{t('reader.summary.slca')}</dt>
-            <dd>{c.slca_activation_state ?? '—'}</dd>
-            <dt>{t('reader.summary.sector')}</dt>
-            <dd>{c.q6a ?? '—'}</dd>
-            <dt>{t('reader.summary.scope')}</dt>
-            <dd>{c.q7 ? `Q7 = ${c.q7}` : '—'}</dd>
-          </dl>
-        </div>
-      </section>
+      {(c.blocked_by ?? []).length === 0 ? (
+        <ConfigurationSummary
+          kase={c}
+          only={AUDIENCE_ROWS[validAudience === 'enduser' ? 'end-user' : validAudience]}
+          showNodeText={false}
+          title={t('reader.summaryTitle')}
+        />
+      ) : null}
 
       <section>
         <h2 className="dd-section-title">{t('reader.scoringTitle')}</h2>

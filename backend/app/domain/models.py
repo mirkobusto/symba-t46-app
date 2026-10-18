@@ -147,7 +147,8 @@ class Case(BaseModel):
           construct the deliverables do not know, is dropped;
         - the former Q2 options C (design phase) and D (baseline plus
           alternatives) are read as B, "not yet" (see enums.Q2);
-        - the former Q7 option D (multi-scale programmes) is read as C."""
+        - the former Q7 option D (multi-scale programmes) is read as C;
+        - the inert advanced key `is_specific_capital_goods` becomes Q12."""
         if not isinstance(data, dict):
             return data
         if "pathway_id" in data or "is_01_extended" in data:
@@ -156,6 +157,14 @@ class Case(BaseModel):
             data = {**data, "q2": "B"}
         if data.get("q7") == "D":   # former multi-scale option (2026-10-18)
             data = {**data, "q7": "C"}
+        advanced = data.get("advanced")
+        if isinstance(advanced, dict) and "is_specific_capital_goods" in advanced:
+            # the advanced key never reached a rule (I-17); Q12 replaces it, once
+            raw = advanced["is_specific_capital_goods"]
+            rest = {k: v for k, v in advanced.items() if k != "is_specific_capital_goods"}
+            data = {**data, "advanced": rest}
+            if data.get("dedicated_shared_assets") is None:
+                data["dedicated_shared_assets"] = raw is True or str(raw).strip().lower() in ("true", "1", "yes")
         return data
 
     # --- Identity / lifecycle ---
@@ -213,6 +222,13 @@ class Case(BaseModel):
     # functional unit (lca_mc_07). None = not answered: the function-oriented FU
     # of Part 1 §5.2.1, as before Q11 existed.
     comparison_goal: ComparisonGoal | None = None
+
+    # Q12 (optional, asked when LCA or LCC is on) — does the symbiosis need new
+    # dedicated shared assets (pipelines, plants, storage)? D4.2 §4.2 (L00567): their
+    # CAPEX and OPEX go in the cost breakdown, allocated among the benefiting
+    # partners; D4.1 §6.3.3: capital goods unique to the IS scenario are included.
+    # Read by lcc_hc_07, lca_hc_18 / lca_mc_10 ({shared_assets}), IR-13, B-06, CIR-08.
+    dedicated_shared_assets: bool | None = None
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)

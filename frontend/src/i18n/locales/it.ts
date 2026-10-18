@@ -318,7 +318,7 @@ const it: Locale = {
     p1:
       "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da dieci domande sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
     p2:
-      'Il questionario (Q1-Q11; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
+      'Il questionario (Q1-Q12; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
       'Display configurazione per pillar, override avanzati e pannello "Mostra ragionamento" sono tutti operativi.',
   },
@@ -587,6 +587,18 @@ const it: Locale = {
       plain:
         "Su che cosa verte davvero il confronto? Se la domanda è come trattare al meglio un rifiuto — bruciarlo, digerirlo, compostarlo — il risultato si conta per tonnellata di rifiuto trattato. Se la domanda è se il prodotto recuperato è migliore di quello che sostituisce, si conta per unità di prodotto. Se contano tutte e due, si contano una accanto all'altra.",
     },
+    q12: {
+      title: 'Q12 — La simbiosi richiede nuovi beni dedicati e condivisi?',
+      help: 'Facoltativa, chiesta quando c\'è LCA o LCC: condotte, impianti o stoccaggi costruiti per la simbiosi.',
+      details: 'D4.2 §4.2 chiede se la rete richiede nuovi beni dedicati e condivisi: in tal caso il loro CAPEX e l\'OPEX corrente vanno inclusi nel prospetto dei costi e ripartiti fra i partner che ne beneficiano. D4.1 §6.3.3 include i beni capitali e le infrastrutture propri dello scenario di simbiosi, ammortizzati sulla vita tecnica di ogni bene (Q8). Con LCA e LCC entrambi attivi, un sì accende anche le regole che allineano i beni capitali fra i due (IR-13, B-06); per parchi e programmi con la dimensione sociale, gli indicatori S-LCA per l\'investimento condiviso (CIR-08).',
+      options: {
+        unset: 'Non risposta',
+        yes: 'Sì — si costruiscono nuove condotte, impianti o stoccaggi per la simbiosi',
+        no: 'No — gli scambi usano beni esistenti',
+      },
+      plain:
+        'Rispondi sì se per far avvenire gli scambi bisogna costruire qualcosa di nuovo: una condotta, un impianto di trattamento comune, un serbatoio. Il suo costo e la sua impronta ambientale entrano allora nello studio e si ripartiscono fra le aziende che lo usano.',
+    },
 
     q2dCard: {
       title: 'Scenari alternativi (facoltativo)',
@@ -677,7 +689,6 @@ const it: Locale = {
       network_nodes: 'Intero; ≥3 (con Q1=B + interdependent_flows) attiva CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) attiva CIR-04',
       frontier_categories_active: 'Booleano; true attiva CIR-06',
-      is_specific_capital_goods: 'Booleano; true attiva IR-13 / B-06 / CIR-08',
       multi_actor: 'Booleano; true (con Q1∈{B,C}) attiva FU-02',
     },
   },

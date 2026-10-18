@@ -42,7 +42,7 @@ export interface ActionItem {
   severity: 'HIGH' | 'MEDIUM' | 'LOW' | null
 }
 
-const Q_TOKEN = /Q([1-7])(a|b)?/g
+const Q_TOKEN = /Q(1[0-2]|[1-9])(a|b)?/g
 
 function formatAnswer(kase: Case, id: string): string | null {
   switch (id) {
@@ -68,6 +68,8 @@ function formatAnswer(kase: Case, id: string): string | null {
       return kase.q6b ?? null
     case 'Q7':
       return kase.q7 ?? null
+    case 'Q12':
+      return kase.dedicated_shared_assets == null ? null : kase.dedicated_shared_assets ? 'yes' : 'no'
     default:
       return null
   }

@@ -17,7 +17,7 @@ from typing import Any
 from app.domain.enums import Q7, ReferenceMarketScope
 from app.domain.models import Case
 
-PLACEHOLDERS = ("reference_market", "affected_market", "interaction_scale")
+PLACEHOLDERS = ("reference_market", "affected_market", "interaction_scale", "shared_assets")
 _TOKEN = re.compile(r"\{(" + "|".join(PLACEHOLDERS) + r")\}")
 
 # D4.1 §11.3.1 (L01291): the average matches the market the counterfactual would
@@ -72,8 +72,16 @@ def interaction_scale(case: Case) -> str:
     return _INTERACTIONS.get(case.q7, _GENERIC_INTERACTIONS) if case.q7 else _GENERIC_INTERACTIONS
 
 
+def shared_assets(case: Case) -> str:
+    """Q12 on the LCA capital-goods nodes, which branch on TRL (lca_hc_18, lca_mc_10)."""
+    if case.dedicated_shared_assets:
+        return ("; the new dedicated shared assets of this symbiosis (pipelines, plants, storage) are such "
+                "capital goods")
+    return ""
+
+
 _FILL = {"reference_market": reference_market, "affected_market": affected_market,
-         "interaction_scale": interaction_scale}
+         "interaction_scale": interaction_scale, "shared_assets": shared_assets}
 
 
 def fill(value: Any, case: Case) -> Any:

@@ -233,6 +233,8 @@ export interface Case {
   /** Q7b: name and scope of the reference market (not the market of the symbiosis products). */
   reference_market_region?: string | null
   reference_market_scope?: ReferenceMarketScope | null
+  /** Q12: does the symbiosis need new dedicated shared assets? (D4.2 §4.2, D4.1 §6.3.3) */
+  dedicated_shared_assets?: boolean | null
 
   flows?: Flow[]
   sites?: Site[]

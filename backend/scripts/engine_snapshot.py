@@ -108,10 +108,12 @@ def _sweeps() -> dict:
 
 
 def _question_sweeps() -> dict:
-    """Q2b/Q8/Q9/Q10 answered over Q1 x Q2 x Q3; only for the fields the Case has."""
+    """Q2b/Q8/Q9/Q10/Q12 answered over Q1 x Q2 x Q3; only for the fields the Case has."""
     res = {}
     fields = Case.model_fields
     axes = []
+    if "dedicated_shared_assets" in fields:
+        axes.append(("sq12", "dedicated_shared_assets", (None, True, False)))
     if "network_long_standing" in fields:
         axes.append(("sq2b", "network_long_standing", (None, True, False)))
     if "asset_lifetime_years" in fields:

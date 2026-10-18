@@ -111,6 +111,7 @@ def _build_eval_context(case: Case) -> dict:
         "lcc_type": case.lcc_type.value if case.lcc_type else None,
         "slca_activation_state": case.slca_activation_state.value if case.slca_activation_state else None,
         "has_scenarios": bool(case.alternative_scenarios),
+        "dedicated_shared_assets": case.dedicated_shared_assets,
         "always": True,
     }
 

@@ -21,7 +21,7 @@ from typing import Any
 
 from app.domain.models import Case
 
-_Q_TOKEN = re.compile(r"Q([1-7])(a|b)?")
+_Q_TOKEN = re.compile(r"Q(1[0-2]|[1-9])(a|b)?")
 
 
 @lru_cache(maxsize=1)
@@ -103,6 +103,9 @@ def _answer_for(case: Case, label: str) -> str | None:
         return ", ".join(sorted(q.value for q in case.q4)) or None
     if label == "Q5":
         return " · ".join(f"{f.name}: {f.q5.value}" for f in case.flows) or None
+    if label == "Q12":
+        value = case.dedicated_shared_assets
+        return None if value is None else ("yes" if value else "no")
     value = getattr(case, label.lower(), None)
     return getattr(value, "value", value) if value is not None else None
 

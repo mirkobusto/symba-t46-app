@@ -41,7 +41,7 @@ Conventions established in earlier commits and reused here:
   - Defensive `getattr` for `case.X` references not yet on the Case
     model (`transport_sensitive`, `network_nodes`,
     `interdependent_flows`, `frontier_categories_active`,
-    `is_specific_capital_goods`, `multi_actor`): treated as falsy
+    `multi_actor`): treated as falsy
     defaults so the rule stays inert until the field arrives.
 
 Policy decisions for this commit (see CLAUDE.md commit-5 plan):
@@ -144,7 +144,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-09": lambda c: c.q3.env and c.q3.eco and any(f.q5 == Q5.c for f in c.flows),
     "IR-11": lambda c: _q4_intersects(c, {"C", "D"}) and _q3_dims_active(c) >= 2,
     "IR-12": lambda c: c.q3.env or c.q3.eco,   # transport is modeled for every Q7 (audit I-08)
-    "IR-13": lambda c: c.q3.env and c.q3.eco and bool(_attr(c, "is_specific_capital_goods")),
+    "IR-13": lambda c: c.q3.env and c.q3.eco and bool(c.dedicated_shared_assets),
     "IR-14": lambda c: _q3_dims_active(c) >= 2,
     "IR-15": lambda c: c.q3.env and c.q3.eco and any(f.q5 in {Q5.a, Q5.b} for f in c.flows),
     "IR-16": lambda c: _q3_dims_active(c) >= 2,
@@ -164,7 +164,8 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "CIR-05": lambda c: _q4_intersects(c, {"D"}),
     "CIR-06": lambda c: bool(_attr(c, "frontier_categories_active")),
     "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(_attr(c, "is_specific_capital_goods")),
+    # Q1 in the trigger is left to R3; its action is S-LCA only
+    "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(c.dedicated_shared_assets) and c.q3.soc,
     "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
                          and c.q2 == Q2.B),
     "CIR-10": lambda c: True,
@@ -180,7 +181,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "B-03": lambda c: (c.q3.soc and (c.q3.env or c.q3.eco) and _lcc_includes_e(c)),
     "B-04": lambda c: c.q3.soc,
     "B-05": lambda c: c.q3.env or c.q3.eco,    # transport is modeled for every Q7 (audit I-08)
-    "B-06": lambda c: c.q3.env and c.q3.eco and bool(_attr(c, "is_specific_capital_goods")),
+    "B-06": lambda c: c.q3.env and c.q3.eco and bool(c.dedicated_shared_assets),
     "B-07": lambda c: True,
 }
 
@@ -265,12 +266,18 @@ def _assert_ir_12(c: Case) -> bool:
     return True
 
 
+def _included(value: Any) -> bool:
+    """The capital-goods nodes write prose, never a boolean (as lca_mc_16 does for
+    B-05): a non-empty statement counts as "included"."""
+    return value is True or (isinstance(value, str) and bool(value.strip()))
+
+
 def _assert_ir_13(c: Case) -> bool:
     a = _get(c, "lca.capital_goods.included")
     b = _get(c, "lcc.capital_goods.included")
     if a is None or b is None:
         return True
-    return a is True and b is True
+    return _included(a) and _included(b)
 
 
 def _assert_ir_14(c: Case) -> bool:
@@ -411,7 +418,7 @@ def _assert_b_06(c: Case) -> bool:
     b_ap = _get(c, "lcc.capital_goods.amortization_period")
     if a_inc is None or b_inc is None:
         return True
-    if not (a_inc is True and b_inc is True):
+    if not (_included(a_inc) and _included(b_inc)):
         return False
     if a_ap is None or b_ap is None:
         return True

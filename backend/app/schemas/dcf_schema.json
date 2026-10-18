@@ -5,7 +5,7 @@
     "generated": "2026-05-22",
     "spec_reference": "docs/implementation/DATA_COLLECTION_FILE_v1.md",
     "predicate_dsl_version": "v1",
-    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state, has_scenarios (the case defines alternative scenarios). Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
+    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state, has_scenarios (the case defines alternative scenarios), dedicated_shared_assets (Q12: True / False / None). Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
     "namespace": "dcf",
     "non_authoritative_until_approved": true
   },
@@ -791,7 +791,7 @@
             "public"
           ],
           "required": false,
-          "activation_predicate": "q3.eco"
+          "activation_predicate": "q3.eco and dedicated_shared_assets != False"
         }
       ]
     },

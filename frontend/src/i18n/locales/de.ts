@@ -286,7 +286,7 @@ const de: Locale = {
     p1:
       "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus zehn Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
-      'Der Fragebogen (Q1-Q11; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
+      'Der Fragebogen (Q1-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
       'Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
@@ -555,6 +555,18 @@ const de: Locale = {
       plain:
         "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Abfall am besten behandelt wird — verbrennen, vergären, kompostieren —, wird das Ergebnis pro Tonne behandelten Abfalls gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
     },
+    q12: {
+      title: 'Q12 — Braucht die Symbiose neue, eigens errichtete und gemeinsam genutzte Anlagen?',
+      help: 'Optional, gefragt wenn Ökobilanz oder LCC aktiv ist: Leitungen, Anlagen oder Lager, die für die Symbiose gebaut werden.',
+      details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Sind Ökobilanz und LCC beide aktiv, aktiviert ein Ja außerdem die Regeln, die Investitionsgüter zwischen beiden abgleichen (IR-13, B-06); für Parks und Programme mit sozialer Dimension die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08).',
+      options: {
+        unset: 'Keine Antwort',
+        yes: 'Ja — für die Symbiose werden neue Leitungen, Anlagen oder Lager gebaut',
+        no: 'Nein — die Austausche nutzen bestehende Anlagen',
+      },
+      plain:
+        'Antworten Sie mit Ja, wenn für die Austausche etwas Neues gebaut werden muss: eine Leitung, eine gemeinsame Aufbereitungsanlage, ein Lagertank. Seine Kosten und sein ökologischer Fußabdruck werden dann in der Studie gezählt und auf die Unternehmen verteilt, die es nutzen.',
+    },
 
     q2dCard: {
       title: 'Alternative Szenarien (optional)',
@@ -645,7 +657,6 @@ const de: Locale = {
       network_nodes: 'Integer; ≥3 (mit Q1=B + interdependent_flows) aktiviert CIR-04',
       interdependent_flows: 'Boolean; true (mit Q1=B + network_nodes≥3) aktiviert CIR-04',
       frontier_categories_active: 'Boolean; true aktiviert CIR-06',
-      is_specific_capital_goods: 'Boolean; true aktiviert IR-13 / B-06 / CIR-08',
       multi_actor: 'Boolean; true (mit Q1∈{B,C}) aktiviert FU-02',
     },
   },

@@ -340,7 +340,7 @@ const en = {
     p1:
       "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from ten questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
-      'The questionnaire (Q1-Q11; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
+      'The questionnaire (Q1-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
       'Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
   },
@@ -609,6 +609,18 @@ const en = {
       plain:
         "What is the comparison really about? If the question is how best to deal with a waste — burn it, digest it, compost it — the result is counted per tonne of waste treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
     },
+    q12: {
+      title: 'Q12 — Does the symbiosis need new dedicated shared assets?',
+      help: 'Optional, asked when LCA or LCC is on: pipelines, plants or storage built for the symbiosis.',
+      details: 'D4.2 §4.2 asks whether the network requires new dedicated shared assets: if it does, their CAPEX and ongoing OPEX must be included in the cost breakdown and allocated among the partners that benefit from them. D4.1 §6.3.3 includes the capital goods and infrastructure unique to the IS scenario, amortised over each asset\'s technical lifetime (Q8). With both LCA and LCC on, a yes also switches on the rules that align capital goods between the two (IR-13, B-06); for parks and programmes with the social dimension, the S-LCA indicators for shared investment (CIR-08).',
+      options: {
+        unset: 'Not answered',
+        yes: 'Yes — new pipelines, plants or storage are built for the symbiosis',
+        no: 'No — the exchanges use existing assets',
+      },
+      plain:
+        'Answer yes if something new has to be built for the exchanges to happen: a pipeline, a shared treatment plant, a storage tank. Its cost and its environmental footprint are then counted in the study and shared among the companies that use it.',
+    },
 
     q2dCard: {
       title: 'Alternative scenarios (optional)',
@@ -699,7 +711,6 @@ const en = {
       network_nodes: 'Integer; ≥3 (with Q1=B + interdependent_flows) activates CIR-04',
       interdependent_flows: 'Boolean; true (with Q1=B + network_nodes≥3) activates CIR-04',
       frontier_categories_active: 'Boolean; true activates CIR-06',
-      is_specific_capital_goods: 'Boolean; true activates IR-13 / B-06 / CIR-08',
       multi_actor: 'Boolean; true (with Q1∈{B,C}) activates FU-02',
     },
   },

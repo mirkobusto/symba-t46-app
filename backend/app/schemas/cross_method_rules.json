@@ -277,8 +277,8 @@
       "id": "IR-13",
       "name": "Capital Goods Alignment",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3.ENV+ECO AND IS-unique capital goods present",
-      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.is_specific_capital_goods == true",
+      "trigger_condition_raw": "Q3.ENV+ECO AND new dedicated shared assets (Q12)",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.dedicated_shared_assets == true",
       "assertion": "lca.capital_goods.included == true AND lcc.capital_goods.included == true",
       "fields": [
         "lca.capital_goods.included",
@@ -537,8 +537,8 @@
       "id": "CIR-08",
       "name": "Shared CAPEX Stakeholder Indicators",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q1 ∈ {B, C} AND IS-specific capital goods present",
-      "trigger_condition": "case.q1 IN ['B','C'] AND case.is_specific_capital_goods == true",
+      "trigger_condition_raw": "Q1 ∈ {B, C} AND new dedicated shared assets (Q12) AND Q3.SOC",
+      "trigger_condition": "case.q1 IN ['B','C'] AND case.dedicated_shared_assets == true AND case.q3.soc == true",
       "actions": [
         "slca.indicators += stakeholder_group_indicators (if Q3.SOC active)"
       ],
@@ -760,8 +760,8 @@
       "id": "B-06",
       "name": "Capital Goods Amortization Alignment",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3.ENV+ECO AND IS-unique capital goods present",
-      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.is_specific_capital_goods == true",
+      "trigger_condition_raw": "Q3.ENV+ECO AND new dedicated shared assets (Q12)",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND case.dedicated_shared_assets == true",
       "assertion": "lca.capital_goods.included == true AND lcc.capital_goods.included == true AND lca.capital_goods.amortization_period == lcc.capital_goods.amortization_period",
       "fields": [
         "lca.capital_goods.included",

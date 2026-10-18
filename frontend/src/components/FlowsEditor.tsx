@@ -3,6 +3,7 @@
 import { Plus, Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
+import { configurationsFor } from '../presets/part2Configurations'
 import type { Flow, Q5, Q6a } from '../types/api'
 
 const Q5_KEYS: Q5[] = ['a', 'b', 'c', 'd', 'e']
@@ -69,6 +70,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
               <th>{t('flows.headers.q5')}</th>
               <th title={t('flows.sellableHint')}>{t('flows.headers.sellable')}</th>
               <th title={t('flows.sectorHint')}>{t('flows.headers.sector')}</th>
+              <th title={t('flows.configurationHint')}>{t('flows.headers.configuration')}</th>
               <th aria-label="actions"></th>
             </tr>
           </thead>
@@ -124,16 +126,35 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     className="row-select"
                     aria-label={t('flows.headers.sector')}
                     value={f.sector ?? ''}
-                    onChange={(e) =>
-                      updateFlow(f.id, {
-                        sector: e.target.value === '' ? null : (e.target.value as Q6a),
-                      })
-                    }
+                    onChange={(e) => {
+                      const sector = e.target.value === '' ? null : (e.target.value as Q6a)
+                      // a configuration belongs to one chapter: drop it if the sector moves away
+                      const keep = f.configuration && configurationsFor(sector).includes(f.configuration)
+                      updateFlow(f.id, { sector, configuration: keep ? f.configuration : null })
+                    }}
                   >
                     <option value="">{t('flows.sectorNone')}</option>
                     {PART2_SECTORS.map((k) => (
                       <option key={k} value={k}>
                         {t(`questionnaire.q6a.options.${k}`)}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <select
+                    className="row-select"
+                    aria-label={t('flows.headers.configuration')}
+                    value={f.configuration ?? ''}
+                    disabled={configurationsFor(f.sector).length === 0}
+                    onChange={(e) =>
+                      updateFlow(f.id, { configuration: e.target.value === '' ? null : e.target.value })
+                    }
+                  >
+                    <option value="">{t('flows.configurationNone')}</option>
+                    {configurationsFor(f.sector).map((k) => (
+                      <option key={k} value={k}>
+                        {t(`flows.configurations.${k}`)}
                       </option>
                     ))}
                   </select>

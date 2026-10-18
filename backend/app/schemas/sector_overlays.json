@@ -3,7 +3,7 @@
   "version": "0.2",
   "extracted_from": "SPRINT4_BOOTSTRAP_v2.md §3 Q6a (14 sectors + Other)",
   "purpose": "Q6a sector enumeration and the sector rules of D4.1 Part 2 (FINAL v2). `sectors` lists the 14 sector IDs. `overlays` maps each Part 2 chapter (§4-§8, with its §9 LCIA categories) to the Q6a sectors that activate it and to its rules. engine/sector_rules lists the rules of the chapters a case touches (a flow's declared sector or Q6a) as mandates to document.",
-  "extraction_notes": "Sector IDs follow snake_case for stable JSON keys. Display labels (with slashes, parentheses, etc.) are a frontend concern. The current Q6a enum (5 placeholder values) covers a subset; expanding to all 14 is tracked as a follow-up. | 2026-10-15 (phase A, step 5): 64 rules from the 69 census rows of groups A1 (LCIA) and A2 (modelling) of D4.1 Part 2, drafted from the numbered FINAL v2 text, quotes checked by script, reviewed by Fable. Excluded here: the substituted-product rows of §x.1 and the functional-unit rows (later PRs). `when_key` uses the branch-key grammar of engine/branch_keys.py (rule shown only when it matches); `note` points to the Part 1 rule a sector rule must not loosen. Each rule keeps its census ids and a short verbatim quote for the deliverable revision.",
+  "extraction_notes": "Sector IDs follow snake_case for stable JSON keys. Display labels (with slashes, parentheses, etc.) are a frontend concern. The current Q6a enum (5 placeholder values) covers a subset; expanding to all 14 is tracked as a follow-up. | 2026-10-15 (phase A, step 5): 64 rules from the 69 census rows of groups A1 (LCIA) and A2 (modelling) of D4.1 Part 2, drafted from the numbered FINAL v2 text, quotes checked by script, reviewed by Fable. Excluded here: the substituted-product rows of §x.1 and the functional-unit rows (later PRs). `when_key` uses the branch-key grammar of engine/branch_keys.py (rule shown only when it matches); `note` points to the Part 1 rule a sector rule must not loosen. Each rule keeps its census ids and a short verbatim quote for the deliverable revision. | 2026-10-18 (step 5, PR 3): `configurations` per chapter, the typical IS configurations of §4.1-§8.1 (26) with the conventional product each substitutes; a flow can declare one (Flow.configuration).",
   "sectors": [
     {
       "id": "agriculture_agrifood_biorefineries",
@@ -273,6 +273,48 @@
           "when_key": null,
           "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
         }
+      ],
+      "configurations": [
+        {
+          "id": "agrifood_ad_bioenergy_fertiliser",
+          "label": "Organic waste to bioenergy & fertiliser (AD/composting)",
+          "substitutes": "natural gas / grid electricity and mineral NPK fertilisers",
+          "source": "D4.1 Part 2 §4.1",
+          "lines": "L00381",
+          "verbatim": "Substitutes natural gas / grid electricity and mineral NPK fertilisers"
+        },
+        {
+          "id": "agrifood_feed_bioconversion",
+          "label": "Food/agri by-products to animal feed (bioconversion)",
+          "substitutes": "soy meal and/or fishmeal",
+          "source": "D4.1 Part 2 §4.1",
+          "lines": "L00383",
+          "verbatim": "Substitutes soy meal and/or fishmeal"
+        },
+        {
+          "id": "agrifood_platform_chemicals",
+          "label": "Agro-residues to platform chemicals / bioplastics",
+          "substitutes": "fossil-based chemicals and plastics",
+          "source": "D4.1 Part 2 §4.1",
+          "lines": "L00385",
+          "verbatim": "Substitutes fossil-based chemicals and plastics"
+        },
+        {
+          "id": "agrifood_high_value_compounds",
+          "label": "Agro-industrial residues to high-value compounds",
+          "substitutes": "synthetic additives and conventional counterparts",
+          "source": "D4.1 Part 2 §4.1",
+          "lines": "L00387",
+          "verbatim": "Substitutes synthetic additives and conventional counterparts"
+        },
+        {
+          "id": "agrifood_nutrient_recovery",
+          "label": "Nutrient recovery to soil amendment / fertiliser substitution",
+          "substitutes": "synthetic mineral N/P fertilisers",
+          "source": "D4.1 Part 2 §4.1",
+          "lines": "L00389",
+          "verbatim": "Substitutes synthetic mineral N/P fertilisers"
+        }
       ]
     },
     "plastics": {
@@ -481,6 +523,48 @@
           "when_key": null,
           "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
         }
+      ],
+      "configurations": [
+        {
+          "id": "plastics_mechanical_recycling",
+          "label": "Mechanical recycling (open-/closed-loop)",
+          "substitutes": "virgin PET/PP/HDPE, often with quality loss limiting end-use",
+          "source": "D4.1 Part 2 §5.1",
+          "lines": "L00459",
+          "verbatim": "Substitutes virgin PET/PP/HDPE, often with quality loss limiting end-use"
+        },
+        {
+          "id": "plastics_chemical_recycling",
+          "label": "Chemical recycling (thermochemical/depolymerisation)",
+          "substitutes": "virgin monomers and/or crude-oil-derived feedstocks",
+          "source": "D4.1 Part 2 §5.1",
+          "lines": "L00461",
+          "verbatim": "Substitutes virgin monomers and/or crude-oil-derived feedstocks"
+        },
+        {
+          "id": "plastics_reusable_packaging",
+          "label": "Reusable packaging systems (PSS)",
+          "substitutes": "single-use packaging, and avoids the associated waste management",
+          "source": "D4.1 Part 2 §5.1",
+          "lines": "L00463",
+          "verbatim": "Substitutes single-use packaging and avoids associated waste management"
+        },
+        {
+          "id": "plastics_biobased_packaging",
+          "label": "Bio-based / biodegradable packaging",
+          "substitutes": "petrochemical plastics",
+          "source": "D4.1 Part 2 §5.1",
+          "lines": "L00465",
+          "verbatim": "substituting petrochemical plastics"
+        },
+        {
+          "id": "plastics_upcycling",
+          "label": "Upcycling and decontamination for high-value loops",
+          "substitutes": "virgin resins in higher-value applications",
+          "source": "D4.1 Part 2 §5.1",
+          "lines": "L00467",
+          "verbatim": "substitution of virgin resins in higher-value applications"
+        }
       ]
     },
     "wastewater": {
@@ -675,6 +759,56 @@
           "verbatim": "Water Scarcity Index (WSI) and Water Depletion. While highly relevant for water reclamation and reuse scenarios, these are not universally applied, missing critical regional contexts of water stress",
           "when_key": null,
           "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+        }
+      ],
+      "configurations": [
+        {
+          "id": "wastewater_nutrient_recovery",
+          "label": "Nutrient recovery (P & N) to fertiliser products",
+          "substitutes": "synthetic mineral fertilisers and upstream phosphate rock/urea supply",
+          "source": "D4.1 Part 2 §6.1",
+          "lines": "L00539",
+          "verbatim": "Substitutes synthetic mineral fertilisers and upstream phosphate rock/urea supply"
+        },
+        {
+          "id": "wastewater_sludge_to_energy",
+          "label": "Wastewater/sludge to energy (biogas/CHP or upgrading)",
+          "substitutes": "natural gas and grid electricity",
+          "source": "D4.1 Part 2 §6.1",
+          "lines": "L00541",
+          "verbatim": "Substitutes natural gas and grid electricity"
+        },
+        {
+          "id": "wastewater_sludge_pyrolysis",
+          "label": "Sludge pyrolysis to biochar + energy carriers",
+          "substitutes": "soil amendments/fertilisers and/or fossil fuels",
+          "source": "D4.1 Part 2 §6.1",
+          "lines": "L00543",
+          "verbatim": "Substitutes soil amendments/fertilisers and/or fossil fuels"
+        },
+        {
+          "id": "wastewater_water_reuse",
+          "label": "Water reclamation and reuse",
+          "substitutes": "freshwater withdrawals and tap water",
+          "source": "D4.1 Part 2 §6.1",
+          "lines": "L00545",
+          "verbatim": "Substitutes freshwater withdrawals and tap water"
+        },
+        {
+          "id": "wastewater_screening_srf",
+          "label": "Screening waste to SRF for industry",
+          "substitutes": "fossil fuels (e.g., petroleum coke) in cement kilns",
+          "source": "D4.1 Part 2 §6.1",
+          "lines": "L00547",
+          "verbatim": "Substitutes fossil fuels (e.g., petroleum coke) in cement kilns"
+        },
+        {
+          "id": "wastewater_microalgae",
+          "label": "Microalgae-based wastewater biorefineries",
+          "substitutes": "conventional pigments and energy sources",
+          "source": "D4.1 Part 2 §6.1",
+          "lines": "L00549",
+          "verbatim": "Substitutes conventional pigments and energy sources"
         }
       ]
     },
@@ -882,6 +1016,48 @@
           "when_key": null,
           "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
         }
+      ],
+      "configurations": [
+        {
+          "id": "textiles_fibre_to_fibre",
+          "label": "Fibre-to-fibre recycling (closed-loop)",
+          "substitutes": "virgin fibres (e.g., cotton, wool) and fossil-based polyester",
+          "source": "D4.1 Part 2 §7.1",
+          "lines": "L00619",
+          "verbatim": "Substitutes virgin fibres (e.g., cotton, wool) and fossil-based polyester"
+        },
+        {
+          "id": "textiles_downcycling",
+          "label": "Downcycling to non-wovens and composites (open-loop)",
+          "substitutes": "glass wool, polyurethane foam, and virgin polymer resins",
+          "source": "D4.1 Part 2 §7.1",
+          "lines": "L00621",
+          "verbatim": "Substitutes glass wool, polyurethane foam, and virgin polymer resins"
+        },
+        {
+          "id": "textiles_chemical_valorisation",
+          "label": "Chemical valorisation to biochemicals/monomers",
+          "substitutes": "fossil-based chemical feedstocks",
+          "source": "D4.1 Part 2 §7.1",
+          "lines": "L00623",
+          "verbatim": "Substitutes fossil-based chemical feedstocks"
+        },
+        {
+          "id": "textiles_recycled_carbon_fibre",
+          "label": "Recycled carbon fibre (rCF) for technical textiles",
+          "substitutes": "highly energy-intensive virgin carbon fibre",
+          "source": "D4.1 Part 2 §7.1",
+          "lines": "L00625",
+          "verbatim": "Substitutes highly energy-intensive virgin carbon fibre"
+        },
+        {
+          "id": "textiles_pss_reuse",
+          "label": "Product-Service Systems (PSS) and reuse",
+          "substitutes": "production, retail, and disposal of newly manufactured garments",
+          "source": "D4.1 Part 2 §7.1",
+          "lines": "L00627",
+          "verbatim": "Substitutes production, retail, and disposal of newly manufactured garments"
+        }
       ]
     },
     "waste_valorisation": {
@@ -1087,6 +1263,48 @@
           "verbatim": "Soil Carbon Sequestration (particularly relevant for biochar or organic soil amendments but often excluded due to methodological gaps), long-term leaching of heavy metals from secondary construction materials",
           "when_key": null,
           "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+        }
+      ],
+      "configurations": [
+        {
+          "id": "wv_srf_coprocessing",
+          "label": "MSW/RDF/SRF to energy (co-processing)",
+          "substitutes": "petroleum coke/coal",
+          "source": "D4.1 Part 2 §8.1",
+          "lines": "L00691",
+          "verbatim": "Substitutes petroleum coke/coal"
+        },
+        {
+          "id": "wv_biowaste_nutrients_energy",
+          "label": "Biowaste to nutrients and energy",
+          "substitutes": "natural gas, grid electricity, and synthetic mineral fertilisers",
+          "source": "D4.1 Part 2 §8.1",
+          "lines": "L00693",
+          "verbatim": "Substitutes natural gas, grid electricity, and synthetic mineral fertilisers"
+        },
+        {
+          "id": "wv_tailings_construction",
+          "label": "Industrial residues/tailings to construction materials and metals",
+          "substitutes": "primary metals and virgin aggregates",
+          "source": "D4.1 Part 2 §8.1",
+          "lines": "L00695",
+          "verbatim": "Substitutes primary metals and virgin aggregates"
+        },
+        {
+          "id": "wv_weee_urban_mining",
+          "label": "WEEE and urban mining",
+          "substitutes": "mining and refining of virgin ores",
+          "source": "D4.1 Part 2 §8.1",
+          "lines": "L00697",
+          "verbatim": "Substitutes mining and refining of virgin ores"
+        },
+        {
+          "id": "wv_plastic_upcycling",
+          "label": "Plastic waste upcycling (mechanical/thermochemical)",
+          "substitutes": "virgin polymer resins and/or crude oil",
+          "source": "D4.1 Part 2 §8.1",
+          "lines": "L00699",
+          "verbatim": "Substitutes virgin polymer resins and/or crude oil"
         }
       ]
     }

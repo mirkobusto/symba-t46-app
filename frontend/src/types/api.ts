@@ -65,6 +65,8 @@ export interface Flow {
   sellable_elsewhere?: boolean | null
   /** One of the D4.1 Part 2 sectors (Q6a ids); names the sector chapter in a note. */
   sector?: Q6a | null
+  /** D4.1 Part 2 typical configuration (§4.1-§8.1) within the sector's chapter. */
+  configuration?: string | null
 }
 
 export interface Site {

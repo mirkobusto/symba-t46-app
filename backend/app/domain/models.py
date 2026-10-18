@@ -81,6 +81,10 @@ class Flow(BaseModel):
     # What the flow is, among the five D4.1 Part 2 sectors (Q6a IDs, see
     # l0_compute.PART2_CHAPTER): names the sector chapter in a note.
     sector: Q6a | None = None
+    # Optional: the typical IS configuration of the flow within its D4.1 Part 2
+    # chapter (§4.1-§8.1, ids in sector_overlays.json `configurations`), which
+    # names the conventional product the flow substitutes.
+    configuration: str | None = None
 
 
 class Site(BaseModel):

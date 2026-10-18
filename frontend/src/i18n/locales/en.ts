@@ -822,6 +822,8 @@ const en = {
       activatedBy: 'Applies because of: {{reasons}}',
       byFlow: 'the flow “{{name}}”',
       byCaseSector: 'the case sector (Q6a)',
+      configurationLine: "Flow “{{flow}}” — {{configuration}}: the conventional product it substitutes is {{substitutes}}.",
+      c2NoCredit: "Situation C2: no substitution credit is applied (D4.1 §7.2.3); the product only describes the configuration.",
       count: '{{count}} rules',
       strength: { must: 'must', should: 'should', descriptive: 'practice' },
     },

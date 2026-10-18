@@ -167,6 +167,10 @@ export interface SectorRule {
   source: string
   lines: string
   note?: string | null
+  /** configuration lines only: structured, so the client can translate the line */
+  configuration_id?: string
+  flow_name?: string
+  substitutes?: string
 }
 
 export interface CaseWarning {

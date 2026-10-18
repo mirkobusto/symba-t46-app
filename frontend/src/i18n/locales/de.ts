@@ -767,6 +767,8 @@ const de: Locale = {
       activatedBy: 'Gelten wegen: {{reasons}}',
       byFlow: 'den Fluss „{{name}}“',
       byCaseSector: 'den Sektor des Falls (Q6a)',
+      configurationLine: "Fluss „{{flow}}“ — {{configuration}}: Das konventionelle Produkt, das er ersetzt, ist {{substitutes}}.",
+      c2NoCredit: "Situation C2: Es wird keine Substitutionsgutschrift angewandt (D4.1 §7.2.3); das Produkt beschreibt nur die Konfiguration.",
       count: '{{count}} Regeln',
       strength: { must: 'Pflicht', should: 'empfohlen', descriptive: 'Praxis' },
     },

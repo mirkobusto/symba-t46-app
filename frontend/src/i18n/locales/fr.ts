@@ -773,6 +773,8 @@ const fr: Locale = {
       activatedBy: 'S’appliquent en raison de : {{reasons}}',
       byFlow: 'le flux « {{name}} »',
       byCaseSector: 'le secteur du cas (Q6a)',
+      configurationLine: "Flux « {{flow}} » — {{configuration}} : le produit conventionnel qu'il remplace est {{substitutes}}.",
+      c2NoCredit: "Situation C2 : aucun crédit de substitution n'est appliqué (D4.1 §7.2.3) ; le produit ne fait que décrire la configuration.",
       count: '{{count}} règles',
       strength: { must: 'obligatoire', should: 'recommandé', descriptive: 'pratique' },
     },

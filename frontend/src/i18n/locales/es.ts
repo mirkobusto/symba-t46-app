@@ -767,6 +767,8 @@ const es: Locale = {
       activatedBy: 'Se aplican por: {{reasons}}',
       byFlow: 'el flujo «{{name}}»',
       byCaseSector: 'el sector del caso (Q6a)',
+      configurationLine: "Flujo «{{flow}}» — {{configuration}}: el producto convencional que sustituye es {{substitutes}}.",
+      c2NoCredit: "Situación C2: no se aplica ningún crédito de sustitución (D4.1 §7.2.3); el producto solo describe la configuración.",
       count: '{{count}} reglas',
       strength: { must: 'obligatorio', should: 'recomendado', descriptive: 'práctica' },
     },

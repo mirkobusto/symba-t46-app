@@ -238,6 +238,8 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lca_mc_03": lambda c: c.q3.env and c.lcc_type in _E_LCC_FAMILY,   # an E-LCC to integrate (D4.1 §14.3.2)
     # simple
     "lca_mc_20": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
+    # static LCC background only when the study horizon stays in the present (R3, 2026-10-18)
+    "lcc_mc_13": lambda c: not needs_future_background(c),
     # disjunctive — future operating year OR TRL < 7 OR horizon above the threshold
     "lca_mc_21": needs_future_background,
     # simple

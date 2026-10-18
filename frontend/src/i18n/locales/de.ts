@@ -669,11 +669,6 @@ const de: Locale = {
       asset_lifetime: 'Jahre (alt; genutzt, wenn die Lebensdauer in Q8 leer ist); ein Horizont über der Schwelle (standardmäßig 15) ergänzt LCA und LCC um zukünftigen Hintergrund (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Jahre. Der Studienhorizont, ab dem LCA und LCC einen zukünftigen Hintergrund brauchen (lca_mc_21, lcc_hc_23, CIR-01). Standard 15, der Wert, den D4.2 §9.3 ohne Quelle angibt; wenn Sie ihn ändern, begründen Sie es in der methodischen Charta',
-      transport_sensitive: 'Boolean; true aktiviert CIR-03',
-      network_nodes: 'Integer; ≥3 (mit Q1=B + interdependent_flows) aktiviert CIR-04',
-      interdependent_flows: 'Boolean; true (mit Q1=B + network_nodes≥3) aktiviert CIR-04',
-      frontier_categories_active: 'Boolean; true aktiviert CIR-06',
-      multi_actor: 'Boolean; true (mit Q1∈{B,C}) aktiviert FU-02',
     },
   },
 

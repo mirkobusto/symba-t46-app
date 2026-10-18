@@ -68,6 +68,12 @@ function formatAnswer(kase: Case, id: string): string | null {
       return kase.q6b ?? null
     case 'Q7':
       return kase.q7 ?? null
+    case 'Q9':
+      return kase.decision_context ?? null
+    case 'Q10':
+      return kase.policy_objective == null ? null : kase.policy_objective ? 'yes' : 'no'
+    case 'Q11':
+      return kase.comparison_goal ?? null
     case 'Q12':
       return kase.dedicated_shared_assets == null ? null : kase.dedicated_shared_assets ? 'yes' : 'no'
     default:

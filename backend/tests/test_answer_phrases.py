@@ -61,9 +61,10 @@ def test_retired_q7_d_loads_as_c():
 
 
 def test_eu_policy_alignment_keeps_the_regionalisation():
-    """CIR-05 sets EF 3.1 for Q4 = D; the Q7 regionalisation survives (review 2026-10-18)."""
+    """EF 3.1 for Q4 = D (lca_mc_25); the Q7 regionalisation survives (review 2026-10-18)."""
     case = _run(q7=Q7.A, q4={"D"})
-    assert case.lca["lcia_method"].startswith("EF_3.1; regionalisation: key interactions are intensely local")
+    assert case.lca["lcia_method"].startswith("EF 3.1, the PEF reference method")
+    assert "regionalisation: key interactions are intensely local" in case.lca["lcia_method"]
 
 
 def test_marginal_reference_names_the_affected_market_without_the_averaging_rule():

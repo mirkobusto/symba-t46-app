@@ -669,11 +669,6 @@ const es: Locale = {
       asset_lifetime: 'Años (heredado; se usa si la vida útil de Q8 está vacía); un horizonte por encima del umbral (15 por defecto) añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Años. El horizonte de estudio a partir del cual el ACV y el ACC requieren fondo futuro (lca_mc_21, lcc_hc_23, CIR-01). Por defecto 15, la cifra que el D4.2 §9.3 da sin fuente; si la cambias, justifícala en la carta metodológica',
-      transport_sensitive: 'Booleano; true activa CIR-03',
-      network_nodes: 'Entero; ≥3 (con Q1=B + interdependent_flows) activa CIR-04',
-      interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) activa CIR-04',
-      frontier_categories_active: 'Booleano; true activa CIR-06',
-      multi_actor: 'Booleano; true (con Q1∈{B,C}) activa FU-02',
     },
   },
 

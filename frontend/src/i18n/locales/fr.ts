@@ -675,11 +675,6 @@ const fr: Locale = {
       asset_lifetime: 'Années (ancien ; utilisé si la durée de vie de Q8 est vide) ; un horizon au-delà du seuil (15 par défaut) ajoute l\'arrière-plan futur à l\'ACV et à l\'ACC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
         'Années. L\'horizon d\'étude au-delà duquel l\'ACV et l\'ACC exigent un arrière-plan futur (lca_mc_21, lcc_hc_23, CIR-01). Par défaut 15, le chiffre que le D4.2 §9.3 donne sans source ; si vous le changez, justifiez-le dans la charte méthodologique',
-      transport_sensitive: 'Booléen ; true active CIR-03',
-      network_nodes: 'Entier ; ≥3 (avec Q1=B + interdependent_flows) active CIR-04',
-      interdependent_flows: 'Booléen ; true (avec Q1=B + network_nodes≥3) active CIR-04',
-      frontier_categories_active: 'Booléen ; true active CIR-06',
-      multi_actor: 'Booléen ; true (avec Q1∈{B,C}) active FU-02',
     },
   },
 

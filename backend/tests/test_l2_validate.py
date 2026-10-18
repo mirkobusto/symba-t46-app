@@ -105,7 +105,7 @@ def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
     case = _ready_case(q2=Q2.B, q3=Q3(env=True, eco=True), advanced={"asset_lifetime": 30})
     pipeline_run(case, schemas)
     assert "CIR-01" in {r["rule_id"] for r in case.applicable_rules}
-    assert case.lca.get("background_futurisation") == "SSP_RCP"
+    assert case.lca.get("background_futurisation").startswith("Future background (SSP/RCP)")
 
 
 @pytest.mark.parametrize("extra, expected", [
@@ -116,12 +116,13 @@ def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
 ])
 def test_lca_and_lcc_end_with_the_same_background(schemas, extra, expected):
     """One study horizon for both methods (D4.2 L01261): after the whole pipeline LCA
-    and LCC agree (lcc_mc_13 writes "Static; ..." and CIR-01 overrides it)."""
+    and LCC agree. Since R3 (2026-10-18) the nodes say it (lca_mc_21, lcc_hc_23; lcc_mc_13
+    only when the horizon stays in the present) and CIR-01 no longer writes over them."""
     case = _ready_case(q3=Q3(env=True, eco=True), **{k: v for k, v in extra.items() if k != "q2"}, q2=extra["q2"])
     pipeline_run(case, schemas)
-    future = case.lca.get("background_futurisation") == "SSP_RCP"
+    future = str(case.lca.get("background_futurisation", "")).startswith("Future background (SSP/RCP)")
     assert future is expected
-    assert (case.lcc.get("background_dynamic") == "SSP_RCP") is expected
+    assert str(case.lcc.get("background_dynamic")).startswith("Dynamic SSP/RCP") is expected
 
 
 def test_trigger_FU_04_fires_when_soc(schemas):
@@ -234,12 +235,15 @@ def test_nlp_stubs_return_true(schemas):
 # ---------------------------------------------------------------------------
 
 
-def test_CIR_05_writes_pef_cff_when_q4_D(schemas):
+def test_CIR_05_writes_only_where_no_node_wrote(schemas):
+    """L2 alone, on a case that skipped activate: a path the pipeline never takes,
+    kept to show what the action supplies when no node wrote the field (R3,
+    2026-10-18). In the pipeline the Q4 = D node branches have written first."""
     case = _ready_case(q4={Q4.D})
     run(case, schemas)
     assert case.lca.get("allocation_method") == "pef_cff"
     assert case.lcc.get("externality_monetization") == "CE_Delft_EU"
-    assert case.lcc.get("allocation") == "NTF"
+    assert case.lcc.get("allocation").startswith("Net Tax Factor for EU policy alignment")
     assert case.lca.get("lcia_method").startswith("EF_3.1; regionalisation: ")
 
 
@@ -249,10 +253,12 @@ def test_CIR_05_monetises_externalities_only_with_an_lca(schemas):
     case = _full_pipeline_until_l2(_ready_case(q3=Q3(eco=True), q4={Q4.D}), schemas)
     run(case, schemas)
     assert case.lcc["externality_monetization"].startswith("None: without a parallel LCA")
-    assert case.lca.get("allocation_method") == "pef_cff"   # the rest of CIR-05 is unchanged
+    assert case.lca.get("allocation_method") == "PEF CFF"   # lca_mc_13/14, Q4 = D branch
 
 
 def test_CIR_07_writes_scale_up_framework_for_low_TRL(schemas):
+    """L2 alone (no activate): the lists the action supplies when no node wrote the
+    field; in the pipeline lca_mc_20 and lcc_hc_15 write the same tools in prose."""
     case = _ready_case(q6b=Q6b.TRL5_6)
     run(case, schemas)
     # LCA: D4.1 §9.3.5 inventory techniques; LCC: D4.2 §7.3 cost tools
@@ -274,9 +280,8 @@ def test_CIR_09_routes_to_system_pillar(schemas):
 def test_CIR_10_always_fires(schemas):
     case = _ready_case()
     run(case, schemas)
-    assert case.lca.get("report.failure_modes") == "required"
-    assert case.lcc.get("report.failure_modes") == "required"
-    assert case.slca.get("report.failure_modes") == "required"
+    for pillar in (case.lca, case.lcc, case.slca):
+        assert pillar.get("report.failure_modes") == "Failure modes integral, not appendix"
 
 
 def test_CIR_does_not_fire_when_trigger_false(schemas):

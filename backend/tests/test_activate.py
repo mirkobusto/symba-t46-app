@@ -461,7 +461,7 @@ def test_q4_in_set_and_includes(schemas):
     assert c.lca["uncertainty.pedigree"].startswith("Pedigree Matrix mandatory")
     assert c.lca["lcia_method"].startswith("Midpoint methods chosen per impact category")   # D4.1 L01399
     d = _activated(schemas, q4={Q4.D})
-    assert d.lca["lcia_method"].startswith("EF method, the PEF reference")
+    assert d.lca["lcia_method"].startswith("EF 3.1, the PEF reference method")
     a = _activated(schemas, q4={Q4.A})
     assert a.lca["uncertainty.pedigree"].startswith("Pedigree Matrix recommended: T4.6 divergence")
     # lcc_hc_29: D4.2 §12 asks for the three reporting layers "without
@@ -591,7 +591,7 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
         assert _activated(schemas, q1=q1, q3=eco).lcc["counterparty_risk"].startswith(
             "Counterparty risk by structural scenarios")
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
-    assert _activated(schemas, q2=Q2.B, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
+    assert _activated(schemas, q2=Q2.B, q3=eco).lcc["background_dynamic"].startswith("Static background")
     assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"].startswith("Break-even distance for every flow")
 
 
@@ -691,7 +691,8 @@ def test_pef_nodes_write_only_when_q4_includes_d(schemas):
 
 @pytest.mark.parametrize("q1", list(Q1))
 def test_q4_d_ends_on_pef_cff_except_in_situation_c2(schemas, q1):
-    """CIR-05 writes 'pef_cff' last, except in Situation C2 (here Q1=D with Q9
+    """The Q4 = D branches of lca_mc_13/14 give the CFF (CIR-05 no longer writes over
+    them since R3, 2026-10-18), except in Situation C2 (here Q1=D with Q9
     unanswered), where D4.1 §7.2.3 is explicit: "use Allocation (Step 3). Do not
     apply substitution credits". Until 2026-10-15 Q4=D won there too, on D4.1
     calling the CFF both "mandatory" for EU-policy studies (§7.3.2) and a "valid
@@ -700,7 +701,7 @@ def test_q4_d_ends_on_pef_cff_except_in_situation_c2(schemas, q1):
     module reads it, so the analyst cannot override this today."""
     case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.D})
     pipeline_run(case, schemas)
-    expected = "allocation" if q1 == Q1.D else "pef_cff"
+    expected = "allocation" if q1 == Q1.D else "PEF CFF"
     assert case.lca["allocation_method"] == expected
 
 

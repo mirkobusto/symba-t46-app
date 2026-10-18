@@ -925,7 +925,7 @@
       "field": "lca.lcia_method",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "EF method, the PEF reference, version declared: T4.6 choice for EU policy-aligned studies; CIR-05 sets EF 3.1 (D4.1 §12.3.3; EF 3.1: §7.3.3, §10.3.5); regionalisation: {interaction_scale}",
+        "q4 includes 'D'": "EF 3.1, the PEF reference method, version declared: T4.6 choice for EU policy-aligned studies (D4.1 §12.3.3; EF 3.1: §7.3.3, §10.3.5); regionalisation: {interaction_scale}",
         "default": "Midpoint methods chosen per impact category rather than one method for the whole LCIA — e.g. AWARE for water scarcity, ReCiPe 2016 or EF 3.0 spatially explicit factors for acidification and eutrophication — with versions declared (D4.1 §12.3.3); regionalisation: {interaction_scale}"
       },
       "override_path": "q4, advanced",
@@ -2117,16 +2117,14 @@
       "trigger_q": [
         "q2"
       ],
-      "trigger_logic": "discriminative",
-      "trigger_condition": null,
+      "trigger_logic": "simple",
+      "trigger_condition": "NOT (future operating year OR TRL < 7 OR analysis period / asset lifetime above the threshold)",
       "field": "lcc.background_dynamic",
       "field_status": null,
-      "default_value": {
-        "default": "Static; dynamic SSP/RCP when the study horizon requires it (CIR-01)"
-      },
+      "default_value": "Static background: the study horizon stays within the present (D4.2 §9.3); otherwise dynamic SSP/RCP scenarios (lcc_hc_23)",
       "override_path": "q2, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04."
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §9.2); audit 2026-10-04. | R3 2026-10-18: active only when lcc_hc_23 is not (one study horizon, D4.2 L01261), so it no longer covers the dynamic text that CIR-01 used to restore by overwriting."
     },
     {
       "id": "lcc_mc_14",

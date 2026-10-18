@@ -5,14 +5,10 @@ import { useTranslation } from 'react-i18next'
 
 // Only the keys the engine actually reads from `case.advanced`:
 // `asset_lifetime` and `future_background_threshold_years`
-// (engine/activate.py) and `slca_framework_override` (engine/l1_blocks.py). The other six — transport_sensitive,
-// network_nodes, interdependent_flows, frontier_categories_active,
-// is_specific_capital_goods (now Q12), multi_actor — were listed here with hints
-// promising "true activates CIR-03" and so on, but l2_validate reads
-// them with getattr() on the Case, which is extra='forbid', so nothing
-// written here ever reached a rule (CLAUDE.md, I-17). Offering a lever
-// that is not connected is worse than not offering it; typing the key
-// by hand still works for whoever is testing the open item.
+// (engine/activate.py) and `slca_framework_override` (engine/l1_blocks.py).
+// The other keys once listed here never reached a rule (I-17): since R3
+// (2026-10-18) is_specific_capital_goods is Q12, FU-02 follows Q11, and
+// CIR-03 / CIR-04 / CIR-06 are retired because nodes cover them for every case.
 const KNOWN_KEYS = [
   { key: 'slca_framework_override', example: 'absolute' },
   { key: 'asset_lifetime', example: '20' },

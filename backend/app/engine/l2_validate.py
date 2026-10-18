@@ -68,7 +68,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from app.domain.enums import Q1, Q2, Q5, IlcdSituation, LccType, Q6b
+from app.domain.enums import Q1, Q2, Q5, ComparisonGoal, IlcdSituation, LccType, Q6b
 from app.domain.models import Case
 from app.engine.activate import _pillar_is_off, _write, needs_future_background
 from app.engine.loader import LoadedSchemas
@@ -138,7 +138,8 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-02": lambda c: c.q3.env and c.q3.eco and _lcc_includes_e(c),
     "IR-03": lambda c: c.q3.soc,
     "IR-05": lambda c: _q3_dims_active(c) >= 2,
-    "IR-06": lambda c: _q3_dims_active(c) >= 2 and c.q1 in {Q1.A, Q1.B, Q1.C, Q1.E},
+    # a single company in isolation (C2) has no partners to govern; was Q1 != D (R3, 2026-10-18)
+    "IR-06": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     "IR-07": lambda c: _q3_dims_active(c) >= 2,
     "IR-08": lambda c: c.q3.env and c.q3.eco,
     "IR-09": lambda c: c.q3.env and c.q3.eco and any(f.q5 == Q5.c for f in c.flows),
@@ -157,21 +158,25 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "CIR-02": lambda c: c.q2 == Q2.B,
     # Q7 left on 2026-10-18 (it is the concentration of interactions, not transport);
     # transport_sensitive is not a Case attribute yet (I-17): R3 decides the wiring
-    "CIR-03": lambda c: bool(_attr(c, "transport_sensitive")),
-    "CIR-04": lambda c: (c.q1 == Q1.B
-                        and _attr(c, "network_nodes", 0) >= 3
-                        and bool(_attr(c, "interdependent_flows"))),
+    # CIR-03 and CIR-04 retired in R3 (2026-10-18): they read attributes the case
+    # never had (I-17), and the nodes cover them for every case: explicit transport
+    # with GIS or routing for every exchange (lca_mc_16, lca_mc_29, lca_hc_21);
+    # percolation theory for every network that is not a bilateral exchange (lcc_mc_16)
+    "CIR-03": lambda c: False,
+    "CIR-04": lambda c: False,
     "CIR-05": lambda c: _q4_intersects(c, {"D"}),
-    "CIR-06": lambda c: bool(_attr(c, "frontier_categories_active")),
+    # retired in R3: the frontier categories are asked in every study (lca_hc_19, D4.1 §10.3.5)
+    "CIR-06": lambda c: False,
     "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     # Q1 in the trigger is left to R3; its action is S-LCA only
-    "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(c.dedicated_shared_assets) and c.q3.soc,
+    "CIR-08": lambda c: bool(c.dedicated_shared_assets) and c.q3.soc,   # Q1 dropped in R3
     "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
                          and c.q2 == Q2.B),
     "CIR-10": lambda c: True,
     # --- FU (5) ---
     "FU-01": lambda c: c.q3.env,
-    "FU-02": lambda c: c.q1 in {Q1.B, Q1.C} and bool(_attr(c, "multi_actor")),
+    # rewired in R3: the system of functional units follows Q11 = both functions (lca_mc_07)
+    "FU-02": lambda c: c.comparison_goal == ComparisonGoal.CO_PRIMARY,
     "FU-03": lambda c: c.q3.env and c.q3.eco,
     "FU-04": lambda c: c.q3.soc,
     "FU-05": lambda c: True,
@@ -362,7 +367,7 @@ def _assert_fu_02(c: Case) -> bool:
     fu = _get(c, "lca.functional_unit")
     if fu is None:
         return True
-    return "system-of-functional-units" in str(fu) or fu == "SFU"
+    return "system of functional units" in str(fu) or "system-of-functional-units" in str(fu) or fu == "SFU"
 
 
 def _assert_fu_04(c: Case) -> bool:
@@ -469,48 +474,66 @@ _ASSERT_FNS: dict[str, Callable[[Case], bool]] = {
 
 # ---------------------------------------------------------------------------
 # Action functions — CIR (10). Side-effects: write field values.
+#
+# Since 2026-10-18 (R3) a CIR action writes a field only when no node wrote it:
+# the nodes carry the same conditions in prose (lca_mc_21 / lcc_hc_23 for CIR-01,
+# lca_hc_13 for CIR-02, the Q4 = D branches of lca_mc_13/14/25 and lcc_mc_19 for
+# CIR-05, lca_mc_20 / lcc_hc_15 for CIR-07, lcc_hc_30 for CIR-10), and a token
+# written over that prose erased the reasons the reader needs. The rule still
+# appears among the obligations to document.
 # ---------------------------------------------------------------------------
 
 
+def _write_unless_set(c: Case, field: str, value: Any) -> None:
+    prefix, tail = field.split(".", 1)
+    pillar = getattr(c, prefix, None)
+    if isinstance(pillar, dict) and tail in pillar:
+        return
+    _write(c, field, value)
+
+
 def _action_cir_01(c: Case) -> None:
-    _write(c, "lca.background_futurisation", "SSP_RCP")
-    _write(c, "lcc.background_dynamic", "SSP_RCP")
+    _write_unless_set(c, "lca.background_futurisation", "SSP_RCP")
+    _write_unless_set(c, "lcc.background_dynamic", "SSP_RCP")
 
 
 def _action_cir_02(c: Case) -> None:
-    _write(c, "lca.uncertainty.pedigree", True)
-    _write(c, "lcc.uncertainty.pedigree", True)
+    _write_unless_set(c, "lca.uncertainty.pedigree", True)
+    # no LCC node writes the field: a statement rather than a bare flag
+    _write_unless_set(c, "lcc.uncertainty.pedigree",
+                      "Pedigree Matrix: data quality of each major inventory parameter scored on the five "
+                      "indicators (D4.2 §7.1)")
 
 
 def _action_cir_03(c: Case) -> None:
-    _write(c, "lca.spatial_coupling", "GIS")
-    _write(c, "lcc.spatial_coupling", "GIS")
-    _write(c, "slca.territorial_coupling", "GIS")
+    _write_unless_set(c, "lca.spatial_coupling", "GIS")
+    _write_unless_set(c, "lcc.spatial_coupling", "GIS")
+    _write_unless_set(c, "slca.territorial_coupling", "GIS")
 
 
 def _action_cir_04(c: Case) -> None:
-    _write(c, "lcc.counterparty_risk", "percolation_theory")
+    _write_unless_set(c, "lcc.counterparty_risk", "percolation_theory")
 
 
 def _action_cir_05(c: Case) -> None:
     if c.ilcd_situation != IlcdSituation.SITUATION_C2:
         # strict accounting of one partner: allocation, no substitution credits (D4.1 §7.2.3)
-        _write(c, "lca.allocation_method", "pef_cff")
+        _write_unless_set(c, "lca.allocation_method", "pef_cff")
     if c.q3.env:
         # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
-        _write(c, "lcc.externality_monetization", "CE_Delft_EU")
-    _write(c, "lcc.allocation", "NTF")
+        _write_unless_set(c, "lcc.externality_monetization", "CE_Delft_EU")
+    _write_unless_set(c, "lcc.allocation", "NTF")
     # the EF method replaces the per-category choice of lca_mc_25, not the
     # regionalised characterisation that follows Q7 (D4.1 §12.3.3; review 2026-10-18)
-    _write(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")
+    _write_unless_set(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")
 
 
 def _action_cir_06(c: Case) -> None:
     # TODO(symbolic-action): "active_set" / "matching_set" / "adapted_set"
     # are abstract references, not literal values. Recorded as sentinels.
-    _write(c, "lca.frontier_categories", "active_set")
-    _write(c, "lcc.externalities", "matching_set")
-    _write(c, "slca.indicators", "adapted_set")
+    _write_unless_set(c, "lca.frontier_categories", "active_set")
+    _write_unless_set(c, "lcc.externalities", "matching_set")
+    _write_unless_set(c, "slca.indicators", "adapted_set")
 
 
 def _action_cir_07(c: Case) -> None:
@@ -518,15 +541,15 @@ def _action_cir_07(c: Case) -> None:
     # an assignment; we record the allowed set so downstream selection
     # can pick from it.
     # LCA: the inventory techniques of D4.1 §9.3.5; LCC: the cost tools of D4.2 §7.3.
-    _write(c, "lca.scale_up_framework", ["Stoichiometric recalculation", "Lang-factor equipment mapping",
+    _write_unless_set(c, "lca.scale_up_framework", ["Stoichiometric recalculation", "Lang-factor equipment mapping",
                                          "Batch-to-continuous conversion", "Learning curves"])
-    _write(c, "lcc.scale_up_framework", ["Six-Tenths", "Lang", "CEPCI"])
+    _write_unless_set(c, "lcc.scale_up_framework", ["Six-Tenths", "Lang", "CEPCI"])
 
 
 def _action_cir_08(c: Case) -> None:
     # TODO(symbolic-action): "+= stakeholder_group_indicators (if Q3.SOC)"
     if c.q3.soc:
-        _write(c, "slca.indicators", "stakeholder_group_indicators")
+        _write_unless_set(c, "slca.indicators", "stakeholder_group_indicators")
 
 
 def _action_cir_09(c: Case) -> None:
@@ -539,9 +562,9 @@ def _action_cir_09(c: Case) -> None:
 
 
 def _action_cir_10(c: Case) -> None:
-    _write(c, "lca.report.failure_modes", "required")
-    _write(c, "lcc.report.failure_modes", "required")
-    _write(c, "slca.report.failure_modes", "required")
+    _write_unless_set(c, "lca.report.failure_modes", "Failure modes integral, not appendix")
+    _write_unless_set(c, "lcc.report.failure_modes", "Failure modes integral, not appendix")
+    _write_unless_set(c, "slca.report.failure_modes", "Failure modes integral, not appendix")
 
 
 _ACTION_FNS: dict[str, Callable[[Case], None]] = {

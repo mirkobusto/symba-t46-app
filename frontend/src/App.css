@@ -398,6 +398,30 @@ html {
   border-radius: 10px;
   background: var(--surface-input);
 }
+/* Step numbers follow the order on screen; hidden cards take none (R5). */
+.questionnaire-steps { counter-reset: qstep; }
+.qcard-numbered { counter-increment: qstep; }
+.qcard-step::before {
+  content: counter(qstep) ".";
+  margin-right: 8px;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+.qcard-code {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--slate-500);
+  vertical-align: middle;
+}
+.qpart-title {
+  margin: 36px 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--slate-600);
+}
 .qcard-title {
   margin: 0 0 6px;
   font-size: 18px;
@@ -4837,4 +4861,27 @@ kbd {
   font-size: 13px;
   color: var(--dd-text-soft);
   max-width: 80ch;
+}
+
+/* "Your configuration" on the result page (R5, 2026-10-18) */
+.result-config { margin: 24px 0; }
+.result-config-title { margin: 0 0 4px; font-size: 18px; color: var(--slate-800); }
+.result-config-lead { margin: 0 0 12px; font-size: 13px; color: var(--slate-600); }
+.result-config-list { margin: 0; border-top: 1px solid var(--slate-200); }
+.result-config-row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 13rem) 1fr;
+  gap: 4px 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--slate-200);
+}
+.result-config-row dt { margin: 0; font-weight: 600; color: var(--slate-700); font-size: 14px; }
+.result-config-row dd { margin: 0; display: flex; flex-direction: column; gap: 3px; }
+.result-config-value { font-size: 14px; color: var(--slate-800); }
+.result-config-why { font-size: 13px; color: var(--slate-600); }
+.result-config-why-label { font-weight: 600; }
+.result-config-node summary { font-size: 12px; color: var(--primary); cursor: pointer; }
+.result-config-node p { margin: 6px 0 0; font-size: 12px; color: var(--slate-600); }
+@media (max-width: 640px) {
+  .result-config-row { grid-template-columns: 1fr; }
 }

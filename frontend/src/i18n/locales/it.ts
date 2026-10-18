@@ -167,7 +167,7 @@ const it: Locale = {
       unknown: { name: 'Non lo so ancora', desc: 'Va bene — ti portiamo sulla pagina di panoramica.' },
     },
     tasks: {
-      assess: { name: 'Avvia una nuova valutazione', desc: 'Configura la metodologia per un caso IS in dieci domande.' },
+      assess: { name: 'Avvia una nuova valutazione', desc: 'Configura la metodologia per un caso IS con un breve questionario.' },
       read: { name: 'Leggi un report condiviso', desc: 'Apri un caso che qualcuno ha condiviso e leggi il report.' },
       explore: { name: 'Esplora una regione / settore', desc: 'Naviga insights aggregati per la tua zona o industria.' },
       browse: { name: 'Solo dare un\'occhiata', desc: 'Nessun obiettivo specifico — voglio vedere cosa fa il tool.' },
@@ -219,7 +219,7 @@ const it: Locale = {
     title: 'SYMBA T4.6 — Sistema di Monitoraggio e Reporting',
     tagline: 'Metodologia, raccolta dati e report multi-stakeholder per Simbiosi Industriale (LCA / LCC / S-LCA) lungo la value chain bio-based.',
     description:
-      'Rispondi a dieci domande sul tuo caso di simbiosi industriale. Il motore decisionale deriva la configurazione metodologica (situazione ILCD, struttura LCC, orizzonte dello studio, scenario di riferimento) dai 186 nodi Phase 1 dei deliverable D4.1, D4.2 e D4.3, più le 40 regole cross-method. Poi raccogli i dati con i partner della simbiosi e ottieni il report multi-stakeholder.',
+      'Rispondi a un breve questionario sul tuo caso di simbiosi industriale. Il motore decisionale deriva la configurazione metodologica (situazione ILCD, struttura LCC, orizzonte dello studio, scenario di riferimento) dai 186 nodi Phase 1 dei deliverable D4.1, D4.2 e D4.3, più le 40 regole cross-method. Poi raccogli i dati con i partner della simbiosi e ottieni il report multi-stakeholder.',
     startButton: 'Avvia nuova valutazione',
     modeLabel: 'Modalità UX',
     modeExpert: 'Esperto',
@@ -316,7 +316,7 @@ const it: Locale = {
   about: {
     title: 'Informazioni',
     p1:
-      "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da dieci domande sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
+      "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da un questionario sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
     p2:
       'Il questionario (Q0-Q12; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
@@ -330,13 +330,17 @@ const it: Locale = {
   },
 
   questionnaire: {
-    scopeNote: "Questo strumento non calcola i numeri di LCA/LCC/S-LCA. Deriva la configurazione metodologica che il tuo caso richiede e i dati che devi raccogliere; lo scoring quantitativo è prodotto esternamente e compare qui quando arriva.",
+    parts: {
+      study: 'Lo studio',
+      exchanges: 'Gli scambi',
+      description: 'Descrizione del caso',
+    },    scopeNote: "Questo strumento non calcola i numeri di LCA/LCC/S-LCA. Deriva la configurazione metodologica che il tuo caso richiede e i dati che devi raccogliere; lo scoring quantitativo è prodotto esternamente e compare qui quando arriva.",
     title: 'Questionario',
     guidedBannerTitle: 'Modalità guidata attiva',
     guidedBannerBody:
-      "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda. Le dieci risposte determinano la configurazione metodologica e il piano di raccolta dati che riceverai al termine.",
+      "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda. Le risposte determinano la configurazione metodologica e il piano di raccolta dati che riceverai al termine.",
     intro:
-      'Dieci domande sul tuo caso di simbiosi industriale. Q1 e almeno una dimensione Q3 sono obbligatorie; il resto è opzionale ma migliora l\'output del motore.',
+      'Domande sul tuo caso di simbiosi industriale, in tre parti: lo studio, gli scambi e una descrizione del caso. Obbligatorie: le dimensioni (Q3), la decisione e la sua scala (Q9), il soggetto (Q1) e, con la dimensione economica, l\'obiettivo pubblico (Q10); il resto è facoltativo e rende più precisa la configurazione.',
     runButton: 'Calcola la configurazione',
     runningButton: 'Sto calcolando…',
     resetButton: 'Reset bozza',
@@ -766,6 +770,60 @@ const it: Locale = {
   },
 
   result: {
+    config: {
+      title: 'La tua configurazione',
+      lead: 'Che cosa hanno deciso le tue risposte, nei termini dei deliverable. Apri una riga per leggere il testo del motore, in inglese, con la sezione da cui viene.',
+      nodeText: 'Testo del motore (inglese)',
+      labels: {
+        purpose: 'Tipo di studio',
+        lcc: 'Costi',
+        slca: 'Valutazione sociale',
+        horizon: 'Orizzonte dello studio',
+        reference: 'Scenario di riferimento',
+        fu: 'Unità funzionale',
+        regional: 'Impatti locali',
+        sectors: 'Regole di settore',
+        shared: 'Beni condivisi',
+      },
+      values: {
+        horizonFuture: 'Background futuro (scenari SSP/RCP) per LCA e LCC',
+        horizonPresent: 'Background attuale',
+        reference_hnsrs: 'Che cosa farebbe oggi ogni azienda senza i collegamenti (HNSRS)',
+        reference_modern: 'Un controfattuale moderno: che cosa farebbe oggi ogni azienda senza i collegamenti (HNSRS)',
+        reference_cnsrs: 'La situazione attuale senza i nuovi scambi (CNSRS)',
+        market: 'mercato: {{market}}',
+        fu_waste_treatment: 'Basata sull\'input: il trattamento del rifiuto',
+        fu_product_substitution: 'Basata sull\'output: i prodotti e ciò che sostituiscono',
+        fu_co_primary: 'Un sistema di unità funzionali: trattamento e prodotti insieme',
+        fu_function: 'Orientata alla funzione, attorno al servizio reso',
+        regional_A: 'Fattori di caratterizzazione specifici per il luogo per acqua, eutrofizzazione e acidificazione',
+        regional_B: 'Fattori di caratterizzazione regionali o per paese',
+        regional_C: 'Fattori per paese o regione per il territorio di ogni emissione',
+        regional_unset: 'Fattori specifici per il luogo dove le interazioni chiave sono intensamente locali',
+        shared: 'CAPEX e OPEX nel prospetto dei costi, ripartiti fra i partner che li usano',
+      },
+      why: {
+        label: 'Perché:',
+        lccC2: 'rendiconto rigoroso di una sola azienda: solo costi a livello d\'impresa',
+        lccNoLca: 'senza dimensione ambientale: nessun LCC ambientale da allineare',
+        lccPolicy: 'hai risposto che lo studio serve un obiettivo pubblico (Q10)',
+        lccPolicyInferred: 'letto da Q1, perché Q10 non ha risposta',
+        lccNoPolicy: 'nessun obiettivo pubblico (Q10): punto di vista d\'impresa e di catena del valore',
+        horizonYear: 'il sistema opera nel {{year}}',
+        horizonTrl: 'la tecnologia chiave è sotto TRL 7',
+        horizonPeriod: 'lo studio segue il sistema per {{years}} anni, più di {{threshold}}',
+        horizonLifetime: 'i beni durano {{years}} anni, più di {{threshold}}',
+        horizonPresent: 'anno attuale, tecnologia matura e orizzonte entro {{threshold}} anni',
+        referenceNotYet: 'gli scambi non avvengono ancora (Q2)',
+        referenceRunning: 'gli scambi avvengono già (Q2)',
+        referenceLongStanding: 'la rete opera da molti anni (Q2)',
+        fuGoal: 'lo studio confronta: {{goal}}',
+        fuDefault: 'che cosa si confronta non ha risposta (Q11)',
+        regionalUnset: 'la concentrazione delle interazioni non ha risposta (Q7)',
+        sectors: 'i capitoli seguono il settore dichiarato su ogni flusso',
+        shared: 'la simbiosi richiede nuovi beni dedicati e condivisi (Q12)',
+      },
+    },
     notes: { title: 'Note sulle tue risposte' },
     engineNotes: {
       study_purpose_vs_q2: {
@@ -821,7 +879,13 @@ const it: Locale = {
       moreInfo: 'Approfondisci questa configurazione',
     },
     next: {
-      obligations: "{{count}} pratiche metodologiche riguardano le tue risposte. Sono elencate, con quello che le ha attivate, nel Data Collection File.",
+      obligations: '{{count}} obblighi da documentare ({{groups}}): sono elencati, con quello che ha attivato ciascuno, nel Data Collection File.',
+      families: {
+        IR: '{{count}} sull\'integrazione dei metodi',
+        CIR: '{{count}} accesi dalle tue risposte',
+        FU: '{{count}} sull\'unità funzionale',
+        B: '{{count}} sui confini',
+      },
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e, dove il motore lo risolve, come.',
       provenance:

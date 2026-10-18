@@ -10,6 +10,8 @@ import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { verdictFor } from './resultNarrative'
+import { obligationGroups } from './configurationRows'
+import ConfigurationSummary from '../components/ConfigurationSummary'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
@@ -199,10 +201,11 @@ export default function ResultPage() {
         headline={verdict?.title ?? result.ilcd_situation ?? '—'}
         codes={verdict?.codes}
         body={verdict?.body}
-        tags={verdict?.method}
       />
 
       {verdict ? <VerdictDetails verdict={verdict} /> : null}
+
+      <ConfigurationSummary kase={result} />
 
       {(result.warnings?.length ?? 0) > 0 ? (
         <section className="result-notes" aria-labelledby="result-notes-title">
@@ -215,10 +218,6 @@ export default function ResultPage() {
             ))}
           </ul>
         </section>
-      ) : null}
-
-      {(result.sector_rules?.length ?? 0) > 0 ? (
-        <SectorRules rules={result.sector_rules!} />
       ) : null}
 
       <section className="result-next">
@@ -249,7 +248,12 @@ export default function ResultPage() {
 
         {obligationCount > 0 ? (
           <p className="result-next-obligations">
-            {t('result.next.obligations', { count: obligationCount })}
+            {t('result.next.obligations', {
+              count: obligationCount,
+              groups: obligationGroups(result.applicable_rules ?? [])
+                .map((g) => t(`result.next.families.${g.family}`, { count: g.count }))
+                .join(' · '),
+            })}
           </p>
         ) : null}
 
@@ -260,6 +264,10 @@ export default function ResultPage() {
           <span className="result-next-cta-hint">{t('result.next.ctaHint')}</span>
         </div>
       </section>
+
+      {(result.sector_rules?.length ?? 0) > 0 ? (
+        <SectorRules rules={result.sector_rules!} />
+      ) : null}
 
       <details className="result-technical">
         <summary>{t('result.technical.title')}</summary>

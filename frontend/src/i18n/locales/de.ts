@@ -136,7 +136,7 @@ const de: Locale = {
       unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem — wir bringen Sie auf die Übersichtsseite.' },
     },
     tasks: {
-      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall in zehn Fragen konfigurieren.' },
+      assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall mit einem kurzen Fragebogen konfigurieren.' },
       read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
       explore: { name: 'Region / Sektor erkunden', desc: 'Aggregierte Einblicke für mein Gebiet durchsuchen.' },
       browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel — ich möchte sehen, was das Tool tut.' },
@@ -188,7 +188,7 @@ const de: Locale = {
     title: 'SYMBA T4.6 — IS-Bewertungstool',
     tagline: 'Methodische Auswahl für Industrielle Symbiose (LCA / LCC / S-LCA).',
     description:
-      'Beantworten Sie zehn kurze Fragen zu Ihrer industriellen Symbiose-Fallstudie. Die Entscheidungs-Engine leitet die methodische Konfiguration (ILCD-Situation, LCC-Struktur, Studienhorizont, Referenzszenario) aus den 186 Phase-1-Knoten der Deliverables D4.1, D4.2 und D4.3 sowie den 40 Cross-Method-Validierungsregeln ab.',
+      'Beantworten Sie einen kurzen Fragebogen zu Ihrer industriellen Symbiose-Fallstudie. Die Entscheidungs-Engine leitet die methodische Konfiguration (ILCD-Situation, LCC-Struktur, Studienhorizont, Referenzszenario) aus den 186 Phase-1-Knoten der Deliverables D4.1, D4.2 und D4.3 sowie den 40 Cross-Method-Validierungsregeln ab.',
     startButton: 'Neue Bewertung starten',
     modeLabel: 'UX-Modus',
     modeExpert: 'Experte',
@@ -284,7 +284,7 @@ const de: Locale = {
   about: {
     title: 'Über',
     p1:
-      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus zehn Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
+      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
       'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
@@ -298,13 +298,17 @@ const de: Locale = {
   },
 
   questionnaire: {
-    scopeNote: "Dieses Werkzeug berechnet keine Ökobilanz-/LCC-/S-LCA-Zahlen. Es leitet die methodische Konfiguration Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
+    parts: {
+      study: 'Die Studie',
+      exchanges: 'Die Austausche',
+      description: 'Beschreibung des Falls',
+    },    scopeNote: "Dieses Werkzeug berechnet keine Ökobilanz-/LCC-/S-LCA-Zahlen. Es leitet die methodische Konfiguration Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
-      "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die zehn Antworten bestimmen die methodische Konfiguration und den Datenerhebungsplan, den Sie am Ende erhalten.",
+      "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die Antworten bestimmen die methodische Konfiguration und den Datenerhebungsplan, den Sie am Ende erhalten.",
     intro:
-      'Zehn Fragen zu Ihrer industriellen Symbiose-Fallstudie. Q1 und mindestens eine Q3-Dimension sind erforderlich; der Rest ist optional, verbessert aber die Engine-Ausgabe.',
+      'Fragen zu Ihrem Fall industrieller Symbiose, in drei Teilen: die Studie, die Austausche und eine Beschreibung des Falls. Pflicht: die Dimensionen (Q3), die Entscheidung und ihr Ausmaß (Q9), der Gegenstand (Q1) und, mit der ökonomischen Dimension, das öffentliche Ziel (Q10); der Rest ist optional und schärft die Konfiguration.',
     runButton: 'Konfiguration ermitteln',
     runningButton: 'Wird berechnet…',
     resetButton: 'Entwurf zurücksetzen',
@@ -734,6 +738,60 @@ const de: Locale = {
   },
 
   result: {
+    config: {
+      title: 'Ihre Konfiguration',
+      lead: 'Was Ihre Antworten entschieden haben, in den Begriffen der Deliverables. Öffnen Sie eine Zeile, um den Text der Engine auf Englisch mit seinem Abschnitt zu lesen.',
+      nodeText: 'Text der Engine (Englisch)',
+      labels: {
+        purpose: 'Art der Studie',
+        lcc: 'Kosten',
+        slca: 'Soziale Bewertung',
+        horizon: 'Studienhorizont',
+        reference: 'Referenzszenario',
+        fu: 'Funktionelle Einheit',
+        regional: 'Lokale Wirkungen',
+        sectors: 'Sektorregeln',
+        shared: 'Gemeinsame Anlagen',
+      },
+      values: {
+        horizonFuture: 'Zukünftiger Hintergrund (SSP/RCP-Szenarien) für Ökobilanz und LCC',
+        horizonPresent: 'Heutiger Hintergrund',
+        reference_hnsrs: 'Was jedes Unternehmen heute ohne die Verbindungen täte (HNSRS)',
+        reference_modern: 'Ein modernes Kontrafaktum: was jedes Unternehmen heute ohne die Verbindungen täte (HNSRS)',
+        reference_cnsrs: 'Die heutige Situation ohne die neuen Austausche (CNSRS)',
+        market: 'Markt: {{market}}',
+        fu_waste_treatment: 'Inputbasiert: die Behandlung des Abfalls',
+        fu_product_substitution: 'Outputbasiert: die Produkte und was sie ersetzen',
+        fu_co_primary: 'Ein System funktioneller Einheiten: Behandlung und Produkte zusammen',
+        fu_function: 'Funktionsorientiert, um die erbrachte Leistung',
+        regional_A: 'Standortspezifische Charakterisierungsfaktoren für Wasser, Eutrophierung und Versauerung',
+        regional_B: 'Regionale oder länderspezifische Charakterisierungsfaktoren',
+        regional_C: 'Länder- oder regionsspezifische Faktoren für das Gebiet jeder Emission',
+        regional_unset: 'Standortspezifische Faktoren, wo die wichtigsten Wechselwirkungen stark lokal sind',
+        shared: 'Ihre CAPEX und OPEX in der Kostenaufstellung, aufgeteilt auf die nutzenden Partner',
+      },
+      why: {
+        label: 'Warum:',
+        lccC2: 'strikte Bilanzierung eines einzelnen Unternehmens: nur Kosten auf Unternehmensebene',
+        lccNoLca: 'keine Umweltdimension: keine ökologische LCC abzugleichen',
+        lccPolicy: 'Sie haben angegeben, dass die Studie einem öffentlichen Ziel dient (Q10)',
+        lccPolicyInferred: 'aus Q1 abgeleitet, da Q10 nicht beantwortet ist',
+        lccNoPolicy: 'kein öffentliches Ziel (Q10): Sicht von Unternehmen und Wertschöpfungskette',
+        horizonYear: 'das System wird {{year}} betrieben',
+        horizonTrl: 'die Schlüsseltechnologie liegt unter TRL 7',
+        horizonPeriod: 'die Studie verfolgt das System {{years}} Jahre, mehr als {{threshold}}',
+        horizonLifetime: 'die Anlagen halten {{years}} Jahre, mehr als {{threshold}}',
+        horizonPresent: 'heutiges Jahr, ausgereifte Technologie und ein Horizont innerhalb von {{threshold}} Jahren',
+        referenceNotYet: 'die Austausche finden noch nicht statt (Q2)',
+        referenceRunning: 'die Austausche finden bereits statt (Q2)',
+        referenceLongStanding: 'das Netzwerk läuft seit vielen Jahren (Q2)',
+        fuGoal: 'die Studie vergleicht: {{goal}}',
+        fuDefault: 'was die Studie vergleicht, ist nicht beantwortet (Q11)',
+        regionalUnset: 'die Konzentration der Wechselwirkungen ist nicht beantwortet (Q7)',
+        sectors: 'die Kapitel folgen dem für jeden Fluss angegebenen Sektor',
+        shared: 'die Symbiose braucht neue, eigens errichtete und gemeinsam genutzte Anlagen (Q12)',
+      },
+    },
     notes: { title: 'Hinweise zu Ihren Antworten' },
     engineNotes: {
       study_purpose_vs_q2: {
@@ -789,7 +847,13 @@ const de: Locale = {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },
     next: {
-      obligations: "{{count}} methodische Praktiken betreffen Ihre Antworten. Sie sind mit ihrem Auslöser im Data Collection File aufgeführt.",
+      obligations: '{{count}} zu dokumentierende Pflichten ({{groups}}): Sie stehen, mit ihrem jeweiligen Auslöser, im Data Collection File.',
+      families: {
+        IR: '{{count}} zur Integration der Methoden',
+        CIR: '{{count}} durch Ihre Antworten ausgelöst',
+        FU: '{{count}} zur funktionellen Einheit',
+        B: '{{count}} zu den Grenzen',
+      },
       title: 'Was jetzt zu tun ist',
       lead:
         'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',

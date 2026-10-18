@@ -148,7 +148,7 @@ const en = {
       unknown: { name: 'Not sure yet', desc: 'That\'s fine — we start you on the overview page.' },
     },
     tasks: {
-      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case via ten questions.' },
+      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore a region / sector', desc: 'Browse aggregate insights for my area or industry.' },
       browse: { name: 'Just look around', desc: 'No specific goal — I want to see what the tool does.' },
@@ -241,7 +241,7 @@ const en = {
     title: 'SYMBA T4.6 — Monitoring & Reporting System',
     tagline: 'Industrial Symbiosis methodology, inventory and multi-stakeholder reporting for LCA / LCC / S-LCA along the bio-based value chain.',
     description:
-      'Answer ten short questions about your industrial-symbiosis case study. The decision engine derives the methodological configuration (ILCD situation, LCC structure, study horizon, reference scenario) from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
+      'Answer a short questionnaire about your industrial-symbiosis case study. The decision engine derives the methodological configuration (ILCD situation, LCC structure, study horizon, reference scenario) from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
     startButton: 'Start new assessment',
     modeLabel: 'UX mode',
     modeExpert: 'Expert',
@@ -338,7 +338,7 @@ const en = {
   about: {
     title: 'About',
     p1:
-      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from ten questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
+      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
       'The questionnaire (Q0-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
@@ -352,13 +352,17 @@ const en = {
   },
 
   questionnaire: {
-    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological configuration your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
+    parts: {
+      study: 'The study',
+      exchanges: 'The exchanges',
+      description: 'Description of the case',
+    },    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological configuration your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
     title: 'Questionnaire',
     intro:
-      'Ten questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
+      'Questions about your industrial-symbiosis case, in three parts: the study, the exchanges, and a description of the case. Required: the dimensions (Q3), the decision and its scale (Q9), the subject (Q1) and, with the economic dimension, the public objective (Q10); the rest is optional and sharpens the configuration.',
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
-      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological configuration and the data-collection plan you receive at the end.',
+      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The answers decide the methodological configuration and the data-collection plan you receive at the end.',
     runButton: 'Work out the configuration',
     runningButton: 'Working it out…',
     resetButton: 'Reset draft',
@@ -788,6 +792,60 @@ const en = {
   },
 
   result: {
+    config: {
+      title: 'Your configuration',
+      lead: 'What your answers decided, in the terms of the deliverables. Open a row to read the engine\'s text, in English, with the section it comes from.',
+      nodeText: 'Engine text (English)',
+      labels: {
+        purpose: 'Kind of study',
+        lcc: 'Costing',
+        slca: 'Social assessment',
+        horizon: 'Study horizon',
+        reference: 'Reference scenario',
+        fu: 'Functional unit',
+        regional: 'Local impacts',
+        sectors: 'Sector rules',
+        shared: 'Shared assets',
+      },
+      values: {
+        horizonFuture: 'Future background (SSP/RCP scenarios) for LCA and LCC',
+        horizonPresent: 'Present-day background',
+        reference_hnsrs: 'What each firm would do today without the links (HNSRS)',
+        reference_modern: 'A modern counterfactual: what each firm would do today without the links (HNSRS)',
+        reference_cnsrs: 'Today\'s situation without the new exchanges (CNSRS)',
+        market: 'market: {{market}}',
+        fu_waste_treatment: 'Input-based: the treatment of the waste',
+        fu_product_substitution: 'Output-based: the products and what they replace',
+        fu_co_primary: 'A system of functional units: treatment and products together',
+        fu_function: 'Function-oriented, around the service delivered',
+        regional_A: 'Site-specific characterisation factors for water, eutrophication and acidification',
+        regional_B: 'Regional or country-dependent characterisation factors',
+        regional_C: 'Country- or region-dependent factors for the territory of each emission',
+        regional_unset: 'Site-specific factors where the key interactions are intensely local',
+        shared: 'Their CAPEX and OPEX in the cost breakdown, shared among the partners that use them',
+      },
+      why: {
+        label: 'Why:',
+        lccC2: 'strict reporting of one company: company-level costing only',
+        lccNoLca: 'no environmental dimension: no environmental LCC to align',
+        lccPolicy: 'you answered that the study serves a public objective (Q10)',
+        lccPolicyInferred: 'read off Q1, since Q10 is not answered',
+        lccNoPolicy: 'no public objective (Q10): firm and value-chain views',
+        horizonYear: 'the system operates in {{year}}',
+        horizonTrl: 'the key technology is below TRL 7',
+        horizonPeriod: 'the study follows the system for {{years}} years, more than {{threshold}}',
+        horizonLifetime: 'the assets last {{years}} years, more than {{threshold}}',
+        horizonPresent: 'present year, mature technology and a horizon within {{threshold}} years',
+        referenceNotYet: 'the exchanges do not take place yet (Q2)',
+        referenceRunning: 'the exchanges already take place (Q2)',
+        referenceLongStanding: 'the network has run for many years (Q2)',
+        fuGoal: 'the study compares: {{goal}}',
+        fuDefault: 'what the study compares is not answered (Q11)',
+        regionalUnset: 'the concentration of the interactions is not answered (Q7)',
+        sectors: 'the chapters follow the sector declared on each flow',
+        shared: 'the symbiosis needs new dedicated shared assets (Q12)',
+      },
+    },
     notes: { title: 'Notes on your answers' },
     engineNotes: {
       study_purpose_vs_q2: {
@@ -843,7 +901,13 @@ const en = {
       moreInfo: 'More on this configuration',
     },
     next: {
-      obligations: "{{count}} methodological practices apply to your answers. They are listed, with what triggered each one, in the Data Collection File.",
+      obligations: '{{count}} obligations to document ({{groups}}): they are listed, with what triggered each one, in the Data Collection File.',
+      families: {
+        IR: '{{count}} on integrating the methods',
+        CIR: '{{count}} switched on by your answers',
+        FU: '{{count}} on the functional unit',
+        B: '{{count}} on boundaries',
+      },
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and, where the engine settles it, how.',
       provenance:

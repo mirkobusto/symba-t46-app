@@ -239,7 +239,7 @@ export default function QuestionnairePage() {
   const mode = usePreferenceStore((s) => s.mode)
 
   return (
-    <div className={`dd-page questionnaire questionnaire-mode-${mode}`}>
+    <div className={`dd-page questionnaire questionnaire-steps questionnaire-mode-${mode}`}>
       <div className="dd-page-head">
         <div>
           <h1 className="dd-page-title">{t('questionnaire.title')}</h1>
@@ -253,6 +253,8 @@ export default function QuestionnairePage() {
           <p>{t('questionnaire.guidedBannerBody')}</p>
         </div>
       ) : null}
+
+      <h2 className="qpart-title" id="qpart-study">{t('questionnaire.parts.study')}</h2>
 
       {/* Q0 — optional: purpose of the study (D4.1 §4.3.2); it derives nothing */}
       <QuestionCard
@@ -273,70 +275,6 @@ export default function QuestionnairePage() {
             {k ? <span className="opt-desc">{t(`questionnaire.q0.options.${k}.description`)}</span> : null}
           </label>
         ))}
-      </QuestionCard>
-
-      {/* Q1 */}
-      <QuestionCard
-        id="q1"
-        title={t('questionnaire.q1.title')}
-        help={t('questionnaire.q1.help')}
-        plain={t('questionnaire.q1.plain')}
-        details={t('questionnaire.q1.details')}
-      >
-        {Q1_KEYS.map((v) => (
-          <label key={v} className="opt">
-            <input
-              type="radio" name="q1" value={v}
-              checked={q1 === v} onChange={() => setQ1(v)}
-              aria-required="true" aria-invalid={!q1}
-            />
-            <span className="opt-label">{t(`questionnaire.q1.options.${v}.label`)}</span>
-            <span className="opt-desc">{t(`questionnaire.q1.options.${v}.description`)}</span>
-          </label>
-        ))}
-      </QuestionCard>
-
-      {/* Q2 */}
-      <QuestionCard
-        id="q2"
-        title={t('questionnaire.q2.title')}
-        plain={t('questionnaire.q2.plain')}
-        details={t('questionnaire.q2.details')}
-      >
-        {Q2_KEYS.map((v) => (
-          <label key={v} className="opt">
-            <input
-              type="radio" name="q2" value={v}
-              checked={q2 === v} onChange={() => setQ2(v)}
-            />
-            <span className="opt-label">{t(`questionnaire.q2.options.${v}.label`)}</span>
-            <span className="opt-desc">{t(`questionnaire.q2.options.${v}.description`)}</span>
-          </label>
-        ))}
-        {q2 === 'A' && (
-          <>
-            <p className="opt-label">{t('questionnaire.q2.longStanding.label')}</p>
-            {(['yes', 'no'] as const).map((k) => (
-              <label key={k} className="opt opt-single">
-                <input
-                  type="radio" name="q2-long-standing" value={k}
-                  checked={longStanding === k}
-                  onChange={() => setLongStanding(k)}
-                />
-                <span className="opt-label">{t(`questionnaire.q2.longStanding.${k}`)}</span>
-              </label>
-            ))}
-          </>
-        )}
-      </QuestionCard>
-
-      {/* Alternative scenarios: available to every study (D4.1 §4.3.3) */}
-      <QuestionCard
-        id="q2d-scenarios"
-        title={t('questionnaire.q2dCard.title')}
-        help={t('questionnaire.q2dCard.help')}
-      >
-        <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
       </QuestionCard>
 
       {/* Q3 */}
@@ -374,127 +312,75 @@ export default function QuestionnairePage() {
         </label>
       </QuestionCard>
 
-      {/* Q4 */}
+      {/* Q9 — required: the ILCD situation follows the decision and its scale (D4.1 Table 1), not Q1 */}
       <QuestionCard
-        id="q4"
-        title={t('questionnaire.q4.title')}
-        help={t('questionnaire.q4.help')}
-        plain={t('questionnaire.q4.plain')}
-        details={t('questionnaire.q4.details')}
+        id="q9"
+        title={t('questionnaire.q9.title')}
+        help={t('questionnaire.q9.help')}
+        plain={t('questionnaire.q9.plain')}
+        details={t('questionnaire.q9.details')}
       >
-        {Q4_KEYS.map((v) => {
-          const warnKey = Q4_WARN_KEYS[v]
-          return (
-            <label key={v} className="opt">
-              <input
-                type="checkbox" checked={q4.has(v)}
-                onChange={() => toggleQ4(v)}
-              />
-              <span className="opt-label">{t(`questionnaire.q4.options.${v}.label`)}</span>
-              <span className="opt-desc">{t(`questionnaire.q4.options.${v}.description`)}</span>
-              {warnKey && q4.has(v) ? (
-                <span className="opt-warn">⚠ {t(warnKey)}</span>
-              ) : null}
-            </label>
-          )
-        })}
+        {/* Radios, not a dropdown: the answers are sentences, and a native menu cuts them off. */}
+        {DECISION_KEYS.map((k) => (
+          <label key={k} className="opt opt-single">
+            <input
+              type="radio" name="q9" value={k}
+              checked={decisionContext === k}
+              aria-required="true"
+              onChange={() => setDecisionContext(k)}
+            />
+            <span className="opt-label">{t(`questionnaire.q9.options.${k}`)}</span>
+          </label>
+        ))}
+        {decisionContext === 'structural' && (
+          <>
+            <p className="opt-label">{t('questionnaire.q9.screening.label')}</p>
+            {(['yes', 'no'] as const).map((k) => (
+              <label key={k} className="opt opt-single">
+                <input
+                  type="radio" name="q9-screening" value={k}
+                  checked={screening === k}
+                  onChange={() => setScreening(k)}
+                />
+                <span className="opt-label">{t(`questionnaire.q9.screening.${k}`)}</span>
+              </label>
+            ))}
+          </>
+        )}
       </QuestionCard>
 
-      {/* Q5 — flows table */}
+      {/* Q2 */}
       <QuestionCard
-        id="q5"
-        title={t('questionnaire.q5.title')}
-        help={t('questionnaire.q5.help')}
-        plain={t('questionnaire.q5.plain')}
-        details={t('questionnaire.q5.details')}
+        id="q2"
+        title={t('questionnaire.q2.title')}
+        plain={t('questionnaire.q2.plain')}
+        details={t('questionnaire.q2.details')}
       >
-        <FlowsEditor flows={flows} onChange={setFlows} />
-      </QuestionCard>
-
-      {/* Q6a */}
-      <QuestionCard
-        id="q6a"
-        title={t('questionnaire.q6a.title')}
-        help={t('questionnaire.q6a.help')}
-        plain={t('questionnaire.q6a.plain')}
-        details={t('questionnaire.q6a.details')}
-      >
-        <select
-          value={q6a ?? ''}
-          onChange={(e) => setQ6a((e.target.value || undefined) as Q6a | undefined)}
-          className="select"
-        >
-          <option value="">{t('common.notSet')}</option>
-          {Q6A_KEYS.map((k) => (
-            <option key={k} value={k}>
-              {t(`questionnaire.q6a.options.${k}`)}
-            </option>
-          ))}
-        </select>
-      </QuestionCard>
-
-      {/* Q6b */}
-      <QuestionCard
-        id="q6b"
-        title={t('questionnaire.q6b.title')}
-        plain={t('questionnaire.q6b.plain')}
-        details={t('questionnaire.q6b.details')}
-      >
-        <select
-          value={q6b ?? ''}
-          onChange={(e) => setQ6b((e.target.value || undefined) as Q6b | undefined)}
-          className="select"
-        >
-          <option value="">{t('common.notSet')}</option>
-          {Q6B_KEYS.map((k) => (
-            <option key={k} value={k}>
-              {t(`questionnaire.q6b.options.${k}`)}
-            </option>
-          ))}
-        </select>
-      </QuestionCard>
-
-      {/* Q7 */}
-      <QuestionCard
-        id="q7"
-        title={t('questionnaire.q7.title')}
-        help={t('questionnaire.q7.help')}
-        plain={t('questionnaire.q7.plain')}
-        details={t('questionnaire.q7.details')}
-      >
-        {Q7_KEYS.map((v) => (
+        {Q2_KEYS.map((v) => (
           <label key={v} className="opt">
             <input
-              type="radio" name="q7" value={v}
-              checked={q7 === v} onChange={() => setQ7(v)}
+              type="radio" name="q2" value={v}
+              checked={q2 === v} onChange={() => setQ2(v)}
             />
-            <span className="opt-label">{t(`questionnaire.q7.options.${v}.label`)}</span>
-            <span className="opt-desc">{t(`questionnaire.q7.options.${v}.description`)}</span>
+            <span className="opt-label">{t(`questionnaire.q2.options.${v}.label`)}</span>
+            <span className="opt-desc">{t(`questionnaire.q2.options.${v}.description`)}</span>
           </label>
         ))}
-        {/* Q7b — the market the reference (displaced) products come from (D4.1 §11.3.1) */}
-        <p className="opt-label">{t('questionnaire.q7.market.label')}</p>
-        <p className="opt-desc">{t('questionnaire.q7.market.help')}</p>
-        <label className="qnum">
-          <input
-            type="text" name="q7-market-region" maxLength={120}
-            className="qnum-input qtext-input" data-field="reference-market-region"
-            aria-label={t('questionnaire.q7.market.region')}
-            value={marketRegion}
-            placeholder={t('questionnaire.q7.market.regionPlaceholder')}
-            onChange={(e) => setMarketRegion(e.target.value)}
-          />
-        </label>
-        {(['', ...MARKET_SCOPES] as const).map((k) => (
-          <label key={k || 'unset'} className="opt opt-single">
-            <input
-              type="radio" name="q7-market-scope" value={k}
-              checked={marketScope === k}
-              onChange={() => setMarketScope(k)}
-            />
-            <span className="opt-label">{t(`questionnaire.q7.market.scope.${k || 'unset'}`)}</span>
-          </label>
-        ))}
+        {q2 === 'A' && (
+          <>
+            <p className="opt-label">{t('questionnaire.q2.longStanding.label')}</p>
+            {(['yes', 'no'] as const).map((k) => (
+              <label key={k} className="opt opt-single">
+                <input
+                  type="radio" name="q2-long-standing" value={k}
+                  checked={longStanding === k}
+                  onChange={() => setLongStanding(k)}
+                />
+                <span className="opt-label">{t(`questionnaire.q2.longStanding.${k}`)}</span>
+              </label>
+            ))}
+          </>
+        )}
       </QuestionCard>
 
       {/* Q8 — optional: one time horizon for LCA and LCC (operating year, analysis period, asset lifetime) */}
@@ -551,41 +437,25 @@ export default function QuestionnairePage() {
         </label>
       </QuestionCard>
 
-      {/* Q9 — required: the ILCD situation follows the decision and its scale (D4.1 Table 1), not Q1 */}
+      {/* Q6b */}
       <QuestionCard
-        id="q9"
-        title={t('questionnaire.q9.title')}
-        help={t('questionnaire.q9.help')}
-        plain={t('questionnaire.q9.plain')}
-        details={t('questionnaire.q9.details')}
+        id="q6b"
+        title={t('questionnaire.q6b.title')}
+        plain={t('questionnaire.q6b.plain')}
+        details={t('questionnaire.q6b.details')}
       >
-        {/* Radios, not a dropdown: the answers are sentences, and a native menu cuts them off. */}
-        {DECISION_KEYS.map((k) => (
-          <label key={k} className="opt opt-single">
-            <input
-              type="radio" name="q9" value={k}
-              checked={decisionContext === k}
-              aria-required="true"
-              onChange={() => setDecisionContext(k)}
-            />
-            <span className="opt-label">{t(`questionnaire.q9.options.${k}`)}</span>
-          </label>
-        ))}
-        {decisionContext === 'structural' && (
-          <>
-            <p className="opt-label">{t('questionnaire.q9.screening.label')}</p>
-            {(['yes', 'no'] as const).map((k) => (
-              <label key={k} className="opt opt-single">
-                <input
-                  type="radio" name="q9-screening" value={k}
-                  checked={screening === k}
-                  onChange={() => setScreening(k)}
-                />
-                <span className="opt-label">{t(`questionnaire.q9.screening.${k}`)}</span>
-              </label>
-            ))}
-          </>
-        )}
+        <select
+          value={q6b ?? ''}
+          onChange={(e) => setQ6b((e.target.value || undefined) as Q6b | undefined)}
+          className="select"
+        >
+          <option value="">{t('common.notSet')}</option>
+          {Q6B_KEYS.map((k) => (
+            <option key={k} value={k}>
+              {t(`questionnaire.q6b.options.${k}`)}
+            </option>
+          ))}
+        </select>
       </QuestionCard>
 
       {/* Q10 — required with the economic dimension: it decides the societal LCC (D4.2 §2.3) */}
@@ -611,6 +481,32 @@ export default function QuestionnairePage() {
         </QuestionCard>
       ) : null}
 
+      {/* Q4 */}
+      <QuestionCard
+        id="q4"
+        title={t('questionnaire.q4.title')}
+        help={t('questionnaire.q4.help')}
+        plain={t('questionnaire.q4.plain')}
+        details={t('questionnaire.q4.details')}
+      >
+        {Q4_KEYS.map((v) => {
+          const warnKey = Q4_WARN_KEYS[v]
+          return (
+            <label key={v} className="opt">
+              <input
+                type="checkbox" checked={q4.has(v)}
+                onChange={() => toggleQ4(v)}
+              />
+              <span className="opt-label">{t(`questionnaire.q4.options.${v}.label`)}</span>
+              <span className="opt-desc">{t(`questionnaire.q4.options.${v}.description`)}</span>
+              {warnKey && q4.has(v) ? (
+                <span className="opt-warn">⚠ {t(warnKey)}</span>
+              ) : null}
+            </label>
+          )
+        })}
+      </QuestionCard>
+
       {/* Q11 — optional: what the study compares sets the functional unit basis (D4.1 Part 2) */}
       <QuestionCard
         id="q11"
@@ -629,6 +525,62 @@ export default function QuestionnairePage() {
             <span className="opt-label">
               {t(`questionnaire.q11.options.${k || 'unset'}`)}
             </span>
+          </label>
+        ))}
+      </QuestionCard>
+
+      <h2 className="qpart-title" id="qpart-exchanges">{t('questionnaire.parts.exchanges')}</h2>
+
+      {/* Q5 — flows table */}
+      <QuestionCard
+        id="q5"
+        title={t('questionnaire.q5.title')}
+        help={t('questionnaire.q5.help')}
+        plain={t('questionnaire.q5.plain')}
+        details={t('questionnaire.q5.details')}
+      >
+        <FlowsEditor flows={flows} onChange={setFlows} />
+      </QuestionCard>
+
+      {/* Q7 */}
+      <QuestionCard
+        id="q7"
+        title={t('questionnaire.q7.title')}
+        help={t('questionnaire.q7.help')}
+        plain={t('questionnaire.q7.plain')}
+        details={t('questionnaire.q7.details')}
+      >
+        {Q7_KEYS.map((v) => (
+          <label key={v} className="opt">
+            <input
+              type="radio" name="q7" value={v}
+              checked={q7 === v} onChange={() => setQ7(v)}
+            />
+            <span className="opt-label">{t(`questionnaire.q7.options.${v}.label`)}</span>
+            <span className="opt-desc">{t(`questionnaire.q7.options.${v}.description`)}</span>
+          </label>
+        ))}
+        {/* Q7b — the market the reference (displaced) products come from (D4.1 §11.3.1) */}
+        <p className="opt-label">{t('questionnaire.q7.market.label')}</p>
+        <p className="opt-desc">{t('questionnaire.q7.market.help')}</p>
+        <label className="qnum">
+          <input
+            type="text" name="q7-market-region" maxLength={120}
+            className="qnum-input qtext-input" data-field="reference-market-region"
+            aria-label={t('questionnaire.q7.market.region')}
+            value={marketRegion}
+            placeholder={t('questionnaire.q7.market.regionPlaceholder')}
+            onChange={(e) => setMarketRegion(e.target.value)}
+          />
+        </label>
+        {(['', ...MARKET_SCOPES] as const).map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
+            <input
+              type="radio" name="q7-market-scope" value={k}
+              checked={marketScope === k}
+              onChange={() => setMarketScope(k)}
+            />
+            <span className="opt-label">{t(`questionnaire.q7.market.scope.${k || 'unset'}`)}</span>
           </label>
         ))}
       </QuestionCard>
@@ -654,6 +606,60 @@ export default function QuestionnairePage() {
           ))}
         </QuestionCard>
       ) : null}
+
+      <h2 className="qpart-title" id="qpart-description">{t('questionnaire.parts.description')}</h2>
+
+      {/* Q1 */}
+      <QuestionCard
+        id="q1"
+        title={t('questionnaire.q1.title')}
+        help={t('questionnaire.q1.help')}
+        plain={t('questionnaire.q1.plain')}
+        details={t('questionnaire.q1.details')}
+      >
+        {Q1_KEYS.map((v) => (
+          <label key={v} className="opt">
+            <input
+              type="radio" name="q1" value={v}
+              checked={q1 === v} onChange={() => setQ1(v)}
+              aria-required="true" aria-invalid={!q1}
+            />
+            <span className="opt-label">{t(`questionnaire.q1.options.${v}.label`)}</span>
+            <span className="opt-desc">{t(`questionnaire.q1.options.${v}.description`)}</span>
+          </label>
+        ))}
+      </QuestionCard>
+
+      {/* Q6a */}
+      <QuestionCard
+        id="q6a"
+        title={t('questionnaire.q6a.title')}
+        help={t('questionnaire.q6a.help')}
+        plain={t('questionnaire.q6a.plain')}
+        details={t('questionnaire.q6a.details')}
+      >
+        <select
+          value={q6a ?? ''}
+          onChange={(e) => setQ6a((e.target.value || undefined) as Q6a | undefined)}
+          className="select"
+        >
+          <option value="">{t('common.notSet')}</option>
+          {Q6A_KEYS.map((k) => (
+            <option key={k} value={k}>
+              {t(`questionnaire.q6a.options.${k}`)}
+            </option>
+          ))}
+        </select>
+      </QuestionCard>
+
+      {/* Alternative scenarios: available to every study (D4.1 §4.3.3) */}
+      <QuestionCard
+        id="q2d-scenarios"
+        title={t('questionnaire.q2dCard.title')}
+        help={t('questionnaire.q2dCard.help')}
+      >
+        <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
+      </QuestionCard>
 
       {/* Advanced */}
       <details className="advanced-card">

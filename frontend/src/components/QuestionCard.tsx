@@ -29,15 +29,26 @@ interface Props {
   children: ReactNode
 }
 
+// "Q9 — What is the study for…": the step number on screen follows the order of
+// the page (a CSS counter, so hidden cards take no number); the code stays as a
+// small reference, since notes and rules cite it (R5, 2026-10-18).
+const CODED_TITLE = /^(Q\d+[ab]?)\s+—\s+(.+)$/
+
 export default function QuestionCard({
   id, title, help, plain, details, warning, children,
 }: Props) {
   const { t } = useTranslation()
   const guided = usePreferenceStore((s) => s.mode) === 'guided'
+  const coded = CODED_TITLE.exec(title)
   return (
-    <section className="qcard" aria-labelledby={`${id}-title`}>
+    <section className={`qcard${coded ? ' qcard-numbered' : ''}`} aria-labelledby={`${id}-title`}>
       <h2 id={`${id}-title`} className="qcard-title">
-        {title}
+        {coded ? (
+          <>
+            <span className="qcard-step" aria-hidden="true" />
+            {coded[2]} <code className="qcard-code">{coded[1]}</code>
+          </>
+        ) : title}
       </h2>
       {help ? <p className="qcard-help">{help}</p> : null}
       {guided && plain ? <p className="qcard-plain">{plain}</p> : null}

@@ -1,4 +1,6 @@
-"""Sanity-check dcf_schema.json against the 13 paper fixtures.
+"""Sanity-check dcf_schema.json against the 13 paper fixtures, plus one
+synthetic planned case: no paper answers Q8, so without it the fields that
+follow the study horizon would look dead.
 
 For each fixture, runs the full pipeline to derive ilcd_situation,
 lcc_type, slca_activation_state, has_scenarios, then evaluates every field's
@@ -33,10 +35,12 @@ from app.domain.enums import (  # noqa: E402
     Q4,
     Q5,
     Q7,
+    OperatingStart,
     Q6a,
     Q6b,
 )
 from app.domain.models import Q3, Case, Flow  # noqa: E402
+from app.engine.activate import needs_future_background  # noqa: E402
 from app.engine.loader import load_schemas  # noqa: E402
 from app.engine.pipeline import run as pipeline_run  # noqa: E402
 
@@ -83,7 +87,14 @@ FIXTURES = [
     {"id": "briassoulis_2023", "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True),
      "q4": {Q4.E}, "flows": _flows(Q5.b, Q5.c),
      "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None},
+    # synthetic: an exchange that starts operating in 2028 (Q8), so the fields that
+    # follow the future background have a case that asks them
+    {"id": "synthetic_2028", "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True),
+     "q4": {Q4.B}, "flows": _flows(Q5.b), "q6a": Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES,
+     "q6b": Q6b.TRL9, "q7": Q7.A, "operating_start": OperatingStart.FUTURE, "operating_start_year": 2028},
 ]
+
+_OPTIONAL = ("network_long_standing", "operating_start", "operating_start_year")
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +123,7 @@ def _build_eval_context(case: Case) -> dict:
         "slca_activation_state": case.slca_activation_state.value if case.slca_activation_state else None,
         "has_scenarios": bool(case.alternative_scenarios),
         "dedicated_shared_assets": case.dedicated_shared_assets,
+        "future_background": needs_future_background(case),
         "always": True,
     }
 
@@ -147,7 +159,8 @@ def main():
     cases = {}
     for fix in FIXTURES:
         case = Case(q1=fix["q1"], q2=fix["q2"], q3=fix["q3"], q4=fix["q4"],
-                    q6a=fix["q6a"], q6b=fix["q6b"], q7=fix["q7"], flows=fix["flows"])
+                    q6a=fix["q6a"], q6b=fix["q6b"], q7=fix["q7"], flows=fix["flows"],
+                    **{k: fix[k] for k in _OPTIONAL if k in fix})
         pipeline_run(case, schemas)
         cases[fix["id"]] = case
 
@@ -221,7 +234,7 @@ def main():
             print(f"  - {i}")
         sys.exit(1)
     else:
-        print("OK — no schema issues detected on the 13-paper fixture set.")
+        print("OK — no schema issues detected on the 13 papers and the synthetic case.")
         sys.exit(0)
 
 

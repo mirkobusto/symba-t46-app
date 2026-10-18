@@ -27,6 +27,8 @@ and this module together.
 """
 from __future__ import annotations
 
+from typing import Any
+
 from app.domain.enums import Q1, Q2, Q4, Q5, DecisionContext, IlcdSituation, LccType, Q6a, SlcaActivationState
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas
@@ -64,14 +66,14 @@ def _micro(q1: Q1) -> IlcdSituation:
 # Where the explicit answer contradicts what Q1 implies the engine says so (a
 # warning, never a block, never a silent change). Q1 implies: A/B limited
 # consequences, C structural, D company reporting, E no decision.
-_DECISION_WARNINGS: dict[tuple[Q1, DecisionContext], tuple[str, str]] = {
-    (Q1.C, _M): ("decision_scale_vs_q1", "Q1 (sector-wide pre-feasibility) usually means consequences at "
+_DECISION_WARNINGS: dict[tuple[Q1, DecisionContext], tuple[str, str, str]] = {
+    (Q1.C, _M): ("decision_scale_vs_q1", "c_micro", "Q1 (sector-wide pre-feasibility) usually means consequences at "
                  "structural scale; you answered limited consequences, so the study is treated as ILCD "
                  "Situation A. D4.1 §4.3.4: do not choose Consequential LCA simply because a decision is "
                  "being made."),
-    (Q1.E, _M): ("decision_scale_vs_q1", "Q1=E (monitoring) implies no decision; you answered that a decision "
+    (Q1.E, _M): ("decision_scale_vs_q1", "e_micro", "Q1=E (monitoring) implies no decision; you answered that a decision "
                  "with limited consequences is supported, so the study is treated as ILCD Situation A."),
-    (Q1.E, _X): ("decision_scale_vs_q1", "Q1=E (monitoring) implies no decision; you answered that a decision "
+    (Q1.E, _X): ("decision_scale_vs_q1", "e_structural", "Q1=E (monitoring) implies no decision; you answered that a decision "
                  "with structural consequences is supported, so the study is treated as ILCD Situation B."),
 }
 _Q1_D_NOT_CORPORATE = ("q1_d_not_corporate", "Q1=D describes one company's sustainability reporting, but Q9 "
@@ -79,7 +81,7 @@ _Q1_D_NOT_CORPORATE = ("q1_d_not_corporate", "Q1=D describes one company's susta
                        "corporate reporting (allocation, no credits) is ILCD Situation C2 (D4.1 §7.2.3).")
 
 
-def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, str]]]:
+def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, Any]]]:
     """ILCD situation and the notes about it.
 
     Q9 unanswered: the Q1 mapping (cases saved before Q9 keep their values). Q9
@@ -90,7 +92,7 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, st
     """
     base = _compute_ilcd_situation(case.q1)   # raises on an invalid Q1
     decision = case.decision_context
-    notes: list[dict[str, str]] = []
+    notes: list[dict[str, Any]] = []
     if decision is None:
         situation = base
     else:
@@ -115,8 +117,8 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, st
         else:
             situation = _S.SITUATION_C2
         if (case.q1, decision) in _DECISION_WARNINGS:
-            code, message = _DECISION_WARNINGS[(case.q1, decision)]
-            notes.append({"code": code, "message": message})
+            code, variant, message = _DECISION_WARNINGS[(case.q1, decision)]
+            notes.append({"code": code, "message": message, "params": {"variant": variant}})
         if case.q1 == Q1.D and decision != _R:
             notes.append({"code": _Q1_D_NOT_CORPORATE[0], "message": _Q1_D_NOT_CORPORATE[1]})
     # Q2=B is "under construction or recently commissioned" (the questionnaire's own
@@ -133,7 +135,7 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, st
     return situation, notes
 
 
-def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
+def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, Any]]]:
     """LCC type and the notes about it. Runs after the ILCD situation.
 
     Strict reporting of one company (Situation C2) keeps the company-level costing,
@@ -148,7 +150,7 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
         return LccType.DEACTIVATED, []
     if case.q1 not in _VALID_Q1:
         raise ValueError(f"Invalid Q1: {case.q1!r}")
-    notes: list[dict[str, str]] = []
+    notes: list[dict[str, Any]] = []
     policy = case.policy_objective
     if case.ilcd_situation == _S.SITUATION_C2:
         if policy:
@@ -165,7 +167,7 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
     if not case.q3.env:
         # No parallel LCA: the E-LCC has nothing to stay consistent with (D4.2 §4.1,
         # L00551); the network level is the C-LCC consolidation (L00547, L00601).
-        notes.append({"code": "lcc_without_lca", "message": (
+        notes.append({"code": "lcc_without_lca", "params": {"variant": "policy" if policy else "plain"}, "message": (
             "Q3 has no environmental dimension, so there is no parallel LCA: the costing is the "
             "conventional LCC of each partner, consolidated at network level (D4.2 §4.1), without the "
             "environmental LCC, which D4.2 builds on the LCA boundary." + (
@@ -175,7 +177,7 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, str]]]:
     return (LccType.E_LCC_PLUS_S_LCC_PLUS_NTF if policy else LccType.C_LCC_PLUS_E_LCC), notes
 
 
-def _c2_pef_notes(case: Case) -> list[dict[str, str]]:
+def _c2_pef_notes(case: Case) -> list[dict[str, Any]]:
     """Q4=D asks for the PEF Circular Footprint Formula, a product method; strict
     accounting of one partner (Situation C2) uses allocation and no substitution
     credits (D4.1 §7.2.3). Allocation wins (lca_mc_13/14, CIR-05); say so."""
@@ -188,7 +190,7 @@ def _c2_pef_notes(case: Case) -> list[dict[str, str]]:
     return []
 
 
-def _slca_notes(case: Case) -> list[dict[str, str]]:
+def _slca_notes(case: Case) -> list[dict[str, Any]]:
     """S-LCA alone (Q3 = social only) is accepted, but D4.3 §3.1 presupposes the
     functional unit and boundaries of an LCA or an LCC to build on (audit I-14).
     A note, not a block: nothing is invented, and slca_hc_06 stays off."""
@@ -213,7 +215,7 @@ PART2_CHAPTER: dict[Q6a, str] = {
 }
 
 
-def _flow_notes(case: Case) -> list[dict[str, str]]:
+def _flow_notes(case: Case) -> list[dict[str, Any]]:
     """Per-flow notes from the two optional flow answers; unanswered = none.
 
     Freedom-to-Act (D4.1 §8.3.3, L00990-994): a flow a third party would buy is a
@@ -223,18 +225,18 @@ def _flow_notes(case: Case) -> list[dict[str, str]]:
     makes the flow a co-product regardless of price (L00974, L00996); Q5 = e
     aggregates the flow away. A note never changes Q5.
     """
-    notes: list[dict[str, str]] = []
+    notes: list[dict[str, Any]] = []
     for f in case.flows:
         label = f"Flow '{f.name or f.id}'"
         sell = f.sellable_elsewhere
         if sell is True and f.q5 == Q5.a:
-            notes.append({"code": "flow_sellable_but_waste", "message": (
+            notes.append({"code": "flow_sellable_but_waste", "params": {"flow": f.name or f.id}, "message": (
                 f"{label}: Q5 says the generator pays to get rid of it (waste), but a third party would "
                 "pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market "
                 "value is a co-product, and its upstream burden is shared (substitution or allocation), "
                 "not cut off. Check Q5 for this flow.")})
         elif sell is False and f.q5 == Q5.c:
-            notes.append({"code": "flow_price_without_market", "message": (
+            notes.append({"code": "flow_price_without_market", "params": {"flow": f.name or f.id}, "message": (
                 f"{label}: Q5 says the recipient pays for it (co-product), but no third party would. "
                 "D4.1 §8.3.3: without an independent market the price is an administrative fee and the "
                 "flow is a waste, with zero burden from where it first reaches a non-negative value "
@@ -243,12 +245,14 @@ def _flow_notes(case: Case) -> list[dict[str, str]]:
         elif sell is not None and f.q5 == Q5.b:
             reading = ("a co-product (§8.3.2, burden shared)" if sell else
                        "a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4)")
-            notes.append({"code": "flow_freedom_to_act_settles", "message": (
+            notes.append({"code": "flow_freedom_to_act_settles",
+                          "params": {"flow": f.name or f.id, "variant": "co_product" if sell else "waste"}, "message": (
                 f"{label}: Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) "
                 f"reads it as {reading}.")})
         chapter = PART2_CHAPTER.get(f.sector) if f.sector else None
         if chapter:
-            notes.append({"code": "flow_part2_chapter", "message": (
+            notes.append({"code": "flow_part2_chapter",
+                          "params": {"flow": f.name or f.id, "chapter": chapter.split(" ")[0]}, "message": (
                 f"{label}: the sector rules of D4.1 Part 2 {chapter} apply to it; they are listed under Sector rules.")})
     return notes
 

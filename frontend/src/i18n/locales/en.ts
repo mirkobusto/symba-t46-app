@@ -787,6 +787,35 @@ const en = {
 
   result: {
     notes: { title: 'Notes on your answers' },
+    engineNotes: {
+      structural_without_screening: "Q9 says the effects are structural, but the market screening is not documented: the study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity (D4.1 §4.3.4, §11.3.1).",
+      structural_screening_missing: "Situation B needs proof that the change displaces about 1% or more of new capacity in the affected market (D4.1 §11.3.1); document it, or the study is Situation A with B as a sensitivity (D4.1 §4.3.4).",
+      decision_scale_vs_q1: {
+        c_micro: "Q1 (sector-wide pre-feasibility) usually means consequences at structural scale; you answered limited consequences, so the study is treated as ILCD Situation A. D4.1 §4.3.4: do not choose Consequential LCA simply because a decision is being made.",
+        e_micro: "Q1=E (monitoring) implies no decision; you answered that a decision with limited consequences is supported, so the study is treated as ILCD Situation A.",
+        e_structural: "Q1=E (monitoring) implies no decision; you answered that a decision with structural consequences is supported, so the study is treated as ILCD Situation B.",
+      },
+      q1_d_not_corporate: "Q1=D describes one company's sustainability reporting, but Q9 says the study is not a corporate report; the ILCD situation follows Q9. Strict corporate reporting (allocation, no credits) is ILCD Situation C2 (D4.1 §7.2.3).",
+      documentation_vs_ex_ante: "ILCD Situation C documents a network that already exists, but Q2 describes an ex-ante study (the network is not operating yet, or alternatives are compared). Check that the situation is the one you mean.",
+      c2_keeps_c_lcc: "Strict reporting of one company (ILCD Situation C2) keeps the company-level costing (C-LCC only) whatever Q10 says: it is a T4.6 design choice, since a single company has no network level.",
+      policy_no_but_q1_c: "Q1=C (sector-wide pre-feasibility) usually serves a public policy; you answered that it does not, so the societal costing (S-LCC, net tax factor, social discount rate) is not added.",
+      lcc_without_lca: {
+        plain: "Q3 has no environmental dimension, so there is no parallel LCA: the costing is the conventional LCC of each partner, consolidated at network level (D4.2 §4.1), without the environmental LCC, which D4.2 builds on the LCA boundary.",
+        policy: "Q3 has no environmental dimension, so there is no parallel LCA: the costing is the conventional LCC of each partner, consolidated at network level (D4.2 §4.1), without the environmental LCC, which D4.2 builds on the LCA boundary. The societal LCC keeps the net tax factor and the social discount rate, but externalities cannot be monetised without the LCA results (D4.2 §11.2).",
+      },
+      c2_allocation_over_pef: "Strict reporting of one company (ILCD Situation C2) uses allocation and no substitution credits (D4.1 §7.2.3), so the PEF Circular Footprint Formula asked by Q4=D is not applied: the CFF is a product method. If the study is a product footprint rather than a corporate report, review Q9.",
+      slca_alone: "Q3 selects the social dimension only. D4.3 §3.1 builds the S-LCA on the functional unit and the boundaries of an LCA or LCC; with none selected, document the reference unit and the boundary in the methodological charter.",
+      flow_sellable_but_waste: "Flow '{{flow}}': Q5 says the generator pays to get rid of it (waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
+      flow_price_without_market: "Flow '{{flow}}': Q5 says the recipient pays for it (co-product), but no third party would. D4.1 §8.3.3: without an independent market the price is an administrative fee and the flow is a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). The exception is a generator that changes its process for the partner (Q5 = d).",
+      flow_freedom_to_act_settles: {
+        co_product: "Flow '{{flow}}': Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) reads it as a co-product (§8.3.2, burden shared).",
+        waste: "Flow '{{flow}}': Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) reads it as a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4).",
+      },
+      flow_part2_chapter: "Flow '{{flow}}': the sector rules of D4.1 Part 2 {{chapter}} apply to it; they are listed under Sector rules.",
+      flow_configuration_unknown: "Flow '{{flow}}': configuration '{{configuration}}' is not one of D4.1 Part 2.",
+      flow_configuration_other_chapter: "Flow '{{flow}}': its configuration belongs to {{chapter}}, not to the declared {{declared}}; the rules of both chapters are listed.",
+    },
+    sectorChapters: { '§4': "§4 Agri-Food and Biorefineries", '§5': "§5 Plastics and Packaging", '§6': "§6 Wastewater and Biofactories", '§7': "§7 Textile and Technical Textiles", '§8': "§8 Waste Valorisation" },
     sectorRules: {
       title: 'Sector rules (D4.1 Part 2)',
       lead: 'The rules D4.1 Part 2 gives for the sectors your case touches. The tool does not apply them for you: document in the study how each one was met.',

@@ -235,12 +235,14 @@ class Case(BaseModel):
                      "Emitted on the trigger, not on the assertion: the "
                      "assertions compare engine-written prose and cannot "
                      "verify what the analyst did outside the tool."))
-    warnings: list[dict[str, str]] = Field(default_factory=list,
+    warnings: list[dict[str, Any]] = Field(default_factory=list,
         description=("Notes about the user's answers, each {'code', 'message'}: a new "
                      "question that contradicts what Q1 implies, a combination the "
                      "deliverables treat as unusual. Informational: they never block "
                      "the run and never change a value on their own. Rebuilt on every "
-                     "run by l0_compute (the first phase), later phases append."))
+                     "run by l0_compute (the first phase), later phases append. Optional "
+                     "'params' (flow, chapter, variant) let the client translate the note "
+                     "by code; 'message' stays the English text."))
     cdp_flags: list[dict[str, Any]] = Field(default_factory=list,
         description="L3 CDP tensions surfaced at reporting")
     sector_rules: list[dict[str, Any]] = Field(default_factory=list,

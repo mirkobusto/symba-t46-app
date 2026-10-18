@@ -172,6 +172,8 @@ export interface SectorRule {
 export interface CaseWarning {
   code: string
   message: string
+  /** flow, chapter (§4…§8), declared, configuration, variant: for the translated text */
+  params?: Record<string, string>
 }
 
 export interface CdpFlag {

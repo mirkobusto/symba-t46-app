@@ -41,7 +41,7 @@
       "type": "string|null",
       "set_by_cir": "CIR-03",
       "default_value_when_set": "GIS",
-      "trigger_summary": "Q7 in {B,C,D} OR transport-sensitive exchanges",
+      "trigger_summary": "transport-sensitive exchanges (Q7 left on 2026-10-18)",
       "notes": "GIS-coupled spatial modeling for LCA transport / location-sensitive flows."
     },
     {
@@ -49,7 +49,7 @@
       "type": "string|null",
       "set_by_cir": "CIR-03",
       "default_value_when_set": "GIS",
-      "trigger_summary": "Q7 in {B,C,D} OR transport-sensitive exchanges",
+      "trigger_summary": "transport-sensitive exchanges (Q7 left on 2026-10-18)",
       "notes": "GIS-coupled cost computation for LCC; matches LCA per CIR-03."
     },
     {
@@ -57,7 +57,7 @@
       "type": "string|null",
       "set_by_cir": "CIR-03",
       "default_value_when_set": "GIS",
-      "trigger_summary": "Q7 in {B,C,D} OR transport-sensitive exchanges",
+      "trigger_summary": "transport-sensitive exchanges (Q7 left on 2026-10-18)",
       "notes": "S-LCA territorial dimension coupled to spatial GIS layer; relates to slca.territorial_dimension (set by slca_hc_10) but is a runtime coupling artifact, not a node config."
     },
     {

@@ -58,3 +58,24 @@ def test_fill_leaves_other_values_alone():
 
 def test_retired_q7_d_loads_as_c():
     assert Case(q7="D").q7 is Q7.C
+
+
+def test_eu_policy_alignment_keeps_the_regionalisation():
+    """CIR-05 sets EF 3.1 for Q4 = D; the Q7 regionalisation survives (review 2026-10-18)."""
+    case = _run(q7=Q7.A, q4={"D"})
+    assert case.lca["lcia_method"].startswith("EF_3.1; regionalisation: key interactions are intensely local")
+
+
+def test_marginal_reference_names_the_affected_market_without_the_averaging_rule():
+    case = run(Case(q1=Q1.A, q3=Q3(env=True), decision_context="structural", market_screening_documented=True,
+                    reference_market_region="Italy"))
+    content = case.lca["reference_scenario.content"]
+    assert content.startswith("Marginal technology mix of the affected market (Italy):")
+    assert "continental only" not in content.split(":")[0]
+
+
+def test_strict_reporting_keeps_the_background_per_region_of_production():
+    case = run(Case(q1=Q1.D, q3=Q3(env=True), decision_context="corporate_report",
+                    reference_market_region="Italy", reference_market_scope=ReferenceMarketScope.NATIONAL))
+    assert "region of production" in case.lca["background_database"]
+    assert "Italy" not in case.lca["background_database"]

@@ -3,9 +3,9 @@
 Some node values depend on an answer that is orthogonal to the node's own
 branches: the reference market (lca_mc_06 / lca_mc_27 already branch on the
 ILCD situation) and the concentration of the key interactions (lca_mc_25
-already branches on Q4). The branch-key grammar has no AND, and writing every
+already branches on Q4, and CIR-05 rewrites it for EU policy alignment). The branch-key grammar has no AND, and writing every
 combination would multiply the branches, so these values carry a placeholder,
-`{reference_market}` or `{interaction_scale}`, that `fill` replaces with a
+`{reference_market}`, `{affected_market}` or `{interaction_scale}`, that `fill` replaces with a
 phrase built from the answer (owner decision 2026-10-18). Without an answer the
 phrase states the rule in general terms, as the node did before.
 """
@@ -17,7 +17,7 @@ from typing import Any
 from app.domain.enums import Q7, ReferenceMarketScope
 from app.domain.models import Case
 
-PLACEHOLDERS = ("reference_market", "interaction_scale")
+PLACEHOLDERS = ("reference_market", "affected_market", "interaction_scale")
 _TOKEN = re.compile(r"\{(" + "|".join(PLACEHOLDERS) + r")\}")
 
 # D4.1 §11.3.1 (L01291): the average matches the market the counterfactual would
@@ -36,10 +36,11 @@ _INTERACTIONS = {
     Q7.A: ("key interactions are intensely local (one site): spatially specific characterisation factors "
            "for water scarcity, eutrophication and acidification, and the scale mismatch flagged where "
            "regional factors are applied at site level (D4.1 §12.2.3, §12.3.3)"),
-    Q7.B: ("key interactions are regional: regionalised factors, e.g. the Seppälä / Posch country-dependent "
-           "factors for acidification and eutrophication in a regional cluster (D4.1 §12.3.3)"),
-    Q7.C: ("key interactions span regions or borders: spatially explicit factors at the location of each "
-           "emission (D4.1 §12.3.3)"),
+    Q7.B: ("key interactions are regional: spatially explicit factors, and for a regional cluster with "
+           "characterised soil sensitivity the Seppälä / Posch country-dependent factors for acidification "
+           "and eutrophication (D4.1 §12.3.3)"),
+    Q7.C: ("key interactions span regions or borders: country- or region-dependent factors matched to the "
+           "territory of each emission (D4.1 §12.3.3)"),
 }
 _GENERIC_INTERACTIONS = ("spatially specific characterisation factors where key interactions are intensely "
                          "local (D4.1 §12.2.3)")
@@ -58,11 +59,21 @@ def reference_market(case: Case) -> str:
     return phrase
 
 
+def affected_market(case: Case) -> str:
+    """The market named for a marginal (consequential) reference: the name and
+    scope only, without the averaging rule of L01291, which is for averages."""
+    region = (case.reference_market_region or "").strip()
+    scope = case.reference_market_scope.value.replace("_", "-") if case.reference_market_scope else None
+    detail = ", ".join(x for x in (region, f"{scope} scope" if scope else None) if x)
+    return "the affected market" + (f" ({detail})" if detail else "")
+
+
 def interaction_scale(case: Case) -> str:
     return _INTERACTIONS.get(case.q7, _GENERIC_INTERACTIONS) if case.q7 else _GENERIC_INTERACTIONS
 
 
-_FILL = {"reference_market": reference_market, "interaction_scale": interaction_scale}
+_FILL = {"reference_market": reference_market, "affected_market": affected_market,
+         "interaction_scale": interaction_scale}
 
 
 def fill(value: Any, case: Case) -> Any:

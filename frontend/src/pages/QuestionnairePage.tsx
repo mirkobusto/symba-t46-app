@@ -451,14 +451,14 @@ export default function QuestionnairePage() {
             onChange={(e) => setMarketRegion(e.target.value)}
           />
         </label>
-        {MARKET_SCOPES.map((k) => (
-          <label key={k} className="opt opt-single">
+        {(['', ...MARKET_SCOPES] as const).map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
             <input
               type="radio" name="q7-market-scope" value={k}
               checked={marketScope === k}
               onChange={() => setMarketScope(k)}
             />
-            <span className="opt-label">{t(`questionnaire.q7.market.scope.${k}`)}</span>
+            <span className="opt-label">{t(`questionnaire.q7.market.scope.${k || 'unset'}`)}</span>
           </label>
         ))}
       </QuestionCard>

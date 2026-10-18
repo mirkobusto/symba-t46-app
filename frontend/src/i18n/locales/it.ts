@@ -101,7 +101,7 @@ const it: Locale = {
       lcc: 'Tipo LCC',
       slca: 'Stato S-LCA',
       sector: 'Settore',
-      scope: 'Ambito geografico',
+      scope: 'Concentrazione delle interazioni',
     },
     scoringTitle: 'Scoring',
     complianceTitle: 'Segnali di compliance',
@@ -510,6 +510,7 @@ const it: Locale = {
         region: 'Paese o regione',
         regionPlaceholder: 'es. Italia, Catalogna, UE',
         scope: {
+          unset: 'Non risposta',
           national: 'Nazionale',
           sub_national: 'Sub-nazionale (una regione dentro un paese)',
           continental: 'Continentale (solo per merci scambiate in tutto il mondo)',
@@ -988,10 +989,10 @@ const it: Locale = {
       },
       authority: {
         whatYouSee:
-          "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e qual è l'ambito geografico coperto.",
+          "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e quanto sono concentrate le interazioni chiave.",
         whenScoring:
           "Quando arriveranno i punteggi vedrai i valori ambientali e, dove lo studio li include, i costi societali — i due su cui si regge una decisione pubblica.",
-        scope: "Ambito geografico dichiarato per il caso: {{scope}}",
+        scope: "Quanto sono concentrate le interazioni chiave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1064,7 +1065,7 @@ const it: Locale = {
     navLink: 'Dashboard regionale',
     title: 'Dashboard regionale / settoriale',
     subtitle:
-      'Breakdown di tutti i casi salvati per situazione ILCD, struttura LCC, settore e ambito geografico. Per autorità locali e analisti di policy.',
+      'Breakdown di tutti i casi salvati per situazione ILCD, struttura LCC, settore e concentrazione delle interazioni chiave. Per autorità locali e analisti di policy.',
     openButton: 'Apri dashboard regionale',
     backToCases: 'Torna ai casi',
     loading: 'Caricamento dati aggregati…',
@@ -1077,7 +1078,7 @@ const it: Locale = {
     breakdownTitle: {
       byLccType: 'Per struttura LCC',
       bySector: 'Per settore (Q6a)',
-      byScope: 'Per ambito geografico (Q7)',
+      byScope: 'Per concentrazione delle interazioni (Q7)',
       byIlcd: 'Per situazione ILCD',
     },
   },

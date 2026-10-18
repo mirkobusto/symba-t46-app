@@ -87,7 +87,7 @@ const es: Locale = {
     aboutLink: 'Conocer SYMBA',
     eyebrow: 'Informe compartido · {{name}}',
     summaryTitle: 'Resumen de la configuración',
-    summary: { ilcd: 'Situación ILCD', lcc: 'Tipo LCC', slca: 'Estado S-LCA', sector: 'Sector', scope: 'Ámbito geográfico' },
+    summary: { ilcd: 'Situación ILCD', lcc: 'Tipo LCC', slca: 'Estado S-LCA', sector: 'Sector', scope: 'Concentración de las interacciones' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Señales de cumplimiento',
     compliance: {
@@ -463,7 +463,7 @@ const es: Locale = {
     },
 
     q7: {
-      title: 'Q7 — ¿Qué tan concentradas están las interacciones clave?',
+      title: 'Q7 — ¿Cuán concentradas están las interacciones clave?',
       help: 'Fija cómo se regionaliza la evaluación de impactos. El transporte se modela de forma explícita para cada intercambio, sea cual sea la respuesta; la distancia de equilibrio se pide para cada flujo en el Data Collection File.',
       details:
         'D4.1 §12.2.3: un factor de caracterización medio global o nacional no capta la relevancia de un sistema cuyas interacciones clave son intensamente locales (p. ej. una sinergia de uso compartido del agua en una región árida). A — un emplazamiento o plantas contiguas: factores específicos del lugar para escasez de agua, eutrofización y acidificación, y el desajuste de escala señalado donde se aplican factores regionales a nivel de emplazamiento (§12.3.3). B — dentro de una región: factores regionalizados, p. ej. los factores por país de Seppälä / Posch para un clúster regional (§12.3.3). C — entre regiones o más allá de las fronteras: factores espacialmente explícitos en el lugar de cada emisión. El transporte nunca depende de esta respuesta: cada enlace es un proceso unitario distinto del primer plano con datos primarios, y se recomienda SIG o cálculo de rutas para cada intercambio (§12.3.1). La segunda parte pregunta el mercado del que vienen los productos sustituidos: los mix de fondo y el escenario de referencia se resuelven sobre él, por regla nacional o subnacional, continental solo para bienes comercializados a escala mundial sin mercado subcontinental (§11.3.1).',
@@ -478,13 +478,14 @@ const es: Locale = {
         region: 'País o región',
         regionPlaceholder: 'p. ej. Italia, Cataluña, UE',
         scope: {
+          unset: 'Sin respuesta',
           national: 'Nacional',
           sub_national: 'Subnacional (una región dentro de un país)',
           continental: 'Continental (solo para bienes comercializados en todo el mundo)',
         },
       },
       plain:
-        'Qué tan cerca ocurren las interacciones clave entre las empresas: en un emplazamiento, dentro de una región, o entre regiones o más allá de las fronteras. Decide a qué escala local se evalúan los impactos ambientales: la contaminación del agua o del aire junto a un emplazamiento no pesa igual que la misma cantidad repartida por un país. El transporte se cuenta en todo caso. Después di de dónde vendrían si no los productos que la simbiosis sustituye: un país, una región o, para bienes comercializados en todo el mundo, un continente.',
+        'Cuán cerca ocurren las interacciones clave entre las empresas: en un emplazamiento, dentro de una región, o entre regiones o más allá de las fronteras. Decide a qué escala local se evalúan los impactos ambientales: la contaminación del agua o del aire junto a un emplazamiento no pesa igual que la misma cantidad repartida por un país. El transporte se cuenta en todo caso. Después di de dónde vendrían si no los productos que la simbiosis sustituye: un país, una región o, para bienes comercializados en todo el mundo, un continente.',
     },
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',
@@ -956,10 +957,10 @@ const es: Locale = {
       },
       authority: {
         whatYouSee:
-          "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y qué ámbito geográfico cubre.",
+          "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y cuán concentradas están las interacciones clave.",
         whenScoring:
           "Cuando lleguen los resultados verás los valores ambientales y, donde el estudio los incluya, los costes societales — los dos pilares de una decisión pública.",
-        scope: "Ámbito geográfico declarado para el caso: {{scope}}",
+        scope: "Cuán concentradas están las interacciones clave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1032,7 +1033,7 @@ const es: Locale = {
     navLink: 'Panel regional',
     title: 'Panel regional / sectorial',
     subtitle:
-      'Desglose de todos los casos guardados por situación ILCD, estructura LCC, sector y ámbito geográfico. Para autoridades locales y analistas de políticas.',
+      'Desglose de todos los casos guardados por situación ILCD, estructura LCC, sector y concentración de las interacciones clave. Para autoridades locales y analistas de políticas.',
     openButton: 'Abrir panel regional',
     backToCases: 'Volver a los casos',
     loading: 'Cargando datos agregados…',
@@ -1045,7 +1046,7 @@ const es: Locale = {
     breakdownTitle: {
       byLccType: 'Por estructura LCC',
       bySector: 'Por sector (Q6a)',
-      byScope: 'Por ámbito geográfico (Q7)',
+      byScope: 'Por concentración de las interacciones (Q7)',
       byIlcd: 'Por situación ILCD',
     },
   },

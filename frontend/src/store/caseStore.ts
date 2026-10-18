@@ -171,8 +171,22 @@ export const useCaseStore = create<CaseState>()(
       // with withCurrentAnswers.
       version: 2,
       migrate: (persisted) => {
-        const state = persisted as { draft?: Case; result?: Case | null }
-        return { ...state, draft: withCurrentAnswers(state.draft), result: withCurrentAnswers(state.result) }
+        const state = persisted as {
+          draft?: Case
+          result?: Case | null
+          scenariosResult?: ScenariosResponse | null
+        }
+        const sr = state.scenariosResult
+        return {
+          ...state,
+          draft: withCurrentAnswers(state.draft),
+          result: withCurrentAnswers(state.result),
+          scenariosResult: sr ? {
+            ...sr,
+            baseline: withCurrentAnswers(sr.baseline),
+            scenarios: sr.scenarios.map((s) => ({ ...s, result: withCurrentAnswers(s.result) })),
+          } : sr,
+        }
       },
       // Persist draft + result + scenariosResult + lastSavedAt; transient
       // flags (loading/error) reset on hydration.

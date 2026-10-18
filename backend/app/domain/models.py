@@ -178,7 +178,7 @@ class Case(BaseModel):
     q6b: Q6b | None = None
     q7: Q7 | None = None
     # Q7b — the market the reference (displaced) products come from (D4.1
-    # §11.3.1, §12): its name, free text, and its scope. Not the market of the
+    # §11.3.1): its name, free text, and its scope. Not the market of the
     # symbiosis products, nor ecoinvent's "reference product". Read through the
     # {reference_market} phrase of lca_mc_06 / lca_mc_27 (engine/answer_phrases.py).
     reference_market_region: str | None = Field(default=None, max_length=120)

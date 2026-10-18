@@ -139,7 +139,7 @@ PAPERS: list[dict[str, Any]] = [
         "rationale": (
             "Pure policy assessment at national scale = Q1=C. Q4=D+E "
             "(EU PEF policy + academic publication, multi-select). "
-            "Q7=D multi-scale industry-wide."
+            "Q7=C: interactions across the country."
         ),
     },
     {
@@ -436,7 +436,7 @@ def _generate_one(paper: dict[str, Any], result: Case, out_dir: Path) -> Path:
             paper["q6a"].value if paper["q6a"] else "(not set)")
     _add_kv(doc, "Q6b TRL band",
             paper["q6b"].value if paper["q6b"] else "(not set)")
-    _add_kv(doc, "Q7 geographic spread",
+    _add_kv(doc, "Q7 concentration of the key interactions",
             paper["q7"].value if paper["q7"] else "(n/a)")
     p = doc.add_paragraph()
     p.add_run("Compilation rationale: ").bold = True

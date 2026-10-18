@@ -240,7 +240,7 @@ def test_CIR_05_writes_pef_cff_when_q4_D(schemas):
     assert case.lca.get("allocation_method") == "pef_cff"
     assert case.lcc.get("externality_monetization") == "CE_Delft_EU"
     assert case.lcc.get("allocation") == "NTF"
-    assert case.lca.get("lcia_method") == "EF_3.1"
+    assert case.lca.get("lcia_method").startswith("EF_3.1; regionalisation: ")
 
 
 def test_CIR_05_monetises_externalities_only_with_an_lca(schemas):
@@ -344,3 +344,9 @@ def test_violations_carry_the_rule_row_for_the_ui(schemas):
 
     by_id = {v["rule_id"]: v for v in case.rule_violations}
     assert "B-05" not in by_id      # its assertion now accepts the prose the engine writes
+
+
+def test_cir_03_no_longer_follows_q7():
+    """Q7 is the concentration of the key interactions, not transport (2026-10-18)."""
+    for q7 in (Q7.A, Q7.B, Q7.C, None):
+        assert _TRIGGER_FNS["CIR-03"](_ready_case(q7=q7)) is False

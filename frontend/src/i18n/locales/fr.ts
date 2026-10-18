@@ -87,7 +87,7 @@ const fr: Locale = {
     aboutLink: 'Découvrir SYMBA',
     eyebrow: 'Rapport partagé · {{name}}',
     summaryTitle: 'Résumé de la configuration',
-    summary: { ilcd: 'Situation ILCD', lcc: 'Type LCC', slca: 'État S-LCA', sector: 'Secteur', scope: 'Portée géographique' },
+    summary: { ilcd: 'Situation ILCD', lcc: 'Type LCC', slca: 'État S-LCA', sector: 'Secteur', scope: 'Concentration des interactions' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Signaux de conformité',
     compliance: {
@@ -484,6 +484,7 @@ const fr: Locale = {
         region: 'Pays ou région',
         regionPlaceholder: 'ex. Italie, Catalogne, UE',
         scope: {
+          unset: 'Sans réponse',
           national: 'National',
           sub_national: 'Infranational (une région dans un pays)',
           continental: 'Continental (seulement pour les biens échangés dans le monde entier)',
@@ -962,10 +963,10 @@ const fr: Locale = {
       },
       authority: {
         whatYouSee:
-          "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et quelle est l'étendue géographique couverte.",
+          "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et à quel point les interactions clés sont concentrées.",
         whenScoring:
           "À l'arrivée des résultats chiffrés, vous verrez les valeurs environnementales et, lorsque l'étude les inclut, les coûts sociétaux — les deux piliers d'une décision publique.",
-        scope: "Étendue géographique déclarée pour le cas : {{scope}}",
+        scope: "Concentration des interactions clés : {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1038,7 +1039,7 @@ const fr: Locale = {
     navLink: 'Tableau de bord régional',
     title: 'Tableau de bord régional / sectoriel',
     subtitle:
-      'Répartition de tous les cas sauvegardés par situation ILCD, structure LCC, secteur et portée géographique. Pour autorités locales et analystes politiques.',
+      'Répartition de tous les cas sauvegardés par situation ILCD, structure LCC, secteur et concentration des interactions clés. Pour autorités locales et analystes politiques.',
     openButton: 'Ouvrir le tableau de bord',
     backToCases: 'Retour aux cas',
     loading: 'Chargement des données agrégées…',
@@ -1051,7 +1052,7 @@ const fr: Locale = {
     breakdownTitle: {
       byLccType: 'Par structure LCC',
       bySector: 'Par secteur (Q6a)',
-      byScope: 'Par portée géographique (Q7)',
+      byScope: 'Par concentration des interactions (Q7)',
       byIlcd: 'Par situation ILCD',
     },
   },

@@ -62,7 +62,7 @@ const en = {
       lcc: 'LCC type',
       slca: 'S-LCA state',
       sector: 'Sector',
-      scope: 'Geographic scope',
+      scope: 'Concentration of the interactions',
     },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance signals',
@@ -532,6 +532,7 @@ const en = {
         region: 'Country or region',
         regionPlaceholder: 'e.g. Italy, Catalonia, EU',
         scope: {
+          unset: 'Not answered',
           national: 'National',
           sub_national: 'Sub-national (a region inside a country)',
           continental: 'Continental (only for goods traded worldwide)',
@@ -1009,10 +1010,10 @@ const en = {
       },
       authority: {
         whatYouSee:
-          "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and the geographic scope it covers.",
+          "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and how concentrated the key interactions are.",
         whenScoring:
           "Once the scoring arrives you will see the environmental figures and, where the study includes them, the societal costs — the two a public decision rests on.",
-        scope: "Geographic scope declared for the case: {{scope}}",
+        scope: "How concentrated the key interactions are: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1085,7 +1086,7 @@ const en = {
     navLink: 'Regional dashboard',
     title: 'Regional / sectoral dashboard',
     subtitle:
-      'Breakdown of all saved cases by ILCD situation, LCC structure, sector and geographic scope. Intended for local authorities and policy analysts.',
+      'Breakdown of all saved cases by ILCD situation, LCC structure, sector and concentration of the key interactions. Intended for local authorities and policy analysts.',
     openButton: 'Open regional dashboard',
     backToCases: 'Back to cases',
     loading: 'Loading aggregate data…',
@@ -1098,7 +1099,7 @@ const en = {
     breakdownTitle: {
       byLccType: 'By LCC structure',
       bySector: 'By sector (Q6a)',
-      byScope: 'By geographic scope (Q7)',
+      byScope: 'By concentration of the interactions (Q7)',
       byIlcd: 'By ILCD situation',
     },
   },

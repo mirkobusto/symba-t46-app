@@ -509,7 +509,7 @@ def test_q6b_set_and_ordinal_keys(schemas):
 @pytest.mark.parametrize("q7, phrase", [
     (Q7.A, "intensely local (one site)"),
     (Q7.B, "Seppälä / Posch"),
-    (Q7.C, "spatially explicit factors at the location of each emission"),
+    (Q7.C, "country- or region-dependent factors matched to the territory of each emission"),
     (None, "where key interactions are intensely local"),
 ])
 def test_q7_sets_the_regionalised_characterisation_not_the_transport(schemas, q7, phrase):

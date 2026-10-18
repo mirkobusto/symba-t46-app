@@ -68,7 +68,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from app.domain.enums import Q1, Q2, Q5, Q7, IlcdSituation, LccType, Q6b
+from app.domain.enums import Q1, Q2, Q5, IlcdSituation, LccType, Q6b
 from app.domain.models import Case
 from app.engine.activate import _pillar_is_off, _write, needs_future_background
 from app.engine.loader import LoadedSchemas
@@ -155,7 +155,9 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     # --- CIR (10) ---
     "CIR-01": needs_future_background,
     "CIR-02": lambda c: c.q2 == Q2.B,
-    "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C} or bool(_attr(c, "transport_sensitive")),
+    # Q7 left on 2026-10-18 (it is the concentration of interactions, not transport);
+    # transport_sensitive is not a Case attribute yet (I-17): R3 decides the wiring
+    "CIR-03": lambda c: bool(_attr(c, "transport_sensitive")),
     "CIR-04": lambda c: (c.q1 == Q1.B
                         and _attr(c, "network_nodes", 0) >= 3
                         and bool(_attr(c, "interdependent_flows"))),
@@ -391,10 +393,10 @@ def _assert_b_04(c: Case) -> bool:
 
 
 def _assert_b_05(c: Case) -> bool:
-    """Explicit transport in every active pillar. lca_mc_16 writes prose
-    ('explicit', 'GIS-coupled'), never a boolean, so the old `fg is True` could not
-    hold: B-05 fired on every case with Q7 in {B,C,D}. A pillar that is on and has
-    written nothing yet is inconclusive."""
+    """Explicit transport in every active pillar. lca_mc_16 writes the token
+    'explicit' (since 2026-10-18 for every case), never a boolean, so the old
+    `fg is True` could not hold. 'GIS-coupled' is kept for results saved before.
+    A pillar that is on and has written nothing yet is inconclusive."""
     fg = _get(c, "lca.transport.foreground")
     tc = _get(c, "lcc.transport_costs")
     if (c.q3.env and fg is None) or (c.q3.eco and tc is None):
@@ -491,7 +493,9 @@ def _action_cir_05(c: Case) -> None:
         # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
         _write(c, "lcc.externality_monetization", "CE_Delft_EU")
     _write(c, "lcc.allocation", "NTF")
-    _write(c, "lca.lcia_method", "EF_3.1")
+    # the EF method replaces the per-category choice of lca_mc_25, not the
+    # regionalised characterisation that follows Q7 (D4.1 §12.3.3; review 2026-10-18)
+    _write(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")
 
 
 def _action_cir_06(c: Case) -> None:

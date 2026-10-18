@@ -87,7 +87,7 @@ const de: Locale = {
     aboutLink: 'SYMBA kennenlernen',
     eyebrow: 'Geteilter Bericht · {{name}}',
     summaryTitle: 'Konfigurationsübersicht',
-    summary: { ilcd: 'ILCD-Situation', lcc: 'LCC-Typ', slca: 'S-LCA-Status', sector: 'Sektor', scope: 'Geografischer Umfang' },
+    summary: { ilcd: 'ILCD-Situation', lcc: 'LCC-Typ', slca: 'S-LCA-Status', sector: 'Sektor', scope: 'Konzentration der Wechselwirkungen' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance-Signale',
     compliance: {
@@ -478,6 +478,7 @@ const de: Locale = {
         region: 'Land oder Region',
         regionPlaceholder: 'z. B. Italien, Katalonien, EU',
         scope: {
+          unset: 'Keine Antwort',
           national: 'National',
           sub_national: 'Subnational (eine Region innerhalb eines Landes)',
           continental: 'Kontinental (nur für weltweit gehandelte Güter)',
@@ -956,10 +957,10 @@ const de: Locale = {
       },
       authority: {
         whatYouSee:
-          "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und welchen geografischen Umfang er abdeckt.",
+          "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und wie konzentriert die wichtigsten Wechselwirkungen sind.",
         whenScoring:
           "Sobald die Kennzahlen vorliegen, sehen Sie die Umweltwerte und, wo die Studie sie einschließt, die gesellschaftlichen Kosten — die beiden Grundlagen einer öffentlichen Entscheidung.",
-        scope: "Für den Fall angegebener geografischer Umfang: {{scope}}",
+        scope: "Wie konzentriert die wichtigsten Wechselwirkungen sind: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1032,7 +1033,7 @@ const de: Locale = {
     navLink: 'Regionales Dashboard',
     title: 'Regionales / sektorales Dashboard',
     subtitle:
-      'Aufschlüsselung aller gespeicherten Fälle nach ILCD-Situation, LCC-Struktur, Sektor und geografischem Umfang. Für lokale Behörden und politische Analysten.',
+      'Aufschlüsselung aller gespeicherten Fälle nach ILCD-Situation, LCC-Struktur, Sektor und Konzentration der wichtigsten Wechselwirkungen. Für lokale Behörden und politische Analysten.',
     openButton: 'Regionales Dashboard öffnen',
     backToCases: 'Zurück zu den Fällen',
     loading: 'Aggregierte Daten werden geladen…',
@@ -1045,7 +1046,7 @@ const de: Locale = {
     breakdownTitle: {
       byLccType: 'Nach LCC-Struktur',
       bySector: 'Nach Sektor (Q6a)',
-      byScope: 'Nach geografischem Umfang (Q7)',
+      byScope: 'Nach Konzentration der Wechselwirkungen (Q7)',
       byIlcd: 'Nach ILCD-Situation',
     },
   },

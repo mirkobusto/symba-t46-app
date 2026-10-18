@@ -59,14 +59,14 @@
           "label_en": "Site (FK)",
           "type": "fk_site",
           "required": false,
-          "activation_predicate": "q7 in [\"B\", \"C\"]"
+          "activation_predicate": "always"
         },
         {
           "id": "actor.country_iso2",
           "label_en": "Country (ISO 3166-1 alpha-2)",
           "type": "string",
           "required": false,
-          "activation_predicate": "q7 in [\"B\", \"C\"]"
+          "activation_predicate": "always"
         },
         {
           "id": "actor.size_class",

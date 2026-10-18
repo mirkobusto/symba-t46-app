@@ -148,7 +148,8 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     ILCD situation (2026-10-15); 40 since lca_mc_07 branches on Q11 (2026-10-18)."""
     # 38 since lca_mc_16 and lcc_mc_14 no longer branch on Q7, 39 with lcc_hc_07 on Q12 (2026-10-18)
     # 38 since lcc_mc_13 is a predicate node (R3, 2026-10-18)
-    assert len(_branch_nodes(schemas)) == 38
+    # 40 with lcc_hc_02 and lcc_hc_03 on Situation C2 (end-to-end review, 2026-10-18)
+    assert len(_branch_nodes(schemas)) == 40
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):

@@ -50,7 +50,17 @@ describe('configurationRows edge cases', () => {
     const rows = configurationRows({ ...BASE, ilcd_situation: 'ILCD Situation C2', lcc_type: 'C-LCC' }, t)
     const reference = rows.find((r) => r.key === 'reference')!
     expect(reference.value).toMatch(/Not used for credits/)
+    expect(reference.why).toMatch(/allocation, no credit/)
     expect(rows.find((r) => r.key === 'lcc')!.why).toMatch(/one company/)
+  })
+
+  it('Q4 = D without C still names the panel review (lca_mc_36)', async () => {
+    await i18n.changeLanguage('en')
+    const claim = configurationRows({ ...BASE, q4: ['D'], review: { scope: 'Independent panel review' } }, t)
+      .find((r) => r.key === 'claim')!
+    expect(claim.value).toMatch(/EU policy alignment.*panel review/)
+    expect(claim.why).toMatch(/Q4 = D/)
+    expect(claim.nodeText).toEqual(['Independent panel review'])
   })
 
   it('an unanswered Q10 says the costing was read off Q1', async () => {

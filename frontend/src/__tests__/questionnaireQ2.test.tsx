@@ -66,6 +66,16 @@ describe('Questionnaire Q2 — do the exchanges already take place?', () => {
     expect(bodies[0].network_long_standing).toBeNull()
   })
 
+  it("does not ask or send Q2b for one company's accounts (C2)", async () => {
+    fireEvent.click(document.querySelector('input[name="q2"][value="A"]')!)
+    fireEvent.click(document.querySelector('input[name="q2-long-standing"][value="yes"]')!)
+    fireEvent.click(document.querySelector('section[aria-labelledby="q9-title"] input[value="corporate_report"]')!)
+    expect(document.querySelector('input[name="q2-long-standing"]')).toBeNull()
+    run()
+    await waitFor(() => expect(bodies.length).toBe(1))
+    expect(bodies[0].network_long_standing).toBeNull()
+  })
+
   it('shows the alternative scenarios to every study', () => {
     expect(document.querySelector('section[aria-labelledby="q2d-scenarios-title"]')).not.toBeNull()
   })

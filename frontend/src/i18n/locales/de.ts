@@ -91,7 +91,7 @@ const de: Locale = {
     complianceTitle: 'Compliance-Signale',
     compliance: {
       peer: { name: 'Peer-Review-Anspruch', desc: 'Q4 = E · ISO 14044' },
-      pef: { name: 'EU-PEF-Ausrichtung', desc: 'Q4 = D · Circular Footprint Formula' },
+      pef: { name: 'EU-PEF-Ausrichtung', desc: 'Q4 = D · Circular Footprint Formula', descC2: "Q4 = D · CFF nicht angewandt: der Bericht eines Unternehmens nutzt Allokation (ILCD C2)" },
       public: { name: 'Öffentlicher Anspruch', desc: 'Q4 = C · ISO-Panel-Review' },
       dnsh: { name: 'DNSH-Prüfung', desc: 'EU Taxonomy art. 17' },
     },
@@ -757,6 +757,7 @@ const de: Locale = {
       values: {
         claim: 'Vergleichende Aussage gegenüber der Öffentlichkeit: kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
         claimNone: 'Keine öffentliche vergleichende Aussage',
+        claimPolicy: "Keine öffentliche vergleichende Aussage; Ausrichtung an der EU-Politik (Q4 = D): Prüfung durch ein unabhängiges Panel, Entscheidung von T4.6",
         scope_continental: 'kontinental',
         scope_sub_national: 'subnational',
         scope_national: 'national',
@@ -785,6 +786,8 @@ const de: Locale = {
         horizonFutureYear: 'das System wird in einem zukünftigen Jahr betrieben',
         label: 'Warum:',
         lccC2: 'strikte Bilanzierung eines einzelnen Unternehmens: nur Kosten auf Unternehmensebene',
+        referenceC2: "strikte Bilanzierung eines einzelnen Unternehmens: Allokation, keine Gutschrift für das, was die Symbiose ersetzt (D4.1 §7.2.3)",
+        claimPolicy: "die Ergebnisse sollen die Ausrichtung an der EU-Politik stützen (Q4 = D)",
         lccNoLca: 'keine Umweltdimension: keine ökologische LCC abzugleichen',
         lccPolicy: 'Sie haben angegeben, dass die Studie einem öffentlichen Ziel dient (Q10)',
         lccPolicyInferred: 'aus Q1 abgeleitet, da Q10 nicht beantwortet ist',
@@ -1127,6 +1130,7 @@ const de: Locale = {
     compliance: {
       peerReview: 'Unabhängige Begutachtung: {{status}}',
       pef: 'EU-PEF-Ausrichtung (Q4=D): {{status}}',
+      pefC2: "EU-PEF-Ausrichtung (Q4=D): nicht angewandt, der Bericht eines Unternehmens nutzt Allokation statt der Circular Footprint Formula (ILCD-Situation C2)",
       publicClaim: 'Öffentlicher Überlegenheitsanspruch (Q4=C): {{status}}',
     },
   },

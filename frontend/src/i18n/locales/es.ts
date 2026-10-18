@@ -91,7 +91,7 @@ const es: Locale = {
     complianceTitle: 'Señales de cumplimiento',
     compliance: {
       peer: { name: 'Peer-review', desc: 'Q4 = E · ISO 14044' },
-      pef: { name: 'Alineación EU PEF', desc: 'Q4 = D · Circular Footprint Formula' },
+      pef: { name: 'Alineación EU PEF', desc: 'Q4 = D · Circular Footprint Formula', descC2: "Q4 = D · CFF no aplicada: el informe de una empresa usa asignación (ILCD C2)" },
       public: { name: 'Afirmación pública', desc: 'Q4 = C · panel ISO obligatorio' },
       dnsh: { name: 'Verificación DNSH', desc: 'EU Taxonomy art. 17' },
     },
@@ -757,6 +757,7 @@ const es: Locale = {
       values: {
         claim: 'Declaración comparativa al público: revisión crítica por un panel de al menos tres expertos independientes, sin ponderación',
         claimNone: 'Sin declaración comparativa pública',
+        claimPolicy: "Sin declaración comparativa pública; alineación con las políticas de la UE (Q4 = D): revisión por un panel independiente, elección de T4.6",
         scope_continental: 'continental',
         scope_sub_national: 'subnacional',
         scope_national: 'nacional',
@@ -785,6 +786,8 @@ const es: Locale = {
         horizonFutureYear: 'el sistema opera en un año futuro',
         label: 'Por qué:',
         lccC2: 'informe estricto de una sola empresa: solo costes a nivel de empresa',
+        referenceC2: "informe estricto de una sola empresa: asignación, ningún crédito por lo que la simbiosis sustituye (D4.1 §7.2.3)",
+        claimPolicy: "los resultados respaldarán la alineación con las políticas de la UE (Q4 = D)",
         lccNoLca: 'sin dimensión ambiental: no hay ACC ambiental que alinear',
         lccPolicy: 'has respondido que el estudio sirve a un objetivo público (Q10)',
         lccPolicyInferred: 'deducido de Q1, porque Q10 no tiene respuesta',
@@ -1127,6 +1130,7 @@ const es: Locale = {
     compliance: {
       peerReview: 'Revisión independiente por pares: {{status}}',
       pef: 'Alineación EU PEF (Q4=D): {{status}}',
+      pefC2: "Alineación EU PEF (Q4=D): no aplicada, el informe de una empresa usa asignación y no la Circular Footprint Formula (Situación ILCD C2)",
       publicClaim: 'Afirmación pública (Q4=C): {{status}}',
     },
   },

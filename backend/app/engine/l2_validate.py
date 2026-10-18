@@ -519,11 +519,14 @@ def _action_cir_05(c: Case) -> None:
     if c.ilcd_situation != IlcdSituation.SITUATION_C2:
         # strict accounting of one partner: allocation, no substitution credits (D4.1 §7.2.3)
         _write_unless_set(c, "lca.allocation_method", "pef_cff")
-    if c.q3.env:
-        # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
-        _write_unless_set(c, "lcc.externality_monetization", "CE_Delft_EU")
-    _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice kept on 2026-10-04, "
-                      "since D4.2 ties the NTF to the S-LCC (§2.2)")
+    # a company-level LCC keeps to the firm's own cash flows: no monetised
+    # externalities, no Net Tax Factor (D4.2 §11.2, §2.2; review 2026-10-18)
+    if c.lcc_type != LccType.C_LCC_ONLY:
+        if c.q3.env:
+            # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
+            _write_unless_set(c, "lcc.externality_monetization", "CE_Delft_EU")
+        _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice kept on 2026-10-04, "
+                          "since D4.2 ties the NTF to the S-LCC (§2.2)")
     # the EF method replaces the per-category choice of lca_mc_25, not the
     # regionalised characterisation that follows Q7 (D4.1 §12.3.3; review 2026-10-18)
     _write_unless_set(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")

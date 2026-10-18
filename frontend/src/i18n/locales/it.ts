@@ -100,7 +100,7 @@ const it: Locale = {
     complianceTitle: 'Segnali di compliance',
     compliance: {
       peer: { name: 'Claim peer-review', desc: 'Q4 = E · idoneità revisore ISO 14044' },
-      pef: { name: 'Allineamento EU PEF', desc: 'Q4 = D · Circular Footprint Formula' },
+      pef: { name: 'Allineamento EU PEF', desc: 'Q4 = D · Circular Footprint Formula', descC2: "Q4 = D · CFF non applicata: il rendiconto di un'azienda usa l'allocazione (ILCD C2)" },
       public: { name: 'Claim pubblico di superiorità', desc: 'Q4 = C · panel ISO obbligatorio' },
       dnsh: { name: 'Verifica DNSH', desc: 'Do No Significant Harm · EU Taxonomy art. 17' },
     },
@@ -783,6 +783,7 @@ const it: Locale = {
       values: {
         claim: 'Dichiarazione comparativa al pubblico: revisione critica di un panel di almeno tre esperti indipendenti, niente pesatura',
         claimNone: 'Nessuna dichiarazione comparativa pubblica',
+        claimPolicy: "Nessuna dichiarazione comparativa pubblica; allineamento alle politiche UE (Q4 = D): revisione di un panel indipendente, scelta T4.6",
         scope_continental: 'continentale',
         scope_sub_national: 'sub-nazionale',
         scope_national: 'nazionale',
@@ -811,6 +812,8 @@ const it: Locale = {
         horizonFutureYear: 'il sistema opera in un anno futuro',
         label: 'Perché:',
         lccC2: 'rendiconto rigoroso di una sola azienda: solo costi a livello d\'impresa',
+        referenceC2: "rendiconto rigoroso di una sola azienda: allocazione, nessun credito per ciò che la simbiosi sostituisce (D4.1 §7.2.3)",
+        claimPolicy: "i risultati sosterranno l'allineamento alle politiche UE (Q4 = D)",
         lccNoLca: 'senza dimensione ambientale: nessun LCC ambientale da allineare',
         lccPolicy: 'hai risposto che lo studio serve un obiettivo pubblico (Q10)',
         lccPolicyInferred: 'letto da Q1, perché Q10 non ha risposta',
@@ -1153,6 +1156,7 @@ const it: Locale = {
     compliance: {
       peerReview: 'Revisione indipendente fra pari: {{status}}',
       pef: 'Allineamento EU PEF (Q4=D): {{status}}',
+      pefC2: "Allineamento EU PEF (Q4=D): non applicato, il rendiconto di un'azienda usa l'allocazione e non la Circular Footprint Formula (Situazione ILCD C2)",
       publicClaim: 'Claim pubblico di superiorità (Q4=C): {{status}}',
     },
   },

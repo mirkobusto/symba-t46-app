@@ -235,12 +235,15 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
               })}
             </li>
             <li>
-              {t('stakeholder.compliance.pef', {
-                status:
-                  caseData.q4?.includes('D')
-                    ? t('common.yes')
-                    : t('common.no'),
-              })}
+              {/* one company's accounts (C2) use allocation, not the CFF (D4.1 §7.2.3) */}
+              {caseData.q4?.includes('D') && caseData.ilcd_situation === 'ILCD Situation C2'
+                ? t('stakeholder.compliance.pefC2')
+                : t('stakeholder.compliance.pef', {
+                  status:
+                    caseData.q4?.includes('D')
+                      ? t('common.yes')
+                      : t('common.no'),
+                })}
             </li>
             <li>
               {t('stakeholder.compliance.publicClaim', {

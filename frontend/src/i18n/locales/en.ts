@@ -61,7 +61,7 @@ const en = {
     complianceTitle: 'Compliance signals',
     compliance: {
       peer: { name: 'Peer-review claim', desc: 'Q4 = E · ISO 14044 reviewer eligibility' },
-      pef: { name: 'EU PEF alignment', desc: 'Q4 = D · Circular Footprint Formula' },
+      pef: { name: 'EU PEF alignment', desc: 'Q4 = D · Circular Footprint Formula', descC2: "Q4 = D · CFF not applied: one company's accounts use allocation (ILCD C2)" },
       public: { name: 'Public superiority claim', desc: 'Q4 = C · mandatory ISO panel review' },
       dnsh: { name: 'DNSH check', desc: 'Do No Significant Harm · EU Taxonomy art. 17' },
     },
@@ -805,6 +805,7 @@ const en = {
       values: {
         claim: 'Comparative claim to the public: critical review by a panel of at least three independent experts, no weighting',
         claimNone: 'No public comparative claim',
+        claimPolicy: "No public comparative claim; EU policy alignment (Q4 = D): independent panel review, a T4.6 choice",
         scope_continental: 'continental',
         scope_sub_national: 'sub-national',
         scope_national: 'national',
@@ -833,6 +834,8 @@ const en = {
         horizonFutureYear: 'the system operates in a future year',
         label: 'Why:',
         lccC2: 'strict reporting of one company: company-level costing only',
+        referenceC2: "strict reporting of one company: allocation, no credit for what the symbiosis displaces (D4.1 §7.2.3)",
+        claimPolicy: "the results will support EU policy alignment (Q4 = D)",
         lccNoLca: 'no environmental dimension: no environmental LCC to align',
         lccPolicy: 'you answered that the study serves a public objective (Q10)',
         lccPolicyInferred: 'read off Q1, since Q10 is not answered',
@@ -1174,6 +1177,7 @@ const en = {
     compliance: {
       peerReview: 'Independent peer review: {{status}}',
       pef: 'EU PEF alignment (Q4=D): {{status}}',
+      pefC2: "EU PEF alignment (Q4=D): not applied, one company's accounts use allocation instead of the Circular Footprint Formula (ILCD Situation C2)",
       publicClaim: 'Public superiority claim (Q4=C): {{status}}',
     },
   },

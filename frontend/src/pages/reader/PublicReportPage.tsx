@@ -154,8 +154,10 @@ export default function PublicReportPage() {
               {
                 key: 'pef',
                 name: t('reader.compliance.pef.name'),
-                desc: t('reader.compliance.pef.desc'),
-                status: c.q4?.includes('D') ? 'ok' : 'no',
+                // one company's accounts (C2) use allocation, not the CFF (D4.1 §7.2.3)
+                desc: t(c.q4?.includes('D') && c.ilcd_situation === 'ILCD Situation C2'
+                  ? 'reader.compliance.pef.descC2' : 'reader.compliance.pef.desc'),
+                status: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2' ? 'ok' : 'no',
               },
               {
                 key: 'public',

@@ -105,6 +105,9 @@ export default function QuestionnairePage() {
   const [decisionContext, setDecisionContext] = useState<DecisionContext | ''>(
     draft.decision_context ?? '',
   )
+  // one company's accounts (Situation C2): no counterfactual and no reference
+  // market to ask, allocation and no substitution credits (D4.1 §7.2.3)
+  const oneCompany = decisionContext === 'corporate_report'
   const [screening, setScreening] = useState<'' | 'yes' | 'no'>(
     draft.market_screening_documented == null ? '' : draft.market_screening_documented ? 'yes' : 'no',
   )
@@ -191,15 +194,15 @@ export default function QuestionnairePage() {
     patchDraft({
       study_purpose: purpose || null,
       q1, q2,
-      network_long_standing: q2 === 'A' && longStanding !== '' ? longStanding === 'yes' : null,
+      network_long_standing: q2 === 'A' && !oneCompany && longStanding !== '' ? longStanding === 'yes' : null,
       q3: { env, eco, soc },
       q4: Array.from(q4),
       q5: undefined,
       flows,
       alternative_scenarios: scenarios,
       q6a, q6b, q7,
-      reference_market_region: marketRegion.trim() || null,
-      reference_market_scope: marketScope || null,
+      reference_market_region: oneCompany ? null : marketRegion.trim() || null,
+      reference_market_scope: oneCompany ? null : marketScope || null,
       operating_start: operatingStart || null,
       operating_start_year: operatingStart === 'future' ? parseYear(startYear) : null,
       analysis_period_years: parseYears(analysisPeriod),
@@ -387,7 +390,7 @@ export default function QuestionnairePage() {
             <span className="opt-desc">{t(`questionnaire.q2.options.${v}.description`)}</span>
           </label>
         ))}
-        {q2 === 'A' && (
+        {q2 === 'A' && !oneCompany && (
           <>
             <p className="opt-label">{t('questionnaire.q2.longStanding.label')}</p>
             {(['yes', 'no'] as const).map((k) => (
@@ -581,29 +584,34 @@ export default function QuestionnairePage() {
             <span className="opt-desc">{t(`questionnaire.q7.options.${v}.description`)}</span>
           </label>
         ))}
-        {/* Q7b — the market the reference (displaced) products come from (D4.1 §11.3.1) */}
-        <p className="opt-label">{t('questionnaire.q7.market.label')}</p>
-        <p className="opt-desc">{t('questionnaire.q7.market.help')}</p>
-        <label className="qnum">
-          <input
-            type="text" name="q7-market-region" maxLength={120}
-            className="qnum-input qtext-input" data-field="reference-market-region"
-            aria-label={t('questionnaire.q7.market.region')}
-            value={marketRegion}
-            placeholder={t('questionnaire.q7.market.regionPlaceholder')}
-            onChange={(e) => setMarketRegion(e.target.value)}
-          />
-        </label>
-        {(['', ...MARKET_SCOPES] as const).map((k) => (
-          <label key={k || 'unset'} className="opt opt-single">
-            <input
-              type="radio" name="q7-market-scope" value={k}
-              checked={marketScope === k}
-              onChange={() => setMarketScope(k)}
-            />
-            <span className="opt-label">{t(`questionnaire.q7.market.scope.${k || 'unset'}`)}</span>
-          </label>
-        ))}
+        {/* Q7b — the market the reference (displaced) products come from (D4.1 §11.3.1);
+            not asked for one company's accounts (C2) */}
+        {!oneCompany && (
+          <>
+            <p className="opt-label">{t('questionnaire.q7.market.label')}</p>
+            <p className="opt-desc">{t('questionnaire.q7.market.help')}</p>
+            <label className="qnum">
+              <input
+                type="text" name="q7-market-region" maxLength={120}
+                className="qnum-input qtext-input" data-field="reference-market-region"
+                aria-label={t('questionnaire.q7.market.region')}
+                value={marketRegion}
+                placeholder={t('questionnaire.q7.market.regionPlaceholder')}
+                onChange={(e) => setMarketRegion(e.target.value)}
+              />
+            </label>
+            {(['', ...MARKET_SCOPES] as const).map((k) => (
+              <label key={k || 'unset'} className="opt opt-single">
+                <input
+                  type="radio" name="q7-market-scope" value={k}
+                  checked={marketScope === k}
+                  onChange={() => setMarketScope(k)}
+                />
+                <span className="opt-label">{t(`questionnaire.q7.market.scope.${k || 'unset'}`)}</span>
+              </label>
+            ))}
+          </>
+        )}
       </QuestionCard>
 
       {/* Q12 — optional, with LCA or LCC: new dedicated shared assets (D4.2 §4.2, D4.1 §6.3.3) */}

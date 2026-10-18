@@ -57,4 +57,13 @@ describe('Questionnaire Q7 — interactions and reference market', () => {
     expect(bodies[0].reference_market_region).toBeNull()
     expect(bodies[0].reference_market_scope).toBeNull()
   })
+
+  it("does not ask the reference market for one company's accounts (C2)", async () => {
+    fireEvent.change(document.querySelector('input[name="q7-market-region"]')!, { target: { value: 'Italy' } })
+    fireEvent.click(document.querySelector('section[aria-labelledby="q9-title"] input[value="corporate_report"]')!)
+    expect(document.querySelector('input[name="q7-market-region"]')).toBeNull()
+    run()
+    await waitFor(() => expect(bodies.length).toBe(1))
+    expect(bodies[0].reference_market_region).toBeNull()
+  })
 })

@@ -115,7 +115,7 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
       key: 'reference',
       label: label('reference'),
       value: t('result.config.values.reference_c2'),
-      why: t('result.config.why.lccC2'),
+      why: t('result.config.why.referenceC2'),
       nodeText: texts(lca['reference_scenario.content']),
     })
   } else if (env && kase.q2) {
@@ -157,14 +157,18 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
   }
 
   if (kase.q4 !== undefined) {
-    // not gated on the LCA: lca_mc_36 and IR-18 follow Q4 alone
+    // not gated on the LCA: lca_mc_36 and IR-18 follow Q4 alone; Q4 = D also
+    // asks the panel review (lca_mc_36, a T4.6 choice) but forbids no weighting
     const claim = (kase.q4 ?? []).includes('C')
+    const policy = !claim && (kase.q4 ?? []).includes('D')
     rows.push({
       key: 'claim',
       label: label('claim'),
-      value: t(claim ? 'result.config.values.claim' : 'result.config.values.claimNone'),
-      why: claim ? t('result.config.why.claim') : undefined,
-      nodeText: claim ? texts((kase.review ?? {})['scope'], lca['weighting_policy']) : [],
+      value: t(claim ? 'result.config.values.claim'
+        : policy ? 'result.config.values.claimPolicy' : 'result.config.values.claimNone'),
+      why: claim ? t('result.config.why.claim') : policy ? t('result.config.why.claimPolicy') : undefined,
+      nodeText: claim ? texts((kase.review ?? {})['scope'], lca['weighting_policy'])
+        : policy ? texts((kase.review ?? {})['scope']) : [],
     })
   }
 

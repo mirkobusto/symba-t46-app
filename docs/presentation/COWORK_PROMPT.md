@@ -23,7 +23,7 @@ yellow rule, EU footer "Funded by the European Union" + GA 101135562 on every sl
 1. **Title** — SYMBA T4.6, Monitoring & Reporting System for Industrial Symbiosis; configures IS
    studies on the variables of D4.1 and D4.2; computes no LCA/LCC numbers.
 2. **The problem** — the set-up is fixed before any number: ILCD situation (D4.1 Table 1), reference
-   scenario (§11.1), one horizon (D4.2 §11), societal LCC (D4.2 §2.2-2.3), functional unit (Part 2).
+   scenario (D4.1 §11.1), one horizon (D4.2 §11), societal LCC (D4.2 §2.2-2.3), functional unit (Part 2).
 3. **The questions are the deliverables' variables** — three parts: the study (Q0, Q1, Q3, Q9, Q2,
    Q8, Q6b, Q10, Q4, Q11), the exchanges (Q5, Q7 + Q7b, Q12), description (Q6a).
 4. **The engine** — L0 derived states → L1 blocks → activate nodes → Part 2 sector rules → L2
@@ -33,7 +33,7 @@ yellow rule, EU footer "Funded by the European Union" + GA 101135562 on every sl
 6. **What to do next** — decision points, obligations by family (documented, not errors), Data
    Collection File, case report, four audience views, five languages.
 7. **Validation and status** — 8 real cases, 69 choice points, 63 agree / 6 differ (all documented);
-   Part 2 chapter per flow 37/53; 826 + 185 tests; online in team preview; CIRCE scoring spec open.
+   Part 2 chapter per flow 37/53; 826 + 187 tests; online in team preview; CIRCE scoring spec open.
 
 Do not use "pathways", "IS-01…IS-05", "seven questions" or "violations": that design was retired on
 2026-10-18. Do not alter numbers. One key message per slide.

@@ -60,8 +60,8 @@ The rest is optional, and when it is missing the engine applies the general rule
 - Q3, the dimensions: environmental, economic, social.
 - Q9 decides the ILCD situation, as in D4.1 Table 1. Effects that stay in the plants involved:
   Situation A. Effects that change what a market produces: Situation B, but only with a documented
-  market screening of about one per cent of new capacity, D4.1 §11.3.1; otherwise A, with B as a
-  sensitivity. Documenting an existing network: C1. Strict reporting of one company: C2.
+  market screening of about one per cent of new capacity, D4.1 §11.3.1; if the screening is
+  denied, A with B as a sensitivity; if it is not stated, B with a note asking for it. Documenting an existing network: C1. Strict reporting of one company: C2.
 - Q2 asks whether the exchanges the study measures already take place. Yes: the hypothetical reference
   scenario, HNSRS, what each firm would do today without the links. Not yet: the current
   non-symbiotic scenario over the study horizon, CNSRS, D4.1 §11.1. A follow-up for long-standing
@@ -137,10 +137,10 @@ The result page leads with the ILCD situation and the rows of "Your configuratio
 - **Reference scenario**: HNSRS, modern counterfactual or CNSRS, with the market from Q7b.
 - **Functional unit**: function-oriented by default, input-based, output-based, or a system.
 - **Local impacts**: site-specific, regional, or per territory of emission.
-- **Sector rules**: the Part 2 chapters, with the flows that open them.
-- **Shared assets**: CAPEX and OPEX shared among the partners that use them.
 - **Public claim**: with Q4 = C, a critical review by a panel of at least three independent experts and no
   weighting; otherwise none.
+- **Sector rules**: the Part 2 chapters, with the flows that open them.
+- **Shared assets**: CAPEX and OPEX shared among the partners that use them.
 
 Each row says why. Opening a row shows the engine's text in English with the section of the
 deliverable it comes from, so a reviewer can check every value against D4.1 or D4.2.
@@ -176,7 +176,7 @@ We ran the tool on **eight real cases** from the literature corpus.
   comparative claims; one paper with an ambiguous functional unit; one artefact of the verification
   script.
 - The Part 2 chapter of each flow matches in **37 of 53** flows.
-- The code carries **826 backend and 185 frontend** automated tests.
+- The code carries **826 backend and 187 frontend** automated tests.
 
 Status: the tool is online at biobasedisadvisor.symbaproject.eu, still under construction with a team
 preview. Open points: the input-output specification of the CIRCE scoring, the public opening, and the
@@ -203,7 +203,7 @@ Thank you. I am happy to take questions.
 | D4.1 Part 2 | 5 chapters (§4-§8), 64 rules, 26 typical configurations |
 | Future background threshold | 15 years, adjustable |
 | Validation | 8 cases; 69 choice points, 63 agree / 6 differ; Part 2 chapter per flow 37/53 |
-| Tests | 826 backend + 185 frontend |
+| Tests | 826 backend + 187 frontend |
 | Audience views | 4 (industry, community, authority, end user) |
 | Languages | 5 (EN, IT, FR, DE, ES) |
 | Deployment | biobasedisadvisor.symbaproject.eu (under construction, team preview) |

@@ -221,7 +221,7 @@ parts = [
         ("Q1", "Subject: describes the network form and boundary"),
         ("Q3", "Dimensions: environmental, economic, social"),
         ("Q9", "Decision and scale → ILCD A, B, C1, C2"),
-        ("Q2", "Exchanges already running? → HNSRS or CNSRS (§11.1)"),
+        ("Q2", "Exchanges already running? → HNSRS or CNSRS (D4.1 §11.1)"),
         ("Q8", "One horizon: operating year, analysis period, asset lifetime"),
         ("Q6b", "TRL of the key technology"),
         ("Q10", "Public objective or decision-maker → societal LCC"),
@@ -232,7 +232,7 @@ parts = [
         ("Q5", "Per flow: who pays whom, interdependence"),
         ("", "Optional per flow: sellable elsewhere, Part 2 sector, configuration"),
         ("Q7", "Concentration of key interactions → regionalised LCIA"),
-        ("Q7b", "Reference market: region and scope (§11.3.1)"),
+        ("Q7b", "Reference market: region and scope (D4.1 §11.3.1)"),
         ("Q12", "New dedicated shared assets → CAPEX/OPEX shared (D4.2 §4.2)"),
     ]),
     ("Description", [
@@ -256,8 +256,8 @@ picture(s, "02-questionnaire.png", Inches(8.6), Inches(1.8), Inches(4.25), Inche
 footer(s)
 notes(s, "Three parts. The study: Q9 decides the ILCD situation as in D4.1 Table 1: micro "
          "effects give A; structural effects give B only with a documented market screening "
-         "of about one per cent of new capacity (D4.1 §11.3.1), otherwise A with B as a "
-         "sensitivity; documenting a network gives C1; strict reporting of one company gives "
+         "of about one per cent of new capacity (D4.1 §11.3.1); if it is denied, A with B "
+         "as a sensitivity; documenting a network gives C1; strict reporting of one company gives "
          "C2. Q2: exchanges already running give the hypothetical reference HNSRS (each firm today "
          "without the links), not yet the current-situation CNSRS (D4.1 §11.1); a long-standing network gets a modern "
          "counterfactual (§11.2.2). Q8 sets one horizon for LCA and LCC; a future operating "
@@ -342,9 +342,9 @@ bullets(tf, [
     "Reference scenario: HNSRS, modern counterfactual, or CNSRS, plus market",
     "Functional unit: function-oriented, input-based, output-based, or system",
     "Local impacts: site-specific, regional, or per emission territory",
+    "Public claim: panel review, no weighting (Q4 = C)",
     "Sector rules: Part 2 chapters, with the flows that open them",
     "Shared assets: CAPEX and OPEX shared among partners",
-    "Public claim: panel review, no weighting (Q4 = C)",
 ], size=12.5, color=TEXTBLUE, space_after=5)
 green_box(s, Inches(6.8), Inches(5.45), Inches(6.0), Inches(1.1))
 tf = textbox(s, Inches(7.05), Inches(5.55), Inches(5.5), Inches(0.9), MSO_ANCHOR.MIDDLE)
@@ -398,7 +398,7 @@ columns = [
         "69 study-level choice points: 63 agree, 6 differ",
         "All 6 differences are documented, decided divergences",
         "Part 2 chapter per flow: 37 of 53",
-        "826 backend + 185 frontend automated tests",
+        "826 backend + 187 frontend automated tests",
     ]),
     ("Status", Inches(4.75), [
         "Online at biobasedisadvisor.symbaproject.eu, team preview",
@@ -426,7 +426,7 @@ notes(s, "We ran the tool on eight real cases from the literature corpus. On six
          "horizon in three cases, the rule on public comparative claims, one paper with an "
          "ambiguous functional unit, and one artefact of the verification script. For the "
          "Part 2 chapter of each flow the match is 37 of 53. The code carries 826 backend "
-         "and 185 frontend tests. The tool is online at biobasedisadvisor.symbaproject.eu, "
+         "and 187 frontend tests. The tool is online at biobasedisadvisor.symbaproject.eu, "
          "still in team preview. It computes no numbers: scoring comes from the partners, "
          "and the CIRCE input-output specification is the main open point, together with "
          "the public opening and the alignment with the revised D4.1 and D4.2. Thank you.")

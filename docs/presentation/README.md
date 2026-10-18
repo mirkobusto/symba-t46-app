@@ -16,7 +16,7 @@ describe a retired design.
 | `build_deck.py` | Generates an unbranded approximation of the same 7 slides |
 | `screenshots/` | UI captures embedded by `build_deck.py` (`01-home.png` … `05-about.png`) |
 
-The four text files and `build_deck.py` carry the same slides in the same order; change them together.
+The speaker track, the slide script, the prompt and `build_deck.py` carry the same slides in the same order (the theory document is the narrative they are cut from); change them together.
 
 ## Rebuild the deck
 

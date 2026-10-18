@@ -70,7 +70,7 @@ Three parts, numbered on screen; required: Q3, Q9, Q1, Q10 with LCC.
 - Q1 Subject: describes the network form and boundary
 - Q3 Dimensions: environmental, economic, social
 - Q9 Decision and scale → ILCD A, B, C1, C2
-- Q2 Exchanges already running? → HNSRS or CNSRS (§11.1)
+- Q2 Exchanges already running? → HNSRS or CNSRS (D4.1 §11.1)
 - Q8 One horizon: operating year, analysis period, asset lifetime
 - Q6b TRL of the key technology
 - Q10 Public objective or decision-maker → societal LCC
@@ -81,7 +81,7 @@ Three parts, numbered on screen; required: Q3, Q9, Q1, Q10 with LCC.
 - Q5 Per flow: who pays whom, interdependence
 - Optional per flow: sellable elsewhere, Part 2 sector, configuration
 - Q7 Concentration of key interactions → regionalised LCIA
-- Q7b Reference market: region and scope (§11.3.1)
+- Q7b Reference market: region and scope (D4.1 §11.3.1)
 - Q12 New dedicated shared assets → CAPEX/OPEX shared (D4.2 §4.2)
 
 **Column 3 — Description:**
@@ -147,9 +147,9 @@ Each row says what the answers decided, and why.
 - Reference scenario: HNSRS, modern counterfactual, or CNSRS, plus market
 - Functional unit: function-oriented, input-based, output-based, or system
 - Local impacts: site-specific, regional, or per emission territory
+- Public claim: panel review, no weighting (Q4 = C)
 - Sector rules: Part 2 chapters, with the flows that open them
 - Shared assets: CAPEX and OPEX shared among partners
-- Public claim: panel review, no weighting (Q4 = C)
 
 **Green box:**
 Open a row: the engine's text, in English, with its deliverable section.
@@ -207,7 +207,7 @@ Tested on 8 real cases from the literature corpus.
 - 69 study-level choice points: 63 agree, 6 differ
 - All 6 differences are documented, decided divergences
 - Part 2 chapter per flow: 37 of 53
-- 826 backend + 185 frontend automated tests
+- 826 backend + 187 frontend automated tests
 
 *Status*
 - Online at biobasedisadvisor.symbaproject.eu, team preview
@@ -226,7 +226,7 @@ points, sixty-three agree with what the authors did and six differ. All six are 
 decided and documented: the single study horizon in three cases, the rule on public comparative
 claims, one paper with an ambiguous functional unit, and one artefact of the verification script.
 For the Part 2 chapter of each flow the match is 37 of 53. The
-code carries 826 backend and 185 frontend tests. The tool is online at
+code carries 826 backend and 187 frontend tests. The tool is online at
 biobasedisadvisor.symbaproject.eu, still in team preview. It computes no numbers: scoring comes
 from the partners, and the CIRCE input-output specification is the main open point, together with
 the public opening and the alignment with the revised D4.1 and D4.2.
@@ -238,8 +238,8 @@ the public opening and the alignment with the revised D4.1 and D4.2.
 Questions Q0-Q12 in 3 parts (incl. Q6a/Q6b and Q7b; follow-ups Q2b, Q9b) · required: Q3, Q9,
 Q1, Q10 with LCC · 4 ILCD situations (A, B, C1, C2) · LCC types C+E, C+E+S, C+N, C+N+S, C-LCC only ·
 186 atomic nodes (LCA 59 / LCC 61 / S-LCA 66; 95 fielded + 91 procedural mandates) · 4 blocks ·
-40 L2 rules (18 IR + 10 CIR + 5 FU + 7 B) + IR-04/IR-10 at L3 · 3 rules retired (CIR-03, CIR-04,
+40 L2 rules (18 IR + 10 CIR + 5 FU + 7 B; 37 active) + IR-04/IR-10 at L3 · 3 rules retired (CIR-03, CIR-04,
 CIR-06) · 12 critical decision points · rule schema 58 entries (4 + 20 + 10 + 5 + 7 + 12) ·
 D4.1 Part 2: 5 chapters (§4-§8), 64 rules, 26 typical configurations · future-background threshold
 15 years (adjustable) · validation: 8 cases, 69 choice points, 63 agree / 6 differ; Part 2 chapter
-per flow 37/53 · tests: 826 backend + 185 frontend · 4 audience views · 5 languages.
+per flow 37/53 · tests: 826 backend + 187 frontend · 4 audience views · 5 languages.

@@ -153,7 +153,7 @@
       "id": "IR-06",
       "name": "Unified Data Governance",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3 has ≥2 dims active AND Q1∈{A,B,C,E} (R3, 2026-10-18: 'Q1 != D' read as 'not one company in isolation', Situation C2)",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company in isolation (ILCD Situation C2)",
       "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "governance.facilitator != null AND governance.ndas_signed == true",
       "fields": [
@@ -165,7 +165,8 @@
         "lcc_hc_03",
         "lca_mc_17"
       ],
-      "violation_message": "Multi-actor IS multi-dim assessments require facilitator + signed NDAs per IR-06."
+      "violation_message": "Multi-actor IS multi-dim assessments require facilitator + signed NDAs per IR-06.",
+      "review_note": "R3, 2026-10-18: was 'Q1 ∈ {A,B,C,E}'; Q1 describes the subject, and 'not Q1 = D' meant 'not one company in isolation'."
     },
     {
       "id": "IR-07",
@@ -459,7 +460,7 @@
       "id": "CIR-03",
       "name": "GIS-Coupled Spatial Modeling",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "RETIRED in R3 (2026-10-18): read attributes the case never had (I-17); covered by explicit transport with GIS or routing for every exchange (lca_mc_16, lca_mc_29, lca_hc_21). Former trigger: transport-sensitive exchanges (Q7 left on 2026-10-18: it is the concentration of the key interactions, not transport; the attribute is wired in R3)",
+      "trigger_condition_raw": "retired: never fires (former trigger: transport-sensitive exchanges (Q7 left on 2026-10-18: it is the concentration of the key interactions, not transport; the attribute is wired in R3))",
       "trigger_condition": "false",
       "actions": [
         "lca.spatial_coupling = 'GIS'",
@@ -470,20 +471,22 @@
         "lca_mc_29",
         "lcc_mc_14",
         "slca_hc_10"
-      ]
+      ],
+      "review_note": "RETIRED in R3 (2026-10-18): read attributes the case never had (I-17); covered by explicit transport with GIS or routing for every exchange (lca_mc_16, lca_mc_29, lca_hc_21)."
     },
     {
       "id": "CIR-04",
       "name": "Percolation Counterparty Risk",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "RETIRED in R3 (2026-10-18): read attributes the case never had (I-17); covered by percolation theory for every network that is not a bilateral exchange (lcc_mc_16). Former trigger: Q1=B AND network_nodes >= 3 AND interdependent_flows == true",
+      "trigger_condition_raw": "retired: never fires (former trigger: Q1=B AND network_nodes >= 3 AND interdependent_flows == true)",
       "trigger_condition": "false",
       "actions": [
         "lcc.counterparty_risk = 'percolation_theory'"
       ],
       "source_nodes": [
         "lcc_mc_16"
-      ]
+      ],
+      "review_note": "RETIRED in R3 (2026-10-18): read attributes the case never had (I-17); covered by percolation theory for every network that is not a bilateral exchange (lcc_mc_16)."
     },
     {
       "id": "CIR-05",
@@ -507,7 +510,7 @@
       "id": "CIR-06",
       "name": "Frontier Categories Cascade",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "RETIRED in R3 (2026-10-18): read attributes the case never had (I-17); covered by the frontier categories asked in every study (lca_hc_19, D4.1 §10.3.5). Former trigger: frontier_categories_active == true",
+      "trigger_condition_raw": "retired: never fires (former trigger: frontier_categories_active == true)",
       "trigger_condition": "false",
       "actions": [
         "lca.frontier_categories = active_set",
@@ -516,7 +519,8 @@
       ],
       "source_nodes": [
         "lca_hc_19"
-      ]
+      ],
+      "review_note": "RETIRED in R3 (2026-10-18): read attributes the case never had (I-17); covered by the frontier categories asked in every study (lca_hc_19, D4.1 §10.3.5)."
     },
     {
       "id": "CIR-07",
@@ -537,7 +541,7 @@
       "id": "CIR-08",
       "name": "Shared CAPEX Stakeholder Indicators",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "new dedicated shared assets (Q12) AND Q3.SOC (Q1 dropped in R3, 2026-10-18)",
+      "trigger_condition_raw": "new dedicated shared assets (Q12) AND Q3.SOC",
       "trigger_condition": "case.dedicated_shared_assets == true AND case.q3.soc == true",
       "actions": [
         "slca.indicators += stakeholder_group_indicators (if Q3.SOC active)"
@@ -545,7 +549,8 @@
       "source_nodes": [
         "lca_hc_18",
         "lcc_hc_07"
-      ]
+      ],
+      "review_note": "R3, 2026-10-18: Q1 ∈ {B,C} dropped (Q1 describes the subject)."
     },
     {
       "id": "CIR-09",
@@ -596,10 +601,10 @@
     },
     {
       "id": "FU-02",
-      "name": "System of Functional Units (Multi-Actor)",
+      "name": "System of Functional Units (co-primary functions)",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q11 = both functions co-primary (R3, 2026-10-18; was Q1 in {B, C} AND multi-actor, an attribute the case never had)",
-      "trigger_condition": "case.comparison_goal == 'co_primary'",
+      "trigger_condition_raw": "Q3.ENV AND Q11 = both functions co-primary",
+      "trigger_condition": "case.q3.env == true AND case.comparison_goal == 'co_primary'",
       "assertion": "lca.functional_unit == 'system-of-functional-units (SFU)'",
       "fields": [
         "lca.functional_unit"
@@ -609,7 +614,8 @@
         "lca_mc_04",
         "lca_mc_07"
       ],
-      "violation_message": "Multi-actor IS networks require System of Functional Units (SFU) for aggregation per FU-02."
+      "violation_message": "When the treatment service and the products are co-primary functions, the LCA requires a System of Functional Units (SFU) per FU-02.",
+      "review_note": "R3, 2026-10-18: was 'Q1 ∈ {B,C} AND multi-actor', an attribute the case never had (I-17); now follows Q11 like lca_mc_07."
     },
     {
       "id": "FU-03",

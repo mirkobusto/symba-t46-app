@@ -56,7 +56,8 @@ def test_ir_06_governance_follows_the_situation_not_q1():
 
 
 def test_fu_02_follows_the_co_primary_comparison():
-    assert _TRIGGER_FNS["FU-02"](Case(comparison_goal=ComparisonGoal.CO_PRIMARY)) is True
+    assert _TRIGGER_FNS["FU-02"](Case(q3=Q3(env=True), comparison_goal=ComparisonGoal.CO_PRIMARY)) is True
+    assert _TRIGGER_FNS["FU-02"](Case(q3=Q3(eco=True), comparison_goal=ComparisonGoal.CO_PRIMARY)) is False
     assert _TRIGGER_FNS["FU-02"](Case(q1=Q1.B, advanced={"multi_actor": True})) is False
 
 
@@ -71,3 +72,16 @@ def test_cir_02_writes_a_statement_where_no_node_writes():
     case = run(Case(q1=Q1.A, q2=Q2.B, q3=Q3(env=True, eco=True), decision_context="micro",
                     policy_objective=False))
     assert case.lcc["uncertainty.pedigree"].startswith("Pedigree Matrix")
+
+
+def test_obligation_cards_name_only_live_questions():
+    """trigger_condition_raw is shown on the obligation cards: no history in it."""
+    import json
+    from pathlib import Path
+    rules = json.loads((Path(__file__).resolve().parents[1] / "app/schemas/cross_method_rules.json").read_text())
+    for group in ("integration_rules", "conditional_integration_rules", "fu_rules", "boundary_rules"):
+        for rule in rules[group]:
+            if rule["trigger_condition"] == "false":
+                continue
+            raw = rule["trigger_condition_raw"]
+            assert "R3" not in raw and "was " not in raw and "dropped" not in raw, rule["id"]

@@ -74,7 +74,7 @@
       "set_by_cir": "CIR-05",
       "default_value_when_set": "EF_3.1",
       "trigger_summary": "Q4 includes 'D' (EU policy alignment)",
-      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default ('ReCiPe 2016 hierarchic + EF 3.1 backup') is set by lca_mc_25; CIR-05 overrides to 'EF_3.1' when Q4=D for PEF compliance. Read order at runtime: node default first, CIR override last."
+      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default ('ReCiPe 2016 hierarchic + EF 3.1 backup') is set by lca_mc_25; CIR-05 overrides to 'EF_3.1' when Q4=D for PEF compliance. Read order at runtime: node default first, CIR override last. | R3 (2026-10-18): a CIR action no longer writes over a node's value; it writes the field only when no node did."
     },
     {
       "field": "lcc.allocation",
@@ -130,7 +130,7 @@
       "set_by_cir": "CIR-07",
       "default_value_when_set": "Six-Tenths|Lang|CEPCI",
       "trigger_summary": "Q6b < TRL 7",
-      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default is set by lcc_hc_15 when Q6b<=TRL7; CIR-07 writes the D4.2 cost tools (Six-Tenths rule, Lang factors, CEPCI, D4.2 §7.3, L00877-L00881); the LCA gets the D4.1 inventory techniques instead (2026-10-15). Read order at runtime: node default first, CIR override last."
+      "notes": "DUAL-SOURCE FIELD (Mirko design call, field_gaps round 2): node default is set by lcc_hc_15 when Q6b<=TRL7; CIR-07 writes the D4.2 cost tools (Six-Tenths rule, Lang factors, CEPCI, D4.2 §7.3, L00877-L00881); the LCA gets the D4.1 inventory techniques instead (2026-10-15). Read order at runtime: node default first, CIR override last. | R3 (2026-10-18): a CIR action no longer writes over a node's value; it writes the field only when no node did."
     },
     {
       "field": "lca.report.failure_modes",
@@ -160,7 +160,11 @@
       "field": "case.iterative_update_triggers",
       "type": "array",
       "set_by_cir": "CIR-09",
-      "default_value_when_set": ["commissioning", "ramp_up", "contract_renewal"],
+      "default_value_when_set": [
+        "commissioning",
+        "ramp_up",
+        "contract_renewal"
+      ],
       "trigger_summary": "Q6b <= TRL 7 AND Q2 = B (ex-ante)",
       "notes": "Event triggers that activate the iterative update protocol on the case object. Distinct from other CIR outputs in that it lives under case.* prefix (not pillar-specific) because the protocol is case-level, not method-level. NOTE: this entry was added post-classification — Mirko's original Category C table listed 19 fields and missed CIR-09's action LHS; corrected here to reach ZERO unknown."
     }

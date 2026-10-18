@@ -162,8 +162,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'LCA Functional Unit must be function-oriented (LCA MC-07 authoritative) per FU-01.',
       },
       'FU-02': {
-        name: 'System of Functional Units (Multi-Actor)',
-        body: 'Multi-actor IS networks require System of Functional Units (SFU) for aggregation per FU-02.',
+        name: 'System of Functional Units (co-primary functions)',
+        body: 'When the treatment service and the products are co-primary functions, the LCA requires a System of Functional Units (SFU) per FU-02.',
       },
       'FU-03': {
         name: 'FE-FU Equality (LCA+LCC)',
@@ -414,8 +414,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'L\'unità funzionale dell\'LCA deve essere orientata alla funzione (fa fede il nodo LCA MC-07) (FU-01).',
       },
       'FU-02': {
-        name: 'Sistema di unità funzionali (più attori)',
-        body: 'Le reti di simbiosi con più attori richiedono un sistema di unità funzionali (SFU) per l\'aggregazione (FU-02).',
+        name: 'Sistema di unità funzionali (funzioni co-primarie)',
+        body: 'Quando il servizio di trattamento e i prodotti sono funzioni co-primarie, l\'LCA richiede un sistema di unità funzionali (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Uguaglianza FE-UF (LCA+LCC)',
@@ -666,8 +666,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'L\'unité fonctionnelle de la LCA doit être orientée fonction (le nœud LCA MC-07 fait foi) (FU-01).',
       },
       'FU-02': {
-        name: 'Système d\'unités fonctionnelles (multi-acteurs)',
-        body: 'Les réseaux de symbiose à plusieurs acteurs exigent un système d\'unités fonctionnelles (SFU) pour l\'agrégation (FU-02).',
+        name: 'Système d\'unités fonctionnelles (fonctions co-primaires)',
+        body: 'Quand le service de traitement et les produits sont des fonctions co-primaires, l\'ACV exige un système d\'unités fonctionnelles (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Égalité EF-UF (LCA+LCC)',
@@ -918,8 +918,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'Die funktionelle Einheit der LCA muss funktionsorientiert sein (maßgeblich ist der Knoten LCA MC-07) (FU-01).',
       },
       'FU-02': {
-        name: 'System funktioneller Einheiten (mehrere Akteure)',
-        body: 'Symbiosenetze mit mehreren Akteuren verlangen für die Aggregation ein System funktioneller Einheiten (SFU) (FU-02).',
+        name: 'System funktioneller Einheiten (gleichrangige Funktionen)',
+        body: 'Sind Behandlungsleistung und Produkte gleichrangige Funktionen, verlangt die Ökobilanz ein System funktioneller Einheiten (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Gleichheit von FE und funktioneller Einheit (LCA+LCC)',
@@ -1170,8 +1170,8 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         body: 'La unidad funcional del LCA debe estar orientada a la función (manda el nodo LCA MC-07) (FU-01).',
       },
       'FU-02': {
-        name: 'Sistema de unidades funcionales (varios actores)',
-        body: 'Las redes de simbiosis con varios actores exigen un sistema de unidades funcionales (SFU) para agregar (FU-02).',
+        name: 'Sistema de unidades funcionales (funciones coprimarias)',
+        body: 'Cuando el servicio de tratamiento y los productos son funciones coprimarias, el ACV exige un sistema de unidades funcionales (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Igualdad EF-UF (LCA+LCC)',

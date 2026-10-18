@@ -103,6 +103,12 @@ def _answer_for(case: Case, label: str) -> str | None:
         return ", ".join(sorted(q.value for q in case.q4)) or None
     if label == "Q5":
         return " · ".join(f"{f.name}: {f.q5.value}" for f in case.flows) or None
+    if label == "Q9":
+        return case.decision_context.value if case.decision_context else None
+    if label == "Q10":
+        return None if case.policy_objective is None else ("yes" if case.policy_objective else "no")
+    if label == "Q11":
+        return case.comparison_goal.value if case.comparison_goal else None
     if label == "Q12":
         value = case.dedicated_shared_assets
         return None if value is None else ("yes" if value else "no")

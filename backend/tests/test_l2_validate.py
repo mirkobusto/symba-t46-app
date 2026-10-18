@@ -235,12 +235,15 @@ def test_nlp_stubs_return_true(schemas):
 # ---------------------------------------------------------------------------
 
 
-def test_CIR_05_writes_pef_cff_when_q4_D(schemas):
+def test_CIR_05_writes_only_where_no_node_wrote(schemas):
+    """L2 alone, on a case that skipped activate: a path the pipeline never takes,
+    kept to show what the action supplies when no node wrote the field (R3,
+    2026-10-18). In the pipeline the Q4 = D node branches have written first."""
     case = _ready_case(q4={Q4.D})
     run(case, schemas)
     assert case.lca.get("allocation_method") == "pef_cff"
     assert case.lcc.get("externality_monetization") == "CE_Delft_EU"
-    assert case.lcc.get("allocation") == "NTF"
+    assert case.lcc.get("allocation").startswith("Net Tax Factor for EU policy alignment")
     assert case.lca.get("lcia_method").startswith("EF_3.1; regionalisation: ")
 
 
@@ -254,6 +257,8 @@ def test_CIR_05_monetises_externalities_only_with_an_lca(schemas):
 
 
 def test_CIR_07_writes_scale_up_framework_for_low_TRL(schemas):
+    """L2 alone (no activate): the lists the action supplies when no node wrote the
+    field; in the pipeline lca_mc_20 and lcc_hc_15 write the same tools in prose."""
     case = _ready_case(q6b=Q6b.TRL5_6)
     run(case, schemas)
     # LCA: D4.1 §9.3.5 inventory techniques; LCC: D4.2 §7.3 cost tools

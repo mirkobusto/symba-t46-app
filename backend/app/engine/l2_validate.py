@@ -176,7 +176,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     # --- FU (5) ---
     "FU-01": lambda c: c.q3.env,
     # rewired in R3: the system of functional units follows Q11 = both functions (lca_mc_07)
-    "FU-02": lambda c: c.comparison_goal == ComparisonGoal.CO_PRIMARY,
+    "FU-02": lambda c: c.q3.env and c.comparison_goal == ComparisonGoal.CO_PRIMARY,
     "FU-03": lambda c: c.q3.env and c.q3.eco,
     "FU-04": lambda c: c.q3.soc,
     "FU-05": lambda c: True,
@@ -522,7 +522,8 @@ def _action_cir_05(c: Case) -> None:
     if c.q3.env:
         # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
         _write_unless_set(c, "lcc.externality_monetization", "CE_Delft_EU")
-    _write_unless_set(c, "lcc.allocation", "NTF")
+    _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice kept on 2026-10-04, "
+                      "since D4.2 ties the NTF to the S-LCC (§2.2)")
     # the EF method replaces the per-category choice of lca_mc_25, not the
     # regionalised characterisation that follows Q7 (D4.1 §12.3.3; review 2026-10-18)
     _write_unless_set(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")
@@ -549,7 +550,8 @@ def _action_cir_07(c: Case) -> None:
 def _action_cir_08(c: Case) -> None:
     # TODO(symbolic-action): "+= stakeholder_group_indicators (if Q3.SOC)"
     if c.q3.soc:
-        _write_unless_set(c, "slca.indicators", "stakeholder_group_indicators")
+        _write_unless_set(c, "slca.indicators", "Indicators for the stakeholder groups that share the investment in "
+                          "the new dedicated assets (CIR-08)")
 
 
 def _action_cir_09(c: Case) -> None:

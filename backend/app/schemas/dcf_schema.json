@@ -778,7 +778,7 @@
           ],
           "required": false,
           "activation_predicate": "q2 == \"B\" or has_scenarios",
-          "source_ref": "lcc_mc_13"
+          "source_ref": "lcc_hc_23"
         },
         {
           "id": "infra.ownership",

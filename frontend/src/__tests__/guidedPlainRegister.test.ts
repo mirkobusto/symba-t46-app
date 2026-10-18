@@ -15,7 +15,7 @@ import itLocale from '../i18n/locales/it'
 const LOCALES = { en, it: itLocale, fr, de, es }
 
 const QUESTIONS = [
-  'q1', 'q2', 'q3', 'q4', 'q5', 'q6a', 'q6b', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12',
+  'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6a', 'q6b', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12',
 ] as const
 
 type Q = (typeof QUESTIONS)[number]

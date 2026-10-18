@@ -286,7 +286,7 @@ const es: Locale = {
     p1:
       "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de diez preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
     p2:
-      'El cuestionario (Q1-Q12; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
+      'El cuestionario (Q0-Q12; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:
       'La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
   },
@@ -311,6 +311,22 @@ const es: Locale = {
     confirmReset: '¿Descartar todas las respuestas y empezar de nuevo? No se puede deshacer.',
     q1Required: 'Q1 es obligatoria.',
     shortcutTip: 'Tip: Ctrl/⌘+Enter para ejecutar',
+
+    q0: {
+      title: 'Q0 — ¿Qué tipo de estudio es?',
+      help: 'Opcional. La finalidad del estudio, tal como la D4.1 pide declararla en el objetivo. Por sí sola no cambia nada: el motor solo señala las respuestas que no encajan con ella.',
+      details: 'La D4.1 §4.3.2 pide clasificar el objetivo según una tipología consolidada de simbiosis. Análisis evalúa una red existente para entender su desempeño; Mejora identifica los puntos críticos de una red existente para optimizarla; Ampliación evalúa los impactos de añadir un nuevo socio o intercambio; Diseño compara opciones tecnológicas y logísticas para una red nueva, planificada; Reestructuración evalúa una reconfiguración importante de una red consolidada. La tipología procede de Mattila et al. (2012), para quienes «restructuring» es la reestructuración hacia economías circulares; la D4.1 la atribuye a otra fuente, punto en revisión. La respuesta va en la carta metodológica, el informe y el Data Collection File; cómo se modela el estudio lo siguen decidiendo las preguntas siguientes.',
+      options: {
+        unset: { label: 'Sin respuesta' },
+        analysis: { label: 'Análisis', description: 'Evaluar una red existente para entender su desempeño.' },
+        improvement: { label: 'Mejora', description: 'Encontrar los puntos críticos de una red existente para optimizarla.' },
+        expansion: { label: 'Ampliación', description: 'Evaluar los impactos de añadir un nuevo socio o intercambio.' },
+        design: { label: 'Diseño', description: 'Comparar opciones tecnológicas y logísticas para una red nueva, planificada.' },
+        restructuring: { label: 'Reestructuración', description: 'Evaluar una reconfiguración importante de una red consolidada.' },
+      },
+      plain:
+        'Di para qué sirve el estudio: entender cómo funciona una red existente, encontrar dónde puede mejorar, añadir un socio o un intercambio, diseñar una red nueva o replantear una consolidada. La respuesta queda registrada con el estudio y ayuda a detectar respuestas que no encajan entre sí; por sí sola no cambia el método.',
+    },
 
     q1: {
       title: 'Q1 — ¿Qué estás analizando? *',
@@ -725,6 +741,15 @@ const es: Locale = {
   result: {
     notes: { title: 'Notas sobre tus respuestas' },
     engineNotes: {
+      study_purpose_vs_q2: {
+        analysis: "Finalidad del estudio: el estudio evalúa una red existente, pero Q2 dice que los intercambios que mide todavía no tienen lugar. Comprueba las dos respuestas (D4.1 §4.3.2).",
+        improvement: "Finalidad del estudio: el estudio busca los puntos críticos de una red existente, pero Q2 dice que los intercambios que mide todavía no tienen lugar. Comprueba las dos respuestas (D4.1 §4.3.2).",
+        expansion: "Finalidad del estudio: el estudio evalúa un nuevo socio o intercambio, pero Q2 dice que los intercambios que mide ya tienen lugar; responde a Q2 sobre los nuevos. Comprueba las dos respuestas (D4.1 §4.3.2).",
+        design: "Finalidad del estudio: el estudio compara opciones para una red nueva, planificada, pero Q2 dice que los intercambios ya tienen lugar. Comprueba las dos respuestas (D4.1 §4.3.2).",
+        restructuring: "Finalidad del estudio: el estudio evalúa una reconfiguración importante, pero Q2 dice que los intercambios que mide ya tienen lugar; responde a Q2 sobre los reconfigurados. Comprueba las dos respuestas (D4.1 §4.3.2).",
+      },
+      expansion_reference: "Ampliación: el escenario de referencia (CNSRS) incluye los intercambios que ya funcionan; el nuevo socio o intercambio se evalúa frente a él (D4.1 §11.1).",
+      analysis_vs_structural: "Finalidad del estudio: el estudio evalúa una red existente, pero Q9 dice que apoya una decisión con consecuencias estructurales. Documentar lo que produce una red es la situación C1; comprueba Q9.",
       q9_unanswered: "Q9 no tiene respuesta, así que la situación ILCD (situación {{situation}}) se deduce de Q1, como en los casos guardados antes de que existiera Q9. Responde a Q9: la Tabla 1 de la D4.1 fija la situación según la decisión y la escala de sus consecuencias, no según el sujeto del estudio.",
       q10_unanswered: {
         yes: "Q10 no tiene respuesta, así que si el estudio sirve a un objetivo público se deduce de Q1: se añade el ACC societal, como en los casos guardados antes de que existiera Q10. Responde a Q10: la D4.2 §2.3 añade el ACC societal para un objetivo de política pública u ordenación o para un decisor público, sea cual sea el sujeto del estudio.",

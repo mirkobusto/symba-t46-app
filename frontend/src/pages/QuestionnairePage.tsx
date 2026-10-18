@@ -23,6 +23,7 @@ import type {
   ComparisonGoal,
   DecisionContext,
   ReferenceMarketScope,
+  StudyPurpose,
 } from '../types/api'
 
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
@@ -49,6 +50,7 @@ const Q6A_KEYS: Q6a[] = [
 const Q6B_KEYS: Q6b[] = ['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5']
 const Q7_KEYS: Q7[] = ['A', 'B', 'C']
 const MARKET_SCOPES: ReferenceMarketScope[] = ['national', 'sub_national', 'continental']
+const PURPOSES: StudyPurpose[] = ['analysis', 'improvement', 'expansion', 'design', 'restructuring']
 const DECISION_KEYS: DecisionContext[] = ['micro', 'structural', 'none', 'corporate_report']
 const COMPARISON_KEYS: ComparisonGoal[] = ['waste_treatment', 'product_substitution', 'co_primary']
 
@@ -82,6 +84,7 @@ export default function QuestionnairePage() {
   const error = useCaseStore((s) => s.error)
 
   const [q1, setQ1] = useState<Q1 | undefined>(draft.q1 ?? undefined)
+  const [purpose, setPurpose] = useState<StudyPurpose | ''>(draft.study_purpose ?? '')
   const [q2, setQ2] = useState<Q2 | undefined>(draft.q2 ?? undefined)
   const [longStanding, setLongStanding] = useState<'' | 'yes' | 'no'>(
     draft.network_long_standing == null ? '' : draft.network_long_standing ? 'yes' : 'no',
@@ -131,6 +134,7 @@ export default function QuestionnairePage() {
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     setQ1(draft.q1 ?? undefined)
+    setPurpose(draft.study_purpose ?? '')
     setQ2(draft.q2 ?? undefined)
     setLongStanding(draft.network_long_standing == null ? '' : draft.network_long_standing ? 'yes' : 'no')
     setEnv(draft.q3?.env ?? true)
@@ -181,10 +185,11 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, marketRegion, marketScope, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, sharedAssets, advanced])
+  }, [canRun, purpose, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, marketRegion, marketScope, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, sharedAssets, advanced])
 
   async function handleRun() {
     patchDraft({
+      study_purpose: purpose || null,
       q1, q2,
       network_long_standing: q2 === 'A' && longStanding !== '' ? longStanding === 'yes' : null,
       q3: { env, eco, soc },
@@ -214,6 +219,7 @@ export default function QuestionnairePage() {
   function handleReset() {
     if (window.confirm(t('questionnaire.confirmReset'))) {
       reset()
+      setPurpose('')
       setQ1(undefined); setQ2(undefined); setLongStanding('')
       setEnv(true); setEco(false); setSoc(false)
       setQ4(new Set()); setFlows([]); setScenarios([])
@@ -247,6 +253,27 @@ export default function QuestionnairePage() {
           <p>{t('questionnaire.guidedBannerBody')}</p>
         </div>
       ) : null}
+
+      {/* Q0 — optional: purpose of the study (D4.1 §4.3.2); it derives nothing */}
+      <QuestionCard
+        id="q0"
+        title={t('questionnaire.q0.title')}
+        help={t('questionnaire.q0.help')}
+        plain={t('questionnaire.q0.plain')}
+        details={t('questionnaire.q0.details')}
+      >
+        {(['', ...PURPOSES] as const).map((k) => (
+          <label key={k || 'unset'} className="opt">
+            <input
+              type="radio" name="q0" value={k}
+              checked={purpose === k}
+              onChange={() => setPurpose(k)}
+            />
+            <span className="opt-label">{t(`questionnaire.q0.options.${k || 'unset'}.label`)}</span>
+            {k ? <span className="opt-desc">{t(`questionnaire.q0.options.${k}.description`)}</span> : null}
+          </label>
+        ))}
+      </QuestionCard>
 
       {/* Q1 */}
       <QuestionCard

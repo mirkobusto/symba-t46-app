@@ -95,6 +95,8 @@ export interface DcfPayload {
   ilcd_situation: string | null
   lcc_type: string | null
   slca_activation_state: string | null
+  study_purpose?: string | null
+  reference_market?: string | null
   sections: DcfSection[]
   mandates_by_category: Record<string, DcfMandate[]>
   obligations: DcfObligation[]

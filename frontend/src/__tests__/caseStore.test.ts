@@ -47,6 +47,19 @@ describe('caseStore', () => {
     expect(withCurrentAnswers(null)).toBeNull()
   })
 
+  it('a draft with the old shared-assets key shows Q12 answered, as the backend reads it', () => {
+    expect(withCurrentAnswers({ advanced: { is_specific_capital_goods: 'true', asset_lifetime: 30 } }))
+      .toEqual({ advanced: { asset_lifetime: 30 }, dedicated_shared_assets: true })
+    // an explicit Q12 answer wins
+    expect(withCurrentAnswers({ advanced: { is_specific_capital_goods: true }, dedicated_shared_assets: false }))
+      .toEqual({ advanced: {}, dedicated_shared_assets: false })
+  })
+
+  it('a result in the retired Situation A multi-actor is read as Situation A', () => {
+    expect(withCurrentAnswers({ ilcd_situation: 'ILCD Situation A multi-actor' }))
+      .toEqual({ ilcd_situation: 'ILCD Situation A' })
+  })
+
   it('runDraft populates result on success', async () => {
     vi.stubGlobal(
       'fetch',

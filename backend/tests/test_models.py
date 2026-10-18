@@ -124,3 +124,9 @@ def test_case_with_flows_and_sites():
     assert len(case.flows) == 2
     assert len(case.sites) == 2
     assert case.flows[0].id == "f1"
+
+
+def test_a_stored_situation_a_multi_actor_is_read_as_situation_a():
+    """Retired on 2026-10-15 (not a D4.1 category): old results read as A."""
+    case = Case.model_validate({"q1": "B", "ilcd_situation": "ILCD Situation A multi-actor"})
+    assert case.ilcd_situation.value == "ILCD Situation A"

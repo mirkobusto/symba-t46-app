@@ -57,11 +57,26 @@ export interface CaseState {
 // Cases saved before 2026-10-18 may carry retired options, read as the backend
 // does (app/domain/models.py): Q2 C (design phase) and D (baseline plus
 // alternatives) as B, "not yet"; Q7 D (multi-scale programmes) as C.
-export function withCurrentAnswers<T extends { q2?: unknown; q7?: unknown } | null | undefined>(kase: T): T {
+export function withCurrentAnswers<T extends {
+  q2?: unknown; q7?: unknown; ilcd_situation?: unknown
+  advanced?: Record<string, unknown> | null; dedicated_shared_assets?: boolean | null
+} | null | undefined>(kase: T): T {
   if (!kase) return kase
   let out = kase
   if (out.q2 === 'C' || out.q2 === 'D') out = { ...out, q2: 'B' }
   if (out.q7 === 'D') out = { ...out, q7: 'C' }
+  // retired on 2026-10-15: not a D4.1 category (same reading as the backend)
+  if (out.ilcd_situation === 'ILCD Situation A multi-actor') out = { ...out, ilcd_situation: 'ILCD Situation A' }
+  // the old advanced key became Q12 (2026-10-18); converted once, as the backend does
+  if (out.advanced && 'is_specific_capital_goods' in out.advanced) {
+    const { is_specific_capital_goods: raw, ...rest } = out.advanced
+    const yes = raw === true || ['true', '1', 'yes'].includes(String(raw).trim().toLowerCase())
+    out = {
+      ...out,
+      advanced: rest,
+      dedicated_shared_assets: out.dedicated_shared_assets ?? yes,
+    }
+  }
   return out
 }
 
@@ -167,9 +182,10 @@ export const useCaseStore = create<CaseState>()(
     }),
     {
       name: 'symba-case-draft',
-      // v1 (2026-10-18): Q2 in two answers; v2: Q7 in three. Older drafts are read
-      // with withCurrentAnswers.
-      version: 2,
+      // v1 (2026-10-18): Q2 in two answers; v2: Q7 in three; v3: Q12 from the old
+      // advanced key, Situation A multi-actor retired. Older drafts are read with
+      // withCurrentAnswers.
+      version: 3,
       migrate: (persisted) => {
         const state = persisted as {
           draft?: Case

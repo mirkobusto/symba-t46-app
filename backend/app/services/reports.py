@@ -178,6 +178,8 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
 
     # ----- Section 4 — Q1-Q7 compilation -----
     doc.add_heading("4. Compilation of the seven user-facing tool questions", level=1)
+    if case.study_purpose is not None:
+        _add_kv(doc, "Q0 study purpose (D4.1 §4.3.2)", case.study_purpose.value)
     _add_kv(doc, "Q1 (IS scenario archetype)",
             case.q1.value if case.q1 else "(not set)")
     _add_kv(doc, "Q2 (exchanges already take place?)",

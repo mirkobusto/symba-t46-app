@@ -21,7 +21,7 @@ describe('Questionnaire Q8 — time horizon', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve({ pathway_id: 'IS-01' }),
+          json: () => Promise.resolve({ ilcd_situation: 'ILCD Situation A' }),
         } as Response)
       }),
     )
@@ -56,14 +56,14 @@ describe('Questionnaire Q8 — time horizon', () => {
     renderPage()
     const input = q8Input() as HTMLInputElement
     fireEvent.change(input, { target: { value: '25' } })
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].asset_lifetime_years).toBe(25)
   })
 
   it('sends null when left empty', async () => {
     renderPage()
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].asset_lifetime_years).toBeNull()
     expect(bodies[0].analysis_period_years).toBeNull()
@@ -77,7 +77,7 @@ describe('Questionnaire Q8 — time horizon', () => {
     fireEvent.click(document.querySelector('input[name="q8-start"][value="future"]')!)
     fireEvent.change(q8('operating-start-year')!, { target: { value: '2030' } })
     fireEvent.change(q8('analysis-period')!, { target: { value: '25' } })
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].operating_start).toBe('future')
     expect(bodies[0].operating_start_year).toBe(2030)
@@ -87,7 +87,7 @@ describe('Questionnaire Q8 — time horizon', () => {
   it('sends "now" without a year', async () => {
     renderPage()
     fireEvent.click(document.querySelector('input[name="q8-start"][value="now"]')!)
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].operating_start).toBe('now')
     expect(bodies[0].operating_start_year).toBeNull()

@@ -16,13 +16,6 @@ export default function VerdictDetails({ verdict }: { verdict: Verdict }) {
     <details className="dd-verdict-more">
       <summary>{t('result.verdict.moreInfo')}</summary>
 
-      {verdict.pathwayDetail ? (
-        <section className="dd-verdict-more-item">
-          <h4>{verdict.title}</h4>
-          <p>{verdict.pathwayDetail}</p>
-        </section>
-      ) : null}
-
       {verdict.details.map((item) => (
         <section key={item.code} className="dd-verdict-more-item">
           <h4>

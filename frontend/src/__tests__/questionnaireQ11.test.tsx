@@ -21,7 +21,7 @@ describe('Questionnaire Q11 — comparison goal', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve({ pathway_id: 'IS-01' }),
+          json: () => Promise.resolve({ ilcd_situation: 'ILCD Situation A' }),
         } as Response)
       }),
     )
@@ -37,7 +37,7 @@ describe('Questionnaire Q11 — comparison goal', () => {
 
   const radios = () =>
     Array.from(document.querySelectorAll<HTMLInputElement>('input[type="radio"][name="q11"]'))
-  const run = () => fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+  const run = () => fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
 
   it('offers the three goals and "not answered", unanswered by default', () => {
     expect(radios().map((r) => r.value)).toEqual(['', 'waste_treatment', 'product_substitution', 'co_primary'])

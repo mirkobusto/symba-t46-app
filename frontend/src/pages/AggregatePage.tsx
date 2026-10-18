@@ -1,7 +1,7 @@
 // AggregatePage — region/sector dashboard for the authority audience.
 //
 // Reads /api/cases/aggregate/breakdown and renders the totals + 4 breakdown
-// tables (by pathway / sector / scope / ILCD). MVP: no charts, just
+// tables (by ILCD situation / LCC structure / sector / scope). MVP: no charts, just
 // counts. Future: regional heatmap, time-series.
 
 import { useEffect, useState } from 'react'
@@ -114,8 +114,8 @@ export default function AggregatePage() {
           tone="info"
         />
         <KpiCard
-          label={t('aggregate.breakdownTitle.byPathway')}
-          value={data.by_pathway.length}
+          label={t('aggregate.breakdownTitle.byIlcd')}
+          value={data.by_ilcd_situation.length}
         />
         <KpiCard
           label={t('aggregate.breakdownTitle.bySector')}
@@ -129,8 +129,12 @@ export default function AggregatePage() {
 
       <div className="aggregate-breakdowns">
         <BreakdownTable
-          title={t('aggregate.breakdownTitle.byPathway')}
-          entries={data.by_pathway}
+          title={t('aggregate.breakdownTitle.byIlcd')}
+          entries={data.by_ilcd_situation}
+        />
+        <BreakdownTable
+          title={t('aggregate.breakdownTitle.byLccType')}
+          entries={data.by_lcc_type}
         />
         <BreakdownTable
           title={t('aggregate.breakdownTitle.bySector')}
@@ -139,10 +143,6 @@ export default function AggregatePage() {
         <BreakdownTable
           title={t('aggregate.breakdownTitle.byScope')}
           entries={data.by_q7_geographic_scope}
-        />
-        <BreakdownTable
-          title={t('aggregate.breakdownTitle.byIlcd')}
-          entries={data.by_ilcd_situation}
         />
       </div>
 

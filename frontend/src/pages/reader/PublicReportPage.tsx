@@ -4,7 +4,7 @@
 // /api/public/report/:caseId (no auth). Renders:
 //   - VerdictCard (reader variant, light)
 //   - Audience framing block
-//   - Pathway summary (dl)
+//   - Configuration summary (dl)
 //   - Scoring grid (env/eco/soc) or pending placeholder
 //   - Compliance checklist (only for `authority`)
 //
@@ -20,6 +20,7 @@ import ScoringIndicatorGrid from '../../components/dd/ScoringIndicatorGrid'
 import VerdictCard from '../../components/dd/VerdictCard'
 import { ApiError, fetchPublicReport } from '../../services/api'
 import type { PublicReportResponse } from '../../types/reader'
+import { verdictFor } from '../resultNarrative'
 
 type Audience = 'industry' | 'community' | 'authority' | 'enduser'
 
@@ -64,6 +65,7 @@ export default function PublicReportPage() {
   }
 
   const { case: c, scoring } = report
+  const verdict = verdictFor(c, (key, fallback) => t(key, { defaultValue: fallback ?? '' }))
   const scoringIndicators = (scoring?.indicators ?? []).map((i) => ({
     dim: i.dimension,
     label: i.label_en,
@@ -79,9 +81,9 @@ export default function PublicReportPage() {
 
       <VerdictCard
         variant="reader"
-        pathway={c.pathway_id ?? '—'}
-        extended={!!c.is_01_extended}
-        subtitle={[c.ilcd_situation, c.lcc_type].filter(Boolean).join(' · ')}
+        headline={verdict?.title ?? c.ilcd_situation ?? '—'}
+        codes={verdict?.codes}
+        body={verdict?.body}
         tags={[
           c.q6a ? `Q6a: ${c.q6a}` : undefined,
           c.q7 ? `Q7: ${c.q7}` : undefined,
@@ -116,8 +118,6 @@ export default function PublicReportPage() {
         <h2 className="dd-section-title">{t('reader.summaryTitle')}</h2>
         <div className="dd-card" style={{ marginTop: 8 }}>
           <dl className="dd-dl">
-            <dt>{t('reader.summary.pathway')}</dt>
-            <dd>{c.pathway_id ?? '—'} {c.is_01_extended ? <em>· extended</em> : null}</dd>
             <dt>{t('reader.summary.ilcd')}</dt>
             <dd>{c.ilcd_situation ?? '—'}</dd>
             <dt>{t('reader.summary.lcc')}</dt>

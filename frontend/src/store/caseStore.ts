@@ -87,7 +87,7 @@ export const useCaseStore = create<CaseState>()(
             type: 'success',
             message: i18n.t('toast.pipelineCompleted', {
               ms,
-              pathway: result.pathway_id ?? '—',
+              situation: result.ilcd_situation ?? '—',
             }),
           })
           return result

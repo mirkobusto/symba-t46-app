@@ -21,7 +21,7 @@ describe('Questionnaire Q10 — policy purpose', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve({ pathway_id: 'IS-01' }),
+          json: () => Promise.resolve({ ilcd_situation: 'ILCD Situation A' }),
         } as Response)
       }),
     )
@@ -42,7 +42,7 @@ describe('Questionnaire Q10 — policy purpose', () => {
     )
   const q10Pick = (value: string) =>
     fireEvent.click(q10Radios().find((r) => r.value === value)!)
-  const run = () => fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+  const run = () => fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
 
   it('offers yes, no and "not answered", unanswered by default', () => {
     expect(q10Radios().map((r) => r.value)).toEqual(['', 'yes', 'no'])

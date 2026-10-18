@@ -92,11 +92,9 @@ export interface DcfObligation {
 export interface DcfPayload {
   schema_version: string
   case_id: string
-  pathway_id: string | null
   ilcd_situation: string | null
   lcc_type: string | null
   slca_activation_state: string | null
-  is_01_extended: boolean
   sections: DcfSection[]
   mandates_by_category: Record<string, DcfMandate[]>
   obligations: DcfObligation[]

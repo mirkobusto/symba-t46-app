@@ -12,34 +12,30 @@ import en from '../i18n/locales/en'
 // is the guard: touch one side only and it fails here rather than in a
 // deliverable.
 describe('verdict wording stays in sync with the backend table', () => {
-  it('covers the same pathways, with the same text', () => {
-    expect(Object.keys(en.narrative.pathway).sort()).toEqual(
-      Object.keys(narrative.pathway).sort(),
-    )
-    for (const [id, entry] of Object.entries(narrative.pathway)) {
-      expect(en.narrative.pathway[id as keyof typeof en.narrative.pathway]).toEqual({
-        title: entry.title,
-        body: entry.body,
-        detail: entry.detail,
-      })
-    }
-    expect(en.narrative.extendedSuffix).toBe(narrative.extendedSuffix)
-  })
-
   it('covers the same ILCD situations, LCC types and S-LCA states', () => {
     for (const section of ['ilcd', 'lcc', 'slca'] as const) {
       const table = narrative[section] as Record<
         string,
-        { short: string; detail: string }
+        { title?: string; short: string; detail: string }
       >
       const locale = en.narrative[section] as Record<
         string,
-        { short: string; detail: string }
+        { title?: string; short: string; detail: string }
       >
       expect(Object.keys(locale).sort()).toEqual(Object.keys(table).sort())
       for (const [code, entry] of Object.entries(table)) {
-        expect(locale[code]).toEqual({ short: entry.short, detail: entry.detail })
+        // the ILCD situation is the headline of the verdict, so it has a title
+        const expected = entry.title
+          ? { title: entry.title, short: entry.short, detail: entry.detail }
+          : { short: entry.short, detail: entry.detail }
+        expect(locale[code]).toEqual(expected)
       }
+    }
+  })
+
+  it('every locale has a headline for every ILCD situation', () => {
+    for (const code of Object.keys(narrative.ilcd)) {
+      expect(en.narrative.ilcd[code as keyof typeof en.narrative.ilcd].title).toBeTruthy()
     }
   })
 

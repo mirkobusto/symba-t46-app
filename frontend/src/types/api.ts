@@ -35,11 +35,8 @@ export type Q6a =
 export type Q6b = 'TRL9' | 'TRL7-8' | 'TRL5-6' | 'TRL<5'
 export type Q7 = 'A' | 'B' | 'C' | 'D'
 
-export type PathwayId = 'IS-01' | 'IS-02' | 'IS-03' | 'IS-04' | 'IS-05'
-
 export type IlcdSituation =
   | 'ILCD Situation A'
-  | 'ILCD Situation A multi-actor'
   | 'ILCD Situation B'
   | 'ILCD Situation C1'
   | 'ILCD Situation C2'
@@ -108,7 +105,7 @@ export interface CaseSummary {
   id: string
   name: string
   slug?: string | null
-  pathway_id: string | null
+  ilcd_situation: string | null
   created_at: string
   updated_at: string
 }
@@ -117,7 +114,7 @@ export interface CaseDetail {
   id: string
   name: string
   slug?: string | null
-  pathway_id: string | null
+  ilcd_situation: string | null
   created_at: string
   updated_at: string
   case: Case
@@ -233,8 +230,6 @@ export interface Case {
   ilcd_situation?: IlcdSituation | null
   lcc_type?: LccType | null
   slca_activation_state?: SlcaActivationState | null
-  pathway_id?: PathwayId | null
-  is_01_extended?: boolean
 
   // Engine-written pillar configs (free-form dicts keyed by dotted-path tail)
   lca?: Record<string, unknown>

@@ -27,7 +27,7 @@ describe('runPipeline', () => {
 
   it('POSTs the case and returns the response body', async () => {
     const mock = vi.fn(() =>
-      Promise.resolve(okResponse({ pathway_id: 'IS-01' })),
+      Promise.resolve(okResponse({ ilcd_situation: 'ILCD Situation A' })),
     ) as unknown as typeof fetch
     vi.stubGlobal('fetch', mock)
     const result = await runPipeline({ q1: 'A' })
@@ -37,7 +37,7 @@ describe('runPipeline', () => {
     const [url, init] = calls[0] as [string, RequestInit]
     expect(String(url)).toContain('/api/pipeline/run')
     expect(init?.method).toBe('POST')
-    expect(result.pathway_id).toBe('IS-01')
+    expect(result.ilcd_situation).toBe('ILCD Situation A')
   })
 
   it('throws ApiError with detail on 400', async () => {

@@ -33,8 +33,8 @@ export interface AggregateBreakdownEntry {
 
 export interface CasesAggregate {
   total: number
-  by_pathway: AggregateBreakdownEntry[]
   by_q6a_sector: AggregateBreakdownEntry[]
   by_q7_geographic_scope: AggregateBreakdownEntry[]
   by_ilcd_situation: AggregateBreakdownEntry[]
+  by_lcc_type: AggregateBreakdownEntry[]
 }

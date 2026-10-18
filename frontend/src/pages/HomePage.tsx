@@ -42,13 +42,13 @@ export default function HomePage() {
   }, [])
 
   const total = cases.length
-  const byPathway = cases.reduce<Record<string, number>>((acc, c) => {
-    const k = c.pathway_id ?? 'unset'
+  const bySituation = cases.reduce<Record<string, number>>((acc, c) => {
+    const k = c.ilcd_situation ?? 'unset'
     acc[k] = (acc[k] ?? 0) + 1
     return acc
   }, {})
-  const uniquePathways = Object.keys(byPathway).filter((k) => k !== 'unset').length
-  const withPathway = total - (byPathway['unset'] ?? 0)
+  const situations = Object.keys(bySituation).filter((k) => k !== 'unset').length
+  const configured = total - (bySituation['unset'] ?? 0)
 
   function handleStart() {
     reset()
@@ -72,15 +72,15 @@ export default function HomePage() {
           detail={t('home.kpi.savedCasesDetail')}
         />
         <KpiCard
-          label={t('home.kpi.withPathway')}
-          value={withPathway}
-          detail={t('home.kpi.withPathwayDetail', { total })}
+          label={t('home.kpi.configured')}
+          value={configured}
+          detail={t('home.kpi.configuredDetail', { total })}
           tone="success"
         />
         <KpiCard
-          label={t('home.kpi.uniquePathways')}
-          value={uniquePathways}
-          detail={t('home.kpi.uniquePathwaysDetail')}
+          label={t('home.kpi.situations')}
+          value={situations}
+          detail={t('home.kpi.situationsDetail')}
         />
         <KpiCard
           label={t('home.kpi.language')}

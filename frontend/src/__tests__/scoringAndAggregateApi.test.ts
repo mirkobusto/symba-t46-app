@@ -83,16 +83,16 @@ describe('aggregate API', () => {
   it('fetchCasesAggregate returns the breakdown', async () => {
     const sample = {
       total: 3,
-      by_pathway: [{ key: 'IS-01', count: 2 }, { key: 'IS-02', count: 1 }],
+      by_ilcd_situation: [{ key: 'ILCD Situation A', count: 2 }, { key: 'ILCD Situation B', count: 1 }],
       by_q6a_sector: [],
       by_q7_geographic_scope: [],
-      by_ilcd_situation: [],
+      by_lcc_type: [],
     }
     const mock = vi.fn(() => Promise.resolve(ok(sample))) as unknown as typeof fetch
     vi.stubGlobal('fetch', mock)
 
     const result = await fetchCasesAggregate()
     expect(result.total).toBe(3)
-    expect(result.by_pathway[0].key).toBe('IS-01')
+    expect(result.by_ilcd_situation[0].key).toBe('ILCD Situation A')
   })
 })

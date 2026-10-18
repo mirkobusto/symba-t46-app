@@ -37,6 +37,7 @@ from app.domain.enums import (
     ReferenceMarketScope,
     SlcaActivationState,
     StudyPhase,
+    StudyPurpose,
 )
 
 # =============================================================================
@@ -171,7 +172,10 @@ class Case(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     study_phase: StudyPhase = StudyPhase.SCREENING
 
-    # --- User answers (Q1-Q7) ---
+    # --- User answers ---
+    # Q0 (optional) — purpose of the study, D4.1 §4.3.2 typology (Mattila et al.
+    # 2012). Derives nothing; notes in l0_compute when other answers do not fit.
+    study_purpose: StudyPurpose | None = None
     q1: Q1 | None = None
     q2: Q2 | None = None
     # Q2b (only with Q2 = A) — has the network run for many years, so that the

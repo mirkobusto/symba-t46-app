@@ -140,6 +140,9 @@ class DcfPayload(BaseModel):
     ilcd_situation: str | None = None
     lcc_type: str | None = None
     slca_activation_state: str | None = None
+    # charter answers shown on the cover (2026-10-18)
+    study_purpose: str | None = None
+    reference_market: str | None = None
 
     sections: list[DcfSection] = Field(default_factory=list)
     mandates_by_category: dict[str, list[DcfMandate]] = Field(default_factory=dict)
@@ -231,6 +234,11 @@ def compose_dcf(
         schema_version=dcf_schema.get("meta", {}).get("schema_version", "unknown"),
         case_id=_case_id_str(case.id),
         ilcd_situation=case.ilcd_situation.value if case.ilcd_situation else None,
+        study_purpose=case.study_purpose.value.capitalize() if case.study_purpose else None,
+        reference_market=(" ".join(x for x in (
+            case.reference_market_region,
+            f"({case.reference_market_scope.value.replace('_', '-')})" if case.reference_market_scope else None)
+            if x) or None),
         lcc_type=case.lcc_type.value if case.lcc_type else None,
         slca_activation_state=(
             case.slca_activation_state.value if case.slca_activation_state else None

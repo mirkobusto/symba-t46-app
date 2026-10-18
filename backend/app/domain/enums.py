@@ -118,6 +118,19 @@ class Q7(StrEnum):
     C = "C"  # across regions or borders
 
 
+class StudyPurpose(StrEnum):
+    """Q0 (optional) — the purpose of the study in the IS typology D4.1 §4.3.2
+    asks to declare in the goal (Mattila et al., 2012). It derives nothing: it
+    goes into the charter, the report and the DCF, and the engine notes answers
+    that do not fit it (owner decision 2026-10-18)."""
+
+    ANALYSIS = "analysis"            # evaluate an existing network's performance
+    IMPROVEMENT = "improvement"      # hotspots within an existing network, to optimise it
+    EXPANSION = "expansion"          # adding a new partner or exchange
+    DESIGN = "design"                # options for a new, planned network
+    RESTRUCTURING = "restructuring"  # a major reconfiguration of an established network
+
+
 class ReferenceMarketScope(StrEnum):
     """Spatial scope of the market the reference (displaced) products come from
     (D4.1 §11.3.1, L01291): national or sub-national as a rule, continental only

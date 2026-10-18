@@ -134,6 +134,8 @@ def _write_cover_tab(
         ("ILCD Situation", payload.ilcd_situation or "—"),
         ("LCC Type", payload.lcc_type or "—"),
         ("S-LCA Activation", payload.slca_activation_state or "—"),
+        ("Study purpose", payload.study_purpose or "—"),
+        ("Reference market", payload.reference_market or "—"),
         ("Schema version", payload.schema_version),
     ]
     for i, (label, value) in enumerate(rows, start=3):

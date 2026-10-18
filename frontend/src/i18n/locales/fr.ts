@@ -292,7 +292,7 @@ const fr: Locale = {
     p1:
       "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de dix questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
-      "Le questionnaire (Q1-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
+      "Le questionnaire (Q0-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:
       'Affichage de la configuration par pillar, overrides avancés et panneau « Show reasoning » sont tous opérationnels.',
   },
@@ -317,6 +317,22 @@ const fr: Locale = {
     confirmReset: 'Effacer toutes les réponses et recommencer ? Opération irréversible.',
     q1Required: 'Q1 est requise.',
     shortcutTip: 'Astuce : Ctrl/⌘+Entrée pour exécuter',
+
+    q0: {
+      title: 'Q0 — De quel type d\'étude de symbiose s\'agit-il : analyse, amélioration, extension, conception ou restructuration ?',
+      help: 'Facultative. Le type d\'étude, tel que la D4.1 demande de le déclarer dans l\'objectif. Seul, il ne change rien.',
+      details: 'La D4.1 §4.3.2, d\'après Mattila et al. (2012), demande de classer l\'objectif selon un cadre établi. Analyse : évaluer un réseau existant pour comprendre ses performances ; Amélioration : identifier les points chauds d\'un réseau existant pour l\'optimiser ; Extension : évaluer les impacts de l\'ajout d\'un nouveau partenaire ou échange ; Conception : comparer des options technologiques et logistiques pour un réseau nouveau, planifié ; Restructuration : évaluer une reconfiguration majeure d\'un réseau établi. La réponse va dans le rapport et le Data Collection File ; la modélisation de l\'étude reste décidée par les questions suivantes. Le moteur ne signale que deux contradictions : une analyse dont les échanges n\'ont pas encore lieu, et une conception dont les échanges ont déjà lieu (Q2).',
+      options: {
+        unset: { label: 'Sans réponse' },
+        analysis: { label: 'Analyse', description: 'Évaluer un réseau existant pour comprendre ses performances.' },
+        improvement: { label: 'Amélioration', description: 'Trouver les points chauds d\'un réseau existant pour l\'optimiser.' },
+        expansion: { label: 'Extension', description: 'Évaluer les impacts de l\'ajout d\'un nouveau partenaire ou échange.' },
+        design: { label: 'Conception', description: 'Comparer des options technologiques et logistiques pour un réseau nouveau, planifié.' },
+        restructuring: { label: 'Restructuration', description: 'Évaluer une reconfiguration majeure d\'un réseau établi.' },
+      },
+      plain:
+        'Choisissez le type d\'étude : comprendre comment fonctionne un réseau existant, trouver où il peut s\'améliorer, ajouter un partenaire ou un échange, concevoir un nouveau réseau ou repenser un réseau établi. La réponse est enregistrée avec l\'étude ; seule, elle ne change pas la méthode.',
+    },
 
     q1: {
       title: "Q1 — Qu'analysez-vous ? *",
@@ -731,6 +747,10 @@ const fr: Locale = {
   result: {
     notes: { title: 'Remarques sur vos réponses' },
     engineNotes: {
+      study_purpose_vs_q2: {
+        analysis: "Finalité de l'étude : l'étude évalue un réseau existant, mais Q2 indique que les échanges mesurés n'ont pas encore lieu. Vérifiez les deux réponses (D4.1 §4.3.2).",
+        design: "Finalité de l'étude : l'étude compare des options pour un réseau nouveau, planifié, mais Q2 indique que les échanges ont déjà lieu. Vérifiez les deux réponses (D4.1 §4.3.2).",
+      },
       q9_unanswered: "Q9 est sans réponse : la situation ILCD (situation {{situation}}) est donc déduite de Q1, comme pour les cas enregistrés avant l'existence de Q9. Répondez à Q9 : le tableau 1 de la D4.1 fixe la situation selon la décision et l'ampleur de ses conséquences, pas selon le sujet de l'étude.",
       q10_unanswered: {
         yes: "Q10 est sans réponse : le fait que l'étude serve un objectif public est donc déduit de Q1 : l'ACC sociétal est ajouté, comme pour les cas enregistrés avant l'existence de Q10. Répondez à Q10 : la D4.2 §2.3 ajoute l'ACC sociétal pour un objectif de politique publique ou d'aménagement ou pour un décideur public, quel que soit le sujet de l'étude.",

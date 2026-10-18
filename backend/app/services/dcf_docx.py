@@ -122,6 +122,8 @@ def _write_cover_block(doc: Document, payload: DcfPayload, case_title: str | Non
         ("ILCD Situation", payload.ilcd_situation or "—"),
         ("LCC Type", payload.lcc_type or "—"),
         ("S-LCA Activation State", payload.slca_activation_state or "—"),
+        ("Study purpose", payload.study_purpose or "—"),
+        ("Reference market", payload.reference_market or "—"),
         ("DCF schema version", payload.schema_version),
     ]
     for label, value in rows:

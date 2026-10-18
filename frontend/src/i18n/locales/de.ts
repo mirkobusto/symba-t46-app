@@ -286,7 +286,7 @@ const de: Locale = {
     p1:
       "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus zehn Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
-      'Der Fragebogen (Q1-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
+      'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
       'Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
@@ -311,6 +311,22 @@ const de: Locale = {
     confirmReset: 'Alle Antworten verwerfen und neu beginnen? Dies kann nicht rückgängig gemacht werden.',
     q1Required: 'Q1 ist erforderlich.',
     shortcutTip: 'Tipp: Strg/⌘+Eingabe zum Ausführen',
+
+    q0: {
+      title: 'Q0 — Welche Art von Symbiose-Studie ist es: Analyse, Verbesserung, Erweiterung, Planung oder Umstrukturierung?',
+      help: 'Optional. Die Art der Studie, wie D4.1 sie im Ziel anzugeben verlangt. Allein ändert sie nichts.',
+      details: 'D4.1 §4.3.2 verlangt im Anschluss an Mattila et al. (2012), das Ziel nach einem etablierten Rahmen einzuordnen. Analyse bewertet ein bestehendes Netzwerk, um seine Leistung zu verstehen; Verbesserung ermittelt Hotspots in einem bestehenden Netzwerk, um es zu optimieren; Erweiterung bewertet die Wirkungen eines neuen Partners oder Austauschs; Planung vergleicht technische und logistische Optionen für ein neues, geplantes Netzwerk; Umstrukturierung bewertet eine größere Neuordnung eines etablierten Netzwerks. Die Antwort geht in den Bericht und das Data Collection File; wie die Studie modelliert wird, entscheiden weiterhin die folgenden Fragen. Die Engine meldet nur zwei Widersprüche: eine Analyse, deren Austausche noch nicht stattfinden, und eine Planung, deren Austausche bereits stattfinden (Q2).',
+      options: {
+        unset: { label: 'Keine Antwort' },
+        analysis: { label: 'Analyse', description: 'Ein bestehendes Netzwerk bewerten, um seine Leistung zu verstehen.' },
+        improvement: { label: 'Verbesserung', description: 'Die Hotspots eines bestehenden Netzwerks finden, um es zu optimieren.' },
+        expansion: { label: 'Erweiterung', description: 'Die Wirkungen eines neuen Partners oder Austauschs bewerten.' },
+        design: { label: 'Planung', description: 'Technische und logistische Optionen für ein neues, geplantes Netzwerk vergleichen.' },
+        restructuring: { label: 'Umstrukturierung', description: 'Eine größere Neuordnung eines etablierten Netzwerks bewerten.' },
+      },
+      plain:
+        'Wählen Sie die Art der Studie: verstehen, wie ein bestehendes Netzwerk arbeitet, finden, wo es besser werden kann, einen Partner oder Austausch hinzufügen, ein neues Netzwerk planen oder ein etabliertes neu denken. Die Antwort wird mit der Studie festgehalten; allein ändert sie die Methode nicht.',
+    },
 
     q1: {
       title: 'Q1 — Was analysieren Sie? *',
@@ -725,6 +741,10 @@ const de: Locale = {
   result: {
     notes: { title: 'Hinweise zu Ihren Antworten' },
     engineNotes: {
+      study_purpose_vs_q2: {
+        analysis: "Zweck der Studie: die Studie bewertet ein bestehendes Netzwerk, aber Q2 sagt, dass die gemessenen Austausche noch nicht stattfinden. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
+        design: "Zweck der Studie: die Studie vergleicht Optionen für ein neues, geplantes Netzwerk, aber Q2 sagt, dass die Austausche bereits stattfinden. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
+      },
       q9_unanswered: "Q9 ist nicht beantwortet, daher wird die ILCD-Situation (Situation {{situation}}) aus Q1 abgeleitet, wie bei Fällen, die vor Q9 gespeichert wurden. Beantworten Sie Q9: D4.1 Tabelle 1 bestimmt die Situation nach der Entscheidung und dem Ausmaß ihrer Folgen, nicht nach dem Gegenstand der Studie.",
       q10_unanswered: {
         yes: "Q10 ist nicht beantwortet, daher wird aus Q1 abgeleitet, ob die Studie einem öffentlichen Ziel dient: Die gesellschaftliche LCC wird ergänzt, wie bei Fällen, die vor Q10 gespeichert wurden. Beantworten Sie Q10: D4.2 §2.3 ergänzt die gesellschaftliche LCC für ein Ziel der öffentlichen Politik oder Planung oder einen öffentlichen Entscheidungsträger, unabhängig vom Gegenstand der Studie.",

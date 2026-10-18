@@ -40,6 +40,8 @@ export type Q6b = 'TRL9' | 'TRL7-8' | 'TRL5-6' | 'TRL<5'
 export type Q7 = 'A' | 'B' | 'C'
 // Q7b: scope of the market the reference (displaced) products come from (D4.1 §11.3.1)
 export type ReferenceMarketScope = 'national' | 'sub_national' | 'continental'
+// Q0: purpose of the study, D4.1 §4.3.2 typology (Mattila et al. 2012); derives nothing
+export type StudyPurpose = 'analysis' | 'improvement' | 'expansion' | 'design' | 'restructuring'
 
 export type IlcdSituation =
   | 'ILCD Situation A'
@@ -201,6 +203,8 @@ export interface Case {
 
   // User answers
   q1?: Q1 | null
+  /** Q0: purpose of the study (D4.1 §4.3.2); notes only */
+  study_purpose?: StudyPurpose | null
   q2?: Q2 | null
   /** Q2b, only with Q2 = A: has the network run for many years? (D4.1 §11.2.2) */
   network_long_standing?: boolean | null

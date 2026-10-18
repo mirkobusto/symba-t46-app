@@ -2,10 +2,10 @@
 
 Runs at result-interpretation time, AFTER L2. Two responsibilities:
 
-1. **Enforce IR-04 (Parallel Interpretation) and IR-10 (Anti-Aggregation)**.
-   Both are L3 IR rules with assertion-bearing semantics; on violation a
-   structured entry is appended to `case.rule_violations` (same shape as
-   l2_validate violations).
+1. **IR-04 (Parallel Interpretation) and IR-10 (Anti-Aggregation)**. When
+   they trigger they join `case.applicable_rules`, the obligations shown to
+   the user (R4, 2026-10-18); a failed assertion still goes to
+   `case.rule_violations`, an internal diagnostic that no view shows.
 
 2. **Surface the 12 CDPs** (Critical Decision Points) into
    `case.cdp_flags`. CDPs are informational — they describe cross-method
@@ -138,6 +138,17 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
             continue
         if not trigger(case):
             continue
+        # An obligation to document like the L2 rules (R4, 2026-10-18): the
+        # assertion below stays an internal diagnostic, never shown.
+        case.applicable_rules.append({
+            "rule_id": rule_id,
+            "name": rule.get("name"),
+            "statement": rule.get("violation_message", f"{rule_id} applies to this case"),
+            "trigger": rule.get("trigger_condition_raw"),
+            "fields": list(rule.get("fields") or []),
+            "fields_not_applicable": [],
+            "source_nodes": list(rule.get("source_nodes") or []),
+        })
         if not assertion(case):
             case.rule_violations.append({
                 "rule_id": rule_id,

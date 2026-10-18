@@ -454,7 +454,7 @@ def _generate_one(paper: dict[str, Any], result: Case, out_dir: Path) -> Path:
     _add_kv(doc, "5.4 Activated nodes (count)", str(len(result.activated_nodes)))
     _add_kv(doc, "5.5 L1 BLOCK fired",
             ", ".join(result.blocked_by) if result.blocked_by else "(none)")
-    _add_kv(doc, "5.6 L2 violations (count)", str(len(result.rule_violations)))
+    _add_kv(doc, "5.6 Obligations to document (count)", str(len(result.applicable_rules)))
     _add_kv(doc, "5.7 L3 CDPs surfaced (count)", str(len(result.cdp_flags)))
 
     # Per-pillar config snapshot (only non-empty)
@@ -493,17 +493,13 @@ def _generate_one(paper: dict[str, Any], result: Case, out_dir: Path) -> Path:
     _add_heading(doc, "7. Validation verdict (preliminary)", level=1)
     if result.blocked_by:
         verdict = "BLOCKED at L1 — case as compiled triggers the listed L1 BLOCK(s); revise inputs."
-    elif result.rule_violations:
-        verdict = (
-            f"PARTIAL MATCH — pipeline runs end-to-end but reports "
-            f"{len(result.rule_violations)} L2 violation(s); inspect for "
-            "expert overrides or assertion adjustments."
-        )
     else:
+        # L2 assertions are not reported (R4, 2026-10-18): they compare prose
+        # with booleans or are stubs, so a "violation" count measured nothing.
         verdict = (
-            "MATCH — pipeline runs end-to-end with zero L1/L2 violations. "
-            "Tool configuration is consistent with the paper's methodological "
-            "framing as compiled."
+            f"CONFIGURED — pipeline runs end-to-end; {len(result.applicable_rules)} "
+            f"obligation(s) to document and {len(result.cdp_flags)} critical decision "
+            "point(s). Match with the paper is judged in the human-reviewed report."
         )
     _add_kv(doc, "Preliminary verdict", verdict)
 

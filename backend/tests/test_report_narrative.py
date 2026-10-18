@@ -79,7 +79,7 @@ def test_obligations_come_from_triggered_rules_not_failed_assertions(wiktor):
     would rest on assertions that compare engine-written prose."""
     codes = {item.code for item in action_items(wiktor) if item.kind == "obligation"}
     assert codes == {r["rule_id"] for r in wiktor.applicable_rules}
-    assert len(codes) > len(wiktor.rule_violations)
+    assert len(codes) > len(wiktor.rule_violations)   # the diagnostics are a subset, never shown
 
 
 # ---------------------------------------------------------------------------
@@ -132,3 +132,23 @@ def test_a_clean_case_says_so_instead_of_listing_nothing(schemas):
     if action_items(case):
         pytest.skip("fixture is not clean; the empty-state path is covered elsewhere")
     assert "Nothing to fix" in _text(case)
+
+
+def test_the_report_shows_obligations_not_l2_violations():
+    """R4 (2026-10-18): the L2 assertions are diagnostics, never shown; the
+    verdict counts obligations and decision points instead."""
+    from io import BytesIO
+
+    from docx import Document
+
+    from app.domain.enums import Q1
+    from app.domain.models import Q3, Case
+    from app.engine.pipeline import run
+    from app.services.reports import generate_case_report_bytes
+    case = run(Case(q1=Q1.B, q3=Q3(env=True, eco=True), decision_context="micro", policy_objective=False,
+                    dedicated_shared_assets=True))
+    doc = Document(BytesIO(generate_case_report_bytes(case)))
+    text = "\n".join(p.text for p in doc.paragraphs)
+    assert "violation" not in text.lower()
+    assert f"5.6 Obligations to document (count): {len(case.applicable_rules)}" in text
+    assert "Configuration complete" in text

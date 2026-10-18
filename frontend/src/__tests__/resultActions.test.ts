@@ -45,7 +45,7 @@ describe('answersFor', () => {
 })
 
 describe('actionItems', () => {
-  it('orders blocks first, then violations, then decisions', () => {
+  it('orders blocks first, then obligations, then decisions', () => {
     const items = actionItems({
       ...CASE,
       blocked_by: ['block_C2_plus_E-LCC'],

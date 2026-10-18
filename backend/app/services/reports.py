@@ -254,7 +254,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     _add_kv(doc, "5.4 Activated nodes (count)", str(len(case.activated_nodes)))
     _add_kv(doc, "5.5 L1 BLOCK fired",
             ", ".join(case.blocked_by) if case.blocked_by else "(none)")
-    _add_kv(doc, "5.6 L2 violations (count)", str(len(case.rule_violations)))
+    _add_kv(doc, "5.6 Obligations to document (count)", str(len(case.applicable_rules)))
     _add_kv(doc, "5.7 L3 CDPs surfaced (count)", str(len(case.cdp_flags)))
     if case.warnings:
         doc.add_heading("Notes on the answers", level=3)
@@ -313,16 +313,13 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
             "BLOCKED at L1 — case as configured triggers the listed "
             "L1 BLOCK(s); revise inputs."
         )
-    elif case.rule_violations:
-        verdict = (
-            f"PARTIAL MATCH — pipeline runs end-to-end but reports "
-            f"{len(case.rule_violations)} L2 violation(s); inspect for "
-            "expert overrides or assertion adjustments."
-        )
     else:
+        # The L2 assertions are not shown (R4, 2026-10-18): 13 are stubs and the
+        # others compare prose with booleans, so their count measured nothing.
         verdict = (
-            "CLEAN — pipeline runs end-to-end with zero L1/L2 "
-            "violations. Tool configuration is internally consistent."
+            f"Configuration complete — {len(case.applicable_rules)} methodological "
+            f"obligation(s) to document and {len(case.cdp_flags)} critical decision "
+            "point(s) to settle; listed above."
         )
     _add_kv(doc, "Preliminary verdict", verdict)
 

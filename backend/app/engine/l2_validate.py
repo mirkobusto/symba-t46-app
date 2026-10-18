@@ -623,7 +623,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         # choices they describe (did you include transport in the LCA
         # foreground?) are made outside the tool. Presenting them as
         # obligations is what the tool can honestly support; the
-        # violation list below stays for the validation reports.
+        # violation list below is an internal diagnostic, shown nowhere (R4).
         declared = list(rule.get("fields") or [])
         applicable = [f for f in declared if not _pillar_is_off(case, f.split(".")[0])]
         not_applicable = [f for f in declared if f not in applicable]

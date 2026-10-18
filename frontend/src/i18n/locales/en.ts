@@ -390,15 +390,18 @@ const en = {
     q2: {
       title: 'Q2 — Do the exchanges the study measures already take place?',
       details:
-        'Answer about the symbiotic exchanges, not about the plants: a plant can exist while the exchange you study is still a plan. A — the exchanges take place and have for some time; primary operating data is available (e.g. Kalundborg today, Sokka 2011). The reference is what each firm would do today if the links were severed (HNSRS, D4.1 §11.1). B — the exchanges have just started, or the plants are being commissioned; data partly measured, partly estimated. C — the exchanges do not take place yet: planned, designed or hypothetical, even if the plants already run (e.g. Daddi 2017, residues reused in an existing farm). The reference is the current situation without the exchanges (CNSRS, D4.1 §11.1). D — the exchanges take place and the study also compares future alternatives (expansion, new technology, decarbonised grid): the existing network against the HNSRS, each alternative against the CNSRS. D opens the alternative-scenarios editor below. When the system operates is asked in Q8.',
+        'Answer about the symbiotic exchanges, not about the plants: a plant can exist while the exchange you study is still a plan. A — yes: the exchanges run today and their flows can be measured (e.g. Kalundborg; the tannery cluster of Daddi 2017). The reference is what each firm would do today if the links were severed (HNSRS, D4.1 §11.1). If the network has run for many years, that reference is a modern counterfactual, not the firms\' configuration of decades ago (D4.1 §11.2.2): the follow-up question asks this. B — not yet: the exchanges are planned, designed, hypothetical or only just starting, even between plants that already run. The reference is today\'s business-as-usual without them, including any exchanges that already run (CNSRS, D4.1 §11.1). Comparing alternatives (an expansion, a new technology) is open to every study: add them as scenarios below (D4.1 §4.3.3). When the system operates is asked in Q8.',
       options: {
-        A: { label: 'A. Already running', description: 'The exchanges already take place (real operating data).' },
-        B: { label: 'B. Just started', description: 'The exchanges have just started, or the plants are being commissioned.' },
-        C: { label: 'C. Not yet', description: 'Planned, designed or hypothetical exchanges, even between plants that already exist.' },
-        D: { label: 'D. Running, plus alternatives', description: 'The exchanges run, and the study compares them with future alternatives.' },
+        A: { label: 'A. Yes, they already take place', description: 'The exchanges run today: their flows can be measured.' },
+        B: { label: 'B. Not yet', description: 'Planned, designed or only just starting, even between plants that already exist.' },
+      },
+      longStanding: {
+        label: 'Has the network run for many years, so that the plants it replaced would no longer be built today?',
+        yes: 'Yes — the reference is a modern counterfactual (D4.1 §11.2.2)',
+        no: 'No — the network is recent',
       },
       plain:
-        'Think of the exchanges, not of the plants. If the flows between the companies already happen, you can measure them. If they are still an idea, even between plants that already run, you can only estimate them. Pick the last option if you want to compare today\'s exchanges with one or more possible futures: it opens the scenarios editor below.',
+        'Think of the exchanges, not of the plants. If the flows between the companies already happen, you can measure them. If they are still an idea, even between plants that already run, you can only estimate them. Want to compare alternatives, such as an expansion or a new technology? Add them as scenarios below, whatever you answer here.',
     },
 
     q3: {
@@ -534,7 +537,7 @@ const en = {
     q8: {
       title: 'Q8 — Time horizon of the study',
       help: 'Optional. One horizon for LCA and LCC alike.',
-      details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study, except with Q2 = D (future alternatives), which counts as future. The analysis period is the time span the study covers; as a rule it matches the technical lifetime of the main assets (D4.2 §9). The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
+      details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study. The analysis period is the time span the study covers; as a rule it matches the technical lifetime of the main assets (D4.2 §9). The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
       start: {
         label: 'In which year does the system operate, or is it assumed to operate?',
         options: {
@@ -602,9 +605,9 @@ const en = {
     },
 
     q2dCard: {
-      title: 'Q2-D — Alternative scenarios',
+      title: 'Alternative scenarios (optional)',
       help:
-        'Define one or more future alternative scenarios to compare against the baseline. Triggers the dynamic SSP/RCP background and scenario-matrix support downstream.',
+        'Every study can compare alternatives with its baseline (D4.1 §4.3.3). Here a scenario changes some of your answers; it cannot yet change the network itself (flows, distances, quantities).',
     },
 
     advancedCard: {
@@ -767,7 +770,7 @@ const en = {
         e_structural: "Q1=E (monitoring) implies no decision; you answered that a decision with structural consequences is supported, so the study is treated as ILCD Situation B.",
       },
       q1_d_not_corporate: "Q1=D describes one company's sustainability reporting, but Q9 says the study is not a corporate report; the ILCD situation follows Q9. Strict corporate reporting (allocation, no credits) is ILCD Situation C2 (D4.1 §7.2.3).",
-      documentation_vs_ex_ante: "ILCD Situation C documents a network that already exists, but Q2 describes an ex-ante study (the network is not operating yet, or alternatives are compared). Check that the situation is the one you mean.",
+      documentation_vs_ex_ante: 'ILCD Situation C documents exchanges that already take place, but Q2 says they do not take place yet. Check that the situation is the one you mean.',
       c2_keeps_c_lcc: "Strict reporting of one company (ILCD Situation C2) keeps the company-level costing (C-LCC only) whatever Q10 says: it is a T4.6 design choice, since a single company has no network level.",
       policy_no_but_q1_c: "Q1=C (sector-wide pre-feasibility) usually serves a public policy; you answered that it does not, so the societal costing (S-LCC, net tax factor, social discount rate) is not added.",
       lcc_without_lca: {

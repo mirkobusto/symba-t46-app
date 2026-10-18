@@ -336,15 +336,18 @@ const de: Locale = {
     q2: {
       title: 'Q2 — Finden die Austausche, die die Studie misst, bereits statt?',
       details:
-        'Antworten Sie zu den symbiotischen Austauschen, nicht zu den Anlagen: Eine Anlage kann existieren, während der untersuchte Austausch noch ein Plan ist. A — die Austausche finden seit einiger Zeit statt; primäre Betriebsdaten liegen vor (z. B. Kalundborg heute, Sokka 2011). Die Referenz ist, was jedes Unternehmen heute täte, wenn die Verbindungen gekappt würden (HNSRS, D4.1 §11.1). B — die Austausche haben gerade begonnen, oder die Anlagen werden in Betrieb genommen; Daten teils gemessen, teils geschätzt. C — die Austausche finden noch nicht statt: geplant, entworfen oder hypothetisch, auch wenn die Anlagen schon laufen (z. B. Daddi 2017, Reststoffe in einem bestehenden Betrieb wiederverwendet). Die Referenz ist die heutige Situation ohne die Austausche (CNSRS, D4.1 §11.1). D — die Austausche finden statt, und die Studie vergleicht zusätzlich zukünftige Alternativen (Erweiterung, neue Technologie, dekarbonisiertes Stromnetz): das bestehende Netzwerk gegen das HNSRS, jede Alternative gegen das CNSRS. D öffnet unten den Editor für alternative Szenarien. Wann das System betrieben wird, fragt Q8.',
+        'Antworten Sie zu den symbiotischen Austauschen, nicht zu den Anlagen: Eine Anlage kann existieren, während der untersuchte Austausch noch ein Plan ist. A — ja: Die Austausche finden heute statt und ihre Flüsse lassen sich messen (z. B. Kalundborg; das Gerbereicluster von Daddi 2017). Die Referenz ist, was jedes Unternehmen heute täte, wenn die Verbindungen getrennt würden (HNSRS, D4.1 §11.1). Läuft das Netzwerk seit vielen Jahren, ist diese Referenz ein modernes Kontrafaktum, nicht die Konfiguration der Unternehmen vor Jahrzehnten (D4.1 §11.2.2): Danach fragt die Folgefrage. B — noch nicht: Die Austausche sind geplant, entworfen, hypothetisch oder beginnen gerade erst, auch zwischen bereits laufenden Anlagen. Die Referenz ist die heutige Situation ohne sie, einschließlich bereits laufender Austausche (CNSRS, D4.1 §11.1). Alternativen zu vergleichen (eine Erweiterung, eine neue Technologie) steht jeder Studie offen: Fügen Sie sie unten als Szenarien hinzu (D4.1 §4.3.3). Wann das System betrieben wird, fragt Q8.',
       options: {
-        A: { label: 'A. Bereits laufend', description: 'Die Austausche finden bereits statt (reale Betriebsdaten).' },
-        B: { label: 'B. Gerade begonnen', description: 'Die Austausche haben gerade begonnen, oder die Anlagen werden in Betrieb genommen.' },
-        C: { label: 'C. Noch nicht', description: 'Geplante, entworfene oder hypothetische Austausche, auch zwischen bereits bestehenden Anlagen.' },
-        D: { label: 'D. Laufend, plus Alternativen', description: 'Die Austausche laufen, und die Studie vergleicht sie mit zukünftigen Alternativen.' },
+        A: { label: 'A. Ja, sie finden bereits statt', description: 'Die Austausche laufen heute: Ihre Flüsse lassen sich messen.' },
+        B: { label: 'B. Noch nicht', description: 'Geplant, entworfen oder gerade erst beginnend, auch zwischen bereits bestehenden Anlagen.' },
+      },
+      longStanding: {
+        label: 'Läuft das Netzwerk seit vielen Jahren, sodass die Anlagen, die es ersetzt hat, heute nicht mehr gebaut würden?',
+        yes: 'Ja — die Referenz ist ein modernes Kontrafaktum (D4.1 §11.2.2)',
+        no: 'Nein — das Netzwerk ist jung',
       },
       plain:
-        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen Anlagen, die schon laufen, können Sie sie nur schätzen. Wählen Sie die letzte Option, wenn Sie die heutigen Austausche mit einer oder mehreren möglichen Zukünften vergleichen wollen: Sie öffnet unten den Szenario-Editor.',
+        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen bereits laufenden Anlagen, können Sie sie nur schätzen. Sie möchten Alternativen vergleichen, etwa eine Erweiterung oder eine neue Technologie? Fügen Sie sie unten als Szenarien hinzu, unabhängig von Ihrer Antwort hier.',
     },
 
     q3: {
@@ -480,7 +483,7 @@ const de: Locale = {
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
-      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie, außer bei Q2 = D (zukünftige Alternativen), das als zukünftig zählt. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
+      details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
         options: {
@@ -548,9 +551,9 @@ const de: Locale = {
     },
 
     q2dCard: {
-      title: 'Q2-D — Alternative Szenarien',
+      title: 'Alternative Szenarien (optional)',
       help:
-        'Definieren Sie ein oder mehrere alternative Zukunftsszenarien zum Vergleich mit der Baseline. Aktiviert den dynamischen SSP/RCP-Background und die Szenarien-Matrix-Unterstützung downstream.',
+        'Jede Studie kann Alternativen mit ihrer Ausgangssituation vergleichen (D4.1 §4.3.3). Hier ändert ein Szenario einige Ihrer Antworten; das Netzwerk selbst (Flüsse, Entfernungen, Mengen) kann es noch nicht ändern.',
     },
 
     advancedCard: {
@@ -713,7 +716,7 @@ const de: Locale = {
         e_structural: "Q1=E (Monitoring) setzt keine Entscheidung voraus; Sie haben angegeben, dass die Studie eine Entscheidung mit strukturellen Folgen stützt, daher wird sie als ILCD-Situation B behandelt.",
       },
       q1_d_not_corporate: "Q1=D beschreibt die Nachhaltigkeitsberichterstattung eines Unternehmens, aber laut Q9 ist die Studie kein Unternehmensbericht; die ILCD-Situation folgt Q9. Strikte Unternehmensberichterstattung (Allokation, keine Gutschriften) ist ILCD-Situation C2 (D4.1 §7.2.3).",
-      documentation_vs_ex_ante: "ILCD-Situation C dokumentiert ein bereits bestehendes Netzwerk, aber Q2 beschreibt eine Ex-ante-Studie (das Netzwerk läuft noch nicht, oder Alternativen werden verglichen). Prüfen Sie, ob die Situation die gemeinte ist.",
+      documentation_vs_ex_ante: 'ILCD-Situation C dokumentiert Austausche, die bereits stattfinden, aber Q2 sagt, dass sie noch nicht stattfinden. Prüfen Sie, ob die Situation die gemeinte ist.',
       c2_keeps_c_lcc: "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) behält die Kostenrechnung auf Unternehmensebene (nur C-LCC), was immer Q10 sagt: eine Entwurfsentscheidung von T4.6, da ein einzelnes Unternehmen keine Netzwerkebene hat.",
       policy_no_but_q1_c: "Q1=C (sektorweite Vorstudie) dient meist einer öffentlichen Politik; Sie haben dies verneint, daher wird die gesellschaftliche Kostenrechnung (S-LCC, Net Tax Factor, sozialer Diskontsatz) nicht hinzugefügt.",
       lcc_without_lca: {

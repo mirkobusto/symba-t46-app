@@ -5,7 +5,7 @@ import type { Case } from '../types/api'
 
 const CASE: Case = {
   q1: 'B',
-  q2: 'D',
+  q2: 'B',
   q3: { env: true, eco: true, soc: false },
   q4: ['E'],
   q6a: 'wastewater_sludge_biofactories',

@@ -743,6 +743,15 @@ const en = {
 
   result: {
     notes: { title: 'Notes on your answers' },
+    sectorRules: {
+      title: 'Sector rules (D4.1 Part 2)',
+      lead: 'The rules D4.1 Part 2 gives for the sectors your case touches. The tool does not apply them for you: document in the study how each one was met.',
+      activatedBy: 'Applies because of: {{reasons}}',
+      byFlow: 'the flow “{{name}}”',
+      byCaseSector: 'the case sector (Q6a)',
+      count: '{{count}} rules',
+      strength: { must: 'must', should: 'should', descriptive: 'practice' },
+    },
     verdict: {
       moreInfo: 'More on this configuration',
     },

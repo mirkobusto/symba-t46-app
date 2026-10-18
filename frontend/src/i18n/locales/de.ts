@@ -688,6 +688,15 @@ const de: Locale = {
 
   result: {
     notes: { title: 'Hinweise zu Ihren Antworten' },
+    sectorRules: {
+      title: 'Sektorregeln (D4.1 Part 2)',
+      lead: 'Die Regeln, die D4.1 Part 2 für die Sektoren Ihres Falls vorgibt. Das Tool wendet sie nicht für Sie an: Dokumentieren Sie in der Studie, wie jede eingehalten wurde.',
+      activatedBy: 'Gelten wegen: {{reasons}}',
+      byFlow: 'den Fluss „{{name}}“',
+      byCaseSector: 'den Sektor des Falls (Q6a)',
+      count: '{{count}} Regeln',
+      strength: { must: 'Pflicht', should: 'empfohlen', descriptive: 'Praxis' },
+    },
     verdict: {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },

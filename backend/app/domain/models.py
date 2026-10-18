@@ -233,3 +233,8 @@ class Case(BaseModel):
                      "run by l0_compute (the first phase), later phases append."))
     cdp_flags: list[dict[str, Any]] = Field(default_factory=list,
         description="L3 CDP tensions surfaced at reporting")
+    sector_rules: list[dict[str, Any]] = Field(default_factory=list,
+        description=("D4.1 Part 2 sector rules of the chapters the case touches (a flow's "
+                     "declared sector or Q6a), as mandates to document: each with chapter, "
+                     "strength, condition, statement and deliverable lines. Rebuilt on every "
+                     "run by engine/sector_rules."))

@@ -23,7 +23,7 @@ Implementation: full body present; phase modules are stubs.
 from __future__ import annotations
 
 from app.domain.models import Case
-from app.engine import activate, l0_compute, l1_blocks, l2_validate, l3_report, pathway
+from app.engine import activate, l0_compute, l1_blocks, l2_validate, l3_report, pathway, sector_rules
 from app.engine.loader import LoadedSchemas, load_schemas
 
 
@@ -58,6 +58,7 @@ def run(case: Case, schemas: LoadedSchemas | None = None) -> Case:
     case.rule_violations.clear()
     case.applicable_rules.clear()
     case.cdp_flags.clear()
+    case.sector_rules.clear()
 
     # L0 — deterministic derivations from Q1-Q3
     l0_compute.run(case, sch)
@@ -72,6 +73,9 @@ def run(case: Case, schemas: LoadedSchemas | None = None) -> Case:
 
     # Node activation — 186 Phase 1 nodes
     activate.run(case, sch)
+
+    # D4.1 Part 2 sector rules of the chapters the case touches (mandates)
+    sector_rules.run(case, sch)
 
     # L2 — cross-method rules (18 IR + 10 CIR + 5 FU + 7 B = 40 rules)
     l2_validate.run(case, sch)

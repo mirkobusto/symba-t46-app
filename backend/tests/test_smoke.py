@@ -48,12 +48,13 @@ def test_loader_indexes_58_cross_method_rules(schemas: LoadedSchemas):
 
 
 def test_loader_indexes_14_sectors_plus_other(schemas: LoadedSchemas):
-    """sector_overlays.json stub: 14 sectors + 'other' = 15 entries.
-    `overlays` map intentionally empty until sector logic is wired."""
+    """sector_overlays.json: 14 sectors + 'other' = 15 entries; `overlays` holds
+    the five D4.1 Part 2 chapters and their rules since 2026-10-15."""
     assert len(schemas.sectors_by_id) == 15
     assert "wastewater_sludge_biofactories" in schemas.sectors_by_id
     assert "other" in schemas.sectors_by_id
-    assert schemas.sector_overlays.get("overlays") == {}
+    assert set(schemas.sector_overlays["overlays"]) == {
+        "agrifood", "plastics", "wastewater", "textiles", "waste_valorisation"}
 
 
 def test_loader_indexes_field_allowlists(schemas: LoadedSchemas):

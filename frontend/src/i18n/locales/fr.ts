@@ -561,6 +561,18 @@ const fr: Locale = {
       plain:
         "Sur quoi porte vraiment la comparaison ? Si la question est de savoir comment traiter au mieux un déchet — le brûler, le méthaniser, le composter —, le résultat se compte par tonne de déchet traité. Si la question est de savoir si le produit récupéré vaut mieux que celui qu'il remplace, il se compte par unité de produit. Si les deux comptent autant, on les compte côte à côte.",
     },
+    q12: {
+      title: 'Q12 — La symbiose nécessite-t-elle de nouveaux actifs dédiés et partagés ?',
+      help: 'Facultative, posée quand l\'ACV ou l\'ACC est active : canalisations, installations ou stockages construits pour la symbiose.',
+      details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Un oui active aussi les règles qui alignent les biens d\'équipement entre ACV et ACC (IR-13, B-06) et, pour les parcs et programmes, les indicateurs S-ACV pour l\'investissement partagé (CIR-08).',
+      options: {
+        unset: 'Sans réponse',
+        yes: 'Oui — de nouvelles canalisations, installations ou stockages sont construits pour la symbiose',
+        no: 'Non — les échanges utilisent des actifs existants',
+      },
+      plain:
+        'Répondez oui s\'il faut construire quelque chose de nouveau pour que les échanges aient lieu : une canalisation, une installation de traitement commune, une cuve de stockage. Son coût et son empreinte environnementale entrent alors dans l\'étude et sont répartis entre les entreprises qui l\'utilisent.',
+    },
 
     q2dCard: {
       title: 'Scénarios alternatifs (facultatif)',

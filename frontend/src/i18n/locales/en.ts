@@ -609,6 +609,18 @@ const en = {
       plain:
         "What is the comparison really about? If the question is how best to deal with a waste — burn it, digest it, compost it — the result is counted per tonne of waste treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
     },
+    q12: {
+      title: 'Q12 — Does the symbiosis need new dedicated shared assets?',
+      help: 'Optional, asked when LCA or LCC is on: pipelines, plants or storage built for the symbiosis.',
+      details: 'D4.2 §4.2 asks whether the network requires new dedicated shared assets: if it does, their CAPEX and ongoing OPEX must be included in the cost breakdown and allocated among the partners that benefit from them. D4.1 §6.3.3 includes the capital goods and infrastructure unique to the IS scenario, amortised over each asset\'s technical lifetime (Q8). A yes also switches on the rules that align capital goods between LCA and LCC (IR-13, B-06) and, for parks and programmes, the S-LCA indicators for shared investment (CIR-08).',
+      options: {
+        unset: 'Not answered',
+        yes: 'Yes — new pipelines, plants or storage are built for the symbiosis',
+        no: 'No — the exchanges use existing assets',
+      },
+      plain:
+        'Answer yes if something new has to be built for the exchanges to happen: a pipeline, a shared treatment plant, a storage tank. Its cost and its environmental footprint are then counted in the study and shared among the companies that use it.',
+    },
 
     q2dCard: {
       title: 'Alternative scenarios (optional)',

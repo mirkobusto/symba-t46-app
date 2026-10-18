@@ -111,6 +111,9 @@ export default function QuestionnairePage() {
   const [comparisonGoal, setComparisonGoal] = useState<ComparisonGoal | ''>(
     draft.comparison_goal ?? '',
   )
+  const [sharedAssets, setSharedAssets] = useState<'' | 'yes' | 'no'>(
+    draft.dedicated_shared_assets == null ? '' : draft.dedicated_shared_assets ? 'yes' : 'no',
+  )
   const [operatingStart, setOperatingStart] = useState<'' | 'now' | 'future'>(draft.operating_start ?? '')
   const [startYear, setStartYear] = useState<string>(
     draft.operating_start_year != null ? String(draft.operating_start_year) : '',
@@ -151,6 +154,7 @@ export default function QuestionnairePage() {
     setScreening(draft.market_screening_documented == null ? '' : draft.market_screening_documented ? 'yes' : 'no')
     setPolicy(draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no')
     setComparisonGoal(draft.comparison_goal ?? '')
+    setSharedAssets(draft.dedicated_shared_assets == null ? '' : draft.dedicated_shared_assets ? 'yes' : 'no')
     setAdvanced(draft.advanced ?? {})
   }, [draft])
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -177,7 +181,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, marketRegion, marketScope, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, advanced])
+  }, [canRun, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, marketRegion, marketScope, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, sharedAssets, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -199,6 +203,8 @@ export default function QuestionnairePage() {
       market_screening_documented: decisionContext === 'structural' && screening !== '' ? screening === 'yes' : null,
       policy_objective: !eco || policy === '' ? null : policy === 'yes',
       comparison_goal: comparisonGoal || null,
+      // Q12 is asked when LCA or LCC is on (D4.1 §6.3.3, D4.2 §4.2)
+      dedicated_shared_assets: (env || eco) && sharedAssets !== '' ? sharedAssets === 'yes' : null,
       advanced,
     })
     const result = await runDraft()
@@ -219,6 +225,7 @@ export default function QuestionnairePage() {
       setScreening('')
       setPolicy('')
       setComparisonGoal('')
+      setSharedAssets('')
       setAdvanced({})
     }
   }
@@ -598,6 +605,28 @@ export default function QuestionnairePage() {
           </label>
         ))}
       </QuestionCard>
+
+      {/* Q12 — optional, with LCA or LCC: new dedicated shared assets (D4.2 §4.2, D4.1 §6.3.3) */}
+      {env || eco ? (
+        <QuestionCard
+          id="q12"
+          title={t('questionnaire.q12.title')}
+          help={t('questionnaire.q12.help')}
+          plain={t('questionnaire.q12.plain')}
+          details={t('questionnaire.q12.details')}
+        >
+          {(['', 'yes', 'no'] as const).map((k) => (
+            <label key={k || 'unset'} className="opt opt-single">
+              <input
+                type="radio" name="q12" value={k}
+                checked={sharedAssets === k}
+                onChange={() => setSharedAssets(k)}
+              />
+              <span className="opt-label">{t(`questionnaire.q12.options.${k || 'unset'}`)}</span>
+            </label>
+          ))}
+        </QuestionCard>
+      ) : null}
 
       {/* Advanced */}
       <details className="advanced-card">

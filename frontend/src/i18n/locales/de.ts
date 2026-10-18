@@ -555,6 +555,18 @@ const de: Locale = {
       plain:
         "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Abfall am besten behandelt wird — verbrennen, vergären, kompostieren —, wird das Ergebnis pro Tonne behandelten Abfalls gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
     },
+    q12: {
+      title: 'Q12 — Braucht die Symbiose neue, eigens errichtete und gemeinsam genutzte Anlagen?',
+      help: 'Optional, gefragt wenn Ökobilanz oder LCC aktiv ist: Leitungen, Anlagen oder Lager, die für die Symbiose gebaut werden.',
+      details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Ein Ja aktiviert außerdem die Regeln, die Investitionsgüter zwischen Ökobilanz und LCC abgleichen (IR-13, B-06), und für Parks und Programme die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08).',
+      options: {
+        unset: 'Keine Antwort',
+        yes: 'Ja — für die Symbiose werden neue Leitungen, Anlagen oder Lager gebaut',
+        no: 'Nein — die Austausche nutzen bestehende Anlagen',
+      },
+      plain:
+        'Antworten Sie mit Ja, wenn für die Austausche etwas Neues gebaut werden muss: eine Leitung, eine gemeinsame Aufbereitungsanlage, ein Lagertank. Seine Kosten und sein ökologischer Fußabdruck werden dann in der Studie gezählt und auf die Unternehmen verteilt, die es nutzen.',
+    },
 
     q2dCard: {
       title: 'Alternative Szenarien (optional)',

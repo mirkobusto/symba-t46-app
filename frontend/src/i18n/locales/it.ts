@@ -587,6 +587,18 @@ const it: Locale = {
       plain:
         "Su che cosa verte davvero il confronto? Se la domanda è come trattare al meglio un rifiuto — bruciarlo, digerirlo, compostarlo — il risultato si conta per tonnellata di rifiuto trattato. Se la domanda è se il prodotto recuperato è migliore di quello che sostituisce, si conta per unità di prodotto. Se contano tutte e due, si contano una accanto all'altra.",
     },
+    q12: {
+      title: 'Q12 — La simbiosi richiede nuovi beni dedicati e condivisi?',
+      help: 'Facoltativa, chiesta quando c\'è LCA o LCC: condotte, impianti o stoccaggi costruiti per la simbiosi.',
+      details: 'D4.2 §4.2 chiede se la rete richiede nuovi beni dedicati e condivisi: in tal caso il loro CAPEX e l\'OPEX corrente vanno inclusi nel prospetto dei costi e ripartiti fra i partner che ne beneficiano. D4.1 §6.3.3 include i beni capitali e le infrastrutture propri dello scenario di simbiosi, ammortizzati sulla vita tecnica di ogni bene (Q8). Un sì accende anche le regole che allineano i beni capitali fra LCA e LCC (IR-13, B-06) e, per parchi e programmi, gli indicatori S-LCA per l\'investimento condiviso (CIR-08).',
+      options: {
+        unset: 'Non risposta',
+        yes: 'Sì — si costruiscono nuove condotte, impianti o stoccaggi per la simbiosi',
+        no: 'No — gli scambi usano beni esistenti',
+      },
+      plain:
+        'Rispondi sì se per far avvenire gli scambi bisogna costruire qualcosa di nuovo: una condotta, un impianto di trattamento comune, un serbatoio. Il suo costo e la sua impronta ambientale entrano allora nello studio e si ripartiscono fra le aziende che lo usano.',
+    },
 
     q2dCard: {
       title: 'Scenari alternativi (facoltativo)',

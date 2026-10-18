@@ -555,6 +555,18 @@ const es: Locale = {
       plain:
         "¿Sobre qué trata realmente la comparación? Si la pregunta es cómo tratar mejor un residuo — quemarlo, digerirlo, compostarlo —, el resultado se cuenta por tonelada de residuo tratado. Si la pregunta es si el producto recuperado es mejor que el que sustituye, se cuenta por unidad de producto. Si ambas cuentan por igual, se cuentan una al lado de la otra.",
     },
+    q12: {
+      title: 'Q12 — ¿La simbiosis necesita nuevos activos dedicados y compartidos?',
+      help: 'Opcional, se pregunta cuando el ACV o el ACC están activos: tuberías, plantas o almacenamientos construidos para la simbiosis.',
+      details: 'La D4.2 §4.2 pregunta si la red requiere nuevos activos dedicados y compartidos: en tal caso, su CAPEX y su OPEX corriente deben incluirse en el desglose de costes y repartirse entre los socios que se benefician de ellos. La D4.1 §6.3.3 incluye los bienes de capital e infraestructuras propios del escenario de simbiosis, amortizados a lo largo de la vida técnica de cada activo (Q8). Un sí activa también las reglas que alinean los bienes de capital entre ACV y ACC (IR-13, B-06) y, para parques y programas, los indicadores S-ACV de inversión compartida (CIR-08).',
+      options: {
+        unset: 'Sin respuesta',
+        yes: 'Sí — se construyen nuevas tuberías, plantas o almacenamientos para la simbiosis',
+        no: 'No — los intercambios usan activos existentes',
+      },
+      plain:
+        'Responde que sí si hay que construir algo nuevo para que los intercambios ocurran: una tubería, una planta de tratamiento común, un depósito. Su coste y su huella ambiental entran entonces en el estudio y se reparten entre las empresas que lo usan.',
+    },
 
     q2dCard: {
       title: 'Escenarios alternativos (opcional)',

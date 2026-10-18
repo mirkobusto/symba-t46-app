@@ -100,13 +100,16 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         if not flow.configuration:
             continue
         if flow.configuration not in configurations:
-            case.warnings.append({"code": "flow_configuration_unknown", "message": (
+            case.warnings.append({"code": "flow_configuration_unknown",
+                                  "params": {"flow": flow.name, "configuration": flow.configuration}, "message": (
                 f"Flow '{flow.name}': configuration '{flow.configuration}' is not one of D4.1 Part 2.")})
             continue
         declared = sector_to_chapter.get(flow.sector.value) if flow.sector else None
         chapter_key = configurations[flow.configuration][0]
         if declared and declared != chapter_key:
-            case.warnings.append({"code": "flow_configuration_other_chapter", "message": (
+            case.warnings.append({"code": "flow_configuration_other_chapter", "params": {
+                "flow": flow.name, "chapter": overlays[chapter_key]["chapter"].split(" ")[0],
+                "declared": overlays[declared]["chapter"].split(" ")[0]}, "message": (
                 f"Flow '{flow.name}': its configuration belongs to {overlays[chapter_key]['chapter']}, "
                 f"not to the declared {overlays[declared]['chapter']}; the rules of both chapters are listed.")})
     return case

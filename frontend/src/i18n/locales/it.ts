@@ -765,6 +765,35 @@ const it: Locale = {
 
   result: {
     notes: { title: 'Note sulle tue risposte' },
+    engineNotes: {
+      structural_without_screening: "Q9 dice che gli effetti sono strutturali, ma lo screening di mercato non è documentato: lo studio è trattato come Situazione ILCD A, e la Situazione B va provata come sensitività (D4.1 §4.3.4, §11.3.1).",
+      structural_screening_missing: "La Situazione B richiede la prova che il cambiamento sposta circa l'1% o più della nuova capacità nel mercato interessato (D4.1 §11.3.1); documentala, altrimenti lo studio è in Situazione A con B come sensitività (D4.1 §4.3.4).",
+      decision_scale_vs_q1: {
+        c_micro: "Q1 (pre-fattibilità di settore) di solito comporta conseguenze su scala strutturale; hai risposto conseguenze limitate, quindi lo studio è trattato come Situazione ILCD A. D4.1 §4.3.4: non scegliere l'LCA consequenziale solo perché si prende una decisione.",
+        e_micro: "Q1=E (monitoraggio) non comporta decisioni; hai risposto che lo studio sostiene una decisione con conseguenze limitate, quindi è trattato come Situazione ILCD A.",
+        e_structural: "Q1=E (monitoraggio) non comporta decisioni; hai risposto che lo studio sostiene una decisione con conseguenze strutturali, quindi è trattato come Situazione ILCD B.",
+      },
+      q1_d_not_corporate: "Q1=D descrive la rendicontazione di sostenibilità di un'azienda, ma Q9 dice che lo studio non è un rendiconto aziendale; la situazione ILCD segue Q9. Il rendiconto aziendale rigoroso (allocazione, niente crediti) è la Situazione ILCD C2 (D4.1 §7.2.3).",
+      documentation_vs_ex_ante: "La Situazione ILCD C documenta una rete che esiste già, ma Q2 descrive uno studio ex-ante (la rete non opera ancora, o si confrontano alternative). Verifica che la situazione sia quella che intendi.",
+      c2_keeps_c_lcc: "Il rendiconto rigoroso di una sola azienda (Situazione ILCD C2) tiene il costing a livello d'impresa (solo C-LCC) qualunque sia la risposta a Q10: è una scelta di progetto T4.6, perché una sola azienda non ha un livello di rete.",
+      policy_no_but_q1_c: "Q1=C (pre-fattibilità di settore) di solito serve una politica pubblica; hai risposto di no, quindi il costing sociale (S-LCC, net tax factor, tasso di sconto sociale) non viene aggiunto.",
+      lcc_without_lca: {
+        plain: "Q3 non comprende la dimensione ambientale, quindi non c'è un'LCA parallela: il costing è l'LCC convenzionale di ogni partner, consolidato a livello di rete (D4.2 §4.1), senza l'LCC ambientale, che D4.2 costruisce sul confine dell'LCA.",
+        policy: "Q3 non comprende la dimensione ambientale, quindi non c'è un'LCA parallela: il costing è l'LCC convenzionale di ogni partner, consolidato a livello di rete (D4.2 §4.1), senza l'LCC ambientale, che D4.2 costruisce sul confine dell'LCA. L'LCC sociale mantiene il net tax factor e il tasso di sconto sociale, ma senza i risultati dell'LCA le esternalità non si possono monetizzare (D4.2 §11.2).",
+      },
+      c2_allocation_over_pef: "Il rendiconto rigoroso di una sola azienda (Situazione ILCD C2) usa l'allocazione e nessun credito di sostituzione (D4.1 §7.2.3), quindi la Circular Footprint Formula della PEF chiesta da Q4=D non si applica: la CFF è un metodo di prodotto. Se lo studio è un'impronta di prodotto e non un rendiconto aziendale, rivedi Q9.",
+      slca_alone: "Q3 seleziona solo la dimensione sociale. D4.3 §3.1 costruisce l'S-LCA sull'unità funzionale e sui confini di un'LCA o di un LCC; se nessuno dei due è selezionato, documenta l'unità di riferimento e il confine nel charter metodologico.",
+      flow_sellable_but_waste: "Flusso «{{flow}}»: Q5 dice che chi lo genera paga per disfarsene (rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6 Step 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
+      flow_price_without_market: "Flusso «{{flow}}»: Q5 dice che chi lo riceve lo paga (co-prodotto), ma nessun terzo lo pagherebbe. D4.1 §8.3.3: senza un mercato indipendente il prezzo è un corrispettivo amministrativo e il flusso è un rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6 Step 4). Fa eccezione chi modifica il proprio processo per il partner (Q5 = d).",
+      flow_freedom_to_act_settles: {
+        co_product: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi; la risposta Freedom-to-Act (D4.1 §8.3.3) lo legge come co-prodotto (§8.3.2, carico ripartito).",
+        waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi; la risposta Freedom-to-Act (D4.1 §8.3.3) lo legge come rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4).",
+      },
+      flow_part2_chapter: "Flusso «{{flow}}»: gli si applicano le regole di settore della D4.1 Part 2 {{chapter}}; sono elencate in Regole di settore.",
+      flow_configuration_unknown: "Flusso «{{flow}}»: la configurazione «{{configuration}}» non è una di quelle della D4.1 Part 2.",
+      flow_configuration_other_chapter: "Flusso «{{flow}}»: la sua configurazione appartiene a {{chapter}}, non al capitolo dichiarato {{declared}}; sono elencate le regole di entrambi i capitoli.",
+    },
+    sectorChapters: { '§4': "§4 Agroalimentare e bioraffinerie", '§5': "§5 Plastica e imballaggi", '§6': "§6 Acque reflue e biofabbriche", '§7': "§7 Tessile e tessili tecnici", '§8': "§8 Valorizzazione dei rifiuti" },
     sectorRules: {
       title: 'Regole di settore (D4.1 Part 2)',
       lead: 'Le regole che la D4.1 Part 2 dà per i settori toccati dal tuo caso. Il tool non le applica al posto tuo: documenta nello studio come hai rispettato ciascuna.',

@@ -738,6 +738,35 @@ const fr: Locale = {
 
   result: {
     notes: { title: 'Remarques sur vos réponses' },
+    engineNotes: {
+      structural_without_screening: "Q9 indique des effets structurels, mais le criblage du marché n'est pas documenté : l'étude est traitée en Situation ILCD A, et la Situation B doit être testée en sensibilité (D4.1 §4.3.4, §11.3.1).",
+      structural_screening_missing: "La Situation B exige la preuve que le changement déplace environ 1 % ou plus des nouvelles capacités du marché concerné (D4.1 §11.3.1) ; documentez-la, sinon l'étude est en Situation A avec B en sensibilité (D4.1 §4.3.4).",
+      decision_scale_vs_q1: {
+        c_micro: "Q1 (préfaisabilité sectorielle) implique d'ordinaire des conséquences à l'échelle structurelle ; vous avez répondu conséquences limitées, l'étude est donc traitée en Situation ILCD A. D4.1 §4.3.4 : ne pas choisir l'ACV conséquentielle au seul motif qu'une décision est prise.",
+        e_micro: "Q1=E (suivi) n'implique aucune décision ; vous avez répondu que l'étude appuie une décision aux conséquences limitées, elle est donc traitée en Situation ILCD A.",
+        e_structural: "Q1=E (suivi) n'implique aucune décision ; vous avez répondu que l'étude appuie une décision aux conséquences structurelles, elle est donc traitée en Situation ILCD B.",
+      },
+      q1_d_not_corporate: "Q1=D décrit le reporting de durabilité d'une entreprise, mais Q9 indique que l'étude n'est pas un rapport d'entreprise ; la situation ILCD suit Q9. Le reporting d'entreprise strict (allocation, sans crédits) est la Situation ILCD C2 (D4.1 §7.2.3).",
+      documentation_vs_ex_ante: "La Situation ILCD C documente un réseau qui existe déjà, mais Q2 décrit une étude ex ante (le réseau ne fonctionne pas encore, ou des alternatives sont comparées). Vérifiez que la situation est bien celle que vous visez.",
+      c2_keeps_c_lcc: "Le reporting strict d'une seule entreprise (Situation ILCD C2) conserve le coût au niveau de l'entreprise (C-LCC seul) quelle que soit la réponse à Q10 : c'est un choix de conception T4.6, une seule entreprise n'ayant pas de niveau réseau.",
+      policy_no_but_q1_c: "Q1=C (préfaisabilité sectorielle) sert d'ordinaire une politique publique ; vous avez répondu que non, le coût sociétal (S-LCC, net tax factor, taux d'actualisation social) n'est donc pas ajouté.",
+      lcc_without_lca: {
+        plain: "Q3 n'inclut pas la dimension environnementale, il n'y a donc pas d'ACV parallèle : le coût est la LCC conventionnelle de chaque partenaire, consolidée au niveau du réseau (D4.2 §4.1), sans LCC environnementale, que la D4.2 construit sur la frontière de l'ACV.",
+        policy: "Q3 n'inclut pas la dimension environnementale, il n'y a donc pas d'ACV parallèle : le coût est la LCC conventionnelle de chaque partenaire, consolidée au niveau du réseau (D4.2 §4.1), sans LCC environnementale, que la D4.2 construit sur la frontière de l'ACV. La LCC sociétale conserve le net tax factor et le taux d'actualisation social, mais sans résultats d'ACV les externalités ne peuvent pas être monétisées (D4.2 §11.2).",
+      },
+      c2_allocation_over_pef: "Le reporting strict d'une seule entreprise (Situation ILCD C2) utilise l'allocation sans crédits de substitution (D4.1 §7.2.3) ; la Circular Footprint Formula de la PEF demandée par Q4=D ne s'applique donc pas : la CFF est une méthode produit. Si l'étude est une empreinte de produit et non un rapport d'entreprise, revoyez Q9.",
+      slca_alone: "Q3 ne sélectionne que la dimension sociale. La D4.3 §3.1 construit l'ACV sociale sur l'unité fonctionnelle et les frontières d'une ACV ou d'une LCC ; si aucune n'est sélectionnée, documentez l'unité de référence et la frontière dans la charte méthodologique.",
+      flow_sellable_but_waste: "Flux « {{flow}} » : Q5 indique que le producteur paie pour s'en débarrasser (déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
+      flow_price_without_market: "Flux « {{flow}} » : Q5 indique que le destinataire le paie (coproduit), mais aucun tiers ne le paierait. D4.1 §8.3.3 : sans marché indépendant, le prix est une redevance administrative et le flux est un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 étape 4). L'exception est un producteur qui modifie son procédé pour le partenaire (Q5 = d).",
+      flow_freedom_to_act_settles: {
+        co_product: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui ; la réponse Freedom-to-Act (D4.1 §8.3.3) le lit comme un coproduit (§8.3.2, charge partagée).",
+        waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui ; la réponse Freedom-to-Act (D4.1 §8.3.3) le lit comme un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4).",
+      },
+      flow_part2_chapter: "Flux « {{flow}} » : les règles sectorielles de la D4.1 Part 2 {{chapter}} s'y appliquent ; elles figurent sous Règles sectorielles.",
+      flow_configuration_unknown: "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
+      flow_configuration_other_chapter: "Flux « {{flow}} » : sa configuration relève de {{chapter}}, pas du chapitre déclaré {{declared}} ; les règles des deux chapitres sont listées.",
+    },
+    sectorChapters: { '§4': "§4 Agroalimentaire et bioraffineries", '§5': "§5 Plastiques et emballages", '§6': "§6 Eaux usées et bio-usines", '§7': "§7 Textile et textiles techniques", '§8': "§8 Valorisation des déchets" },
     sectorRules: {
       title: 'Règles sectorielles (D4.1 Part 2)',
       lead: "Les règles que la D4.1 Part 2 donne pour les secteurs touchés par votre cas. L'outil ne les applique pas à votre place : documentez dans l'étude comment chacune a été respectée.",

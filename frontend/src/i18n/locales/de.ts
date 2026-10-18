@@ -732,6 +732,35 @@ const de: Locale = {
 
   result: {
     notes: { title: 'Hinweise zu Ihren Antworten' },
+    engineNotes: {
+      structural_without_screening: "Q9 nennt strukturelle Auswirkungen, aber das Markt-Screening ist nicht dokumentiert: Die Studie wird als ILCD-Situation A behandelt, und Situation B ist als Sensitivität zu prüfen (D4.1 §4.3.4, §11.3.1).",
+      structural_screening_missing: "Situation B verlangt den Nachweis, dass die Änderung etwa 1 % oder mehr der neuen Kapazität im betroffenen Markt verdrängt (D4.1 §11.3.1); dokumentieren Sie ihn, sonst ist die Studie Situation A mit B als Sensitivität (D4.1 §4.3.4).",
+      decision_scale_vs_q1: {
+        c_micro: "Q1 (sektorweite Vorstudie) bedeutet meist Folgen in struktureller Größenordnung; Sie haben begrenzte Folgen angegeben, daher wird die Studie als ILCD-Situation A behandelt. D4.1 §4.3.4: Wählen Sie die konsequenzielle Ökobilanz nicht allein deshalb, weil eine Entscheidung getroffen wird.",
+        e_micro: "Q1=E (Monitoring) setzt keine Entscheidung voraus; Sie haben angegeben, dass die Studie eine Entscheidung mit begrenzten Folgen stützt, daher wird sie als ILCD-Situation A behandelt.",
+        e_structural: "Q1=E (Monitoring) setzt keine Entscheidung voraus; Sie haben angegeben, dass die Studie eine Entscheidung mit strukturellen Folgen stützt, daher wird sie als ILCD-Situation B behandelt.",
+      },
+      q1_d_not_corporate: "Q1=D beschreibt die Nachhaltigkeitsberichterstattung eines Unternehmens, aber laut Q9 ist die Studie kein Unternehmensbericht; die ILCD-Situation folgt Q9. Strikte Unternehmensberichterstattung (Allokation, keine Gutschriften) ist ILCD-Situation C2 (D4.1 §7.2.3).",
+      documentation_vs_ex_ante: "ILCD-Situation C dokumentiert ein bereits bestehendes Netzwerk, aber Q2 beschreibt eine Ex-ante-Studie (das Netzwerk läuft noch nicht, oder Alternativen werden verglichen). Prüfen Sie, ob die Situation die gemeinte ist.",
+      c2_keeps_c_lcc: "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) behält die Kostenrechnung auf Unternehmensebene (nur C-LCC), was immer Q10 sagt: eine Entwurfsentscheidung von T4.6, da ein einzelnes Unternehmen keine Netzwerkebene hat.",
+      policy_no_but_q1_c: "Q1=C (sektorweite Vorstudie) dient meist einer öffentlichen Politik; Sie haben dies verneint, daher wird die gesellschaftliche Kostenrechnung (S-LCC, Net Tax Factor, sozialer Diskontsatz) nicht hinzugefügt.",
+      lcc_without_lca: {
+        plain: "Q3 enthält keine Umweltdimension, es gibt also keine parallele Ökobilanz: Die Kostenrechnung ist die konventionelle LCC jedes Partners, auf Netzwerkebene konsolidiert (D4.2 §4.1), ohne die ökologische LCC, die D4.2 auf der Systemgrenze der Ökobilanz aufbaut.",
+        policy: "Q3 enthält keine Umweltdimension, es gibt also keine parallele Ökobilanz: Die Kostenrechnung ist die konventionelle LCC jedes Partners, auf Netzwerkebene konsolidiert (D4.2 §4.1), ohne die ökologische LCC, die D4.2 auf der Systemgrenze der Ökobilanz aufbaut. Die gesellschaftliche LCC behält Net Tax Factor und sozialen Diskontsatz, aber ohne Ökobilanzergebnisse lassen sich Externalitäten nicht monetarisieren (D4.2 §11.2).",
+      },
+      c2_allocation_over_pef: "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) verwendet Allokation und keine Substitutionsgutschriften (D4.1 §7.2.3); die von Q4=D verlangte Circular Footprint Formula der PEF wird daher nicht angewandt: Die CFF ist eine Produktmethode. Ist die Studie ein Produkt-Fußabdruck und kein Unternehmensbericht, prüfen Sie Q9.",
+      slca_alone: "Q3 wählt nur die soziale Dimension. D4.3 §3.1 baut die S-LCA auf der funktionellen Einheit und den Systemgrenzen einer Ökobilanz oder LCC auf; ist keine gewählt, dokumentieren Sie Bezugseinheit und Systemgrenze in der methodischen Charta.",
+      flow_sellable_but_waste: "Fluss „{{flow}}“: Laut Q5 zahlt der Erzeuger für die Entsorgung (Abfall), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
+      flow_price_without_market: "Fluss „{{flow}}“: Laut Q5 bezahlt der Empfänger dafür (Koppelprodukt), aber kein Dritter würde das tun. D4.1 §8.3.3: Ohne unabhängigen Markt ist der Preis eine Verwaltungsgebühr und der Fluss ein Abfall, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Schritt 4). Ausnahme ist ein Erzeuger, der seinen Prozess für den Partner ändert (Q5 = d).",
+      flow_freedom_to_act_settles: {
+        co_product: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt; die Freedom-to-Act-Antwort (D4.1 §8.3.3) liest ihn als Koppelprodukt (§8.3.2, Last geteilt).",
+        waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt; die Freedom-to-Act-Antwort (D4.1 §8.3.3) liest ihn als Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4).",
+      },
+      flow_part2_chapter: "Fluss „{{flow}}“: Für ihn gelten die Sektorregeln von D4.1 Part 2 {{chapter}}; sie stehen unter Sektorregeln.",
+      flow_configuration_unknown: "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
+      flow_configuration_other_chapter: "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
+    },
+    sectorChapters: { '§4': "§4 Agrar, Lebensmittel und Bioraffinerien", '§5': "§5 Kunststoffe und Verpackungen", '§6': "§6 Abwasser und Biofabriken", '§7': "§7 Textil und technische Textilien", '§8': "§8 Abfallverwertung" },
     sectorRules: {
       title: 'Sektorregeln (D4.1 Part 2)',
       lead: 'Die Regeln, die D4.1 Part 2 für die Sektoren Ihres Falls vorgibt. Das Tool wendet sie nicht für Sie an: Dokumentieren Sie in der Studie, wie jede eingehalten wurde.',

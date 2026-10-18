@@ -732,6 +732,35 @@ const es: Locale = {
 
   result: {
     notes: { title: 'Notas sobre tus respuestas' },
+    engineNotes: {
+      structural_without_screening: "Q9 indica efectos estructurales, pero el cribado de mercado no está documentado: el estudio se trata como Situación ILCD A, y la Situación B debe probarse como sensibilidad (D4.1 §4.3.4, §11.3.1).",
+      structural_screening_missing: "La Situación B exige probar que el cambio desplaza alrededor del 1 % o más de la nueva capacidad del mercado afectado (D4.1 §11.3.1); documéntalo, o el estudio queda en Situación A con B como sensibilidad (D4.1 §4.3.4).",
+      decision_scale_vs_q1: {
+        c_micro: "Q1 (prefactibilidad sectorial) suele implicar consecuencias a escala estructural; has respondido consecuencias limitadas, así que el estudio se trata como Situación ILCD A. D4.1 §4.3.4: no elijas el ACV consecuencial solo porque se toma una decisión.",
+        e_micro: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias limitadas, así que se trata como Situación ILCD A.",
+        e_structural: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias estructurales, así que se trata como Situación ILCD B.",
+      },
+      q1_d_not_corporate: "Q1=D describe el reporte de sostenibilidad de una empresa, pero Q9 dice que el estudio no es un informe corporativo; la situación ILCD sigue a Q9. El reporte corporativo estricto (asignación, sin créditos) es la Situación ILCD C2 (D4.1 §7.2.3).",
+      documentation_vs_ex_ante: "La Situación ILCD C documenta una red que ya existe, pero Q2 describe un estudio ex ante (la red aún no opera, o se comparan alternativas). Comprueba que la situación sea la que quieres.",
+      c2_keeps_c_lcc: "El reporte estricto de una sola empresa (Situación ILCD C2) mantiene el costeo a nivel de empresa (solo C-LCC) diga lo que diga Q10: es una decisión de diseño de T4.6, porque una sola empresa no tiene nivel de red.",
+      policy_no_but_q1_c: "Q1=C (prefactibilidad sectorial) suele servir a una política pública; has respondido que no, así que no se añade el costeo social (S-LCC, net tax factor, tasa de descuento social).",
+      lcc_without_lca: {
+        plain: "Q3 no incluye la dimensión ambiental, así que no hay un ACV paralelo: el costeo es el LCC convencional de cada socio, consolidado a nivel de red (D4.2 §4.1), sin el LCC ambiental, que la D4.2 construye sobre el límite del ACV.",
+        policy: "Q3 no incluye la dimensión ambiental, así que no hay un ACV paralelo: el costeo es el LCC convencional de cada socio, consolidado a nivel de red (D4.2 §4.1), sin el LCC ambiental, que la D4.2 construye sobre el límite del ACV. El LCC social mantiene el net tax factor y la tasa de descuento social, pero sin resultados de ACV las externalidades no se pueden monetizar (D4.2 §11.2).",
+      },
+      c2_allocation_over_pef: "El reporte estricto de una sola empresa (Situación ILCD C2) usa asignación y ningún crédito de sustitución (D4.1 §7.2.3), así que la Circular Footprint Formula de la PEF que pide Q4=D no se aplica: la CFF es un método de producto. Si el estudio es una huella de producto y no un informe corporativo, revisa Q9.",
+      slca_alone: "Q3 selecciona solo la dimensión social. La D4.3 §3.1 construye el ACV social sobre la unidad funcional y los límites de un ACV o un LCC; si no se selecciona ninguno, documenta la unidad de referencia y el límite en la carta metodológica.",
+      flow_sellable_but_waste: "Flujo «{{flow}}»: Q5 dice que el generador paga por deshacerse de él (residuo), pero un tercero pagaría por él. D4.1 §8.3.3 y §8.3.6 paso 1: un flujo con un valor de mercado positivo e independiente es un coproducto, y su carga aguas arriba se reparte (sustitución o asignación), no se corta. Revisa Q5 para este flujo.",
+      flow_price_without_market: "Flujo «{{flow}}»: Q5 dice que el receptor paga por él (coproducto), pero ningún tercero lo haría. D4.1 §8.3.3: sin un mercado independiente el precio es una tasa administrativa y el flujo es un residuo, con carga cero desde el punto en que alcanza por primera vez un valor no negativo (§8.3.6 paso 4). La excepción es un generador que modifica su proceso para el socio (Q5 = d).",
+      flow_freedom_to_act_settles: {
+        co_product: "Flujo «{{flow}}»: Q5 deja abierto quién paga a quién; la respuesta Freedom-to-Act (D4.1 §8.3.3) lo lee como coproducto (§8.3.2, carga repartida).",
+        waste: "Flujo «{{flow}}»: Q5 deja abierto quién paga a quién; la respuesta Freedom-to-Act (D4.1 §8.3.3) lo lee como residuo (carga cero desde el punto en que alcanza por primera vez un valor no negativo, §8.3.6 paso 4).",
+      },
+      flow_part2_chapter: "Flujo «{{flow}}»: se le aplican las reglas sectoriales de la D4.1 Part 2 {{chapter}}; aparecen en Reglas sectoriales.",
+      flow_configuration_unknown: "Flujo «{{flow}}»: la configuración «{{configuration}}» no es una de la D4.1 Part 2.",
+      flow_configuration_other_chapter: "Flujo «{{flow}}»: su configuración pertenece a {{chapter}}, no al capítulo declarado {{declared}}; se listan las reglas de ambos capítulos.",
+    },
+    sectorChapters: { '§4': "§4 Agroalimentario y biorrefinerías", '§5': "§5 Plásticos y envases", '§6': "§6 Aguas residuales y biofactorías", '§7': "§7 Textil y textiles técnicos", '§8': "§8 Valorización de residuos" },
     sectorRules: {
       title: 'Reglas sectoriales (D4.1 Part 2)',
       lead: 'Las reglas que la D4.1 Part 2 da para los sectores que toca tu caso. La herramienta no las aplica por ti: documenta en el estudio cómo se cumplió cada una.',

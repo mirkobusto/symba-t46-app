@@ -14,6 +14,7 @@ import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
+import { chapterName, translateNote } from '../i18n/engineNotes'
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -211,7 +212,7 @@ export default function ResultPage() {
           </h2>
           <ul>
             {result.warnings!.map((w, i) => (
-              <li key={`${w.code}-${i}`}>{w.message}</li>
+              <li key={`${w.code}-${i}`}>{translateNote(t, w)}</li>
             ))}
           </ul>
         </section>
@@ -412,7 +413,7 @@ function SectorRules({ rules }: { rules: SectorRule[] }) {
       {Object.entries(chapters).map(([chapter, list]) => (
         <details key={chapter}>
           <summary>
-            <strong>{chapter}</strong> · {t('result.sectorRules.count', { count: list.length })}
+            <strong>{chapterName(t, chapter)}</strong> · {t('result.sectorRules.count', { count: list.length })}
           </summary>
           <p className="result-sector-reason">
             {t('result.sectorRules.activatedBy', {

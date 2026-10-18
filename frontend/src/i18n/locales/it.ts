@@ -368,15 +368,18 @@ const it: Locale = {
     q2: {
       title: 'Q2 — Gli scambi che lo studio misura avvengono già?',
       details:
-        'Rispondi sugli scambi simbiotici, non sugli impianti: un impianto può esistere mentre lo scambio che studi è ancora un progetto. A — gli scambi avvengono da tempo; ci sono dati operativi primari (es. Kalundborg oggi, Sokka 2011). Il riferimento è ciò che ogni azienda farebbe oggi se i legami si interrompessero (HNSRS, D4.1 §11.1). B — gli scambi sono appena partiti, o gli impianti sono in avviamento; dati in parte misurati, in parte stimati. C — gli scambi non avvengono ancora: progettati, in fase di disegno o ipotetici, anche se gli impianti funzionano già (es. Daddi 2017, residui riutilizzati in un\'azienda esistente). Il riferimento è la situazione attuale senza gli scambi (CNSRS, D4.1 §11.1). D — gli scambi avvengono e lo studio confronta anche alternative future (espansione, nuova tecnologia, rete elettrica decarbonizzata): la rete esistente contro l\'HNSRS, ogni alternativa contro il CNSRS. D apre l\'editor degli scenari alternativi qui sotto. Quando opera il sistema si chiede in Q8.',
+        'Rispondi sugli scambi simbiotici, non sugli impianti: un impianto può esistere mentre lo scambio che studi è ancora un progetto. A — sì: gli scambi avvengono oggi e i loro flussi si possono misurare (es. Kalundborg; il distretto conciario di Daddi 2017). Il riferimento è che cosa farebbe oggi ogni azienda se i collegamenti si interrompessero (HNSRS, D4.1 §11.1). Se la rete opera da molti anni, quel riferimento è un controfattuale moderno, non la configurazione delle aziende di decenni fa (D4.1 §11.2.2): lo chiede la domanda di seguito. B — non ancora: gli scambi sono progettati, in disegno, ipotetici o appena avviati, anche fra impianti che funzionano già. Il riferimento è la situazione attuale senza di loro, compresi gli scambi che già funzionano (CNSRS, D4.1 §11.1). Confrontare alternative (un\'espansione, una tecnologia nuova) è possibile in ogni studio: aggiungile come scenari qui sotto (D4.1 §4.3.3). Quando il sistema opera lo chiede Q8.',
       options: {
-        A: { label: 'A. Già in corso', description: 'Gli scambi avvengono già (dati operativi reali).' },
-        B: { label: 'B. Appena partiti', description: 'Gli scambi sono appena partiti, o gli impianti sono in avviamento.' },
-        C: { label: 'C. Non ancora', description: 'Scambi progettati, in disegno o ipotetici, anche fra impianti che esistono già.' },
-        D: { label: 'D. In corso, più alternative', description: 'Gli scambi sono in corso e lo studio li confronta con alternative future.' },
+        A: { label: 'A. Sì, avvengono già', description: 'Gli scambi avvengono oggi: i loro flussi si possono misurare.' },
+        B: { label: 'B. Non ancora', description: 'Progettati, in disegno o appena avviati, anche fra impianti che esistono già.' },
+      },
+      longStanding: {
+        label: 'La rete opera da molti anni, tanto che gli impianti che ha sostituito oggi non si costruirebbero più?',
+        yes: 'Sì — il riferimento è un controfattuale moderno (D4.1 §11.2.2)',
+        no: 'No — la rete è recente',
       },
       plain:
-        'Pensa agli scambi, non agli impianti. Se i flussi fra le aziende avvengono già, li puoi misurare. Se sono ancora un\'idea, anche fra impianti che funzionano già, li puoi solo stimare. Scegli l\'ultima opzione se vuoi confrontare gli scambi di oggi con uno o più futuri possibili: apre l\'editor degli scenari qui sotto.',
+        'Pensa agli scambi, non agli impianti. Se i flussi fra le aziende avvengono già, li puoi misurare. Se sono ancora un\'idea, anche fra impianti che funzionano già, li puoi solo stimare. Vuoi confrontare alternative, come un\'espansione o una tecnologia nuova? Aggiungile come scenari qui sotto, qualunque sia la risposta qui.',
     },
 
     q3: {
@@ -512,11 +515,11 @@ const it: Locale = {
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',
       help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
-      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio, tranne con Q2 = D (alternative future), che vale come futuro. Il periodo di analisi è l\'arco di tempo coperto dallo studio; di norma coincide con la vita tecnica degli asset principali (D4.2 §9). La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
+      details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio. Il periodo di analisi è l\'arco di tempo coperto dallo studio; di norma coincide con la vita tecnica degli asset principali (D4.2 §9). La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
       start: {
         label: 'In quale anno opera il sistema, o si assume che operi?',
         options: {
-          unset: 'Non risposta (l\'anno dello studio; un anno futuro se Q2 = D)',
+          unset: 'Non risposta (l\'anno dello studio)',
           now: 'Adesso: l\'anno dello studio',
           future: 'Un anno futuro',
         },
@@ -580,9 +583,9 @@ const it: Locale = {
     },
 
     q2dCard: {
-      title: 'Q2-D — Scenari alternativi',
+      title: 'Scenari alternativi (facoltativo)',
       help:
-        'Definisci uno o più scenari alternativi futuri da confrontare con la baseline. Attiva il background dinamico SSP/RCP e il supporto matrice-scenari downstream.',
+        'Ogni studio può confrontare alternative con la propria situazione di partenza (D4.1 §4.3.3).',
     },
 
     advancedCard: {
@@ -745,7 +748,7 @@ const it: Locale = {
         e_structural: "Q1=E (monitoraggio) non comporta decisioni; hai risposto che lo studio sostiene una decisione con conseguenze strutturali, quindi è trattato come Situazione ILCD B.",
       },
       q1_d_not_corporate: "Q1=D descrive la rendicontazione di sostenibilità di un'azienda, ma Q9 dice che lo studio non è un rendiconto aziendale; la situazione ILCD segue Q9. Il rendiconto aziendale rigoroso (allocazione, niente crediti) è la Situazione ILCD C2 (D4.1 §7.2.3).",
-      documentation_vs_ex_ante: "La Situazione ILCD C documenta una rete che esiste già, ma Q2 descrive uno studio ex-ante (la rete non opera ancora, o si confrontano alternative). Verifica che la situazione sia quella che intendi.",
+      documentation_vs_ex_ante: 'La Situazione ILCD C documenta scambi che avvengono già, ma Q2 dice che non avvengono ancora. Controlla che la situazione sia quella che intendi.',
       c2_keeps_c_lcc: "Il rendiconto rigoroso di una sola azienda (Situazione ILCD C2) tiene il costing a livello d'impresa (solo C-LCC) qualunque sia la risposta a Q10: è una scelta di progetto T4.6, perché una sola azienda non ha un livello di rete.",
       policy_no_but_q1_c: "Q1=C (pre-fattibilità di settore) di solito serve una politica pubblica; hai risposto di no, quindi il costing sociale (S-LCC, net tax factor, tasso di sconto sociale) non viene aggiunto.",
       lcc_without_lca: {
@@ -844,6 +847,7 @@ const it: Locale = {
 
   scenariosResult: {
     title: 'Confronto scenari',
+    empty: 'Nessun confronto fra scenari ancora. Nel questionario definisci uno o più scenari alternativi, poi clicca "Esegui scenari" nella pagina risultato.',
     description: 'Pipeline eseguita per la baseline + {{n}} scenari alternativi. Differenze evidenziate vs baseline.',
     backToResult: 'Torna al risultato singolo',
     columns: {

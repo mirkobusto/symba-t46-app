@@ -71,12 +71,12 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (substitution credits)",
         "lcia": "ReCiPe midpoint, Finland-adjusted CFs",
         "scenarios": "3 reference scenarios (RS1 NG, RS2 peat, RS3 improvement)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.e),
         "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
-            "Q1=B: eco-park (six-actor IES). Q2=D: existing baseline + RS3 "
-            "improvement scenario. Q3=ENV: pure LCA. Q4=E: academic. Q5=e: "
+            "Q1=B: eco-park (six-actor IES). Q2=A: the exchanges operate; RS3 "
+            "improvement scenario on top. Q3=ENV: pure LCA. Q4=E: academic. Q5=e: "
             "black-box flow accounting. Q6a Other (Pulp & paper enum pending). "
             "Q6b TRL9, Q7=B regional."
         ),
@@ -93,13 +93,13 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "None (single-output)",
         "lcia": "Single-impact (CO2 only) using JP government EFs",
         "scenarios": "4 (S1 baseline no-IS, S2 current IS, S3 cluster-improved, S4 regional-extended)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
         "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Q1=B: subject is the network's CO2 savings, not corporate ESG. "
-            "Disambiguation rule 'who is the SUBJECT?' applies. Q2=D: "
-            "S1+S2 baseline + S3+S4 alternatives. Q5 mixed (a slag pays-to-take, "
+            "Disambiguation rule 'who is the SUBJECT?' applies. Q2=A: "
+            "S2 (current IS, operating) vs S1 (no IS); S3+S4 alternatives on top. Q5 mixed (a slag pays-to-take, "
             "c by-products)."
         ),
     },
@@ -115,10 +115,10 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (Mattila 2012 approach)",
         "lcia": "ILCD recommended methods",
         "scenarios": "4 (S1 current IS, S2 hypothetical no-IS, S3a/S3b future water reuse)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "rationale": "Cluster of 6 municipalities + WWT facility = Q1=B. S3a/S3b alternatives = Q2=D.",
+        "rationale": "Cluster of 6 municipalities + WWT facility = Q1=B. S1 (current IS) vs S2 (no IS) = Q2=A; S3a/S3b future alternatives on top.",
     },
     {
         "id": "paulu_2022",
@@ -132,7 +132,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Sector-level attributional, no per-flow allocation",
         "lcia": "Environmental Footprint (EF, normalised+weighted PEF/OEF)",
         "scenarios": "2 (current state + symbiotic optimised)",
-        "q1": Q1.C, "q2": Q2.D, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
+        "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
         "flows": _flows(Q5.e),
         "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D,
         "rationale": (
@@ -174,12 +174,12 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion + entity-level cost allocation",
         "lcia": "Acidification + Eutrophication + GWP",
         "scenarios": "13 (S0 baseline + 12 combinations of 4 design choices)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c, Q5.c),
         "q6a": Q6a.WASTEWATER_BIOFACTORIES, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "rationale": (
             "Most extensive multi-scenario design (12 alternatives across 4 "
-            "design dimensions) = Q2=D. Q6a wastewater_biofactories. Q6b 7-8 "
+            "design dimensions) = Q2=B (not yet operating). Q6a wastewater_biofactories. Q6b 7-8 "
             "for new boiler design in -EC scenarios; per-scenario TRL specified "
             "in case data."
         ),
@@ -196,7 +196,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "MFCA mass-based; CBA aggregates",
         "lcia": "OPEX, monetary efficiency, CAPEX, Sankey cost diagrams",
         "scenarios": "1+1 (baseline + post-IS)",
-        "q1": Q1.A, "q2": Q2.D, "q3": Q3(eco=True), "q4": {Q4.E},
+        "q1": Q1.A, "q2": Q2.B, "q3": Q3(eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.CHEMICALS_FERTILIZERS, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
@@ -217,7 +217,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "MFCA mass-based",
         "lcia": "OPEX, CAPEX, Sankey diagrams",
         "scenarios": "4 (A CCU / B Scrubber / C External / D Baseline NG)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(eco=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.B, "q3": Q3(eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "rationale": "Multi-actor eco-park = Q1=B. CCU scenario at TRL 7-8.",
@@ -234,12 +234,12 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (substitution-based displacement)",
         "lcia": "t CO2, m3 water, MWh energy, t materials, M EUR savings",
         "scenarios": "3 (Baseline 2015, 2018, 2019)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
+        "q1": Q1.B, "q2": Q2.A, "network_long_standing": True, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
         "flows": _flows(Q5.e),
         "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Most iconic IS network (8 actors, 50+ years operational) = Q1=B "
-            "canonical. Q4=C public-claim (Symbiosis Center DK promotes "
+            "canonical; Q2=A with a long-standing network. Q4=C public-claim (Symbiosis Center DK promotes "
             "Kalundborg as superior model)."
         ),
     },
@@ -255,12 +255,12 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Matrix-based decomposition",
         "lcia": "NPV (LCC) per entity + per flow + per network; LCA impacts at all 3 levels",
         "scenarios": "Open-loop and closed-loop variants",
-        "q1": Q1.B, "q2": Q2.C, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.AGRI_FOOD, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
             "Fictional 5-entity network = Q1=B. Methodological demonstration "
-            "in design phase = Q2=C."
+            "in design phase = Q2=B."
         ),
     },
     {
@@ -275,7 +275,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Capital flow allocation across 8 capital types",
         "lcia": "Stock and flow of 8 capital types (natural / human / social / financial / manufactured / intellectual / cultural / political-institutional)",
         "scenarios": "3 (S1 natural gas, S2 biogas symbiotic, S3 renewable electricity)",
-        "q1": Q1.B, "q2": Q2.D, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.MULTI_TENANT_URBAN_BUILDING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
@@ -296,11 +296,11 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Tested across scenarios (system expansion, partial, etc.)",
         "lcia": "Total cost (LCC) + LCA impacts",
         "scenarios": "19 scenarios varying FU, transport distance, waste quality, prices, allocation",
-        "q1": Q1.A, "q2": Q2.C, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
+        "q1": Q1.A, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.c),
         "q6a": Q6a.MULTI_SECTOR, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
-            "Generic 2-firm exchange in design phase = Q1=A, Q2=C. Most "
+            "Generic 2-firm exchange in design phase = Q1=A, Q2=B. Most "
             "scenario-rich case in sample (19 scenarios)."
         ),
     },
@@ -316,12 +316,12 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Multi-method depending on flow",
         "lcia": "LCA: carbon, acidification, eutrophication. S-LCA: jobs, skills, wellbeing, H&S. LCC: CAPEX, OPEX, NPV. TEA: ROI, payback.",
         "scenarios": "Multi-scenario, framework propositional",
-        "q1": Q1.C, "q2": Q2.C, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
+        "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
         "rationale": (
             "Industry-wide bio-polymer framework = Q1=C. Propositional "
-            "framework in design = Q2=C. Full LCSA with TEA addition. "
+            "framework in design = Q2=B. Full LCSA with TEA addition. "
             "Q7 not applicable (n/a "
             "in WorkingDoc)."
         ),
@@ -370,6 +370,7 @@ def _build_case(paper: dict[str, Any]) -> Case:
     return Case(
         q1=paper["q1"],
         q2=paper["q2"],
+        network_long_standing=paper.get("network_long_standing"),
         q3=paper["q3"],
         q4=paper["q4"],
         q6a=paper["q6a"],
@@ -423,7 +424,7 @@ def _generate_one(paper: dict[str, Any], result: Case, out_dir: Path) -> Path:
     # ----- Section 4 — Q1-Q7 compilation -----
     _add_heading(doc, "4. Compilation of the seven user-facing tool questions", level=1)
     _add_kv(doc, "Q1 (IS scenario archetype)", paper["q1"].value)
-    _add_kv(doc, "Q2 (temporal stance)", paper["q2"].value)
+    _add_kv(doc, "Q2 (exchanges already take place?)", paper["q2"].value)
     _add_kv(doc, "Q3 (sustainability dimensions)", _format_q3(paper["q3"]))
     _add_kv(doc, "Q4 (use of results, multi-select)", _format_q4(paper["q4"]))
     _add_kv(doc, "Q5 per-flow", _format_flows(paper["flows"]))

@@ -30,7 +30,7 @@ def test_pipeline_run_minimal_case(client):
 def test_pipeline_run_full_lcsa_case(client):
     """Tri-method case (env+eco+soc) populates lcc_type, S-LCA, CDPs."""
     resp = client.post("/api/pipeline/run", json={
-        "q1": "B", "q2": "D",
+        "q1": "B", "q2": "B",
         "q3": {"env": True, "eco": True, "soc": True},
         "q4": ["E"],
     })
@@ -121,7 +121,7 @@ def test_run_scenarios_baseline_only(client):
     """Empty scenarios list -> just the baseline result."""
     resp = client.post("/api/pipeline/run-scenarios", json={
         "baseline": {
-            "q1": "B", "q2": "D",
+            "q1": "B", "q2": "B",
             "q3": {"env": True, "eco": False, "soc": False},
         },
         "scenarios": [],
@@ -136,7 +136,7 @@ def test_run_scenarios_with_two_alternatives(client):
     """Baseline + 2 scenarios with Q-overrides."""
     resp = client.post("/api/pipeline/run-scenarios", json={
         "baseline": {
-            "q1": "B", "q2": "D",
+            "q1": "B", "q2": "B",
             "q3": {"env": True, "eco": False, "soc": False},
         },
         "scenarios": [
@@ -178,7 +178,7 @@ def test_run_scenarios_scenario_engine_failure_does_not_400_the_batch(client):
     via empty engine output."""
     resp = client.post("/api/pipeline/run-scenarios", json={
         "baseline": {
-            "q1": "B", "q2": "D",
+            "q1": "B", "q2": "B",
             "q3": {"env": True, "eco": False, "soc": False},
         },
         "scenarios": [
@@ -235,7 +235,7 @@ def test_pipeline_run_q9_structural_decision_moves_the_situation_and_the_framewo
 
 
 def test_pipeline_run_q9_null_is_identical_to_absent(client):
-    base = {"q1": "C", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    base = {"q1": "C", "q2": "B", "q3": {"env": True, "eco": True, "soc": False}}
     absent = client.post("/api/pipeline/run", json=base).json()
     null = client.post("/api/pipeline/run", json={**base, "decision_context": None}).json()
     absent.pop("id"), null.pop("id")
@@ -264,7 +264,7 @@ def test_pipeline_run_q10_policy_purpose_adds_the_social_costing(client):
 
 
 def test_pipeline_run_q10_null_is_identical_to_absent(client):
-    base = {"q1": "B", "q2": "D", "q3": {"env": True, "eco": True, "soc": False}}
+    base = {"q1": "B", "q2": "B", "q3": {"env": True, "eco": True, "soc": False}}
     absent = client.post("/api/pipeline/run", json=base).json()
     null = client.post("/api/pipeline/run", json={**base, "policy_objective": None}).json()
     absent.pop("id"), null.pop("id")
@@ -286,7 +286,7 @@ def test_running_twice_does_not_double_the_outputs(client):
     pipeline on a case that was stored post-pipeline — exported every
     obligation twice while the result page showed the single count."""
     body = {
-        "q1": "B", "q2": "D",
+        "q1": "B", "q2": "B",
         "q3": {"env": True, "eco": True, "soc": True},
         "q4": ["E"], "q6a": "pulp_paper", "q6b": "TRL7-8", "q7": "B",
         "flows": [{"id": "f1", "name": "spent grain", "q5": "a"}],

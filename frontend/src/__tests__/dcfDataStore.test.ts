@@ -133,7 +133,7 @@ describe('dcfDataStore', () => {
   })
 
   it('does not seed values for fields the configuration did not activate', () => {
-    // quantity_measured only activates for q2 in {A, D}
+    // quantity_measured only activates for q2 = A
     useDcfDataStore
       .getState()
       .syncWithPayload(

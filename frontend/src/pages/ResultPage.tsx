@@ -77,8 +77,7 @@ export default function ResultPage() {
     }
   }
 
-  const hasScenarios =
-    draft.q2 === 'D' && (draft.alternative_scenarios ?? []).length > 0
+  const hasScenarios = (draft.alternative_scenarios ?? []).length > 0
 
   async function handleRunScenarios() {
     const out = await runScenariosFromDraft()

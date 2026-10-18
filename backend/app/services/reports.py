@@ -181,7 +181,9 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     _add_kv(doc, "Q1 (IS scenario archetype)",
             case.q1.value if case.q1 else "(not set)")
     _add_kv(doc, "Q2 (exchanges already take place?)",
-            case.q2.value if case.q2 else "(not set)")
+            {"A": "A (yes)", "B": "B (not yet)"}.get(case.q2.value, case.q2.value) if case.q2 else "(not set)")
+    if case.q2 is not None and case.q2.value == "A" and case.network_long_standing is not None:
+        _add_kv(doc, "Q2b (long-standing network?)", "yes" if case.network_long_standing else "no")
     _add_kv(doc, "Q3 (sustainability dimensions)", _format_q3(case.q3))
     _add_kv(doc, "Q4 (use of results, multi-select)", _format_q4(case.q4))
     if case.flows:
@@ -223,7 +225,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         _add_kv(doc, "Q11 what the study compares", case.comparison_goal.value)
     if case.alternative_scenarios:
         doc.add_paragraph(
-            f"Q2-D alternative scenarios defined: "
+            f"Alternative scenarios defined: "
             f"{len(case.alternative_scenarios)}"
         )
     if case.advanced:

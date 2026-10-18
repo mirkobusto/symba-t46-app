@@ -950,14 +950,13 @@
       "field": "lca.reference_scenario.type",
       "field_status": null,
       "default_value": {
-        "q2=A": "HNSRS: the links severed today, filled with modern alternatives (D4.1 §11.1, §11.2.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
-        "q2=B": "CNSRS aligned with the study's time horizon (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
-        "q2=C": "CNSRS aligned with the study's time horizon (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
-        "q2=D": "HNSRS for the operating baseline; CNSRS aligned with the time horizon for each future alternative (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)"
+        "long_standing=true": "HNSRS as a modern counterfactual: what each firm would do today if the links were severed, not what it did before linking up. Consider in combination modern non-symbiotic replacements (current BAT or sector-average technology), a sector-average baseline where legacy data is sensitive or missing, the counterfactual method and semi-consequential system expansion, and document how the counterfactual was built and under what assumptions (D4.1 §11.1, §11.2.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
+        "q2=A": "HNSRS: the links severed today, each firm reverting to its best available conventional alternative (D4.1 §11.1); the pre-symbiosis configuration qualifies only while it is still what a rational actor would choose today: T4.6 reading of the frozen-technology rule of D4.1 §11.2; best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
+        "q2=B": "CNSRS: the business-as-usual the symbiosis intends to improve on, aligned with the study's time horizon (D4.1 §11.1, §11.3.2); it includes the exchanges that already run: T4.6 reading of \"existing business-as-usual\"; best-, worst- and most-likely-case variants (D4.1 §11.3.3)"
       },
       "override_path": "q2, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Field renamed from lca.reference_scenario to lca.reference_scenario.type per Mirko design call (field_gaps round, MODIFICA 2): paired with lca_mc_27 setting lca.reference_scenario.content. Avoids dotted-path duplication anti-pattern. | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §12.1)."
+      "extraction_notes": "Field renamed from lca.reference_scenario to lca.reference_scenario.type per Mirko design call (field_gaps round, MODIFICA 2): paired with lca_mc_27 setting lca.reference_scenario.content. Avoids dotted-path duplication anti-pattern. | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §12.1). | Rewritten on FINAL v2 text, review 2026-10-18 (Q2 in two answers): L01232-L01236 (ex-post -> HNSRS, ex-ante -> CNSRS), L01250 and L01252-L01262 (HNSRS as a modern counterfactual for a long-standing network, four strategies). The former Q2=D value (HNSRS for the operating baseline, CNSRS for each alternative) is retired: the CNSRS of an ex-ante study already holds what operates today."
     },
     {
       "id": "lca_mc_27",
@@ -1414,12 +1413,11 @@
       "field_status": null,
       "default_value": {
         "q2=A": "ex-post (D4.2 §7.1)",
-        "q2 in {B,C}": "ex-ante, with the trigger conditions for updating the model with operational data — network commissioning, end of ramp-up, major contract renewals (D4.2 §7.1)",
-        "q2=D": "ex-ante for the alternatives, on an operating baseline described ex-post, with the same update triggers: T4.6 reading of D4.2 §7.1, which knows only ex-ante or ex-post"
+        "q2=B": "ex-ante, with the trigger conditions for updating the model with operational data — network commissioning, end of ramp-up, major contract renewals (D4.2 §7.1)"
       },
       "override_path": "q2",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00829 ('must specify at the outset whether the study is ex-ante or ex-post ... for ex-ante studies — define the trigger conditions'). Q2=B now maps to ex-ante; the former 'both (ex-ante + ex-post)' for Q2=D is replaced by a declared reading."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00829 ('must specify at the outset whether the study is ex-ante or ex-post ... for ex-ante studies — define the trigger conditions'). Q2=B now maps to ex-ante; the former 'both (ex-ante + ex-post)' for Q2=D is replaced by a declared reading. | Review 2026-10-18 (Q2 in two answers): the T4.6 reading for the former Q2=D (ex-ante alternatives on an ex-post baseline) is retired; D4.2 §7.1 knows only ex-ante or ex-post (L00829)."
     },
     {
       "id": "lcc_hc_15",
@@ -1432,13 +1430,13 @@
         "q2"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5'] OR case.q2 IN ['B','C','D']",
+      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5'] OR case.q2 == 'B'",
       "field": "lcc.scale_up_framework",
       "field_status": null,
       "default_value": "Engineering cost estimation with scale-up and cost evolution for projects at the planning stage or below TRL 7: capacity scaling with the six-tenths rule, cost indices (CEPCI) to the reference year, Lang factors (D4.2 §7.3)",
       "override_path": "q6b, q2",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00875 ('For IS projects at the planning stage or involving technologies below TRL 7'), L00851, L00877-L00881. Now also for the planning stage (Q2 in {B,C,D}); the Lang-factor values of L00883 have no source and are not exposed. The LCA counterpart (lca_mc_20) stays at TRL < 7: its scale-up lever is empty for a mature technology."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00875 ('For IS projects at the planning stage or involving technologies below TRL 7'), L00851, L00877-L00881. Now also for the planning stage (Q2 = B); the Lang-factor values of L00883 have no source and are not exposed. The LCA counterpart (lca_mc_20) stays at TRL < 7: its scale-up lever is empty for a mature technology."
     },
     {
       "id": "lcc_hc_16",
@@ -1796,10 +1794,10 @@
         "q2"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q2 IN ['B','C','D']",
+      "trigger_condition": "case.q2 == 'B'",
       "field": "lcc.iterative_update_active",
       "field_status": null,
-      "default_value": "Ex-ante: trigger conditions for iterative update if Q2 in {B,C,D}",
+      "default_value": "Ex-ante (Q2 = B, the exchanges do not take place yet): trigger conditions for iterative update",
       "override_path": "q2",
       "lifecycle_layer": "L2"
     },
@@ -2066,12 +2064,11 @@
       "field_status": null,
       "default_value": {
         "q2=A": "ex-post (D4.2 §7.1)",
-        "q2 in {B,C}": "ex-ante, with the trigger conditions for updating the model with operational data — network commissioning, end of ramp-up, major contract renewals (D4.2 §7.1)",
-        "q2=D": "ex-ante for the alternatives, on an operating baseline described ex-post, with the same update triggers: T4.6 reading of D4.2 §7.1, which knows only ex-ante or ex-post"
+        "q2=B": "ex-ante, with the trigger conditions for updating the model with operational data — network commissioning, end of ramp-up, major contract renewals (D4.2 §7.1)"
       },
       "override_path": "q2",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00829 ('must specify at the outset whether the study is ex-ante or ex-post ... for ex-ante studies — define the trigger conditions'). Q2=B now maps to ex-ante; the former 'both (ex-ante + ex-post)' for Q2=D is replaced by a declared reading."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00829 ('must specify at the outset whether the study is ex-ante or ex-post ... for ex-ante studies — define the trigger conditions'). Q2=B now maps to ex-ante; the former 'both (ex-ante + ex-post)' for Q2=D is replaced by a declared reading. | Review 2026-10-18 (Q2 in two answers): the T4.6 reading for the former Q2=D (ex-ante alternatives on an ex-post baseline) is retired; D4.2 §7.1 knows only ex-ante or ex-post (L00829)."
     },
     {
       "id": "lcc_mc_11",

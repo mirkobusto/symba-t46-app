@@ -6,7 +6,9 @@
 // deferred until the API surface stabilises.
 
 export type Q1 = 'A' | 'B' | 'C' | 'D' | 'E'
-export type Q2 = 'A' | 'B' | 'C' | 'D'
+// Q2: do the exchanges the study measures already take place? A yes (ex-post),
+// B not yet (ex-ante). The former C and D load as B (2026-10-18).
+export type Q2 = 'A' | 'B'
 export type Q4 = 'A' | 'B' | 'C' | 'D' | 'E'
 export type Q5 = 'a' | 'b' | 'c' | 'd' | 'e'
 export type Q6a =
@@ -196,6 +198,8 @@ export interface Case {
   // User answers
   q1?: Q1 | null
   q2?: Q2 | null
+  /** Q2b, only with Q2 = A: has the network run for many years? (D4.1 §11.2.2) */
+  network_long_standing?: boolean | null
   q3?: Q3
   q4?: Q4[]
   q5?: Q5 | null
@@ -203,7 +207,7 @@ export interface Case {
   q6b?: Q6b | null
   q7?: Q7 | null
   // Optional Q8: the study's time horizon, one for LCA and LCC. Q8a when the
-  // system operates (null = the year of the study; a future year if Q2 = D),
+  // system operates (null = the year of the study),
   // Q8b analysis period in years, Q8c technical lifetime of the main assets
   // (used only when Q8b is empty; null = falls back to advanced.asset_lifetime).
   operating_start?: 'now' | 'future' | null

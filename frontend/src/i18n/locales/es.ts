@@ -336,15 +336,18 @@ const es: Locale = {
     q2: {
       title: 'Q2 — ¿Los intercambios que mide el estudio ya tienen lugar?',
       details:
-        'Responde sobre los intercambios simbióticos, no sobre las plantas: una planta puede existir mientras el intercambio que estudias es todavía un proyecto. A — los intercambios tienen lugar desde hace tiempo; hay datos operativos primarios (p. ej. Kalundborg hoy, Sokka 2011). La referencia es lo que cada empresa haría hoy si se cortaran los vínculos (HNSRS, D4.1 §11.1). B — los intercambios acaban de empezar, o las plantas están en puesta en marcha; datos en parte medidos, en parte estimados. C — los intercambios aún no tienen lugar: previstos, diseñados o hipotéticos, aunque las plantas ya funcionen (p. ej. Daddi 2017, residuos reutilizados en una explotación existente). La referencia es la situación actual sin los intercambios (CNSRS, D4.1 §11.1). D — los intercambios tienen lugar y el estudio compara también alternativas futuras (ampliación, nueva tecnología, red eléctrica descarbonizada): la red existente frente al HNSRS, cada alternativa frente al CNSRS. D abre el editor de escenarios alternativos de abajo. Cuándo funciona el sistema se pregunta en Q8.',
+        'Responde sobre los intercambios simbióticos, no sobre las plantas: una planta puede existir mientras el intercambio que estudias es todavía un proyecto. A — sí: los intercambios ocurren hoy y sus flujos se pueden medir (p. ej. Kalundborg; el distrito curtidor de Daddi 2017). La referencia es lo que haría hoy cada empresa si se cortaran los vínculos (HNSRS, D4.1 §11.1). Si la red funciona desde hace muchos años, esa referencia es un contrafactual moderno, no la configuración de las empresas de hace décadas (D4.1 §11.2.2): de eso trata la pregunta de seguimiento. B — todavía no: los intercambios están previstos, diseñados, son hipotéticos o acaban de empezar, aunque sea entre plantas que ya funcionan. La referencia es la situación actual sin ellos, incluidos los intercambios que ya funcionan (CNSRS, D4.1 §11.1). Comparar alternativas (una ampliación, una tecnología nueva) está abierto a todo estudio: añádelas como escenarios abajo (D4.1 §4.3.3). Cuándo opera el sistema se pregunta en Q8.',
       options: {
-        A: { label: 'A. Ya en marcha', description: 'Los intercambios ya tienen lugar (datos operativos reales).' },
-        B: { label: 'B. Recién iniciados', description: 'Los intercambios acaban de empezar, o las plantas están en puesta en marcha.' },
-        C: { label: 'C. Todavía no', description: 'Intercambios previstos, diseñados o hipotéticos, incluso entre plantas que ya existen.' },
-        D: { label: 'D. En marcha, más alternativas', description: 'Los intercambios están en marcha y el estudio los compara con alternativas futuras.' },
+        A: { label: 'A. Sí, ya tienen lugar', description: 'Los intercambios ocurren hoy: sus flujos se pueden medir.' },
+        B: { label: 'B. Todavía no', description: 'Previstos, diseñados o recién iniciados, incluso entre plantas que ya existen.' },
+      },
+      longStanding: {
+        label: '¿La red funciona desde hace muchos años, de modo que las plantas que sustituyó hoy ya no se construirían?',
+        yes: 'Sí — la referencia es un contrafactual moderno (D4.1 §11.2.2)',
+        no: 'No — la red es reciente',
       },
       plain:
-        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. Elige la última opción si quieres comparar los intercambios de hoy con uno o más futuros posibles: abre el editor de escenarios de abajo.',
+        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. ¿Quieres comparar alternativas, como una ampliación o una tecnología nueva? Añádelas como escenarios abajo, sea cual sea tu respuesta aquí.',
     },
 
     q3: {
@@ -480,11 +483,11 @@ const es: Locale = {
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',
       help: 'Opcional. Un solo horizonte para el ACV y el ACC.',
-      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio, salvo con Q2 = D (alternativas futuras), que cuenta como futuro. El periodo de análisis es el lapso que cubre el estudio; por norma coincide con la vida útil técnica de los activos principales (D4.2 §9). La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en ACV y ACC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
+      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio. El periodo de análisis es el lapso que cubre el estudio; por norma coincide con la vida útil técnica de los activos principales (D4.2 §9). La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en ACV y ACC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
       start: {
         label: '¿En qué año funciona el sistema, o se supone que funciona?',
         options: {
-          unset: 'Sin respuesta (el año del estudio; un año futuro si Q2 = D)',
+          unset: 'Sin respuesta (el año del estudio)',
           now: 'Ahora: el año del estudio',
           future: 'Un año futuro',
         },
@@ -548,9 +551,9 @@ const es: Locale = {
     },
 
     q2dCard: {
-      title: 'Q2-D — Escenarios alternativos',
+      title: 'Escenarios alternativos (opcional)',
       help:
-        'Define uno o más escenarios alternativos futuros para comparar con la baseline. Activa el background dinámico SSP/RCP y el soporte matriz-escenarios downstream.',
+        'Todo estudio puede comparar alternativas con su situación de partida (D4.1 §4.3.3).',
     },
 
     advancedCard: {
@@ -713,7 +716,7 @@ const es: Locale = {
         e_structural: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias estructurales, así que se trata como Situación ILCD B.",
       },
       q1_d_not_corporate: "Q1=D describe el reporte de sostenibilidad de una empresa, pero Q9 dice que el estudio no es un informe corporativo; la situación ILCD sigue a Q9. El reporte corporativo estricto (asignación, sin créditos) es la Situación ILCD C2 (D4.1 §7.2.3).",
-      documentation_vs_ex_ante: "La Situación ILCD C documenta una red que ya existe, pero Q2 describe un estudio ex ante (la red aún no opera, o se comparan alternativas). Comprueba que la situación sea la que quieres.",
+      documentation_vs_ex_ante: 'La situación ILCD C documenta intercambios que ya tienen lugar, pero Q2 dice que todavía no tienen lugar. Comprueba que la situación es la que pretendes.',
       c2_keeps_c_lcc: "El reporte estricto de una sola empresa (Situación ILCD C2) mantiene el costeo a nivel de empresa (solo C-LCC) diga lo que diga Q10: es una decisión de diseño de T4.6, porque una sola empresa no tiene nivel de red.",
       policy_no_but_q1_c: "Q1=C (prefactibilidad sectorial) suele servir a una política pública; has respondido que no, así que no se añade el costeo social (S-LCC, net tax factor, tasa de descuento social).",
       lcc_without_lca: {
@@ -813,6 +816,7 @@ const es: Locale = {
 
   scenariosResult: {
     title: 'Comparación de escenarios',
+    empty: 'Todavía no hay comparación de escenarios. En el cuestionario define uno o más escenarios alternativos y luego pulsa «Ejecutar escenarios» en la página de resultados.',
     description: 'Pipeline ejecutada para la baseline + {{n}} escenarios alternativos. Diferencias destacadas vs baseline.',
     backToResult: 'Volver al resultado único',
     columns: {

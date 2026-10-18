@@ -206,12 +206,10 @@ def horizon_exceeds_threshold(case: Case) -> bool:
 
 
 def operates_in_future(case: Case) -> bool:
-    """Q8a. Unanswered: Q2=D (operating baseline plus future alternatives) counts
-    as a future horizon, every other Q2 as the year of the study (owner decision
-    2026-10-15)."""
-    if case.operating_start is not None:
-        return case.operating_start == OperatingStart.FUTURE
-    return case.q2 == Q2.D
+    """Q8a. Unanswered: the year of the study. (Until 2026-10-18 an unanswered
+    Q8a counted as future for the former Q2=D, baseline plus future alternatives;
+    that option is gone, see enums.Q2.)"""
+    return case.operating_start == OperatingStart.FUTURE
 
 
 def needs_future_background(case: Case) -> bool:
@@ -256,7 +254,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # per_flow simple
     "lcc_hc_12": lambda c, f: True,   # every secondary flow, aggregated ones included (D4.2 §6.3)
     # simple
-    "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5} or c.q2 in {Q2.B, Q2.C, Q2.D},   # planning stage (D4.2 §7.3)
+    "lcc_hc_15": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5} or c.q2 == Q2.B,   # planning stage (D4.2 §7.3)
     # disjunctive — same rule as lca_mc_21
     "lcc_hc_23": needs_future_background,
     # conjunctive
@@ -269,7 +267,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # per_flow simple
     "lcc_hc_36": lambda c, f: f.q5 == Q5.d,
     # simple
-    "lcc_hc_37": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
+    "lcc_hc_37": lambda c: c.q2 == Q2.B,
     # per_flow simple
     "lcc_hc_38": lambda c, f: f.q5 == Q5.b,   # the eco-only branch had no basis (2026-10-15)
     # conjunctive

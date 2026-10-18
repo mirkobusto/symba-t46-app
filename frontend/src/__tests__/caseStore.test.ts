@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useCaseStore } from '../store/caseStore'
+import { useCaseStore, withCurrentQ2 } from '../store/caseStore'
+import type { Case } from '../types/api'
 
 const okResponse = (body: unknown) =>
   ({
@@ -31,9 +32,18 @@ describe('caseStore', () => {
   it('patchDraft merges into the existing draft', () => {
     useCaseStore.getState().patchDraft({ q1: 'B' })
     expect(useCaseStore.getState().draft.q1).toBe('B')
-    useCaseStore.getState().patchDraft({ q2: 'D' })
+    useCaseStore.getState().patchDraft({ q2: 'B' })
     expect(useCaseStore.getState().draft.q1).toBe('B')
-    expect(useCaseStore.getState().draft.q2).toBe('D')
+    expect(useCaseStore.getState().draft.q2).toBe('B')
+  })
+
+  it('a draft with a retired Q2 option (C or D) is read as B', () => {
+    for (const old of ['C', 'D']) {
+      useCaseStore.getState().setDraft({ q1: 'B', q2: old } as unknown as Case)
+      expect(useCaseStore.getState().draft.q2).toBe('B')
+    }
+    expect(withCurrentQ2({ q2: 'A' })).toEqual({ q2: 'A' })
+    expect(withCurrentQ2(null)).toBeNull()
   })
 
   it('runDraft populates result on success', async () => {

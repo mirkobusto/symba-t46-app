@@ -23,6 +23,9 @@ Grammar (anything else raises `BranchKeyError`; it is never skipped):
                             (derived at L0 from Q1 and, when answered, Q9)
     sector=V                alias of q6a=V
     comparison_goal=V       Q11: waste_treatment, product_substitution, co_primary
+    long_standing=true      Q2 = A (the exchanges already take place) and Q2b:
+                            the network has run for many years (D4.1 §11.2.2).
+                            Put it before `q2=A`: first match wins
 
 Conventions, decided with the node owner:
 
@@ -90,6 +93,7 @@ _Q3_FLAG = re.compile(rf"^q3\.({_DIMS})=(true|false)$")
 _Q3_ONLY = re.compile(rf"^q3\.({_DIMS})-only$")
 _Q3_ALL = re.compile(rf"^q3\.((?:{_DIMS})(?:\+(?:{_DIMS}))+)$")
 _SECTOR = re.compile(r"^sector=(\S+)$")
+_LONG_STANDING = "long_standing=true"
 
 
 @dataclass(frozen=True)
@@ -109,6 +113,7 @@ class Answers:
     eco: bool
     soc: bool
     comparison_goal: str | None = None   # Q11
+    long_standing: bool = False          # Q2 = A and Q2b
 
     @classmethod
     def from_case(cls, case: Case, flow: Flow | None = None) -> Answers:
@@ -126,6 +131,7 @@ class Answers:
             ilcd=_ILCD_CODE[case.ilcd_situation].value if case.ilcd_situation else None,
             lcc_type=case.lcc_type.value if case.lcc_type else None,
             comparison_goal=case.comparison_goal.value if case.comparison_goal else None,
+            long_standing=case.q2 == Q2.A and bool(case.network_long_standing),
             env=case.q3.env, eco=case.q3.eco, soc=case.q3.soc,
         )
 
@@ -204,6 +210,9 @@ def parse_branch_key(key: str) -> BranchKey:
             raise BranchKeyError(f"branch key {raw!r}: repeated Q3 dimension")
         return BranchKey(raw, frozenset({"q3"}), lambda a: all(a.dim(d) for d in dims))
 
+    if key == _LONG_STANDING:
+        return BranchKey(raw, frozenset({"q2"}), lambda a: a.long_standing)
+
     if m := _SECTOR.match(key):
         (value,) = m.groups()
         _check_values("q6a", [value], raw)
@@ -212,7 +221,7 @@ def parse_branch_key(key: str) -> BranchKey:
     raise BranchKeyError(
         f"branch key {raw!r} is not in the grammar of engine/branch_keys.py "
         "(qX=V | qX in {..} | q4 includes 'V' | q6b<TRLn | q3.F=true|false | "
-        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V)"
+        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V | long_standing=true)"
     )
 
 

@@ -25,7 +25,7 @@ import type {
 } from '../types/api'
 
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
-const Q2_KEYS: Q2[] = ['A', 'B', 'C', 'D']
+const Q2_KEYS: Q2[] = ['A', 'B']
 const Q4_KEYS: Q4[] = ['A', 'B', 'C', 'D', 'E']
 const Q6A_KEYS: Q6a[] = [
   'none',
@@ -81,6 +81,9 @@ export default function QuestionnairePage() {
 
   const [q1, setQ1] = useState<Q1 | undefined>(draft.q1 ?? undefined)
   const [q2, setQ2] = useState<Q2 | undefined>(draft.q2 ?? undefined)
+  const [longStanding, setLongStanding] = useState<'' | 'yes' | 'no'>(
+    draft.network_long_standing == null ? '' : draft.network_long_standing ? 'yes' : 'no',
+  )
   const [env, setEnv] = useState(draft.q3?.env ?? true)
   const [eco, setEco] = useState(draft.q3?.eco ?? false)
   const [soc, setSoc] = useState(draft.q3?.soc ?? false)
@@ -122,6 +125,7 @@ export default function QuestionnairePage() {
   useEffect(() => {
     setQ1(draft.q1 ?? undefined)
     setQ2(draft.q2 ?? undefined)
+    setLongStanding(draft.network_long_standing == null ? '' : draft.network_long_standing ? 'yes' : 'no')
     setEnv(draft.q3?.env ?? true)
     setEco(draft.q3?.eco ?? false)
     setSoc(draft.q3?.soc ?? false)
@@ -166,16 +170,17 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, advanced])
+  }, [canRun, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, advanced])
 
   async function handleRun() {
     patchDraft({
       q1, q2,
+      network_long_standing: q2 === 'A' && longStanding !== '' ? longStanding === 'yes' : null,
       q3: { env, eco, soc },
       q4: Array.from(q4),
       q5: undefined,
       flows,
-      alternative_scenarios: q2 === 'D' ? scenarios : [],
+      alternative_scenarios: scenarios,
       q6a, q6b, q7,
       operating_start: operatingStart || null,
       operating_start_year: operatingStart === 'future' ? parseYear(startYear) : null,
@@ -194,7 +199,7 @@ export default function QuestionnairePage() {
   function handleReset() {
     if (window.confirm(t('questionnaire.confirmReset'))) {
       reset()
-      setQ1(undefined); setQ2(undefined)
+      setQ1(undefined); setQ2(undefined); setLongStanding('')
       setEnv(true); setEco(false); setSoc(false)
       setQ4(new Set()); setFlows([]); setScenarios([])
       setQ6a(undefined); setQ6b(undefined); setQ7(undefined)
@@ -264,18 +269,31 @@ export default function QuestionnairePage() {
             <span className="opt-desc">{t(`questionnaire.q2.options.${v}.description`)}</span>
           </label>
         ))}
+        {q2 === 'A' && (
+          <>
+            <p className="opt-label">{t('questionnaire.q2.longStanding.label')}</p>
+            {(['yes', 'no'] as const).map((k) => (
+              <label key={k} className="opt opt-single">
+                <input
+                  type="radio" name="q2-long-standing" value={k}
+                  checked={longStanding === k}
+                  onChange={() => setLongStanding(k)}
+                />
+                <span className="opt-label">{t(`questionnaire.q2.longStanding.${k}`)}</span>
+              </label>
+            ))}
+          </>
+        )}
       </QuestionCard>
 
-      {/* Q2-D scenarios */}
-      {q2 === 'D' ? (
-        <QuestionCard
-          id="q2d-scenarios"
-          title={t('questionnaire.q2dCard.title')}
-          help={t('questionnaire.q2dCard.help')}
-        >
-          <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
-        </QuestionCard>
-      ) : null}
+      {/* Alternative scenarios: available to every study (D4.1 §4.3.3) */}
+      <QuestionCard
+        id="q2d-scenarios"
+        title={t('questionnaire.q2dCard.title')}
+        help={t('questionnaire.q2dCard.help')}
+      >
+        <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
+      </QuestionCard>
 
       {/* Q3 */}
       <QuestionCard

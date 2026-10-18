@@ -342,15 +342,18 @@ const fr: Locale = {
     q2: {
       title: 'Q2 — Les échanges mesurés par l\'étude ont-ils déjà lieu ?',
       details:
-        'Répondez sur les échanges symbiotiques, pas sur les installations : une installation peut exister alors que l\'échange étudié n\'est encore qu\'un projet. A — les échanges ont lieu depuis un certain temps ; des données d\'exploitation primaires existent (ex. Kalundborg aujourd\'hui, Sokka 2011). La référence est ce que chaque entreprise ferait aujourd\'hui si les liens étaient rompus (HNSRS, D4.1 §11.1). B — les échanges viennent de commencer, ou les installations sont en mise en service ; données en partie mesurées, en partie estimées. C — les échanges n\'ont pas encore lieu : prévus, conçus ou hypothétiques, même si les installations fonctionnent déjà (ex. Daddi 2017, résidus réutilisés dans une exploitation existante). La référence est la situation actuelle sans les échanges (CNSRS, D4.1 §11.1). D — les échanges ont lieu et l\'étude compare aussi des alternatives futures (extension, nouvelle technologie, réseau électrique décarboné) : le réseau existant face au HNSRS, chaque alternative face au CNSRS. D ouvre l\'éditeur de scénarios alternatifs ci-dessous. Le moment où le système fonctionne est demandé en Q8.',
+        'Répondez sur les échanges symbiotiques, pas sur les installations : une installation peut exister alors que l\'échange étudié n\'est encore qu\'un projet. A — oui : les échanges ont lieu aujourd\'hui et leurs flux peuvent être mesurés (ex. Kalundborg ; le district des tanneries de Daddi 2017). La référence est ce que chaque entreprise ferait aujourd\'hui si les liens étaient rompus (HNSRS, D4.1 §11.1). Si le réseau fonctionne depuis de nombreuses années, cette référence est un contrefactuel moderne, pas la configuration des entreprises d\'il y a des décennies (D4.1 §11.2.2) : la question de suivi le demande. B — pas encore : les échanges sont prévus, conçus, hypothétiques ou tout juste démarrés, même entre des installations qui fonctionnent déjà. La référence est la situation actuelle sans eux, y compris les échanges qui fonctionnent déjà (CNSRS, D4.1 §11.1). Comparer des alternatives (une extension, une nouvelle technologie) est ouvert à toute étude : ajoutez-les comme scénarios ci-dessous (D4.1 §4.3.3). Le moment où le système fonctionne est demandé en Q8.',
       options: {
-        A: { label: 'A. Déjà en cours', description: 'Les échanges ont déjà lieu (données d\'exploitation réelles).' },
-        B: { label: 'B. Tout juste démarrés', description: 'Les échanges viennent de démarrer, ou les installations sont en mise en service.' },
-        C: { label: 'C. Pas encore', description: 'Échanges prévus, conçus ou hypothétiques, même entre des installations qui existent déjà.' },
-        D: { label: 'D. En cours, plus alternatives', description: 'Les échanges sont en cours et l\'étude les compare à des alternatives futures.' },
+        A: { label: 'A. Oui, ils ont déjà lieu', description: 'Les échanges ont lieu aujourd\'hui : leurs flux peuvent être mesurés.' },
+        B: { label: 'B. Pas encore', description: 'Prévus, conçus ou tout juste démarrés, même entre des installations qui existent déjà.' },
+      },
+      longStanding: {
+        label: 'Le réseau fonctionne-t-il depuis de nombreuses années, au point que les installations qu\'il a remplacées ne seraient plus construites aujourd\'hui ?',
+        yes: 'Oui — la référence est un contrefactuel moderne (D4.1 §11.2.2)',
+        no: 'Non — le réseau est récent',
       },
       plain:
-        'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Choisissez la dernière option pour comparer les échanges d\'aujourd\'hui avec un ou plusieurs avenirs possibles : elle ouvre l\'éditeur de scénarios ci-dessous.',
+        'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Vous voulez comparer des alternatives, comme une extension ou une nouvelle technologie ? Ajoutez-les comme scénarios ci-dessous, quelle que soit votre réponse ici.',
     },
 
     q3: {
@@ -486,11 +489,11 @@ const fr: Locale = {
     q8: {
       title: 'Q8 — Horizon temporel de l\'étude',
       help: 'Facultative. Un seul horizon pour l\'ACV et l\'ACC.',
-      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude, sauf avec Q2 = D (alternatives futures), qui compte comme future. La période d\'analyse est la durée couverte par l\'étude ; en règle générale, elle coïncide avec la durée de vie technique des actifs principaux (D4.2 §9). La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
+      details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude. La période d\'analyse est la durée couverte par l\'étude ; en règle générale, elle coïncide avec la durée de vie technique des actifs principaux (D4.2 §9). La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
       start: {
         label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
         options: {
-          unset: 'Sans réponse (l\'année de l\'étude ; une année future si Q2 = D)',
+          unset: 'Sans réponse (l\'année de l\'étude)',
           now: 'Maintenant : l\'année de l\'étude',
           future: 'Une année future',
         },
@@ -554,9 +557,9 @@ const fr: Locale = {
     },
 
     q2dCard: {
-      title: 'Q2-D — Scénarios alternatifs',
+      title: 'Scénarios alternatifs (facultatif)',
       help:
-        'Définissez un ou plusieurs scénarios alternatifs futurs à comparer à la baseline. Active le background dynamique SSP/RCP et le support matrice-scénarios downstream.',
+        'Toute étude peut comparer des alternatives à sa situation de départ (D4.1 §4.3.3).',
     },
 
     advancedCard: {
@@ -719,7 +722,7 @@ const fr: Locale = {
         e_structural: "Q1=E (suivi) n'implique aucune décision ; vous avez répondu que l'étude appuie une décision aux conséquences structurelles, elle est donc traitée en Situation ILCD B.",
       },
       q1_d_not_corporate: "Q1=D décrit le reporting de durabilité d'une entreprise, mais Q9 indique que l'étude n'est pas un rapport d'entreprise ; la situation ILCD suit Q9. Le reporting d'entreprise strict (allocation, sans crédits) est la Situation ILCD C2 (D4.1 §7.2.3).",
-      documentation_vs_ex_ante: "La Situation ILCD C documente un réseau qui existe déjà, mais Q2 décrit une étude ex ante (le réseau ne fonctionne pas encore, ou des alternatives sont comparées). Vérifiez que la situation est bien celle que vous visez.",
+      documentation_vs_ex_ante: 'La situation ILCD C documente des échanges qui ont déjà lieu, mais Q2 indique qu\'ils n\'ont pas encore lieu. Vérifiez que la situation est bien celle que vous visez.',
       c2_keeps_c_lcc: "Le reporting strict d'une seule entreprise (Situation ILCD C2) conserve le coût au niveau de l'entreprise (C-LCC seul) quelle que soit la réponse à Q10 : c'est un choix de conception T4.6, une seule entreprise n'ayant pas de niveau réseau.",
       policy_no_but_q1_c: "Q1=C (préfaisabilité sectorielle) sert d'ordinaire une politique publique ; vous avez répondu que non, le coût sociétal (S-LCC, net tax factor, taux d'actualisation social) n'est donc pas ajouté.",
       lcc_without_lca: {
@@ -819,6 +822,7 @@ const fr: Locale = {
 
   scenariosResult: {
     title: 'Comparaison de scénarios',
+    empty: 'Pas encore de comparaison de scénarios. Dans le questionnaire, définissez un ou plusieurs scénarios alternatifs, puis cliquez sur « Exécuter les scénarios » sur la page de résultat.',
     description: 'Pipeline exécutée pour la baseline + {{n}} scénarios alternatifs. Différences mises en évidence vs baseline.',
     backToResult: 'Retour au résultat unique',
     columns: {

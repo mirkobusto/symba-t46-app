@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 VALID_CASE = {
-    "q1": "B", "q2": "D",
+    "q1": "B", "q2": "B",
     "q3": {"env": True, "eco": False, "soc": False},
 }
 
@@ -39,7 +39,7 @@ def test_get_case_by_id(client):
     assert resp.status_code == 200
     body = resp.json()
     assert body["id"] == created["id"]
-    assert body["case"]["q2"] == "D"
+    assert body["case"]["q2"] == "B"
 
 
 def test_get_case_not_found(client):

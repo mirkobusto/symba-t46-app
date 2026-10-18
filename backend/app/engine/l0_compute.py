@@ -121,16 +121,13 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, An
             notes.append({"code": code, "message": message, "params": {"variant": variant}})
         if case.q1 == Q1.D and decision != _R:
             notes.append({"code": _Q1_D_NOT_CORPORATE[0], "message": _Q1_D_NOT_CORPORATE[1]})
-    # Q2=B is "under construction or recently commissioned" (the questionnaire's own
-    # wording): the network exists or nearly does, so documenting it is coherent and
-    # no note is left. Q2=C (design phase, no operating data) and Q2=D (baseline plus
-    # alternatives, which imply a decision) are the ones that contradict "no decision".
-    if situation in {_S.SITUATION_C1, _S.SITUATION_C2} and case.q2 in {Q2.C, Q2.D}:
+    # "No decision" presupposes an existing network (D4.1 L00576): Situation C with
+    # exchanges that do not take place yet is a contradiction worth a note.
+    if situation in {_S.SITUATION_C1, _S.SITUATION_C2} and case.q2 == Q2.B:
         notes.append({
             "code": "documentation_vs_ex_ante",
-            "message": "ILCD Situation C documents a network that already exists, but Q2 describes an "
-                       "ex-ante study (the network is not operating yet, or alternatives are compared). "
-                       "Check that the situation is the one you mean.",
+            "message": "ILCD Situation C documents exchanges that already take place, but Q2 says they "
+                       "do not take place yet. Check that the situation is the one you mean.",
         })
     return situation, notes
 

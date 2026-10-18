@@ -1,4 +1,4 @@
-// Q2-D scenarios editor — i18n + per-scenario JSON overrides editor
+// Alternative scenarios editor (open to every study, D4.1 §4.3.3) — per-scenario JSON overrides
 // (Follow-up E completing Feature C).
 //
 // Each scenario row exposes a textarea where the user pastes a JSON

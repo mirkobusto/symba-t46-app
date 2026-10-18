@@ -210,15 +210,15 @@ def test_q9_unanswered_is_exactly_the_q1_mapping(q1):
 
 
 @pytest.mark.parametrize("q1", list(Q1))
-@pytest.mark.parametrize("q2", [Q2.B, Q2.C, Q2.D])
+@pytest.mark.parametrize("q2", [Q2.A, Q2.B])
 def test_q9_unanswered_values_never_depend_on_q2_only_the_note_does(q1, q2):
-    """Audit I-06: Situation C (Q1=D or E) on a system that does not exist yet
-    (Q2=C design phase, Q2=D baseline plus alternatives) is noted, never changed."""
+    """Audit I-06: Situation C (Q1=D or E) on exchanges that do not take place
+    yet (Q2=B) is noted, never changed."""
     case = Case(q1=q1, q2=q2, q3=Q3(env=True))
     run(case, None)
     assert case.ilcd_situation == _Q1_ONLY[q1]
     noted = [w["code"] for w in case.warnings]
-    expected = ["documentation_vs_ex_ante"] if q1 in (Q1.D, Q1.E) and q2 in (Q2.C, Q2.D) else []
+    expected = ["documentation_vs_ex_ante"] if q1 in (Q1.D, Q1.E) and q2 is Q2.B else []
     assert noted == expected
 
 
@@ -262,7 +262,7 @@ def test_q9_structural_needs_the_market_screening(screening, situation, code):
     assert [w["code"] for w in case.warnings] == ([code] if code else [])
 
 
-@pytest.mark.parametrize("q2, noted", [(Q2.A, False), (Q2.B, False), (Q2.C, True), (Q2.D, True), (None, False)])
+@pytest.mark.parametrize("q2, noted", [(Q2.A, False), (Q2.B, True), (None, False)])
 def test_q9_no_decision_with_an_ex_ante_q2_leaves_a_note(q2, noted):
     case = Case(q1=Q1.A, q2=q2, q3=Q3(env=True), decision_context=_N)
     run(case, None)

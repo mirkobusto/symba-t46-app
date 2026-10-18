@@ -21,7 +21,7 @@ from app.services.reports import generate_case_report_bytes
 @pytest.fixture()
 def wiktor(schemas) -> Case:
     case = Case(
-        q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
         q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
         flows=[Flow(id="f1", name="sludge", q5=Q5.a)],
     )

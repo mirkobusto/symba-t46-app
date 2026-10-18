@@ -184,7 +184,9 @@ def test_contested_is_no_longer_a_branch_key():
 
 _DOMAINS = {
     "q1": [{"q1": v.value} for v in Q1],
-    "q2": [{"q2": v.value} for v in Q2],
+    # Q2b (long_standing) only exists with Q2 = A
+    "q2": [{"q2": "A", "long_standing": False}, {"q2": "A", "long_standing": True},
+           {"q2": "B", "long_standing": False}],
     "q4": [{"q4": frozenset(c)} for r in range(6) for c in itertools.combinations("ABCDE", r)],
     "q5": [{"q5": v.value} for v in Q5],
     "q6a": [{"q6a": v.value} for v in Q6a],
@@ -220,6 +222,8 @@ _OVERLAPPING_NODES = {
     # Situation C2 comes first in these (allocation, no substitution credits, D4.1 §7.2.3)
     "lca_mc_05", "lca_mc_13", "lca_mc_14", "lca_mc_17",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19", "slca_mc_04",
+    # long_standing=true comes before q2=A: the modern counterfactual (D4.1 §11.2.2)
+    "lca_mc_26",
     # lcc_mc_05 left on 2026-10-15 (one key per LCC type); lca_mc_05 came back with its C2 branch.
     # lcc_mc_07 and lcc_mc_12 left this list on 2026-10-15: they now branch on
     # the LCC type only (D4.2 §5.1, §9.3), one branch per type, no overlap.
@@ -272,3 +276,14 @@ def test_loader_rejects_an_unreadable_branch_key_at_load_time(tmp_path):
     # cache key, so the shared cache the other tests rely on is untouched
     with pytest.raises(SchemaLoadError, match="lca_mc_08"):
         load_schemas(tmp_path / "schemas")
+
+
+def test_long_standing_key_needs_exchanges_that_take_place():
+    """long_standing=true (2026-10-18): Q2 = A and Q2b yes (D4.1 §11.2.2)."""
+    from app.domain.models import Case
+    key = parse_branch_key("long_standing=true")
+    assert key.variables == frozenset({"q2"})
+    assert key.matches(Answers.from_case(Case(q2=Q2.A, network_long_standing=True)))
+    assert not key.matches(Answers.from_case(Case(q2=Q2.A, network_long_standing=False)))
+    assert not key.matches(Answers.from_case(Case(q2=Q2.A)))
+    assert not key.matches(Answers.from_case(Case(q2=Q2.B, network_long_standing=True)))

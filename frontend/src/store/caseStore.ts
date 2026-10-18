@@ -54,6 +54,14 @@ export interface CaseState {
   reset: () => void
 }
 
+// Cases saved before 2026-10-18 may carry the retired Q2 options C (design
+// phase) and D (baseline plus alternatives): both read as B, "not yet", as the
+// backend does (app/domain/models.py).
+export function withCurrentQ2<T extends { q2?: unknown } | null | undefined>(kase: T): T {
+  if (kase && (kase.q2 === 'C' || kase.q2 === 'D')) return { ...kase, q2: 'B' }
+  return kase
+}
+
 export const useCaseStore = create<CaseState>()(
   persist(
     (set, get) => ({
@@ -66,7 +74,7 @@ export const useCaseStore = create<CaseState>()(
       serverCaseId: null,
       serverCaseName: null,
 
-      setDraft: (next) => set({ draft: next, lastSavedAt: Date.now() }),
+      setDraft: (next) => set({ draft: withCurrentQ2(next), lastSavedAt: Date.now() }),
 
       setResult: (next) => set({ result: next }),
 
@@ -156,6 +164,12 @@ export const useCaseStore = create<CaseState>()(
     }),
     {
       name: 'symba-case-draft',
+      // v1 (2026-10-18): Q2 in two answers; older drafts are read with withCurrentQ2.
+      version: 1,
+      migrate: (persisted) => {
+        const state = persisted as { draft?: Case; result?: Case | null }
+        return { ...state, draft: withCurrentQ2(state.draft), result: withCurrentQ2(state.result) }
+      },
       // Persist draft + result + scenariosResult + lastSavedAt; transient
       // flags (loading/error) reset on hydration.
       partialize: (state) => ({

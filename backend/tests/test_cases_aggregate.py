@@ -1,22 +1,22 @@
 """Integration tests for GET /api/cases/aggregate/breakdown."""
 from __future__ import annotations
 
-CASE_A = {  # q1=B q2=D q6a=wastewater q7=B → Situation A
-    "q1": "B", "q2": "D",
+CASE_A = {  # q1=B q2=B q6a=wastewater q7=B → Situation A
+    "q1": "B", "q2": "B",
     "q3": {"env": True}, "q4": ["E"],
     "q6a": "wastewater_sludge_biofactories", "q6b": "TRL9", "q7": "B",
     "flows": [{"id": "f1", "name": "f1", "q5": "a"}],
 }
 
 CASE_B = {  # q1=C policy → Situation B
-    "q1": "C", "q2": "D",
+    "q1": "C", "q2": "B",
     "q3": {"env": True}, "q4": ["E"],
     "q6a": "waste_valorization", "q6b": "TRL9", "q7": "D",
     "flows": [{"id": "f1", "name": "f1", "q5": "e"}],
 }
 
 CASE_C = {  # similar to A but pulp_paper
-    "q1": "B", "q2": "D",
+    "q1": "B", "q2": "B",
     "q3": {"env": True}, "q4": ["E"],
     "q6a": "pulp_paper", "q6b": "TRL9", "q7": "B",
     "flows": [{"id": "f1", "name": "f1", "q5": "e"}],

@@ -45,7 +45,7 @@ def _flows(*qs):
 @pytest.fixture()
 def payload_wiktor(schemas, dcf_schema, mandates_census):
     case = Case(
-        q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
         q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
         flows=_flows(Q5.a, Q5.c, Q5.c),
     )
@@ -169,7 +169,7 @@ def test_flow_matrix_tab_has_marginal_market_when_q1c(
 ):
     """q1=C → flow.marginal_market_ref should be in the header."""
     case = Case(
-        q1=Q1.C, q2=Q2.C, q3=Q3(env=True, eco=True, soc=True), q4={Q4.E},
+        q1=Q1.C, q2=Q2.B, q3=Q3(env=True, eco=True, soc=True), q4={Q4.E},
         q6a=Q6a.BIOBASED_POLYMERS, q6b=Q6b.TRL9, q7=None,
         flows=_flows(Q5.b, Q5.c),
     )

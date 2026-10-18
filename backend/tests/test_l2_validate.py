@@ -87,14 +87,13 @@ def test_trigger_CIR_07_fires_below_trl_7_only(schemas):
 
 
 def test_trigger_CIR_01_follows_the_study_horizon(schemas):
-    """CIR-01 = future operating year (Q8a; unanswered: Q2=D) OR TRL < 7 OR study
+    """CIR-01 = future operating year (Q8a; unanswered: the year of the study) OR TRL < 7 OR study
     horizon > 15 y (owner decision 2026-10-15). The horizon is Q8b, else Q8c, else
     the case.advanced override."""
     t = _TRIGGER_FNS["CIR-01"]
-    assert t(_ready_case(q2=Q2.C, operating_start="future")) is True
-    assert t(_ready_case(q2=Q2.D)) is True
-    assert t(_ready_case(q2=Q2.D, operating_start="now")) is False
-    for q2 in (Q2.A, Q2.B, Q2.C):
+    assert t(_ready_case(q2=Q2.B, operating_start="future")) is True
+    assert t(_ready_case(q2=Q2.B, operating_start="now")) is False
+    for q2 in (Q2.A, Q2.B):
         assert t(_ready_case(q2=q2)) is False
     assert t(_ready_case(q6b=Q6b.TRL5_6)) is True
     assert t(_ready_case(analysis_period_years=25)) is True
@@ -103,7 +102,7 @@ def test_trigger_CIR_01_follows_the_study_horizon(schemas):
 
 
 def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
-    case = _ready_case(q2=Q2.D, q3=Q3(env=True, eco=True), advanced={"asset_lifetime": 30})
+    case = _ready_case(q2=Q2.B, q3=Q3(env=True, eco=True), advanced={"asset_lifetime": 30})
     pipeline_run(case, schemas)
     assert "CIR-01" in {r["rule_id"] for r in case.applicable_rules}
     assert case.lca.get("background_futurisation") == "SSP_RCP"
@@ -111,8 +110,8 @@ def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
 
 @pytest.mark.parametrize("extra, expected", [
     ({"q2": Q2.A}, False), ({"q2": Q2.A, "asset_lifetime_years": 30}, True),
-    ({"q2": Q2.B}, False), ({"q2": Q2.C}, False), ({"q2": Q2.D}, True),
-    ({"q2": Q2.C, "operating_start": "future"}, True), ({"q2": Q2.D, "operating_start": "now"}, False),
+    ({"q2": Q2.B}, False),
+    ({"q2": Q2.B, "operating_start": "future"}, True), ({"q2": Q2.B, "operating_start": "now"}, False),
     ({"q2": Q2.A, "q6b": Q6b.TRL_LT_5}, True), ({"q2": Q2.A, "analysis_period_years": 25}, True),
 ])
 def test_lca_and_lcc_end_with_the_same_background(schemas, extra, expected):
@@ -265,7 +264,7 @@ def test_CIR_07_writes_scale_up_framework_for_low_TRL(schemas):
 
 def test_CIR_09_routes_to_system_pillar(schemas):
     """case.iterative_update_triggers isn't on Case; routed to system."""
-    case = _ready_case(q2=Q2.C, q6b=Q6b.TRL5_6)
+    case = _ready_case(q2=Q2.B, q6b=Q6b.TRL5_6)
     run(case, schemas)
     assert case.system.get("case.iterative_update_triggers") == [
         "commissioning", "ramp_up", "contract_renewal",
@@ -328,7 +327,7 @@ def test_violations_carry_the_rule_row_for_the_ui(schemas):
     constraint restated at them.
     """
     case = Case(
-        q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
         q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
         flows=[Flow(id="f1", name="sludge", q5=Q5.a)],
     )

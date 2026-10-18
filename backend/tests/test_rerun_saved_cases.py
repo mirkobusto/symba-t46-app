@@ -39,7 +39,7 @@ def test_rerun_replaces_stale_outputs_and_drops_removed_keys():
 
 def test_rerun_keeps_every_answer_including_q8():
     """Q8 (asset_lifetime_years) used to be reset by a hard-coded input list."""
-    case = Case(q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), asset_lifetime_years=30)
+    case = Case(q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), asset_lifetime_years=30)
     pipeline.run(case)
     fresh = script.rerun(case.model_dump_json())
     assert fresh.asset_lifetime_years == 30

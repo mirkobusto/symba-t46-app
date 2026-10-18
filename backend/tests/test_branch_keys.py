@@ -272,3 +272,14 @@ def test_loader_rejects_an_unreadable_branch_key_at_load_time(tmp_path):
     # cache key, so the shared cache the other tests rely on is untouched
     with pytest.raises(SchemaLoadError, match="lca_mc_08"):
         load_schemas(tmp_path / "schemas")
+
+
+def test_long_standing_key_needs_exchanges_that_take_place():
+    """long_standing=true (2026-10-18): Q2 = A and Q2b yes (D4.1 §11.2.2)."""
+    from app.domain.models import Case
+    key = parse_branch_key("long_standing=true")
+    assert key.variables == frozenset({"q2"})
+    assert key.matches(Answers.from_case(Case(q2=Q2.A, network_long_standing=True)))
+    assert not key.matches(Answers.from_case(Case(q2=Q2.A, network_long_standing=False)))
+    assert not key.matches(Answers.from_case(Case(q2=Q2.A)))
+    assert not key.matches(Answers.from_case(Case(q2=Q2.B, network_long_standing=True)))

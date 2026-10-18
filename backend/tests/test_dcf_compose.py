@@ -504,3 +504,13 @@ def test_prospective_only_cost_fields_stay_off_for_an_ex_post_study(
     assert "cost.contract_horizon_y" not in off
     assert "cost.contract_horizon_y" in on
     assert "cost.price_volatility" in on
+
+
+def test_measured_or_projected_quantities_follow_q2(schemas, dcf_schema, mandates_census):
+    """Q2 = A asks measured quantities, Q2 = B projected ones (review 2026-10-18)."""
+    for q2, present, absent in ((Q2.A, "flow.quantity_measured", "flow.quantity_projected"),
+                                (Q2.B, "flow.quantity_projected", "flow.quantity_measured")):
+        case = Case(q1=Q1.A, q2=q2, q3=Q3(env=True), flows=_flows(Q5.c))
+        pipeline_run(case, schemas)
+        fields = {f.id for sec in compose_dcf(case, dcf_schema, mandates_census).sections for f in sec.fields}
+        assert present in fields and absent not in fields, q2

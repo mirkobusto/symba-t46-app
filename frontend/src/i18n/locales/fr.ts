@@ -292,7 +292,7 @@ const fr: Locale = {
     p1:
       "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de dix questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
-      "Le questionnaire (Q1-Q11 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
+      "Le questionnaire (Q1-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:
       'Affichage de la configuration par pillar, overrides avancés et panneau « Show reasoning » sont tous opérationnels.',
   },
@@ -564,7 +564,7 @@ const fr: Locale = {
     q12: {
       title: 'Q12 — La symbiose nécessite-t-elle de nouveaux actifs dédiés et partagés ?',
       help: 'Facultative, posée quand l\'ACV ou l\'ACC est active : canalisations, installations ou stockages construits pour la symbiose.',
-      details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Un oui active aussi les règles qui alignent les biens d\'équipement entre ACV et ACC (IR-13, B-06) et, pour les parcs et programmes, les indicateurs S-ACV pour l\'investissement partagé (CIR-08).',
+      details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Avec l\'ACV et l\'ACC actives, un oui active aussi les règles qui alignent les biens d\'équipement entre les deux (IR-13, B-06) ; pour les parcs et programmes avec la dimension sociale, les indicateurs S-ACV pour l\'investissement partagé (CIR-08).',
       options: {
         unset: 'Sans réponse',
         yes: 'Oui — de nouvelles canalisations, installations ou stockages sont construits pour la symbiose',
@@ -663,7 +663,6 @@ const fr: Locale = {
       network_nodes: 'Entier ; ≥3 (avec Q1=B + interdependent_flows) active CIR-04',
       interdependent_flows: 'Booléen ; true (avec Q1=B + network_nodes≥3) active CIR-04',
       frontier_categories_active: 'Booléen ; true active CIR-06',
-      is_specific_capital_goods: 'Booléen ; true active IR-13 / B-06 / CIR-08',
       multi_actor: 'Booléen ; true (avec Q1∈{B,C}) active FU-02',
     },
   },

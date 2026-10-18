@@ -38,14 +38,35 @@ def test_shared_assets_put_capex_and_opex_in_the_cost_breakdown():
         assert "dedicated shared assets" not in other.lca["capital_goods.included"]
 
 
-def test_the_three_capital_goods_rules_now_fire():
-    assert {"IR-13", "B-06", "CIR-08"} <= _rules(_run(dedicated_shared_assets=True))
+def test_the_three_capital_goods_rules_now_fire_and_are_not_violations():
+    case = _run(dedicated_shared_assets=True)
+    assert {"IR-13", "B-06"} <= _rules(case)
+    assert not {"IR-13", "B-06"} & {v["rule_id"] for v in case.rule_violations}
     assert not {"IR-13", "B-06", "CIR-08"} & _rules(_run(dedicated_shared_assets=False))
+    # CIR-08 writes S-LCA indicators: only with the social dimension
+    assert "CIR-08" not in _rules(case)
+    assert "CIR-08" in _rules(_run(dedicated_shared_assets=True, q3=Q3(env=True, eco=True, soc=True)))
+
+
+def test_q12_is_shown_in_the_obligations_and_the_report():
+    from io import BytesIO
+
+    from docx import Document
+
+    from app.services.narrative import answers_in
+    from app.services.reports import generate_case_report_bytes
+    case = _run(dedicated_shared_assets=True)
+    assert answers_in("Q3.ENV+ECO AND new dedicated shared assets (Q12)", case) == [
+        ("Q3", "env + eco"), ("Q12", "yes")]
+    text = "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(case))).paragraphs)
+    assert "Q12 new dedicated shared assets: yes" in text
 
 
 @pytest.mark.parametrize("raw, expected", [(True, True), ("true", True), ("false", False), (0, False)])
 def test_the_inert_advanced_key_becomes_q12(raw, expected):
-    assert Case(advanced={"is_specific_capital_goods": raw}).dedicated_shared_assets is expected
+    migrated = Case(advanced={"is_specific_capital_goods": raw, "asset_lifetime": 20})
+    assert migrated.dedicated_shared_assets is expected
+    assert migrated.advanced == {"asset_lifetime": 20}     # once: the key leaves `advanced`
     assert Case(dedicated_shared_assets=False, advanced={"is_specific_capital_goods": True}) \
         .dedicated_shared_assets is False
 

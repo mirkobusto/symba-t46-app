@@ -158,11 +158,13 @@ class Case(BaseModel):
         if data.get("q7") == "D":   # former multi-scale option (2026-10-18)
             data = {**data, "q7": "C"}
         advanced = data.get("advanced")
-        if (isinstance(advanced, dict) and "is_specific_capital_goods" in advanced
-                and data.get("dedicated_shared_assets") is None):
-            # the advanced key never reached a rule (I-17); the question replaces it
+        if isinstance(advanced, dict) and "is_specific_capital_goods" in advanced:
+            # the advanced key never reached a rule (I-17); Q12 replaces it, once
             raw = advanced["is_specific_capital_goods"]
-            data = {**data, "dedicated_shared_assets": raw is True or str(raw).strip().lower() in ("true", "1", "yes")}
+            rest = {k: v for k, v in advanced.items() if k != "is_specific_capital_goods"}
+            data = {**data, "advanced": rest}
+            if data.get("dedicated_shared_assets") is None:
+                data["dedicated_shared_assets"] = raw is True or str(raw).strip().lower() in ("true", "1", "yes")
         return data
 
     # --- Identity / lifecycle ---

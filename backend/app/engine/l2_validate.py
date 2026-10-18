@@ -164,7 +164,8 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "CIR-05": lambda c: _q4_intersects(c, {"D"}),
     "CIR-06": lambda c: bool(_attr(c, "frontier_categories_active")),
     "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
-    "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(c.dedicated_shared_assets),
+    # Q1 in the trigger is left to R3; its action is S-LCA only
+    "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(c.dedicated_shared_assets) and c.q3.soc,
     "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
                          and c.q2 == Q2.B),
     "CIR-10": lambda c: True,
@@ -265,12 +266,18 @@ def _assert_ir_12(c: Case) -> bool:
     return True
 
 
+def _included(value: Any) -> bool:
+    """The capital-goods nodes write prose, never a boolean (as lca_mc_16 does for
+    B-05): a non-empty statement counts as "included"."""
+    return value is True or (isinstance(value, str) and bool(value.strip()))
+
+
 def _assert_ir_13(c: Case) -> bool:
     a = _get(c, "lca.capital_goods.included")
     b = _get(c, "lcc.capital_goods.included")
     if a is None or b is None:
         return True
-    return a is True and b is True
+    return _included(a) and _included(b)
 
 
 def _assert_ir_14(c: Case) -> bool:
@@ -411,7 +418,7 @@ def _assert_b_06(c: Case) -> bool:
     b_ap = _get(c, "lcc.capital_goods.amortization_period")
     if a_inc is None or b_inc is None:
         return True
-    if not (a_inc is True and b_inc is True):
+    if not (_included(a_inc) and _included(b_inc)):
         return False
     if a_ap is None or b_ap is None:
         return True

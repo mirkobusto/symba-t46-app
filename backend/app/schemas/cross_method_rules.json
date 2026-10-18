@@ -537,8 +537,8 @@
       "id": "CIR-08",
       "name": "Shared CAPEX Stakeholder Indicators",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q1 ∈ {B, C} AND new dedicated shared assets (Q12)",
-      "trigger_condition": "case.q1 IN ['B','C'] AND case.dedicated_shared_assets == true",
+      "trigger_condition_raw": "Q1 ∈ {B, C} AND new dedicated shared assets (Q12) AND Q3.SOC",
+      "trigger_condition": "case.q1 IN ['B','C'] AND case.dedicated_shared_assets == true AND case.q3.soc == true",
       "actions": [
         "slca.indicators += stakeholder_group_indicators (if Q3.SOC active)"
       ],

@@ -286,7 +286,7 @@ const es: Locale = {
     p1:
       "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de diez preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
     p2:
-      'El cuestionario (Q1-Q11; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
+      'El cuestionario (Q1-Q12; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:
       'La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
   },
@@ -558,7 +558,7 @@ const es: Locale = {
     q12: {
       title: 'Q12 — ¿La simbiosis necesita nuevos activos dedicados y compartidos?',
       help: 'Opcional, se pregunta cuando el ACV o el ACC están activos: tuberías, plantas o almacenamientos construidos para la simbiosis.',
-      details: 'La D4.2 §4.2 pregunta si la red requiere nuevos activos dedicados y compartidos: en tal caso, su CAPEX y su OPEX corriente deben incluirse en el desglose de costes y repartirse entre los socios que se benefician de ellos. La D4.1 §6.3.3 incluye los bienes de capital e infraestructuras propios del escenario de simbiosis, amortizados a lo largo de la vida técnica de cada activo (Q8). Un sí activa también las reglas que alinean los bienes de capital entre ACV y ACC (IR-13, B-06) y, para parques y programas, los indicadores S-ACV de inversión compartida (CIR-08).',
+      details: 'La D4.2 §4.2 pregunta si la red requiere nuevos activos dedicados y compartidos: en tal caso, su CAPEX y su OPEX corriente deben incluirse en el desglose de costes y repartirse entre los socios que se benefician de ellos. La D4.1 §6.3.3 incluye los bienes de capital e infraestructuras propios del escenario de simbiosis, amortizados a lo largo de la vida técnica de cada activo (Q8). Con ACV y ACC activos, un sí activa también las reglas que alinean los bienes de capital entre ambos (IR-13, B-06); para parques y programas con la dimensión social, los indicadores S-ACV de inversión compartida (CIR-08).',
       options: {
         unset: 'Sin respuesta',
         yes: 'Sí — se construyen nuevas tuberías, plantas o almacenamientos para la simbiosis',
@@ -657,7 +657,6 @@ const es: Locale = {
       network_nodes: 'Entero; ≥3 (con Q1=B + interdependent_flows) activa CIR-04',
       interdependent_flows: 'Booleano; true (con Q1=B + network_nodes≥3) activa CIR-04',
       frontier_categories_active: 'Booleano; true activa CIR-06',
-      is_specific_capital_goods: 'Booleano; true activa IR-13 / B-06 / CIR-08',
       multi_actor: 'Booleano; true (con Q1∈{B,C}) activa FU-02',
     },
   },

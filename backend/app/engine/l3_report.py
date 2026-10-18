@@ -17,7 +17,7 @@ when **all of its `methods` are active** in Q3 (LCA→env, LCC→eco,
 S-LCA→soc). CDPs describe cross-method tensions, so they have no
 meaning if one of the participating methods is inactive.
 
-Conventions (consistent with l0/l1/pathway/activate/l2_validate):
+Conventions (consistent with l0/l1/activate/l2_validate):
 - Mutation contract: `case` mutated in place and returned.
 - Q1=None defensive raise.
 - Missing pillar value = inconclusive (no violation).

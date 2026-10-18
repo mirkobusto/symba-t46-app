@@ -206,18 +206,3 @@ class StudyPhase(StrEnum):
 
     SCREENING = "screening"
     DETAILED = "detailed"
-
-
-# =============================================================================
-# Pathway IDs (from §3 user-facing questions × Q1×Q2)
-# =============================================================================
-
-
-class PathwayId(StrEnum):
-    """The 5 IS pathways derived from Q1 × Q2."""
-
-    IS_01 = "IS-01"
-    IS_02 = "IS-02"
-    IS_03 = "IS-03"
-    IS_04 = "IS-04"
-    IS_05 = "IS-05"

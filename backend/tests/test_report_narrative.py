@@ -46,11 +46,10 @@ def _text(case: Case) -> str:
 def test_verdict_reads_as_a_sentence_not_a_code(wiktor):
     verdict = verdict_for(wiktor)
     assert verdict is not None
-    assert verdict.title == "Operational symbiosis — decision support"
-    assert "eco-park" in verdict.body
-    # Q2 = D, so the extended suffix is appended
-    assert "baseline" in verdict.body
-    assert verdict.codes[0] == "IS-01 extended"
+    # the verdict leads with the ILCD situation, not with a pathway (retired 2026-10-18)
+    assert verdict.title == "Decision support with limited consequences (ILCD Situation A)"
+    assert verdict.body.startswith("Micro-level decision support")
+    assert verdict.codes[0] == "ILCD Situation A"
 
 
 def test_verdict_sections_carry_their_citation(wiktor):
@@ -90,7 +89,7 @@ def test_obligations_come_from_triggered_rules_not_failed_assertions(wiktor):
 
 def test_report_opens_with_the_verdict_and_the_next_steps(wiktor):
     text = _text(wiktor)
-    assert "Operational symbiosis — decision support" in text
+    assert "Decision support with limited consequences (ILCD Situation A)" in text
     assert "What this configuration means" in text
     assert "What to do next" in text
     # front matter comes before the canonical section 1

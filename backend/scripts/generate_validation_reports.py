@@ -5,7 +5,7 @@ Step 5 of Sprint 4 (per SPRINT4_BOOTSTRAP_v2.md §7 + WorkingDoc §6).
 For each of the 13 paper fixtures (12 papers + Leiva 2025 split into
 Escombreras and Frövi sub-cases), this script:
   1. Builds the Case from the Q1-Q7 ground truth in WorkingDoc §3.1
-  2. Runs the engine pipeline (l0 -> l1 -> pathway -> activate -> l2 -> l3)
+  2. Runs the engine pipeline (l0 -> l1 -> activate -> l2 -> l3)
   3. Writes a structured .docx with the 8-section canonical layout
      (Section 1 bibliographic; Section 2 case summary; Section 3
      methodological config adopted by authors; Section 4 Q1-Q7
@@ -260,10 +260,7 @@ PAPERS: list[dict[str, Any]] = [
         "q6a": Q6a.AGRI_FOOD, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
             "Fictional 5-entity network = Q1=B. Methodological demonstration "
-            "in design phase = Q2=C. NOTE: WorkingDoc S3.3 mapping table lists "
-            "IS-01 but its own derivation rule 'Q2=C -> IS-04 (any Q1)' plus "
-            "the gamma matrix (ADR-005) both yield IS-04. Engine follows the "
-            "rule (IS-04)."
+            "in design phase = Q2=C."
         ),
     },
     {
@@ -304,8 +301,7 @@ PAPERS: list[dict[str, Any]] = [
         "q6a": Q6a.MULTI_SECTOR, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
             "Generic 2-firm exchange in design phase = Q1=A, Q2=C. Most "
-            "scenario-rich case in sample (19 scenarios). Engine maps to "
-            "IS-04 via gamma matrix (Q1=A + Q2=C)."
+            "scenario-rich case in sample (19 scenarios)."
         ),
     },
     {
@@ -325,8 +321,8 @@ PAPERS: list[dict[str, Any]] = [
         "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
         "rationale": (
             "Industry-wide bio-polymer framework = Q1=C. Propositional "
-            "framework in design = Q2=C. Q1=C overrides Q2 in gamma matrix "
-            "-> IS-02. Full LCSA with TEA addition. Q7 not applicable (n/a "
+            "framework in design = Q2=C. Full LCSA with TEA addition. "
+            "Q7 not applicable (n/a "
             "in WorkingDoc)."
         ),
     },
@@ -443,24 +439,21 @@ def _generate_one(paper: dict[str, Any], result: Case, out_dir: Path) -> Path:
 
     # ----- Section 5 — Tool-derived configuration -----
     _add_heading(doc, "5. Methodological configuration derived by the tool", level=1)
-    _add_kv(doc, "5.1 Pathway",
-            f"{result.pathway_id.value if result.pathway_id else '—'}"
-            f"{' (extended)' if result.is_01_extended else ''}")
-    _add_kv(doc, "5.2 ILCD situation",
+    _add_kv(doc, "5.1 ILCD situation",
             result.ilcd_situation.value if result.ilcd_situation else "—")
-    _add_kv(doc, "5.3 LCC type",
+    _add_kv(doc, "5.2 LCC type",
             result.lcc_type.value if result.lcc_type else "—")
-    _add_kv(doc, "5.4 S-LCA activation",
+    _add_kv(doc, "5.3 S-LCA activation",
             result.slca_activation_state.value
             if result.slca_activation_state else "—")
-    _add_kv(doc, "5.5 Activated nodes (count)", str(len(result.activated_nodes)))
-    _add_kv(doc, "5.6 L1 BLOCK fired",
+    _add_kv(doc, "5.4 Activated nodes (count)", str(len(result.activated_nodes)))
+    _add_kv(doc, "5.5 L1 BLOCK fired",
             ", ".join(result.blocked_by) if result.blocked_by else "(none)")
-    _add_kv(doc, "5.7 L2 violations (count)", str(len(result.rule_violations)))
-    _add_kv(doc, "5.8 L3 CDPs surfaced (count)", str(len(result.cdp_flags)))
+    _add_kv(doc, "5.6 L2 violations (count)", str(len(result.rule_violations)))
+    _add_kv(doc, "5.7 L3 CDPs surfaced (count)", str(len(result.cdp_flags)))
 
     # Per-pillar config snapshot (only non-empty)
-    _add_heading(doc, "5.9 Pillar configurations (engine-written keys)", level=2)
+    _add_heading(doc, "5.8 Pillar configurations (engine-written keys)", level=2)
     pillar_pairs = [
         ("LCA", result.lca),
         ("LCC", result.lcc),

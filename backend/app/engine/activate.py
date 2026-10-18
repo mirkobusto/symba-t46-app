@@ -24,7 +24,7 @@ DERIVED activation by `trigger_logic`:
                         (one entry per node_id). The JSON `trigger_condition`
                         strings are documentation; the typed predicates
                         below are the source of truth (same convention as
-                        l0_compute / l1_blocks / pathway).
+                        l0_compute / l1_blocks).
 
 Pillar dispatcher: field paths are flat dotted strings; the prefix
 before the first `.` selects the pillar dict on `case`; the rest is
@@ -416,7 +416,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     pillar dict (per `_write`); procedural-mandate nodes only register
     activation.
     """
-    # Defensive: Q1 must be set before activation runs (matches pathway
+    # Defensive: Q1 must be set before activation runs (matches l0_compute
     # and l0_compute conventions).
     if case.q1 not in {Q1.A, Q1.B, Q1.C, Q1.D, Q1.E}:
         raise ValueError(f"Invalid Q1: {case.q1!r}")

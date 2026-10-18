@@ -99,7 +99,7 @@ def test_pipeline_orchestrator_exists():
 
 
 def test_pipeline_runs_end_to_end(schemas):
-    """All 6 phases (l0/l1/pathway/activate/l2/l3) implemented after
+    """All phases (l0/l1/activate/l2/l3) implemented after
     Sprint 4 Step 3 commits 1-6. Pipeline.run on a minimal valid case
     completes without raising and populates derived state."""
     from app.domain.enums import Q1, Q2
@@ -110,11 +110,7 @@ def test_pipeline_runs_end_to_end(schemas):
     result = run_pipeline(case, schemas)
     assert result is case
     assert case.ilcd_situation is not None
-    assert case.pathway_id is not None
+    assert case.ilcd_situation is not None
     assert len(case.activated_nodes) > 0
 
 
-def test_pathway_module_exists():
-    """The pathway module is separated from activate (Step 2 sub-issue 3)."""
-    from app.engine import pathway
-    assert callable(pathway.derive)

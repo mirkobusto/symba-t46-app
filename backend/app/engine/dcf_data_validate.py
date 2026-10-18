@@ -8,7 +8,7 @@ for that descriptor".
 Two severities, deliberately:
 
 - **errors** — structural problems that would corrupt the file: rows in a
-  section the case does not have, values for a field the pathway did not
+  section the case does not have, values for a field the configuration did not
   activate, values outside an inline enum, foreign keys pointing nowhere,
   duplicate row ids. These block the write.
 - **missing_required** — required fields that are still empty. A Data
@@ -180,7 +180,7 @@ def validate_dcf_data(
                             field_id=field_id,
                             detail=(
                                 f"{field_id!r} is not activated for this case's "
-                                f"pathway and must stay empty"
+                                f"configuration and must stay empty"
                             ),
                         )
                     )

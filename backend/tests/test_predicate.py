@@ -38,7 +38,7 @@ from app.engine.predicate import (
 @pytest.fixture()
 def ctx_wiktor(schemas):
     """Wiktor 2018 fixture context: q1=B, q2=D, q3=ENV+ECO, q6a=wastewater,
-    q7=B. Post-pipeline yields pathway IS-01 + is_01_extended=True,
+    q7=B. Post-pipeline yields Situation A,
     ilcd_situation=A, lcc_type=C_LCC_PLUS_E_LCC."""
     case = Case(
         q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
@@ -53,7 +53,7 @@ def ctx_wiktor(schemas):
 @pytest.fixture()
 def ctx_arce(schemas):
     """Arce Bastias fixture context: q1=B, q2=A (ex-post), q3=ENV-only,
-    q7=A (single site). Yields IS-01, is_01_extended=False, A."""
+    q7=A (single site). Yields Situation A."""
     case = Case(
         q1=Q1.B, q2=Q2.A, q3=Q3(env=True), q4={Q4.E},
         q6a=Q6a.PLASTICS_PACKAGING, q6b=Q6b.TRL9, q7=Q7.A,
@@ -167,21 +167,8 @@ def test_complex_q7_overlay(ctx_arce):
 
 
 # ---------------------------------------------------------------------------
-# Derived state (pathway_id, ilcd_situation, is_01_extended)
+# Derived state (ilcd_situation, lcc_type)
 # ---------------------------------------------------------------------------
-
-
-def test_pathway_id(ctx_wiktor):
-    assert evaluate('pathway_id == "IS-01"', ctx_wiktor) is True
-
-
-def test_is_01_extended(ctx_wiktor):
-    assert evaluate("is_01_extended", ctx_wiktor) is True
-
-
-def test_is_01_extended_false(ctx_arce):
-    # Arce has q2=A so is_01_extended is False
-    assert evaluate("is_01_extended", ctx_arce) is False
 
 
 def test_ilcd_situation(ctx_wiktor):
@@ -269,8 +256,8 @@ def test_disallowed_builtins_not_accessible(ctx_wiktor):
 def test_context_contains_expected_keys(ctx_wiktor):
     expected_keys = {
         "q1", "q2", "q3", "q4", "q5", "q6a", "q6b", "q7",
-        "pathway_id", "ilcd_situation", "lcc_type",
-        "slca_activation_state", "is_01_extended", "always",
+        "ilcd_situation", "lcc_type",
+        "slca_activation_state", "always",
     }
     assert set(ctx_wiktor.keys()) == expected_keys
 

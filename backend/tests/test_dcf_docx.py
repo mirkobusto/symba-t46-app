@@ -69,7 +69,7 @@ def test_docx_contains_title(payload_wiktor):
     assert "Data Collection File" in text or "SYMBA T4.6" in text
 
 
-def test_docx_contains_pathway(payload_wiktor):
+def test_docx_cover_names_the_ilcd_situation_not_a_pathway(payload_wiktor):
     blob = generate_dcf_docx_bytes(payload_wiktor)
     doc = Document(BytesIO(blob))
     all_text = "\n".join(p.text for p in doc.paragraphs)
@@ -77,7 +77,8 @@ def test_docx_contains_pathway(payload_wiktor):
         for row in table.rows:
             for cell in row.cells:
                 all_text += "\n" + cell.text
-    assert "IS-01" in all_text
+    assert "ILCD Situation A" in all_text
+    assert "IS-01" not in all_text and "Pathway" not in all_text
 
 
 def test_docx_contains_eu_footer(payload_wiktor):

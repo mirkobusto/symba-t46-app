@@ -94,27 +94,15 @@ def test_cover_tab_carries_case_metadata(payload_wiktor):
     # Read the label/value pairs from rows 3+
     labels = {cover.cell(row=r, column=1).value for r in range(3, 11)}
     assert "Case ID" in labels
-    assert "Pathway" in labels
     assert "ILCD Situation" in labels
+    assert "LCC Type" in labels
 
 
-def test_pathway_value_in_cover(payload_wiktor):
+def test_cover_has_no_pathway_row(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
-    wb = load_workbook(BytesIO(blob))
-    cover = wb["Cover"]
-    # find row with "Pathway"
-    for r in range(3, 11):
-        if cover.cell(row=r, column=1).value == "Pathway":
-            assert cover.cell(row=r, column=2).value == "IS-01"
-            break
-    else:
-        pytest.fail("Pathway row not found")
-
-
-# ---------------------------------------------------------------------------
-# Data section tabs
-# ---------------------------------------------------------------------------
-
+    cover = load_workbook(BytesIO(blob))["Cover"]
+    labels = {cover.cell(row=r, column=1).value for r in range(3, 11)}
+    assert "Pathway" not in labels and "IS-01 Extended" not in labels
 
 def test_actors_tab_has_header_row(payload_wiktor):
     blob = render_xlsx(payload_wiktor)

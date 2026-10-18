@@ -1,14 +1,14 @@
 """Integration tests for GET /api/cases/aggregate/breakdown."""
 from __future__ import annotations
 
-CASE_A = {  # q1=B q2=D q6a=wastewater q7=B → IS-01 + A
+CASE_A = {  # q1=B q2=D q6a=wastewater q7=B → Situation A
     "q1": "B", "q2": "D",
     "q3": {"env": True}, "q4": ["E"],
     "q6a": "wastewater_sludge_biofactories", "q6b": "TRL9", "q7": "B",
     "flows": [{"id": "f1", "name": "f1", "q5": "a"}],
 }
 
-CASE_B = {  # q1=C policy → IS-02
+CASE_B = {  # q1=C policy → Situation B
     "q1": "C", "q2": "D",
     "q3": {"env": True}, "q4": ["E"],
     "q6a": "waste_valorization", "q6b": "TRL9", "q7": "D",
@@ -25,7 +25,7 @@ CASE_C = {  # similar to A but pulp_paper
 
 def _save_post_pipeline(client, name: str, body: dict) -> str:
     """Run the pipeline first, then save the post-pipeline Case so its
-    pathway_id / ilcd_situation are populated. Returns the saved id."""
+    ilcd_situation / lcc_type are populated. Returns the saved id."""
     pipeline_r = client.post("/api/pipeline/run", json=body)
     assert pipeline_r.status_code == 200, pipeline_r.text
     post = pipeline_r.json()
@@ -39,7 +39,7 @@ def test_aggregate_empty(client):
     assert r.status_code == 200, r.text
     body = r.json()
     assert body["total"] == 0
-    assert body["by_pathway"] == []
+    assert body["by_lcc_type"] == []
     assert body["by_q6a_sector"] == []
 
 
@@ -53,9 +53,8 @@ def test_aggregate_after_three_cases(client):
     body = r.json()
     assert body["total"] == 3
 
-    pathway_counts = {e["key"]: e["count"] for e in body["by_pathway"]}
-    assert pathway_counts.get("IS-01") == 2
-    assert pathway_counts.get("IS-02") == 1
+    assert sum(e["count"] for e in body["by_lcc_type"]) == 3
+    assert "by_pathway" not in body
 
     sectors = {e["key"]: e["count"] for e in body["by_q6a_sector"]}
     assert sectors.get("wastewater_sludge_biofactories") == 1

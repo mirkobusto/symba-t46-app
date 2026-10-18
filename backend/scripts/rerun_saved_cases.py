@@ -38,7 +38,7 @@ from app.models import CaseRecord  # noqa: E402
 # so a question added to Case later (Q8 asset_lifetime_years, ...) is carried over
 # by default instead of being silently reset to None by a stale input list.
 _OUTPUT_FIELDS = frozenset({
-    "ilcd_situation", "lcc_type", "slca_activation_state", "pathway_id", "is_01_extended",
+    "ilcd_situation", "lcc_type", "slca_activation_state",
     "lca", "lcc", "slca", "report", "governance", "methodological_charter", "review", "system",
     "activated_nodes", "blocked_by", "rule_violations", "applicable_rules", "cdp_flags", "warnings",
 })
@@ -75,7 +75,7 @@ def main(argv: list[str]) -> int:
             print(f"  ~ {rec.id} {rec.name!r}")
             if apply:
                 rec.case_json = new_json
-                rec.pathway_id = case.pathway_id.value if case.pathway_id else None
+                rec.ilcd_situation = case.ilcd_situation.value if case.ilcd_situation else None
         if apply:
             session.commit()
     finally:

@@ -64,8 +64,8 @@ def test_preview_returns_payload():
     r = client.post("/api/dcf/preview", json=WIKTOR_BODY)
     assert r.status_code == 200, r.text
     body = r.json()
-    assert body["pathway_id"] == "IS-01"
-    assert body["is_01_extended"] is True
+    assert body["ilcd_situation"] == "ILCD Situation A"
+    assert "pathway_id" not in body
     assert body["ilcd_situation"] == "ILCD Situation A"
     # sections in spec order
     ids = [s["id"] for s in body["sections"]]

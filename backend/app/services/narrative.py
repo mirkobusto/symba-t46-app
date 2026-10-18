@@ -52,16 +52,13 @@ class Verdict:
 
 
 def verdict_for(case: Case) -> Verdict | None:
-    """Compose the plain-language verdict for a pipeline-run case."""
+    """Compose the plain-language verdict for a pipeline-run case. It leads with
+    the ILCD situation (D4.1 Table 1), the variable that sets paradigm,
+    background and multifunctionality; LCC type and S-LCA state follow."""
     nar = load_narrative()
-    pathway = case.pathway_id.value if case.pathway_id else None
-    if pathway is None:
+    if case.ilcd_situation is None:
         return None
-
-    entry = nar["pathway"].get(pathway, {})
-    body = entry.get("body", "")
-    if case.is_01_extended and nar.get("extendedSuffix"):
-        body = f"{body} {nar['extendedSuffix']}".strip()
+    lead = nar["ilcd"].get(case.ilcd_situation.value, {})
 
     sections: list[VerdictSection] = []
     for key, value in (
@@ -84,16 +81,14 @@ def verdict_for(case: Case) -> Verdict | None:
             )
         )
 
-    codes = [pathway + (" extended" if case.is_01_extended else "")]
-    if case.ilcd_situation:
-        codes.append(case.ilcd_situation.value)
+    codes = [case.ilcd_situation.value]
     if case.lcc_type and case.lcc_type.value != "deactivated":
         codes.append(f"LCC {case.lcc_type.value}")
 
     return Verdict(
-        title=entry.get("title", pathway),
-        body=body,
-        detail=entry.get("detail", ""),
+        title=lead.get("title", case.ilcd_situation.value),
+        body=lead.get("short", ""),
+        detail=lead.get("detail", ""),
         codes=codes,
         sections=sections,
     )

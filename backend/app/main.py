@@ -15,11 +15,8 @@ from fastapi.staticfiles import StaticFiles
 from app import __version__
 from app.db import Base, get_engine
 from app.models import (  # noqa: F401 — register
-    Answer,
     CaseRecord,
     CaseScoring,
-    PathwayResolutionRecord,
-    Session,
     User,
 )
 from app.routers import auth, cases, dcf, health, pipeline, public, scoring

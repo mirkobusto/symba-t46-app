@@ -37,7 +37,7 @@ Conventions established in earlier commits and reused here:
   - The JSON `trigger_condition` / `assertion` / `actions` strings are
     documentation; the typed Python predicates / assertion functions /
     action functions below are the source of truth (same convention
-    as l0_compute / l1_blocks / pathway / activate).
+    as l0_compute / l1_blocks / activate).
   - Defensive `getattr` for `case.X` references not yet on the Case
     model (`transport_sensitive`, `network_nodes`,
     `interdependent_flows`, `frontier_categories_active`,
@@ -569,7 +569,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     Rules without a registered trigger predicate are skipped silently
     (defensive — a typo in the JSON would otherwise throw).
     """
-    # Q1 must be set; matches l0_compute / pathway / activate convention.
+    # Q1 must be set; matches l0_compute / activate convention.
     if case.q1 not in {Q1.A, Q1.B, Q1.C, Q1.D, Q1.E}:
         raise ValueError(f"Invalid Q1: {case.q1!r}")
 

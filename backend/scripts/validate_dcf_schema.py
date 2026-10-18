@@ -1,7 +1,7 @@
 """Sanity-check dcf_schema.json against the 13 paper fixtures.
 
-For each fixture, runs the full pipeline to derive pathway_id, ilcd_situation,
-lcc_type, slca_activation_state, is_01_extended, then evaluates every field's
+For each fixture, runs the full pipeline to derive ilcd_situation,
+lcc_type, slca_activation_state, then evaluates every field's
 activation_predicate in dcf_schema.json and prints a table of active fields
 per section per paper.
 
@@ -107,11 +107,9 @@ def _build_eval_context(case: Case) -> dict:
         "q6a": case.q6a.value if case.q6a else None,
         "q6b": case.q6b.value if case.q6b else None,
         "q7": case.q7.value if case.q7 else None,
-        "pathway_id": case.pathway_id.value if case.pathway_id else None,
         "ilcd_situation": case.ilcd_situation.value if case.ilcd_situation else None,
         "lcc_type": case.lcc_type.value if case.lcc_type else None,
         "slca_activation_state": case.slca_activation_state.value if case.slca_activation_state else None,
-        "is_01_extended": case.is_01_extended,
         "always": True,
     }
 

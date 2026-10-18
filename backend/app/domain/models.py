@@ -19,7 +19,7 @@ from __future__ import annotations
 from typing import Any
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.domain.enums import (
     Q1,
@@ -32,7 +32,6 @@ from app.domain.enums import (
     IlcdSituation,
     LccType,
     OperatingStart,
-    PathwayId,
     Q6a,
     Q6b,
     SlcaActivationState,
@@ -129,7 +128,6 @@ class Case(BaseModel):
     - User answers: `q1`..`q7` + `flows` + `sites` + `alternative_scenarios`
     - Derived state (set by L0 triggers): `ilcd_situation`, `lcc_type`,
       `slca_activation_state`
-    - Pathway: `pathway_id` (set by `engine.activate.derive_pathway`)
     - Engine-written config: `lca`, `lcc`, `slca`, `report`, `governance`,
       `methodological_charter`, `review`, `system` — each is a free-form
       dict[str, Any] keyed by the dotted-path tail (e.g.,
@@ -139,6 +137,16 @@ class Case(BaseModel):
     """
 
     model_config = ConfigDict(extra="forbid", validate_assignment=True)
+
+    @model_validator(mode="before")
+    @classmethod
+    def _drop_retired_keys(cls, data: Any) -> Any:
+        """Cases saved or exported before 2026-10-18 carry the IS-01..IS-05
+        pathway (`pathway_id`, `is_01_extended`), a T4.6 construct the
+        deliverables do not know, now removed: drop them so old cases load."""
+        if isinstance(data, dict) and ("pathway_id" in data or "is_01_extended" in data):
+            data = {k: v for k, v in data.items() if k not in ("pathway_id", "is_01_extended")}
+        return data
 
     # --- Identity / lifecycle ---
     id: UUID = Field(default_factory=uuid4)
@@ -194,13 +202,6 @@ class Case(BaseModel):
     ilcd_situation: IlcdSituation | None = None
     lcc_type: LccType | None = None
     slca_activation_state: SlcaActivationState | None = None
-
-    # --- Pathway (set by app/engine/pathway.py:derive) ---
-    pathway_id: PathwayId | None = None
-    is_01_extended: bool = Field(default=False,
-        description="True iff pathway_id is IS-01 AND q2 is Q2.D — captures "
-                    "the 'IS-01 extended' annotation (baseline + N alternative "
-                    "scenarios; WorkingDoc §3.3). Set by pathway.derive.")
 
     # --- Engine-written config (free-form dotted-path-keyed dicts per pillar) ---
     lca: dict[str, Any] = Field(default_factory=dict,

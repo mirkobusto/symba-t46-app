@@ -2,7 +2,7 @@
 
 Validates the engine's end-to-end behaviour against the 13 fixtures
 extracted from `docs/implementation/SYMBA_T46_Validation_WorkingDoc_v1.md`
-§3.1 (Q1-Q7 compilation) and §3.3 (pathway mapping). One fixture per
+§3.1 (Q1-Q7 compilation); the IS-01..IS-05 pathway mapping of §3.3 was retired on 2026-10-18. One fixture per
 paper; Leiva 2025 has two sub-cases (Escombreras + Frövi) that exercise
 different Q1 values, so the count is 13 instead of 12.
 
@@ -10,18 +10,12 @@ Validation philosophy (per WorkingDoc §1.2): methodological configuration
 coherence, NOT numerical replication. We assert that the pipeline
 produces the expected:
 
-    pathway_id, is_01_extended, ilcd_situation, lcc_type,
+    ilcd_situation, lcc_type,
     slca_activation_state, no L1 BLOCK fires, ≥116 activated nodes
 
 We do NOT assert exact `activated_nodes` set membership per paper — that
 is the territory of the per-paper Word .docx validation reports
 (post-Sprint-4 deliverable, see WorkingDoc §6).
-
-Known divergence — Kerdlap (Paper 9): WorkingDoc §3.3 mapping table
-lists IS-01, but the §3.3 derivation rule "Q2=C → IS-04 (any Q1)" plus
-the γ matrix (ADR-005) both produce IS-04. The mapping table is
-inconsistent with its own rule. Engine follows the rule (IS-04). The
-fixture below reflects engine behaviour with an inline note.
 
 Q6a note: the sector enum was expanded in Feature B to all 14
 canonical sectors (per WorkingDoc §3.1). Each fixture uses the
@@ -32,7 +26,6 @@ IDs.
 """
 from __future__ import annotations
 
-from collections import Counter
 from typing import Any
 
 import pytest
@@ -45,7 +38,6 @@ from app.domain.enums import (
     Q7,
     IlcdSituation,
     LccType,
-    PathwayId,
     Q6a,
     Q6b,
     SlcaActivationState,
@@ -72,8 +64,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.e),
         "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -86,8 +76,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
         "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -100,8 +88,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -114,8 +100,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.D, Q4.E},  # multi-select: PEF + academic
         "flows": _flows(Q5.e),
         "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D,
-        "expected_pathway": PathwayId.IS_02,
-        "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_B,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -128,8 +112,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.PLASTICS_PACKAGING, "q6b": Q6b.TRL9, "q7": Q7.A,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": False,  # Q2=A, not D
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -142,8 +124,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c, Q5.c),
         "q6a": Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, "q6b": Q6b.TRL7_8, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -156,8 +136,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.CHEMICALS_FERTILIZERS, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_NETWORK,  # eco without env: no E-LCC (D4.2 §4.1)
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -170,8 +148,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_NETWORK,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -184,16 +160,11 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.C},
         "flows": _flows(Q5.e),
         "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },
     # 9. Kerdlap 2024 — fictional urban agri-food
-    # NOTE: WorkingDoc §3.3 mapping table lists IS-01 but its own derivation
-    # rule "Q2=C → IS-04 (any Q1)" + γ matrix (ADR-005) both yield IS-04.
-    # The mapping table contradicts its own rule. Engine follows the rule.
     {
         "id": "kerdlap_2024",
         "q1": Q1.B, "q2": Q2.C,
@@ -201,8 +172,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES, "q6b": Q6b.TRL9, "q7": Q7.A,
-        "expected_pathway": PathwayId.IS_04,  # γ rule, NOT WorkingDoc mapping
-        "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -215,8 +184,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.MULTI_TENANT_URBAN_BUILDING, "q6b": Q6b.TRL9, "q7": Q7.A,
-        "expected_pathway": PathwayId.IS_01,
-        "expected_extended": True,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.ACTIVE,
@@ -230,8 +197,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.c),
         "q6a": Q6a.MULTI_SECTOR, "q6b": Q6b.TRL9, "q7": Q7.A,
-        "expected_pathway": PathwayId.IS_04,  # Q2=C with Q1=A
-        "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.DEACTIVATED,
@@ -245,8 +210,6 @@ _PAPERS: list[dict[str, Any]] = [
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
-        "expected_pathway": PathwayId.IS_02,  # Q1=C → IS-02 (Q2 ignored)
-        "expected_extended": False,
         "expected_ilcd": IlcdSituation.SITUATION_B,
         "expected_lcc_type": LccType.E_LCC_PLUS_S_LCC_PLUS_NTF,  # Q1=C + eco
         "expected_slca": SlcaActivationState.ACTIVE,
@@ -278,10 +241,6 @@ def test_paper_pipeline_consistency(fixture, schemas):
     result = pipeline_run(case, schemas)
 
     assert result is case
-    assert case.pathway_id == fixture["expected_pathway"], (
-        f"{fixture['id']}: pathway mismatch")
-    assert case.is_01_extended == fixture["expected_extended"], (
-        f"{fixture['id']}: is_01_extended mismatch")
     assert case.ilcd_situation == fixture["expected_ilcd"], (
         f"{fixture['id']}: ilcd_situation mismatch")
     assert case.lcc_type == fixture["expected_lcc_type"], (
@@ -322,36 +281,6 @@ def test_paper_pipeline_consistency(fixture, schemas):
 # ---------------------------------------------------------------------------
 # Aggregate sanity checks across the suite
 # ---------------------------------------------------------------------------
-
-
-def test_pathway_distribution_matches_workingdoc(schemas):
-    """Empirical distribution per WorkingDoc §3.3:
-    9 IS-01, 2 IS-02, 2 IS-04, 0 IS-03, 0 IS-05 (under-sampled)."""
-    pathways = []
-    for fixture in _PAPERS:
-        case = _build_case(fixture)
-        pipeline_run(case, schemas)
-        pathways.append(case.pathway_id)
-    counts = Counter(pathways)
-    assert counts[PathwayId.IS_01] == 9
-    assert counts[PathwayId.IS_02] == 2
-    assert counts[PathwayId.IS_04] == 2
-    assert counts[PathwayId.IS_03] == 0
-    assert counts[PathwayId.IS_05] == 0
-
-
-def test_extended_flag_count(schemas):
-    """is_01_extended fires on IS-01 + Q2=D. From the 13 fixtures:
-    8 papers have IS-01 + Q2=D (Sokka, Hashimoto, Daddi, Wiktor,
-    Leiva-Esc, Leiva-Frövi, Danielsson, Subramanian); Arce is IS-01
-    but Q2=A so flag is False."""
-    n_extended = 0
-    for fixture in _PAPERS:
-        case = _build_case(fixture)
-        pipeline_run(case, schemas)
-        if case.is_01_extended:
-            n_extended += 1
-    assert n_extended == 8
 
 
 def test_cdp_surfaces_for_multi_dim_papers(schemas):

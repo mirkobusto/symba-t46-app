@@ -158,7 +158,8 @@ export default function QuestionnairePage() {
 
   const q3Empty = !env && !eco && !soc
   // Q9 is required: the ILCD situation follows it (D4.1 Table 1), not Q1
-  const canRun = !!q1 && !q3Empty && decisionContext !== '' && !loading
+  // Q10 is required when the economic dimension is on: it decides the societal LCC
+  const canRun = !!q1 && !q3Empty && decisionContext !== '' && (!eco || policy !== '') && !loading
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -188,7 +189,7 @@ export default function QuestionnairePage() {
       asset_lifetime_years: parseYears(assetLifetime),
       decision_context: decisionContext || null,
       market_screening_documented: decisionContext === 'structural' && screening !== '' ? screening === 'yes' : null,
-      policy_objective: policy === '' ? null : policy === 'yes',
+      policy_objective: !eco || policy === '' ? null : policy === 'yes',
       comparison_goal: comparisonGoal || null,
       advanced,
     })
@@ -521,27 +522,28 @@ export default function QuestionnairePage() {
         )}
       </QuestionCard>
 
-      {/* Q10 — optional: unanswered keeps the Q1-derived LCC type */}
-      <QuestionCard
-        id="q10"
-        title={t('questionnaire.q10.title')}
-        help={t('questionnaire.q10.help')}
-        plain={t('questionnaire.q10.plain')}
-        details={t('questionnaire.q10.details')}
-      >
-        {(['', 'yes', 'no'] as const).map((k) => (
-          <label key={k || 'unset'} className="opt opt-single">
-            <input
-              type="radio" name="q10" value={k}
-              checked={policy === k}
-              onChange={() => setPolicy(k)}
-            />
-            <span className="opt-label">
-              {t(`questionnaire.q10.options.${k || 'unset'}`)}
-            </span>
-          </label>
-        ))}
-      </QuestionCard>
+      {/* Q10 — required with the economic dimension: it decides the societal LCC (D4.2 §2.3) */}
+      {eco ? (
+        <QuestionCard
+          id="q10"
+          title={t('questionnaire.q10.title')}
+          help={t('questionnaire.q10.help')}
+          plain={t('questionnaire.q10.plain')}
+          details={t('questionnaire.q10.details')}
+        >
+          {(['yes', 'no'] as const).map((k) => (
+            <label key={k} className="opt opt-single">
+              <input
+                type="radio" name="q10" value={k}
+                checked={policy === k}
+                onChange={() => setPolicy(k)}
+                aria-required="true"
+              />
+              <span className="opt-label">{t(`questionnaire.q10.options.${k}`)}</span>
+            </label>
+          ))}
+        </QuestionCard>
+      ) : null}
 
       {/* Q11 — optional: what the study compares sets the functional unit basis (D4.1 Part 2) */}
       <QuestionCard

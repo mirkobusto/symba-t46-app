@@ -23,6 +23,7 @@ export function translateNote(t: TFunction, w: CaseWarning): string {
   return t(key, {
     flow: p.flow,
     configuration: p.configuration,
+    situation: p.situation,
     chapter: chapterName(t, p.chapter),
     declared: chapterName(t, p.declared),
     defaultValue: w.message,

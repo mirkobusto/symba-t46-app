@@ -369,7 +369,7 @@ const en = {
     q1: {
       title: 'Q1 — What are you analyzing? *',
       help:
-        "Pick the closest match: what counts is the subject of the study, not who commissioned it. (Required.)",
+        'Pick the closest match: what counts is the subject of the study, not who commissioned it. It describes the system and its boundary; how the study is modelled comes from Q9 and the questions after it. (Required.)',
       details:
         'A — bilateral exchange (e.g. waste heat from Plant X to Plant Y, or by-product gypsum from a power plant to a cement kiln). The subject is the SHARED FLOW between two companies. ' +
         'B — eco-industrial park or symbiotic network with 3+ actors (e.g. Kalundborg, NISP cluster, an industrial park master plan). The subject is the NETWORK as a system. ' +
@@ -384,7 +384,7 @@ const en = {
         E: { label: 'E. Monitoring', description: 'Time-series monitoring of an already operational symbiosis.' },
       },
       plain:
-        "This is the question that governs the others: from it the tool works out which system you are examining, and therefore which data it will ask you for later. If you hesitate between two options, keep the one that describes the thing whose effects you want to measure.",
+        'Say what you are examining: one exchange, a park, a programme, one company, a symbiosis you follow over time. The answer describes the system and its boundary; how the study is modelled is decided by the questions that follow, starting with what the study is for (Q9). If you hesitate between two options, keep the one that describes the thing whose effects you want to measure.',
     },
 
     q2: {
@@ -467,10 +467,10 @@ const en = {
 
     q6a: {
       title: 'Q6a — Sector',
-      help: 'The main sector of the case. It switches on a few sector-specific requirements.',
+      help: 'The main sector of the case, as a description. The sector rules of D4.1 Part 2 follow the sector of each exchanged flow, declared in the flows table.',
       details:
-        'Sector controls a small set of sector-specific node activations and overlay defaults. Pick the closest match to the dominant sector of the case (the actor that contributes most mass/energy/value). ' +
-        'Examples: pulp_paper for Sokka 2011 (UPM Kymi); chemicals_fertilizers for Hashimoto / Wiktor; cement_construction for Leiva 2025 Escombreras; biobased_polymers for Briassoulis; food_production / agri-food for Daddi. ' +
+        'The sector describes the case and opens a few sector-specific fields in the Data Collection File; the sector rules of D4.1 Part 2 follow the sector declared for each flow, because the chapters follow what is exchanged. Pick the closest match to the dominant sector of the case (the actor that contributes most mass/energy/value). ' +
+        'Examples: pulp_paper for Sokka 2011 (UPM Kymi); cement_construction for Hashimoto 2010 (Kawasaki); textile_leather for Daddi 2017 (tannery cluster); wastewater_sludge_biofactories for Wiktor 2018; chemicals_fertilizers for Leiva 2025 Escombreras; biobased_polymers for Briassoulis. ' +
         'For mixed cases use multi_sector. The "(legacy)" entries at the bottom exist for backward-compatible loading of older fixtures — prefer the new 14-sector list.',
       options: {
         none: '(none)',
@@ -494,7 +494,7 @@ const en = {
         process_industry: 'Process industry (legacy)',
       },
       plain:
-        "The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It switches on a few sector-specific requirements and defaults. If the case straddles several sectors, pick Multi-sector, and ignore the entries marked (legacy).",
+        'The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It describes the case; the sector rules of the guidelines follow what each flow is, which you declare in the flows table. If the case straddles several sectors, pick Multi-sector, and ignore the entries marked (legacy).',
     },
 
     q6b: {
@@ -578,16 +578,15 @@ const en = {
         'What is the study for? Most studies explore or back a choice whose effects stay inside the plants involved, even when nobody has to decide yet. Only when the change is big enough to shift what a whole market produces, and you can show it, does the study change kind. If you are only describing a network that already runs, or reporting one company\'s own figures, say so: each case is modelled differently.',
     },
     q10: {
-      title: 'Q10 — Does the study serve a public policy or territorial planning objective?',
-      help: 'Optional. Unanswered, the engine infers it from Q1 (yes only for Q1 = C).',
-      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, whatever Q1 or Q4. A municipality planning an eco-park (Q1 = B) or a regulator monitoring a sector (Q1 = E) can answer yes without being Q1 = C. With Q1 = D the tool keeps the conventional company-level LCC (a T4.6 design choice) and tells you.',
+      title: 'Q10 — Does the study serve a public objective or a public decision-maker? *',
+      help: 'Required when the economic dimension is on: it decides whether the societal LCC is added.',
+      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, and §2.2 ties the choice of LCC type to the perspective of the decision-maker: a municipality, a public utility or a regulator takes the public view, whatever the subject of the study (D4.2 §9.2 gives 3-5 % for municipal and public-utility investments). A municipality planning an eco-park or a utility sizing a district-heating link answers yes. Strict reporting of one company (Q9: corporate report, Situation C2) keeps the company-level costing (a T4.6 design choice), and the tool tells you.',
       options: {
-        unset: 'Not answered (inferred from Q1)',
-        yes: 'Yes — a public policy or territorial planning objective (adds the societal LCC)',
-        no: 'No — it does not serve a public policy or planning objective',
+        yes: 'Yes — a public policy or planning objective, or a public decision-maker (adds the societal LCC)',
+        no: 'No — a private decision or a company\'s own account',
       },
       plain:
-        "Answer yes if the study is meant to feed a public decision — a municipality, a region, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a single company's own account the economic reading stays at company level, and the tool tells you. Leave it unanswered and the tool reads it off the first question.",
+        'Answer yes if the study is meant to feed a public decision, or is commissioned by a public body: a municipality, a region, a public utility, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a company\'s own account the economic reading stays at company level.',
     },
 
     q11: {
@@ -762,6 +761,11 @@ const en = {
   result: {
     notes: { title: 'Notes on your answers' },
     engineNotes: {
+      q9_unanswered: "Q9 is not answered, so the ILCD situation (Situation {{situation}}) is read off Q1, as for cases saved before Q9 existed. Answer Q9: D4.1 Table 1 sets the situation by the decision and the scale of its consequences, not by the subject of the study.",
+      q10_unanswered: {
+        yes: "Q10 is not answered, so whether the study serves a public objective is read off Q1: the societal LCC is added, as for cases saved before Q10 existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning objective or a public decision-maker, whatever the subject of the study.",
+        no: "Q10 is not answered, so whether the study serves a public objective is read off Q1: the societal LCC is not added, as for cases saved before Q10 existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning objective or a public decision-maker, whatever the subject of the study.",
+      },
       structural_without_screening: "Q9 says the effects are structural, but the market screening is not documented: the study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity (D4.1 §4.3.4, §11.3.1).",
       structural_screening_missing: "Situation B needs proof that the change displaces about 1% or more of new capacity in the affected market (D4.1 §11.3.1); document it, or the study is Situation A with B as a sensitivity (D4.1 §4.3.4).",
       decision_scale_vs_q1: {
@@ -786,6 +790,7 @@ const en = {
         waste: "Flow '{{flow}}': Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) reads it as a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4).",
       },
       flow_part2_chapter: "Flow '{{flow}}': the sector rules of D4.1 Part 2 {{chapter}} apply to it; they are listed under Sector rules.",
+      case_sector_without_flow: "The case sector belongs to D4.1 Part 2 {{chapter}}, but no flow declares that chapter, so its sector rules are not listed. The chapters follow what is exchanged: declare the Part 2 sector of each flow in the flows table.",
       flow_configuration_unknown: "Flow '{{flow}}': configuration '{{configuration}}' is not one of D4.1 Part 2.",
       flow_configuration_other_chapter: "Flow '{{flow}}': its configuration belongs to {{chapter}}, not to the declared {{declared}}; the rules of both chapters are listed.",
     },

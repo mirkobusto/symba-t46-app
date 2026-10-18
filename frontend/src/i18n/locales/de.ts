@@ -315,7 +315,7 @@ const de: Locale = {
     q1: {
       title: 'Q1 — Was analysieren Sie? *',
       help:
-        "Wählen Sie die nächstliegende Antwort: Es zählt der Gegenstand der Studie, nicht wer sie beauftragt hat. (Erforderlich.)",
+        'Wählen Sie die nächstliegende Option: Entscheidend ist der Gegenstand der Studie, nicht der Auftraggeber. Sie beschreibt das System und seine Grenze; wie die Studie modelliert wird, ergibt sich aus Q9 und den folgenden Fragen. (Pflichtfeld.)',
       details:
         'A — bilateraler Austausch (z. B. Abwärme von Werk X zu Werk Y, oder Gips als Nebenprodukt von Kraftwerk zu Zementwerk). Subjekt ist der GETEILTE FLUSS zwischen zwei Unternehmen. ' +
         'B — Öko-Industriepark oder symbiotisches Netzwerk mit 3+ Akteuren (z. B. Kalundborg, NISP-Cluster, Industriepark-Masterplan). Subjekt ist das NETZWERK als System. ' +
@@ -330,7 +330,7 @@ const de: Locale = {
         E: { label: 'E. Monitoring', description: 'Zeitliches Monitoring einer bereits operativen Symbiose.' },
       },
       plain:
-        "Das ist die Frage, die alle anderen steuert: Aus ihr erkennt das Werkzeug, welches System Sie untersuchen, und damit, welche Daten es später von Ihnen verlangt. Schwanken Sie zwischen zwei Optionen, nehmen Sie die, die das beschreibt, dessen Wirkungen Sie messen wollen.",
+        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie (Q9). Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen.',
     },
 
     q2: {
@@ -413,10 +413,10 @@ const de: Locale = {
 
     q6a: {
       title: 'Q6a — Sektor',
-      help: 'Der Hauptsektor des Falls. Er schaltet einige sektorspezifische Anforderungen ein.',
+      help: 'Der Hauptsektor des Falls, als Beschreibung. Die Sektorregeln von D4.1 Part 2 folgen dem Sektor jedes ausgetauschten Flusses, der in der Flusstabelle angegeben wird.',
       details:
-        'Der Sektor steuert eine kleine Menge sektor-spezifischer Knotenaktivierungen und Overlay-Defaults. Wählen Sie die nächste Übereinstimmung zum dominanten Sektor des Falls (Akteur mit größtem Beitrag in Masse/Energie/Wert). ' +
-        'Beispiele: pulp_paper für Sokka 2011 (UPM Kymi); chemicals_fertilizers für Hashimoto / Wiktor; cement_construction für Leiva 2025 Escombreras; biobased_polymers für Briassoulis; food_production / agri-food für Daddi. ' +
+        'Der Sektor beschreibt den Fall und öffnet einige sektorspezifische Felder im Data Collection File; die Sektorregeln von D4.1 Part 2 folgen dem für jeden Fluss angegebenen Sektor, weil die Kapitel dem folgen, was ausgetauscht wird. Wählen Sie die nächste Übereinstimmung zum dominanten Sektor des Falls (Akteur mit größtem Beitrag in Masse/Energie/Wert). ' +
+        'Beispiele: pulp_paper für Sokka 2011 (UPM Kymi); cement_construction für Hashimoto 2010 (Kawasaki); textile_leather für Daddi 2017 (Gerbereicluster); wastewater_sludge_biofactories für Wiktor 2018; chemicals_fertilizers für Leiva 2025 Escombreras; biobased_polymers für Briassoulis. ' +
         'Für gemischte Fälle multi_sector verwenden. Die „(legacy)"-Einträge unten existieren für rückwärtskompatibles Laden alter Fixtures — bevorzugen Sie die neue 14-Sektor-Liste.',
       options: {
         none: '(keiner)',
@@ -440,7 +440,7 @@ const de: Locale = {
         process_industry: 'Prozessindustrie (legacy)',
       },
       plain:
-        "Der Hauptsektor des Falls: die Tätigkeit des Unternehmens, das den größten Teil der Masse, der Energie oder des Werts beiträgt. Er schaltet einige sektorspezifische Anforderungen und Voreinstellungen ein. Liegt der Fall quer zu mehreren Sektoren, wählen Sie Multi-Sektor, und lassen Sie die mit (legacy) markierten Einträge beiseite.",
+        'Der Hauptsektor des Falls: die Tätigkeit des Unternehmens mit dem größten Anteil an Masse, Energie oder Wert. Er beschreibt den Fall; die Sektorregeln der Leitlinien folgen dem, was jeder Fluss ist, und das geben Sie in der Flusstabelle an. Erstreckt sich der Fall über mehrere Sektoren, wählen Sie Multi-Sektor und ignorieren Sie die Einträge (legacy).',
     },
 
     q6b: {
@@ -524,16 +524,15 @@ const de: Locale = {
         'Wozu dient die Studie? Meistens untersucht oder stützt sie eine Wahl, deren Wirkungen in den beteiligten Anlagen bleiben, auch wenn noch niemand entscheiden muss. Erst wenn die Änderung groß genug ist, um zu verändern, was ein ganzer Markt produziert, und man das zeigen kann, ändert die Studie ihre Art. Beschreiben Sie nur ein Netzwerk, das schon läuft, oder die Zahlen eines einzelnen Unternehmens, sagen Sie es: Jeder Fall wird anders modelliert.',
     },
     q10: {
-      title: 'Q10 — Dient die Studie einem Ziel der öffentlichen Politik oder der Raumplanung?',
-      help: 'Optional. Ohne Antwort leitet die Engine sie aus Q1 ab (ja nur bei Q1 = C).',
-      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, unabhängig von Q1 oder Q4. Eine Gemeinde, die einen Ökoindustriepark plant (Q1 = B), oder eine Behörde, die einen Sektor überwacht (Q1 = E), kann mit Ja antworten, ohne Q1 = C zu sein. Bei Q1 = D behält das Werkzeug die konventionelle LCC auf Unternehmensebene (T4.6-Designentscheidung) und weist darauf hin.',
+      title: 'Q10 — Dient die Studie einem öffentlichen Ziel oder einem öffentlichen Entscheidungsträger? *',
+      help: 'Pflicht, wenn die ökonomische Dimension aktiv ist: Sie entscheidet, ob die gesellschaftliche LCC ergänzt wird.',
+      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, und §2.2 verknüpft die Wahl des LCC-Typs mit der Perspektive des Entscheidungsträgers: Eine Gemeinde, ein öffentlicher Versorger oder eine Regulierungsbehörde nimmt die öffentliche Sicht ein, unabhängig vom Gegenstand der Studie (D4.2 §9.2 nennt 3-5 % für kommunale und öffentliche Versorgungsinvestitionen). Eine Gemeinde, die einen Eco-Park plant, oder ein Versorger, der eine Fernwärmeverbindung dimensioniert, antwortet mit Ja. Die strikte Berichterstattung eines einzelnen Unternehmens (Q9: Unternehmensbericht, Situation C2) behält die Kostenrechnung auf Unternehmensebene (T4.6-Designentscheidung), und das Werkzeug weist darauf hin.',
       options: {
-        unset: 'Nicht beantwortet (aus Q1 abgeleitet)',
-        yes: 'Ja — Ziel der öffentlichen Politik oder der Raumplanung (ergänzt die gesellschaftliche LCC)',
-        no: 'Nein — kein Ziel der Politik oder Raumplanung',
+        yes: 'Ja — ein Ziel der öffentlichen Politik oder Planung oder ein öffentlicher Entscheidungsträger (ergänzt die gesellschaftliche LCC)',
+        no: 'Nein — eine private Entscheidung oder die eigene Bilanz eines Unternehmens',
       },
       plain:
-        "Antworten Sie ja, wenn die Studie einer öffentlichen Entscheidung dienen soll — einer Gemeinde, einer Region, einer Aufsichtsbehörde, einem Plan. Dann kommt eine zweite wirtschaftliche Lesart aus Sicht der Gesellschaft hinzu: anders gerechnete Steuern und Folgen, die niemand in Geld bezahlt. Für die eigene Rechenschaft eines einzelnen Unternehmens bleibt die wirtschaftliche Lesart auf Unternehmensebene, und das Werkzeug sagt es Ihnen. Ohne Antwort liest das Werkzeug sie aus der ersten Frage ab.",
+        'Antworten Sie mit Ja, wenn die Studie eine öffentliche Entscheidung vorbereiten soll oder von einer öffentlichen Stelle beauftragt wird: einer Gemeinde, einer Region, einem öffentlichen Versorger, einer Regulierungsbehörde, einem Plan. Dann kommt eine zweite ökonomische Lesart aus Sicht der Gesellschaft hinzu: Steuern werden anders gezählt, und Wirkungen, die niemand in Geld bezahlt. Für die eigene Bilanz eines Unternehmens bleibt die ökonomische Lesart auf Unternehmensebene.',
     },
 
     q11: {
@@ -708,6 +707,11 @@ const de: Locale = {
   result: {
     notes: { title: 'Hinweise zu Ihren Antworten' },
     engineNotes: {
+      q9_unanswered: "Q9 ist nicht beantwortet, daher wird die ILCD-Situation (Situation {{situation}}) aus Q1 abgeleitet, wie bei Fällen, die vor Q9 gespeichert wurden. Beantworten Sie Q9: D4.1 Tabelle 1 bestimmt die Situation nach der Entscheidung und dem Ausmaß ihrer Folgen, nicht nach dem Gegenstand der Studie.",
+      q10_unanswered: {
+        yes: "Q10 ist nicht beantwortet, daher wird aus Q1 abgeleitet, ob die Studie einem öffentlichen Ziel dient: Die gesellschaftliche LCC wird ergänzt, wie bei Fällen, die vor Q10 gespeichert wurden. Beantworten Sie Q10: D4.2 §2.3 ergänzt die gesellschaftliche LCC für ein Ziel der öffentlichen Politik oder Planung oder einen öffentlichen Entscheidungsträger, unabhängig vom Gegenstand der Studie.",
+        no: "Q10 ist nicht beantwortet, daher wird aus Q1 abgeleitet, ob die Studie einem öffentlichen Ziel dient: Die gesellschaftliche LCC wird nicht ergänzt, wie bei Fällen, die vor Q10 gespeichert wurden. Beantworten Sie Q10: D4.2 §2.3 ergänzt die gesellschaftliche LCC für ein Ziel der öffentlichen Politik oder Planung oder einen öffentlichen Entscheidungsträger, unabhängig vom Gegenstand der Studie.",
+      },
       structural_without_screening: "Q9 nennt strukturelle Auswirkungen, aber das Markt-Screening ist nicht dokumentiert: Die Studie wird als ILCD-Situation A behandelt, und Situation B ist als Sensitivität zu prüfen (D4.1 §4.3.4, §11.3.1).",
       structural_screening_missing: "Situation B verlangt den Nachweis, dass die Änderung etwa 1 % oder mehr der neuen Kapazität im betroffenen Markt verdrängt (D4.1 §11.3.1); dokumentieren Sie ihn, sonst ist die Studie Situation A mit B als Sensitivität (D4.1 §4.3.4).",
       decision_scale_vs_q1: {
@@ -732,6 +736,7 @@ const de: Locale = {
         waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt; die Freedom-to-Act-Antwort (D4.1 §8.3.3) liest ihn als Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4).",
       },
       flow_part2_chapter: "Fluss „{{flow}}“: Für ihn gelten die Sektorregeln von D4.1 Part 2 {{chapter}}; sie stehen unter Sektorregeln.",
+      case_sector_without_flow: "Der Sektor des Falls gehört zu D4.1 Part 2 {{chapter}}, aber kein Fluss gibt dieses Kapitel an, daher werden seine Sektorregeln nicht aufgeführt. Die Kapitel folgen dem, was ausgetauscht wird: Geben Sie in der Flusstabelle für jeden Fluss den Part-2-Sektor an.",
       flow_configuration_unknown: "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
       flow_configuration_other_chapter: "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
     },

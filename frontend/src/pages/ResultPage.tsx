@@ -15,6 +15,7 @@ import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
 import { chapterName, translateNote } from '../i18n/engineNotes'
+import { sectorNote, sectorStatement } from '../i18n/sectorTerms'
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -399,7 +400,8 @@ export default function ResultPage() {
 
 /** D4.1 Part 2 rules of the chapters the case touches, grouped by chapter. */
 function SectorRules({ rules }: { rules: SectorRule[] }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language
   const chapters = rules.reduce<Record<string, SectorRule[]>>((acc, r) => {
     ;(acc[r.chapter] ??= []).push(r)
     return acc
@@ -430,10 +432,10 @@ function SectorRules({ rules }: { rules: SectorRule[] }) {
                 <span className={`dd-pill ${r.strength === 'must' ? 'dd-pill-amber' : 'dd-pill-muted'}`}>
                   {t(`result.sectorRules.strength.${r.strength}`)}
                 </span>{' '}
-                {r.statement}
+                {sectorStatement(t, lang, r)}
                 {' '}
                 <span className="result-sector-source">({r.source}, {r.lines})</span>
-                {r.note ? <div className="result-sector-source">{r.note}</div> : null}
+                {r.note ? <div className="result-sector-source">{sectorNote(t, lang, r)}</div> : null}
               </li>
             ))}
           </ul>

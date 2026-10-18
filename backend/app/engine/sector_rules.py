@@ -76,6 +76,8 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
                 "statement": (f"Flow \u201c{flow.name}\u201d \u2014 {cfg['label']}: the conventional product it "
                               f"substitutes is {cfg['substitutes']}."),
                 "source": cfg["source"], "lines": cfg["lines"],
+                # structured, so the client can write the line in the reader's language
+                "configuration_id": cfg["id"], "flow_name": flow.name, "substitutes": cfg["substitutes"],
                 "note": ("Situation C2: no substitution credit is applied (D4.1 §7.2.3); the product only "
                          "describes the configuration." if c2 else None),
             })

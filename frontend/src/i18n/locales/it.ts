@@ -800,6 +800,8 @@ const it: Locale = {
       activatedBy: 'Valgono per: {{reasons}}',
       byFlow: 'il flusso «{{name}}»',
       byCaseSector: 'il settore del caso (Q6a)',
+      configurationLine: "Flusso «{{flow}}» — {{configuration}}: il prodotto convenzionale che sostituisce è {{substitutes}}.",
+      c2NoCredit: "Situazione C2: non si applica alcun credito di sostituzione (D4.1 §7.2.3); il prodotto descrive solo la configurazione.",
       count: '{{count}} regole',
       strength: { must: 'obbligo', should: 'raccomandato', descriptive: 'prassi' },
     },

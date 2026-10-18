@@ -1,5 +1,11 @@
 # SYMBA T4.6 — Validation Working Document
 
+> **Historical (May 2026), kept as the ground truth of the 12-paper regression tests.** Since the rebuild of
+> 2026-10-18 the app has no IS-01..IS-05 pathways, Q2 has two answers (the former C and D read as "not yet";
+> Sokka, Daddi, Hashimoto and Danielsson read as "already take place"), the questionnaire is Q0-Q12, and the
+> validation reports end on "CONFIGURED" instead of MATCH / PARTIAL MATCH: see CLAUDE.md and
+> `backend/tests/test_12_papers_regression.py` for the current expectations.
+
 **Industrial Symbiosis Methodological Assessment Tool**
 Internal working document — not the final validation report
 Date: 8 May 2026

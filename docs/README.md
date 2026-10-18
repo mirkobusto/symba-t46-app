@@ -1,37 +1,33 @@
-﻿# SYMBA T4.6 â€” Design and Implementation Documentation
+﻿# SYMBA T4.6 — Documentation
 
-This folder contains the design artifacts and implementation-ready schema for the
-SYMBA Task 4.6 Industrial Symbiosis Methodological Assessment Tool.
+Documentation of the SYMBA Task 4.6 Monitoring & Reporting System (Horizon Europe
+SYMBA, GA 101135562, deliverable D4.6). The current state of the project, its
+decisions and its open points are in the repository's `CLAUDE.md`; the engine's
+behaviour is defined by the schemas in `backend/app/schemas/`. Where a document
+here disagrees with them, the code and the schemas win.
 
-## Structure
+## What is where
 
-- `design/` â€” validation reports, stress tests, methodology proposals.
-  Read-only historical record of the design phase.
+| Folder / file | What it is | Status |
+|---|---|---|
+| `presentation/` | Deck material for the consortium: theory document (IT), speaker track (EN), slide script, deck builder, screenshots | current (rewritten 2026-10-18) |
+| `DEPLOY.md`, `GUIDA_DEPLOY_PASSO_PASSO.md` | Production deployment (Docker, Caddy, authorization model) | current |
+| `implementation/PHASE1_NODE_MAPPING_v2.md` | May 2026 design of the 186 Phase 1 nodes and the cross-method rules; **§0 lists every change since**, up to the rebuild of October 2026 | historical design, kept up to date in §0 |
+| `implementation/SPRINT4_BOOTSTRAP_v2.md` | Sprint 4 implementation plan (May 2026) | historical |
+| `implementation/SYMBA_T46_Validation_WorkingDoc_v1.md` | 12-paper validation ground truth, used by the regression tests | historical, see its header |
+| `implementation/DATA_COLLECTION_FILE_v1.md` | Design of the Data Collection File | historical; `dcf_schema.json` is current |
+| `design/` | Validation reports, stress tests and question-set proposals of the design phase | historical record |
+| `archive/` | Superseded versions and completed plans | archive |
 
-- `implementation/` â€” Sprint 4 ingestion-ready artifacts.
-  - `PHASE1_NODE_MAPPING_v2.md` is the **schema source of truth**.
-  - `SYMBA_T46_Validation_WorkingDoc_v1.md` contains the 12-paper validation
-    ground truth used as regression test suite.
-  - `SPRINT4_BOOTSTRAP.md` is the entry point for any new chat / contributor
-    starting Sprint 4 implementation work.
+## The app in one paragraph
 
-- `archive/` â€” superseded versions kept for traceability.
-
-## Quick start for a new contributor
-
-1. Read `implementation/SPRINT4_BOOTSTRAP.md`
-2. Read `implementation/PHASE1_NODE_MAPPING_v2.md` Section 9 (JSON schema)
-3. Read `implementation/SYMBA_T46_Validation_WorkingDoc_v1.md` Section 3
-   (12 paper Q1-Q7 compilations as regression fixtures)
-4. Start coding the backend per the schema and regression fixtures.
-
-## Status (as of 8 maggio 2026)
-
-- Methodology design: 100% complete
-- Architectural design: 100% complete
-- Backend implementation: 0%
-- Frontend refactor: 0%
-- End-to-end validation reports: 0%
-
-The design phase is closed; do not re-debate methodology. Implementation phase
-is what comes next.
+A questionnaire built on the variables that D4.1 (LCA) and D4.2 (LCC) actually
+use: the study (kind of study, subject, dimensions, decision and scale, timing,
+horizon, TRL, public objective, use of results, what is compared), the exchanges
+(each flow, concentration of the interactions and reference market, shared
+assets) and a description of the case. A schema-driven engine derives the
+configuration (ILCD situation, LCC structure, study horizon, reference scenario,
+functional unit, regionalisation, D4.1 Part 2 sector rules), lists the
+obligations to document and the critical decision points, and composes the Data
+Collection File. It computes no LCA, LCC or S-LCA numbers: scoring comes from the
+partners. See `presentation/SYMBA_T46_teoria.md` for the full narrative.

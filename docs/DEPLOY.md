@@ -88,6 +88,8 @@ What has to exist before it works, and who does it:
    `/health`, `/brand/logo.png` (200 image/png), `/fonts/pt-sans-latin-400.woff2` (200 font/woff2) and `/privacy` (200 text/html),
    then register with the admin email.
 6. **Existing saved cases**: after an upgrade run `scripts/rerun_saved_cases.py` (dry run first, then `--apply`).
+   A database created before 2026-10-18 needs `scripts/migrate_remove_pathway.py` once, before the first request
+   (dry run, then `--apply`): it renames `case_records.pathway_id` to `ilcd_situation` and drops the legacy tables.
 
 Known limits of a public instance, to decide as owner: cases saved **without signing in** are readable and writable
 by anyone who can reach the tool (fine for demo data, not for personal data); login and registration have no rate

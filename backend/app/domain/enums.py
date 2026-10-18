@@ -137,6 +137,21 @@ class DecisionContext(StrEnum):
     CORPORATE_REPORT = "corporate_report"
 
 
+class ComparisonGoal(StrEnum):
+    """Q11 (optional) — what the study compares, which sets the basis of the
+    functional unit (D4.1 Part 2 §4.3, §6.3, §8.3; Part 1 §5.2.1, §5.3.2).
+
+    WASTE_TREATMENT: waste management routes or plant/service performance →
+    input-based FU. PRODUCT_SUBSTITUTION: products against market alternatives or
+    substitution claims → output-based FU. CO_PRIMARY: both functions matter →
+    system of functional units.
+    """
+
+    WASTE_TREATMENT = "waste_treatment"
+    PRODUCT_SUBSTITUTION = "product_substitution"
+    CO_PRIMARY = "co_primary"
+
+
 class OperatingStart(StrEnum):
     """Q8a (optional) — when does the assessed system operate?
 

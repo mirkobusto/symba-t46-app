@@ -13,7 +13,7 @@ import shutil
 
 import pytest
 
-from app.domain.enums import Q1, Q2, Q5, Q7, LccType, Q6a, Q6b
+from app.domain.enums import Q1, Q2, Q5, Q7, ComparisonGoal, LccType, Q6a, Q6b
 from app.engine.branch_keys import (
     Answers,
     BranchKeyError,
@@ -74,6 +74,8 @@ def _answers(**kw) -> Answers:
         ("q3.soc=false", dict(), True),
         ("sector=textile_leather", dict(q6a="textile_leather"), True),
         ("sector=textile_leather", dict(q6a="pulp_paper"), False),
+        ("comparison_goal=co_primary", dict(comparison_goal="co_primary"), True),
+        ("comparison_goal=co_primary", dict(), False),
     ],
 )
 def test_branch_key_matching(key, answers, expected):
@@ -143,8 +145,8 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     """Guards the tests below against silently iterating nothing: 42
     discriminative nodes, minus 3 at L0 (lca_t1, lcc_trig_01, slca_t_01) and
     lca_hc_19, whose default_value is a string. 39 since lca_mc_06 branches on the
-    ILCD situation (2026-10-15)."""
-    assert len(_branch_nodes(schemas)) == 39
+    ILCD situation (2026-10-15); 40 since lca_mc_07 branches on Q11 (2026-10-18)."""
+    assert len(_branch_nodes(schemas)) == 40
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):
@@ -190,6 +192,7 @@ _DOMAINS = {
     "q7": [{"q7": v.value} for v in Q7],
     "ilcd": [{"ilcd": v.value} for v in IlcdCode],
     "lcc_type": [{"lcc_type": v.value} for v in LccType],
+    "comparison_goal": [{"comparison_goal": v.value} for v in ComparisonGoal],
     "q3": [dict(zip(("env", "eco", "soc"), t, strict=True))
            for t in itertools.product([False, True], repeat=3)],
 }

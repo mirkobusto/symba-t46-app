@@ -588,6 +588,20 @@ const en = {
         "Answer yes if the study is meant to feed a public decision — a municipality, a region, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a single company's own account the economic reading stays at company level, and the tool tells you. Leave it unanswered and the tool reads it off the first question.",
     },
 
+    q11: {
+      title: "Q11 — What does the study compare?",
+      help: "Optional. It sets the basis of the functional unit; unanswered, the function-oriented unit of D4.1 Part 1 applies.",
+      details: "D4.1 Part 2 asks the functional unit to reflect the primary function of the system (§4.3, §6.3, §8.3): an input-based unit (e.g. treatment of 1 tonne of waste) when the study compares waste management routes or the performance of a plant or service; an output-based unit (e.g. 1 kg of product, 1 MJ of energy) when it compares products against market alternatives or supports a substitution claim; a system of functional units when both functions are co-primary (Part 1 §5.3.2). D4.2 §3.1 asks a dual unit (waste treated + output generated) for the LCC when product substitution drives the study: the two deliverables differ, and the tool follows Part 2 for the LCA and reports the difference.",
+      options: {
+        unset: "Not answered (function-oriented unit, D4.1 Part 1)",
+        waste_treatment: "How a waste is managed — waste routes, plant or service performance (input-based unit)",
+        product_substitution: "Products against market alternatives — what the recovered output replaces (output-based unit)",
+        co_primary: "Both: the treatment service and the products matter equally (system of functional units)",
+      },
+      plain:
+        "What is the comparison really about? If the question is how best to deal with a waste — burn it, digest it, compost it — the result is counted per tonne of waste treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
+    },
+
     q2dCard: {
       title: 'Q2-D — Alternative scenarios',
       help:

@@ -533,6 +533,20 @@ const de: Locale = {
         "Antworten Sie ja, wenn die Studie einer öffentlichen Entscheidung dienen soll — einer Gemeinde, einer Region, einer Aufsichtsbehörde, einem Plan. Dann kommt eine zweite wirtschaftliche Lesart aus Sicht der Gesellschaft hinzu: anders gerechnete Steuern und Folgen, die niemand in Geld bezahlt. Für die eigene Rechenschaft eines einzelnen Unternehmens bleibt die wirtschaftliche Lesart auf Unternehmensebene, und das Werkzeug sagt es Ihnen. Ohne Antwort liest das Werkzeug sie aus der ersten Frage ab.",
     },
 
+    q11: {
+      title: "Q11 — Was vergleicht die Studie?",
+      help: "Optional. Sie legt die Basis der funktionellen Einheit fest; ohne Antwort gilt die funktionsorientierte Einheit von D4.1 Part 1.",
+      details: "D4.1 Part 2 verlangt, dass die funktionelle Einheit die Hauptfunktion des Systems widerspiegelt (§4.3, §6.3, §8.3): eine inputbasierte Einheit (z. B. Behandlung von 1 Tonne Abfall), wenn die Studie Entsorgungswege oder die Leistung einer Anlage oder Dienstleistung vergleicht; eine outputbasierte Einheit (z. B. 1 kg Produkt, 1 MJ Energie), wenn sie Produkte mit Marktalternativen vergleicht oder eine Substitutionsaussage stützt; ein System funktioneller Einheiten, wenn beide Funktionen gleichrangig sind (Part 1 §5.3.2). D4.2 §3.1 verlangt für die LCC eine doppelte Einheit (behandelter Abfall + erzeugter Output), wenn die Produktsubstitution die Studie leitet: Die beiden Deliverables weichen ab; das Tool folgt für die Ökobilanz der Part 2 und weist auf den Unterschied hin.",
+      options: {
+        unset: "Nicht beantwortet (funktionsorientierte Einheit, D4.1 Part 1)",
+        waste_treatment: "Wie ein Abfall behandelt wird — Entsorgungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
+        product_substitution: "Produkte gegenüber Marktalternativen — was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
+        co_primary: "Beides: Behandlungsleistung und Produkte zählen gleich viel (System funktioneller Einheiten)",
+      },
+      plain:
+        "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Abfall am besten behandelt wird — verbrennen, vergären, kompostieren —, wird das Ergebnis pro Tonne behandelten Abfalls gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
+    },
+
     q2dCard: {
       title: 'Q2-D — Alternative Szenarien',
       help:

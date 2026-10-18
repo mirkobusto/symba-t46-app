@@ -533,6 +533,20 @@ const es: Locale = {
         "Responde sí si el estudio sirve a una decisión pública — un municipio, una región, un regulador, un plan. Añade entonces una segunda lectura económica desde el punto de vista de la sociedad: impuestos contados de otro modo, y efectos que nadie paga en dinero. Para la cuenta propia de una sola empresa la lectura económica se queda a nivel de empresa, y la herramienta te lo dice. Sin respuesta, la herramienta la deduce de la primera pregunta.",
     },
 
+    q11: {
+      title: "Q11 — ¿Qué compara el estudio?",
+      help: "Opcional. Fija la base de la unidad funcional; sin respuesta, se aplica la unidad orientada a la función de la D4.1 Part 1.",
+      details: "La D4.1 Part 2 pide que la unidad funcional refleje la función principal del sistema (§4.3, §6.3, §8.3): una unidad basada en la entrada (p. ej. tratamiento de 1 tonelada de residuo) cuando el estudio compara vías de gestión de un residuo o el desempeño de una planta o servicio; una unidad basada en la salida (p. ej. 1 kg de producto, 1 MJ de energía) cuando compara productos con alternativas de mercado o respalda una afirmación de sustitución; un sistema de unidades funcionales cuando ambas funciones son coprincipales (Part 1 §5.3.2). La D4.2 §3.1 pide para el LCC una unidad doble (residuo tratado + producto obtenido) cuando la sustitución de producto guía el estudio: los dos entregables difieren; la herramienta sigue la Part 2 para el ACV e indica la diferencia.",
+      options: {
+        unset: "Sin respuesta (unidad orientada a la función, D4.1 Part 1)",
+        waste_treatment: "Cómo se gestiona un residuo — vías de gestión, desempeño de una planta o servicio (unidad basada en la entrada)",
+        product_substitution: "Productos frente a alternativas de mercado — qué sustituye el producto recuperado (unidad basada en la salida)",
+        co_primary: "Ambas: el servicio de tratamiento y los productos cuentan por igual (sistema de unidades funcionales)",
+      },
+      plain:
+        "¿Sobre qué trata realmente la comparación? Si la pregunta es cómo tratar mejor un residuo — quemarlo, digerirlo, compostarlo —, el resultado se cuenta por tonelada de residuo tratado. Si la pregunta es si el producto recuperado es mejor que el que sustituye, se cuenta por unidad de producto. Si ambas cuentan por igual, se cuentan una al lado de la otra.",
+    },
+
     q2dCard: {
       title: 'Q2-D — Escenarios alternativos',
       help:

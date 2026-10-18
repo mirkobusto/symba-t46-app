@@ -42,8 +42,9 @@ def test_all_default_nodes_activate(schemas):
     default_ids = {n["id"] for n in schemas.phase1_nodes if n.get("category") == "DEFAULT"}
     assert default_ids.issubset(set(case.activated_nodes))
     # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08), minus lca_mc_06,
-    # which branches on the ILCD situation since 2026-10-15 (D4.1 Table 1)
-    assert len(default_ids) == 117
+    # which branches on the ILCD situation since 2026-10-15 (D4.1 Table 1), and minus
+    # lca_mc_07, which branches on Q11 (comparison goal) since 2026-10-18
+    assert len(default_ids) == 116
 
 
 def test_l0_nodes_skipped(schemas):
@@ -1029,3 +1030,16 @@ def test_lcc_timing_and_transfer_price_sensitivity(schemas):
     assert "T4.6 reading" in _activated(schemas, q2=Q2.D, q3=eco).lcc["charter.timing"]
     case = _activated(schemas, q3=eco, flows=_flows(Q5.a, Q5.b, Q5.e))
     assert "lcc_hc_34" in case.activated_nodes
+
+
+@pytest.mark.parametrize("goal, start", [
+    (None, "Function-oriented FU, defined around the ultimate service"),     # as before Q11
+    ("waste_treatment", "Function-oriented FU on an input basis"),         # D4.1 Part 2 L00419
+    ("product_substitution", "Function-oriented FU on an output basis"),
+    ("co_primary", "Function-oriented system of functional units"),        # L00421
+])
+def test_q11_comparison_goal_sets_the_functional_unit_basis(schemas, goal, start):
+    from app.domain.enums import ComparisonGoal
+    case = _activated(schemas, comparison_goal=ComparisonGoal(goal) if goal else None)
+    assert case.lca["functional_unit"].startswith(start)
+    assert "function-oriented" in case.lca["functional_unit"].lower()   # FU-01 still holds

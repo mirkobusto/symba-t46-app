@@ -539,6 +539,20 @@ const fr: Locale = {
         "Répondez oui si l'étude doit alimenter une décision publique — une commune, une région, un régulateur, un plan. Elle ajoute alors une seconde lecture économique du point de vue de la société : des impôts comptés autrement, et des effets que personne ne paie en argent. Pour le bilan propre d'une seule entreprise, la lecture économique reste au niveau de l'entreprise, et l'outil vous le dit. Sans réponse, l'outil la déduit de la première question.",
     },
 
+    q11: {
+      title: "Q11 — Que compare l'étude ?",
+      help: "Facultative. Elle fixe la base de l'unité fonctionnelle ; sans réponse, l'unité orientée fonction de la D4.1 Part 1 s'applique.",
+      details: "La D4.1 Part 2 demande que l'unité fonctionnelle reflète la fonction principale du système (§4.3, §6.3, §8.3) : une unité basée sur l'intrant (p. ex. traitement d'une tonne de déchet) lorsque l'étude compare des filières de gestion d'un déchet ou la performance d'une installation ou d'un service ; une unité basée sur l'extrant (p. ex. 1 kg de produit, 1 MJ d'énergie) lorsqu'elle compare des produits à leurs alternatives de marché ou étaye une allégation de substitution ; un système d'unités fonctionnelles lorsque les deux fonctions sont co-principales (Part 1 §5.3.2). La D4.2 §3.1 demande pour la LCC une unité double (déchet traité + produit obtenu) lorsque la substitution de produit guide l'étude : les deux livrables divergent, l'outil suit la Part 2 pour l'ACV et signale l'écart.",
+      options: {
+        unset: "Pas de réponse (unité orientée fonction, D4.1 Part 1)",
+        waste_treatment: "La gestion d'un déchet — filières, performance d'une installation ou d'un service (unité basée sur l'intrant)",
+        product_substitution: "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
+        co_primary: "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)",
+      },
+      plain:
+        "Sur quoi porte vraiment la comparaison ? Si la question est de savoir comment traiter au mieux un déchet — le brûler, le méthaniser, le composter —, le résultat se compte par tonne de déchet traité. Si la question est de savoir si le produit récupéré vaut mieux que celui qu'il remplace, il se compte par unité de produit. Si les deux comptent autant, on les compte côte à côte.",
+    },
+
     q2dCard: {
       title: 'Q2-D — Scénarios alternatifs',
       help:

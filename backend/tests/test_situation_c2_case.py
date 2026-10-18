@@ -70,6 +70,19 @@ def test_costing_is_the_company_alone(case):
     assert case.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: a gate-to-gate C-LCC")
 
 
+def test_no_eu_prices_or_net_tax_factor_on_a_company_lcc(case):
+    """A C-LCC keeps to the firm's own cash flows, Q4=D included (D4.2 §11.2,
+    §2.2): no monetised externalities, no Net Tax Factor (review 2026-10-18)."""
+    assert case.lcc["externality_monetization"].startswith("None: a company-level LCC")
+    assert "allocation" not in case.lcc
+
+
+def test_no_facilitator_between_partners_for_one_company(case):
+    """IR-06 excludes C2: one company pools no data between partners (D4.2 §2.3)."""
+    assert case.governance["facilitator"].startswith("Not needed: one company's own accounts")
+    assert case.governance["ndas_signed"].startswith("Only where data from suppliers or customers")
+
+
 def test_background_is_the_average_mix(case):
     assert case.lca["background_database"].startswith("Average market mixes")
 

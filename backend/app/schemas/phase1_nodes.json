@@ -1184,30 +1184,42 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §2.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "governance.facilitator",
       "field_status": null,
-      "default_value": "Neutral 3rd-party facilitator before data collection",
-      "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "default_value": {
+        "ilcd=C2": "Not needed: one company's own accounts (ILCD Situation C2), no confidential data is pooled between partners (D4.2 §2.3)",
+        "default": "Neutral 3rd-party facilitator before data collection"
+      },
+      "override_path": "ilcd",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Review 2026-10-18 (end-to-end review): Situation C2 branch, since a single company pools no data between partners (IR-06 excludes C2 for the same reason)."
     },
     {
       "id": "lcc_hc_03",
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §2.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "governance.ndas_signed",
       "field_status": null,
-      "default_value": "NDAs in place before confidential data exchange",
-      "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "default_value": {
+        "ilcd=C2": "Only where data from suppliers or customers is used: one company's own accounts (ILCD Situation C2) (D4.2 §2.3)",
+        "default": "NDAs in place before confidential data exchange"
+      },
+      "override_path": "ilcd",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "Review 2026-10-18 (end-to-end review): Situation C2 branch, since a single company pools no data between partners (IR-06 excludes C2 for the same reason)."
     },
     {
       "id": "lcc_hc_04",
@@ -2239,12 +2251,13 @@
       "default_value": {
         "q3.env=false": "None: without a parallel LCA there are no impacts to monetise (T4.6 inference, as for the LCC types C+N and C+N+S) (D4.2 §11.2)",
         "lcc_type=C+E+S": "Mandatory: the LCA midpoint results are monetised with environmental price factors, the CE Delft Environmental Prices Handbook being the European reference (D4.2 §11.2)",
+        "lcc_type=C-LCC": "None: a company-level LCC keeps to the firm's own cash flows, taxes and fees being costs, and is not integrated with the LCA results (D4.2 §11.2, §4.1)",
         "q4 includes 'D'": "CE Delft EU prices: T4.6 choice kept on 2026-10-04, since D4.2 ties monetisation to the S-LCC, not to EU alignment (D4.2 §11.2)",
         "default": "Optional outside the S-LCC; taxes already in the cash flows must not be re-entered as monetised externalities (D4.2 §11.2, §2.2)"
       },
       "override_path": "q4, lcc_type, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: L01293 (S-LCC 'requires translating the physical environmental impact results of the parallel LCA'), L01295 (CE Delft 'the primary reference framework'), L00445 (§2.2, S-LCC), L00443 (§2.2, no double counting). The former 'optional' default left the S-LCC without monetisation. CIR-05 now writes CE_Delft_EU only when the case has the environmental dimension."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: L01293 (S-LCC 'requires translating the physical environmental impact results of the parallel LCA'), L01295 (CE Delft 'the primary reference framework'), L00445 (§2.2, S-LCC), L00443 (§2.2, no double counting). The former 'optional' default left the S-LCC without monetisation. CIR-05 now writes CE_Delft_EU only when the case has the environmental dimension. Review 2026-10-18 (end-to-end review): C-LCC branch before Q4=D, so a one-company study is not given EU environmental prices."
     },
     {
       "id": "lcc_mc_20",

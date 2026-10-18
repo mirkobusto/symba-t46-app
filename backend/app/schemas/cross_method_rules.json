@@ -500,6 +500,7 @@
         "lcc.allocation = 'NTF'",
         "lca.lcia_method = 'EF_3.1'"
       ],
+      "review_note": "Since 2026-10-18 each action writes only where the node has no value; pef_cff is not written in Situation C2 (D4.1 §7.2.3), and the two LCC actions are not written on a C-LCC, which keeps to the firm's own cash flows (D4.2 §11.2, §2.2).",
       "source_nodes": [
         "lca_mc_13",
         "lca_mc_14",

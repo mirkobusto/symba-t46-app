@@ -57,13 +57,6 @@ const en = {
     aboutLink: 'Learn about SYMBA',
     eyebrow: 'Shared report · {{name}}',
     summaryTitle: 'Configuration summary',
-    summary: {
-      ilcd: 'ILCD situation',
-      lcc: 'LCC type',
-      slca: 'S-LCA state',
-      sector: 'Sector',
-      scope: 'Concentration of the interactions',
-    },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance signals',
     compliance: {
@@ -708,7 +701,7 @@ const en = {
 
   scenarios: {
     intro:
-      "A scenario here varies the *methodological* answers, not the physical network: each one inherits Q1–Q7 from the baseline and differs only through the overrides dict (\"what if this were ex-post\", \"what if the sector were different\"). Comparing where a flow goes, over what distance, or at what price is a network comparison — draw those alternatives in the Network Builder; the engine does not compare them yet.",
+      "A scenario here varies the *methodological* answers, not the physical network: each one inherits the answers of the baseline and differs only through the overrides dict (\"what if this were ex-post\", \"what if the sector were different\"). Comparing where a flow goes, over what distance, or at what price is a network comparison — draw those alternatives in the Network Builder; the engine does not compare them yet.",
     emptyHint: 'No alternative scenarios yet.',
     headers: { id: 'ID', label: 'Label' },
     labelPlaceholder: 'e.g. Future expansion / TRL9 ramp-up',
@@ -798,6 +791,7 @@ const en = {
       lead: 'What your answers decided, in the terms of the deliverables. Open a row to read the engine\'s text, in English, with the section it comes from.',
       nodeText: 'Engine text (English)',
       labels: {
+        claim: 'Public claim',
         purpose: 'Kind of study',
         lcc: 'Costing',
         slca: 'Social assessment',
@@ -809,10 +803,12 @@ const en = {
         shared: 'Shared assets',
       },
       values: {
+        claim: 'Comparative claim to the public: critical review by a panel of at least three independent experts, no weighting',
+        claimNone: 'No public comparative claim',
         scope_continental: 'continental',
         scope_sub_national: 'sub-national',
         scope_national: 'national',
-        slcaOff: 'Not included (Q3)',
+        slcaOff: 'Not included',
         reference_c2: 'Not used for credits: allocation, no substitution',
         horizonFuture: 'Future background (SSP/RCP scenarios)',
         horizonPresent: 'Present-day background',
@@ -831,6 +827,8 @@ const en = {
         shared: 'Their CAPEX and OPEX in the cost breakdown, shared among the partners that use them',
       },
       why: {
+        slcaOff: 'the social dimension is not selected (Q3)',
+        claim: 'the results will support a public claim of superiority or equivalence (Q4 = C)',
         horizonFutureGeneric: 'the study horizon reaches the future',
         horizonFutureYear: 'the system operates in a future year',
         label: 'Why:',
@@ -994,7 +992,7 @@ const en = {
     },
     baselineLabel: 'Baseline',
     diffSuffix: '(diff)',
-    overrideHelp: 'Each scenario inherits Q1-Q7 from the baseline; populate `overrides` (JSON dict) per scenario to differ. Empty overrides → same case as baseline.',
+    overrideHelp: 'Each scenario inherits the answers of the baseline; populate `overrides` (JSON dict) per scenario to differ. Empty overrides → same case as baseline.',
     overridesPlaceholder: 'e.g. {"q1": "C"} or {"q3": {"env": true, "eco": true}}',
     overridesParseError: 'Overrides must be valid JSON for {{id}}',
   },
@@ -1032,7 +1030,7 @@ const en = {
   preset: {
     title: 'Load a published case as preset',
     help:
-      '13 fixtures from the validation sample (12 papers + Leiva Escombreras / Frövi). Loads the Q1-Q7 + per-flow Q5 into the questionnaire so you can inspect and run the engine end-to-end.',
+      '13 fixtures from the validation sample (12 papers + Leiva Escombreras / Frövi). Loads the answers, flows included, into the questionnaire so you can inspect and run the engine end-to-end.',
     loadButton: 'Load preset',
     rationaleToggle: 'Why these answers? (compilation rationale)',
   },
@@ -1122,6 +1120,7 @@ const en = {
     },
     noVerdict: "No configuration derived yet for this case.",
     notAssessed: {
+      environmental: 'This study does not assess environmental impacts: the environmental dimension was switched off when the case was set up.',
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
       economic: "This study does not assess costs: the economic dimension was switched off when the case was set up.",
     },
@@ -1152,6 +1151,7 @@ const en = {
         'Summary view for end users of the IS-derived products and services.',
     },
     verdictTitle: 'Methodological configuration',
+    configTitle: 'What this study is set up to look at',
     labels: {
       ilcd: 'ILCD Situation',
       lcc: 'LCC type',

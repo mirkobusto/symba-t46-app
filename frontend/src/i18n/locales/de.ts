@@ -87,7 +87,6 @@ const de: Locale = {
     aboutLink: 'SYMBA kennenlernen',
     eyebrow: 'Geteilter Bericht · {{name}}',
     summaryTitle: 'Konfigurationsübersicht',
-    summary: { ilcd: 'ILCD-Situation', lcc: 'LCC-Typ', slca: 'S-LCA-Status', sector: 'Sektor', scope: 'Konzentration der Wechselwirkungen' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance-Signale',
     compliance: {
@@ -654,7 +653,7 @@ const de: Locale = {
 
   scenarios: {
     intro:
-      "Ein Szenario variiert hier die *methodischen* Antworten, nicht das physische Netzwerk: es erbt Q1–Q7 von der Baseline und unterscheidet sich nur über das Overrides-Dict. Wohin ein Fluss geht, über welche Distanz oder zu welchem Preis, ist ein Netzwerkvergleich — solche Varianten zeichnet man im Netzwerk-Editor, und die Engine vergleicht sie noch nicht.",
+      "Ein Szenario variiert hier die *methodischen* Antworten, nicht das physische Netzwerk: es erbt die Antworten der Baseline und unterscheidet sich nur über das Overrides-Dict. Wohin ein Fluss geht, über welche Distanz oder zu welchem Preis, ist ein Netzwerkvergleich — solche Varianten zeichnet man im Netzwerk-Editor, und die Engine vergleicht sie noch nicht.",
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',
@@ -744,6 +743,7 @@ const de: Locale = {
       lead: 'Was Ihre Antworten entschieden haben, in den Begriffen der Deliverables. Öffnen Sie eine Zeile, um den Text der Engine auf Englisch mit seinem Abschnitt zu lesen.',
       nodeText: 'Text der Engine (Englisch)',
       labels: {
+        claim: 'Öffentliche Aussage',
         purpose: 'Art der Studie',
         lcc: 'Kosten',
         slca: 'Soziale Bewertung',
@@ -755,10 +755,12 @@ const de: Locale = {
         shared: 'Gemeinsame Anlagen',
       },
       values: {
+        claim: 'Vergleichende Aussage gegenüber der Öffentlichkeit: kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
+        claimNone: 'Keine öffentliche vergleichende Aussage',
         scope_continental: 'kontinental',
         scope_sub_national: 'subnational',
         scope_national: 'national',
-        slcaOff: 'Nicht enthalten (Q3)',
+        slcaOff: 'Nicht enthalten',
         reference_c2: 'Nicht für Gutschriften genutzt: Allokation, keine Substitution',
         horizonFuture: 'Zukünftiger Hintergrund (SSP/RCP-Szenarien)',
         horizonPresent: 'Heutiger Hintergrund',
@@ -777,6 +779,8 @@ const de: Locale = {
         shared: 'Ihre CAPEX und OPEX in der Kostenaufstellung, aufgeteilt auf die nutzenden Partner',
       },
       why: {
+        slcaOff: 'die soziale Dimension ist nicht ausgewählt (Q3)',
+        claim: 'die Ergebnisse sollen eine öffentliche Aussage über Überlegenheit oder Gleichwertigkeit stützen (Q4 = C)',
         horizonFutureGeneric: 'der Studienhorizont reicht in die Zukunft',
         horizonFutureYear: 'das System wird in einem zukünftigen Jahr betrieben',
         label: 'Warum:',
@@ -941,7 +945,7 @@ const de: Locale = {
     },
     baselineLabel: 'Baseline',
     diffSuffix: '(Diff)',
-    overrideHelp: 'Jedes Szenario erbt Q1-Q7 von der Baseline; befüllen Sie overrides (JSON-Dict) pro Szenario, um zu differieren. Leere Overrides → gleicher Fall wie Baseline.',
+    overrideHelp: 'Jedes Szenario erbt die Antworten der Baseline; befüllen Sie overrides (JSON-Dict) pro Szenario, um zu differieren. Leere Overrides → gleicher Fall wie Baseline.',
     overridesPlaceholder: 'z. B. {"q1": "C"} oder {"q3": {"env": true, "eco": true}}',
     overridesParseError: 'Overrides müssen gültiges JSON für {{id}} sein',
   },
@@ -980,7 +984,7 @@ const de: Locale = {
   preset: {
     title: 'Veröffentlichten Fall als Preset laden',
     help:
-      '13 Fixtures aus dem Validierungs-Sample (12 Papers + Leiva Escombreras / Frövi). Lädt die Q1-Q7 + Q5 pro Fluss in den Fragebogen, um die Engine end-to-end zu inspizieren und auszuführen.',
+      '13 Fixtures aus dem Validierungs-Sample (12 Papers + Leiva Escombreras / Frövi). Lädt die Antworten samt Flüssen in den Fragebogen, um die Engine end-to-end zu inspizieren und auszuführen.',
     loadButton: 'Preset laden',
     rationaleToggle: 'Warum diese Antworten? (Compilation-Rationale)',
   },
@@ -1069,6 +1073,7 @@ const de: Locale = {
     },
     noVerdict: "Für diesen Fall wurde noch keine Konfiguration abgeleitet.",
     notAssessed: {
+      environmental: 'Diese Studie bewertet keine Umweltwirkungen: Die Umweltdimension wurde beim Anlegen des Falls ausgeschaltet.',
       social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",
       economic: "Diese Studie bewertet keine Kosten: die ökonomische Dimension wurde bei der Fallkonfiguration deaktiviert.",
     },
@@ -1099,6 +1104,7 @@ const de: Locale = {
         'Zusammenfassende Ansicht für Endnutzer der symbiose-derivierten Produkte.',
     },
     verdictTitle: 'Methodische Konfiguration',
+    configTitle: 'Worauf diese Studie ausgelegt ist',
     labels: {
       ilcd: 'ILCD-Situation',
       lcc: 'LCC-Typ',

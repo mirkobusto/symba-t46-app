@@ -38,7 +38,7 @@ class PublicReport(BaseModel):
     id: str
     slug: str | None
     name: str
-    pathway_id: str | None
+    ilcd_situation: str | None
     created_at: datetime
     updated_at: datetime
     case: Case
@@ -75,7 +75,7 @@ def public_report(
         id=rec.id,
         slug=rec.slug,
         name=rec.name,
-        pathway_id=rec.pathway_id,
+        ilcd_situation=rec.ilcd_situation,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
         case=Case.model_validate_json(rec.case_json),
@@ -86,7 +86,7 @@ def public_report(
 class RegionAggregate(BaseModel):
     region: str
     total: int
-    by_pathway: list[dict[str, Any]]
+    by_ilcd_situation: list[dict[str, Any]]
     by_sector: list[dict[str, Any]]
 
 
@@ -101,10 +101,10 @@ def public_region_aggregate(
     from collections import Counter
 
     rows = db.execute(select(CaseRecord)).scalars().all()
-    pathway_counter: Counter[str | None] = Counter()
+    ilcd_counter: Counter[str | None] = Counter()
     sector_counter: Counter[str | None] = Counter()
     for r in rows:
-        pathway_counter[r.pathway_id] += 1
+        ilcd_counter[r.ilcd_situation] += 1
         try:
             case = Case.model_validate_json(r.case_json)
         except Exception:
@@ -122,6 +122,6 @@ def public_region_aggregate(
     return RegionAggregate(
         region=region_code,
         total=len(rows),
-        by_pathway=_fmt(pathway_counter),
+        by_ilcd_situation=_fmt(ilcd_counter),
         by_sector=_fmt(sector_counter),
     )

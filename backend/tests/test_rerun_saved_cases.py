@@ -65,7 +65,7 @@ def db_url(tmp_path, monkeypatch):
     eng = create_engine(url, future=True)
     Base.metadata.create_all(eng)
     with sessionmaker(bind=eng, future=True)() as s:
-        s.add(CaseRecord(id="c1", name="stale", case_json=_stale_case_json(), pathway_id="IS-03"))
+        s.add(CaseRecord(id="c1", name="stale", case_json=_stale_case_json(), ilcd_situation="ILCD Situation C2"))
         s.commit()
     monkeypatch.setenv("SYMBA_DB_URL", url)
     return url

@@ -7,7 +7,7 @@ import type { ScoringPayload } from './scoring'
 export interface PublicReportResponse {
   id: string
   name: string
-  pathway_id: string | null
+  ilcd_situation: string | null
   created_at: string
   updated_at: string
   case: Case
@@ -22,6 +22,6 @@ export interface PublicRegionEntry {
 export interface PublicRegionResponse {
   region: string
   total: number
-  by_pathway: PublicRegionEntry[]
+  by_ilcd_situation: PublicRegionEntry[]
   by_sector: PublicRegionEntry[]
 }

@@ -140,8 +140,8 @@ export const PRESETS: Preset[] = [
     label: '9. Kerdlap 2024 — fictional urban agri-food',
     citation: 'Kerdlap et al. (2024)',
     description:
-      'Demonstrative 5-entity network in design phase. NOTE: γ-matrix → IS-04.',
-    rationale: 'Fictional urban 5-entity agri-food network (soil farm + hydroponics + brewery + egg farm + fish farm) = Q1=B multi-actor. Q2=C because it\'s a methodological demonstration in design phase, not a real planned system. NOTE: WorkingDoc §3.3 mapping table lists IS-01 for this paper but its own derivation rule \'Q2=C → IS-04 (any Q1)\' plus the γ matrix (ADR-005) both yield IS-04. Engine follows the rule, not the mapping table — this is a documented divergence.',
+      'Demonstrative 5-entity network in design phase.',
+    rationale: 'Fictional urban 5-entity agri-food network (soil farm + hydroponics + brewery + egg farm + fish farm) = Q1=B multi-actor. Q2=C because it\'s a methodological demonstration in design phase, not a real planned system.',
     case: {
       q1: 'B', decision_context: 'micro', q2: 'C', q3: { env: true, eco: true, soc: false }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'agriculture_agrifood_biorefineries', q6b: 'TRL9', q7: 'A',
@@ -164,8 +164,8 @@ export const PRESETS: Preset[] = [
     short_ref: 'Zhu2013',
     label: '11. Zhu 2013 — generic 2-firm exchange (NL)',
     citation: 'Zhu (2013)',
-    description: 'Design-phase, 19 scenarios. Engine maps Q1=A+Q2=C → IS-04.',
-    rationale: 'Generic 2-firm exchange (TU Delft master thesis) in design phase = Q1=A, Q2=C. Most scenario-rich case in the sample (19 scenarios varying FU, transport distance, waste quality, prices, allocation). Engine maps Q1=A + Q2=C → IS-04 via the γ matrix (design-only override applies even though Q1 is A).',
+    description: 'Design-phase, 19 scenarios.',
+    rationale: 'Generic 2-firm exchange (TU Delft master thesis) in design phase = Q1=A, Q2=C. Most scenario-rich case in the sample (19 scenarios varying FU, transport distance, waste quality, prices, allocation).',
     case: {
       q1: 'A', decision_context: 'micro', q2: 'C', q3: { env: true, eco: true, soc: false }, q4: ['E'],
       flows: flows('c'), q6a: 'multi_sector', q6b: 'TRL9', q7: 'A',
@@ -177,7 +177,7 @@ export const PRESETS: Preset[] = [
     label: '12. Briassoulis 2023 — bio-polymers framework (EU)',
     citation: 'Briassoulis et al. (2023)',
     description: 'Industry-wide propositional framework, full LCSA + TEA.',
-    rationale: 'Industry-wide bio-polymer framework = Q1=C (sector-level). Propositional framework in design phase = Q2=C. The γ matrix prioritises Q1=C over Q2=C → IS-02. Full LCSA with TEA addition (CAPEX, OPEX, NPV, ROI, payback). Q7 not applicable (n/a in WorkingDoc — multi-country EU framework, no specific geography).',
+    rationale: 'Industry-wide bio-polymer framework = Q1=C (sector-level). Propositional framework in design phase = Q2=C. Full LCSA with TEA addition (CAPEX, OPEX, NPV, ROI, payback). Q7 not applicable (n/a in WorkingDoc — multi-country EU framework, no specific geography).',
     case: {
       q1: 'C', decision_context: 'structural', q2: 'C', q3: { env: true, eco: true, soc: true }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'biobased_polymers', q6b: 'TRL9', q7: null,

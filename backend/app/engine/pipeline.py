@@ -4,7 +4,6 @@ Single entry point for running the engine end-to-end on a case:
 
     L0  l0_compute.run         derive ilcd_situation / lcc_type / slca_activation_state
     L1  l1_blocks.run          check 4 BLOCK cells; SHORT-CIRCUIT if any fire
-    --  pathway.derive         derive pathway_id (IS-01..IS-05) from Q1 × Q2
     --  activate.run           activate 186 Phase 1 nodes; write pillar dicts
     L2  l2_validate.run        run 40 L2 rules (18 IR + 10 CIR + 5 FU + 7 B)
     L3  l3_report.run          enforce IR-04, IR-10; surface 12 CDPs
@@ -23,7 +22,7 @@ Implementation: full body present; phase modules are stubs.
 from __future__ import annotations
 
 from app.domain.models import Case
-from app.engine import activate, l0_compute, l1_blocks, l2_validate, l3_report, pathway, sector_rules
+from app.engine import activate, l0_compute, l1_blocks, l2_validate, l3_report, sector_rules
 from app.engine.loader import LoadedSchemas, load_schemas
 
 
@@ -67,9 +66,6 @@ def run(case: Case, schemas: LoadedSchemas | None = None) -> Case:
     l1_blocks.run(case, sch)
     if case.blocked_by:
         return case
-
-    # Pathway — IS-01..IS-05 from Q1 × Q2
-    pathway.derive(case, sch)
 
     # Node activation — 186 Phase 1 nodes
     activate.run(case, sch)

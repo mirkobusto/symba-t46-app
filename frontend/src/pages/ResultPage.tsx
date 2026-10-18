@@ -56,7 +56,7 @@ export default function ResultPage() {
     if (!name) return
     setSavingCase(true)
     try {
-      // Save the result Case (post-pipeline) so pathway_id + engine
+      // Save the result Case (post-pipeline) so the derived state + engine
       // output are persisted along with the inputs.
       const saved = await createCase(name, result ?? draft)
       setServerCase(saved.id, saved.name)
@@ -197,10 +197,9 @@ export default function ResultPage() {
     <div className="dd-page result">
       <VerdictCard
         eyebrow={serverCaseName ?? t('result.title')}
-        pathway={verdict?.title ?? result.pathway_id ?? '—'}
+        headline={verdict?.title ?? result.ilcd_situation ?? '—'}
         codes={verdict?.codes}
         body={verdict?.body}
-        extended={!!result.is_01_extended}
         tags={verdict?.method}
       />
 

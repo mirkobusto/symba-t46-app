@@ -19,9 +19,8 @@ Allowed identifiers (built by `build_context_from_case`):
     q3                           — namespace with .env, .eco, .soc booleans
     q4                           — set[str] (use 'E' in q4)
     q5                           — None at Case level (per-flow contexts override)
-    pathway_id, ilcd_situation,
-    lcc_type, slca_activation_state — str | None
-    is_01_extended               — bool
+    ilcd_situation, lcc_type,
+    slca_activation_state        — str | None
     always                       — bool (True)
 
 Security: implementation walks the parsed AST and rejects every node
@@ -158,12 +157,10 @@ def build_context_from_case(case: Any) -> dict[str, Any]:
         "q6a": case.q6a.value if case.q6a else None,
         "q6b": case.q6b.value if case.q6b else None,
         "q7": case.q7.value if case.q7 else None,
-        "pathway_id": case.pathway_id.value if case.pathway_id else None,
         "ilcd_situation": case.ilcd_situation.value if case.ilcd_situation else None,
         "lcc_type": case.lcc_type.value if case.lcc_type else None,
         "slca_activation_state": (
             case.slca_activation_state.value if case.slca_activation_state else None
         ),
-        "is_01_extended": case.is_01_extended,
         "always": True,
     }

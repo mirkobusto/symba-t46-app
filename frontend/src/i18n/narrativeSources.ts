@@ -18,10 +18,6 @@ export const NARRATIVE_SOURCES: Record<string, Record<string, NarrativeSource>> 
       quote: 'The decision (e.g., a synergy between two factories) has limited consequences. It does not cause large-scale, structural changes to the background system (e.g., it is too small to trigger the construction of new power plants or shift global market prices). Modeling Rule: Apply Attributional Modeling with Substitution.',
       source: 'D4.1 Part 1 §7.2.1',
     },
-    'ILCD Situation A multi-actor': {
-      quote: 'The decision (e.g., a synergy between two factories) has limited consequences. It does not cause large-scale, structural changes to the background system (e.g., it is too small to trigger the construction of new power plants or shift global market prices). Modeling Rule: Apply Attributional Modeling with Substitution.',
-      source: 'D4.1 Part 1 §7.2.1 for the rule; the multi-actor split is a T4.6 engine state',
-    },
     'ILCD Situation B': {
       quote: 'Only apply full consequential modeling if you can prove the IS network will cause structural changes in the global or national economy (e.g., creates a demand so large it triggers new capacity installation outside the network).',
       source: 'D4.1 Part 1 §4.3.4',

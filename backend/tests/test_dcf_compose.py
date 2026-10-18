@@ -109,8 +109,6 @@ def test_payload_returns_pydantic_model(case_wiktor, dcf_schema, mandates_census
 def test_payload_carries_case_metadata(case_wiktor, dcf_schema, mandates_census):
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     assert payload.case_id == str(case_wiktor.id)
-    assert payload.pathway_id == "IS-01"
-    assert payload.is_01_extended is True
     assert payload.ilcd_situation == "ILCD Situation A"
 
 

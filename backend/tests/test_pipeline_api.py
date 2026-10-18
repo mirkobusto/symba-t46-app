@@ -15,7 +15,7 @@ def test_pipeline_run_minimal_case(client):
     })
     assert resp.status_code == 200
     body = resp.json()
-    assert body["pathway_id"] == "IS-01"
+    assert body["ilcd_situation"] == "ILCD Situation A"
     assert body["ilcd_situation"] == "ILCD Situation A"
     assert body["lcc_type"] == "deactivated"
     assert body["slca_activation_state"] == "deactivated"
@@ -36,8 +36,8 @@ def test_pipeline_run_full_lcsa_case(client):
     })
     assert resp.status_code == 200
     body = resp.json()
-    assert body["pathway_id"] == "IS-01"
-    assert body["is_01_extended"] is True
+    assert body["ilcd_situation"] == "ILCD Situation A"
+    assert "pathway_id" not in body
     assert body["lcc_type"] == "C+E"
     assert body["slca_activation_state"] == "active"
     assert len(body["cdp_flags"]) > 0
@@ -128,7 +128,7 @@ def test_run_scenarios_baseline_only(client):
     })
     assert resp.status_code == 200
     body = resp.json()
-    assert body["baseline"]["pathway_id"] == "IS-01"
+    assert body["baseline"]["ilcd_situation"] == "ILCD Situation A"
     assert body["scenarios"] == []
 
 
@@ -150,15 +150,15 @@ def test_run_scenarios_with_two_alternatives(client):
     })
     assert resp.status_code == 200
     body = resp.json()
-    assert body["baseline"]["pathway_id"] == "IS-01"
+    assert body["baseline"]["ilcd_situation"] == "ILCD Situation A"
     assert body["baseline"]["lcc_type"] == "deactivated"
-    # Scenario 1: ECO added -> still IS-01 but lcc_type now C+E
+    # Scenario 1: ECO added -> still Situation A, lcc_type now C+E
     assert body["scenarios"][0]["id"] == "alt1"
-    assert body["scenarios"][0]["result"]["pathway_id"] == "IS-01"
+    assert body["scenarios"][0]["result"]["ilcd_situation"] == "ILCD Situation A"
     assert body["scenarios"][0]["result"]["lcc_type"] == "C+E"
-    # Scenario 2: Q1 switched to C -> pathway IS-02
+    # Scenario 2: Q1 switched to C -> Situation B (Q9 unanswered, Q1 fallback)
     assert body["scenarios"][1]["id"] == "alt2"
-    assert body["scenarios"][1]["result"]["pathway_id"] == "IS-02"
+    assert body["scenarios"][1]["result"]["ilcd_situation"] == "ILCD Situation B"
 
 
 def test_run_scenarios_baseline_q1_none_returns_400(client):
@@ -188,8 +188,8 @@ def test_run_scenarios_scenario_engine_failure_does_not_400_the_batch(client):
     })
     assert resp.status_code == 200
     body = resp.json()
-    # Failed scenario has no pathway_id
-    assert body["scenarios"][0]["result"]["pathway_id"] is None
+    # Failed scenario has no derived state
+    assert body["scenarios"][0]["result"]["ilcd_situation"] is None
 
 
 def test_pipeline_run_with_advanced_override(client):

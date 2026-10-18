@@ -233,22 +233,18 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
 
     # ----- Section 5 — Tool-derived configuration -----
     doc.add_heading("5. Methodological configuration derived by the tool", level=1)
-    pathway = case.pathway_id.value if case.pathway_id else "—"
-    if case.is_01_extended:
-        pathway = f"{pathway} (extended)"
-    _add_kv(doc, "5.1 Pathway", pathway)
-    _add_kv(doc, "5.2 ILCD situation",
+    _add_kv(doc, "5.1 ILCD situation",
             case.ilcd_situation.value if case.ilcd_situation else "—")
-    _add_kv(doc, "5.3 LCC type",
+    _add_kv(doc, "5.2 LCC type",
             case.lcc_type.value if case.lcc_type else "—")
-    _add_kv(doc, "5.4 S-LCA activation",
+    _add_kv(doc, "5.3 S-LCA activation",
             case.slca_activation_state.value
             if case.slca_activation_state else "—")
-    _add_kv(doc, "5.5 Activated nodes (count)", str(len(case.activated_nodes)))
-    _add_kv(doc, "5.6 L1 BLOCK fired",
+    _add_kv(doc, "5.4 Activated nodes (count)", str(len(case.activated_nodes)))
+    _add_kv(doc, "5.5 L1 BLOCK fired",
             ", ".join(case.blocked_by) if case.blocked_by else "(none)")
-    _add_kv(doc, "5.7 L2 violations (count)", str(len(case.rule_violations)))
-    _add_kv(doc, "5.8 L3 CDPs surfaced (count)", str(len(case.cdp_flags)))
+    _add_kv(doc, "5.6 L2 violations (count)", str(len(case.rule_violations)))
+    _add_kv(doc, "5.7 L3 CDPs surfaced (count)", str(len(case.cdp_flags)))
     if case.warnings:
         doc.add_heading("Notes on the answers", level=3)
         for w in case.warnings:
@@ -267,7 +263,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
                               style="List Bullet")
 
     # 5.9 Pillar configurations
-    doc.add_heading("5.9 Pillar configurations (engine-written keys)", level=2)
+    doc.add_heading("5.8 Pillar configurations (engine-written keys)", level=2)
     pillar_pairs = [
         ("LCA", case.lca),
         ("LCC", case.lcc),

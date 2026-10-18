@@ -52,17 +52,17 @@ export default function PublicRegionPage() {
 
       <div className="dd-kpi-strip" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
         <KpiCard label={t('reader.region.total')} value={data.total} tone="info" />
-        <KpiCard label={t('reader.region.pathways')} value={data.by_pathway.length} />
+        <KpiCard label={t('reader.region.situations')} value={data.by_ilcd_situation.length} />
         <KpiCard label={t('reader.region.sectors')} value={data.by_sector.length} />
       </div>
 
       <section>
-        <h2 className="dd-section-title">{t('reader.region.byPathwayTitle')}</h2>
+        <h2 className="dd-section-title">{t('reader.region.bySituationTitle')}</h2>
         <div className="dd-card" style={{ marginTop: 8 }}>
           <table className="dd-table">
             <thead><tr><th>{t('reader.region.tableKey')}</th><th>{t('reader.region.tableCount')}</th></tr></thead>
             <tbody>
-              {data.by_pathway.map((e) => (
+              {data.by_ilcd_situation.map((e) => (
                 <tr key={e.key}><td>{e.key}</td><td className="dd-mono">{e.count}</td></tr>
               ))}
             </tbody>

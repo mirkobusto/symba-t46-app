@@ -131,11 +131,9 @@ def _write_cover_tab(
 
     rows = [
         ("Case ID", payload.case_id),
-        ("Pathway", payload.pathway_id or "—"),
         ("ILCD Situation", payload.ilcd_situation or "—"),
         ("LCC Type", payload.lcc_type or "—"),
         ("S-LCA Activation", payload.slca_activation_state or "—"),
-        ("IS-01 Extended", "yes" if payload.is_01_extended else "no"),
         ("Schema version", payload.schema_version),
     ]
     for i, (label, value) in enumerate(rows, start=3):
@@ -224,8 +222,8 @@ def _write_data_section_tab(
 _INSTRUCTIONS = [
     ("What this file is",
      "A data collection worksheet generated for one industrial-symbiosis "
-     "case. The columns were selected by the assessment's methodological "
-     "pathway: you are only asked for what this case needs."),
+     "case. The columns were selected by the methodological configuration "
+     "of the case: you are only asked for what this case needs."),
     ("How to fill it in",
      "One row per item. Columns marked * are required. Hover a column "
      "header for the definition, the allowed values and the reason the "

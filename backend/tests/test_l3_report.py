@@ -176,7 +176,7 @@ def test_full_pipeline_runs_without_raising(schemas):
     assert result is case
     assert case.ilcd_situation is not None
     assert case.lcc_type is not None
-    assert case.pathway_id is not None
+    assert case.ilcd_situation is not None
     assert len(case.activated_nodes) > 0
     # CDPs should surface for env+eco
     assert len(case.cdp_flags) > 0

@@ -105,7 +105,7 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
       </p>
 
       <section className="stakeholder-section">
-        <h3>{t('stakeholder.pathwaySummaryTitle')}</h3>
+        <h3>{t('stakeholder.verdictTitle')}</h3>
         {verdict ? (
           <>
             <p className="stakeholder-verdict-title">{verdict.title}</p>
@@ -158,7 +158,7 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
 
         {showCodes ? (
           <p className="stakeholder-codes">
-            {[caseData.pathway_id, caseData.ilcd_situation, caseData.lcc_type]
+            {[caseData.ilcd_situation, caseData.lcc_type]
               .filter(Boolean)
               .join(' · ')}
           </p>

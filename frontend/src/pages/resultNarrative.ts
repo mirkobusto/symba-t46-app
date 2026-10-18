@@ -1,9 +1,11 @@
 // The verdict, in words.
 //
-// The engine speaks in codes — IS-01, "ILCD Situation A multi-actor",
-// "C+E". Those are the right identifiers for a reviewer and useless as a
-// first sentence, so the page leads with what they mean and keeps the
-// codes as badges beside it.
+// The engine speaks in codes — "ILCD Situation B", "C+E". Those are the
+// right identifiers for a reviewer and useless as a first sentence, so the
+// page leads with what they mean and keeps the codes as badges beside it.
+// The headline is the ILCD situation (D4.1 Table 1), the variable that sets
+// paradigm, background and multifunctionality; the IS-01..IS-05 pathways,
+// a T4.6 construct the deliverables do not know, were removed on 2026-10-18.
 //
 // The English wording is canonical in backend/app/data/narrative.json
 // (the .docx report reads the same table); the locales mirror it and a
@@ -28,18 +30,16 @@ export interface VerdictDetail {
 }
 
 export interface Verdict {
-  /** Human title, e.g. "Operational symbiosis — decision support". */
+  /** Human title, e.g. "Decision support with limited consequences (ILCD Situation A)". */
   title: string
-  /** One sentence saying what that means for this case. */
+  /** One sentence saying what that situation means for the modelling. */
   body: string
-  /** One line per method: what the pathway implies for LCA / LCC / S-LCA. */
+  /** One line per remaining axis: the LCC structure and the S-LCA state. */
   method: string[]
   /** The codes, kept for traceability. */
   codes: string[]
   /** Long-form explanation behind the "more info" disclosure. */
   details: VerdictDetail[]
-  /** Paraphrase of what the pathway itself means. */
-  pathwayDetail: string | null
 }
 
 type Translate = (key: string, fallback?: string) => string
@@ -51,12 +51,8 @@ function lookup(t: Translate, key: string): string | null {
 
 export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
   if (!kase) return null
-  const pathway = kase.pathway_id ?? null
-  if (!pathway) return null
-
-  const title = lookup(t, `narrative.pathway.${pathway}.title`) ?? pathway
-  const bodyParts = [lookup(t, `narrative.pathway.${pathway}.body`)]
-  if (kase.is_01_extended) bodyParts.push(lookup(t, 'narrative.extendedSuffix'))
+  const situation = kase.ilcd_situation ?? null
+  if (!situation) return null
 
   const entries: [VerdictDetail['section'], string | null | undefined][] = [
     ['ilcd', kase.ilcd_situation],
@@ -70,7 +66,8 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
     if (!code) continue
     const short = lookup(t, `narrative.${section}.${code}.short`)
     if (!short) continue
-    method.push(short)
+    // the situation is the headline; the other axes are the lines under it
+    if (section !== 'ilcd') method.push(short)
     const citation = NARRATIVE_SOURCES[section]?.[code]
     details.push({
       section,
@@ -83,17 +80,15 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
   }
 
   const codes = [
-    pathway + (kase.is_01_extended ? ' extended' : ''),
-    kase.ilcd_situation ?? null,
+    situation,
     kase.lcc_type && kase.lcc_type !== 'deactivated' ? `LCC ${kase.lcc_type}` : null,
   ].filter((s): s is string => Boolean(s))
 
   return {
-    title,
-    body: bodyParts.filter(Boolean).join(' '),
+    title: lookup(t, `narrative.ilcd.${situation}.title`) ?? situation,
+    body: lookup(t, `narrative.ilcd.${situation}.short`) ?? '',
     method,
     codes,
     details,
-    pathwayDetail: lookup(t, `narrative.pathway.${pathway}.detail`),
   }
 }

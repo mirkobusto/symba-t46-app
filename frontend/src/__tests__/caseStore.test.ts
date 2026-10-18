@@ -41,14 +41,14 @@ describe('caseStore', () => {
       'fetch',
       vi.fn(() =>
         Promise.resolve(
-          okResponse({ pathway_id: 'IS-01', activated_nodes: ['x'] }),
+          okResponse({ ilcd_situation: 'ILCD Situation A', activated_nodes: ['x'] }),
         ),
       ),
     )
     useCaseStore.getState().patchDraft({ q1: 'A', q2: 'A' })
     const out = await useCaseStore.getState().runDraft()
-    expect(out?.pathway_id).toBe('IS-01')
-    expect(useCaseStore.getState().result?.pathway_id).toBe('IS-01')
+    expect(out?.ilcd_situation).toBe('ILCD Situation A')
+    expect(useCaseStore.getState().result?.ilcd_situation).toBe('ILCD Situation A')
     expect(useCaseStore.getState().error).toBeNull()
   })
 
@@ -74,7 +74,7 @@ describe('caseStore', () => {
 
   it('reset clears draft, result and error', () => {
     useCaseStore.getState().patchDraft({ q1: 'B' })
-    useCaseStore.setState({ result: { pathway_id: 'IS-02' }, error: 'x' })
+    useCaseStore.setState({ result: { ilcd_situation: 'ILCD Situation B' }, error: 'x' })
     useCaseStore.getState().reset()
     const s = useCaseStore.getState()
     expect(s.draft.q1 ?? null).toBeNull()

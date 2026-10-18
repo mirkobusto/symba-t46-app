@@ -11,7 +11,6 @@ import type { Case } from '../types/api'
 interface RowData {
   id: string
   label: string
-  pathway: string | null
   ilcd: string | null
   lccType: string | null
   slca: string | null
@@ -24,7 +23,6 @@ interface RowData {
 function rowFromCase(id: string, label: string, c: Case): RowData {
   return {
     id, label,
-    pathway: c.pathway_id ?? null,
     ilcd: c.ilcd_situation ?? null,
     lccType: c.lcc_type ?? null,
     slca: c.slca_activation_state ?? null,
@@ -77,7 +75,6 @@ export default function ScenariosResultPage() {
           <thead>
             <tr>
               <th>{t('scenariosResult.columns.scenario')}</th>
-              <th>{t('scenariosResult.columns.pathway')}</th>
               <th>{t('scenariosResult.columns.ilcd')}</th>
               <th>{t('scenariosResult.columns.lccType')}</th>
               <th>{t('scenariosResult.columns.slca')}</th>
@@ -96,9 +93,6 @@ export default function ScenariosResultPage() {
                     <strong>{row.label}</strong>
                     <br />
                     <code>{row.id}</code>
-                  </td>
-                  <td className={isBaseline ? '' : diffClass(row.pathway, baselineRow.pathway)}>
-                    {row.pathway ?? '—'}
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.ilcd, baselineRow.ilcd)}>
                     {row.ilcd ?? '—'}

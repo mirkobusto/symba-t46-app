@@ -137,11 +137,9 @@ class DcfPayload(BaseModel):
 
     schema_version: str
     case_id: str
-    pathway_id: str | None = None
     ilcd_situation: str | None = None
     lcc_type: str | None = None
     slca_activation_state: str | None = None
-    is_01_extended: bool = False
 
     sections: list[DcfSection] = Field(default_factory=list)
     mandates_by_category: dict[str, list[DcfMandate]] = Field(default_factory=dict)
@@ -175,7 +173,7 @@ def compose_dcf(
 
     Args:
         case: a Case that has already been processed by
-            `app.engine.pipeline.run` — pathway_id / ilcd_situation /
+            `app.engine.pipeline.run` — ilcd_situation /
             activated_nodes etc. must be populated.
         dcf_schema: the JSON loaded from `app/schemas/dcf_schema.json`.
         mandates_census: the JSON loaded from
@@ -232,13 +230,11 @@ def compose_dcf(
     return DcfPayload(
         schema_version=dcf_schema.get("meta", {}).get("schema_version", "unknown"),
         case_id=_case_id_str(case.id),
-        pathway_id=case.pathway_id.value if case.pathway_id else None,
         ilcd_situation=case.ilcd_situation.value if case.ilcd_situation else None,
         lcc_type=case.lcc_type.value if case.lcc_type else None,
         slca_activation_state=(
             case.slca_activation_state.value if case.slca_activation_state else None
         ),
-        is_01_extended=case.is_01_extended,
         sections=sections_out,
         mandates_by_category=mandates_by_category,
         obligations=_compose_obligations(case, mandates_by_category),

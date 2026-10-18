@@ -22,7 +22,7 @@ describe('Questionnaire Q9 — decision and scale', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve({ pathway_id: 'IS-01' }),
+          json: () => Promise.resolve({ ilcd_situation: 'ILCD Situation A' }),
         } as Response)
       }),
     )
@@ -50,14 +50,14 @@ describe('Questionnaire Q9 — decision and scale', () => {
   })
 
   it('keeps the run button disabled until Q9 is answered', () => {
-    expect(screen.getByRole('button', { name: /work out the pathway/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /work out the configuration/i })).toBeDisabled()
     q9Pick('micro')
-    expect(screen.getByRole('button', { name: /work out the pathway/i })).toBeEnabled()
+    expect(screen.getByRole('button', { name: /work out the configuration/i })).toBeEnabled()
   })
 
   it('sends the chosen answer, with no screening unless structural', async () => {
     q9Pick('corporate_report')
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].decision_context).toBe('corporate_report')
     expect(bodies[0].market_screening_documented).toBeNull()
@@ -67,7 +67,7 @@ describe('Questionnaire Q9 — decision and scale', () => {
     expect(document.querySelector('input[name="q9-screening"]')).toBeNull()
     q9Pick('structural')
     fireEvent.click(document.querySelector('input[name="q9-screening"][value="no"]')!)
-    fireEvent.click(screen.getByRole('button', { name: /work out the pathway/i }))
+    fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].decision_context).toBe('structural')
     expect(bodies[0].market_screening_documented).toBe(false)

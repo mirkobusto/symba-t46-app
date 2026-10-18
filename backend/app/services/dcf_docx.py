@@ -119,11 +119,9 @@ def _write_cover_block(doc: Document, payload: DcfPayload, case_title: str | Non
     table.alignment = WD_TABLE_ALIGNMENT.LEFT
     rows = [
         ("Case ID", payload.case_id),
-        ("Pathway", payload.pathway_id or "—"),
         ("ILCD Situation", payload.ilcd_situation or "—"),
         ("LCC Type", payload.lcc_type or "—"),
         ("S-LCA Activation State", payload.slca_activation_state or "—"),
-        ("IS-01 Extended", "yes" if payload.is_01_extended else "no"),
         ("DCF schema version", payload.schema_version),
     ]
     for label, value in rows:
@@ -258,7 +256,7 @@ def _write_excel_reference_section(doc: Document, payload: DcfPayload) -> None:
     doc.add_heading("§3. Inventory worksheet (Excel companion)", level=1)
     doc.add_paragraph(
         "The companion .xlsx file contains the structured field reference "
-        "calibrated on the pathway derived above. Fill the empty rows in each "
+        "calibrated on the configuration derived above. Fill the empty rows in each "
         "tab and return the workbook to the analyst leading the LCSA. The "
         "field-by-field activation is driven by predicates over Q1–Q7 and "
         "the derived pipeline state — see DATA_COLLECTION_FILE_v1.md §5."

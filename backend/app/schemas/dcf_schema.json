@@ -5,7 +5,7 @@
     "generated": "2026-05-22",
     "spec_reference": "docs/implementation/DATA_COLLECTION_FILE_v1.md",
     "predicate_dsl_version": "v1",
-    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, pathway_id, ilcd_situation, lcc_type, slca_activation_state, is_01_extended. Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
+    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state. Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
     "namespace": "dcf",
     "non_authoritative_until_approved": true
   },
@@ -79,7 +79,7 @@
             "large"
           ],
           "required": false,
-          "activation_predicate": "q3.soc or pathway_id == \"IS-02\""
+          "activation_predicate": "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]"
         },
         {
           "id": "actor.public_private",
@@ -91,7 +91,7 @@
             "mixed"
           ],
           "required": false,
-          "activation_predicate": "pathway_id in [\"IS-02\", \"IS-05\"]"
+          "activation_predicate": "q3.eco or q3.soc"
         },
         {
           "id": "actor.contact_role",
@@ -228,7 +228,7 @@
             "high"
           ],
           "required": false,
-          "activation_predicate": "pathway_id == \"IS-01\""
+          "activation_predicate": "always"
         },
         {
           "id": "flow.uncertainty.type",
@@ -791,7 +791,7 @@
             "public"
           ],
           "required": false,
-          "activation_predicate": "pathway_id in [\"IS-01\", \"IS-02\"]"
+          "activation_predicate": "q3.eco"
         }
       ]
     },
@@ -895,8 +895,8 @@
         },
         "annotations": {
           "badges": [
-            "pathway_id",
-            "ilcd_situation"
+            "ilcd_situation",
+            "lcc_type"
           ],
           "icons_for_active_dims": [
             "q3.env",

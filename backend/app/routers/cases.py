@@ -1,14 +1,14 @@
 """Cases CRUD HTTP endpoints (Feature D — server-side persistence).
 
-  GET    /api/cases             -> list all (id, name, pathway, ts)
+  GET    /api/cases             -> list all (id, name, ILCD situation, ts)
   GET    /api/cases/{case_id}   -> full Case JSON
   POST   /api/cases             -> create new (name + Case)
   PUT    /api/cases/{case_id}   -> update existing (name + Case)
   DELETE /api/cases/{case_id}   -> delete
 
 The Case body is stored as JSON text on the CaseRecord ORM model;
-no querying inside the JSON. Name + timestamps + pathway_id are the
-only indexed/projected fields. Pathway is denormalised into its own
+no querying inside the JSON. Name + timestamps + ilcd_situation are the
+only indexed/projected fields. The ILCD situation is denormalised into its own
 column so the list endpoint can return it without parsing every row's
 JSON.
 
@@ -47,7 +47,7 @@ class CaseSummary(BaseModel):
     id: str
     name: str
     slug: str | None = None
-    pathway_id: str | None
+    ilcd_situation: str | None
     created_at: datetime
     updated_at: datetime
 
@@ -65,7 +65,7 @@ class CaseDetail(BaseModel):
     id: str
     name: str
     slug: str | None = None
-    pathway_id: str | None
+    ilcd_situation: str | None
     created_at: datetime
     updated_at: datetime
     case: Case
@@ -84,7 +84,7 @@ class CasesAggregate(BaseModel):
     """
 
     total: int
-    by_pathway: list[AggregateBreakdownEntry]
+    by_lcc_type: list[AggregateBreakdownEntry]
     by_q6a_sector: list[AggregateBreakdownEntry]
     by_q7_geographic_scope: list[AggregateBreakdownEntry]
     by_ilcd_situation: list[AggregateBreakdownEntry]
@@ -100,7 +100,7 @@ def _to_summary(rec: CaseRecord) -> CaseSummary:
         id=rec.id,
         name=rec.name,
         slug=rec.slug,
-        pathway_id=rec.pathway_id,
+        ilcd_situation=rec.ilcd_situation,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
     )
@@ -111,7 +111,7 @@ def _to_detail(rec: CaseRecord) -> CaseDetail:
         id=rec.id,
         name=rec.name,
         slug=rec.slug,
-        pathway_id=rec.pathway_id,
+        ilcd_situation=rec.ilcd_situation,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
         case=Case.model_validate_json(rec.case_json),
@@ -121,7 +121,7 @@ def _to_detail(rec: CaseRecord) -> CaseDetail:
 def _populate_record(rec: CaseRecord, name: str, case: Case) -> None:
     rec.name = name
     rec.case_json = case.model_dump_json()
-    rec.pathway_id = case.pathway_id.value if case.pathway_id else None
+    rec.ilcd_situation = case.ilcd_situation.value if case.ilcd_situation else None
 
 
 # ---------------------------------------------------------------------------
@@ -176,38 +176,39 @@ def _sorted_counter(counter: Counter[str | None]) -> list[AggregateBreakdownEntr
 # a case_id value (FastAPI uses FIFO route ordering).
 @router.get("/aggregate/breakdown", response_model=CasesAggregate)
 def aggregate_breakdown(db: OrmSession = Depends(get_db)) -> CasesAggregate:
-    """Breakdown of all saved cases by pathway / Q6a sector / Q7 scope /
-    ILCD situation.
+    """Breakdown of all saved cases by Q6a sector / Q7 scope / ILCD
+    situation / LCC type.
 
     Reads case_records row-by-row and parses the JSON blob — fine for
     MVP volumes (low hundreds of rows). For larger datasets, denormalise
     q6a / q7 / ilcd_situation into indexed columns.
     """
     rows = db.execute(select(CaseRecord)).scalars().all()
-    pathway_counter: Counter[str | None] = Counter()
+    lcc_counter: Counter[str | None] = Counter()
     sector_counter: Counter[str | None] = Counter()
     scope_counter: Counter[str | None] = Counter()
     ilcd_counter: Counter[str | None] = Counter()
 
     for r in rows:
-        pathway_counter[r.pathway_id] += 1
         try:
             case = Case.model_validate_json(r.case_json)
         except Exception:
             sector_counter[None] += 1
             scope_counter[None] += 1
             ilcd_counter[None] += 1
+            lcc_counter[None] += 1
             continue
         sector_counter[case.q6a.value if case.q6a else None] += 1
         scope_counter[case.q7.value if case.q7 else None] += 1
         ilcd_counter[case.ilcd_situation.value if case.ilcd_situation else None] += 1
+        lcc_counter[case.lcc_type.value if case.lcc_type else None] += 1
 
     return CasesAggregate(
         total=len(rows),
-        by_pathway=_sorted_counter(pathway_counter),
         by_q6a_sector=_sorted_counter(sector_counter),
         by_q7_geographic_scope=_sorted_counter(scope_counter),
         by_ilcd_situation=_sorted_counter(ilcd_counter),
+        by_lcc_type=_sorted_counter(lcc_counter),
     )
 
 

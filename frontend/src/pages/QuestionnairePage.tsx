@@ -562,7 +562,7 @@ export default function QuestionnairePage() {
       </details>
 
       {/* Stated before the run, not after: the tool derives a
-          methodological pathway, it does not compute the numbers, and a
+          methodological configuration, it does not compute the numbers, and a
           user who learns that from the empty result feels misled. */}
       <p className="questionnaire-scope-note">{t('questionnaire.scopeNote')}</p>
 

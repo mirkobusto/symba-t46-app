@@ -127,7 +127,7 @@ def _apply_overrides(baseline: Case, overrides: dict[str, Any]) -> Case:
     for k in (
         "activated_nodes", "blocked_by", "rule_violations", "cdp_flags",
         "applicable_rules", "warnings",
-        "pathway_id", "is_01_extended", "ilcd_situation", "lcc_type",
+        "ilcd_situation", "lcc_type",
         "slca_activation_state",
         "lca", "lcc", "slca", "report", "governance",
         "methodological_charter", "review", "system",
@@ -151,7 +151,7 @@ def run_scenarios(
     On a per-scenario ValueError the response still includes successful
     scenarios; the failed one is returned with the engine output
     untouched (so the client can detect by inspecting blocked_by /
-    pathway_id == None). The endpoint itself returns 400 only if the
+    ilcd_situation == None). The endpoint itself returns 400 only if the
     baseline itself fails.
     """
     try:

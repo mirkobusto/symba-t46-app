@@ -10,7 +10,7 @@
 //      every flow the analyst declared in Q5 gets a row, keyed by the
 //      case flow id (idempotent re-seeding).
 //   2. **Staying legal** — values may only be written for fields the
-//      pathway activated. Editing Q1-Q7 can deactivate a field under
+//      configuration activated. Editing Q1-Q7 can deactivate a field under
 //      content already drawn, so `syncWithPayload` prunes what the
 //      backend would now reject with a 422.
 //   3. **Sync** — load / save against the server, keeping `dirty` so the
@@ -148,7 +148,7 @@ export const useDcfDataStore = create<DcfDataState>()(
         let data = get().data
         let changed = false
 
-        // 1. prune values for fields this pathway no longer activates
+        // 1. prune values for fields this configuration no longer activates
         for (const [sectionId, rows] of Object.entries(data.rows_by_section)) {
           const allowed = active[sectionId]
           const nextRows = rows.map((row) => {
@@ -330,7 +330,7 @@ export const useDcfDataStore = create<DcfDataState>()(
       loadExample(payload, labels) {
         // A worked example is the fastest way to understand what the
         // canvas expects: three actors, two wired flows, plausible
-        // values — but only for fields this pathway actually activated,
+        // values — but only for fields this configuration actually activated,
         // so the example itself stays legal for the case.
         const active = activeFieldsBySection(payload)
         const actorFields = active[ACTORS_SECTION] ?? new Set<string>()

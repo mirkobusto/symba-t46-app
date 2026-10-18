@@ -2,7 +2,7 @@
 //
 // Renders the DcfPayload composed by the backend (POST /api/dcf/preview)
 // for the current Case in the store. Shows:
-//   1. A header with pathway / ILCD / LCC / S-LCA badges
+//   1. A header with ILCD / LCC / S-LCA badges
 //   2. The Network Diagram (interactive React Flow placeholder)
 //   3. Each section with its active fields (or "not active" notice)
 //   4. Download buttons: xlsx + docx
@@ -108,7 +108,7 @@ export default function DataCollectionPage() {
   }, [serverCaseId, bindDcfData, loadDcfData])
 
   // Seed the flow rows declared in Q5 and drop values for fields this
-  // pathway no longer activates (a Q1-Q7 edit can deactivate a field
+  // configuration no longer activates (an answer edit can deactivate a field
   // under content that was already drawn).
   useEffect(() => {
     if (payload) syncDcfWithPayload(payload, sourceCase.flows ?? [])
@@ -219,9 +219,6 @@ export default function DataCollectionPage() {
         <p className="dd-page-sub">{t('dcf.subtitle')}</p>
         <div className="dcf-badges" style={{ marginTop: 12 }}>
           <span className="dd-pill dd-pill-brand">
-            <strong>Pathway:</strong> {payload.pathway_id ?? '—'}
-          </span>
-          <span className="dd-pill dd-pill-brand">
             <strong>ILCD:</strong> {payload.ilcd_situation ?? '—'}
           </span>
           <span className="dd-pill dd-pill-brand">
@@ -230,9 +227,6 @@ export default function DataCollectionPage() {
           <span className="dd-pill dd-pill-brand">
             <strong>S-LCA:</strong> {payload.slca_activation_state ?? '—'}
           </span>
-          {payload.is_01_extended ? (
-            <span className="dd-pill dd-pill-accent">IS-01 extended</span>
-          ) : null}
         </div>
       </div>
 

@@ -44,11 +44,9 @@ describe('DCF API client', () => {
     const samplePayload = {
       schema_version: '1.0-draft',
       case_id: 'abc',
-      pathway_id: 'IS-01',
       ilcd_situation: null,
       lcc_type: null,
       slca_activation_state: null,
-      is_01_extended: false,
       sections: [],
       mandates_by_category: {},
       network_render_spec: null,
@@ -60,7 +58,6 @@ describe('DCF API client', () => {
 
     const result = await fetchDcfPreview({ q1: 'B' })
 
-    expect(result.pathway_id).toBe('IS-01')
     expect(result.case_id).toBe('abc')
     const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
     const [url, init] = calls[0] as [string, RequestInit]

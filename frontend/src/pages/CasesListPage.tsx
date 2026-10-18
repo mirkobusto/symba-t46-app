@@ -52,7 +52,7 @@ export default function CasesListPage() {
       // A saved case was stored after the pipeline ran, so it already
       // carries its verdict: land on the result rather than making the
       // user re-run the questionnaire to see what they just opened.
-      if (detail.case.pathway_id) {
+      if (detail.case.ilcd_situation) {
         setResult(detail.case)
         navigate('/result')
       } else {
@@ -111,7 +111,7 @@ export default function CasesListPage() {
           <thead>
             <tr>
               <th>{t('cases.columns.name')}</th>
-              <th>{t('cases.columns.pathway')}</th>
+              <th>{t('cases.columns.situation')}</th>
               <th>{t('cases.columns.updated')}</th>
               <th aria-label="actions"></th>
             </tr>
@@ -127,7 +127,7 @@ export default function CasesListPage() {
                     </div>
                   ) : null}
                 </td>
-                <td>{item.pathway_id ?? '—'}</td>
+                <td>{item.ilcd_situation ?? '—'}</td>
                 <td className="muted">
                   {new Date(item.updated_at).toLocaleString()}
                 </td>

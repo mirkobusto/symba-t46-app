@@ -2,16 +2,19 @@
 
 Produces short, human-readable, URL-safe slugs like:
 
-    wastewater-b-is01-3f0b
+    wastewater-b-sita-3f0b
 
     ^         ^  ^    ^
-    Q6a       Q7 IS-x first 4 chars of the case id
+    Q6a       Q7 ILCD situation (sitA, sitB, sitC1, sitC2), first 4 chars of the case id
 
-Falls back gracefully when Q6a / Q7 / pathway are missing:
+Falls back gracefully when Q6a / Q7 / the situation are missing:
 
-    (missing sector) -> "case"
-    (missing Q7)     -> "-x-"          (omitted)
-    (missing pathway)-> "-x-"          (omitted)
+    (missing sector)    -> "case"
+    (missing Q7)        -> omitted
+    (missing situation) -> omitted
+
+Slugs saved before 2026-10-18 carry the retired IS-01..IS-05 pathway instead
+(e.g. "-is01-"); they are not rewritten, so shared links keep working.
 
 Uniqueness is guaranteed by appending a random 3-char suffix on
 collision. The database enforces uniqueness via a UNIQUE index.
@@ -54,11 +57,11 @@ def _sanitize(part: str) -> str:
     return part
 
 
-def _pathway_abbrev(pathway_id: str | None) -> str:
-    if not pathway_id:
+def _situation_abbrev(situation: str | None) -> str:
+    if not situation:
         return ""
-    # "IS-01" -> "is01"
-    return _sanitize(pathway_id).replace("-", "")
+    # "ILCD Situation C2" -> "sitc2"
+    return "sit" + _sanitize(situation.split()[-1]).replace("-", "")
 
 
 def generate_case_slug(case: Case, short_id: str) -> str:
@@ -69,13 +72,13 @@ def generate_case_slug(case: Case, short_id: str) -> str:
         case.q6a.value if case.q6a else "none", "case"
     )
     q7 = case.q7.value.lower() if case.q7 else ""
-    pathway = _pathway_abbrev(case.pathway_id.value if case.pathway_id else None)
+    situation = _situation_abbrev(case.ilcd_situation.value if case.ilcd_situation else None)
 
     parts = [sector]
     if q7:
         parts.append(q7)
-    if pathway:
-        parts.append(pathway)
+    if situation:
+        parts.append(situation)
     parts.append(short_id[:4].lower())
 
     return "-".join(p for p in parts if p)

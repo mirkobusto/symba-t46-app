@@ -22,7 +22,7 @@ def test_create_then_list(client):
     body = resp.json()
     assert body["id"]
     assert body["name"] == "My first case"
-    # pathway_id will be None because the case was saved without running
+    # ilcd_situation will be None because the case was saved without running
     # the engine first (the API stores what the client sends as-is)
     assert body["case"]["q1"] == "B"
 
@@ -92,14 +92,20 @@ def test_delete_case_not_found(client):
     assert resp.status_code == 404
 
 
-def test_pathway_id_persisted_when_set(client):
-    """If the client sends a Case with pathway_id already set (from a
-    previous pipeline run), the column is denormalised so the list
-    summary surfaces it without re-parsing the JSON."""
-    case_with_pathway = {**VALID_CASE, "pathway_id": "IS-01"}
-    created = client.post("/api/cases", json={
-        "name": "Already-run", "case": case_with_pathway,
-    }).json()
-    assert created["pathway_id"] == "IS-01"
+def test_ilcd_situation_persisted_when_set(client):
+    """If the client sends a Case with the ILCD situation already derived (from
+    a previous pipeline run), the column is denormalised so the list summary
+    surfaces it without re-parsing the JSON."""
+    run_case = {**VALID_CASE, "ilcd_situation": "ILCD Situation A"}
+    created = client.post("/api/cases", json={"name": "Already-run", "case": run_case}).json()
+    assert created["ilcd_situation"] == "ILCD Situation A"
     listing = client.get("/api/cases").json()
-    assert listing[0]["pathway_id"] == "IS-01"
+    assert listing[0]["ilcd_situation"] == "ILCD Situation A"
+
+
+def test_a_case_saved_with_the_retired_pathway_still_loads(client):
+    """Cases exported before 2026-10-18 carry pathway_id / is_01_extended."""
+    old = {**VALID_CASE, "pathway_id": "IS-01", "is_01_extended": True}
+    created = client.post("/api/cases", json={"name": "Old export", "case": old})
+    assert created.status_code in (200, 201)
+    assert "pathway_id" not in created.json()["case"]

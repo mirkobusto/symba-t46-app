@@ -229,7 +229,7 @@ def put_dcf_data(
     """Store the DCF content for a saved case (full replace).
 
     Rejects with 422 when the submission is structurally wrong for this
-    case (unknown/derived section, field the pathway did not activate,
+    case (unknown/derived section, field the configuration did not activate,
     broken reference, duplicate row id). Empty required fields are
     reported in `validation.missing_required` and do NOT block the
     write — a data collection file is filled in incrementally.

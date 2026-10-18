@@ -59,15 +59,15 @@ def test_first_report_has_canonical_section_headings(tmp_path: Path):
         )
 
 
-def test_kerdlap_verdict_documents_is_04_divergence(tmp_path: Path):
-    """The Kerdlap report's Section 5 records IS-04 (matches engine,
-    not the WorkingDoc §3.3 mapping table)."""
+def test_reports_no_longer_name_a_pathway(tmp_path: Path):
+    """The IS-01..IS-05 pathways were removed on 2026-10-18; Section 5
+    opens with the ILCD situation."""
     written = main(out_dir=tmp_path)
     kerdlap = next(p for p in written if "Kerdlap" in p.name)
     doc = docx.Document(str(kerdlap))
     full_text = "\n".join(p.text for p in doc.paragraphs)
-    assert "IS-04" in full_text
-
+    assert "ILCD Situation A" in full_text
+    assert "IS-04" not in full_text and "Pathway" not in full_text
 
 def test_paulu_q4_multiselect_reflected(tmp_path: Path):
     """Paulu has Q4=D+E (multi-select); both letters appear in

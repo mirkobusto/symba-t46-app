@@ -4,7 +4,7 @@
 //
 //   - **drawn** — actors and wired flows from the stored DCF content,
 //     rendered through the same mapping the builder uses, plus the
-//     pathway / ILCD badges of DCF spec §5.6.
+//     ILCD / LCC badges of DCF spec §5.6.
 //   - **placeholder** — the pre-builder fallback: one anonymous pair of
 //     actors per declared flow, with a banner pointing at the builder.
 
@@ -130,9 +130,11 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
     <div className="dcf-network-diagram-wrap">
       {drawn ? (
         <div className="dcf-network-badges">
-          <span className="dd-pill dd-pill-brand">{payload.pathway_id ?? '—'}</span>
           <span className="dd-pill dd-pill-brand">
             {payload.ilcd_situation ?? '—'}
+          </span>
+          <span className="dd-pill dd-pill-brand">
+            LCC {payload.lcc_type ?? '—'}
           </span>
           <span className="dd-pill dd-pill-muted">
             {t('networkDiagram.counts', {

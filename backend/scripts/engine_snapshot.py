@@ -50,7 +50,7 @@ def _dump(c: Case) -> dict:
     out = {
         "blocked": sorted(c.blocked_by),
         "ilcd": str(c.ilcd_situation), "lcc_type": str(c.lcc_type),
-        "slca_state": str(c.slca_activation_state), "pathway": str(c.pathway_id),
+        "slca_state": str(c.slca_activation_state),
         "nodes": sorted(c.activated_nodes),
         "rules": sorted(r["rule_id"] if isinstance(r, dict) else str(r) for r in c.applicable_rules),
         "viol": sorted(str(v.get("rule_id") if isinstance(v, dict) else v) for v in c.rule_violations),

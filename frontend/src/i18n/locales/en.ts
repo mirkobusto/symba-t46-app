@@ -2,7 +2,7 @@
 // Keys are flat with dot-notation; nested objects below are organisational.
 //
 // Methodology terms kept in English in all locales (LCA/LCC/S-LCA acronyms,
-// "function-oriented", PEF, ILCD, MFCA/CBA/TEA, IS-01..IS-05, etc.).
+// "function-oriented", PEF, ILCD, MFCA/CBA/TEA, etc.).
 
 const en = {
   common: {
@@ -56,9 +56,8 @@ const en = {
     notFoundBody: 'The link you followed may be broken or the case may have been removed.',
     aboutLink: 'Learn about SYMBA',
     eyebrow: 'Shared report · {{name}}',
-    summaryTitle: 'Pathway summary',
+    summaryTitle: 'Configuration summary',
     summary: {
-      pathway: 'Pathway',
       ilcd: 'ILCD situation',
       lcc: 'LCC type',
       slca: 'S-LCA state',
@@ -91,7 +90,7 @@ const en = {
         short: '🏛 Authority',
         name: 'Local authority',
         title: 'Regulatory and policy view',
-        body: 'Pathway compliance, peer-review status, public-superiority claims, EU PEF alignment, DNSH screening.',
+        body: 'Methodological configuration, peer-review status, public-superiority claims, EU PEF alignment, DNSH screening.',
       },
       enduser: {
         short: '👤 End user',
@@ -119,9 +118,9 @@ const en = {
       title: 'Regional dashboard',
       lead: 'Aggregate view of all IS cases matching this region. Numbers refresh as new cases are saved.',
       total: 'Cases',
-      pathways: 'Pathways covered',
+      situations: 'ILCD situations',
       sectors: 'Sectors covered',
-      byPathwayTitle: 'By pathway',
+      bySituationTitle: 'By ILCD situation',
       bySectorTitle: 'By sector',
       tableKey: 'Value',
       tableCount: 'Count',
@@ -158,7 +157,7 @@ const en = {
 
   adminShell: {
     searchLabel: 'Search',
-    searchPlaceholder: 'Search cases, pathways, partners… (⌘K)',
+    searchPlaceholder: 'Search cases, partners… (⌘K)',
     footerGa: 'GA',
     footerProgramme: 'Horizon Europe · M22–M36',
     groups: {
@@ -242,7 +241,7 @@ const en = {
     title: 'SYMBA T4.6 — Monitoring & Reporting System',
     tagline: 'Industrial Symbiosis methodology, inventory and multi-stakeholder reporting for LCA / LCC / S-LCA along the bio-based value chain.',
     description:
-      'Answer ten short questions about your industrial-symbiosis case study. The decision engine derives the terminal IS pathway (IS-01..IS-05) and a complete methodological configuration from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
+      'Answer ten short questions about your industrial-symbiosis case study. The decision engine derives the methodological configuration (ILCD situation, LCC structure, study horizon, reference scenario) from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
     startButton: 'Start new assessment',
     modeLabel: 'UX mode',
     modeExpert: 'Expert',
@@ -258,10 +257,10 @@ const en = {
     kpi: {
       savedCases: 'Saved cases',
       savedCasesDetail: 'across all users',
-      withPathway: 'With pathway',
-      withPathwayDetail: '{{total}} total',
-      uniquePathways: 'Unique pathways',
-      uniquePathwaysDetail: 'IS-01 … IS-05',
+      configured: 'Configured',
+      configuredDetail: '{{total}} total',
+      situations: 'ILCD situations',
+      situationsDetail: 'A · B · C1 · C2',
       language: 'Available in',
       languageDetail: '5 UI languages',
     },
@@ -287,7 +286,7 @@ const en = {
         "id": "what",
         "title": "2. What this tool does",
         "paragraphs": [
-          "It helps practitioners configure the methodological pathway of a life-cycle study of an industrial symbiosis (Horizon Europe project SYMBA, Grant Agreement 101135562, task T4.6) and prepare the data collection file and reports. It does not compute environmental, cost or social results."
+          "It helps practitioners configure the methodology of a life-cycle study of an industrial symbiosis (Horizon Europe project SYMBA, Grant Agreement 101135562, task T4.6) and prepare the data collection file and reports. It does not compute environmental, cost or social results."
         ],
         "items": []
       },
@@ -353,14 +352,14 @@ const en = {
   },
 
   questionnaire: {
-    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological pathway your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
+    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological configuration your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
     title: 'Questionnaire',
     intro:
       'Ten questions about your industrial-symbiosis case. Q1 and at least one Q3 dimension are required; the rest is optional but improves the engine output.',
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
-      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological pathway and the data-collection plan you receive at the end.',
-    runButton: 'Work out the pathway',
+      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The ten answers decide the methodological configuration and the data-collection plan you receive at the end.',
+    runButton: 'Work out the configuration',
     runningButton: 'Working it out…',
     resetButton: 'Reset draft',
     confirmReset: 'Discard all answers and start over? This cannot be undone.',
@@ -407,7 +406,7 @@ const en = {
       help: 'At least one is required. Environmental and economic are the usual pairing.',
       details:
         'ENV — Environmental Life Cycle Assessment (LCA): impacts on climate, ecosystems, resource use. Almost always selected. ' +
-        'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC pathway (activated by ECO and by contested flows in Q5), not an alternative to it; CBA and TEA are not offered by this engine. ' +
+        'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC (activated by ECO and by contested flows in Q5), not an alternative to it; CBA and TEA are not offered by this engine. ' +
         'SOC — Social LCA. Selecting it activates a longer rule chain (worker / local-community / value-chain stakeholder categories) and forces L1 BLOCK 2 if the advanced override slca_framework_override is set to "absolute". ' +
         'Most published IS papers run ENV-only (e.g. Sokka, Daddi); a few couple ENV+ECO (Hashimoto, Wiktor); only a handful add SOC.',
       warning: 'Select at least one dimension to proceed.',
@@ -697,52 +696,24 @@ const en = {
   },
 
   narrative: {
-    pathway: {
-      'IS-01': {
-        title: 'Operational symbiosis — decision support',
-        body: 'A symbiotic exchange between two companies, or inside an eco-park, assessed to decide whether and how to run it.',
-        detail: 'Q1 says the object is a specific exchange or a park; Q2 says you are deciding rather than reporting. The pipeline therefore configures decision support: by default attributional modelling with substitution and an LCC tied to the perspective you chose (the ILCD situation and the LCC type below show what applies to your answers) and — when Q2 is a baseline plus alternatives — a comparison across scenarios.',
-      },
-      'IS-02': {
-        title: 'Sector-wide pre-feasibility — policy',
-        body: 'A policy or programme decision at regional or national scale, where the consequences are structural rather than marginal.',
-        detail: 'Because the object is a public decision, everything downstream is scaled to consequences the background system will actually feel: by default the ILCD situation moves to B and the LCC gains the societal perspective, since a policy has to account for welfare and not only for the firms taking part. If you answered Q9 or Q10, the sections below show the situation and the costing that apply.',
-      },
-      'IS-03': {
-        title: 'Corporate contribution — reporting',
-        body: 'The symbiotic contribution of a single company inside a network, for ESG / CSRD reporting.',
-        detail: 'The engine narrows to strict accounting: allocation rather than substitution credits (ILCD C2) and conventional LCC alone. The figure has to describe one company\'s own position in a way an auditor can trace, not the benefit the network produces collectively.',
-      },
-      'IS-04': {
-        title: 'Emerging IS network — ex-ante design',
-        body: 'A network still being designed, assessed on dynamic scenarios with no operating baseline.',
-        detail: 'Q1 is an exchange or a park, but Q2 says the system is still on the drawing board and is explored through dynamic scenarios rather than against an operating baseline. ADR-005 keeps this as its own pathway only for Q1 ∈ {A, B}: for a policy or a corporate report the object of study dominates the temporal stance.',
-      },
-      'IS-05': {
-        title: 'Monitoring — symbiosis in operation',
-        body: 'Time-series monitoring of an already operational symbiosis.',
-        detail: 'No decision is on the table: the study documents a network that already runs. That puts it, by default, in ILCD C1 — accounting that still shows what the network gives the wider economy — and the value of the exercise is the time series, so the data collection has to be repeatable period after period.',
-      },
-    },
-    extendedSuffix: 'The assessment compares a baseline against alternative scenarios.',
     ilcd: {
       'ILCD Situation A': {
+        title: 'Decision support with limited consequences (ILCD Situation A)',
         short: 'Micro-level decision support: the exchange is too small to change the background system. Attributional modelling, with substitution against the average market mix.',
         detail: 'The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.',
       },
-      'ILCD Situation A multi-actor': {
-        short: 'Micro-level decision support across a multi-actor network: the same modelling rule as Situation A, applied to the whole park rather than to a single exchange.',
-        detail: 'The modelling rule does not change — consequences stay micro-level, so average data and substitution at the market mix. What changes is the bookkeeping: several partners share one system, so the boundary and the shared flows have to be agreed between them before modelling starts, otherwise the same flow is counted twice or a partner\'s contribution disappears.',
-      },
       'ILCD Situation B': {
+        title: 'Decision support with structural consequences (ILCD Situation B)',
         short: 'Meso/macro-level decision support: the decision causes structural change in the background system, so consequential modelling against the marginal technology. D4.1 asks you to prove that scale before choosing it.',
         detail: 'The decision is large enough to shift installed capacity or the output of a specific technology. Modelling goes consequential, and what the symbiosis displaces is the marginal technology, identified through a market analysis rather than taken as the average mix. The burden of proof is on you: this route has to be demonstrated, not assumed.',
       },
       'ILCD Situation C1': {
+        title: 'Documenting an existing network (ILCD Situation C1)',
         short: 'Accounting with interactions — documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.',
         detail: 'You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.',
       },
       'ILCD Situation C2': {
+        title: 'Strict reporting of one company (ILCD Situation C2)',
         short: 'Strict accounting for one partner in isolation: allocation, and no substitution credits.',
         detail: 'Strict accounting for a single partner on its own, typically corporate reporting. Multifunctionality is resolved by allocation, and no credit is claimed for what the symbiosis displaces elsewhere: the number describes that partner\'s share of the burdens, not the benefit the network produces.',
       },
@@ -758,7 +729,7 @@ const en = {
       },
       'C+E+S': {
         short: 'Conventional and environmental LCC plus societal LCC: taxes and subsidies adjusted through the Net Tax Factor, environmental impacts monetised.',
-        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why it comes with the policy pathway.',
+        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why a public or policy objective brings it in.',
       },
       'C-LCC': {
         short: 'Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.',
@@ -838,7 +809,7 @@ const en = {
         "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
       allClear:
         'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: collect the inventory data.',
-      ctaHint: 'The Data Collection File is calibrated on this pathway: it only asks for what your case needs.',
+      ctaHint: 'The Data Collection File is calibrated on this configuration: it only asks for what your case needs.',
     },
     actionKind: {
       block: 'Blocking',
@@ -862,7 +833,6 @@ const en = {
     },
     title: 'Engine output',
     summary: {
-      pathway: 'Pathway',
       ilcdSituation: 'ILCD situation',
       lccType: 'LCC type',
       slca: 'S-LCA',
@@ -900,7 +870,6 @@ const en = {
     backToResult: 'Back to single result',
     columns: {
       scenario: 'Scenario',
-      pathway: 'Pathway',
       ilcd: 'ILCD',
       lccType: 'LCC type',
       slca: 'S-LCA',
@@ -938,7 +907,7 @@ const en = {
     closeHint: 'Press {{esc}} or click outside to close.',
     items: {
       help: 'Show this shortcuts help',
-      run: 'Work out the pathway',
+      run: 'Work out the configuration',
       runContext: 'Questionnaire',
       toggleReasoning: 'Toggle reasoning panel',
       toggleReasoningContext: 'Result',
@@ -957,7 +926,7 @@ const en = {
   },
 
   toast: {
-    pipelineCompleted: 'Pipeline completed in {{ms}} ms — pathway {{pathway}}',
+    pipelineCompleted: 'Pipeline completed in {{ms}} ms — {{situation}}',
     pipelineError: 'Pipeline error — {{detail}}',
     scenariosCompleted: '{{n}} scenarios run',
     scenariosError: 'Scenarios run failed — {{detail}}',
@@ -1039,7 +1008,7 @@ const en = {
           "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
       },
     },
-    noVerdict: "No pathway derived yet for this case.",
+    noVerdict: "No configuration derived yet for this case.",
     notAssessed: {
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
       economic: "This study does not assess costs: the economic dimension was switched off when the case was set up.",
@@ -1066,13 +1035,12 @@ const en = {
       community:
         'Local-impact view focused on environmental quality and social benefits the symbiosis brings to the host territory.',
       authority:
-        'Regulatory and policy view: pathway compliance, peer-review status, public-superiority claims, EU PEF alignment.',
+        'Regulatory and policy view: methodological configuration, peer-review status, public-superiority claims, EU PEF alignment.',
       'end-user':
         'Summary view for end users of the IS-derived products and services.',
     },
-    pathwaySummaryTitle: 'Pathway summary',
+    verdictTitle: 'Methodological configuration',
     labels: {
-      pathway: 'Pathway',
       ilcd: 'ILCD Situation',
       lcc: 'LCC type',
       slca: 'S-LCA activation',
@@ -1102,7 +1070,7 @@ const en = {
     navLink: 'Regional dashboard',
     title: 'Regional / sectoral dashboard',
     subtitle:
-      'Breakdown of all saved cases by pathway, sector, geographic scope, and ILCD situation. Intended for local authorities and policy analysts.',
+      'Breakdown of all saved cases by ILCD situation, LCC structure, sector and geographic scope. Intended for local authorities and policy analysts.',
     openButton: 'Open regional dashboard',
     backToCases: 'Back to cases',
     loading: 'Loading aggregate data…',
@@ -1113,7 +1081,7 @@ const en = {
     tableKey: 'Value',
     tableCount: 'Count',
     breakdownTitle: {
-      byPathway: 'By pathway (IS-01 … IS-05)',
+      byLccType: 'By LCC structure',
       bySector: 'By sector (Q6a)',
       byScope: 'By geographic scope (Q7)',
       byIlcd: 'By ILCD situation',
@@ -1138,7 +1106,7 @@ const en = {
     navLink: 'Data Collection',
     title: 'Data Collection File',
     subtitle:
-      "Calibrated on the derived pathway. Download the Excel companion to collect inventory data with the symbiosis partners, then return for the final report.",
+      "Calibrated on the derived configuration. Download the Excel companion to collect inventory data with the symbiosis partners, then return for the final report.",
     loading: 'Composing the Data Collection File…',
     errorTitle: 'Could not generate Data Collection File',
     errorNoPayload: 'No payload returned by the server.',
@@ -1170,7 +1138,7 @@ const en = {
     hint: {
       step1: 'Add one actor per participant in the symbiosis — a plant, a utility, a municipality.',
       step2: 'Drag from the edge of a node to another to connect them: that arrow is a row of the flow matrix.',
-      step3: 'Select a node or an arrow and fill its fields in the side panel. Only the fields your pathway needs are shown.',
+      step3: 'Select a node or an arrow and fill its fields in the side panel. Only the fields your configuration needs are shown.',
       dismiss: 'Got it',
     },
     empty: {
@@ -1212,7 +1180,7 @@ const en = {
     empty: 'No saved cases yet. Save one from the questionnaire or result page.',
     columns: {
       name: 'Name',
-      pathway: 'Pathway',
+      situation: 'ILCD situation',
       updated: 'Updated',
     },
     loadButton: 'Load',

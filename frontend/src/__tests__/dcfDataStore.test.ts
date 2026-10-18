@@ -21,16 +21,14 @@ function field(id: string, extra: Record<string, unknown> = {}) {
 }
 
 /** A payload with the two sections the builder edits. `flowFields` lets a
- * test simulate a pathway that activates fewer fields. */
+ * test simulate a configuration that activates fewer fields. */
 function payloadWith(flowFields: string[]): DcfPayload {
   return {
     schema_version: '1.0-draft',
     case_id: 'case-1',
-    pathway_id: 'IS-01',
     ilcd_situation: null,
     lcc_type: null,
     slca_activation_state: null,
-    is_01_extended: false,
     sections: [
       {
         id: ACTORS_SECTION,
@@ -134,7 +132,7 @@ describe('dcfDataStore', () => {
     ).toHaveLength(2)
   })
 
-  it('does not seed values for fields the pathway did not activate', () => {
+  it('does not seed values for fields the configuration did not activate', () => {
     // quantity_measured only activates for q2 in {A, D}
     useDcfDataStore
       .getState()
@@ -307,7 +305,7 @@ describe('dcfDataStore', () => {
     expect(state.dirty).toBe(true)
   })
 
-  it('the example only fills fields the pathway activated', () => {
+  it('the example only fills fields the configuration activated', () => {
     // no flow.unit in this payload -> the example must not invent one,
     // or the very first save would come back 422 field_not_active
     useDcfDataStore.getState().loadExample(

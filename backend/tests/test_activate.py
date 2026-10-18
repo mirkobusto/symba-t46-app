@@ -44,8 +44,9 @@ def test_all_default_nodes_activate(schemas):
     # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08), minus lca_mc_06,
     # which branches on the ILCD situation since 2026-10-15 (D4.1 Table 1), and minus
     # lca_mc_07, which branches on Q11 (comparison goal) since 2026-10-18; plus lca_mc_16,
-    # lca_mc_29 and lcc_mc_14, the same for every Q7 since 2026-10-18 (transport for every exchange)
-    assert len(default_ids) == 119
+    # lca_mc_29 and lcc_mc_14, the same for every Q7 since 2026-10-18 (transport for every exchange);
+    # minus lcc_hc_07, which branches on Q12 (dedicated shared assets) since 2026-10-18
+    assert len(default_ids) == 118
 
 
 def test_l0_nodes_skipped(schemas):

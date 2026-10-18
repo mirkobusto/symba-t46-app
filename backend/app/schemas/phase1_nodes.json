@@ -359,8 +359,8 @@
       "field": "lca.capital_goods.included",
       "field_status": null,
       "default_value": {
-        "q6b<TRL7": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3); below TRL 7 their capital is estimated by step-to-equipment mapping with Lang-factor multipliers (D4.1 §9.3.5)",
-        "default": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3)"
+        "q6b<TRL7": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3){shared_assets}; below TRL 7 their capital is estimated by step-to-equipment mapping with Lang-factor multipliers (D4.1 §9.3.5)",
+        "default": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3){shared_assets}"
       },
       "override_path": "q6b",
       "lifecycle_layer": "L2",
@@ -372,7 +372,7 @@
           "notes": "Technical lifetime of each asset, no single default: D4.1 §6.3.3 (amortise over the equipment's expected technical lifetime) and D4.1 §14.2.2 (same asset definition and period in LCA and LCC); reference lifetimes per asset class in D4.2 Table 7.1 (§7.3: buildings and infrastructure 20-30 y, processing equipment 5-8 y). Written from the Q8 asset lifetime when answered (primary asset); per-asset periods in the DCF. The former 20-year default had no source. Aligned with lcc.capital_goods.amortization_period via IR-13."
         }
       ],
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00798 ('should be included within the system boundary ... amortized ... over the equipment's expected technical lifetime'), L01106 (Lang factors below TRL 7). No TRL split in the text: the former 'full inclusion' for TRL 7-8 is gone and the node now fires for every TRL, so the Q8 asset lifetime is written as amortisation period in every study."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00798 ('should be included within the system boundary ... amortized ... over the equipment's expected technical lifetime'), L01106 (Lang factors below TRL 7). No TRL split in the text: the former 'full inclusion' for TRL 7-8 is gone and the node now fires for every TRL, so the Q8 asset lifetime is written as amortisation period in every study. | Review 2026-10-18 (Q12): the {shared_assets} phrase (engine/answer_phrases.py) names the new dedicated shared assets as capital goods unique to the IS scenario."
     },
     {
       "id": "lca_hc_19",
@@ -644,12 +644,12 @@
       "field": "lca.capital_goods.included",
       "field_status": null,
       "default_value": {
-        "q6b<TRL7": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3); below TRL 7 their capital is estimated by step-to-equipment mapping with Lang-factor multipliers (D4.1 §9.3.5)",
-        "default": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3)"
+        "q6b<TRL7": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3){shared_assets}; below TRL 7 their capital is estimated by step-to-equipment mapping with Lang-factor multipliers (D4.1 §9.3.5)",
+        "default": "Significant capital goods and infrastructure unique to the IS scenario should be included and amortised over each asset's expected technical lifetime (D4.1 §6.3.3){shared_assets}"
       },
       "override_path": "q6b",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00798 ('should be included within the system boundary ... amortized ... over the equipment's expected technical lifetime'), L01106 (Lang factors below TRL 7). No TRL split in the text: the former 'full inclusion' for TRL 7-8 is gone and the node now fires for every TRL, so the Q8 asset lifetime is written as amortisation period in every study."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.5); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §7.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00798 ('should be included within the system boundary ... amortized ... over the equipment's expected technical lifetime'), L01106 (Lang factors below TRL 7). No TRL split in the text: the former 'full inclusion' for TRL 7-8 is gone and the node now fires for every TRL, so the Q8 asset lifetime is written as amortisation period in every study. | Review 2026-10-18 (Q12): the {shared_assets} phrase (engine/answer_phrases.py) names the new dedicated shared assets as capital goods unique to the IS scenario."
     },
     {
       "id": "lca_mc_11",
@@ -1267,14 +1267,19 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §4.2",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "q12"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lcc.capital_goods.included",
       "field_status": null,
-      "default_value": "Capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)",
-      "override_path": "fixed",
+      "default_value": {
+        "shared_assets=true": "The new dedicated shared assets (pipelines, plants, storage) are included: their CAPEX and ongoing OPEX in the cost breakdown, allocated among the benefiting partners (D4.2 §4.2); other capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)",
+        "default": "Capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)"
+      },
+      "override_path": "q12",
       "lifecycle_layer": "L2",
       "additional_fields": [
         {
@@ -1283,7 +1288,8 @@
           "unit": "years",
           "notes": "Technical lifetime of each asset, no single default (D4.2 §4.2 L00575, §7.3 formula and Table 7.1: buildings and infrastructure 20-30 y, processing equipment 5-8 y); Written from the Q8 asset lifetime when answered (primary asset); per-asset periods in the DCF. The former 20-year default was attributed to D4.2 §4.2, where the 20-30 years is the LCA exclusion rationale D4.2 argues against. Aligned with lca.capital_goods.amortization_period via IR-13/B-06."
         }
-      ]
+      ],
+      "extraction_notes": " | Review 2026-10-18 (Q12, dedicated shared assets): L00567 ('whether the network requires new dedicated shared assets ... CAPEX and ongoing OPEX ... must be included in the CBS and correctly allocated among benefiting partners')."
     },
     {
       "id": "lcc_hc_08",

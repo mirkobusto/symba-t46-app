@@ -146,8 +146,8 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     discriminative nodes, minus 3 at L0 (lca_t1, lcc_trig_01, slca_t_01) and
     lca_hc_19, whose default_value is a string. 39 since lca_mc_06 branches on the
     ILCD situation (2026-10-15); 40 since lca_mc_07 branches on Q11 (2026-10-18)."""
-    # 38 since lca_mc_16 and lcc_mc_14 no longer branch on Q7 (2026-10-18)
-    assert len(_branch_nodes(schemas)) == 38
+    # 38 since lca_mc_16 and lcc_mc_14 no longer branch on Q7, 39 with lcc_hc_07 on Q12 (2026-10-18)
+    assert len(_branch_nodes(schemas)) == 39
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):
@@ -196,6 +196,7 @@ _DOMAINS = {
     "ilcd": [{"ilcd": v.value} for v in IlcdCode],
     "lcc_type": [{"lcc_type": v.value} for v in LccType],
     "comparison_goal": [{"comparison_goal": v.value} for v in ComparisonGoal],
+    "q12": [{"shared_assets": False}, {"shared_assets": True}],
     "q3": [dict(zip(("env", "eco", "soc"), t, strict=True))
            for t in itertools.product([False, True], repeat=3)],
 }

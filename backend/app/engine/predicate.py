@@ -165,5 +165,6 @@ def build_context_from_case(case: Any) -> dict[str, Any]:
         # alternative scenarios are open to every study (D4.1 §4.3.3, 2026-10-18):
         # their projected data is asked whatever Q2 says
         "has_scenarios": bool(getattr(case, "alternative_scenarios", None)),
+        "dedicated_shared_assets": getattr(case, "dedicated_shared_assets", None),   # Q12
         "always": True,
     }

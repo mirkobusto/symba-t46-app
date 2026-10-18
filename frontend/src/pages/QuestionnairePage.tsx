@@ -277,6 +277,27 @@ export default function QuestionnairePage() {
         ))}
       </QuestionCard>
 
+      {/* Q1 */}
+      <QuestionCard
+        id="q1"
+        title={t('questionnaire.q1.title')}
+        help={t('questionnaire.q1.help')}
+        plain={t('questionnaire.q1.plain')}
+        details={t('questionnaire.q1.details')}
+      >
+        {Q1_KEYS.map((v) => (
+          <label key={v} className="opt">
+            <input
+              type="radio" name="q1" value={v}
+              checked={q1 === v} onChange={() => setQ1(v)}
+              aria-required="true" aria-invalid={!q1}
+            />
+            <span className="opt-label">{t(`questionnaire.q1.options.${v}.label`)}</span>
+            <span className="opt-desc">{t(`questionnaire.q1.options.${v}.description`)}</span>
+          </label>
+        ))}
+      </QuestionCard>
+
       {/* Q3 */}
       <QuestionCard
         id="q3"
@@ -609,26 +630,6 @@ export default function QuestionnairePage() {
 
       <h2 className="qpart-title" id="qpart-description">{t('questionnaire.parts.description')}</h2>
 
-      {/* Q1 */}
-      <QuestionCard
-        id="q1"
-        title={t('questionnaire.q1.title')}
-        help={t('questionnaire.q1.help')}
-        plain={t('questionnaire.q1.plain')}
-        details={t('questionnaire.q1.details')}
-      >
-        {Q1_KEYS.map((v) => (
-          <label key={v} className="opt">
-            <input
-              type="radio" name="q1" value={v}
-              checked={q1 === v} onChange={() => setQ1(v)}
-              aria-required="true" aria-invalid={!q1}
-            />
-            <span className="opt-label">{t(`questionnaire.q1.options.${v}.label`)}</span>
-            <span className="opt-desc">{t(`questionnaire.q1.options.${v}.description`)}</span>
-          </label>
-        ))}
-      </QuestionCard>
 
       {/* Q6a */}
       <QuestionCard

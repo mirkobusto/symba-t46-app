@@ -52,13 +52,15 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
 
   if (eco && kase.lcc_type && kase.lcc_type !== 'deactivated') {
     const type = kase.lcc_type
-    const why = kase.ilcd_situation === 'ILCD Situation C2'
-      ? t('result.config.why.lccC2')
-      : !env
-        ? t('result.config.why.lccNoLca')
-        : type.includes('S')
-          ? t(kase.policy_objective == null ? 'result.config.why.lccPolicyInferred' : 'result.config.why.lccPolicy')
-          : t('result.config.why.lccNoPolicy')
+    const reasons: string[] = []
+    if (type === 'C-LCC') {
+      reasons.push(t('result.config.why.lccC2'))
+    } else {
+      if (!env) reasons.push(t('result.config.why.lccNoLca'))
+      reasons.push(t(kase.policy_objective == null ? 'result.config.why.lccPolicyInferred'
+        : type.includes('S') ? 'result.config.why.lccPolicy' : 'result.config.why.lccNoPolicy'))
+    }
+    const why = reasons.join('; ')
     rows.push({
       key: 'lcc',
       label: label('lcc'),
@@ -68,23 +70,26 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     })
   }
 
-  if (kase.q3?.soc && kase.slca_activation_state) {
-    rows.push({
-      key: 'slca',
-      label: label('slca'),
-      value: t(`narrative.slca.${kase.slca_activation_state}.short`),
-      nodeText: texts((kase.slca ?? {})['boundary']),
-    })
-  }
+  rows.push({
+    key: 'slca',
+    label: label('slca'),
+    value: kase.q3?.soc && kase.slca_activation_state
+      ? t(`narrative.slca.${kase.slca_activation_state}.short`)
+      : t('result.config.values.slcaOff'),
+    nodeText: texts((kase.slca ?? {})['boundary']),
+  })
 
   if (env || eco) {
     const activated = new Set(kase.activated_nodes ?? [])
     const future = activated.has('lca_mc_21') || activated.has('lcc_hc_23')
-    const threshold = num(kase.advanced?.['future_background_threshold_years']) ?? DEFAULT_THRESHOLD_YEARS
+    const custom = num(kase.advanced?.['future_background_threshold_years'])
+    const threshold = custom != null && custom > 0 ? custom : DEFAULT_THRESHOLD_YEARS
     const lifetime = num(kase.asset_lifetime_years) ?? num(kase.advanced?.['asset_lifetime'])
     const reasons: string[] = []
     if (kase.operating_start === 'future') {
-      reasons.push(t('result.config.why.horizonYear', { year: kase.operating_start_year ?? '—' }))
+      reasons.push(kase.operating_start_year
+        ? t('result.config.why.horizonYear', { year: kase.operating_start_year })
+        : t('result.config.why.horizonFutureYear'))
     }
     if (kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5') reasons.push(t('result.config.why.horizonTrl'))
     const period = num(kase.analysis_period_years)
@@ -98,17 +103,26 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
       key: 'horizon',
       label: label('horizon'),
       value: t(future ? 'result.config.values.horizonFuture' : 'result.config.values.horizonPresent'),
-      why: future ? reasons.join('; ') : t('result.config.why.horizonPresent', { threshold }),
+      why: future ? (reasons.join('; ') || t('result.config.why.horizonFutureGeneric'))
+        : t('result.config.why.horizonPresent', { threshold }),
       nodeText: texts(lca['background_futurisation'], lcc['background_dynamic']),
     })
   }
 
-  if (env && kase.q2) {
+  if (env && kase.ilcd_situation === 'ILCD Situation C2') {
+    rows.push({
+      key: 'reference',
+      label: label('reference'),
+      value: t('result.config.values.reference_c2'),
+      why: t('result.config.why.lccC2'),
+      nodeText: texts(lca['reference_scenario.content']),
+    })
+  } else if (env && kase.q2) {
     const kind = kase.q2 === 'B' ? 'cnsrs' : kase.network_long_standing ? 'modern' : 'hnsrs'
     const scope = kase.reference_market_scope
-      ? t(`questionnaire.q7.market.scope.${kase.reference_market_scope}`)
+      ? t(`result.config.values.scope_${kase.reference_market_scope}`)
       : null
-    const market = [kase.reference_market_region?.trim(), scope ? `(${scope.toLowerCase()})` : null]
+    const market = [kase.reference_market_region?.trim(), scope ? `(${scope})` : null]
       .filter(Boolean).join(' ')
     const value = t(`result.config.values.reference_${kind}`)
     rows.push({
@@ -136,7 +150,7 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
       key: 'regional',
       label: label('regional'),
       value: t(`result.config.values.regional_${kase.q7 ?? 'unset'}`),
-      why: kase.q7 ? `Q7: ${t(`questionnaire.q7.options.${kase.q7}.label`)}` : t('result.config.why.regionalUnset'),
+      why: kase.q7 ? `${t(`questionnaire.q7.options.${kase.q7}.label`)} (Q7)` : t('result.config.why.regionalUnset'),
       nodeText: texts(lca['lcia_method']),
     })
   }
@@ -144,7 +158,10 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
   const chapters = new Map<string, Set<string>>()
   for (const rule of kase.sector_rules ?? []) {
     const flows = chapters.get(rule.chapter) ?? new Set<string>()
-    for (const a of rule.activated_by) if (a.kind === 'flow' && a.name) flows.add(a.name)
+    for (const a of rule.activated_by) {
+      if (a.kind === 'flow' && a.name) flows.add(a.name)
+      else if (a.kind === 'case_sector') flows.add(t('result.sectorRules.byCaseSector'))
+    }
     chapters.set(rule.chapter, flows)
   }
   if (chapters.size > 0) {

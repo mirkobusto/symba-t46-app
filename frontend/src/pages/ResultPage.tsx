@@ -190,6 +190,8 @@ export default function ResultPage() {
   // three things that actually need a decision here.
   const todo = allItems.filter((item) => item.kind !== 'obligation')
   const obligationCount = allItems.length - todo.length
+  // the sector chapters are a row of the configuration: the per-flow note would repeat it
+  const notes = (result.warnings ?? []).filter((w) => !(blockedBy.length === 0 && w.code === 'flow_part2_chapter'))
   const verdict = verdictFor(result, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )
@@ -205,15 +207,15 @@ export default function ResultPage() {
 
       {verdict ? <VerdictDetails verdict={verdict} /> : null}
 
-      <ConfigurationSummary kase={result} />
+      {blockedBy.length === 0 ? <ConfigurationSummary kase={result} /> : null}
 
-      {(result.warnings?.length ?? 0) > 0 ? (
+      {notes.length > 0 ? (
         <section className="result-notes" aria-labelledby="result-notes-title">
           <h2 id="result-notes-title" className="result-notes-title">
             {t('result.notes.title')}
           </h2>
           <ul>
-            {result.warnings!.map((w, i) => (
+            {notes.map((w, i) => (
               <li key={`${w.code}-${i}`}>{translateNote(t, w)}</li>
             ))}
           </ul>

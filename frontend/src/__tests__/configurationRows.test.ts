@@ -24,10 +24,11 @@ describe('configurationRows', () => {
   it('says what the answers decided, with the reason', async () => {
     await i18n.changeLanguage('en')
     const rows = Object.fromEntries(configurationRows(BASE, t).map((r) => [r.key, r]))
-    expect(Object.keys(rows)).toEqual(['lcc', 'horizon', 'reference', 'fu', 'regional', 'shared'])
+    expect(Object.keys(rows)).toEqual(['lcc', 'slca', 'horizon', 'reference', 'fu', 'regional', 'shared'])
+    expect(rows.slca.value).toBe('Not included (Q3)')
     expect(rows.horizon.value).toMatch(/Future background/)
     expect(rows.horizon.why).toMatch(/2028/)
-    expect(rows.reference.value).toMatch(/CNSRS.*market: Italy \(national\)/)
+    expect(rows.reference.value).toMatch(/time horizon \(CNSRS\).*market: Italy \(national\)/)
     expect(rows.reference.nodeText).toEqual(['CNSRS: the business-as-usual (D4.1 §11.1)'])
     expect(rows.fu.value).toMatch(/Input-based/)
   })
@@ -38,6 +39,22 @@ describe('configurationRows', () => {
       lcc_type: 'deactivated', slca_activation_state: 'active', dedicated_shared_assets: false, activated_nodes: [] }, t)
       .map((r) => r.key)
     expect(keys).toEqual(['slca'])
+  })
+})
+
+describe('configurationRows edge cases', () => {
+  it('strict reporting of one company uses no reference scenario for credits', async () => {
+    await i18n.changeLanguage('en')
+    const rows = configurationRows({ ...BASE, ilcd_situation: 'ILCD Situation C2', lcc_type: 'C-LCC' }, t)
+    const reference = rows.find((r) => r.key === 'reference')!
+    expect(reference.value).toMatch(/Not used for credits/)
+    expect(rows.find((r) => r.key === 'lcc')!.why).toMatch(/one company/)
+  })
+
+  it('an unanswered Q10 says the costing was read off Q1', async () => {
+    await i18n.changeLanguage('en')
+    const rows = configurationRows({ ...BASE, policy_objective: null, lcc_type: 'C+E' }, t)
+    expect(rows.find((r) => r.key === 'lcc')!.why).toMatch(/read off Q1/)
   })
 })
 

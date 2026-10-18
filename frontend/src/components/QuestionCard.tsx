@@ -42,14 +42,14 @@ export default function QuestionCard({
   const coded = CODED_TITLE.exec(title)
   return (
     <section className={`qcard${coded ? ' qcard-numbered' : ''}`} aria-labelledby={`${id}-title`}>
-      <h2 id={`${id}-title`} className="qcard-title">
+      <h3 id={`${id}-title`} className="qcard-title">
         {coded ? (
           <>
             <span className="qcard-step" aria-hidden="true" />
             {coded[2]} <code className="qcard-code">{coded[1]}</code>
           </>
         ) : title}
-      </h2>
+      </h3>
       {help ? <p className="qcard-help">{help}</p> : null}
       {guided && plain ? <p className="qcard-plain">{plain}</p> : null}
       {details ? (

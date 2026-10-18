@@ -745,7 +745,6 @@ html {
   word-break: break-word;
 }
 
-.violation-list,
 .cdp-list {
   margin: 0;
   padding: 0;
@@ -754,26 +753,6 @@ html {
   flex-direction: column;
   gap: 8px;
 }
-.violation-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 10px 12px;
-  background: var(--warning-bg);
-  border: 1px solid var(--warning-border);
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--warning-text);
-}
-.violation-id {
-  font-size: 12px;
-  background: var(--surface-input);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid var(--warning-border);
-  flex-shrink: 0;
-}
-
 .cdp-card {
   padding: 12px;
   background: var(--surface-input);
@@ -1506,7 +1485,6 @@ kbd {
   /* Avoid splitting cards across pages where possible */
   .qcard,
   .cdp-card,
-  .violation-card,
   .pillar-config,
   .blocked-banner {
     page-break-inside: avoid;
@@ -4516,7 +4494,6 @@ kbd {
 }
 
 .dd-action-block { border-left-color: var(--dd-danger); }
-.dd-action-violation { border-left-color: var(--dd-amber); }
 .dd-action-decision { border-left-color: var(--dd-brand); }
 
 .dd-action-head {

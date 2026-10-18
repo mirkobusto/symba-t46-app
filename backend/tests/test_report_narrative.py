@@ -79,7 +79,7 @@ def test_obligations_come_from_triggered_rules_not_failed_assertions(wiktor):
     would rest on assertions that compare engine-written prose."""
     codes = {item.code for item in action_items(wiktor) if item.kind == "obligation"}
     assert codes == {r["rule_id"] for r in wiktor.applicable_rules}
-    assert len(codes) > len(wiktor.rule_violations)
+    assert len(codes) > len(wiktor.rule_violations)   # the diagnostics are a subset, never shown
 
 
 # ---------------------------------------------------------------------------

@@ -324,8 +324,9 @@ def test_full_pipeline_consistency(schemas):
     assert isinstance(case.rule_violations, list)
 
 
-def test_violations_carry_the_rule_row_for_the_ui(schemas):
-    """A violation must say why it fired *for this case* and what to fill.
+def test_violations_carry_the_rule_row(schemas):
+    """A violation (an internal diagnostic since R4, shown nowhere) says why it
+    fired *for this case* and what to fill.
 
     The UI turns `trigger` into "why you are seeing this" and `fields`
     into "what to fill in"; without them the reader only gets the

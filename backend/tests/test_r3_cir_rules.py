@@ -85,3 +85,11 @@ def test_obligation_cards_name_only_live_questions():
                 continue
             raw = rule["trigger_condition_raw"]
             assert "R3" not in raw and "was " not in raw and "dropped" not in raw, rule["id"]
+
+
+def test_l3_rules_are_obligations_too():
+    """R4 (2026-10-18): IR-04 and IR-10 used to surface only as violations."""
+    from app.engine.pipeline import run
+    case = run(Case(q1=Q1.B, q3=Q3(env=True, eco=True), decision_context="micro", policy_objective=False))
+    l3 = {r["rule_id"] for r in case.applicable_rules} & {"IR-04", "IR-10"}
+    assert l3, "at least one L3 interpretation rule applies to a two-dimension study"

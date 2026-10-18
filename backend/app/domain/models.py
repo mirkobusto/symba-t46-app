@@ -104,7 +104,7 @@ class Site(BaseModel):
 
 
 class AlternativeScenario(BaseModel):
-    """One alternative scenario. Each holds its own Q1-Q7 overrides
+    """One alternative scenario. Each holds its own questionnaire overrides
     relative to the baseline. v2 §3 dual data model.
     """
 

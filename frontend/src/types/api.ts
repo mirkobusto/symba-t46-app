@@ -163,6 +163,7 @@ export type ComparisonGoal = 'waste_treatment' | 'product_substitution' | 'co_pr
 export interface SectorRule {
   chapter_key: string
   chapter: string
+  // 'case_sector' only in results saved before 2026-10-18: chapters follow the flows since
   activated_by: { kind: 'flow' | 'case_sector'; name?: string }[]
   id: string
   group: string

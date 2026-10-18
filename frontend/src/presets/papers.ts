@@ -1,7 +1,7 @@
 // Preset Case templates for the 13 paper fixtures.
 //
 // Mirrors backend/scripts/generate_validation_reports.py:PAPERS in
-// terms of Q1-Q7 + flows. Used by PresetLoader on HomePage to seed
+// terms of the questionnaire answers + flows. Used by PresetLoader on HomePage to seed
 // the case draft with a known-good configuration so the user can
 // inspect / tweak / run the pipeline against a real published case
 // instead of starting from a blank form.

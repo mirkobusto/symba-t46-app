@@ -176,7 +176,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         "derived from the questionnaire answers.)"
     )
 
-    # ----- Section 4 — Q1-Q7 compilation -----
+    # ----- Section 4 — compilation of the questionnaire answers -----
     doc.add_heading("4. Compilation of the questionnaire answers", level=1)
     if case.study_purpose is not None:
         _add_kv(doc, "Q0 study purpose (D4.1 §4.3.2)", case.study_purpose.value)

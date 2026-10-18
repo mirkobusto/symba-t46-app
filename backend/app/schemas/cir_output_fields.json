@@ -113,7 +113,7 @@
       "type": "array",
       "set_by_cir": "CIR-06, CIR-08",
       "default_value_when_set": "adapted_set",
-      "trigger_summary": "frontier_categories_active OR (Q1 in {B,C} AND IS-specific capital goods AND Q3.SOC active)",
+      "trigger_summary": "Q12 dedicated shared assets AND Q3.SOC active (CIR-08; CIR-06 retired in R3, 2026-10-18)",
       "notes": "S-LCA indicators set adapted to: (1) sector frontier categories via CIR-06; (2) shared CAPEX stakeholder-group indicators via CIR-08."
     },
     {

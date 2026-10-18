@@ -10,7 +10,7 @@
 //      every flow the analyst declared in Q5 gets a row, keyed by the
 //      case flow id (idempotent re-seeding).
 //   2. **Staying legal** — values may only be written for fields the
-//      configuration activated. Editing Q1-Q7 can deactivate a field under
+//      configuration activated. Editing the answers can deactivate a field under
 //      content already drawn, so `syncWithPayload` prunes what the
 //      backend would now reject with a 422.
 //   3. **Sync** — load / save against the server, keeping `dirty` so the

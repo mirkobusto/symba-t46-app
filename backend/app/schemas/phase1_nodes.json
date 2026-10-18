@@ -270,7 +270,7 @@
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01463 ('Score every flow that enters the model on the five Pedigree indicators'). Divergence of 2026-10-04 declared in the value. CIR-02 (Q2 in {B,C,D}) writes lca.uncertainty.pedigree = True after this node."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01463 ('Score every flow that enters the model on the five Pedigree indicators'). Divergence of 2026-10-04 declared in the value. CIR-02 (Q2=B since 2026-10-18) writes lca.uncertainty.pedigree only where no node did, so it no longer overwrites this value (R3, 2026-10-18)."
     },
     {
       "id": "lca_hc_14",

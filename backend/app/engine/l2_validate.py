@@ -38,11 +38,10 @@ Conventions established in earlier commits and reused here:
     documentation; the typed Python predicates / assertion functions /
     action functions below are the source of truth (same convention
     as l0_compute / l1_blocks / activate).
-  - Defensive `getattr` for `case.X` references not yet on the Case
-    model (`transport_sensitive`, `network_nodes`,
-    `interdependent_flows`, `frontier_categories_active`,
-    `multi_actor`): treated as falsy
-    defaults so the rule stays inert until the field arrives.
+  - Every trigger reads an answer the Case has (R3, 2026-10-18, closing
+    I-17): the rules that read attributes the case never had were rewired
+    on a question (IR-13, B-06, CIR-08 on Q12; FU-02 on Q11) or retired
+    (CIR-03, CIR-04, CIR-06).
 
 Policy decisions for this commit (see CLAUDE.md commit-5 plan):
 
@@ -84,11 +83,6 @@ def _q3_dims_active(case: Case) -> int:
 
 def _q4_intersects(case: Case, members: set[str]) -> bool:
     return any(q.value in members for q in case.q4)
-
-
-def _attr(case: Case, name: str, default: Any = None) -> Any:
-    """Defensive getattr for fields not yet on the Case model."""
-    return getattr(case, name, default)
 
 
 def _get(case: Case, dotted: str) -> Any:
@@ -156,8 +150,6 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     # --- CIR (10) ---
     "CIR-01": needs_future_background,
     "CIR-02": lambda c: c.q2 == Q2.B,
-    # Q7 left on 2026-10-18 (it is the concentration of interactions, not transport);
-    # transport_sensitive is not a Case attribute yet (I-17): R3 decides the wiring
     # CIR-03 and CIR-04 retired in R3 (2026-10-18): they read attributes the case
     # never had (I-17), and the nodes cover them for every case: explicit transport
     # with GIS or routing for every exchange (lca_mc_16, lca_mc_29, lca_hc_21);

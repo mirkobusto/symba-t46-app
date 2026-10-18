@@ -96,13 +96,6 @@ const it: Locale = {
     aboutLink: 'Scopri SYMBA',
     eyebrow: 'Report condiviso · {{name}}',
     summaryTitle: 'Riassunto della configurazione',
-    summary: {
-      ilcd: 'Situazione ILCD',
-      lcc: 'Tipo LCC',
-      slca: 'Stato S-LCA',
-      sector: 'Settore',
-      scope: 'Concentrazione delle interazioni',
-    },
     scoringTitle: 'Scoring',
     complianceTitle: 'Segnali di compliance',
     compliance: {
@@ -793,7 +786,7 @@ const it: Locale = {
         scope_continental: 'continentale',
         scope_sub_national: 'sub-nazionale',
         scope_national: 'nazionale',
-        slcaOff: 'Non inclusa (Q3)',
+        slcaOff: 'Non inclusa',
         reference_c2: 'Non usato per crediti: allocazione, niente sostituzione',
         horizonFuture: 'Background futuro (scenari SSP/RCP)',
         horizonPresent: 'Background attuale',
@@ -812,6 +805,7 @@ const it: Locale = {
         shared: 'CAPEX e OPEX nel prospetto dei costi, ripartiti fra i partner che li usano',
       },
       why: {
+        slcaOff: 'la dimensione sociale non è selezionata (Q3)',
         claim: 'i risultati sosterranno una dichiarazione pubblica di superiorità o equivalenza (Q4 = C)',
         horizonFutureGeneric: 'l\'orizzonte dello studio arriva nel futuro',
         horizonFutureYear: 'il sistema opera in un anno futuro',
@@ -1105,6 +1099,7 @@ const it: Locale = {
     },
     noVerdict: "Nessuna configurazione ancora derivata per questo caso.",
     notAssessed: {
+      environmental: 'Questo studio non valuta gli impatti ambientali: la dimensione ambientale è stata esclusa quando il caso è stato impostato.',
       social: "Questo studio non valuta gli impatti sociali: la dimensione sociale è stata disattivata alla configurazione del caso. Chiedi all'analista di attivarla se lavoratori o comunità locale fanno parte della domanda.",
       economic: "Questo studio non valuta i costi: la dimensione economica è stata disattivata alla configurazione del caso.",
     },

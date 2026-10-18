@@ -57,13 +57,6 @@ const en = {
     aboutLink: 'Learn about SYMBA',
     eyebrow: 'Shared report · {{name}}',
     summaryTitle: 'Configuration summary',
-    summary: {
-      ilcd: 'ILCD situation',
-      lcc: 'LCC type',
-      slca: 'S-LCA state',
-      sector: 'Sector',
-      scope: 'Concentration of the interactions',
-    },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance signals',
     compliance: {
@@ -815,7 +808,7 @@ const en = {
         scope_continental: 'continental',
         scope_sub_national: 'sub-national',
         scope_national: 'national',
-        slcaOff: 'Not included (Q3)',
+        slcaOff: 'Not included',
         reference_c2: 'Not used for credits: allocation, no substitution',
         horizonFuture: 'Future background (SSP/RCP scenarios)',
         horizonPresent: 'Present-day background',
@@ -834,6 +827,7 @@ const en = {
         shared: 'Their CAPEX and OPEX in the cost breakdown, shared among the partners that use them',
       },
       why: {
+        slcaOff: 'the social dimension is not selected (Q3)',
         claim: 'the results will support a public claim of superiority or equivalence (Q4 = C)',
         horizonFutureGeneric: 'the study horizon reaches the future',
         horizonFutureYear: 'the system operates in a future year',
@@ -1126,6 +1120,7 @@ const en = {
     },
     noVerdict: "No configuration derived yet for this case.",
     notAssessed: {
+      environmental: 'This study does not assess environmental impacts: the environmental dimension was switched off when the case was set up.',
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
       economic: "This study does not assess costs: the economic dimension was switched off when the case was set up.",
     },

@@ -87,7 +87,6 @@ const de: Locale = {
     aboutLink: 'SYMBA kennenlernen',
     eyebrow: 'Geteilter Bericht · {{name}}',
     summaryTitle: 'Konfigurationsübersicht',
-    summary: { ilcd: 'ILCD-Situation', lcc: 'LCC-Typ', slca: 'S-LCA-Status', sector: 'Sektor', scope: 'Konzentration der Wechselwirkungen' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance-Signale',
     compliance: {
@@ -761,7 +760,7 @@ const de: Locale = {
         scope_continental: 'kontinental',
         scope_sub_national: 'subnational',
         scope_national: 'national',
-        slcaOff: 'Nicht enthalten (Q3)',
+        slcaOff: 'Nicht enthalten',
         reference_c2: 'Nicht für Gutschriften genutzt: Allokation, keine Substitution',
         horizonFuture: 'Zukünftiger Hintergrund (SSP/RCP-Szenarien)',
         horizonPresent: 'Heutiger Hintergrund',
@@ -780,6 +779,7 @@ const de: Locale = {
         shared: 'Ihre CAPEX und OPEX in der Kostenaufstellung, aufgeteilt auf die nutzenden Partner',
       },
       why: {
+        slcaOff: 'die soziale Dimension ist nicht ausgewählt (Q3)',
         claim: 'die Ergebnisse sollen eine öffentliche Aussage über Überlegenheit oder Gleichwertigkeit stützen (Q4 = C)',
         horizonFutureGeneric: 'der Studienhorizont reicht in die Zukunft',
         horizonFutureYear: 'das System wird in einem zukünftigen Jahr betrieben',
@@ -1073,6 +1073,7 @@ const de: Locale = {
     },
     noVerdict: "Für diesen Fall wurde noch keine Konfiguration abgeleitet.",
     notAssessed: {
+      environmental: 'Diese Studie bewertet keine Umweltwirkungen: Die Umweltdimension wurde beim Anlegen des Falls ausgeschaltet.',
       social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",
       economic: "Diese Studie bewertet keine Kosten: die ökonomische Dimension wurde bei der Fallkonfiguration deaktiviert.",
     },

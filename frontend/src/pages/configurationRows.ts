@@ -76,6 +76,7 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     value: kase.q3?.soc && kase.slca_activation_state
       ? t(`narrative.slca.${kase.slca_activation_state}.short`)
       : t('result.config.values.slcaOff'),
+    why: kase.q3?.soc ? undefined : t('result.config.why.slcaOff'),
     nodeText: texts((kase.slca ?? {})['boundary']),
   })
 
@@ -155,14 +156,15 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     })
   }
 
-  if (env) {
+  if (kase.q4 !== undefined) {
+    // not gated on the LCA: lca_mc_36 and IR-18 follow Q4 alone
     const claim = (kase.q4 ?? []).includes('C')
     rows.push({
       key: 'claim',
       label: label('claim'),
       value: t(claim ? 'result.config.values.claim' : 'result.config.values.claimNone'),
       why: claim ? t('result.config.why.claim') : undefined,
-      nodeText: claim ? texts((kase.review ?? {})['scope']) : [],
+      nodeText: claim ? texts((kase.review ?? {})['scope'], lca['weighting_policy']) : [],
     })
   }
 
@@ -225,7 +227,6 @@ export function obligationGroups(rules: ApplicableRule[]): ObligationGroup[] {
 export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end-user', string[]> = {
   industry: ['lcc', 'shared', 'horizon', 'reference'],
   community: ['regional', 'slca', 'sectors'],
-  authority: ['lcc', 'reference', 'claim', 'horizon'],
-  'end-user': ['fu', 'claim'],
+  authority: ['lcc', 'reference', 'claim', 'horizon', 'slca'],
+  'end-user': ['fu', 'claim', 'slca'],
 }
-

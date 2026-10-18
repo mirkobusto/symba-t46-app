@@ -26,7 +26,8 @@ describe('configurationRows', () => {
     const rows = Object.fromEntries(configurationRows(BASE, t).map((r) => [r.key, r]))
     expect(Object.keys(rows)).toEqual(['lcc', 'slca', 'horizon', 'reference', 'fu', 'regional', 'claim', 'shared'])
     expect(rows.claim.value).toBe('No public comparative claim')
-    expect(rows.slca.value).toBe('Not included (Q3)')
+    expect(rows.slca.value).toBe('Not included')
+    expect(rows.slca.why).toMatch(/Q3/)
     expect(rows.horizon.value).toMatch(/Future background/)
     expect(rows.horizon.why).toMatch(/2028/)
     expect(rows.reference.value).toMatch(/time horizon \(CNSRS\).*market: Italy \(national\)/)
@@ -39,7 +40,7 @@ describe('configurationRows', () => {
     const keys = configurationRows({ ...BASE, q3: { env: false, eco: false, soc: true },
       lcc_type: 'deactivated', slca_activation_state: 'active', dedicated_shared_assets: false, activated_nodes: [] }, t)
       .map((r) => r.key)
-    expect(keys).toEqual(['slca'])
+    expect(keys).toEqual(['slca', 'claim'])   // the public claim follows Q4 alone (lca_mc_36, IR-18)
   })
 })
 

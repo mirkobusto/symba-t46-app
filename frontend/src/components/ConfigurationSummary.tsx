@@ -14,16 +14,25 @@ interface Props {
   /** The engine text in English, for the analyst; off in the audience views. */
   showNodeText?: boolean
   title?: string
+  /** The reasons cite the questions (Q10, Q7…): analyst register, off for the public. */
+  showWhy?: boolean
+  headingLevel?: 'h2' | 'h3' | 'h4'
+  titleClassName?: string
 }
 
-export default function ConfigurationSummary({ kase, only, showNodeText = true, title }: Props) {
+export default function ConfigurationSummary({
+  kase, only, showNodeText = true, title, showWhy = true, headingLevel = 'h2', titleClassName,
+}: Props) {
   const { t } = useTranslation()
   const all = configurationRows(kase, (key, options) => t(key, options ?? {}) as string)
   const rows = only ? only.map((k) => all.find((r) => r.key === k)).filter((r) => r !== undefined) : all
   if (rows.length === 0) return null
+  const Heading = headingLevel
   return (
     <section className="result-config" aria-labelledby="result-config-title">
-      <h2 id="result-config-title" className="result-config-title">{title ?? t('result.config.title')}</h2>
+      <Heading id="result-config-title" className={titleClassName ?? 'result-config-title'}>
+        {title ?? t('result.config.title')}
+      </Heading>
       {only ? null : <p className="result-config-lead">{t('result.config.lead')}</p>}
       <dl className="result-config-list">
         {rows.map((row) => (
@@ -31,7 +40,7 @@ export default function ConfigurationSummary({ kase, only, showNodeText = true, 
             <dt>{row.label}</dt>
             <dd>
               <span className="result-config-value">{row.value}</span>
-              {row.why ? (
+              {showWhy && row.why ? (
                 <span className="result-config-why">
                   <span className="result-config-why-label">{t('result.config.why.label')}</span> {row.why}
                 </span>

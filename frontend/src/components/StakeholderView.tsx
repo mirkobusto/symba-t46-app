@@ -88,8 +88,10 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
   )
   const axes = AXIS_FILTER[stakeholderType]
   // "Not assessed" is news for the audience that came for that dimension.
-  const socialOff =
-    axes.includes('slca') && caseData.slca_activation_state === 'deactivated'
+  // the slca row says it where the audience has it; the paragraph is for the others
+  const socialOff = axes.includes('slca') && caseData.slca_activation_state === 'deactivated'
+    && !AUDIENCE_ROWS[stakeholderType].includes('slca')
+  const environmentalOff = !caseData.q3?.env
   const economicOff =
     axes.includes('lcc') && caseData.lcc_type === 'deactivated'
 
@@ -116,6 +118,8 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
                 kase={caseData}
                 only={AUDIENCE_ROWS[stakeholderType]}
                 showNodeText={false}
+                showWhy={false}
+                headingLevel="h4"
                 title={t('stakeholder.configTitle')}
               />
             ) : null}
@@ -124,6 +128,11 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
           <p className="muted">{t('stakeholder.noVerdict')}</p>
         )}
 
+        {environmentalOff ? (
+          <p className="stakeholder-not-assessed">
+            {t('stakeholder.notAssessed.environmental')}
+          </p>
+        ) : null}
         {socialOff ? (
           <p className="stakeholder-not-assessed">
             {t('stakeholder.notAssessed.social')}

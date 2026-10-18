@@ -4,7 +4,7 @@
 // /api/public/report/:caseId (no auth). Renders:
 //   - VerdictCard (reader variant, light)
 //   - Audience framing block
-//   - Configuration summary (dl)
+//   - Configuration rows for the audience (ConfigurationSummary)
 //   - Scoring grid (env/eco/soc) or pending placeholder
 //   - Compliance checklist (only for `authority`)
 //
@@ -121,9 +121,13 @@ export default function PublicReportPage() {
           kase={c}
           only={AUDIENCE_ROWS[validAudience === 'enduser' ? 'end-user' : validAudience]}
           showNodeText={false}
+          showWhy={false}
+          titleClassName="dd-section-title"
           title={t('reader.summaryTitle')}
         />
       ) : null}
+      {!c.q3?.env ? <p className="dd-soft">{t('stakeholder.notAssessed.environmental')}</p> : null}
+      {!c.q3?.eco ? <p className="dd-soft">{t('stakeholder.notAssessed.economic')}</p> : null}
 
       <section>
         <h2 className="dd-section-title">{t('reader.scoringTitle')}</h2>

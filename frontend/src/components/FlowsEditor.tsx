@@ -175,6 +175,8 @@ export default function FlowsEditor({ flows, onChange }: Props) {
         </table>
       )}
 
+      {flows.length > 0 ? <p className="flows-q5-note">{t('flows.sectorHint')}</p> : null}
+
       <button type="button" className="btn btn-secondary" onClick={addFlow}>
         <Plus size={16} />
         {t('flows.addButton')}

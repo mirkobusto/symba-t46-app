@@ -621,7 +621,7 @@ const en = {
     headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
     sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
     sellableHint: 'If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product, no makes it a waste whatever the agreed price (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.',
-    sectorHint: 'What the flow is, if it falls in one of the sectors with their own rules in D4.1 Part 2. Optional: the result names the chapter to follow.',
+    sectorHint: "Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues → Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste) → Waste valorisation (§8); sludge and treated wastewater, also when reused as water → Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) → the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter.",
     sectorNone: '— none of these',
     configurationHint: "The typical configuration of the flow within its Part 2 chapter (D4.1 Part 2 §4.1-§8.1): the result names the conventional product it substitutes. Pick the sector first.",
     configurationNone: "— not answered",

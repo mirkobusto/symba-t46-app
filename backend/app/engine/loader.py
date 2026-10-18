@@ -190,6 +190,13 @@ def _check_overlays(doc: dict[str, Any], sector_ids: set[str]) -> None:
             if rule["id"] in seen_rules:
                 raise SchemaLoadError(f"sector_overlays.json: duplicate rule id {rule['id']!r}")
             seen_rules.add(rule["id"])
+        for cfg in chapter.get("configurations", []):
+            missing = {"id", "label", "substitutes", "source", "lines"} - set(cfg)
+            if missing:
+                raise SchemaLoadError(f"sector_overlays.json: configuration {cfg.get('id')!r} lacks {sorted(missing)}")
+            if cfg["id"] in seen_rules:
+                raise SchemaLoadError(f"sector_overlays.json: duplicate id {cfg['id']!r}")
+            seen_rules.add(cfg["id"])
 
 
 def _index_sectors(doc: dict[str, Any]) -> dict[str, dict[str, Any]]:

@@ -19,16 +19,25 @@ from app.engine.branch_keys import Answers, parse_branch_key
 from app.engine.loader import LoadedSchemas
 
 
+def _configurations(overlays: dict[str, Any]) -> dict[str, tuple[str, dict[str, Any]]]:
+    """Configuration id -> (chapter key, configuration)."""
+    return {cfg["id"]: (key, cfg) for key, chapter in overlays.items()
+            for cfg in chapter.get("configurations", [])}
+
+
 def chapters_for(case: Case, overlays: dict[str, Any]) -> dict[str, list[dict[str, str]]]:
     """Active chapter keys, in the order of the deliverable, each with what
-    activated it: the flows that declare it and/or the case sector."""
+    activated it: the flows that declare it (by sector or configuration) and/or
+    the case sector."""
     sector_to_chapter = {
         sector: key for key, chapter in overlays.items() for sector in chapter["q6a"]
     }
+    configurations = _configurations(overlays)
     reasons: dict[str, list[dict[str, str]]] = {}
     for flow in case.flows:
-        key = sector_to_chapter.get(flow.sector.value) if flow.sector else None
-        if key:
+        keys = {sector_to_chapter.get(flow.sector.value) if flow.sector else None,
+                configurations.get(flow.configuration, (None, None))[0]} - {None}
+        for key in sorted(keys):
             reasons.setdefault(key, []).append({"kind": "flow", "name": flow.name})
     key = sector_to_chapter.get(case.q6a.value) if case.q6a else None
     if key:
@@ -47,16 +56,57 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         key = rule.get("when_key")
         return not key or parse_branch_key(key).matches(answers)
 
+    configurations = _configurations(overlays)
+    c2 = case.ilcd_situation is not None and case.ilcd_situation.value == "ILCD Situation C2"
+    sector_to_chapter = {s: k for k, ch in overlays.items() for s in ch["q6a"]}
+
+    def flow_lines(key: str) -> list[dict[str, Any]]:
+        """One line per flow that declares a configuration of this chapter: the
+        conventional product it substitutes (§4.1-§8.1)."""
+        out = []
+        for flow in case.flows:
+            chapter_key, cfg = configurations.get(flow.configuration, (None, None))
+            if chapter_key != key:
+                continue
+            out.append({
+                "chapter_key": key, "chapter": overlays[key]["chapter"],
+                "activated_by": [{"kind": "flow", "name": flow.name}],
+                "id": f"{cfg['id']}:{flow.id}", "group": "configuration", "strength": "descriptive",
+                "applies_when": None,
+                "statement": (f"Flow \u201c{flow.name}\u201d \u2014 {cfg['label']}: the conventional product it "
+                              f"substitutes is {cfg['substitutes']}."),
+                "source": cfg["source"], "lines": cfg["lines"],
+                "note": ("Situation C2: no substitution credit is applied (D4.1 §7.2.3); the product only "
+                         "describes the configuration." if c2 else None),
+            })
+        return out
+
     case.sector_rules = [
-        {
-            "chapter_key": key,
-            "chapter": overlays[key]["chapter"],
-            "activated_by": reasons,
-            **{f: rule.get(f) for f in
-               ("id", "group", "strength", "applies_when", "statement", "source", "lines", "note")},
-        }
+        line
         for key, reasons in chapters_for(case, overlays).items()
-        for rule in overlays[key]["rules"]
-        if applies(rule)
+        for line in flow_lines(key) + [
+            {
+                "chapter_key": key,
+                "chapter": overlays[key]["chapter"],
+                "activated_by": reasons,
+                **{f: rule.get(f) for f in
+                   ("id", "group", "strength", "applies_when", "statement", "source", "lines", "note")},
+            }
+            for rule in overlays[key]["rules"] if applies(rule)
+        ]
     ]
+
+    for flow in case.flows:
+        if not flow.configuration:
+            continue
+        if flow.configuration not in configurations:
+            case.warnings.append({"code": "flow_configuration_unknown", "message": (
+                f"Flow '{flow.name}': configuration '{flow.configuration}' is not one of D4.1 Part 2.")})
+            continue
+        declared = sector_to_chapter.get(flow.sector.value) if flow.sector else None
+        chapter_key = configurations[flow.configuration][0]
+        if declared and declared != chapter_key:
+            case.warnings.append({"code": "flow_configuration_other_chapter", "message": (
+                f"Flow '{flow.name}': its configuration belongs to {overlays[chapter_key]['chapter']}, "
+                f"not to the declared {overlays[declared]['chapter']}; the rules of both chapters are listed.")})
     return case

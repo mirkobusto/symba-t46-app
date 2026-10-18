@@ -495,22 +495,28 @@ const it: Locale = {
     },
 
     q7: {
-      title: 'Q7 — Distribuzione geografica',
-      help: 'Disposizione qualitativa della rete. Il trasporto è modellato in modo esplicito qualunque sia la risposta; la distanza di break-even dipende dal tipo di flusso e viene chiesta per ogni flusso nel Data Collection File, dove annoti quella che hai ricavato dalla tua analisi di sensibilità (Logistica).',
+      title: 'Q7 — Quanto sono concentrate le interazioni chiave?',
+      help: 'Decide come si regionalizza la valutazione degli impatti. Il trasporto si modella in modo esplicito per ogni scambio, qualunque sia la risposta; la distanza di pareggio si chiede per ogni flusso nel Data Collection File.',
       details:
-        'La risposta cambia come si chiedono i dati logistici (accoppiamento GIS, sensibilità spaziale), non se il trasporto viene modellato: D4.1 §12.3.1 richiede che ogni collegamento di trasporto sia un processo unitario distinto del foreground, con dati primari su distanza, percorso e modo, e un\'analisi di sensibilità sulla distanza per trovare il punto di break-even. Dietro le quattro opzioni non c\'è nessuna soglia di distanza: il break-even dipende dal tipo di flusso e dall\'alternativa che sostituisce (D4.1 §12.2.1 e D4.2 danno intervalli indicativi, per verificare la plausibilità di un modello, mai come input); ogni studio calcola il proprio, flusso per flusso. ' +
-        'A — co-locata: un solo sito o impianti adiacenti (parco eco-industriale). I collegamenti sono brevi (tubazione, nastro, movimentazione interna) ma comunque modellati; per calore, vapore e acqua in tubazione di solito domina l\'infrastruttura dedicata. ' +
-        'B — cluster regionale: più siti nella stessa regione (tipico Sokka 2011 / Hashimoto). ' +
-        'C — area vasta: tra regioni o transfrontaliera; modo di trasporto e percorsi diventano voci importanti dell\'inventario e dei costi. ' +
-        'D — multi-scala: programmi nazionali o di settore (tipicamente studi di policy con Q1=C). Da B a D si attiva CIR-03 (accoppiamento GIS); da C a D anche lca_mc_29 e il ramo GIS di lcc_mc_14.',
+        'D4.1 §12.2.3: un fattore di caratterizzazione medio globale o nazionale non coglie il significato di un sistema le cui interazioni chiave sono intensamente locali (es. una sinergia di condivisione dell\'acqua in una regione arida). A — un sito o impianti adiacenti: fattori specifici per il luogo per scarsità idrica, eutrofizzazione e acidificazione, e il disallineamento di scala segnalato dove fattori regionali si applicano a livello di sito (§12.3.3). B — dentro una regione: fattori regionalizzati, es. i fattori per paese di Seppälä / Posch per un cluster regionale (§12.3.3). C — fra regioni o oltre confine: fattori spazialmente espliciti nel luogo di ogni emissione. Il trasporto non dipende mai da questa risposta: ogni collegamento è un processo unitario distinto del foreground con dati primari, e GIS o strumenti di calcolo dei percorsi sono raccomandati per ogni scambio (§12.3.1). La seconda parte chiede il mercato da cui vengono i prodotti sostituiti: su di esso si risolvono i mix del background e lo scenario di riferimento, di regola nazionale o sub-nazionale, continentale solo per merci scambiate su scala globale senza un mercato sub-continentale (§11.3.1).',
       options: {
-        A: { label: 'A. Co-locati', description: 'Un solo sito o impianti adiacenti (parco eco-industriale).' },
-        B: { label: 'B. Regionale', description: 'Più siti nella stessa regione.' },
-        C: { label: 'C. Area ampia', description: 'Tra regioni o transfrontaliera.' },
-        D: { label: 'D. Multi-scala', description: 'Nazionale / industria-wide, distanze variabili.' },
+        A: { label: 'A. Un sito', description: 'Un sito o impianti adiacenti: le interazioni sono intensamente locali.' },
+        B: { label: 'B. Regionale', description: 'Più siti dentro una regione.' },
+        C: { label: 'C. Fra regioni', description: 'Siti fra regioni o oltre confine.' },
+      },
+      market: {
+        label: 'Mercato di riferimento: da dove verrebbero i prodotti sostituiti?',
+        help: 'Il mercato da cui attingerebbe il controfattuale, non il mercato dei prodotti della simbiosi. Facoltativo.',
+        region: 'Paese o regione',
+        regionPlaceholder: 'es. Italia, Catalogna, UE',
+        scope: {
+          national: 'Nazionale',
+          sub_national: 'Sub-nazionale (una regione dentro un paese)',
+          continental: 'Continentale (solo per merci scambiate in tutto il mondo)',
+        },
       },
       plain:
-        "Come sono disposti i siti: un unico sito, più siti nella stessa regione, siti fra regioni o oltre confine, o un programma nazionale o di settore. Il trasporto si conta qualunque cosa rispondi; la risposta cambia solo quanto dettaglio ti verrà chiesto su percorsi e modalità. Dietro le quattro opzioni non c'è nessuna soglia di distanza: ogni flusso ha la sua distanza di convenienza, e il file di raccolta dati te la chiede, flusso per flusso, dalla tua analisi di sensibilità.",
+        'Quanto sono vicine le interazioni chiave fra le aziende: su un sito, dentro una regione, o fra regioni o oltre confine. Decide quanto localmente si valutano gli impatti ambientali: l\'inquinamento dell\'acqua o dell\'aria accanto a un sito pesa diversamente dalla stessa quantità sparsa in un paese. Il trasporto si conta comunque. Poi di\' da dove verrebbero altrimenti i prodotti che la simbiosi sostituisce: un paese, una regione o, per le merci scambiate in tutto il mondo, un continente.',
     },
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',

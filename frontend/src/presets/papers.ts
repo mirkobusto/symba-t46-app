@@ -70,7 +70,7 @@ export const PRESETS: Preset[] = [
     case: {
       q1: 'C', decision_context: 'structural', q2: 'B', q3: { env: true, eco: false, soc: false },
       q4: ['D', 'E'],
-      flows: flows('e'), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'D',
+      flows: flows('e'), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'C',
     },
   },
   {

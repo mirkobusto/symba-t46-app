@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useCaseStore, withCurrentQ2 } from '../store/caseStore'
+import { useCaseStore, withCurrentAnswers } from '../store/caseStore'
 import type { Case } from '../types/api'
 
 const okResponse = (body: unknown) =>
@@ -42,8 +42,9 @@ describe('caseStore', () => {
       useCaseStore.getState().setDraft({ q1: 'B', q2: old } as unknown as Case)
       expect(useCaseStore.getState().draft.q2).toBe('B')
     }
-    expect(withCurrentQ2({ q2: 'A' })).toEqual({ q2: 'A' })
-    expect(withCurrentQ2(null)).toBeNull()
+    expect(withCurrentAnswers({ q2: 'A' })).toEqual({ q2: 'A' })
+    expect(withCurrentAnswers({ q7: 'D' })).toEqual({ q7: 'C' })
+    expect(withCurrentAnswers(null)).toBeNull()
   })
 
   it('runDraft populates result on success', async () => {

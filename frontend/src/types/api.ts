@@ -35,7 +35,11 @@ export type Q6a =
   | 'agri_food'
   | 'process_industry'
 export type Q6b = 'TRL9' | 'TRL7-8' | 'TRL5-6' | 'TRL<5'
-export type Q7 = 'A' | 'B' | 'C' | 'D'
+// Q7: how concentrated the key interactions are (one site / regional / across
+// regions). The former D loads as C (2026-10-18).
+export type Q7 = 'A' | 'B' | 'C'
+// Q7b: scope of the market the reference (displaced) products come from (D4.1 §11.3.1)
+export type ReferenceMarketScope = 'national' | 'sub_national' | 'continental'
 
 export type IlcdSituation =
   | 'ILCD Situation A'
@@ -226,6 +230,9 @@ export interface Case {
   // null/absent = read off Q1, with a note (old cases).
   policy_objective?: boolean | null
   comparison_goal?: ComparisonGoal | null
+  /** Q7b: name and scope of the reference market (not the market of the symbiosis products). */
+  reference_market_region?: string | null
+  reference_market_scope?: ReferenceMarketScope | null
 
   flows?: Flow[]
   sites?: Site[]

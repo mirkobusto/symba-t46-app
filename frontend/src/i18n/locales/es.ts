@@ -463,22 +463,28 @@ const es: Locale = {
     },
 
     q7: {
-      title: 'Q7 — Distribución geográfica',
-      help: 'Disposición cualitativa de la red. El transporte se modela explícitamente respondas lo que respondas; la distancia de equilibrio depende del tipo de flujo y se te pide para cada flujo en el Data Collection File (Logística), donde registras la que haya dado tu propio análisis de sensibilidad.',
+      title: 'Q7 — ¿Qué tan concentradas están las interacciones clave?',
+      help: 'Fija cómo se regionaliza la evaluación de impactos. El transporte se modela de forma explícita para cada intercambio, sea cual sea la respuesta; la distancia de equilibrio se pide para cada flujo en el Data Collection File.',
       details:
-        'La respuesta cambia cómo se piden los datos logísticos (acoplamiento SIG, sensibilidad espacial), no si se modela el transporte: D4.1 §12.3.1 exige que cada enlace de transporte sea un proceso unitario distinto del primer plano, con datos primarios de distancia, ruta y modo, y un análisis de sensibilidad de la distancia para hallar el punto de equilibrio. Detrás de las cuatro opciones no hay ningún umbral de distancia: el punto de equilibrio depende del tipo de flujo y de la alternativa que desplaza (D4.1 §12.2.1 y D4.2 dan rangos indicativos, para comprobar la verosimilitud de un modelo, nunca como entradas); cada estudio calcula el suyo, flujo a flujo. ' +
-        'A — colocalizada: un solo emplazamiento o plantas contiguas (parque ecoindustrial). Los enlaces son cortos (tubería, cinta, manipulación interna) pero se modelan; para calor, vapor y agua en tubería suele dominar la infraestructura dedicada. ' +
-        'B — clúster regional: varios emplazamientos de la misma región (típico Sokka 2011 / Hashimoto). ' +
-        'C — área amplia: interregional o transfronteriza; el modo de transporte y las rutas pasan a ser partidas importantes del inventario y de los costes. ' +
-        'D — multiescala: programas nacionales o sectoriales (típicamente estudios de política con Q1=C). De B a D se activa CIR-03 (acoplamiento SIG); de C a D también lca_mc_29 y la rama SIG de lcc_mc_14.',
+        'D4.1 §12.2.3: un factor de caracterización medio global o nacional no capta la relevancia de un sistema cuyas interacciones clave son intensamente locales (p. ej. una sinergia de uso compartido del agua en una región árida). A — un emplazamiento o plantas contiguas: factores específicos del lugar para escasez de agua, eutrofización y acidificación, y el desajuste de escala señalado donde se aplican factores regionales a nivel de emplazamiento (§12.3.3). B — dentro de una región: factores regionalizados, p. ej. los factores por país de Seppälä / Posch para un clúster regional (§12.3.3). C — entre regiones o más allá de las fronteras: factores espacialmente explícitos en el lugar de cada emisión. El transporte nunca depende de esta respuesta: cada enlace es un proceso unitario distinto del primer plano con datos primarios, y se recomienda SIG o cálculo de rutas para cada intercambio (§12.3.1). La segunda parte pregunta el mercado del que vienen los productos sustituidos: los mix de fondo y el escenario de referencia se resuelven sobre él, por regla nacional o subnacional, continental solo para bienes comercializados a escala mundial sin mercado subcontinental (§11.3.1).',
       options: {
-        A: { label: 'A. Co-localizados', description: 'Un solo emplazamiento o plantas contiguas (parque ecoindustrial).' },
-        B: { label: 'B. Regional', description: 'Varios emplazamientos de la misma región.' },
-        C: { label: 'C. Área amplia', description: 'Interregional o transfronteriza.' },
-        D: { label: 'D. Multi-escala', description: 'Nacional / industria-wide, distancias variables.' },
+        A: { label: 'A. Un emplazamiento', description: 'Un emplazamiento o plantas contiguas: las interacciones son intensamente locales.' },
+        B: { label: 'B. Regional', description: 'Varios emplazamientos dentro de una región.' },
+        C: { label: 'C. Entre regiones', description: 'Emplazamientos entre regiones o más allá de las fronteras.' },
+      },
+      market: {
+        label: 'Mercado de referencia: ¿de dónde vendrían los productos sustituidos?',
+        help: 'El mercado del que tomaría el contrafactual, no el mercado de los productos de la simbiosis. Opcional.',
+        region: 'País o región',
+        regionPlaceholder: 'p. ej. Italia, Cataluña, UE',
+        scope: {
+          national: 'Nacional',
+          sub_national: 'Subnacional (una región dentro de un país)',
+          continental: 'Continental (solo para bienes comercializados en todo el mundo)',
+        },
       },
       plain:
-        "Cómo están repartidos los emplazamientos: uno solo, varios en una misma región, emplazamientos entre regiones o más allá de las fronteras, o un programa nacional o de todo un sector. El transporte se cuenta cualquiera sea tu respuesta; la respuesta solo cambia cuánto detalle se te pedirá sobre rutas y modos. Detrás de las cuatro opciones no hay ningún umbral de distancia: cada flujo tiene su propia distancia de rentabilidad, y el archivo de recogida de datos te la pide, flujo por flujo, a partir de tu propio análisis de sensibilidad.",
+        'Qué tan cerca ocurren las interacciones clave entre las empresas: en un emplazamiento, dentro de una región, o entre regiones o más allá de las fronteras. Decide a qué escala local se evalúan los impactos ambientales: la contaminación del agua o del aire junto a un emplazamiento no pesa igual que la misma cantidad repartida por un país. El transporte se cuenta en todo caso. Después di de dónde vendrían si no los productos que la simbiosis sustituye: un país, una región o, para bienes comercializados en todo el mundo, un continente.',
     },
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',

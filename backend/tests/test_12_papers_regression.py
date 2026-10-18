@@ -71,7 +71,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 2. Hashimoto 2010 — Kawasaki cement, ENV-only, mixed flows
     {
         "id": "hashimoto_2010",
-        "q1": Q1.B, "q2": Q2.B,
+        "q1": Q1.B, "q2": Q2.A,
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),

@@ -93,13 +93,13 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "None (single-output)",
         "lcia": "Single-impact (CO2 only) using JP government EFs",
         "scenarios": "4 (S1 baseline no-IS, S2 current IS, S3 cluster-improved, S4 regional-extended)",
-        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True), "q4": {Q4.E},
+        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
         "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
             "Q1=B: subject is the network's CO2 savings, not corporate ESG. "
-            "Disambiguation rule 'who is the SUBJECT?' applies. Q2=B: "
-            "S3+S4 alternatives on the S1+S2 baseline. Q5 mixed (a slag pays-to-take, "
+            "Disambiguation rule 'who is the SUBJECT?' applies. Q2=A: "
+            "S2 (current IS, operating) vs S1 (no IS); S3+S4 alternatives on top. Q5 mixed (a slag pays-to-take, "
             "c by-products)."
         ),
     },

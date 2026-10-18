@@ -816,6 +816,7 @@ const de: Locale = {
 
   scenariosResult: {
     title: 'Szenarienvergleich',
+    empty: 'Noch kein Szenariovergleich. Definieren Sie im Fragebogen ein oder mehrere alternative Szenarien und klicken Sie dann auf der Ergebnisseite auf „Szenarien ausführen“.',
     description: 'Pipeline für die Baseline + {{n}} alternative Szenarien ausgeführt. Unterschiede vs Baseline hervorgehoben.',
     backToResult: 'Zurück zum Einzelergebnis',
     columns: {

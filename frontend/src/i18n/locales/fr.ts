@@ -822,6 +822,7 @@ const fr: Locale = {
 
   scenariosResult: {
     title: 'Comparaison de scénarios',
+    empty: 'Pas encore de comparaison de scénarios. Dans le questionnaire, définissez un ou plusieurs scénarios alternatifs, puis cliquez sur « Exécuter les scénarios » sur la page de résultat.',
     description: 'Pipeline exécutée pour la baseline + {{n}} scénarios alternatifs. Différences mises en évidence vs baseline.',
     backToResult: 'Retour au résultat unique',
     columns: {

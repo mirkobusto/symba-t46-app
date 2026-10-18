@@ -1,7 +1,7 @@
 """Sanity-check dcf_schema.json against the 13 paper fixtures.
 
 For each fixture, runs the full pipeline to derive ilcd_situation,
-lcc_type, slca_activation_state, then evaluates every field's
+lcc_type, slca_activation_state, has_scenarios, then evaluates every field's
 activation_predicate in dcf_schema.json and prints a table of active fields
 per section per paper.
 
@@ -53,7 +53,7 @@ def _flows(*qs):
 FIXTURES = [
     {"id": "sokka_2011", "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True),
      "q4": {Q4.E}, "flows": _flows(Q5.e), "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL9, "q7": Q7.B},
-    {"id": "hashimoto_2010", "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True),
+    {"id": "hashimoto_2010", "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True),
      "q4": {Q4.E}, "flows": _flows(Q5.a, Q5.c), "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B},
     {"id": "daddi_2017", "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True),
      "q4": {Q4.E}, "flows": _flows(Q5.b, Q5.c), "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B},
@@ -110,6 +110,7 @@ def _build_eval_context(case: Case) -> dict:
         "ilcd_situation": case.ilcd_situation.value if case.ilcd_situation else None,
         "lcc_type": case.lcc_type.value if case.lcc_type else None,
         "slca_activation_state": case.slca_activation_state.value if case.slca_activation_state else None,
+        "has_scenarios": bool(case.alternative_scenarios),
         "always": True,
     }
 

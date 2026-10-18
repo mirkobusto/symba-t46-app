@@ -869,6 +869,7 @@ const en = {
 
   scenariosResult: {
     title: 'Scenario comparison',
+    empty: 'No scenarios result yet. In the questionnaire, define one or more alternative scenarios, then click "Run scenarios" on the result page.',
     description: 'Pipeline run for the baseline + {{n}} alternative scenario(s). Diffs highlighted vs baseline.',
     backToResult: 'Back to single result',
     columns: {

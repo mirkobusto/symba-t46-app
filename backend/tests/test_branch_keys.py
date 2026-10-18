@@ -184,7 +184,9 @@ def test_contested_is_no_longer_a_branch_key():
 
 _DOMAINS = {
     "q1": [{"q1": v.value} for v in Q1],
-    "q2": [{"q2": v.value} for v in Q2],
+    # Q2b (long_standing) only exists with Q2 = A
+    "q2": [{"q2": "A", "long_standing": False}, {"q2": "A", "long_standing": True},
+           {"q2": "B", "long_standing": False}],
     "q4": [{"q4": frozenset(c)} for r in range(6) for c in itertools.combinations("ABCDE", r)],
     "q5": [{"q5": v.value} for v in Q5],
     "q6a": [{"q6a": v.value} for v in Q6a],
@@ -220,6 +222,8 @@ _OVERLAPPING_NODES = {
     # Situation C2 comes first in these (allocation, no substitution credits, D4.1 §7.2.3)
     "lca_mc_05", "lca_mc_13", "lca_mc_14", "lca_mc_17",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19", "slca_mc_04",
+    # long_standing=true comes before q2=A: the modern counterfactual (D4.1 §11.2.2)
+    "lca_mc_26",
     # lcc_mc_05 left on 2026-10-15 (one key per LCC type); lca_mc_05 came back with its C2 branch.
     # lcc_mc_07 and lcc_mc_12 left this list on 2026-10-15: they now branch on
     # the LCC type only (D4.2 §5.1, §9.3), one branch per type, no overlap.

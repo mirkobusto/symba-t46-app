@@ -336,7 +336,7 @@ const es: Locale = {
     q2: {
       title: 'Q2 — ¿Los intercambios que mide el estudio ya tienen lugar?',
       details:
-        'Responde sobre los intercambios simbióticos, no sobre las plantas: una planta puede existir mientras el intercambio que estudias es todavía un proyecto. A — sí: los intercambios ocurren hoy y sus flujos se pueden medir (p. ej. Kalundborg; el distrito curtidor de Daddi 2017). La referencia es lo que haría hoy cada empresa si se cortaran los vínculos (HNSRS, D4.1 §11.1). Si la red funciona desde hace muchos años, esa referencia es un contrafactual moderno, no la configuración de las empresas de hace décadas (D4.1 §11.2.2): lo pregunta la pregunta de seguimiento. B — todavía no: los intercambios están previstos, diseñados, son hipotéticos o acaban de empezar, aunque sea entre plantas que ya funcionan. La referencia es la situación actual sin ellos, incluidos los intercambios que ya funcionan (CNSRS, D4.1 §11.1). Comparar alternativas (una ampliación, una tecnología nueva) está abierto a todo estudio: añádelas como escenarios abajo (D4.1 §4.3.3). Cuándo opera el sistema se pregunta en Q8.',
+        'Responde sobre los intercambios simbióticos, no sobre las plantas: una planta puede existir mientras el intercambio que estudias es todavía un proyecto. A — sí: los intercambios ocurren hoy y sus flujos se pueden medir (p. ej. Kalundborg; el distrito curtidor de Daddi 2017). La referencia es lo que haría hoy cada empresa si se cortaran los vínculos (HNSRS, D4.1 §11.1). Si la red funciona desde hace muchos años, esa referencia es un contrafactual moderno, no la configuración de las empresas de hace décadas (D4.1 §11.2.2): de eso trata la pregunta de seguimiento. B — todavía no: los intercambios están previstos, diseñados, son hipotéticos o acaban de empezar, aunque sea entre plantas que ya funcionan. La referencia es la situación actual sin ellos, incluidos los intercambios que ya funcionan (CNSRS, D4.1 §11.1). Comparar alternativas (una ampliación, una tecnología nueva) está abierto a todo estudio: añádelas como escenarios abajo (D4.1 §4.3.3). Cuándo opera el sistema se pregunta en Q8.',
       options: {
         A: { label: 'A. Sí, ya tienen lugar', description: 'Los intercambios ocurren hoy: sus flujos se pueden medir.' },
         B: { label: 'B. Todavía no', description: 'Previstos, diseñados o recién iniciados, incluso entre plantas que ya existen.' },
@@ -716,7 +716,7 @@ const es: Locale = {
         e_structural: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias estructurales, así que se trata como Situación ILCD B.",
       },
       q1_d_not_corporate: "Q1=D describe el reporte de sostenibilidad de una empresa, pero Q9 dice que el estudio no es un informe corporativo; la situación ILCD sigue a Q9. El reporte corporativo estricto (asignación, sin créditos) es la Situación ILCD C2 (D4.1 §7.2.3).",
-      documentation_vs_ex_ante: 'La situación ILCD C documenta intercambios que ya tienen lugar, pero Q2 dice que todavía no tienen lugar. Comprueba que la situación es la que quieres decir.',
+      documentation_vs_ex_ante: 'La situación ILCD C documenta intercambios que ya tienen lugar, pero Q2 dice que todavía no tienen lugar. Comprueba que la situación es la que pretendes.',
       c2_keeps_c_lcc: "El reporte estricto de una sola empresa (Situación ILCD C2) mantiene el costeo a nivel de empresa (solo C-LCC) diga lo que diga Q10: es una decisión de diseño de T4.6, porque una sola empresa no tiene nivel de red.",
       policy_no_but_q1_c: "Q1=C (prefactibilidad sectorial) suele servir a una política pública; has respondido que no, así que no se añade el costeo social (S-LCC, net tax factor, tasa de descuento social).",
       lcc_without_lca: {
@@ -816,6 +816,7 @@ const es: Locale = {
 
   scenariosResult: {
     title: 'Comparación de escenarios',
+    empty: 'Todavía no hay comparación de escenarios. En el cuestionario define uno o más escenarios alternativos y luego pulsa «Ejecutar escenarios» en la página de resultados.',
     description: 'Pipeline ejecutada para la baseline + {{n}} escenarios alternativos. Diferencias destacadas vs baseline.',
     backToResult: 'Volver al resultado único',
     columns: {

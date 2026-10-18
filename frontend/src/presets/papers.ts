@@ -42,9 +42,9 @@ export const PRESETS: Preset[] = [
     label: '2. Hashimoto 2010 — Kawasaki (JP, cement)',
     citation: 'Hashimoto et al. (2010)',
     description: 'Eco-park network with current + future scenarios.',
-    rationale: 'Q1=B is non-obvious: D.C. Cement is the central anchor, but the SUBJECT of the report is the network\'s CO2 savings (slag from JFE Steel, fly ash, plastics, pulp sludge from Corelex), not D.C. Cement\'s ESG report. Disambiguation rule \'who is the SUBJECT?\' applies → B. Q2=B: S3 cluster-improved and S4 regional-extended are compared with the S1+S2 baseline. Q5 mixed: slag (a, A pays B) and by-products (c, B pays A).',
+    rationale: 'Q1=B is non-obvious: D.C. Cement is the central anchor, but the SUBJECT of the report is the network\'s CO2 savings (slag from JFE Steel, fly ash, plastics, pulp sludge from Corelex), not D.C. Cement\'s ESG report. Disambiguation rule \'who is the SUBJECT?\' applies → B. Q2=A: S2 (current IS, operating) is compared with S1 (no IS); S3 cluster-improved and S4 regional-extended go on top as alternatives. Q5 mixed: slag (a, A pays B) and by-products (c, B pays A).',
     case: {
-      q1: 'B', decision_context: 'micro', q2: 'B', q3: { env: true, eco: false, soc: false }, q4: ['E'],
+      q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
       flows: flows('a', 'c'), q6a: 'cement_construction', q6b: 'TRL9', q7: 'B',
     },
   },

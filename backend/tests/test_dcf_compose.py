@@ -514,3 +514,14 @@ def test_measured_or_projected_quantities_follow_q2(schemas, dcf_schema, mandate
         pipeline_run(case, schemas)
         fields = {f.id for sec in compose_dcf(case, dcf_schema, mandates_census).sections for f in sec.fields}
         assert present in fields and absent not in fields, q2
+
+
+def test_alternative_scenarios_open_the_projected_fields_whatever_q2(schemas, dcf_schema, mandates_census):
+    """Scenarios belong to every study (D4.1 §4.3.3): an ex-post case with
+    alternatives also asks the projected data of those alternatives."""
+    from app.domain.models import AlternativeScenario
+    case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(env=True, eco=True), flows=_flows(Q5.c),
+                alternative_scenarios=[AlternativeScenario(id="s1", label="expansion")])
+    pipeline_run(case, schemas)
+    fields = {f.id for sec in compose_dcf(case, dcf_schema, mandates_census).sections for f in sec.fields}
+    assert {"flow.quantity_measured", "flow.quantity_projected", "infra.capex_amount"} <= fields

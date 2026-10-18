@@ -1,4 +1,4 @@
-// Comparative result page for Q2-D scenarios runs (Feature C).
+// Comparative result page for alternative-scenario runs (Feature C).
 // Renders a table with one row per scenario (baseline + alternatives)
 // and key derived states. Diffs vs baseline are highlighted.
 
@@ -41,11 +41,7 @@ export default function ScenariosResultPage() {
     return (
       <div className="result">
         <h1>{t('scenariosResult.title')}</h1>
-        <p className="muted">
-          No scenarios result yet. Open the questionnaire, select Q2=D,
-          define alternative scenarios, then click "Run scenarios" on
-          the result page.
-        </p>
+        <p className="muted">{t('scenariosResult.empty')}</p>
         <Link to="/questionnaire" className="btn btn-primary">
           {t('result.noResult.cta')}
         </Link>

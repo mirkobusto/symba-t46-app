@@ -1012,7 +1012,7 @@ def test_reference_scenario_ex_ante_holds_what_runs_today(schemas):
     CNSRS already includes the exchanges that run today."""
     value = _reference_type(schemas, Q2.B)
     assert "aligned with the study's time horizon" in value
-    assert "including the exchanges that already run" in value
+    assert "it includes the exchanges that already run: T4.6 reading" in value
 
 
 def test_retired_q2_options_load_as_not_yet():

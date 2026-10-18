@@ -951,8 +951,8 @@
       "field_status": null,
       "default_value": {
         "long_standing=true": "HNSRS as a modern counterfactual: what each firm would do today if the links were severed, not what it did before linking up. Consider in combination modern non-symbiotic replacements (current BAT or sector-average technology), a sector-average baseline where legacy data is sensitive or missing, the counterfactual method and semi-consequential system expansion, and document how the counterfactual was built and under what assumptions (D4.1 §11.1, §11.2.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
-        "q2=A": "HNSRS: the links severed today, each firm reverting to its best available conventional alternative (D4.1 §11.1); the pre-symbiosis configuration qualifies only while it is still what a rational actor would choose today (frozen-technology rule, D4.1 §11.2.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
-        "q2=B": "CNSRS: the business-as-usual the symbiosis intends to improve on, aligned with the study's time horizon and including the exchanges that already run (D4.1 §11.1, §11.3.2); best-, worst- and most-likely-case variants (D4.1 §11.3.3)"
+        "q2=A": "HNSRS: the links severed today, each firm reverting to its best available conventional alternative (D4.1 §11.1); the pre-symbiosis configuration qualifies only while it is still what a rational actor would choose today: T4.6 reading of the frozen-technology rule of D4.1 §11.2; best-, worst- and most-likely-case variants (D4.1 §11.3.3)",
+        "q2=B": "CNSRS: the business-as-usual the symbiosis intends to improve on, aligned with the study's time horizon (D4.1 §11.1, §11.3.2); it includes the exchanges that already run: T4.6 reading of \"existing business-as-usual\"; best-, worst- and most-likely-case variants (D4.1 §11.3.3)"
       },
       "override_path": "q2, advanced",
       "lifecycle_layer": "L2",
@@ -1430,13 +1430,13 @@
         "q2"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5'] OR case.q2 IN ['B','C','D']",
+      "trigger_condition": "case.q6b IN ['TRL5-6','TRL<5'] OR case.q2 == 'B'",
       "field": "lcc.scale_up_framework",
       "field_status": null,
       "default_value": "Engineering cost estimation with scale-up and cost evolution for projects at the planning stage or below TRL 7: capacity scaling with the six-tenths rule, cost indices (CEPCI) to the reference year, Lang factors (D4.2 §7.3)",
       "override_path": "q6b, q2",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00875 ('For IS projects at the planning stage or involving technologies below TRL 7'), L00851, L00877-L00881. Now also for the planning stage (Q2 in {B,C,D}); the Lang-factor values of L00883 have no source and are not exposed. The LCA counterpart (lca_mc_20) stays at TRL < 7: its scale-up lever is empty for a mature technology."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00875 ('For IS projects at the planning stage or involving technologies below TRL 7'), L00851, L00877-L00881. Now also for the planning stage (Q2 = B); the Lang-factor values of L00883 have no source and are not exposed. The LCA counterpart (lca_mc_20) stays at TRL < 7: its scale-up lever is empty for a mature technology."
     },
     {
       "id": "lcc_hc_16",
@@ -1794,7 +1794,7 @@
         "q2"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q2 IN ['B','C','D']",
+      "trigger_condition": "case.q2 == 'B'",
       "field": "lcc.iterative_update_active",
       "field_status": null,
       "default_value": "Ex-ante (Q2 = B, the exchanges do not take place yet): trigger conditions for iterative update",

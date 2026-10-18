@@ -162,5 +162,8 @@ def build_context_from_case(case: Any) -> dict[str, Any]:
         "slca_activation_state": (
             case.slca_activation_state.value if case.slca_activation_state else None
         ),
+        # alternative scenarios are open to every study (D4.1 §4.3.3, 2026-10-18):
+        # their projected data is asked whatever Q2 says
+        "has_scenarios": bool(getattr(case, "alternative_scenarios", None)),
         "always": True,
     }

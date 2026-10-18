@@ -207,7 +207,7 @@ export interface Case {
   q6b?: Q6b | null
   q7?: Q7 | null
   // Optional Q8: the study's time horizon, one for LCA and LCC. Q8a when the
-  // system operates (null = the year of the study; a future year if Q2 = D),
+  // system operates (null = the year of the study),
   // Q8b analysis period in years, Q8c technical lifetime of the main assets
   // (used only when Q8b is empty; null = falls back to advanced.asset_lifetime).
   operating_start?: 'now' | 'future' | null

@@ -847,6 +847,7 @@ const it: Locale = {
 
   scenariosResult: {
     title: 'Confronto scenari',
+    empty: 'Nessun confronto fra scenari ancora. Nel questionario definisci uno o più scenari alternativi, poi clicca "Esegui scenari" nella pagina risultato.',
     description: 'Pipeline eseguita per la baseline + {{n}} scenari alternativi. Differenze evidenziate vs baseline.',
     backToResult: 'Torna al risultato singolo',
     columns: {

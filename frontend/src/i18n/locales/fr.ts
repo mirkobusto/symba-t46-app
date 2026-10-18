@@ -292,7 +292,7 @@ const fr: Locale = {
     p1:
       "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de dix questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
-      "Les 7 questions principales (Q1-Q7), plus trois facultatives (Q8-Q10), déclenchent l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
+      "Le questionnaire (Q1-Q11 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:
       'Affichage de la configuration par pillar, overrides avancés et panneau « Show reasoning » sont tous opérationnels.',
   },
@@ -532,10 +532,10 @@ const fr: Locale = {
     q10: {
       title: 'Q10 — L\'étude sert-elle un objectif public ou un décideur public ? *',
       help: 'Obligatoire quand la dimension économique est active : elle décide si l\'ACC sociétal est ajouté.',
-      details: 'La D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, et le §2.2 lie le choix du type d\'ACC à la perspective du décideur : une municipalité, un service public ou un régulateur adopte le point de vue public, quel que soit le sujet de l\'étude (la D4.2 §9.2 indique 3-5 % pour les investissements municipaux et de services publics). Une municipalité qui planifie un éco-parc ou un service public qui dimensionne une liaison de chauffage urbain répond oui. Le rapport strict d\'une seule entreprise (Q9 : rapport d\'entreprise, situation C2) garde le coût au niveau de l\'entreprise (choix de conception T4.6), et l\'outil le signale.',
+      details: 'La D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, et le §2.2 lie le choix du type d\'ACC à la perspective du décideur : une municipalité, un service public ou un régulateur adopte le point de vue public, quel que soit le sujet de l\'étude (la D4.2 §9.2 indique 3-5 % comme taux d\'un partenaire municipal ou d\'un service public). Une municipalité qui planifie un éco-parc ou un service public qui dimensionne une liaison de chauffage urbain répond oui. Le rapport strict d\'une seule entreprise (Q9 : rapport d\'entreprise, situation C2) garde le coût au niveau de l\'entreprise (choix de conception T4.6), et l\'outil le signale.',
       options: {
         yes: 'Oui — un objectif de politique publique ou d\'aménagement, ou un décideur public (ajoute l\'ACC sociétal)',
-        no: 'Non — une décision privée ou le rapport d\'une entreprise',
+        no: 'Non — une décision privée ou le compte propre d\'une entreprise',
       },
       plain:
         'Répondez oui si l\'étude doit alimenter une décision publique, ou si un organisme public la commande : une municipalité, une région, un service public, un régulateur, un plan. Une seconde lecture économique s\'ajoute alors, du point de vue de la société : les taxes comptées autrement, et les effets que personne ne paie en argent. Pour le compte propre d\'une entreprise, la lecture économique reste au niveau de l\'entreprise.',

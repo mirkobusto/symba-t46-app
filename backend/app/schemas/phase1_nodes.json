@@ -1025,13 +1025,13 @@
         "q6a"
       ],
       "trigger_logic": "simple",
-      "trigger_condition": "case.q6a IN wastewater sectors OR any(flow.sector IN wastewater sectors)",
+      "trigger_condition": "any(flow.sector IN wastewater sectors)",
       "field": "lca.water_stress_method",
       "field_status": null,
       "default_value": "AWARE for reclaimed-water, cooling-water and process-water exchanges; the Pfister et al. (2009) water stress index where AWARE factors are missing for the watershed (D4.1 §12.3.3). The engine sees water exchanges only through the wastewater sector of the case or of a flow: other water exchanges are declared in the DCF",
       "override_path": "q6a",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01401 ('Use AWARE for reclaimed-water, cooling-water, and process-water exchanges', Pfister 2009 fallback). The text keys AWARE on the flow, not the sector: the trigger now also reads the Part 2 sector declared per flow (Flow.sector)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.3). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01401 ('Use AWARE for reclaimed-water, cooling-water, and process-water exchanges', Pfister 2009 fallback). The text keys AWARE on the flow, not the sector: the trigger now also reads the Part 2 sector declared per flow (Flow.sector). | Review 2026-10-18 (Q6a descriptive): the trigger reads only the D4.1 Part 2 sector declared on the flows (Flow.sector, a Q6a value, hence trigger_q q6a), no longer the case sector."
     },
     {
       "id": "lca_mc_31",

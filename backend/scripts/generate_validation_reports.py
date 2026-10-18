@@ -41,6 +41,7 @@ from app.domain.enums import (
     Q4,
     Q5,
     Q7,
+    DecisionContext,
     Q6a,
     Q6b,
 )
@@ -71,7 +72,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (substitution credits)",
         "lcia": "ReCiPe midpoint, Finland-adjusted CFs",
         "scenarios": "3 reference scenarios (RS1 NG, RS2 peat, RS3 improvement)",
-        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.e),
         "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
@@ -93,7 +94,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "None (single-output)",
         "lcia": "Single-impact (CO2 only) using JP government EFs",
         "scenarios": "4 (S1 baseline no-IS, S2 current IS, S3 cluster-improved, S4 regional-extended)",
-        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
         "q6a": Q6a.CEMENT_CONSTRUCTION, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
@@ -115,7 +116,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (Mattila 2012 approach)",
         "lcia": "ILCD recommended methods",
         "scenarios": "4 (S1 current IS, S2 hypothetical no-IS, S3a/S3b future water reuse)",
-        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": "Cluster of 6 municipalities + WWT facility = Q1=B. S1 (current IS) vs S2 (no IS) = Q2=A; S3a/S3b future alternatives on top.",
@@ -132,7 +133,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Sector-level attributional, no per-flow allocation",
         "lcia": "Environmental Footprint (EF, normalised+weighted PEF/OEF)",
         "scenarios": "2 (current state + symbiotic optimised)",
-        "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
+        "decision_context": DecisionContext.STRUCTURAL, "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
         "flows": _flows(Q5.e),
         "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D,
         "rationale": (
@@ -153,7 +154,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Three methods tested: full / partial (proposed SPI) / system expansion",
         "lcia": "CEENE (resources) + IPCC GWP100",
         "scenarios": "Symbiotic vs non-symbiotic per entity",
-        "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.PLASTICS_PACKAGING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
@@ -174,7 +175,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion + entity-level cost allocation",
         "lcia": "Acidification + Eutrophication + GWP",
         "scenarios": "13 (S0 baseline + 12 combinations of 4 design choices)",
-        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c, Q5.c),
         "q6a": Q6a.WASTEWATER_BIOFACTORIES, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "rationale": (
@@ -196,7 +197,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "MFCA mass-based; CBA aggregates",
         "lcia": "OPEX, monetary efficiency, CAPEX, Sankey cost diagrams",
         "scenarios": "1+1 (baseline + post-IS)",
-        "q1": Q1.A, "q2": Q2.B, "q3": Q3(eco=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.A, "q2": Q2.B, "q3": Q3(eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.CHEMICALS_FERTILIZERS, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
@@ -217,7 +218,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "MFCA mass-based",
         "lcia": "OPEX, CAPEX, Sankey diagrams",
         "scenarios": "4 (A CCU / B Scrubber / C External / D Baseline NG)",
-        "q1": Q1.B, "q2": Q2.B, "q3": Q3(eco=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B, "q3": Q3(eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.PULP_PAPER, "q6b": Q6b.TRL7_8, "q7": Q7.B,
         "rationale": "Multi-actor eco-park = Q1=B. CCU scenario at TRL 7-8.",
@@ -234,7 +235,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (substitution-based displacement)",
         "lcia": "t CO2, m3 water, MWh energy, t materials, M EUR savings",
         "scenarios": "3 (Baseline 2015, 2018, 2019)",
-        "q1": Q1.B, "q2": Q2.A, "network_long_standing": True, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
         "flows": _flows(Q5.e),
         "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (
@@ -255,7 +256,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Matrix-based decomposition",
         "lcia": "NPV (LCC) per entity + per flow + per network; LCA impacts at all 3 levels",
         "scenarios": "Open-loop and closed-loop variants",
-        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.AGRI_FOOD, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
@@ -275,7 +276,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Capital flow allocation across 8 capital types",
         "lcia": "Stock and flow of 8 capital types (natural / human / social / financial / manufactured / intellectual / cultural / political-institutional)",
         "scenarios": "3 (S1 natural gas, S2 biogas symbiotic, S3 renewable electricity)",
-        "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.MULTI_TENANT_URBAN_BUILDING, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
@@ -296,7 +297,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Tested across scenarios (system expansion, partial, etc.)",
         "lcia": "Total cost (LCC) + LCA impacts",
         "scenarios": "19 scenarios varying FU, transport distance, waste quality, prices, allocation",
-        "q1": Q1.A, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.A, "q2": Q2.B, "q3": Q3(env=True, eco=True), "q4": {Q4.E},
         "flows": _flows(Q5.c),
         "q6a": Q6a.MULTI_SECTOR, "q6b": Q6b.TRL9, "q7": Q7.A,
         "rationale": (
@@ -316,7 +317,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Multi-method depending on flow",
         "lcia": "LCA: carbon, acidification, eutrophication. S-LCA: jobs, skills, wellbeing, H&S. LCC: CAPEX, OPEX, NPV. TEA: ROI, payback.",
         "scenarios": "Multi-scenario, framework propositional",
-        "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.STRUCTURAL, "policy_objective": True, "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
         "rationale": (
@@ -371,6 +372,9 @@ def _build_case(paper: dict[str, Any]) -> Case:
         q1=paper["q1"],
         q2=paper["q2"],
         network_long_standing=paper.get("network_long_standing"),
+        decision_context=paper.get("decision_context"),
+        policy_objective=paper.get("policy_objective"),
+        market_screening_documented=paper.get("market_screening_documented"),
         q3=paper["q3"],
         q4=paper["q4"],
         q6a=paper["q6a"],

@@ -226,10 +226,9 @@ def needs_future_background(case: Case) -> bool:
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
 
-# lca_mc_30 is written for "Q6a=Wastewater/biofactories". The UI sends the
-# canonical id; the legacy alias is kept for stored cases and old fixtures.
-# The JSON `trigger_condition` names only the alias, which is how the node
-# came to ignore every case created from the UI.
+# lca_mc_30 keys AWARE on water exchanges (D4.1 L01401): since 2026-10-18 it
+# reads the sector declared on the flows, not the case sector (Q6a). The legacy
+# alias is kept for stored cases and old fixtures.
 _WASTEWATER_SECTORS = {Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES}
 
 _PREDICATES: dict[str, Callable[..., bool]] = {

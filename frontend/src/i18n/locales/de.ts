@@ -286,7 +286,7 @@ const de: Locale = {
     p1:
       "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus zehn Fragen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
-      'Die 7 Kernfragen (Q1-Q7) und drei optionale (Q8-Q10) steuern die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
+      'Der Fragebogen (Q1-Q11; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
     p3:
       'Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
@@ -526,7 +526,7 @@ const de: Locale = {
     q10: {
       title: 'Q10 — Dient die Studie einem öffentlichen Ziel oder einem öffentlichen Entscheidungsträger? *',
       help: 'Pflicht, wenn die ökonomische Dimension aktiv ist: Sie entscheidet, ob die gesellschaftliche LCC ergänzt wird.',
-      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, und §2.2 verknüpft die Wahl des LCC-Typs mit der Perspektive des Entscheidungsträgers: Eine Gemeinde, ein öffentlicher Versorger oder eine Regulierungsbehörde nimmt die öffentliche Sicht ein, unabhängig vom Gegenstand der Studie (D4.2 §9.2 nennt 3-5 % für kommunale und öffentliche Versorgungsinvestitionen). Eine Gemeinde, die einen Eco-Park plant, oder ein Versorger, der eine Fernwärmeverbindung dimensioniert, antwortet mit Ja. Die strikte Berichterstattung eines einzelnen Unternehmens (Q9: Unternehmensbericht, Situation C2) behält die Kostenrechnung auf Unternehmensebene (T4.6-Designentscheidung), und das Werkzeug weist darauf hin.',
+      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, und §2.2 verknüpft die Wahl des LCC-Typs mit der Perspektive des Entscheidungsträgers: Eine Gemeinde, ein öffentlicher Versorger oder eine Regulierungsbehörde nimmt die öffentliche Sicht ein, unabhängig vom Gegenstand der Studie (D4.2 §9.2 nennt 3-5 % als Satz eines kommunalen Partners oder öffentlichen Versorgers). Eine Gemeinde, die einen Eco-Park plant, oder ein Versorger, der eine Fernwärmeverbindung dimensioniert, antwortet mit Ja. Die strikte Berichterstattung eines einzelnen Unternehmens (Q9: Unternehmensbericht, Situation C2) behält die Kostenrechnung auf Unternehmensebene (T4.6-Designentscheidung), und das Werkzeug weist darauf hin.',
       options: {
         yes: 'Ja — ein Ziel der öffentlichen Politik oder Planung oder ein öffentlicher Entscheidungsträger (ergänzt die gesellschaftliche LCC)',
         no: 'Nein — eine private Entscheidung oder die eigene Bilanz eines Unternehmens',

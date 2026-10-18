@@ -318,7 +318,7 @@ const it: Locale = {
     p1:
       "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da dieci domande sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
     p2:
-      'Le 7 domande principali (Q1-Q7), più tre facoltative (Q8-Q10), attivano i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
+      'Il questionario (Q1-Q11; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
       'Display configurazione per pillar, override avanzati e pannello "Mostra ragionamento" sono tutti operativi.',
   },
@@ -558,7 +558,7 @@ const it: Locale = {
     q10: {
       title: 'Q10 — Lo studio serve un obiettivo pubblico o un decisore pubblico? *',
       help: 'Obbligatoria quando c\'è la dimensione economica: decide se si aggiunge l\'LCC sociale.',
-      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di politica pubblica o di pianificazione territoriale, e §2.2 lega la scelta del tipo di LCC alla prospettiva del decisore: un comune, un\'utility pubblica o un ente regolatore assumono il punto di vista pubblico, qualunque sia il soggetto dello studio (D4.2 §9.2 indica 3-5 % per gli investimenti di comuni e utility pubbliche). Un comune che pianifica un eco-parco o un\'utility che dimensiona un collegamento di teleriscaldamento rispondono sì. Il rendiconto rigoroso di una sola azienda (Q9: rendiconto aziendale, Situazione C2) tiene il costing a livello d\'impresa (scelta di progetto T4.6), e il tool lo dice.',
+      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di politica pubblica o di pianificazione territoriale, e §2.2 lega la scelta del tipo di LCC alla prospettiva del decisore: un comune, un\'utility pubblica o un ente regolatore assumono il punto di vista pubblico, qualunque sia il soggetto dello studio (D4.2 §9.2 indica 3-5 % come tasso di un partner comunale o di un\'utility pubblica). Un comune che pianifica un eco-parco o un\'utility che dimensiona un collegamento di teleriscaldamento rispondono sì. Il rendiconto rigoroso di una sola azienda (Q9: rendiconto aziendale, Situazione C2) tiene il costing a livello d\'impresa (scelta di progetto T4.6), e il tool lo dice.',
       options: {
         yes: 'Sì — un obiettivo di politica pubblica o di pianificazione, o un decisore pubblico (aggiunge l\'LCC sociale)',
         no: 'No — una decisione privata o il rendiconto di un\'azienda',

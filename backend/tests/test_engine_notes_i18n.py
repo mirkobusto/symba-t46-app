@@ -14,6 +14,7 @@ VARIANTS = {
     "decision_scale_vs_q1": {v for _, v, _ in l0_compute._DECISION_WARNINGS.values()},
     "lcc_without_lca": {"plain", "policy"},
     "flow_freedom_to_act_settles": {"co_product", "waste"},
+    "q10_unanswered": {"yes", "no"},
 }
 
 

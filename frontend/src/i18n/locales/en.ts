@@ -340,7 +340,7 @@ const en = {
     p1:
       "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from ten questions about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
-      'The 7 core questions (Q1-Q7), plus three optional ones (Q8-Q10), drive the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
+      'The questionnaire (Q1-Q11; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
     p3:
       'Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
   },
@@ -580,7 +580,7 @@ const en = {
     q10: {
       title: 'Q10 — Does the study serve a public objective or a public decision-maker? *',
       help: 'Required when the economic dimension is on: it decides whether the societal LCC is added.',
-      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, and §2.2 ties the choice of LCC type to the perspective of the decision-maker: a municipality, a public utility or a regulator takes the public view, whatever the subject of the study (D4.2 §9.2 gives 3-5 % for municipal and public-utility investments). A municipality planning an eco-park or a utility sizing a district-heating link answers yes. Strict reporting of one company (Q9: corporate report, Situation C2) keeps the company-level costing (a T4.6 design choice), and the tool tells you.',
+      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, and §2.2 ties the choice of LCC type to the perspective of the decision-maker: a municipality, a public utility or a regulator takes the public view, whatever the subject of the study (D4.2 §9.2 gives 3-5 % as the rate of a municipal or public-utility partner). A municipality planning an eco-park or a utility sizing a district-heating link answers yes. Strict reporting of one company (Q9: corporate report, Situation C2) keeps the company-level costing (a T4.6 design choice), and the tool tells you.',
       options: {
         yes: 'Yes — a public policy or planning objective, or a public decision-maker (adds the societal LCC)',
         no: 'No — a private decision or a company\'s own account',

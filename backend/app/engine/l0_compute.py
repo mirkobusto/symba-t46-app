@@ -5,8 +5,8 @@ These are deterministic functions of the user answers; they have no
 violation semantics — they simply COMPUTE state that downstream phases
 read. By convention these are the only 3 nodes with lifecycle_layer=L0.
 
-    lca_t1         (Q1, Q9)    -> Case.ilcd_situation   (Q9 optional; unanswered = Q1 alone)
-    lcc_trig_01    (Q1,Q3.eco,Q10) -> Case.lcc_type  (Q10 optional; unanswered = Q1 alone)
+    lca_t1         (Q9; Q1)    -> Case.ilcd_situation   (unanswered Q9: Q1, with a note)
+    lcc_trig_01    (Q3.eco,Q10; Q1) -> Case.lcc_type  (unanswered Q10: Q1, with a note)
     slca_t_01      (Q3.soc)    -> Case.slca_activation_state
 
 Mapping source: backend/app/schemas/phase1_nodes.json — entries
@@ -18,10 +18,10 @@ documentation).
 
 Note on `lca_t1`: its JSON table only discriminates on `q1` and lists `q2`
 in `trigger_q`; that table documents the Q1-only mapping, which is what
-applies when the optional Q9 (decision and scale) is unanswered. With Q9
+applies, with a note, when Q9 (decision and scale) is unanswered (cases saved
+before Q9 existed). With Q9
 answered the situation comes from `_derive_ilcd_situation` (D4.1 Table 1),
-and Q2 is consulted only for a note. The same holds for `lcc_trig_01` and the
-optional Q10. Nodes that read the situation or the LCC type use the derived
+and Q2 is consulted only for a note. The same holds for `lcc_trig_01` and Q10. Nodes that read the situation or the LCC type use the derived
 state through the `ilcd=` / `lcc_type=` branch keys. Update the JSON tables
 and this module together.
 """

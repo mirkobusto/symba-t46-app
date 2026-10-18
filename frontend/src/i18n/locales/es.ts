@@ -286,7 +286,7 @@ const es: Locale = {
     p1:
       "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de diez preguntas sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
     p2:
-      'Las 7 preguntas principales (Q1-Q7), más tres opcionales (Q8-Q10), impulsan la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
+      'El cuestionario (Q1-Q11; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
     p3:
       'La visualización de configuración por pillar, los overrides avanzados y el panel "Show reasoning" están todos operativos.',
   },
@@ -526,7 +526,7 @@ const es: Locale = {
     q10: {
       title: 'Q10 — ¿El estudio sirve a un objetivo público o a un decisor público? *',
       help: 'Obligatoria cuando la dimensión económica está activa: decide si se añade el ACC societal.',
-      details: 'La D4.2 §2.3 añade un ACC societal (factor fiscal neto, externalidades monetizadas, tasa de descuento social) cuando el estudio sirve a un objetivo de política pública u ordenación territorial, y el §2.2 vincula la elección del tipo de ACC a la perspectiva del decisor: un municipio, una empresa de servicios públicos o un regulador adoptan el punto de vista público, sea cual sea el sujeto del estudio (la D4.2 §9.2 indica un 3-5 % para inversiones municipales y de servicios públicos). Un municipio que planifica un ecoparque o una empresa pública que dimensiona una conexión de calefacción urbana responde que sí. El informe estricto de una sola empresa (Q9: informe corporativo, situación C2) mantiene el costeo a nivel de empresa (elección de diseño de T4.6), y la herramienta lo indica.',
+      details: 'La D4.2 §2.3 añade un ACC societal (factor fiscal neto, externalidades monetizadas, tasa de descuento social) cuando el estudio sirve a un objetivo de política pública u ordenación territorial, y el §2.2 vincula la elección del tipo de ACC a la perspectiva del decisor: un municipio, una empresa de servicios públicos o un regulador adoptan el punto de vista público, sea cual sea el sujeto del estudio (la D4.2 §9.2 indica un 3-5 % como tasa de un socio municipal o de una empresa de servicios públicos). Un municipio que planifica un ecoparque o una empresa pública que dimensiona una conexión de calefacción urbana responde que sí. El informe estricto de una sola empresa (Q9: informe corporativo, situación C2) mantiene el costeo a nivel de empresa (elección de diseño de T4.6), y la herramienta lo indica.',
       options: {
         yes: 'Sí — un objetivo de política pública u ordenación, o un decisor público (añade el ACC societal)',
         no: 'No — una decisión privada o la cuenta propia de una empresa',

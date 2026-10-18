@@ -10,6 +10,8 @@ import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { verdictFor } from './resultNarrative'
+import { obligationGroups } from './configurationRows'
+import ConfigurationSummary from '../components/ConfigurationSummary'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
@@ -188,6 +190,8 @@ export default function ResultPage() {
   // three things that actually need a decision here.
   const todo = allItems.filter((item) => item.kind !== 'obligation')
   const obligationCount = allItems.length - todo.length
+  // the sector chapters are a row of the configuration: the per-flow note would repeat it
+  const notes = (result.warnings ?? []).filter((w) => !(blockedBy.length === 0 && w.code === 'flow_part2_chapter'))
   const verdict = verdictFor(result, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )
@@ -199,26 +203,23 @@ export default function ResultPage() {
         headline={verdict?.title ?? result.ilcd_situation ?? '—'}
         codes={verdict?.codes}
         body={verdict?.body}
-        tags={verdict?.method}
       />
 
       {verdict ? <VerdictDetails verdict={verdict} /> : null}
 
-      {(result.warnings?.length ?? 0) > 0 ? (
+      {blockedBy.length === 0 ? <ConfigurationSummary kase={result} /> : null}
+
+      {notes.length > 0 ? (
         <section className="result-notes" aria-labelledby="result-notes-title">
           <h2 id="result-notes-title" className="result-notes-title">
             {t('result.notes.title')}
           </h2>
           <ul>
-            {result.warnings!.map((w, i) => (
+            {notes.map((w, i) => (
               <li key={`${w.code}-${i}`}>{translateNote(t, w)}</li>
             ))}
           </ul>
         </section>
-      ) : null}
-
-      {(result.sector_rules?.length ?? 0) > 0 ? (
-        <SectorRules rules={result.sector_rules!} />
       ) : null}
 
       <section className="result-next">
@@ -249,7 +250,12 @@ export default function ResultPage() {
 
         {obligationCount > 0 ? (
           <p className="result-next-obligations">
-            {t('result.next.obligations', { count: obligationCount })}
+            {t('result.next.obligations', {
+              count: obligationCount,
+              groups: obligationGroups(result.applicable_rules ?? [])
+                .map((g) => t(`result.next.families.${g.family}`, { count: g.count }))
+                .join(' · '),
+            })}
           </p>
         ) : null}
 
@@ -260,6 +266,10 @@ export default function ResultPage() {
           <span className="result-next-cta-hint">{t('result.next.ctaHint')}</span>
         </div>
       </section>
+
+      {(result.sector_rules?.length ?? 0) > 0 ? (
+        <SectorRules rules={result.sector_rules!} />
+      ) : null}
 
       <details className="result-technical">
         <summary>{t('result.technical.title')}</summary>

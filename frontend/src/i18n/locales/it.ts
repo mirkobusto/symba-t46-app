@@ -599,7 +599,7 @@ const it: Locale = {
     headers: { id: 'ID', name: 'Nome', q5: 'Q5', sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
     sellable: { unset: '— senza risposta', yes: 'Sì', no: 'No' },
     sellableHint: 'Se il partner non prendesse questo flusso, chi lo genera potrebbe venderlo a qualcun altro a un prezzo positivo? Sì lo rende un coprodotto, no un rifiuto, qualunque sia il prezzo concordato (D4.1 §8.3.3). Facoltativo: il risultato segnala quando non concorda con Q5.',
-    sectorHint: 'Che cosa è il flusso, se rientra in uno dei settori con regole proprie nella Parte 2 del D4.1. Facoltativo: il risultato indica il capitolo da seguire.',
+    sectorHint: "Scegli il capitolo della D4.1 Part 2 di ciò che si scambia, non dell'azienda: residui agricoli e agroindustriali → Agroalimentare (§4); rifiuti urbani o misti, biorifiuti compresi (FORSU, scarti alimentari domestici) → Valorizzazione dei rifiuti (§8); fanghi e acque reflue trattate, anche quando riusate come acqua → Acque reflue (§6); un prodotto o un vettore energetico ottenuto da un flusso (biometano, digestato, elettricità) → il capitolo di quel flusso. Dove §4 e §8 si sovrappongono sui biorifiuti, decide l'origine (lettura T4.6 della Part 2 §3.3). Facoltativa: il risultato elenca le regole del capitolo.",
     sectorNone: '— nessuno di questi',
     configurationHint: "La configurazione tipica del flusso dentro il suo capitolo della Part 2 (D4.1 Part 2 §4.1-§8.1): il risultato indica il prodotto convenzionale che sostituisce. Scegli prima il settore.",
     configurationNone: "— non risposta",

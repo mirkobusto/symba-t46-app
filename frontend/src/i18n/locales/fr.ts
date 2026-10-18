@@ -572,7 +572,7 @@ const fr: Locale = {
     headers: { id: 'ID', name: 'Nom', q5: 'Q5', sellable: 'Vendable à d\'autres ?', sector: 'Secteur (Partie 2)', configuration: "Configuration (Partie 2)" },
     sellable: { unset: '— sans réponse', yes: 'Oui', no: 'Non' },
     sellableHint: 'Si le partenaire ne prenait pas ce flux, le générateur pourrait-il le vendre à quelqu\'un d\'autre à un prix positif ? Oui en fait un coproduit, non un déchet, quel que soit le prix convenu (D4.1 §8.3.3). Facultatif : le résultat signale un désaccord avec Q5.',
-    sectorHint: 'Ce qu\'est le flux, s\'il relève d\'un des secteurs ayant leurs propres règles dans la Partie 2 du D4.1. Facultatif : le résultat indique le chapitre à suivre.',
+    sectorHint: "Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre.",
     sectorNone: '— aucun de ceux-ci',
     configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur.",
     configurationNone: "— pas de réponse",

@@ -566,7 +566,7 @@ const de: Locale = {
     headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
     sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
     sellableHint: 'Würde der Partner diesen Fluss nicht abnehmen: Könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt, nein zum Abfall, unabhängig vom vereinbarten Preis (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt Widersprüche zu Q5.',
-    sectorHint: 'Was der Fluss ist, falls er zu einem der Sektoren mit eigenen Regeln in Teil 2 von D4.1 gehört. Optional: Das Ergebnis nennt das maßgebliche Kapitel.',
+    sectorHint: "Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels.",
     sectorNone: '— keiner davon',
     configurationHint: "Die typische Konfiguration des Flusses in seinem Kapitel der Part 2 (D4.1 Part 2 §4.1-§8.1): Das Ergebnis nennt das konventionelle Produkt, das er ersetzt. Wählen Sie zuerst den Sektor.",
     configurationNone: "— nicht beantwortet",

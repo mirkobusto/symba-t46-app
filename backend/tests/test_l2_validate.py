@@ -253,7 +253,8 @@ def test_CIR_05_monetises_externalities_only_with_an_lca(schemas):
     case = _full_pipeline_until_l2(_ready_case(q3=Q3(eco=True), q4={Q4.D}), schemas)
     run(case, schemas)
     assert case.lcc["externality_monetization"].startswith("None: without a parallel LCA")
-    assert case.lca.get("allocation_method") == "PEF CFF"   # lca_mc_13/14, Q4 = D branch
+    # no LCA asked: only what the LCC shares with it (owner decision 2026-10-18)
+    assert set(case.lca) <= {"reference_scenario.type", "reference_scenario.content", "zero_burden_classification"}
 
 
 def test_CIR_07_writes_scale_up_framework_for_low_TRL(schemas):
@@ -356,3 +357,27 @@ def test_cir_03_no_longer_follows_q7():
     """Q7 is the concentration of the key interactions, not transport (2026-10-18)."""
     for q7 in (Q7.A, Q7.B, Q7.C, None):
         assert _TRIGGER_FNS["CIR-03"](_ready_case(q7=q7)) is False
+
+
+def test_no_lca_without_the_environmental_dimension(schemas):
+    """An economic-only study gets no LCA nodes and no Part 2 sector rules (all
+    64 are LCA rules). What stays: the reference scenario and the classification
+    of each flow, which D4.2 asks the LCC to share (L00725, §6.3), and the review
+    of a public claim and the methodological charter, which govern the whole study."""
+    case = _ready_case(q3=Q3(eco=True), q4={Q4.C})
+    case.flows = [Flow(id="f1", name="spent grain", q5=Q5.b, sector=Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES)]
+    pipeline_run(case, schemas)
+    lca_nodes = {n["id"] for n in schemas.phase1_nodes if n["method"] == "LCA" and n.get("lifecycle_layer") != "L0"}
+    assert set(case.activated_nodes) & lca_nodes == {
+        "lca_mc_36", "lca_hc_08", "lca_hc_16", "lca_mc_26", "lca_mc_27", "lca_mc_17"}
+    assert set(case.lca) == {"reference_scenario.type", "reference_scenario.content", "zero_burden_classification"}
+    assert case.sector_rules == []
+    assert case.review["scope"].startswith("Independent panel")
+    assert case.ilcd_situation is not None   # still derived: the LCC structure reads it
+
+
+def test_nothing_of_the_lca_without_lca_or_lcc(schemas):
+    """A social-only study shares nothing with an LCC: no LCA pillar at all."""
+    case = _ready_case(q3=Q3(soc=True))
+    pipeline_run(case, schemas)
+    assert case.lca == {}

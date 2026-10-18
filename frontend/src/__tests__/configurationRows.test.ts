@@ -63,6 +63,14 @@ describe('configurationRows edge cases', () => {
     expect(claim.nodeText).toEqual(['Independent panel review'])
   })
 
+  it('an economic-only study still shows the reference scenario it shares with the LCC', async () => {
+    await i18n.changeLanguage('en')
+    const keys = configurationRows({ ...BASE, q3: { env: false, eco: true, soc: false }, lcc_type: 'C+N' }, t)
+      .map((r) => r.key)
+    expect(keys).toContain('reference')
+    expect(keys).not.toContain('fu')
+  })
+
   it('an unanswered Q10 says the costing was read off Q1', async () => {
     await i18n.changeLanguage('en')
     const rows = configurationRows({ ...BASE, policy_objective: null, lcc_type: 'C+E' }, t)

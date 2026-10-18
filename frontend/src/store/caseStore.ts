@@ -54,12 +54,15 @@ export interface CaseState {
   reset: () => void
 }
 
-// Cases saved before 2026-10-18 may carry the retired Q2 options C (design
-// phase) and D (baseline plus alternatives): both read as B, "not yet", as the
-// backend does (app/domain/models.py).
-export function withCurrentQ2<T extends { q2?: unknown } | null | undefined>(kase: T): T {
-  if (kase && (kase.q2 === 'C' || kase.q2 === 'D')) return { ...kase, q2: 'B' }
-  return kase
+// Cases saved before 2026-10-18 may carry retired options, read as the backend
+// does (app/domain/models.py): Q2 C (design phase) and D (baseline plus
+// alternatives) as B, "not yet"; Q7 D (multi-scale programmes) as C.
+export function withCurrentAnswers<T extends { q2?: unknown; q7?: unknown } | null | undefined>(kase: T): T {
+  if (!kase) return kase
+  let out = kase
+  if (out.q2 === 'C' || out.q2 === 'D') out = { ...out, q2: 'B' }
+  if (out.q7 === 'D') out = { ...out, q7: 'C' }
+  return out
 }
 
 export const useCaseStore = create<CaseState>()(
@@ -74,7 +77,7 @@ export const useCaseStore = create<CaseState>()(
       serverCaseId: null,
       serverCaseName: null,
 
-      setDraft: (next) => set({ draft: withCurrentQ2(next), lastSavedAt: Date.now() }),
+      setDraft: (next) => set({ draft: withCurrentAnswers(next), lastSavedAt: Date.now() }),
 
       setResult: (next) => set({ result: next }),
 
@@ -164,11 +167,26 @@ export const useCaseStore = create<CaseState>()(
     }),
     {
       name: 'symba-case-draft',
-      // v1 (2026-10-18): Q2 in two answers; older drafts are read with withCurrentQ2.
-      version: 1,
+      // v1 (2026-10-18): Q2 in two answers; v2: Q7 in three. Older drafts are read
+      // with withCurrentAnswers.
+      version: 2,
       migrate: (persisted) => {
-        const state = persisted as { draft?: Case; result?: Case | null }
-        return { ...state, draft: withCurrentQ2(state.draft), result: withCurrentQ2(state.result) }
+        const state = persisted as {
+          draft?: Case
+          result?: Case | null
+          scenariosResult?: ScenariosResponse | null
+        }
+        const sr = state.scenariosResult
+        return {
+          ...state,
+          draft: withCurrentAnswers(state.draft),
+          result: withCurrentAnswers(state.result),
+          scenariosResult: sr ? {
+            ...sr,
+            baseline: withCurrentAnswers(sr.baseline),
+            scenarios: sr.scenarios.map((s) => ({ ...s, result: withCurrentAnswers(s.result) })),
+          } : sr,
+        }
       },
       // Persist draft + result + scenariosResult + lastSavedAt; transient
       // flags (loading/error) reset on hydration.

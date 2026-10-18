@@ -459,8 +459,8 @@
       "id": "CIR-03",
       "name": "GIS-Coupled Spatial Modeling",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q7 ∈ {B, C, D} OR transport-sensitive exchanges",
-      "trigger_condition": "case.q7 IN ['B','C','D'] OR case.transport_sensitive == true",
+      "trigger_condition_raw": "transport-sensitive exchanges (Q7 left on 2026-10-18: it is the concentration of the key interactions, not transport; the attribute is wired in R3)",
+      "trigger_condition": "case.transport_sensitive == true",
       "actions": [
         "lca.spatial_coupling = 'GIS'",
         "lcc.spatial_coupling = 'GIS'",

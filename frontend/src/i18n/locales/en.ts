@@ -62,7 +62,7 @@ const en = {
       lcc: 'LCC type',
       slca: 'S-LCA state',
       sector: 'Sector',
-      scope: 'Geographic scope',
+      scope: 'Concentration of the interactions',
     },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance signals',
@@ -517,22 +517,29 @@ const en = {
     },
 
     q7: {
-      title: 'Q7 — Geographic spread',
-      help: 'Qualitative layout of the network. Transport is modeled explicitly whatever you answer; the break-even distance is flow-type specific and is asked for every flow in the Data Collection File (Logistics), where you record the one your own sensitivity run produced.',
+      title: 'Q7 — How concentrated are the key interactions?',
+      help: 'It sets how the impact assessment is regionalised. Transport is modelled explicitly for every exchange whatever you answer; the break-even distance is asked for every flow in the Data Collection File.',
       details:
-        'The answer changes how logistics data are asked for (GIS coupling, spatial sensitivity), not whether transport is modeled: D4.1 §12.3.1 requires every transport link to be a distinct unit process of the foreground, with primary data on distance, route and mode, and a sensitivity on distance to find the break-even point. No distance threshold sits behind the four options: the break-even depends on the flow type and on the alternative it displaces (D4.1 §12.2.1 and D4.2 give indicative ranges, to sense-check a model, never as inputs); every study computes its own, flow by flow. ' +
-        'A — co-located: one site or adjacent plants (eco-industrial park). Links are short (pipeline, conveyor, on-site handling) but still modeled; for piped heat, steam and water the dedicated infrastructure usually dominates. ' +
-        'B — regional cluster: several sites in the same region (typical Sokka 2011 / Hashimoto). ' +
-        'C — wide-area: cross-region or cross-border; transport mode and routing become major inventory and cost items. ' +
-        'D — multi-scale: national or industry-wide programmes (typically Q1=C policy studies). B–D activate CIR-03 (GIS coupling); C–D also lca_mc_29 and the GIS-coupled branch of lcc_mc_14.',
+        'D4.1 §12.2.3: a global or national average characterisation factor fails to capture the significance of a system whose key interactions are intensely local (e.g. a water-sharing synergy in an arid region). A — one site or adjacent plants: spatially specific factors for water scarcity, eutrophication and acidification, and the scale mismatch flagged where regional factors are applied at site level (§12.3.3). B — within one region: regionalised factors, e.g. the Seppälä / Posch country-dependent factors for a regional cluster (§12.3.3). C — across regions or borders: spatially explicit factors at the location of each emission. Transport never depends on this answer: every link is a distinct foreground unit process with primary data, and GIS or routing is recommended for every exchange (§12.3.1). The second part asks for the market the replaced products come from: background mixes and the reference scenario are resolved on it, national or sub-national as a rule, continental only for globally traded commodities with no sub-continental market (§11.3.1).',
       options: {
-        A: { label: 'A. Co-located', description: 'One site or adjacent plants (eco-industrial park).' },
-        B: { label: 'B. Regional', description: 'Several sites in the same region.' },
-        C: { label: 'C. Wide-area', description: 'Cross-region or cross-border.' },
-        D: { label: 'D. Multi-scale', description: 'National / industry-wide, variable distances.' },
+        A: { label: 'A. One site', description: 'One site or adjacent plants: the interactions are intensely local.' },
+        B: { label: 'B. Regional', description: 'Several sites within one region.' },
+        C: { label: 'C. Across regions', description: 'Sites across regions or borders.' },
+      },
+      market: {
+        label: 'Reference market: where would the replaced products come from?',
+        help: 'The market the counterfactual would draw on, not the market of the symbiosis products. Optional.',
+        region: 'Country or region',
+        regionPlaceholder: 'e.g. Italy, Catalonia, EU',
+        scope: {
+          unset: 'Not answered',
+          national: 'National',
+          sub_national: 'Sub-national (a region inside a country)',
+          continental: 'Continental (only for goods traded worldwide)',
+        },
       },
       plain:
-        "How the sites are laid out: a single site, several sites in one region, sites across regions or borders, or a national or industry-wide programme. Transport is counted whatever you answer; the answer only changes how much detail you will be asked for about routes and modes. No distance cut-off sits behind the four options — each flow has its own pay-off distance, and the data collection file asks you for it, flow by flow, from your own sensitivity run.",
+        'How close together the companies\' key interactions happen: on one site, within one region, or across regions or borders. It decides how locally the environmental impacts are assessed: water or air pollution next to one site counts differently from the same amount spread over a country. Transport is counted whatever you answer. Then say where the products the symbiosis replaces would otherwise come from: a country, a region or, for goods traded worldwide, a continent.',
     },
     q8: {
       title: 'Q8 — Time horizon of the study',
@@ -1003,10 +1010,10 @@ const en = {
       },
       authority: {
         whatYouSee:
-          "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and the geographic scope it covers.",
+          "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and how concentrated the key interactions are.",
         whenScoring:
           "Once the scoring arrives you will see the environmental figures and, where the study includes them, the societal costs — the two a public decision rests on.",
-        scope: "Geographic scope declared for the case: {{scope}}",
+        scope: "How concentrated the key interactions are: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1079,7 +1086,7 @@ const en = {
     navLink: 'Regional dashboard',
     title: 'Regional / sectoral dashboard',
     subtitle:
-      'Breakdown of all saved cases by ILCD situation, LCC structure, sector and geographic scope. Intended for local authorities and policy analysts.',
+      'Breakdown of all saved cases by ILCD situation, LCC structure, sector and concentration of the key interactions. Intended for local authorities and policy analysts.',
     openButton: 'Open regional dashboard',
     backToCases: 'Back to cases',
     loading: 'Loading aggregate data…',
@@ -1092,7 +1099,7 @@ const en = {
     breakdownTitle: {
       byLccType: 'By LCC structure',
       bySector: 'By sector (Q6a)',
-      byScope: 'By geographic scope (Q7)',
+      byScope: 'By concentration of the interactions (Q7)',
       byIlcd: 'By ILCD situation',
     },
   },

@@ -11,7 +11,7 @@ CASE_A = {  # q1=B q2=B q6a=wastewater q7=B → Situation A
 CASE_B = {  # q1=C policy → Situation B
     "q1": "C", "q2": "B",
     "q3": {"env": True}, "q4": ["E"],
-    "q6a": "waste_valorization", "q6b": "TRL9", "q7": "D",
+    "q6a": "waste_valorization", "q6b": "TRL9", "q7": "C",
     "flows": [{"id": "f1", "name": "f1", "q5": "e"}],
 }
 
@@ -63,7 +63,7 @@ def test_aggregate_after_three_cases(client):
 
     scopes = {e["key"]: e["count"] for e in body["by_q7_geographic_scope"]}
     assert scopes.get("B") == 2
-    assert scopes.get("D") == 1
+    assert scopes.get("C") == 1     # the former D (multi-scale) loads as C
 
     ilcd = {e["key"]: e["count"] for e in body["by_ilcd_situation"]}
     assert ilcd.get("ILCD Situation A") == 2

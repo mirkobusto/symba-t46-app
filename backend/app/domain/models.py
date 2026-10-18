@@ -34,6 +34,7 @@ from app.domain.enums import (
     OperatingStart,
     Q6a,
     Q6b,
+    ReferenceMarketScope,
     SlcaActivationState,
     StudyPhase,
 )
@@ -145,13 +146,16 @@ class Case(BaseModel):
         - the IS-01..IS-05 pathway (`pathway_id`, `is_01_extended`), a T4.6
           construct the deliverables do not know, is dropped;
         - the former Q2 options C (design phase) and D (baseline plus
-          alternatives) are read as B, "not yet" (see enums.Q2)."""
+          alternatives) are read as B, "not yet" (see enums.Q2);
+        - the former Q7 option D (multi-scale programmes) is read as C."""
         if not isinstance(data, dict):
             return data
         if "pathway_id" in data or "is_01_extended" in data:
             data = {k: v for k, v in data.items() if k not in ("pathway_id", "is_01_extended")}
         if data.get("q2") in ("C", "D"):
             data = {**data, "q2": "B"}
+        if data.get("q7") == "D":   # former multi-scale option (2026-10-18)
+            data = {**data, "q7": "C"}
         return data
 
     # --- Identity / lifecycle ---
@@ -173,6 +177,12 @@ class Case(BaseModel):
     q6a: Q6a | None = None
     q6b: Q6b | None = None
     q7: Q7 | None = None
+    # Q7b — the market the reference (displaced) products come from (D4.1
+    # §11.3.1): its name, free text, and its scope. Not the market of the
+    # symbiosis products, nor ecoinvent's "reference product". Read through the
+    # {reference_market} phrase of lca_mc_06 / lca_mc_27 (engine/answer_phrases.py).
+    reference_market_region: str | None = Field(default=None, max_length=120)
+    reference_market_scope: ReferenceMarketScope | None = None
     # Q8 (optional) — the study's time horizon, one for LCA and LCC (D4.2 §11,
     # L01261). Q8a: when the system operates (now / a future year); Q8b: how many
     # years the study follows it (analysis period); Q8c: technical lifetime of the

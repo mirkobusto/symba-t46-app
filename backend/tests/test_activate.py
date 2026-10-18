@@ -43,8 +43,9 @@ def test_all_default_nodes_activate(schemas):
     assert default_ids.issubset(set(case.activated_nodes))
     # 116 + lca_hc_21 and lcc_hc_06, made unconditional (audit I-08), minus lca_mc_06,
     # which branches on the ILCD situation since 2026-10-15 (D4.1 Table 1), and minus
-    # lca_mc_07, which branches on Q11 (comparison goal) since 2026-10-18
-    assert len(default_ids) == 116
+    # lca_mc_07, which branches on Q11 (comparison goal) since 2026-10-18; plus lca_mc_16,
+    # lca_mc_29 and lcc_mc_14, the same for every Q7 since 2026-10-18 (transport for every exchange)
+    assert len(default_ids) == 119
 
 
 def test_l0_nodes_skipped(schemas):
@@ -118,17 +119,14 @@ def test_discriminative_no_match_node_dormant(schemas):
 # ---------------------------------------------------------------------------
 
 
-def test_simple_predicate_q7_geographic(schemas):
-    """lca_mc_29 (a Q7-conditioned node) fires when Q7 in {C,D}."""
-    case = _baseline_case(q7=Q7.C)
+@pytest.mark.parametrize("q7", [None, Q7.A, Q7.B, Q7.C])
+def test_gis_or_routing_is_recommended_for_every_exchange(schemas, q7):
+    """lca_mc_29: D4.1 §12.3.1 (L01373) recommends GIS or routing for every exchange;
+    the T4.6 'mandatory for wide-area networks' left on 2026-10-18."""
+    case = _baseline_case(q7=q7)
     run(case, schemas)
     assert "lca_mc_29" in case.activated_nodes
-
-
-def test_simple_predicate_q7_no_fire_for_A(schemas):
-    case = _baseline_case(q7=Q7.A)
-    run(case, schemas)
-    assert "lca_mc_29" not in case.activated_nodes
+    assert "Q7" not in case.lca["spatial_coupling"]
 
 
 def test_conjunctive_predicate_q3_eco_and_env(schemas):
@@ -508,12 +506,18 @@ def test_q6b_set_and_ordinal_keys(schemas):
     assert "Lang-factor multipliers" in low.lca["capital_goods.included"]
 
 
-@pytest.mark.parametrize(
-    "q7, expected",
-    [(Q7.A, "explicit"), (Q7.B, "explicit"), (Q7.C, "GIS-coupled"), (Q7.D, "GIS-coupled")],   # A was "minimal" (I-08)
-)
-def test_q7_in_set(schemas, q7, expected):
-    assert _activated(schemas, q7=q7).lca["transport.foreground"] == expected
+@pytest.mark.parametrize("q7, phrase", [
+    (Q7.A, "intensely local (one site)"),
+    (Q7.B, "Seppälä / Posch"),
+    (Q7.C, "country- or region-dependent factors matched to the territory of each emission"),
+    (None, "where key interactions are intensely local"),
+])
+def test_q7_sets_the_regionalised_characterisation_not_the_transport(schemas, q7, phrase):
+    """Q7 is the concentration of the key interactions (D4.1 §12.2.3, §12.3.3); the
+    transport is explicit for every exchange (§12.3.1)."""
+    case = _activated(schemas, q7=q7)
+    assert case.lca["transport.foreground"] == "explicit"
+    assert phrase in case.lca["lcia_method"] and "{interaction_scale}" not in case.lca["lcia_method"]
 
 
 def test_lca_boundary_is_organizational_and_coverage_a_declared_choice(schemas):
@@ -588,7 +592,6 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
     assert _activated(schemas, q2=Q2.B, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
     assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"].startswith("Break-even distance for every flow")
-    assert "GIS coupling suggested" in _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"]
 
 
 def test_lcc_functional_equivalent_follows_the_lca(schemas):
@@ -713,7 +716,7 @@ def test_q4_d_ends_on_pef_cff_except_in_situation_c2(schemas, q1):
         # D4.1 §11.3.1 L01293: Situation B models the marginal technology, not the average mix
         (Q1.C, "Marginal technology mix"),
         (Q1.D, "Allocation, no substitution credits"),   # C2, L00868
-        (Q1.E, "Average market mix, as in Situation A"),   # C1, L00866
+        (Q1.E, "Average market mix in "),   # C1, L00866
     ],
 )
 def test_reference_scenario_content_follows_the_situation(schemas, q1, expected):
@@ -763,13 +766,13 @@ def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
         (Q1.A, Q7.B, "exchange-only"),
         (Q1.B, Q7.B, "eco-park"),
         (Q1.C, Q7.B, "sector-wide"),   # lca_mc_05 says "sector-wide" for Q1=C too
-        (Q1.C, Q7.D, "sector-wide"),   # used to become "multi-scale" through q7=D
-        (Q1.D, Q7.D, "multi-scale"),   # q7=D keeps working for the other Q1 values
+        (Q1.C, Q7.C, "sector-wide"),
+        (Q1.D, Q7.C, "Inclusions/exclusions documented"),   # q7=D "multi-scale" left with that option
     ],
 )
 def test_slca_boundary_follows_the_lca_boundary(schemas, q1, q7, expected):
     case = _activated(schemas, q1=q1, q7=q7, q3=Q3(env=True, soc=True))
-    assert case.slca["boundary"] == expected
+    assert case.slca.get("boundary") == expected
 
 
 # ---------------------------------------------------------------------------
@@ -783,7 +786,7 @@ def test_slca_boundary_follows_the_lca_boundary(schemas, q1, q7, expected):
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("q7", [None, Q7.A, Q7.B, Q7.C, Q7.D])
+@pytest.mark.parametrize("q7", [None, Q7.A, Q7.B, Q7.C])
 def test_break_even_mandates_apply_whatever_q7_says(schemas, q7):
     case = _activated(schemas, q7=q7, q3=Q3(env=True, eco=True))
     assert "lca_hc_21" in case.activated_nodes
@@ -806,8 +809,9 @@ def test_lcc_transport_costs_now_has_a_single_writer(schemas):
     eco = Q3(env=True, eco=True)
     regional = _activated(schemas, q7=Q7.B, q3=eco).lcc["transport_costs"]
     assert "bulky, low-value or high-moisture" in regional and "suggested" not in regional   # D4.2 L01135
-    assert "GIS coupling suggested" in _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"]
-    assert "transport_costs" not in _activated(schemas, q7=None, q3=eco).lcc
+    # one value for every Q7 since 2026-10-18 (the T4.6 GIS suggestion left)
+    assert _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"] == regional
+    assert _activated(schemas, q7=None, q3=eco).lcc["transport_costs"] == regional
 
 
 # ---------------------------------------------------------------------------
@@ -891,14 +895,14 @@ def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(sche
     case = _q9_case(schemas, Q1.C, "none")
     assert case.lca["modeling_framework"] == "attributional"
     assert case.lca["allocation_method"] == "system expansion"
-    assert case.lca["reference_scenario.content"].startswith("Average market mix, as in Situation A")  # L00866
+    assert case.lca["reference_scenario.content"].startswith("Average market mix in ")  # L00866
 
 
 @pytest.mark.parametrize(
     "q1, decision, background, content",
     [
         # Q9 decides the situation, whatever Q1 says (D4.1 Table 1, §7.2.3, §11.3.1)
-        (Q1.C, "none", "Average market mixes", "Average market mix, as in Situation A"),          # C1
+        (Q1.C, "none", "Average market mixes", "Average market mix in "),          # C1
         (Q1.A, "corporate_report", "Average market mixes", "Allocation, no substitution credits"),  # C2
         (Q1.A, "structural", "Marginal processes", "Marginal technology mix"),                   # B
     ],

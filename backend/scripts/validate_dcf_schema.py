@@ -58,7 +58,7 @@ FIXTURES = [
     {"id": "daddi_2017", "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True),
      "q4": {Q4.E}, "flows": _flows(Q5.b, Q5.c), "q6a": Q6a.TEXTILE_LEATHER, "q6b": Q6b.TRL9, "q7": Q7.B},
     {"id": "paulu_2022", "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True),
-     "q4": {Q4.D, Q4.E}, "flows": _flows(Q5.e), "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D},
+     "q4": {Q4.D, Q4.E}, "flows": _flows(Q5.e), "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.C},
     {"id": "arce_bastias_2023", "q1": Q1.B, "q2": Q2.A, "q3": Q3(env=True),
      "q4": {Q4.E}, "flows": _flows(Q5.b, Q5.c), "q6a": Q6a.PLASTICS_PACKAGING, "q6b": Q6b.TRL9, "q7": Q7.A},
     {"id": "wiktor_2018", "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True),

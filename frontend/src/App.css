@@ -519,6 +519,9 @@ html {
   outline: 2px solid var(--primary);
   outline-offset: 1px;
 }
+.qtext-input {
+  width: min(22rem, 100%);
+}
 .qnum-unit {
   color: var(--slate-600);
   font-size: 14px;

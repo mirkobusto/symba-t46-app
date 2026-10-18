@@ -66,11 +66,11 @@ export const PRESETS: Preset[] = [
     label: '4. Paulu 2022 — Czech industry-wide (CZ, policy)',
     citation: 'Paulu et al. (2022)',
     description: 'National policy assessment, EU PEF + academic publication.',
-    rationale: 'Q1=C because this is a pure POLICY assessment at national scale (Czech Republic CCP & C&DW management), not a specific exchange or eco-park. Q4=D+E is the canonical multi-select case: EU PEF/EF method (D activates CIR-05 PEF Circular Footprint Formula) AND academic publication (E full SI). Q7=D multi-scale industry-wide with variable distances between generation and use sites.',
+    rationale: 'Q1=C because this is a pure POLICY assessment at national scale (Czech Republic CCP & C&DW management), not a specific exchange or eco-park. Q4=D+E is the canonical multi-select case: EU PEF/EF method (D activates CIR-05 PEF Circular Footprint Formula) AND academic publication (E full SI). Q7=C (interactions across the country).',
     case: {
       q1: 'C', decision_context: 'structural', q2: 'B', q3: { env: true, eco: false, soc: false },
       q4: ['D', 'E'],
-      flows: flows('e'), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'D',
+      flows: flows('e'), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'C',
     },
   },
   {

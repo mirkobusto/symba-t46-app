@@ -22,6 +22,7 @@ import type {
   Q7,
   ComparisonGoal,
   DecisionContext,
+  ReferenceMarketScope,
 } from '../types/api'
 
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
@@ -46,7 +47,8 @@ const Q6A_KEYS: Q6a[] = [
   'other',
 ]
 const Q6B_KEYS: Q6b[] = ['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5']
-const Q7_KEYS: Q7[] = ['A', 'B', 'C', 'D']
+const Q7_KEYS: Q7[] = ['A', 'B', 'C']
+const MARKET_SCOPES: ReferenceMarketScope[] = ['national', 'sub_national', 'continental']
 const DECISION_KEYS: DecisionContext[] = ['micro', 'structural', 'none', 'corporate_report']
 const COMPARISON_KEYS: ComparisonGoal[] = ['waste_treatment', 'product_substitution', 'co_primary']
 
@@ -95,6 +97,8 @@ export default function QuestionnairePage() {
   const [q6a, setQ6a] = useState<Q6a | undefined>(draft.q6a ?? undefined)
   const [q6b, setQ6b] = useState<Q6b | undefined>(draft.q6b ?? undefined)
   const [q7, setQ7] = useState<Q7 | undefined>(draft.q7 ?? undefined)
+  const [marketRegion, setMarketRegion] = useState<string>(draft.reference_market_region ?? '')
+  const [marketScope, setMarketScope] = useState<ReferenceMarketScope | ''>(draft.reference_market_scope ?? '')
   const [decisionContext, setDecisionContext] = useState<DecisionContext | ''>(
     draft.decision_context ?? '',
   )
@@ -135,6 +139,8 @@ export default function QuestionnairePage() {
     setQ6a(draft.q6a ?? undefined)
     setQ6b(draft.q6b ?? undefined)
     setQ7(draft.q7 ?? undefined)
+    setMarketRegion(draft.reference_market_region ?? '')
+    setMarketScope(draft.reference_market_scope ?? '')
     setOperatingStart(draft.operating_start ?? '')
     setStartYear(draft.operating_start_year != null ? String(draft.operating_start_year) : '')
     setAnalysisPeriod(draft.analysis_period_years != null ? String(draft.analysis_period_years) : '')
@@ -171,7 +177,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, advanced])
+  }, [canRun, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, marketRegion, marketScope, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -183,6 +189,8 @@ export default function QuestionnairePage() {
       flows,
       alternative_scenarios: scenarios,
       q6a, q6b, q7,
+      reference_market_region: marketRegion.trim() || null,
+      reference_market_scope: marketScope || null,
       operating_start: operatingStart || null,
       operating_start_year: operatingStart === 'future' ? parseYear(startYear) : null,
       analysis_period_years: parseYears(analysisPeriod),
@@ -204,6 +212,7 @@ export default function QuestionnairePage() {
       setEnv(true); setEco(false); setSoc(false)
       setQ4(new Set()); setFlows([]); setScenarios([])
       setQ6a(undefined); setQ6b(undefined); setQ7(undefined)
+      setMarketRegion(''); setMarketScope('')
       setOperatingStart(''); setStartYear(''); setAnalysisPeriod('')
       setAssetLifetime('')
       setDecisionContext('')
@@ -427,6 +436,29 @@ export default function QuestionnairePage() {
             />
             <span className="opt-label">{t(`questionnaire.q7.options.${v}.label`)}</span>
             <span className="opt-desc">{t(`questionnaire.q7.options.${v}.description`)}</span>
+          </label>
+        ))}
+        {/* Q7b — the market the reference (displaced) products come from (D4.1 §11.3.1) */}
+        <p className="opt-label">{t('questionnaire.q7.market.label')}</p>
+        <p className="opt-desc">{t('questionnaire.q7.market.help')}</p>
+        <label className="qnum">
+          <input
+            type="text" name="q7-market-region" maxLength={120}
+            className="qnum-input qtext-input" data-field="reference-market-region"
+            aria-label={t('questionnaire.q7.market.region')}
+            value={marketRegion}
+            placeholder={t('questionnaire.q7.market.regionPlaceholder')}
+            onChange={(e) => setMarketRegion(e.target.value)}
+          />
+        </label>
+        {(['', ...MARKET_SCOPES] as const).map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
+            <input
+              type="radio" name="q7-market-scope" value={k}
+              checked={marketScope === k}
+              onChange={() => setMarketScope(k)}
+            />
+            <span className="opt-label">{t(`questionnaire.q7.market.scope.${k || 'unset'}`)}</span>
           </label>
         ))}
       </QuestionCard>

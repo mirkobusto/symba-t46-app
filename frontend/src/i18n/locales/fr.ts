@@ -87,7 +87,7 @@ const fr: Locale = {
     aboutLink: 'Découvrir SYMBA',
     eyebrow: 'Rapport partagé · {{name}}',
     summaryTitle: 'Résumé de la configuration',
-    summary: { ilcd: 'Situation ILCD', lcc: 'Type LCC', slca: 'État S-LCA', sector: 'Secteur', scope: 'Portée géographique' },
+    summary: { ilcd: 'Situation ILCD', lcc: 'Type LCC', slca: 'État S-LCA', sector: 'Secteur', scope: 'Concentration des interactions' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Signaux de conformité',
     compliance: {
@@ -469,22 +469,29 @@ const fr: Locale = {
     },
 
     q7: {
-      title: 'Q7 — Distribution géographique',
-      help: 'Disposition qualitative du réseau. Le transport est modélisé explicitement quelle que soit la réponse ; la distance de rentabilité dépend du type de flux et est demandée pour chaque flux dans le Data Collection File, où vous notez celle issue de votre propre analyse de sensibilité (Logistique).',
+      title: 'Q7 — À quel point les interactions clés sont-elles concentrées ?',
+      help: 'Elle fixe la régionalisation de l\'évaluation des impacts. Le transport est modélisé explicitement pour chaque échange, quelle que soit la réponse ; la distance d\'équilibre est demandée pour chaque flux dans le Data Collection File.',
       details:
-        'La réponse change la façon de demander les données logistiques (couplage SIG, sensibilité spatiale), pas le fait de modéliser le transport : D4.1 §12.3.1 exige que chaque liaison de transport soit un processus unitaire distinct de l\'avant-plan, avec des données primaires sur la distance, l\'itinéraire et le mode, et une analyse de sensibilité sur la distance pour trouver le point d\'équilibre. Aucun seuil de distance ne se cache derrière les quatre options : le point d\'équilibre dépend du type de flux et de l\'alternative qu\'il remplace (D4.1 §12.2.1 et D4.2 donnent des fourchettes indicatives, pour vérifier la vraisemblance d\'un modèle, jamais comme données d\'entrée) ; chaque étude calcule le sien, flux par flux. ' +
-        'A — colocalisé : un seul site ou des installations voisines (parc éco-industriel). Les liaisons sont courtes (canalisation, convoyeur, manutention interne) mais modélisées ; pour la chaleur, la vapeur et l\'eau en canalisation, l\'infrastructure dédiée domine en général. ' +
-        'B — grappe régionale : plusieurs sites d\'une même région (typique Sokka 2011 / Hashimoto). ' +
-        'C — grande échelle : inter-régional ou transfrontalier ; le mode de transport et les itinéraires deviennent des postes majeurs de l\'inventaire et des coûts. ' +
-        'D — multi-échelle : programmes nationaux ou sectoriels (typiquement études de politique avec Q1=C). De B à D, CIR-03 (couplage SIG) s\'active ; de C à D, également lca_mc_29 et la branche SIG de lcc_mc_14.',
+        'D4.1 §12.2.3 : un facteur de caractérisation moyen mondial ou national ne saisit pas la portée d\'un système dont les interactions clés sont intensément locales (ex. une synergie de partage d\'eau dans une région aride). A — un site ou des installations adjacentes : facteurs spécifiques au lieu pour la rareté de l\'eau, l\'eutrophisation et l\'acidification, et le décalage d\'échelle signalé là où des facteurs régionaux sont appliqués au niveau du site (§12.3.3). B — au sein d\'une région : facteurs régionalisés, ex. les facteurs par pays de Seppälä / Posch pour un cluster régional (§12.3.3). C — entre régions ou par-delà les frontières : facteurs spatialement explicites au lieu de chaque émission. Le transport ne dépend jamais de cette réponse : chaque liaison est un processus unitaire distinct du premier plan avec des données primaires, et un SIG ou un outil de calcul d\'itinéraires est recommandé pour chaque échange (§12.3.1). La seconde partie demande le marché d\'où viennent les produits remplacés : les mix d\'arrière-plan et le scénario de référence s\'y rapportent, national ou infranational en règle générale, continental seulement pour les produits échangés à l\'échelle mondiale sans marché infra-continental (§11.3.1).',
       options: {
-        A: { label: 'A. Co-localisés', description: 'Un seul site ou des installations voisines (parc éco-industriel).' },
-        B: { label: 'B. Régional', description: 'Plusieurs sites d\'une même région.' },
-        C: { label: 'C. Zone étendue', description: 'Inter-régional ou transfrontalier.' },
-        D: { label: 'D. Multi-échelle', description: "National / industrie-wide, distances variables." },
+        A: { label: 'A. Un site', description: 'Un site ou des installations adjacentes : les interactions sont intensément locales.' },
+        B: { label: 'B. Régional', description: 'Plusieurs sites au sein d\'une région.' },
+        C: { label: 'C. Entre régions', description: 'Sites entre régions ou par-delà les frontières.' },
+      },
+      market: {
+        label: 'Marché de référence : d\'où viendraient les produits remplacés ?',
+        help: 'Le marché auquel puiserait le contrefactuel, pas le marché des produits de la symbiose. Facultatif.',
+        region: 'Pays ou région',
+        regionPlaceholder: 'ex. Italie, Catalogne, UE',
+        scope: {
+          unset: 'Sans réponse',
+          national: 'National',
+          sub_national: 'Infranational (une région dans un pays)',
+          continental: 'Continental (seulement pour les biens échangés dans le monde entier)',
+        },
       },
       plain:
-        "Comment les sites sont répartis : un seul site, plusieurs sites dans une même région, des sites entre régions ou au-delà des frontières, ou un programme national ou sectoriel. Le transport est compté quelle que soit votre réponse ; celle-ci change seulement le niveau de détail qu'on vous demandera sur les itinéraires et les modes. Aucun seuil de distance ne se cache derrière les quatre options : chaque flux a sa propre distance de rentabilité, et le fichier de collecte de données vous la demande, flux par flux, d'après votre propre analyse de sensibilité.",
+        'À quel point les interactions clés entre les entreprises sont proches : sur un site, au sein d\'une région, ou entre régions ou par-delà les frontières. Cela décide à quelle échelle locale les impacts environnementaux sont évalués : une pollution de l\'eau ou de l\'air à côté d\'un site ne pèse pas comme la même quantité répartie sur un pays. Le transport est compté dans tous les cas. Indiquez ensuite d\'où viendraient sinon les produits que la symbiose remplace : un pays, une région ou, pour les biens échangés dans le monde entier, un continent.',
     },
     q8: {
       title: 'Q8 — Horizon temporel de l\'étude',
@@ -956,10 +963,10 @@ const fr: Locale = {
       },
       authority: {
         whatYouSee:
-          "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et quelle est l'étendue géographique couverte.",
+          "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et à quel point les interactions clés sont concentrées.",
         whenScoring:
           "À l'arrivée des résultats chiffrés, vous verrez les valeurs environnementales et, lorsque l'étude les inclut, les coûts sociétaux — les deux piliers d'une décision publique.",
-        scope: "Étendue géographique déclarée pour le cas : {{scope}}",
+        scope: "Concentration des interactions clés : {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1032,7 +1039,7 @@ const fr: Locale = {
     navLink: 'Tableau de bord régional',
     title: 'Tableau de bord régional / sectoriel',
     subtitle:
-      'Répartition de tous les cas sauvegardés par situation ILCD, structure LCC, secteur et portée géographique. Pour autorités locales et analystes politiques.',
+      'Répartition de tous les cas sauvegardés par situation ILCD, structure LCC, secteur et concentration des interactions clés. Pour autorités locales et analystes politiques.',
     openButton: 'Ouvrir le tableau de bord',
     backToCases: 'Retour aux cas',
     loading: 'Chargement des données agrégées…',
@@ -1045,7 +1052,7 @@ const fr: Locale = {
     breakdownTitle: {
       byLccType: 'Par structure LCC',
       bySector: 'Par secteur (Q6a)',
-      byScope: 'Par portée géographique (Q7)',
+      byScope: 'Par concentration des interactions (Q7)',
       byIlcd: 'Par situation ILCD',
     },
   },

@@ -87,7 +87,7 @@ const de: Locale = {
     aboutLink: 'SYMBA kennenlernen',
     eyebrow: 'Geteilter Bericht · {{name}}',
     summaryTitle: 'Konfigurationsübersicht',
-    summary: { ilcd: 'ILCD-Situation', lcc: 'LCC-Typ', slca: 'S-LCA-Status', sector: 'Sektor', scope: 'Geografischer Umfang' },
+    summary: { ilcd: 'ILCD-Situation', lcc: 'LCC-Typ', slca: 'S-LCA-Status', sector: 'Sektor', scope: 'Konzentration der Wechselwirkungen' },
     scoringTitle: 'Scoring',
     complianceTitle: 'Compliance-Signale',
     compliance: {
@@ -463,22 +463,29 @@ const de: Locale = {
     },
 
     q7: {
-      title: 'Q7 — Geografische Verteilung',
-      help: 'Qualitative Anordnung des Netzwerks. Der Transport wird unabhängig von der Antwort explizit modelliert; die Break-even-Distanz hängt vom Flusstyp ab und wird für jeden Fluss im Data Collection File (Logistik) abgefragt — Sie tragen dort den Wert aus Ihrer eigenen Sensitivitätsanalyse ein.',
+      title: 'Q7 — Wie konzentriert sind die wichtigsten Wechselwirkungen?',
+      help: 'Sie bestimmt, wie die Wirkungsabschätzung regionalisiert wird. Der Transport wird für jeden Austausch explizit modelliert, unabhängig von der Antwort; die Break-even-Distanz wird im Data Collection File für jeden Fluss abgefragt.',
       details:
-        'Die Antwort ändert, wie Logistikdaten abgefragt werden (GIS-Kopplung, räumliche Sensitivität), nicht ob der Transport modelliert wird: D4.1 §12.3.1 verlangt, dass jede Transportverbindung ein eigener Einheitsprozess des Vordergrunds ist, mit Primärdaten zu Entfernung, Route und Verkehrsträger sowie einer Sensitivitätsanalyse der Entfernung zur Bestimmung des Break-even-Punkts. Hinter den vier Optionen steht keine Entfernungsschwelle: Der Break-even hängt vom Flusstyp und von der verdrängten Alternative ab (D4.1 §12.2.1 und D4.2 nennen Richtwerte zur Plausibilisierung eines Modells, nie als Eingaben); jede Studie berechnet ihren eigenen, Fluss für Fluss. ' +
-        'A — am selben Standort: ein Standort oder benachbarte Anlagen (Ökoindustriepark). Die Verbindungen sind kurz (Rohrleitung, Förderband, innerbetrieblicher Transport), werden aber modelliert; bei Wärme, Dampf und Wasser in Rohrleitungen dominiert meist die dedizierte Infrastruktur. ' +
-        'B — regionaler Cluster: mehrere Standorte in derselben Region (typisch Sokka 2011 / Hashimoto). ' +
-        'C — großräumig: überregional oder grenzüberschreitend; Verkehrsträger und Routen werden zu wichtigen Inventar- und Kostenposten. ' +
-        'D — mehrskalig: nationale oder branchenweite Programme (typisch Politikstudien mit Q1=C). Von B bis D wird CIR-03 (GIS-Kopplung) aktiviert; von C bis D zusätzlich lca_mc_29 und der GIS-Zweig von lcc_mc_14.',
+        'D4.1 §12.2.3: Ein globaler oder nationaler Durchschnitts-Charakterisierungsfaktor erfasst die Bedeutung eines Systems nicht, dessen wichtigste Wechselwirkungen stark lokal sind (z. B. eine Wasserteilungs-Synergie in einer trockenen Region). A — ein Standort oder benachbarte Anlagen: standortspezifische Faktoren für Wasserknappheit, Eutrophierung und Versauerung, und die Maßstabsabweichung wird angezeigt, wo regionale Faktoren auf Standortebene angewandt werden (§12.3.3). B — innerhalb einer Region: regionalisierte Faktoren, z. B. die länderspezifischen Faktoren nach Seppälä / Posch für ein regionales Cluster (§12.3.3). C — über Regionen oder Grenzen hinweg: räumlich explizite Faktoren am Ort jeder Emission. Der Transport hängt nie von dieser Antwort ab: Jede Verbindung ist ein eigener Prozess im Vordergrundsystem mit Primärdaten, und GIS oder Routenplanung wird für jeden Austausch empfohlen (§12.3.1). Der zweite Teil fragt nach dem Markt, aus dem die ersetzten Produkte stammen: Hintergrund-Mixe und Referenzszenario werden darauf bezogen, in der Regel national oder subnational, kontinental nur für weltweit gehandelte Güter ohne subkontinentalen Markt (§11.3.1).',
       options: {
-        A: { label: 'A. Co-located', description: 'Ein Standort oder benachbarte Anlagen (Ökoindustriepark).' },
-        B: { label: 'B. Regional', description: 'Mehrere Standorte in derselben Region.' },
-        C: { label: 'C. Weiträumig', description: 'Überregional oder grenzüberschreitend.' },
-        D: { label: 'D. Multi-Skala', description: 'National / industrieweit, variable Distanzen.' },
+        A: { label: 'A. Ein Standort', description: 'Ein Standort oder benachbarte Anlagen: Die Wechselwirkungen sind stark lokal.' },
+        B: { label: 'B. Regional', description: 'Mehrere Standorte innerhalb einer Region.' },
+        C: { label: 'C. Überregional', description: 'Standorte über Regionen oder Grenzen hinweg.' },
+      },
+      market: {
+        label: 'Referenzmarkt: Woher kämen die ersetzten Produkte?',
+        help: 'Der Markt, aus dem das Kontrafaktum schöpfen würde, nicht der Markt der Symbioseprodukte. Optional.',
+        region: 'Land oder Region',
+        regionPlaceholder: 'z. B. Italien, Katalonien, EU',
+        scope: {
+          unset: 'Keine Antwort',
+          national: 'National',
+          sub_national: 'Subnational (eine Region innerhalb eines Landes)',
+          continental: 'Kontinental (nur für weltweit gehandelte Güter)',
+        },
       },
       plain:
-        "Wie die Standorte liegen: ein einziger Standort, mehrere Standorte in einer Region, Standorte über Regionen oder Grenzen hinweg, oder ein landesweites oder branchenweites Programm. Der Transport wird in jedem Fall gerechnet; die Antwort ändert nur, wie viel Detail zu Routen und Verkehrsmitteln von Ihnen verlangt wird. Hinter den vier Optionen steht keine Entfernungsschwelle: jeder Fluss hat seine eigene Rentabilitätsentfernung, und der Data Collection File fragt sie bei Ihnen ab, Fluss für Fluss, aus Ihrer eigenen Sensitivitätsanalyse.",
+        'Wie nah die wichtigsten Wechselwirkungen zwischen den Unternehmen beieinander liegen: an einem Standort, innerhalb einer Region oder über Regionen oder Grenzen hinweg. Das entscheidet, wie lokal die Umweltwirkungen bewertet werden: Wasser- oder Luftverschmutzung neben einem Standort zählt anders als dieselbe Menge über ein Land verteilt. Der Transport wird in jedem Fall gezählt. Sagen Sie dann, woher die Produkte, die die Symbiose ersetzt, sonst kämen: aus einem Land, einer Region oder, bei weltweit gehandelten Gütern, einem Kontinent.',
     },
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
@@ -950,10 +957,10 @@ const de: Locale = {
       },
       authority: {
         whatYouSee:
-          "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und welchen geografischen Umfang er abdeckt.",
+          "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und wie konzentriert die wichtigsten Wechselwirkungen sind.",
         whenScoring:
           "Sobald die Kennzahlen vorliegen, sehen Sie die Umweltwerte und, wo die Studie sie einschließt, die gesellschaftlichen Kosten — die beiden Grundlagen einer öffentlichen Entscheidung.",
-        scope: "Für den Fall angegebener geografischer Umfang: {{scope}}",
+        scope: "Wie konzentriert die wichtigsten Wechselwirkungen sind: {{scope}}",
       },
       'end-user': {
         whatYouSee:
@@ -1026,7 +1033,7 @@ const de: Locale = {
     navLink: 'Regionales Dashboard',
     title: 'Regionales / sektorales Dashboard',
     subtitle:
-      'Aufschlüsselung aller gespeicherten Fälle nach ILCD-Situation, LCC-Struktur, Sektor und geografischem Umfang. Für lokale Behörden und politische Analysten.',
+      'Aufschlüsselung aller gespeicherten Fälle nach ILCD-Situation, LCC-Struktur, Sektor und Konzentration der wichtigsten Wechselwirkungen. Für lokale Behörden und politische Analysten.',
     openButton: 'Regionales Dashboard öffnen',
     backToCases: 'Zurück zu den Fällen',
     loading: 'Aggregierte Daten werden geladen…',
@@ -1039,7 +1046,7 @@ const de: Locale = {
     breakdownTitle: {
       byLccType: 'Nach LCC-Struktur',
       bySector: 'Nach Sektor (Q6a)',
-      byScope: 'Nach geografischem Umfang (Q7)',
+      byScope: 'Nach Konzentration der Wechselwirkungen (Q7)',
       byIlcd: 'Nach ILCD-Situation',
     },
   },

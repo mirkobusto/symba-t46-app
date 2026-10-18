@@ -100,7 +100,7 @@ _PAPERS: list[dict[str, Any]] = [
         "q3": Q3(env=True),
         "q4": {Q4.D, Q4.E},  # multi-select: PEF + academic
         "flows": _flows(Q5.e),
-        "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.D,
+        "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.C,
         "expected_ilcd": IlcdSituation.SITUATION_B,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,

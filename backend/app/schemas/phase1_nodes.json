@@ -560,14 +560,14 @@
       "field": "lca.background_database",
       "field_status": null,
       "default_value": {
-        "ilcd=A": "Average market consumption mixes, matched to the market the counterfactual draws on and to the year of the assessment, near-term projections in sensitivity; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
+        "ilcd=A": "Average market consumption mixes, matched to {reference_market} and to the year of the assessment, near-term projections in sensitivity; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
         "ilcd=B": "Marginal processes — long-run per Table 1, short-run for operational, year-by-year displacement (see lca_mc_27) — from a consequential LCI database, capacity-expansion models or sectoral outlooks; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
-        "ilcd=C1": "Average market mixes; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
-        "ilcd=C2": "Average market mixes; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)"
+        "ilcd=C1": "Average market mixes in {reference_market}; LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)",
+        "ilcd=C2": "Average market mixes, with background data for the region of production (D4.1 §12); LCI database (e.g. ecoinvent, GaBi/Sphera, Idemat) and its version declared — none prescribed (D4.1 §11.3.1; Table 1 in §4.2.3; databases: §9.1)"
       },
       "override_path": "ilcd, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: D4.1 Table 1 L00574-L00576 (background data per situation), L01291 (Situation A average mix, vintage-matched), L01293 (Situation B marginal, from consequential databases, models or outlooks), L01048 (commercial LCI databases). The former 'Ecoinvent 3.10 cut-off + system expansion' (cited D4.1 §4.2) had no basis: no version or system model is prescribed, and system expansion is multifunctionality (lca_mc_08/12). Future background stays with lca_mc_21. Erratum: L01293 'ecoinvent consequential cutoff' conflates two system models. Fable review 2026-10-15: Table 1 is in §4.2.3; 'system model declared' removed (not in the text); Situation B points to the short-/long-run choice of L01293."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: D4.1 Table 1 L00574-L00576 (background data per situation), L01291 (Situation A average mix, vintage-matched), L01293 (Situation B marginal, from consequential databases, models or outlooks), L01048 (commercial LCI databases). The former 'Ecoinvent 3.10 cut-off + system expansion' (cited D4.1 §4.2) had no basis: no version or system model is prescribed, and system expansion is multifunctionality (lca_mc_08/12). Future background stays with lca_mc_21. Erratum: L01293 'ecoinvent consequential cutoff' conflates two system models. Fable review 2026-10-15: Table 1 is in §4.2.3; 'system model declared' removed (not in the text); Situation B points to the short-/long-run choice of L01293. | Review 2026-10-18 (reference market): the {reference_market} phrase (engine/answer_phrases.py) names the market of the reference products from Q7b, L01291 (national or sub-national; continental only for globally traded commodities). Situation C2 keeps the background per region of production (L01315), with no reference market: there is no substitution."
     },
     {
       "id": "lca_mc_07",
@@ -754,22 +754,16 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §12.3.1",
-      "category": "DERIVED",
-      "trigger_q": [
-        "q7"
-      ],
-      "trigger_logic": "discriminative",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
       "trigger_condition": null,
       "field": "lca.transport.foreground",
       "field_status": null,
-      "default_value": {
-        "q7=A": "explicit",
-        "q7=B": "explicit",
-        "q7 in {C,D}": "GIS-coupled"
-      },
-      "override_path": "q7",
+      "default_value": "explicit",
+      "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1). | Explicit transport for every Q7 is text (L01371, 'must be modeled as distinct unit processes within the foreground system'); 'GIS-coupled' for Q7 C/D is a T4.6 choice, since D4.1 recommends GIS or routing for every distance (L01373, L01387). The values stay tokens because B-05 reads them."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1). | Explicit transport for every Q7 is text (L01371, 'must be modeled as distinct unit processes within the foreground system'); 'GIS-coupled' for Q7 C/D is a T4.6 choice, since D4.1 recommends GIS or routing for every distance (L01373, L01387). The values stay tokens because B-05 reads them. | Review 2026-10-18 (Q7 as the concentration of the key interactions): explicit transport for every exchange (L01371); the T4.6 'GIS-coupled' for wide-area networks is retired, GIS or routing is recommended for every exchange (lca_mc_29). The value stays a token because B-05 reads it."
     },
     {
       "id": "lca_mc_17",
@@ -920,18 +914,19 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §12.3.3",
-      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01399 ('should select per category rather than imposing a single method'), L01401, L01403; EF 3.1 in L00914 and L01216. 'ReCiPe 2016 hierarchic' as a default is not in the text. CIR-05 writes 'EF_3.1' after this node for Q4=D.",
+      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01399 ('should select per category rather than imposing a single method'), L01401, L01403; EF 3.1 in L00914 and L01216. 'ReCiPe 2016 hierarchic' as a default is not in the text. CIR-05 writes 'EF_3.1' after this node for Q4=D. | Review 2026-10-18 (Q7 as the concentration of the key interactions): the {interaction_scale} phrase (engine/answer_phrases.py) states the regionalised characterisation per Q7: L01365 (intensely local interactions), L01403 (Seppälä/Posch for regional clusters), L01415 (scale mismatch).",
       "category": "DERIVED",
       "trigger_q": [
-        "q4"
+        "q4",
+        "q7"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.lcia_method",
       "field_status": null,
       "default_value": {
-        "q4 includes 'D'": "EF method, the PEF reference, version declared: T4.6 choice for EU policy-aligned studies; CIR-05 sets EF 3.1 (D4.1 §12.3.3; EF 3.1: §7.3.3, §10.3.5)",
-        "default": "Midpoint methods chosen per impact category rather than one method for the whole LCIA — e.g. AWARE for water scarcity, ReCiPe 2016 or EF 3.0 spatially explicit factors for acidification and eutrophication — with versions declared (D4.1 §12.3.3)"
+        "q4 includes 'D'": "EF method, the PEF reference, version declared: T4.6 choice for EU policy-aligned studies; CIR-05 sets EF 3.1 (D4.1 §12.3.3; EF 3.1: §7.3.3, §10.3.5); regionalisation: {interaction_scale}",
+        "default": "Midpoint methods chosen per impact category rather than one method for the whole LCIA — e.g. AWARE for water scarcity, ReCiPe 2016 or EF 3.0 spatially explicit factors for acidification and eutrophication — with versions declared (D4.1 §12.3.3); regionalisation: {interaction_scale}"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2"
@@ -972,14 +967,14 @@
       "field": "lca.reference_scenario.content",
       "field_status": null,
       "default_value": {
-        "ilcd=A": "Average market consumption mix of each displaced commodity in the market the counterfactual draws on; no hypothetical alternative technology unless a permitted and funded plan existed; reference technology no older than the assessment year, benchmarked on BAT/BREF for permit-bound processes (D4.1 §11.3.1)",
-        "ilcd=B": "Marginal technology mix: short-run marginal for operational displacement, long-run marginal for capacity-planning horizons (typically > 5 years) or capacity-shifting symbioses, from consequential LCI databases, capacity-expansion models or sectoral outlooks; test at least one alternative marginal in sensitivity analysis; same frozen-technology rule (D4.1 §11.3.1)",
-        "ilcd=C1": "Average market mix, as in Situation A: the existing network's benefits are documented by substitution (D4.1 §11.3.1, §7.2.3)",
+        "ilcd=A": "Average market consumption mix of each displaced commodity in {reference_market}; no hypothetical alternative technology unless a permitted and funded plan existed; reference technology no older than the assessment year, benchmarked on BAT/BREF for permit-bound processes (D4.1 §11.3.1)",
+        "ilcd=B": "Marginal technology mix of {affected_market}: short-run marginal for operational displacement, long-run marginal for capacity-planning horizons (typically > 5 years) or capacity-shifting symbioses, from consequential LCI databases, capacity-expansion models or sectoral outlooks; test at least one alternative marginal in sensitivity analysis; same frozen-technology rule (D4.1 §11.3.1)",
+        "ilcd=C1": "Average market mix in {reference_market}, as in Situation A: the existing network's benefits are documented by substitution (D4.1 §11.3.1, §7.2.3)",
         "ilcd=C2": "Allocation, no substitution credits: the reference scenario is not used to credit avoided burdens (D4.1 §11.3.1, §7.2.3); if one is reported for comparison, its type follows lca_mc_26"
       },
       "override_path": "ilcd, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §12.3.1). | Rewritten on FINAL v2 text, review 2026-10-15: D4.1 L01291 (Situation A), L01293 (Situation B, short- vs long-run marginal), L01295 (frozen-technology fallacy, BAT/BREF), L00866 (C1: substitution with the average market mix, 'identical to Situation A'), L00868 (C2: allocation, 'Do not apply substitution credits'). C1 and C2 had no branch. The type of reference scenario (HNSRS/CNSRS, time alignment) stays with lca_mc_26. Fable review 2026-10-15: C2 reworded so it does not contradict lca_mc_26, which still types the reference scenario (L00868 is a multifunctionality rule, §7.2.3); Situation B adds L01293 'test at least one alternative marginal in sensitivity analysis'."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.6); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §12.3.1). | Rewritten on FINAL v2 text, review 2026-10-15: D4.1 L01291 (Situation A), L01293 (Situation B, short- vs long-run marginal), L01295 (frozen-technology fallacy, BAT/BREF), L00866 (C1: substitution with the average market mix, 'identical to Situation A'), L00868 (C2: allocation, 'Do not apply substitution credits'). C1 and C2 had no branch. The type of reference scenario (HNSRS/CNSRS, time alignment) stays with lca_mc_26. Fable review 2026-10-15: C2 reworded so it does not contradict lca_mc_26, which still types the reference scenario (L00868 is a multifunctionality rule, §7.2.3); Situation B adds L01293 'test at least one alternative marginal in sensitivity analysis'. | Review 2026-10-18 (reference market): the {reference_market} phrase (engine/answer_phrases.py) names the market of the reference products from Q7b, L01291 (national or sub-national; continental only for globally traded commodities). The marginal (B) branch names the affected market without the scope rule of L01291, which is written for averages."
     },
     {
       "id": "lca_mc_28",
@@ -1002,18 +997,16 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §12.3.1",
-      "category": "DERIVED",
-      "trigger_q": [
-        "q7"
-      ],
-      "trigger_logic": "simple",
-      "trigger_condition": "case.q7 IN ['C','D']",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
+      "trigger_condition": null,
       "field": "lca.spatial_coupling",
       "field_status": null,
-      "default_value": "GIS or routing tools for real road distances, recommended by D4.1 for every exchange (D4.1 §12.3.1); for wide-area or multi-scale networks (Q7 C/D) GIS coupling is mandatory: T4.6 design choice",
-      "override_path": "q7",
+      "default_value": "GIS or routing tools for real road distances, recommended for every exchange (D4.1 §12.3.1)",
+      "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1). | Rewritten on FINAL v2 text, review 2026-10-15: L01373 ('Use mapping tools like Geographic Information Systems (GIS) for accuracy'), L01387 (in the list of 'fallback defaults, not prescriptive values', L01379). Known: CIR-03 fires for Q7 in {B,C,D} and writes lca.spatial_coupling = 'GIS' after this node, so this text is overwritten whenever the node fires."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.4); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §13.3.1). | Rewritten on FINAL v2 text, review 2026-10-15: L01373 ('Use mapping tools like Geographic Information Systems (GIS) for accuracy'), L01387 (in the list of 'fallback defaults, not prescriptive values', L01379). Until 2026-10-18 CIR-03 fired for Q7 in {B,C,D} and overwrote this text with 'GIS'. | Review 2026-10-18 (Q7 as the concentration of the key interactions): active for every case, as L01373 recommends; the T4.6 'mandatory for Q7 C/D' is retired."
     },
     {
       "id": "lca_mc_30",
@@ -2134,21 +2127,16 @@
       "method": "LCC",
       "type": "MC",
       "source_section": "D4.2 §9.3",
-      "category": "DERIVED",
-      "trigger_q": [
-        "q7"
-      ],
-      "trigger_logic": "discriminative",
+      "category": "DEFAULT",
+      "trigger_q": null,
+      "trigger_logic": null,
       "trigger_condition": null,
       "field": "lcc.transport_costs",
       "field_status": null,
-      "default_value": {
-        "q7 in {A,B}": "Break-even distance for every flow as a sensitivity parameter; a GIS spatial viability map for bulky, low-value or high-moisture streams (D4.2 §9.3; §4.3)",
-        "q7 in {C,D}": "Break-even distance for every flow as a sensitivity parameter; a GIS spatial viability map for bulky, low-value or high-moisture streams, and GIS coupling suggested by the wide spread of the network: T4.6 (D4.2 §9.3; §4.3)"
-      },
-      "override_path": "q7",
+      "default_value": "Break-even distance for every flow as a sensitivity parameter; a GIS spatial viability map for bulky, low-value or high-moisture streams (D4.2 §9.3; §4.3)",
+      "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §4.3); audit 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01135 (GIS for 'bulky, low-value, or high-moisture waste streams'), L00593 (break-even as a variable). GIS was keyed on Q7, the text keys it on the nature of the flow."
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §4.3); audit 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01135 (GIS for 'bulky, low-value, or high-moisture waste streams'), L00593 (break-even as a variable). GIS was keyed on Q7, the text keys it on the nature of the flow. | Review 2026-10-18 (Q7 as the concentration of the key interactions): one value for every case (D4.2 §9.3, §4.3); the T4.6 'GIS coupling suggested by the wide spread of the network' is retired."
     },
     {
       "id": "lcc_mc_15",
@@ -3059,8 +3047,7 @@
       "source_section": "D4.3 §4.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q1",
-        "q7"
+        "q1"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
@@ -3069,11 +3056,11 @@
       "default_value": {
         "q1=A": "exchange-only",
         "q1=B": "eco-park",
-        "q1=C": "sector-wide",
-        "q7=D": "multi-scale"
+        "q1=C": "sector-wide"
       },
-      "override_path": "q1, q7",
-      "lifecycle_layer": "L2"
+      "override_path": "q1",
+      "lifecycle_layer": "L2",
+      "extraction_notes": " | Review 2026-10-18 (Q7 as the concentration of the key interactions): the former q7=D (multi-scale) branch is retired with that option; the boundary follows the form of the network (Q1)."
     },
     {
       "id": "slca_mc_05",

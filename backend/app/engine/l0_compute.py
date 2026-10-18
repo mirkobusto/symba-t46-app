@@ -84,8 +84,9 @@ _Q1_D_NOT_CORPORATE = ("q1_d_not_corporate", "Q1=D describes one company's susta
 def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, Any]]]:
     """ILCD situation and the notes about it.
 
-    Q9 unanswered: the Q1 mapping (cases saved before Q9 keep their values). Q9
-    answered: D4.1 Table 1 and §7.2.3, plus a note when it contradicts Q1. A
+    Q9 unanswered: the Q1 mapping, with a note asking for Q9 (Q9 is required in
+    the questionnaire since 2026-10-15; Q1 describes the subject and decides only
+    for cases saved before Q9 existed). Q9 answered: D4.1 Table 1 and §7.2.3, plus a note when it contradicts Q1. A
     structural answer needs the market screening (Q9b): without it the study stays
     Situation A, B being a sensitivity (L00632). In every case a note when
     Situation C meets an ex-ante Q2 (audit I-06).
@@ -95,6 +96,10 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, An
     notes: list[dict[str, Any]] = []
     if decision is None:
         situation = base
+        notes.append({"code": "q9_unanswered", "params": {"situation": situation.value.split()[-1]}, "message": (
+            f"Q9 is not answered, so the ILCD situation ({situation.value}) is read off Q1, as for cases "
+            "saved before Q9 existed. Answer Q9: D4.1 Table 1 sets the situation by the decision and the "
+            "scale of its consequences, not by the subject of the study.")})
     else:
         if decision == _X:
             if case.market_screening_documented is False:
@@ -141,7 +146,8 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, Any]]]:
     policy or planning objective (D4.2 §2.3, L00473). Without the environmental
     dimension there is no E-LCC: C-LCC per partner + network consolidation (C+N),
     plus the S-LCC on a policy objective (C+N+S). Q10 unanswered: inferred from
-    Q1 (yes only for Q1=C), as before Q10 existed.
+    Q1 (yes only for Q1=C), as before Q10 existed, with a note asking for Q10
+    (required in the questionnaire when the economic dimension is on).
     """
     if not case.q3.eco:
         return LccType.DEACTIVATED, []
@@ -157,6 +163,11 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, Any]]]:
         return LccType.C_LCC_ONLY, notes
     if policy is None:
         policy = case.q1 == Q1.C
+        notes.append({"code": "q10_unanswered", "params": {"variant": "yes" if policy else "no"}, "message": (
+            "Q10 is not answered, so whether the study serves a public objective is read off Q1: the "
+            "societal LCC is " + ("added" if policy else "not added") + ", as for cases saved before Q10 "
+            "existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning "
+            "objective or a public decision-maker, whatever the subject of the study.")})
     elif not policy and case.q1 == Q1.C:
         notes.append({"code": "policy_no_but_q1_c", "message": "Q1=C (sector-wide pre-feasibility) usually serves "
                       "a public policy; you answered that it does not, so the societal costing (S-LCC, net tax "

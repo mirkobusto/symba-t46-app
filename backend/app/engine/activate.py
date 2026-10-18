@@ -244,7 +244,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # simple
     "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
-    "lca_mc_30": lambda c: c.q6a in _WASTEWATER_SECTORS or any(f.sector in _WASTEWATER_SECTORS for f in c.flows),
+    "lca_mc_30": lambda c: any(f.sector in _WASTEWATER_SECTORS for f in c.flows),   # flows, not Q6a (2026-10-18)
     # simple
     "lca_mc_33": lambda c: c.q3.eco,
     # conjunctive

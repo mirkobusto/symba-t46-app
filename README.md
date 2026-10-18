@@ -1,15 +1,17 @@
 # SYMBA T4.6 — IS Assessment App
 
-Web application that operationalises the SYMBA T4.6 LCA / LCC / S-LCA
-guidelines into a scoping tool for Industrial Symbiosis case studies.
-See [`coordination/master-plan/MASTER_PLAN.md`](coordination/master-plan/MASTER_PLAN.md)
-for the full vision; per-sprint specs and reports live under
-[`coordination/`](coordination/).
+Web application of the Horizon Europe project SYMBA (GA 101135562), task T4.6,
+deliverable D4.6. It makes the SYMBA guidelines for Industrial Symbiosis
+assessment, D4.1 (LCA) and D4.2 (LCC), applicable to a case: a questionnaire
+on the variables the deliverables use (Q0-Q12: the study, the exchanges, the
+case) gives the methodological configuration (ILCD situation, LCC structure,
+study horizon, reference scenario, functional unit, regionalisation, D4.1
+Part 2 sector rules), the obligations to document, and a Data Collection File
+calibrated on it. It computes no LCA, LCC or S-LCA numbers: scoring comes
+from the project partners.
 
-This repository is a public monorepo. As of Sprint 2, the backend ships
-the LCSA decision engine (10 questions → 10 pathways), session persistence
-on SQLite, and a REST API under `/api/`. The frontend questionnaire is the
-target of Sprint 3.
+Documentation index: [`docs/README.md`](docs/README.md). Deployment:
+[`docs/DEPLOY.md`](docs/DEPLOY.md).
 
 ## Stack
 
@@ -24,9 +26,9 @@ target of Sprint 3.
 docker compose up --build
 ```
 
-- Frontend: <http://localhost:5173>
-- Backend:  <http://localhost:8000>
-- Health:   <http://localhost:8000/health>
+- Frontend: <http://localhost:5180>
+- Backend:  <http://localhost:8088>
+- Health:   <http://localhost:8088/health>
 
 The compose file mounts the source directories into the containers so that
 hot-reload (Vite) and auto-reload (uvicorn) work without rebuilding.
@@ -38,7 +40,7 @@ hot-reload (Vite) and auto-reload (uvicorn) work without rebuilding.
 ```bash
 cd frontend
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:5180
 npm run lint
 npm run test
 npm run build
@@ -51,9 +53,9 @@ cd backend
 uv venv --python 3.12        # or: python3.12 -m venv .venv
 source .venv/bin/activate
 uv pip install -e ".[dev]"   # or: pip install -e ".[dev]"
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 8088
 ruff check .
-pytest
+PYTHONPATH=. pytest tests/
 ```
 
 The SQLite file is created lazily under `backend/data/app.db` (gitignored).
@@ -62,26 +64,14 @@ The SQLite file is created lazily under `backend/data/app.db` (gitignored).
 
 ```
 .
-├── frontend/                # React + TS + Vite app
-├── backend/                 # FastAPI app
-├── coordination/
-│   ├── master-plan/         # Long-term vision
-│   ├── current-state/       # Snapshot of where we are
-│   ├── specs/               # Per-sprint SPECs
-│   ├── reports/             # Per-sprint REPORTs
-│   ├── reviews/             # Cross-sprint reviews
-│   └── ADRs/                # Architecture Decision Records
+├── frontend/                # React + TS + Vite app (questionnaire, result, DCF, audience views)
+├── backend/                 # FastAPI app: schema-driven engine, DCF, reports, auth
+│   └── app/schemas/         # the methodology as data: nodes, cross-method rules, DCF, Part 2 overlays
+├── docs/                    # documentation (index in docs/README.md)
+├── deploy/                  # Caddy and construction-mode files for production
 ├── .github/workflows/       # CI pipelines (frontend + backend)
-├── docker-compose.yml       # Dev-only stack
-└── README.md
+├── docker-compose.yml       # dev stack
+└── docker-compose.prod.yml  # production stack (see docs/DEPLOY.md)
 ```
 
-## Coordination
-
-All planning and post-mortem material lives in
-[`coordination/`](coordination/). Sprint flow:
-
-1. SPEC under `coordination/specs/SPRINT_<N>_SPEC_*.md`
-2. Implementation on a `sprint/<N>-...` branch (or harness-assigned branch)
-3. REPORT under `coordination/reports/SPRINT_<N>_REPORT.md`
-4. Manual QA gate — see the SPEC's "Manual QA gate" section
+`coordination/` holds the planning record of the early sprints and is historical.

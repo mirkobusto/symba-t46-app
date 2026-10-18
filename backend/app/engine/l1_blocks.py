@@ -12,12 +12,9 @@ The 4 BLOCKs (ordered as in the JSON):
     block_Q3_emptySelection      Q3 = no selection (env=eco=soc=false)
     block_Q1A_plus_Q5e           Q1=A AND ≥1 flow AND all flows Q5=e
 
-Note on `block_anyQ1_plus_AbsoluteSLCA`: requires `case.advanced.
-slca_framework_override` which is part of the Step 4 advanced-overrides
-layer; `Case` does not yet expose `advanced` so this BLOCK is
-structurally inert today (the defensive `getattr` returns None). When
-Sprint 4 Step 4 wires `advanced`, the BLOCK activates without changes
-to this module.
+Note on `block_anyQ1_plus_AbsoluteSLCA`: reads the advanced override
+`case.advanced["slca_framework_override"]` (AdvancedEditor), the only
+way to ask for an absolute S-LCA framework.
 
 Note on `block_C2_plus_E-LCC`: under natural L0 derivation Situation C2 maps
 to `LccType.C_LCC_ONLY` or `LccType.DEACTIVATED`, so this BLOCK never

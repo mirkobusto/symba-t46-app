@@ -189,7 +189,7 @@ def _envelope(
     """Pair stored content with a freshly computed validation report.
 
     The report is recomputed on every read rather than stored: the
-    descriptor depends on the case's answers, so editing Q1-Q7 can
+    descriptor depends on the case's answers, so editing the answers can
     activate or deactivate fields under content that was already saved.
     """
     payload = _run_and_compose(case, schemas)

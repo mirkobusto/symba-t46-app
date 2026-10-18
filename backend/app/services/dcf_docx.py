@@ -259,9 +259,9 @@ def _write_excel_reference_section(doc: Document, payload: DcfPayload) -> None:
     doc.add_paragraph(
         "The companion .xlsx file contains the structured field reference "
         "calibrated on the configuration derived above. Fill the empty rows in each "
-        "tab and return the workbook to the analyst leading the LCSA. The "
-        "field-by-field activation is driven by predicates over Q1–Q7 and "
-        "the derived pipeline state — see DATA_COLLECTION_FILE_v1.md §5."
+        "tab and return the workbook to the analyst leading the LCSA. Which "
+        "fields are asked follows the questionnaire answers and the "
+        "configuration derived from them."
     )
 
     doc.add_heading("Active sections", level=2)

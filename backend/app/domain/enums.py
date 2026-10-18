@@ -13,7 +13,7 @@ from __future__ import annotations
 from enum import StrEnum
 
 # =============================================================================
-# Q1-Q7 user-facing answer domains
+# User-facing answer domains (Q0-Q12)
 # =============================================================================
 
 

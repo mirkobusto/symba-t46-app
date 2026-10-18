@@ -3,12 +3,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import type { CdpFlag, RuleViolation } from '../types/api'
+import type { CdpFlag } from '../types/api'
 import { schemaTerm } from '../i18n/schemaTerms'
 
 interface Props {
   activatedNodes: string[]
-  rule_violations: RuleViolation[]
   cdp_flags: CdpFlag[]
   pillars: { name: string; data: Record<string, unknown> }[]
 }
@@ -39,7 +38,6 @@ function severityClass(s: string | null | undefined): string {
 
 export default function ReasoningPanel({
   activatedNodes,
-  rule_violations,
   cdp_flags,
   pillars,
 }: Props) {
@@ -131,23 +129,6 @@ export default function ReasoningPanel({
         {pillars.every((p) => Object.keys(p.data).length === 0) ? (
           <p className="muted">{t('reasoning.noPillarValues')}</p>
         ) : null}
-      </section>
-
-      {/* Violations */}
-      <section className="reasoning-section">
-        <h3>{t('reasoning.l2Violations', { count: rule_violations.length })}</h3>
-        {rule_violations.length === 0 ? (
-          <p className="muted">{t('reasoning.noViolations')}</p>
-        ) : (
-          <ul className="violation-list">
-            {rule_violations.map((v, i) => (
-              <li key={`${v.rule_id}-${i}`} className="violation-card">
-                <code className="violation-id">{v.rule_id}</code>
-                <span>{v.message}</span>
-              </li>
-            ))}
-          </ul>
-        )}
       </section>
 
       {/* CDPs */}

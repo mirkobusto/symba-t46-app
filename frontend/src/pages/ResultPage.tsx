@@ -277,9 +277,9 @@ export default function ResultPage() {
             tone={blockedBy.length > 0 ? 'warning' : 'success'}
           />
           <KpiCard
-            label={t('result.summary.l2Violations')}
-            value={result.rule_violations?.length ?? 0}
-            tone={(result.rule_violations?.length ?? 0) > 0 ? 'warning' : 'neutral'}
+            label={t('result.summary.obligations')}
+            value={result.applicable_rules?.length ?? 0}
+            tone="neutral"
           />
           <KpiCard
             label={t('result.summary.l3Cdps')}
@@ -301,7 +301,6 @@ export default function ResultPage() {
         {showReasoning && blockedBy.length === 0 ? (
           <ReasoningPanel
             activatedNodes={result.activated_nodes ?? []}
-            rule_violations={result.rule_violations ?? []}
             cdp_flags={result.cdp_flags ?? []}
             pillars={[
               { name: 'lca', data: result.lca ?? {} },

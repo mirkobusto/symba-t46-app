@@ -16,7 +16,7 @@ interface RowData {
   slca: string | null
   activated: number
   blocks: number
-  violations: number
+  obligations: number
   cdps: number
 }
 
@@ -28,7 +28,7 @@ function rowFromCase(id: string, label: string, c: Case): RowData {
     slca: c.slca_activation_state ?? null,
     activated: c.activated_nodes?.length ?? 0,
     blocks: c.blocked_by?.length ?? 0,
-    violations: c.rule_violations?.length ?? 0,
+    obligations: c.applicable_rules?.length ?? 0,
     cdps: c.cdp_flags?.length ?? 0,
   }
 }
@@ -76,7 +76,7 @@ export default function ScenariosResultPage() {
               <th>{t('scenariosResult.columns.slca')}</th>
               <th>{t('scenariosResult.columns.activated')}</th>
               <th>{t('scenariosResult.columns.blocks')}</th>
-              <th>{t('scenariosResult.columns.violations')}</th>
+              <th>{t('scenariosResult.columns.obligations')}</th>
               <th>{t('scenariosResult.columns.cdps')}</th>
             </tr>
           </thead>
@@ -105,8 +105,8 @@ export default function ScenariosResultPage() {
                   <td className={isBaseline ? '' : diffClass(row.blocks, baselineRow.blocks)}>
                     {row.blocks}
                   </td>
-                  <td className={isBaseline ? '' : diffClass(row.violations, baselineRow.violations)}>
-                    {row.violations}
+                  <td className={isBaseline ? '' : diffClass(row.obligations, baselineRow.obligations)}>
+                    {row.obligations}
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.cdps, baselineRow.cdps)}>
                     {row.cdps}

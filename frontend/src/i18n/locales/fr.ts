@@ -493,7 +493,7 @@ const fr: Locale = {
       start: {
         label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
         options: {
-          unset: 'Sans réponse (l\'année de l\'étude ; une année future si Q2 = D)',
+          unset: 'Sans réponse (l\'année de l\'étude)',
           now: 'Maintenant : l\'année de l\'étude',
           future: 'Une année future',
         },
@@ -559,7 +559,7 @@ const fr: Locale = {
     q2dCard: {
       title: 'Scénarios alternatifs (facultatif)',
       help:
-        'Toute étude peut comparer des alternatives à sa situation de départ (D4.1 §4.3.3). Ici, un scénario modifie certaines de vos réponses ; il ne peut pas encore modifier le réseau lui-même (flux, distances, quantités).',
+        'Toute étude peut comparer des alternatives à sa situation de départ (D4.1 §4.3.3).',
     },
 
     advancedCard: {

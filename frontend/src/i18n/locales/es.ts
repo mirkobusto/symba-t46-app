@@ -487,7 +487,7 @@ const es: Locale = {
       start: {
         label: '¿En qué año funciona el sistema, o se supone que funciona?',
         options: {
-          unset: 'Sin respuesta (el año del estudio; un año futuro si Q2 = D)',
+          unset: 'Sin respuesta (el año del estudio)',
           now: 'Ahora: el año del estudio',
           future: 'Un año futuro',
         },
@@ -553,7 +553,7 @@ const es: Locale = {
     q2dCard: {
       title: 'Escenarios alternativos (opcional)',
       help:
-        'Todo estudio puede comparar alternativas con su situación de partida (D4.1 §4.3.3). Aquí un escenario cambia algunas de tus respuestas; todavía no puede cambiar la red en sí (flujos, distancias, cantidades).',
+        'Todo estudio puede comparar alternativas con su situación de partida (D4.1 §4.3.3).',
     },
 
     advancedCard: {

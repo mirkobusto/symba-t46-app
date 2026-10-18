@@ -541,7 +541,7 @@ const en = {
       start: {
         label: 'In which year does the system operate, or is it assumed to operate?',
         options: {
-          unset: 'Not answered (the year of the study; a future year if Q2 = D)',
+          unset: 'Not answered (the year of the study)',
           now: 'Now: the year of the study',
           future: 'A future year',
         },
@@ -607,7 +607,7 @@ const en = {
     q2dCard: {
       title: 'Alternative scenarios (optional)',
       help:
-        'Every study can compare alternatives with its baseline (D4.1 §4.3.3). Here a scenario changes some of your answers; it cannot yet change the network itself (flows, distances, quantities).',
+        'Every study can compare alternatives with its baseline (D4.1 §4.3.3).',
     },
 
     advancedCard: {

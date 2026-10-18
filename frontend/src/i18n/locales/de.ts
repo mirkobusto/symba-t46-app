@@ -487,7 +487,7 @@ const de: Locale = {
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
         options: {
-          unset: 'Keine Antwort (das Jahr der Studie; ein zukünftiges Jahr bei Q2 = D)',
+          unset: 'Keine Antwort (das Jahr der Studie)',
           now: 'Jetzt: das Jahr der Studie',
           future: 'Ein zukünftiges Jahr',
         },
@@ -553,7 +553,7 @@ const de: Locale = {
     q2dCard: {
       title: 'Alternative Szenarien (optional)',
       help:
-        'Jede Studie kann Alternativen mit ihrer Ausgangssituation vergleichen (D4.1 §4.3.3). Hier ändert ein Szenario einige Ihrer Antworten; das Netzwerk selbst (Flüsse, Entfernungen, Mengen) kann es noch nicht ändern.',
+        'Jede Studie kann Alternativen mit ihrer Ausgangssituation vergleichen (D4.1 §4.3.3).',
     },
 
     advancedCard: {

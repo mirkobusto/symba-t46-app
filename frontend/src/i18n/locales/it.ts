@@ -519,7 +519,7 @@ const it: Locale = {
       start: {
         label: 'In quale anno opera il sistema, o si assume che operi?',
         options: {
-          unset: 'Non risposta (l\'anno dello studio; un anno futuro se Q2 = D)',
+          unset: 'Non risposta (l\'anno dello studio)',
           now: 'Adesso: l\'anno dello studio',
           future: 'Un anno futuro',
         },
@@ -585,7 +585,7 @@ const it: Locale = {
     q2dCard: {
       title: 'Scenari alternativi (facoltativo)',
       help:
-        'Ogni studio può confrontare alternative con la propria situazione di partenza (D4.1 §4.3.3). Qui uno scenario cambia alcune delle tue risposte; non può ancora cambiare la rete stessa (flussi, distanze, quantità).',
+        'Ogni studio può confrontare alternative con la propria situazione di partenza (D4.1 §4.3.3).',
     },
 
     advancedCard: {

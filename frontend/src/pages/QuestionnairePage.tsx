@@ -20,6 +20,7 @@ import type {
   Q6a,
   Q6b,
   Q7,
+  ComparisonGoal,
   DecisionContext,
 } from '../types/api'
 
@@ -47,6 +48,7 @@ const Q6A_KEYS: Q6a[] = [
 const Q6B_KEYS: Q6b[] = ['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5']
 const Q7_KEYS: Q7[] = ['A', 'B', 'C', 'D']
 const DECISION_KEYS: DecisionContext[] = ['micro', 'structural', 'none', 'corporate_report']
+const COMPARISON_KEYS: ComparisonGoal[] = ['waste_treatment', 'product_substitution', 'co_primary']
 
 const Q4_WARN_KEYS: Partial<Record<Q4, string>> = {
   C: 'questionnaire.q4.options.C.warn',
@@ -99,6 +101,9 @@ export default function QuestionnairePage() {
   const [policy, setPolicy] = useState<'' | 'yes' | 'no'>(
     draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no',
   )
+  const [comparisonGoal, setComparisonGoal] = useState<ComparisonGoal | ''>(
+    draft.comparison_goal ?? '',
+  )
   const [operatingStart, setOperatingStart] = useState<'' | 'now' | 'future'>(draft.operating_start ?? '')
   const [startYear, setStartYear] = useState<string>(
     draft.operating_start_year != null ? String(draft.operating_start_year) : '',
@@ -135,6 +140,7 @@ export default function QuestionnairePage() {
     setDecisionContext(draft.decision_context ?? '')
     setScreening(draft.market_screening_documented == null ? '' : draft.market_screening_documented ? 'yes' : 'no')
     setPolicy(draft.policy_objective == null ? '' : draft.policy_objective ? 'yes' : 'no')
+    setComparisonGoal(draft.comparison_goal ?? '')
     setAdvanced(draft.advanced ?? {})
   }, [draft])
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -160,7 +166,7 @@ export default function QuestionnairePage() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, advanced])
+  }, [canRun, q1, q2, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, advanced])
 
   async function handleRun() {
     patchDraft({
@@ -178,6 +184,7 @@ export default function QuestionnairePage() {
       decision_context: decisionContext || null,
       market_screening_documented: decisionContext === 'structural' && screening !== '' ? screening === 'yes' : null,
       policy_objective: policy === '' ? null : policy === 'yes',
+      comparison_goal: comparisonGoal || null,
       advanced,
     })
     const result = await runDraft()
@@ -196,6 +203,7 @@ export default function QuestionnairePage() {
       setDecisionContext('')
       setScreening('')
       setPolicy('')
+      setComparisonGoal('')
       setAdvanced({})
     }
   }
@@ -512,6 +520,28 @@ export default function QuestionnairePage() {
             />
             <span className="opt-label">
               {t(`questionnaire.q10.options.${k || 'unset'}`)}
+            </span>
+          </label>
+        ))}
+      </QuestionCard>
+
+      {/* Q11 — optional: what the study compares sets the functional unit basis (D4.1 Part 2) */}
+      <QuestionCard
+        id="q11"
+        title={t('questionnaire.q11.title')}
+        help={t('questionnaire.q11.help')}
+        plain={t('questionnaire.q11.plain')}
+        details={t('questionnaire.q11.details')}
+      >
+        {(['', ...COMPARISON_KEYS] as const).map((k) => (
+          <label key={k || 'unset'} className="opt opt-single">
+            <input
+              type="radio" name="q11" value={k}
+              checked={comparisonGoal === k}
+              onChange={() => setComparisonGoal(k)}
+            />
+            <span className="opt-label">
+              {t(`questionnaire.q11.options.${k || 'unset'}`)}
             </span>
           </label>
         ))}

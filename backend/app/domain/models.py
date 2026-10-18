@@ -22,6 +22,7 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.domain.enums import (
+    ComparisonGoal,
     Q1,
     Q2,
     Q4,
@@ -174,6 +175,11 @@ class Case(BaseModel):
     # planning objective? D4.2 §2.3 adds an S-LCC in that case. None = not
     # answered: the LCC type is inferred from Q1 (policy only for Q1=C).
     policy_objective: bool | None = None
+    # Q11 (optional) — what the study compares: waste treatment, product
+    # substitution or both (D4.1 Part 2 §4.3, §6.3, §8.3). Sets the basis of the
+    # functional unit (lca_mc_07). None = not answered: the function-oriented FU
+    # of Part 1 §5.2.1, as before Q11 existed.
+    comparison_goal: ComparisonGoal | None = None
 
     # --- Tabular answers ---
     flows: list[Flow] = Field(default_factory=list)

@@ -566,6 +566,20 @@ const it: Locale = {
         "Rispondi sì se lo studio serve a una decisione pubblica — un comune, una regione, un'autorità di regolazione, un piano. Aggiunge allora una seconda lettura economica dal punto di vista della società: imposte contate in modo diverso, ed effetti che nessuno paga in denaro. Per il rendiconto di una singola azienda la lettura economica resta a livello aziendale, e il tool te lo dice. Lascia senza risposta e il tool la ricava dalla prima domanda.",
     },
 
+    q11: {
+      title: "Q11 — Che cosa confronta lo studio?",
+      help: "Facoltativa. Decide la base dell'unità funzionale; senza risposta vale l'unità orientata alla funzione della D4.1 Part 1.",
+      details: "La D4.1 Part 2 chiede che l'unità funzionale rifletta la funzione primaria del sistema (§4.3, §6.3, §8.3): un'unità basata sull'input (es. trattamento di 1 tonnellata di rifiuto) quando lo studio confronta modi di gestire un rifiuto o le prestazioni di un impianto o servizio; un'unità basata sull'output (es. 1 kg di prodotto, 1 MJ di energia) quando confronta prodotti con le alternative di mercato o sostiene un'affermazione di sostituzione; un sistema di unità funzionali quando le due funzioni sono co-primarie (Part 1 §5.3.2). La D4.2 §3.1 chiede per l'LCC un'unità doppia (rifiuto trattato + prodotto ottenuto) quando a guidare lo studio è la sostituzione di prodotto: i due deliverable divergono, e il tool segue la Part 2 per l'LCA e segnala la differenza.",
+      options: {
+        unset: "Non risposta (unità orientata alla funzione, D4.1 Part 1)",
+        waste_treatment: "Come si gestisce un rifiuto — vie di gestione, prestazioni di un impianto o servizio (unità basata sull'input)",
+        product_substitution: "Prodotti contro alternative di mercato — che cosa sostituisce il prodotto recuperato (unità basata sull'output)",
+        co_primary: "Entrambe: il servizio di trattamento e i prodotti contano allo stesso modo (sistema di unità funzionali)",
+      },
+      plain:
+        "Su che cosa verte davvero il confronto? Se la domanda è come trattare al meglio un rifiuto — bruciarlo, digerirlo, compostarlo — il risultato si conta per tonnellata di rifiuto trattato. Se la domanda è se il prodotto recuperato è migliore di quello che sostituisce, si conta per unità di prodotto. Se contano tutte e due, si contano una accanto all'altra.",
+    },
+
     q2dCard: {
       title: 'Q2-D — Scenari alternativi',
       help:

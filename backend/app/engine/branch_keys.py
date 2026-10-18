@@ -22,6 +22,7 @@ Grammar (anything else raises `BranchKeyError`; it is never skipped):
     ilcd=C                  the ILCD situation, as a code: A, A-multi, B, C1, C2
                             (derived at L0 from Q1 and, when answered, Q9)
     sector=V                alias of q6a=V
+    comparison_goal=V       Q11: waste_treatment, product_substitution, co_primary
 
 Conventions, decided with the node owner:
 
@@ -45,7 +46,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from functools import cache
 
-from app.domain.enums import Q1, Q2, Q4, Q5, Q7, IlcdSituation, LccType, Q6a, Q6b
+from app.domain.enums import Q1, Q2, Q4, Q5, Q7, ComparisonGoal, IlcdSituation, LccType, Q6a, Q6b
 from app.domain.models import Case, Flow
 
 
@@ -73,7 +74,7 @@ _ILCD_CODE = {
 
 _ENUMS: dict[str, type[StrEnum]] = {
     "q1": Q1, "q2": Q2, "q4": Q4, "q5": Q5, "q6a": Q6a, "q6b": Q6b, "q7": Q7,
-    "ilcd": IlcdCode, "lcc_type": LccType,
+    "ilcd": IlcdCode, "lcc_type": LccType, "comparison_goal": ComparisonGoal,
 }
 
 # Highest TRL each Q6b band reaches; "below TRLn" means that ceiling < n.
@@ -107,6 +108,7 @@ class Answers:
     env: bool
     eco: bool
     soc: bool
+    comparison_goal: str | None = None   # Q11
 
     @classmethod
     def from_case(cls, case: Case, flow: Flow | None = None) -> Answers:
@@ -123,6 +125,7 @@ class Answers:
             q7=case.q7.value if case.q7 else None,
             ilcd=_ILCD_CODE[case.ilcd_situation].value if case.ilcd_situation else None,
             lcc_type=case.lcc_type.value if case.lcc_type else None,
+            comparison_goal=case.comparison_goal.value if case.comparison_goal else None,
             env=case.q3.env, eco=case.q3.eco, soc=case.q3.soc,
         )
 

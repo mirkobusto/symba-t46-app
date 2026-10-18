@@ -148,6 +148,8 @@ export interface ApplicableRule {
 }
 
 export type DecisionContext = 'micro' | 'structural' | 'none' | 'corporate_report'
+/** Q11 — what the study compares (D4.1 Part 2 §4.3, §6.3, §8.3). */
+export type ComparisonGoal = 'waste_treatment' | 'product_substitution' | 'co_primary'
 
 /** A note on the user's answers; informational, never blocks the run. */
 /** A D4.1 Part 2 sector rule for a chapter the case touches (engine/sector_rules). */
@@ -213,6 +215,7 @@ export interface Case {
   // Optional Q10: does the study serve a public policy or territorial planning
   // objective (D4.2 §2.3, adds the S-LCC). null/absent = inferred from Q1.
   policy_objective?: boolean | null
+  comparison_goal?: ComparisonGoal | null
 
   flows?: Flow[]
   sites?: Site[]

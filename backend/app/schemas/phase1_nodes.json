@@ -574,16 +574,23 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §5.2.1",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "comparison_goal"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.functional_unit",
       "field_status": null,
-      "default_value": "Function-oriented FU, defined around the ultimate service delivered to the recipient or the market: the preferred approach for IS; a flow-oriented FU (e.g. disposal of a waste) answers a valid but narrower question and should be stated as such (D4.1 §5.2.1; also §5.3.1)",
-      "override_path": "fixed",
+      "default_value": {
+        "comparison_goal=waste_treatment": "Function-oriented FU on an input basis (e.g. treatment of 1 tonne of waste) when the study compares waste management routes or overall plant or service performance: 'shall' in D4.1 Part 2 §4.3, 'should' in §6.3 and §8.3 (D4.1 §5.2.1; Part 2 §4.3, §6.3, §8.3)",
+        "comparison_goal=product_substitution": "Function-oriented FU on an output basis (e.g. 1 kg of product, 1 MJ of energy) when the study compares products against market alternatives or makes substitution claims: 'shall' in D4.1 Part 2 §4.3, §6.3 and §8.3. D4.2 §3.1 asks a dual FU (waste treated + output generated) for the LCC in this case, a divergence recorded for the deliverable revision (D4.1 §5.2.1; Part 2 §4.3, §6.3, §8.3)",
+        "comparison_goal=co_primary": "Function-oriented system of functional units covering both the treatment service and the products, when the two functions are co-primary: highly recommended (D4.1 §5.2.1, §5.3.2; Part 2 §4.3, §6.3, §8.3)",
+        "default": "Function-oriented FU, defined around the ultimate service delivered to the recipient or the market: the preferred approach for IS; a flow-oriented FU (e.g. disposal of a waste) answers a valid but narrower question and should be stated as such (D4.1 §5.2.1; also §5.3.1)"
+      },
+      "override_path": "comparison_goal, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00680 ('methodologically preferred'), L00674 ('a valid question, it is limited'), L00700 ('should always be defined around the ultimate service'). Same text in the three writers of lca.functional_unit; the former 'mandatory' / 'single permitted' overstated the text. Input- or output-based FU (N8) deferred to the Part 2 step."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §4.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.2.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00680 ('methodologically preferred'), L00674 ('a valid question, it is limited'), L00700 ('should always be defined around the ultimate service'). Same text in the three writers of lca.functional_unit; the former 'mandatory' / 'single permitted' overstated the text. Input- or output-based FU (N8) deferred to the Part 2 step. | Phase A step 5 (Part 2), 2026-10-18: branches on Q11 (comparison goal). D4.1 Part 2 L00419 (§4.3: input-based when comparing waste management routes, output-based when comparing product alternatives, 'shall'), L00421 (system of FUs 'highly recommended' when co-primary), L00579-L00581 (§6.3), L00719-L00721 (§8.3: input 'should', output 'shall'). D4.2 L00495 asks a dual FU when product substitution drives the study: kept as a note (Mirko, 2026-10-15). Unanswered: the former function-oriented text."
     },
     {
       "id": "lca_mc_08",

@@ -1,370 +1,241 @@
-# SYMBA T4.6 — Il motore metodologico LCSA per la Simbiosi Industriale
+# SYMBA T4.6 — Dalle linee guida D4.1/D4.2 alla configurazione di uno studio di simbiosi industriale
 
-> Documento teorico per presentazione (sorgente per slide / PPTX).
-> Versione: 2026-06-11 · Stato progetto: MVP completo.
-> Riferimenti autoritativi: `docs/implementation/SPRINT4_BOOTSTRAP_v2.md`,
-> `docs/implementation/PHASE1_NODE_MAPPING_v2.md`, i 5 JSON schema in `backend/app/schemas/`.
-
----
-
-## 1. Cos'è SYMBA T4.6 (una slide)
-
-SYMBA T4.6 è un'app web che assiste l'analista di sostenibilità nel **definire la
-metodologia LCSA** (Life Cycle Sustainability Assessment = LCA + LCC + S-LCA) per
-un caso di **Simbiosi Industriale** (Industrial Symbiosis, IS).
-
-L'idea centrale: l'analista **non** deve conoscere a memoria centinaia di scelte
-metodologiche (situazione ILCD, tipo di LCC, allocazione, zero-burden, futurizzazione,
-review panel, ecc.). Risponde a **7 domande** ("riduttori di complessità") e il motore
-**deriva deterministicamente** l'intera configurazione metodologica del caso.
-
-- **Input**: 7 domande (Q1–Q7) + lista dei flussi di scambio + override avanzati.
-- **Output**: situazione ILCD, tipo LCC, stato S-LCA, pathway IS, set di nodi
-  metodologici attivati per pilastro, violazioni di regole, punti di decisione critici.
-
-> Da uno spazio combinatorio enorme a **una configurazione coerente e tracciabile**,
-> ottenuta rispondendo a 7 domande.
+> Documento teorico (sorgente del deck e delle note del relatore).
+> Versione: 2026-10-18, dopo la rifondazione (R1-R5). Sostituisce per intero la versione del 2026-06-11.
+> Fonti nel codice: `backend/app/domain/enums.py`, `models.py`, `backend/app/engine/`, `backend/app/schemas/`,
+> `frontend/src/i18n/locales/en.ts`, `frontend/src/pages/configurationRows.ts`.
 
 ---
 
-## 2. I tre pilastri LCSA e i loro percorsi
+## 1. Che cosa è, che cosa non è
 
-LCSA = tre valutazioni parallele su uno stesso sistema-prodotto:
+SYMBA T4.6 è un'applicazione web del progetto Horizon Europe SYMBA (GA 101135562, task T4.6,
+deliverable D4.6). Prende un caso di simbiosi industriale (IS) e restituisce la **configurazione
+metodologica** che le linee guida del progetto richiedono per quel caso: D4.1 (LCA, Part 1 generale e
+Part 2 per settore), D4.2 (LCC), D4.3 (S-LCA). Restituisce anche i dati da raccogliere.
 
-| Pilastro | Sigla | Cosa misura | Gating |
+Che cosa **non** fa:
+
+- **non calcola numeri** LCA, LCC o S-LCA: niente kg CO2eq, niente VAN, niente indicatori sociali;
+- lo scoring quantitativo arriva dai partner (CIRCE e gli altri partner di T4.1-T4.3) e il tool lo
+  integra nel reporting; la specifica di input/output dello scoring CIRCE è **ancora da definire**;
+- non sostituisce il giudizio dell'analista: dice che cosa va deciso e documentato, e perché.
+
+---
+
+## 2. Perché è stato rifatto (2026-10-18)
+
+Fino al 18 ottobre 2026 il motore instradava ogni caso su cinque "pathway" IS-01…IS-05, ricavati da una matrice
+Q1×Q2. Era un costrutto di T4.6: D4.1 e D4.2 non lo conoscono. La revisione dei deliverable sul testo
+FINAL v2 (ottobre 2026) e un test del questionario su casi reali hanno mostrato che le scelte di
+modellazione dipendono da altre variabili: la decisione che lo studio sostiene e la scala delle sue
+conseguenze (D4.1 Tabella 1), se gli scambi avvengono già (D4.1 §11.1), l'orizzonte di studio (D4.2 §11),
+la prospettiva del decisore (D4.2 §2.2-2.3), che cosa si confronta (D4.1 Part 2).
+
+La rifondazione ha quindi ricostruito il questionario **sulle variabili che i deliverable usano**:
+
+- i pathway IS-01…IS-05 sono stati tolti; i casi salvati si caricano lo stesso, senza quel campo;
+- la "Situazione A multi-actor" non è più prodotta: D4.1 Tabella 1 conosce solo A, B e C;
+- Q2 ha due risposte invece di quattro (le vecchie C e D si leggono come "non ancora");
+- Q7 ha tre risposte invece di quattro (la vecchia D si legge come C);
+- le regole cross-method non sono più presentate come "violazioni" ma come obblighi da documentare;
+- nessuna regola sovrascrive più il testo di un nodo; tre regole che leggevano attributi inesistenti
+  sono state ritirate, con il motivo scritto nello schema.
+
+---
+
+## 3. Il questionario in tre parti
+
+Le domande sono numerate sullo schermo nell'ordine delle tre parti; i codici (Q0…Q12) restano quelli
+storici, perché compaiono nei casi salvati, nei test e negli schemi. Obbligatorie: Q3, Q9, Q1 e, con la
+dimensione economica, Q10. Le altre sono facoltative: senza risposta il motore applica la regola generale
+del deliverable e lo dice.
+
+### 3.1 Lo studio
+
+| Codice | Domanda | Che cosa decide | Fonte |
 |---|---|---|---|
-| **LCA** | Environmental | Impatti ambientali di ciclo di vita | Q3 = ENV |
-| **LCC** | Economic | Costi di ciclo di vita | Q3 = ECO |
-| **S-LCA** | Social | Impatti sociali di ciclo di vita | Q3 = SOC |
+| Q0 | Che tipo di studio è: analisi, miglioramento, espansione, progettazione, ristrutturazione | Nulla: entra nel goal, nel report e nel DCF; il motore segnala le risposte che non tornano (es. "analisi" con scambi non ancora attivi) | D4.1 §4.3.2, da Mattila et al. (2012) |
+| Q1 | Che cosa si analizza: scambio, parco, programma, azienda, monitoraggio | Descrive la forma della rete e il suo confine; alimenta solo tre nodi di confine. Non decide la situazione ILCD | — |
+| Q3 | Dimensioni: ambientale, economica, sociale | Accende LCA, LCC, S-LCA; i nodi di un metodo spento non si attivano | — |
+| Q9 | A che cosa serve lo studio e fin dove arrivano i suoi effetti | La situazione ILCD: micro → A; strutturale → B solo con lo screening di mercato documentato (circa 1 % della nuova capacità), altrimenti A con B come sensitività; documentare una rete → C1; rendiconto stretto di una sola azienda → C2 | D4.1 Tabella 1, §4.3.4, §11.3.1 |
+| Q2 | Gli scambi che lo studio misura avvengono già? | Sì → HNSRS, scenario ipotetico senza simbiosi: che cosa farebbe oggi ogni azienda senza i collegamenti; non ancora → CNSRS, lo scenario senza simbiosi sull'orizzonte dello studio. Domanda di seguito: rete attiva da molti anni → l'HNSRS si costruisce come controfattuale moderno | D4.1 §11.1, §11.2.2 |
+| Q8 | Orizzonte di studio: anno di esercizio, periodo di analisi, vita tecnica degli asset | Un solo orizzonte per LCA e LCC; background futuro (scenari SSP/RCP) se l'anno è futuro, se il TRL è sotto 7, o se periodo o vita superano 15 anni (soglia modificabile) | D4.2 §11, D4.1 §9.3.5, §12.3.2 |
+| Q6b | TRL della tecnologia chiave | Sotto TRL 7: background futuro e tecniche di scale-up | D4.1 §9.3.5 |
+| Q10 | Lo studio serve un obiettivo pubblico o un decisore pubblico? | Con l'LCC è obbligatoria: sì aggiunge l'LCC societario (S-LCC) | D4.2 §2.2-2.3 |
+| Q4 | Uso dei risultati (scelta multipla) | C, affermazione comparativa pubblica di superiorità o equivalenza → revisione critica con panel, niente pesatura; D, allineamento alle politiche UE → PEF, Circular Footprint Formula, EF 3.1 | ISO 14044; PEF |
+| Q11 | Che cosa confronta lo studio | Trattamento di un rifiuto → unità funzionale input-based; sostituzione di prodotto → output-based; entrambi → sistema di unità funzionali | D4.1 Part 2 §4.3, §6.3, §8.3 |
 
-Ogni pilastro ha un proprio **percorso metodologico** derivato dalle domande. Non sono
-percorsi indipendenti: il motore impone **regole cross-method** che garantiscono coerenza
-tra i tre (stesso confine di sistema, stessa unità funzionale, divieto di aggregazione, ecc.).
+### 3.2 Gli scambi
 
----
-
-## 3. Attenzione: "5 pathway" ≠ numero di configurazioni metodologiche
-
-Prima di rispondere "quanti percorsi", va sciolta un'ambiguità che in una presentazione
-è facile fraintendere. **Esistono due nozioni diverse di "percorso":**
-
-1. **Pathway IS (routing)** — l'esito della matrice γ Q1×Q2. Sono **5** (`IS-01…IS-05`).
-   È *solo il bivio più esterno*, non la metodologia completa.
-2. **Configurazione metodologica del caso** — il vero output: un **vettore ad alta
-   dimensionalità** (quali dei 186 nodi sono attivi + con quali valori di campo + quali
-   regole scattano). **Non è una lista enumerabile**; è il motivo per cui il motore è
-   schema-driven e non una lookup table.
-
-### La stratificazione (dal grossolano al fine)
-
-| Livello | Cosa fissa | Cardinalità |
-|---|---|---|
-| **L1 — routing IS** | pathway γ (Q1×Q2) | **5** |
-| **L2 — stati derivati dei 3 pilastri** | situazione ILCD × tipo LCC × stato S-LCA × pathway | **~28 raggiungibili** ¹ |
-| **L3 — attivazione 186 nodi** | quali nodi DERIVED accesi + valori dei fielded | non enumerabile |
-| **L4 — scelte per-flusso (Q5)** | 5 tipi di valorizzazione per flusso → `5^F` | illimitato (dipende da F flussi) |
-
-¹ *Derivazione dalle regole, non una costante nel codice (confidenza media): ILCD e LCC
-dipendono entrambi da Q1, quindi le combinazioni `(ILCD,LCC,S-LCA,pathway)` sono correlate,
-non 5×4×2×5.*
-
-### Ordine di grandezza dello spazio di input ("tutte le scelte ottenibili")
-
-Ignorando i per-flusso:
-
-```
-Q1 · Q2 · Q3 · Q4 · Q6a · Q6b · Q7
- 5 ·  4 ·  7 · 31 ·  16 ·  4 ·  4   ≈  1,1 milioni di combinazioni di input
-```
-
-- Q3 = 7 sottoinsiemi non vuoti di {ENV, ECO, SOC}
-- Q4 = 31 sottoinsiemi non vuoti di 5 opzioni
-- aggiungendo **Q5 per-flusso** (× 5^F, con F = numero di flussi) → 10⁸ e oltre, **illimitato**
-
-> **Il senso del tool**: collassa uno spazio decisionale dell'ordine di **10⁶ input**
-> (illimitato coi flussi) in **una** configurazione metodologica coerente e tracciabile,
-> tramite 7 domande + regole cross-method. I "5 pathway" sono il **primo bivio**, non il
-> conteggio delle metodologie ottenibili.
-
----
-
-## 4. Il primo riduttore: i 5 pathway IS (γ matrix)
-
-Il primo e più importante riduttore di complessità è la **matrice γ**: la combinazione
-di **Q1 (archetipo dello scenario IS)** e **Q2 (postura temporale)** determina
-deterministicamente **uno fra 5 pathway** `IS-01 … IS-05`.
-
-> **Risposta secca: i pathway IS totali sono 5** (`IS-01, IS-02, IS-03, IS-04, IS-05`).
-> *File: `backend/app/engine/pathway.py`, enum in `backend/app/domain/enums.py:162`.*
-
-### Matrice γ (Q1 × Q2 → IS-xx)
-
-```
-        Q2=A     Q2=B     Q2=C     Q2=D
-Q1=A  | IS-01   IS-01   IS-04   IS-01
-Q1=B  | IS-01   IS-01   IS-04   IS-01
-Q1=C  | IS-02   IS-02   IS-02   IS-02
-Q1=D  | IS-03   IS-03   IS-03   IS-03
-Q1=E  | IS-05   IS-05   IS-05   IS-05
-```
-
-### Regola in chiaro
-- **Q1 = C** → **IS-02** (sempre) — pre-feasibility sector-wide
-- **Q1 = D** → **IS-03** (sempre) — corporate ESG
-- **Q1 = E** → **IS-05** (sempre) — prospettiva pubblica / regolatore
-- **Q1 ∈ {A,B} ∧ Q2 = C** → **IS-04** (override "design-only")
-- **Q1 ∈ {A,B} ∧ Q2 ∈ {A,B,D}** → **IS-01** — scambio bilaterale / eco-park
-
-**Flag laterale**: `is_01_extended = True` se pathway = IS-01 **e** Q2 = D
-(baseline + N scenari alternativi → richiede supporto scenario-matrix a valle).
-Non è un sesto pathway, è un'annotazione su IS-01.
-
-> Nota di provenienza: la matrice γ è una **convenzione architetturale** del progetto
-> ("opzione γ"); i deliverable sorgente D4.1/D4.2/D4.3 non enumerano questa matrice 5×4.
-> *(`pathway.py:3-6`)*
-
----
-
-## 5. Il percorso LCA → la Situazione ILCD
-
-Il framework ILCD distingue il **contesto decisionale** dello studio LCA. In SYMBA è
-derivato dal nodo trigger L0 `lca_t1` **a partire dalla sola Q1**.
-
-> **5 situazioni ILCD** *(`enums.py:120`)*
-
-| Q1 | Situazione ILCD | Significato metodologico |
-|---|---|---|
-| A | **Situation A** | Scambio bilaterale specifico tra due imprese |
-| B | **Situation A multi-actor** | Eco-park / rete pre-formata |
-| C | **Situation B** | Pre-feasibility sector-wide (rete ampia, nessuna operazione live) |
-| D | **Situation C2** | Corporate ESG (singola impresa in contesto di rete, user-specific) |
-| E | **Situation C1** | Prospettiva settore pubblico / regolatore (system-wide) |
-
-La situazione ILCD è usata a valle dalle regole cross-method (es. IR-02, IR-04) per
-imporre coerenza tra LCA, LCC e S-LCA.
-
----
-
-## 6. Il percorso LCC → il tipo di Life Cycle Costing
-
-Il tipo di LCC è derivato dal nodo trigger L0 `lcc_trig_01` a partire da **Q1** e dal
-flag **Q3.ECO** (è stata richiesta la dimensione economica?).
-
-> **4 tipi LCC** *(`enums.py:134`)*
-
-| Tipo | Stringa | Condizione | Significato |
+| Codice | Domanda | Che cosa decide | Fonte |
 |---|---|---|---|
-| **Deactivated** | `deactivated` | Q3.ECO = false | Pilastro LCC inattivo |
-| **C-LCC + E-LCC** | `C+E` | Q1 ∈ {A,B,E} ∧ Q3.ECO | LCC convenzionale (entità) + LCC ambientale (network) |
-| **E-LCC + S-LCC + NTF** | `C+E+S` | Q1 = C ∧ Q3.ECO | LCC ambientale + societal + Network Thermodynamic Flow (sector-wide) |
-| **C-LCC only** | `C-LCC` | Q1 = D ∧ Q3.ECO | Solo LCC convenzionale (corporate ESG → allocation-based) |
+| Q5 | Per ogni flusso: chi paga chi | a: chi cede paga (rifiuto, zero-burden dal punto in cui il residuo raggiunge valore non negativo); b: gratuito o ambiguo; c: chi riceve paga (co-prodotto, sostituzione con rapporto corretto per qualità); d: interdipendente (co-prodotto, mai zero-burden); e: aggregato o black-box (limite della fonte, non scelta) | D4.1 §8.3.1-§8.3.3 |
+| Q5, facoltativi per flusso | Vendibile ad altri a prezzo positivo? Settore della Part 2. Configurazione tipica | Test Freedom-to-Act confrontato con Q5 (solo nota); capitolo della Part 2; prodotto convenzionale sostituito | D4.1 §8.3.3; Part 2 §4.1-§8.1 |
+| Q7 | Quanto sono concentrate le interazioni chiave: un sito, una regione, più regioni | La regionalizzazione della caratterizzazione LCIA. Non il trasporto: il trasporto è esplicito per ogni scambio, qualunque sia la risposta | D4.1 §12.2.3, §12.3.3, §12.3.1 |
+| Q7b | Mercato di riferimento: regione e ambito (nazionale, sub-nazionale, continentale) | Da dove verrebbero i prodotti sostituiti; continentale solo per merci scambiate a livello globale | D4.1 §11.3.1 |
+| Q12 | Servono nuovi asset condivisi dedicati (condotte, impianti, stoccaggi)? | CAPEX e OPEX nel breakdown dei costi, ripartiti tra i partner che ne beneficiano; beni capitali inclusi nell'LCA | D4.2 §4.2, D4.1 §6.3.3 |
 
-**Vincolo chiave**: per Q1 = D (corporate ESG) l'E-LCC è **bloccato** per incompatibilità
-con il framework ILCD — imposto dal BLOCK `block_C2_plus_E-LCC` a livello L1.
+### 3.3 Descrizione del caso
 
----
+| Codice | Domanda | Che cosa decide | Fonte |
+|---|---|---|---|
+| Q6a | Settore principale dell'azienda | Solo descrizione e qualche campo del DCF. I capitoli della Part 2 seguono i flussi, non l'azienda; una nota segnala un settore della Part 2 che nessun flusso dichiara | D4.1 Part 2 |
 
-## 7. Il percorso S-LCA → stato di attivazione
-
-Il più semplice: derivato dal nodo trigger L0 `slca_t_01` a partire dal solo flag **Q3.SOC**.
-
-> **2 stati S-LCA** *(`enums.py:143`)*
-
-| Stato | Condizione | Significato |
-|---|---|---|
-| **Active** | Q3.SOC = true | Tutti i nodi S-LCA attivi |
-| **Deactivated** | Q3.SOC = false | Pilastro S-LCA scartato |
-
-**Vincolo di design**: in contesto IS l'S-LCA è **sempre Comparative** (mai Absolute) —
-imposto dal BLOCK `block_anyQ1_plus_AbsoluteSLCA`.
+Fuori dalle tre parti restano gli scenari alternativi (ogni studio può confrontare alternative con la sua
+baseline, D4.1 §4.3.3) e gli override avanzati per esperti.
 
 ---
 
-## 8. Le 7 domande riduttori di complessità (Q1–Q7)
+## 4. La configurazione derivata
 
-Le 7 domande costituiscono lo **spazio di input** del caso. Ciascuna restringe lo spazio
-metodologico: alcune pilotano i trigger L0 (derivazioni deterministiche), altre attivano
-nodi condizionali e regole. *(`enums.py:20-112`)*
+Dalle risposte il primo strato del motore (L0) ricava tre stati:
 
-### Q1 — Archetipo dello scenario IS *(single select)*
-Pilota: situazione ILCD, tipo LCC, pathway.
-| | Significato |
+- **Situazione ILCD** (A, B, C1, C2) da Q9; Q1 serve solo per i casi salvati prima di Q9, con una nota.
+- **Tipo di LCC**, da Q3, dalla situazione e da Q10:
+  - con LCA: C-LCC per partner + E-LCC di rete (`C+E`); con obiettivo pubblico + S-LCC (`C+E+S`);
+  - senza LCA non c'è E-LCC (D4.2 §4.1): C-LCC + consolidamento di rete (`C+N`, `C+N+S`);
+  - rendiconto stretto di una sola azienda (C2): solo C-LCC. È una **scelta dichiarata di T4.6**, non
+    una regola di D4.2.
+- **Stato S-LCA** (attivo / spento) da Q3.
+
+La pagina risultato apre con questi stati e con le righe di **"La tua configurazione"**, ciascuna con il
+suo "perché" e, su richiesta, il testo del motore in inglese con la sezione del deliverable:
+
+| Riga | Valori possibili |
 |---|---|
-| A | Scambio specifico tra due imprese |
-| B | Eco-park / rete pre-formata |
-| C | Pre-feasibility sector-wide |
-| D | Corporate ESG (singola impresa in contesto di rete) |
-| E | Prospettiva settore pubblico / regolatore |
-
-### Q2 — Postura temporale *(single select)*
-Pilota: ex-post / ex-ante / dinamico, futurizzazione, baseline.
-| | Significato |
-|---|---|
-| A | Ex-post (IS operativa, retrospettiva) |
-| B | Ex-ante, parametri statici |
-| C | Ex-ante con scenari dinamici (no baseline) → IS-04 |
-| D | Ex-ante baseline + N scenari alternativi → flag IS-01 extended |
-
-### Q3 — Dimensioni di sostenibilità *(multi-checkbox)*
-Gating binario dei tre pilastri. Modellato come 3 boolean: `env`, `eco`, `soc`.
-| Checkbox | Pilastro attivato |
-|---|---|
-| ENV | LCA (59 nodi) |
-| ECO | LCC (61 nodi) |
-| SOC | S-LCA (66 nodi) |
-
-**BLOCK**: `block_Q3_emptySelection` — nessun checkbox selezionato → STOP.
-
-### Q4 — Uso dei risultati *(multi-select)*
-Pilota: review policy, disclosure, pedigree matrix, restrizioni sul weighting.
-| | Significato | Conseguenza |
-|---|---|---|
-| A | Solo interno (R&D / decision support) | Nessun panel, no disclosure pubblica |
-| B | Business-to-business (no claim pubblico) | IR-10 anti-aggregazione; no single-score |
-| C | Claim pubblico di superiorità | Panel review ≥3 esperti (ISO 14044), Monte Carlo obbligatorio, weighting vietato |
-| D | Allineamento policy UE / PEF | Panel raccomandato, pedigree, Monte Carlo obbligatorio |
-| E | Pubblicazione accademica (peer review) | Pedigree matrix, weighting scoraggiato |
-
-### Q5 — Tipo di valorizzazione *per-flusso* *(una riga per flusso IS)*
-Pilota: allocazione, modalità di sostituzione, test zero-burden.
-| | Significato | Conseguenza |
-|---|---|---|
-| a | Scarto/sottoprodotto, zero burden | Test zero-burden standard |
-| b | EVT contesa (economica vs tecnica) | Biforcazione economic/technical |
-| c | Sostituzione / Q-correction | Tabella Q-correction, ISO 14049 |
-| d | Produzione multifunzionale interdipendente | Zero-burden **vietato** (lca_hc_17) |
-| e | Aggregato / black-box | Mandato black-box; **blocca** Q1=A (`block_Q1A_plus_Q5e`) |
-
-### Q6a — Overlay settoriale *(single select)*
-14 settori canonici + NONE + OTHER. Attiva attivazioni settore-specifiche
-(es. `lca_mc_30` AWARE per wastewater). *(`enums.py:63`)*
-
-### Q6b — Banda TRL *(single select)*
-Pilota: framework di scale-up, soglia Monte Carlo, ammortamento capital goods.
-`TRL9` · `TRL7-8` · `TRL5-6` · `TRL<5`. (TRL < 9 → orizzonte capital goods 15 anni + Monte Carlo obbligatorio.)
-
-### Q7 — Estensione geografica *(single select)*
-Pilota: assunzioni di trasporto, sensitività di accoppiamento spaziale.
-| | Significato |
-|---|---|
-| A | Sito singolo / co-locato (trasporto trascurabile) |
-| B | Area metropolitana (sensitività break-even distanza) |
-| C | Regionale / nazionale (sensitività obbligatoria) |
-| D | Cross-border / multi-paese (variabilità regolatoria + coupling LCA-LCC) |
+| Tipo di studio | Q0, se data |
+| Costi | tipo di LCC, con il motivo (C2, niente LCA, Q10) |
+| Valutazione sociale | attiva o non inclusa |
+| Orizzonte di studio | background attuale o futuro (SSP/RCP), con la causa: anno, TRL, periodo, vita degli asset |
+| Scenario di riferimento | HNSRS, controfattuale moderno o CNSRS, con il mercato di Q7b; in C2 niente crediti: allocazione, nessuna sostituzione |
+| Unità funzionale | funzionale (default Part 1), input-based, output-based, sistema di unità |
+| Impatti locali | fattori sito-specifici, regionali o per territorio di emissione |
+| Regole di settore | i capitoli della Part 2 toccati, con i flussi che li attivano |
+| Dichiarazione pubblica | con Q4 = C, revisione critica di un panel di almeno tre esperti indipendenti e niente pesatura; altrimenti nessuna |
+| Beni condivisi | CAPEX e OPEX ripartiti tra i partner che li usano |
 
 ---
 
-## 9. Come si arriva dalla domanda alla metodologia: la pipeline
+## 5. Come le risposte arrivano ai nodi
 
-Il motore è **schema-driven**: la logica è nei 5 JSON, non hard-coded. Una run esegue
-6 stadi *(`backend/app/engine/pipeline.py`)*:
+Il motore è schema-driven: la metodologia sta in file JSON versionati, non nel codice. Il nucleo sono
+**186 nodi atomici** estratti da D4.1, D4.2 e D4.3 (LCA 59, LCC 61, S-LCA 66): 95 hanno un valore da
+scrivere, 91 sono mandati procedurali (una pratica da seguire, senza valore).
+
+La pipeline è sempre la stessa:
 
 ```
-        ┌─────────────────────────────────────────────┐
-        │ INPUT: Case (Q1–Q7 + flussi + advanced)     │
-        └───────────────────┬─────────────────────────┘
-                            ▼
-   L0  ── compute ───  3 nodi trigger deterministici
-                       lca_t1 → ilcd_situation
-                       lcc_trig_01 → lcc_type
-                       slca_t_01 → slca_activation_state
-                            ▼
-   L1  ── blocks ───   4 celle BLOCK (veti)
-                       se scatta un veto → SHORT-CIRCUIT (caso bloccato)
-                            ▼
-  PATHWAY ── derive ── Q1 × Q2 → IS-01..IS-05 (matrice γ)
-                            ▼
-  ACTIVATE ── run ───  186 nodi atomici → dict per pilastro
-                       96 fielded (scrivono un campo) +
-                       90 procedural_mandate (mandati di pratica)
-                       11 nodi per-flow iterano sui flussi
-                            ▼
-   L2  ── validate ──  regole assertion + action
-                       20 IR + 10 CIR + 5 FU + 7 B
-                       violazioni → case.rule_violations
-                            ▼
-   L3  ── report ────  enforcement IR-04 + IR-10
-                       surfacing 12 CDP (punti decisione critici)
-                            ▼
-        ┌─────────────────────────────────────────────┐
-        │ OUTPUT: configurazione metodologica completa │
-        │ + violazioni + CDP, tutto tracciabile        │
-        └─────────────────────────────────────────────┘
+L0 stati derivati → L1 blocchi → attivazione dei nodi → regole di settore Part 2 → L2 regole cross-method → L3 punti di decisione
 ```
 
-**Logica di attivazione dei nodi**: ogni nodo è `DEFAULT` (sempre attivo per il suo
-pilastro) oppure `DERIVED` (condizionale). I DERIVED si attivano via *discriminative
-logic* (branching sulle risposte Q) o *predicate logic* (condizioni simple/conj/disj sullo
-stato del caso). I `procedural_mandate` non hanno un campo da scrivere: sono mandati di
-pratica metodologica.
+- **L1, blocchi** (4): C2 con E-LCC, S-LCA "assoluta" forzata da override, nessuna dimensione in Q3,
+  Q1=A con tutti i flussi aggregati. Se uno scatta, la pipeline si ferma e lo dice.
+- **Chiavi di ramo.** Un nodo discriminativo ha un valore per ramo: `q2=A`, `q3.eco=true`, `ilcd=C2`,
+  `lcc_type=C+N`, `comparison_goal=waste_treatment`, `shared_assets=true`, `long_standing=true`. Vince
+  il primo ramo che corrisponde. Una chiave che il motore non sa leggere è un errore, mai un ramo saltato.
+- **Frasi che dipendono dalla risposta.** Dove una risposta è ortogonale ai rami del nodo, il valore
+  contiene un segnaposto (`{reference_market}`, `{affected_market}`, `{interaction_scale}`,
+  `{shared_assets}`) che il motore riempie con una frase costruita da Q7b, Q7 o Q12. Senza risposta, la
+  frase enuncia la regola in termini generali.
+- **Note** (`Case.warnings`). Quando due risposte si contraddicono (Q1 programma e Q9 micro; Q9
+  strutturale senza screening; Q1 azienda e Q9 non rendiconto; Q0 analisi e Q2 non ancora) il motore lo
+  scrive. Le note non bloccano e non cambiano mai una risposta in silenzio.
 
 ---
 
-## 10. I numeri chiave (slide riepilogo)
+## 6. Le regole di settore della D4.1 Part 2
 
-> Tutti verificati dal validation script — **0 critical / 0 warning / 0 UNKNOWN / PASS**.
+`sector_overlays.json` raccoglie i cinque capitoli della Part 2, con le categorie LCIA di §9:
 
-| Artefatto | Valore |
-|---|---|
-| **Pathway IS totali** | **5** (IS-01…IS-05) |
-| Situazioni ILCD (LCA) | 5 |
-| Tipi LCC | 4 |
-| Stati S-LCA | 2 |
-| Domande input (riduttori) | 7 (Q1–Q7) |
-| **Nodi atomici Phase 1** | **186** (LCA 59 · LCC 61 · S-LCA 66) |
-| └ fielded / procedural_mandate | 96 / 90 |
-| └ per-flow | 11 |
-| **Regole cross-method** | **58** = 4 BLOCK + 20 IR + 10 CIR + 5 FU + 7 B + 12 CDP |
-| Campi schema | 16 system + 12 computed + 20 cir_output |
-| Settori overlay (Q6a) | 14 (+ NONE/OTHER) |
+| Capitolo | Regole nello schema | Configurazioni tipiche |
+|---|---|---|
+| §4 Agri-Food and Biorefineries | 13 | 5 |
+| §5 Plastics and Packaging | 13 | 5 |
+| §6 Wastewater and Biofactories | 12 | 6 |
+| §7 Textile and Technical Textiles | 13 | 5 |
+| §8 Waste Valorisation | 13 | 5 |
+| **Totale** | **64** | **26** |
 
----
+Un caso mostra di solito meno regole di quelle nello schema: sono filtrate sulle risposte.
 
-## 11. Il tool in azione (screenshot)
-
-### Home — punto di ingresso + caricamento preset
-![Home del tool](screenshots/01-home.png)
-
-### Questionario — le 7 domande Q1–Q7 + flussi
-![Questionario](screenshots/02-questionnaire.png)
-
-### Output del motore — configurazione metodologica derivata
-La schermata mostra il caso `Sokka 2011` (eco-park, pulp & paper): pathway **IS-01**,
-**ILCD Situation A multi-actor**, **154 nodi attivati** (LCA 48 · LCC 46 · S-LCA 60),
-0 BLOCK, 1 violazione L2 (B-05: il geographic spread richiede trasporto esplicito),
-configurazioni per pilastro espandibili e reasoning panel.
-![Output del motore](screenshots/03-result.png)
-
-### Lista casi salvati
-![Lista casi](screenshots/04-cases.png)
-
-### About
-![About](screenshots/05-about.png)
-
-> *Screenshot generati con Playwright/Chromium su build dev (frontend :5180 + backend :8088),
-> dataset preset di validazione. UI in inglese (lingua di default del detector); il tool è
-> localizzato in 5 lingue (en/it/fr/de/es).*
+Un capitolo si applica quando un flusso lo dichiara (settore o configurazione). Le regole arrivano come
+mandati da documentare, filtrate sulle risposte, perché la Part 2 non allenti mai la Part 1: niente
+sostituzione in C2, niente background "Situazione A" in B, scale-up solo sotto TRL 7. La configurazione
+tipica nomina il prodotto convenzionale che il flusso sostituisce.
 
 ---
 
-## 12. Stato del progetto (slide di chiusura)
+## 7. Regole cross-method: obblighi, non violazioni
 
-- **MVP completo**, in attesa di prossima direzione.
-- Schema engineering **CLOSED** (closure post-round-2): i 5 JSON sono la fonte di verità.
-- Baseline test: **190 backend (pytest) + 14 frontend (vitest)**.
-- Frontend React 19 + i18n in **5 lingue** (en/it/fr/de/es).
-- Stack: FastAPI (Python 3.12) + SQLAlchemy 2.0 + Pydantic v2 · React 19 + Vite + Zustand.
-- Parte del progetto **SYMBA** (GA 101135562, WP4 — Task 4.6), consorzio a 9 partner.
+Lo schema delle regole ha 58 voci: 4 blocchi, 20 regole di integrazione (IR), 10 condizionali (CIR),
+5 sull'unità funzionale (FU), 7 sui confini (B), 12 punti di decisione critici (CDP).
+
+- Le 40 regole di L2 (18 IR, 10 CIR, 5 FU, 7 B) scattano sulle risposte; IR-04 e IR-10 si applicano a L3.
+  Quando una regola scatta, entra tra gli **obblighi** che il caso deve documentare, raggruppati per
+  famiglia (IR, CIR, FU, B): la pagina risultato ne dà il conto, il Data Collection File li elenca con
+  quello che ha attivato ciascuno.
+- Non sono mostrate come errori: le asserzioni confrontano testo scritto dal motore e non possono
+  verificare che cosa l'analista ha fatto fuori dal tool.
+- Nessuna regola sovrascrive il testo di un nodo.
+- Ritirate, con il motivo nello schema: CIR-03 (trasporto esplicito già per ogni scambio), CIR-04
+  (percolazione già per ogni rete non bilaterale), CIR-06 (categorie di frontiera già chieste in ogni
+  studio).
+- I 12 **CDP** descrivono tensioni tra metodi e come si risolvono; compaiono solo quando tutti i metodi
+  coinvolti sono attivi.
 
 ---
 
-### Appendice — glossario rapido
-- **IS** = Industrial Symbiosis · **LCSA** = Life Cycle Sustainability Assessment
-- **ILCD** = International Reference Life Cycle Data System (framework di contesto LCA)
-- **C-LCC / E-LCC / S-LCC** = Conventional / Environmental / Societal Life Cycle Costing
-- **NTF** = Network Thermodynamic Flow · **EVT** = Economic vs Technical valuation
-- **IR / CIR / FU / B / CDP** = famiglie di regole cross-method (Integration / Conditional
-  Integration / Functional Unit / Boundary / Critical Decision Point)
-- **TRL** = Technology Readiness Level
-</content>
-</invoke>
+## 8. Che cosa produce
+
+- **Pagina risultato**: situazione ILCD, "La tua configurazione", note sulle risposte, "Cosa fare adesso"
+  (punti di decisione da risolvere, conto degli obblighi per famiglia), regole di settore per capitolo.
+- **Data Collection File** (xlsx e docx) calibrato sulla configurazione, con il Network Builder per
+  disegnare attori e flussi; la classificazione giuridica ed economica dei flussi (End-of-Waste,
+  evitabilità, punto dello zero-burden) è una sezione del DCF.
+- **Report del caso** in .docx.
+- **Quattro viste di pubblico**: industria, comunità locale, autorità, utente finale; link di
+  condivisione pubblici in sola lettura.
+- **Cinque lingue**: inglese, italiano, francese, tedesco, spagnolo.
+
+---
+
+## 9. Validazione su casi reali
+
+Otto casi reali del corpus bibliografico, confrontati con quello che il tool configura:
+
+- **69 punti di scelta** a livello di studio: **63 concordano, 6 differiscono**. Tutte e sei le
+  differenze sono divergenze documentate e decise: orizzonte di studio unico (3 casi), regola
+  sull'affermazione comparativa pubblica, un'unità funzionale ambigua in un articolo, un artefatto dello
+  script di verifica.
+- **Capitolo della Part 2 per flusso**: 37 su 53.
+- Test automatici: **826 backend + 185 frontend**.
+
+---
+
+## 10. Stato e punti aperti
+
+- **Deploy**: `biobasedisadvisor.symbaproject.eu`, oggi "in costruzione" (pagina di cortesia, accesso del
+  team in anteprima).
+- **Specifica I/O dello scoring CIRCE**: da definire; finché manca, la pagina admin per la coda di
+  scoring resta ferma.
+- **Apertura al pubblico**: da decidere; richiede prima la registrazione dell'account admin.
+  L'informativa privacy è una bozza che attende revisione legale.
+- **Revisione di D4.1/D4.2** in corso: i testi dei nodi seguono la numerazione FINAL v2 e andranno
+  riallineati alla versione finale.
+
+---
+
+## 11. Glossario
+
+- **Situazioni ILCD** (D4.1 Tabella 1): **A**, supporto a decisioni con conseguenze limitate agli
+  impianti coinvolti; **B**, decisioni con conseguenze strutturali sul mercato (da dimostrare); **C1**,
+  documentazione di un sistema esistente con le sue interazioni; **C2**, rendiconto stretto di una sola
+  azienda, con allocazione e senza crediti.
+- **HNSRS / CNSRS** (D4.1 §11.1): scenario di riferimento senza simbiosi. HNSRS (*Hypothetical*), per
+  scambi già attivi: che cosa farebbe oggi ogni azienda senza i collegamenti. CNSRS (*Current*), per scambi
+  non ancora attivi: lo scenario senza simbiosi sull'orizzonte dello studio.
+- **C-LCC / E-LCC / S-LCC** (D4.2): LCC convenzionale per azienda; LCC ambientale di rete, allineato
+  all'LCA; LCC societario, con esternalità monetizzate e tasso di sconto sociale.
+- **CFF**: Circular Footprint Formula del metodo PEF, per riciclo e recupero.
+- **CDP**: punto di decisione critico, una tensione tra metodi che l'analista deve risolvere e motivare.

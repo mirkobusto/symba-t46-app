@@ -1,6 +1,6 @@
 # SYMBA T4.6 — Phase 1 Node Mapping v2 (Sprint 4 ingestion-ready)
 
-> **Read this first (2026-10-15).** This is the May 2026 design document. The engine has moved on since:
+> **Read this first (2026-10-15; updated 2026-10-18 after the rebuild, §0).** This is the May 2026 design document. The engine has moved on since:
 > the current value of every node is in `backend/app/schemas/phase1_nodes.json`, the current rules are in
 > `backend/app/schemas/cross_method_rules.json`, and the state of the project is in the repository's `CLAUDE.md`.
 > Where this document and the schemas disagree, the schemas win. **§0 lists what changed after May 2026** and which
@@ -45,6 +45,14 @@ are cited on the FINAL v2 numbering (PR #109, #111).
 | PR #134 | D4.1 Part 2 sector rules wired: `sector_overlays.json` holds 64 rules for the five chapters (LCIA and modelling rules, groups A1/A2), activated by a flow's declared sector or Q6a, filtered by `when_key` (e.g. no substitution in C2, scale-up below TRL 7), listed in `Case.sector_rules`, the result page and the report | §7 | `engine/sector_rules.py`, `sector_overlays.json` |
 | PR #135 | optional Q11 "what does the study compare?" (`Case.comparison_goal`): `lca_mc_07` writes an input-based FU, an output-based FU or a system of FUs (D4.1 Part 2 §4.3, §6.3, §8.3); unanswered, the former function-oriented text; D4.2 "dual" FU kept as a note | §5.1, §6 | `lca_mc_07`, `branch_keys` (`comparison_goal=`) |
 | PR #137 | optional per-flow Part 2 configuration (`Flow.configuration`, 26 typical configurations of §4.1-§8.1 in `sector_overlays.json`): the sector rules list names the conventional product each flow substitutes; in C2 no substitution credit; notes for a configuration of another chapter or an unknown one | §7 | `engine/sector_rules.py`, `sector_overlays.json` |
+| PR #142 (R1, rifondazione 2026-10-18) | the IS-01..IS-05 pathways (γ matrix Q1×Q2, ADR-005) are removed from the engine, the API, the DCF and the reports; the configuration headline is the ILCD situation | §6, §8, every pathway reference | `l0_compute.py`, CLAUDE.md |
+| PR #143 (R2) | Q2 in two answers (exchanges already take place → HNSRS / not yet → CNSRS); follow-up `network_long_standing` → modern counterfactual (D4.1 §11.2.2, branch key `long_standing=true`); the former C and D read as B; alternative scenarios open to every study (`has_scenarios` in the DCF) | §5.1 MC-26, §6, the Q2 rows | `lca_mc_26`, `branch_keys` |
+| PR #144 (R2) | Q1 and Q6a describe, Q9 and Q10 decide: unanswered Q9/Q10 read off Q1 with a note; Q10 widened to a public decision-maker and required with the LCC; Part 2 chapters and AWARE follow the flows only | §6 T1, TRIG-01, §7 | `l0_compute.py`, `sector_rules.py`, `lca_mc_30` |
+| PR #145 (R2) | Q7 = concentration of the key interactions (regionalised characterisation, D4.1 §12.2.3, §12.3.3), no longer transport: `lca_mc_16`, `lca_mc_29`, `lcc_mc_14` the same for every case; Q7b reference market; answer-dependent phrases (`{reference_market}`, `{affected_market}`, `{interaction_scale}`) filled in `activate._write` | §5.1 MC-16, MC-29, §5.3 MC-14 | `engine/answer_phrases.py`, `lca_mc_06/25/27` |
+| PR #146 (R2) | Q12 new dedicated shared assets (`lcc_hc_07` branch `shared_assets=true`, `{shared_assets}` on `lca_hc_18`/`lca_mc_10`); IR-13, B-06 and CIR-08 read it and fire for the first time | §4.1 IR-13, §4.2 CIR-08, B-06 | `Case.dedicated_shared_assets` |
+| PR #147 (R2) | Q0 kind of study (D4.1 §4.3.2, after Mattila et al. 2012): derives nothing; notes for analysis without running exchanges or design with running ones | — | `l0_compute._purpose_notes` |
+| PR #149 (R3) | no CIR action writes over a node's value (it writes only where no node did); CIR-03, CIR-04, CIR-06 retired (covered by nodes for every case); FU-02 on Q11 co-primary with LCA; IR-06 on "not Situation C2"; CIR-08 without Q1; `lcc_mc_13` active only when the horizon stays in the present | §4.1, §4.2 (all CIR rows) | `l2_validate.py`, `cross_method_rules.json` |
+| PR #150 (R4) | L2/L3 assertion failures (`rule_violations`) are internal diagnostics, never shown; IR-04 and IR-10 join the obligations | §2, §10.2 | `l3_report.py`, CLAUDE.md |
 
 ---
 

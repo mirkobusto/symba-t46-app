@@ -1,195 +1,209 @@
-# SYMBA T4.6 — Detailed speaker track (EN)
+# SYMBA T4.6 — Speaker track (EN)
 
-> Verbose draft for a ~7-slide talk. Deliberately over-detailed — cut down to taste.
-> Facts verified against the engine schemas (validation PASS).
-
----
-
-## SLIDE 1 — Title: "SYMBA T4.6 — IS Assessment Tool"
-
-Good [morning/afternoon]. I'll introduce SYMBA T4.6, the decision-support tool we built
-in Task 4.6.
-
-Let me be precise about what it is — and what it is *not* — from the start. It is **not**
-an LCA calculator: it does not compute environmental impacts, costs or social scores. What
-it does is decide **how** a sustainability assessment of an industrial-symbiosis case should
-be set up — which methodology to apply, which rules are mandatory, which choices are
-forbidden — and it does this automatically, deterministically, and traceably.
-
-Think of it as a methodological co-pilot for the sustainability analyst.
+> For a ~7-slide talk of 6-8 minutes to the SYMBA consortium and its reviewers.
+> Same slides as `COWORK_SCRIPT_DETAILED.md` and `build_deck.py`. Rewritten on 2026-10-18 after the
+> rebuild; the earlier track (pathways, seven questions, violations) is retired.
+> Cite sections as written here; do not round or change the numbers.
 
 ---
 
-## SLIDE 2 — The problem
+## SLIDE 1 — Title: SYMBA T4.6, Monitoring & Reporting System for Industrial Symbiosis
 
-In industrial symbiosis, one company's waste or by-product becomes another company's input.
-To judge whether that exchange is genuinely sustainable, we don't run one analysis — we run
-three, on the same product system:
+Good morning. This is the tool of Task 4.6, deliverable D4.6, led by ENCO with CIRCE and CET.
 
-- **LCA** — environmental impacts
-- **LCC** — life-cycle costs
-- **S-LCA** — social impacts
+Let me say first what it is not. It is not an LCA or LCC calculator: it computes no kilograms of CO2
+equivalent, no net present value, no social indicator. Those numbers come from the partners of T4.1
+to T4.3, and the tool integrates them in the reporting once they are delivered.
 
-Together these form **LCSA**, Life Cycle Sustainability Assessment.
+What it does: it takes an industrial-symbiosis case and returns the methodological configuration
+that our own guidelines require for it, D4.1 for LCA, Part 1 and the sector chapters of Part 2, and
+D4.2 for LCC, together with the data the analyst has to collect.
 
-Here is the real difficulty. The hard part is not doing the maths — it's **setting up** the
-study correctly. That setup requires hundreds of subtle methodological decisions: how to
-allocate impacts between the two companies; whether a waste stream enters with "zero burden";
-whether to project parameters into the future; whether an independent review panel is
-required; whether you're even allowed to aggregate the three pillars into a single score.
-
-If you count the combinations of these choices, you reach the order of **one million** — and
-that is *before* you account for the individual material flows, which push it effectively
-unbounded. Today these decisions rest on the experience of the individual analyst. Two
-competent experts can set up the *same* case differently. That means the methodology is
-**not reproducible** — and a study you can't reproduce is a study you can't defend.
+On 18 October we rebuilt it so that its questions are the variables the deliverables actually use.
 
 ---
 
-## SLIDE 3 — The core idea: complexity reducers
+## SLIDE 2 — The problem: the set-up is fixed before any number
 
-Our central idea is to invert the problem. Instead of asking the analyst to master that
-million-way decision space, we ask **seven simple questions** about their case. We call them
-**complexity reducers**, and the name is literal: each question prunes an entire branch of
-the methodological tree.
+The hard part of a life-cycle sustainability assessment of a symbiosis is not the arithmetic. It is
+fixing the set-up before any number is produced, and our deliverables say precisely what drives it:
 
-A concrete example. The moment the analyst answers *"this is a corporate ESG study"* to
-question 1, the engine already knows — without being told anything else — that the LCA
-context is ILCD Situation C2, that environmental LCC is forbidden for this case, and that the
-routing is pathway IS-03. One answer, dozens of downstream decisions resolved automatically.
+- the **ILCD situation** follows the decision the study supports and the scale of its consequences,
+  D4.1 Table 1, not the subject of the study;
+- the **reference scenario** follows whether the exchanges already take place, D4.1 §11.1;
+- LCA and LCC share **one study horizon**, D4.2 §11;
+- the **societal LCC** follows the perspective of the decision-maker, D4.2 §2.2 and §2.3;
+- the **functional unit** follows what is being compared, D4.1 Part 2.
 
-The seven questions cover:
+The cleanest example is a single flow. If the sender pays to get rid of it, it is a waste and enters
+with zero burden. If the receiver pays for it, it is a co-product, modelled by substitution, D4.1
+§8.3. Same residue, opposite attribution.
 
-1. **Q1 — the type of symbiosis** (bilateral exchange? eco-park? sector-wide study? corporate ESG? public/regulator view?)
-2. **Q2 — temporal stance** (already operating, or still at design stage? with or without a baseline?)
-3. **Q3 — which dimensions** to assess (environment / cost / social)
-4. **Q4 — intended use** of the results (internal? business-to-business? public claim? EU policy?)
-5. **Q5 — the nature of each exchanged flow** (waste? by-product? substitution?) — answered *per flow*
-6. **Q6 — sector and technology readiness level**
-7. **Q7 — geographic spread** (one site? regional? cross-border?)
-
-Seven answers, and a space of a million collapses into **one** precise, coherent
-configuration. That is the whole philosophy of the tool in one sentence.
+Left implicit, these variables let two competent analysts set up the same case differently, and the
+results cannot be compared. The earlier version of the tool routed every case on five "pathways"
+built from two questions. The deliverables do not know them. We removed them.
 
 ---
 
-## SLIDE 4 — How it works: the engine
+## SLIDE 3 — The questions are the deliverables' variables
 
-Behind those seven questions sits a **schema-driven engine**. The methodological logic is not
-hard-coded in software — it lives in declarative rule files that are independently validated.
-That matters: a methodologist can read and audit the logic without reading code.
+The questionnaire has three parts, numbered on screen. The codes, Q0 to Q12, are kept, because saved
+cases, tests and schemas use them. Four answers are required: the dimensions, Q3; the decision and
+its scale, Q9; the subject, Q1; and, when the economic dimension is on, the public objective, Q10.
+The rest is optional, and when it is missing the engine applies the general rule of the deliverable.
 
-The best analogy is a **satellite navigator**. You state where you start and where you want to
-go — the seven answers — and it computes the route, flagging prohibitions and warnings along
-the way. It doesn't drive the car for you (it doesn't run the LCA), but it gives you the
-correct itinerary and stops you taking a forbidden road.
+**The study.**
+- Q0, the kind of study, after Mattila et al. as D4.1 §4.3.2 asks: analysis, improvement,
+  expansion, design, restructuring. It derives nothing; it goes into the goal and the report.
+- Q1, the subject: an exchange, a park, a programme, a company, a monitoring series. It describes the
+  form of the network and its boundary, and feeds three boundary nodes only.
+- Q3, the dimensions: environmental, economic, social.
+- Q9 decides the ILCD situation, as in D4.1 Table 1. Effects that stay in the plants involved:
+  Situation A. Effects that change what a market produces: Situation B, but only with a documented
+  market screening of about one per cent of new capacity, D4.1 §11.3.1; otherwise A, with B as a
+  sensitivity. Documenting an existing network: C1. Strict reporting of one company: C2.
+- Q2 asks whether the exchanges the study measures already take place. Yes: the hypothetical reference
+  scenario, HNSRS, what each firm would do today without the links. Not yet: the current
+  non-symbiotic scenario over the study horizon, CNSRS, D4.1 §11.1. A follow-up for long-standing
+  networks gives a modern counterfactual, D4.1 §11.2.2.
+- Q8 sets one horizon for LCA and LCC: the operating year, the analysis period, the technical lifetime
+  of the main assets. A future operating year, a TRL below 7, or a horizon beyond fifteen years adds
+  future background scenarios, SSP and RCP. The fifteen years can be adjusted.
+- Q6b, the TRL of the key technology.
+- Q10: does the study serve a public objective or a public decision-maker? Yes adds the societal LCC.
+- Q4, the use of results. C, a public claim of superiority or equivalence in any form, papers
+  included, brings panel review and no weighting. D, EU policy alignment, brings PEF with the
+  Circular Footprint Formula and EF 3.1.
+- Q11, what the study compares: waste treatment gives an input-based functional unit, product
+  substitution an output-based one, both a system of functional units.
 
-Under the hood a single run goes through six stages:
+**The exchanges.**
+- Q5, for each flow: who pays whom, or whether the flow is interdependent. Optional per flow: could it
+  be sold elsewhere, which Part 2 sector it belongs to, its typical configuration.
+- Q7, how concentrated the key interactions are: one site, one region, across regions. It sets the
+  regionalised characterisation, D4.1 §12.2.3 and §12.3.3. Transport is explicit for every exchange,
+  whatever the answer.
+- Q7b, the reference market: the region and its scope, national, sub-national or continental,
+  D4.1 §11.3.1.
+- Q12, new dedicated shared assets: their CAPEX and OPEX are shared among the partners, D4.2 §4.2,
+  and the capital goods enter the LCA, D4.1 §6.3.3.
 
-1. **L0 — derive** the base state of the three pillars (the ILCD situation, the LCC type, the S-LCA state)
-2. **L1 — block** absolute incompatibilities; impossible combinations are stopped immediately
-3. **Pathway** — assign one of five routing archetypes from the Q1×Q2 matrix
-4. **Activate** — switch on the relevant methodological choices
-5. **L2 — validate** the cross-pillar consistency rules
-6. **L3 — report** the critical decision points the analyst must be aware of
-
-In total the engine carries **186 atomic methodological nodes** and **58 cross-method rules**,
-all closed and validated — zero unknowns.
-
----
-
-## SLIDE 5 — A key clarification: "5 pathways" is only the outer layer
-
-One point worth making explicit, because it's easy to misread. People hear "five pathways"
-and think the tool only produces five methodologies. That's wrong.
-
-The **five IS pathways** (IS-01 to IS-05) are only the *outermost routing decision* — the
-first fork in the road. The actual methodological configuration is a high-dimensional object,
-layered like this:
-
-- **Routing:** 5 IS pathways (the Q1×Q2 matrix)
-- **Pillar states:** 5 ILCD situations × 4 LCC types × 2 S-LCA states
-- **Node activation:** 186 nodes switched on or off by the answers
-- **Per-flow choices:** 5 valuation types for *each* exchanged flow
-
-So the configuration space is not five — it is effectively unbounded. The five pathways are
-just the first signpost; the full methodology is assembled node by node beneath it. This is
-exactly why the tool is schema-driven rather than a lookup table: you cannot tabulate a space
-this large, but you *can* derive any single point in it deterministically.
-
-*(If you simplify the deck, this can be folded into slide 3 or 4 — but it's the point most
-likely to be challenged in Q&A, so keep it somewhere.)*
-
----
-
-## SLIDE 6 — The outcome, part 1: the configuration
-
-So what does the analyst actually get? Not a score — a **complete, justified methodological
-recipe**. Concretely, for every case the tool returns:
-
-- the **assigned pathway** — one of IS-01…IS-05
-- the **configuration of the three pillars** — for example "environment: ILCD Situation A
-  multi-actor", the costing type, the social-assessment state
-- the **full list of activated choices** — on a real case we'll show, that's **over 150
-  methodological decisions** derived automatically
-- and crucially, **every choice is linked back to the question that generated it**
-
-That last point is the heart of it. The analyst doesn't just see *what* was decided — they see
-*why*. That traceability is what makes the resulting study defensible in front of a reviewer
-or an auditor: there are no silent assumptions, every decision has a documented origin.
+**Description.** Q6a, the company sector, only describes the case. The Part 2 chapters follow what
+the flows are, not the company.
 
 ---
 
-## SLIDE 7 — The outcome, part 2: checks, blocks, and export
+## SLIDE 4 — The engine: schema-driven, answers to nodes
 
-The second half of the outcome is quality control. The engine doesn't only say what to do — it
-also catches what you must *not* do:
+The methodology lives in versioned JSON schemas, not in code, so it can be read and audited.
 
-- **Blocks** — forbidden combinations, stopped before the analysis even starts (for example,
-  pairing an environmental LCC with a corporate-ESG framing, which the ILCD framework
-  prohibits)
-- **Warnings** — cross-method consistency flags. For instance: *"your case is geographically
-  dispersed, therefore transport must be explicitly declared in both the costs and the
-  environmental inventory."* These are precisely the points where studies usually go wrong,
-  made explicit and unavoidable.
-- **Critical decision points** — the methodological tensions the analyst should consciously
-  resolve rather than stumble into.
+A run has six steps:
 
-And finally, the whole thing is **exportable to a formal report**, ready for the case
-documentation. So the output is not just a decision — it is decision **plus** justification
-**plus** quality checks **plus** documentation, produced in a single pass.
+1. **L0** derives three states: the ILCD situation from Q9; the LCC type from Q3, the situation and
+   Q10; the S-LCA state from Q3.
+2. **L1** checks four blocking combinations, for example no dimension selected.
+3. **Activation** goes through **186 atomic nodes** extracted from D4.1, D4.2 and D4.3: 59 LCA,
+   61 LCC, 66 S-LCA. 95 carry a value, 91 are procedural mandates.
+4. The **D4.1 Part 2 sector rules**: 64 rules and 26 typical configurations over five chapters, §4 to
+   §8, listed for the chapters the flows declare.
+5. **L2**, the cross-method rules.
+6. **L3**, the twelve critical decision points.
 
----
+How do answers reach a node? Three ways.
 
-## SLIDE 8 (optional close) — Why it matters / status
+- **Branch keys.** A discriminative node has a value per branch, such as `ilcd=C2`, `lcc_type=C+N`,
+  `comparison_goal=waste_treatment`. The first match wins; a key the engine cannot read is an error,
+  never a skipped branch.
+- **Answer-dependent phrases.** Where an answer is orthogonal to the node's branches, the text
+  carries a placeholder filled from the answer: the reference market from Q7b, the scale of the
+  interactions from Q7, shared assets from Q12.
+- **Notes.** When two answers contradict each other, for instance a programme in Q1 with micro
+  effects in Q9, the engine writes a note. It never blocks on it and never changes an answer silently.
 
-The value proposition is simple: we turn a slow, expert-dependent, non-reproducible decision
-into a fast, coherent, traceable process. Three concrete benefits for the consortium:
-
-1. **Standardisation** — every partner sets up studies the same way.
-2. **Defensibility** — every choice is motivated and recorded, so studies survive review.
-3. **Lower barrier to entry** — even a less experienced analyst produces a methodologically
-   sound study.
-
-Status: it is a **complete, working MVP** — React front-end in five languages, FastAPI
-back-end, methodology engine fully validated. The next step is to put it through real partner
-case studies.
-
-Thank you — happy to take questions.
+Part 2 rules are filtered so they never loosen Part 1: no substitution in C2, no "Situation A"
+background in B, scale-up only below TRL 7.
 
 ---
 
-### Quick-reference numbers (for Q&A)
+## SLIDE 5 — The configuration on screen
 
-| | |
+The result page leads with the ILCD situation and the rows of "Your configuration":
+
+- **Costing.** With an LCA: a C-LCC per partner and an E-LCC of the network, C+E; with a public
+  objective, plus the societal LCC, C+E+S. Without an LCA there is no E-LCC, D4.2 §4.1: the network
+  level is a consolidation of the company LCCs, C+N or C+N+S. Strict reporting of one company: the
+  C-LCC only, a declared T4.6 design choice.
+- **Study horizon**: present-day or future background, with its cause.
+- **Reference scenario**: HNSRS, modern counterfactual or CNSRS, with the market from Q7b.
+- **Functional unit**: function-oriented by default, input-based, output-based, or a system.
+- **Local impacts**: site-specific, regional, or per territory of emission.
+- **Sector rules**: the Part 2 chapters, with the flows that open them.
+- **Shared assets**: CAPEX and OPEX shared among the partners that use them.
+- **Public claim**: with Q4 = C, a critical review by a panel of at least three independent experts and no
+  weighting; otherwise none.
+
+Each row says why. Opening a row shows the engine's text in English with the section of the
+deliverable it comes from, so a reviewer can check every value against D4.1 or D4.2.
+
+---
+
+## SLIDE 6 — What to do next: obligations, decision points, data
+
+"What to do next" lists two things.
+
+- **Critical decision points**: tensions between methods that the analyst resolves and justifies.
+  They appear only when all the methods involved are on.
+- **Obligations**, counted by family: integration of the methods, rules switched on by the answers,
+  functional unit, boundaries. The full list, with what triggered each one, is in the Data Collection
+  File. They are obligations to document, not violations: the tool cannot see
+  what the analyst does outside it, so it says what has to be documented instead of pretending to
+  check it. No rule overwrites the text of a node, and three rules that read attributes the case
+  never had were retired, each with its reason in the schema.
+
+Then the data: the **Data Collection File**, in Excel and Word, asks only for what this configuration
+needs, and the network builder draws actors and flows. The **case report** comes as a Word file. Four
+**audience views**, for industry, local community, authority and end user, and public share links
+reuse the same configuration. The interface runs in five languages.
+
+---
+
+## SLIDE 7 — Validation and status
+
+We ran the tool on **eight real cases** from the literature corpus.
+
+- On **69 study-level choice points**, **63 agree** with what the authors did and **6 differ**. All six
+  are documented, decided divergences: the single study horizon, three times; the rule on public
+  comparative claims; one paper with an ambiguous functional unit; one artefact of the verification
+  script.
+- The Part 2 chapter of each flow matches in **37 of 53** flows.
+- The code carries **826 backend and 185 frontend** automated tests.
+
+Status: the tool is online at biobasedisadvisor.symbaproject.eu, still under construction with a team
+preview. Open points: the input-output specification of the CIRCE scoring, the public opening, and the
+alignment with D4.1 and D4.2 as their revision completes.
+
+Thank you. I am happy to take questions.
+
+---
+
+## Quick reference — numbers (do not alter)
+
+| Item | Value |
 |---|---|
-| Input questions | 7 (Q1–Q7) |
-| IS pathways (routing) | 5 (IS-01…IS-05) |
-| ILCD situations (LCA) | 5 |
-| LCC types | 4 |
-| S-LCA states | 2 |
-| Atomic methodological nodes | 186 (LCA 59 · LCC 61 · S-LCA 66) |
-| Cross-method rules | 58 (4 blocks + 20 IR + 10 CIR + 5 FU + 7 B + 12 CDP) |
-| Input combination space | ~10⁶ (unbounded with per-flow choices) |
-| Pipeline stages | L0 → L1 → pathway → activate → L2 → L3 |
-</content>
+| Questionnaire | Q0-Q12 in three parts (incl. Q6a/Q6b, Q7b; follow-ups Q2b, Q9b) |
+| Required answers | Q3, Q9, Q1; Q10 when the economic dimension is on |
+| ILCD situations | A, B, C1, C2 (D4.1 Table 1) |
+| LCC types | C+E, C+E+S, C+N, C+N+S, C-LCC only |
+| Atomic nodes | 186 = LCA 59 + LCC 61 + S-LCA 66; 95 fielded + 91 procedural mandates |
+| Blocks | 4 |
+| L2 rules | 40 (18 IR + 10 CIR + 5 FU + 7 B); IR-04 and IR-10 at L3 |
+| Retired rules | 3 (CIR-03, CIR-04, CIR-06), reasons in the schema |
+| Critical decision points | 12 |
+| Rule schema total | 58 (4 + 20 + 10 + 5 + 7 + 12) |
+| D4.1 Part 2 | 5 chapters (§4-§8), 64 rules, 26 typical configurations |
+| Future background threshold | 15 years, adjustable |
+| Validation | 8 cases; 69 choice points, 63 agree / 6 differ; Part 2 chapter per flow 37/53 |
+| Tests | 826 backend + 185 frontend |
+| Audience views | 4 (industry, community, authority, end user) |
+| Languages | 5 (EN, IT, FR, DE, ES) |
+| Deployment | biobasedisadvisor.symbaproject.eu (under construction, team preview) |

@@ -292,7 +292,7 @@ const fr: Locale = {
     p1:
       "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir de dix questions sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
-      "Les 7 questions principales (Q1-Q7), plus trois facultatives (Q8-Q10), déclenchent l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
+      "Le questionnaire (Q1-Q11 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
     p3:
       'Affichage de la configuration par pillar, overrides avancés et panneau « Show reasoning » sont tous opérationnels.',
   },
@@ -321,7 +321,7 @@ const fr: Locale = {
     q1: {
       title: "Q1 — Qu'analysez-vous ? *",
       help:
-        "Choisissez la correspondance la plus proche : ce qui compte est le sujet de l'étude, pas qui l'a commandée. (Obligatoire.)",
+        'Choisissez la correspondance la plus proche : ce qui compte est le sujet de l\'étude, pas son commanditaire. Elle décrit le système et sa frontière ; la modélisation de l\'étude découle de Q9 et des questions suivantes. (Obligatoire.)',
       details:
         "A — échange bilatéral (ex. chaleur fatale de l'Usine X vers l'Usine Y, ou gypse co-produit d'une centrale thermique vers une cimenterie). Le sujet est le FLUX PARTAGÉ entre deux entreprises. " +
         'B — parc éco-industriel ou réseau symbiotique avec 3+ acteurs (ex. Kalundborg, cluster NISP, masterplan de parc industriel). Le sujet est le RÉSEAU comme système. ' +
@@ -336,7 +336,7 @@ const fr: Locale = {
         E: { label: 'E. Suivi', description: "Suivi temporel d'une symbiose déjà opérationnelle." },
       },
       plain:
-        "C'est la question qui commande toutes les autres : elle indique à l'outil quel système vous examinez, et donc quelles données il vous demandera ensuite. Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets.",
+        'Dites ce que vous examinez : un échange, un parc, un programme, une entreprise, une symbiose suivie dans le temps. La réponse décrit le système et sa frontière ; la manière de modéliser l\'étude est décidée par les questions suivantes, à commencer par la finalité de l\'étude (Q9). Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets.',
     },
 
     q2: {
@@ -419,10 +419,10 @@ const fr: Locale = {
 
     q6a: {
       title: 'Q6a — Secteur',
-      help: 'Le secteur principal du cas. Cela active quelques exigences propres au secteur.',
+      help: 'Le secteur principal du cas, à titre descriptif. Les règles sectorielles de la D4.1 Part 2 suivent le secteur de chaque flux échangé, déclaré dans le tableau des flux.',
       details:
-        "Le secteur contrôle un petit ensemble d'activations sector-specific de nœuds et les défauts d'overlay. Choisissez la correspondance la plus proche du secteur dominant du cas (l'acteur qui contribue le plus en masse/énergie/valeur). " +
-        "Exemples : pulp_paper pour Sokka 2011 (UPM Kymi) ; chemicals_fertilizers pour Hashimoto / Wiktor ; cement_construction pour Leiva 2025 Escombreras ; biobased_polymers pour Briassoulis ; food_production / agri-food pour Daddi. " +
+        'Le secteur décrit le cas et ouvre quelques champs spécifiques dans le Data Collection File ; les règles sectorielles de la D4.1 Part 2 suivent le secteur déclaré pour chaque flux, car les chapitres suivent ce qui est échangé. Choisissez la correspondance la plus proche du secteur dominant du cas (l\'acteur qui contribue le plus en masse/énergie/valeur). ' +
+        'Exemples : pulp_paper pour Sokka 2011 (UPM Kymi) ; cement_construction pour Hashimoto 2010 (Kawasaki) ; textile_leather pour Daddi 2017 (district des tanneries) ; wastewater_sludge_biofactories pour Wiktor 2018 ; chemicals_fertilizers pour Leiva 2025 Escombreras ; biobased_polymers pour Briassoulis. ' +
         "Pour les cas mixtes, utilisez multi_sector. Les entrées « (legacy) » en bas existent pour le chargement backward-compatible des anciennes fixtures — préférez la nouvelle liste à 14 secteurs.",
       options: {
         none: '(aucun)',
@@ -446,7 +446,7 @@ const fr: Locale = {
         process_industry: 'Industrie de process (legacy)',
       },
       plain:
-        "Le secteur principal du cas : l'activité de l'entreprise qui apporte le plus de masse, d'énergie ou de valeur. Cela active quelques exigences et quelques valeurs par défaut propres au secteur. Si le cas chevauche plusieurs secteurs, choisissez Multi-secteur, et ignorez les entrées marquées (legacy).",
+        'Le secteur principal du cas : l\'activité de l\'entreprise qui pèse le plus en masse, énergie ou valeur. Il décrit le cas ; les règles sectorielles des lignes directrices suivent la nature de chaque flux, que vous déclarez dans le tableau des flux. Si le cas couvre plusieurs secteurs, choisissez Multi-secteur et ignorez les entrées (legacy).',
     },
 
     q6b: {
@@ -530,16 +530,15 @@ const fr: Locale = {
         'À quoi sert l\'étude ? Le plus souvent, elle explore ou soutient un choix dont les effets restent dans les installations concernées, même si personne ne doit encore décider. Ce n\'est que lorsque le changement est assez grand pour modifier ce que produit tout un marché, et qu\'on peut le montrer, que l\'étude change de nature. Si vous décrivez seulement un réseau qui fonctionne déjà, ou les chiffres d\'une seule entreprise, dites-le : chaque cas se modélise différemment.',
     },
     q10: {
-      title: 'Q10 — L\'étude sert-elle un objectif de politique publique ou d\'aménagement du territoire ?',
-      help: 'Facultative. Sans réponse, le moteur la déduit de Q1 (oui seulement pour Q1 = C).',
-      details: 'D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, quels que soient Q1 ou Q4. Une commune qui planifie un parc éco-industriel (Q1 = B) ou un régulateur qui suit un secteur (Q1 = E) peut répondre oui sans être Q1 = C. Avec Q1 = D l\'outil conserve l\'ACC conventionnel au niveau de l\'entreprise (choix de conception T4.6) et vous le signale.',
+      title: 'Q10 — L\'étude sert-elle un objectif public ou un décideur public ? *',
+      help: 'Obligatoire quand la dimension économique est active : elle décide si l\'ACC sociétal est ajouté.',
+      details: 'La D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, et le §2.2 lie le choix du type d\'ACC à la perspective du décideur : une municipalité, un service public ou un régulateur adopte le point de vue public, quel que soit le sujet de l\'étude (la D4.2 §9.2 indique 3-5 % comme taux d\'un partenaire municipal ou d\'un service public). Une municipalité qui planifie un éco-parc ou un service public qui dimensionne une liaison de chauffage urbain répond oui. Le rapport strict d\'une seule entreprise (Q9 : rapport d\'entreprise, situation C2) garde le coût au niveau de l\'entreprise (choix de conception T4.6), et l\'outil le signale.',
       options: {
-        unset: 'Sans réponse (déduite de Q1)',
-        yes: 'Oui — objectif de politique publique ou d\'aménagement du territoire (ajoute l\'ACC sociétal)',
-        no: 'Non — l\'étude ne sert pas un objectif de politique ou d\'aménagement',
+        yes: 'Oui — un objectif de politique publique ou d\'aménagement, ou un décideur public (ajoute l\'ACC sociétal)',
+        no: 'Non — une décision privée ou le compte propre d\'une entreprise',
       },
       plain:
-        "Répondez oui si l'étude doit alimenter une décision publique — une commune, une région, un régulateur, un plan. Elle ajoute alors une seconde lecture économique du point de vue de la société : des impôts comptés autrement, et des effets que personne ne paie en argent. Pour le bilan propre d'une seule entreprise, la lecture économique reste au niveau de l'entreprise, et l'outil vous le dit. Sans réponse, l'outil la déduit de la première question.",
+        'Répondez oui si l\'étude doit alimenter une décision publique, ou si un organisme public la commande : une municipalité, une région, un service public, un régulateur, un plan. Une seconde lecture économique s\'ajoute alors, du point de vue de la société : les taxes comptées autrement, et les effets que personne ne paie en argent. Pour le compte propre d\'une entreprise, la lecture économique reste au niveau de l\'entreprise.',
     },
 
     q11: {
@@ -714,6 +713,11 @@ const fr: Locale = {
   result: {
     notes: { title: 'Remarques sur vos réponses' },
     engineNotes: {
+      q9_unanswered: "Q9 est sans réponse : la situation ILCD (situation {{situation}}) est donc déduite de Q1, comme pour les cas enregistrés avant l'existence de Q9. Répondez à Q9 : le tableau 1 de la D4.1 fixe la situation selon la décision et l'ampleur de ses conséquences, pas selon le sujet de l'étude.",
+      q10_unanswered: {
+        yes: "Q10 est sans réponse : le fait que l'étude serve un objectif public est donc déduit de Q1 : l'ACC sociétal est ajouté, comme pour les cas enregistrés avant l'existence de Q10. Répondez à Q10 : la D4.2 §2.3 ajoute l'ACC sociétal pour un objectif de politique publique ou d'aménagement ou pour un décideur public, quel que soit le sujet de l'étude.",
+        no: "Q10 est sans réponse : le fait que l'étude serve un objectif public est donc déduit de Q1 : l'ACC sociétal n'est pas ajouté, comme pour les cas enregistrés avant l'existence de Q10. Répondez à Q10 : la D4.2 §2.3 ajoute l'ACC sociétal pour un objectif de politique publique ou d'aménagement ou pour un décideur public, quel que soit le sujet de l'étude.",
+      },
       structural_without_screening: "Q9 indique des effets structurels, mais le criblage du marché n'est pas documenté : l'étude est traitée en Situation ILCD A, et la Situation B doit être testée en sensibilité (D4.1 §4.3.4, §11.3.1).",
       structural_screening_missing: "La Situation B exige la preuve que le changement déplace environ 1 % ou plus des nouvelles capacités du marché concerné (D4.1 §11.3.1) ; documentez-la, sinon l'étude est en Situation A avec B en sensibilité (D4.1 §4.3.4).",
       decision_scale_vs_q1: {
@@ -738,6 +742,7 @@ const fr: Locale = {
         waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui ; la réponse Freedom-to-Act (D4.1 §8.3.3) le lit comme un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4).",
       },
       flow_part2_chapter: "Flux « {{flow}} » : les règles sectorielles de la D4.1 Part 2 {{chapter}} s'y appliquent ; elles figurent sous Règles sectorielles.",
+      case_sector_without_flow: "Le secteur du cas relève de la D4.1 Part 2 {{chapter}}, mais aucun flux ne déclare ce chapitre : ses règles sectorielles ne sont donc pas listées. Les chapitres suivent ce qui est échangé : déclarez le secteur de la Part 2 de chaque flux dans le tableau des flux.",
       flow_configuration_unknown: "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
       flow_configuration_other_chapter: "Flux « {{flow}} » : sa configuration relève de {{chapter}}, pas du chapitre déclaré {{declared}} ; les règles des deux chapitres sont listées.",
     },

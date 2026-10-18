@@ -228,7 +228,8 @@ def test_pipeline_run_q9_structural_decision_moves_the_situation_and_the_framewo
     base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": False, "soc": False}}
     plain = client.post("/api/pipeline/run", json=base).json()
     scaled = client.post("/api/pipeline/run", json={**base, "decision_context": "structural"}).json()
-    assert plain["ilcd_situation"] == "ILCD Situation A" and plain["warnings"] == []
+    assert plain["ilcd_situation"] == "ILCD Situation A"
+    assert [w["code"] for w in plain["warnings"]] == ["q9_unanswered"]
     assert scaled["decision_context"] == "structural"
     assert scaled["ilcd_situation"] == "ILCD Situation B"
     assert scaled["lca"]["modeling_framework"] == "consequential"
@@ -277,7 +278,7 @@ def test_pipeline_run_q10_q1_d_with_policy_is_a_note_not_a_block(client):
     body = resp.json()
     assert resp.status_code == 200 and body["blocked_by"] == []
     assert body["lcc_type"] == "C-LCC"
-    assert [w["code"] for w in body["warnings"]] == ["c2_keeps_c_lcc"]
+    assert [w["code"] for w in body["warnings"] if w["code"] != "q9_unanswered"] == ["c2_keeps_c_lcc"]
 
 
 def test_running_twice_does_not_double_the_outputs(client):

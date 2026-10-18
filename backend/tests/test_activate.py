@@ -411,10 +411,15 @@ def test_asset_lifetime_junk_values_read_as_zero(schemas, junk):
     "sector", [Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES]
 )
 def test_lca_mc_30_fires_for_wastewater_sector_and_its_alias(schemas, sector):
-    case = _baseline_case(q6a=sector)
+    """Since 2026-10-18 the flow decides, not the case sector (Q6a)."""
+    water = Flow(id="w", name="Treated water", q5=Q5.c, sector=sector)
+    case = _baseline_case(flows=[water])
     run(case, schemas)
     assert "lca_mc_30" in case.activated_nodes
     assert "AWARE" in case.lca["water_stress_method"]
+    sector_only = _baseline_case(q6a=sector)
+    run(sector_only, schemas)
+    assert "lca_mc_30" not in sector_only.activated_nodes
 
 
 @pytest.mark.parametrize(

@@ -34,11 +34,23 @@ def test_no_part2_chapter_no_rules():
     assert _case(flows=[Flow(id="f1", name="Heat", q5=Q5.c)]).sector_rules == []
 
 
-def test_the_case_sector_activates_its_chapter():
+def _food(**kw) -> Case:
+    """A case whose flow is in the agri-food chapter (§4)."""
+    grain = Flow(id="g", name="Spent grain", q5=Q5.b, sector=Q6a.FOOD_PRODUCTION)
+    return _case(flows=[grain], **kw)
+
+
+def test_the_case_sector_alone_activates_nothing_but_a_note():
+    """Since 2026-10-18 Q6a describes the case; the chapters follow the flows."""
     case = _case(q6a=Q6a.FOOD_PRODUCTION)
-    assert {r["chapter_key"] for r in case.sector_rules} == {"agrifood"}
-    assert case.sector_rules[0]["activated_by"] == [{"kind": "case_sector"}]
-    assert {"strength", "statement", "source", "lines", "note"} <= set(case.sector_rules[0])
+    assert case.sector_rules == []
+    note = next(w for w in case.warnings if w["code"] == "case_sector_without_flow")
+    assert note["params"] == {"chapter": "§4"}
+    flowed = _food(q6a=Q6a.FOOD_PRODUCTION)
+    assert {r["chapter_key"] for r in flowed.sector_rules} == {"agrifood"}
+    assert flowed.sector_rules[0]["activated_by"] == [{"kind": "flow", "name": "Spent grain"}]
+    assert {"strength", "statement", "source", "lines", "note"} <= set(flowed.sector_rules[0])
+    assert "case_sector_without_flow" not in {w["code"] for w in flowed.warnings}
 
 
 def test_a_flow_activates_its_chapter_whatever_the_case_sector():
@@ -48,31 +60,30 @@ def test_a_flow_activates_its_chapter_whatever_the_case_sector():
     assert {r["chapter_key"] for r in case.sector_rules} == {"wastewater"}
     assert case.sector_rules[0]["activated_by"] == [{"kind": "flow", "name": "Sewage sludge"}]
     both = _case(q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, flows=[sludge])
-    assert both.sector_rules[0]["activated_by"] == [
-        {"kind": "flow", "name": "Sewage sludge"}, {"kind": "case_sector"}]
+    assert both.sector_rules[0]["activated_by"] == [{"kind": "flow", "name": "Sewage sludge"}]
 
 
 def test_substitution_rules_follow_part1_in_situation_c2():
     """Part 1 L00868: strict accounting of one partner uses allocation, no credits."""
-    network = _case(q6a=Q6a.FOOD_PRODUCTION)
-    report = _case(q6a=Q6a.FOOD_PRODUCTION, decision_context=DecisionContext.CORPORATE_REPORT)
+    network = _food()
+    report = _food(decision_context=DecisionContext.CORPORATE_REPORT)
     assert "p2_agrifood_06" in _ids(network)
     assert "p2_agrifood_06" not in _ids(report)
 
 
 def test_background_rules_framed_on_situation_a_are_not_shown_for_situation_b():
     """Part 1 L01293: Situation B uses long-run marginal technologies."""
-    structural = _case(q6a=Q6a.FOOD_PRODUCTION, decision_context=DecisionContext.STRUCTURAL,
+    structural = _food(decision_context=DecisionContext.STRUCTURAL,
                        market_screening_documented=True)
     assert structural.ilcd_situation.value == "ILCD Situation B"
     assert "p2_agrifood_05" not in _ids(structural)
-    assert "p2_agrifood_05" in _ids(_case(q6a=Q6a.FOOD_PRODUCTION))
+    assert "p2_agrifood_05" in _ids(_food())
 
 
 def test_scale_up_rules_only_below_trl_7():
     """Lab or pilot data = below TRL 7 (Part 1 L01100)."""
-    assert {"p2_agrifood_09", "p2_agrifood_10"} <= _ids(_case(q6a=Q6a.FOOD_PRODUCTION, q6b=Q6b.TRL5_6))
-    assert not {"p2_agrifood_09", "p2_agrifood_10"} & _ids(_case(q6a=Q6a.FOOD_PRODUCTION))
+    assert {"p2_agrifood_09", "p2_agrifood_10"} <= _ids(_food(q6b=Q6b.TRL5_6))
+    assert not {"p2_agrifood_09", "p2_agrifood_10"} & _ids(_food())
 
 
 def test_overlays_match_the_chapter_map_of_the_flow_notes(schemas):
@@ -104,10 +115,10 @@ def test_loader_rejects_malformed_overlays(schemas, mutate, message):
 
 
 def test_report_lists_the_sector_rules():
-    case = _case(q6a=Q6a.FOOD_PRODUCTION)
+    case = _food()
     text = "\n".join(p.text for p in Document(io.BytesIO(generate_case_report_bytes(case))).paragraphs)
     assert "Sector rules (D4.1 Part 2)" in text
-    assert "§4 Agri-Food and Biorefineries — applies because of: case sector (Q6a)" in text
+    assert "§4 Agri-Food and Biorefineries — applies because of: flow Spent grain" in text
 
 
 # --- PR 3: typical configuration per flow (§4.1-§8.1) ---------------------

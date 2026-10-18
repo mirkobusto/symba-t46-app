@@ -318,7 +318,7 @@ const it: Locale = {
     p1:
       "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da dieci domande sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
     p2:
-      'Le 7 domande principali (Q1-Q7), più tre facoltative (Q8-Q10), attivano i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
+      'Il questionario (Q1-Q11; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
     p3:
       'Display configurazione per pillar, override avanzati e pannello "Mostra ragionamento" sono tutti operativi.',
   },
@@ -347,7 +347,7 @@ const it: Locale = {
     q1: {
       title: 'Q1 — Cosa stai analizzando? *',
       help:
-        "Scegli la corrispondenza più vicina: conta il soggetto dello studio, non chi lo commissiona. (Obbligatorio.)",
+        'Scegli la voce più vicina: conta il soggetto dello studio, non chi lo commissiona. Descrive il sistema e il suo confine; come si modella lo studio lo decidono Q9 e le domande successive. (Obbligatoria.)',
       details:
         'A — scambio bilaterale (es. calore di scarto da Impianto X a Impianto Y, o gesso by-product da una centrale termoelettrica a un cementificio). Il soggetto è il FLUSSO CONDIVISO tra due aziende. ' +
         'B — parco eco-industriale o rete simbiotica con 3+ attori (es. Kalundborg, cluster NISP, masterplan di un parco industriale). Il soggetto è la RETE come sistema. ' +
@@ -362,7 +362,7 @@ const it: Locale = {
         E: { label: 'E. Monitoraggio', description: 'Monitoraggio temporale di una simbiosi già operativa.' },
       },
       plain:
-        "È la domanda che comanda tutte le altre: da qui lo strumento capisce quale sistema stai esaminando, e quindi quali dati ti chiederà più avanti. Se esiti fra due opzioni, tieni quella che descrive la cosa di cui vuoi misurare gli effetti.",
+        'Di\' che cosa stai esaminando: uno scambio, un parco, un programma, un\'azienda, una simbiosi che segui nel tempo. La risposta descrive il sistema e il suo confine; come si modella lo studio lo decidono le domande seguenti, a partire da a che cosa serve lo studio (Q9). Se esiti fra due opzioni, tieni quella che descrive la cosa di cui vuoi misurare gli effetti.',
     },
 
     q2: {
@@ -445,10 +445,10 @@ const it: Locale = {
 
     q6a: {
       title: 'Q6a — Settore',
-      help: 'Il settore principale del caso. Accende qualche requisito specifico di settore.',
+      help: 'Il settore principale del caso, come descrizione. Le regole di settore della D4.1 Part 2 seguono il settore di ogni flusso scambiato, dichiarato nella tabella dei flussi.',
       details:
-        'Il settore controlla un piccolo set di attivazioni sector-specific dei nodi e i default di overlay. Scegli la corrispondenza più vicina al settore dominante del caso (l\'attore che contribuisce più massa/energia/valore). ' +
-        'Esempi: pulp_paper per Sokka 2011 (UPM Kymi); chemicals_fertilizers per Hashimoto / Wiktor; cement_construction per Leiva 2025 Escombreras; biobased_polymers per Briassoulis; food_production / agri-food per Daddi. ' +
+        'Il settore descrive il caso e apre alcuni campi specifici nel Data Collection File; le regole di settore della D4.1 Part 2 seguono il settore dichiarato per ogni flusso, perché i capitoli seguono ciò che si scambia. Scegli la corrispondenza più vicina al settore dominante del caso (l\'attore che contribuisce più massa/energia/valore). ' +
+        'Esempi: pulp_paper per Sokka 2011 (UPM Kymi); cement_construction per Hashimoto 2010 (Kawasaki); textile_leather per Daddi 2017 (distretto conciario); wastewater_sludge_biofactories per Wiktor 2018; chemicals_fertilizers per Leiva 2025 Escombreras; biobased_polymers per Briassoulis. ' +
         'Per casi misti usa multi_sector. Le voci "(legacy)" in fondo esistono per il caricamento backward-compatible delle vecchie fixture — preferisci la nuova lista a 14 settori.',
       options: {
         none: '(nessuno)',
@@ -472,7 +472,7 @@ const it: Locale = {
         process_industry: 'Industria di processo (legacy)',
       },
       plain:
-        "Il settore principale del caso: l'attività dell'azienda che contribuisce con la quota maggiore di massa, energia o valore. Accende qualche requisito e qualche default specifici di settore. Se il caso è a cavallo di più settori scegli Multi-settore, e ignora le voci marcate (legacy).",
+        'Il settore principale del caso: l\'attività dell\'azienda che pesa di più in massa, energia o valore. Descrive il caso; le regole di settore delle linee guida seguono che cosa è ogni flusso, e lo dichiari nella tabella dei flussi. Se il caso sta a cavallo di più settori scegli Multi-settore e ignora le voci (legacy).',
     },
 
     q6b: {
@@ -556,16 +556,15 @@ const it: Locale = {
         'A cosa serve lo studio? Quasi sempre esplora o sostiene una scelta i cui effetti restano negli impianti coinvolti, anche se nessuno deve ancora decidere. Solo quando il cambiamento è abbastanza grande da spostare ciò che produce un intero mercato, e lo si può dimostrare, lo studio cambia natura. Se descrivi soltanto una rete che già funziona, o i numeri di una sola azienda, dillo: ogni caso si modella in modo diverso.',
     },
     q10: {
-      title: 'Q10 — Lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale?',
-      help: 'Facoltativa. Se non rispondi, il motore la deduce da Q1 (sì solo per Q1 = C).',
-      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di policy pubblica o di pianificazione territoriale, qualunque siano Q1 o Q4. Un comune che pianifica un parco eco-industriale (Q1 = B) o un regolatore che monitora un settore (Q1 = E) può rispondere sì senza essere Q1 = C. Con Q1 = D lo strumento mantiene l\'LCC convenzionale a livello di azienda (scelta di progetto T4.6) e te lo segnala.',
+      title: 'Q10 — Lo studio serve un obiettivo pubblico o un decisore pubblico? *',
+      help: 'Obbligatoria quando c\'è la dimensione economica: decide se si aggiunge l\'LCC sociale.',
+      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di politica pubblica o di pianificazione territoriale, e §2.2 lega la scelta del tipo di LCC alla prospettiva del decisore: un comune, un\'utility pubblica o un ente regolatore assumono il punto di vista pubblico, qualunque sia il soggetto dello studio (D4.2 §9.2 indica 3-5 % come tasso di un partner comunale o di un\'utility pubblica). Un comune che pianifica un eco-parco o un\'utility che dimensiona un collegamento di teleriscaldamento rispondono sì. Il rendiconto rigoroso di una sola azienda (Q9: rendiconto aziendale, Situazione C2) tiene il costing a livello d\'impresa (scelta di progetto T4.6), e il tool lo dice.',
       options: {
-        unset: 'Non risposta (dedotta da Q1)',
-        yes: 'Sì — obiettivo di policy pubblica o di pianificazione territoriale (aggiunge l\'LCC sociale)',
-        no: 'No — non serve un obiettivo di policy o di pianificazione',
+        yes: 'Sì — un obiettivo di politica pubblica o di pianificazione, o un decisore pubblico (aggiunge l\'LCC sociale)',
+        no: 'No — una decisione privata o il rendiconto di un\'azienda',
       },
       plain:
-        "Rispondi sì se lo studio serve a una decisione pubblica — un comune, una regione, un'autorità di regolazione, un piano. Aggiunge allora una seconda lettura economica dal punto di vista della società: imposte contate in modo diverso, ed effetti che nessuno paga in denaro. Per il rendiconto di una singola azienda la lettura economica resta a livello aziendale, e il tool te lo dice. Lascia senza risposta e il tool la ricava dalla prima domanda.",
+        'Rispondi sì se lo studio deve alimentare una decisione pubblica, o lo commissiona un ente pubblico: un comune, una regione, un\'utility pubblica, un regolatore, un piano. Si aggiunge allora una seconda lettura economica dal punto di vista della società: le tasse contate in un altro modo, e gli effetti che nessuno paga in denaro. Per il rendiconto di un\'azienda la lettura economica resta a livello d\'impresa.',
     },
 
     q11: {
@@ -740,6 +739,11 @@ const it: Locale = {
   result: {
     notes: { title: 'Note sulle tue risposte' },
     engineNotes: {
+      q9_unanswered: "Q9 non ha risposta, quindi la situazione ILCD (Situazione {{situation}}) è letta da Q1, come per i casi salvati prima che Q9 esistesse. Rispondi a Q9: la Tabella 1 di D4.1 fissa la situazione in base alla decisione e alla scala delle sue conseguenze, non al soggetto dello studio.",
+      q10_unanswered: {
+        yes: "Q10 non ha risposta, quindi se lo studio serve un obiettivo pubblico è letto da Q1: l'LCC sociale viene aggiunto, come per i casi salvati prima che Q10 esistesse. Rispondi a Q10: D4.2 §2.3 aggiunge l'LCC sociale per un obiettivo di politica pubblica o di pianificazione o per un decisore pubblico, qualunque sia il soggetto dello studio.",
+        no: "Q10 non ha risposta, quindi se lo studio serve un obiettivo pubblico è letto da Q1: l'LCC sociale non viene aggiunto, come per i casi salvati prima che Q10 esistesse. Rispondi a Q10: D4.2 §2.3 aggiunge l'LCC sociale per un obiettivo di politica pubblica o di pianificazione o per un decisore pubblico, qualunque sia il soggetto dello studio.",
+      },
       structural_without_screening: "Q9 dice che gli effetti sono strutturali, ma lo screening di mercato non è documentato: lo studio è trattato come Situazione ILCD A, e la Situazione B va provata come sensitività (D4.1 §4.3.4, §11.3.1).",
       structural_screening_missing: "La Situazione B richiede la prova che il cambiamento sposta circa l'1% o più della nuova capacità nel mercato interessato (D4.1 §11.3.1); documentala, altrimenti lo studio è in Situazione A con B come sensitività (D4.1 §4.3.4).",
       decision_scale_vs_q1: {
@@ -764,6 +768,7 @@ const it: Locale = {
         waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi; la risposta Freedom-to-Act (D4.1 §8.3.3) lo legge come rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4).",
       },
       flow_part2_chapter: "Flusso «{{flow}}»: gli si applicano le regole di settore della D4.1 Part 2 {{chapter}}; sono elencate in Regole di settore.",
+      case_sector_without_flow: "Il settore del caso appartiene alla D4.1 Part 2 {{chapter}}, ma nessun flusso dichiara quel capitolo, quindi le sue regole di settore non sono elencate. I capitoli seguono ciò che si scambia: dichiara il settore della Part 2 di ogni flusso nella tabella dei flussi.",
       flow_configuration_unknown: "Flusso «{{flow}}»: la configurazione «{{configuration}}» non è una di quelle della D4.1 Part 2.",
       flow_configuration_other_chapter: "Flusso «{{flow}}»: la sua configurazione appartiene a {{chapter}}, non al capitolo dichiarato {{declared}}; sono elencate le regole di entrambi i capitoli.",
     },

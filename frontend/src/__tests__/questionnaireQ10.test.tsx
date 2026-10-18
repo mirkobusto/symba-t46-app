@@ -6,9 +6,9 @@ import '../i18n'
 import QuestionnairePage from '../pages/QuestionnairePage'
 import { useCaseStore } from '../store/caseStore'
 
-// Q10 (policy / territorial planning purpose) is optional: unanswered must reach
-// the API as null (the LCC type is then inferred from Q1, as before Q10 existed).
-describe('Questionnaire Q10 — policy purpose', () => {
+// Q10 (public objective or public decision-maker, D4.2 §2.2-2.3) is required
+// since 2026-10-18 when the economic dimension is on, and hidden without it.
+describe('Questionnaire Q10 — public objective', () => {
   let bodies: Array<Record<string, unknown>>
 
   beforeEach(() => {
@@ -32,6 +32,7 @@ describe('Questionnaire Q10 — policy purpose', () => {
     )
     fireEvent.click(document.querySelector('input[name="q1"][value="A"]')!)
     fireEvent.click(screen.getByLabelText(/Environmental \(LCA\)/))
+    fireEvent.click(screen.getByLabelText(/Economic \(LCC\)/))
     // Q9 is required since 2026-10-15
     fireEvent.click(document.querySelector('input[name="q9"][value="micro"]')!)
   })
@@ -44,9 +45,13 @@ describe('Questionnaire Q10 — policy purpose', () => {
     fireEvent.click(q10Radios().find((r) => r.value === value)!)
   const run = () => fireEvent.click(screen.getByRole('button', { name: /work out the configuration/i }))
 
-  it('offers yes, no and "not answered", unanswered by default', () => {
-    expect(q10Radios().map((r) => r.value)).toEqual(['', 'yes', 'no'])
-    expect(q10Radios().filter((r) => r.checked).map((r) => r.value)).toEqual([''])
+  it('offers yes and no, and keeps the run button disabled until answered', () => {
+    expect(q10Radios().map((r) => r.value)).toEqual(['yes', 'no'])
+    expect(q10Radios().filter((r) => r.checked)).toEqual([])
+    const button = screen.getByRole('button', { name: /work out the configuration/i })
+    expect(button).toBeDisabled()
+    q10Pick('no')
+    expect(button).toBeEnabled()
   })
 
   it.each([
@@ -59,7 +64,9 @@ describe('Questionnaire Q10 — policy purpose', () => {
     expect(bodies[0].policy_objective).toBe(expected)
   })
 
-  it('sends null when left unanswered', async () => {
+  it('is hidden, and sent as null, without the economic dimension', async () => {
+    fireEvent.click(screen.getByLabelText(/Economic \(LCC\)/))
+    expect(q10Radios()).toEqual([])
     run()
     await waitFor(() => expect(bodies.length).toBe(1))
     expect(bodies[0].policy_objective).toBeNull()

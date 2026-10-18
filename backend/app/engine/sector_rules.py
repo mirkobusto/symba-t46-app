@@ -6,9 +6,11 @@ chapter, and reach the user as mandates: the engine does not compute with them,
 it lists the ones that apply so the analyst can document how each was met.
 
 A chapter applies when a flow declares it (`Flow.sector`, the D4.1 Part 2 sector
-of what is exchanged) or when the case sector (Q6a) belongs to it. The flow is
-the stronger signal: the test on real cases showed that the chapters follow what
-is exchanged, not the industry of the company (review report, 2026-10-15).
+of what is exchanged, or `Flow.configuration`). The test on real cases showed
+that the chapters follow what is exchanged, not the industry of the company
+(review report, 2026-10-15); since 2026-10-18 the case sector (Q6a) only
+describes the case, and a note says when it names a Part 2 chapter that no flow
+declares.
 """
 from __future__ import annotations
 
@@ -26,9 +28,8 @@ def _configurations(overlays: dict[str, Any]) -> dict[str, tuple[str, dict[str, 
 
 
 def chapters_for(case: Case, overlays: dict[str, Any]) -> dict[str, list[dict[str, str]]]:
-    """Active chapter keys, in the order of the deliverable, each with what
-    activated it: the flows that declare it (by sector or configuration) and/or
-    the case sector."""
+    """Active chapter keys, in the order of the deliverable, each with the flows
+    that declare it (by sector or configuration)."""
     sector_to_chapter = {
         sector: key for key, chapter in overlays.items() for sector in chapter["q6a"]
     }
@@ -39,9 +40,6 @@ def chapters_for(case: Case, overlays: dict[str, Any]) -> dict[str, list[dict[st
                 configurations.get(flow.configuration, (None, None))[0]} - {None}
         for key in sorted(keys):
             reasons.setdefault(key, []).append({"kind": "flow", "name": flow.name})
-    key = sector_to_chapter.get(case.q6a.value) if case.q6a else None
-    if key:
-        reasons.setdefault(key, []).append({"kind": "case_sector"})
     return {k: reasons[k] for k in overlays if k in reasons}
 
 
@@ -97,6 +95,14 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
             for rule in overlays[key]["rules"] if applies(rule)
         ]
     ]
+
+    case_chapter = sector_to_chapter.get(case.q6a.value) if case.q6a else None
+    if case_chapter and case_chapter not in chapters_for(case, overlays):
+        case.warnings.append({"code": "case_sector_without_flow", "params": {
+            "chapter": overlays[case_chapter]["chapter"].split(" ")[0]}, "message": (
+            f"The case sector belongs to D4.1 Part 2 {overlays[case_chapter]['chapter']}, but no flow declares "
+            "that chapter, so its sector rules are not listed. The chapters follow what is exchanged: declare "
+            "the Part 2 sector of each flow in the flows table.")})
 
     for flow in case.flows:
         if not flow.configuration:

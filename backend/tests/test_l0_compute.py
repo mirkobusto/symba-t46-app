@@ -12,6 +12,15 @@ from app.domain.enums import Q1, IlcdSituation, LccType, SlcaActivationState
 from app.domain.models import Q3, Case
 from app.engine.l0_compute import run
 
+# Q9 / Q10 unanswered leave a note asking for them (2026-10-18); the tests below
+# that are about other notes leave those two out.
+_UNANSWERED = {"q9_unanswered", "q10_unanswered"}
+
+
+def _codes(case) -> list[str]:
+    return [w["code"] for w in case.warnings if w["code"] not in _UNANSWERED]
+
+
 # ---------------------------------------------------------------------------
 # 1. lca_t1 — ILCD situation per Q1
 # ---------------------------------------------------------------------------
@@ -153,10 +162,10 @@ def test_all_three_triggers_for_q1D_eco_only_case(schemas):
 
 def test_warnings_start_empty_and_are_rebuilt_on_every_run():
     case = Case(q1=Q1.A, q3=Q3(env=True))
-    assert case.warnings == []
+    assert _codes(case) == []
     case.warnings = [{"code": "stale", "message": "from an earlier run"}]
     run(case, None)
-    assert case.warnings == []
+    assert _codes(case) == []
 
 
 def test_a_case_saved_before_warnings_existed_still_loads():
@@ -206,7 +215,7 @@ def test_q9_unanswered_is_exactly_the_q1_mapping(q1):
     case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True))
     run(case, None)
     assert case.ilcd_situation == _Q1_ONLY[q1]
-    assert case.warnings == []
+    assert _codes(case) == []
 
 
 @pytest.mark.parametrize("q1", list(Q1))
@@ -217,7 +226,7 @@ def test_q9_unanswered_values_never_depend_on_q2_only_the_note_does(q1, q2):
     case = Case(q1=q1, q2=q2, q3=Q3(env=True))
     run(case, None)
     assert case.ilcd_situation == _Q1_ONLY[q1]
-    noted = [w["code"] for w in case.warnings]
+    noted = _codes(case)
     expected = ["documentation_vs_ex_ante"] if q1 in (Q1.D, Q1.E) and q2 is Q2.B else []
     assert noted == expected
 
@@ -236,7 +245,7 @@ def test_q9_unanswered_values_never_depend_on_q2_only_the_note_does(q1, q2):
 def test_q9_answers_that_contradict_q1_leave_a_note(q1, decision, codes):
     case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision, market_screening_documented=True)
     run(case, None)
-    assert [w["code"] for w in case.warnings] == codes
+    assert _codes(case) == codes
 
 
 @pytest.mark.parametrize(
@@ -246,7 +255,7 @@ def test_q9_answers_that_contradict_q1_leave_a_note(q1, decision, codes):
 def test_q9_answers_consistent_with_q1_leave_no_note(q1, decision):
     case = Case(q1=q1, q2=Q2.A, q3=Q3(env=True), decision_context=decision, market_screening_documented=True)
     run(case, None)
-    assert case.warnings == []
+    assert _codes(case) == []
 
 
 @pytest.mark.parametrize("screening, situation, code", [
@@ -259,14 +268,14 @@ def test_q9_structural_needs_the_market_screening(screening, situation, code):
     case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True), decision_context=_X, market_screening_documented=screening)
     run(case, None)
     assert case.ilcd_situation == situation
-    assert [w["code"] for w in case.warnings] == ([code] if code else [])
+    assert _codes(case) == ([code] if code else [])
 
 
 @pytest.mark.parametrize("q2, noted", [(Q2.A, False), (Q2.B, True), (None, False)])
 def test_q9_no_decision_with_an_ex_ante_q2_leaves_a_note(q2, noted):
     case = Case(q1=Q1.A, q2=q2, q3=Q3(env=True), decision_context=_N)
     run(case, None)
-    assert ("documentation_vs_ex_ante" in [w["code"] for w in case.warnings]) is noted
+    assert ("documentation_vs_ex_ante" in _codes(case)) is noted
 
 
 def test_q9_c2_keeps_c_lcc_only_and_never_blocks():
@@ -322,7 +331,7 @@ def test_q10_table_all_fifteen_cells(q1, policy, expected):
 def test_q10_with_the_economic_dimension_off_the_lcc_stays_deactivated(q1, policy):
     case = Case(q1=q1, q3=Q3(env=True), policy_objective=policy)
     run(case, None)
-    assert case.lcc_type == LccType.DEACTIVATED and case.warnings == []
+    assert case.lcc_type == LccType.DEACTIVATED and _codes(case) == []
 
 
 @pytest.mark.parametrize(
@@ -334,16 +343,16 @@ def test_q10_with_the_economic_dimension_off_the_lcc_stays_deactivated(q1, polic
 def test_q10_notes_only_for_contradictions(q1, policy, codes):
     case = Case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
     run(case, None)
-    assert [w["code"] for w in case.warnings] == codes
+    assert _codes(case) == codes
 
 
 def test_q9_and_q10_notes_accumulate_and_are_rebuilt():
     case = Case(q1=Q1.C, q2=Q2.A, q3=Q3(env=True, eco=True),
                 decision_context=DecisionContext.MICRO, policy_objective=False)
     run(case, None)
-    assert sorted(w["code"] for w in case.warnings) == ["decision_scale_vs_q1", "policy_no_but_q1_c"]
+    assert sorted(_codes(case)) == ["decision_scale_vs_q1", "policy_no_but_q1_c"]
     run(case, None)   # a second run replaces the notes, it does not stack them
-    assert len(case.warnings) == 2
+    assert len(_codes(case)) == 2
 
 
 def test_q10_q1_d_with_policy_never_blocks():
@@ -367,7 +376,7 @@ def test_q10_q1_d_with_policy_never_blocks():
 def test_slca_alone_leaves_a_note_and_changes_nothing(q3, noted):
     case = Case(q1=Q1.A, q2=Q2.A, q3=q3)
     run(case, None)
-    assert ("slca_alone" in [w["code"] for w in case.warnings]) is noted
+    assert ("slca_alone" in _codes(case)) is noted
     assert case.slca_activation_state == (SlcaActivationState.ACTIVE if q3.soc else SlcaActivationState.DEACTIVATED)
 
 
@@ -410,3 +419,24 @@ def test_flow_sector_names_the_part2_chapter(sector, chapter):
     assert len(notes) == (1 if chapter else 0)
     if chapter:
         assert f"Part 2 {chapter} " in notes[0]
+
+
+
+def test_unanswered_q9_and_q10_are_read_off_q1_with_a_note():
+    """Q1 decides only for cases saved before Q9 / Q10 existed, and says so."""
+    case = Case(q1=Q1.C, q3=Q3(env=True, eco=True))
+    run(case, None)
+    notes = {w["code"]: w for w in case.warnings}
+    assert case.ilcd_situation == IlcdSituation.SITUATION_B
+    assert notes["q9_unanswered"]["params"] == {"situation": "B"}
+    assert notes["q10_unanswered"]["params"] == {"variant": "yes"}
+    answered = Case(q1=Q1.C, q3=Q3(env=True, eco=True), decision_context="micro", policy_objective=False)
+    run(answered, None)
+    assert not _UNANSWERED & {w["code"] for w in answered.warnings}
+
+
+def test_no_q10_note_without_the_economic_dimension_or_in_c2():
+    for kw in ({"q3": Q3(env=True)}, {"q3": Q3(env=True, eco=True), "decision_context": "corporate_report"}):
+        case = Case(q1=Q1.A, **kw)
+        run(case, None)
+        assert "q10_unanswered" not in {w["code"] for w in case.warnings}, kw

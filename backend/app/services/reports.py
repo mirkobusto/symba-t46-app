@@ -219,7 +219,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         _add_kv(doc, "Q9b market screening documented",
                 "yes" if case.market_screening_documented else "no")
     if case.policy_objective is not None:
-        _add_kv(doc, "Q10 public policy / planning objective",
+        _add_kv(doc, "Q10 public objective or public decision-maker",
                 "yes" if case.policy_objective else "no")
     if case.comparison_goal is not None:
         _add_kv(doc, "Q11 what the study compares", case.comparison_goal.value)

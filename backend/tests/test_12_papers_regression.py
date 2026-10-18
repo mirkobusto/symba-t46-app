@@ -36,6 +36,7 @@ from app.domain.enums import (
     Q4,
     Q5,
     Q7,
+    DecisionContext,
     IlcdSituation,
     LccType,
     Q6a,
@@ -59,7 +60,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 1. Sokka 2011 — Kymenlaakso pulp & paper, ENV-only, black-box
     {
         "id": "sokka_2011",
-        "q1": Q1.B, "q2": Q2.A,
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A,
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.e),
@@ -71,7 +72,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 2. Hashimoto 2010 — Kawasaki cement, ENV-only, mixed flows
     {
         "id": "hashimoto_2010",
-        "q1": Q1.B, "q2": Q2.A,
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A,
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c),
@@ -83,7 +84,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 3. Daddi 2017 — Santa Croce tannery cluster
     {
         "id": "daddi_2017",
-        "q1": Q1.B, "q2": Q2.A,
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A,
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -95,7 +96,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 4. Paulu 2022 — Czech industry-wide policy assessment
     {
         "id": "paulu_2022",
-        "q1": Q1.C, "q2": Q2.B,
+        "decision_context": DecisionContext.STRUCTURAL, "q1": Q1.C, "q2": Q2.B,
         "q3": Q3(env=True),
         "q4": {Q4.D, Q4.E},  # multi-select: PEF + academic
         "flows": _flows(Q5.e),
@@ -107,7 +108,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 5. Arce Bastias 2023 — Mendoza plastic recycling, ex-post
     {
         "id": "arce_bastias_2023",
-        "q1": Q1.B, "q2": Q2.A,
+        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A,
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -119,7 +120,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 6. Wiktor & Johansson 2018 — Malmö sewage sludge, ENV+ECO
     {
         "id": "wiktor_2018",
-        "q1": Q1.B, "q2": Q2.B,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B,
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.a, Q5.c, Q5.c),
@@ -131,7 +132,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 7a. Leiva 2025 (Escombreras) — Q1=A specific exchange, ECO-only
     {
         "id": "leiva_2025_escombreras",
-        "q1": Q1.A, "q2": Q2.B,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.A, "q2": Q2.B,
         "q3": Q3(eco=True),  # ECO-only per WorkingDoc §3.1
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -143,7 +144,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 7b. Leiva 2025 (Frövi) — Q1=B eco-park
     {
         "id": "leiva_2025_frovi",
-        "q1": Q1.B, "q2": Q2.B,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B,
         "q3": Q3(eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -155,7 +156,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 8. Danielsson 2018 — Kalundborg, ENV+ECO, public-claim Q4=C
     {
         "id": "danielsson_2018",
-        "q1": Q1.B, "q2": Q2.A, "network_long_standing": True,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True,
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.C},
         "flows": _flows(Q5.e),
@@ -167,7 +168,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 9. Kerdlap 2024 — fictional urban agri-food
     {
         "id": "kerdlap_2024",
-        "q1": Q1.B, "q2": Q2.B,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B,
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -179,7 +180,7 @@ _PAPERS: list[dict[str, Any]] = [
     # 10. Subramanian 2021 — The Plant Chicago, full LCSA (ENV+ECO+SOC)
     {
         "id": "subramanian_2021",
-        "q1": Q1.B, "q2": Q2.B,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B,
         "q3": Q3(env=True, eco=True, soc=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -192,7 +193,7 @@ _PAPERS: list[dict[str, Any]] = [
     # WorkingDoc says "varies per scenario"; we use a representative scenario.
     {
         "id": "zhu_2013",
-        "q1": Q1.A, "q2": Q2.B,
+        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.A, "q2": Q2.B,
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.c),
@@ -205,7 +206,7 @@ _PAPERS: list[dict[str, Any]] = [
     # WorkingDoc Q7=n/a → None
     {
         "id": "briassoulis_2023",
-        "q1": Q1.C, "q2": Q2.B,
+        "decision_context": DecisionContext.STRUCTURAL, "policy_objective": True, "q1": Q1.C, "q2": Q2.B,
         "q3": Q3(env=True, eco=True, soc=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
@@ -222,6 +223,9 @@ def _build_case(fixture: dict[str, Any]) -> Case:
         q1=fixture["q1"],
         q2=fixture["q2"],
         network_long_standing=fixture.get("network_long_standing"),
+        decision_context=fixture.get("decision_context"),
+        policy_objective=fixture.get("policy_objective"),
+        market_screening_documented=fixture.get("market_screening_documented"),
         q3=fixture["q3"],
         q4=fixture["q4"],
         q6a=fixture["q6a"],

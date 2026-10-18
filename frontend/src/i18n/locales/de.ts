@@ -313,9 +313,9 @@ const de: Locale = {
     shortcutTip: 'Tipp: Strg/⌘+Eingabe zum Ausführen',
 
     q0: {
-      title: 'Q0 — Was für eine Studie ist es?',
-      help: 'Optional. Der Zweck der Studie, wie D4.1 ihn im Ziel anzugeben verlangt. Allein ändert er nichts: Die Engine weist nur auf Antworten hin, die nicht zu ihm passen.',
-      details: 'D4.1 §4.3.2 verlangt, das Ziel nach einer etablierten Symbiose-Typologie einzuordnen. Analyse bewertet ein bestehendes Netzwerk, um seine Leistung zu verstehen; Verbesserung ermittelt Hotspots in einem bestehenden Netzwerk, um es zu optimieren; Erweiterung bewertet die Wirkungen eines neuen Partners oder Austauschs; Planung vergleicht technische und logistische Optionen für ein neues, geplantes Netzwerk; Umstrukturierung bewertet eine größere Neuordnung eines etablierten Netzwerks. Die Typologie stammt von Mattila et al. (2012), bei denen „restructuring“ die Umstrukturierung hin zu Kreislaufwirtschaften meint; D4.1 schreibt sie einer anderen Quelle zu, ein Punkt in Überprüfung. Die Antwort geht in die Charta, den Bericht und das Data Collection File; wie die Studie modelliert wird, entscheiden weiterhin die folgenden Fragen.',
+      title: 'Q0 — Welche Art von Symbiose-Studie ist es: Analyse, Verbesserung, Erweiterung, Planung oder Umstrukturierung?',
+      help: 'Optional. Die Art der Studie, wie D4.1 sie im Ziel anzugeben verlangt. Allein ändert sie nichts.',
+      details: 'D4.1 §4.3.2 verlangt im Anschluss an Mattila et al. (2012), das Ziel nach einem etablierten Rahmen einzuordnen. Analyse bewertet ein bestehendes Netzwerk, um seine Leistung zu verstehen; Verbesserung ermittelt Hotspots in einem bestehenden Netzwerk, um es zu optimieren; Erweiterung bewertet die Wirkungen eines neuen Partners oder Austauschs; Planung vergleicht technische und logistische Optionen für ein neues, geplantes Netzwerk; Umstrukturierung bewertet eine größere Neuordnung eines etablierten Netzwerks. Die Antwort geht in den Bericht und das Data Collection File; wie die Studie modelliert wird, entscheiden weiterhin die folgenden Fragen. Die Engine meldet nur zwei Widersprüche: eine Analyse, deren Austausche noch nicht stattfinden, und eine Planung, deren Austausche bereits stattfinden (Q2).',
       options: {
         unset: { label: 'Keine Antwort' },
         analysis: { label: 'Analyse', description: 'Ein bestehendes Netzwerk bewerten, um seine Leistung zu verstehen.' },
@@ -325,7 +325,7 @@ const de: Locale = {
         restructuring: { label: 'Umstrukturierung', description: 'Eine größere Neuordnung eines etablierten Netzwerks bewerten.' },
       },
       plain:
-        'Sagen Sie, wozu die Studie dient: verstehen, wie ein bestehendes Netzwerk arbeitet, finden, wo es besser werden kann, einen Partner oder Austausch hinzufügen, ein neues Netzwerk planen oder ein etabliertes neu denken. Die Antwort wird mit der Studie festgehalten und hilft, Antworten zu entdecken, die nicht zusammenpassen; allein ändert sie die Methode nicht.',
+        'Wählen Sie die Art der Studie: verstehen, wie ein bestehendes Netzwerk arbeitet, finden, wo es besser werden kann, einen Partner oder Austausch hinzufügen, ein neues Netzwerk planen oder ein etabliertes neu denken. Die Antwort wird mit der Studie festgehalten; allein ändert sie die Methode nicht.',
     },
 
     q1: {
@@ -743,13 +743,8 @@ const de: Locale = {
     engineNotes: {
       study_purpose_vs_q2: {
         analysis: "Zweck der Studie: die Studie bewertet ein bestehendes Netzwerk, aber Q2 sagt, dass die gemessenen Austausche noch nicht stattfinden. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
-        improvement: "Zweck der Studie: die Studie sucht Hotspots in einem bestehenden Netzwerk, aber Q2 sagt, dass die gemessenen Austausche noch nicht stattfinden. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
-        expansion: "Zweck der Studie: die Studie bewertet einen neuen Partner oder Austausch, aber Q2 sagt, dass die gemessenen Austausche bereits stattfinden; beantworten Sie Q2 für die neuen. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
         design: "Zweck der Studie: die Studie vergleicht Optionen für ein neues, geplantes Netzwerk, aber Q2 sagt, dass die Austausche bereits stattfinden. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
-        restructuring: "Zweck der Studie: die Studie bewertet eine größere Neuordnung, aber Q2 sagt, dass die gemessenen Austausche bereits stattfinden; beantworten Sie Q2 für die neu geordneten. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",
       },
-      expansion_reference: "Erweiterung: Das Referenzszenario (CNSRS) umfasst die bereits laufenden Austausche; der neue Partner oder Austausch wird daran gemessen (D4.1 §11.1).",
-      analysis_vs_structural: "Zweck der Studie: Die Studie bewertet ein bestehendes Netzwerk, aber Q9 sagt, dass sie eine Entscheidung mit strukturellen Folgen unterstützt. Zu dokumentieren, was ein Netzwerk leistet, ist Situation C1; prüfen Sie Q9.",
       q9_unanswered: "Q9 ist nicht beantwortet, daher wird die ILCD-Situation (Situation {{situation}}) aus Q1 abgeleitet, wie bei Fällen, die vor Q9 gespeichert wurden. Beantworten Sie Q9: D4.1 Tabelle 1 bestimmt die Situation nach der Entscheidung und dem Ausmaß ihrer Folgen, nicht nach dem Gegenstand der Studie.",
       q10_unanswered: {
         yes: "Q10 ist nicht beantwortet, daher wird aus Q1 abgeleitet, ob die Studie einem öffentlichen Ziel dient: Die gesellschaftliche LCC wird ergänzt, wie bei Fällen, die vor Q10 gespeichert wurden. Beantworten Sie Q10: D4.2 §2.3 ergänzt die gesellschaftliche LCC für ein Ziel der öffentlichen Politik oder Planung oder einen öffentlichen Entscheidungsträger, unabhängig vom Gegenstand der Studie.",

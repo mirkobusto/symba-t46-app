@@ -276,45 +276,28 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
     return notes
 
 
-# Q0 study purpose (D4.1 §4.3.2): analysis and improvement work on an existing
-# network, expansion, design and restructuring on exchanges that are not in place
-# yet. Q2 asks whether the exchanges the study measures already take place.
-_PURPOSE_EXPECTS_Q2 = {
-    StudyPurpose.ANALYSIS: Q2.A, StudyPurpose.IMPROVEMENT: Q2.A,
-    StudyPurpose.EXPANSION: Q2.B, StudyPurpose.DESIGN: Q2.B, StudyPurpose.RESTRUCTURING: Q2.B,
-}
+# Q0 study purpose (D4.1 §4.3.2). Only the two purposes whose definition fixes the
+# timing are checked against Q2 ("do the exchanges the study measures already take
+# place?"): analysis evaluates an existing network, design a new, planned one.
+# Improvement, expansion and restructuring can measure running exchanges with the
+# change as a scenario, or the change itself: no note (review 2026-10-18).
 _PURPOSE_VS_Q2 = {
-    StudyPurpose.ANALYSIS: "the study evaluates an existing network, but Q2 says the exchanges it measures "
-                           "do not take place yet",
-    StudyPurpose.IMPROVEMENT: "the study looks for hotspots within an existing network, but Q2 says the "
-                              "exchanges it measures do not take place yet",
-    StudyPurpose.EXPANSION: "the study assesses a new partner or exchange, but Q2 says the exchanges it "
-                            "measures already take place; answer Q2 about the new ones",
-    StudyPurpose.DESIGN: "the study compares options for a new, planned network, but Q2 says the exchanges "
-                         "already take place",
-    StudyPurpose.RESTRUCTURING: "the study assesses a major reconfiguration, but Q2 says the exchanges it "
-                                "measures already take place; answer Q2 about the reconfigured ones",
+    StudyPurpose.ANALYSIS: (Q2.B, "the study evaluates an existing network, but Q2 says the exchanges it "
+                                  "measures do not take place yet"),
+    StudyPurpose.DESIGN: (Q2.A, "the study compares options for a new, planned network, but Q2 says the "
+                                "exchanges already take place"),
 }
 
 
-def _purpose_notes(case: Case) -> list[dict[str, Any]]:
+def _purpose_notes(case: Case, notes_so_far: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Notes only: the purpose never changes a derived state."""
     purpose = case.study_purpose
-    if purpose is None:
+    if purpose not in _PURPOSE_VS_Q2 or case.q2 != _PURPOSE_VS_Q2[purpose][0]:
         return []
-    notes: list[dict[str, Any]] = []
-    if case.q2 is not None and case.q2 != _PURPOSE_EXPECTS_Q2[purpose]:
-        notes.append({"code": "study_purpose_vs_q2", "params": {"variant": purpose.value}, "message": (
-            f"Study purpose: {_PURPOSE_VS_Q2[purpose]}. Check the two answers (D4.1 §4.3.2).")})
-    elif purpose == StudyPurpose.EXPANSION and case.q2 == Q2.B:
-        notes.append({"code": "expansion_reference", "message": (
-            "Expansion: the reference scenario (CNSRS) includes the exchanges that already run; the new "
-            "partner or exchange is assessed against it (D4.1 §11.1).")})
-    if purpose == StudyPurpose.ANALYSIS and case.decision_context == DecisionContext.STRUCTURAL:
-        notes.append({"code": "analysis_vs_structural", "message": (
-            "Study purpose: the study evaluates an existing network, but Q9 says it supports a decision with "
-            "structural consequences. Documenting what a network delivers is Situation C1; check Q9.")})
-    return notes
+    if any(n["code"] == "documentation_vs_ex_ante" for n in notes_so_far):
+        return []   # the same contradiction, already noted from Q9
+    return [{"code": "study_purpose_vs_q2", "params": {"variant": purpose.value}, "message": (
+        f"Study purpose: {_PURPOSE_VS_Q2[purpose][1]}. Check the two answers (D4.1 §4.3.2).")}]
 
 
 def _compute_slca_state(soc: bool) -> SlcaActivationState:
@@ -342,5 +325,5 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     case.warnings += _c2_pef_notes(case)
     case.warnings += _slca_notes(case)
     case.warnings += _flow_notes(case)
-    case.warnings += _purpose_notes(case)
+    case.warnings += _purpose_notes(case, case.warnings)
     return case

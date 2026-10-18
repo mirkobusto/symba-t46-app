@@ -345,9 +345,9 @@ const it: Locale = {
     shortcutTip: 'Suggerimento: Ctrl/⌘+Enter per eseguire',
 
     q0: {
-      title: 'Q0 — Che tipo di studio è?',
-      help: 'Facoltativa. Lo scopo dello studio, come D4.1 chiede di dichiararlo nell\'obiettivo. Da solo non cambia nulla: il motore segnala solo le risposte che non tornano con esso.',
-      details: 'D4.1 §4.3.2 chiede di classificare l\'obiettivo secondo una tipologia di simbiosi consolidata. Analisi valuta una rete esistente per capirne le prestazioni; Miglioramento individua i punti critici di una rete esistente per ottimizzarla; Espansione valuta gli impatti dell\'aggiunta di un nuovo partner o scambio; Progettazione confronta opzioni tecnologiche e logistiche per una rete nuova, pianificata; Ristrutturazione valuta una riconfigurazione importante di una rete consolidata. La tipologia viene da Mattila et al. (2012), per cui "restructuring" è la ristrutturazione verso economie circolari; D4.1 la attribuisce a un\'altra fonte, punto in revisione. La risposta va nel charter, nel report e nel Data Collection File; come si modella lo studio lo decidono sempre le domande seguenti.',
+      title: 'Q0 — Che tipo di studio di simbiosi è: analisi, miglioramento, espansione, progettazione o ristrutturazione?',
+      help: 'Facoltativa. Il tipo di studio, come D4.1 chiede di dichiararlo nell\'obiettivo. Da solo non cambia nulla.',
+      details: 'D4.1 §4.3.2, sulla scorta di Mattila et al. (2012), chiede di classificare l\'obiettivo secondo un quadro consolidato. Analisi valuta una rete esistente per capirne le prestazioni; Miglioramento individua i punti critici di una rete esistente per ottimizzarla; Espansione valuta gli impatti dell\'aggiunta di un nuovo partner o scambio; Progettazione confronta opzioni tecnologiche e logistiche per una rete nuova, pianificata; Ristrutturazione valuta una riconfigurazione importante di una rete consolidata. La risposta va nel report e nel Data Collection File; come si modella lo studio lo decidono sempre le domande seguenti. Il motore segnala solo due contraddizioni: un\'analisi i cui scambi non avvengono ancora, e una progettazione i cui scambi avvengono già (Q2).',
       options: {
         unset: { label: 'Non risposta' },
         analysis: { label: 'Analisi', description: 'Valutare una rete esistente per capirne le prestazioni.' },
@@ -357,7 +357,7 @@ const it: Locale = {
         restructuring: { label: 'Ristrutturazione', description: 'Valutare una riconfigurazione importante di una rete consolidata.' },
       },
       plain:
-        'Di\' a che cosa serve lo studio: capire come funziona una rete esistente, trovare dove può migliorare, aggiungere un partner o uno scambio, progettare una rete nuova, o ripensarne una consolidata. La risposta resta registrata con lo studio e aiuta a scoprire risposte che non tornano fra loro; da sola non cambia il metodo.',
+        'Scegli il tipo di studio: capire come funziona una rete esistente, trovare dove può migliorare, aggiungere un partner o uno scambio, progettare una rete nuova, o ripensarne una consolidata. La risposta resta registrata con lo studio; da sola non cambia il metodo.',
     },
 
     q1: {
@@ -775,13 +775,8 @@ const it: Locale = {
     engineNotes: {
       study_purpose_vs_q2: {
         analysis: "Scopo dello studio: lo studio valuta una rete esistente, ma Q2 dice che gli scambi che misura non avvengono ancora. Controlla le due risposte (D4.1 §4.3.2).",
-        improvement: "Scopo dello studio: lo studio cerca i punti critici di una rete esistente, ma Q2 dice che gli scambi che misura non avvengono ancora. Controlla le due risposte (D4.1 §4.3.2).",
-        expansion: "Scopo dello studio: lo studio valuta un nuovo partner o scambio, ma Q2 dice che gli scambi che misura avvengono già; rispondi a Q2 sui nuovi. Controlla le due risposte (D4.1 §4.3.2).",
         design: "Scopo dello studio: lo studio confronta opzioni per una rete nuova, pianificata, ma Q2 dice che gli scambi avvengono già. Controlla le due risposte (D4.1 §4.3.2).",
-        restructuring: "Scopo dello studio: lo studio valuta una riconfigurazione importante, ma Q2 dice che gli scambi che misura avvengono già; rispondi a Q2 su quelli riconfigurati. Controlla le due risposte (D4.1 §4.3.2).",
       },
-      expansion_reference: "Espansione: lo scenario di riferimento (CNSRS) comprende gli scambi che già funzionano; il nuovo partner o scambio si valuta rispetto a esso (D4.1 §11.1).",
-      analysis_vs_structural: "Scopo dello studio: lo studio valuta una rete esistente, ma Q9 dice che sostiene una decisione con conseguenze strutturali. Documentare ciò che una rete produce è la Situazione C1; controlla Q9.",
       q9_unanswered: "Q9 non ha risposta, quindi la situazione ILCD (Situazione {{situation}}) è letta da Q1, come per i casi salvati prima che Q9 esistesse. Rispondi a Q9: la Tabella 1 di D4.1 fissa la situazione in base alla decisione e alla scala delle sue conseguenze, non al soggetto dello studio.",
       q10_unanswered: {
         yes: "Q10 non ha risposta, quindi se lo studio serve un obiettivo pubblico è letto da Q1: l'LCC sociale viene aggiunto, come per i casi salvati prima che Q10 esistesse. Rispondi a Q10: D4.2 §2.3 aggiunge l'LCC sociale per un obiettivo di politica pubblica o di pianificazione o per un decisore pubblico, qualunque sia il soggetto dello studio.",

@@ -319,9 +319,9 @@ const fr: Locale = {
     shortcutTip: 'Astuce : Ctrl/⌘+Entrée pour exécuter',
 
     q0: {
-      title: 'Q0 — De quel type d\'étude s\'agit-il ?',
-      help: 'Facultative. La finalité de l\'étude, telle que la D4.1 demande de la déclarer dans l\'objectif. Seule, elle ne change rien : le moteur signale seulement les réponses qui ne concordent pas avec elle.',
-      details: 'La D4.1 §4.3.2 demande de classer l\'objectif selon une typologie établie de la symbiose. Analyse : évaluer un réseau existant pour comprendre ses performances ; Amélioration : identifier les points chauds d\'un réseau existant pour l\'optimiser ; Extension : évaluer les impacts de l\'ajout d\'un nouveau partenaire ou échange ; Conception : comparer des options technologiques et logistiques pour un réseau nouveau, planifié ; Restructuration : évaluer une reconfiguration majeure d\'un réseau établi. La typologie vient de Mattila et al. (2012), pour qui « restructuring » désigne la restructuration vers des économies circulaires ; la D4.1 l\'attribue à une autre source, point en cours de révision. La réponse va dans la charte, le rapport et le Data Collection File ; la modélisation de l\'étude reste décidée par les questions suivantes.',
+      title: 'Q0 — De quel type d\'étude de symbiose s\'agit-il : analyse, amélioration, extension, conception ou restructuration ?',
+      help: 'Facultative. Le type d\'étude, tel que la D4.1 demande de le déclarer dans l\'objectif. Seul, il ne change rien.',
+      details: 'La D4.1 §4.3.2, d\'après Mattila et al. (2012), demande de classer l\'objectif selon un cadre établi. Analyse : évaluer un réseau existant pour comprendre ses performances ; Amélioration : identifier les points chauds d\'un réseau existant pour l\'optimiser ; Extension : évaluer les impacts de l\'ajout d\'un nouveau partenaire ou échange ; Conception : comparer des options technologiques et logistiques pour un réseau nouveau, planifié ; Restructuration : évaluer une reconfiguration majeure d\'un réseau établi. La réponse va dans le rapport et le Data Collection File ; la modélisation de l\'étude reste décidée par les questions suivantes. Le moteur ne signale que deux contradictions : une analyse dont les échanges n\'ont pas encore lieu, et une conception dont les échanges ont déjà lieu (Q2).',
       options: {
         unset: { label: 'Sans réponse' },
         analysis: { label: 'Analyse', description: 'Évaluer un réseau existant pour comprendre ses performances.' },
@@ -331,7 +331,7 @@ const fr: Locale = {
         restructuring: { label: 'Restructuration', description: 'Évaluer une reconfiguration majeure d\'un réseau établi.' },
       },
       plain:
-        'Dites à quoi sert l\'étude : comprendre comment fonctionne un réseau existant, trouver où il peut s\'améliorer, ajouter un partenaire ou un échange, concevoir un nouveau réseau ou repenser un réseau établi. La réponse est enregistrée avec l\'étude et aide à repérer des réponses incohérentes entre elles ; seule, elle ne change pas la méthode.',
+        'Choisissez le type d\'étude : comprendre comment fonctionne un réseau existant, trouver où il peut s\'améliorer, ajouter un partenaire ou un échange, concevoir un nouveau réseau ou repenser un réseau établi. La réponse est enregistrée avec l\'étude ; seule, elle ne change pas la méthode.',
     },
 
     q1: {
@@ -749,13 +749,8 @@ const fr: Locale = {
     engineNotes: {
       study_purpose_vs_q2: {
         analysis: "Finalité de l'étude : l'étude évalue un réseau existant, mais Q2 indique que les échanges mesurés n'ont pas encore lieu. Vérifiez les deux réponses (D4.1 §4.3.2).",
-        improvement: "Finalité de l'étude : l'étude cherche les points chauds d'un réseau existant, mais Q2 indique que les échanges mesurés n'ont pas encore lieu. Vérifiez les deux réponses (D4.1 §4.3.2).",
-        expansion: "Finalité de l'étude : l'étude évalue un nouveau partenaire ou échange, mais Q2 indique que les échanges mesurés ont déjà lieu ; répondez à Q2 sur les nouveaux. Vérifiez les deux réponses (D4.1 §4.3.2).",
         design: "Finalité de l'étude : l'étude compare des options pour un réseau nouveau, planifié, mais Q2 indique que les échanges ont déjà lieu. Vérifiez les deux réponses (D4.1 §4.3.2).",
-        restructuring: "Finalité de l'étude : l'étude évalue une reconfiguration majeure, mais Q2 indique que les échanges mesurés ont déjà lieu ; répondez à Q2 sur les échanges reconfigurés. Vérifiez les deux réponses (D4.1 §4.3.2).",
       },
-      expansion_reference: "Extension : le scénario de référence (CNSRS) inclut les échanges qui fonctionnent déjà ; le nouveau partenaire ou échange est évalué par rapport à lui (D4.1 §11.1).",
-      analysis_vs_structural: "Finalité de l'étude : l'étude évalue un réseau existant, mais Q9 indique qu'elle appuie une décision aux conséquences structurelles. Documenter ce que produit un réseau relève de la situation C1 ; vérifiez Q9.",
       q9_unanswered: "Q9 est sans réponse : la situation ILCD (situation {{situation}}) est donc déduite de Q1, comme pour les cas enregistrés avant l'existence de Q9. Répondez à Q9 : le tableau 1 de la D4.1 fixe la situation selon la décision et l'ampleur de ses conséquences, pas selon le sujet de l'étude.",
       q10_unanswered: {
         yes: "Q10 est sans réponse : le fait que l'étude serve un objectif public est donc déduit de Q1 : l'ACC sociétal est ajouté, comme pour les cas enregistrés avant l'existence de Q10. Répondez à Q10 : la D4.2 §2.3 ajoute l'ACC sociétal pour un objectif de politique publique ou d'aménagement ou pour un décideur public, quel que soit le sujet de l'étude.",

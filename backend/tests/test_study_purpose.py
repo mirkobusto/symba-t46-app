@@ -1,6 +1,7 @@
-"""Q0 — purpose of the study, D4.1 §4.3.2 typology (Mattila et al. 2012), added
-2026-10-18 as a charter answer: it derives nothing, notes answers that do not
-fit, and appears in the report and on the DCF cover."""
+"""Q0 — purpose of the study, D4.1 §4.3.2 (after Mattila et al. 2012), added
+2026-10-18 as a charter answer: it derives nothing, notes the two answers whose
+definition fixes the timing when Q2 contradicts them, and appears in the report
+and on the DCF cover."""
 from __future__ import annotations
 
 import json
@@ -24,32 +25,32 @@ def _run(**kw) -> Case:
 
 
 def _codes(case: Case) -> list[str]:
-    return [w["code"] for w in case.warnings if w["code"] in
-            ("study_purpose_vs_q2", "expansion_reference", "analysis_vs_structural")]
+    return [w["code"] for w in case.warnings if w["code"] == "study_purpose_vs_q2"]
 
 
 @pytest.mark.parametrize("purpose, fits, misfits", [
     (StudyPurpose.ANALYSIS, Q2.A, Q2.B),
-    (StudyPurpose.IMPROVEMENT, Q2.A, Q2.B),
     (StudyPurpose.DESIGN, Q2.B, Q2.A),
-    (StudyPurpose.RESTRUCTURING, Q2.B, Q2.A),
 ])
-def test_a_purpose_that_does_not_fit_q2_is_noted(purpose, fits, misfits):
+def test_a_purpose_that_fixes_the_timing_is_checked_against_q2(purpose, fits, misfits):
     assert _codes(_run(study_purpose=purpose, q2=fits)) == []
     noted = _run(study_purpose=purpose, q2=misfits)
     assert _codes(noted) == ["study_purpose_vs_q2"]
     assert noted.warnings[-1]["params"] == {"variant": purpose.value}
 
 
-def test_expansion_says_the_reference_holds_the_running_exchanges():
-    assert _codes(_run(study_purpose=StudyPurpose.EXPANSION, q2=Q2.B)) == ["expansion_reference"]
-    assert _codes(_run(study_purpose=StudyPurpose.EXPANSION, q2=Q2.A)) == ["study_purpose_vs_q2"]
+@pytest.mark.parametrize("purpose", [StudyPurpose.IMPROVEMENT, StudyPurpose.EXPANSION, StudyPurpose.RESTRUCTURING])
+def test_purposes_that_fit_either_timing_leave_no_note(purpose):
+    """The running exchanges can be measured with the change as a scenario, or the
+    change itself (review 2026-10-18)."""
+    for q2 in (Q2.A, Q2.B):
+        assert _codes(_run(study_purpose=purpose, q2=q2)) == []
 
 
-def test_analysis_with_a_structural_decision_is_noted():
-    case = _run(study_purpose=StudyPurpose.ANALYSIS, q2=Q2.A, decision_context="structural",
-                market_screening_documented=True)
-    assert _codes(case) == ["analysis_vs_structural"]
+def test_no_double_note_with_the_documentation_one():
+    case = _run(study_purpose=StudyPurpose.ANALYSIS, q2=Q2.B, decision_context="none")
+    codes = [w["code"] for w in case.warnings]
+    assert "documentation_vs_ex_ante" in codes and "study_purpose_vs_q2" not in codes
 
 
 def test_the_purpose_changes_no_derived_state():
@@ -60,10 +61,11 @@ def test_the_purpose_changes_no_derived_state():
 
 
 def test_report_and_dcf_cover_carry_the_purpose():
-    case = _run(study_purpose=StudyPurpose.DESIGN, q2=Q2.B, reference_market_region="Italy")
+    case = _run(study_purpose=StudyPurpose.DESIGN, q2=Q2.B, reference_market_region="Italy",
+                reference_market_scope="sub_national")
     text = "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(case))).paragraphs)
     assert "Q0 study purpose (D4.1 §4.3.2): design" in text
     root = Path(__file__).resolve().parents[1]
     payload = compose_dcf(case, json.loads((root / "app/schemas/dcf_schema.json").read_text()),
                           json.loads((root / "coordination/dcf_mandates_census.json").read_text()))
-    assert (payload.study_purpose, payload.reference_market) == ("design", "Italy")
+    assert (payload.study_purpose, payload.reference_market) == ("Design", "Italy (sub-national)")

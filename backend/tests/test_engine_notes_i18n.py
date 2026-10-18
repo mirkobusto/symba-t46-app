@@ -15,7 +15,7 @@ VARIANTS = {
     "lcc_without_lca": {"plain", "policy"},
     "flow_freedom_to_act_settles": {"co_product", "waste"},
     "q10_unanswered": {"yes", "no"},
-    "study_purpose_vs_q2": {"analysis", "improvement", "expansion", "design", "restructuring"},
+    "study_purpose_vs_q2": {"analysis", "design"},
 }
 
 

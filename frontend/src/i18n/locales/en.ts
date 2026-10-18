@@ -367,9 +367,9 @@ const en = {
     shortcutTip: 'Tip: Ctrl/⌘+Enter to run',
 
     q0: {
-      title: 'Q0 — What kind of study is it?',
-      help: 'Optional. The purpose of the study, as D4.1 asks to declare it in the goal. It changes nothing by itself: the engine only notes answers that do not fit it.',
-      details: 'D4.1 §4.3.2 asks to classify the goal according to an established IS typology. Analysis evaluates an existing network to understand its performance; Improvement identifies hotspots within an existing network to optimise it; Expansion assesses the impacts of adding a new partner or exchange; Design compares technological and logistical options for a new, planned network; Restructuring evaluates a major reconfiguration of an established network. The typology comes from Mattila et al. (2012), whose "restructuring" means restructuring towards circular economies; D4.1 attributes it to another source, a point under review. The answer goes into the charter, the report and the Data Collection File; how the study is modelled is still decided by the questions that follow.',
+      title: 'Q0 — Which kind of IS study is it: analysis, improvement, expansion, design or restructuring?',
+      help: 'Optional. The kind of study, as D4.1 asks to declare it in the goal. It changes nothing by itself.',
+      details: 'D4.1 §4.3.2, after Mattila et al. (2012), asks to classify the goal according to an established framework. Analysis evaluates an existing network to understand its performance; Improvement identifies hotspots within an existing network to optimise it; Expansion assesses the impacts of adding a new partner or exchange; Design compares technological and logistical options for a new, planned network; Restructuring evaluates a major reconfiguration of an established network. The answer goes into the report and the Data Collection File; how the study is modelled is still decided by the questions that follow. The engine notes only two contradictions: an analysis whose exchanges do not take place yet, and a design whose exchanges already do (Q2).',
       options: {
         unset: { label: 'Not answered' },
         analysis: { label: 'Analysis', description: 'Evaluate an existing network to understand its performance.' },
@@ -379,7 +379,7 @@ const en = {
         restructuring: { label: 'Restructuring', description: 'Evaluate a major reconfiguration of an established network.' },
       },
       plain:
-        'Say what the study is meant to do: understand how an existing network performs, find where it can improve, add a partner or an exchange, design a new network, or rethink an established one. The answer is recorded with the study and helps catch answers that do not fit together; it does not change the method by itself.',
+        'Pick the kind of study: understanding how an existing network performs, finding where it can improve, adding a partner or an exchange, designing a new network, or rethinking an established one. The answer is recorded with the study; it does not change the method by itself.',
     },
 
     q1: {
@@ -797,13 +797,8 @@ const en = {
     engineNotes: {
       study_purpose_vs_q2: {
         analysis: "Study purpose: the study evaluates an existing network, but Q2 says the exchanges it measures do not take place yet. Check the two answers (D4.1 §4.3.2).",
-        improvement: "Study purpose: the study looks for hotspots within an existing network, but Q2 says the exchanges it measures do not take place yet. Check the two answers (D4.1 §4.3.2).",
-        expansion: "Study purpose: the study assesses a new partner or exchange, but Q2 says the exchanges it measures already take place; answer Q2 about the new ones. Check the two answers (D4.1 §4.3.2).",
         design: "Study purpose: the study compares options for a new, planned network, but Q2 says the exchanges already take place. Check the two answers (D4.1 §4.3.2).",
-        restructuring: "Study purpose: the study assesses a major reconfiguration, but Q2 says the exchanges it measures already take place; answer Q2 about the reconfigured ones. Check the two answers (D4.1 §4.3.2).",
       },
-      expansion_reference: "Expansion: the reference scenario (CNSRS) includes the exchanges that already run; the new partner or exchange is assessed against it (D4.1 §11.1).",
-      analysis_vs_structural: "Study purpose: the study evaluates an existing network, but Q9 says it supports a decision with structural consequences. Documenting what a network delivers is Situation C1; check Q9.",
       q9_unanswered: "Q9 is not answered, so the ILCD situation (Situation {{situation}}) is read off Q1, as for cases saved before Q9 existed. Answer Q9: D4.1 Table 1 sets the situation by the decision and the scale of its consequences, not by the subject of the study.",
       q10_unanswered: {
         yes: "Q10 is not answered, so whether the study serves a public objective is read off Q1: the societal LCC is added, as for cases saved before Q10 existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning objective or a public decision-maker, whatever the subject of the study.",

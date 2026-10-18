@@ -46,9 +46,9 @@ def test_case_outer_extra_forbid():
 
 
 def test_case_q1_q2_accept_valid_enum_values():
-    case = Case(q1=Q1.B, q2=Q2.D)
+    case = Case(q1=Q1.B, q2=Q2.B)
     assert case.q1 is Q1.B
-    assert case.q2 is Q2.D
+    assert case.q2 is Q2.B
 
 
 def test_case_q1_rejects_invalid_value():

@@ -154,7 +154,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-20": lambda c: _q3_dims_active(c) >= 2,
     # --- CIR (10) ---
     "CIR-01": needs_future_background,
-    "CIR-02": lambda c: c.q2 in {Q2.B, Q2.C, Q2.D},
+    "CIR-02": lambda c: c.q2 == Q2.B,
     "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D} or bool(_attr(c, "transport_sensitive")),
     "CIR-04": lambda c: (c.q1 == Q1.B
                         and _attr(c, "network_nodes", 0) >= 3
@@ -164,7 +164,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     "CIR-08": lambda c: c.q1 in {Q1.B, Q1.C} and bool(_attr(c, "is_specific_capital_goods")),
     "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
-                         and c.q2 in {Q2.C, Q2.D}),
+                         and c.q2 == Q2.B),
     "CIR-10": lambda c: True,
     # --- FU (5) ---
     "FU-01": lambda c: c.q3.env,

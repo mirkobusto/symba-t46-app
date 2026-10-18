@@ -37,11 +37,11 @@ from app.engine.predicate import (
 
 @pytest.fixture()
 def ctx_wiktor(schemas):
-    """Wiktor 2018 fixture context: q1=B, q2=D, q3=ENV+ECO, q6a=wastewater,
+    """Wiktor 2018 fixture context: q1=B, q2=B, q3=ENV+ECO, q6a=wastewater,
     q7=B. Post-pipeline yields Situation A,
     ilcd_situation=A, lcc_type=C_LCC_PLUS_E_LCC."""
     case = Case(
-        q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
         q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
         flows=[Flow(id="f1", name="flow1", q5=Q5.a),
                Flow(id="f2", name="flow2", q5=Q5.c)],
@@ -105,12 +105,12 @@ def test_eq_with_none(ctx_wiktor):
 
 
 def test_in_list(ctx_wiktor):
-    assert evaluate('q2 in ["C", "D"]', ctx_wiktor) is True
+    assert evaluate('q2 in ["B", "C"]', ctx_wiktor) is True
 
 
 def test_not_in_list(ctx_arce):
-    # Arce has q2=A; not in [C,D]
-    assert evaluate('q2 not in ["C", "D"]', ctx_arce) is True
+    # Arce has q2=A; not in [B]
+    assert evaluate('q2 not in ["B"]', ctx_arce) is True
 
 
 def test_q4_set_membership(ctx_wiktor):
@@ -157,7 +157,7 @@ def test_or(ctx_arce):
 
 
 def test_nested_parens(ctx_wiktor):
-    pred = '(q1 == "B" or q1 == "A") and q2 in ["C", "D"]'
+    pred = '(q1 == "B" or q1 == "A") and q2 in ["B"]'
     assert evaluate(pred, ctx_wiktor) is True
 
 

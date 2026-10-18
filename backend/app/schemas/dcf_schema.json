@@ -187,14 +187,14 @@
           "label_en": "Measured quantity (per year)",
           "type": "float",
           "required": false,
-          "activation_predicate": "q2 == \"A\" or q2 == \"D\""
+          "activation_predicate": "q2 == \"A\""
         },
         {
           "id": "flow.quantity_projected",
           "label_en": "Projected quantity (per scenario, per year)",
           "type": "float_per_scenario",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]"
+          "activation_predicate": "q2 == \"B\""
         },
         {
           "id": "flow.quality.purity_pct",
@@ -262,7 +262,7 @@
           "label_en": "Scenario assumptions (ex-ante)",
           "type": "text",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]"
+          "activation_predicate": "q2 == \"B\""
         },
         {
           "id": "flow.lci_dataset_ref",
@@ -450,14 +450,14 @@
           "label_en": "Measured volume (per year)",
           "type": "float",
           "required": false,
-          "activation_predicate": "q2 == \"A\" or q2 == \"D\""
+          "activation_predicate": "q2 == \"A\""
         },
         {
           "id": "route.projected_volume_year",
           "label_en": "Projected volume per scenario (per year)",
           "type": "float_per_scenario",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]"
+          "activation_predicate": "q2 == \"B\""
         },
         {
           "id": "route.backhaul_strategy",
@@ -601,7 +601,7 @@
           "label_en": "Contract horizon (years)",
           "type": "int",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q2 == \"B\"",
           "description_en": "How long the arrangement is agreed for. Asked for prospective studies, where it bounds the payback."
         },
         {
@@ -609,7 +609,7 @@
           "label_en": "Price volatility",
           "type": "enum",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q2 == \"B\"",
           "enum_values": [
             "low",
             "med",
@@ -712,7 +712,7 @@
           "label_en": "CAPEX amount",
           "type": "float",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q2 == \"B\"",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -720,7 +720,7 @@
           "label_en": "CAPEX currency + reference year (e.g. EUR2024)",
           "type": "string",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q2 == \"B\"",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -729,7 +729,7 @@
           "type": "int",
           "description_en": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2).",
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q2 == \"B\"",
           "row_condition": "infra.status == \"new\"",
           "source_ref": "lcc_hc_07"
         },
@@ -738,7 +738,7 @@
           "label_en": "Discount rate (%)",
           "type": "float",
           "required": false,
-          "activation_predicate": "q3.eco and q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q3.eco and q2 == \"B\"",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -777,7 +777,7 @@
             "SSP5-85"
           ],
           "required": false,
-          "activation_predicate": "q2 in [\"C\", \"D\"]",
+          "activation_predicate": "q2 == \"B\"",
           "source_ref": "lcc_mc_13"
         },
         {

@@ -18,7 +18,7 @@ client = TestClient(app)
 # A minimal-valid Case body (Wiktor-like)
 WIKTOR_BODY = {
     "q1": "B",
-    "q2": "D",
+    "q2": "B",
     "q3": {"env": True, "eco": True, "soc": False},
     "q4": ["E"],
     "q6a": "wastewater_sludge_biofactories",
@@ -45,7 +45,7 @@ ARCE_BODY = {
 }
 
 PARTIAL_BODY = {  # q1=None
-    "q2": "D",
+    "q2": "B",
     "q3": {"env": True},
     "q4": ["E"],
     "q6a": "pulp_paper",

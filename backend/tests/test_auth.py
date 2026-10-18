@@ -22,7 +22,7 @@ def _auth(token: str) -> dict:
 
 WIKTOR_CASE = {
     "q1": "B",
-    "q2": "D",
+    "q2": "B",
     "q3": {"env": True, "eco": True, "soc": False},
     "q4": ["E"],
     "q6a": "wastewater_sludge_biofactories",

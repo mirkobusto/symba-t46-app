@@ -62,11 +62,11 @@ def _flows(*qs):
 
 
 # Three representative cases — wiktor (full overlays), arce (q7=A → logistics off),
-# briassoulis (q7=None, q1=C consequential, q2=C ex-ante design).
+# briassoulis (q7=None, q1=C consequential, q2=B ex-ante).
 @pytest.fixture()
 def case_wiktor(schemas):
     case = Case(
-        q1=Q1.B, q2=Q2.D, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
         q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
         flows=_flows(Q5.a, Q5.c, Q5.c),
     )
@@ -88,7 +88,7 @@ def case_arce(schemas):
 @pytest.fixture()
 def case_briassoulis(schemas):
     case = Case(
-        q1=Q1.C, q2=Q2.C, q3=Q3(env=True, eco=True, soc=True), q4={Q4.E},
+        q1=Q1.C, q2=Q2.B, q3=Q3(env=True, eco=True, soc=True), q4={Q4.E},
         q6a=Q6a.BIOBASED_POLYMERS, q6b=Q6b.TRL9, q7=None,
         flows=_flows(Q5.b, Q5.c),
     )
@@ -237,7 +237,7 @@ def test_field_descriptor_carries_metadata(case_wiktor, dcf_schema, mandates_cen
 
 
 def test_wiktor_has_capex_fields_q2_d(case_wiktor, dcf_schema, mandates_census):
-    """q2=D → infra capex fields should activate."""
+    """q2=B (not yet) → infra capex fields should activate."""
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     infra = next(s for s in payload.sections if s.id == "infrastructure")
     ids = {f.id for f in infra.fields}
@@ -495,7 +495,7 @@ def test_prospective_only_cost_fields_stay_off_for_an_ex_post_study(
         q6b=Q6b.TRL9, q7=Q7.B, flows=[Flow(id="f1", name="x", q5=Q5.a)],
     )
     ex_post = Case(q2=Q2.A, **common)
-    ex_ante = Case(q2=Q2.D, **common)
+    ex_ante = Case(q2=Q2.B, **common)
     pipeline_run(ex_post, schemas)
     pipeline_run(ex_ante, schemas)
 

@@ -444,8 +444,8 @@
       "id": "CIR-02",
       "name": "Pedigree Matrix LCA+LCC",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q2 ∈ {B, C, D} (any ex-ante component)",
-      "trigger_condition": "case.q2 IN ['B','C','D']",
+      "trigger_condition_raw": "Q2 = B (the exchanges do not take place yet: ex-ante)",
+      "trigger_condition": "case.q2 == 'B'",
       "actions": [
         "lca.uncertainty.pedigree = true",
         "lcc.uncertainty.pedigree = true"
@@ -551,8 +551,8 @@
       "id": "CIR-09",
       "name": "Iterative Update Protocol",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q6b ≤ TRL 7 AND Q2 ∈ {C, D}",
-      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5'] AND case.q2 IN ['C','D']",
+      "trigger_condition_raw": "Q6b ≤ TRL 7 AND Q2 = B (ex-ante)",
+      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5'] AND case.q2 == 'B'",
       "actions": [
         "case.iterative_update_triggers = ['commissioning', 'ramp_up', 'contract_renewal']"
       ],

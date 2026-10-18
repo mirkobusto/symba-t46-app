@@ -102,7 +102,7 @@ class Site(BaseModel):
 
 
 class AlternativeScenario(BaseModel):
-    """One alternative scenario (Q2=D). Each holds its own Q1-Q7 overrides
+    """One alternative scenario. Each holds its own Q1-Q7 overrides
     relative to the baseline. v2 §3 dual data model.
     """
 
@@ -140,12 +140,18 @@ class Case(BaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def _drop_retired_keys(cls, data: Any) -> Any:
-        """Cases saved or exported before 2026-10-18 carry the IS-01..IS-05
-        pathway (`pathway_id`, `is_01_extended`), a T4.6 construct the
-        deliverables do not know, now removed: drop them so old cases load."""
-        if isinstance(data, dict) and ("pathway_id" in data or "is_01_extended" in data):
+    def _read_retired_answers(cls, data: Any) -> Any:
+        """Cases saved or exported before 2026-10-18 load unchanged:
+        - the IS-01..IS-05 pathway (`pathway_id`, `is_01_extended`), a T4.6
+          construct the deliverables do not know, is dropped;
+        - the former Q2 options C (design phase) and D (baseline plus
+          alternatives) are read as B, "not yet" (see enums.Q2)."""
+        if not isinstance(data, dict):
+            return data
+        if "pathway_id" in data or "is_01_extended" in data:
             data = {k: v for k, v in data.items() if k not in ("pathway_id", "is_01_extended")}
+        if data.get("q2") in ("C", "D"):
+            data = {**data, "q2": "B"}
         return data
 
     # --- Identity / lifecycle ---
@@ -155,6 +161,11 @@ class Case(BaseModel):
     # --- User answers (Q1-Q7) ---
     q1: Q1 | None = None
     q2: Q2 | None = None
+    # Q2b (only with Q2 = A) — has the network run for many years, so that the
+    # plants it replaced would no longer be built today? True: the HNSRS is a
+    # modern counterfactual built with the strategies of D4.1 §11.2.2 (L01250).
+    # None = not answered: the plain HNSRS of §11.1.
+    network_long_standing: bool | None = None
     q3: Q3 = Field(default_factory=Q3)
     # Q4 is multi-select: stored as a set of Q4 values
     q4: set[Q4] = Field(default_factory=set)

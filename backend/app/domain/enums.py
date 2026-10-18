@@ -28,12 +28,15 @@ class Q1(StrEnum):
 
 
 class Q2(StrEnum):
-    """Q2 — Temporal stance (single select). Drives ex-post / ex-ante / dynamic."""
+    """Q2 — Do the symbiotic exchanges the study measures already take place?
+    The only timing D4.1 §11.1 and D4.2 §7.1 know: ex-post or ex-ante. Until
+    2026-10-18 Q2 had four options; the former C (design phase) and D (baseline
+    plus alternatives) are read as B, since scenarios belong to every study
+    (D4.1 §4.3.3) and the CNSRS of an ex-ante study already holds what operates
+    today."""
 
-    A = "A"  # ex-post (operating IS, retrospective)
-    B = "B"  # ex-ante mainly, static parameters
-    C = "C"  # ex-ante with dynamic scenarios (no baseline)
-    D = "D"  # ex-ante baseline + N alternative scenarios
+    A = "A"  # yes: ex-post (HNSRS, D4.1 §11.1)
+    B = "B"  # not yet: ex-ante (CNSRS, D4.1 §11.1)
 
 
 # Q3 is multi-checkbox: any subset of {ENV, ECO, SOC} can be active.

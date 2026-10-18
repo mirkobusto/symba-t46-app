@@ -233,7 +233,7 @@ def test_procedural_mandate_activates_without_field_write(schemas):
 # ---------------------------------------------------------------------------
 # Owner decision 2026-10-15: the deliverables require one time horizon for LCA and
 # LCC (D4.2 L01261, L01277; D4.1 L01521). Future background when the system
-# operates in a future year (Q8a; unanswered: Q2=D), when the key technology is
+# operates in a future year (Q8a; unanswered: the year of the study), when the key technology is
 # below TRL 7 (Q6b), or when the study horizon (Q8b analysis period, else Q8c asset
 # lifetime) exceeds 15 years. Lifetime tests use Q2=A, no TRL, Q8a unanswered.
 
@@ -258,19 +258,16 @@ def _horizon_case(schemas, **kw):
     return case
 
 
-@pytest.mark.parametrize("q2", [Q2.A, Q2.B, Q2.C, Q2.D])
+@pytest.mark.parametrize("q2", [Q2.A, Q2.B])
 def test_future_operating_year_gives_future_background_whatever_q2(schemas, q2):
     assert _future(_horizon_case(schemas, q2=q2, operating_start="future")) == (True, True)
 
 
-def test_unanswered_operating_year_reads_q2_d_as_future(schemas):
-    assert _future(_horizon_case(schemas, q2=Q2.D)) == (True, True)
-    for q2 in (Q2.A, Q2.B, Q2.C):
+def test_unanswered_operating_year_is_the_year_of_the_study(schemas):
+    """Until 2026-10-18 an unanswered Q8a counted as future for the former Q2=D;
+    with Q2 in two answers it is the year of the study for both."""
+    for q2 in (Q2.A, Q2.B):
         assert _future(_horizon_case(schemas, q2=q2)) == (False, False), q2
-
-
-def test_explicit_now_wins_over_q2_d(schemas):
-    assert _future(_horizon_case(schemas, q2=Q2.D, operating_start="now")) == (False, False)
 
 
 @pytest.mark.parametrize("q6b, expected", [(Q6b.TRL9, False), (Q6b.TRL7_8, False), (Q6b.TRL5_6, True), (Q6b.TRL_LT_5, True)])
@@ -315,7 +312,7 @@ def test_ex_post_study_with_long_lived_assets_gets_future_background(schemas):
 
 
 def test_lca_and_lcc_follow_the_same_rule(schemas):
-    for q2 in (Q2.A, Q2.B, Q2.C, Q2.D):
+    for q2 in (Q2.A, Q2.B):
         for lifetime in (None, 10, 16):
             lca, lcc = _future(_lifetime_case(schemas, lifetime, q2=q2))
             assert lca == lcc, (q2, lifetime)
@@ -584,7 +581,7 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
         assert _activated(schemas, q1=q1, q3=eco).lcc["counterparty_risk"].startswith(
             "Counterparty risk by structural scenarios")
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
-    assert _activated(schemas, q2=Q2.C, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
+    assert _activated(schemas, q2=Q2.B, q3=eco).lcc["background_dynamic"].startswith("Static; dynamic")
     assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"].startswith("Break-even distance for every flow")
     assert "GIS coupling suggested" in _activated(schemas, q7=Q7.D, q3=eco).lcc["transport_costs"]
 
@@ -745,7 +742,7 @@ def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
     # the studied exchanges already take place (Q2=A): the LCC follows TRL alone, as the LCA does
     assert ("lcc_hc_15" in case.activated_nodes) is active
     # at the planning stage D4.2 §7.3 (L00875) adds the cost-scaling tools at any TRL
-    planned = _activated(schemas, q6b=q6b, q2=Q2.C, q3=Q3(env=True, eco=True))
+    planned = _activated(schemas, q6b=q6b, q2=Q2.B, q3=Q3(env=True, eco=True))
     assert "lcc_hc_15" in planned.activated_nodes
 
 
@@ -841,7 +838,7 @@ def test_full_activation_count_for_complete_case(schemas):
     """A case with Q3 all-on, multiple flows of varied Q5, Q4 panel,
     etc. activates substantially more than the 116 DEFAULT baseline."""
     case = Case(
-        q1=Q1.A, q2=Q2.D,
+        q1=Q1.A, q2=Q2.B,
         q3=Q3(env=True, eco=True, soc=True),
         q4={Q4.C, Q4.D},
         q6b=Q6b.TRL5_6, q7=Q7.C,
@@ -985,27 +982,42 @@ def test_q10_unanswered_keeps_every_q1_result(schemas):
 # lca_mc_26 — reference scenario type follows the study timing (D4.1 §11.1)
 # ---------------------------------------------------------------------------
 # Aissani et al. 2019 / D4.1 §11.1: existing network -> HNSRS, prospective -> CNSRS.
-# Q2=B counts as ex-ante (owner decision 2026-10-15); Q2=D pairs an operating
-# baseline (HNSRS) with future alternatives (CNSRS).
+# Q2 has two answers since 2026-10-18: the exchanges already take place (HNSRS) or
+# not yet (CNSRS). A long-standing network (Q2b) gets the modern counterfactual of
+# D4.1 §11.2.2 (L01250).
 
 
-def _reference_type(schemas, q2):
-    case = _baseline_case(q2=q2, q3=Q3(env=True))
+def _reference_type(schemas, q2, long_standing=None):
+    case = _baseline_case(q2=q2, q3=Q3(env=True), network_long_standing=long_standing)
     l0_run(case, schemas)
     run(case, schemas)
     return case.lca.get("reference_scenario.type", "")
 
 
-@pytest.mark.parametrize("q2, starts", [(Q2.A, "HNSRS"), (Q2.B, "CNSRS"), (Q2.C, "CNSRS"), (Q2.D, "HNSRS for the operating baseline")])
-def test_reference_scenario_type_follows_the_study_timing(schemas, q2, starts):
-    value = _reference_type(schemas, q2)
+@pytest.mark.parametrize("q2, long_standing, starts", [
+    (Q2.A, None, "HNSRS: the links severed today"),
+    (Q2.A, False, "HNSRS: the links severed today"),
+    (Q2.A, True, "HNSRS as a modern counterfactual"),
+    (Q2.B, None, "CNSRS"),
+    (Q2.B, True, "CNSRS"),          # Q2b is asked only when the exchanges take place
+])
+def test_reference_scenario_type_follows_the_study_timing(schemas, q2, long_standing, starts):
+    value = _reference_type(schemas, q2, long_standing)
     assert value.startswith(starts), value
     assert "§11.3.3" in value   # best, worst and most-likely variants for every study
 
 
-def test_reference_scenario_ex_ante_is_aligned_with_the_time_horizon(schemas):
-    for q2 in (Q2.B, Q2.C, Q2.D):
-        assert "CNSRS aligned with the" in _reference_type(schemas, q2)
+def test_reference_scenario_ex_ante_holds_what_runs_today(schemas):
+    """The former Q2=D (operating baseline plus alternatives) is read as B: the
+    CNSRS already includes the exchanges that run today."""
+    value = _reference_type(schemas, Q2.B)
+    assert "aligned with the study's time horizon" in value
+    assert "including the exchanges that already run" in value
+
+
+def test_retired_q2_options_load_as_not_yet():
+    for old in ("C", "D"):
+        assert Case(q2=old).q2 is Q2.B
 
 
 def test_aware_follows_water_flows_and_integration_needs_an_e_lcc(schemas):
@@ -1027,7 +1039,6 @@ def test_lcc_timing_and_transfer_price_sensitivity(schemas):
     eco = Q3(env=True, eco=True)
     assert _activated(schemas, q2=Q2.A, q3=eco).lcc["charter.timing"] == "ex-post (D4.2 §7.1)"
     assert _activated(schemas, q2=Q2.B, q3=eco).lcc["charter.timing"].startswith("ex-ante, with the trigger")
-    assert "T4.6 reading" in _activated(schemas, q2=Q2.D, q3=eco).lcc["charter.timing"]
     case = _activated(schemas, q3=eco, flows=_flows(Q5.a, Q5.b, Q5.e))
     assert "lcc_hc_34" in case.activated_nodes
 

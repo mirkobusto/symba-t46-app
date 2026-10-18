@@ -299,3 +299,19 @@ def test_running_twice_does_not_double_the_outputs(client):
                 "rule_violations", "blocked_by"):
         assert len(second[key]) == len(first[key]), f"{key} doubled on re-run"
     assert len(second["activated_nodes"]) <= 186
+
+
+def test_run_scenarios_an_override_the_case_no_longer_accepts_does_not_500(client):
+    """An old scenario carrying a key the Case forbids fails alone: the batch
+    answers 200 and the failed scenario comes back as an empty shell."""
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": {"q1": "B", "q2": "B", "q3": {"env": True, "eco": False, "soc": False}},
+        "scenarios": [
+            {"id": "old", "label": "Old key", "overrides": {"transport_sensitive": True}},
+            {"id": "ok", "label": "Add ECO", "overrides": {"q3": {"env": True, "eco": True, "soc": False}}},
+        ],
+    })
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["scenarios"][0]["result"]["ilcd_situation"] is None
+    assert body["scenarios"][1]["result"]["lcc_type"] == "C+E"

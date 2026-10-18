@@ -110,7 +110,8 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     })
   }
 
-  if (env && kase.ilcd_situation === 'ILCD Situation C2') {
+  // the LCC shares the reference scenario of the LCA, done or not (D4.2 L00725)
+  if ((env || eco) && kase.ilcd_situation === 'ILCD Situation C2') {
     rows.push({
       key: 'reference',
       label: label('reference'),
@@ -118,7 +119,7 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
       why: t('result.config.why.referenceC2'),
       nodeText: texts(lca['reference_scenario.content']),
     })
-  } else if (env && kase.q2) {
+  } else if ((env || eco) && kase.q2) {
     const kind = kase.q2 === 'B' ? 'cnsrs' : kase.network_long_standing ? 'modern' : 'hnsrs'
     const scope = kase.reference_market_scope
       ? t(`result.config.values.scope_${kase.reference_market_scope}`)

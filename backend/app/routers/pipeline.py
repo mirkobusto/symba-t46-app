@@ -166,8 +166,13 @@ def run_scenarios(
             sc_result = pipeline_run(sc_case, schemas)
         except ValueError:
             # On scenario failure, return an empty Case shell so the
-            # client can flag it. Don't 400 the whole batch.
-            sc_result = _apply_overrides(payload.baseline, scenario.overrides)
+            # client can flag it. Don't 400 the whole batch. An override the
+            # Case no longer accepts (a key of an old version) fails here
+            # too: the shell is then the bare baseline answers.
+            try:
+                sc_result = _apply_overrides(payload.baseline, scenario.overrides)
+            except ValueError:
+                sc_result = _apply_overrides(payload.baseline, {})
         scenario_results.append(
             ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result)
         )

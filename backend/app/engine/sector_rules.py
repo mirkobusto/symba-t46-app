@@ -47,6 +47,10 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     """Write `case.sector_rules`: every rule of every active chapter, with the
     chapter, the reason it applies and the deliverable lines."""
     overlays = schemas.sector_overlays.get("overlays") or {}
+    if not case.q3.env:
+        # the Part 2 rules are LCA modelling rules: none applies without the LCA
+        case.sector_rules = []
+        return case
     answers = Answers.from_case(case)
 
     def applies(rule: dict[str, Any]) -> bool:

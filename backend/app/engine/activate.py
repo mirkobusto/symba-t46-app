@@ -96,7 +96,8 @@ def _write(case: Case, field: str, value: Any) -> None:
         return
     if prefix not in _PILLAR_ATTRS:
         raise ValueError(f"unknown pillar prefix in field {field!r}: {prefix!r}")
-    if _pillar_is_off(case, prefix):
+    if _pillar_is_off(case, prefix) and not (
+            prefix == "lca" and tail in _LCA_KEYS_SHARED_WITH_LCC and case.q3.eco):
         return
     pillar: dict[str, Any] = getattr(case, prefix)
     pillar[tail] = answer_phrases.fill(value, case)
@@ -108,7 +109,17 @@ def _pillar_is_off(case: Case, prefix: str) -> bool:
         return case.lcc_type == LccType.DEACTIVATED
     if prefix == "slca":
         return case.slca_activation_state == SlcaActivationState.DEACTIVATED
+    if prefix == "lca":
+        return not case.q3.env
     return False
+
+
+# What the LCC takes from the LCA even when no LCA is done: the same reference
+# scenario (D4.2 L00725) and the same classification of each flow (D4.2 §6.3,
+# L00729). Owner decision 2026-10-18, after the corpus run on Catalano 2024.
+_LCA_NODES_SHARED_WITH_LCC = frozenset({"lca_mc_26", "lca_mc_27", "lca_mc_17"})
+_LCA_KEYS_SHARED_WITH_LCC = frozenset({
+    "reference_scenario.type", "reference_scenario.content", "zero_burden_classification"})
 
 
 # ---------------------------------------------------------------------------
@@ -396,7 +407,29 @@ def _method_is_off(case: Case, method: str | None) -> bool:
         return case.lcc_type == LccType.DEACTIVATED
     if method == "SLCA":
         return case.slca_activation_state == SlcaActivationState.DEACTIVATED
+    if method == "LCA":
+        # no trigger node states it, but an LCA nobody asked for is the same
+        # contradiction (end-to-end review, 2026-10-18); the ILCD situation is
+        # still derived at L0, since the LCC structure reads it
+        return not case.q3.env
     return False
+
+
+# LCA nodes whose value governs the study as a whole, not the LCA alone: the
+# critical review of a public comparative claim (lca_mc_36, lca_hc_08) and the
+# methodological charter (lca_hc_16). They stay on without the LCA.
+_STUDY_WIDE_PREFIXES = ("review.", "methodological_charter.")
+
+
+def _skipped(case: Case, node: dict[str, Any]) -> bool:
+    if not _method_is_off(case, node.get("method")):
+        return False
+    if node.get("method") != "LCA":
+        return True
+    if (node.get("field") or "").startswith(_STUDY_WIDE_PREFIXES):
+        return False
+    # an LCC without LCA still needs its reference scenario and flow classification
+    return not (case.q3.eco and node["id"] in _LCA_NODES_SHARED_WITH_LCC)
 
 
 def run(case: Case, schemas: LoadedSchemas) -> Case:
@@ -422,7 +455,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     for node in schemas.phase1_nodes:
         if node.get("lifecycle_layer") == "L0":
             continue
-        if _method_is_off(case, node.get("method")):
+        if _skipped(case, node):
             continue
         _activate_node(case, node)
     _write_amortisation_period(case)

@@ -149,7 +149,9 @@ class Case(BaseModel):
         - the former Q2 options C (design phase) and D (baseline plus
           alternatives) are read as B, "not yet" (see enums.Q2);
         - the former Q7 option D (multi-scale programmes) is read as C;
-        - the inert advanced key `is_specific_capital_goods` becomes Q12."""
+        - the inert advanced key `is_specific_capital_goods` becomes Q12;
+        - a stored "ILCD Situation A multi-actor", retired on 2026-10-15 (not a
+          D4.1 category), is read as Situation A until the case is run again."""
         if not isinstance(data, dict):
             return data
         if "pathway_id" in data or "is_01_extended" in data:
@@ -158,6 +160,8 @@ class Case(BaseModel):
             data = {**data, "q2": "B"}
         if data.get("q7") == "D":   # former multi-scale option (2026-10-18)
             data = {**data, "q7": "C"}
+        if data.get("ilcd_situation") == "ILCD Situation A multi-actor":
+            data = {**data, "ilcd_situation": "ILCD Situation A"}
         advanced = data.get("advanced")
         if isinstance(advanced, dict) and "is_specific_capital_goods" in advanced:
             # the advanced key never reached a rule (I-17); Q12 replaces it, once

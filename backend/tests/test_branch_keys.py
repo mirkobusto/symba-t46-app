@@ -146,7 +146,8 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     discriminative nodes, minus 3 at L0 (lca_t1, lcc_trig_01, slca_t_01) and
     lca_hc_19, whose default_value is a string. 39 since lca_mc_06 branches on the
     ILCD situation (2026-10-15); 40 since lca_mc_07 branches on Q11 (2026-10-18)."""
-    assert len(_branch_nodes(schemas)) == 40
+    # 38 since lca_mc_16 and lcc_mc_14 no longer branch on Q7 (2026-10-18)
+    assert len(_branch_nodes(schemas)) == 38
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):
@@ -221,7 +222,8 @@ _OVERLAPPING_NODES = {
     "lca_hc_08", "lca_mc_32", "lca_mc_36",
     # Situation C2 comes first in these (allocation, no substitution credits, D4.1 §7.2.3)
     "lca_mc_05", "lca_mc_13", "lca_mc_14", "lca_mc_17",
-    "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19", "slca_mc_04",
+    "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19",
+    # slca_mc_04 left on 2026-10-18 with its q7=D branch
     # long_standing=true comes before q2=A: the modern counterfactual (D4.1 §11.2.2)
     "lca_mc_26",
     # lcc_mc_05 left on 2026-10-15 (one key per LCC type); lca_mc_05 came back with its C2 branch.

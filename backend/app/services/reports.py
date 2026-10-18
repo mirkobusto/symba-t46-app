@@ -200,8 +200,13 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
             case.q6a.value if case.q6a else "(not set)")
     _add_kv(doc, "Q6b TRL band",
             case.q6b.value if case.q6b else "(not set)")
-    _add_kv(doc, "Q7 geographic spread",
-            case.q7.value if case.q7 else "(not set)")
+    _add_kv(doc, "Q7 concentration of the key interactions",
+            {"A": "A (one site)", "B": "B (regional)", "C": "C (across regions or borders)"}.get(
+                case.q7.value, case.q7.value) if case.q7 else "(not set)")
+    if case.reference_market_region or case.reference_market_scope:
+        _add_kv(doc, "Q7b reference market", " — ".join(x for x in (
+            case.reference_market_region,
+            case.reference_market_scope.value if case.reference_market_scope else None) if x))
     # Optional questions: listed only when answered, so a case that skips them
     # reads exactly as before they existed.
     if case.operating_start is not None:

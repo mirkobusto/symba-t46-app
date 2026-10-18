@@ -155,7 +155,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     # --- CIR (10) ---
     "CIR-01": needs_future_background,
     "CIR-02": lambda c: c.q2 == Q2.B,
-    "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C, Q7.D} or bool(_attr(c, "transport_sensitive")),
+    "CIR-03": lambda c: c.q7 in {Q7.B, Q7.C} or bool(_attr(c, "transport_sensitive")),
     "CIR-04": lambda c: (c.q1 == Q1.B
                         and _attr(c, "network_nodes", 0) >= 3
                         and bool(_attr(c, "interdependent_flows"))),

@@ -53,7 +53,6 @@ from app.domain.enums import (
     Q1,
     Q2,
     Q5,
-    Q7,
     LccType,
     OperatingStart,
     Q6a,
@@ -61,6 +60,7 @@ from app.domain.enums import (
     SlcaActivationState,
 )
 from app.domain.models import Case, Flow
+from app.engine import answer_phrases
 from app.engine.branch_keys import Answers, pick_branch
 from app.engine.loader import LoadedSchemas
 
@@ -92,14 +92,14 @@ def _write(case: Case, field: str, value: Any) -> None:
     prefix, tail = field.split(".", 1)
     if prefix == "study":
         # study fields are stored under system, full dotted key preserved
-        case.system[field] = value
+        case.system[field] = answer_phrases.fill(value, case)
         return
     if prefix not in _PILLAR_ATTRS:
         raise ValueError(f"unknown pillar prefix in field {field!r}: {prefix!r}")
     if _pillar_is_off(case, prefix):
         return
     pillar: dict[str, Any] = getattr(case, prefix)
-    pillar[tail] = value
+    pillar[tail] = answer_phrases.fill(value, case)
 
 
 def _pillar_is_off(case: Case, prefix: str) -> bool:
@@ -241,7 +241,6 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # disjunctive — future operating year OR TRL < 7 OR horizon above the threshold
     "lca_mc_21": needs_future_background,
     # simple
-    "lca_mc_29": lambda c: c.q7 in {Q7.C, Q7.D},
     # simple
     "lca_mc_30": lambda c: any(f.sector in _WASTEWATER_SECTORS for f in c.flows),   # flows, not Q6a (2026-10-18)
     # simple

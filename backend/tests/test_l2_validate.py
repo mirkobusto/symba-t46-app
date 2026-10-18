@@ -133,7 +133,7 @@ def test_trigger_FU_04_fires_when_soc(schemas):
 def test_transport_coupling_rules_fire_whenever_transport_is_modeled(schemas, rule):
     """Audit I-08: transport is modeled for every Q7 (D4.1 §13.3.1, D4.2 §4.3), so these
     rules follow the dimensions that model it, not the geographic spread."""
-    for q7 in (Q7.A, Q7.B, Q7.C, Q7.D, None):
+    for q7 in (Q7.A, Q7.B, Q7.C, None):
         assert _TRIGGER_FNS[rule](_ready_case(q7=q7, q3=Q3(env=True))) is True
         assert _TRIGGER_FNS[rule](_ready_case(q7=q7, q3=Q3(eco=True))) is True
     assert _TRIGGER_FNS[rule](_ready_case(q7=Q7.B, q3=Q3(soc=True))) is False
@@ -143,7 +143,7 @@ def test_b_05_assertion_accepts_the_prose_the_engine_writes(schemas):
     """It used to require `fg is True`, which the prose 'explicit' can never satisfy."""
     from app.engine.l2_validate import _assert_b_05
     both = Q3(env=True, eco=True)
-    for q7 in (Q7.A, Q7.B, Q7.C, Q7.D):
+    for q7 in (Q7.A, Q7.B, Q7.C):
         case = _ready_case(q7=q7, q3=both)
         _full_pipeline_until_l2(case, schemas)
         assert _assert_b_05(case) is True

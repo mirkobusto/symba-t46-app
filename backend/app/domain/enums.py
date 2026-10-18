@@ -107,14 +107,25 @@ class Q6b(StrEnum):
 
 
 class Q7(StrEnum):
-    """Q7 — Geographic spread (single select). Drives transport+spatial coupling."""
+    """Q7 — How concentrated are the key interactions? It sets the regionalised
+    characterisation of the LCIA (D4.1 §12.2.3, §12.3.3), not the transport,
+    which is explicit for every exchange (§12.3.1). No distance threshold stands
+    behind the values. Until 2026-10-18 there was a D (multi-scale programmes);
+    it loads as C."""
 
-    # Qualitative layout of the network; no distance threshold stands behind the
-    # values (the break-even is per flow type, audit I-08).
-    A = "A"  # co-located: one site or adjacent plants
-    B = "B"  # regional cluster: several sites in the same region
-    C = "C"  # wide-area: cross-region or cross-border
-    D = "D"  # multi-scale: national or industry-wide programmes
+    A = "A"  # one site or adjacent plants: intensely local interactions
+    B = "B"  # within one region
+    C = "C"  # across regions or borders
+
+
+class ReferenceMarketScope(StrEnum):
+    """Spatial scope of the market the reference (displaced) products come from
+    (D4.1 §11.3.1, L01291): national or sub-national as a rule, continental only
+    for globally traded commodities with no sub-continental market."""
+
+    NATIONAL = "national"
+    SUB_NATIONAL = "sub_national"
+    CONTINENTAL = "continental"
 
 
 # =============================================================================

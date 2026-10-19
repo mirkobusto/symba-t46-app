@@ -71,6 +71,25 @@ def test_substitution_rules_follow_part1_in_situation_c2():
     assert "p2_agrifood_06" not in _ids(report)
 
 
+@pytest.mark.parametrize("sector,rules", [
+    (Q6a.PLASTICS_PACKAGING, {"p2_plastics_06", "p2_plastics_08"}),
+    (Q6a.TEXTILE_LEATHER, {"p2_textiles_05"}),
+    (Q6a.WASTE_VALORIZATION, {"p2_waste_valorisation_04", "p2_waste_valorisation_06"}),
+])
+def test_quality_factor_cff_and_reference_rules_are_not_listed_in_situation_c2(sector, rules):
+    """The quality factor and the CFF belong to substitution, and the reference scenario gives
+    no credit, in strict accounting of one partner (Part 1 §7.2.3; review of 2026-10-19)."""
+    flow = [Flow(id="f", name="Residual", q5=Q5.b, sector=sector)]
+    assert rules <= _ids(_case(flows=flow))
+    assert not rules & _ids(_case(flows=flow, decision_context=DecisionContext.CORPORATE_REPORT))
+
+
+def test_the_waste_reference_rule_says_which_scenario_part1_asks():
+    flow = [Flow(id="f", name="Residual", q5=Q5.a, sector=Q6a.WASTE_VALORIZATION)]
+    rule = next(r for r in _case(flows=flow).sector_rules if r["id"] == "p2_waste_valorisation_04")
+    assert "HNSRS when the exchanges already take place" in rule["note"]
+
+
 def test_background_rules_framed_on_situation_a_are_not_shown_for_situation_b():
     """Part 1 L01293: Situation B uses long-run marginal technologies."""
     structural = _food(decision_context=DecisionContext.STRUCTURAL,

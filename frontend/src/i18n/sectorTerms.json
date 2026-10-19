@@ -74,7 +74,8 @@
    "p2_plastics_05": "For Situation B, Part 1 asks long-run marginal technologies instead (D4.1 §11.3.1, L01293).",
    "p2_plastics_06": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer.",
    "p2_plastics_08": "Part 1 calls the CFF mandatory for EU policy-aligned studies (L00894) and a valid alternative (L00914); with Q4 = D the engine applies it, except in Situation C2.",
-   "p2_textiles_03": "Written for garments; for technical textiles, model the use-phase parameters that apply (T4.6 note)."
+   "p2_textiles_03": "Written for garments; for technical textiles, model the use-phase parameters that apply (T4.6 note).",
+   "p2_waste_valorisation_04": "The chapter names the CNSRS; Part 1 §11.1 asks the HNSRS when the exchanges already take place and the CNSRS when they do not yet (Aissani et al. 2019). The local-practice requirement holds for both."
   },
   "substitutes": {
    "agrifood_ad_bioenergy_fertiliser": "natural gas / grid electricity and mineral NPK fertilisers",
@@ -180,7 +181,8 @@
    "p2_plastics_05": "Per la Situazione B, la Part 1 chiede invece le tecnologie marginali di lungo periodo (D4.1 §11.3.1, L01293).",
    "p2_plastics_06": "La Part 1 richiede Q ogni volta che il prodotto secondario ha prestazioni diverse (D4.1 §7.3.2, L00884): questo capitolo indica la base da preferire.",
    "p2_plastics_08": "La Part 1 definisce la CFF obbligatoria per gli studi allineati alle politiche UE (L00894) e un'alternativa valida (L00914); con Q4 = D il motore la applica, tranne nella Situazione C2.",
-   "p2_textiles_03": "Scritto per gli indumenti; per i tessili tecnici, modellare i parametri della fase d'uso pertinenti (nota T4.6)."
+   "p2_textiles_03": "Scritto per gli indumenti; per i tessili tecnici, modellare i parametri della fase d'uso pertinenti (nota T4.6).",
+   "p2_waste_valorisation_04": "Il capitolo nomina il CNSRS; la Part 1 §11.1 chiede l'HNSRS quando gli scambi avvengono già e il CNSRS quando non avvengono ancora (Aissani et al. 2019). L'obbligo di seguire la pratica locale vale per entrambi."
   },
   "substitutes": {
    "agrifood_ad_bioenergy_fertiliser": "gas naturale / elettricità di rete e fertilizzanti minerali NPK",
@@ -286,7 +288,8 @@
    "p2_plastics_05": "Pour la Situation B, la Part 1 demande plutôt les technologies marginales de long terme (D4.1 §11.3.1, L01293).",
    "p2_plastics_06": "La Part 1 exige Q chaque fois que le produit secondaire a des performances différentes (D4.1 §7.3.2, L00884) : ce chapitre indique la base à privilégier.",
    "p2_plastics_08": "La Part 1 qualifie la CFF d'obligatoire pour les études alignées sur les politiques de l'UE (L00894) et d'alternative valable (L00914) ; avec Q4 = D, le moteur l'applique, sauf en Situation C2.",
-   "p2_textiles_03": "Rédigé pour les vêtements ; pour les textiles techniques, modéliser les paramètres de la phase d'utilisation qui s'appliquent (note T4.6)."
+   "p2_textiles_03": "Rédigé pour les vêtements ; pour les textiles techniques, modéliser les paramètres de la phase d'utilisation qui s'appliquent (note T4.6).",
+   "p2_waste_valorisation_04": "Le chapitre nomme le CNSRS ; la Part 1 §11.1 demande le HNSRS lorsque les échanges ont déjà lieu et le CNSRS lorsqu'ils n'ont pas encore lieu (Aissani et al. 2019). L'exigence de pratique locale vaut pour les deux."
   },
   "substitutes": {
    "agrifood_ad_bioenergy_fertiliser": "gaz naturel / électricité du réseau et engrais minéraux NPK",
@@ -392,7 +395,8 @@
    "p2_plastics_05": "Für Situation B verlangt Part 1 stattdessen langfristige marginale Technologien (D4.1 §11.3.1, L01293).",
    "p2_plastics_06": "Part 1 verlangt Q immer dann, wenn das Sekundärprodukt eine andere Leistung erbringt (D4.1 §7.3.2, L00884): Dieses Kapitel nennt die zu bevorzugende Grundlage.",
    "p2_plastics_08": "Part 1 bezeichnet die CFF als verpflichtend für an der EU-Politik ausgerichtete Studien (L00894) und als gültige Alternative (L00914); bei Q4 = D wendet die Engine sie an, außer in Situation C2.",
-   "p2_textiles_03": "Für Bekleidung formuliert; bei technischen Textilien die zutreffenden Parameter der Nutzungsphase modellieren (Hinweis T4.6)."
+   "p2_textiles_03": "Für Bekleidung formuliert; bei technischen Textilien die zutreffenden Parameter der Nutzungsphase modellieren (Hinweis T4.6).",
+   "p2_waste_valorisation_04": "Das Kapitel nennt das CNSRS; Part 1 §11.1 verlangt das HNSRS, wenn die Austausche bereits stattfinden, und das CNSRS, wenn sie noch nicht stattfinden (Aissani et al. 2019). Die Anforderung der lokalen Praxis gilt für beide."
   },
   "substitutes": {
    "agrifood_ad_bioenergy_fertiliser": "Erdgas / Netzstrom und mineralische NPK-Dünger",
@@ -498,7 +502,8 @@
    "p2_plastics_05": "Para la Situación B, la Part 1 pide en cambio tecnologías marginales de largo plazo (D4.1 §11.3.1, L01293).",
    "p2_plastics_06": "La Part 1 exige Q siempre que el producto secundario tenga prestaciones diferentes (D4.1 §7.3.2, L00884): este capítulo indica la base preferible.",
    "p2_plastics_08": "La Part 1 califica la CFF de obligatoria para los estudios alineados con las políticas de la UE (L00894) y de alternativa válida (L00914); con Q4 = D el motor la aplica, salvo en la Situación C2.",
-   "p2_textiles_03": "Redactado para prendas de vestir; para los textiles técnicos, modelizar los parámetros de la fase de uso que correspondan (nota T4.6)."
+   "p2_textiles_03": "Redactado para prendas de vestir; para los textiles técnicos, modelizar los parámetros de la fase de uso que correspondan (nota T4.6).",
+   "p2_waste_valorisation_04": "El capítulo nombra el CNSRS; la Part 1 §11.1 pide el HNSRS cuando los intercambios ya tienen lugar y el CNSRS cuando aún no (Aissani et al. 2019). La exigencia de práctica local vale para ambos."
   },
   "substitutes": {
    "agrifood_ad_bioenergy_fertiliser": "gas natural / electricidad de la red y fertilizantes minerales NPK",
@@ -565,6 +570,9 @@
   ],
   "p2_textiles_03": [
    "p2_textiles_03"
+  ],
+  "p2_waste_valorisation_04": [
+   "p2_waste_valorisation_04"
   ]
  }
 }

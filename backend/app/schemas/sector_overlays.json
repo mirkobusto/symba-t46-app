@@ -397,7 +397,7 @@
             "E3-036"
           ],
           "verbatim": "a quality correction factor shall be applied when using system expansion, selected per the four-tier Q hierarchy of Part 1, Section 7.3.2",
-          "when_key": null,
+          "when_key": "ilcd in {A,B,C1}",
           "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer."
         },
         {
@@ -427,7 +427,7 @@
             "E3-038"
           ],
           "verbatim": "For policy alignment or where substitution data is complex, standardised formulas such as the PEF Circular Footprint Formula (CFF) (Part 1, Section 7.3.3) should be used",
-          "when_key": null,
+          "when_key": "ilcd in {A,B,C1}",
           "note": "Part 1 calls the CFF mandatory for EU policy-aligned studies (L00894) and a valid alternative (L00914); with Q4 = D the engine applies it, except in Situation C2."
         },
         {
@@ -890,7 +890,7 @@
             "E3-073"
           ],
           "verbatim": "a quality correction factor selected per the four-tier Q hierarchy of Part 1, Section 7.3.2 (functional/performance ratio; empirical substitution; market-price ratio; PEF CFF Q_sin/Q_p) should be applied",
-          "when_key": null,
+          "when_key": "ilcd in {A,B,C1}",
           "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer."
         },
         {
@@ -1123,8 +1123,8 @@
             "E3-089"
           ],
           "verbatim": "shall reflect actual local waste management practice (e.g., sanitary landfill with/without gas recovery, open dumping, mass incineration), not generic global averages",
-          "when_key": null,
-          "note": null
+          "when_key": "ilcd in {A,B,C1}",
+          "note": "The chapter names the CNSRS; Part 1 §11.1 asks the HNSRS when the exchanges already take place and the CNSRS when they do not yet (Aissani et al. 2019). The local-practice requirement holds for both."
         },
         {
           "id": "p2_waste_valorisation_05",
@@ -1153,7 +1153,7 @@
             "E3-091"
           ],
           "verbatim": "a quality correction factor (substitution ratio) shall be applied where recovered materials have lower properties/market value than virgin counterparts",
-          "when_key": null,
+          "when_key": "ilcd in {A,B,C1}",
           "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer."
         },
         {

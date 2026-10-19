@@ -216,10 +216,10 @@ class Case(BaseModel):
     # Table 1). None = not answered: the ILCD situation is inferred from Q1,
     # exactly as before Q9 existed.
     decision_context: DecisionContext | None = None
-    # Q9b (only with Q9 = structural) — is it documented that the change displaces
-    # about 1% or more of new capacity in the affected market (D4.1 §11.3.1,
-    # L01293)? False: Situation A with B as a sensitivity (L00632). None: B, with a
-    # note asking for the proof.
+    # Q9b (only with Q9 = structural) — is the market screening documented: the yearly
+    # quantity added to or withdrawn from the affected market exceeds the capacity it
+    # replaces every year, at most 5 % (ILCD Handbook 2010, §5.3)? False: Situation A
+    # with B as a sensitivity (L00632). None: B, with a note asking for the proof.
     market_screening_documented: bool | None = None
     # Q10 (optional) — does the study serve a public policy or territorial
     # planning objective? D4.2 §2.3 adds an S-LCC in that case. None = not

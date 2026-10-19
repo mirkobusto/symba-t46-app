@@ -583,20 +583,20 @@ const en = {
     q9: {
       title: 'Q9 — What is the study for, and how far do its effects reach? *',
       help: 'Required. It sets the modelling situation (ILCD A, B, C1 or C2); Q1 only describes the subject.',
-      details: 'D4.1 Table 1 classifies the study by the decision it supports and the scale of its consequences, not by its subject (D4.1 §4.2.3). Micro (Situation A) is the default for single exchanges and park or plant designs, even with no named decision-maker (§4.3.4). Structural (Situation B) needs proof that the change shifts installed capacity in the affected market, e.g. about 1% or more of new build (§4.3.4, §11.3.1); without it the study stays A, with B as a sensitivity. Documenting an existing network is Situation C1 (substitution, §7.2.3); strict reporting of one company in isolation is C2 (allocation, no credits, §7.2.3), costed at company level only (a T4.6 design choice).',
+      details: "D4.1 Table 1 classifies the study by the decision it supports and the scale of its consequences, not by its subject (D4.1 §4.2.3). Micro (Situation A) is the default for decisions on single exchanges and plants. Structural (Situation B) applies when the decision changes the capacity installed in a market: the ILCD Handbook assumes it when the yearly demand or supply the decision adds to or withdraws from a market exceeds the capacity that market replaces every year, counting at most 5 % (e.g. 10 Mt of plants lasting 25 years replace 0.4 Mt a year). The design of a new park, a regional restructuring or a programme needs this screening (Mattila et al. 2012); without it the study stays A, with B as a sensitivity. Documenting an existing network, or a company report that counts what its exchanges save elsewhere, is Situation C1 (substitution, §7.2.3); a report of one company that excludes any credit for its exchanges is C2 (allocation, no credits, §7.2.3), costed at company level only (a T4.6 design choice).",
       options: {
         micro: 'It explores or supports a choice, even a hypothetical one with no named decision-maker, and its effects stay within the plants involved (Situation A)',
-        structural: 'It supports a choice whose effects change what a whole market or sector produces (Situation B; the proof must be documented)',
-        none: 'No choice: it documents what an existing network or system delivers, as it is (Situation C1)',
-        corporate_report: 'Strict reporting of one company in isolation (ESG / CSRD), with no credit for what the symbiosis avoids elsewhere (Situation C2)',
+        structural: "It supports a choice that changes how much a market or sector produces, beyond the capacity it replaces every year (Situation B; the screening must be documented)",
+        none: "No choice: it documents what an existing network or system delivers, including what it saves elsewhere (Situation C1)",
+        corporate_report: "Reporting of one company that excludes any credit for what its exchanges avoid elsewhere, e.g. strict ESG / CSRD accounting (Situation C2)",
       },
       screening: {
-        label: 'Is it documented that the change displaces about 1% or more of the new capacity in the affected market?',
+        label: "Is it documented that the yearly quantity the decision adds to or withdraws from the affected market exceeds the capacity that market replaces every year (at most 5 %)?",
         yes: 'Yes, it is documented (Situation B)',
         no: 'No (Situation A, with Situation B tested as a sensitivity)',
       },
       plain:
-        'What is the study for? Most studies explore or back a choice whose effects stay inside the plants involved, even when nobody has to decide yet. Only when the change is big enough to shift what a whole market produces, and you can show it, does the study change kind. If you are only describing a network that already runs, or reporting one company\'s own figures, say so: each case is modelled differently.',
+        "What is the study for? Most studies explore or back a choice whose effects stay inside the plants involved, even when nobody has to decide yet. Only when the change is bigger than what the market renews every year, and you can show it, does the study change kind; designing a new park needs that check. If you are only describing a network that already runs, or reporting one company's own figures without crediting its exchanges, say so: each case is modelled differently.",
     },
     q10: {
       title: 'Q10 — Does the study serve a public objective or a public decision-maker? *',
@@ -866,8 +866,8 @@ const en = {
         yes: "Q10 is not answered, so whether the study serves a public objective is read off Q1: the societal LCC is added, as for cases saved before Q10 existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning objective or a public decision-maker, whatever the subject of the study.",
         no: "Q10 is not answered, so whether the study serves a public objective is read off Q1: the societal LCC is not added, as for cases saved before Q10 existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning objective or a public decision-maker, whatever the subject of the study.",
       },
-      structural_without_screening: "Q9 says the effects are structural, but the market screening is not documented: the study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity (D4.1 §4.3.4, §11.3.1).",
-      structural_screening_missing: "Situation B needs proof that the change displaces about 1% or more of new capacity in the affected market (D4.1 §11.3.1); document it, or the study is Situation A with B as a sensitivity (D4.1 §4.3.4).",
+      structural_without_screening: "Q9 says the effects are structural, but the market screening is not documented: the study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity (ILCD Handbook 2010, §5.3).",
+      structural_screening_missing: "Situation B needs a documented market screening: the yearly quantity the decision adds to or withdraws from the affected market must exceed the capacity that market replaces every year, counting at most 5 % (ILCD Handbook 2010, §5.3); document it, or the study is Situation A with B as a sensitivity.",
       decision_scale_vs_q1: {
         c_micro: "Q1 (sector-wide pre-feasibility) usually means consequences at structural scale; you answered limited consequences, so the study is treated as ILCD Situation A. D4.1 §4.3.4: do not choose Consequential LCA simply because a decision is being made.",
         e_micro: "Q1=E (monitoring) implies no decision; you answered that a decision with limited consequences is supported, so the study is treated as ILCD Situation A.",

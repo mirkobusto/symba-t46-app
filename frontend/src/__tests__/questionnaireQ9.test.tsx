@@ -78,7 +78,7 @@ describe('Questionnaire Q9 — decision and scale', () => {
       document.querySelectorAll('section[aria-labelledby="q9-title"] .opt-label'),
     ).map((e) => e.textContent)
     expect(labels).toContain(
-      'Strict reporting of one company in isolation (ESG / CSRD), with no credit for what the symbiosis avoids elsewhere (Situation C2)',
+      'Reporting of one company that excludes any credit for what its exchanges avoid elsewhere, e.g. strict ESG / CSRD accounting (Situation C2)',
     )
   })
 })

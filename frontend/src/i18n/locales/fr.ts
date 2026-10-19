@@ -541,20 +541,20 @@ const fr: Locale = {
     q9: {
       title: 'Q9 — À quoi sert l\'étude, et jusqu\'où vont ses effets ? *',
       help: 'Obligatoire. Elle fixe la situation de modélisation (ILCD A, B, C1 ou C2) ; Q1 décrit seulement le sujet.',
-      details: 'Le Tableau 1 de D4.1 classe l\'étude selon la décision qu\'elle soutient et l\'échelle de ses conséquences, non selon son sujet (D4.1 §4.2.3). Micro (Situation A) est le défaut pour les échanges isolés et les projets de parc ou d\'installation, même sans décideur nommé (§4.3.4). Structurelle (Situation B) exige la preuve que le changement déplace la capacité installée du marché concerné, par exemple environ 1 % ou plus des nouvelles installations (§4.3.4, §11.3.1) ; sans preuve, l\'étude reste A, avec B en sensibilité. Documenter un réseau existant relève de la Situation C1 (substitution, §7.2.3) ; le rapport d\'une seule entreprise isolée relève de C2 (allocation, sans crédits, §7.2.3), avec des coûts au seul niveau de l\'entreprise (choix de conception T4.6).',
+      details: "Le Tableau 1 de D4.1 classe l'étude selon la décision qu'elle soutient et l'échelle de ses conséquences, non selon son objet (D4.1 §4.2.3). Micro (Situation A) est le cas par défaut pour les décisions sur des échanges ou des installations. Structurel (Situation B) s'applique quand la décision change la capacité installée d'un marché : l'ILCD Handbook le suppose quand la demande ou l'offre annuelle que la décision ajoute ou retire à un marché dépasse la capacité que ce marché renouvelle chaque année, en comptant au plus 5 % (ex. 10 Mt d'installations d'une durée de 25 ans renouvellent 0,4 Mt par an). La conception d'un nouveau parc, une restructuration régionale ou un programme exigent ce criblage (Mattila et al. 2012) ; sans lui l'étude reste A, avec B en analyse de sensibilité. Documenter un réseau existant, ou un rapport d'entreprise qui compte ce que ses échanges font économiser ailleurs, relève de la Situation C1 (substitution, §7.2.3) ; le rapport d'une seule entreprise qui exclut tout crédit pour ses échanges relève de la C2 (allocation, sans crédit, §7.2.3), avec des coûts au seul niveau de l'entreprise (choix de conception T4.6).",
       options: {
         micro: 'Elle explore ou soutient un choix, même hypothétique et sans décideur nommé, et ses effets restent dans les installations concernées (Situation A)',
-        structural: 'Elle soutient un choix dont les effets changent ce que produit tout un marché ou secteur (Situation B ; la preuve doit être documentée)',
-        none: 'Aucun choix : elle documente ce qu\'un réseau ou un système existant apporte, tel qu\'il est (Situation C1)',
-        corporate_report: 'Rapport d\'une seule entreprise isolée (ESG / CSRD), sans crédit pour ce que la symbiose évite ailleurs (Situation C2)',
+        structural: "Elle soutient un choix qui change ce que produit un marché ou un secteur, au-delà de la capacité qu'il renouvelle chaque année (Situation B ; le criblage doit être documenté)",
+        none: "Aucun choix : elle documente ce qu'un réseau ou un système existant apporte, y compris ce qu'il fait économiser ailleurs (Situation C1)",
+        corporate_report: "Rapport d'une seule entreprise qui exclut tout crédit pour ce que ses échanges évitent ailleurs, p. ex. une comptabilité ESG / CSRD stricte (Situation C2)",
       },
       screening: {
-        label: 'Est-il documenté que le changement déplace environ 1 % ou plus de la nouvelle capacité du marché concerné ?',
+        label: "Est-il documenté que la quantité annuelle que la décision ajoute ou retire au marché concerné dépasse la capacité que ce marché renouvelle chaque année (au plus 5 %) ?",
         yes: 'Oui, c\'est documenté (Situation B)',
         no: 'Non (Situation A, avec la Situation B en analyse de sensibilité)',
       },
       plain:
-        'À quoi sert l\'étude ? Le plus souvent, elle explore ou soutient un choix dont les effets restent dans les installations concernées, même si personne ne doit encore décider. Ce n\'est que lorsque le changement est assez grand pour modifier ce que produit tout un marché, et qu\'on peut le montrer, que l\'étude change de nature. Si vous décrivez seulement un réseau qui fonctionne déjà, ou les chiffres d\'une seule entreprise, dites-le : chaque cas se modélise différemment.',
+        "À quoi sert l'étude ? Le plus souvent, elle explore ou soutient un choix dont les effets restent dans les installations concernées, même quand personne ne doit encore décider. C'est seulement quand le changement dépasse ce que le marché renouvelle chaque année, et que vous pouvez le montrer, que l'étude change de nature ; concevoir un nouveau parc demande cette vérification. Si vous décrivez seulement un réseau qui fonctionne déjà, ou le rapport d'une entreprise sans crédit pour ses échanges, dites-le : chaque cas se modélise différemment.",
     },
     q10: {
       title: 'Q10 — L\'étude sert-elle un objectif public ou un décideur public ? *',
@@ -824,8 +824,8 @@ const fr: Locale = {
         yes: "Q10 est sans réponse : le fait que l'étude serve un objectif public est donc déduit de Q1 : l'ACC sociétal est ajouté, comme pour les cas enregistrés avant l'existence de Q10. Répondez à Q10 : la D4.2 §2.3 ajoute l'ACC sociétal pour un objectif de politique publique ou d'aménagement ou pour un décideur public, quel que soit le sujet de l'étude.",
         no: "Q10 est sans réponse : le fait que l'étude serve un objectif public est donc déduit de Q1 : l'ACC sociétal n'est pas ajouté, comme pour les cas enregistrés avant l'existence de Q10. Répondez à Q10 : la D4.2 §2.3 ajoute l'ACC sociétal pour un objectif de politique publique ou d'aménagement ou pour un décideur public, quel que soit le sujet de l'étude.",
       },
-      structural_without_screening: "Q9 indique des effets structurels, mais le criblage du marché n'est pas documenté : l'étude est traitée en Situation ILCD A, et la Situation B doit être testée en sensibilité (D4.1 §4.3.4, §11.3.1).",
-      structural_screening_missing: "La Situation B exige la preuve que le changement déplace environ 1 % ou plus des nouvelles capacités du marché concerné (D4.1 §11.3.1) ; documentez-la, sinon l'étude est en Situation A avec B en sensibilité (D4.1 §4.3.4).",
+      structural_without_screening: "Q9 indique des effets structurels, mais le criblage de marché n'est pas documenté : l'étude est traitée comme Situation ILCD A, et la Situation B doit être testée en analyse de sensibilité (ILCD Handbook 2010, §5.3).",
+      structural_screening_missing: "La Situation B exige un criblage de marché documenté : la quantité annuelle que la décision ajoute ou retire au marché concerné doit dépasser la capacité que ce marché renouvelle chaque année, en comptant au plus 5 % (ILCD Handbook 2010, §5.3) ; documentez-le, ou l'étude est en Situation A avec B en analyse de sensibilité.",
       decision_scale_vs_q1: {
         c_micro: "Q1 (préfaisabilité sectorielle) implique d'ordinaire des conséquences à l'échelle structurelle ; vous avez répondu conséquences limitées, l'étude est donc traitée en Situation ILCD A. D4.1 §4.3.4 : ne pas choisir l'ACV conséquentielle au seul motif qu'une décision est prise.",
         e_micro: "Q1=E (suivi) n'implique aucune décision ; vous avez répondu que l'étude appuie une décision aux conséquences limitées, elle est donc traitée en Situation ILCD A.",

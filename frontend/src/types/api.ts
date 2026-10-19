@@ -226,9 +226,10 @@ export interface Case {
   // Q9 (required in the questionnaire): does the study support a decision, and at
   // what scale (D4.1 Table 1). null/absent = read off Q1, with a note (old cases).
   decision_context?: DecisionContext | null
-  // Q9b (only with Q9 = structural): is the market screening documented
-  // (about 1% or more of new capacity, D4.1 §11.3.1)? false = Situation A with
-  // B as a sensitivity; null = B, with a note asking for the proof.
+  // Q9b (only with Q9 = structural): is the market screening documented (yearly
+  // change above the capacity the market replaces every year, at most 5 %, ILCD
+  // Handbook 2010)? false = Situation A with B as a sensitivity; null = B, with a
+  // note asking for the proof.
   market_screening_documented?: boolean | null
   // Q10 (required with the economic dimension): a public policy or planning
   // objective, or a public decision-maker (D4.2 §2.2-2.3, adds the S-LCC).

@@ -118,14 +118,15 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, An
                 notes.append({"code": "structural_without_screening", "message": (
                     "Q9 says the effects are structural, but the market screening is not documented: the "
                     "study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity "
-                    "(D4.1 §4.3.4, §11.3.1).")})
+                    "(ILCD Handbook 2010, §5.3).")})
             else:
                 situation = _S.SITUATION_B
                 if case.market_screening_documented is None:
                     notes.append({"code": "structural_screening_missing", "message": (
-                        "Situation B needs proof that the change displaces about 1% or more of new capacity "
-                        "in the affected market (D4.1 §11.3.1); document it, or the study is Situation A "
-                        "with B as a sensitivity (D4.1 §4.3.4).")})
+                        "Situation B needs a documented market screening: the yearly quantity the decision "
+                        "adds to or withdraws from the affected market must exceed the capacity that market "
+                        "replaces every year, counting at most 5 % (ILCD Handbook 2010, §5.3); document it, or "
+                        "the study is Situation A with B as a sensitivity.")})
         elif decision == _M:
             situation = _micro(case.q1)
         elif decision == _N:

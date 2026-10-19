@@ -561,20 +561,20 @@ const it: Locale = {
     q9: {
       title: 'Q9 — A cosa serve lo studio, e fin dove arrivano i suoi effetti? *',
       help: 'Obbligatoria. Decide la situazione di modellazione (ILCD A, B, C1 o C2); Q1 descrive solo il soggetto.',
-      details: 'La Tabella 1 di D4.1 classifica lo studio in base alla decisione che sostiene e alla scala delle sue conseguenze, non in base al soggetto (D4.1 §4.2.3). Micro (Situazione A) è il default per singoli scambi e progetti di parco o impianto, anche senza un decisore nominato (§4.3.4). Strutturale (Situazione B) richiede la prova che il cambiamento sposta capacità installata nel mercato interessato, per esempio circa l\'1% o più delle nuove installazioni (§4.3.4, §11.3.1); senza prova lo studio resta A, con la B come sensibilità. Documentare una rete esistente è la Situazione C1 (sostituzione, §7.2.3); il rendiconto di una sola azienda isolata è C2 (allocazione, nessun credito, §7.2.3), con costi solo a livello d\'impresa (scelta di progetto T4.6).',
+      details: "La Tabella 1 di D4.1 classifica lo studio in base alla decisione che sostiene e alla scala delle sue conseguenze, non in base al soggetto (D4.1 §4.2.3). Micro (Situazione A) è il default per le decisioni su singoli scambi e impianti. Strutturale (Situazione B) vale quando la decisione cambia la capacità installata in un mercato: l'ILCD Handbook lo assume quando la domanda o l'offerta annua che la decisione aggiunge o toglie a un mercato supera la capacità che quel mercato rinnova ogni anno, contando al massimo il 5 % (es. 10 Mt di impianti che durano 25 anni rinnovano 0,4 Mt l'anno). La progettazione di un nuovo parco, una ristrutturazione regionale o un programma richiedono questo screening (Mattila et al. 2012); senza, lo studio resta A, con B come analisi di sensibilità. Documentare una rete esistente, o un rendiconto aziendale che conta ciò che i suoi scambi fanno risparmiare altrove, è Situazione C1 (sostituzione, §7.2.3); il rendiconto di una sola azienda che esclude ogni credito per i suoi scambi è C2 (allocazione, nessun credito, §7.2.3), con costi solo a livello d'impresa (scelta di progetto T4.6).",
       options: {
         micro: 'Esplora o sostiene una scelta, anche ipotetica e senza un decisore nominato, e i suoi effetti restano negli impianti coinvolti (Situazione A)',
-        structural: 'Sostiene una scelta i cui effetti cambiano ciò che produce un intero mercato o settore (Situazione B; la prova va documentata)',
-        none: 'Nessuna scelta: documenta ciò che una rete o un sistema esistente rende, così com\'è (Situazione C1)',
-        corporate_report: 'Rendiconto di una sola azienda isolata (ESG / CSRD), senza crediti per ciò che la simbiosi evita altrove (Situazione C2)',
+        structural: "Sostiene una scelta che cambia quanto produce un mercato o un settore, oltre la capacità che rinnova ogni anno (Situazione B; lo screening va documentato)",
+        none: "Nessuna scelta: documenta ciò che una rete o un sistema esistente rende, compreso ciò che fa risparmiare altrove (Situazione C1)",
+        corporate_report: "Rendiconto di una sola azienda che esclude ogni credito per ciò che i suoi scambi evitano altrove, es. contabilità ESG / CSRD rigorosa (Situazione C2)",
       },
       screening: {
-        label: 'È documentato che il cambiamento sposta circa l\'1% o più della nuova capacità nel mercato interessato?',
+        label: "È documentato che la quantità annua che la decisione aggiunge o toglie al mercato interessato supera la capacità che quel mercato rinnova ogni anno (al massimo il 5 %)?",
         yes: 'Sì, è documentato (Situazione B)',
         no: 'No (Situazione A, con la Situazione B come analisi di sensibilità)',
       },
       plain:
-        'A cosa serve lo studio? Quasi sempre esplora o sostiene una scelta i cui effetti restano negli impianti coinvolti, anche se nessuno deve ancora decidere. Solo quando il cambiamento è abbastanza grande da spostare ciò che produce un intero mercato, e lo si può dimostrare, lo studio cambia natura. Se descrivi soltanto una rete che già funziona, o i numeri di una sola azienda, dillo: ogni caso si modella in modo diverso.',
+        "A cosa serve lo studio? Quasi sempre esplora o sostiene una scelta i cui effetti restano negli impianti coinvolti, anche quando nessuno deve ancora decidere. Solo quando il cambiamento supera ciò che il mercato rinnova ogni anno, e lo puoi dimostrare, lo studio cambia tipo; progettare un nuovo parco richiede questa verifica. Se descrivi soltanto una rete che funziona già, o il rendiconto di un'azienda senza crediti per i suoi scambi, dillo: ogni caso si modella in modo diverso.",
     },
     q10: {
       title: 'Q10 — Lo studio serve un obiettivo pubblico o un decisore pubblico? *',
@@ -844,8 +844,8 @@ const it: Locale = {
         yes: "Q10 non ha risposta, quindi se lo studio serve un obiettivo pubblico è letto da Q1: l'LCC sociale viene aggiunto, come per i casi salvati prima che Q10 esistesse. Rispondi a Q10: D4.2 §2.3 aggiunge l'LCC sociale per un obiettivo di politica pubblica o di pianificazione o per un decisore pubblico, qualunque sia il soggetto dello studio.",
         no: "Q10 non ha risposta, quindi se lo studio serve un obiettivo pubblico è letto da Q1: l'LCC sociale non viene aggiunto, come per i casi salvati prima che Q10 esistesse. Rispondi a Q10: D4.2 §2.3 aggiunge l'LCC sociale per un obiettivo di politica pubblica o di pianificazione o per un decisore pubblico, qualunque sia il soggetto dello studio.",
       },
-      structural_without_screening: "Q9 dice che gli effetti sono strutturali, ma lo screening di mercato non è documentato: lo studio è trattato come Situazione ILCD A, e la Situazione B va provata come sensitività (D4.1 §4.3.4, §11.3.1).",
-      structural_screening_missing: "La Situazione B richiede la prova che il cambiamento sposta circa l'1% o più della nuova capacità nel mercato interessato (D4.1 §11.3.1); documentala, altrimenti lo studio è in Situazione A con B come sensitività (D4.1 §4.3.4).",
+      structural_without_screening: "Q9 dice che gli effetti sono strutturali, ma lo screening di mercato non è documentato: lo studio è trattato come Situazione ILCD A, e la Situazione B va provata come analisi di sensibilità (ILCD Handbook 2010, §5.3).",
+      structural_screening_missing: "La Situazione B richiede uno screening di mercato documentato: la quantità annua che la decisione aggiunge o toglie al mercato interessato deve superare la capacità che quel mercato rinnova ogni anno, contando al massimo il 5 % (ILCD Handbook 2010, §5.3); documentalo, oppure lo studio è in Situazione A con B come analisi di sensibilità.",
       decision_scale_vs_q1: {
         c_micro: "Q1 (pre-fattibilità di settore) di solito comporta conseguenze su scala strutturale; hai risposto conseguenze limitate, quindi lo studio è trattato come Situazione ILCD A. D4.1 §4.3.4: non scegliere l'LCA consequenziale solo perché si prende una decisione.",
         e_micro: "Q1=E (monitoraggio) non comporta decisioni; hai risposto che lo studio sostiene una decisione con conseguenze limitate, quindi è trattato come Situazione ILCD A.",

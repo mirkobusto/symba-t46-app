@@ -258,10 +258,11 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
         elif sell is False and f.q5 == Q5.c:
             notes.append({"code": "flow_price_without_market", "params": {"flow": f.name or f.id}, "message": (
                 f"{label}: Q5 says the recipient pays for it (co-product), but no third party would. "
-                "D4.1 §8.3.3: without an independent market the price is an administrative fee and the "
-                "flow is a waste, with zero burden from where it first reaches a non-negative value "
-                "(§8.3.6 Step 4). The exception is a generator that changes its process for the partner "
-                "(Q5 = d).")})
+                "With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the "
+                "recipient pays what an independent buyer would pay, the price of the product the flow "
+                "replaces net of its extra costs to use it; if the payment only shares costs, the flow is a "
+                "waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). "
+                "Check the price against that benchmark.")})
         elif sell is not None and f.q5 == Q5.b:
             reading = ("a co-product (§8.3.2, burden shared)" if sell else
                        "a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4)")

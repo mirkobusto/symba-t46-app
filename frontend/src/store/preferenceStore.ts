@@ -85,7 +85,8 @@ export const usePreferenceStore = create<PreferenceState>()(
 
 // Route recommended after onboarding completes.
 export function recommendedRouteFor(role: UserRole, task: UserTask): string {
-  if (task === 'read') return '/cases'
+  // a reader holds a link, not a saved case: "My cases" had no place to paste it
+  if (task === 'read') return '/r/open'
   if (task === 'explore') return '/aggregate'
   if (task === 'browse') return '/'
   // task === 'assess'

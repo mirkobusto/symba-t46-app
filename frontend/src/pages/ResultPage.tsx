@@ -12,7 +12,9 @@ import { actionItems } from './resultActions'
 import { verdictFor } from './resultNarrative'
 import { obligationGroups } from './configurationRows'
 import ConfigurationSummary from '../components/ConfigurationSummary'
+import { useHealth } from '../hooks/useHealth'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
+import { useAuthStore } from '../store/authStore'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
@@ -44,6 +46,8 @@ export default function ResultPage() {
   const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
   const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
+  const signedIn = useAuthStore((s) => s.token !== null)
+  const { anonymousSave } = useHealth()
   const [showReasoning, setShowReasoning] = useState(true)
   const [downloadingReport, setDownloadingReport] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
@@ -51,6 +55,13 @@ export default function ResultPage() {
   const [savedSlug, setSavedSlug] = useState<string | null>(null)
 
   async function handleSaveCase() {
+    // saving needs an account unless the server allows anonymous saves; say
+    // so before asking for a name rather than after a 401
+    if (!signedIn && anonymousSave === false) {
+      pushToast({ type: 'info', message: t('cases.signInToSave'), durationMs: 8000 })
+      navigate('/login')
+      return
+    }
     const name = window.prompt(
       t('cases.saveDialog'),
       t('cases.namePlaceholder'),

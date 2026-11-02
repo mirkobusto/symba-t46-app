@@ -1,6 +1,12 @@
 """Integration tests for /api/scoring/* endpoints."""
 from __future__ import annotations
 
+import pytest
+
+# written for the anonymous flow, off by default since 2026-11-02
+pytestmark = pytest.mark.usefixtures("anonymous_save_on")
+
+
 WIKTOR_BODY = {
     "q1": "B",
     "q2": "B",

@@ -172,19 +172,21 @@ behind a feature-flag.
 | Surface | Anonymous | Authenticated analyst | Admin |
 |---|---|---|---|
 | `/api/pipeline/*`, `/api/dcf/*` | open | open | open |
-| `/api/cases` (legacy rows, `owner_id IS NULL`) | read + write | read + write | read + write |
+| `/api/cases` save | refused (401) | yes, owned by the user | yes |
+| `/api/cases` list | empty | own rows only | all rows |
+| `/api/cases/{id}` without an owner (`owner_id IS NULL`) | read only | read only | read + write |
 | `/api/cases` (owned rows) | hidden (404) | own rows only | all rows |
 | `/api/scoring/{case_id}` | follows the owning case | follows the owning case | all |
 | `/api/public/*` (share links) | open by design | open | open |
 
-Two deliberate gaps to keep in mind before announcing a public URL:
+The table is the default. `SYMBA_ANON_SAVE=true` restores the pre-2026-11-02
+flow: visitors save without signing in, cases without an owner are listed to
+and writable by everyone. Leave it off on a public deployment: with it on, any
+visitor can delete or overwrite another visitor's study.
 
-1. **Cases saved without a token have no owner**, so they stay
-   world-writable — that is the pre-Phase-D MVP flow. If the deployment
-   is public and the data is not demo data, require login in front of
-   the app (reverse-proxy basic auth, or make the frontend hide the
-   anonymous save path).
-2. **Share links are unlisted, not private.** `/r/:slug/:audience`
+One deliberate gap to keep in mind before announcing a public URL:
+
+1. **Share links are unlisted, not private.** `/r/:slug/:audience`
    and the `/api/public/*` endpoints behind them resolve for anyone who
    has the URL, including for owned cases — that is the point of the
    Phase 7 share modal. Do not put confidential demo-region data behind

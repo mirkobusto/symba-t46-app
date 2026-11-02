@@ -97,3 +97,12 @@ def schemas() -> LoadedSchemas:
 def schemas_dir() -> Path:
     """Absolute path to the schemas directory (for tests that read JSON directly)."""
     return Path(__file__).resolve().parent.parent / "app" / "schemas"
+
+
+@pytest.fixture()
+def anonymous_save_on(monkeypatch):
+    """The anonymous flow (`SYMBA_ANON_SAVE=true`): saving and changing cases
+    without signing in. Off by default since 2026-11-02; the tests written
+    for that flow switch it on."""
+    monkeypatch.setenv("SYMBA_ANON_SAVE", "true")
+

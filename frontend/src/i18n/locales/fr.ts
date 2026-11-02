@@ -265,7 +265,7 @@ const fr: Locale = {
         "id": "recipients",
         "title": "5. Who can see it",
         "paragraphs": [
-          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Cases saved without signing in can currently be read and changed by anyone who can reach the tool, and the administrator (the first account registered) can read and change every case, including those owned by others: do not enter personal data of third parties."
+          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Saving a case on the server requires an account; each saved case can be read and changed only by its owner and by the administrator (the first account registered), who can read and change every case: do not enter personal data of third parties."
         ],
         "items": []
       },
@@ -1256,6 +1256,8 @@ const fr: Locale = {
   },
 
   cases: {
+    signInToSave: "Enregistrer un cas sur le serveur demande un compte. Connectez-vous ou inscrivez-vous ici ; votre brouillon reste dans ce navigateur.",
+    signInToList: "Vos cas enregistrés apparaissent ici une fois connecté. Les rapports partagés s'ouvrent depuis le lien reçu.",
     publicLink: "Lien public",
     navLink: 'Mes cas',
     title: 'Mes cas',

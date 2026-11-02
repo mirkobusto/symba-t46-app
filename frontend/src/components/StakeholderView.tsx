@@ -99,6 +99,18 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
   // or a consumer they are noise.
   const showCodes = stakeholderType === 'industry' || stakeholderType === 'authority'
 
+  // No configuration means no case: every line below would describe the empty
+  // draft as if it were a study ("the environmental dimension was switched
+  // off", three "no"), which readers took as facts (UX round 2026-11-02).
+  if (!verdict) {
+    return (
+      <div className="stakeholder-view">
+        <p className="stakeholder-framing">{t(`stakeholder.framing.${stakeholderType}`)}</p>
+        <p className="muted">{t('stakeholder.noVerdict')}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="stakeholder-view">
       <p className="stakeholder-framing">{t(`stakeholder.framing.${stakeholderType}`)}</p>
@@ -109,24 +121,18 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
 
       <section className="stakeholder-section">
         <h3>{t('stakeholder.verdictTitle')}</h3>
-        {verdict ? (
-          <>
-            <p className="stakeholder-verdict-title">{verdict.title}</p>
-            <p className="stakeholder-verdict-body">{verdict.body}</p>
-            {(caseData.blocked_by ?? []).length === 0 ? (
-              <ConfigurationSummary
-                kase={caseData}
-                only={AUDIENCE_ROWS[stakeholderType]}
-                showNodeText={false}
-                showWhy={false}
-                headingLevel="h4"
-                title={t('stakeholder.configTitle')}
-              />
-            ) : null}
-          </>
-        ) : (
-          <p className="muted">{t('stakeholder.noVerdict')}</p>
-        )}
+        <p className="stakeholder-verdict-title">{verdict.title}</p>
+        <p className="stakeholder-verdict-body">{verdict.body}</p>
+        {(caseData.blocked_by ?? []).length === 0 ? (
+          <ConfigurationSummary
+            kase={caseData}
+            only={AUDIENCE_ROWS[stakeholderType]}
+            showNodeText={false}
+            showWhy={false}
+            headingLevel="h4"
+            title={t('stakeholder.configTitle')}
+          />
+        ) : null}
 
         {environmentalOff ? (
           <p className="stakeholder-not-assessed">

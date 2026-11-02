@@ -13,7 +13,7 @@ import { useToastStore } from '../store/toastStore'
 import type { CaseSummary } from '../types/api'
 
 export default function CasesListPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
   const setServerCase = useCaseStore((s) => s.setServerCase)
@@ -129,7 +129,7 @@ export default function CasesListPage() {
                 </td>
                 <td>{item.ilcd_situation ?? '—'}</td>
                 <td className="muted">
-                  {new Date(item.updated_at).toLocaleString()}
+                  {new Date(item.updated_at).toLocaleString(i18n.language)}
                 </td>
                 <td>
                   <button
@@ -147,7 +147,7 @@ export default function CasesListPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      🔗 {t('cases.publicLink', { defaultValue: 'Public' })}
+                      🔗 {t('cases.publicLink')}
                     </Link>
                   ) : null}{' '}
                   <button

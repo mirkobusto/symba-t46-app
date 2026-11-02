@@ -41,7 +41,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
   const { t } = useTranslation()
 
   function addFlow() {
-    onChange([...flows, { id: nextId(flows), name: '', q5: 'c' }])
+    onChange([...flows, { id: nextId(flows), name: '' }])
   }
 
   function removeFlow(id: string) {
@@ -92,11 +92,14 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                 <td>
                   <select
                     className="row-select"
-                    value={f.q5}
+                    aria-label={t('flows.headers.q5')}
+                    aria-invalid={!f.q5}
+                    value={f.q5 ?? ''}
                     onChange={(e) =>
-                      updateFlow(f.id, { q5: e.target.value as Q5 })
+                      updateFlow(f.id, { q5: (e.target.value || undefined) as Q5 | undefined })
                     }
                   >
+                    <option value="" disabled>{t('flows.q5Unset')}</option>
                     {Q5_KEYS.map((k) => (
                       <option key={k} value={k}>
                         {t(`flows.options.${k}`)}

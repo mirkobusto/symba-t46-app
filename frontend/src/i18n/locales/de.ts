@@ -109,6 +109,7 @@ const de: Locale = {
       whatTitle: 'Was ist ein Bericht?', whatBody: 'Ein Bericht beschreibt einen Fall industrieller Symbiose.',
       whereTitle: 'Mehr erfahren?', whereBody: 'Besuchen Sie die Projekt-Website',
       enterTool: 'Zum Tool',
+      backToReport: "Zurück zum Bericht",
     },
     region: {
       eyebrow: 'Region · {{code}}', title: 'Regionales Dashboard', lead: 'Aggregierte Ansicht.', total: 'Fälle', situations: 'ILCD-Situationen', sectors: 'Sektoren',
@@ -313,7 +314,8 @@ const de: Locale = {
     runningButton: 'Wird berechnet…',
     resetButton: 'Entwurf zurücksetzen',
     confirmReset: 'Alle Antworten verwerfen und neu beginnen? Dies kann nicht rückgängig gemacht werden.',
-    q1Required: 'Q1 ist erforderlich.',
+    stillRequired: "Noch offen:",
+    flowsMissingQ5: "wer wen bezahlt, für jeden Fluss",
     shortcutTip: 'Tipp: Strg/⌘+Eingabe zum Ausführen',
 
     q0: {
@@ -605,6 +607,7 @@ const de: Locale = {
     q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
     headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
+    q5Unset: "— wählen, wer wen bezahlt",
     sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
     sellableHint: "Würde der Partner diesen Fluss nicht abnehmen, könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt. Nein macht ihn nicht schon zu Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung), macht ihn trotzdem zum Koppelprodukt; ein kostenlos abgegebener Fluss oder eine Zahlung, die nur Kosten teilt, macht ihn zu Abfall (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht zu Q5 passt.",
     sectorHint: "Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels.",
@@ -874,6 +877,8 @@ const de: Locale = {
         'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
       provenance:
         "Die Bezeichnungen der Regeln und Entscheidungspunkte sind aus der englischen Tabelle des Motors übersetzt. Der Code neben jedem Eintrag — IR-01, CDP-02 — ist die Referenz, die in allen Sprachen gleich bleibt, und der englische Name steht daneben.",
+      noTensions:
+        "Für diese Antworten wurde kein kritischer Entscheidungspunkt zwischen den Methoden aufgeworfen. Die Verpflichtungen unten gelten trotzdem.",
       allClear:
         'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Inventardaten erheben.',
       ctaHint: 'Das Data Collection File ist auf diese Konfiguration kalibriert: es fragt nur ab, was Ihr Fall braucht.',
@@ -990,10 +995,12 @@ const de: Locale = {
       '13 Fixtures aus dem Validierungs-Sample (12 Papers + Leiva Escombreras / Frövi). Lädt die Antworten samt Flüssen in den Fragebogen, um die Engine end-to-end zu inspizieren und auszuführen.',
     loadButton: 'Preset laden',
     rationaleToggle: 'Warum diese Antworten? (Compilation-Rationale)',
+    replaceConfirm: "Das Laden dieses Beispiels ersetzt die Antworten, an denen Sie arbeiten. Speichern Sie Ihren Fall zuerst, wenn Sie ihn behalten möchten. Beispiel laden?",
+    loaded: "Beispiel geladen: {{name}}",
   },
 
   toast: {
-    pipelineCompleted: 'Pipeline abgeschlossen in {{ms}} ms — {{situation}}',
+    pipelineCompleted: "Konfiguration bereit",
     pipelineError: 'Pipeline-Fehler — {{detail}}',
     scenariosCompleted: '{{n}} Szenarien ausgeführt',
     scenariosError: 'Szenarienausführung fehlgeschlagen — {{detail}}',
@@ -1074,7 +1081,7 @@ const de: Locale = {
           "Diese Bewertung beschreibt den Austausch zwischen den Unternehmen, nicht das Endprodukt, das Sie kaufen: das Werkzeug fragt nie, welches Produkt es ist.",
       },
     },
-    noVerdict: "Für diesen Fall wurde noch keine Konfiguration abgeleitet.",
+    noVerdict: "Kein Fall geöffnet. Füllen Sie den Fragebogen aus oder laden Sie einen gespeicherten Fall, um diese Ansicht zu sehen.",
     notAssessed: {
       environmental: 'Diese Studie bewertet keine Umweltwirkungen: Die Umweltdimension wurde beim Anlegen des Falls ausgeschaltet.',
       social: "Diese Studie bewertet keine sozialen Wirkungen: die soziale Dimension wurde bei der Fallkonfiguration deaktiviert. Bitten Sie die Analystin oder den Analysten, sie zu aktivieren, wenn Beschäftigte oder die lokale Gemeinschaft zur Frage gehören.",
@@ -1244,6 +1251,7 @@ const de: Locale = {
   },
 
   cases: {
+    publicLink: "Öffentlicher Link",
     navLink: 'Meine Fälle',
     title: 'Meine Fälle',
     intro: 'Auf dem Server gespeicherte Fälle. Laden, um den Fragebogen zu befüllen, oder löschen, um endgültig zu entfernen.',

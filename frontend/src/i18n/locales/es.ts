@@ -109,6 +109,7 @@ const es: Locale = {
       whatTitle: '¿Qué es un informe?', whatBody: 'Describe un caso de simbiosis industrial.',
       whereTitle: '¿Dónde saber más?', whereBody: 'Visita el sitio del proyecto',
       enterTool: 'Entrar en la herramienta',
+      backToReport: "Volver al informe",
     },
     region: {
       eyebrow: 'Región · {{code}}', title: 'Panel regional', lead: 'Vista agregada.', total: 'Casos', situations: 'Situaciones ILCD', sectors: 'Sectores',
@@ -313,7 +314,8 @@ const es: Locale = {
     runningButton: 'Calculando…',
     resetButton: 'Reiniciar borrador',
     confirmReset: '¿Descartar todas las respuestas y empezar de nuevo? No se puede deshacer.',
-    q1Required: 'Q1 es obligatoria.',
+    stillRequired: "Falta responder:",
+    flowsMissingQ5: "quién paga a quién, para cada flujo",
     shortcutTip: 'Tip: Ctrl/⌘+Enter para ejecutar',
 
     q0: {
@@ -605,6 +607,7 @@ const es: Locale = {
     q5Note: "Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «gratuito / ambiguo» cuando esté realmente sin decidir.",
     emptyHint: 'Sin flujos. Añade al menos uno para caracterizar la Q5 por flujo.',
     headers: { id: 'ID', name: 'Nombre', q5: 'Q5', sellable: '¿Vendible a otros?', sector: 'Sector (Parte 2)', configuration: "Configuración (Parte 2)" },
+    q5Unset: "— elige quién paga a quién",
     sellable: { unset: '— sin respuesta', yes: 'Sí', no: 'No' },
     sellableHint: "Si el socio no tomara este flujo, ¿podría el generador venderlo a otro a un precio positivo? Sí lo convierte en coproducto. No, por sí solo, no lo convierte en residuo: un único comprador que paga lo que pagaría un comprador independiente (el precio del producto que el flujo sustituye, descontados sus costes adicionales para usarlo) lo sigue convirtiendo en coproducto; un flujo cedido gratis, o un pago que solo reparte costes, lo convierte en residuo (D4.1 §8.3.3). Opcional: el resultado señala cuando no coincide con Q5.",
     sectorHint: "Elige el capítulo de la D4.1 Part 2 de lo que se intercambia, no de la empresa: residuos agrícolas y agroindustriales → Agroalimentario (§4); residuos municipales o mezclados, biorresiduos incluidos (fracción orgánica de los RSU, restos de comida domésticos) → Valorización de residuos (§8); lodos y aguas residuales tratadas, también cuando se reutilizan como agua → Aguas residuales (§6); un producto o vector energético obtenido de un flujo (biometano, digestato, electricidad) → el capítulo de ese flujo. Donde §4 y §8 se solapan en los biorresiduos, decide el origen (lectura T4.6 de la Part 2 §3.3). Opcional: el resultado lista las reglas del capítulo.",
@@ -874,6 +877,8 @@ const es: Locale = {
         'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
       provenance:
         "Los nombres y enunciados de las reglas están traducidos de la tabla inglesa del motor. El código junto a cada elemento — IR-01, CDP-02 — es la referencia que no cambia de un idioma a otro, y el nombre en inglés se mantiene al lado.",
+      noTensions:
+        "Para estas respuestas no ha surgido ningún punto de decisión crítico entre los métodos. Las obligaciones de abajo se aplican igualmente.",
       allClear:
         'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: recoger los datos de inventario.',
       ctaHint: 'El Data Collection File está calibrado en esta configuración: solo pide lo que tu caso necesita.',
@@ -990,10 +995,12 @@ const es: Locale = {
       '13 fixtures del sample de validación (12 papers + Leiva Escombreras / Frövi). Carga las respuestas, flujos incluidos, en el cuestionario para inspeccionar y ejecutar el motor end-to-end.',
     loadButton: 'Cargar preset',
     rationaleToggle: '¿Por qué estas respuestas? (rationale de compilación)',
+    replaceConfirm: "Cargar este ejemplo sustituye las respuestas en las que estás trabajando. Guarda primero tu caso si quieres conservarlo. ¿Cargar el ejemplo?",
+    loaded: "Ejemplo cargado: {{name}}",
   },
 
   toast: {
-    pipelineCompleted: 'Pipeline completada en {{ms}} ms — {{situation}}',
+    pipelineCompleted: "Configuración lista",
     pipelineError: 'Error de pipeline — {{detail}}',
     scenariosCompleted: '{{n}} escenarios ejecutados',
     scenariosError: 'Ejecución de escenarios fallida — {{detail}}',
@@ -1074,7 +1081,7 @@ const es: Locale = {
           "Esta evaluación describe el intercambio entre las empresas, no el producto final que compras: la herramienta nunca pregunta cuál es el producto.",
       },
     },
-    noVerdict: "Todavía no se ha derivado ninguna configuración para este caso.",
+    noVerdict: "No hay ningún caso abierto. Rellena el cuestionario o carga un caso guardado para ver esta vista.",
     notAssessed: {
       environmental: 'Este estudio no evalúa los impactos ambientales: la dimensión ambiental se desactivó al configurar el caso.',
       social: "Este estudio no evalúa impactos sociales: la dimensión social se desactivó al configurar el caso. Pide al analista que la active si los trabajadores o la comunidad local forman parte de la pregunta.",
@@ -1243,6 +1250,7 @@ const es: Locale = {
   },
 
   cases: {
+    publicLink: "Enlace público",
     navLink: 'Mis casos',
     title: 'Mis casos',
     intro: 'Casos guardados en el servidor. Carga para rellenar el cuestionario, o elimina para borrar permanentemente.',

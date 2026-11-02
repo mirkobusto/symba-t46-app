@@ -66,7 +66,7 @@ function formatAnswer(kase: Case, id: string): string | null {
       return kase.q4?.length ? kase.q4.join(', ') : null
     case 'Q5':
       return kase.flows?.length
-        ? kase.flows.map((f) => `${f.name}: ${f.q5}`).join(' · ')
+        ? kase.flows.map((f) => `${f.name}: ${f.q5 ?? '—'}`).join(' · ')
         : null
     case 'Q6a':
       return kase.q6a ?? null

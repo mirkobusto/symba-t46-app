@@ -397,6 +397,8 @@ html {
   border: 1px solid var(--slate-200);
   border-radius: 10px;
   background: var(--surface-input);
+  /* the "still to answer" links land below the two sticky headers */
+  scroll-margin-top: 160px;
 }
 /* Step numbers follow the order on screen; hidden cards take none (R5). */
 .questionnaire-steps { counter-reset: qstep; }
@@ -1772,6 +1774,8 @@ kbd {
 
 .stakeholder-view {
   background: var(--surface);
+  /* #root centres text (index.css); this view read as a broken page */
+  text-align: left;
 }
 
 .stakeholder-framing {
@@ -4622,6 +4626,12 @@ kbd {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.16);
   color: #fff;
+}
+
+/* the reader card is light: white badges on it were invisible */
+.dd-verdict-reader .dd-verdict-codes code {
+  background: var(--dd-brand-bg);
+  color: var(--dd-brand);
 }
 
 .dd-verdict-body {

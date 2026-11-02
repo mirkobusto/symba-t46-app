@@ -73,6 +73,11 @@ function parseYear(raw: string): number | null {
 
 const START_KEYS = ['', 'now', 'future'] as const
 
+// "Q9 — What is the study for…? *" → "What is the study for…?"
+function cardTitle(title: string): string {
+  return title.replace(/^Q\d+[ab]?\s+—\s+/, '').replace(/\s*\*$/, '')
+}
+
 export default function QuestionnairePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -176,7 +181,18 @@ export default function QuestionnairePage() {
   const q3Empty = !env && !eco && !soc
   // Q9 is required: the ILCD situation follows it (D4.1 Table 1), not Q1
   // Q10 is required when the economic dimension is on: it decides the societal LCC
-  const canRun = !!q1 && !q3Empty && decisionContext !== '' && (!eco || policy !== '') && !loading
+  const flowsWithoutQ5 = flows.some((f) => !f.q5)
+  // what still blocks the run, in page order, named by the card title (the
+  // step number on screen is a CSS counter, the Q code alone meant nothing to
+  // a newcomer, and "Q1 is required" stayed silent about Q9 and Q10)
+  const missing: { id: string; label: string }[] = [
+    ...(!q1 ? [{ id: 'q1', label: cardTitle(t('questionnaire.q1.title')) }] : []),
+    ...(q3Empty ? [{ id: 'q3', label: cardTitle(t('questionnaire.q3.title')) }] : []),
+    ...(decisionContext === '' ? [{ id: 'q9', label: cardTitle(t('questionnaire.q9.title')) }] : []),
+    ...(eco && policy === '' ? [{ id: 'q10', label: cardTitle(t('questionnaire.q10.title')) }] : []),
+    ...(flowsWithoutQ5 ? [{ id: 'q5', label: t('questionnaire.flowsMissingQ5') }] : []),
+  ]
+  const canRun = missing.length === 0 && !loading
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -701,8 +717,24 @@ export default function QuestionnairePage() {
         <button type="button" className="btn btn-secondary" onClick={handleReset}>
           {t('questionnaire.resetButton')}
         </button>
-        {!q1 ? (
-          <span className="muted">{t('questionnaire.q1Required')}</span>
+        {missing.length > 0 ? (
+          <span className="muted run-missing">
+            {t('questionnaire.stillRequired')}{' '}
+            {missing.map((m, i) => (
+              <span key={m.id}>
+                {i > 0 ? ' · ' : null}
+                <a
+                  href={`#${m.id}`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    document.getElementById(m.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }}
+                >
+                  {m.label}
+                </a>
+              </span>
+            ))}
+          </span>
         ) : (
           <span className="muted run-tip">{t('questionnaire.shortcutTip')}</span>
         )}

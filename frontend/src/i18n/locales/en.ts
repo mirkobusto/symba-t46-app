@@ -105,6 +105,7 @@ const en = {
       whereTitle: 'Where can I learn more?',
       whereBody: 'Visit the project website or read the deliverables at',
       enterTool: 'Enter the tool',
+      backToReport: "Back to the report",
     },
     region: {
       eyebrow: 'Region · {{code}}',
@@ -361,7 +362,8 @@ const en = {
     runningButton: 'Working it out…',
     resetButton: 'Reset draft',
     confirmReset: 'Discard all answers and start over? This cannot be undone.',
-    q1Required: 'Q1 is required.',
+    stillRequired: "Still to answer:",
+    flowsMissingQ5: "who pays whom, for every flow",
     shortcutTip: 'Tip: Ctrl/⌘+Enter to run',
 
     q0: {
@@ -653,6 +655,7 @@ const en = {
     q5Note: "Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick \"free / ambiguous\" when it is genuinely undecided rather than forcing a direction.",
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
     headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
+    q5Unset: "— choose who pays whom",
     sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
     sellableHint: "If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product. No does not make it a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still makes it a co-product; a free flow, or a payment that only shares costs, makes it a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.",
     sectorHint: "Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues → Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste) → Waste valorisation (§8); sludge and treated wastewater, also when reused as water → Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) → the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter.",
@@ -921,6 +924,8 @@ const en = {
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and, where the engine settles it, how.',
       provenance:
         "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
+      noTensions:
+        "No critical decision point between the methods was surfaced for these answers. The obligations below still apply.",
       allClear:
         'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: collect the inventory data.',
       ctaHint: 'The Data Collection File is calibrated on this configuration: it only asks for what your case needs.',
@@ -1036,10 +1041,12 @@ const en = {
       '13 fixtures from the validation sample (12 papers + Leiva Escombreras / Frövi). Loads the answers, flows included, into the questionnaire so you can inspect and run the engine end-to-end.',
     loadButton: 'Load preset',
     rationaleToggle: 'Why these answers? (compilation rationale)',
+    replaceConfirm: "Loading this example replaces the answers you are working on. Save your case first if you want to keep it. Load the example?",
+    loaded: "Example loaded: {{name}}",
   },
 
   toast: {
-    pipelineCompleted: 'Pipeline completed in {{ms}} ms — {{situation}}',
+    pipelineCompleted: "Configuration ready",
     pipelineError: 'Pipeline error — {{detail}}',
     scenariosCompleted: '{{n}} scenarios run',
     scenariosError: 'Scenarios run failed — {{detail}}',
@@ -1121,7 +1128,7 @@ const en = {
           "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
       },
     },
-    noVerdict: "No configuration derived yet for this case.",
+    noVerdict: "No case is open. Answer the questionnaire or load a saved case to see this view.",
     notAssessed: {
       environmental: 'This study does not assess environmental impacts: the environmental dimension was switched off when the case was set up.',
       social: "This study does not assess social impacts: the social dimension was switched off when the case was set up. Ask the analyst to turn it on if workers or the local community are part of the question.",
@@ -1290,6 +1297,7 @@ const en = {
   },
 
   cases: {
+    publicLink: "Public link",
     navLink: 'My cases',
     title: 'My cases',
     intro: 'Cases saved on the server. Load to populate the questionnaire, or delete to remove permanently.',

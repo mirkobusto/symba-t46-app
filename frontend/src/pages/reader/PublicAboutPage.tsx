@@ -5,12 +5,20 @@
 // page when a visitor clicks the brand logo in the reader header.
 
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function PublicAboutPage() {
   const { t } = useTranslation()
+  const from = (useLocation().state as { from?: string } | null)?.from
+  // a reader who tapped the logo on a report had no way back to it
+  const backTo = from && from.startsWith('/r/') && from !== '/r/about' ? from : null
   return (
     <article className="dd-reader-article">
+      {backTo ? (
+        <p>
+          <Link to={backTo}>← {t('reader.about.backToReport')}</Link>
+        </p>
+      ) : null}
       <div className="dd-reader-eyebrow">{t('reader.about.eyebrow')}</div>
       <h1>{t('reader.about.title')}</h1>
       <p className="dd-soft">{t('reader.about.lead')}</p>

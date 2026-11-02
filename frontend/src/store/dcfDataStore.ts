@@ -178,7 +178,7 @@ export const useDcfDataStore = create<DcfDataState>()(
             if (!flow.id || existing.has(flow.id)) continue
             const values: Record<string, unknown> = {}
             if (flowAllowed.has('flow.name')) values['flow.name'] = flow.name
-            if (flowAllowed.has('flow.q5_class')) values['flow.q5_class'] = flow.q5
+            if (flowAllowed.has('flow.q5_class') && flow.q5) values['flow.q5_class'] = flow.q5
             if (flow.physical_unit && flowAllowed.has('flow.unit')) {
               values['flow.unit'] = flow.physical_unit
             }

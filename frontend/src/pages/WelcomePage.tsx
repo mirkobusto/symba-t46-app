@@ -10,7 +10,7 @@
 // saved it opens on the task question; `/welcome?step=1` (the sidebar's
 // "Change role" link) opens it on the role question instead.
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -55,7 +55,20 @@ export default function WelcomePage() {
   const [role, setRole] = useState<UserRole | null>(storedRole)
   const [task, setTask] = useState<UserTask | null>(storedTask)
 
+  // each step opens at its top: on a phone the second step otherwise showed
+  // only a disabled button, with the question scrolled out of sight
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [step])
+
   function handleContinue() {
+    // "Not sure yet" promises the overview page, so it goes there directly
+    // instead of asking a second question it cannot answer either
+    if (step === 1 && role === 'unknown') {
+      completeOnboarding(role, 'browse')
+      navigate(recommendedRouteFor(role, 'browse'))
+      return
+    }
     if (step === 1 && role) {
       setStep(2)
       return

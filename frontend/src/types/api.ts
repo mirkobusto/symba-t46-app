@@ -62,7 +62,10 @@ export interface Q3 {
 export interface Flow {
   id: string
   name: string
-  q5: Q5
+  /** Unset only on a draft row nobody has answered yet: a new row has no
+   *  default, since a preset "c" declared a co-product for whoever left it
+   *  alone. The questionnaire does not run until every flow has it. */
+  q5?: Q5
   physical_quantity?: number | null
   physical_unit?: string | null
   notes?: string | null

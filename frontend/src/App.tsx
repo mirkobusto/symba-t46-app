@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import ErrorBoundary from './components/ErrorBoundary'
@@ -39,10 +40,25 @@ function WelcomeGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+/**
+ * A new page opens at its top. Without this the browser keeps the scroll
+ * offset of the page you left, so a result or an About page could open
+ * half-way down, showing only a footer (UX round 2026-11-02). In-page
+ * anchors (`#q9`) keep their own scrolling.
+ */
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (!hash) window.scrollTo(0, 0)
+  }, [pathname, hash])
+  return null
+}
+
 export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
+        <ScrollToTop />
         <WelcomeGate>
           <Routes>
             <Route path="/welcome" element={<WelcomePage />} />

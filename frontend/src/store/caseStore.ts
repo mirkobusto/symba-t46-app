@@ -103,18 +103,15 @@ export const useCaseStore = create<CaseState>()(
         set({ draft: { ...get().draft, ...patch }, lastSavedAt: Date.now() }),
 
       async runDraft() {
-        const t0 = performance.now()
         set({ loading: true, error: null })
         try {
           const result = await runPipeline(get().draft)
           set({ result, loading: false })
-          const ms = Math.round(performance.now() - t0)
+          // milliseconds and the English situation code meant nothing to a
+          // reader; the result page names the situation in words
           useToastStore.getState().push({
             type: 'success',
-            message: i18n.t('toast.pipelineCompleted', {
-              ms,
-              situation: result.ilcd_situation ?? '—',
-            }),
+            message: i18n.t('toast.pipelineCompleted'),
           })
           return result
         } catch (e) {

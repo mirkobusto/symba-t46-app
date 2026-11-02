@@ -7,7 +7,7 @@
 // funding statement. The content column is capped at 720 px so long
 // reports remain comfortable to read on a phone or desktop.
 
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import SiteHeader from '../brand/SiteHeader'
@@ -17,6 +17,7 @@ import ToastHost from '../ToastHost'
 
 export default function ReaderShell() {
   const { t } = useTranslation()
+  const { pathname } = useLocation()
   return (
     <div className="dd-reader">
       <a href="#reader-main" className="skip-link">
@@ -24,7 +25,8 @@ export default function ReaderShell() {
       </a>
       <SiteHeader />
       <div className="dd-reader-header">
-        <Link to="/r/about" className="dd-reader-brand">
+        {/* /r/about offers the way back to the report the reader came from */}
+        <Link to="/r/about" state={{ from: pathname }} className="dd-reader-brand">
           <img
             className="dd-reader-brand-icon"
             src="/brand/cropped-icona-192x192.png"

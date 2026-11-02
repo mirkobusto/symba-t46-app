@@ -22,6 +22,11 @@ from typing import Any
 from app.domain.models import Case
 
 _Q_TOKEN = re.compile(r"Q(1[0-2]|[1-9])(a|b)?")
+_Q8_PHRASES = (
+    ("operating start", "Q8a"),
+    ("analysis period", "Q8b"),
+    ("asset lifetime", "Q8c"),
+)
 
 
 @lru_cache(maxsize=1)
@@ -103,6 +108,15 @@ def _answer_for(case: Case, label: str) -> str | None:
         return ", ".join(sorted(q.value for q in case.q4)) or None
     if label == "Q5":
         return " · ".join(f"{f.name}: {f.q5.value}" for f in case.flows) or None
+    if label == "Q8a":
+        if case.operating_start is None:
+            return None
+        start = case.operating_start.value
+        return f"{start} ({case.operating_start_year})" if case.operating_start_year else start
+    if label == "Q8b":
+        return None if case.analysis_period_years is None else f"{case.analysis_period_years:g} y"
+    if label == "Q8c":
+        return None if case.asset_lifetime_years is None else f"{case.asset_lifetime_years:g} y"
     if label == "Q9":
         return case.decision_context.value if case.decision_context else None
     if label == "Q10":
@@ -134,6 +148,16 @@ def answers_in(trigger: str | None, case: Case) -> list[tuple[str, str]]:
         answer = _answer_for(case, label)
         if answer is not None:
             out.append((label, str(answer)))
+    # Q8 is named in words ("asset lifetime > 15y"), not by code: without
+    # this, CIR-01 cited only "Q6b = TRL9" as why it applied, when the asset
+    # lifetime had triggered it (UX round 2026-11-02).
+    lowered = trigger.lower()
+    for phrase, label in _Q8_PHRASES:
+        if phrase in lowered and label not in seen:
+            seen.add(label)
+            answer = _answer_for(case, label)
+            if answer is not None:
+                out.append((label, str(answer)))
     return out
 
 

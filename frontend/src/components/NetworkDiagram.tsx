@@ -107,7 +107,7 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
         id: `edge-${flow.id}`,
         source: originId,
         target: destId,
-        label: `${flow.name} (q5=${flow.q5})`,
+        label: `${flow.name} (q5=${flow.q5 ?? '?'})`,
         animated: false,
       })
     })

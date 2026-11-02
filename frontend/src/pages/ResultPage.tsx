@@ -233,7 +233,11 @@ export default function ResultPage() {
             {t('result.blocked.desc')}
           </p>
         ) : todo.length === 0 ? (
-          <p className="result-next-lead">{t('result.next.allClear')}</p>
+          // "no obligation" stood above "9 obligations to document" when only
+          // the critical decision points were empty
+          <p className="result-next-lead">
+            {obligationCount > 0 ? t('result.next.noTensions') : t('result.next.allClear')}
+          </p>
         ) : (
           <p className="result-next-lead">{t('result.next.lead')}</p>
         )}

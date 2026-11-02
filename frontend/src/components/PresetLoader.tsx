@@ -8,16 +8,21 @@ import { useNavigate } from 'react-router-dom'
 
 import { PRESETS } from '../presets/papers'
 import { useCaseStore } from '../store/caseStore'
+import { useToastStore } from '../store/toastStore'
 
 export default function PresetLoader() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
+  const draft = useCaseStore((s) => s.draft)
   const [presetId, setPresetId] = useState<string>(PRESETS[0]?.id ?? '')
 
   function handleLoad() {
     const preset = PRESETS.find((p) => p.id === presetId)
     if (!preset) return
+    // loading replaced a case being built, silently (UX round 2026-11-02)
+    const hasWork = !!draft.q1 || !!draft.decision_context || (draft.flows?.length ?? 0) > 0
+    if (hasWork && !window.confirm(t('preset.replaceConfirm'))) return
     setDraft({
       q3: { env: false, eco: false, soc: false },
       q4: [],
@@ -26,6 +31,10 @@ export default function PresetLoader() {
       alternative_scenarios: [],
       advanced: {},
       ...preset.case,
+    })
+    useToastStore.getState().push({
+      type: 'info',
+      message: t('preset.loaded', { name: preset.citation }),
     })
     navigate('/questionnaire')
   }

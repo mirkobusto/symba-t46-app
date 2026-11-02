@@ -124,6 +124,7 @@ const it: Locale = {
       whereTitle: 'Dove trovo altre informazioni?',
       whereBody: 'Visita il sito del progetto o leggi le deliverable su',
       enterTool: 'Entra nel tool',
+      backToReport: "Torna al report",
     },
     region: {
       eyebrow: 'Regione · {{code}}',
@@ -339,7 +340,8 @@ const it: Locale = {
     runningButton: 'Sto calcolando…',
     resetButton: 'Reset bozza',
     confirmReset: 'Scartare tutte le risposte e ricominciare? Operazione non reversibile.',
-    q1Required: 'Q1 è obbligatoria.',
+    stillRequired: "Mancano ancora:",
+    flowsMissingQ5: "chi paga chi, per ogni flusso",
     shortcutTip: 'Suggerimento: Ctrl/⌘+Enter per eseguire',
 
     q0: {
@@ -631,6 +633,7 @@ const it: Locale = {
     q5Note: "Rispondi con l'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli \"gratuito / ambiguo\" quando è davvero indeciso, invece di forzare una direzione.",
     emptyHint: 'Nessun flusso. Aggiungine almeno uno per caratterizzare la Q5 per-flusso.',
     headers: { id: 'ID', name: 'Nome', q5: 'Q5', sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
+    q5Unset: "— scegli chi paga chi",
     sellable: { unset: '— senza risposta', yes: 'Sì', no: 'No' },
     sellableHint: "Se il partner non prendesse questo flusso, chi lo genera potrebbe venderlo a qualcun altro a un prezzo positivo? Sì lo rende un co-prodotto. No non lo rende da solo un rifiuto: un unico acquirente che paga quanto pagherebbe un compratore indipendente (il prezzo del prodotto che il flusso sostituisce, al netto dei suoi costi in più per usarlo) lo rende comunque un co-prodotto; un flusso ceduto gratis, o un pagamento che divide solo i costi, lo rende un rifiuto (D4.1 §8.3.3). Facoltativa: il risultato segnala quando non concorda con Q5.",
     sectorHint: "Scegli il capitolo della D4.1 Part 2 di ciò che si scambia, non dell'azienda: residui agricoli e agroindustriali → Agroalimentare (§4); rifiuti urbani o misti, biorifiuti compresi (FORSU, scarti alimentari domestici) → Valorizzazione dei rifiuti (§8); fanghi e acque reflue trattate, anche quando riusate come acqua → Acque reflue (§6); un prodotto o un vettore energetico ottenuto da un flusso (biometano, digestato, elettricità) → il capitolo di quel flusso. Dove §4 e §8 si sovrappongono sui biorifiuti, decide l'origine (lettura T4.6 della Part 2 §3.3). Facoltativa: il risultato elenca le regole del capitolo.",
@@ -899,6 +902,8 @@ const it: Locale = {
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e, dove il motore lo risolve, come.',
       provenance:
         "I nomi e gli enunciati delle regole sono tradotti dalla tabella inglese del motore. Il codice accanto a ogni voce — IR-01, CDP-02 — è il riferimento che non cambia da una lingua all'altra, e accanto resta il nome inglese.",
+      noTensions:
+        "Per queste risposte non è emerso nessun punto di decisione critico fra i metodi. Gli obblighi qui sotto valgono comunque.",
       allClear:
         'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: raccogliere i dati di inventario.',
       ctaHint: 'Il Data Collection File è calibrato su questa configurazione: ti chiede solo quello che serve al tuo caso.',
@@ -1015,10 +1020,12 @@ const it: Locale = {
       '13 fixture dal sample di validazione (12 paper + Leiva Escombreras / Frövi). Carica le risposte, flussi compresi, nel questionario per ispezionare ed eseguire il motore end-to-end.',
     loadButton: 'Carica preset',
     rationaleToggle: 'Perché queste risposte? (rationale di compilazione)',
+    replaceConfirm: "Caricare questo esempio sostituisce le risposte su cui stai lavorando. Se vuoi tenerle, salva prima il caso. Caricare l'esempio?",
+    loaded: "Esempio caricato: {{name}}",
   },
 
   toast: {
-    pipelineCompleted: 'Pipeline completata in {{ms}} ms — {{situation}}',
+    pipelineCompleted: "Configurazione pronta",
     pipelineError: 'Errore pipeline — {{detail}}',
     scenariosCompleted: '{{n}} scenari eseguiti',
     scenariosError: 'Esecuzione scenari fallita — {{detail}}',
@@ -1100,7 +1107,7 @@ const it: Locale = {
           "Questa valutazione descrive lo scambio tra le aziende, non il prodotto finale che compri: lo strumento non chiede quale sia il prodotto.",
       },
     },
-    noVerdict: "Nessuna configurazione ancora derivata per questo caso.",
+    noVerdict: "Nessun caso aperto. Compila il questionario o carica un caso salvato per vedere questa vista.",
     notAssessed: {
       environmental: 'Questo studio non valuta gli impatti ambientali: la dimensione ambientale è stata esclusa quando il caso è stato impostato.',
       social: "Questo studio non valuta gli impatti sociali: la dimensione sociale è stata disattivata alla configurazione del caso. Chiedi all'analista di attivarla se lavoratori o comunità locale fanno parte della domanda.",
@@ -1269,6 +1276,7 @@ const it: Locale = {
   },
 
   cases: {
+    publicLink: "Link pubblico",
     navLink: 'I miei casi',
     title: 'I miei casi',
     intro: 'Casi salvati sul server. Carica per popolare il questionario, o elimina per rimuovere definitivamente.',

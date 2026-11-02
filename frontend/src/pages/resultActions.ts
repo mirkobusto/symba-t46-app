@@ -43,6 +43,12 @@ export interface ActionItem {
 }
 
 const Q_TOKEN = /Q(1[0-2]|[1-9])(a|b)?/g
+// Q8 is named in words in the triggers ("asset lifetime > 15y"), not by code
+const Q8_PHRASES: [string, string][] = [
+  ['operating start', 'Q8a'],
+  ['analysis period', 'Q8b'],
+  ['asset lifetime', 'Q8c'],
+]
 
 function formatAnswer(kase: Case, id: string): string | null {
   switch (id) {
@@ -60,7 +66,7 @@ function formatAnswer(kase: Case, id: string): string | null {
       return kase.q4?.length ? kase.q4.join(', ') : null
     case 'Q5':
       return kase.flows?.length
-        ? kase.flows.map((f) => `${f.name}: ${f.q5}`).join(' · ')
+        ? kase.flows.map((f) => `${f.name}: ${f.q5 ?? '—'}`).join(' · ')
         : null
     case 'Q6a':
       return kase.q6a ?? null
@@ -68,6 +74,15 @@ function formatAnswer(kase: Case, id: string): string | null {
       return kase.q6b ?? null
     case 'Q7':
       return kase.q7 ?? null
+    case 'Q8a':
+      if (!kase.operating_start) return null
+      return kase.operating_start_year
+        ? `${kase.operating_start} (${kase.operating_start_year})`
+        : kase.operating_start
+    case 'Q8b':
+      return kase.analysis_period_years == null ? null : `${kase.analysis_period_years} y`
+    case 'Q8c':
+      return kase.asset_lifetime_years == null ? null : `${kase.asset_lifetime_years} y`
     case 'Q9':
       return kase.decision_context ?? null
     case 'Q10':
@@ -96,6 +111,15 @@ export function answersFor(
   for (const match of trigger.matchAll(Q_TOKEN)) {
     const label = `Q${match[1]}${match[2] ?? ''}`
     if (seen.has(label)) continue
+    seen.add(label)
+    const value = formatAnswer(kase, label)
+    if (value !== null) out.push({ label, value })
+  }
+  // without this CIR-01 cited only "Q6b = TRL9" when the asset lifetime had
+  // triggered it (UX round 2026-11-02)
+  const lowered = trigger.toLowerCase()
+  for (const [phrase, label] of Q8_PHRASES) {
+    if (!lowered.includes(phrase) || seen.has(label)) continue
     seen.add(label)
     const value = formatAnswer(kase, label)
     if (value !== null) out.push({ label, value })

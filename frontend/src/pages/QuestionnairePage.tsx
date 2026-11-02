@@ -1,6 +1,6 @@
 // Questionnaire page — i18n.
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,6 +13,7 @@ import { useCaseStore } from '../store/caseStore'
 import { usePreferenceStore } from '../store/preferenceStore'
 import type {
   AlternativeScenario,
+  Case,
   Flow,
   Q1,
   Q2,
@@ -206,8 +207,10 @@ export default function QuestionnairePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canRun, purpose, q1, q2, longStanding, env, eco, soc, q4, flows, scenarios, q6a, q6b, q7, marketRegion, marketScope, operatingStart, startYear, analysisPeriod, assetLifetime, decisionContext, screening, policy, comparisonGoal, sharedAssets, advanced])
 
-  async function handleRun() {
-    patchDraft({
+  // the answers as a draft patch: written on run, and also when the page is
+  // left or reloaded, so nothing typed is lost before the first run
+  function buildPatch(): Partial<Case> {
+    return {
       study_purpose: purpose || null,
       q1, q2,
       network_long_standing: q2 === 'A' && !oneCompany && longStanding !== '' ? longStanding === 'yes' : null,
@@ -230,7 +233,23 @@ export default function QuestionnairePage() {
       // Q12 is asked when LCA or LCC is on (D4.1 §6.3.3, D4.2 §4.2)
       dedicated_shared_assets: (env || eco) && sharedAssets !== '' ? sharedAssets === 'yes' : null,
       advanced,
-    })
+    }
+  }
+  const buildPatchRef = useRef(buildPatch)
+  useEffect(() => {
+    buildPatchRef.current = buildPatch
+  })
+  useEffect(() => {
+    const save = () => patchDraft(buildPatchRef.current())
+    window.addEventListener('beforeunload', save)
+    return () => {
+      window.removeEventListener('beforeunload', save)
+      save()
+    }
+  }, [patchDraft])
+
+  async function handleRun() {
+    patchDraft(buildPatch())
     const result = await runDraft()
     if (result) navigate('/result')
   }
@@ -262,7 +281,9 @@ export default function QuestionnairePage() {
       <div className="dd-page-head">
         <div>
           <h1 className="dd-page-title">{t('questionnaire.title')}</h1>
-          <p className="dd-page-sub">{t('questionnaire.intro')}</p>
+          <p className="dd-page-sub">
+            {mode === 'guided' ? t('questionnaire.introPlain') : t('questionnaire.intro')}
+          </p>
         </div>
       </div>
 
@@ -370,6 +391,10 @@ export default function QuestionnairePage() {
               onChange={() => setDecisionContext(k)}
             />
             <span className="opt-label">{t(`questionnaire.q9.options.${k}`)}</span>
+            {/* Q9 is where newcomers gave up: an example per answer */}
+            {mode === 'guided' ? (
+              <span className="opt-desc">{t(`questionnaire.q9.examples.${k}`)}</span>
+            ) : null}
           </label>
         ))}
         {decisionContext === 'structural' && (
@@ -677,28 +702,33 @@ export default function QuestionnairePage() {
         </select>
       </QuestionCard>
 
-      {/* Alternative scenarios: available to every study (D4.1 §4.3.3) */}
-      <QuestionCard
-        id="q2d-scenarios"
-        title={t('questionnaire.q2dCard.title')}
-        help={t('questionnaire.q2dCard.help')}
-      >
-        <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
-      </QuestionCard>
+      {/* Alternative scenarios (D4.1 §4.3.3) and the expert overrides are
+          written as JSON keys: analyst tools, out of guided mode */}
+      {mode !== 'guided' ? (
+        <QuestionCard
+          id="q2d-scenarios"
+          title={t('questionnaire.q2dCard.title')}
+          help={t('questionnaire.q2dCard.help')}
+        >
+          <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
+        </QuestionCard>
+      ) : null}
 
       {/* Advanced */}
-      <details className="advanced-card">
-        <summary>
-          <strong>{t('questionnaire.advancedCard.title')}</strong>
-          <span className="muted">
-            {' · '}
-            {t('questionnaire.advancedCard.activeKeys', { count: Object.keys(advanced).length })}
-          </span>
-        </summary>
-        <div className="advanced-card-body">
-          <AdvancedEditor advanced={advanced} onChange={setAdvanced} />
-        </div>
-      </details>
+      {mode !== 'guided' ? (
+        <details className="advanced-card">
+          <summary>
+            <strong>{t('questionnaire.advancedCard.title')}</strong>
+            <span className="muted">
+              {' · '}
+              {t('questionnaire.advancedCard.activeKeys', { count: Object.keys(advanced).length })}
+            </span>
+          </summary>
+          <div className="advanced-card-body">
+            <AdvancedEditor advanced={advanced} onChange={setAdvanced} />
+          </div>
+        </details>
+      ) : null}
 
       {/* Stated before the run, not after: the tool derives a
           methodological configuration, it does not compute the numbers, and a

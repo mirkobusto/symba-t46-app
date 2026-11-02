@@ -357,6 +357,7 @@ const it: Locale = {
       "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda. Le risposte determinano la configurazione metodologica e il piano di raccolta dati che riceverai al termine.",
     intro:
       'Domande sul tuo caso di simbiosi industriale, in tre parti: lo studio, gli scambi e una descrizione del caso. Obbligatorie: le dimensioni (Q3), la decisione e la sua scala (Q9), il soggetto (Q1) e, con la dimensione economica, l\'obiettivo pubblico (Q10); il resto è facoltativo e rende più precisa la configurazione.',
+    introPlain: "Domande sul tuo scambio fra aziende, in tre parti. Quelle con * sono obbligatorie; le altre rendono il risultato più preciso. Sotto ogni domanda trovi una spiegazione breve, in parole semplici.",
     runButton: 'Calcola la configurazione',
     runningButton: 'Sto calcolando…',
     resetButton: 'Reset bozza',
@@ -585,6 +586,12 @@ const it: Locale = {
       title: 'Q9 — A cosa serve lo studio, e fin dove arrivano i suoi effetti? *',
       help: 'Obbligatoria. Decide la situazione di modellazione (ILCD A, B, C1 o C2); Q1 descrive solo il soggetto.',
       details: "La Tabella 1 di D4.1 classifica lo studio in base alla decisione che sostiene e alla scala delle sue conseguenze, non in base al soggetto (D4.1 §4.2.3). Micro (Situazione A) è il default per le decisioni su singoli scambi e impianti. Strutturale (Situazione B) vale quando la decisione cambia la capacità installata in un mercato: l'ILCD Handbook lo assume quando la domanda o l'offerta annua che la decisione aggiunge o toglie a un mercato supera la capacità che quel mercato rinnova ogni anno, contando al massimo il 5 % (es. 10 Mt di impianti che durano 25 anni rinnovano 0,4 Mt l'anno). La progettazione di un nuovo parco, una ristrutturazione regionale o un programma richiedono questo screening (Mattila et al. 2012); senza, lo studio resta A, con B come analisi di sensibilità. Documentare una rete esistente, o un rendiconto aziendale che conta ciò che i suoi scambi fanno risparmiare altrove, è Situazione C1 (sostituzione, §7.2.3); il rendiconto di una sola azienda che esclude ogni credito per i suoi scambi è C2 (allocazione, nessun credito, §7.2.3), con costi solo a livello d'impresa (scelta di progetto T4.6).",
+      examples: {
+        micro: "Per esempio: vuoi sapere se conviene dare la segatura al pellettificio vicino, per avviare, continuare o cambiare lo scambio.",
+        structural: "Per esempio: un programma regionale abbastanza grande da cambiare quanto produce il mercato della regione. Un analista deve documentare la verifica del mercato.",
+        none: "Per esempio: vuoi descrivere che cosa rende oggi una rete di scambi esistente, per un rapporto, senza nulla da decidere.",
+        corporate_report: "Per esempio: il bilancio di sostenibilità della tua sola azienda (CSRD, la direttiva UE sui bilanci di sostenibilità): i benefici che i tuoi scambi portano ad altri non si contano.",
+      },
       options: {
         micro: 'Esplora o sostiene una scelta, anche ipotetica e senza un decisore nominato, e i suoi effetti restano negli impianti coinvolti (Situazione A)',
         structural: "Sostiene una scelta che cambia quanto produce un mercato o un settore, oltre la capacità che rinnova ogni anno (Situazione B; lo screening va documentato)",
@@ -653,7 +660,7 @@ const it: Locale = {
   flows: {
     q5Note: "Rispondi con l'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli \"gratuito / ambiguo\" quando è davvero indeciso, invece di forzare una direzione.",
     emptyHint: 'Nessun flusso. Aggiungine almeno uno per caratterizzare la Q5 per-flusso.',
-    headers: { id: 'ID', name: 'Nome', q5: 'Q5', sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
+    headers: { id: 'ID', name: 'Nome', q5: "Chi paga chi (Q5)", sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
     q5Unset: "— scegli chi paga chi",
     sellable: { unset: '— senza risposta', yes: 'Sì', no: 'No' },
     sellableHint: "Se il partner non prendesse questo flusso, chi lo genera potrebbe venderlo a qualcun altro a un prezzo positivo? Sì lo rende un co-prodotto. No non lo rende da solo un rifiuto: un unico acquirente che paga quanto pagherebbe un compratore indipendente (il prezzo del prodotto che il flusso sostituisce, al netto dei suoi costi in più per usarlo) lo rende comunque un co-prodotto; un flusso ceduto gratis, o un pagamento che divide solo i costi, lo rende un rifiuto (D4.1 §8.3.3). Facoltativa: il risultato segnala quando non concorda con Q5.",
@@ -693,9 +700,9 @@ const it: Locale = {
     addButton: 'Aggiungi flusso',
     removeAria: 'Rimuovi {{id}}',
     options: {
-      a: 'a — A paga B (rifiuto)',
+      a: "a — chi cede (A) paga chi riceve (B): rifiuto",
       b: 'b — Scambio gratuito (ambiguo)',
-      c: 'c — B paga A (co-prodotto)',
+      c: "c — chi riceve (B) paga chi cede (A): co-prodotto",
       d: 'd — Interdipendente',
       e: 'e — Aggregato / black-box',
     },
@@ -933,6 +940,7 @@ const it: Locale = {
       block: 'Bloccante',
       obligation: 'Da documentare',
       decision: 'Da decidere',
+      decisionResolved: "Risolto dal motore: da verificare",
     },
     severity: {
       HIGH: 'Alta',

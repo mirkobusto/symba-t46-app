@@ -376,6 +376,7 @@ const en = {
     title: 'Questionnaire',
     intro:
       'Questions about your industrial-symbiosis case, in three parts: the study, the exchanges, and a description of the case. Required: the dimensions (Q3), the decision and its scale (Q9), the subject (Q1) and, with the economic dimension, the public objective (Q10); the rest is optional and sharpens the configuration.',
+    introPlain: "Questions about your exchange between companies, in three parts. Those marked * are required; the others make the result more precise. Under each question you find a short explanation in plain words.",
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
       'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The answers decide the methodological configuration and the data-collection plan you receive at the end.',
@@ -607,6 +608,12 @@ const en = {
       title: 'Q9 — What is the study for, and how far do its effects reach? *',
       help: 'Required. It sets the modelling situation (ILCD A, B, C1 or C2); Q1 only describes the subject.',
       details: "D4.1 Table 1 classifies the study by the decision it supports and the scale of its consequences, not by its subject (D4.1 §4.2.3). Micro (Situation A) is the default for decisions on single exchanges and plants. Structural (Situation B) applies when the decision changes the capacity installed in a market: the ILCD Handbook assumes it when the yearly demand or supply the decision adds to or withdraws from a market exceeds the capacity that market replaces every year, counting at most 5 % (e.g. 10 Mt of plants lasting 25 years replace 0.4 Mt a year). The design of a new park, a regional restructuring or a programme needs this screening (Mattila et al. 2012); without it the study stays A, with B as a sensitivity. Documenting an existing network, or a company report that counts what its exchanges save elsewhere, is Situation C1 (substitution, §7.2.3); a report of one company that excludes any credit for its exchanges is C2 (allocation, no credits, §7.2.3), costed at company level only (a T4.6 design choice).",
+      examples: {
+        micro: "For example: you want to know whether giving your sawdust to the pellet plant next door is worth it, to start, keep or change the exchange.",
+        structural: "For example: a regional programme large enough to change how much the region's market produces. An analyst has to document the market check.",
+        none: "For example: you want to describe what an existing network of exchanges delivers today, for a report, with nothing to decide.",
+        corporate_report: "For example: your own company's sustainability report (CSRD, the EU directive on sustainability reporting): the benefits your exchanges bring to others are not counted.",
+      },
       options: {
         micro: 'It explores or supports a choice, even a hypothetical one with no named decision-maker, and its effects stay within the plants involved (Situation A)',
         structural: "It supports a choice that changes how much a market or sector produces, beyond the capacity it replaces every year (Situation B; the screening must be documented)",
@@ -675,7 +682,7 @@ const en = {
   flows: {
     q5Note: "Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick \"free / ambiguous\" when it is genuinely undecided rather than forcing a direction.",
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
-    headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
+    headers: { id: 'ID', name: 'Name', q5: "Who pays whom (Q5)", sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
     q5Unset: "— choose who pays whom",
     sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
     sellableHint: "If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product. No does not make it a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still makes it a co-product; a free flow, or a payment that only shares costs, makes it a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.",
@@ -715,9 +722,9 @@ const en = {
     addButton: 'Add flow',
     removeAria: 'Remove {{id}}',
     options: {
-      a: 'a — A pays B (waste)',
+      a: "a — the supplier (A) pays the receiver (B): waste",
       b: 'b — Free (ambiguous)',
-      c: 'c — B pays A (co-product)',
+      c: "c — the receiver (B) pays the supplier (A): co-product",
       d: 'd — Interdependent',
       e: 'e — Aggregated / black-box',
     },
@@ -955,6 +962,7 @@ const en = {
       block: 'Blocking',
       obligation: 'To document',
       decision: 'To decide',
+      decisionResolved: "Settled by the engine — check it",
     },
     severity: {
       HIGH: 'High',

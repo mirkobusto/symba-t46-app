@@ -41,7 +41,8 @@ export default function QuestionCard({
   const guided = usePreferenceStore((s) => s.mode) === 'guided'
   const coded = CODED_TITLE.exec(title)
   return (
-    <section className={`qcard${coded ? ' qcard-numbered' : ''}`} aria-labelledby={`${id}-title`}>
+    // the id is the target of the run bar's "still to answer" links
+    <section id={id} className={`qcard${coded ? ' qcard-numbered' : ''}`} aria-labelledby={`${id}-title`}>
       <h3 id={`${id}-title`} className="qcard-title">
         {coded ? (
           <>
@@ -50,14 +51,19 @@ export default function QuestionCard({
           </>
         ) : title}
       </h3>
-      {help ? <p className="qcard-help">{help}</p> : null}
+      {/* In guided mode the plain explanation comes first and alone: the
+          analyst line above it ("Q1 ∈ {A, B, D}", "D4.1 Part 1") made a
+          newcomer read the same thing twice, the hard way first (UX round
+          2026-11-02). It moves into the methodological note. */}
+      {help && !(guided && plain) ? <p className="qcard-help">{help}</p> : null}
       {guided && plain ? <p className="qcard-plain">{plain}</p> : null}
-      {details ? (
+      {details || (guided && plain && help) ? (
         <details className="qcard-details">
           <summary>
             {guided ? t('common.methodologicalNote') : t('common.examplesAndContext')}
           </summary>
-          <p>{details}</p>
+          {guided && plain && help ? <p>{help}</p> : null}
+          {details ? <p>{details}</p> : null}
         </details>
       ) : null}
       <div className="qcard-body">{children}</div>

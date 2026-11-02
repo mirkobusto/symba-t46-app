@@ -109,7 +109,22 @@ def test_report_lists_q8_q9_q10_and_the_notes_only_when_answered():
     assert "Q8a operating year: future (2030)" in answered
     assert "Q8b analysis period (years): 25" in answered
     assert "Q8c asset lifetime (years): 20" in answered
-    assert "Q9 decision and scale: structural" in answered
+    # the answer in words: the raw value "none" read as an unanswered question
+    assert "Q9 decision and scale: supports a choice that changes how much a market" in answered
     assert "Q10 public objective or public decision-maker: yes" in answered
     assert "Notes on the answers" in answered       # Q1=E with a structural decision is noted
     assert "ILCD Situation B" in answered
+
+
+def test_cir01_why_names_the_q8_answer_that_triggered_it():
+    """CIR-01 is triggered by words ("asset lifetime > 15y"); the why-line
+    cited only "Q6b = TRL9" until 2026-11-02, a false cause."""
+    from app.domain.enums import Q1, Q2, DecisionContext, Q6b
+    from app.domain.models import Q3, Case
+    from app.services.narrative import answers_in
+
+    kase = Case(q1=Q1.B, q2=Q2.A, q3=Q3(env=True, eco=True), q6b=Q6b.TRL9,
+                operating_start="now", asset_lifetime_years=30,
+                decision_context=DecisionContext.NONE)
+    trigger = "operating start in a future year OR Q6b < TRL7 OR analysis period or asset lifetime > 15y"
+    assert answers_in(trigger, kase) == [("Q6b", "TRL9"), ("Q8a", "now"), ("Q8c", "30 y")]

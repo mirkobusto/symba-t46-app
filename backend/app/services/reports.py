@@ -92,6 +92,20 @@ def _write_verdict(doc: Document, verdict: Verdict) -> None:
             cite_run.font.size = Pt(9)
 
 
+# The raw values read as unanswered ("none") or as code ("co_primary").
+_Q9_LABELS = {
+    "micro": "explores or supports a choice whose effects stay within the plants involved (Situation A)",
+    "structural": "supports a choice that changes how much a market or sector produces (Situation B)",
+    "none": "no choice: documents what an existing network or system delivers (Situation C1)",
+    "corporate_report": "one company's account, with no credit for what its exchanges avoid elsewhere (Situation C2)",
+}
+_Q11_LABELS = {
+    "waste_treatment": "how a waste is managed (input-based unit)",
+    "product_substitution": "products against market alternatives (output-based unit)",
+    "co_primary": "both, treatment service and products alike (system of functional units)",
+}
+
+
 def _write_next_steps(doc: Document, items: list[ActionItem]) -> None:
     """Blocks, methodological obligations and open decisions as one
     ordered list, each saying why it applies to this case and what has to
@@ -221,7 +235,8 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
     if case.asset_lifetime_years is not None:
         _add_kv(doc, "Q8c asset lifetime (years)", f"{case.asset_lifetime_years:g}")
     if case.decision_context is not None:
-        _add_kv(doc, "Q9 decision and scale", case.decision_context.value)
+        _add_kv(doc, "Q9 decision and scale", _Q9_LABELS.get(
+            case.decision_context.value, case.decision_context.value))
     if case.market_screening_documented is not None:
         _add_kv(doc, "Q9b market screening documented",
                 "yes" if case.market_screening_documented else "no")
@@ -229,7 +244,8 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         _add_kv(doc, "Q10 public objective or public decision-maker",
                 "yes" if case.policy_objective else "no")
     if case.comparison_goal is not None:
-        _add_kv(doc, "Q11 what the study compares", case.comparison_goal.value)
+        _add_kv(doc, "Q11 what the study compares", _Q11_LABELS.get(
+            case.comparison_goal.value, case.comparison_goal.value))
     if case.dedicated_shared_assets is not None:
         _add_kv(doc, "Q12 new dedicated shared assets", "yes" if case.dedicated_shared_assets else "no")
     if case.alternative_scenarios:

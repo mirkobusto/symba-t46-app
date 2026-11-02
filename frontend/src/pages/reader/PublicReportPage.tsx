@@ -9,6 +9,10 @@
 //   - Compliance checklist (only for `authority`)
 //
 // Falls back to a 404-style message when the case is missing.
+//
+// UX round 2026-11-02: readers arriving from a link never saw the welcome
+// page, so the report must say itself that it is a plan with no results and
+// no certification, name the exchanges, and speak in words, not Q-codes.
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,14 +27,23 @@ import type { PublicReportResponse } from '../../types/reader'
 import { verdictFor } from '../resultNarrative'
 import { AUDIENCE_ROWS } from '../configurationRows'
 import ConfigurationSummary from '../../components/ConfigurationSummary'
+import { usePreferenceStore, type UserRole } from '../../store/preferenceStore'
 
 type Audience = 'industry' | 'community' | 'authority' | 'enduser'
 
 const AUDIENCE_SET: Audience[] = ['industry', 'community', 'authority', 'enduser']
 
+// a link without a view opens on the reader's own role, when they gave one
+const ROLE_AUDIENCE: Partial<Record<UserRole, Audience>> = {
+  industry: 'industry', community: 'community', authority: 'authority', enduser: 'enduser',
+}
+
 export default function PublicReportPage() {
-  const { t } = useTranslation()
-  const { caseId = '', audience = 'community' } = useParams<{ caseId: string; audience: string }>()
+  const { t, i18n } = useTranslation()
+  const role = usePreferenceStore((s) => s.role)
+  const params = useParams<{ caseId: string; audience: string }>()
+  const caseId = params.caseId ?? ''
+  const audience = params.audience ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'community'
 
   const [report, setReport] = useState<PublicReportResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -75,20 +88,53 @@ export default function PublicReportPage() {
     unit: i.unit,
   }))
 
+  const flows = c.flows ?? []
+  const market = c.reference_market_region
+    ? c.reference_market_scope
+      ? `${c.reference_market_region} (${t(`questionnaire.q7.market.scope.${c.reference_market_scope}`).toLowerCase()})`
+      : c.reference_market_region
+    : null
+
   return (
     <article className="dd-reader-article">
       <div className="dd-reader-eyebrow">
         {t('reader.eyebrow', { name: report.name })}
       </div>
 
+      <div className="dd-reader-what">
+        <strong>{t('reader.whatTitle')}</strong>
+        <p>{t('reader.whatBody')}</p>
+      </div>
+
+      <section className="dd-reader-case">
+        <h2 className="dd-section-title">{t('reader.caseTitle')}</h2>
+        {flows.length > 0 ? (
+          <ul>
+            {flows.map((f) => <li key={f.id}>{f.name}</li>)}
+          </ul>
+        ) : null}
+        {c.q2 ? <p>{t(c.q2 === 'A' ? 'reader.running.yes' : 'reader.running.no')}</p> : null}
+        {market ? <p>{t('reader.market', { market })}</p> : null}
+        <p className="dd-soft">
+          {t('reader.updated', { date: new Date(report.updated_at).toLocaleDateString(i18n.language) })}
+        </p>
+      </section>
+
       <VerdictCard
         variant="reader"
+        eyebrow={t('reader.methodEyebrow')}
         headline={verdict?.title ?? c.ilcd_situation ?? '—'}
         codes={verdict?.codes}
         body={verdict?.body}
         tags={[
-          c.q6a ? `Q6a: ${c.q6a}` : undefined,
-          c.q7 ? `Q7: ${c.q7}` : undefined,
+          c.q6a && c.q6a !== 'none'
+            ? t('reader.sectorTag', { sector: t(`questionnaire.q6a.options.${c.q6a}`) })
+            : undefined,
+          c.q7
+            ? t('reader.scaleTag', {
+              scale: t(`questionnaire.q7.options.${c.q7}.description`).replace(/\.$/, ''),
+            })
+            : undefined,
         ].filter(Boolean)}
       />
 
@@ -114,7 +160,14 @@ export default function PublicReportPage() {
         </div>
         <div className="dd-framing-title">{t(`reader.audience.${validAudience}.title`)}</div>
         <p className="dd-framing-body">{t(`reader.audience.${validAudience}.body`)}</p>
+        <p className="dd-framing-body">
+          {t(`stakeholder.audience.${validAudience === 'enduser' ? 'end-user' : validAudience}.whatYouSee`)}
+        </p>
       </div>
+
+      {validAudience === 'enduser' ? (
+        <p className="dd-reader-caveat">{t('stakeholder.audience.end-user.productCaveat')}</p>
+      ) : null}
 
       {(c.blocked_by ?? []).length === 0 ? (
         <ConfigurationSummary
@@ -150,6 +203,7 @@ export default function PublicReportPage() {
                 name: t('reader.compliance.peer.name'),
                 desc: t('reader.compliance.peer.desc'),
                 status: c.q4?.includes('E') ? 'ok' : 'no',
+                label: c.q4?.includes('E') ? undefined : t('reader.compliance.notPlanned'),
               },
               {
                 key: 'pef',
@@ -158,18 +212,23 @@ export default function PublicReportPage() {
                 desc: t(c.q4?.includes('D') && c.ilcd_situation === 'ILCD Situation C2'
                   ? 'reader.compliance.pef.descC2' : 'reader.compliance.pef.desc'),
                 status: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2' ? 'ok' : 'no',
+                label: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2'
+                  ? undefined : t('reader.compliance.notPlanned'),
               },
               {
                 key: 'public',
                 name: t('reader.compliance.public.name'),
                 desc: t('reader.compliance.public.desc'),
                 status: c.q4?.includes('C') ? 'ok' : 'no',
+                label: c.q4?.includes('C') ? undefined : t('reader.compliance.notPlanned'),
               },
               {
                 key: 'dnsh',
                 name: t('reader.compliance.dnsh.name'),
                 desc: t('reader.compliance.dnsh.desc'),
-                status: 'pending',
+                // the tool screens nothing for DNSH: "pending" promised a check
+                status: 'na',
+                label: t('reader.compliance.notAssessed'),
               },
             ]} />
           </div>

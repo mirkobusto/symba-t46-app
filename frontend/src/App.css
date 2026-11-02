@@ -4109,6 +4109,39 @@ kbd {
   justify-content: center;
 }
 
+/* what the page is, before anything else: readers from a link never saw the
+   welcome page that says the tool computes no results (UX round 2026-11-02) */
+.dd-reader-what {
+  background: var(--dd-brand-bg);
+  border-left: 4px solid var(--dd-brand);
+  border-radius: var(--dd-radius);
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.dd-reader-what strong {
+  display: block;
+  color: var(--dd-text);
+  margin-bottom: 4px;
+}
+
+.dd-reader-case {
+  text-align: left;
+}
+
+.dd-reader-case ul {
+  margin: 4px 0 8px;
+  padding-left: 20px;
+  color: var(--dd-text);
+}
+
+.dd-reader-caveat {
+  background: var(--dd-amber-bg);
+  border-radius: var(--dd-radius);
+  padding: 10px 14px;
+  text-align: left;
+}
+
 .dd-reader-note {
   font-size: 12px;
   color: var(--dd-text-muted);

@@ -232,6 +232,7 @@ export function obligationGroups(rules: ApplicableRule[]): ObligationGroup[] {
 export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end-user', string[]> = {
   industry: ['lcc', 'shared', 'horizon', 'reference'],
   community: ['regional', 'slca', 'sectors'],
-  authority: ['lcc', 'reference', 'claim', 'horizon', 'slca'],
+  // shared infrastructure is what a public co-funder typically finances
+  authority: ['lcc', 'shared', 'reference', 'claim', 'horizon', 'slca'],
   'end-user': ['fu', 'claim', 'slca'],
 }

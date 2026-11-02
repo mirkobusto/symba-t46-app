@@ -14,6 +14,7 @@ import ResultPage from './pages/ResultPage'
 import ScenariosResultPage from './pages/ScenariosResultPage'
 import StakeholderReportPage from './pages/StakeholderReportPage'
 import PrivacyPage from './pages/PrivacyPage'
+import OpenSharedReportPage from './pages/reader/OpenSharedReportPage'
 import PublicAboutPage from './pages/reader/PublicAboutPage'
 import PublicRegionPage from './pages/reader/PublicRegionPage'
 import PublicReportPage from './pages/reader/PublicReportPage'
@@ -65,6 +66,7 @@ export default function App() {
             <Route element={<Layout />}>
               {/* Reader shell (public share URLs, no auth) */}
               <Route path="/r/about" element={<PublicAboutPage />} />
+              <Route path="/r/open" element={<OpenSharedReportPage />} />
               <Route path="/r/region/:code" element={<PublicRegionPage />} />
               <Route path="/r/:caseId/:audience" element={<PublicReportPage />} />
               <Route path="/r/:caseId" element={<PublicReportPage />} />

@@ -115,8 +115,8 @@ def test_me_with_invalid_token_401(client):
 # ---------------------------------------------------------------------------
 
 
-def test_anonymous_case_visible_to_everyone(client):
-    """Backward-compat: cases created without auth are visible to all."""
+def test_anonymous_case_visible_to_everyone(client, anonymous_save_on):
+    """With anonymous saving on, cases created without auth are visible to all."""
     client.post("/api/cases", json={"name": "legacy", "case": WIKTOR_CASE})
     # Anonymous list
     r = client.get("/api/cases")

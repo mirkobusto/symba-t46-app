@@ -13,19 +13,22 @@ export type HealthStatus = 'loading' | 'ok' | 'unreachable'
 export interface HealthInfo {
   status: HealthStatus
   version: string | null
+  /** Whether the server saves cases for visitors who have not signed in
+   *  (`SYMBA_ANON_SAVE`); null until the first answer. */
+  anonymousSave: boolean | null
 }
 
 export function useHealth(intervalMs = 30000): HealthInfo {
-  const [info, setInfo] = useState<HealthInfo>({ status: 'loading', version: null })
+  const [info, setInfo] = useState<HealthInfo>({ status: 'loading', version: null, anonymousSave: null })
 
   useEffect(() => {
     let active = true
     async function poll() {
       try {
         const body = await checkHealth()
-        if (active) setInfo({ status: 'ok', version: body.version ?? null })
+        if (active) setInfo({ status: 'ok', version: body.version ?? null, anonymousSave: body.anonymous_save ?? null })
       } catch {
-        if (active) setInfo({ status: 'unreachable', version: null })
+        if (active) setInfo({ status: 'unreachable', version: null, anonymousSave: null })
       }
     }
     poll()

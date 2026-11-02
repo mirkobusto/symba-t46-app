@@ -307,7 +307,7 @@ const en = {
         "id": "recipients",
         "title": "5. Who can see it",
         "paragraphs": [
-          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Cases saved without signing in can currently be read and changed by anyone who can reach the tool, and the administrator (the first account registered) can read and change every case, including those owned by others: do not enter personal data of third parties."
+          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Saving a case on the server requires an account; each saved case can be read and changed only by its owner and by the administrator (the first account registered), who can read and change every case: do not enter personal data of third parties."
         ],
         "items": []
       },
@@ -1297,6 +1297,8 @@ const en = {
   },
 
   cases: {
+    signInToSave: "Saving a case on the server needs an account. Sign in or register here; your draft stays in this browser.",
+    signInToList: "Your saved cases appear here once you sign in. Shared reports open from the link you received.",
     publicLink: "Public link",
     navLink: 'My cases',
     title: 'My cases',

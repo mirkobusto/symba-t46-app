@@ -285,7 +285,7 @@ const it: Locale = {
         "id": "recipients",
         "title": "5. Chi può vederli",
         "paragraphs": [
-          "Fornitore di hosting: [SEGNAPOSTO]. I link del tipo /r/… sono non elencati, non privati: chiunque abbia il link può leggere quel report. I casi salvati senza accedere possono oggi essere letti e modificati da chiunque raggiunga lo strumento, e l'amministratore (il primo account registrato) può leggere e modificare ogni caso, anche quelli di altri: non inserire dati personali di terzi."
+          "Fornitore di hosting: [SEGNAPOSTO]. I link del tipo /r/… sono non elencati, non privati: chiunque abbia il link può leggere quel report. Per salvare un caso sul server serve un account; ogni caso salvato può essere letto e modificato solo da chi lo ha salvato e dall'amministratore (il primo account registrato), che può leggere e modificare ogni caso: non inserire dati personali di terzi."
         ],
         "items": []
       },
@@ -1276,6 +1276,8 @@ const it: Locale = {
   },
 
   cases: {
+    signInToSave: "Per salvare un caso sul server serve un account. Accedi o registrati qui; la bozza resta in questo browser.",
+    signInToList: "I tuoi casi salvati compaiono qui dopo l'accesso. I report condivisi si aprono dal link che hai ricevuto.",
     publicLink: "Link pubblico",
     navLink: 'I miei casi',
     title: 'I miei casi',

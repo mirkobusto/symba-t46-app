@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useHealth } from '../hooks/useHealth'
 import { ApiError, deleteCase, getCase, listCases } from '../services/api'
+import { useAuthStore } from '../store/authStore'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { CaseSummary } from '../types/api'
@@ -19,6 +21,8 @@ export default function CasesListPage() {
   const setServerCase = useCaseStore((s) => s.setServerCase)
   const setResult = useCaseStore((s) => s.setResult)
   const pushToast = useToastStore((s) => s.push)
+  const signedIn = useAuthStore((s) => s.token !== null)
+  const { anonymousSave } = useHealth()
 
   const [items, setItems] = useState<CaseSummary[] | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -101,7 +105,11 @@ export default function CasesListPage() {
         <p className="muted">…</p>
       ) : items.length === 0 ? (
         <div>
-          <p className="muted">{t('cases.empty')}</p>
+          {/* without anonymous saving, a visitor who has not signed in has no
+              cases on the server: say why the list is empty */}
+          <p className="muted">
+            {!signedIn && anonymousSave === false ? t('cases.signInToList') : t('cases.empty')}
+          </p>
           <Link to="/questionnaire" className="btn btn-primary">
             {t('result.noResult.cta')}
           </Link>

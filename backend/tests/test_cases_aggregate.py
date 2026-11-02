@@ -1,6 +1,12 @@
 """Integration tests for GET /api/cases/aggregate/breakdown."""
 from __future__ import annotations
 
+import pytest
+
+# written for the anonymous flow, off by default since 2026-11-02
+pytestmark = pytest.mark.usefixtures("anonymous_save_on")
+
+
 CASE_A = {  # q1=B q2=B q6a=wastewater q7=B → Situation A
     "q1": "B", "q2": "B",
     "q3": {"env": True}, "q4": ["E"],

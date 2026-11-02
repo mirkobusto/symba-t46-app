@@ -133,7 +133,7 @@ export async function fetchReportDocx(input: Case): Promise<Blob> {
   return res.blob()
 }
 
-export function checkHealth(): Promise<{ status: string; version: string }> {
+export function checkHealth(): Promise<{ status: string; version: string; anonymous_save?: boolean }> {
   return request('/health')
 }
 
@@ -174,8 +174,10 @@ export function updateCase(
 }
 
 export function deleteCase(id: string): Promise<void> {
+  // the token was missing here, so a signed-in owner got 403 on their own case
   return fetch(`${API_BASE_URL}/api/cases/${encodeURIComponent(id)}`, {
     method: 'DELETE',
+    headers: authHeader(),
   }).then((res) => {
     if (!res.ok) {
       throw new ApiError(res.status, res.statusText)

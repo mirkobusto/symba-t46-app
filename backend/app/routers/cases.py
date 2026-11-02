@@ -23,11 +23,11 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
-from sqlalchemy import or_, select
+from sqlalchemy import false, or_, select
 from sqlalchemy.orm import Session as OrmSession
 
 from app.auth.deps import get_current_user_optional
-from app.auth.ownership import can_modify, can_view
+from app.auth.ownership import anonymous_save_enabled, can_modify, can_view
 from app.db import get_db
 from app.domain.models import Case
 from app.models import CaseRecord, User
@@ -132,14 +132,20 @@ def _populate_record(rec: CaseRecord, name: str, case: Case) -> None:
 def _visible_to(user: User | None):
     """Build the visibility filter for a query on CaseRecord.
 
-    - Anonymous (no token): only legacy rows with owner_id IS NULL.
-    - Authenticated: legacy rows + rows owned by the user.
     - Admins: all rows.
+    - With anonymous saving on: rows without an owner, plus the user's own.
+    - With it off (the default): the user's own rows only, and nothing for a
+      caller without a token. "My cases" listed every anonymous visitor's
+      study to every other visitor (UX round 2026-11-02).
     """
+    if user is not None and user.role == "admin":
+        return None  # no filter
+    if not anonymous_save_enabled():
+        if user is None:
+            return false()
+        return CaseRecord.owner_id == user.id
     if user is None:
         return CaseRecord.owner_id.is_(None)
-    if user.role == "admin":
-        return None  # no filter
     return or_(CaseRecord.owner_id.is_(None), CaseRecord.owner_id == user.id)
 
 
@@ -150,9 +156,7 @@ def list_cases(
 ) -> list[CaseSummary]:
     """List saved cases visible to the caller, newest first.
 
-    - Anonymous: legacy rows only.
-    - Authenticated analyst: legacy + own rows.
-    - Admin: all rows.
+    Visibility as in `_visible_to`.
     """
     stmt = select(CaseRecord).order_by(CaseRecord.updated_at.desc())
     visibility = _visible_to(current_user)
@@ -234,6 +238,11 @@ def create_case(
     db: OrmSession = Depends(get_db),
     current_user: User | None = Depends(get_current_user_optional),
 ) -> CaseDetail:
+    if current_user is None and not anonymous_save_enabled():
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Sign in to save a case on the server",
+        )
     rec = CaseRecord()
     _populate_record(rec, payload.name, payload.case)
     if current_user is not None:

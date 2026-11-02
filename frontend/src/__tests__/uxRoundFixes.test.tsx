@@ -42,6 +42,10 @@ describe('Questionnaire — flows have no preset Q5', () => {
     expect(screen.getByText(/Still to answer:/)).toBeTruthy()
     expect(screen.getByRole('link', { name: /What are you analyzing\?/ })).toBeTruthy()
     expect(screen.getByRole('link', { name: /What is the study for/ })).toBeTruthy()
+    // every link points at a card that exists
+    for (const link of screen.getAllByRole('link', { name: /analyzing|dimensions|study for/ })) {
+      expect(document.getElementById(link.getAttribute('href')!.slice(1))).toBeTruthy()
+    }
     expect((runButton() as HTMLButtonElement).disabled).toBe(true)
   })
 
@@ -52,7 +56,7 @@ describe('Questionnaire — flows have no preset Q5', () => {
     expect((runButton() as HTMLButtonElement).disabled).toBe(false)
 
     fireEvent.click(screen.getByRole('button', { name: /add flow/i }))
-    const q5 = screen.getByRole('combobox', { name: 'Q5' }) as HTMLSelectElement
+    const q5 = screen.getByRole('combobox', { name: 'Who pays whom (Q5)' }) as HTMLSelectElement
     expect(q5.value).toBe('')
     expect((runButton() as HTMLButtonElement).disabled).toBe(true)
     expect(screen.getByRole('link', { name: /who pays whom, for every flow/ })).toBeTruthy()

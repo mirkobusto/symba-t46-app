@@ -331,6 +331,7 @@ const de: Locale = {
       "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die Antworten bestimmen die methodische Konfiguration und den Datenerhebungsplan, den Sie am Ende erhalten.",
     intro:
       'Fragen zu Ihrem Fall industrieller Symbiose, in drei Teilen: die Studie, die Austausche und eine Beschreibung des Falls. Pflicht: die Dimensionen (Q3), die Entscheidung und ihr Ausmaß (Q9), der Gegenstand (Q1) und, mit der ökonomischen Dimension, das öffentliche Ziel (Q10); der Rest ist optional und schärft die Konfiguration.',
+    introPlain: "Fragen zu Ihrem Austausch zwischen Unternehmen, in drei Teilen. Die mit * sind Pflicht; die anderen machen das Ergebnis genauer. Unter jeder Frage finden Sie eine kurze Erklärung in einfachen Worten.",
     runButton: 'Konfiguration ermitteln',
     runningButton: 'Wird berechnet…',
     resetButton: 'Entwurf zurücksetzen',
@@ -559,6 +560,12 @@ const de: Locale = {
       title: 'Q9 — Wozu dient die Studie, und wie weit reichen ihre Wirkungen? *',
       help: 'Pflicht. Sie legt die Modellierungssituation fest (ILCD A, B, C1 oder C2); Q1 beschreibt nur den Gegenstand.',
       details: "Tabelle 1 in D4.1 klassifiziert die Studie nach der unterstützten Entscheidung und der Größenordnung ihrer Folgen, nicht nach ihrem Gegenstand (D4.1 §4.2.3). Mikro (Situation A) ist der Standard für Entscheidungen über einzelne Austausche und Anlagen. Strukturell (Situation B) gilt, wenn die Entscheidung die installierte Kapazität eines Marktes verändert: Das ILCD Handbook nimmt das an, wenn die jährliche Nachfrage oder das jährliche Angebot, das die Entscheidung einem Markt hinzufügt oder entzieht, die Kapazität übersteigt, die dieser Markt jedes Jahr erneuert, gerechnet mit höchstens 5 % (z. B. erneuern 10 Mt Anlagen mit 25 Jahren Lebensdauer 0,4 Mt pro Jahr). Die Planung eines neuen Parks, eine regionale Umstrukturierung oder ein Programm brauchen dieses Screening (Mattila et al. 2012); ohne es bleibt die Studie A, mit B als Sensitivitätsanalyse. Ein bestehendes Netzwerk zu dokumentieren, oder ein Unternehmensbericht, der anrechnet, was seine Austausche anderswo einsparen, ist Situation C1 (Substitution, §7.2.3); der Bericht eines einzelnen Unternehmens, der jede Gutschrift für seine Austausche ausschließt, ist C2 (Allokation, keine Gutschriften, §7.2.3), mit Kosten nur auf Unternehmensebene (Entwurfsentscheidung von T4.6).",
+      examples: {
+        micro: "Zum Beispiel: Sie möchten wissen, ob es sich lohnt, Ihr Sägemehl an das benachbarte Pelletwerk abzugeben, um den Austausch zu beginnen, fortzuführen oder zu ändern.",
+        structural: "Zum Beispiel: ein regionales Programm, groß genug, um zu ändern, wie viel der Markt der Region produziert. Ein Analyst muss die Marktprüfung dokumentieren.",
+        none: "Zum Beispiel: Sie möchten beschreiben, was ein bestehendes Austauschnetz heute leistet, für einen Bericht, ohne etwas zu entscheiden.",
+        corporate_report: "Zum Beispiel: der Nachhaltigkeitsbericht nur Ihres Unternehmens (CSRD, die EU-Richtlinie zur Nachhaltigkeitsberichterstattung): der Nutzen Ihrer Austausche für andere wird nicht gezählt.",
+      },
       options: {
         micro: 'Sie untersucht oder unterstützt eine Wahl, auch eine hypothetische ohne benannten Entscheider, und ihre Wirkungen bleiben in den beteiligten Anlagen (Situation A)',
         structural: "Sie unterstützt eine Wahl, die verändert, wie viel ein Markt oder Sektor produziert, über die jährlich erneuerte Kapazität hinaus (Situation B; das Screening muss dokumentiert sein)",
@@ -627,7 +634,7 @@ const de: Locale = {
   flows: {
     q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
-    headers: { id: 'ID', name: 'Name', q5: 'Q5', sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
+    headers: { id: 'ID', name: 'Name', q5: "Wer zahlt wen (Q5)", sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
     q5Unset: "— wählen, wer wen bezahlt",
     sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
     sellableHint: "Würde der Partner diesen Fluss nicht abnehmen, könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt. Nein macht ihn nicht schon zu Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung), macht ihn trotzdem zum Koppelprodukt; ein kostenlos abgegebener Fluss oder eine Zahlung, die nur Kosten teilt, macht ihn zu Abfall (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht zu Q5 passt.",
@@ -667,9 +674,9 @@ const de: Locale = {
     addButton: 'Fluss hinzufügen',
     removeAria: '{{id}} entfernen',
     options: {
-      a: 'a — A zahlt B (Abfall)',
+      a: "a — der Abgeber (A) zahlt den Abnehmer (B): Abfall",
       b: 'b — Freier Tausch (mehrdeutig)',
-      c: 'c — B zahlt A (Co-Produkt)',
+      c: "c — der Abnehmer (B) zahlt den Abgeber (A): Co-Produkt",
       d: 'd — Interdependent',
       e: 'e — Aggregiert / Black-box',
     },
@@ -908,6 +915,7 @@ const de: Locale = {
       block: 'Blockierend',
       obligation: 'Zu dokumentieren',
       decision: 'Zu entscheiden',
+      decisionResolved: "Von der Engine entschieden: prüfen",
     },
     severity: {
       HIGH: 'Hoch',

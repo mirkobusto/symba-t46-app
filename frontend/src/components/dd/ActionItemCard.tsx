@@ -51,7 +51,11 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
     <article className={`dd-action dd-action-${item.kind}`}>
       <header className="dd-action-head">
         <span className={`dd-pill dd-pill-${TONE[item.kind]}`}>
-          {t(`result.actionKind.${item.kind}`)}
+          {/* "To decide" above "How it is resolved" contradicted itself: the
+              engine has settled these, the analyst checks them */}
+          {item.kind === 'decision' && (term?.resolution || item.resolution)
+            ? t('result.actionKind.decisionResolved')
+            : t(`result.actionKind.${item.kind}`)}
         </span>
         <h3>{name ?? body ?? item.code}</h3>
         <code className="dd-action-code">{item.code}</code>

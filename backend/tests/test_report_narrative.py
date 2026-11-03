@@ -158,3 +158,57 @@ def test_the_report_shows_obligations_not_l2_violations():
     assert "violation" not in text.lower()
     assert f"Obligations to document: {len(case.applicable_rules)}" in text
     assert "Configuration complete" in text
+
+
+# UX round 2026-11-03: the analyst and the reviewer found the document half
+# English and without the page's "Your configuration".
+def _text_with(case: Case, lang: str, rows: list[dict] | None = None) -> str:
+    doc = Document(BytesIO(generate_case_report_bytes(case, "test", lang=lang, rows=rows)))
+    parts = [p.text for p in doc.paragraphs]
+    for table in doc.tables:
+        for row in table.rows:
+            parts.extend(c.text for c in row.cells)
+    return "\n".join(parts)
+
+
+def test_report_carries_the_page_configuration_rows(wiktor):
+    rows = [{"label": "Orizzonte dello studio", "value": "Background attuale", "why": "anno corrente"}]
+    text = _text_with(wiktor, "it", rows)
+    assert "La tua configurazione" in text
+    assert "Orizzonte dello studio" in text and "Perché: anno corrente" in text
+    assert text.index("La tua configurazione") < text.index("Che cosa fare adesso")
+
+
+def test_rule_and_cdp_names_follow_the_language(wiktor):
+    text = _text_with(wiktor, "it")
+    assert "Unità funzionale condivisa" in text
+    assert "Shared Functional Unit" not in text
+    assert "dims active" not in text          # no raw trigger expression
+
+
+def test_verdict_detail_is_translated_and_not_repeated(wiktor):
+    from app.services.reports import _t
+    text = _text_with(wiktor, "fr")
+    assert "You are documenting" not in text and "The exchange affects" not in text
+    detail = _t("fr", f"narrative.ilcd.{wiktor.ilcd_situation.value}.detail")
+    assert text.count(detail) == 1
+
+
+def test_engine_output_sits_in_the_appendix_as_text(wiktor):
+    text = _text_with(wiktor, "en")
+    assert text.index("Engine output, key by key") > text.index("3. Summary")
+    assert "{'" not in text                     # per-flow dicts are not printed as Python reprs
+
+
+def test_report_endpoint_takes_a_bare_case_or_case_and_rows():
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+    client = TestClient(app)
+    case = {"q1": "B", "decision_context": "micro", "q2": "A", "q3": {"env": True, "eco": False, "soc": False},
+            "q4": ["E"], "flows": [{"id": "f1", "name": "heat", "q5": "b"}]}
+    assert client.post("/api/pipeline/report", json=case).status_code == 200
+    resp = client.post("/api/pipeline/report?lang=it",
+                       json={"case": case, "rows": [{"label": "Riga", "value": "valore"}]})
+    assert resp.status_code == 200
+    assert "Riga" in "\n".join(c.text for t in Document(BytesIO(resp.content)).tables for r in t.rows for c in r.cells)

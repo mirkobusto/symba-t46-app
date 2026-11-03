@@ -13,10 +13,10 @@ Errors: 400 for ValueError (e.g. Q1=None on a partial questionnaire).
 """
 from __future__ import annotations
 
-from typing import Any
+from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Response
-from pydantic import BaseModel
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Response
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas, load_schemas
@@ -49,23 +49,45 @@ def run_pipeline(case: Case, schemas: LoadedSchemas = Depends(_get_schemas)) -> 
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+class ReportRow(BaseModel):
+    """One row of the result page's "Your configuration", worded in `lang`."""
+
+    label: str
+    value: str
+    why: str | None = None
+
+
+class ReportRequest(BaseModel):
+    """The case plus the configuration rows the result page computed, so the
+    document and the screen show the same rows (UX round 2026-11-03)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    case: Case
+    rows: list[ReportRow] = Field(default_factory=list)
+
+
 @router.post("/report")
 def generate_report(
-    case: Case, schemas: LoadedSchemas = Depends(_get_schemas), lang: str = Query("en"),
+    payload: Annotated[ReportRequest | Case, Body()],
+    schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
 ) -> Response:
     """Run the pipeline on the submitted Case and stream the .docx case
-    report, in `lang`.
+    report, in `lang`. The body is either a bare Case (scripts, older
+    clients) or {case, rows} from the result page.
 
     Returns the document as an `application/vnd.openxmlformats-
     officedocument.wordprocessingml.document` attachment so browsers
     prompt a download.
     """
+    case, rows = (payload.case, payload.rows) if isinstance(payload, ReportRequest) else (payload, [])
     try:
         result = pipeline_run(case, schemas)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    body = generate_case_report_bytes(result, lang=lang)
+    body = generate_case_report_bytes(result, lang=lang, rows=[r.model_dump() for r in rows])
     return Response(
         content=body,
         media_type=DOCX_MIME,

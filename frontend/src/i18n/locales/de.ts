@@ -804,40 +804,40 @@ const de: Locale = {
       'ILCD Situation A': {
         title: 'Entscheidungsunterstützung mit begrenzten Folgen (ILCD-Situation A)',
         short: 'Entscheidungsunterstützung auf Mikroebene: der Austausch ist zu klein, um das Hintergrundsystem zu verändern. Attributionelle Modellierung mit Substitution am durchschnittlichen Marktmix.',
-        detail: 'The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.',
+        detail: 'Der Austausch betrifft die beteiligten Akteure, nicht das, was die Wirtschaft insgesamt produziert oder wie. Modelliert wird daher mit durchschnittlichen, bilanziellen Daten, und was die Symbiose verdrängt, wird durch Substitution mit dem durchschnittlichen Marktmix abgebildet: dem nationalen Netzmix für Strom, der durchschnittlichen Primärproduktion für ein Material. D4.1 warnt ausdrücklich davor, nur deshalb zur konsequenziellen Modellierung zu greifen, weil eine Entscheidung getroffen wird.',
       },
       'ILCD Situation B': {
         title: 'Entscheidungsunterstützung mit strukturellen Folgen (ILCD-Situation B)',
         short: 'Entscheidungsunterstützung auf Meso-/Makroebene: die Entscheidung verändert das Hintergrundsystem strukturell, daher konsequenzielle Modellierung gegen die marginale Technologie. D4.1 verlangt den Nachweis dieser Größenordnung.',
-        detail: 'The decision is large enough to shift installed capacity or the output of a specific technology. Modelling goes consequential, and what the symbiosis displaces is the marginal technology, identified through a market analysis rather than taken as the average mix. The burden of proof is on you: this route has to be demonstrated, not assumed.',
+        detail: 'Die Entscheidung ist groß genug, um installierte Kapazität oder die Produktion einer bestimmten Technologie zu verschieben. Die Modellierung wird konsequenziell, und was die Symbiose verdrängt, ist die marginale Technologie, ermittelt durch eine Marktanalyse statt als Durchschnittsmix angenommen. Die Beweislast liegt bei Ihnen: Dieser Weg muss belegt, nicht unterstellt werden.',
       },
       'ILCD Situation C1': {
         title: 'Dokumentation eines bestehenden Netzwerks (ILCD-Situation C1)',
         short: 'Bilanzierung mit Wechselwirkungen — dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.',
-        detail: 'You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.',
+        detail: 'Sie dokumentieren ein bestehendes Netzwerk, statt eine Entscheidung zu unterstützen; die Studie ist also beschreibend. Da sie aber zeigen soll, was das Netzwerk der Wirtschaft insgesamt bringt, wird die Multifunktionalität trotzdem durch Substitution mit dem durchschnittlichen Marktmix aufgelöst, praktisch dieselbe Regel wie in Situation A.',
       },
       'ILCD Situation C2': {
         title: 'Strikte Bilanzierung eines einzelnen Unternehmens (ILCD-Situation C2)',
         short: 'Strenge Bilanzierung für einen einzelnen Partner isoliert: Allokation, keine Substitutionsgutschriften.',
-        detail: 'Strict accounting for a single partner on its own, typically corporate reporting. Multifunctionality is resolved by allocation, and no credit is claimed for what the symbiosis displaces elsewhere: the number describes that partner\'s share of the burdens, not the benefit the network produces.',
+        detail: 'Strikte Bilanzierung eines einzelnen Partners für sich, typischerweise Unternehmensberichterstattung. Die Multifunktionalität wird durch Allokation aufgelöst, und für das, was die Symbiose anderswo verdrängt, wird keine Gutschrift beansprucht: Die Zahl beschreibt den Lastenanteil dieses Partners, nicht den Nutzen, den das Netzwerk erzeugt.',
       },
     },
     lcc: {
       'deactivated': {
         short: 'Keine ökonomische Analyse — die ökonomische Dimension ist in Q3 deaktiviert.',
-        detail: 'Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on.',
+        detail: 'In Q3 ist keine ökonomische Dimension gewählt, daher konfiguriert das Tool keine Kostenrechnung. Braucht der Fall einen Business Case, was bei einer Symbiose, die mehrere Unternehmen unterschreiben müssen, meist zutrifft, gehen Sie zurück zu Q3 und aktivieren Sie die ökonomische Dimension.',
       },
       'C+E': {
         short: 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die Ökobilanz).',
-        detail: 'Two views run together. The conventional LCC answers whether it pays for the individual firm: real cash flows, taxes and fees as costs, subsidies as reductions. The environmental LCC widens the boundary to every actor in the life cycle and is kept consistent with the parallel LCA, so the two can be read side by side. Watch for double counting: a carbon or landfill tax already in the cash flows must not reappear as a monetised externality.',
+        detail: 'Zwei Sichten laufen parallel. Die konventionelle LCC beantwortet, ob es sich für das einzelne Unternehmen rechnet: reale Zahlungsströme, Steuern und Gebühren als Kosten, Subventionen als Minderungen. Die ökologische LCC erweitert die Grenze auf alle Akteure im Lebenszyklus und bleibt mit der parallelen Ökobilanz konsistent, sodass beide nebeneinander gelesen werden können. Vorsicht vor Doppelzählung: Eine CO2- oder Deponiesteuer, die schon in den Zahlungsströmen steht, darf nicht noch einmal als monetarisierte Externalität auftauchen.',
       },
       'C+E+S': {
         short: 'Konventionelle und ökologische LCC plus gesellschaftliche LCC: Steuern und Subventionen über den Net Tax Factor angepasst, Umweltwirkungen monetarisiert.',
-        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why a public or policy objective brings it in.',
+        detail: 'Zu Unternehmens- und Wertschöpfungskettensicht kommt die Wohlfahrtssicht. Steuern und Subventionen sind Transfers innerhalb der Gesellschaft und keine realen Kosten für sie; sie werden daher ausgeschlossen oder über den Net Tax Factor in Schattenpreise umgerechnet, und die Umweltwirkungen aus der parallelen Ökobilanz werden monetarisiert. Das ist die Konfiguration, die eine öffentliche Entscheidung braucht, und deshalb bringt ein öffentliches oder politisches Ziel sie mit.',
       },
       'C-LCC': {
         short: 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
-        detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
+        detail: 'Nur die Sicht des Unternehmens. Jedes Politikinstrument ist ein realer Zahlungsstrom: Steuern und Gebühren sind Kosten, Subventionen senken Capex oder Opex. Das ist der richtige Rahmen für die Unternehmensberichterstattung, und er sagt bewusst nichts über Wirkungen in der Wertschöpfungskette oder in der Gesellschaft: Sie zu behaupten, ginge über das hinaus, was eine Rechnung für einen einzelnen Akteur tragen kann.',
       },
       'C+N': {
         short: 'Konventionelle LCC je Partner, auf Netzwerkebene konsolidiert. Keine ökologische LCC: Der Fall hat keine Ökobilanz, mit der sie konsistent sein könnte.',
@@ -851,11 +851,11 @@ const de: Locale = {
     slca: {
       'active': {
         short: 'S-LCA aktiv: soziale Indikatoren je Stakeholder-Gruppe.',
-        detail: 'The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.',
+        detail: 'Die soziale Dimension ist aktiv. Jede Stakeholdergruppe (Beschäftigte, Verbraucher, lokale Gemeinschaften, Akteure der Wertschöpfungskette) wird den Prozessen zugeordnet, die sie betreffen, und von dort den Wirkungsunterkategorien und Indikatoren. Diese Zuordnung ist nur so gut wie die Beteiligung dahinter: Mit den betroffenen Gruppen zu sprechen gehört zur Datenerhebung und ist kein optionaler Zusatz.',
       },
       'deactivated': {
         short: 'S-LCA nicht aktiviert — die soziale Dimension ist in Q3 deaktiviert.',
-        detail: 'Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community.',
+        detail: 'In Q3 ist keine soziale Dimension gewählt, daher sind weder eine Stakeholder-Zuordnung noch soziale Indikatoren konfiguriert. Aktivieren Sie sie in Q3, wenn der Fall etwas über Beschäftigte oder lokale Gemeinschaften sagen muss, was meist zutrifft, wenn eine Symbiose einer Gemeinde oder einer Gemeinschaft vorgestellt wird.',
       },
     },
   },

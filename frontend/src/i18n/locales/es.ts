@@ -804,40 +804,40 @@ const es: Locale = {
       'ILCD Situation A': {
         title: 'Apoyo a la decisión con consecuencias limitadas (situación ILCD A)',
         short: 'Apoyo a la decisión a nivel micro: el intercambio es demasiado pequeño para cambiar el sistema de fondo. Modelización atribucional, con sustitución sobre el mix de mercado medio.',
-        detail: 'The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.',
+        detail: 'El intercambio afecta a los actores implicados, no a lo que la economía en su conjunto produce ni a cómo lo produce. Por eso se modela con datos medios, de tipo contable, y lo que la simbiosis desplaza se representa por sustitución con el mix medio del mercado: el mix eléctrico nacional para la electricidad, la producción virgen media para un material. La D4.1 advierte expresamente contra recurrir a la modelización consecuencial solo porque se está tomando una decisión.',
       },
       'ILCD Situation B': {
         title: 'Apoyo a la decisión con consecuencias estructurales (situación ILCD B)',
         short: 'Apoyo a la decisión a nivel meso/macro: la decisión provoca un cambio estructural en el sistema de fondo, por tanto modelización consecuencial sobre la tecnología marginal. El D4.1 pide demostrar esa escala antes de elegirla.',
-        detail: 'The decision is large enough to shift installed capacity or the output of a specific technology. Modelling goes consequential, and what the symbiosis displaces is the marginal technology, identified through a market analysis rather than taken as the average mix. The burden of proof is on you: this route has to be demonstrated, not assumed.',
+        detail: 'La decisión es lo bastante grande como para mover la capacidad instalada o la producción de una tecnología concreta. La modelización pasa a ser consecuencial, y lo que la simbiosis desplaza es la tecnología marginal, identificada mediante un análisis de mercado en lugar de tomarse como el mix medio. La carga de la prueba es tuya: esta vía hay que demostrarla, no suponerla.',
       },
       'ILCD Situation C1': {
         title: 'Documentar una red existente (situación ILCD C1)',
         short: 'Contabilidad con interacciones — documentar lo que una red existente aporta a la economía en general. Sustitución sobre el mix de mercado medio, como en la Situation A.',
-        detail: 'You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.',
+        detail: 'Estás documentando una red que existe en lugar de apoyar una decisión, así que el estudio es descriptivo. Pero como se trata de mostrar lo que la red aporta a la economía en general, la multifuncionalidad se resuelve igualmente por sustitución con el mix medio del mercado, en la práctica la misma regla que la Situación A.',
       },
       'ILCD Situation C2': {
         title: 'Contabilidad estricta de una sola empresa (situación ILCD C2)',
         short: 'Contabilidad estricta para un solo socio aislado: asignación, sin créditos por sustitución.',
-        detail: 'Strict accounting for a single partner on its own, typically corporate reporting. Multifunctionality is resolved by allocation, and no credit is claimed for what the symbiosis displaces elsewhere: the number describes that partner\'s share of the burdens, not the benefit the network produces.',
+        detail: 'Contabilidad estricta de un solo socio por separado, normalmente el informe corporativo. La multifuncionalidad se resuelve por asignación, y no se reclama ningún crédito por lo que la simbiosis desplaza en otra parte: la cifra describe la parte de las cargas de ese socio, no el beneficio que produce la red.',
       },
     },
     lcc: {
       'deactivated': {
         short: 'Sin análisis económico — la dimensión económica está desactivada en Q3.',
-        detail: 'Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on.',
+        detail: 'En Q3 no está seleccionada la dimensión económica, así que la herramienta no configura ningún cálculo de costes. Si el caso necesita un business case, como suele ocurrir con una simbiosis que deben firmar varias empresas, vuelve a Q3 y activa la dimensión económica.',
       },
       'C+E': {
         short: 'LCC convencional (los flujos de caja reales de la empresa) más LCC ambiental (la cadena de valor, sobre los mismos límites que la ACV).',
-        detail: 'Two views run together. The conventional LCC answers whether it pays for the individual firm: real cash flows, taxes and fees as costs, subsidies as reductions. The environmental LCC widens the boundary to every actor in the life cycle and is kept consistent with the parallel LCA, so the two can be read side by side. Watch for double counting: a carbon or landfill tax already in the cash flows must not reappear as a monetised externality.',
+        detail: 'Dos vistas en paralelo. El LCC convencional responde si le compensa a cada empresa: flujos de caja reales, impuestos y tasas como costes, subvenciones como reducciones. El LCC ambiental amplía el límite a todos los actores del ciclo de vida y se mantiene coherente con el ACV paralelo, para que ambos se lean lado a lado. Cuidado con el doble cómputo: un impuesto al carbono o al vertedero que ya está en los flujos de caja no debe reaparecer como externalidad monetizada.',
       },
       'C+E+S': {
         short: 'LCC convencional y ambiental más LCC societal: impuestos y subvenciones ajustados con el Net Tax Factor, impactos ambientales monetizados.',
-        detail: 'On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why a public or policy objective brings it in.',
+        detail: 'A las vistas de la empresa y de la cadena de valor se suma la del bienestar social. Impuestos y subvenciones son transferencias dentro de la sociedad y no costes reales para ella, así que se excluyen o se convierten en precios sombra mediante el Net Tax Factor, y los impactos ambientales del ACV paralelo se monetizan. Es la configuración que necesita una decisión pública, y por eso la introduce un objetivo público o de política.',
       },
       'C-LCC': {
         short: 'Solo LCC convencional — la perspectiva de la empresa, equivalente a un análisis de coste total de propiedad.',
-        detail: 'Only the firm\'s own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.',
+        detail: 'Solo la perspectiva de la empresa. Cada instrumento de política es un flujo de caja real: impuestos y tasas son costes, las subvenciones reducen el capex o el opex. Es el marco adecuado para el informe corporativo, y no dice nada a propósito sobre los efectos en la cadena de valor o en la sociedad: afirmarlos iría más allá de lo que puede sostener la cuenta de un solo actor.',
       },
       'C+N': {
         short: 'LCC convencional para cada socio, consolidado a nivel de red. Sin LCC ambiental: el caso no tiene un ACV con el que mantener la coherencia.',
@@ -851,11 +851,11 @@ const es: Locale = {
     slca: {
       'active': {
         short: 'S-ACV activa: indicadores sociales por grupo de partes interesadas.',
-        detail: 'The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.',
+        detail: 'La dimensión social está activa. Cada grupo de partes interesadas (trabajadores, consumidores, comunidades locales, actores de la cadena de valor) se vincula a los procesos que le afectan y, desde ahí, a las subcategorías de impacto y los indicadores. Ese vínculo vale lo que vale la participación que lo respalda: hablar con los grupos implicados forma parte de la recogida de datos, no es un extra opcional.',
       },
       'deactivated': {
         short: 'S-ACV no activada — la dimensión social está desactivada en Q3.',
-        detail: 'Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community.',
+        detail: 'En Q3 no está seleccionada la dimensión social, así que no se configura ni un mapa de partes interesadas ni ningún indicador social. Actívala en Q3 si el caso tiene que decir algo sobre trabajadores o comunidades locales, lo que suele ocurrir cuando una simbiosis se presenta a un municipio o a una comunidad.',
       },
     },
   },

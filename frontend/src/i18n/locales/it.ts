@@ -839,8 +839,8 @@ const it: Locale = {
       },
       'ILCD Situation C1': {
         title: 'Documentare una rete esistente (Situazione ILCD C1)',
-        short: 'Contabilità con interazioni — documentare cosa una rete esistente restituisce all\'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situation A.',
-        detail: 'Stai documentando una rete che esiste, non supportando una decisione, quindi lo studio è descrittivo. Ma dato che il punto è mostrare cosa la rete restituisce all\'economia più ampia, la multifunzionalità si risolve comunque per sostituzione sul mix di mercato medio — operativamente la stessa regola della Situation A.',
+        short: 'Contabilità con interazioni — documentare cosa una rete esistente restituisce all\'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situazione A.',
+        detail: 'Stai documentando una rete che esiste, non supportando una decisione, quindi lo studio è descrittivo. Ma dato che il punto è mostrare cosa la rete restituisce all\'economia più ampia, la multifunzionalità si risolve comunque per sostituzione sul mix di mercato medio — operativamente la stessa regola della Situazione A.',
       },
       'ILCD Situation C2': {
         title: 'Rendiconto rigoroso di una sola azienda (Situazione ILCD C2)',

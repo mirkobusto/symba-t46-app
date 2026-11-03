@@ -422,7 +422,7 @@ const en = {
       situation: 'A study of an existing network that evaluates an option for it (an improvement, an expansion) is read as Situation A; one that only documents the network is Situation C1 (T4.6 reading of D4.1 Table 1 and §4.3.2).',
       uncertainty: 'The Pedigree matrix is written as mandatory when the results go to a review panel, to EU policy alignment or to a publication (Q4 = C, D or E) and as recommended otherwise, and it is switched on for both LCA and LCC when the exchanges do not take place yet (Q2 = B, rule CIR-02); Monte Carlo is asked for the LCA with its own conditions (Q4 = C, D or E, or technology below TRL 9) and always for the costing. D4.1 §13.3.2 and D4.2 §7.1, §10.3 ask both in every study.',
       policy: "EU policy alignment (Q4 = D) brings in CE Delft prices and net-tax-factor allocation, which D4.2 ties to the societal LCC.",
-      assets: "Q12 counts the dedicated shared assets built for the exchanges now or years ago (D4.1 §6.3.3), where D4.2 §4.2 speaks of new ones.",
+      assets: 'Q12 counts the assets built for the exchanges, now or years ago, even when only one company uses them (D4.1 §6.3.3: unique to the IS scenario), where D4.2 §4.2 speaks of new shared ones.',
     },
     contactTitle: "Contact",
     contactBody: "For questions about the tool or the project, write through the contact page of the SYMBA website:",
@@ -715,13 +715,13 @@ const en = {
     q10: {
       title: 'Q10 — Does the study serve a public objective or a public decision-maker? *',
       help: 'Required when the economic dimension is on: it decides whether the societal LCC is added.',
-      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, and §2.2 ties the choice of LCC type to the perspective of the decision-maker: a municipality, a public utility or a regulator takes the public view, whatever the subject of the study (D4.2 §9.2 gives 3-5 % as the rate of a municipal or public-utility partner). A municipality planning an eco-park or a utility sizing a district-heating link answers yes. Strict reporting of one company (Q9: corporate report, Situation C2) keeps the company-level costing (a T4.6 design choice), and the tool tells you.',
+      details: 'D4.2 §2.3 adds a societal LCC (net tax factor, monetised externalities, social discount rate) when the study serves a public policy or territorial planning objective, and §2.2 ties the choice of LCC type to the perspective of the decision-maker. Who decides: the body that commissions or will use the study. A public partner inside the network (a municipal district-heating company, a public treatment plant) does not by itself make the objective public: its public cost of capital enters at entity level (D4.2 §9.2) inside a company-level costing. Answer yes when that public body is the one deciding on the case, or when a public plan or policy will use the study. A municipality planning an eco-park or a utility sizing a district-heating link answers yes. Strict reporting of one company (Q9: corporate report, Situation C2) keeps the company-level costing (a T4.6 design choice), and the tool tells you.',
       options: {
         yes: 'Yes — a public policy or planning objective, or a public decision-maker (adds the societal LCC)',
-        no: 'No — a private decision or a company\'s own account',
+        no: 'No — a private decision or a company\'s own account, even with a public body among the partners',
       },
       plain:
-        'Answer yes if the study is meant to feed a public decision, or is commissioned by a public body: a municipality, a region, a public utility, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a company\'s own account the economic reading stays at company level.',
+        'Answer yes if the study is meant to feed a public decision, or is commissioned by a public body: a municipality, a region, a public utility, a regulator, a plan. It then adds a second economic reading taken from the point of view of society: taxes counted differently, and effects nobody pays for in money. For a company\'s own account the economic reading stays at company level. Example: a steelworks commissions a study on selling heat to the municipal network — answer no; the municipality decides whether to connect — answer yes.',
     },
 
     q11: {
@@ -738,16 +738,16 @@ const en = {
         "What is the comparison really about? If the question is how best to deal with a waste — burn it, digest it, compost it — the result is counted per tonne of waste treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
     },
     q12: {
-      title: "Q12 — Does the symbiosis use dedicated shared assets?",
-      help: "Optional, asked when LCA or LCC is on: pipelines, plants or storage built for the exchanges, now or years ago.",
-      details: 'D4.2 §4.2 asks whether the network requires new dedicated shared assets: if it does, their CAPEX and ongoing OPEX must be included in the cost breakdown and allocated among the partners that benefit from them. D4.1 §6.3.3 includes the capital goods and infrastructure unique to the IS scenario, amortised over each asset\'s technical lifetime (Q8). With both LCA and LCC on, a yes also switches on the rules that align capital goods between the two (IR-13, B-06); for parks and programmes with the social dimension, the S-LCA indicators for shared investment (CIR-08).',
+      title: 'Q12 — Does the symbiosis use dedicated assets?',
+      help: 'Optional, asked when LCA or LCC is on: pipelines, plants, storage or equipment built for the exchanges, now or years ago, whether one company or several use them.',
+      details: 'D4.2 §4.2 asks whether the network requires new dedicated shared assets: if it does, their CAPEX and ongoing OPEX must be included in the cost breakdown and allocated among the partners that benefit from them. D4.1 §6.3.3 includes the capital goods and infrastructure unique to the IS scenario, amortised over each asset\'s technical lifetime (Q8). With both LCA and LCC on, a yes also switches on the rules that align capital goods between the two (IR-13, B-06); for parks and programmes with the social dimension, the S-LCA indicators for shared investment (CIR-08). One company can be the only benefiting partner.',
       options: {
         unset: 'Not answered',
-        yes: "Yes — pipelines, plants or storage built for the exchanges, now or years ago",
-        no: "No — the exchanges use only assets that would be needed anyway",
+        yes: 'Yes — something was built for the exchanges (a pipeline, a plant, a dryer, a tank), even if only one company uses it',
+        no: 'No — the exchanges use only assets that would exist anyway',
       },
       plain:
-        "Answer yes if something was built, or has to be built, for the exchanges to happen: a pipeline, a shared treatment plant, a storage tank, even one built years ago. Its cost and its environmental footprint are then counted in the study and shared among the companies that use it.",
+        'Answer yes if something was built, or has to be built, for the exchanges to happen: a pipeline, a treatment plant, a storage tank, a dryer, even one built years ago. Its cost and its footprint are then counted in the study and charged to whoever benefits from it: all to one company if only it uses it, shared if several do.',
     },
 
     q2dCard: {
@@ -910,6 +910,27 @@ const en = {
   },
 
   result: {
+    // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
+    lccTitle: {
+      'C+N': 'Conventional LCC per partner, consolidated at network level',
+      'C+N+S': 'Conventional LCC per partner and network, plus societal LCC',
+      'C-LCC': 'Conventional LCC of one company',
+      'C+E': 'Conventional and environmental LCC',
+      'C+E+S': 'Conventional, environmental and societal LCC',
+    },
+    lccBadge: {
+      'C+E': 'C-LCC + E-LCC',
+      'C+E+S': 'C-LCC + E-LCC + S-LCC',
+      'C+N': 'C-LCC per partner + network',
+      'C+N+S': 'C-LCC per partner + network + S-LCC',
+      'C-LCC': 'C-LCC',
+    },
+    situationBadge: {
+      A: 'ILCD Situation A',
+      B: 'ILCD Situation B',
+      C1: 'ILCD Situation C1',
+      C2: 'ILCD Situation C2',
+    },
     verdictWhy: "Why: you answered “{{answer}}” (Q9)",
     verdictWhyQ1: "Why: Q9 is not answered, so the situation is read off what you are analysing (Q1)",
     config: {
@@ -927,7 +948,7 @@ const en = {
         fu: 'Functional unit',
         regional: 'Local impacts',
         sectors: 'Sector rules',
-        shared: 'Shared assets',
+        shared: 'Dedicated assets',
       },
       values: {
         noChapter: "No chapter of D4.1 Part 2 covers the declared flows: only Part 1 applies",
@@ -961,7 +982,7 @@ const en = {
         regional_B: 'Regional or country-dependent characterisation factors',
         regional_C: 'Country- or region-dependent factors for the territory of each emission',
         regional_unset: 'Site-specific factors where the key interactions are intensely local',
-        shared: 'Their CAPEX and OPEX in the cost breakdown, shared among the partners that use them',
+        shared: 'Their CAPEX and OPEX in the cost breakdown, charged to the partners that benefit from them (all to one company when only it uses them)',
       },
       why: {
         noChapter: "Part 2 covers five bio-based sectors; no flow is declared in one of them",
@@ -984,7 +1005,7 @@ const en = {
         horizonTrl: 'the key technology is below TRL 7',
         horizonPeriod: 'the study follows the system for {{years}} years, more than {{threshold}}',
         horizonLifetime: 'the assets last {{years}} years, more than {{threshold}}',
-        horizonPresent: 'present year, mature technology and a horizon within {{threshold}} years',
+        horizonPresent: 'present year, technology at TRL 7 or above and a horizon within {{threshold}} years',
         referenceNotYet: 'the exchanges do not take place yet (Q2)',
         referenceRunning: 'the exchanges already take place (Q2)',
         referenceLongStanding: 'the network has run for many years (Q2)',
@@ -992,7 +1013,7 @@ const en = {
         fuDefault: 'what the study compares is not answered (Q11)',
         regionalUnset: 'the concentration of the interactions is not answered (Q7)',
         sectors: 'the chapters follow the sector declared on each flow',
-        shared: "the symbiosis uses dedicated shared assets (Q12)",
+        shared: 'the symbiosis uses dedicated assets (Q12)',
       },
     },
     notes: { title: 'Notes on your answers' },
@@ -1026,8 +1047,8 @@ const en = {
       flow_sellable_but_waste: "Flow '{{flow}}': Q5 says the generator pays to get rid of it (waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
       flow_price_without_market: "Flow '{{flow}}': Q5 says the recipient pays for it (co-product), but no third party would. With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the recipient pays what an independent buyer would pay, the price of the product the flow replaces net of its extra costs to use it; if the payment only shares costs, the flow is a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). Check the price against that benchmark.",
       flow_freedom_to_act_settles: {
-        co_product: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a co-product (§8.3.2, burden shared). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it; to apply that reading directly, set Q5 to c.",
-        waste: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it; to apply that reading directly, set Q5 to a.",
+        co_product: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a co-product (§8.3.2, burden shared). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it: do not change who pays whom; record this reading in the flow classification of the Data Collection File (Freedom-to-Act and the step of the decision tree), which the study documents.",
+        waste: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it: do not change who pays whom; record this reading in the flow classification of the Data Collection File (Freedom-to-Act and the step of the decision tree), which the study documents.",
       },
       running_but_future: "Q2 says the exchanges already take place, but Q8 places operation in a future year or Q6b puts the key technology below TRL 7. A running exchange is measured today: check Q2, Q8 and Q6b. Meanwhile the reference scenario and the timing of the costing follow Q2, the future background follows Q8 and Q6b.",
       design_without_screening: "The study designs, expands or restructures a network and is modelled as Situation A. D4.1 §4.2.3: such studies need the ILCD market screening (Mattila et al. 2012); without it the study stays A, with Situation B as a sensitivity analysis. Document the screening, or run B as a sensitivity.",

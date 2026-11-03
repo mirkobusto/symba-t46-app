@@ -79,10 +79,23 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
     })
   }
 
-  const codes = [
-    situation,
-    kase.lcc_type && kase.lcc_type !== 'deactivated' ? `LCC ${kase.lcc_type}` : null,
-  ].filter((s): s is string => Boolean(s))
+  const situationBadge = lookup(t, `result.situationBadge.${situation.replace('ILCD Situation ', '')}`) ?? situation
+  const lcc = kase.lcc_type && kase.lcc_type !== 'deactivated' ? kase.lcc_type : null
+  const lccBadge = lcc ? lookup(t, `result.lccBadge.${lcc}`) ?? `LCC ${lcc}` : null
+  // no LCA: the ILCD situation prescribes no modelling, so the costing heads
+  // the verdict and the situation steps down to a badge (decided by Fable,
+  // UX round 2026-11-03)
+  if (!kase.q3?.env && lcc) {
+    return {
+      title: lookup(t, `result.lccTitle.${lcc}`) ?? lccBadge ?? lcc,
+      body: lookup(t, `narrative.lcc.${lcc}.short`) ?? '',
+      method: method.filter((m) => m !== lookup(t, `narrative.lcc.${lcc}.short`)),
+      codes: [lccBadge, situationBadge].filter((s): s is string => Boolean(s)),
+      details,
+    }
+  }
+
+  const codes = [situationBadge, lccBadge].filter((s): s is string => Boolean(s))
 
   return {
     title: lookup(t, `narrative.ilcd.${situation}.title`) ?? situation,

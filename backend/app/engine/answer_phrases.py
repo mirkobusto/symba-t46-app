@@ -75,8 +75,10 @@ def interaction_scale(case: Case) -> str:
 def shared_assets(case: Case) -> str:
     """Q12 on the LCA capital-goods nodes, which branch on TRL (lca_hc_18, lca_mc_10)."""
     if case.dedicated_shared_assets:
-        return ("; the new dedicated shared assets of this symbiosis (pipelines, plants, storage) are such "
-                "capital goods")
+        # dedicated means built for the exchanges, whether one company or several use
+        # them (D4.1 §6.3.3; decided by Fable, UX round 2026-11-03)
+        return ("; the dedicated assets of this symbiosis (pipelines, plants, storage, equipment built for "
+                "the exchanges) are such capital goods")
     return ""
 
 

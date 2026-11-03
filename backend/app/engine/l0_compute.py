@@ -267,7 +267,9 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
                 "Check the price against that benchmark.")})
         elif sell is not None and f.q5 == Q5.b:
             # A note, not a decision (#118): lca_mc_17 keeps the economic value
-            # test for Q5 = b. The note used to say the answer "reads it as a
+            # test for Q5 = b. Q5 records who pays whom, so the note no longer asks to
+            # change it to apply the reading (decided by Fable, UX round 2026-11-03).
+            # The note used to say the answer "reads it as a
             # waste" while the node said EVT, and an analyst could not tell which
             # to follow (UX round 2026-11-02).
             reading = ("a co-product (§8.3.2, burden shared)" if sell else
@@ -276,8 +278,9 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
                           "params": {"flow": f.name or f.id, "variant": "co_product" if sell else "waste"}, "message": (
                 f"{label}: Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) "
                 f"points to {reading}. The configuration keeps the economic value test with a sensitivity "
-                f"analysis until the study confirms it; to apply that reading directly, set Q5 to "
-                f"{'c' if sell else 'a'}.")})
+                f"analysis until the study confirms it: do not change who pays whom; record this reading in "
+                f"the flow classification of the Data Collection File (Freedom-to-Act and the step of the "
+                f"decision tree), which the study documents.")})
         chapter = PART2_CHAPTER.get(f.sector) if f.sector else None
         if chapter:
             notes.append({"code": "flow_part2_chapter",

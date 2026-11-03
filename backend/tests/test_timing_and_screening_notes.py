@@ -42,5 +42,6 @@ def test_the_freedom_to_act_note_says_what_the_configuration_keeps():
     case = run(Case(q1=Q1.B, q2=Q2.A, q3=Q3(env=True), decision_context="micro",
                     flows=[{"id": "f1", "name": "heat", "q5": "b", "sellable_elsewhere": False}]))
     note = next(w for w in case.warnings if w["code"] == "flow_freedom_to_act_settles")
-    assert "keeps the economic value test" in note["message"] and "set Q5 to a" in note["message"]
+    assert "keeps the economic value test" in note["message"] and "do not change who pays whom" in note["message"]
+    assert "set Q5" not in note["message"]
     assert case.lca["zero_burden_classification"]["f1"] == "EVT+sensitivity"

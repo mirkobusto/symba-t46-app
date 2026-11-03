@@ -400,7 +400,7 @@ const it: Locale = {
       situation: 'Uno studio su una rete esistente che ne valuta un\'opzione (un miglioramento, un\'espansione) è letto come Situazione A; uno che si limita a documentare la rete è Situazione C1 (lettura T4.6 della Tabella 1 e del §4.3.2 di D4.1).',
       uncertainty: 'La matrice Pedigree è scritta come obbligatoria quando i risultati vanno a un panel di revisione, all\'allineamento con le politiche UE o a una pubblicazione (Q4 = C, D o E) e come raccomandata negli altri casi, e si accende sia per l\'LCA sia per l\'LCC quando gli scambi non avvengono ancora (Q2 = B, regola CIR-02); il Monte Carlo è chiesto per l\'LCA con condizioni proprie (Q4 = C, D o E, oppure tecnologia sotto TRL 9) e sempre per il costing. D4.1 §13.3.2 e D4.2 §7.1, §10.3 li chiedono entrambi in ogni studio.',
       policy: "L'allineamento alle politiche UE (Q4 = D) porta i prezzi CE Delft e l'allocazione con il net tax factor, che la D4.2 lega all'LCC sociale.",
-      assets: "Q12 conta i beni dedicati e condivisi costruiti per gli scambi, oggi o anni fa (D4.1 §6.3.3), dove la D4.2 §4.2 parla di beni nuovi.",
+      assets: 'Q12 conta i beni costruiti per gli scambi, oggi o anni fa, anche quando li usa una sola azienda (D4.1 §6.3.3: propri dello scenario di simbiosi), dove la D4.2 §4.2 parla di beni nuovi e condivisi.',
     },
     contactTitle: "Contatti",
     contactBody: "Per domande sullo strumento o sul progetto, scrivi dalla pagina contatti del sito SYMBA:",
@@ -693,13 +693,13 @@ const it: Locale = {
     q10: {
       title: 'Q10 — Lo studio serve un obiettivo pubblico o un decisore pubblico? *',
       help: 'Obbligatoria quando c\'è la dimensione economica: decide se si aggiunge l\'LCC sociale.',
-      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di politica pubblica o di pianificazione territoriale, e §2.2 lega la scelta del tipo di LCC alla prospettiva del decisore: un comune, un\'utility pubblica o un ente regolatore assumono il punto di vista pubblico, qualunque sia il soggetto dello studio (D4.2 §9.2 indica 3-5 % come tasso di un partner comunale o di un\'utility pubblica). Un comune che pianifica un eco-parco o un\'utility che dimensiona un collegamento di teleriscaldamento rispondono sì. Il rendiconto rigoroso di una sola azienda (Q9: rendiconto aziendale, Situazione C2) tiene il costing a livello d\'impresa (scelta di progetto T4.6), e il tool lo dice.',
+      details: 'D4.2 §2.3 aggiunge un LCC sociale (net tax factor, esternalità monetizzate, tasso di sconto sociale) quando lo studio serve un obiettivo di politica pubblica o di pianificazione territoriale, e §2.2 lega la scelta del tipo di LCC alla prospettiva del decisore. Chi decide: l\'ente che commissiona o userà lo studio. Un partner pubblico dentro la rete (una società comunale di teleriscaldamento, un depuratore pubblico) non rende di per sé pubblico l\'obiettivo: il suo costo pubblico del capitale entra a livello di singola entità (D4.2 §9.2) dentro un costing a livello d\'impresa. Rispondi sì quando è quell\'ente pubblico a decidere sul caso, o quando lo studio servirà un piano o una politica pubblica. Un comune che pianifica un eco-parco o un\'utility che dimensiona un collegamento di teleriscaldamento rispondono sì. Il rendiconto rigoroso di una sola azienda (Q9: rendiconto aziendale, Situazione C2) tiene il costing a livello d\'impresa (scelta di progetto T4.6), e il tool lo dice.',
       options: {
         yes: 'Sì — un obiettivo di politica pubblica o di pianificazione, o un decisore pubblico (aggiunge l\'LCC sociale)',
-        no: 'No — una decisione privata o il rendiconto di un\'azienda',
+        no: 'No — una decisione privata o il rendiconto di un\'azienda, anche con un ente pubblico fra i partner',
       },
       plain:
-        'Rispondi sì se lo studio deve alimentare una decisione pubblica, o lo commissiona un ente pubblico: un comune, una regione, un\'utility pubblica, un regolatore, un piano. Si aggiunge allora una seconda lettura economica dal punto di vista della società: le tasse contate in un altro modo, e gli effetti che nessuno paga in denaro. Per il rendiconto di un\'azienda la lettura economica resta a livello d\'impresa.',
+        'Rispondi sì se lo studio deve alimentare una decisione pubblica, o lo commissiona un ente pubblico: un comune, una regione, un\'utility pubblica, un regolatore, un piano. Si aggiunge allora una seconda lettura economica dal punto di vista della società: le tasse contate in un altro modo, e gli effetti che nessuno paga in denaro. Per il rendiconto di un\'azienda la lettura economica resta a livello d\'impresa. Decide chi commissiona o userà lo studio, non la presenza di un ente pubblico nella rete. Esempio: l\'acciaieria studia la vendita di calore alla rete comunale — no; il Comune decide se collegarsi — sì.',
     },
 
     q11: {
@@ -716,16 +716,16 @@ const it: Locale = {
         "Su che cosa verte davvero il confronto? Se la domanda è come trattare al meglio un rifiuto — bruciarlo, digerirlo, compostarlo — il risultato si conta per tonnellata di rifiuto trattato. Se la domanda è se il prodotto recuperato è migliore di quello che sostituisce, si conta per unità di prodotto. Se contano tutte e due, si contano una accanto all'altra.",
     },
     q12: {
-      title: "Q12 — La simbiosi usa beni dedicati e condivisi?",
-      help: "Facoltativa, chiesta con LCA o LCC: condotte, impianti o stoccaggi costruiti per gli scambi, oggi o anni fa.",
-      details: 'D4.2 §4.2 chiede se la rete richiede nuovi beni dedicati e condivisi: in tal caso il loro CAPEX e l\'OPEX corrente vanno inclusi nel prospetto dei costi e ripartiti fra i partner che ne beneficiano. D4.1 §6.3.3 include i beni capitali e le infrastrutture propri dello scenario di simbiosi, ammortizzati sulla vita tecnica di ogni bene (Q8). Con LCA e LCC entrambi attivi, un sì accende anche le regole che allineano i beni capitali fra i due (IR-13, B-06); per parchi e programmi con la dimensione sociale, gli indicatori S-LCA per l\'investimento condiviso (CIR-08).',
+      title: 'Q12 — La simbiosi usa beni dedicati?',
+      help: 'Facoltativa, chiesta quando LCA o LCC sono attivi: condotte, impianti, serbatoi o attrezzature costruiti per gli scambi, oggi o anni fa, che li usi una sola azienda o più d\'una.',
+      details: 'D4.2 §4.2 chiede se la rete richiede nuovi beni dedicati e condivisi: in tal caso il loro CAPEX e l\'OPEX corrente vanno inclusi nel prospetto dei costi e ripartiti fra i partner che ne beneficiano. D4.1 §6.3.3 include i beni capitali e le infrastrutture propri dello scenario di simbiosi, ammortizzati sulla vita tecnica di ogni bene (Q8). Con LCA e LCC entrambi attivi, un sì accende anche le regole che allineano i beni capitali fra i due (IR-13, B-06); per parchi e programmi con la dimensione sociale, gli indicatori S-LCA per l\'investimento condiviso (CIR-08). Il partner che ne beneficia può essere una sola azienda.',
       options: {
         unset: 'Non risposta',
-        yes: "Sì — condotte, impianti o stoccaggi costruiti per gli scambi, oggi o anni fa",
-        no: "No — gli scambi usano solo beni che servirebbero comunque",
+        yes: 'Sì — qualcosa è stato costruito per gli scambi (una condotta, un impianto, un essiccatoio, un serbatoio), anche se lo usa una sola azienda',
+        no: 'No — gli scambi usano solo beni che esisterebbero comunque',
       },
       plain:
-        "Rispondi sì se qualcosa è stato costruito, o va costruito, perché gli scambi avvengano: una condotta, un impianto di trattamento comune, un serbatoio, anche costruito anni fa. Il suo costo e la sua impronta ambientale entrano allora nello studio e si dividono fra le aziende che lo usano.",
+        'Rispondi sì se qualcosa è stato costruito, o va costruito, perché gli scambi avvengano: una condotta, un impianto di trattamento, un serbatoio, un essiccatoio, anche costruito anni fa. Il suo costo e la sua impronta entrano allora nello studio e vanno a carico di chi ne beneficia: tutto a una sola azienda se la usa solo lei, ripartiti se la usano in più.',
     },
 
     q2dCard: {
@@ -888,6 +888,27 @@ const it: Locale = {
   },
 
   result: {
+    // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
+    lccTitle: {
+      'C+N': 'LCC convenzionale per partner, consolidato a livello di rete',
+      'C+N+S': 'LCC convenzionale per partner e rete, più LCC sociale',
+      'C-LCC': 'LCC convenzionale di una sola azienda',
+      'C+E': 'LCC convenzionale e ambientale',
+      'C+E+S': 'LCC convenzionale, ambientale e sociale',
+    },
+    lccBadge: {
+      'C+E': 'C-LCC + E-LCC',
+      'C+E+S': 'C-LCC + E-LCC + S-LCC',
+      'C+N': 'C-LCC per partner + rete',
+      'C+N+S': 'C-LCC per partner + rete + S-LCC',
+      'C-LCC': 'C-LCC',
+    },
+    situationBadge: {
+      A: 'Situazione ILCD A',
+      B: 'Situazione ILCD B',
+      C1: 'Situazione ILCD C1',
+      C2: 'Situazione ILCD C2',
+    },
     verdictWhy: "Perché: hai risposto «{{answer}}» (Q9)",
     verdictWhyQ1: "Perché: Q9 non ha risposta, quindi la situazione si ricava da che cosa stai analizzando (Q1)",
     config: {
@@ -905,7 +926,7 @@ const it: Locale = {
         fu: 'Unità funzionale',
         regional: 'Impatti locali',
         sectors: 'Regole di settore',
-        shared: 'Beni condivisi',
+        shared: 'Beni dedicati',
       },
       values: {
         noChapter: "Nessun capitolo della D4.1 Part 2 riguarda i flussi dichiarati: vale solo la Part 1",
@@ -939,7 +960,7 @@ const it: Locale = {
         regional_B: 'Fattori di caratterizzazione regionali o per paese',
         regional_C: 'Fattori per paese o regione per il territorio di ogni emissione',
         regional_unset: 'Fattori specifici per il luogo dove le interazioni chiave sono intensamente locali',
-        shared: 'CAPEX e OPEX nel prospetto dei costi, ripartiti fra i partner che li usano',
+        shared: 'CAPEX e OPEX nel prospetto dei costi, a carico dei partner che ne beneficiano (tutto a una sola azienda se li usa solo lei)',
       },
       why: {
         noChapter: "la Part 2 copre cinque settori bio-based e nessun flusso è dichiarato in uno di essi",
@@ -962,7 +983,7 @@ const it: Locale = {
         horizonTrl: 'la tecnologia chiave è sotto TRL 7',
         horizonPeriod: 'lo studio segue il sistema per {{years}} anni, più di {{threshold}}',
         horizonLifetime: 'i beni durano {{years}} anni, più di {{threshold}}',
-        horizonPresent: 'anno attuale, tecnologia matura e orizzonte entro {{threshold}} anni',
+        horizonPresent: 'anno attuale, tecnologia a TRL 7 o superiore e orizzonte entro {{threshold}} anni',
         referenceNotYet: 'gli scambi non avvengono ancora (Q2)',
         referenceRunning: 'gli scambi avvengono già (Q2)',
         referenceLongStanding: 'la rete opera da molti anni (Q2)',
@@ -970,7 +991,7 @@ const it: Locale = {
         fuDefault: 'che cosa si confronta non ha risposta (Q11)',
         regionalUnset: 'la concentrazione delle interazioni non ha risposta (Q7)',
         sectors: 'i capitoli seguono il settore dichiarato su ogni flusso',
-        shared: "la simbiosi usa beni dedicati e condivisi (Q12)",
+        shared: 'la simbiosi usa beni dedicati (Q12)',
       },
     },
     notes: { title: 'Note sulle tue risposte' },
@@ -1004,8 +1025,8 @@ const it: Locale = {
       flow_sellable_but_waste: "Flusso «{{flow}}»: Q5 dice che chi lo genera paga per disfarsene (rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6 Step 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
       flow_price_without_market: "Flusso «{{flow}}»: Q5 dice che chi riceve paga (co-prodotto), ma nessun terzo lo comprerebbe. Con un solo acquirente decide il prezzo (D4.1 §8.3.3): il flusso è un co-prodotto se chi riceve paga quanto pagherebbe un compratore indipendente, cioè il prezzo del prodotto che il flusso sostituisce al netto dei suoi costi in più per usarlo; se il pagamento divide solo i costi, il flusso è un rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6 Step 4). Confronta il prezzo con questo riferimento.",
       flow_freedom_to_act_settles: {
-        co_product: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un co-prodotto (§8.3.2, carico ripartito). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma; per applicare subito questa lettura, imposta Q5 su c.",
-        waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma; per applicare subito questa lettura, imposta Q5 su a.",
+        co_product: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un co-prodotto (§8.3.2, carico ripartito). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma: non cambiare chi paga chi; registra questa lettura nella Classificazione dei flussi del Data Collection File (Freedom-to-Act e passo dell\'albero decisionale), che lo studio documenta.",
+        waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma: non cambiare chi paga chi; registra questa lettura nella Classificazione dei flussi del Data Collection File (Freedom-to-Act e passo dell\'albero decisionale), che lo studio documenta.",
       },
       running_but_future: "Q2 dice che gli scambi avvengono già, ma Q8 colloca l'esercizio in un anno futuro o Q6b mette la tecnologia chiave sotto TRL 7. Uno scambio in corso si misura oggi: controlla Q2, Q8 e Q6b. Intanto lo scenario di riferimento e i tempi della valutazione dei costi seguono Q2, il background futuro segue Q8 e Q6b.",
       design_without_screening: "Lo studio progetta, espande o ristruttura una rete ed è modellato come Situazione A. D4.1 §4.2.3: questi studi richiedono lo screening di mercato ILCD (Mattila et al. 2012); senza, lo studio resta A, con la Situazione B come analisi di sensibilità. Documenta lo screening, oppure esegui B come sensibilità.",

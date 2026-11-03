@@ -867,6 +867,7 @@ const en = {
     addChange: "Add a change",
     pickQuestion: "Question",
     newAnswer: "New answer",
+    flowQ5Title: 'Who pays whom, per flow',
     removeChange: "Remove this change",
     noChanges: "No change yet: the scenario is the same as the case.",
     jsonToggle: "Edit as JSON (experts)",
@@ -1259,6 +1260,7 @@ const en = {
 
   scenariosResult: {
     title: 'Scenario comparison',
+    flowQ5Row: 'Who pays whom: {{flow}}',
     empty: 'No scenarios result yet. In the questionnaire, define one or more alternative scenarios, then click "Run scenarios" on the result page.',
     description: "The case and {{n}} alternative scenario(s), each run through the engine. Cells that differ from the case are highlighted.",
     backToResult: 'Back to single result',

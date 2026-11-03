@@ -56,6 +56,18 @@ function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<strin
       before: before[k]?.value ?? '—',
       after: after[k]?.value ?? '—',
     }))
+  // a scenario may change who pays whom for one flow: name the flow and both classes
+  const baseQ5 = new Map((base.flows ?? []).map((f) => [f.id, f.q5]))
+  for (const f of scenario.flows ?? []) {
+    const was = baseQ5.get(f.id)
+    if (was && f.q5 && was !== f.q5) {
+      rows.push({
+        label: t('scenariosResult.flowQ5Row', { flow: f.name || f.id }),
+        before: t(`flows.options.${was}`),
+        after: t(`flows.options.${f.q5}`),
+      })
+    }
+  }
   const name = (id: string, fallback?: string | null) =>
     `${id} ${schemaTerm(lang, 'rule', id)?.name ?? fallback ?? ''}`.trim()
   const baseRules = new Map((base.applicable_rules ?? []).map((r) => [r.rule_id, r.name]))

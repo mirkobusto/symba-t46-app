@@ -405,6 +405,7 @@ const en = {
       showSteps: "One question at a time",
       navLabel: "Questions",
     },
+    examplesLink: "Want to see how a real study answers? Load a published example",
     stillRequired: "Still to answer:",
     flowsMissingQ5: "who pays whom, for every flow",
     shortcutTip: 'Tip: Ctrl/⌘+Enter to run',

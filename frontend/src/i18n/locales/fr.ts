@@ -363,6 +363,7 @@ const fr: Locale = {
       showSteps: "Une question à la fois",
       navLabel: "Questions",
     },
+    examplesLink: "Voir comment répond une vraie étude ? Chargez un exemple publié",
     stillRequired: "Il reste à répondre :",
     flowsMissingQ5: "qui paie qui, pour chaque flux",
     shortcutTip: 'Astuce : Ctrl/⌘+Entrée pour exécuter',

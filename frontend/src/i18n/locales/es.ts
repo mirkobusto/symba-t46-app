@@ -357,6 +357,7 @@ const es: Locale = {
       showSteps: "Una pregunta cada vez",
       navLabel: "Preguntas",
     },
+    examplesLink: "¿Quieres ver cómo responde un estudio real? Carga un ejemplo publicado",
     stillRequired: "Falta responder:",
     flowsMissingQ5: "quién paga a quién, para cada flujo",
     shortcutTip: 'Tip: Ctrl/⌘+Enter para ejecutar',

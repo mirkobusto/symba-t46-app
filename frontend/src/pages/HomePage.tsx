@@ -7,8 +7,9 @@
 // the tool fits them (UX round 2026-11-02).
 
 import { ArrowRight } from 'lucide-react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import PresetLoader from '../components/PresetLoader'
 import { useCaseStore } from '../store/caseStore'
@@ -19,6 +20,11 @@ const INTRO = ['what', 'not', 'who'] as const
 export default function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { hash } = useLocation()
+  // the questionnaire links here ("/#presets"); the router does not scroll to anchors
+  useEffect(() => {
+    if (hash === '#presets') document.getElementById('presets')?.scrollIntoView()
+  }, [hash])
   const reset = useCaseStore((s) => s.reset)
   const mode = usePreferenceStore((s) => s.mode)
   const setMode = usePreferenceStore((s) => s.setMode)
@@ -91,7 +97,7 @@ export default function HomePage() {
       </div>
 
       {/* Presets */}
-      <div className="dd-card">
+      <div className="dd-card" id="presets">
         <div className="dd-card-head">
           <h3>{t('home.presetsTitle')}</h3>
           <span className="dd-card-meta">{t('home.presetsMeta')}</span>

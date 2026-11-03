@@ -153,12 +153,12 @@ _PAPERS: list[dict[str, Any]] = [
         "expected_lcc_type": LccType.C_LCC_PLUS_NETWORK,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },
-    # 8. Danielsson 2018 — Kalundborg, ENV+ECO, public-claim Q4=C
+    # 8. Danielsson 2018 — Kalundborg, ENV+ECO, public report Q4=B (no comparative assertion, UX round 4)
     {
         "id": "danielsson_2018",
         "decision_context": DecisionContext.NONE, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True,
         "q3": Q3(env=True, eco=True),
-        "q4": {Q4.C},
+        "q4": {Q4.B},
         "flows": _flows(Q5.e),
         "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
         "expected_ilcd": IlcdSituation.SITUATION_C1,

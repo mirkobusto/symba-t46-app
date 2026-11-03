@@ -146,7 +146,9 @@ def extract() -> dict[str, Any]:
             # labels shared with the result page, so the document and the screen agree
             "page": {"configTitle": tree["result"]["config"]["title"],
                      "why": tree["result"]["config"]["why"]["label"],
-                     "resolution": tree["result"]["action"]["resolution"]},
+                     "resolution": tree["result"]["action"]["resolution"],
+                     "situationBadge": tree["result"]["situationBadge"],
+                     "lccBadge": tree["result"]["lccBadge"]},
         }
     return out
 

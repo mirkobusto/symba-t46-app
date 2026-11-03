@@ -1076,7 +1076,7 @@ const it: Locale = {
       noTensions:
         "Per queste risposte non è emerso nessun punto di decisione critico fra i metodi. Gli obblighi qui sotto valgono comunque.",
       allClear:
-        'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: raccogliere i dati di inventario.',
+        'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: apri il Data Collection File.',
       ctaHint: 'Il Data Collection File è calibrato su questa configurazione: ti chiede solo quello che serve al tuo caso.',
     },
     actionKind: {
@@ -1399,7 +1399,7 @@ const it: Locale = {
     navLink: 'Raccolta dati',
     title: 'Data Collection File',
     subtitle:
-      'Calibrato sulla configurazione derivata. Scarica il foglio Excel per raccogliere i dati di inventario con i partner della simbiosi, poi torna qui per il report finale.',
+      'Calibrato sulla configurazione ricavata. Scarica l\'Excel per raccogliere, con i partner, i dati sugli scambi e sul riferimento di ogni attore; l\'inventario di processo di ogni impianto si raccoglie a parte.',
     loading: 'Sto componendo il Data Collection File…',
     errorTitle: 'Generazione Data Collection File fallita',
     errorNoPayload: 'Il server non ha restituito un payload.',
@@ -1411,10 +1411,11 @@ const it: Locale = {
     downloadingDocx: 'Preparazione documento…',
     downloadError: 'Download fallito',
     footerNote:
-      'Il Data Collection File è un foglio di raccolta dati pronto per l\'export. Compila le righe vuote offline (o distribuiscilo ai partner del network) e restituisci i dati all\'analista responsabile dell\'LCSA.',
+      'Il Data Collection File descrive gli scambi, non i processi: compila le righe vuote offline (o distribuiscile ai partner) e riconsegna il file all\'analista che guida lo studio, che raccoglie gli inventari degli impianti con i software di LCA e di costing.',
     openButton: 'Apri Data Collection File',
     tabOverview: 'Panoramica',
     tabNetworkBuilder: 'Editor di rete',
+    socialDeferred: 'L\'inventario sociale non si raccoglie in questo file: segue la D4.3 con i suoi strumenti (questionari, interviste per gruppo di stakeholder).',
   },
 
   networkDiagram: {

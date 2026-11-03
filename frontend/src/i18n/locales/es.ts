@@ -1051,7 +1051,7 @@ const es: Locale = {
       noTensions:
         "Para estas respuestas no ha surgido ningún punto de decisión crítico entre los métodos. Las obligaciones de abajo se aplican igualmente.",
       allClear:
-        'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: recoger los datos de inventario.',
+        'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: abre el Data Collection File.',
       ctaHint: 'El Data Collection File está calibrado en esta configuración: solo pide lo que tu caso necesita.',
     },
     actionKind: {
@@ -1373,7 +1373,7 @@ const es: Locale = {
     navLink: 'Recolección de datos',
     title: 'Data Collection File',
     subtitle:
-      'Calibrado sobre la configuración derivada. Descarga el archivo Excel para recolectar datos de inventario con los socios de la simbiosis, y vuelve aquí para el informe final.',
+      'Calibrado sobre la configuración derivada. Descarga el Excel para recoger, con los socios, los datos sobre los intercambios y sobre la referencia de cada actor; el inventario de procesos de cada planta se recoge aparte.',
     loading: 'Componiendo el Data Collection File…',
     errorTitle: 'Generación del Data Collection File fallida',
     errorNoPayload: 'El servidor no devolvió un payload.',
@@ -1385,10 +1385,11 @@ const es: Locale = {
     downloadingDocx: 'Preparando documento…',
     downloadError: 'Descarga fallida',
     footerNote:
-      'El Data Collection File es una hoja de recolección lista para exportar. Rellena las filas vacías sin conexión (o distribúyelo a los socios de la red) y devuelve los datos al analista responsable de la LCSA.',
+      'El Data Collection File describe los intercambios, no los procesos: rellena las filas vacías sin conexión (o repártelas entre los socios) y devuelve el archivo al analista que dirige el estudio, que recoge los inventarios de las plantas con el software de ACV y de costes.',
     openButton: 'Abrir Data Collection File',
     tabOverview: 'Resumen',
     tabNetworkBuilder: 'Editor de red',
+    socialDeferred: 'El inventario social no se recoge en este archivo: sigue la D4.3 con sus propios instrumentos (cuestionarios, entrevistas por grupo de partes interesadas).',
   },
 
   networkDiagram: {

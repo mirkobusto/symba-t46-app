@@ -1057,7 +1057,7 @@ const fr: Locale = {
       noTensions:
         "Aucun point de décision critique entre les méthodes n'est apparu pour ces réponses. Les obligations ci-dessous s'appliquent quand même.",
       allClear:
-        "Aucune obligation méthodologique ne s'applique à ces réponses et aucun point de décision critique n'est apparu. Étape suivante : collecter les données d'inventaire.",
+        'Aucune obligation méthodologique ne s\'applique à ces réponses et aucun point de décision critique n\'est apparu. Prochaine étape : ouvrez le Data Collection File.',
       ctaHint: 'Le Data Collection File est calibré sur cette configuration : il ne demande que ce dont votre cas a besoin.',
     },
     actionKind: {
@@ -1379,7 +1379,7 @@ const fr: Locale = {
     navLink: 'Collecte de données',
     title: 'Data Collection File',
     subtitle:
-      'Calibré sur la configuration dérivée. Téléchargez le fichier Excel pour collecter les données d\'inventaire avec les partenaires de la symbiose, puis revenez pour le rapport final.',
+      'Calibré sur la configuration dérivée. Téléchargez l\'Excel pour collecter, avec les partenaires, les données sur les échanges et sur la référence de chaque acteur ; l\'inventaire de procédés de chaque installation se collecte à part.',
     loading: 'Composition du Data Collection File…',
     errorTitle: 'Échec de la génération du Data Collection File',
     errorNoPayload: 'Le serveur n\'a pas renvoyé de payload.',
@@ -1391,10 +1391,11 @@ const fr: Locale = {
     downloadingDocx: 'Préparation document…',
     downloadError: 'Échec du téléchargement',
     footerNote:
-      'Le Data Collection File est une feuille de collecte prête à l\'export. Remplissez les lignes vides hors ligne (ou distribuez-le aux partenaires du réseau) et restituez les données à l\'analyste responsable de l\'LCSA.',
+      'Le Data Collection File décrit les échanges, pas les procédés : remplissez les lignes vides hors ligne (ou distribuez-les aux partenaires) et rendez le fichier à l\'analyste qui conduit l\'étude, qui collecte les inventaires des installations avec les logiciels d\'ACV et de calcul des coûts.',
     openButton: 'Ouvrir Data Collection File',
     tabOverview: "Vue d'ensemble",
     tabNetworkBuilder: 'Éditeur de réseau',
+    socialDeferred: 'L\'inventaire social n\'est pas collecté dans ce fichier : il suit la D4.3 avec ses propres instruments (questionnaires, entretiens par groupe de parties prenantes).',
   },
 
   networkDiagram: {

@@ -264,3 +264,13 @@ def test_eu_footer_text_is_canonical(payload_wiktor):
                 found = True
                 break
         assert found, f"EU footer missing in tab {sheet_name!r}"
+
+
+def test_cover_values_are_worded_in_the_reader_language(payload_wiktor):
+    # UX round 2026-11-03: "ILCD Situation C1", "deactivated" and "Analysis" stood
+    # under Italian labels on the cover
+    wb = load_workbook(BytesIO(render_xlsx(payload_wiktor, lang="it")))
+    values = {wb.worksheets[0].cell(row=r, column=2).value for r in range(3, 14)}
+    assert any(str(v).startswith("Situazione ILCD") for v in values)
+    assert "deactivated" not in values and "active" not in values
+    assert not any(str(v).startswith("ILCD Situation") for v in values)

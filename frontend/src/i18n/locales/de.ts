@@ -1051,7 +1051,7 @@ const de: Locale = {
       noTensions:
         "Für diese Antworten wurde kein kritischer Entscheidungspunkt zwischen den Methoden aufgeworfen. Die Verpflichtungen unten gelten trotzdem.",
       allClear:
-        'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Inventardaten erheben.',
+        'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Öffnen Sie das Data Collection File.',
       ctaHint: 'Das Data Collection File ist auf diese Konfiguration kalibriert: es fragt nur ab, was Ihr Fall braucht.',
     },
     actionKind: {
@@ -1373,7 +1373,7 @@ const de: Locale = {
     navLink: 'Datenerhebung',
     title: 'Data Collection File',
     subtitle:
-      'Auf die abgeleitete Konfiguration zugeschnitten. Laden Sie die Excel-Datei herunter, um Inventardaten mit den Symbiose-Partnern zu sammeln, und kehren Sie für den finalen Report zurück.',
+      'Auf die abgeleitete Konfiguration abgestimmt. Laden Sie die Excel-Datei herunter, um mit den Partnern die Daten zum Austausch und zur Referenz jedes Akteurs zu erheben; das Prozessinventar jeder Anlage wird getrennt erhoben.',
     loading: 'Erstelle Data Collection File…',
     errorTitle: 'Erstellung des Data Collection File fehlgeschlagen',
     errorNoPayload: 'Der Server hat keine Antwort zurückgegeben.',
@@ -1385,10 +1385,11 @@ const de: Locale = {
     downloadingDocx: 'Dokument wird vorbereitet…',
     downloadError: 'Download fehlgeschlagen',
     footerNote:
-      'Das Data Collection File ist ein exportfertiges Inventarblatt. Füllen Sie die leeren Zeilen offline aus (oder verteilen Sie sie an die Netzwerkpartner) und übergeben Sie die Daten an den für die LCSA verantwortlichen Analysten.',
+      'Das Data Collection File beschreibt den Austausch, nicht die Prozesse: Füllen Sie die leeren Zeilen offline aus (oder verteilen Sie sie an die Partner) und geben Sie die Datei an den Analysten zurück, der die Studie leitet und die Anlageninventare mit der Ökobilanz- und Kostensoftware erhebt.',
     openButton: 'Data Collection File öffnen',
     tabOverview: 'Übersicht',
     tabNetworkBuilder: 'Netzwerk-Editor',
+    socialDeferred: 'Das soziale Inventar wird nicht in dieser Datei erhoben: Es folgt D4.3 mit eigenen Instrumenten (Fragebögen, Interviews je Stakeholdergruppe).',
   },
 
   networkDiagram: {

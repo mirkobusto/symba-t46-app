@@ -524,7 +524,20 @@
   "page": {
    "configTitle": "Your configuration",
    "why": "Why:",
-   "resolution": "How it is resolved"
+   "resolution": "How it is resolved",
+   "situationBadge": {
+    "A": "ILCD Situation A",
+    "B": "ILCD Situation B",
+    "C1": "ILCD Situation C1",
+    "C2": "ILCD Situation C2"
+   },
+   "lccBadge": {
+    "C+E": "C-LCC + E-LCC",
+    "C+E+S": "C-LCC + E-LCC + S-LCC",
+    "C+N": "C-LCC per partner + network",
+    "C+N+S": "C-LCC per partner + network + S-LCC",
+    "C-LCC": "C-LCC"
+   }
   }
  },
  "it": {
@@ -1052,7 +1065,20 @@
   "page": {
    "configTitle": "La tua configurazione",
    "why": "Perché:",
-   "resolution": "Come si risolve"
+   "resolution": "Come si risolve",
+   "situationBadge": {
+    "A": "Situazione ILCD A",
+    "B": "Situazione ILCD B",
+    "C1": "Situazione ILCD C1",
+    "C2": "Situazione ILCD C2"
+   },
+   "lccBadge": {
+    "C+E": "C-LCC + E-LCC",
+    "C+E+S": "C-LCC + E-LCC + S-LCC",
+    "C+N": "C-LCC per partner + rete",
+    "C+N+S": "C-LCC per partner + rete + S-LCC",
+    "C-LCC": "C-LCC"
+   }
   }
  },
  "fr": {
@@ -1580,7 +1606,20 @@
   "page": {
    "configTitle": "Votre configuration",
    "why": "Pourquoi :",
-   "resolution": "Comment cela se résout"
+   "resolution": "Comment cela se résout",
+   "situationBadge": {
+    "A": "Situation ILCD A",
+    "B": "Situation ILCD B",
+    "C1": "Situation ILCD C1",
+    "C2": "Situation ILCD C2"
+   },
+   "lccBadge": {
+    "C+E": "C-LCC + E-LCC",
+    "C+E+S": "C-LCC + E-LCC + S-LCC",
+    "C+N": "C-LCC par partenaire + réseau",
+    "C+N+S": "C-LCC par partenaire + réseau + S-LCC",
+    "C-LCC": "C-LCC"
+   }
   }
  },
  "de": {
@@ -2108,7 +2147,20 @@
   "page": {
    "configTitle": "Ihre Konfiguration",
    "why": "Warum:",
-   "resolution": "Wie das aufgelöst wird"
+   "resolution": "Wie das aufgelöst wird",
+   "situationBadge": {
+    "A": "ILCD-Situation A",
+    "B": "ILCD-Situation B",
+    "C1": "ILCD-Situation C1",
+    "C2": "ILCD-Situation C2"
+   },
+   "lccBadge": {
+    "C+E": "C-LCC + E-LCC",
+    "C+E+S": "C-LCC + E-LCC + S-LCC",
+    "C+N": "C-LCC je Partner + Netzwerk",
+    "C+N+S": "C-LCC je Partner + Netzwerk + S-LCC",
+    "C-LCC": "C-LCC"
+   }
   }
  },
  "es": {
@@ -2636,7 +2688,20 @@
   "page": {
    "configTitle": "Tu configuración",
    "why": "Por qué:",
-   "resolution": "Cómo se resuelve"
+   "resolution": "Cómo se resuelve",
+   "situationBadge": {
+    "A": "Situación ILCD A",
+    "B": "Situación ILCD B",
+    "C1": "Situación ILCD C1",
+    "C2": "Situación ILCD C2"
+   },
+   "lccBadge": {
+    "C+E": "C-LCC + E-LCC",
+    "C+E+S": "C-LCC + E-LCC + S-LCC",
+    "C+N": "C-LCC por socio + red",
+    "C+N+S": "C-LCC por socio + red + S-LCC",
+    "C-LCC": "C-LCC"
+   }
   }
  }
 }

@@ -337,11 +337,13 @@ def _header_label(field) -> str:
 
 
 def _field_note(field, lang: str = "en") -> str:
-    """The comment on a header: what the field means, the values it takes
-    and why it is asked, in words; the field id stays last, for whoever
-    maps the file back to the schema."""
+    """The comment on a header: who fills it in when it is not the sheet's
+    filler, what the field means, the values it takes and why it is asked, in
+    words. No field id: it was noise to whoever fills the file in."""
     parts = []
-    if field.filled_by == "analyst":
+    # the payment class arrives filled in from the questionnaire: its own text
+    # says so, "leave it empty" would be wrong (Fable review of #208)
+    if field.filled_by == "analyst" and field.id != "flow.q5_class":
         parts.append(ui(lang, "note.analyst"))
     help_text = field.help or field.description_en
     if help_text:

@@ -595,3 +595,23 @@ def test_each_sheet_says_who_fills_it_and_has_a_row_per_flow(client):
     fills = {matrix.cell(row=4, column=c).value: matrix.cell(row=4, column=c).fill.fgColor.rgb
              for c in range(1, matrix.max_column + 1)}
     assert fills["Who pays whom *"].endswith("8A93A3")
+
+
+def test_a_case_never_drawn_gets_a_row_per_questionnaire_flow(client):
+    """Without any stored network the per-flow sheets still list the
+    questionnaire flows, and a stored row is not duplicated (Fable, #208)."""
+    from io import BytesIO
+
+    import openpyxl
+
+    case_id = _create_case(client)
+    wb = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))
+    costs = wb["Costs & Revenues"] if "Costs & Revenues" in wb.sheetnames else wb[[n for n in wb.sheetnames if n.startswith("Cost")][0]]
+    assert [costs.cell(row=r, column=1).value for r in (5, 6)] == ["sludge", "biogas"]
+
+    data = _two_actors_one_flow(case_id)
+    data["rows_by_section"]["logistics"] = [{"row_id": "r1", "values": {"route.flow_id": "f1"}}]
+    assert client.put(f"/api/dcf/{case_id}/data", json=data).status_code == 200
+    wb = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))
+    firsts = [wb["Logistics"].cell(row=r, column=1).value for r in range(5, 9)]
+    assert firsts.count("sludge (WWTP Alfa → Biogas plant Beta)") == 1

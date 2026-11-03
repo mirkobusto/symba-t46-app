@@ -292,7 +292,11 @@ def _write_field_reference_section(doc: Document, payload: DcfPayload, lang: str
                 continue
             cells = table.add_row().cells
             cells[0].text = (field.label or field.label_en) + (" *" if field.required else "")
-            meaning = [str(field.help or field.description_en or "")]
+            meaning = []
+            # the same note as the Excel comment (Fable review of #208)
+            if field.filled_by == "analyst" and field.id != "flow.q5_class":
+                meaning.append(ui(lang, "note.analyst"))
+            meaning.append(str(field.help or field.description_en or ""))
             if field.reason:
                 meaning.append(f"{ui(lang, 'note.because')}: {field.reason}")
             cells[1].text = " ".join(m for m in meaning if m).strip() or "—"

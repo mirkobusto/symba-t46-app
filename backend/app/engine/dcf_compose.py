@@ -58,6 +58,11 @@ class DcfFieldDescriptor(BaseModel):
     max: float | None = None
     row_condition: str | None = None
     source_ref: str | None = None
+    # in the reader's language (services.dcf_terms.localize); None until then
+    label: str | None = None
+    help: str | None = None
+    reason: str | None = None
+    enum_labels: dict[str, str] | None = None
 
 
 class DcfSection(BaseModel):
@@ -78,6 +83,9 @@ class DcfSection(BaseModel):
     row_collection: str
     active: bool
     fields: list[DcfFieldDescriptor] = Field(default_factory=list)
+    # in the reader's language (services.dcf_terms.localize); None until then
+    title: str | None = None
+    description: str | None = None
 
 
 class DcfMandate(BaseModel):

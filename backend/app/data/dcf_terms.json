@@ -1,0 +1,2607 @@
+{
+ "en": {
+  "sections": {
+   "actors": {
+    "title": "Actors",
+    "description": "Everyone taking part in the exchanges: one row per company or public body. The origins and destinations of the flows, and the network diagram, refer to these rows."
+   },
+   "flow_matrix": {
+    "title": "Flow Matrix",
+    "description": "One row per exchange between two actors: what flows, from whom to whom, how much, of what quality and with what uncertainty."
+   },
+   "flow_classification": {
+    "title": "Flow classification (waste / co-product / by-product)",
+    "description": "One row per flow, whatever Q5 says: the legal and economic tests that decide how a flow is treated (D4.1 §8.3, D4.2 §6.2). They are the analyst's judgements: Q5 only records who pays whom, so keep this consistent with the Q5 class of the flow in the Flow Matrix."
+   },
+   "logistics": {
+    "title": "Logistics",
+    "description": "One row per route, that is per flow of the Flow Matrix, co-located flows included: a pipeline, a conveyor or on-site handling is a unit process too (D4.1 §12.3.1). The break-even distance is asked for every flow; a study with only the social dimension has no transport to model, so the section is off for it."
+   },
+   "costs": {
+    "title": "Costs & Revenues",
+    "description": "The economic terms of the exchange, one row per flow, asked only with the economic dimension. The current disposal cost is the economic reference: what the origin actor pays today for the flow the symbiosis diverts. Without it there is no avoided cost to set against the investment."
+   },
+   "infrastructure": {
+    "title": "Infrastructure",
+    "description": "The assets involved in the network, one row per asset: production line, treatment plant, pipeline, storage, conversion unit, supporting facility."
+   },
+   "methodological_choices": {
+    "title": "Methodological choices to document",
+    "description": "For the assessment team, not for data providers: the methodological practices this case has to document, grouped by category and filled in from your answers. Their statements are the deliverables' text, in English."
+   },
+   "network_diagram": {
+    "title": "Network diagram",
+    "description": "The picture of the network, drawn from the Actors and Flow Matrix sheets. Edit it in the Network builder of the web app, where actors and flows are placed and connected; this sheet shows the result."
+   }
+  },
+  "fields": {
+   "actor.id": {
+    "label": "Actor ID"
+   },
+   "actor.name": {
+    "label": "Actor name"
+   },
+   "actor.role": {
+    "label": "Role"
+   },
+   "actor.sector": {
+    "label": "Sector",
+    "description": "The actor's own sector, which may differ from the case's in a network that spans several sectors."
+   },
+   "actor.site_id": {
+    "label": "Site"
+   },
+   "actor.country_iso2": {
+    "label": "Country (two-letter code, e.g. IT)"
+   },
+   "actor.size_class": {
+    "label": "Size class"
+   },
+   "actor.public_private": {
+    "label": "Public / private ownership"
+   },
+   "actor.contact_role": {
+    "label": "Role of the contact person (for data collection)"
+   },
+   "flow.id": {
+    "label": "Flow ID"
+   },
+   "flow.origin_actor_id": {
+    "label": "Origin actor"
+   },
+   "flow.dest_actor_id": {
+    "label": "Destination actor"
+   },
+   "flow.name": {
+    "label": "Flow name"
+   },
+   "flow.type": {
+    "label": "Flow type"
+   },
+   "flow.q5_class": {
+    "label": "Who pays whom (Q5)",
+    "description": "Copied from the questionnaire."
+   },
+   "flow.unit": {
+    "label": "Unit"
+   },
+   "flow.regime": {
+    "label": "Regime"
+   },
+   "flow.quantity_measured": {
+    "label": "Measured quantity (per year)"
+   },
+   "flow.quantity_projected": {
+    "label": "Projected quantity (per scenario, per year)"
+   },
+   "flow.quality.purity_pct": {
+    "label": "Purity (%)"
+   },
+   "flow.quality.contamination_level": {
+    "label": "Contamination level"
+   },
+   "flow.quality.reliability_of_supply": {
+    "label": "Reliability of supply"
+   },
+   "flow.uncertainty.type": {
+    "label": "How the uncertainty is expressed"
+   },
+   "flow.uncertainty.value": {
+    "label": "Uncertainty value (depends on how it is expressed)"
+   },
+   "flow.marginal_market_ref": {
+    "label": "Marginal market reference (consequential studies)"
+   },
+   "flow.scenario_assumptions": {
+    "label": "Scenario assumptions (prospective studies)"
+   },
+   "flow.lci_dataset_ref": {
+    "label": "Background LCI dataset reference"
+   },
+   "classif.flow_id": {
+    "label": "Flow"
+   },
+   "classif.independent_market": {
+    "label": "Would a third party pay for it? (Freedom-to-Act)",
+    "description": "D4.1 §8.3.3: if no independent buyer exists the price is administrative and the flow is a waste, even when Q5 says the receiver pays. Seeded from the flow's answer in the questionnaire (Sellable to others?) the first time the row is created; from then on this row is the analyst's."
+   },
+   "classif.avoidable": {
+    "label": "Causal avoidability",
+    "description": "D4.2 §6.2: a zero-cost treatment needs the residue to be unavoidable and without positive market value; the causal avoidability test is declared per flow."
+   },
+   "classif.legal_class": {
+    "label": "Legal classification",
+    "description": "Product, co-product, by-product (Waste Framework Directive art. 5) or waste (art. 3)."
+   },
+   "classif.eow_status": {
+    "label": "End-of-Waste status",
+    "description": "D4.1 §8.3.5: documents the status, it does not reclassify the flow."
+   },
+   "classif.zero_burden_point": {
+    "label": "Where the zero-burden assumption starts",
+    "description": "D4.1 §8.3.6, Step 4: from the point where the residue first reaches a non-negative value, not necessarily at the gate."
+   },
+   "classif.tree_step_reached": {
+    "label": "Decision-tree step reached",
+    "description": "D4.1 §8.3.6: the step of the decision tree at which the treatment of this flow was settled."
+   },
+   "classif.edge_case": {
+    "label": "Edge case",
+    "description": "Cases the tests do not settle on their own and that need an explicit, documented reading (cut-off or substitution)."
+   },
+   "classif.evidence": {
+    "label": "Evidence and reasoning",
+    "description": "Documents or reasoning behind the answers above."
+   },
+   "route.flow_id": {
+    "label": "Flow"
+   },
+   "route.distance_km": {
+    "label": "Distance (km)"
+   },
+   "route.transport_mode": {
+    "label": "Transport mode"
+   },
+   "route.frequency": {
+    "label": "Frequency"
+   },
+   "route.measured_volume_year": {
+    "label": "Measured volume (per year)"
+   },
+   "route.projected_volume_year": {
+    "label": "Projected volume per scenario (per year)"
+   },
+   "route.backhaul_strategy": {
+    "label": "Return trip (backhaul)"
+   },
+   "route.transport_lci_dataset": {
+    "label": "Transport LCI dataset reference"
+   },
+   "route.transport_cost_per_unit": {
+    "label": "Transport cost (per unit)"
+   },
+   "route.transport_sensitivity": {
+    "label": "What makes this flow sensitive to distance",
+    "description": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity."
+   },
+   "route.break_even_distance_km": {
+    "label": "Break-even distance (km)",
+    "description": "Distance beyond which the exchange stops paying off for this flow, from your own sensitivity run on primary logistics data (D4.1 §12.3.1). Not a fixed assumption: do not copy a literature value."
+   },
+   "route.break_even_basis": {
+    "label": "Break-even basis",
+    "description": "What the break-even was computed on; a break-even on climate change alone can mislead (D4.1 §12.2.1)."
+   },
+   "cost.flow_id": {
+    "label": "Flow"
+   },
+   "cost.current_disposal_cost": {
+    "label": "Current disposal / management cost (avoided)",
+    "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids."
+   },
+   "cost.disposal_cost_unit": {
+    "label": "Unit of the disposal cost",
+    "description": "e.g. EUR/t, EUR/year."
+   },
+   "cost.exchange_price": {
+    "label": "Price of the exchanged flow",
+    "description": "Price agreed between the partners. Zero and negative values are meaningful: a gate fee paid to take the flow away is a negative price."
+   },
+   "cost.price_basis": {
+    "label": "Basis of that price"
+   },
+   "cost.opex_delta_year": {
+    "label": "Change in operating costs (per year)",
+    "description": "Operating cost the exchange adds or removes per year, transport excluded (it belongs in Logistics)."
+   },
+   "cost.currency_year": {
+    "label": "Currency and reference year",
+    "description": "e.g. EUR2024. Required: without it the figures cannot be compared or deflated."
+   },
+   "cost.contract_horizon_y": {
+    "label": "Contract horizon (years)",
+    "description": "How long the arrangement is agreed for. Asked for prospective studies, where it bounds the payback."
+   },
+   "cost.price_volatility": {
+    "label": "Price volatility"
+   },
+   "cost.externality_monetized": {
+    "label": "Externalities monetised for this flow",
+    "description": "Monetising environmental impacts belongs to the environmental and societal LCC, not to a conventional LCC (D4.2 §2.2). Flag it so the same amount is not counted twice, once as a cash cost and once as an externality."
+   },
+   "infra.id": {
+    "label": "Asset ID"
+   },
+   "infra.linked_actor_id": {
+    "label": "Linked actor"
+   },
+   "infra.purpose": {
+    "label": "Purpose"
+   },
+   "infra.status": {
+    "label": "Status"
+   },
+   "infra.capacity_value": {
+    "label": "Capacity (number)"
+   },
+   "infra.capacity_unit": {
+    "label": "Capacity unit"
+   },
+   "infra.year_built": {
+    "label": "Year built"
+   },
+   "infra.expected_lifetime_remaining_y": {
+    "label": "Expected remaining lifetime (years)"
+   },
+   "infra.capex_amount": {
+    "label": "Investment (CAPEX)"
+   },
+   "infra.capex_currency_year": {
+    "label": "Investment currency and reference year (e.g. EUR2024)"
+   },
+   "infra.amortization_period_y": {
+    "label": "Amortisation period (years): technical lifetime of this asset",
+    "description": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2)."
+   },
+   "infra.discount_rate_pct": {
+    "label": "Discount rate (%)"
+   },
+   "infra.salvage_value": {
+    "label": "Residual value at the end"
+   },
+   "infra.avoided_lifetime_y": {
+    "label": "Avoided lifetime (years, for substitution accounting)"
+   },
+   "infra.decommissioning_cost": {
+    "label": "Decommissioning cost"
+   },
+   "infra.ssp_rcp_scenario": {
+    "label": "Future scenario (SSP/RCP)"
+   },
+   "infra.ownership": {
+    "label": "Ownership model"
+   }
+  },
+  "enums": {
+   "producer": "producer",
+   "consumer": "consumer",
+   "facilitator": "facilitator",
+   "regulator": "regulator",
+   "intermediary": "intermediary",
+   "micro": "micro",
+   "SME": "SME",
+   "mid": "mid-size",
+   "large": "large",
+   "public": "public",
+   "private": "private",
+   "mixed": "mixed",
+   "material": "material",
+   "energy": "energy",
+   "water": "water",
+   "waste": "waste",
+   "by_product": "by-product",
+   "utility": "utility",
+   "service": "service",
+   "info": "information",
+   "continuous": "continuous",
+   "batch": "batch",
+   "intermittent": "intermittent",
+   "low": "low",
+   "med": "medium",
+   "high": "high",
+   "unknown": "unknown",
+   "point": "single value",
+   "range": "range",
+   "distribution": "distribution",
+   "qualitative": "qualitative",
+   "yes": "yes",
+   "no": "no",
+   "unavoidable": "unavoidable",
+   "avoidable": "avoidable",
+   "product": "product",
+   "co_product": "co-product",
+   "by_product_art5": "by-product (WFD art. 5)",
+   "waste_art3": "waste (WFD art. 3)",
+   "achieved": "achieved",
+   "not_achieved": "not achieved",
+   "pending": "pending",
+   "not_applicable": "not applicable",
+   "at_generation": "where it is generated",
+   "after_generator_pretreatment": "after the generator's pre-treatment",
+   "step1_value": "step 1, market value",
+   "step2_interdependence": "step 2, interdependence",
+   "step3_dependent_coproduct": "step 3, dependent co-product",
+   "step4_zero_burden": "step 4, zero burden",
+   "none": "none",
+   "negotiated_internal_price": "negotiated internal price",
+   "zero_priced_high_utility": "zero price, high utility",
+   "legally_waste_but_feedstock": "legally a waste but used as feedstock",
+   "truck": "truck",
+   "rail": "rail",
+   "ship": "ship",
+   "pipeline": "pipeline",
+   "cable": "cable",
+   "conveyor": "conveyor",
+   "onsite_none": "on site, no transport",
+   "daily": "daily",
+   "weekly": "weekly",
+   "monthly": "monthly",
+   "ad_hoc": "occasional",
+   "partial": "partial",
+   "full": "full",
+   "bulky_low_value": "bulky or low value",
+   "high_moisture": "wet",
+   "piped_heat_steam_water": "heat, steam or water in pipes",
+   "high_value_commodity": "high-value commodity",
+   "other": "other",
+   "gwp_only": "climate change only",
+   "multi_category": "several impact categories",
+   "economic": "economic",
+   "env_and_eco": "environmental and economic",
+   "gate_fee_paid": "gate fee paid",
+   "gate_fee_received": "gate fee received",
+   "market_price": "market price",
+   "free": "free",
+   "negotiated": "negotiated",
+   "production": "production",
+   "treatment": "treatment",
+   "transport": "transport",
+   "storage": "storage",
+   "conversion": "conversion",
+   "supporting": "supporting",
+   "existing": "existing",
+   "new": "new",
+   "replaced": "replaced",
+   "upgraded": "upgraded",
+   "decommissioned": "decommissioned",
+   "single_actor": "one actor",
+   "joint_venture": "joint venture",
+   "third_party": "third party"
+  },
+  "reasons": {
+   "future_background and (q3.env or q3.eco)": "the study needs a future background (Q8 or Q6b)",
+   "lcc_type in [\"C+E\", \"C+E+S\"]": "the costing includes the environmental LCC",
+   "lcc_type in [\"C+E+S\", \"C+N+S\"]": "the costing includes the societal LCC",
+   "q2 == \"A\"": "the exchanges already take place (Q2)",
+   "q2 == \"B\" or has_scenarios": "the exchanges do not take place yet (Q2), or the case has alternative scenarios",
+   "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True": "the exchanges do not take place yet, the case has scenarios, or it uses dedicated shared assets (Q12)",
+   "q3.eco": "the study has the economic dimension (Q3)",
+   "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)": "economic dimension, with exchanges not yet running, scenarios or dedicated shared assets",
+   "q3.eco and dedicated_shared_assets != False": "economic dimension, with shared assets not ruled out (Q12)",
+   "q3.eco or q3.soc": "the study has the economic or the social dimension (Q3)",
+   "q3.env": "the study has the environmental dimension (Q3)",
+   "q3.env and ilcd_situation == \"ILCD Situation B\"": "environmental dimension in ILCD Situation B (consequential)",
+   "q3.env or q3.eco": "the study has the environmental or the economic dimension (Q3)",
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "the study has the social dimension or the societal LCC"
+  },
+  "ui": {
+   "sheet.cover": "Cover",
+   "sheet.instructions": "Instructions",
+   "sheet.actors": "Actors",
+   "sheet.flow_matrix": "Flow Matrix",
+   "sheet.flow_classification": "Flow Classification",
+   "sheet.logistics": "Logistics",
+   "sheet.costs": "Costs & Revenues",
+   "sheet.infrastructure": "Infrastructure",
+   "sheet.methodological_choices": "Methodological Choices",
+   "sheet.network_diagram": "Network Diagram",
+   "title": "SYMBA T4.6 — Data Collection File",
+   "cover.case_id": "Case ID",
+   "cover.ilcd": "ILCD situation",
+   "cover.lcc": "LCC type",
+   "cover.slca": "Social assessment (S-LCA)",
+   "cover.purpose": "Kind of study",
+   "cover.market": "Reference market",
+   "cover.schema": "Schema version",
+   "not_active": "This section is not active for this case.",
+   "ins.title": "How to fill in this Data Collection File",
+   "ins.case": "Case: {name}",
+   "ins.what": "What this file is",
+   "ins.what_body": "A data collection worksheet generated for one industrial-symbiosis case. The columns were selected by the methodological configuration of the case: you are only asked for what this case needs.",
+   "ins.how": "How to fill it in",
+   "ins.how_body": "One row per item. Columns marked * are required. Hover a column header for the definition, the allowed values and the reason the field is asked. Cells with a dropdown only accept the listed values: do not overwrite them with free text.",
+   "ins.unknown": "If you do not know a value",
+   "ins.unknown_body": "Leave it empty rather than guessing, and say so. An empty cell is a known gap; a guessed number is an unknown error.",
+   "ins.units": "Units and currency",
+   "ins.units_body": "Always state the unit next to the quantity where a unit column exists, and use the currency and reference year the Costs sheet asks for. Figures without a unit cannot be aggregated.",
+   "ins.conf": "Confidentiality",
+   "ins.conf_body": "This workbook may carry data from every partner in the network. Before circulating it outside the assessment team, check the confidentiality arrangement between the partners: the methodology requires it to be settled before data collection starts.",
+   "ins.return": "Who to return it to",
+   "ins.return_body": "Whoever carries out the study (an analyst or a consultant). If you generated this file yourself, fill in your own sheets with your colleagues and hand it to them; the Methodological Choices sheet is for them, not for you.",
+   "ins.return_by": "Return by",
+   "ins.return_by_hint": "(agree a date with whoever carries out the study)",
+   "ins.contact": "Contact",
+   "ins.contact_hint": "(name and e-mail of whoever carries out the study)",
+   "note.field_id": "Field id",
+   "note.type": "Type",
+   "note.allowed": "Allowed",
+   "note.because": "Asked because",
+   "dv.error": "Pick one of the listed values.",
+   "dv.title": "Value not allowed",
+   "h.category": "Category",
+   "h.origin": "Origin",
+   "h.id": "ID",
+   "h.method": "Method",
+   "h.statement": "Statement (deliverable text, English)",
+   "h.because": "Applies because",
+   "h.target": "Deliverable target",
+   "h.assignee": "Assignee",
+   "h.status": "Status",
+   "status.pending": "pending",
+   "nw.none": "No network drawn yet. Use the network editor of the SYMBA T4.6 web app (Data Collection File page) to place actors and connect them: the edges then appear here, and the Actors and Flow Matrix sheets come pre-filled.",
+   "nw.intro": "Edge list of the network drawn in the app. The interactive diagram itself is on the Data Collection File page.",
+   "h.flow": "Flow",
+   "h.origin_actor": "Origin actor",
+   "h.dest_actor": "Destination actor",
+   "h.type": "Type",
+   "h.quantity": "Quantity",
+   "h.unit": "Unit",
+   "dx.intro": "Generated by the SYMBA T4.6 Monitoring & Reporting System. This document accompanies the .xlsx worksheet: see §3 for the field-by-field reference.",
+   "dx.meta": "Project metadata",
+   "dx.project": "Project",
+   "dx.project_title": "Project title",
+   "dx.topic": "Topic",
+   "dx.instrument": "Instrument",
+   "dx.task": "Task",
+   "dx.deliverable": "Deliverable",
+   "dx.cover": "Data Collection File cover",
+   "dx.s1": "§1. Methodological choices to document",
+   "dx.s1_none": "Nothing to document for this case.",
+   "dx.s1_intro": "{total} items to document for this case: the {rules} obligations triggered by the answers and {mandates} practices the method asks of every study like this one. Each is a commitment to document in the LCSA report or its annexes; 'Applies because' records what made it apply here, and 'Status' tracks completion. The statements are the deliverables' text, in English.",
+   "dx.s2": "§2. Network diagram",
+   "dx.s2_off": "The network diagram is not active for this case.",
+   "dx.s2_static": "The network diagram is drawn interactively on the Data Collection File page of the SYMBA T4.6 web app, from the Actors and Flow Matrix sheets of the companion .xlsx: actors as nodes, flows as directed edges.",
+   "dx.s2_drawn": "The network drawn in the SYMBA T4.6 web app counts {actors} actor(s) and {flows} connected flow(s). The tables below are its textual form; the companion .xlsx carries the same content in the Actors and Flow Matrix sheets.",
+   "dx.actors": "Actors",
+   "dx.flows": "Flows",
+   "h.actor": "Actor",
+   "h.role": "Role",
+   "h.sector": "Sector",
+   "h.from": "From",
+   "h.to": "To",
+   "dx.s3": "§3. Data worksheet (Excel companion)",
+   "dx.s3_body": "The companion .xlsx file contains the sheets to fill in, calibrated on the configuration derived above. Fill the empty rows in each sheet and return the workbook to whoever carries out the study. Which fields are asked follows the questionnaire answers.",
+   "dx.active": "Active sections",
+   "h.section": "Section",
+   "h.active": "Active for this case",
+   "h.fields": "Active fields",
+   "yes": "yes",
+   "no": "no",
+   "dx.ack": "Acknowledgements & disclaimer"
+  },
+  "enum_refs": {
+   "Q6a": {
+    "none": "(none)",
+    "agriculture_agrifood_biorefineries": "Agriculture / agri-food / biorefineries",
+    "biobased_polymers": "Bio-based polymers",
+    "plastics_packaging": "Plastics & packaging",
+    "pulp_paper": "Pulp & paper",
+    "chemicals_fertilizers": "Chemicals / fertilizers",
+    "cement_construction": "Cement / construction",
+    "steel_metals": "Steel & metals",
+    "energy_utilities": "Energy / utilities",
+    "wastewater_sludge_biofactories": "Wastewater / sludge / biofactories",
+    "textile_leather": "Textile / leather",
+    "waste_valorization": "Waste valorization",
+    "food_production": "Food production",
+    "multi_tenant_urban_building": "Multi-tenant urban building",
+    "multi_sector": "Multi-sector",
+    "other": "Other",
+    "wastewater_biofactories": "Wastewater / sludge / biofactories (legacy)",
+    "agri_food": "Agri-food / biorefineries (legacy)",
+    "process_industry": "Process industry (legacy)"
+   },
+   "Q5": {
+    "a": "a — the supplier (A) pays the receiver (B): waste",
+    "b": "b — Free (ambiguous)",
+    "c": "c — the receiver (B) pays the supplier (A): co-product",
+    "d": "d — Interdependent",
+    "e": "e — Aggregated / black-box"
+   }
+  }
+ },
+ "it": {
+  "sections": {
+   "actors": {
+    "title": "Attori",
+    "description": "Chi partecipa agli scambi: una riga per ogni azienda o ente pubblico. Le origini e le destinazioni dei flussi, e il diagramma della rete, si riferiscono a queste righe."
+   },
+   "flow_matrix": {
+    "title": "Matrice dei flussi",
+    "description": "Una riga per ogni scambio fra due attori: che cosa passa, da chi a chi, quanto, di che qualità e con quale incertezza."
+   },
+   "flow_classification": {
+    "title": "Classificazione dei flussi (rifiuto / co-prodotto / sottoprodotto)",
+    "description": "Una riga per flusso, qualunque cosa dica Q5: le verifiche giuridiche ed economiche che decidono come si tratta un flusso (D4.1 §8.3, D4.2 §6.2). Sono giudizi dell'analista: Q5 registra solo chi paga chi, quindi tienili coerenti con la classe Q5 del flusso nella Matrice dei flussi."
+   },
+   "logistics": {
+    "title": "Logistica",
+    "description": "Una riga per tragitto, cioè per ogni flusso della Matrice dei flussi, compresi i flussi fra impianti vicini: anche una condotta, un nastro o la movimentazione in sito sono processi (D4.1 §12.3.1). La distanza di pareggio si chiede per ogni flusso; uno studio solo sociale non ha trasporti da modellare, quindi per lui la sezione è spenta."
+   },
+   "costs": {
+    "title": "Costi e ricavi",
+    "description": "Le condizioni economiche dello scambio, una riga per flusso, chieste solo con la dimensione economica. Il costo attuale di smaltimento è il riferimento economico: quanto paga oggi l'attore di origine per il flusso che la simbiosi devia. Senza, non c'è un costo evitato da mettere a confronto con l'investimento."
+   },
+   "infrastructure": {
+    "title": "Infrastrutture",
+    "description": "I beni coinvolti nella rete, una riga per bene: linea di produzione, impianto di trattamento, condotta, stoccaggio, unità di conversione, impianto di supporto."
+   },
+   "methodological_choices": {
+    "title": "Scelte metodologiche da documentare",
+    "description": "Per chi esegue lo studio, non per chi fornisce i dati: le pratiche metodologiche che questo caso deve documentare, raggruppate per categoria e compilate dalle tue risposte. Gli enunciati sono il testo dei deliverable, in inglese."
+   },
+   "network_diagram": {
+    "title": "Diagramma della rete",
+    "description": "L'immagine della rete, disegnata dai fogli Attori e Matrice dei flussi. Si modifica nell'editor di rete dell'app web, dove si posizionano e collegano attori e flussi; questo foglio mostra il risultato."
+   }
+  },
+  "fields": {
+   "actor.id": {
+    "label": "ID attore"
+   },
+   "actor.name": {
+    "label": "Nome dell'attore"
+   },
+   "actor.role": {
+    "label": "Ruolo"
+   },
+   "actor.sector": {
+    "label": "Settore",
+    "description": "Il settore dell'attore, che può essere diverso da quello del caso in una rete che attraversa più settori."
+   },
+   "actor.site_id": {
+    "label": "Sito"
+   },
+   "actor.country_iso2": {
+    "label": "Paese (codice di due lettere, es. IT)"
+   },
+   "actor.size_class": {
+    "label": "Dimensione"
+   },
+   "actor.public_private": {
+    "label": "Proprietà pubblica / privata"
+   },
+   "actor.contact_role": {
+    "label": "Ruolo della persona di contatto (per la raccolta dati)"
+   },
+   "flow.id": {
+    "label": "ID flusso"
+   },
+   "flow.origin_actor_id": {
+    "label": "Attore di origine"
+   },
+   "flow.dest_actor_id": {
+    "label": "Attore di destinazione"
+   },
+   "flow.name": {
+    "label": "Nome del flusso"
+   },
+   "flow.type": {
+    "label": "Tipo di flusso"
+   },
+   "flow.q5_class": {
+    "label": "Chi paga chi (Q5)",
+    "description": "Copiato dal questionario."
+   },
+   "flow.unit": {
+    "label": "Unità"
+   },
+   "flow.regime": {
+    "label": "Regime"
+   },
+   "flow.quantity_measured": {
+    "label": "Quantità misurata (all'anno)"
+   },
+   "flow.quantity_projected": {
+    "label": "Quantità prevista (per scenario, all'anno)"
+   },
+   "flow.quality.purity_pct": {
+    "label": "Purezza (%)"
+   },
+   "flow.quality.contamination_level": {
+    "label": "Livello di contaminazione"
+   },
+   "flow.quality.reliability_of_supply": {
+    "label": "Affidabilità della fornitura"
+   },
+   "flow.uncertainty.type": {
+    "label": "Come si esprime l'incertezza"
+   },
+   "flow.uncertainty.value": {
+    "label": "Valore dell'incertezza (dipende da come si esprime)"
+   },
+   "flow.marginal_market_ref": {
+    "label": "Riferimento del mercato marginale (studi consequenziali)"
+   },
+   "flow.scenario_assumptions": {
+    "label": "Ipotesi di scenario (studi prospettici)"
+   },
+   "flow.lci_dataset_ref": {
+    "label": "Riferimento del dataset LCI di background"
+   },
+   "classif.flow_id": {
+    "label": "Flusso"
+   },
+   "classif.independent_market": {
+    "label": "Un terzo lo pagherebbe? (Freedom-to-Act)",
+    "description": "D4.1 §8.3.3: se non esiste un acquirente indipendente il prezzo è amministrativo e il flusso è un rifiuto, anche quando Q5 dice che paga chi riceve. Inizializzato dalla risposta data nel questionario (Vendibile ad altri?) quando la riga viene creata; da lì in poi la riga è dell'analista."
+   },
+   "classif.avoidable": {
+    "label": "Evitabilità causale",
+    "description": "D4.2 §6.2: un trattamento a costo zero richiede che il residuo sia inevitabile e senza valore di mercato positivo; la verifica di evitabilità causale si dichiara per flusso."
+   },
+   "classif.legal_class": {
+    "label": "Classificazione giuridica",
+    "description": "Prodotto, co-prodotto, sottoprodotto (direttiva quadro sui rifiuti, art. 5) o rifiuto (art. 3)."
+   },
+   "classif.eow_status": {
+    "label": "Stato End-of-Waste",
+    "description": "D4.1 §8.3.5: documenta lo stato, non riclassifica il flusso."
+   },
+   "classif.zero_burden_point": {
+    "label": "Da dove parte il carico zero",
+    "description": "D4.1 §8.3.6, Step 4: dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, non necessariamente al cancello."
+   },
+   "classif.tree_step_reached": {
+    "label": "Passo dell'albero decisionale raggiunto",
+    "description": "D4.1 §8.3.6: il passo dell'albero decisionale in cui si è deciso il trattamento di questo flusso."
+   },
+   "classif.edge_case": {
+    "label": "Caso limite",
+    "description": "Casi che le verifiche da sole non risolvono e che richiedono una lettura esplicita e documentata (cut-off o sostituzione)."
+   },
+   "classif.evidence": {
+    "label": "Prove e ragionamento",
+    "description": "Documenti o ragionamento dietro le risposte qui sopra."
+   },
+   "route.flow_id": {
+    "label": "Flusso"
+   },
+   "route.distance_km": {
+    "label": "Distanza (km)"
+   },
+   "route.transport_mode": {
+    "label": "Mezzo di trasporto"
+   },
+   "route.frequency": {
+    "label": "Frequenza"
+   },
+   "route.measured_volume_year": {
+    "label": "Volume misurato (all'anno)"
+   },
+   "route.projected_volume_year": {
+    "label": "Volume previsto per scenario (all'anno)"
+   },
+   "route.backhaul_strategy": {
+    "label": "Viaggio di ritorno (carico al ritorno)"
+   },
+   "route.transport_lci_dataset": {
+    "label": "Riferimento del dataset LCI del trasporto"
+   },
+   "route.transport_cost_per_unit": {
+    "label": "Costo del trasporto (per unità)"
+   },
+   "route.transport_sensitivity": {
+    "label": "Che cosa rende questo flusso sensibile alla distanza",
+    "description": "La distanza di pareggio dipende dal tipo di flusso (D4.2 §4.2): voluminoso o di poco valore, umido, calore/vapore/acqua in condotta, o merce di alto valore."
+   },
+   "route.break_even_distance_km": {
+    "label": "Distanza di pareggio (km)",
+    "description": "La distanza oltre la quale lo scambio smette di convenire per questo flusso, da una tua analisi di sensibilità su dati logistici primari (D4.1 §12.3.1). Non è un'ipotesi fissa: non copiare un valore di letteratura."
+   },
+   "route.break_even_basis": {
+    "label": "Su che cosa è calcolato il pareggio",
+    "description": "Su che cosa è stato calcolato il pareggio; un pareggio sul solo cambiamento climatico può fuorviare (D4.1 §12.2.1)."
+   },
+   "cost.flow_id": {
+    "label": "Flusso"
+   },
+   "cost.current_disposal_cost": {
+    "label": "Costo attuale di smaltimento / gestione (evitato)",
+    "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita."
+   },
+   "cost.disposal_cost_unit": {
+    "label": "Unità del costo di smaltimento",
+    "description": "es. EUR/t, EUR/anno."
+   },
+   "cost.exchange_price": {
+    "label": "Prezzo del flusso scambiato",
+    "description": "Prezzo concordato fra i partner. Zero e valori negativi hanno senso: una tariffa pagata per far ritirare il flusso è un prezzo negativo."
+   },
+   "cost.price_basis": {
+    "label": "Base di quel prezzo"
+   },
+   "cost.opex_delta_year": {
+    "label": "Variazione dei costi operativi (all'anno)",
+    "description": "Costo operativo che lo scambio aggiunge o toglie ogni anno, trasporto escluso (va in Logistica)."
+   },
+   "cost.currency_year": {
+    "label": "Valuta e anno di riferimento",
+    "description": "es. EUR2024. Obbligatorio: senza, i valori non si possono confrontare né deflazionare."
+   },
+   "cost.contract_horizon_y": {
+    "label": "Durata del contratto (anni)",
+    "description": "Per quanto tempo è concordato l'accordo. Chiesto per gli studi prospettici, dove limita il ritorno dell'investimento."
+   },
+   "cost.price_volatility": {
+    "label": "Volatilità del prezzo"
+   },
+   "cost.externality_monetized": {
+    "label": "Esternalità monetizzate per questo flusso",
+    "description": "Monetizzare gli impatti ambientali spetta all'LCC ambientale e sociale, non a un LCC convenzionale (D4.2 §2.2). Segnalalo, così lo stesso importo non si conta due volte, una come costo e una come esternalità."
+   },
+   "infra.id": {
+    "label": "ID del bene"
+   },
+   "infra.linked_actor_id": {
+    "label": "Attore collegato"
+   },
+   "infra.purpose": {
+    "label": "Funzione"
+   },
+   "infra.status": {
+    "label": "Stato"
+   },
+   "infra.capacity_value": {
+    "label": "Capacità (numero)"
+   },
+   "infra.capacity_unit": {
+    "label": "Unità della capacità"
+   },
+   "infra.year_built": {
+    "label": "Anno di costruzione"
+   },
+   "infra.expected_lifetime_remaining_y": {
+    "label": "Vita residua prevista (anni)"
+   },
+   "infra.capex_amount": {
+    "label": "Investimento (CAPEX)"
+   },
+   "infra.capex_currency_year": {
+    "label": "Valuta e anno di riferimento dell'investimento (es. EUR2024)"
+   },
+   "infra.amortization_period_y": {
+    "label": "Periodo di ammortamento (anni): vita tecnica di questo bene",
+    "description": "Nessun valore unico: la vita tecnica di ogni bene (D4.2 §4.2, §7.3). Vite di riferimento nella Tabella 7.1 della D4.2: edifici e infrastrutture generali 20-30 anni, impianti e macchinari di processo 5-8 anni. Usa lo stesso periodo nell'LCA (D4.1 §14.2.2)."
+   },
+   "infra.discount_rate_pct": {
+    "label": "Tasso di sconto (%)"
+   },
+   "infra.salvage_value": {
+    "label": "Valore residuo alla fine"
+   },
+   "infra.avoided_lifetime_y": {
+    "label": "Vita evitata (anni, per il calcolo della sostituzione)"
+   },
+   "infra.decommissioning_cost": {
+    "label": "Costo di dismissione"
+   },
+   "infra.ssp_rcp_scenario": {
+    "label": "Scenario futuro (SSP/RCP)"
+   },
+   "infra.ownership": {
+    "label": "Modello di proprietà"
+   }
+  },
+  "enums": {
+   "producer": "produttore",
+   "consumer": "utilizzatore",
+   "facilitator": "facilitatore",
+   "regulator": "regolatore",
+   "intermediary": "intermediario",
+   "micro": "micro",
+   "SME": "PMI",
+   "mid": "media",
+   "large": "grande",
+   "public": "pubblica",
+   "private": "privata",
+   "mixed": "mista",
+   "material": "materiale",
+   "energy": "energia",
+   "water": "acqua",
+   "waste": "rifiuto",
+   "by_product": "sottoprodotto",
+   "utility": "servizio di rete",
+   "service": "servizio",
+   "info": "informazione",
+   "continuous": "continuo",
+   "batch": "a lotti",
+   "intermittent": "intermittente",
+   "low": "basso",
+   "med": "medio",
+   "high": "alto",
+   "unknown": "non noto",
+   "point": "valore singolo",
+   "range": "intervallo",
+   "distribution": "distribuzione",
+   "qualitative": "qualitativa",
+   "yes": "sì",
+   "no": "no",
+   "unavoidable": "inevitabile",
+   "avoidable": "evitabile",
+   "product": "prodotto",
+   "co_product": "co-prodotto",
+   "by_product_art5": "sottoprodotto (art. 5 direttiva rifiuti)",
+   "waste_art3": "rifiuto (art. 3 direttiva rifiuti)",
+   "achieved": "raggiunto",
+   "not_achieved": "non raggiunto",
+   "pending": "in corso",
+   "not_applicable": "non applicabile",
+   "at_generation": "dove si genera",
+   "after_generator_pretreatment": "dopo il pretrattamento di chi lo genera",
+   "step1_value": "passo 1, valore di mercato",
+   "step2_interdependence": "passo 2, interdipendenza",
+   "step3_dependent_coproduct": "passo 3, co-prodotto dipendente",
+   "step4_zero_burden": "passo 4, carico zero",
+   "none": "nessuno",
+   "negotiated_internal_price": "prezzo interno negoziato",
+   "zero_priced_high_utility": "prezzo zero, grande utilità",
+   "legally_waste_but_feedstock": "rifiuto per legge ma usato come materia prima",
+   "truck": "camion",
+   "rail": "treno",
+   "ship": "nave",
+   "pipeline": "condotta",
+   "cable": "cavo",
+   "conveyor": "nastro",
+   "onsite_none": "in sito, nessun trasporto",
+   "daily": "giornaliera",
+   "weekly": "settimanale",
+   "monthly": "mensile",
+   "ad_hoc": "occasionale",
+   "partial": "parziale",
+   "full": "pieno",
+   "bulky_low_value": "voluminoso o di poco valore",
+   "high_moisture": "umido",
+   "piped_heat_steam_water": "calore, vapore o acqua in condotta",
+   "high_value_commodity": "merce di alto valore",
+   "other": "altro",
+   "gwp_only": "solo cambiamento climatico",
+   "multi_category": "più categorie d'impatto",
+   "economic": "economica",
+   "env_and_eco": "ambientale ed economica",
+   "gate_fee_paid": "tariffa di conferimento pagata",
+   "gate_fee_received": "tariffa di conferimento incassata",
+   "market_price": "prezzo di mercato",
+   "free": "gratuito",
+   "negotiated": "negoziato",
+   "production": "produzione",
+   "treatment": "trattamento",
+   "transport": "trasporto",
+   "storage": "stoccaggio",
+   "conversion": "conversione",
+   "supporting": "supporto",
+   "existing": "esistente",
+   "new": "nuovo",
+   "replaced": "sostituito",
+   "upgraded": "potenziato",
+   "decommissioned": "dismesso",
+   "single_actor": "un solo attore",
+   "joint_venture": "joint venture",
+   "third_party": "terzi"
+  },
+  "reasons": {
+   "future_background and (q3.env or q3.eco)": "lo studio richiede un background futuro (Q8 o Q6b)",
+   "lcc_type in [\"C+E\", \"C+E+S\"]": "la valutazione dei costi include l'LCC ambientale",
+   "lcc_type in [\"C+E+S\", \"C+N+S\"]": "la valutazione dei costi include l'LCC sociale",
+   "q2 == \"A\"": "gli scambi avvengono già (Q2)",
+   "q2 == \"B\" or has_scenarios": "gli scambi non avvengono ancora (Q2), oppure il caso ha scenari alternativi",
+   "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True": "gli scambi non avvengono ancora, il caso ha scenari, oppure usa beni dedicati e condivisi (Q12)",
+   "q3.eco": "lo studio ha la dimensione economica (Q3)",
+   "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)": "dimensione economica, con scambi non ancora in corso, scenari o beni dedicati e condivisi",
+   "q3.eco and dedicated_shared_assets != False": "dimensione economica, con beni condivisi non esclusi (Q12)",
+   "q3.eco or q3.soc": "lo studio ha la dimensione economica o quella sociale (Q3)",
+   "q3.env": "lo studio ha la dimensione ambientale (Q3)",
+   "q3.env and ilcd_situation == \"ILCD Situation B\"": "dimensione ambientale in Situazione ILCD B (consequenziale)",
+   "q3.env or q3.eco": "lo studio ha la dimensione ambientale o quella economica (Q3)",
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "lo studio ha la dimensione sociale o l'LCC sociale"
+  },
+  "ui": {
+   "sheet.cover": "Copertina",
+   "sheet.instructions": "Istruzioni",
+   "sheet.actors": "Attori",
+   "sheet.flow_matrix": "Matrice dei flussi",
+   "sheet.flow_classification": "Classificazione flussi",
+   "sheet.logistics": "Logistica",
+   "sheet.costs": "Costi e ricavi",
+   "sheet.infrastructure": "Infrastrutture",
+   "sheet.methodological_choices": "Scelte metodologiche",
+   "sheet.network_diagram": "Diagramma della rete",
+   "title": "SYMBA T4.6 — Data Collection File",
+   "cover.case_id": "ID del caso",
+   "cover.ilcd": "Situazione ILCD",
+   "cover.lcc": "Tipo di LCC",
+   "cover.slca": "Valutazione sociale (S-LCA)",
+   "cover.purpose": "Tipo di studio",
+   "cover.market": "Mercato di riferimento",
+   "cover.schema": "Versione dello schema",
+   "not_active": "Questa sezione non è attiva per questo caso.",
+   "ins.title": "Come compilare questo Data Collection File",
+   "ins.case": "Caso: {name}",
+   "ins.what": "Che cos'è questo file",
+   "ins.what_body": "Un foglio di raccolta dati generato per un caso di simbiosi industriale. Le colonne sono state scelte dalla configurazione metodologica del caso: ti si chiede solo quello che serve a questo caso.",
+   "ins.how": "Come compilarlo",
+   "ins.how_body": "Una riga per voce. Le colonne con * sono obbligatorie. Passa sull'intestazione di una colonna per leggere la definizione, i valori ammessi e il motivo per cui il campo è chiesto. Le celle con un menu accettano solo i valori elencati: non sovrascriverle con testo libero.",
+   "ins.unknown": "Se non conosci un valore",
+   "ins.unknown_body": "Lascialo vuoto invece di tirare a indovinare, e dillo. Una cella vuota è una lacuna nota; un numero inventato è un errore che nessuno vede.",
+   "ins.units": "Unità e valuta",
+   "ins.units_body": "Indica sempre l'unità accanto alla quantità dove c'è una colonna per l'unità, e usa la valuta e l'anno di riferimento chiesti nel foglio Costi. Numeri senza unità non si possono sommare.",
+   "ins.conf": "Riservatezza",
+   "ins.conf_body": "Questo file può contenere dati di tutti i partner della rete. Prima di farlo circolare fuori dal gruppo di studio, verifica l'accordo di riservatezza fra i partner: il metodo chiede di definirlo prima di iniziare la raccolta dati.",
+   "ins.return": "A chi riconsegnarlo",
+   "ins.return_body": "A chi esegue lo studio (un analista o un consulente). Se il file l'hai generato tu, compila i tuoi fogli con i colleghi e consegnalo a lui; il foglio Scelte metodologiche è per lui, non per te.",
+   "ins.return_by": "Da riconsegnare entro",
+   "ins.return_by_hint": "(concorda una data con chi esegue lo studio)",
+   "ins.contact": "Contatto",
+   "ins.contact_hint": "(nome ed e-mail di chi esegue lo studio)",
+   "note.field_id": "Codice del campo",
+   "note.type": "Tipo",
+   "note.allowed": "Valori ammessi",
+   "note.because": "Chiesto perché",
+   "dv.error": "Scegli uno dei valori dell'elenco.",
+   "dv.title": "Valore non ammesso",
+   "h.category": "Categoria",
+   "h.origin": "Origine",
+   "h.id": "ID",
+   "h.method": "Metodo",
+   "h.statement": "Enunciato (testo dei deliverable, in inglese)",
+   "h.because": "Si applica perché",
+   "h.target": "Dove documentarlo",
+   "h.assignee": "Responsabile",
+   "h.status": "Stato",
+   "status.pending": "da fare",
+   "nw.none": "Nessuna rete disegnata. Usa l'editor di rete dell'app web SYMBA T4.6 (pagina Data Collection File) per posizionare e collegare gli attori: i collegamenti compaiono qui, e i fogli Attori e Matrice dei flussi arrivano già compilati.",
+   "nw.intro": "Elenco dei collegamenti della rete disegnata nell'app. Il diagramma interattivo è nella pagina Data Collection File.",
+   "h.flow": "Flusso",
+   "h.origin_actor": "Attore di origine",
+   "h.dest_actor": "Attore di destinazione",
+   "h.type": "Tipo",
+   "h.quantity": "Quantità",
+   "h.unit": "Unità",
+   "dx.intro": "Generato dal sistema di monitoraggio e reporting SYMBA T4.6. Questo documento accompagna il foglio .xlsx: vedi il §3 per i campi uno per uno.",
+   "dx.meta": "Dati del progetto",
+   "dx.project": "Progetto",
+   "dx.project_title": "Titolo del progetto",
+   "dx.topic": "Topic",
+   "dx.instrument": "Strumento",
+   "dx.task": "Task",
+   "dx.deliverable": "Deliverable",
+   "dx.cover": "Copertina del Data Collection File",
+   "dx.s1": "§1. Scelte metodologiche da documentare",
+   "dx.s1_none": "Niente da documentare per questo caso.",
+   "dx.s1_intro": "{total} voci da documentare per questo caso: i {rules} obblighi attivati dalle risposte e {mandates} pratiche che il metodo chiede a ogni studio come questo. Ognuna è un impegno da documentare nel report LCSA o nei suoi allegati; «Si applica perché» dice che cosa l'ha attivata, «Stato» serve a seguirne il completamento. Gli enunciati sono il testo dei deliverable, in inglese.",
+   "dx.s2": "§2. Diagramma della rete",
+   "dx.s2_off": "Il diagramma della rete non è attivo per questo caso.",
+   "dx.s2_static": "Il diagramma della rete si disegna in modo interattivo nella pagina Data Collection File dell'app web SYMBA T4.6, dai fogli Attori e Matrice dei flussi del file .xlsx: gli attori come nodi, i flussi come frecce.",
+   "dx.s2_drawn": "La rete disegnata nell'app web SYMBA T4.6 conta {actors} attori e {flows} flussi collegati. Le tabelle qui sotto ne sono la forma testuale; il file .xlsx riporta lo stesso contenuto nei fogli Attori e Matrice dei flussi.",
+   "dx.actors": "Attori",
+   "dx.flows": "Flussi",
+   "h.actor": "Attore",
+   "h.role": "Ruolo",
+   "h.sector": "Settore",
+   "h.from": "Da",
+   "h.to": "A",
+   "dx.s3": "§3. Foglio dati (file Excel)",
+   "dx.s3_body": "Il file .xlsx contiene i fogli da compilare, calibrati sulla configurazione qui sopra. Compila le righe vuote di ogni foglio e riconsegna il file a chi esegue lo studio. I campi chiesti seguono le risposte del questionario.",
+   "dx.active": "Sezioni attive",
+   "h.section": "Sezione",
+   "h.active": "Attiva per questo caso",
+   "h.fields": "Campi attivi",
+   "yes": "sì",
+   "no": "no",
+   "dx.ack": "Ringraziamenti e avvertenza"
+  },
+  "enum_refs": {
+   "Q6a": {
+    "none": "(nessuno)",
+    "agriculture_agrifood_biorefineries": "Agricoltura / agroalimentare / bioraffinerie",
+    "biobased_polymers": "Polimeri bio-based",
+    "plastics_packaging": "Plastiche e packaging",
+    "pulp_paper": "Carta e cellulosa",
+    "chemicals_fertilizers": "Chimica / fertilizzanti",
+    "cement_construction": "Cemento / costruzioni",
+    "steel_metals": "Acciaio e metalli",
+    "energy_utilities": "Energia / utilities",
+    "wastewater_sludge_biofactories": "Acque reflue / fanghi / biofactories",
+    "textile_leather": "Tessile / pelletteria",
+    "waste_valorization": "Valorizzazione rifiuti",
+    "food_production": "Produzione alimentare",
+    "multi_tenant_urban_building": "Edificio urbano multi-tenant",
+    "multi_sector": "Multi-settore",
+    "other": "Altro",
+    "wastewater_biofactories": "Acque reflue / fanghi / biofactories (legacy)",
+    "agri_food": "Agroalimentare / bioraffinerie (legacy)",
+    "process_industry": "Industria di processo (legacy)"
+   },
+   "Q5": {
+    "a": "a — chi cede (A) paga chi riceve (B): rifiuto",
+    "b": "b — Scambio gratuito (ambiguo)",
+    "c": "c — chi riceve (B) paga chi cede (A): co-prodotto",
+    "d": "d — Interdipendente",
+    "e": "e — Aggregato / black-box"
+   }
+  }
+ },
+ "fr": {
+  "sections": {
+   "actors": {
+    "title": "Acteurs",
+    "description": "Tous ceux qui participent aux échanges : une ligne par entreprise ou organisme public. Les origines et destinations des flux, et le diagramme du réseau, renvoient à ces lignes."
+   },
+   "flow_matrix": {
+    "title": "Matrice des flux",
+    "description": "Une ligne par échange entre deux acteurs : ce qui circule, de qui à qui, en quelle quantité, de quelle qualité et avec quelle incertitude."
+   },
+   "flow_classification": {
+    "title": "Classification des flux (déchet / coproduit / sous-produit)",
+    "description": "Une ligne par flux, quoi que dise Q5 : les tests juridiques et économiques qui décident du traitement d'un flux (D4.1 §8.3, D4.2 §6.2). Ce sont des jugements de l'analyste : Q5 n'enregistre que qui paie qui, gardez-les cohérents avec la classe Q5 du flux dans la Matrice des flux."
+   },
+   "logistics": {
+    "title": "Logistique",
+    "description": "Une ligne par trajet, c'est-à-dire par flux de la Matrice des flux, flux entre sites voisins compris : une conduite, un convoyeur ou une manutention sur site sont aussi des procédés (D4.1 §12.3.1). La distance d'équilibre est demandée pour chaque flux ; une étude uniquement sociale n'a pas de transport à modéliser, la section est donc désactivée."
+   },
+   "costs": {
+    "title": "Coûts et recettes",
+    "description": "Les conditions économiques de l'échange, une ligne par flux, demandées seulement avec la dimension économique. Le coût actuel d'élimination est la référence économique : ce que l'acteur d'origine paie aujourd'hui pour le flux que la symbiose détourne. Sans lui, aucun coût évité ne peut être comparé à l'investissement."
+   },
+   "infrastructure": {
+    "title": "Infrastructures",
+    "description": "Les biens impliqués dans le réseau, une ligne par bien : ligne de production, station de traitement, conduite, stockage, unité de conversion, installation de support."
+   },
+   "methodological_choices": {
+    "title": "Choix méthodologiques à documenter",
+    "description": "Pour l'équipe qui réalise l'étude, pas pour les fournisseurs de données : les pratiques méthodologiques que ce cas doit documenter, groupées par catégorie et remplies à partir de vos réponses. Les énoncés sont le texte des livrables, en anglais."
+   },
+   "network_diagram": {
+    "title": "Diagramme du réseau",
+    "description": "L'image du réseau, tirée des feuilles Acteurs et Matrice des flux. Elle se modifie dans l'éditeur de réseau de l'application web, où l'on place et relie acteurs et flux ; cette feuille montre le résultat."
+   }
+  },
+  "fields": {
+   "actor.id": {
+    "label": "ID de l'acteur"
+   },
+   "actor.name": {
+    "label": "Nom de l'acteur"
+   },
+   "actor.role": {
+    "label": "Rôle"
+   },
+   "actor.sector": {
+    "label": "Secteur",
+    "description": "Le secteur propre de l'acteur, qui peut différer de celui du cas dans un réseau couvrant plusieurs secteurs."
+   },
+   "actor.site_id": {
+    "label": "Site"
+   },
+   "actor.country_iso2": {
+    "label": "Pays (code à deux lettres, ex. FR)"
+   },
+   "actor.size_class": {
+    "label": "Taille"
+   },
+   "actor.public_private": {
+    "label": "Propriété publique / privée"
+   },
+   "actor.contact_role": {
+    "label": "Rôle de la personne de contact (pour la collecte des données)"
+   },
+   "flow.id": {
+    "label": "ID du flux"
+   },
+   "flow.origin_actor_id": {
+    "label": "Acteur d'origine"
+   },
+   "flow.dest_actor_id": {
+    "label": "Acteur de destination"
+   },
+   "flow.name": {
+    "label": "Nom du flux"
+   },
+   "flow.type": {
+    "label": "Type de flux"
+   },
+   "flow.q5_class": {
+    "label": "Qui paie qui (Q5)",
+    "description": "Copié du questionnaire."
+   },
+   "flow.unit": {
+    "label": "Unité"
+   },
+   "flow.regime": {
+    "label": "Régime"
+   },
+   "flow.quantity_measured": {
+    "label": "Quantité mesurée (par an)"
+   },
+   "flow.quantity_projected": {
+    "label": "Quantité prévue (par scénario, par an)"
+   },
+   "flow.quality.purity_pct": {
+    "label": "Pureté (%)"
+   },
+   "flow.quality.contamination_level": {
+    "label": "Niveau de contamination"
+   },
+   "flow.quality.reliability_of_supply": {
+    "label": "Fiabilité de l'approvisionnement"
+   },
+   "flow.uncertainty.type": {
+    "label": "Comment l'incertitude est exprimée"
+   },
+   "flow.uncertainty.value": {
+    "label": "Valeur de l'incertitude (selon son expression)"
+   },
+   "flow.marginal_market_ref": {
+    "label": "Référence du marché marginal (études conséquentielles)"
+   },
+   "flow.scenario_assumptions": {
+    "label": "Hypothèses de scénario (études prospectives)"
+   },
+   "flow.lci_dataset_ref": {
+    "label": "Référence du jeu de données ICV d'arrière-plan"
+   },
+   "classif.flow_id": {
+    "label": "Flux"
+   },
+   "classif.independent_market": {
+    "label": "Un tiers le paierait-il ? (Freedom-to-Act)",
+    "description": "D4.1 §8.3.3 : s'il n'existe aucun acheteur indépendant, le prix est administratif et le flux est un déchet, même quand Q5 dit que le receveur paie. Initialisé par la réponse du questionnaire (Vendable à d'autres ?) à la création de la ligne ; ensuite la ligne appartient à l'analyste."
+   },
+   "classif.avoidable": {
+    "label": "Évitabilité causale",
+    "description": "D4.2 §6.2 : un traitement à coût nul exige que le résidu soit inévitable et sans valeur marchande positive ; le test d'évitabilité causale se déclare par flux."
+   },
+   "classif.legal_class": {
+    "label": "Classification juridique",
+    "description": "Produit, coproduit, sous-produit (directive-cadre déchets, art. 5) ou déchet (art. 3)."
+   },
+   "classif.eow_status": {
+    "label": "Statut de fin de déchet",
+    "description": "D4.1 §8.3.5 : documente le statut, ne reclasse pas le flux."
+   },
+   "classif.zero_burden_point": {
+    "label": "Où commence la charge nulle",
+    "description": "D4.1 §8.3.6, étape 4 : à partir du point où le résidu atteint pour la première fois une valeur non négative, pas forcément à la sortie du site."
+   },
+   "classif.tree_step_reached": {
+    "label": "Étape de l'arbre de décision atteinte",
+    "description": "D4.1 §8.3.6 : l'étape de l'arbre de décision où le traitement de ce flux a été tranché."
+   },
+   "classif.edge_case": {
+    "label": "Cas limite",
+    "description": "Cas que les tests ne tranchent pas seuls et qui demandent une lecture explicite et documentée (cut-off ou substitution)."
+   },
+   "classif.evidence": {
+    "label": "Preuves et raisonnement",
+    "description": "Documents ou raisonnement à l'appui des réponses ci-dessus."
+   },
+   "route.flow_id": {
+    "label": "Flux"
+   },
+   "route.distance_km": {
+    "label": "Distance (km)"
+   },
+   "route.transport_mode": {
+    "label": "Mode de transport"
+   },
+   "route.frequency": {
+    "label": "Fréquence"
+   },
+   "route.measured_volume_year": {
+    "label": "Volume mesuré (par an)"
+   },
+   "route.projected_volume_year": {
+    "label": "Volume prévu par scénario (par an)"
+   },
+   "route.backhaul_strategy": {
+    "label": "Trajet retour (chargement au retour)"
+   },
+   "route.transport_lci_dataset": {
+    "label": "Référence du jeu de données ICV du transport"
+   },
+   "route.transport_cost_per_unit": {
+    "label": "Coût du transport (par unité)"
+   },
+   "route.transport_sensitivity": {
+    "label": "Ce qui rend ce flux sensible à la distance",
+    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur."
+   },
+   "route.break_even_distance_km": {
+    "label": "Distance d'équilibre (km)",
+    "description": "La distance au-delà de laquelle l'échange cesse d'être rentable pour ce flux, issue de votre propre analyse de sensibilité sur des données logistiques primaires (D4.1 §12.3.1). Pas une hypothèse fixe : ne recopiez pas une valeur de la littérature."
+   },
+   "route.break_even_basis": {
+    "label": "Base de calcul de l'équilibre",
+    "description": "Sur quoi l'équilibre a été calculé ; un équilibre sur le seul changement climatique peut induire en erreur (D4.1 §12.2.1)."
+   },
+   "cost.flow_id": {
+    "label": "Flux"
+   },
+   "cost.current_disposal_cost": {
+    "label": "Coût actuel d'élimination / de gestion (évité)",
+    "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite."
+   },
+   "cost.disposal_cost_unit": {
+    "label": "Unité du coût d'élimination",
+    "description": "ex. EUR/t, EUR/an."
+   },
+   "cost.exchange_price": {
+    "label": "Prix du flux échangé",
+    "description": "Prix convenu entre les partenaires. Zéro et les valeurs négatives ont un sens : une redevance payée pour faire enlever le flux est un prix négatif."
+   },
+   "cost.price_basis": {
+    "label": "Base de ce prix"
+   },
+   "cost.opex_delta_year": {
+    "label": "Variation des coûts d'exploitation (par an)",
+    "description": "Coût d'exploitation que l'échange ajoute ou retire chaque année, transport exclu (il va dans Logistique)."
+   },
+   "cost.currency_year": {
+    "label": "Devise et année de référence",
+    "description": "ex. EUR2024. Obligatoire : sans elle, les montants ne peuvent être ni comparés ni déflatés."
+   },
+   "cost.contract_horizon_y": {
+    "label": "Durée du contrat (années)",
+    "description": "Pour combien de temps l'accord est conclu. Demandé pour les études prospectives, où il borne le retour sur investissement."
+   },
+   "cost.price_volatility": {
+    "label": "Volatilité du prix"
+   },
+   "cost.externality_monetized": {
+    "label": "Externalités monétisées pour ce flux",
+    "description": "Monétiser les impacts environnementaux relève du LCC environnemental et sociétal, pas d'un LCC conventionnel (D4.2 §2.2). Signalez-le pour que le même montant ne soit pas compté deux fois, comme coût et comme externalité."
+   },
+   "infra.id": {
+    "label": "ID du bien"
+   },
+   "infra.linked_actor_id": {
+    "label": "Acteur lié"
+   },
+   "infra.purpose": {
+    "label": "Fonction"
+   },
+   "infra.status": {
+    "label": "Statut"
+   },
+   "infra.capacity_value": {
+    "label": "Capacité (nombre)"
+   },
+   "infra.capacity_unit": {
+    "label": "Unité de capacité"
+   },
+   "infra.year_built": {
+    "label": "Année de construction"
+   },
+   "infra.expected_lifetime_remaining_y": {
+    "label": "Durée de vie restante prévue (années)"
+   },
+   "infra.capex_amount": {
+    "label": "Investissement (CAPEX)"
+   },
+   "infra.capex_currency_year": {
+    "label": "Devise et année de référence de l'investissement (ex. EUR2024)"
+   },
+   "infra.amortization_period_y": {
+    "label": "Durée d'amortissement (années) : durée de vie technique de ce bien",
+    "description": "Pas de valeur unique : la durée de vie technique de chaque bien (D4.2 §4.2, §7.3). Durées de référence du tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans. Utilisez la même durée dans l'ACV (D4.1 §14.2.2)."
+   },
+   "infra.discount_rate_pct": {
+    "label": "Taux d'actualisation (%)"
+   },
+   "infra.salvage_value": {
+    "label": "Valeur résiduelle en fin de vie"
+   },
+   "infra.avoided_lifetime_y": {
+    "label": "Durée de vie évitée (années, pour la substitution)"
+   },
+   "infra.decommissioning_cost": {
+    "label": "Coût de démantèlement"
+   },
+   "infra.ssp_rcp_scenario": {
+    "label": "Scénario futur (SSP/RCP)"
+   },
+   "infra.ownership": {
+    "label": "Modèle de propriété"
+   }
+  },
+  "enums": {
+   "producer": "producteur",
+   "consumer": "utilisateur",
+   "facilitator": "facilitateur",
+   "regulator": "régulateur",
+   "intermediary": "intermédiaire",
+   "micro": "micro",
+   "SME": "PME",
+   "mid": "moyenne",
+   "large": "grande",
+   "public": "publique",
+   "private": "privée",
+   "mixed": "mixte",
+   "material": "matière",
+   "energy": "énergie",
+   "water": "eau",
+   "waste": "déchet",
+   "by_product": "sous-produit",
+   "utility": "utilité",
+   "service": "service",
+   "info": "information",
+   "continuous": "continu",
+   "batch": "par lots",
+   "intermittent": "intermittent",
+   "low": "faible",
+   "med": "moyen",
+   "high": "élevé",
+   "unknown": "inconnu",
+   "point": "valeur unique",
+   "range": "intervalle",
+   "distribution": "distribution",
+   "qualitative": "qualitative",
+   "yes": "oui",
+   "no": "non",
+   "unavoidable": "inévitable",
+   "avoidable": "évitable",
+   "product": "produit",
+   "co_product": "coproduit",
+   "by_product_art5": "sous-produit (art. 5 directive déchets)",
+   "waste_art3": "déchet (art. 3 directive déchets)",
+   "achieved": "atteint",
+   "not_achieved": "non atteint",
+   "pending": "en cours",
+   "not_applicable": "sans objet",
+   "at_generation": "au lieu de production",
+   "after_generator_pretreatment": "après le prétraitement du producteur",
+   "step1_value": "étape 1, valeur de marché",
+   "step2_interdependence": "étape 2, interdépendance",
+   "step3_dependent_coproduct": "étape 3, coproduit dépendant",
+   "step4_zero_burden": "étape 4, charge nulle",
+   "none": "aucun",
+   "negotiated_internal_price": "prix interne négocié",
+   "zero_priced_high_utility": "prix nul, grande utilité",
+   "legally_waste_but_feedstock": "déchet au sens légal mais utilisé comme matière première",
+   "truck": "camion",
+   "rail": "train",
+   "ship": "navire",
+   "pipeline": "conduite",
+   "cable": "câble",
+   "conveyor": "convoyeur",
+   "onsite_none": "sur site, sans transport",
+   "daily": "quotidienne",
+   "weekly": "hebdomadaire",
+   "monthly": "mensuelle",
+   "ad_hoc": "occasionnelle",
+   "partial": "partiel",
+   "full": "complet",
+   "bulky_low_value": "volumineux ou de faible valeur",
+   "high_moisture": "humide",
+   "piped_heat_steam_water": "chaleur, vapeur ou eau en conduite",
+   "high_value_commodity": "marchandise de forte valeur",
+   "other": "autre",
+   "gwp_only": "changement climatique seul",
+   "multi_category": "plusieurs catégories d'impact",
+   "economic": "économique",
+   "env_and_eco": "environnemental et économique",
+   "gate_fee_paid": "redevance payée",
+   "gate_fee_received": "redevance perçue",
+   "market_price": "prix de marché",
+   "free": "gratuit",
+   "negotiated": "négocié",
+   "production": "production",
+   "treatment": "traitement",
+   "transport": "transport",
+   "storage": "stockage",
+   "conversion": "conversion",
+   "supporting": "support",
+   "existing": "existant",
+   "new": "nouveau",
+   "replaced": "remplacé",
+   "upgraded": "amélioré",
+   "decommissioned": "démantelé",
+   "single_actor": "un seul acteur",
+   "joint_venture": "coentreprise",
+   "third_party": "tiers"
+  },
+  "reasons": {
+   "future_background and (q3.env or q3.eco)": "l'étude demande un arrière-plan futur (Q8 ou Q6b)",
+   "lcc_type in [\"C+E\", \"C+E+S\"]": "l'évaluation des coûts inclut le LCC environnemental",
+   "lcc_type in [\"C+E+S\", \"C+N+S\"]": "l'évaluation des coûts inclut le LCC sociétal",
+   "q2 == \"A\"": "les échanges ont déjà lieu (Q2)",
+   "q2 == \"B\" or has_scenarios": "les échanges n'ont pas encore lieu (Q2), ou le cas a des scénarios alternatifs",
+   "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True": "les échanges n'ont pas encore lieu, le cas a des scénarios, ou il utilise des biens dédiés et partagés (Q12)",
+   "q3.eco": "l'étude a la dimension économique (Q3)",
+   "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)": "dimension économique, avec des échanges pas encore en cours, des scénarios ou des biens dédiés et partagés",
+   "q3.eco and dedicated_shared_assets != False": "dimension économique, biens partagés non exclus (Q12)",
+   "q3.eco or q3.soc": "l'étude a la dimension économique ou sociale (Q3)",
+   "q3.env": "l'étude a la dimension environnementale (Q3)",
+   "q3.env and ilcd_situation == \"ILCD Situation B\"": "dimension environnementale en Situation ILCD B (conséquentielle)",
+   "q3.env or q3.eco": "l'étude a la dimension environnementale ou économique (Q3)",
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "l'étude a la dimension sociale ou le LCC sociétal"
+  },
+  "ui": {
+   "sheet.cover": "Couverture",
+   "sheet.instructions": "Instructions",
+   "sheet.actors": "Acteurs",
+   "sheet.flow_matrix": "Matrice des flux",
+   "sheet.flow_classification": "Classification des flux",
+   "sheet.logistics": "Logistique",
+   "sheet.costs": "Coûts et recettes",
+   "sheet.infrastructure": "Infrastructures",
+   "sheet.methodological_choices": "Choix méthodologiques",
+   "sheet.network_diagram": "Diagramme du réseau",
+   "title": "SYMBA T4.6 — Data Collection File",
+   "cover.case_id": "ID du cas",
+   "cover.ilcd": "Situation ILCD",
+   "cover.lcc": "Type de LCC",
+   "cover.slca": "Évaluation sociale (S-LCA)",
+   "cover.purpose": "Type d'étude",
+   "cover.market": "Marché de référence",
+   "cover.schema": "Version du schéma",
+   "not_active": "Cette section n'est pas active pour ce cas.",
+   "ins.title": "Comment remplir ce Data Collection File",
+   "ins.case": "Cas : {name}",
+   "ins.what": "Ce qu'est ce fichier",
+   "ins.what_body": "Une feuille de collecte de données générée pour un cas de symbiose industrielle. Les colonnes ont été choisies par la configuration méthodologique du cas : on ne vous demande que ce dont ce cas a besoin.",
+   "ins.how": "Comment le remplir",
+   "ins.how_body": "Une ligne par élément. Les colonnes marquées * sont obligatoires. Survolez l'en-tête d'une colonne pour lire la définition, les valeurs admises et la raison de la question. Les cellules à liste n'acceptent que les valeurs proposées : ne les écrasez pas avec du texte libre.",
+   "ins.unknown": "Si vous ne connaissez pas une valeur",
+   "ins.unknown_body": "Laissez-la vide plutôt que de deviner, et signalez-le. Une cellule vide est une lacune connue ; un chiffre deviné est une erreur invisible.",
+   "ins.units": "Unités et devise",
+   "ins.units_body": "Indiquez toujours l'unité à côté de la quantité quand une colonne d'unité existe, et utilisez la devise et l'année de référence demandées dans la feuille Coûts. Des chiffres sans unité ne s'additionnent pas.",
+   "ins.conf": "Confidentialité",
+   "ins.conf_body": "Ce classeur peut contenir des données de tous les partenaires du réseau. Avant de le diffuser hors de l'équipe d'étude, vérifiez l'accord de confidentialité entre partenaires : la méthode demande de le régler avant de commencer la collecte.",
+   "ins.return": "À qui le renvoyer",
+   "ins.return_body": "À qui réalise l'étude (un analyste ou un consultant). Si vous avez généré ce fichier vous-même, remplissez vos feuilles avec vos collègues et remettez-le-lui ; la feuille Choix méthodologiques est pour lui, pas pour vous.",
+   "ins.return_by": "À renvoyer avant le",
+   "ins.return_by_hint": "(convenez d'une date avec qui réalise l'étude)",
+   "ins.contact": "Contact",
+   "ins.contact_hint": "(nom et e-mail de qui réalise l'étude)",
+   "note.field_id": "Code du champ",
+   "note.type": "Type",
+   "note.allowed": "Valeurs admises",
+   "note.because": "Demandé parce que",
+   "dv.error": "Choisissez une des valeurs de la liste.",
+   "dv.title": "Valeur non admise",
+   "h.category": "Catégorie",
+   "h.origin": "Origine",
+   "h.id": "ID",
+   "h.method": "Méthode",
+   "h.statement": "Énoncé (texte des livrables, en anglais)",
+   "h.because": "S'applique parce que",
+   "h.target": "Où le documenter",
+   "h.assignee": "Responsable",
+   "h.status": "Statut",
+   "status.pending": "à faire",
+   "nw.none": "Aucun réseau dessiné. Utilisez l'éditeur de réseau de l'application web SYMBA T4.6 (page Data Collection File) pour placer et relier les acteurs : les liens apparaissent alors ici, et les feuilles Acteurs et Matrice des flux arrivent pré-remplies.",
+   "nw.intro": "Liste des liens du réseau dessiné dans l'application. Le diagramme interactif se trouve sur la page Data Collection File.",
+   "h.flow": "Flux",
+   "h.origin_actor": "Acteur d'origine",
+   "h.dest_actor": "Acteur de destination",
+   "h.type": "Type",
+   "h.quantity": "Quantité",
+   "h.unit": "Unité",
+   "dx.intro": "Généré par le système de suivi et de reporting SYMBA T4.6. Ce document accompagne la feuille .xlsx : voir le §3 pour le détail des champs.",
+   "dx.meta": "Données du projet",
+   "dx.project": "Projet",
+   "dx.project_title": "Titre du projet",
+   "dx.topic": "Topic",
+   "dx.instrument": "Instrument",
+   "dx.task": "Tâche",
+   "dx.deliverable": "Livrable",
+   "dx.cover": "Couverture du Data Collection File",
+   "dx.s1": "§1. Choix méthodologiques à documenter",
+   "dx.s1_none": "Rien à documenter pour ce cas.",
+   "dx.s1_intro": "{total} éléments à documenter pour ce cas : les {rules} obligations déclenchées par les réponses et {mandates} pratiques que la méthode demande à toute étude de ce type. Chacun est un engagement à documenter dans le rapport LCSA ou ses annexes ; « S'applique parce que » dit ce qui l'a déclenché, « Statut » sert à suivre l'avancement. Les énoncés sont le texte des livrables, en anglais.",
+   "dx.s2": "§2. Diagramme du réseau",
+   "dx.s2_off": "Le diagramme du réseau n'est pas actif pour ce cas.",
+   "dx.s2_static": "Le diagramme du réseau se dessine de façon interactive sur la page Data Collection File de l'application web SYMBA T4.6, à partir des feuilles Acteurs et Matrice des flux du fichier .xlsx : les acteurs comme nœuds, les flux comme flèches.",
+   "dx.s2_drawn": "Le réseau dessiné dans l'application web SYMBA T4.6 compte {actors} acteur(s) et {flows} flux relié(s). Les tableaux ci-dessous en sont la forme textuelle ; le fichier .xlsx porte le même contenu dans les feuilles Acteurs et Matrice des flux.",
+   "dx.actors": "Acteurs",
+   "dx.flows": "Flux",
+   "h.actor": "Acteur",
+   "h.role": "Rôle",
+   "h.sector": "Secteur",
+   "h.from": "De",
+   "h.to": "À",
+   "dx.s3": "§3. Feuille de données (fichier Excel)",
+   "dx.s3_body": "Le fichier .xlsx contient les feuilles à remplir, calibrées sur la configuration ci-dessus. Remplissez les lignes vides de chaque feuille et renvoyez le classeur à qui réalise l'étude. Les champs demandés suivent les réponses au questionnaire.",
+   "dx.active": "Sections actives",
+   "h.section": "Section",
+   "h.active": "Active pour ce cas",
+   "h.fields": "Champs actifs",
+   "yes": "oui",
+   "no": "non",
+   "dx.ack": "Remerciements et avertissement"
+  },
+  "enum_refs": {
+   "Q6a": {
+    "none": "(aucun)",
+    "agriculture_agrifood_biorefineries": "Agriculture / agroalimentaire / bioraffineries",
+    "biobased_polymers": "Polymères bio-sourcés",
+    "plastics_packaging": "Plastiques et emballages",
+    "pulp_paper": "Pâte et papier",
+    "chemicals_fertilizers": "Chimie / engrais",
+    "cement_construction": "Ciment / construction",
+    "steel_metals": "Acier et métaux",
+    "energy_utilities": "Énergie / utilities",
+    "wastewater_sludge_biofactories": "Eaux usées / boues / biofactories",
+    "textile_leather": "Textile / cuir",
+    "waste_valorization": "Valorisation des déchets",
+    "food_production": "Production alimentaire",
+    "multi_tenant_urban_building": "Bâtiment urbain multi-locataires",
+    "multi_sector": "Multi-secteur",
+    "other": "Autre",
+    "wastewater_biofactories": "Eaux usées / boues / biofactories (legacy)",
+    "agri_food": "Agroalimentaire / bioraffineries (legacy)",
+    "process_industry": "Industrie de process (legacy)"
+   },
+   "Q5": {
+    "a": "a — le fournisseur (A) paie le receveur (B) : déchet",
+    "b": "b — Échange gratuit (ambigu)",
+    "c": "c — le receveur (B) paie le fournisseur (A) : co-produit",
+    "d": "d — Interdépendant",
+    "e": "e — Agrégé / black-box"
+   }
+  }
+ },
+ "de": {
+  "sections": {
+   "actors": {
+    "title": "Akteure",
+    "description": "Alle, die an den Austauschen teilnehmen: eine Zeile pro Unternehmen oder öffentlicher Stelle. Herkunft und Ziel der Flüsse sowie das Netzdiagramm beziehen sich auf diese Zeilen."
+   },
+   "flow_matrix": {
+    "title": "Flussmatrix",
+    "description": "Eine Zeile pro Austausch zwischen zwei Akteuren: was fließt, von wem zu wem, wie viel, in welcher Qualität und mit welcher Unsicherheit."
+   },
+   "flow_classification": {
+    "title": "Klassifizierung der Flüsse (Abfall / Koppelprodukt / Nebenprodukt)",
+    "description": "Eine Zeile pro Fluss, unabhängig von Q5: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: Q5 hält nur fest, wer wen bezahlt; halten Sie dies mit der Q5-Klasse des Flusses in der Flussmatrix stimmig."
+   },
+   "logistics": {
+    "title": "Logistik",
+    "description": "Eine Zeile pro Strecke, also pro Fluss der Flussmatrix, auch zwischen benachbarten Anlagen: eine Leitung, ein Förderband oder die Handhabung vor Ort sind ebenfalls Prozesse (D4.1 §12.3.1). Die Break-even-Distanz wird für jeden Fluss erfragt; eine rein soziale Studie hat keinen Transport zu modellieren, daher ist der Abschnitt dort aus."
+   },
+   "costs": {
+    "title": "Kosten und Erlöse",
+    "description": "Die wirtschaftlichen Bedingungen des Austauschs, eine Zeile pro Fluss, nur mit der ökonomischen Dimension gefragt. Die heutigen Entsorgungskosten sind die ökonomische Referenz: was der Herkunftsakteur heute für den Fluss zahlt, den die Symbiose umleitet. Ohne sie gibt es keine vermiedenen Kosten, die der Investition gegenüberstehen."
+   },
+   "infrastructure": {
+    "title": "Infrastruktur",
+    "description": "Die am Netz beteiligten Anlagen, eine Zeile pro Anlage: Produktionslinie, Behandlungsanlage, Leitung, Speicher, Umwandlungseinheit, Hilfseinrichtung."
+   },
+   "methodological_choices": {
+    "title": "Zu dokumentierende methodische Entscheidungen",
+    "description": "Für das Studienteam, nicht für die Datenlieferanten: die methodischen Praktiken, die dieser Fall dokumentieren muss, nach Kategorie gruppiert und aus Ihren Antworten ausgefüllt. Die Aussagen sind der Text der Deliverables, auf Englisch."
+   },
+   "network_diagram": {
+    "title": "Netzdiagramm",
+    "description": "Das Bild des Netzes, aus den Blättern Akteure und Flussmatrix gezeichnet. Bearbeitet wird es im Netz-Editor der Web-App, wo Akteure und Flüsse platziert und verbunden werden; dieses Blatt zeigt das Ergebnis."
+   }
+  },
+  "fields": {
+   "actor.id": {
+    "label": "Akteur-ID"
+   },
+   "actor.name": {
+    "label": "Name des Akteurs"
+   },
+   "actor.role": {
+    "label": "Rolle"
+   },
+   "actor.sector": {
+    "label": "Sektor",
+    "description": "Der eigene Sektor des Akteurs, der in einem sektorübergreifenden Netz von dem des Falls abweichen kann."
+   },
+   "actor.site_id": {
+    "label": "Standort"
+   },
+   "actor.country_iso2": {
+    "label": "Land (zweistelliger Code, z. B. DE)"
+   },
+   "actor.size_class": {
+    "label": "Größenklasse"
+   },
+   "actor.public_private": {
+    "label": "Öffentliches / privates Eigentum"
+   },
+   "actor.contact_role": {
+    "label": "Rolle der Kontaktperson (für die Datenerhebung)"
+   },
+   "flow.id": {
+    "label": "Fluss-ID"
+   },
+   "flow.origin_actor_id": {
+    "label": "Herkunftsakteur"
+   },
+   "flow.dest_actor_id": {
+    "label": "Zielakteur"
+   },
+   "flow.name": {
+    "label": "Name des Flusses"
+   },
+   "flow.type": {
+    "label": "Art des Flusses"
+   },
+   "flow.q5_class": {
+    "label": "Wer zahlt wen (Q5)",
+    "description": "Aus dem Fragebogen übernommen."
+   },
+   "flow.unit": {
+    "label": "Einheit"
+   },
+   "flow.regime": {
+    "label": "Betriebsweise"
+   },
+   "flow.quantity_measured": {
+    "label": "Gemessene Menge (pro Jahr)"
+   },
+   "flow.quantity_projected": {
+    "label": "Erwartete Menge (pro Szenario, pro Jahr)"
+   },
+   "flow.quality.purity_pct": {
+    "label": "Reinheit (%)"
+   },
+   "flow.quality.contamination_level": {
+    "label": "Verunreinigungsgrad"
+   },
+   "flow.quality.reliability_of_supply": {
+    "label": "Liefersicherheit"
+   },
+   "flow.uncertainty.type": {
+    "label": "Wie die Unsicherheit ausgedrückt wird"
+   },
+   "flow.uncertainty.value": {
+    "label": "Wert der Unsicherheit (je nach Ausdrucksform)"
+   },
+   "flow.marginal_market_ref": {
+    "label": "Referenz des Grenzmarkts (konsequenzielle Studien)"
+   },
+   "flow.scenario_assumptions": {
+    "label": "Szenarioannahmen (prospektive Studien)"
+   },
+   "flow.lci_dataset_ref": {
+    "label": "Referenz des Hintergrund-Sachbilanzdatensatzes"
+   },
+   "classif.flow_id": {
+    "label": "Fluss"
+   },
+   "classif.independent_market": {
+    "label": "Würde ein Dritter dafür zahlen? (Freedom-to-Act)",
+    "description": "D4.1 §8.3.3: Gibt es keinen unabhängigen Käufer, ist der Preis administrativ und der Fluss Abfall, auch wenn Q5 sagt, dass der Abnehmer zahlt. Beim Anlegen der Zeile aus der Antwort im Fragebogen übernommen (An Dritte verkaufbar?); danach gehört die Zeile dem Analysten."
+   },
+   "classif.avoidable": {
+    "label": "Kausale Vermeidbarkeit",
+    "description": "D4.2 §6.2: Eine kostenlose Behandlung setzt voraus, dass der Reststoff unvermeidbar ist und keinen positiven Marktwert hat; die Prüfung der kausalen Vermeidbarkeit wird pro Fluss angegeben."
+   },
+   "classif.legal_class": {
+    "label": "Rechtliche Einstufung",
+    "description": "Produkt, Koppelprodukt, Nebenprodukt (Abfallrahmenrichtlinie Art. 5) oder Abfall (Art. 3)."
+   },
+   "classif.eow_status": {
+    "label": "Status Ende der Abfalleigenschaft",
+    "description": "D4.1 §8.3.5: dokumentiert den Status, stuft den Fluss nicht um."
+   },
+   "classif.zero_burden_point": {
+    "label": "Wo die Lastenfreiheit beginnt",
+    "description": "D4.1 §8.3.6, Schritt 4: ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht unbedingt am Werkstor."
+   },
+   "classif.tree_step_reached": {
+    "label": "Erreichter Schritt des Entscheidungsbaums",
+    "description": "D4.1 §8.3.6: der Schritt des Entscheidungsbaums, in dem die Behandlung dieses Flusses entschieden wurde."
+   },
+   "classif.edge_case": {
+    "label": "Grenzfall",
+    "description": "Fälle, die die Prüfungen allein nicht klären und eine ausdrückliche, dokumentierte Lesart verlangen (Cut-off oder Substitution)."
+   },
+   "classif.evidence": {
+    "label": "Belege und Begründung",
+    "description": "Dokumente oder Überlegungen hinter den obigen Antworten."
+   },
+   "route.flow_id": {
+    "label": "Fluss"
+   },
+   "route.distance_km": {
+    "label": "Entfernung (km)"
+   },
+   "route.transport_mode": {
+    "label": "Verkehrsmittel"
+   },
+   "route.frequency": {
+    "label": "Häufigkeit"
+   },
+   "route.measured_volume_year": {
+    "label": "Gemessenes Volumen (pro Jahr)"
+   },
+   "route.projected_volume_year": {
+    "label": "Erwartetes Volumen pro Szenario (pro Jahr)"
+   },
+   "route.backhaul_strategy": {
+    "label": "Rückfahrt (Rückladung)"
+   },
+   "route.transport_lci_dataset": {
+    "label": "Referenz des Transport-Sachbilanzdatensatzes"
+   },
+   "route.transport_cost_per_unit": {
+    "label": "Transportkosten (pro Einheit)"
+   },
+   "route.transport_sensitivity": {
+    "label": "Was diesen Fluss entfernungsabhängig macht",
+    "description": "Die Break-even-Distanz hängt von der Art des Flusses ab (D4.2 §4.2): sperrig oder geringwertig, feucht, Wärme/Dampf/Wasser in Leitungen oder hochwertige Ware."
+   },
+   "route.break_even_distance_km": {
+    "label": "Break-even-Distanz (km)",
+    "description": "Die Entfernung, ab der sich der Austausch für diesen Fluss nicht mehr lohnt, aus Ihrer eigenen Sensitivitätsrechnung mit primären Logistikdaten (D4.1 §12.3.1). Keine feste Annahme: übernehmen Sie keinen Literaturwert."
+   },
+   "route.break_even_basis": {
+    "label": "Berechnungsbasis des Break-even",
+    "description": "Worauf der Break-even berechnet wurde; einer nur auf Klimawandel kann in die Irre führen (D4.1 §12.2.1)."
+   },
+   "cost.flow_id": {
+    "label": "Fluss"
+   },
+   "cost.current_disposal_cost": {
+    "label": "Heutige Entsorgungs- / Behandlungskosten (vermieden)",
+    "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet."
+   },
+   "cost.disposal_cost_unit": {
+    "label": "Einheit der Entsorgungskosten",
+    "description": "z. B. EUR/t, EUR/Jahr."
+   },
+   "cost.exchange_price": {
+    "label": "Preis des ausgetauschten Flusses",
+    "description": "Zwischen den Partnern vereinbarter Preis. Null und negative Werte sind sinnvoll: eine bezahlte Annahmegebühr ist ein negativer Preis."
+   },
+   "cost.price_basis": {
+    "label": "Grundlage dieses Preises"
+   },
+   "cost.opex_delta_year": {
+    "label": "Änderung der Betriebskosten (pro Jahr)",
+    "description": "Betriebskosten, die der Austausch pro Jahr hinzufügt oder einspart, ohne Transport (der gehört in Logistik)."
+   },
+   "cost.currency_year": {
+    "label": "Währung und Bezugsjahr",
+    "description": "z. B. EUR2024. Pflicht: ohne sie lassen sich die Zahlen weder vergleichen noch deflationieren."
+   },
+   "cost.contract_horizon_y": {
+    "label": "Vertragslaufzeit (Jahre)",
+    "description": "Für wie lange die Vereinbarung gilt. Für prospektive Studien gefragt, wo sie die Amortisation begrenzt."
+   },
+   "cost.price_volatility": {
+    "label": "Preisvolatilität"
+   },
+   "cost.externality_monetized": {
+    "label": "Für diesen Fluss monetarisierte externe Effekte",
+    "description": "Die Monetarisierung von Umweltwirkungen gehört zum ökologischen und gesellschaftlichen LCC, nicht zu einem konventionellen LCC (D4.2 §2.2). Kennzeichnen Sie sie, damit derselbe Betrag nicht doppelt zählt, als Kosten und als externer Effekt."
+   },
+   "infra.id": {
+    "label": "Anlagen-ID"
+   },
+   "infra.linked_actor_id": {
+    "label": "Zugehöriger Akteur"
+   },
+   "infra.purpose": {
+    "label": "Zweck"
+   },
+   "infra.status": {
+    "label": "Status"
+   },
+   "infra.capacity_value": {
+    "label": "Kapazität (Zahl)"
+   },
+   "infra.capacity_unit": {
+    "label": "Einheit der Kapazität"
+   },
+   "infra.year_built": {
+    "label": "Baujahr"
+   },
+   "infra.expected_lifetime_remaining_y": {
+    "label": "Erwartete Restlebensdauer (Jahre)"
+   },
+   "infra.capex_amount": {
+    "label": "Investition (CAPEX)"
+   },
+   "infra.capex_currency_year": {
+    "label": "Währung und Bezugsjahr der Investition (z. B. EUR2024)"
+   },
+   "infra.amortization_period_y": {
+    "label": "Abschreibungsdauer (Jahre): technische Lebensdauer dieser Anlage",
+    "description": "Kein einheitlicher Wert: die technische Lebensdauer jeder Anlage (D4.2 §4.2, §7.3). Referenzwerte in Tabelle 7.1 der D4.2: Gebäude und allgemeine Infrastruktur 20-30 Jahre, Prozessanlagen und Maschinen 5-8 Jahre. Verwenden Sie in der LCA denselben Zeitraum (D4.1 §14.2.2)."
+   },
+   "infra.discount_rate_pct": {
+    "label": "Diskontsatz (%)"
+   },
+   "infra.salvage_value": {
+    "label": "Restwert am Ende"
+   },
+   "infra.avoided_lifetime_y": {
+    "label": "Vermiedene Lebensdauer (Jahre, für die Substitution)"
+   },
+   "infra.decommissioning_cost": {
+    "label": "Rückbaukosten"
+   },
+   "infra.ssp_rcp_scenario": {
+    "label": "Zukunftsszenario (SSP/RCP)"
+   },
+   "infra.ownership": {
+    "label": "Eigentumsmodell"
+   }
+  },
+  "enums": {
+   "producer": "Erzeuger",
+   "consumer": "Abnehmer",
+   "facilitator": "Vermittler",
+   "regulator": "Behörde",
+   "intermediary": "Zwischenhändler",
+   "micro": "Kleinst",
+   "SME": "KMU",
+   "mid": "mittel",
+   "large": "groß",
+   "public": "öffentlich",
+   "private": "privat",
+   "mixed": "gemischt",
+   "material": "Material",
+   "energy": "Energie",
+   "water": "Wasser",
+   "waste": "Abfall",
+   "by_product": "Nebenprodukt",
+   "utility": "Versorgungsleistung",
+   "service": "Dienstleistung",
+   "info": "Information",
+   "continuous": "kontinuierlich",
+   "batch": "chargenweise",
+   "intermittent": "unregelmäßig",
+   "low": "niedrig",
+   "med": "mittel",
+   "high": "hoch",
+   "unknown": "unbekannt",
+   "point": "Einzelwert",
+   "range": "Spanne",
+   "distribution": "Verteilung",
+   "qualitative": "qualitativ",
+   "yes": "ja",
+   "no": "nein",
+   "unavoidable": "unvermeidbar",
+   "avoidable": "vermeidbar",
+   "product": "Produkt",
+   "co_product": "Koppelprodukt",
+   "by_product_art5": "Nebenprodukt (Art. 5 Abfallrahmenrichtlinie)",
+   "waste_art3": "Abfall (Art. 3 Abfallrahmenrichtlinie)",
+   "achieved": "erreicht",
+   "not_achieved": "nicht erreicht",
+   "pending": "laufend",
+   "not_applicable": "nicht zutreffend",
+   "at_generation": "am Entstehungsort",
+   "after_generator_pretreatment": "nach der Vorbehandlung durch den Erzeuger",
+   "step1_value": "Schritt 1, Marktwert",
+   "step2_interdependence": "Schritt 2, Verflechtung",
+   "step3_dependent_coproduct": "Schritt 3, abhängiges Koppelprodukt",
+   "step4_zero_burden": "Schritt 4, lastenfrei",
+   "none": "keiner",
+   "negotiated_internal_price": "verhandelter interner Preis",
+   "zero_priced_high_utility": "Preis null, hoher Nutzen",
+   "legally_waste_but_feedstock": "rechtlich Abfall, aber als Rohstoff genutzt",
+   "truck": "Lkw",
+   "rail": "Bahn",
+   "ship": "Schiff",
+   "pipeline": "Leitung",
+   "cable": "Kabel",
+   "conveyor": "Förderband",
+   "onsite_none": "vor Ort, kein Transport",
+   "daily": "täglich",
+   "weekly": "wöchentlich",
+   "monthly": "monatlich",
+   "ad_hoc": "gelegentlich",
+   "partial": "teilweise",
+   "full": "voll",
+   "bulky_low_value": "sperrig oder geringwertig",
+   "high_moisture": "feucht",
+   "piped_heat_steam_water": "Wärme, Dampf oder Wasser in Leitungen",
+   "high_value_commodity": "hochwertige Ware",
+   "other": "anderes",
+   "gwp_only": "nur Klimawandel",
+   "multi_category": "mehrere Wirkungskategorien",
+   "economic": "ökonomisch",
+   "env_and_eco": "ökologisch und ökonomisch",
+   "gate_fee_paid": "Annahmegebühr bezahlt",
+   "gate_fee_received": "Annahmegebühr erhalten",
+   "market_price": "Marktpreis",
+   "free": "kostenlos",
+   "negotiated": "verhandelt",
+   "production": "Produktion",
+   "treatment": "Behandlung",
+   "transport": "Transport",
+   "storage": "Lagerung",
+   "conversion": "Umwandlung",
+   "supporting": "Hilfsfunktion",
+   "existing": "bestehend",
+   "new": "neu",
+   "replaced": "ersetzt",
+   "upgraded": "modernisiert",
+   "decommissioned": "stillgelegt",
+   "single_actor": "ein Akteur",
+   "joint_venture": "Joint Venture",
+   "third_party": "Dritte"
+  },
+  "reasons": {
+   "future_background and (q3.env or q3.eco)": "die Studie braucht einen künftigen Hintergrund (Q8 oder Q6b)",
+   "lcc_type in [\"C+E\", \"C+E+S\"]": "die Kostenbewertung umfasst das ökologische LCC",
+   "lcc_type in [\"C+E+S\", \"C+N+S\"]": "die Kostenbewertung umfasst das gesellschaftliche LCC",
+   "q2 == \"A\"": "die Austausche finden bereits statt (Q2)",
+   "q2 == \"B\" or has_scenarios": "die Austausche finden noch nicht statt (Q2), oder der Fall hat alternative Szenarien",
+   "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True": "die Austausche finden noch nicht statt, der Fall hat Szenarien, oder er nutzt eigens gebaute, gemeinsame Anlagen (Q12)",
+   "q3.eco": "die Studie hat die ökonomische Dimension (Q3)",
+   "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)": "ökonomische Dimension, mit noch nicht laufenden Austauschen, Szenarien oder gemeinsamen Anlagen",
+   "q3.eco and dedicated_shared_assets != False": "ökonomische Dimension, gemeinsame Anlagen nicht ausgeschlossen (Q12)",
+   "q3.eco or q3.soc": "die Studie hat die ökonomische oder die soziale Dimension (Q3)",
+   "q3.env": "die Studie hat die ökologische Dimension (Q3)",
+   "q3.env and ilcd_situation == \"ILCD Situation B\"": "ökologische Dimension in ILCD-Situation B (konsequenziell)",
+   "q3.env or q3.eco": "die Studie hat die ökologische oder die ökonomische Dimension (Q3)",
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "die Studie hat die soziale Dimension oder das gesellschaftliche LCC"
+  },
+  "ui": {
+   "sheet.cover": "Deckblatt",
+   "sheet.instructions": "Anleitung",
+   "sheet.actors": "Akteure",
+   "sheet.flow_matrix": "Flussmatrix",
+   "sheet.flow_classification": "Klassifizierung Flüsse",
+   "sheet.logistics": "Logistik",
+   "sheet.costs": "Kosten und Erlöse",
+   "sheet.infrastructure": "Infrastruktur",
+   "sheet.methodological_choices": "Methodische Entscheidungen",
+   "sheet.network_diagram": "Netzdiagramm",
+   "title": "SYMBA T4.6 — Data Collection File",
+   "cover.case_id": "Fall-ID",
+   "cover.ilcd": "ILCD-Situation",
+   "cover.lcc": "LCC-Typ",
+   "cover.slca": "Soziale Bewertung (S-LCA)",
+   "cover.purpose": "Art der Studie",
+   "cover.market": "Referenzmarkt",
+   "cover.schema": "Schemaversion",
+   "not_active": "Dieser Abschnitt ist für diesen Fall nicht aktiv.",
+   "ins.title": "So füllen Sie dieses Data Collection File aus",
+   "ins.case": "Fall: {name}",
+   "ins.what": "Was diese Datei ist",
+   "ins.what_body": "Ein Datenerhebungsblatt für einen Fall industrieller Symbiose. Die Spalten wurden von der methodischen Konfiguration des Falls ausgewählt: Sie werden nur nach dem gefragt, was dieser Fall braucht.",
+   "ins.how": "So füllen Sie es aus",
+   "ins.how_body": "Eine Zeile pro Eintrag. Mit * markierte Spalten sind Pflicht. Fahren Sie über eine Spaltenüberschrift, um Definition, zulässige Werte und den Grund der Frage zu sehen. Zellen mit Auswahlliste akzeptieren nur die angebotenen Werte: überschreiben Sie sie nicht mit freiem Text.",
+   "ins.unknown": "Wenn Sie einen Wert nicht kennen",
+   "ins.unknown_body": "Lassen Sie ihn leer, statt zu raten, und sagen Sie es. Eine leere Zelle ist eine bekannte Lücke; eine geratene Zahl ist ein unsichtbarer Fehler.",
+   "ins.units": "Einheiten und Währung",
+   "ins.units_body": "Geben Sie immer die Einheit neben der Menge an, wo es eine Einheitenspalte gibt, und verwenden Sie Währung und Bezugsjahr aus dem Blatt Kosten. Zahlen ohne Einheit lassen sich nicht zusammenfassen.",
+   "ins.conf": "Vertraulichkeit",
+   "ins.conf_body": "Diese Arbeitsmappe kann Daten aller Partner des Netzes enthalten. Bevor Sie sie außerhalb des Studienteams weitergeben, prüfen Sie die Vertraulichkeitsvereinbarung zwischen den Partnern: die Methode verlangt, sie vor Beginn der Datenerhebung zu klären.",
+   "ins.return": "An wen zurückgeben",
+   "ins.return_body": "An die Person, die die Studie durchführt (Analyst oder Berater). Haben Sie die Datei selbst erzeugt, füllen Sie Ihre Blätter mit Ihren Kollegen aus und übergeben Sie sie ihr; das Blatt Methodische Entscheidungen ist für sie, nicht für Sie.",
+   "ins.return_by": "Zurück bis",
+   "ins.return_by_hint": "(Termin mit der Person vereinbaren, die die Studie durchführt)",
+   "ins.contact": "Kontakt",
+   "ins.contact_hint": "(Name und E-Mail der Person, die die Studie durchführt)",
+   "note.field_id": "Feldcode",
+   "note.type": "Typ",
+   "note.allowed": "Zulässige Werte",
+   "note.because": "Gefragt, weil",
+   "dv.error": "Wählen Sie einen der aufgeführten Werte.",
+   "dv.title": "Wert nicht zulässig",
+   "h.category": "Kategorie",
+   "h.origin": "Herkunft",
+   "h.id": "ID",
+   "h.method": "Methode",
+   "h.statement": "Aussage (Text der Deliverables, Englisch)",
+   "h.because": "Gilt, weil",
+   "h.target": "Wo dokumentieren",
+   "h.assignee": "Zuständig",
+   "h.status": "Status",
+   "status.pending": "offen",
+   "nw.none": "Noch kein Netz gezeichnet. Nutzen Sie den Netz-Editor der Web-App SYMBA T4.6 (Seite Data Collection File), um Akteure zu platzieren und zu verbinden: die Verbindungen erscheinen dann hier, und die Blätter Akteure und Flussmatrix kommen vorausgefüllt.",
+   "nw.intro": "Liste der Verbindungen des in der App gezeichneten Netzes. Das interaktive Diagramm ist auf der Seite Data Collection File.",
+   "h.flow": "Fluss",
+   "h.origin_actor": "Herkunftsakteur",
+   "h.dest_actor": "Zielakteur",
+   "h.type": "Art",
+   "h.quantity": "Menge",
+   "h.unit": "Einheit",
+   "dx.intro": "Erzeugt vom Monitoring- und Berichtssystem SYMBA T4.6. Dieses Dokument begleitet das .xlsx-Blatt: siehe §3 für die Felder im Einzelnen.",
+   "dx.meta": "Projektdaten",
+   "dx.project": "Projekt",
+   "dx.project_title": "Projekttitel",
+   "dx.topic": "Topic",
+   "dx.instrument": "Instrument",
+   "dx.task": "Task",
+   "dx.deliverable": "Deliverable",
+   "dx.cover": "Deckblatt des Data Collection File",
+   "dx.s1": "§1. Zu dokumentierende methodische Entscheidungen",
+   "dx.s1_none": "Für diesen Fall ist nichts zu dokumentieren.",
+   "dx.s1_intro": "{total} zu dokumentierende Punkte für diesen Fall: die {rules} durch die Antworten ausgelösten Verpflichtungen und {mandates} Praktiken, die die Methode von jeder solchen Studie verlangt. Jeder ist eine Verpflichtung, im LCSA-Bericht oder seinen Anhängen dokumentiert zu werden; „Gilt, weil“ nennt den Auslöser, „Status“ verfolgt den Fortschritt. Die Aussagen sind der Text der Deliverables, auf Englisch.",
+   "dx.s2": "§2. Netzdiagramm",
+   "dx.s2_off": "Das Netzdiagramm ist für diesen Fall nicht aktiv.",
+   "dx.s2_static": "Das Netzdiagramm wird interaktiv auf der Seite Data Collection File der Web-App SYMBA T4.6 gezeichnet, aus den Blättern Akteure und Flussmatrix der .xlsx-Datei: Akteure als Knoten, Flüsse als Pfeile.",
+   "dx.s2_drawn": "Das in der Web-App SYMBA T4.6 gezeichnete Netz umfasst {actors} Akteur(e) und {flows} verbundene(n) Fluss/Flüsse. Die Tabellen unten sind seine Textform; die .xlsx-Datei enthält denselben Inhalt in den Blättern Akteure und Flussmatrix.",
+   "dx.actors": "Akteure",
+   "dx.flows": "Flüsse",
+   "h.actor": "Akteur",
+   "h.role": "Rolle",
+   "h.sector": "Sektor",
+   "h.from": "Von",
+   "h.to": "Nach",
+   "dx.s3": "§3. Datenblatt (Excel-Datei)",
+   "dx.s3_body": "Die .xlsx-Datei enthält die auszufüllenden Blätter, abgestimmt auf die obige Konfiguration. Füllen Sie die leeren Zeilen jedes Blatts aus und geben Sie die Mappe der Person zurück, die die Studie durchführt. Welche Felder gefragt werden, folgt den Antworten im Fragebogen.",
+   "dx.active": "Aktive Abschnitte",
+   "h.section": "Abschnitt",
+   "h.active": "Aktiv für diesen Fall",
+   "h.fields": "Aktive Felder",
+   "yes": "ja",
+   "no": "nein",
+   "dx.ack": "Danksagung und Haftungsausschluss"
+  },
+  "enum_refs": {
+   "Q6a": {
+    "none": "(keiner)",
+    "agriculture_agrifood_biorefineries": "Landwirtschaft / Agri-Food / Bioraffinerien",
+    "biobased_polymers": "Bio-basierte Polymere",
+    "plastics_packaging": "Kunststoffe und Verpackung",
+    "pulp_paper": "Zellstoff und Papier",
+    "chemicals_fertilizers": "Chemie / Düngemittel",
+    "cement_construction": "Zement / Bau",
+    "steel_metals": "Stahl und Metalle",
+    "energy_utilities": "Energie / Versorgung",
+    "wastewater_sludge_biofactories": "Abwasser / Schlämme / Biofactories",
+    "textile_leather": "Textil / Leder",
+    "waste_valorization": "Abfallvalorisierung",
+    "food_production": "Lebensmittelproduktion",
+    "multi_tenant_urban_building": "Mehrmieter-Stadtgebäude",
+    "multi_sector": "Multi-Sektor",
+    "other": "Sonstige",
+    "wastewater_biofactories": "Abwasser / Schlämme / Biofactories (legacy)",
+    "agri_food": "Agri-Food / Bioraffinerien (legacy)",
+    "process_industry": "Prozessindustrie (legacy)"
+   },
+   "Q5": {
+    "a": "a — der Abgeber (A) zahlt den Abnehmer (B): Abfall",
+    "b": "b — Freier Tausch (mehrdeutig)",
+    "c": "c — der Abnehmer (B) zahlt den Abgeber (A): Co-Produkt",
+    "d": "d — Interdependent",
+    "e": "e — Aggregiert / Black-box"
+   }
+  }
+ },
+ "es": {
+  "sections": {
+   "actors": {
+    "title": "Actores",
+    "description": "Quienes participan en los intercambios: una fila por empresa u organismo público. Los orígenes y destinos de los flujos, y el diagrama de la red, se refieren a estas filas."
+   },
+   "flow_matrix": {
+    "title": "Matriz de flujos",
+    "description": "Una fila por intercambio entre dos actores: qué circula, de quién a quién, cuánto, con qué calidad y con qué incertidumbre."
+   },
+   "flow_classification": {
+    "title": "Clasificación de los flujos (residuo / coproducto / subproducto)",
+    "description": "Una fila por flujo, diga lo que diga Q5: las pruebas jurídicas y económicas que deciden cómo se trata un flujo (D4.1 §8.3, D4.2 §6.2). Son juicios del analista: Q5 solo registra quién paga a quién, así que mantenlos coherentes con la clase Q5 del flujo en la Matriz de flujos."
+   },
+   "logistics": {
+    "title": "Logística",
+    "description": "Una fila por trayecto, es decir por flujo de la Matriz de flujos, incluidos los flujos entre plantas vecinas: una tubería, una cinta o la manipulación en planta también son procesos (D4.1 §12.3.1). La distancia de equilibrio se pide para cada flujo; un estudio solo social no tiene transporte que modelar, por lo que la sección está desactivada."
+   },
+   "costs": {
+    "title": "Costes e ingresos",
+    "description": "Las condiciones económicas del intercambio, una fila por flujo, solo con la dimensión económica. El coste actual de eliminación es la referencia económica: lo que paga hoy el actor de origen por el flujo que la simbiosis desvía. Sin él no hay coste evitado que comparar con la inversión."
+   },
+   "infrastructure": {
+    "title": "Infraestructuras",
+    "description": "Los bienes implicados en la red, una fila por bien: línea de producción, planta de tratamiento, tubería, almacén, unidad de conversión, instalación auxiliar."
+   },
+   "methodological_choices": {
+    "title": "Decisiones metodológicas que documentar",
+    "description": "Para el equipo que realiza el estudio, no para quien aporta los datos: las prácticas metodológicas que este caso debe documentar, agrupadas por categoría y completadas a partir de tus respuestas. Los enunciados son el texto de los entregables, en inglés."
+   },
+   "network_diagram": {
+    "title": "Diagrama de la red",
+    "description": "La imagen de la red, dibujada a partir de las hojas Actores y Matriz de flujos. Se edita en el editor de red de la aplicación web, donde se colocan y conectan actores y flujos; esta hoja muestra el resultado."
+   }
+  },
+  "fields": {
+   "actor.id": {
+    "label": "ID del actor"
+   },
+   "actor.name": {
+    "label": "Nombre del actor"
+   },
+   "actor.role": {
+    "label": "Función"
+   },
+   "actor.sector": {
+    "label": "Sector",
+    "description": "El sector propio del actor, que puede diferir del del caso en una red que abarca varios sectores."
+   },
+   "actor.site_id": {
+    "label": "Emplazamiento"
+   },
+   "actor.country_iso2": {
+    "label": "País (código de dos letras, p. ej. ES)"
+   },
+   "actor.size_class": {
+    "label": "Tamaño"
+   },
+   "actor.public_private": {
+    "label": "Propiedad pública / privada"
+   },
+   "actor.contact_role": {
+    "label": "Función de la persona de contacto (para la recogida de datos)"
+   },
+   "flow.id": {
+    "label": "ID del flujo"
+   },
+   "flow.origin_actor_id": {
+    "label": "Actor de origen"
+   },
+   "flow.dest_actor_id": {
+    "label": "Actor de destino"
+   },
+   "flow.name": {
+    "label": "Nombre del flujo"
+   },
+   "flow.type": {
+    "label": "Tipo de flujo"
+   },
+   "flow.q5_class": {
+    "label": "Quién paga a quién (Q5)",
+    "description": "Copiado del cuestionario."
+   },
+   "flow.unit": {
+    "label": "Unidad"
+   },
+   "flow.regime": {
+    "label": "Régimen"
+   },
+   "flow.quantity_measured": {
+    "label": "Cantidad medida (al año)"
+   },
+   "flow.quantity_projected": {
+    "label": "Cantidad prevista (por escenario, al año)"
+   },
+   "flow.quality.purity_pct": {
+    "label": "Pureza (%)"
+   },
+   "flow.quality.contamination_level": {
+    "label": "Nivel de contaminación"
+   },
+   "flow.quality.reliability_of_supply": {
+    "label": "Fiabilidad del suministro"
+   },
+   "flow.uncertainty.type": {
+    "label": "Cómo se expresa la incertidumbre"
+   },
+   "flow.uncertainty.value": {
+    "label": "Valor de la incertidumbre (según cómo se exprese)"
+   },
+   "flow.marginal_market_ref": {
+    "label": "Referencia del mercado marginal (estudios consecuenciales)"
+   },
+   "flow.scenario_assumptions": {
+    "label": "Hipótesis de escenario (estudios prospectivos)"
+   },
+   "flow.lci_dataset_ref": {
+    "label": "Referencia del conjunto de datos ICV de fondo"
+   },
+   "classif.flow_id": {
+    "label": "Flujo"
+   },
+   "classif.independent_market": {
+    "label": "¿Lo pagaría un tercero? (Freedom-to-Act)",
+    "description": "D4.1 §8.3.3: si no existe un comprador independiente, el precio es administrativo y el flujo es un residuo, aunque Q5 diga que paga quien recibe. Se inicializa con la respuesta del cuestionario (¿Vendible a otros?) al crear la fila; a partir de ahí la fila es del analista."
+   },
+   "classif.avoidable": {
+    "label": "Evitabilidad causal",
+    "description": "D4.2 §6.2: un tratamiento a coste cero exige que el residuo sea inevitable y sin valor de mercado positivo; la prueba de evitabilidad causal se declara por flujo."
+   },
+   "classif.legal_class": {
+    "label": "Clasificación jurídica",
+    "description": "Producto, coproducto, subproducto (Directiva marco de residuos, art. 5) o residuo (art. 3)."
+   },
+   "classif.eow_status": {
+    "label": "Estado de fin de residuo",
+    "description": "D4.1 §8.3.5: documenta el estado, no reclasifica el flujo."
+   },
+   "classif.zero_burden_point": {
+    "label": "Dónde empieza la carga cero",
+    "description": "D4.1 §8.3.6, paso 4: desde el punto en que el residuo alcanza por primera vez un valor no negativo, no necesariamente a la salida de la planta."
+   },
+   "classif.tree_step_reached": {
+    "label": "Paso del árbol de decisión alcanzado",
+    "description": "D4.1 §8.3.6: el paso del árbol de decisión en el que se decidió el tratamiento de este flujo."
+   },
+   "classif.edge_case": {
+    "label": "Caso límite",
+    "description": "Casos que las pruebas no resuelven por sí solas y que requieren una lectura explícita y documentada (cut-off o sustitución)."
+   },
+   "classif.evidence": {
+    "label": "Pruebas y razonamiento",
+    "description": "Documentos o razonamiento detrás de las respuestas anteriores."
+   },
+   "route.flow_id": {
+    "label": "Flujo"
+   },
+   "route.distance_km": {
+    "label": "Distancia (km)"
+   },
+   "route.transport_mode": {
+    "label": "Modo de transporte"
+   },
+   "route.frequency": {
+    "label": "Frecuencia"
+   },
+   "route.measured_volume_year": {
+    "label": "Volumen medido (al año)"
+   },
+   "route.projected_volume_year": {
+    "label": "Volumen previsto por escenario (al año)"
+   },
+   "route.backhaul_strategy": {
+    "label": "Viaje de vuelta (carga de retorno)"
+   },
+   "route.transport_lci_dataset": {
+    "label": "Referencia del conjunto de datos ICV del transporte"
+   },
+   "route.transport_cost_per_unit": {
+    "label": "Coste del transporte (por unidad)"
+   },
+   "route.transport_sensitivity": {
+    "label": "Qué hace a este flujo sensible a la distancia",
+    "description": "La distancia de equilibrio depende del tipo de flujo (D4.2 §4.2): voluminoso o de poco valor, húmedo, calor/vapor/agua por tubería o mercancía de alto valor."
+   },
+   "route.break_even_distance_km": {
+    "label": "Distancia de equilibrio (km)",
+    "description": "La distancia a partir de la cual el intercambio deja de compensar para este flujo, según tu propio análisis de sensibilidad con datos logísticos primarios (D4.1 §12.3.1). No es una hipótesis fija: no copies un valor de la literatura."
+   },
+   "route.break_even_basis": {
+    "label": "Base de cálculo del equilibrio",
+    "description": "Sobre qué se calculó el equilibrio; uno basado solo en el cambio climático puede engañar (D4.1 §12.2.1)."
+   },
+   "cost.flow_id": {
+    "label": "Flujo"
+   },
+   "cost.current_disposal_cost": {
+    "label": "Coste actual de eliminación / gestión (evitado)",
+    "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita."
+   },
+   "cost.disposal_cost_unit": {
+    "label": "Unidad del coste de eliminación",
+    "description": "p. ej. EUR/t, EUR/año."
+   },
+   "cost.exchange_price": {
+    "label": "Precio del flujo intercambiado",
+    "description": "Precio acordado entre los socios. Cero y los valores negativos tienen sentido: una tasa pagada para que retiren el flujo es un precio negativo."
+   },
+   "cost.price_basis": {
+    "label": "Base de ese precio"
+   },
+   "cost.opex_delta_year": {
+    "label": "Variación de los costes de operación (al año)",
+    "description": "Coste de operación que el intercambio añade o quita cada año, sin el transporte (va en Logística)."
+   },
+   "cost.currency_year": {
+    "label": "Moneda y año de referencia",
+    "description": "p. ej. EUR2024. Obligatorio: sin él, las cifras no se pueden comparar ni deflactar."
+   },
+   "cost.contract_horizon_y": {
+    "label": "Duración del contrato (años)",
+    "description": "Por cuánto tiempo se ha acordado. Se pide en estudios prospectivos, donde limita la recuperación de la inversión."
+   },
+   "cost.price_volatility": {
+    "label": "Volatilidad del precio"
+   },
+   "cost.externality_monetized": {
+    "label": "Externalidades monetizadas para este flujo",
+    "description": "Monetizar los impactos ambientales corresponde al LCC ambiental y social, no a un LCC convencional (D4.2 §2.2). Márcalo para que el mismo importe no se cuente dos veces, como coste y como externalidad."
+   },
+   "infra.id": {
+    "label": "ID del bien"
+   },
+   "infra.linked_actor_id": {
+    "label": "Actor vinculado"
+   },
+   "infra.purpose": {
+    "label": "Función"
+   },
+   "infra.status": {
+    "label": "Estado"
+   },
+   "infra.capacity_value": {
+    "label": "Capacidad (número)"
+   },
+   "infra.capacity_unit": {
+    "label": "Unidad de capacidad"
+   },
+   "infra.year_built": {
+    "label": "Año de construcción"
+   },
+   "infra.expected_lifetime_remaining_y": {
+    "label": "Vida restante prevista (años)"
+   },
+   "infra.capex_amount": {
+    "label": "Inversión (CAPEX)"
+   },
+   "infra.capex_currency_year": {
+    "label": "Moneda y año de referencia de la inversión (p. ej. EUR2024)"
+   },
+   "infra.amortization_period_y": {
+    "label": "Periodo de amortización (años): vida técnica de este bien",
+    "description": "Sin valor único: la vida técnica de cada bien (D4.2 §4.2, §7.3). Vidas de referencia en la Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años. Usa el mismo periodo en el ACV (D4.1 §14.2.2)."
+   },
+   "infra.discount_rate_pct": {
+    "label": "Tasa de descuento (%)"
+   },
+   "infra.salvage_value": {
+    "label": "Valor residual al final"
+   },
+   "infra.avoided_lifetime_y": {
+    "label": "Vida evitada (años, para la sustitución)"
+   },
+   "infra.decommissioning_cost": {
+    "label": "Coste de desmantelamiento"
+   },
+   "infra.ssp_rcp_scenario": {
+    "label": "Escenario futuro (SSP/RCP)"
+   },
+   "infra.ownership": {
+    "label": "Modelo de propiedad"
+   }
+  },
+  "enums": {
+   "producer": "productor",
+   "consumer": "usuario",
+   "facilitator": "facilitador",
+   "regulator": "regulador",
+   "intermediary": "intermediario",
+   "micro": "micro",
+   "SME": "pyme",
+   "mid": "mediana",
+   "large": "grande",
+   "public": "pública",
+   "private": "privada",
+   "mixed": "mixta",
+   "material": "material",
+   "energy": "energía",
+   "water": "agua",
+   "waste": "residuo",
+   "by_product": "subproducto",
+   "utility": "servicio de red",
+   "service": "servicio",
+   "info": "información",
+   "continuous": "continuo",
+   "batch": "por lotes",
+   "intermittent": "intermitente",
+   "low": "bajo",
+   "med": "medio",
+   "high": "alto",
+   "unknown": "desconocido",
+   "point": "valor único",
+   "range": "intervalo",
+   "distribution": "distribución",
+   "qualitative": "cualitativa",
+   "yes": "sí",
+   "no": "no",
+   "unavoidable": "inevitable",
+   "avoidable": "evitable",
+   "product": "producto",
+   "co_product": "coproducto",
+   "by_product_art5": "subproducto (art. 5 directiva de residuos)",
+   "waste_art3": "residuo (art. 3 directiva de residuos)",
+   "achieved": "alcanzado",
+   "not_achieved": "no alcanzado",
+   "pending": "en curso",
+   "not_applicable": "no aplicable",
+   "at_generation": "donde se genera",
+   "after_generator_pretreatment": "tras el pretratamiento de quien lo genera",
+   "step1_value": "paso 1, valor de mercado",
+   "step2_interdependence": "paso 2, interdependencia",
+   "step3_dependent_coproduct": "paso 3, coproducto dependiente",
+   "step4_zero_burden": "paso 4, carga cero",
+   "none": "ninguno",
+   "negotiated_internal_price": "precio interno negociado",
+   "zero_priced_high_utility": "precio cero, gran utilidad",
+   "legally_waste_but_feedstock": "residuo según la ley pero usado como materia prima",
+   "truck": "camión",
+   "rail": "tren",
+   "ship": "barco",
+   "pipeline": "tubería",
+   "cable": "cable",
+   "conveyor": "cinta",
+   "onsite_none": "en planta, sin transporte",
+   "daily": "diaria",
+   "weekly": "semanal",
+   "monthly": "mensual",
+   "ad_hoc": "ocasional",
+   "partial": "parcial",
+   "full": "completo",
+   "bulky_low_value": "voluminoso o de poco valor",
+   "high_moisture": "húmedo",
+   "piped_heat_steam_water": "calor, vapor o agua por tubería",
+   "high_value_commodity": "mercancía de alto valor",
+   "other": "otro",
+   "gwp_only": "solo cambio climático",
+   "multi_category": "varias categorías de impacto",
+   "economic": "económica",
+   "env_and_eco": "ambiental y económica",
+   "gate_fee_paid": "tasa de entrega pagada",
+   "gate_fee_received": "tasa de entrega cobrada",
+   "market_price": "precio de mercado",
+   "free": "gratuito",
+   "negotiated": "negociado",
+   "production": "producción",
+   "treatment": "tratamiento",
+   "transport": "transporte",
+   "storage": "almacenamiento",
+   "conversion": "conversión",
+   "supporting": "auxiliar",
+   "existing": "existente",
+   "new": "nuevo",
+   "replaced": "sustituido",
+   "upgraded": "mejorado",
+   "decommissioned": "desmantelado",
+   "single_actor": "un solo actor",
+   "joint_venture": "empresa conjunta",
+   "third_party": "terceros"
+  },
+  "reasons": {
+   "future_background and (q3.env or q3.eco)": "el estudio necesita un fondo futuro (Q8 o Q6b)",
+   "lcc_type in [\"C+E\", \"C+E+S\"]": "la evaluación de costes incluye el LCC ambiental",
+   "lcc_type in [\"C+E+S\", \"C+N+S\"]": "la evaluación de costes incluye el LCC social",
+   "q2 == \"A\"": "los intercambios ya tienen lugar (Q2)",
+   "q2 == \"B\" or has_scenarios": "los intercambios aún no tienen lugar (Q2), o el caso tiene escenarios alternativos",
+   "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True": "los intercambios aún no tienen lugar, el caso tiene escenarios, o usa bienes dedicados y compartidos (Q12)",
+   "q3.eco": "el estudio tiene la dimensión económica (Q3)",
+   "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)": "dimensión económica, con intercambios aún no en curso, escenarios o bienes dedicados y compartidos",
+   "q3.eco and dedicated_shared_assets != False": "dimensión económica, sin excluir bienes compartidos (Q12)",
+   "q3.eco or q3.soc": "el estudio tiene la dimensión económica o la social (Q3)",
+   "q3.env": "el estudio tiene la dimensión ambiental (Q3)",
+   "q3.env and ilcd_situation == \"ILCD Situation B\"": "dimensión ambiental en la Situación ILCD B (consecuencial)",
+   "q3.env or q3.eco": "el estudio tiene la dimensión ambiental o la económica (Q3)",
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "el estudio tiene la dimensión social o el LCC social"
+  },
+  "ui": {
+   "sheet.cover": "Portada",
+   "sheet.instructions": "Instrucciones",
+   "sheet.actors": "Actores",
+   "sheet.flow_matrix": "Matriz de flujos",
+   "sheet.flow_classification": "Clasificación de flujos",
+   "sheet.logistics": "Logística",
+   "sheet.costs": "Costes e ingresos",
+   "sheet.infrastructure": "Infraestructuras",
+   "sheet.methodological_choices": "Decisiones metodológicas",
+   "sheet.network_diagram": "Diagrama de la red",
+   "title": "SYMBA T4.6 — Data Collection File",
+   "cover.case_id": "ID del caso",
+   "cover.ilcd": "Situación ILCD",
+   "cover.lcc": "Tipo de LCC",
+   "cover.slca": "Evaluación social (S-LCA)",
+   "cover.purpose": "Tipo de estudio",
+   "cover.market": "Mercado de referencia",
+   "cover.schema": "Versión del esquema",
+   "not_active": "Esta sección no está activa para este caso.",
+   "ins.title": "Cómo rellenar este Data Collection File",
+   "ins.case": "Caso: {name}",
+   "ins.what": "Qué es este archivo",
+   "ins.what_body": "Una hoja de recogida de datos generada para un caso de simbiosis industrial. Las columnas las ha elegido la configuración metodológica del caso: solo se te pide lo que este caso necesita.",
+   "ins.how": "Cómo rellenarlo",
+   "ins.how_body": "Una fila por elemento. Las columnas con * son obligatorias. Pasa sobre el encabezado de una columna para ver la definición, los valores admitidos y por qué se pide el campo. Las celdas con lista solo aceptan los valores propuestos: no las sobrescribas con texto libre.",
+   "ins.unknown": "Si no conoces un valor",
+   "ins.unknown_body": "Déjalo vacío en lugar de adivinar, y dilo. Una celda vacía es una laguna conocida; un número inventado es un error que nadie ve.",
+   "ins.units": "Unidades y moneda",
+   "ins.units_body": "Indica siempre la unidad junto a la cantidad cuando haya una columna de unidad, y usa la moneda y el año de referencia que pide la hoja Costes. Las cifras sin unidad no se pueden sumar.",
+   "ins.conf": "Confidencialidad",
+   "ins.conf_body": "Este libro puede contener datos de todos los socios de la red. Antes de hacerlo circular fuera del equipo del estudio, comprueba el acuerdo de confidencialidad entre los socios: el método pide cerrarlo antes de empezar la recogida de datos.",
+   "ins.return": "A quién devolverlo",
+   "ins.return_body": "A quien realiza el estudio (un analista o un consultor). Si generaste tú este archivo, rellena tus hojas con tus compañeros y entrégaselo; la hoja Decisiones metodológicas es para esa persona, no para ti.",
+   "ins.return_by": "Devolver antes del",
+   "ins.return_by_hint": "(acuerda una fecha con quien realiza el estudio)",
+   "ins.contact": "Contacto",
+   "ins.contact_hint": "(nombre y correo de quien realiza el estudio)",
+   "note.field_id": "Código del campo",
+   "note.type": "Tipo",
+   "note.allowed": "Valores admitidos",
+   "note.because": "Se pide porque",
+   "dv.error": "Elige uno de los valores de la lista.",
+   "dv.title": "Valor no admitido",
+   "h.category": "Categoría",
+   "h.origin": "Origen",
+   "h.id": "ID",
+   "h.method": "Método",
+   "h.statement": "Enunciado (texto de los entregables, en inglés)",
+   "h.because": "Se aplica porque",
+   "h.target": "Dónde documentarlo",
+   "h.assignee": "Responsable",
+   "h.status": "Estado",
+   "status.pending": "pendiente",
+   "nw.none": "Aún no hay red dibujada. Usa el editor de red de la aplicación web SYMBA T4.6 (página Data Collection File) para colocar y conectar actores: las conexiones aparecen aquí, y las hojas Actores y Matriz de flujos llegan ya rellenadas.",
+   "nw.intro": "Lista de conexiones de la red dibujada en la aplicación. El diagrama interactivo está en la página Data Collection File.",
+   "h.flow": "Flujo",
+   "h.origin_actor": "Actor de origen",
+   "h.dest_actor": "Actor de destino",
+   "h.type": "Tipo",
+   "h.quantity": "Cantidad",
+   "h.unit": "Unidad",
+   "dx.intro": "Generado por el sistema de seguimiento e informes SYMBA T4.6. Este documento acompaña a la hoja .xlsx: ver el §3 para el detalle de los campos.",
+   "dx.meta": "Datos del proyecto",
+   "dx.project": "Proyecto",
+   "dx.project_title": "Título del proyecto",
+   "dx.topic": "Topic",
+   "dx.instrument": "Instrumento",
+   "dx.task": "Tarea",
+   "dx.deliverable": "Entregable",
+   "dx.cover": "Portada del Data Collection File",
+   "dx.s1": "§1. Decisiones metodológicas que documentar",
+   "dx.s1_none": "Nada que documentar para este caso.",
+   "dx.s1_intro": "{total} elementos que documentar en este caso: las {rules} obligaciones activadas por las respuestas y {mandates} prácticas que el método pide a todo estudio como este. Cada uno es un compromiso que documentar en el informe LCSA o sus anexos; «Se aplica porque» dice qué lo activó y «Estado» sirve para seguir su avance. Los enunciados son el texto de los entregables, en inglés.",
+   "dx.s2": "§2. Diagrama de la red",
+   "dx.s2_off": "El diagrama de la red no está activo para este caso.",
+   "dx.s2_static": "El diagrama de la red se dibuja de forma interactiva en la página Data Collection File de la aplicación web SYMBA T4.6, a partir de las hojas Actores y Matriz de flujos del archivo .xlsx: los actores como nodos, los flujos como flechas.",
+   "dx.s2_drawn": "La red dibujada en la aplicación web SYMBA T4.6 cuenta con {actors} actor(es) y {flows} flujo(s) conectado(s). Las tablas siguientes son su forma textual; el archivo .xlsx contiene lo mismo en las hojas Actores y Matriz de flujos.",
+   "dx.actors": "Actores",
+   "dx.flows": "Flujos",
+   "h.actor": "Actor",
+   "h.role": "Función",
+   "h.sector": "Sector",
+   "h.from": "De",
+   "h.to": "A",
+   "dx.s3": "§3. Hoja de datos (archivo Excel)",
+   "dx.s3_body": "El archivo .xlsx contiene las hojas que rellenar, calibradas sobre la configuración anterior. Rellena las filas vacías de cada hoja y devuelve el libro a quien realiza el estudio. Los campos que se piden siguen las respuestas del cuestionario.",
+   "dx.active": "Secciones activas",
+   "h.section": "Sección",
+   "h.active": "Activa para este caso",
+   "h.fields": "Campos activos",
+   "yes": "sí",
+   "no": "no",
+   "dx.ack": "Agradecimientos y aviso"
+  },
+  "enum_refs": {
+   "Q6a": {
+    "none": "(ninguno)",
+    "agriculture_agrifood_biorefineries": "Agricultura / agroalimentario / biorrefinerías",
+    "biobased_polymers": "Polímeros de base biológica",
+    "plastics_packaging": "Plásticos y envases",
+    "pulp_paper": "Pulpa y papel",
+    "chemicals_fertilizers": "Química / fertilizantes",
+    "cement_construction": "Cemento / construcción",
+    "steel_metals": "Acero y metales",
+    "energy_utilities": "Energía / utilities",
+    "wastewater_sludge_biofactories": "Aguas residuales / lodos / biofactories",
+    "textile_leather": "Textil / cuero",
+    "waste_valorization": "Valorización de residuos",
+    "food_production": "Producción alimentaria",
+    "multi_tenant_urban_building": "Edificio urbano multi-tenant",
+    "multi_sector": "Multi-sector",
+    "other": "Otro",
+    "wastewater_biofactories": "Aguas residuales / lodos / biofactories (legacy)",
+    "agri_food": "Agroalimentario / biorrefinerías (legacy)",
+    "process_industry": "Industria de proceso (legacy)"
+   },
+   "Q5": {
+    "a": "a — quien cede (A) paga a quien recibe (B): residuo",
+    "b": "b — Intercambio gratuito (ambiguo)",
+    "c": "c — quien recibe (B) paga a quien cede (A): co-producto",
+    "d": "d — Interdependiente",
+    "e": "e — Agregado / black-box"
+   }
+  }
+ }
+}

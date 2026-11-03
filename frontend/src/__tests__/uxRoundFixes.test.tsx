@@ -86,11 +86,8 @@ describe('answersFor — Q8 named in words', () => {
       q6b: 'TRL9', operating_start: 'now', asset_lifetime_years: 30,
     }
     const trigger = 'operating start in a future year OR Q6b < TRL7 OR analysis period or asset lifetime > 15y'
-    expect(answersFor(trigger, kase)).toEqual([
-      { label: 'Q6b', value: 'TRL9' },
-      { label: 'Q8a', value: 'now' },
-      { label: 'Q8c', value: '30 y' },
-    ])
+    // since 2026-11-03 (B7) only the answer that fires the disjunction is cited
+    expect(answersFor(trigger, kase)).toEqual([{ label: 'Q8c', value: '30 y' }])
   })
 })
 

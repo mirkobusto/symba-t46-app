@@ -118,13 +118,40 @@ export function answersFor(
   // without this CIR-01 cited only "Q6b = TRL9" when the asset lifetime had
   // triggered it (UX round 2026-11-02)
   const lowered = trigger.toLowerCase()
+  let horizon = false
   for (const [phrase, label] of Q8_PHRASES) {
-    if (!lowered.includes(phrase) || seen.has(label)) continue
+    if (!lowered.includes(phrase)) continue
+    horizon = true
+    if (seen.has(label)) continue
     seen.add(label)
     const value = formatAnswer(kase, label)
     if (value !== null) out.push({ label, value })
   }
+  // the horizon trigger is a disjunction ("future year OR TRL < 7 OR > 15y"):
+  // list only the answers that fire it, not "TRL9, now" next to the lifetime
+  // that did (UX round 2026-11-03, B7)
+  if (horizon && lowered.includes(' or ')) {
+    const firing = out.filter((a) => horizonFires(kase, a.label))
+    if (firing.length > 0) return firing
+  }
   return out
+}
+
+function horizonFires(kase: Case, label: string): boolean {
+  const custom = Number(kase.advanced?.['future_background_threshold_years'])
+  const threshold = Number.isFinite(custom) && custom > 0 ? custom : 15
+  switch (label) {
+    case 'Q6b':
+      return kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5'
+    case 'Q8a':
+      return kase.operating_start === 'future'
+    case 'Q8b':
+      return (kase.analysis_period_years ?? 0) > threshold
+    case 'Q8c':
+      return (kase.asset_lifetime_years ?? 0) > threshold
+    default:
+      return true
+  }
 }
 
 function fromRule(rule: ApplicableRule, kase: Case): ActionItem {

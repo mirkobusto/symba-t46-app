@@ -359,6 +359,9 @@ def _saved_export(
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(_stored_data(db, case_id), case, case_id)
     cover = _cover(rows, rec.slug or case_id[:8])
+    # whom to send it back to: the "Prepared by" and contact of the shared case
+    # (the workbook left a placeholder although the case had them, P2-13)
+    cover["contact"] = " — ".join(x for x in (rec.prepared_by, rec.case_contact) if x) or None
     if kind == "xlsx":
         blob = render_xlsx(localize(payload, lang), data, rec.name, lang=lang, cover=cover)
         mime = XLSX_MIME

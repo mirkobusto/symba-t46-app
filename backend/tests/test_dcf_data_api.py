@@ -550,3 +550,25 @@ def test_both_dashboards_count_a_costing_only_study_without_ilcd(client):
     # both say "no situation", each in its own format
     assert [e["key"] for e in private] == ["(none)"]
     assert len(public) == 1 and "ILCD" not in str(public[0])
+def test_the_word_document_starts_with_the_companies_and_explains_every_column(client):
+    """D10: instructions and who fills what first, the network, every column,
+    the methodological choices last; the shared case's contact is filled in."""
+    from io import BytesIO
+
+    from docx import Document
+
+    case_id = _create_case(client)
+    client.post(f"/api/cases/{case_id}/share", json={"shared": True, "prepared_by": "Giulia", "case_contact": "g@example.org"})
+    r = client.get(f"/api/dcf/{case_id}/export/docx")
+    assert r.status_code == 200, r.text
+    doc = Document(BytesIO(r.content))
+    headings = [p.text for p in doc.paragraphs if p.style.name.startswith("Heading")]
+    order = [next(i for i, h in enumerate(headings) if h.startswith(prefix))
+             for prefix in ("§1. How to fill in", "§2.", "§3. The columns", "Annex A")]
+    assert order == sorted(order)
+    text = "\n".join(p.text for p in doc.paragraphs)
+    assert "Giulia — g@example.org" in text
+    assert "Who fills in what" in headings
+    # one row per editable column of the actors sheet
+    cells = [c.text for t in doc.tables for row in t.rows for c in row.cells]
+    assert any(c.startswith("Actor name") for c in cells)

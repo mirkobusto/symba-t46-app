@@ -20,8 +20,19 @@ export interface Preset {
   case: Partial<Case>
 }
 
-const flows = (...qs: ('a' | 'b' | 'c' | 'd' | 'e')[]) =>
-  qs.map((q, i) => ({ id: `f${i + 1}`, name: `flow${i + 1}`, q5: q }))
+type Q5Letter = 'a' | 'b' | 'c' | 'd' | 'e'
+
+const flows = (...qs: Q5Letter[]) =>
+  qs.map((q, i) => ({ id: `f${i + 1}`, name: `Flow ${i + 1}`, q5: q }))
+
+// flows the paper names: "flow1" told the reviewer nothing and kept the Part 2
+// chapters from showing (UX round 2026-11-02)
+const named = (...pairs: [Q5Letter, string][]) =>
+  pairs.map(([q, name], i) => ({ id: `f${i + 1}`, name, q5: q }))
+
+// Q0, Q8, Q11 and Q12 came after these fixtures were compiled; the papers do
+// not state them, so they stay unanswered
+const UNSTATED = ' Q0, Q8, Q11 and Q12 are not stated in the paper and stay unanswered.'
 
 export const PRESETS: Preset[] = [
   {
@@ -30,10 +41,10 @@ export const PRESETS: Preset[] = [
     label: '1. Sokka 2011 — Kymenlaakso (FI, pulp & paper)',
     citation: 'Sokka et al. (2011)',
     description: 'Six-actor IES, ENV-only LCA, RS3 improvement scenario.',
-    rationale: 'Q1=B: six-actor IES (UPM Kymi + cogen + CaCO3 + ClO2 + WWTP + Kouvola town) is unambiguously a multi-actor network, not a single company. Q2=A: the exchanges operate; the RS3 \'improvement\' scenario goes on top as an alternative. Q3=ENV-only because the paper is a pure LCA. Q4=E: peer-reviewed academic. Q5=e because the entire complex is modelled as a black-box (no per-flow detail in the published data). Q6a pulp_paper, Q6b TRL9 (operational), Q7=B regional cluster.',
+    rationale: 'Q1=B: six-actor IES (UPM Kymi + cogen + CaCO3 + ClO2 + WWTP + Kouvola town) is unambiguously a multi-actor network, not a single company. Q2=A: the exchanges operate; the RS3 \'improvement\' scenario goes on top as an alternative. Q3=ENV-only because the paper is a pure LCA. Q4=E: peer-reviewed academic. Q5=e because the entire complex is modelled as a black-box (no per-flow detail in the published data). Q6a pulp_paper, Q6b TRL9 (operational), Q7=B regional cluster. Q9 = A (micro): the RS3 improvement scenario is a choice at plant scale that changes no market. The study also documents the existing complex, so C1 (documenting an existing network) is a defensible reading too: open point.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
-      flows: flows('e'), q6a: 'pulp_paper', q6b: 'TRL9', q7: 'B',
+      flows: named(['e', 'Exchanges of the whole complex (aggregated)']), q6a: 'pulp_paper', q6b: 'TRL9', q7: 'B',
     },
   },
   {
@@ -42,10 +53,10 @@ export const PRESETS: Preset[] = [
     label: '2. Hashimoto 2010 — Kawasaki (JP, cement)',
     citation: 'Hashimoto et al. (2010)',
     description: 'Eco-park network with current + future scenarios.',
-    rationale: 'Q1=B is non-obvious: D.C. Cement is the central anchor, but the SUBJECT of the report is the network\'s CO2 savings (slag from JFE Steel, fly ash, plastics, pulp sludge from Corelex), not D.C. Cement\'s ESG report. Disambiguation rule \'who is the SUBJECT?\' applies → B. Q2=A: S2 (current IS, operating) is compared with S1 (no IS); S3 cluster-improved and S4 regional-extended go on top as alternatives. Q5 mixed: slag (a, A pays B) and by-products (c, B pays A).',
+    rationale: 'Q1=B is non-obvious: D.C. Cement is the central anchor, but the SUBJECT of the report is the network\'s CO2 savings (slag from JFE Steel, fly ash, plastics, pulp sludge from Corelex), not D.C. Cement\'s ESG report. Disambiguation rule \'who is the SUBJECT?\' applies → B. Q2=A: S2 (current IS, operating) is compared with S1 (no IS); S3 cluster-improved and S4 regional-extended go on top as alternatives. Q5 mixed: slag (a, A pays B) and by-products (c, B pays A). Q9 = A (micro): the eco-park scenarios are choices whose effects stay within the plants involved.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
-      flows: flows('a', 'c'), q6a: 'cement_construction', q6b: 'TRL9', q7: 'B',
+      flows: named(['a', 'Slag to the cement kiln'], ['c', 'By-products to the cement kiln']), q6a: 'cement_construction', q6b: 'TRL9', q7: 'B',
     },
   },
   {
@@ -54,10 +65,10 @@ export const PRESETS: Preset[] = [
     label: '3. Daddi 2017 — Santa Croce tannery (IT)',
     citation: 'Daddi et al. (2017)',
     description: 'Cluster of 6 municipalities + WWT, S3a/S3b water reuse.',
-    rationale: 'Cluster of 6 municipalities + WWT facility = clear Q1=B (multi-actor cluster). Q2=A because the paper compares S1 (current IS, operating) with S2 (hypothetical no-IS); S3a/S3b future water reuse goes on top as alternatives. Q5 mixed: tannery hide preservation (b free) + waste tannery sludge to cement (c B pays A).',
+    rationale: 'Cluster of 6 municipalities + WWT facility = clear Q1=B (multi-actor cluster). Q2=A because the paper compares S1 (current IS, operating) with S2 (hypothetical no-IS); S3a/S3b future water reuse goes on top as alternatives. Q5 mixed: tannery hide preservation (b free) + waste tannery sludge to cement (c B pays A). Q9 = A (micro): the water-reuse alternatives stay within the cluster\'s plants.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
-      flows: flows('b', 'c'), q6a: 'textile_leather', q6b: 'TRL9', q7: 'B',
+      flows: named(['b', 'Tannery hide preservation'], ['c', 'Tannery sludge to cement']), q6a: 'textile_leather', q6b: 'TRL9', q7: 'B',
     },
   },
   {
@@ -66,11 +77,11 @@ export const PRESETS: Preset[] = [
     label: '4. Paulu 2022 — Czech industry-wide (CZ, policy)',
     citation: 'Paulu et al. (2022)',
     description: 'National policy assessment, EU PEF + academic publication.',
-    rationale: 'Q1=C because this is a pure POLICY assessment at national scale (Czech Republic CCP & C&DW management), not a specific exchange or eco-park. Q4=D+E is the canonical multi-select case: EU PEF/EF method (D activates CIR-05 PEF Circular Footprint Formula) AND academic publication (E full SI). Q7=C (interactions across the country).',
+    rationale: 'Q1=C because this is a pure POLICY assessment at national scale (Czech Republic CCP & C&DW management), not a specific exchange or eco-park. Q4=D+E is the canonical multi-select case: EU PEF/EF method (D activates CIR-05 PEF Circular Footprint Formula) AND academic publication (E full SI). Q7=C (interactions across the country). Q9 = B (structural): a national policy changes how much a whole market handles. The paper does not document the ILCD market screening, so the result carries a note asking for it.' + UNSTATED,
     case: {
       q1: 'C', decision_context: 'structural', q2: 'B', q3: { env: true, eco: false, soc: false },
       q4: ['D', 'E'],
-      flows: flows('e'), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'C',
+      flows: named(['e', 'Construction and demolition waste (aggregated)']), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'C',
     },
   },
   {
@@ -79,7 +90,7 @@ export const PRESETS: Preset[] = [
     label: '5. Arce Bastias 2023 — Mendoza (AR, plastics)',
     citation: 'Arce Bastias et al. (2023)',
     description: '3-entity network, ex-post, three allocation methods tested.',
-    rationale: '3-entity network (Madera Plástica Mendoza) = Q1=B. Q2=A (operational) because the paper analyses an existing network ex-post. Methodological exploration paper (tests 3 allocation methods) — the tool applies system expansion as default per the empirical 10/12 dominance; the user can engage expert-mode to compare full / partial (SPI) / system expansion as the authors did.',
+    rationale: '3-entity network (Madera Plástica Mendoza) = Q1=B. Q2=A (operational) because the paper analyses an existing network ex-post. Methodological exploration paper (tests 3 allocation methods) — the tool applies system expansion as default per the empirical 10/12 dominance; the user can engage expert-mode to compare full / partial (SPI) / system expansion as the authors did. Q9 = A (micro). The paper analyses an existing network ex-post, so C1 (documenting an existing network) is a defensible reading too: open point.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'plastics_packaging', q6b: 'TRL9', q7: 'A',
@@ -91,7 +102,7 @@ export const PRESETS: Preset[] = [
     label: '6. Wiktor 2018 — VA Syd Malmö (SE, wastewater)',
     citation: 'Wiktor & Johansson (2018)',
     description: '13 scenarios (1 baseline + 12 design alternatives).',
-    rationale: 'Most extensive multi-scenario design in the sample: S0 baseline + 12 alternatives (4 design dimensions × combinations) = Q2=B (alternatives not yet built). Q6a wastewater_sludge_biofactories. Q6b is per-scenario: baseline = TRL9 but -EC scenarios require new mono-incineration boiler design at TRL 7-8. Q7=B (Malmö regional). LCC at 30 years discount 3.5% (Riksbanken) is the engine\'s default for European studies.',
+    rationale: 'Most extensive multi-scenario design in the sample: S0 baseline + 12 alternatives (4 design dimensions × combinations) = Q2=B (alternatives not yet built). Q6a wastewater_sludge_biofactories. Q6b is per-scenario: baseline = TRL9 but -EC scenarios require new mono-incineration boiler design at TRL 7-8. Q7=B (Malmö regional). LCC at 30 years discount 3.5% (Riksbanken) is the engine\'s default for European studies. Q9 = A (micro): design alternatives for one utility\'s sludge handling, with effects within the plants involved.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: true, eco: true, soc: false }, q4: ['E'],
       flows: flows('a', 'c', 'c'),
@@ -104,7 +115,7 @@ export const PRESETS: Preset[] = [
     label: '7a. Leiva 2025 Escombreras — KNO3 optimisation (ES)',
     citation: 'Leiva et al. (2025)',
     description: 'Single-site exchange QSr + neighbours, ECO-only.',
-    rationale: 'Single-site process optimisation between Quimica del Estroncio and 4 neighbouring industries (HCl, H2SO4, CO2, glycerine) = Q1=A specific exchange. Pure ECO Q3 (MFCA + CBA + TEA, NO LCA) — this paper validates the entire ECO-only branch including the LCC/MFCA/CBA/TEA sub-choice that the engine activates automatically when Q3=ECO-only.',
+    rationale: 'Single-site process optimisation between Quimica del Estroncio and 4 neighbouring industries (HCl, H2SO4, CO2, glycerine) = Q1=A specific exchange. Pure ECO Q3 (MFCA + CBA + TEA, NO LCA) — this paper validates the entire ECO-only branch including the LCC/MFCA/CBA/TEA sub-choice that the engine activates automatically when Q3=ECO-only. Q9 = A (micro): a process optimisation between neighbouring plants.' + UNSTATED,
     case: {
       q1: 'A', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: false, eco: true, soc: false }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'chemicals_fertilizers', q6b: 'TRL9', q7: 'B',
@@ -116,7 +127,7 @@ export const PRESETS: Preset[] = [
     label: '7b. Leiva 2025 Frövi — paper mill + greenhouse (SE)',
     citation: 'Leiva et al. (2025)',
     description: 'Multi-actor eco-park with WA3RM facilitator, CCU at TRL 7-8.',
-    rationale: 'Multi-actor eco-park (paper mill + 10 ha greenhouse + facilitator WA3RM) = Q1=B. Q6b TRL 7-8 for the CCU scenario (carbon-capture from paper mill flue gas to greenhouse fertilisation is pre-commercial). Same ECO-only Q3 as Escombreras.',
+    rationale: 'Multi-actor eco-park (paper mill + 10 ha greenhouse + facilitator WA3RM) = Q1=B. Q6b TRL 7-8 for the CCU scenario (carbon-capture from paper mill flue gas to greenhouse fertilisation is pre-commercial). Same ECO-only Q3 as Escombreras. Q9 = A (micro): one eco-park\'s carbon-capture option.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: false, eco: true, soc: false }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'pulp_paper', q6b: 'TRL7-8', q7: 'B',
@@ -128,10 +139,10 @@ export const PRESETS: Preset[] = [
     label: '8. Danielsson 2018 — Kalundborg (DK, 8-member)',
     citation: 'Danielsson et al. (2018)',
     description: 'Iconic IS network, public-claim Q4=C (Symbiosis Center).',
-    rationale: 'Kalundborg Symbiosis: 8-member association operational since 1972 — the iconic IS network in literature, canonical Q1=B. Q4=C is the public superiority claim: the Symbiosis Center DK report explicitly promotes Kalundborg as a superior model, which activates MANDATORY panel review of 3+ ISO-14044 experts (no weighting allowed). Q3=ENV+ECO (CO2, water, energy, materials, M EUR savings).',
+    rationale: 'Kalundborg Symbiosis: 8-member association operational since 1972 — the iconic IS network in literature, canonical Q1=B. Q4=C is the public superiority claim: the Symbiosis Center DK report explicitly promotes Kalundborg as a superior model, which activates MANDATORY panel review of 3+ ISO-14044 experts (no weighting allowed). Q3=ENV+ECO (CO2, water, energy, materials, M EUR savings). Q9 = A (micro). The report documents and promotes an existing network, so C1 (documenting an existing network) is a defensible reading too: open point.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'A', network_long_standing: true, q3: { env: true, eco: true, soc: false }, q4: ['C'],
-      flows: flows('e'), q6a: 'energy_utilities', q6b: 'TRL9', q7: 'B',
+      flows: named(['e', 'Kalundborg exchanges (aggregated)']), q6a: 'energy_utilities', q6b: 'TRL9', q7: 'B',
     },
   },
   {
@@ -141,7 +152,7 @@ export const PRESETS: Preset[] = [
     citation: 'Kerdlap et al. (2024)',
     description:
       'Demonstrative 5-entity network in design phase.',
-    rationale: 'Fictional urban 5-entity agri-food network (soil farm + hydroponics + brewery + egg farm + fish farm) = Q1=B multi-actor. Q2=B because it\'s a methodological demonstration in design phase, not a real planned system.',
+    rationale: 'Fictional urban 5-entity agri-food network (soil farm + hydroponics + brewery + egg farm + fish farm) = Q1=B multi-actor. Q2=B because it\'s a methodological demonstration in design phase, not a real planned system. Q9 = A (micro): a demonstrative design at the scale of a few plants.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: true, eco: true, soc: false }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'agriculture_agrifood_biorefineries', q6b: 'TRL9', q7: 'A',
@@ -153,7 +164,7 @@ export const PRESETS: Preset[] = [
     label: '10. Subramanian 2021 — The Plant Chicago (USA)',
     citation: 'Subramanian et al. (2021)',
     description: 'Multi-tenant building, full LCSA (ENV+ECO+SOC).',
-    rationale: 'The Plant Chicago: multi-tenant building (qualifies as Q1=B \'eco-park\' rather than Q1=A specific exchange). Q3 full LCSA (ENV+ECO+SOC). NOTE: the paper uses a CAPITAL-BASED 8-capitals framework for the social dimension (alternative to UNEP/SETAC + CIRCPACK which is the engine default) — to faithfully model this case the user must engage the advanced override \'alternative S-LCA framework: capital-based\'. This is not a tool gap; it is the legitimate role of expert mode.',
+    rationale: 'The Plant Chicago: multi-tenant building (qualifies as Q1=B \'eco-park\' rather than Q1=A specific exchange). Q3 full LCSA (ENV+ECO+SOC). NOTE: the paper uses a CAPITAL-BASED 8-capitals framework for the social dimension (alternative to UNEP/SETAC + CIRCPACK which is the engine default) — to faithfully model this case the user must engage the advanced override \'alternative S-LCA framework: capital-based\'. This is not a tool gap; it is the legitimate role of expert mode. Q9 = A (micro): the exchanges of one building.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: true, eco: true, soc: true }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'multi_tenant_urban_building', q6b: 'TRL9', q7: 'A',
@@ -165,7 +176,7 @@ export const PRESETS: Preset[] = [
     label: '11. Zhu 2013 — generic 2-firm exchange (NL)',
     citation: 'Zhu (2013)',
     description: 'Design-phase, 19 scenarios.',
-    rationale: 'Generic 2-firm exchange (TU Delft master thesis) in design phase = Q1=A, Q2=B. Most scenario-rich case in the sample (19 scenarios varying FU, transport distance, waste quality, prices, allocation).',
+    rationale: 'Generic 2-firm exchange (TU Delft master thesis) in design phase = Q1=A, Q2=B. Most scenario-rich case in the sample (19 scenarios varying FU, transport distance, waste quality, prices, allocation). Q9 = A (micro): one exchange between two firms.' + UNSTATED,
     case: {
       q1: 'A', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: true, eco: true, soc: false }, q4: ['E'],
       flows: flows('c'), q6a: 'multi_sector', q6b: 'TRL9', q7: 'A',
@@ -177,7 +188,7 @@ export const PRESETS: Preset[] = [
     label: '12. Briassoulis 2023 — bio-polymers framework (EU)',
     citation: 'Briassoulis et al. (2023)',
     description: 'Industry-wide propositional framework, full LCSA + TEA.',
-    rationale: 'Industry-wide bio-polymer framework = Q1=C (sector-level). Propositional framework in design phase = Q2=B. Full LCSA with TEA addition (CAPEX, OPEX, NPV, ROI, payback). Q7 not applicable (n/a in WorkingDoc — multi-country EU framework, no specific geography).',
+    rationale: 'Industry-wide bio-polymer framework = Q1=C (sector-level). Propositional framework in design phase = Q2=B. Full LCSA with TEA addition (CAPEX, OPEX, NPV, ROI, payback). Q7 not applicable (n/a in WorkingDoc — multi-country EU framework, no specific geography). Q9 = B (structural): an industry-wide framework for a whole sector. The paper does not document the ILCD market screening, so the result carries a note asking for it.' + UNSTATED,
     case: {
       q1: 'C', decision_context: 'structural', policy_objective: true, q2: 'B', q3: { env: true, eco: true, soc: true }, q4: ['E'],
       flows: flows('b', 'c'), q6a: 'biobased_polymers', q6b: 'TRL9', q7: null,

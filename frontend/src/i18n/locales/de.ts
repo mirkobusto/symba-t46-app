@@ -357,6 +357,7 @@ const de: Locale = {
       showSteps: "Eine Frage nach der anderen",
       navLabel: "Fragen",
     },
+    examplesLink: "Wie antwortet eine echte Studie? Ein veröffentlichtes Beispiel laden",
     stillRequired: "Noch offen:",
     flowsMissingQ5: "wer wen bezahlt, für jeden Fluss",
     shortcutTip: 'Tipp: Strg/⌘+Eingabe zum Ausführen',

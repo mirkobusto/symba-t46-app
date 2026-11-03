@@ -383,6 +383,7 @@ const it: Locale = {
       showSteps: "Una domanda alla volta",
       navLabel: "Domande",
     },
+    examplesLink: "Vuoi vedere come risponde uno studio vero? Carica un esempio pubblicato",
     stillRequired: "Mancano ancora:",
     flowsMissingQ5: "chi paga chi, per ogni flusso",
     shortcutTip: 'Suggerimento: Ctrl/⌘+Enter per eseguire',

@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import AdvancedEditor from '../components/AdvancedEditor'
 import FlowsEditor from '../components/FlowsEditor'
@@ -321,6 +321,11 @@ export default function QuestionnairePage() {
           <h1 className="dd-page-title">{t('questionnaire.title')}</h1>
           <p className="dd-page-sub">
             {mode === 'guided' ? t('questionnaire.introPlain') : t('questionnaire.intro')}
+          </p>
+          {/* the published examples sat only on Home, which the reviewer
+              found by chance (UX round 2026-11-02) */}
+          <p className="dd-page-sub">
+            <Link to="/#presets">{t('questionnaire.examplesLink')}</Link>
           </p>
         </div>
       </div>

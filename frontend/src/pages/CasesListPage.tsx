@@ -50,6 +50,12 @@ export default function CasesListPage() {
   /* eslint-enable react-hooks/set-state-in-effect */
 
   async function handleLoad(id: string) {
+    // loading replaced unsaved answers without a word (UX round 5, P7-09)
+    const st = useCaseStore.getState()
+    const hasWork = !!st.draft.q1 || (st.draft.flows?.length ?? 0) > 0
+    const unsaved = st.serverCaseId === null || st.savedDiverged
+    if (st.serverCaseId !== id && hasWork && unsaved
+      && !(await askConfirm(t('cases.loadReplaceConfirm')))) return
     try {
       const detail = await getCase(id)
       setDraft(detail.case)

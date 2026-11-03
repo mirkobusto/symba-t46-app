@@ -27,6 +27,20 @@ describe('ScenariosEditor', () => {
   })
 })
 
+describe('ScenariosEditor JSON', () => {
+  it('refuses keys a scenario cannot change, instead of a silent failed run (UX round 5, P7-11)', () => {
+    const onChange = vi.fn()
+    const scenarios: AlternativeScenario[] = [{ id: 'alt1', label: 'Landfill', overrides: {} }]
+    render(<ScenariosEditor scenarios={scenarios} onChange={onChange} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Landfill' }))
+    fireEvent.click(screen.getByText(/as JSON/i))
+    const box = document.querySelector('textarea.scenario-overrides-input') as HTMLTextAreaElement
+    fireEvent.change(box, { target: { value: '{"flows": [{"id": "f3", "q5": "a"}]}' } })
+    expect(screen.getByText(/A scenario changes answers of the questionnaire only/)).toBeTruthy()
+    expect(onChange).not.toHaveBeenCalledWith([expect.objectContaining({ overrides: expect.objectContaining({ flows: expect.anything() }) })])
+  })
+})
+
 describe('Scenario comparison', () => {
   it('names what changes, not only counts', () => {
     const base: Case = {

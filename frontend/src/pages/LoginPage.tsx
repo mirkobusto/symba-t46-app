@@ -16,7 +16,7 @@ type Tab = 'login' | 'register'
 export default function LoginPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const location = useLocation() as { state?: { from?: string } }
+  const location = useLocation() as { state?: { from?: string; then?: string } }
   const setSession = useAuthStore((s) => s.setSession)
   const [tab, setTab] = useState<Tab>('login')
   const [email, setEmail] = useState('')
@@ -47,7 +47,9 @@ export default function LoginPage() {
       const fn = tab === 'login' ? authLogin : authRegister
       const result = await fn({ email, password })
       setSession(result.access_token, result.user)
-      navigate(redirectTo)
+      // `then` carries what the user was doing (e.g. saving the case) to the
+      // page they come back to
+      navigate(redirectTo, location.state?.then ? { state: { then: location.state.then } } : undefined)
     } catch (err) {
       setError(errorText(err, tab))
     } finally {

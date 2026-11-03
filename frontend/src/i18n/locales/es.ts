@@ -163,6 +163,9 @@ const es: Locale = {
     noContact: 'Para preguntas sobre este caso, dirígete a quien te envió el enlace. SYMBA construyó la herramienta; no realiza este estudio.',
     whatYouCanDo: 'Este estudio todavía se está preparando. Si queréis que se escuche a los vecinos (entrevistas, cuestionarios), o si os preocupan el tráfico, los olores o lo que se esparce en los campos, escribid a quien lo preparó: {{contact}}. Los resultados, cuando se carguen, aparecerán en esta misma página, en el mismo enlace.',
     whatYouCanDoTitle: 'Qué podéis hacer',
+    dataRequestTitle: 'Si os piden datos',
+    dataRequest: 'Quien realiza el estudio envía a cada empresa un libro Excel, el Data Collection File: vuestras filas son los flujos que vuestra empresa cede o recibe (cantidades, transporte, costes, instalaciones implicadas). Rellenadlo y devolvedlo a {{contact}}. Solo quien realiza el estudio lo crea y lo modifica; no se rellena en esta página.',
+    dataRequestNoContact: 'Quien realiza el estudio envía a cada empresa un libro Excel, el Data Collection File: vuestras filas son los flujos que vuestra empresa cede o recibe (cantidades, transporte, costes, instalaciones implicadas). Rellenadlo y devolvedlo a quien os lo envió. Solo quien realiza el estudio lo crea y lo modifica; no se rellena en esta página.',
   },
 
   welcome: {
@@ -807,7 +810,7 @@ const es: Locale = {
   },
 
   scenarios: {
-    intro: "Un escenario cambia algunas respuestas del cuestionario y el motor lo ejecuta junto al caso: la comparación muestra después qué cambia en la configuración y en las obligaciones. Comparar redes distintas (adónde va un flujo, a qué distancia, a qué precio) es otra comparación: dibuja las alternativas en el editor de red; la herramienta aún no las compara.",
+    intro: 'Un escenario cambia algunas respuestas del cuestionario y el motor lo calcula junto al caso: la página de resultados muestra qué cambia en la configuración y en las obligaciones. No puede cambiar adónde va un flujo, a qué distancia o a qué precio: el editor de red tiene una sola red por caso, así que anota una alternativa así en las hipótesis de escenario del flujo en el Data Collection File; la herramienta todavía no compara redes distintas.',
     emptyHint: 'Sin escenarios alternativos.',
     headers: { id: 'ID', label: 'Etiqueta' },
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',
@@ -914,10 +917,11 @@ const es: Locale = {
       title: 'Qué significa para ti',
       lead: 'La herramienta ha establecido cómo debe plantearse el estudio de tu caso y qué datos necesita. No calcula si el intercambio compensa o es bueno para el medio ambiente: eso lo hace un analista o un consultor, con los datos que recojas.',
       step1: 'Guarda el caso para encontrarlo de nuevo. Hace falta una cuenta gratuita; sin ella, el caso se queda solo en este navegador.',
-      step2: 'Abre el Data Collection File y descarga el Excel: tu personal rellena las hojas de actores, flujos, logística y costes.',
+      step2: 'Abre el Data Collection File, dibuja las empresas y los intercambios y después descarga el Excel: tu personal rellena las hojas sobre los actores, los flujos, la logística y los costes.',
       step3: 'Entrega el archivo y el informe a quien hará el estudio (un analista, un consultor, una universidad): los puntos técnicos de más abajo son para esa persona.',
       analystTitle: 'Puntos para el analista ({{count}})',
       step1Saved: '✓ Guardado como «{{name}}»: lo encuentras en Mis casos.',
+      step1SignedIn: 'Guarda el caso para encontrarlo de nuevo en Mis casos.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1220,6 +1224,8 @@ const es: Locale = {
     diffSuffix: '(diff)',
     overridesPlaceholder: "p. ej. {\"q2\": \"B\"} o {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Los overrides deben ser JSON válido para {{id}}',
+    overridesNotAllowed: 'Un escenario solo cambia respuestas del cuestionario (las que aparecen en «Pregunta»): los flujos y lo que escribe el motor no se cambian aquí. Para describir un flujo que va a otro sitio, anótalo en las hipótesis de escenario de ese flujo en el Data Collection File.',
+    failed: 'Este escenario no se pudo calcular, así que no hay nada que comparar: {{detail}}',
     whatChanges: "qué cambia respecto al caso",
     noChange: "No cambia nada en la configuración ni en las obligaciones.",
     addedRules: "Obligaciones añadidas",
@@ -1471,7 +1477,7 @@ const es: Locale = {
       whoAnalyst: 'Lo decide el analista que realiza el estudio',
     },
     diagram: { whoGives: "¿Quién lo cede?\n({{flow}})", whoReceives: "¿Quién lo recibe?\n({{flow}})" },
-    noCase: { title: 'Aún no hay caso', desc: 'El Data Collection File se construye a partir de tu evaluación: responde primero el cuestionario (o abre un caso guardado) y vuelve aquí.', cta: 'Abrir el cuestionario' },
+    noCase: { title: 'Aún no hay caso', desc: 'El Data Collection File se construye a partir de tu evaluación: responde primero el cuestionario (o abre un caso guardado) y vuelve aquí.', cta: 'Abrir el cuestionario', received: '¿Habéis recibido el libro de un analista? Entonces aquí no hay nada que hacer: rellenad el archivo Excel y devolvédselo.' },
     derivedField: "rellenado por el motor",
     obligationsTitle: "Decisiones metodológicas por documentar",
     navLink: 'Recolección de datos',
@@ -1586,7 +1592,8 @@ const es: Locale = {
     publicLink: "Enlace público",
     navLink: 'Mis casos',
     title: 'Mis casos',
-    intro: 'Casos guardados en el servidor. Carga para rellenar el cuestionario, o elimina para borrar permanentemente.',
+    intro: 'Casos guardados en el servidor. Cargar abre el resultado del caso; desde allí, «Ajustar respuestas» las cambia y «Guardar cambios» las guarda. Eliminar borra un caso para siempre.',
+    loadReplaceConfirm: 'Cargar este caso sustituye las respuestas en las que estás trabajando, que no están guardadas. ¿Continuar?',
     empty: 'Sin casos guardados aún. Guarda uno desde el cuestionario o la página de resultado.',
     columns: {
       name: 'Nombre',

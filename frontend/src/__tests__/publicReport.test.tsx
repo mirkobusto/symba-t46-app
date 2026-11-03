@@ -123,6 +123,13 @@ describe('community view (UX round 4, B3)', () => {
   })
   afterEach(() => vi.unstubAllGlobals())
 
+  it('tells a company that the data request arrives as an Excel workbook, and from whom', async () => {
+    // UX round 5, P2-11 / P6-10
+    renderAt('/r/c1/industry')
+    expect(await screen.findByText('If you are asked for data')).toBeTruthy()
+    expect(screen.getByText(/send it back to study@example.org/)).toBeTruthy()
+  })
+
   it('answers residents in their words and says what they can do', async () => {
     renderAt('/r/c1/community')
     expect(await screen.findByText('Transport')).toBeTruthy()

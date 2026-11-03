@@ -163,6 +163,9 @@ const de: Locale = {
     noContact: 'Für Fragen zu diesem Fall wenden Sie sich an die Person, die Ihnen den Link geschickt hat. SYMBA hat das Tool gebaut; es führt diese Studie nicht durch.',
     whatYouCanDo: 'Diese Studie wird noch vorbereitet. Wenn Anwohner gehört werden sollen (Interviews, Fragebögen) oder wenn Verkehr, Gerüche oder das Ausbringen auf Felder Sie beunruhigen, schreiben Sie an die Person, die sie vorbereitet hat: {{contact}}. Die Ergebnisse erscheinen, sobald sie geladen sind, auf dieser Seite unter demselben Link.',
     whatYouCanDoTitle: 'Was Sie tun können',
+    dataRequestTitle: 'Wenn Daten von Ihnen verlangt werden',
+    dataRequest: 'Wer die Studie durchführt, schickt jedem Unternehmen eine Excel-Arbeitsmappe, das Data Collection File: Ihre Zeilen sind die Flüsse, die Ihr Unternehmen abgibt oder aufnimmt (Mengen, Transport, Kosten, beteiligte Anlagen). Füllen Sie sie aus und senden Sie sie an {{contact}} zurück. Nur wer die Studie durchführt, erstellt und ändert sie; sie wird nicht auf dieser Seite ausgefüllt.',
+    dataRequestNoContact: 'Wer die Studie durchführt, schickt jedem Unternehmen eine Excel-Arbeitsmappe, das Data Collection File: Ihre Zeilen sind die Flüsse, die Ihr Unternehmen abgibt oder aufnimmt (Mengen, Transport, Kosten, beteiligte Anlagen). Füllen Sie sie aus und senden Sie sie an die Person zurück, die sie Ihnen geschickt hat. Nur wer die Studie durchführt, erstellt und ändert sie; sie wird nicht auf dieser Seite ausgefüllt.',
   },
 
   welcome: {
@@ -807,7 +810,7 @@ const de: Locale = {
   },
 
   scenarios: {
-    intro: "Ein Szenario ändert einige Antworten des Fragebogens, und die Engine rechnet es neben dem Fall: der Vergleich zeigt dann, was die Änderung an Konfiguration und Verpflichtungen bewirkt. Verschiedene Netze zu vergleichen (wohin ein Fluss geht, wie weit, zu welchem Preis) ist ein anderer Vergleich: zeichnen Sie die Alternativen im Netz-Editor; das Tool vergleicht sie noch nicht.",
+    intro: 'Ein Szenario ändert einige Antworten des Fragebogens, und die Engine berechnet es neben dem Fall: Die Ergebnisseite zeigt dann, was die Änderung an der Konfiguration und den Pflichten bewirkt. Es kann nicht ändern, wohin ein einzelner Fluss geht, wie weit oder zu welchem Preis: Der Netzwerk-Editor enthält ein Netzwerk pro Fall, notieren Sie eine solche Alternative also in den Szenarioannahmen des Flusses im Data Collection File; das Tool vergleicht noch keine verschiedenen Netzwerke.',
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',
@@ -914,10 +917,11 @@ const de: Locale = {
       title: 'Was das für Sie bedeutet',
       lead: 'Das Tool hat festgelegt, wie die Studie zu Ihrem Fall angelegt werden muss und welche Daten sie braucht. Es berechnet nicht, ob sich der Austausch lohnt oder der Umwelt nützt: Das macht ein Analyst oder Berater mit den Daten, die Sie sammeln.',
       step1: 'Speichern Sie den Fall, um ihn wiederzufinden. Dafür braucht es ein kostenloses Konto; ohne Konto bleibt der Fall nur in diesem Browser.',
-      step2: 'Öffnen Sie das Data Collection File und laden Sie die Excel-Datei herunter: Ihre Mitarbeitenden füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
+      step2: 'Öffnen Sie das Data Collection File, zeichnen Sie die Unternehmen und die Austausche und laden Sie dann die Excel-Datei herunter: Ihre Fachleute füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
       step3: 'Geben Sie Datei und Bericht an die Person, die die Studie durchführt (Analyst, Berater, Hochschule): Die technischen Punkte weiter unten sind für sie.',
       analystTitle: 'Punkte für den Analysten ({{count}})',
       step1Saved: '✓ Gespeichert als „{{name}}“: Sie finden ihn unter Meine Fälle.',
+      step1SignedIn: 'Speichern Sie den Fall, um ihn unter Meine Fälle wiederzufinden.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1220,6 +1224,8 @@ const de: Locale = {
     diffSuffix: '(Diff)',
     overridesPlaceholder: "z. B. {\"q2\": \"B\"} oder {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Overrides müssen gültiges JSON für {{id}} sein',
+    overridesNotAllowed: 'Ein Szenario ändert nur Antworten des Fragebogens (die unter „Frage“ aufgeführten): Die Flüsse und das, was die Engine schreibt, lassen sich hier nicht ändern. Um einen Fluss zu beschreiben, der anderswohin geht, notieren Sie ihn in den Szenarioannahmen dieses Flusses im Data Collection File.',
+    failed: 'Dieses Szenario konnte nicht berechnet werden, es gibt also nichts zu vergleichen: {{detail}}',
     whatChanges: "was sich gegenüber dem Fall ändert",
     noChange: "An Konfiguration und Verpflichtungen ändert sich nichts.",
     addedRules: "Hinzugekommene Verpflichtungen",
@@ -1471,7 +1477,7 @@ const de: Locale = {
       whoAnalyst: 'Entscheidet der Analyst, der die Studie durchführt',
     },
     diagram: { whoGives: "Wer gibt es ab?\n({{flow}})", whoReceives: "Wer nimmt es an?\n({{flow}})" },
-    noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen' },
+    noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen', received: 'Haben Sie die Arbeitsmappe von einer Analystin oder einem Analysten erhalten? Dann gibt es hier nichts zu tun: Füllen Sie die Excel-Datei aus und schicken Sie sie zurück.' },
     derivedField: "von der Engine gefüllt",
     obligationsTitle: "Zu dokumentierende methodische Entscheidungen",
     navLink: 'Datenerhebung',
@@ -1587,7 +1593,8 @@ const de: Locale = {
     publicLink: "Öffentlicher Link",
     navLink: 'Meine Fälle',
     title: 'Meine Fälle',
-    intro: 'Auf dem Server gespeicherte Fälle. Laden, um den Fragebogen zu befüllen, oder löschen, um endgültig zu entfernen.',
+    intro: 'Auf dem Server gespeicherte Fälle. Laden öffnet das Ergebnis des Falls; dort ändert „Antworten anpassen“ die Antworten und „Änderungen speichern“ sichert sie. Löschen entfernt einen Fall endgültig.',
+    loadReplaceConfirm: 'Das Laden dieses Falls ersetzt die Antworten, an denen Sie arbeiten und die nicht gespeichert sind. Fortfahren?',
     empty: 'Noch keine gespeicherten Fälle. Speichern Sie einen Fall aus dem Fragebogen oder der Ergebnisseite.',
     columns: {
       name: 'Name',

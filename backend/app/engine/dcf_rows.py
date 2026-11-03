@@ -105,6 +105,22 @@ def actor_label(row: DcfRow, fallback: str | None = None) -> str:
     return fallback or row.row_id
 
 
+def _quantity(row: DcfRow) -> Any:
+    """Measured quantity, else the projected one (a number, or the first
+    numeric value of a per-scenario mapping, the baseline first)."""
+    measured = row.values.get("flow.quantity_measured")
+    if measured not in (None, ""):
+        return measured
+    projected = row.values.get("flow.quantity_projected")
+    if isinstance(projected, dict):
+        for key in ("baseline", *projected.keys()):
+            value = projected.get(key)
+            if isinstance(value, (int, float)):
+                return value
+        return None
+    return projected if projected not in ("",) else None
+
+
 def edge_list(data: DcfData | None) -> list[dict[str, Any]]:
     """Flow-matrix rows that are wired up, resolved to actor labels.
 
@@ -130,7 +146,8 @@ def edge_list(data: DcfData | None) -> list[dict[str, Any]]:
                 "origin": actor_label(origin_row, origin) if origin_row else origin,
                 "destination": actor_label(dest_row, dest) if dest_row else dest,
                 "type": row.values.get("flow.type"),
-                "quantity": row.values.get("flow.quantity_measured"),
+                # a flow that does not run yet has only a projected quantity (P7-12)
+                "quantity": _quantity(row),
                 "unit": row.values.get("flow.unit"),
             }
         )

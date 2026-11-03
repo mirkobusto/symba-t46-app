@@ -10,7 +10,7 @@
 // Kept minimal on purpose: the sidebar carries navigation, the topbar
 // carries context.
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { useAuthStore } from '../../store/authStore'
@@ -20,6 +20,7 @@ import LanguageSwitcher from '../LanguageSwitcher'
 export default function Topbar() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
   const user = useAuthStore((s) => s.user)
   const clearSession = useAuthStore((s) => s.clearSession)
 
@@ -65,7 +66,13 @@ export default function Topbar() {
             </button>
           </span>
         ) : (
-          <Link to="/login" className="dd-topbar-signin">
+          // back to this page after signing in or registering, not to the home
+          // page (UX round 5, P1-17)
+          <Link
+            to="/login"
+            state={location.pathname === '/login' ? undefined : { from: location.pathname }}
+            className="dd-topbar-signin"
+          >
             {t('auth.signIn')}
           </Link>
         )}

@@ -187,6 +187,9 @@ const it: Locale = {
     noContact: 'Per domande su questo caso rivolgiti a chi ti ha mandato il link. SYMBA ha costruito lo strumento, non conduce questo studio.',
     whatYouCanDo: 'Questo studio è ancora in preparazione. Se volete che i residenti siano ascoltati (interviste, questionari), o se vi preoccupano camion, odori o ciò che si sparge sui campi, scrivete a chi l\'ha preparato: {{contact}}. I risultati, quando saranno caricati, compariranno su questa stessa pagina, allo stesso link.',
     whatYouCanDoTitle: 'Cosa potete fare',
+    dataRequestTitle: 'Se vi vengono chiesti dei dati',
+    dataRequest: 'Chi esegue lo studio manda a ogni azienda un file Excel, il Data Collection File: le vostre righe sono i flussi che la vostra azienda cede o riceve (quantità, trasporti, costi, impianti coinvolti). Compilatelo e rimandatelo a {{contact}}. Il file lo crea e lo modifica solo chi esegue lo studio; non si compila da questa pagina.',
+    dataRequestNoContact: 'Chi esegue lo studio manda a ogni azienda un file Excel, il Data Collection File: le vostre righe sono i flussi che la vostra azienda cede o riceve (quantità, trasporti, costi, impianti coinvolti). Compilatelo e rimandatelo a chi ve l\'ha inviato. Il file lo crea e lo modifica solo chi esegue lo studio; non si compila da questa pagina.',
   },
 
   welcome: {
@@ -833,7 +836,7 @@ const it: Locale = {
   },
 
   scenarios: {
-    intro: "Uno scenario cambia alcune risposte del questionario e il motore lo esegue accanto al caso: il confronto mostra poi che cosa cambia nella configurazione e negli obblighi. Confrontare reti diverse (dove va un flusso, a che distanza, a che prezzo) è un altro confronto: disegna le alternative nell'editor di rete; lo strumento non le confronta ancora.",
+    intro: 'Uno scenario cambia alcune risposte del questionario e il motore lo calcola accanto al caso: la pagina dei risultati mostra che cosa cambia nella configurazione e negli obblighi. Non può cambiare dove va un singolo flusso, a che distanza o a che prezzo: l\'editor di rete ha una sola rete per caso, quindi annota un\'alternativa del genere nelle ipotesi di scenario del flusso nel Data Collection File; lo strumento non confronta ancora reti diverse.',
     emptyHint: 'Nessuno scenario alternativo.',
     headers: { id: 'ID', label: 'Etichetta' },
     labelPlaceholder: 'es. Espansione futura / TRL9 ramp-up',
@@ -940,10 +943,11 @@ const it: Locale = {
       title: 'Che cosa significa per te',
       lead: 'Lo strumento ha stabilito come va impostato lo studio del tuo caso e quali dati servono. Non calcola se lo scambio conviene o fa bene all\'ambiente: lo fa un analista o un consulente, con i dati che raccogli.',
       step1: 'Salva il caso per ritrovarlo. Serve un account gratuito; senza, il caso resta solo in questo browser.',
-      step2: 'Apri il Data Collection File e scarica l\'Excel: i tuoi tecnici compilano i fogli su attori, flussi, logistica e costi.',
+      step2: 'Apri il Data Collection File, disegna le aziende e gli scambi, poi scarica l\'Excel: i tuoi tecnici compilano i fogli su attori, flussi, logistica e costi.',
       step3: 'Consegna il file e il report a chi farà lo studio (un analista, un consulente, un\'università): i punti tecnici più sotto sono per lui.',
       analystTitle: 'Punti per l\'analista ({{count}})',
       step1Saved: '✓ Salvato come «{{name}}»: lo ritrovi in I miei casi.',
+      step1SignedIn: 'Salva il caso per ritrovarlo in I miei casi.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1245,6 +1249,8 @@ const it: Locale = {
     diffSuffix: '(diff)',
     overridesPlaceholder: "es. {\"q2\": \"B\"} oppure {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Overrides devono essere JSON valido per {{id}}',
+    overridesNotAllowed: 'Uno scenario cambia solo risposte del questionario (quelle elencate sotto «Domanda»): i flussi e ciò che scrive il motore non si cambiano qui. Per descrivere un flusso che va altrove, annotalo nelle ipotesi di scenario di quel flusso nel Data Collection File.',
+    failed: 'Questo scenario non si è potuto calcolare, quindi non c\'è niente da confrontare: {{detail}}',
     whatChanges: "che cosa cambia rispetto al caso",
     noChange: "Non cambia nulla nella configurazione né negli obblighi.",
     addedRules: "Obblighi aggiunti",
@@ -1497,7 +1503,7 @@ const it: Locale = {
       whoAnalyst: 'Lo decide l\'analista che esegue lo studio',
     },
     diagram: { whoGives: "Chi lo cede?\n({{flow}})", whoReceives: "Chi lo riceve?\n({{flow}})" },
-    noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario' },
+    noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario', received: 'Avete ricevuto il file da un analista? Allora qui non c\'è niente da fare: compilate il file Excel e rimandateglielo.' },
     derivedField: "compilato dal motore",
     obligationsTitle: "Scelte metodologiche da documentare",
     navLink: 'Raccolta dati',
@@ -1612,7 +1618,8 @@ const it: Locale = {
     publicLink: "Link pubblico",
     navLink: 'I miei casi',
     title: 'I miei casi',
-    intro: 'Casi salvati sul server. Carica per popolare il questionario, o elimina per rimuovere definitivamente.',
+    intro: 'Casi salvati sul server. Carica apre il risultato del caso; da lì «Modifica risposte» le cambia e «Salva modifiche» le registra. Elimina toglie un caso per sempre.',
+    loadReplaceConfirm: 'Caricare questo caso sostituisce le risposte su cui stai lavorando, che non sono salvate. Continuare?',
     empty: 'Nessun caso salvato. Salva un caso dal questionario o dalla result page.',
     columns: {
       name: 'Nome',

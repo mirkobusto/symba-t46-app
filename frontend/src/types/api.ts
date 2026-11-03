@@ -103,6 +103,8 @@ export interface ScenarioResult {
   id: string
   label: string
   result: Case
+  /** Why the scenario could not be run (its result is then not a configuration). */
+  error?: string | null
 }
 
 export interface ScenariosResponse {

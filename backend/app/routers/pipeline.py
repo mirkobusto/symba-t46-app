@@ -128,6 +128,9 @@ class ScenarioResult(BaseModel):
     id: str
     label: str
     result: Case
+    # why the scenario could not be run; the result is then the bare answers,
+    # not a configuration to compare (UX round 5, P7-11)
+    error: str | None = None
 
 
 class ScenariosResponse(BaseModel):
@@ -183,10 +186,12 @@ def run_scenarios(
 
     scenario_results: list[ScenarioResult] = []
     for scenario in payload.scenarios:
+        error = None
         try:
             sc_case = _apply_overrides(payload.baseline, scenario.overrides)
             sc_result = pipeline_run(sc_case, schemas)
-        except ValueError:
+        except ValueError as exc:
+            error = str(exc).splitlines()[0][:300] if str(exc) else type(exc).__name__
             # On scenario failure, return an empty Case shell so the
             # client can flag it. Don't 400 the whole batch. An override the
             # Case no longer accepts (a key of an old version) fails here
@@ -196,7 +201,7 @@ def run_scenarios(
             except ValueError:
                 sc_result = _apply_overrides(payload.baseline, {})
         scenario_results.append(
-            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result)
+            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result, error=error)
         )
 
     return ScenariosResponse(

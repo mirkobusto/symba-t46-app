@@ -168,6 +168,9 @@ const en = {
     noContact: 'For questions about this case, ask whoever sent you the link. SYMBA built the tool; it does not carry out this study.',
     whatYouCanDo: 'This study is still being set up. If you want residents to be heard (interviews, questionnaires), or if traffic, odours or what is spread on fields worry you, write to whoever prepared it: {{contact}}. Results, once loaded, appear on this same page at this same link.',
     whatYouCanDoTitle: 'What you can do',
+    dataRequestTitle: 'If you are asked for data',
+    dataRequest: 'Whoever carries out the study sends each company an Excel workbook, the Data Collection File: your rows are the flows your company gives or receives (quantities, transport, costs, the equipment involved). Fill it in and send it back to {{contact}}. Only whoever carries out the study creates and changes it; it is not filled in on this page.',
+    dataRequestNoContact: 'Whoever carries out the study sends each company an Excel workbook, the Data Collection File: your rows are the flows your company gives or receives (quantities, transport, costs, the equipment involved). Fill it in and send it back to whoever sent it to you. Only whoever carries out the study creates and changes it; it is not filled in on this page.',
   },
 
   welcome: {
@@ -855,7 +858,7 @@ const en = {
   },
 
   scenarios: {
-    intro: "A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. Comparing different networks (where a flow goes, how far, at what price) is a different comparison: draw the alternatives in the network editor; the tool does not compare them yet.",
+    intro: 'A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. It cannot change where a single flow goes, how far or at what price: the network editor holds one network per case, so note such an alternative in the scenario assumptions of the flow in the Data Collection File; the tool does not compare networks yet.',
     emptyHint: 'No alternative scenarios yet.',
     headers: { id: 'ID', label: 'Label' },
     labelPlaceholder: 'e.g. Future expansion / TRL9 ramp-up',
@@ -962,10 +965,11 @@ const en = {
       title: 'What this means for you',
       lead: 'The tool has worked out how the study of your case has to be set up and which data it needs. It does not calculate whether the exchange pays off or helps the environment: an analyst or a consultant does that, with the data you collect.',
       step1: 'Save the case so you can find it again. It needs a free account; without one, the case stays only in this browser.',
-      step2: 'Open the Data Collection File and download the Excel: your staff fill in the sheets on the actors, the flows, logistics and costs.',
+      step2: 'Open the Data Collection File, draw the companies and the exchanges, then download the Excel: your staff fill in the sheets on the actors, the flows, logistics and costs.',
       step3: 'Give the file and the report to whoever will carry out the study (an analyst, a consultant, a university): the technical points further down are for them.',
       analystTitle: 'Points for the analyst ({{count}})',
       step1Saved: '✓ Saved as «{{name}}»: you find it in My cases.',
+      step1SignedIn: 'Save the case so you can find it again in My cases.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1267,6 +1271,8 @@ const en = {
     diffSuffix: '(diff)',
     overridesPlaceholder: "e.g. {\"q2\": \"B\"} or {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Overrides must be valid JSON for {{id}}',
+    overridesNotAllowed: 'A scenario changes answers of the questionnaire only (the ones listed under "Question"): the flows and what the engine writes cannot be changed here. To describe a flow going elsewhere, note it in the scenario assumptions of that flow in the Data Collection File.',
+    failed: 'This scenario could not be run, so there is nothing to compare: {{detail}}',
     whatChanges: "what changes compared with the case",
     noChange: "Nothing changes in the configuration or in the obligations.",
     addedRules: "Obligations added",
@@ -1518,7 +1524,7 @@ const en = {
       whoAnalyst: 'Decided by the analyst who carries out the study',
     },
     diagram: { whoGives: "Who gives it?\n({{flow}})", whoReceives: "Who receives it?\n({{flow}})" },
-    noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire' },
+    noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire', received: 'Did you receive the workbook from an analyst? Then there is nothing to do here: fill in the Excel file and send it back to them.' },
     derivedField: "engine-filled",
     obligationsTitle: "Methodological choices to document",
     navLink: 'Data Collection',
@@ -1633,7 +1639,8 @@ const en = {
     publicLink: "Public link",
     navLink: 'My cases',
     title: 'My cases',
-    intro: 'Cases saved on the server. Load to populate the questionnaire, or delete to remove permanently.',
+    intro: 'Cases saved on the server. Load opens the case\'s result; from there, "Adjust answers" changes them and "Save changes" stores them. Delete removes a case permanently.',
+    loadReplaceConfirm: 'Loading this case replaces the answers you are working on, which are not saved. Continue?',
     empty: 'No saved cases yet. Save one from the questionnaire or result page.',
     columns: {
       name: 'Name',

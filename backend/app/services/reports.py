@@ -247,7 +247,7 @@ def generate_case_report_bytes(case: Case, title: str | None = None) -> bytes:
         _add_kv(doc, "Q11 what the study compares", _Q11_LABELS.get(
             case.comparison_goal.value, case.comparison_goal.value))
     if case.dedicated_shared_assets is not None:
-        _add_kv(doc, "Q12 new dedicated shared assets", "yes" if case.dedicated_shared_assets else "no")
+        _add_kv(doc, "Q12 dedicated shared assets", "yes" if case.dedicated_shared_assets else "no")
     if case.alternative_scenarios:
         doc.add_paragraph(
             f"Alternative scenarios defined: "

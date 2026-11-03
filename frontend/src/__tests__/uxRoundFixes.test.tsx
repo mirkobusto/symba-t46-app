@@ -41,9 +41,9 @@ describe('Questionnaire — flows have no preset Q5', () => {
   it('names every missing required answer, Q9 included, not only Q1', () => {
     expect(screen.getByText(/Still to answer:/)).toBeTruthy()
     expect(screen.getByRole('link', { name: /What are you analyzing\?/ })).toBeTruthy()
-    expect(screen.getByRole('link', { name: /What is the study for/ })).toBeTruthy()
+    expect(screen.getByRole('link', { name: /Which decision does the study support/ })).toBeTruthy()
     // every link points at a card that exists
-    for (const link of screen.getAllByRole('link', { name: /analyzing|dimensions|study for/ })) {
+    for (const link of screen.getAllByRole('link', { name: /analyzing|dimensions|study support/ })) {
       expect(document.getElementById(link.getAttribute('href')!.slice(1))).toBeTruthy()
     }
     expect((runButton() as HTMLButtonElement).disabled).toBe(true)

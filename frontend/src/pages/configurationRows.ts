@@ -215,7 +215,16 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     }
     chapters.set(rule.chapter, flows)
   }
-  if (chapters.size > 0) {
+  if (chapters.size === 0 && env && (kase.flows ?? []).length > 0) {
+    // the result said nothing at all for steel, cement or heat: say why
+    rows.push({
+      key: 'sectors',
+      label: label('sectors'),
+      value: t('result.config.values.noChapter'),
+      why: t('result.config.why.noChapter'),
+      nodeText: [],
+    })
+  } else if (chapters.size > 0) {
     rows.push({
       key: 'sectors',
       label: label('sectors'),

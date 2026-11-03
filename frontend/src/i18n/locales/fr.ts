@@ -381,7 +381,7 @@ const fr: Locale = {
         'D — entreprise unique quantifiant sa contribution symbiotique pour reporting ESG / CSRD / durabilité (ex. « nous avons vendu 12 kt de laitier aux cimentiers, voici notre crédit »). Le sujet est UNE SEULE ENTREPRISE. ' +
         "E — suivi périodique d'une symbiose déjà opérationnelle (mises à jour KPI annuelles, surveillance post-implémentation). Le sujet est la SÉRIE TEMPORELLE, pas une étude ponctuelle.",
       options: {
-        A: { label: 'A. Échange spécifique', description: 'Un échange symbiotique entre deux entreprises existantes.' },
+        A: { label: 'A. Échange spécifique', description: "Un échange symbiotique entre deux entreprises, existantes ou en projet." },
         B: { label: 'B. Eco-park / réseau', description: 'Un parc éco-industriel ou un réseau symbiotique multi-acteurs.' },
         C: { label: 'C. Politique / programme', description: "Une décision de politique ou programme à l'échelle régionale ou nationale." },
         D: { label: 'D. Rapport entreprise', description: "La contribution symbiotique d'une seule entreprise pour reporting ESG/CSRD." },
@@ -400,9 +400,10 @@ const fr: Locale = {
         B: { label: 'B. Pas encore', description: 'Prévus, conçus ou tout juste démarrés, même entre des installations qui existent déjà.' },
       },
       longStanding: {
-        label: 'Le réseau fonctionne-t-il depuis de nombreuses années, au point que les installations qu\'il a remplacées ne seraient plus construites aujourd\'hui ?',
+        label: "Le réseau fonctionne-t-il depuis si longtemps que les alternatives qu'il a remplacées (par ex. les chaudières que le chauffage urbain utiliserait) ne seraient plus construites aujourd'hui ?",
         yes: 'Oui — la référence est un contrefactuel moderne (D4.1 §11.2.2)',
         no: 'Non — le réseau est récent',
+        unknown: "Je ne sais pas — la référence est ce que chaque entreprise ferait aujourd'hui sans les liens",
       },
       plain:
         'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Vous voulez comparer des alternatives, comme une extension ou une nouvelle technologie ? Ajoutez-les comme scénarios ci-dessous, quelle que soit votre réponse ici.',
@@ -413,8 +414,8 @@ const fr: Locale = {
       help: "Au moins une est requise. Environnementale et économique sont l'appariement habituel.",
       details:
         "ENV — Life Cycle Assessment environnementale (LCA) : impacts climat, écosystèmes, ressources. Presque toujours sélectionnée. " +
-        "ECO — dimension économique, évaluée par Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) est une technique utilisée dans la LCC (activée par ECO et par les flux contestés en Q5), pas une alternative ; CBA et TEA ne sont pas proposées par ce moteur. " +
-        "SOC — S-LCA. La sélectionner active une chaîne de règles plus longue (catégories stakeholder worker / communauté locale / value chain) et force L1 BLOCK 2 si l'override avancé slca_framework_override vaut « absolute ». " +
+        "ECO — dimension économique, évaluée par le Life Cycle Costing (LCC, D4.2). La MFCA (Material Flow Cost Accounting, ISO 14051) est une technique utilisée dans le LCC, pas une alternative ; l'ACB et la TEA ne sont pas proposées par cet outil. " +
+        "SOC — ACV sociale. La sélectionner ajoute les règles sociales (catégories de parties prenantes : travailleurs, communauté locale, chaîne de valeur). " +
         "La plupart des papiers IS publiés font ENV uniquement (ex. Sokka, Daddi) ; quelques-uns couplent ENV+ECO (Hashimoto, Wiktor) ; rares sont ceux qui ajoutent SOC.",
       warning: 'Sélectionnez au moins une dimension pour continuer.',
       env: 'Environnementale (LCA)',
@@ -425,7 +426,7 @@ const fr: Locale = {
     },
 
     q4: {
-      title: 'Q4 — À quoi servira cette étude ?',
+      title: "Q4 — Comment utiliserez-vous et communiquerez-vous les résultats ?",
       help: 'Multi-sélection. Certains usages se combinent (ex. D + E pour un papier EU PEF).',
       details:
         "A — usage interne : dashboards de management, screening R&D, décisions au niveau usine. Peu de contraintes méthodologiques. " +
@@ -456,11 +457,11 @@ const fr: Locale = {
     q5: {
       title: 'Q5 — Nature de chaque flux symbiotique (par flux)',
       help:
-        "Ajoutez une ligne par flux symbiotique principal et choisissez sa catégorie Q5. Obligatoire pour Q1 ∈ {A, B, D} ; optionnel sinon.",
+        "Ajoutez une ligne par flux symbiotique principal et indiquez qui paie qui. Obligatoire quand vous analysez un échange, un réseau ou une seule entreprise (Q1 = A, B ou D) ; facultatif sinon.",
       details:
         'Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), indiquez qui paie qui : ' +
         'a — A paie B pour reprendre le flux (un tarif de prise en charge : valeur de marché négative, un DÉCHET pour A, D4.1 §8.3.2). Le zéro-charge s\'applique à partir du point où le résidu atteint pour la première fois une valeur non négative, pas à la porte. Payer ne veut pas dire inévitable : D4.2 §6.2 exige aussi le test causal d\'évitabilité, déclaré par flux dans le Data Collection File. ' +
-        'b — flux échangé GRATUITEMENT (statut ambigu) : le moteur oriente vers la chaîne de désambiguïsation des flux gratuits. ' +
+        "b — flux échangé GRATUITEMENT (statut ambigu) : le test de valeur économique décide s'il s'agit d'un déchet ou d'un coproduit, avec une analyse de sensibilité. " +
         'c — B paie A pour le flux (valeur de marché positive : un CO-PRODUIT pour A) : substitution de la matière vierge déplacée, avec un ratio corrigé de la qualité. La Circular Footprint Formula du PEF n\'est pas liée à Q5 : elle vient de Q4=D. Si aucun tiers ne paierait pour le flux (test de Freedom-to-Act, D4.1 §8.3.3), le prix est administratif et le flux est modélisé comme un déchet. ' +
         'd — flux INTERDÉPENDANT : A a délibérément modifié son procédé (qualité, quantité, post-traitement) pour fournir B ; un co-produit quel que soit le prix, jamais zéro-charge. ' +
         'e — AGRÉGÉ / boîte noire : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C\'est une limite de la source, pas un choix de modélisation : D4.1 §8.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. ' +
@@ -474,8 +475,8 @@ const fr: Locale = {
       help: 'Le secteur principal du cas, à titre descriptif. Les règles sectorielles de la D4.1 Part 2 suivent le secteur de chaque flux échangé, déclaré dans le tableau des flux.',
       details:
         'Le secteur décrit le cas et ouvre quelques champs spécifiques dans le Data Collection File ; les règles sectorielles de la D4.1 Part 2 suivent le secteur déclaré pour chaque flux, car les chapitres suivent ce qui est échangé. Choisissez la correspondance la plus proche du secteur dominant du cas (l\'acteur qui contribue le plus en masse/énergie/valeur). ' +
-        'Exemples : pulp_paper pour Sokka 2011 (UPM Kymi) ; cement_construction pour Hashimoto 2010 (Kawasaki) ; textile_leather pour Daddi 2017 (district des tanneries) ; wastewater_sludge_biofactories pour Wiktor 2018 ; chemicals_fertilizers pour Leiva 2025 Escombreras ; biobased_polymers pour Briassoulis. ' +
-        "Pour les cas mixtes, utilisez multi_sector. Les entrées « (legacy) » en bas existent pour le chargement backward-compatible des anciennes fixtures — préférez la nouvelle liste à 14 secteurs.",
+        'Exemples : Pâte et papier pour Sokka 2011 (UPM Kymi) ; Ciment / construction pour Hashimoto 2010 (Kawasaki) ; Textile / cuir pour Daddi 2017 (district de tannerie) ; Eaux usées / boues / biofactories pour Wiktor 2018 ; Chimie / engrais pour Leiva 2025 Escombreras ; Polymères biosourcés pour Briassoulis. ' +
+        'Pour les cas mixtes, utilisez Multi-secteur.',
       options: {
         none: '(aucun)',
         agriculture_agrifood_biorefineries: 'Agriculture / agroalimentaire / bioraffineries',
@@ -492,7 +493,7 @@ const fr: Locale = {
         food_production: 'Production alimentaire',
         multi_tenant_urban_building: 'Bâtiment urbain multi-locataires',
         multi_sector: 'Multi-secteur',
-        other: 'Autre (spécifier)',
+        other: "Autre",
         wastewater_biofactories: 'Eaux usées / boues / biofactories (legacy)',
         agri_food: 'Agroalimentaire / bioraffineries (legacy)',
         process_industry: 'Industrie de process (legacy)',
@@ -571,7 +572,7 @@ const fr: Locale = {
         'Sur quelles années l\'étude regarde-t-elle le système ? Si elle décrit comment les choses fonctionnent aujourd\'hui, une photographie du présent suffit. Si elle porte sur une installation qui fonctionnera une année ultérieure, ou suit le système sur des décennies, le résultat dépend de l\'évolution de l\'électricité, des carburants et des marchés, et l\'outil vous demande de vous prononcer sur cet avenir : le même avenir pour la lecture environnementale et pour la lecture économique.',
     },
     q9: {
-      title: 'Q9 — À quoi sert l\'étude, et jusqu\'où vont ses effets ? *',
+      title: "Q9 — Quelle décision l'étude soutient-elle, et jusqu'où vont ses conséquences ? *",
       help: 'Obligatoire. Elle fixe la situation de modélisation (ILCD A, B, C1 ou C2) ; Q1 décrit seulement le sujet.',
       details: "Le Tableau 1 de D4.1 classe l'étude selon la décision qu'elle soutient et l'échelle de ses conséquences, non selon son objet (D4.1 §4.2.3). Micro (Situation A) est le cas par défaut pour les décisions sur des échanges ou des installations. Structurel (Situation B) s'applique quand la décision change la capacité installée d'un marché : l'ILCD Handbook le suppose quand la demande ou l'offre annuelle que la décision ajoute ou retire à un marché dépasse la capacité que ce marché renouvelle chaque année, en comptant au plus 5 % (ex. 10 Mt d'installations d'une durée de 25 ans renouvellent 0,4 Mt par an). La conception d'un nouveau parc, une restructuration régionale ou un programme exigent ce criblage (Mattila et al. 2012) ; sans lui l'étude reste A, avec B en analyse de sensibilité. Documenter un réseau existant, ou un rapport d'entreprise qui compte ce que ses échanges font économiser ailleurs, relève de la Situation C1 (substitution, §7.2.3) ; le rapport d'une seule entreprise qui exclut tout crédit pour ses échanges relève de la C2 (allocation, sans crédit, §7.2.3), avec des coûts au seul niveau de l'entreprise (choix de conception T4.6).",
       examples: {
@@ -620,16 +621,16 @@ const fr: Locale = {
         "Sur quoi porte vraiment la comparaison ? Si la question est de savoir comment traiter au mieux un déchet — le brûler, le méthaniser, le composter —, le résultat se compte par tonne de déchet traité. Si la question est de savoir si le produit récupéré vaut mieux que celui qu'il remplace, il se compte par unité de produit. Si les deux comptent autant, on les compte côte à côte.",
     },
     q12: {
-      title: 'Q12 — La symbiose nécessite-t-elle de nouveaux actifs dédiés et partagés ?',
-      help: 'Facultative, posée quand l\'ACV ou l\'ACC est active : canalisations, installations ou stockages construits pour la symbiose.',
+      title: "Q12 — La symbiose utilise-t-elle des biens dédiés et partagés ?",
+      help: "Facultative, posée avec l'ACV ou le LCC : conduites, installations ou stockages construits pour les échanges, aujourd'hui ou il y a des années.",
       details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Avec l\'ACV et l\'ACC actives, un oui active aussi les règles qui alignent les biens d\'équipement entre les deux (IR-13, B-06) ; pour les parcs et programmes avec la dimension sociale, les indicateurs S-ACV pour l\'investissement partagé (CIR-08).',
       options: {
         unset: 'Sans réponse',
-        yes: 'Oui — de nouvelles canalisations, installations ou stockages sont construits pour la symbiose',
-        no: 'Non — les échanges utilisent des actifs existants',
+        yes: "Oui — conduites, installations ou stockages construits pour les échanges, aujourd'hui ou il y a des années",
+        no: "Non — les échanges n'utilisent que des biens qui serviraient de toute façon",
       },
       plain:
-        'Répondez oui s\'il faut construire quelque chose de nouveau pour que les échanges aient lieu : une canalisation, une installation de traitement commune, une cuve de stockage. Son coût et son empreinte environnementale entrent alors dans l\'étude et sont répartis entre les entreprises qui l\'utilisent.',
+        "Répondez oui si quelque chose a été construit, ou doit l'être, pour que les échanges aient lieu : une conduite, une station de traitement commune, un réservoir, même construit il y a des années. Son coût et son empreinte environnementale entrent alors dans l'étude et sont partagés entre les entreprises qui l'utilisent.",
     },
 
     q2dCard: {
@@ -652,7 +653,7 @@ const fr: Locale = {
     q5Unset: "— choisir qui paie qui",
     sellable: { unset: '— sans réponse', yes: 'Oui', no: 'Non' },
     sellableHint: "Si le partenaire ne prenait pas ce flux, le générateur pourrait-il le vendre à quelqu'un d'autre à un prix positif ? Oui en fait un co-produit. Non n'en fait pas à lui seul un déchet : un preneur unique qui paie ce que paierait un acheteur indépendant (le prix du produit que le flux remplace, net de ses coûts supplémentaires pour l'utiliser) en fait quand même un co-produit ; un flux cédé gratuitement, ou un paiement qui ne fait que partager les coûts, en fait un déchet (D4.1 §8.3.3). Facultatif : le résultat signale quand il ne concorde pas avec Q5.",
-    sectorHint: "Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre.",
+    sectorHint: "Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n'a de chapitres que pour ces secteurs biosourcés : pour l'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s'applique.",
     sectorNone: '— aucun de ceux-ci',
     configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur.",
     configurationNone: "— pas de réponse",
@@ -803,6 +804,7 @@ const fr: Locale = {
         shared: 'Actifs partagés',
       },
       values: {
+        noChapter: "Aucun chapitre de la D4.1 Part 2 ne concerne les flux déclarés : seule la Part 1 s'applique",
         flowTreatment: {
           waste: "déchet : aucune charge jusqu'au point où il prend de la valeur (charge nulle)",
           evt: "indécis : test de valeur économique, avec analyse de sensibilité",
@@ -836,6 +838,7 @@ const fr: Locale = {
         shared: 'Leur CAPEX et leur OPEX dans la décomposition des coûts, répartis entre les partenaires qui les utilisent',
       },
       why: {
+        noChapter: "la Part 2 couvre cinq secteurs biosourcés et aucun flux n'est déclaré dans l'un d'eux",
         flows: "qui paie qui pour chaque flux (Q5)",
         horizonUnanswered: "aucune année d'exploitation, période, durée de vie ou maturité technologique indiquée : le présent est supposé ; si les installations fonctionneront au-delà de {{threshold}} ans, répondez à Q8",
         lccNoPolicyNoLca: "pas d'objectif public (Q10) : les coûts de chaque partenaire, consolidés pour le réseau",
@@ -863,7 +866,7 @@ const fr: Locale = {
         fuDefault: 'ce que l\'étude compare est sans réponse (Q11)',
         regionalUnset: 'la concentration des interactions est sans réponse (Q7)',
         sectors: 'les chapitres suivent le secteur déclaré pour chaque flux',
-        shared: 'la symbiose nécessite de nouveaux actifs dédiés et partagés (Q12)',
+        shared: "la symbiose utilise des biens dédiés et partagés (Q12)",
       },
     },
     notes: { title: 'Remarques sur vos réponses' },

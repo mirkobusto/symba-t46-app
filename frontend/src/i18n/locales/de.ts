@@ -128,7 +128,7 @@ const de: Locale = {
     compliance: {
       peer: { name: "Unabhängige Begutachtung", desc: "Ein Gutachter prüft die Studie nach ISO 14044, wie bei einer wissenschaftlichen Veröffentlichung." },
       pef: { name: "EU-Produktumweltfußabdruck (PEF)", desc: "Die Studie folgt der EU-Fußabdruckmethode einschließlich der Circular Footprint Formula.", descC2: "Nicht anwendbar: die Bilanz eines einzelnen Unternehmens nutzt Allokation, nicht die Circular Footprint Formula (ILCD C2).", descB: 'Als Sensitivitätsanalyse durchgeführt: Situation B wird konsequenziell modelliert.' },
-      public: { name: "Öffentliche vergleichende Aussage", desc: "Öffentlich zu behaupten, ein Produkt sei besser als oder gleichwertig mit einem anderen, erfordert ein ISO-Prüfgremium." },
+      public: { name: 'Zur Veröffentlichung bestimmte vergleichende Aussage', desc: "Öffentlich zu behaupten, ein Produkt sei besser als oder gleichwertig mit einem anderen, erfordert ein ISO-Prüfgremium." },
       dnsh: { name: "EU-Taxonomie „keine erhebliche Beeinträchtigung“ (DNSH)", desc: "Eine eigene Prüfung für Finanzierungen nach der EU-Taxonomie (Art. 17); dieses Tool führt sie nicht durch." },
       slcc: { name: 'Für eine öffentliche Entscheidung angelegt (gesellschaftliche LCC)', yes: 'Ja: Die Kostenrechnung enthält die gesellschaftliche Sicht, die eine öffentliche Entscheidung braucht (Steuern und Subventionen bereinigt, Umweltwirkungen bewertet) — D4.2 §2.3.', no: 'Nein: Die Kostenrechnung bleibt auf Ebene von Unternehmen und Wertschöpfungskette. Soll eine öffentliche Stelle über diesen Fall entscheiden, bitten Sie den Analysten, die Studie für ein öffentliches Ziel anzulegen (Q10).', c2: 'Nicht zutreffend: Die Bilanz eines einzelnen Unternehmens wird nur auf Unternehmensebene gerechnet.', off: 'Nicht bewertet: Die Studie hat keine ökonomische Dimension.' },
       notPlanned: "in dieser Studie nicht vorgesehen",
@@ -529,7 +529,7 @@ const de: Locale = {
         A: { label: 'A. Intern', description: 'Interne Nutzung (Management, F&E, Planung).' },
         B: { label: 'B. Extern (kein Claim)', description: 'Externe Kommunikation ohne vergleichende Aussagen.' },
         C: {
-          label: 'C. Öffentlicher Überlegenheits-Claim',
+          label: 'C. Zur Veröffentlichung bestimmte vergleichende Aussage',
           description: 'Öffentliche Aussage der Überlegenheit oder Gleichwertigkeit gegenüber einer Alternative mit derselben Funktion, in jeder Form (auch Artikel).',
           warn: 'Aktiviert die OBLIGATORISCHE Panel-Review von 3+ unabhängigen Experten (ISO 14044), keine Gewichtung erlaubt.',
         },
@@ -937,7 +937,7 @@ const de: Locale = {
       nodeText: 'Text der Engine (Englisch)',
       labels: {
         flows: "Behandlung der Flüsse",
-        claim: 'Öffentliche Aussage',
+        claim: 'Vergleichende Aussage',
         purpose: 'Art der Studie',
         lcc: 'Kosten',
         slca: 'Soziale Bewertung',
@@ -960,9 +960,9 @@ const de: Locale = {
           allocation: "Allokation (Bilanz eines Unternehmens: keine Substitutionsgutschriften)",
           aggregated: "aggregiert: jeden benennbaren Fluss einordnen",
         },
-        claim: 'Vergleichende Aussage gegenüber der Öffentlichkeit: kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
-        claimNone: 'Keine öffentliche vergleichende Aussage',
-        claimPolicy: "Keine öffentliche vergleichende Aussage; Ausrichtung an der EU-Politik (Q4 = D): Prüfung durch ein unabhängiges Panel, Entscheidung von T4.6",
+        claim: 'Zur Veröffentlichung bestimmte vergleichende Aussage (Überlegenheit oder Gleichwertigkeit): kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
+        claimNone: 'Keine zur Veröffentlichung bestimmte vergleichende Aussage',
+        claimPolicy: 'Keine zur Veröffentlichung bestimmte vergleichende Aussage; Ausrichtung auf EU-Politiken (Q4 = D): Prüfung durch ein unabhängiges Panel, eine Wahl von T4.6',
         claimPublic: { none: 'Diese Studie soll nicht sagen, dass ein Produkt besser als ein anderes oder gleichwertig ist.', claim: 'Die Studie wird eine öffentliche Aussage stützen, dass dieser Austausch besser als eine Alternative oder gleichwertig ist; unabhängige Fachleute müssen sie zuerst prüfen.', policy: 'Die Studie folgt der EU-Methode des Umweltfußabdrucks; sie behauptet nicht, dass ein Produkt besser als ein anderes ist.' },
         scope_continental: 'kontinental',
         scope_sub_national: 'subnational',
@@ -971,9 +971,9 @@ const de: Locale = {
         reference_c2: 'Nicht für Gutschriften genutzt: Allokation, keine Substitution',
         horizonFuture: 'Zukünftiger Hintergrund: Strom, Brennstoffe und Materialien, wie sie in den kommenden Jahren erwartet werden (Klima- und Wirtschaftsszenarien SSP/RCP)',
         horizonPresent: 'Heutiger Hintergrund',
-        reference_hnsrs: 'Was jedes Unternehmen heute ohne die Verbindungen täte (HNSRS)',
-        reference_modern: 'Ein modernes Kontrafaktum: was jedes Unternehmen heute ohne die Verbindungen täte (HNSRS)',
-        reference_cnsrs: 'Das Szenario ohne die Symbiose, über den Studienhorizont (CNSRS)',
+        reference_hnsrs: 'Was jedes Unternehmen heute ohne die Verbindungen täte (hypothetisches nicht-symbiotisches Referenzszenario, HNSRS)',
+        reference_modern: 'Ein modernes Kontrafaktum: was jedes Unternehmen heute ohne die Verbindungen täte (hypothetisches nicht-symbiotisches Referenzszenario, HNSRS)',
+        reference_cnsrs: 'Das Szenario ohne die Symbiose, über den Studienhorizont (aktuelles nicht-symbiotisches Referenzszenario, CNSRS)',
         market: 'Markt: {{market}}',
         fu_waste_treatment: 'Inputbasiert: die Behandlung des Abfalls',
         fu_product_substitution: 'Outputbasiert: die Produkte und was sie ersetzen',
@@ -997,7 +997,7 @@ const de: Locale = {
         horizonUnanswered: "kein Betriebsjahr, Zeitraum, Lebensdauer oder Technologiereife angegeben, daher wird die Gegenwart angenommen; laufen die Anlagen länger als {{threshold}} Jahre, beantworten Sie Q8",
         lccNoPolicyNoLca: "kein öffentliches Ziel (Q10): die Kosten jedes Partners, für das Netz konsolidiert",
         slcaOff: 'die soziale Dimension ist nicht ausgewählt (Q3)',
-        claim: 'die Ergebnisse sollen eine öffentliche Aussage über Überlegenheit oder Gleichwertigkeit stützen (Q4 = C)',
+        claim: 'die Ergebnisse stützen eine zur Veröffentlichung bestimmte vergleichende Aussage über Überlegenheit oder Gleichwertigkeit (Q4 = C)',
         horizonFutureGeneric: 'der Studienhorizont reicht in die Zukunft',
         horizonFutureYear: 'das System wird in einem zukünftigen Jahr betrieben',
         label: 'Warum:',
@@ -1100,6 +1100,7 @@ const de: Locale = {
       allClear:
         'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Öffnen Sie das Data Collection File.',
       ctaHint: 'Das Data Collection File ist auf diese Konfiguration kalibriert: es fragt nur ab, was Ihr Fall braucht.',
+      glossary: 'Drei Arten von Punkten, überall gleich benannt: Verpflichtungen sind Praktiken, die Ihre Antworten auslösen; Standardpraktiken werden von jeder Studie verlangt und im Data Collection File aufgeführt; Entscheidungspunkte sind Spannungen zwischen den Methoden, jeweils mit der Konvention, die das Tool vorschlägt.',
     },
     actionKind: {
       block: 'Blockierend',
@@ -1122,7 +1123,7 @@ const de: Locale = {
       title: 'Technisches Detail (Engine-Ausgabe)',
       lead: 'Alles, was die Pipeline erzeugt hat — für Review und Nachvollziehbarkeit.',
     },
-    title: 'Engine-Ausgabe',
+    title: 'Ihr Ergebnis',
     summary: {
       ilcdSituation: 'ILCD-Situation',
       lccType: 'LCC-Typ',
@@ -1180,6 +1181,8 @@ const de: Locale = {
     noChange: "An Konfiguration und Verpflichtungen ändert sich nichts.",
     addedRules: "Hinzugekommene Verpflichtungen",
     removedRules: "Weggefallene Verpflichtungen",
+    description_one: 'Der Fall und {{count}} Alternativszenario, jeweils vom Motor berechnet. Zellen, die vom Fall abweichen, sind hervorgehoben.',
+    description_other: 'Der Fall und {{count}} Alternativszenarien, jeweils vom Motor berechnet. Zellen, die vom Fall abweichen, sind hervorgehoben.',
   },
 
 
@@ -1258,6 +1261,10 @@ const de: Locale = {
       invalidCredentials: 'E-Mail oder Passwort falsch.',
       invalidEmail: 'Ungültige E-Mail-Adresse: Prüfen Sie den Teil nach dem @ (z. B. name@firma.de).',
       invalidInput: 'Prüfen Sie E-Mail und Passwort (mindestens 8 Zeichen).',
+    },
+    roles: {
+      admin: 'Administrator',
+      analyst: 'Konto',
     },
   },
 
@@ -1363,7 +1370,7 @@ const de: Locale = {
       peerReview: 'Unabhängige Begutachtung: {{status}}',
       pef: 'EU-PEF-Ausrichtung (Q4=D): {{status}}',
       pefC2: "EU-PEF-Ausrichtung (Q4=D): nicht angewandt, der Bericht eines Unternehmens nutzt Allokation statt der Circular Footprint Formula (ILCD-Situation C2)",
-      publicClaim: 'Öffentlicher Überlegenheitsanspruch (Q4=C): {{status}}',
+      publicClaim: 'Zur Veröffentlichung bestimmte vergleichende Aussage (Q4=C): {{status}}',
     },
   },
 
@@ -1489,6 +1496,13 @@ const de: Locale = {
     unwiredTitle: 'Noch nicht gezeichnete Flüsse',
     unwiredHint:
       'Diese Flüsse stammen aus Ihren Q5-Antworten. Verbinden Sie zwei Akteure auf der Arbeitsfläche, um den nächsten anzuschließen.',
+    roles: {
+      producer: 'Erzeuger',
+      consumer: 'Abnehmer',
+      facilitator: 'Vermittler',
+      regulator: 'Behörde',
+      intermediary: 'Zwischenhändler',
+    },
   },
 
   cases: {

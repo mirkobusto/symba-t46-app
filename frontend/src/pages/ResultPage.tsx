@@ -299,6 +299,8 @@ export default function ResultPage() {
         ) : (
           <p className="result-next-lead">{t('result.next.lead')}</p>
         )}
+        {/* one name per kind of item across result, report and DCF (P2-14) */}
+        {blockedBy.length === 0 ? <p className="result-next-glossary">{t('result.next.glossary')}</p> : null}
 
         {guided && todo.length > 0 ? (
           <details className="result-next-analyst">

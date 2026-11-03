@@ -128,7 +128,7 @@ const es: Locale = {
     compliance: {
       peer: { name: "Revisión independiente", desc: "Un revisor comprueba el estudio según la ISO 14044, como en una publicación científica." },
       pef: { name: "Huella ambiental de producto UE (PEF)", desc: "El estudio sigue el método europeo de huella, incluida la Circular Footprint Formula.", descC2: "No aplicable: las cuentas de una sola empresa usan asignación, no la Circular Footprint Formula (ILCD C2).", descB: 'Ejecutada como análisis de sensibilidad: la Situación B se modela de forma consecuencial.' },
-      public: { name: "Afirmación comparativa pública", desc: "Afirmar en público que un producto es mejor o equivalente a otro exige un panel de revisión ISO." },
+      public: { name: 'Aseveración comparativa divulgada al público', desc: "Afirmar en público que un producto es mejor o equivalente a otro exige un panel de revisión ISO." },
       dnsh: { name: "Taxonomía UE «no causar un perjuicio significativo» (DNSH)", desc: "Una verificación aparte para la financiación ligada a la taxonomía (art. 17); esta herramienta no la realiza." },
       slcc: { name: 'Planteado para una decisión pública (LCC social)', yes: 'Sí: el cálculo de costes incluye la lectura de la sociedad que necesita una decisión pública (impuestos y subvenciones corregidos, efectos ambientales valorados) — D4.2 §2.3.', no: 'No: el cálculo de costes se queda a nivel de empresa y de cadena de valor. Si un organismo público tiene que decidir sobre este caso, pide al analista que plantee el estudio para un objetivo público (Q10).', c2: 'No aplicable: las cuentas de una sola empresa se calculan solo a nivel de empresa.', off: 'No evaluado: el estudio no tiene dimensión económica.' },
       notPlanned: "no prevista en este estudio",
@@ -529,7 +529,7 @@ const es: Locale = {
         A: { label: 'A. Interno', description: 'Uso interno (gestión, I+D, planificación).' },
         B: { label: 'B. Externo (sin claim)', description: 'Comunicación externa sin afirmaciones comparativas.' },
         C: {
-          label: 'C. Claim público de superioridad',
+          label: 'C. Aseveración comparativa divulgada al público',
           description: 'Afirmación pública de superioridad o equivalencia frente a una alternativa con la misma función, en cualquier forma (artículos incluidos).',
           warn: 'Activa la revisión OBLIGATORIA por panel de 3+ expertos independientes (ISO 14044), no se permite ponderación.',
         },
@@ -937,7 +937,7 @@ const es: Locale = {
       nodeText: 'Texto del motor (inglés)',
       labels: {
         flows: "Tratamiento de cada flujo",
-        claim: 'Declaración pública',
+        claim: 'Aseveración comparativa',
         purpose: 'Tipo de estudio',
         lcc: 'Costes',
         slca: 'Evaluación social',
@@ -960,9 +960,9 @@ const es: Locale = {
           allocation: "asignación (cuentas de una sola empresa: sin créditos de sustitución)",
           aggregated: "agregado: clasificar cada flujo que se pueda nombrar",
         },
-        claim: 'Declaración comparativa al público: revisión crítica por un panel de al menos tres expertos independientes, sin ponderación',
-        claimNone: 'Sin declaración comparativa pública',
-        claimPolicy: "Sin declaración comparativa pública; alineación con las políticas de la UE (Q4 = D): revisión por un panel independiente, elección de T4.6",
+        claim: 'Aseveración comparativa divulgada al público (superioridad o equivalencia): revisión crítica por un panel de al menos tres expertos independientes, sin ponderación',
+        claimNone: 'Ninguna aseveración comparativa divulgada al público',
+        claimPolicy: 'Ninguna aseveración comparativa divulgada al público; alineación con las políticas de la UE (Q4 = D): revisión por un panel independiente, una elección de T4.6',
         claimPublic: { none: 'Este estudio no sirve para decir que un producto es mejor que otro, o equivalente.', claim: 'El estudio respaldará una afirmación pública de que este intercambio es mejor que una alternativa, o equivalente; antes deben revisarlo expertos independientes.', policy: 'El estudio sigue el método de huella ambiental de la UE; no afirma que un producto sea mejor que otro.' },
         scope_continental: 'continental',
         scope_sub_national: 'subnacional',
@@ -971,9 +971,9 @@ const es: Locale = {
         reference_c2: 'No se usa para créditos: asignación, sin sustitución',
         horizonFuture: 'Fondo futuro: electricidad, combustibles y materiales tal como se esperan en los próximos años (escenarios climático-económicos SSP/RCP)',
         horizonPresent: 'Fondo actual',
-        reference_hnsrs: 'Lo que haría hoy cada empresa sin los vínculos (HNSRS)',
-        reference_modern: 'Un contrafactual moderno: lo que haría hoy cada empresa sin los vínculos (HNSRS)',
-        reference_cnsrs: 'El escenario sin la simbiosis, sobre el horizonte del estudio (CNSRS)',
+        reference_hnsrs: 'Lo que haría hoy cada empresa sin los vínculos (escenario de referencia no simbiótico hipotético, HNSRS)',
+        reference_modern: 'Un contrafactual moderno: lo que haría hoy cada empresa sin los vínculos (escenario de referencia no simbiótico hipotético, HNSRS)',
+        reference_cnsrs: 'El escenario sin la simbiosis, sobre el horizonte del estudio (escenario de referencia no simbiótico actual, CNSRS)',
         market: 'mercado: {{market}}',
         fu_waste_treatment: 'Basada en la entrada: el tratamiento del residuo',
         fu_product_substitution: 'Basada en la salida: los productos y lo que sustituyen',
@@ -997,7 +997,7 @@ const es: Locale = {
         horizonUnanswered: "no se ha indicado año de operación, periodo, vida de los activos ni madurez tecnológica, así que se supone el presente; si las plantas funcionarán más de {{threshold}} años, responde a Q8",
         lccNoPolicyNoLca: "sin objetivo público (Q10): los costes de cada socio, consolidados para la red",
         slcaOff: 'la dimensión social no está seleccionada (Q3)',
-        claim: 'los resultados respaldarán una declaración pública de superioridad o equivalencia (Q4 = C)',
+        claim: 'los resultados respaldarán una aseveración comparativa divulgada al público, de superioridad o de equivalencia (Q4 = C)',
         horizonFutureGeneric: 'el horizonte del estudio llega al futuro',
         horizonFutureYear: 'el sistema opera en un año futuro',
         label: 'Por qué:',
@@ -1100,6 +1100,7 @@ const es: Locale = {
       allClear:
         'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: abre el Data Collection File.',
       ctaHint: 'El Data Collection File está calibrado en esta configuración: solo pide lo que tu caso necesita.',
+      glossary: 'Tres tipos de elementos, con el mismo nombre en todas partes: las obligaciones son prácticas que tus respuestas activan; las prácticas estándar se piden a todo estudio y figuran en el Data Collection File; los puntos de decisión son tensiones entre los métodos, cada uno con la convención que propone la herramienta.',
     },
     actionKind: {
       block: 'Bloqueante',
@@ -1122,7 +1123,7 @@ const es: Locale = {
       title: 'Detalle técnico (salida del motor)',
       lead: 'Todo lo que la pipeline ha producido, para revisión y trazabilidad.',
     },
-    title: 'Salida del motor',
+    title: 'Tu resultado',
     summary: {
       ilcdSituation: 'Situación ILCD',
       lccType: 'Tipo LCC',
@@ -1180,6 +1181,8 @@ const es: Locale = {
     noChange: "No cambia nada en la configuración ni en las obligaciones.",
     addedRules: "Obligaciones añadidas",
     removedRules: "Obligaciones quitadas",
+    description_one: 'El caso y {{count}} escenario alternativo, cada uno ejecutado por el motor. Las celdas que difieren del caso están resaltadas.',
+    description_other: 'El caso y {{count}} escenarios alternativos, cada uno ejecutado por el motor. Las celdas que difieren del caso están resaltadas.',
   },
 
 
@@ -1258,6 +1261,10 @@ const es: Locale = {
       invalidCredentials: 'Email o contraseña incorrectos.',
       invalidEmail: 'Dirección de correo no válida: revisa la parte después de la @ (p. ej. nombre@empresa.es).',
       invalidInput: 'Revisa el correo y la contraseña (al menos 8 caracteres).',
+    },
+    roles: {
+      admin: 'administrador',
+      analyst: 'cuenta',
     },
   },
 
@@ -1363,7 +1370,7 @@ const es: Locale = {
       peerReview: 'Revisión independiente por pares: {{status}}',
       pef: 'Alineación EU PEF (Q4=D): {{status}}',
       pefC2: "Alineación EU PEF (Q4=D): no aplicada, el informe de una empresa usa asignación y no la Circular Footprint Formula (Situación ILCD C2)",
-      publicClaim: 'Afirmación pública (Q4=C): {{status}}',
+      publicClaim: 'Aseveración comparativa divulgada al público (Q4=C): {{status}}',
     },
   },
 
@@ -1488,6 +1495,13 @@ const es: Locale = {
     unwiredTitle: 'Flujos aún no dibujados',
     unwiredHint:
       'Estos flujos provienen de tus respuestas Q5. Conecta dos actores en el lienzo para enlazar el siguiente.',
+    roles: {
+      producer: 'productor',
+      consumer: 'usuario',
+      facilitator: 'facilitador',
+      regulator: 'regulador',
+      intermediary: 'intermediario',
+    },
   },
 
   cases: {

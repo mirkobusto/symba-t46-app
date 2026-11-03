@@ -96,7 +96,7 @@ export default function ScenariosResultPage() {
     <div className="result">
       <h1>{t('scenariosResult.title')}</h1>
       <p className="muted">
-        {t('scenariosResult.description', { n: sr.scenarios.length })}
+        {t('scenariosResult.description', { count: sr.scenarios.length })}
       </p>
 
       <div className="scenarios-table-wrap">
@@ -130,7 +130,7 @@ export default function ScenariosResultPage() {
                     {row.lccType ?? '—'}
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.slca, baselineRow.slca)}>
-                    {row.slca ?? '—'}
+                    {row.slca ? t(row.slca === 'active' ? 'common.yes' : 'common.no') : '—'}
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.activated, baselineRow.activated)}>
                     {row.activated}

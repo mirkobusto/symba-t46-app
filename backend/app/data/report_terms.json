@@ -198,7 +198,7 @@
    "q4": {
     "A": "A. Internal",
     "B": "B. External (no claim)",
-    "C": "C. Public superiority claim",
+    "C": "C. Comparative assertion disclosed to the public",
     "D": "D. EU policy alignment",
     "E": "E. Academic publication"
    },
@@ -740,7 +740,7 @@
    "q4": {
     "A": "A. Interno",
     "B": "B. Esterno (no claim)",
-    "C": "C. Claim pubblico di superiorità",
+    "C": "C. Asserzione comparativa divulgata al pubblico",
     "D": "D. Allineamento policy UE",
     "E": "E. Pubblicazione accademica"
    },
@@ -1282,7 +1282,7 @@
    "q4": {
     "A": "A. Interne",
     "B": "B. Externe (sans claim)",
-    "C": "C. Claim public de supériorité",
+    "C": "C. Affirmation comparative divulguée au public",
     "D": "D. Alignement politique UE",
     "E": "E. Publication académique"
    },
@@ -1824,7 +1824,7 @@
    "q4": {
     "A": "A. Intern",
     "B": "B. Extern (kein Claim)",
-    "C": "C. Öffentlicher Überlegenheits-Claim",
+    "C": "C. Zur Veröffentlichung bestimmte vergleichende Aussage",
     "D": "D. EU-Politik-Alignment",
     "E": "E. Akademische Publikation"
    },
@@ -2366,7 +2366,7 @@
    "q4": {
     "A": "A. Interno",
     "B": "B. Externo (sin claim)",
-    "C": "C. Claim público de superioridad",
+    "C": "C. Aseveración comparativa divulgada al público",
     "D": "D. Alineamiento con política UE",
     "E": "E. Publicación académica"
    },

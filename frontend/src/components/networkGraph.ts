@@ -54,16 +54,19 @@ export function actorNodes(
   }))
 }
 
-const COLUMN_GAP = 260
-const ROW_GAP = 160
+// top to bottom: an arrow leaves an actor from its bottom handle and enters
+// the next from the top, so layers are rows (left to right, the arrows looped
+// round the boxes and hid their labels)
+const LAYER_GAP = 200
+const SIBLING_GAP = 300
 
 /**
- * Positions for the actors, left to right by flow direction (round 5
+ * Positions for the actors, top to bottom by flow direction (round 5
  * deferred item, written here rather than with a layout library): each actor
- * sits one column after the actors that send it something (longest path),
+ * sits one layer below the actors that send it something (longest path),
  * cycles are broken at their back edges (A → B and B → A are legal
- * exchanges), actors are ordered within a column by the average row of their
- * neighbours (two sweeps), and actors with no flow go in a last column.
+ * exchanges), actors are ordered within a layer by the average place of their
+ * neighbours (two sweeps), and actors with no flow go in a last layer.
  */
 export function layeredLayout(
   actorIds: string[],
@@ -142,7 +145,7 @@ export function layeredLayout(
 
   const out: Record<string, DcfNodePosition> = {}
   columns.forEach((col, c) => col?.forEach((id, i) => {
-    out[id] = { x: 40 + c * COLUMN_GAP, y: 40 + i * ROW_GAP }
+    out[id] = { x: 40 + i * SIBLING_GAP, y: 40 + c * LAYER_GAP }
   }))
   return out
 }

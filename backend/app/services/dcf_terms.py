@@ -35,6 +35,10 @@ def language(lang: str | None) -> str:
     return code if code in LANGUAGES else "en"
 
 
+# values a field no longer offers but may still hold (see dcf_compose)
+_RETIRED_LABELS = {"flow.type": ("waste", "by_product")}
+
+
 def ui(lang: str, key: str, **params: Any) -> str:
     table = _terms()[language(lang)]["ui"]
     text = table.get(key) or _terms()["en"]["ui"].get(key, key)
@@ -88,6 +92,10 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
             field.reason = reason(code, field.activation_predicate)
             if field.enum_values:
                 field.enum_labels = {v: enum_label(code, v) for v in field.enum_values}
+                # a stored retired value is shown with its label, not as "—"
+                # (Fable review of #206)
+                for v in _RETIRED_LABELS.get(field.id, ()):
+                    field.enum_labels.setdefault(v, enum_label(code, v))
             elif field.enum_ref and field.enum_ref in terms.get("enum_refs", {}):
                 # the legacy sector values stay readable, but are not offered (UX round 4, P1-14)
                 field.enum_labels = {k: v for k, v in terms["enum_refs"][field.enum_ref].items()
@@ -177,15 +185,21 @@ def cover_rows(
     rows: list[tuple[str, str]] = [(ui(lang, "cover.case_id"), case_ref or payload.case_id)]
     if generated_on:
         rows.append((ui(lang, "cover.generated"), generated_on))
+    # the situation is not among the result rows (it heads the result page):
+    # name it here, or say there is none (Fable review of #206)
+    situation = (
+        (ui(lang, "cover.ilcd"), ui(lang, "cover.noIlcd")) if payload.costing_only
+        else (ui(lang, "cover.ilcd"), cover_value(lang, "ilcd", payload.ilcd_situation))
+    )
     if config_rows:
         # the result rows already carry the kind of study and the market (in
         # the reference scenario row): no second copy
+        rows.append(situation)
         rows.extend((r["label"], r["value"]) for r in config_rows if r.get("label"))
         return rows
     rows.append((ui(lang, "cover.purpose"), cover_value(lang, "purpose", payload.study_purpose)))
     rows.append((ui(lang, "cover.market"), cover_value(lang, "market", payload.reference_market)))
-    if not payload.costing_only:
-        rows.append((ui(lang, "cover.ilcd"), cover_value(lang, "ilcd", payload.ilcd_situation)))
+    rows.append(situation)
     rows.append((ui(lang, "cover.lcc"), cover_value(lang, "lcc", payload.lcc_type)))
     rows.append((ui(lang, "cover.slca"), cover_value(lang, "slca", payload.slca_activation_state)))
     return rows

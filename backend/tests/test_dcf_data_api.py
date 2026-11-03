@@ -500,6 +500,8 @@ def test_cover_carries_the_result_rows_the_case_id_and_the_date(client):
     assert cover["Case ID"] == slug
     assert cover["Generated on"] == datetime.now(UTC).date().isoformat()
     assert cover["Reference scenario"].endswith("(HNSRS)")
+    # the situation heads the result page, not its rows: the cover names it
+    assert cover["ILCD situation"].startswith("ILCD Situation")
     assert "Schema version" not in cover
     assert f'DCF_{slug}_' in r.headers["content-disposition"]
 
@@ -508,8 +510,7 @@ def test_a_costing_only_cover_has_no_ilcd_situation(client):
     body = {**WIKTOR_BODY, "q3": {"env": False, "eco": True, "soc": False}}
     case_id = client.post("/api/cases", json={"name": "costing", "case": body}).json()["id"]
     cover = _cover_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content)
-    assert "ILCD situation" not in cover
-    assert "Costing" in " ".join(cover) or any("LCC" in str(v) for v in cover.values())
+    assert cover["ILCD situation"].startswith("None: a costing-only study")
 
 
 def test_a_draft_export_accepts_the_rows_too(client):
@@ -529,3 +530,23 @@ def test_flow_type_no_longer_offers_waste_but_accepts_it_when_stored(client):
     data = _two_actors_one_flow(case_id)  # stores flow.type = "waste"
     r = client.put(f"/api/dcf/{case_id}/data", json=data)
     assert r.status_code == 200, r.text
+
+
+def test_a_stored_retired_value_is_shown_with_its_label(client):
+    """flow.type no longer offers "waste" but a stored one keeps its label."""
+    preview = client.post("/api/dcf/preview", json=WIKTOR_BODY).json()
+    [matrix] = [s for s in preview["sections"] if s["id"] == "flow_matrix"]
+    [ftype] = [f for f in matrix["fields"] if f["id"] == "flow.type"]
+    assert "waste" not in ftype["enum_values"]
+    assert ftype["enum_labels"]["waste"] == "waste"
+
+
+def test_both_dashboards_count_a_costing_only_study_without_ilcd(client):
+    body = {**WIKTOR_BODY, "q3": {"env": False, "eco": True, "soc": False}}
+    case_id = client.post("/api/cases", json={"name": "costing", "case": body}).json()["id"]
+    client.post(f"/api/cases/{case_id}/share", json={"shared": True})
+    private = client.get("/api/cases/aggregate/breakdown").json()["by_ilcd_situation"]
+    public = client.get("/api/public/region/IT").json()["by_ilcd_situation"]
+    # both say "no situation", each in its own format
+    assert [e["key"] for e in private] == ["(none)"]
+    assert len(public) == 1 and "ILCD" not in str(public[0])

@@ -131,13 +131,17 @@ def public_region_aggregate(
     rows = db.execute(select(CaseRecord).where(CaseRecord.shared_at.is_not(None))).scalars().all()
     ilcd_counter: Counter[str | None] = Counter()
     sector_counter: Counter[str | None] = Counter()
+    from app.routers.cases import shown_ilcd
+
     for r in rows:
-        ilcd_counter[r.ilcd_situation] += 1
         try:
             case = Case.model_validate_json(r.case_json)
         except Exception:
+            ilcd_counter[None] += 1
             sector_counter[None] += 1
             continue
+        # from the case, as the private dashboard counts it (Fable review of #206)
+        ilcd_counter[shown_ilcd(case)] += 1
         sector_counter[case.q6a.value if case.q6a else None] += 1
 
     def _fmt(counter: Counter[str | None]) -> list[dict[str, Any]]:

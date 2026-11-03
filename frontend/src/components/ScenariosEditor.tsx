@@ -78,12 +78,21 @@ function nextId(existing: AlternativeScenario[]): string {
   return `alt${n}`
 }
 
+/** Keys a scenario cannot change: the flows, the scenarios themselves and
+ * what the engine writes. */
+const NOT_OVERRIDABLE = new Set([
+  'id', 'flows', 'sites', 'alternative_scenarios', 'activated_nodes', 'blocked_by',
+  'rule_violations', 'applicable_rules', 'warnings', 'cdp_flags', 'sector_rules',
+  'ilcd_situation', 'lcc_type', 'slca_activation_state', 'lca', 'lcc', 'slca', 'report',
+  'governance', 'methodological_charter', 'review', 'system',
+])
+
 export default function ScenariosEditor({ scenarios, onChange }: Props) {
   const { t } = useTranslation()
   // raw JSON per scenario while it is being edited, so a half-typed object
   // is not lost; cleared whenever the form changes the overrides
   const [rawOverrides, setRawOverrides] = useState<Record<string, string>>({})
-  const [parseErrors, setParseErrors] = useState<Record<string, boolean>>({})
+  const [parseErrors, setParseErrors] = useState<Record<string, boolean | 'notOverridable'>>({})
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   function addScenario() {
@@ -144,6 +153,12 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
       const parsed = JSON.parse(raw) as unknown
       if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
         throw new Error('Overrides must be a JSON object')
+      }
+      // a scenario changes answers of the questionnaire, not the flows or the
+      // engine output: such keys were accepted and the run failed silently (P7-11)
+      if (Object.keys(parsed).some((k) => NOT_OVERRIDABLE.has(k))) {
+        setParseErrors({ ...parseErrors, [id]: 'notOverridable' })
+        return
       }
       setParseErrors({ ...parseErrors, [id]: false })
       updateScenario(id, { overrides: parsed as Record<string, unknown> })
@@ -306,7 +321,9 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                       />
                       {hasError ? (
                         <p className="opt-warn">
-                          {t('scenariosResult.overridesParseError', { id: s.label || s.id })}
+                          {hasError === 'notOverridable'
+                            ? t('scenariosResult.overridesNotAllowed')
+                            : t('scenariosResult.overridesParseError', { id: s.label || s.id })}
                         </p>
                       ) : null}
                     </details>

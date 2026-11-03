@@ -203,3 +203,25 @@ def test_stored_rows_keep_their_values_but_follow_the_questionnaire_name_and_q5(
     data = with_case_flows(stored, case, "case-1")
     [row] = data.rows_by_section["flow_matrix"]
     assert row.values == {"flow.name": "sludge", "flow.q5_class": "d", "flow.unit": "t/y"}
+
+
+def test_edge_list_falls_back_to_the_projected_quantity():
+    """A flow that does not run yet has only a projected quantity (P7-12)."""
+    from app.engine.dcf_rows import edge_list
+
+    data = DcfData(
+        case_id="c",
+        rows_by_section={
+            "actors": [DcfRow(row_id="a1", values={"actor.name": "A"}),
+                       DcfRow(row_id="a2", values={"actor.name": "B"})],
+            "flow_matrix": [
+                DcfRow(row_id="f1", values={"flow.origin_actor_id": "a1", "flow.dest_actor_id": "a2",
+                                            "flow.quantity_projected": 300}),
+                DcfRow(row_id="f2", values={"flow.origin_actor_id": "a2", "flow.dest_actor_id": "a1",
+                                            "flow.quantity_projected": {"baseline": 50, "alt": 80}}),
+                DcfRow(row_id="f3", values={"flow.origin_actor_id": "a1", "flow.dest_actor_id": "a2",
+                                            "flow.quantity_measured": 10, "flow.quantity_projected": 99}),
+            ],
+        },
+    )
+    assert [e["quantity"] for e in edge_list(data)] == [300, 50, 10]

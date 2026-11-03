@@ -169,6 +169,9 @@ const fr: Locale = {
     noContact: 'Pour les questions sur ce cas, adressez-vous à la personne qui vous a envoyé le lien. SYMBA a construit l\'outil ; il ne réalise pas cette étude.',
     whatYouCanDo: 'Cette étude est encore en préparation. Si vous voulez que les habitants soient entendus (entretiens, questionnaires), ou si le trafic, les odeurs ou ce qui est épandu sur les champs vous inquiètent, écrivez à la personne qui l\'a préparée : {{contact}}. Les résultats, une fois chargés, apparaîtront sur cette même page, au même lien.',
     whatYouCanDoTitle: 'Ce que vous pouvez faire',
+    dataRequestTitle: 'Si l\'on vous demande des données',
+    dataRequest: 'La personne qui réalise l\'étude envoie à chaque entreprise un classeur Excel, le Data Collection File : vos lignes sont les flux que votre entreprise cède ou reçoit (quantités, transport, coûts, équipements concernés). Remplissez-le et renvoyez-le à {{contact}}. Seule la personne qui réalise l\'étude le crée et le modifie ; il ne se remplit pas sur cette page.',
+    dataRequestNoContact: 'La personne qui réalise l\'étude envoie à chaque entreprise un classeur Excel, le Data Collection File : vos lignes sont les flux que votre entreprise cède ou reçoit (quantités, transport, coûts, équipements concernés). Remplissez-le et renvoyez-le à qui vous l\'a envoyé. Seule la personne qui réalise l\'étude le crée et le modifie ; il ne se remplit pas sur cette page.',
   },
 
   welcome: {
@@ -813,7 +816,7 @@ const fr: Locale = {
   },
 
   scenarios: {
-    intro: "Un scénario change quelques réponses du questionnaire, et le moteur l'exécute à côté du cas : la comparaison montre ensuite ce que le changement modifie dans la configuration et les obligations. Comparer des réseaux différents (où va un flux, à quelle distance, à quel prix) est une autre comparaison : dessinez les alternatives dans l'éditeur de réseau ; l'outil ne les compare pas encore.",
+    intro: 'Un scénario change quelques réponses du questionnaire et le moteur le calcule à côté du cas : la page de résultats montre ce que le changement fait à la configuration et aux obligations. Il ne peut pas changer où va un flux, à quelle distance ou à quel prix : l\'éditeur de réseau contient un seul réseau par cas, notez donc une telle alternative dans les hypothèses de scénario du flux dans le Data Collection File (demandées quand les échanges n\'ont pas encore lieu ou qu\'un scénario est défini) ; l\'outil ne compare pas encore des réseaux différents.',
     emptyHint: 'Aucun scénario alternatif.',
     headers: { id: 'ID', label: 'Étiquette' },
     labelPlaceholder: 'ex. Expansion future / TRL9 ramp-up',
@@ -920,10 +923,11 @@ const fr: Locale = {
       title: 'Ce que cela signifie pour vous',
       lead: 'L\'outil a établi comment l\'étude de votre cas doit être conçue et de quelles données elle a besoin. Il ne calcule pas si l\'échange est rentable ou bon pour l\'environnement : c\'est le travail d\'un analyste ou d\'un consultant, avec les données que vous collectez.',
       step1: 'Enregistrez le cas pour le retrouver. Il faut un compte gratuit ; sans compte, le cas reste seulement dans ce navigateur.',
-      step2: 'Ouvrez le Data Collection File et téléchargez l\'Excel : votre personnel remplit les feuilles sur les acteurs, les flux, la logistique et les coûts.',
+      step2: 'Ouvrez le Data Collection File, dessinez les entreprises et les échanges, puis téléchargez l\'Excel : vos équipes remplissent les feuilles sur les acteurs, les flux, la logistique et les coûts.',
       step3: 'Remettez le fichier et le rapport à qui réalisera l\'étude (un analyste, un consultant, une université) : les points techniques plus bas sont pour lui.',
       analystTitle: 'Points pour l\'analyste ({{count}})',
       step1Saved: '✓ Enregistré sous « {{name}} » : vous le retrouvez dans Mes cas.',
+      step1SignedIn: 'Enregistrez le cas pour le retrouver dans Mes cas.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1226,6 +1230,8 @@ const fr: Locale = {
     diffSuffix: '(diff)',
     overridesPlaceholder: "ex. {\"q2\": \"B\"} ou {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Les overrides doivent être du JSON valide pour {{id}}',
+    overridesNotAllowed: 'Un scénario ne change que des réponses du questionnaire (celles listées sous « Question ») : les flux et ce qu\'écrit le moteur ne se modifient pas ici. Pour décrire un flux qui va ailleurs, notez-le dans les hypothèses de scénario de ce flux dans le Data Collection File.',
+    failed: 'Ce scénario n\'a pas pu être calculé, il n\'y a donc rien à comparer : {{detail}}',
     whatChanges: "ce qui change par rapport au cas",
     noChange: "Rien ne change dans la configuration ni dans les obligations.",
     addedRules: "Obligations ajoutées",
@@ -1477,7 +1483,7 @@ const fr: Locale = {
       whoAnalyst: 'Décidé par l\'analyste qui réalise l\'étude',
     },
     diagram: { whoGives: "Qui le cède ?\n({{flow}})", whoReceives: "Qui le reçoit ?\n({{flow}})" },
-    noCase: { title: 'Aucun cas pour l\'instant', desc: 'Le Data Collection File se construit à partir de votre évaluation : remplissez d\'abord le questionnaire (ou ouvrez un cas enregistré), puis revenez ici.', cta: 'Ouvrir le questionnaire' },
+    noCase: { title: 'Aucun cas pour l\'instant', desc: 'Le Data Collection File se construit à partir de votre évaluation : remplissez d\'abord le questionnaire (ou ouvrez un cas enregistré), puis revenez ici.', cta: 'Ouvrir le questionnaire', received: 'Vous avez reçu le classeur d\'un analyste ? Alors il n\'y a rien à faire ici : remplissez le fichier Excel et renvoyez-le-lui.' },
     derivedField: "rempli par le moteur",
     obligationsTitle: "Choix méthodologiques à documenter",
     navLink: 'Collecte de données',
@@ -1592,7 +1598,8 @@ const fr: Locale = {
     publicLink: "Lien public",
     navLink: 'Mes cas',
     title: 'Mes cas',
-    intro: 'Cas sauvegardés sur le serveur. Chargez pour remplir le questionnaire, ou supprimez pour retirer définitivement.',
+    intro: 'Cas enregistrés sur le serveur. Charger ouvre le cas (son résultat, s\'il est déjà calculé) ; de là, « Modifier les réponses » les change et « Enregistrer les modifications » les conserve. Supprimer retire un cas définitivement.',
+    loadReplaceConfirm: 'Charger ce cas remplace les réponses sur lesquelles vous travaillez, qui ne sont pas enregistrées. Continuer ?',
     empty: 'Aucun cas sauvegardé. Sauvegardez un cas depuis le questionnaire ou la page de résultat.',
     columns: {
       name: 'Nom',

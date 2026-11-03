@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import ActionItemCard from '../components/dd/ActionItemCard'
 import VerdictDetails from '../components/dd/VerdictDetails'
@@ -40,6 +40,7 @@ function isTextInputTarget(target: EventTarget | null): boolean {
 export default function ResultPage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation() as { state?: { then?: string } }
   const result = useCaseStore((s) => s.result)
   const error = useCaseStore((s) => s.error)
   const reset = useCaseStore((s) => s.reset)
@@ -66,7 +67,7 @@ export default function ResultPage() {
     if (!signedIn && anonymousSave === false) {
       pushToast({ type: 'info', message: t('cases.signInToSave'), durationMs: 8000 })
       // come back here after signing in, so the case can be saved at once (UX round 2026-11-03)
-      navigate('/login', { state: { from: '/result' } })
+      navigate('/login', { state: { from: '/result', then: 'save' } })
       return true
     }
     return false
@@ -201,6 +202,21 @@ export default function ResultPage() {
     const out = await runScenariosFromDraft()
     if (out) navigate('/scenarios-result')
   }
+
+  // Back from signing in to save the case: open the save dialog at once
+  // instead of leaving the user to find the button again (UX round 5, P4-12).
+  const resumeSave = location.state?.then === 'save'
+  useEffect(() => {
+    if (!resumeSave || !signedIn || !result) return
+    const id = window.setTimeout(() => {
+      // drop the intent first, so a reload does not ask again
+      navigate('/result', { replace: true, state: null })
+      void (serverCaseId ? handleSaveChanges() : handleSaveCase())
+    }, 0)
+    return () => window.clearTimeout(id)
+    // runs once, on the way back from the sign-in page
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resumeSave, signedIn])
 
   // Keyboard shortcuts on the Result page:
   //   R -> toggle reasoning panel
@@ -349,7 +365,9 @@ export default function ResultPage() {
           <ol>
             <li>{serverCaseId
               ? t('result.guided.step1Saved', { name: serverCaseName ?? '' })
-              : t('result.guided.step1')}</li>
+              : signedIn
+                ? t('result.guided.step1SignedIn')
+                : t('result.guided.step1')}</li>
             <li>{t('result.guided.step2')}</li>
             <li>{t('result.guided.step3')}</li>
           </ol>

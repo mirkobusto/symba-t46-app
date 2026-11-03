@@ -210,6 +210,16 @@ export default function PublicReportPage() {
           title={t('reader.summaryTitle')}
         />
       ) : null}
+      {validAudience === 'industry' ? (
+        // a company sent this link did not learn what it would be asked for, nor
+        // that the request arrives as an Excel workbook (UX round 5, P2-11, P6-10)
+        <section className="dd-reader-todo">
+          <h2 className="dd-section-title">{t('reader.dataRequestTitle')}</h2>
+          <p>{report.case_contact
+            ? t('reader.dataRequest', { contact: report.case_contact })
+            : t('reader.dataRequestNoContact')}</p>
+        </section>
+      ) : null}
       {validAudience === 'community' ? (
         // residents asked what they could do next (UX round 4, B3, decided by Fable)
         <section className="dd-reader-todo">

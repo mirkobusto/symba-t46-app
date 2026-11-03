@@ -86,9 +86,11 @@ export default function ScenariosResultPage() {
   }
 
   const baselineRow = rowFromCase('baseline', t('scenariosResult.baselineLabel'), sr.baseline)
-  const scenarioRows = sr.scenarios.map((s) =>
-    rowFromCase(s.id, s.label || s.id, s.result),
-  )
+  // a scenario that could not be run has no configuration to compare: it is
+  // reported below, not as a row of dashes (Fable review of #205)
+  const scenarioRows = sr.scenarios
+    .filter((s) => !s.error)
+    .map((s) => rowFromCase(s.id, s.label || s.id, s.result))
   const allRows = [baselineRow, ...scenarioRows]
 
   function diffClass<T>(value: T, baseline: T): string {
@@ -153,6 +155,16 @@ export default function ScenariosResultPage() {
       </div>
 
       {sr.scenarios.map((sc) => {
+        if (sc.error) {
+          // an invalid scenario used to show an empty row and every obligation
+          // "removed" (UX round 5, P7-11)
+          return (
+            <section key={sc.id} className="scenario-diff">
+              <h2 className="result-notes-title">{sc.label || sc.id}</h2>
+              <p className="error-text">{t('scenariosResult.failed', { detail: sc.error })}</p>
+            </section>
+          )
+        }
         const d = diffAgainst(sr.baseline, sc.result, t as never, i18n.language)
         const nothing = d.rows.length === 0 && d.added.length === 0 && d.removed.length === 0
         return (

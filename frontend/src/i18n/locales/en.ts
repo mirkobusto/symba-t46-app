@@ -1631,6 +1631,8 @@ const en = {
     confirmRemoveActorFlows_other: 'Remove "{{name}}"? Its {{count}} arrows go back to the flows not yet drawn, with their values.',
     panelActor: 'Actor',
     panelFlow: 'Flow',
+    panelClassification: 'Classification and substitution (the analyst decides)',
+    classificationNote: 'Legal and economic tests of this flow and, if it replaces a product, what it replaces. The same columns are in the Excel file.',
     signInToSave: 'Sign in with the account that saved this case to save the network.',
     missingGoTo: 'Go to the first empty required field',
     givesReceives: 'gives {{gives}} · receives {{receives}}',

@@ -1610,6 +1610,8 @@ const it: Locale = {
     confirmRemoveActorFlows_other: 'Rimuovere «{{name}}»? Le sue {{count}} frecce tornano fra i flussi da disegnare, con i loro valori.',
     panelActor: 'Attore',
     panelFlow: 'Flusso',
+    panelClassification: 'Classificazione e sostituzione (decide l\'analista)',
+    classificationNote: 'Test giuridici ed economici di questo flusso e, se sostituisce un prodotto, che cosa sostituisce. Le stesse colonne sono nel file Excel.',
     signInToSave: 'Accedi con l\'account che ha salvato questo caso per salvare la rete.',
     missingGoTo: 'Vai al primo campo obbligatorio vuoto',
     givesReceives: 'cede {{gives}} · riceve {{receives}}',

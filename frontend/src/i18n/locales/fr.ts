@@ -1590,6 +1590,8 @@ const fr: Locale = {
     confirmRemoveActorFlows_other: 'Supprimer « {{name}} » ? Ses {{count}} flèches retournent parmi les flux à dessiner, avec leurs valeurs.',
     panelActor: 'Acteur',
     panelFlow: 'Flux',
+    panelClassification: 'Classification et substitution (l\'analyste décide)',
+    classificationNote: 'Tests juridiques et économiques de ce flux et, s\'il remplace un produit, ce qu\'il remplace. Les mêmes colonnes figurent dans le fichier Excel.',
     signInToSave: 'Connectez-vous avec le compte qui a enregistré ce cas pour enregistrer le réseau.',
     missingGoTo: 'Aller au premier champ obligatoire vide',
     givesReceives: 'cède {{gives}} · reçoit {{receives}}',

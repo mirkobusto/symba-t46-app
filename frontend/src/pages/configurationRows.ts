@@ -133,6 +133,29 @@ export function configurationRows(
           : t('result.config.why.horizonPresent', { threshold }),
       nodeText: texts(lca['background_futurisation'], lcc['background_dynamic']),
     })
+
+    // Scale-up and Pedigree, which CIR-07 and CIR-02 name only when both LCA and
+    // LCC are on (#214): the single-method study reads them here (D4.1 L01132-L01148,
+    // D4.2 L00845, L00875-L00907; Fable, 2026-11-03)
+    const lowTrl = kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5'
+    const scaleUp = lowTrl && (activated.has('lca_mc_20') || activated.has('lcc_hc_15'))
+    const pedigree = kase.q2 === 'B'
+    if (scaleUp || pedigree) {
+      rows.push({
+        key: 'prospective',
+        label: label('prospective'),
+        value: [
+          ...(scaleUp ? [t('result.config.values.prospectiveScaleUp')] : []),
+          ...(pedigree ? [t('result.config.values.prospectivePedigree')] : []),
+        ].join('; '),
+        why: [
+          ...(scaleUp ? [t('result.config.why.horizonTrl')] : []),
+          ...(pedigree ? [t('result.config.why.referenceNotYet')] : []),
+        ].join('; '),
+        nodeText: texts(lca['scale_up_framework'], lcc['scale_up_framework'],
+          lca['uncertainty.pedigree'], lcc['uncertainty.pedigree']),
+      })
+    }
   }
 
   // the LCC shares the reference scenario of the LCA, done or not (D4.2 L00725)

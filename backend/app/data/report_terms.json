@@ -392,7 +392,7 @@
     },
     "CIR-10": {
      "name": "Real-World Failure Modes",
-     "body": "The interpretation of every method discusses the documented failure modes of real symbioses — end-of-life undercosting of shared infrastructure, supply-chain and logistics failures, biological variability (5-66 % production losses), commodity price discontinuities — as part of the assessment, with the stress tests D4.2 asks for: production losses of 20 %, 50 % and 66 %, end-of-life costs two to five times the base case (CIR-10; D4.2 §12.3, §13)."
+     "body": "The LCC interpretation discusses the documented failure modes of real symbioses — end-of-life undercosting of shared infrastructure, supply-chain and logistics failures, biological variability (5-66 % production losses), commodity price discontinuities — as part of the assessment, not in a risk appendix, with the stress tests D4.2 asks for: production losses of 20 %, 50 % and 66 %, end-of-life costs two to five times the base case. Where an LCA or an S-LCA runs alongside, the same failure scenarios are carried into their interpretation, so that the methods stress one network — a T4.6 reading, since D4.1 and D4.3 do not name these failure modes (CIR-10; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Function-Oriented FU Default",
@@ -936,7 +936,7 @@
     },
     "CIR-10": {
      "name": "Modalità di guasto nel mondo reale",
-     "body": "L'interpretazione di ogni metodo discute le modalità di guasto documentate delle simbiosi reali — sottostima dei costi di fine vita delle infrastrutture condivise, guasti logistici e di fornitura, variabilità biologica (perdite di produzione del 5-66 %), discontinuità dei prezzi — come parte della valutazione, con le prove di stress della D4.2: perdite del 20, 50 e 66 %, costi di fine vita da due a cinque volte il caso base (CIR-10; D4.2 §12.3, §13)."
+     "body": "L'interpretazione dell'LCC discute le modalità di guasto documentate delle simbiosi reali — sottostima dei costi di fine vita delle infrastrutture condivise, guasti logistici e di fornitura, variabilità biologica (perdite di produzione del 5-66 %), discontinuità dei prezzi — come parte della valutazione e non in un'appendice sui rischi, con le prove di stress della D4.2: perdite del 20, 50 e 66 %, costi di fine vita da due a cinque volte il caso base. Dove un'LCA o un'S-LCA corre in parallelo, gli stessi scenari di guasto entrano nella loro interpretazione, così che i metodi mettano alla prova una sola rete — una lettura di T4.6, perché D4.1 e D4.3 non nominano queste modalità di guasto (CIR-10; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Unità funzionale orientata alla funzione",
@@ -1480,7 +1480,7 @@
     },
     "CIR-10": {
      "name": "Modes de défaillance en conditions réelles",
-     "body": "L'interprétation de chaque méthode discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances logistiques et d'approvisionnement, variabilité biologique (pertes de production de 5 à 66 %), ruptures de prix — comme partie de l'évaluation, avec les tests de résistance demandés par la D4.2 : pertes de production de 20, 50 et 66 %, coûts de fin de vie de deux à cinq fois le cas de base (CIR-10; D4.2 §12.3, §13)."
+     "body": "L'interprétation de l'ACC discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières — comme partie de l'évaluation et non dans une annexe sur les risques, avec les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu'une ACV ou une ACV sociale est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau — une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Unité fonctionnelle orientée fonction",
@@ -2024,7 +2024,7 @@
     },
     "CIR-10": {
      "name": "Ausfallarten im realen Betrieb",
-     "body": "Die Interpretation jeder Methode erörtert die dokumentierten Ausfallmuster realer Symbiosen — unterschätzte Rückbaukosten gemeinsamer Infrastruktur, Liefer- und Logistikausfälle, biologische Schwankungen (Produktionsverluste von 5-66 %), Preisbrüche — als Teil der Bewertung, mit den Stresstests der D4.2: Produktionsverluste von 20, 50 und 66 %, Rückbaukosten zwei- bis fünfmal so hoch wie im Basisfall (CIR-10; D4.2 §12.3, §13)."
+     "body": "Die Interpretation der Lebenszykluskostenrechnung erörtert die dokumentierten Versagensarten realer Symbiosen — Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen — als Teil der Bewertung und nicht in einem Risikoanhang, mit den Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine Ökobilanz oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen — eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Funktionsorientierte funktionelle Einheit",
@@ -2568,7 +2568,7 @@
     },
     "CIR-10": {
      "name": "Modos de fallo en condiciones reales",
-     "body": "La interpretación de cada método discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de la infraestructura compartida, fallos logísticos y de suministro, variabilidad biológica (pérdidas de producción del 5-66 %), rupturas de precios — como parte de la evaluación, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20, 50 y 66 %, costes de fin de vida de dos a cinco veces el caso base (CIR-10; D4.2 §12.3, §13)."
+     "body": "La interpretación del ACC discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas — como parte de la evaluación y no en un anexo de riesgos, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un ACV o un ACV social se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red — una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Unidad funcional orientada a la función",

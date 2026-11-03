@@ -586,7 +586,7 @@
       "source_nodes": [
         "lcc_hc_30"
       ],
-      "violation_message": "The interpretation of every method discusses the documented failure modes of real symbioses — end-of-life undercosting of shared infrastructure, supply-chain and logistics failures, biological variability (5-66 % production losses), commodity price discontinuities — as part of the assessment, with the stress tests D4.2 asks for: production losses of 20 %, 50 % and 66 %, end-of-life costs two to five times the base case (CIR-10; D4.2 §12.3, §13)."
+      "violation_message": "The LCC interpretation discusses the documented failure modes of real symbioses — end-of-life undercosting of shared infrastructure, supply-chain and logistics failures, biological variability (5-66 % production losses), commodity price discontinuities — as part of the assessment, not in a risk appendix, with the stress tests D4.2 asks for: production losses of 20 %, 50 % and 66 %, end-of-life costs two to five times the base case. Where an LCA or an S-LCA runs alongside, the same failure scenarios are carried into their interpretation, so that the methods stress one network — a T4.6 reading, since D4.1 and D4.3 do not name these failure modes (CIR-10; D4.2 §12.3, §13)."
     }
   ],
   "fu_rules": [

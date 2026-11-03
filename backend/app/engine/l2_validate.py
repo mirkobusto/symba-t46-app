@@ -525,8 +525,10 @@ def _action_cir_05(c: Case) -> None:
         if c.q3.env:
             # without a parallel LCA there are no impacts to monetise (D4.2 §11.2; lcc_mc_19)
             _write_unless_set(c, "lcc.externality_monetization", "CE_Delft_EU")
-        _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice kept on 2026-10-04, "
-                          "since D4.2 ties the NTF to the S-LCC (§2.2)")
+            # nor an E-LCC, so no LCC half of CIR-05 (#119; Fable, 2026-11-03): an
+            # LCC-only study gets the NTF only from its S-LCC, through lcc_trig_01
+            _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice kept on "
+                              "2026-10-04, since D4.2 ties the NTF to the S-LCC (§2.2)")
     # the EF method replaces the per-category choice of lca_mc_25, not the
     # regionalised characterisation that follows Q7 (D4.1 §12.3.3; review 2026-10-18)
     _write_unless_set(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")
@@ -567,6 +569,9 @@ def _action_cir_09(c: Case) -> None:
 
 
 def _action_cir_10(c: Case) -> None:
+    # the failure modes and their stress tests are D4.2's alone (L01455, L01509-L01513)
+    if _pillar_is_off(c, "lcc"):
+        return
     _write_unless_set(c, "lca.report.failure_modes", "Failure modes integral, not appendix")
     _write_unless_set(c, "lcc.report.failure_modes", "Failure modes integral, not appendix")
     _write_unless_set(c, "slca.report.failure_modes", "Failure modes integral, not appendix")
@@ -594,7 +599,9 @@ _ACTION_FNS: dict[str, Callable[[Case], None]] = {
 # CIR-05 the E-LCC mirroring the CFF, and no E-LCC without an LCA (D4.2 L00649,
 # #119; lca_mc_13/14/25, lcc_mc_19), CIR-07 both scale-ups (D4.1 L01134-L01142,
 # D4.2 L00901-L00907; lca_mc_20, lcc_hc_15). CIR-09 is the LCC charter
-# (D4.2 L00853), CIR-08 the S-LCA. CIR-10 holds with any method.
+# (D4.2 L00853), CIR-08 the S-LCA, CIR-10 the LCC: its failure modes and stress
+# tests come from D4.2 only (L01455, L01509-L01513), and an LCA or S-LCA running
+# alongside carries the same scenarios.
 _CIR_METHODS: dict[str, tuple[str, ...]] = {
     "CIR-01": ("lca", "lcc"),
     "CIR-02": ("lca", "lcc"),
@@ -602,7 +609,7 @@ _CIR_METHODS: dict[str, tuple[str, ...]] = {
     "CIR-07": ("lca", "lcc"),
     "CIR-08": ("slca",),
     "CIR-09": ("lcc",),
-    "CIR-10": (),
+    "CIR-10": ("lcc",),
 }
 
 

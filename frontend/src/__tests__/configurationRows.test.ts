@@ -24,7 +24,7 @@ describe('configurationRows', () => {
   it('says what the answers decided, with the reason', async () => {
     await i18n.changeLanguage('en')
     const rows = Object.fromEntries(configurationRows(BASE, t).map((r) => [r.key, r]))
-    expect(Object.keys(rows)).toEqual(['lcc', 'slca', 'horizon', 'reference', 'multifunctionality', 'fu', 'regional', 'claim', 'shared'])
+    expect(Object.keys(rows)).toEqual(['lcc', 'slca', 'horizon', 'prospective', 'reference', 'multifunctionality', 'fu', 'regional', 'claim', 'shared'])
     expect(rows.claim.value).toBe('No comparative assertion disclosed to the public')
     expect(rows.slca.value).toBe('Not included')
     expect(rows.slca.why).toMatch(/Q3/)
@@ -45,6 +45,21 @@ describe('configurationRows', () => {
 })
 
 describe('configurationRows edge cases', () => {
+  it('names scale-up and Pedigree for a single-method study (#214)', async () => {
+    await i18n.changeLanguage('en')
+    const eco = configurationRows({ ...BASE, q3: { env: false, eco: true, soc: false }, q6b: 'TRL7-8',
+      lcc: { 'uncertainty.pedigree': 'Pedigree Matrix: five indicators' } }, t)
+      .find((r) => r.key === 'prospective')!
+    expect(eco.value).toBe('Data quality of every entry scored on the five Pedigree indicators')
+    expect(eco.nodeText).toEqual(['Pedigree Matrix: five indicators'])
+    const env = configurationRows({ ...BASE, q2: 'A', q3: { env: true, eco: false, soc: false }, q6b: 'TRL5-6',
+      activated_nodes: ['lca_mc_20'] }, t).find((r) => r.key === 'prospective')!
+    expect(env.value).toMatch(/^Lab or pilot data/)
+    expect(env.why).toBe('the key technology is below TRL 7')
+    const none = configurationRows({ ...BASE, q2: 'A', q6b: 'TRL9' }, t)
+    expect(none.some((r) => r.key === 'prospective')).toBe(false)
+  })
+
   it('strict reporting of one company uses no reference scenario for credits', async () => {
     await i18n.changeLanguage('en')
     const rows = configurationRows({ ...BASE, ilcd_situation: 'ILCD Situation C2', lcc_type: 'C-LCC' }, t)

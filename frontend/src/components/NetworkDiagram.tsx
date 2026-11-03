@@ -19,7 +19,9 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
-import { actorNodes, edgeOffsets, flowEdges, nodeClassName } from './networkGraph'
+import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
+
+import { actorNodes, edgeShifts, flowEdges, nodeClassName } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
@@ -62,15 +64,15 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
       className: nodeClassName(node),
     }))
     const drawn = flowEdges(flowRows)
-    const offsets = edgeOffsets(drawn)
+    const shifts = edgeShifts(drawn)
     // arrowheads and apart parallel arrows, as in the editor (UX round 5)
     const edges: Edge[] = drawn.map((edge) => ({
       id: edge.id,
       source: edge.source,
       target: edge.target,
       label: edge.label ?? undefined,
-      type: 'smoothstep',
-      pathOptions: { offset: offsets[edge.id], borderRadius: 10 },
+      type: 'flow',
+      data: { shift: shifts[edge.id] },
       markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
       style: { strokeWidth: 2 },
       className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
@@ -118,6 +120,8 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
         target: destId,
         label: flow.name,
         animated: false,
+        markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
+        style: { strokeWidth: 2 },
       })
     })
 
@@ -161,6 +165,7 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
           edges={drawn ? drawnGraph.edges : edges}
           nodesDraggable={false}
           nodesConnectable={false}
+          edgeTypes={FLOW_EDGE_TYPES}
           fitView
         >
           <Background />

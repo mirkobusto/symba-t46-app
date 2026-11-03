@@ -25,6 +25,8 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
+import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
+
 import DcfRowFields from './DcfRowFields'
 import { actorNodes, flowEdges, nodeClassName, unwiredFlows } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
@@ -40,7 +42,7 @@ import {
 import { askChoice, askConfirm } from '../store/dialogStore'
 import { useAuthStore } from '../store/authStore'
 import { useToastStore } from '../store/toastStore'
-import { edgeOffsets } from './networkGraph'
+import { edgeShifts } from './networkGraph'
 
 interface Props {
   payload: DcfPayload
@@ -133,7 +135,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
 
   const edges: Edge[] = useMemo(() => {
     const drawn = flowEdges(flowRows)
-    const offsets = edgeOffsets(drawn)
+    const shifts = edgeShifts(drawn)
     return drawn.map((edge) => ({
       id: edge.id,
       source: edge.source,
@@ -141,11 +143,10 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       label: edge.label ?? undefined,
       // the direction decides who gives and who receives: it has to show
       // (P5-02); parallel arrows between the same actors must not overlap (P1-03)
-      type: 'smoothstep',
-      pathOptions: { offset: offsets[edge.id], borderRadius: 10 },
+      type: 'flow',
+      data: { shift: shifts[edge.id] },
       markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
       style: { strokeWidth: 2 },
-      labelBgPadding: [4, 2] as [number, number],
       className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
       selected: selection?.rowId === edge.id,
     }))
@@ -274,6 +275,9 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       if (!section?.active) continue
       const required = section.fields.filter((f) => f.required && !f.derived)
       for (const row of data.rows_by_section[sectionId] ?? []) {
+        // a row outside the questionnaire is to remove, not to fill in
+        if (sectionId === FLOW_MATRIX_SECTION && !caseFlowIds.includes(row.row_id)
+          && !row.row_id.startsWith('ex-')) continue
         for (const f of required) {
           const v = row.values[f.id]
           if (v === undefined || v === null || (typeof v === 'string' && v.trim() === '')) {
@@ -283,7 +287,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       }
     }
     return out
-  }, [payload, data])
+  }, [payload, data, caseFlowIds])
   const missingCount = missing.length
 
   const drawnFlows = flowRows.filter(
@@ -375,7 +379,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         // answered "404: Case '…' not found" (P1-05)
         <p className="nb-warning">{t('networkBuilder.signInToSave')}</p>
       ) : null}
-      {armed ? (
+      {armed && unwired.some((r) => r.row_id === armed) ? (
         <p className="nb-armed" role="status">
           {t('networkBuilder.armed', {
             name: flowName(flowRows.find((r) => r.row_id === armed) ?? { row_id: armed, values: {} }),
@@ -422,6 +426,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
             setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId: edge.id })
           }
           onPaneClick={() => setSelection(null)}
+          edgeTypes={FLOW_EDGE_TYPES}
           fitView
           proOptions={{ hideAttribution: false }}
         >
@@ -443,7 +448,16 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
                 onChange={(fieldId, value) =>
                   onFieldChange(selection.sectionId, selectedRow, fieldId, value)
                 }
-                onRemove={() => void onRemove(selection.sectionId, selectedRow)}
+                onRemove={
+                  // a questionnaire flow not drawn has nothing to remove: the
+                  // button did nothing but mark the network unsaved (Fable, #203)
+                  selection.sectionId === FLOW_MATRIX_SECTION &&
+                  isQuestionnaireFlow(selectedRow.row_id) &&
+                  !selectedRow.values['flow.origin_actor_id'] &&
+                  !selectedRow.values['flow.dest_actor_id']
+                    ? undefined
+                    : () => void onRemove(selection.sectionId, selectedRow)
+                }
                 {...(selection.sectionId === FLOW_MATRIX_SECTION
                   ? isQuestionnaireFlow(selectedRow.row_id)
                     ? {

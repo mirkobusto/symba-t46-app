@@ -83,8 +83,8 @@
     "label": "Flow type"
    },
    "flow.q5_class": {
-    "label": "Who pays whom (Q5)",
-    "description": "Copied from the questionnaire."
+    "label": "Who pays whom",
+    "description": "Set in the questionnaire: change it there and work out the configuration again. It records only who pays whom; whether the flow is legally a waste is the Flow classification's call."
    },
    "flow.unit": {
     "label": "Unit"
@@ -649,8 +649,8 @@
     "label": "Tipo di flusso"
    },
    "flow.q5_class": {
-    "label": "Chi paga chi (Q5)",
-    "description": "Copiato dal questionario."
+    "label": "Chi paga chi",
+    "description": "Impostato nel questionario: cambialo lì e ricalcola la configurazione. Registra solo chi paga chi; se il flusso sia giuridicamente un rifiuto lo dice la Classificazione dei flussi."
    },
    "flow.unit": {
     "label": "Unità"
@@ -1215,8 +1215,8 @@
     "label": "Type de flux"
    },
    "flow.q5_class": {
-    "label": "Qui paie qui (Q5)",
-    "description": "Copié du questionnaire."
+    "label": "Qui paie qui",
+    "description": "Fixé dans le questionnaire : modifiez-le là-bas et recalculez la configuration. Il indique seulement qui paie qui ; si le flux est juridiquement un déchet, c'est la Classification des flux qui le dit."
    },
    "flow.unit": {
     "label": "Unité"
@@ -1781,8 +1781,8 @@
     "label": "Art des Flusses"
    },
    "flow.q5_class": {
-    "label": "Wer zahlt wen (Q5)",
-    "description": "Aus dem Fragebogen übernommen."
+    "label": "Wer zahlt wen",
+    "description": "Im Fragebogen festgelegt: Ändern Sie es dort und ermitteln Sie die Konfiguration neu. Es hält nur fest, wer wen bezahlt; ob der Fluss rechtlich Abfall ist, sagt die Flussklassifizierung."
    },
    "flow.unit": {
     "label": "Einheit"
@@ -2347,8 +2347,8 @@
     "label": "Tipo de flujo"
    },
    "flow.q5_class": {
-    "label": "Quién paga a quién (Q5)",
-    "description": "Copiado del cuestionario."
+    "label": "Quién paga a quién",
+    "description": "Se fija en el cuestionario: cámbialo allí y vuelve a calcular la configuración. Solo indica quién paga a quién; si el flujo es jurídicamente un residuo lo dice la Clasificación de flujos."
    },
    "flow.unit": {
     "label": "Unidad"

@@ -279,6 +279,28 @@ describe('dcfDataStore', () => {
     expect(useDcfDataStore.getState().dirty).toBe(false)
   })
 
+  it('opening a saved case with only seeded rows is not "unsaved" (Fable review of #203)', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    useDcfDataStore.getState().bindTo('case-1')
+    expect(useDcfDataStore.getState().dirty).toBe(false)
+  })
+
+  it('switching case forgets the previous questionnaire flows', () => {
+    useDcfDataStore.getState().bindTo('case-1')
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    useDcfDataStore.getState().bindTo('case-2')
+    expect(useDcfDataStore.getState().caseFlowIds).toEqual([])
+  })
+
+  it('removing or reversing a flow that is not drawn changes nothing', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const before = useDcfDataStore.getState().data
+    useDcfDataStore.getState().removeRow(FLOW_MATRIX_SECTION, 'f1')
+    useDcfDataStore.getState().reverseFlow('f1')
+    expect(useDcfDataStore.getState().data).toBe(before)
+    expect(useDcfDataStore.getState().dirty).toBe(false)
+  })
+
   it('a flow removed from the questionnaire is kept, no longer counted as one of its flows', () => {
     const p = payloadWith(FULL_FLOW_FIELDS)
     useDcfDataStore.getState().syncWithPayload(p, CASE_FLOWS)

@@ -60,6 +60,9 @@ export default function DataCollectionPage() {
   const saveDcfData = useDcfDataStore((s) => s.saveToServer)
   const loadDcfData = useDcfDataStore((s) => s.loadFromServer)
   const syncDcfWithPayload = useDcfDataStore((s) => s.syncWithPayload)
+  // a load from the server that lands after the sync replaces the rows: sync
+  // again then, or names and Q5 stay stale (Fable review of #203)
+  const dcfLastSynced = useDcfDataStore((s) => s.lastSyncedAt)
 
   const [payload, setPayload] = useState<DcfPayload | null>(null)
   const [loading, setLoading] = useState(true)
@@ -137,7 +140,7 @@ export default function DataCollectionPage() {
   useEffect(() => {
     if (payload) syncDcfWithPayload(payload, sourceCase.flows ?? [])
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [payload, JSON.stringify(sourceCase.flows)])
+  }, [payload, JSON.stringify(sourceCase.flows), dcfLastSynced])
 
   /**
    * A saved case exports through the case-scoped endpoint, so the file

@@ -47,7 +47,8 @@ interface Props {
   sites: Site[]
   issues: DcfDataIssue[]
   onChange: (fieldId: string, value: unknown) => void
-  onRemove: () => void
+  /** Absent when there is nothing to remove (a questionnaire flow not drawn). */
+  onRemove?: () => void
   /** Fields shown as text, not editable (a questionnaire flow's name and
    * payment class are set in the questionnaire, UX round 5 D2). */
   readOnly?: Set<string>
@@ -192,9 +193,11 @@ export default function DcfRowFields({
 
       <div className="nb-panel-actions">
         {actions}
-        <button type="button" className="btn btn-danger nb-remove" onClick={onRemove}>
-          {removeLabel ?? t('networkBuilder.removeRow')}
-        </button>
+        {onRemove ? (
+          <button type="button" className="btn btn-danger nb-remove" onClick={onRemove}>
+            {removeLabel ?? t('networkBuilder.removeRow')}
+          </button>
+        ) : null}
       </div>
     </div>
   )

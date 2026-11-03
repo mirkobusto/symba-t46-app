@@ -153,6 +153,8 @@ export const useDcfDataStore = create<DcfDataState>()(
             case_id: caseId ?? '',
           },
           validation: null,
+          // the questionnaire flows of the previous case are not this one's
+          caseFlowIds: [],
           // a local draft becoming a saved case has something to push only
           // if something was drawn: an empty draft is not "unsaved" (P1-10)
           dirty: current === null && caseId !== null && hasDrawing(get().data),
@@ -315,7 +317,8 @@ export const useDcfDataStore = create<DcfDataState>()(
 
       reverseFlow(rowId) {
         const data = get().data
-        const nextRows = rowsOf(data, FLOW_MATRIX_SECTION).map((r) => {
+        const rows = rowsOf(data, FLOW_MATRIX_SECTION)
+        const nextRows = rows.map((r) => {
           if (r.row_id !== rowId) return r
           const origin = r.values['flow.origin_actor_id']
           const dest = r.values['flow.dest_actor_id']
@@ -325,6 +328,7 @@ export const useDcfDataStore = create<DcfDataState>()(
             values: { ...r.values, 'flow.origin_actor_id': dest, 'flow.dest_actor_id': origin },
           }
         })
+        if (nextRows.every((r, i) => r === rows[i])) return   // nothing drawn to reverse
         set({ data: withRows(data, FLOW_MATRIX_SECTION, nextRows), dirty: true })
       },
 
@@ -352,6 +356,8 @@ export const useDcfDataStore = create<DcfDataState>()(
         if (sectionId === FLOW_MATRIX_SECTION && get().caseFlowIds.includes(rowId)) {
           // "Remove" on a questionnaire flow takes the arrow off the canvas;
           // the flow goes back to the "not yet drawn" list (P1-01)
+          const target = rowsOf(data, FLOW_MATRIX_SECTION).find((r) => r.row_id === rowId)
+          if (!target?.values['flow.origin_actor_id'] && !target?.values['flow.dest_actor_id']) return
           const unwired = rowsOf(data, FLOW_MATRIX_SECTION).map((row) => {
             if (row.row_id !== rowId) return row
             const values = { ...row.values }

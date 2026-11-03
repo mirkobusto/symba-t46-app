@@ -28,10 +28,11 @@ function Dialog({ message, input, options, confirmLabel }: {
   const [value, setValue] = useState(input ?? '')
   const inputRef = useRef<HTMLInputElement>(null)
   const confirmRef = useRef<HTMLButtonElement>(null)
+  const choiceRef = useRef<HTMLButtonElement>(null)
   const isText = input !== undefined
 
   useEffect(() => {
-    (inputRef.current ?? confirmRef.current)?.focus()
+    (inputRef.current ?? confirmRef.current ?? choiceRef.current)?.focus()
   }, [])
 
   function submit(e: React.FormEvent) {
@@ -63,9 +64,14 @@ function Dialog({ message, input, options, confirmLabel }: {
         ) : null}
         {options ? (
           <ul className="dd-dialog-choices">
-            {options.map((o) => (
+            {options.map((o, i) => (
               <li key={o.value}>
-                <button type="button" className="dd-btn dd-btn-ghost dd-dialog-choice" onClick={() => close(o.value)}>
+                <button
+                  ref={i === 0 ? choiceRef : undefined}
+                  type="button"
+                  className="dd-btn dd-btn-ghost dd-dialog-choice"
+                  onClick={() => close(o.value)}
+                >
                   <strong>{o.label}</strong>
                   {o.detail ? <span>{o.detail}</span> : null}
                 </button>

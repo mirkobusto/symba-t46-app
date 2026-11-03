@@ -131,6 +131,12 @@ class DcfObligation(BaseModel):
     fields: list[str] = Field(default_factory=list)
     fields_not_applicable: list[str] = Field(default_factory=list)
     source_section: str | None = None
+    # reader-facing, filled by dcf_terms.localize / compose (UX round 4): the
+    # category and the kind of item in words, and why it applies in answers
+    # rather than as a trigger expression
+    category_label: str | None = None
+    origin_label: str | None = None
+    because: str | None = None
 
 
 class DcfPayload(BaseModel):
@@ -314,13 +320,40 @@ def _compose_mandates(
             by_category.setdefault(category, []).append(DcfMandate(
                 node_id=item["id"],
                 method=item["method"],
-                statement=item["statement"],
+                statement=_case_statement(item["id"], case) or item["statement"],
                 category=category,
                 trigger_q=item.get("trigger_q"),
                 trigger_condition=item.get("trigger_condition"),
                 source_section=item.get("source_section"),
             ))
     return by_category
+
+
+def _case_statement(node_id: str, case: Case) -> str | None:
+    """The branch of a discriminative mandate that holds for this case.
+
+    The census joins every branch with " | " ("NO zero-burden allowed
+    (interdependent) | Standard zero-burden test"), so the DCF a partner
+    receives listed alternatives as if all applied, while the result page
+    said one thing per flow (UX round 4, P2-05). A per-flow node gives one
+    line per flow, named; the others the branch of the case."""
+    from app.engine.answer_phrases import fill
+    from app.engine.branch_keys import Answers, pick_branch
+    from app.engine.loader import load_schemas
+
+    node = load_schemas().nodes_by_id.get(node_id)
+    default = node.get("default_value") if node else None
+    if not isinstance(default, dict):
+        return None
+    if node.get("per_flow") and case.flows:
+        lines = []
+        for flow in case.flows:
+            matched, value = pick_branch(default, Answers.from_case(case, flow))
+            if matched and value:
+                lines.append(f"{flow.name or flow.id}: {fill(str(value), case)}")
+        return "; ".join(lines) or None
+    matched, value = pick_branch(default, Answers.from_case(case))
+    return fill(str(value), case) if matched and value else None
 
 
 def _method_of(fields: list[str]) -> str:
@@ -330,6 +363,16 @@ def _method_of(fields: list[str]) -> str:
     if len(known) == 1:
         return known.pop()
     return "cross-method"
+
+
+def _because(trigger: str | None, case: Case) -> str | None:
+    """Why an item applies, in the answers it reads ("Q3 = env + eco"), not
+    as a trigger expression ("Q3 has ≥2 dims active", "flow.q5 == 'b'")."""
+    from app.services.narrative import answers_in
+    if not trigger:
+        return None
+    answers = answers_in(trigger.replace("flow.q5", "Q5").replace("case.q", "Q"), case)
+    return ", ".join(f"{label} = {value}" for label, value in answers) or None
 
 
 def _compose_obligations(
@@ -347,6 +390,7 @@ def _compose_obligations(
             category=category,
             trigger=mandate.trigger_condition,
             source_section=mandate.source_section,
+            because=_because(mandate.trigger_condition, case),
         )
         for category, mandates in by_category.items()
         for mandate in mandates
@@ -360,6 +404,7 @@ def _compose_obligations(
             method=_method_of(list(rule.get("fields") or [])),
             category=CROSS_METHOD_CATEGORY,
             trigger=rule.get("trigger"),
+            because=_because(rule.get("trigger"), case),
             fields=list(rule.get("fields") or []),
             fields_not_applicable=list(rule.get("fields_not_applicable") or []),
         )

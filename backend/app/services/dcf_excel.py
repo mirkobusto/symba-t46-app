@@ -367,13 +367,13 @@ def _write_mandates_tab(
 
     row = header_row + 1
     for item in obligations:
-        ws.cell(row=row, column=1, value=item.category)
-        ws.cell(row=row, column=2, value=item.origin)
+        ws.cell(row=row, column=1, value=item.category_label or item.category)
+        ws.cell(row=row, column=2, value=item.origin_label or item.origin)
         ws.cell(row=row, column=3, value=item.id)
         ws.cell(row=row, column=4, value=item.method)
         statement = item.statement if not item.title else f"{item.title} — {item.statement}"
         ws.cell(row=row, column=5, value=statement).alignment = Alignment(wrap_text=True)
-        ws.cell(row=row, column=6, value=item.trigger or "")
+        ws.cell(row=row, column=6, value=item.because or item.trigger or "")
         ws.cell(row=row, column=7, value="")
         ws.cell(row=row, column=8, value="")
         ws.cell(row=row, column=9, value=ui(lang, "status.pending"))

@@ -1421,8 +1421,8 @@ const fr: Locale = {
     because: "S'applique parce que :",
     notApplicable: "Ne s'applique pas ici : {{fields}} — cette méthode est désactivée en Q3.",
     origin: {
-      mandate: "Mandat",
-      rule: "Règle inter-méthodes",
+      mandate: 'Pratique standard',
+      rule: 'Obligation',
     },
   },
   dcf: {
@@ -1439,6 +1439,8 @@ const fr: Locale = {
       colValues: "Valeurs possibles",
       colWhy: "Pourquoi on le demande",
       always: "toujours",
+      whoCompanies: 'Rempli par le personnel des entreprises',
+      whoAnalyst: 'Décidé par l\'analyste qui réalise l\'étude',
     },
     diagram: { whoGives: "Qui le cède ?\n({{flow}})", whoReceives: "Qui le reçoit ?\n({{flow}})" },
     noCase: { title: 'Aucun cas pour l\'instant', desc: 'Le Data Collection File se construit à partir de votre évaluation : remplissez d\'abord le questionnaire (ou ouvrez un cas enregistré), puis revenez ici.', cta: 'Ouvrir le questionnaire' },
@@ -1464,6 +1466,9 @@ const fr: Locale = {
     tabOverview: "Vue d'ensemble",
     tabNetworkBuilder: 'Éditeur de réseau',
     socialDeferred: 'L\'inventaire social n\'est pas collecté dans ce fichier : il suit la D4.3 avec ses propres instruments (questionnaires, entretiens par groupe de parties prenantes).',
+    guidedIntro: 'Vous voyez ici les questions que le fichier Excel posera aux entreprises. Vous n\'avez pas à les remplir maintenant : téléchargez le fichier et transmettez-le.',
+    unsavedCase: 'Les fichiers ne contiennent pas encore le réseau que vous avez dessiné : enregistrez le cas (un compte est nécessaire) pour l\'inclure.',
+    unsavedNetwork: 'Le réseau a des modifications non enregistrées : enregistrez le réseau pour les inclure dans les fichiers.',
   },
 
   networkDiagram: {

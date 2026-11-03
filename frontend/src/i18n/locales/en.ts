@@ -1462,8 +1462,8 @@ const en = {
     because: "Applies because:",
     notApplicable: "Does not apply here: {{fields}} — that method is switched off in Q3.",
     origin: {
-      mandate: "Mandate",
-      rule: "Cross-method rule",
+      mandate: 'Standard practice',
+      rule: 'Obligation',
     },
   },
   dcf: {
@@ -1480,6 +1480,8 @@ const en = {
       colValues: "Possible values",
       colWhy: "Why it is asked",
       always: "always",
+      whoCompanies: 'Filled in by the companies\' staff',
+      whoAnalyst: 'Decided by the analyst who carries out the study',
     },
     diagram: { whoGives: "Who gives it?\n({{flow}})", whoReceives: "Who receives it?\n({{flow}})" },
     noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire' },
@@ -1505,6 +1507,9 @@ const en = {
     tabOverview: 'Overview',
     tabNetworkBuilder: 'Network builder',
     socialDeferred: 'Social inventory is not collected in this file: it follows D4.3 with its own instruments (questionnaires, interviews per stakeholder group).',
+    guidedIntro: 'Here you see the questions the Excel file will ask the companies. You do not have to fill them in now: download the file and pass it on.',
+    unsavedCase: 'The files do not contain the network you drew yet: save the case (an account is needed) to include it.',
+    unsavedNetwork: 'The network has unsaved changes: save the network to include them in the files.',
   },
 
   networkDiagram: {

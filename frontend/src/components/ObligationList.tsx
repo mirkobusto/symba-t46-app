@@ -54,7 +54,7 @@ export default function ObligationList({ obligations, sourceCase }: Props) {
       {groupByCategory(obligations).map(([category, items]) => (
         <section key={category} className="obl-group">
           <h4>
-            {category.replace(/_/g, ' ')}
+            {items[0]?.category_label ?? category.replace(/_/g, ' ')}
             <span className="dd-pill dd-pill-muted">{items.length}</span>
           </h4>
 

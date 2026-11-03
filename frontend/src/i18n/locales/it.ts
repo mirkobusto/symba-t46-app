@@ -1441,8 +1441,8 @@ const it: Locale = {
     because: "Si applica perché:",
     notApplicable: "Qui non si applica: {{fields}} — quel metodo è spento in Q3.",
     origin: {
-      mandate: "Mandato",
-      rule: "Regola cross-method",
+      mandate: 'Pratica standard',
+      rule: 'Obbligo',
     },
   },
   dcf: {
@@ -1459,6 +1459,8 @@ const it: Locale = {
       colValues: "Valori possibili",
       colWhy: "Perché lo chiediamo",
       always: "sempre",
+      whoCompanies: 'Lo compilano i tecnici delle aziende',
+      whoAnalyst: 'Lo decide l\'analista che esegue lo studio',
     },
     diagram: { whoGives: "Chi lo cede?\n({{flow}})", whoReceives: "Chi lo riceve?\n({{flow}})" },
     noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario' },
@@ -1484,6 +1486,9 @@ const it: Locale = {
     tabOverview: 'Panoramica',
     tabNetworkBuilder: 'Editor di rete',
     socialDeferred: 'L\'inventario sociale non si raccoglie in questo file: segue la D4.3 con i suoi strumenti (questionari, interviste per gruppo di stakeholder).',
+    guidedIntro: 'Qui vedi le domande che il file Excel farà alle aziende. Non devi compilarle tu adesso: scarica il file e passalo a chi deve compilarlo.',
+    unsavedCase: 'I file non contengono ancora la rete che hai disegnato: salva il caso (serve un account) per includerla.',
+    unsavedNetwork: 'La rete ha modifiche non salvate: salva la rete per includerle nei file.',
   },
 
   networkDiagram: {

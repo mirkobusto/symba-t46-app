@@ -308,6 +308,11 @@ export default function DataCollectionPage() {
           {downloadingDocx ? t('dcf.downloadingDocx') : t('dcf.downloadDocx')}
         </button>
       </div>
+      {!serverCaseId || dcfDirty ? (
+        // the same note as by the bottom buttons: on a phone the top ones are
+        // the ones used (Fable review of #204)
+        <p className="dd-soft">{t(serverCaseId ? 'dcf.unsavedNetwork' : 'dcf.unsavedCase')}</p>
+      ) : null}
 
       <div className="dd-tabs" role="tablist">
         <button

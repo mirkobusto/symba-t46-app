@@ -117,7 +117,10 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   function handleAddActor() {
     const rowId = addActor()
     setSelection({ sectionId: ACTORS_SECTION, rowId })
-    window.setTimeout(() => flowRef.current?.fitView({ padding: 0.2 }), 50)
+    // only where it lands off-canvas: on a desktop the view would jump
+    if (window.innerWidth <= 900) {
+      window.setTimeout(() => flowRef.current?.fitView({ padding: 0.2 }), 50)
+    }
   }
 
   const actorRows = useMemo(

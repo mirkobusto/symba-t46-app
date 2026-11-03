@@ -89,11 +89,11 @@ describe('public report', () => {
     expect(screen.getByText(/Did this link come from a product label\?/)).toBeTruthy()
   })
 
-  it('titles the verdict in words, keeping the ILCD code as a badge', async () => {
+  it('titles the verdict in words; the ILCD badge only for industry and authority', async () => {
     renderAt('/r/c1/community')
     expect(await screen.findByText('A local exchange, assessed with average data')).toBeTruthy()
     expect(screen.queryByText(/limited consequences/)).toBeNull()
-    expect(screen.getByText('ILCD Situation A')).toBeTruthy()
+    expect(screen.queryByText('ILCD Situation A')).toBeNull()
   })
 
   it('tells the authority whether the costing is set up for a public decision', async () => {

@@ -9,6 +9,7 @@ import { schemaTerm } from '../i18n/schemaTerms'
 import { useCaseStore } from '../store/caseStore'
 import type { Case } from '../types/api'
 import { configurationRows } from './configurationRows'
+import { useAxisLabel } from './aggregateLabels'
 
 interface RowData {
   id: string
@@ -68,6 +69,8 @@ function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<strin
 
 export default function ScenariosResultPage() {
   const { t, i18n } = useTranslation()
+  // the same words as the result page: no raw 'ILCD Situation', 'C+E' or 'alt1' (UX round 4)
+  const label = useAxisLabel()
   const sr = useCaseStore((s) => s.scenariosResult)
 
   if (!sr) {
@@ -120,14 +123,12 @@ export default function ScenariosResultPage() {
                 <tr key={row.id} className={isBaseline ? 'row-baseline' : ''}>
                   <td>
                     <strong>{row.label}</strong>
-                    <br />
-                    <code>{row.id}</code>
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.ilcd, baselineRow.ilcd)}>
-                    {row.ilcd ?? '—'}
+                    {row.ilcd ? label('ilcd', row.ilcd) : '—'}
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.lccType, baselineRow.lccType)}>
-                    {row.lccType ?? '—'}
+                    {row.lccType ? label('lcc', row.lccType) : '—'}
                   </td>
                   <td className={isBaseline ? '' : diffClass(row.slca, baselineRow.slca)}>
                     {row.slca ? t(row.slca === 'active' ? 'common.yes' : 'common.no') : '—'}

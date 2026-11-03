@@ -94,6 +94,7 @@ const it: Locale = {
     saveSharing: 'Salva nome e contatto',
     notSharedBody: 'Il report non è pubblico: solo tu puoi aprire questo caso. Attiva la condivisione per avere i link.',
     sharedBody: 'Il report è pubblico: chiunque abbia uno di questi link può leggerlo, senza le note e le quantità dei flussi.',
+    signInButton: 'Accedi per salvare e condividere',
   },
 
   reader: {
@@ -139,7 +140,7 @@ const it: Locale = {
       pef: { name: "Impronta ambientale di prodotto UE (PEF)", desc: "Lo studio segue il metodo UE dell'impronta ambientale, compresa la Circular Footprint Formula.", descC2: "Non applicabile: il rendiconto di una sola azienda usa l'allocazione, non la Circular Footprint Formula (ILCD C2).", descB: 'Eseguita come analisi di sensibilità: la Situazione B si modella in modo conseguenziale.' },
       public: { name: 'Asserzione comparativa divulgata al pubblico', desc: "Dire in pubblico che un prodotto è migliore o equivalente a un altro richiede un panel di revisione ISO." },
       dnsh: { name: "Tassonomia UE, \"non arrecare danno significativo\" (DNSH)", desc: "Una verifica a parte per i finanziamenti legati alla tassonomia UE (art. 17); questo strumento non la esegue." },
-      slcc: { name: 'Impostato per una decisione pubblica (LCC sociale)', yes: 'Sì: il costing include la lettura della società che una decisione pubblica richiede (tasse e sussidi corretti, effetti ambientali valorizzati) — D4.2 §2.3.', no: 'No: il costing resta a livello di azienda e di filiera. Se su questo caso deve decidere un ente pubblico, chiedi all\'analista di impostare lo studio per un obiettivo pubblico (Q10).', c2: 'Non applicabile: il rendiconto di una sola azienda si calcola solo a livello d\'impresa.', off: 'Non valutato: lo studio non ha la dimensione economica.' },
+      slcc: { name: 'Impostato per una decisione pubblica (LCC sociale)', yes: 'Sì: il costing include la lettura della società che una decisione pubblica richiede (tasse e sussidi corretti, effetti ambientali valorizzati) — D4.2 §2.3.', no: 'No: il costing resta a livello di azienda e di filiera. Se su questo caso deve decidere un ente pubblico, chiedi all\'analista di impostare lo studio per un obiettivo pubblico.', c2: 'Non applicabile: il rendiconto di una sola azienda si calcola solo a livello d\'impresa.', off: 'Non valutato: lo studio non ha la dimensione economica.' },
       notPlanned: "non prevista in questo studio",
       notAssessed: "non valutata da questo strumento",
     },
@@ -504,7 +505,7 @@ const it: Locale = {
         E: { label: 'E. Monitoraggio', description: 'Monitoraggio temporale di una simbiosi già operativa.' },
       },
       plain:
-        'Di\' che cosa stai esaminando: uno scambio, un parco, un programma, un\'azienda, una simbiosi che segui nel tempo. La risposta descrive il sistema e il suo confine; come si modella lo studio lo decidono le domande seguenti, a partire da a che cosa serve lo studio (Q9). Se esiti fra due opzioni, tieni quella che descrive la cosa di cui vuoi misurare gli effetti.',
+        'Di\' che cosa stai esaminando: uno scambio, un parco, un programma, un\'azienda, una simbiosi che segui nel tempo. La risposta descrive il sistema e il suo confine; come si modella lo studio lo decidono le domande seguenti, a partire da a che cosa serve lo studio. Se esiti fra due opzioni, tieni quella che descrive la cosa di cui vuoi misurare gli effetti.',
     },
 
     q2: {
@@ -615,7 +616,7 @@ const it: Locale = {
         process_industry: 'Industria di processo (legacy)',
       },
       plain:
-        'Il settore principale del caso: l\'attività dell\'azienda che pesa di più in massa, energia o valore. Descrive il caso; le regole di settore delle linee guida seguono che cosa è ogni flusso, e lo dichiari nella tabella dei flussi. Se il caso sta a cavallo di più settori scegli Multi-settore e ignora le voci (legacy).',
+        'Il settore principale del caso: l\'attività dell\'azienda che pesa di più in massa, energia o valore. Descrive il caso; le regole di settore delle linee guida seguono che cosa è ogni flusso, e lo dichiari nella tabella dei flussi. Se il caso sta a cavallo di più settori scegli Multi-settore.',
     },
 
     q6b: {
@@ -777,7 +778,7 @@ const it: Locale = {
       d: 'I due impianti dipendono l\'uno dall\'altro (uno è stato modificato per rifornire l\'altro)',
       e: 'Solo un dato complessivo per tutta la rete',
     },
-    q5Note: "Rispondi con l'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli \"gratuito / ambiguo\" quando è davvero indeciso, invece di forzare una direzione.",
+    q5Note: 'Rispondi con l\'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un\'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli b (nessuno paga, o non è ancora chiaro) quando è davvero indeciso, invece di forzare una direzione.',
     emptyHint: 'Nessun flusso. Aggiungine almeno uno per caratterizzare la Q5 per-flusso.',
     headers: { id: 'ID', name: 'Nome', q5: "Chi paga chi (Q5)", sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
     q5Unset: "— scegli chi paga chi",
@@ -925,6 +926,13 @@ const it: Locale = {
   },
 
   result: {
+    // guided mode: notes in plain words (UX round 4)
+    engineNotesPlain: {
+      flow_freedom_to_act_settles: {
+        co_product: 'Flusso «{{flow}}»: hai detto che nessuno paga (o non è ancora chiaro), ma che qualcun altro lo comprerebbe: allora non è un rifiuto. Va bene così; sarà l\'analista a decidere come contarlo.',
+        waste: 'Flusso «{{flow}}»: hai detto che nessuno paga e che nessun altro lo comprerebbe: può contare come rifiuto, senza carico da parte tua. Lo verifica l\'analista.',
+      },
+    },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Che cosa significa per te',
@@ -933,6 +941,7 @@ const it: Locale = {
       step2: 'Apri il Data Collection File e scarica l\'Excel: i tuoi tecnici compilano i fogli su attori, flussi, logistica e costi.',
       step3: 'Consegna il file e il report a chi farà lo studio (un analista, un consulente, un\'università): i punti tecnici più sotto sono per lui.',
       analystTitle: 'Punti per l\'analista ({{count}})',
+      step1Saved: '✓ Salvato come «{{name}}»: lo ritrovi in I miei casi.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1559,6 +1568,9 @@ const it: Locale = {
     saveSuccess: 'Salvato come "{{name}}"',
     loadError: 'Caricamento fallito — {{detail}}',
     deleteError: 'Eliminazione fallita — {{detail}}',
+    saveFirstButton: 'Salva il caso…',
+    sharedYes: 'Condiviso: link pubblico attivo',
+    sharedNo: 'Privato',
   },
 }
 

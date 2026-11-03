@@ -85,6 +85,7 @@ const de: Locale = {
     saveSharing: 'Name und Kontakt speichern',
     notSharedBody: 'Der Bericht ist nicht öffentlich: Nur Sie können diesen Fall öffnen. Schalten Sie das Teilen ein, um die Links zu erhalten.',
     sharedBody: 'Der Bericht ist öffentlich: Wer einen dieser Links hat, kann ihn lesen, ohne die Notizen und Mengen der Flüsse.',
+    signInButton: 'Anmelden, um zu speichern und zu teilen',
   },
 
   reader: {
@@ -130,7 +131,7 @@ const de: Locale = {
       pef: { name: "EU-Produktumweltfußabdruck (PEF)", desc: "Die Studie folgt der EU-Fußabdruckmethode einschließlich der Circular Footprint Formula.", descC2: "Nicht anwendbar: die Bilanz eines einzelnen Unternehmens nutzt Allokation, nicht die Circular Footprint Formula (ILCD C2).", descB: 'Als Sensitivitätsanalyse durchgeführt: Situation B wird konsequenziell modelliert.' },
       public: { name: 'Zur Veröffentlichung bestimmte vergleichende Aussage', desc: "Öffentlich zu behaupten, ein Produkt sei besser als oder gleichwertig mit einem anderen, erfordert ein ISO-Prüfgremium." },
       dnsh: { name: "EU-Taxonomie „keine erhebliche Beeinträchtigung“ (DNSH)", desc: "Eine eigene Prüfung für Finanzierungen nach der EU-Taxonomie (Art. 17); dieses Tool führt sie nicht durch." },
-      slcc: { name: 'Für eine öffentliche Entscheidung angelegt (gesellschaftliche LCC)', yes: 'Ja: Die Kostenrechnung enthält die gesellschaftliche Sicht, die eine öffentliche Entscheidung braucht (Steuern und Subventionen bereinigt, Umweltwirkungen bewertet) — D4.2 §2.3.', no: 'Nein: Die Kostenrechnung bleibt auf Ebene von Unternehmen und Wertschöpfungskette. Soll eine öffentliche Stelle über diesen Fall entscheiden, bitten Sie den Analysten, die Studie für ein öffentliches Ziel anzulegen (Q10).', c2: 'Nicht zutreffend: Die Bilanz eines einzelnen Unternehmens wird nur auf Unternehmensebene gerechnet.', off: 'Nicht bewertet: Die Studie hat keine ökonomische Dimension.' },
+      slcc: { name: 'Für eine öffentliche Entscheidung angelegt (gesellschaftliche LCC)', yes: 'Ja: Die Kostenrechnung enthält die gesellschaftliche Sicht, die eine öffentliche Entscheidung braucht (Steuern und Subventionen bereinigt, Umweltwirkungen bewertet) — D4.2 §2.3.', no: 'Nein: Die Kostenrechnung bleibt auf Ebene von Unternehmen und Wertschöpfungskette. Soll eine öffentliche Stelle über diesen Fall entscheiden, bitten Sie den Analysten, die Studie für ein öffentliches Ziel anzulegen.', c2: 'Nicht zutreffend: Die Bilanz eines einzelnen Unternehmens wird nur auf Unternehmensebene gerechnet.', off: 'Nicht bewertet: Die Studie hat keine ökonomische Dimension.' },
       notPlanned: "in dieser Studie nicht vorgesehen",
       notAssessed: "von diesem Tool nicht bewertet",
     },
@@ -478,7 +479,7 @@ const de: Locale = {
         E: { label: 'E. Monitoring', description: 'Zeitliches Monitoring einer bereits operativen Symbiose.' },
       },
       plain:
-        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie (Q9). Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen.',
+        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie. Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen.',
     },
 
     q2: {
@@ -589,7 +590,7 @@ const de: Locale = {
         process_industry: 'Prozessindustrie (legacy)',
       },
       plain:
-        'Der Hauptsektor des Falls: die Tätigkeit des Unternehmens mit dem größten Anteil an Masse, Energie oder Wert. Er beschreibt den Fall; die Sektorregeln der Leitlinien folgen dem, was jeder Fluss ist, und das geben Sie in der Flusstabelle an. Erstreckt sich der Fall über mehrere Sektoren, wählen Sie Multi-Sektor und ignorieren Sie die Einträge (legacy).',
+        'Der Hauptsektor des Falls: die Tätigkeit des Unternehmens mit dem größten Anteil an Masse, Energie oder Wert. Er beschreibt den Fall; die Sektorregeln der Leitlinien folgen dem, was jeder Fluss ist, und das geben Sie in der Flusstabelle an. Erstreckt sich der Fall über mehrere Sektoren, wählen Sie Multi-Sektor.',
     },
 
     q6b: {
@@ -751,7 +752,7 @@ const de: Locale = {
       d: 'Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)',
       e: 'Nur eine Gesamtzahl für das ganze Netzwerk',
     },
-    q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
+    q5Note: 'Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie b (niemand zahlt, oder es ist noch nicht klar), wenn es wirklich offen ist.',
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
     headers: { id: 'ID', name: 'Name', q5: "Wer zahlt wen (Q5)", sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
     q5Unset: "— wählen, wer wen bezahlt",
@@ -899,6 +900,13 @@ const de: Locale = {
   },
 
   result: {
+    // guided mode: notes in plain words (UX round 4)
+    engineNotesPlain: {
+      flow_freedom_to_act_settles: {
+        co_product: 'Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann ist er kein Abfall. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.',
+        waste: 'Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Er kann als Abfall zählen, ohne Last auf Ihrer Seite. Der Analyst prüft das.',
+      },
+    },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Was das für Sie bedeutet',
@@ -907,6 +915,7 @@ const de: Locale = {
       step2: 'Öffnen Sie das Data Collection File und laden Sie die Excel-Datei herunter: Ihre Mitarbeitenden füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
       step3: 'Geben Sie Datei und Bericht an die Person, die die Studie durchführt (Analyst, Berater, Hochschule): Die technischen Punkte weiter unten sind für sie.',
       analystTitle: 'Punkte für den Analysten ({{count}})',
+      step1Saved: '✓ Gespeichert als „{{name}}“: Sie finden ihn unter Meine Fälle.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1534,6 +1543,9 @@ const de: Locale = {
     saveSuccess: 'Gespeichert als "{{name}}"',
     loadError: 'Laden fehlgeschlagen — {{detail}}',
     deleteError: 'Löschen fehlgeschlagen — {{detail}}',
+    saveFirstButton: 'Fall speichern…',
+    sharedYes: 'Geteilt: öffentlicher Link aktiv',
+    sharedNo: 'Privat',
   },
 }
 

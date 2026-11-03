@@ -304,3 +304,9 @@ export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end
   authority: ['lcc', 'shared', 'reference', 'claim', 'horizon', 'slca'],
   'end-user': ['fu', 'claim', 'slca'],
 }
+
+/** A reason without its question codes, for guided mode and public views:
+ *  "you answered X (Q9)" → "you answered X"; "B. Regional (Q7)" → "B. Regional". */
+export function withoutQCodes(text: string): string {
+  return text.replace(/\s*\((?:Q\d+[ab]?(?:\s*[,/]\s*)?)+\)/g, '').replace(/\s+([;:,.])/g, '$1')
+}

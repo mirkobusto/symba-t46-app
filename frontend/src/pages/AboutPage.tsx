@@ -31,11 +31,14 @@ export default function AboutPage() {
       <h2>{t('about.notTitle')}</h2>
       <p>{t('about.notBody')}</p>
 
-      <h2>{t('about.divergencesTitle')}</h2>
-      <p>{t('about.divergencesLead')}</p>
-      <ul>
-        {DIVERGENCES.map((k) => <li key={k}>{t(`about.divergences.${k}`)}</li>)}
-      </ul>
+      {/* for reviewers: a wall of codes for anyone else, so it starts folded (UX round 4) */}
+      <details className="about-divergences">
+        <summary><h2 style={{ display: 'inline' }}>{t('about.divergencesTitle')}</h2></summary>
+        <p>{t('about.divergencesLead')}</p>
+        <ul>
+          {DIVERGENCES.map((k) => <li key={k}>{t(`about.divergences.${k}`)}</li>)}
+        </ul>
+      </details>
 
       <h2>{t('about.contactTitle')}</h2>
       <p>

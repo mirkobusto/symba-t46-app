@@ -131,11 +131,21 @@ export default function PublicReportPage() {
         {/* who prepared the case and whom to ask: written by the owner when sharing
             (UX round 2026-11-03, decided by Fable) */}
         {report.prepared_by ? <p>{t('reader.preparedBy', { name: report.prepared_by })}</p> : null}
-        <p>{report.case_contact
-          ? t('reader.contact', { contact: report.case_contact })
-          : t('reader.noContact')}</p>
+        <p>{report.case_contact ? (
+          <>
+            {t('reader.contact', { contact: '' })}
+            {/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(report.case_contact.trim()) ? (
+              <a href={`mailto:${report.case_contact.trim()}?subject=${encodeURIComponent(report.name)}`}>
+                {report.case_contact}
+              </a>
+            ) : report.case_contact}
+          </>
+        ) : t('reader.noContact')}</p>
         <p className="dd-soft">
-          {t('reader.updated', { date: new Date(report.updated_at).toLocaleDateString(i18n.language) })}
+          {t('reader.updated', {
+            // "11/3/2026" read as 11 March to a European (UX round 3-4)
+            date: new Date(report.updated_at).toLocaleDateString(i18n.language, { dateStyle: 'long' }),
+          })}
         </p>
       </section>
 
@@ -143,7 +153,8 @@ export default function PublicReportPage() {
         variant="reader"
         eyebrow={t('reader.methodEyebrow')}
         headline={plain?.title ?? c.ilcd_situation ?? '—'}
-        codes={verdict?.codes}
+        // the ILCD / LCC badges are for the industry and authority readers (UX round 4)
+        codes={validAudience === 'industry' || validAudience === 'authority' ? verdict?.codes : undefined}
         body={plain?.body}
         tags={[
           c.q6a && c.q6a !== 'none'

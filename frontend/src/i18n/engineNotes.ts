@@ -17,9 +17,15 @@ export function chapterName(t: TFunction, chapter?: string): string | undefined 
   return t(`result.sectorChapters.${number}`, { defaultValue: chapter })
 }
 
-export function translateNote(t: TFunction, w: CaseWarning): string {
+export function translateNote(t: TFunction, w: CaseWarning, plain = false): string {
   const p = w.params ?? {}
   const key = p.variant ? `result.engineNotes.${w.code}.${p.variant}` : `result.engineNotes.${w.code}`
+  // guided mode: a plain wording where one exists (UX round 4, P7-02)
+  if (plain) {
+    const plainKey = key.replace('result.engineNotes.', 'result.engineNotesPlain.')
+    const text = t(plainKey, { flow: p.flow, defaultValue: '' })
+    if (text) return text
+  }
   return t(key, {
     flow: p.flow,
     configuration: p.configuration,

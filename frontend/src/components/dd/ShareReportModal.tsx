@@ -10,8 +10,10 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { ApiError, getCase, shareCase } from '../../services/api'
+import { useAuthStore } from '../../store/authStore'
 import { useToastStore } from '../../store/toastStore'
 
 const AUDIENCES = ['industry', 'community', 'authority', 'enduser'] as const
@@ -27,6 +29,8 @@ interface Props {
 export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
   const { t } = useTranslation()
   const pushToast = useToastStore((s) => s.push)
+  const navigate = useNavigate()
+  const signedIn = useAuthStore((s) => s.token !== null)
   const [copied, setCopied] = useState<Audience | null>(null)
   const [loaded, setLoaded] = useState(!caseId)
   const [shared, setShared] = useState(false)
@@ -101,6 +105,16 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
           <div className="dd-pending" style={{ marginBottom: 14 }}>
             <div className="dd-pending-head">⚠ {t('share.saveFirstTitle')}</div>
             <p className="dd-pending-body">{t('share.saveFirstBody')}</p>
+            {!signedIn ? (
+              // three steps to remember became one button (UX round 4, P4-07)
+              <button
+                type="button"
+                className="dd-btn dd-btn-primary"
+                onClick={() => { onClose(); navigate('/login', { state: { from: '/result' } }) }}
+              >
+                {t('share.signInButton')}
+              </button>
+            ) : null}
           </div>
         ) : (
           <div className="dd-share-settings">

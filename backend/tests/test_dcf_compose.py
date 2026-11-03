@@ -553,3 +553,11 @@ def test_legacy_sectors_are_not_offered(case_wiktor, dcf_schema, mandates_census
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     offered = {v for sec in payload.sections for f in sec.fields for v in (f.enum_values or [])}
     assert not offered & {"wastewater_biofactories", "agri_food", "process_industry"}
+
+
+def test_legacy_sectors_are_not_offered_in_the_localized_labels(case_wiktor, dcf_schema, mandates_census):
+    # UX round 4 (P1-14): the q6a vocabulary of enum_ref fields still listed them
+    from app.services.dcf_terms import localize
+    payload = localize(compose_dcf(case_wiktor, dcf_schema, mandates_census), "it")
+    labels = {k for sec in payload.sections for f in sec.fields for k in (f.enum_labels or {})}
+    assert not labels & {"wastewater_biofactories", "agri_food", "process_industry"}

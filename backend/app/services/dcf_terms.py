@@ -18,7 +18,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from app.engine.dcf_compose import DcfPayload
+from app.engine.dcf_compose import _LEGACY_ENUM_VALUES, DcfPayload
 
 LANGUAGES = ("en", "it", "fr", "de", "es")
 
@@ -89,7 +89,9 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
             if field.enum_values:
                 field.enum_labels = {v: enum_label(code, v) for v in field.enum_values}
             elif field.enum_ref and field.enum_ref in terms.get("enum_refs", {}):
-                field.enum_labels = dict(terms["enum_refs"][field.enum_ref])
+                # the legacy sector values stay readable, but are not offered (UX round 4, P1-14)
+                field.enum_labels = {k: v for k, v in terms["enum_refs"][field.enum_ref].items()
+                                     if k not in _LEGACY_ENUM_VALUES}
     return out
 
 

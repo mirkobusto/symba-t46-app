@@ -55,6 +55,7 @@ const en = {
     saveSharing: 'Save name and contact',
     notSharedBody: 'The report is not public: only you can open this case. Turn sharing on to get the links.',
     sharedBody: 'The report is public: anyone with one of these links can read it, without the flow notes and quantities.',
+    signInButton: 'Sign in to save and share',
   },
 
   reader: {
@@ -100,7 +101,7 @@ const en = {
       pef: { name: "EU Product Environmental Footprint (PEF)", desc: "The study follows the EU footprint method, including its Circular Footprint Formula.", descC2: "Not applicable: one company's accounts use allocation, not the Circular Footprint Formula (ILCD C2).", descB: 'Run as a sensitivity: Situation B is modelled consequentially.' },
       public: { name: 'Comparative assertion disclosed to the public', desc: "A public claim that a product is better than, or equivalent to, an alternative needs an ISO review panel." },
       dnsh: { name: "EU Taxonomy \"Do No Significant Harm\" (DNSH)", desc: "A separate screening for EU-taxonomy funding (art. 17); this tool does not perform it." },
-      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs (taxes and subsidies corrected, environmental effects priced) — D4.2 §2.3.', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective (Q10).', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.' },
+      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs (taxes and subsidies corrected, environmental effects priced) — D4.2 §2.3.', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective.', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.' },
       notPlanned: "not planned in this study",
       notAssessed: "not assessed by this tool",
     },
@@ -526,7 +527,7 @@ const en = {
         E: { label: 'E. Monitoring', description: 'Time-series monitoring of an already operational symbiosis.' },
       },
       plain:
-        'Say what you are examining: one exchange, a park, a programme, one company, a symbiosis you follow over time. The answer describes the system and its boundary; how the study is modelled is decided by the questions that follow, starting with what the study is for (Q9). If you hesitate between two options, keep the one that describes the thing whose effects you want to measure.',
+        'Say what you are examining: one exchange, a park, a programme, one company, a symbiosis you follow over time. The answer describes the system and its boundary; how the study is modelled is decided by the questions that follow, starting with what the study is for. If you hesitate between two options, keep the one that describes the thing whose effects you want to measure.',
     },
 
     q2: {
@@ -637,7 +638,7 @@ const en = {
         process_industry: 'Process industry (legacy)',
       },
       plain:
-        'The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It describes the case; the sector rules of the guidelines follow what each flow is, which you declare in the flows table. If the case straddles several sectors, pick Multi-sector, and ignore the entries marked (legacy).',
+        'The main sector of the case: the activity of the company that contributes most of the mass, energy or value. It describes the case; the sector rules of the guidelines follow what each flow is, which you declare in the flows table. If the case straddles several sectors, pick Multi-sector.',
     },
 
     q6b: {
@@ -799,7 +800,7 @@ const en = {
       d: 'The two plants depend on each other (one was changed to supply the other)',
       e: 'Only one total figure for the whole network',
     },
-    q5Note: "Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick \"free / ambiguous\" when it is genuinely undecided rather than forcing a direction.",
+    q5Note: 'Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick b (nobody pays, or it is not clear yet) when it is genuinely undecided rather than forcing a direction.',
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
     headers: { id: 'ID', name: 'Name', q5: "Who pays whom (Q5)", sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
     q5Unset: "— choose who pays whom",
@@ -947,6 +948,13 @@ const en = {
   },
 
   result: {
+    // guided mode: notes in plain words (UX round 4)
+    engineNotesPlain: {
+      flow_freedom_to_act_settles: {
+        co_product: 'Flow \'{{flow}}\': you said nobody pays (or it is not clear yet), but that someone else would buy it: then it is not a waste. That is fine; the analyst decides how to count it.',
+        waste: 'Flow \'{{flow}}\': you said nobody pays and nobody else would buy it: it may count as a waste, with no burden from your side. The analyst checks it.',
+      },
+    },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'What this means for you',
@@ -955,6 +963,7 @@ const en = {
       step2: 'Open the Data Collection File and download the Excel: your staff fill in the sheets on the actors, the flows, logistics and costs.',
       step3: 'Give the file and the report to whoever will carry out the study (an analyst, a consultant, a university): the technical points further down are for them.',
       analystTitle: 'Points for the analyst ({{count}})',
+      step1Saved: '✓ Saved as «{{name}}»: you find it in My cases.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1580,6 +1589,9 @@ const en = {
     saveSuccess: 'Saved as "{{name}}"',
     loadError: 'Load failed — {{detail}}',
     deleteError: 'Delete failed — {{detail}}',
+    saveFirstButton: 'Save the case…',
+    sharedYes: 'Shared: public link on',
+    sharedNo: 'Private',
   },
 }
 

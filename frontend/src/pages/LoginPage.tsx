@@ -124,7 +124,8 @@ export default function LoginPage() {
         </button>
 
         <p className="auth-skip">
-          <Link to="/">{t('auth.skipLink')}</Link>
+          {/* back where the user came from, e.g. the result they wanted to save (UX round 4, P4-08) */}
+          <Link to={redirectTo}>{t('auth.skipLink')}</Link>
         </p>
       </form>
     </div>

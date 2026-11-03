@@ -26,6 +26,7 @@ from typing import Any
 
 from openpyxl import Workbook
 from openpyxl.comments import Comment
+from openpyxl.drawing.image import Image as XLImage
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
@@ -117,7 +118,7 @@ def render_xlsx(
 
     nw = sections.get("network_diagram")
     if nw is not None:
-        _write_network_tab(wb, nw, data, lang)
+        _write_network_tab(wb, nw, data, lang, (cover or {}).get("network_png"))
 
     wb.move_sheet(_LISTS_SHEET, offset=len(wb.sheetnames))
 
@@ -489,13 +490,17 @@ def _write_mandates_tab(
 
 
 def _write_network_tab(
-    wb: Workbook, section: DcfSection, data: DcfData | None, lang: str = "en"
+    wb: Workbook, section: DcfSection, data: DcfData | None, lang: str = "en",
+    network_png: bytes | None = None,
 ) -> None:
     """Edge list of the drawn network, or the placeholder note when the
-    analyst has not drawn one yet."""
+    analyst has not drawn one yet; the picture of the network, as the app
+    draws it, to the right of the list when the browser sent one."""
     ws = wb.create_sheet(ui(lang, "sheet.network_diagram"))
     ws["A1"] = _title(section)
     ws["A1"].font = _TITLE_FONT
+    if network_png:
+        ws.add_image(_scaled_image(network_png, 900), "H2")
 
     edges = edge_list(data)
     if not edges:
@@ -549,3 +554,12 @@ def _set_print_footer(ws) -> None:
         # openpyxl HeaderFooter API can be flaky across versions; the inline
         # footer cell is the authoritative one. Swallow.
         pass
+
+
+def _scaled_image(png: bytes, max_width_px: int) -> XLImage:
+    """An openpyxl image of `png`, no wider than `max_width_px` (needs Pillow)."""
+    img = XLImage(BytesIO(png))
+    if img.width > max_width_px:
+        ratio = max_width_px / img.width
+        img.width, img.height = int(img.width * ratio), int(img.height * ratio)
+    return img

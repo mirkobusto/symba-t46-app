@@ -18,7 +18,7 @@ from typing import Any
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.shared import Pt, RGBColor
+from docx.shared import Inches, Pt, RGBColor
 
 from app.domain.dcf_data import DcfData
 from app.engine.dcf_compose import DcfPayload
@@ -74,7 +74,7 @@ def generate_dcf_docx_bytes(
     # P4-08, P5-13, P6-09).
     _write_cover_block(doc, payload, case_title, lang, cover or {})
     _write_instructions_section(doc, payload, lang, (cover or {}).get("contact"))
-    _write_network_section(doc, payload, data, lang)
+    _write_network_section(doc, payload, data, lang, (cover or {}).get("network_png"))
     _write_field_reference_section(doc, payload, lang)
     _write_methodological_section(doc, payload, lang)
     _write_eu_closing(doc, lang)
@@ -174,12 +174,16 @@ def _write_methodological_section(doc: Document, payload: DcfPayload, lang: str 
 
 
 def _write_network_section(
-    doc: Document, payload: DcfPayload, data: DcfData | None = None, lang: str = "en"
+    doc: Document, payload: DcfPayload, data: DcfData | None = None, lang: str = "en",
+    network_png: bytes | None = None,
 ) -> None:
     doc.add_heading(ui(lang, "dx.s2"), level=1)
     if payload.network_render_spec is None:
         doc.add_paragraph(ui(lang, "dx.s2_off"))
         return
+    if network_png:
+        # the network as the app draws it (owner decision 2026-11-03)
+        doc.add_picture(BytesIO(network_png), width=Inches(6.3))
 
     actors = rows_for(data, "actors")
     edges = edge_list(data)

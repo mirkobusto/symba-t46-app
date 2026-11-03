@@ -258,20 +258,21 @@ async function fetchDcfBlob(path: string, body: unknown): Promise<Blob> {
  * configuration rows on the cover. The draft variants below are for cases
  * never saved — they have no case id to look content up by.
  */
-export function fetchDcfXlsxForCase(caseId: string, rows: CoverRow[] = []): Promise<Blob> {
-  return fetchDcfBlob(`/api/dcf/${encodeURIComponent(caseId)}/export/xlsx`, { rows })
+// `networkPng`: the network as drawn on screen (data URL), placed in both files
+export function fetchDcfXlsxForCase(caseId: string, rows: CoverRow[] = [], networkPng: string | null = null): Promise<Blob> {
+  return fetchDcfBlob(`/api/dcf/${encodeURIComponent(caseId)}/export/xlsx`, { rows, network_png: networkPng ?? undefined })
 }
 
-export function fetchDcfDocxForCase(caseId: string, rows: CoverRow[] = []): Promise<Blob> {
-  return fetchDcfBlob(`/api/dcf/${encodeURIComponent(caseId)}/export/docx`, { rows })
+export function fetchDcfDocxForCase(caseId: string, rows: CoverRow[] = [], networkPng: string | null = null): Promise<Blob> {
+  return fetchDcfBlob(`/api/dcf/${encodeURIComponent(caseId)}/export/docx`, { rows, network_png: networkPng ?? undefined })
 }
 
-export function fetchDcfXlsx(input: Case, rows: CoverRow[] = []): Promise<Blob> {
-  return fetchDcfBlob('/api/dcf/export/xlsx', { case: input, rows })
+export function fetchDcfXlsx(input: Case, rows: CoverRow[] = [], networkPng: string | null = null): Promise<Blob> {
+  return fetchDcfBlob('/api/dcf/export/xlsx', { case: input, rows, network_png: networkPng ?? undefined })
 }
 
-export function fetchDcfDocx(input: Case, rows: CoverRow[] = []): Promise<Blob> {
-  return fetchDcfBlob('/api/dcf/export/docx', { case: input, rows })
+export function fetchDcfDocx(input: Case, rows: CoverRow[] = [], networkPng: string | null = null): Promise<Blob> {
+  return fetchDcfBlob('/api/dcf/export/docx', { case: input, rows, network_png: networkPng ?? undefined })
 }
 
 // ----- Stored DCF content (Network Builder) -----

@@ -36,6 +36,7 @@ import type { DcfPayload } from '../types/dcf'
 import { dcfChanges, hasChanges, type DcfChanges } from './dcfChanges'
 import { configurationRows } from './configurationRows'
 import { dcfFilename } from './dcfFilename'
+import { captureNetworkPng } from './networkImage'
 
 function triggerDownload(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob)
@@ -157,13 +158,15 @@ export default function DataCollectionPage() {
       ? configurationRows(result, (key, options) => t(key, options ?? {}) as string)
           .map(({ label, value }) => ({ label, value }))
       : []
+    // the network as drawn on screen, when one is (owner decision 2026-11-03)
+    const png = await captureNetworkPng()
     if (serverCaseId) {
       if (dcfDirty) await saveDcfData()
       return kind === 'xlsx'
-        ? fetchDcfXlsxForCase(serverCaseId, rows)
-        : fetchDcfDocxForCase(serverCaseId, rows)
+        ? fetchDcfXlsxForCase(serverCaseId, rows, png)
+        : fetchDcfDocxForCase(serverCaseId, rows, png)
     }
-    return kind === 'xlsx' ? fetchDcfXlsx(sourceCase, rows) : fetchDcfDocx(sourceCase, rows)
+    return kind === 'xlsx' ? fetchDcfXlsx(sourceCase, rows, png) : fetchDcfDocx(sourceCase, rows, png)
   }
 
   async function handleDownloadXlsx() {

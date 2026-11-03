@@ -12,6 +12,8 @@ dependencies = [
     "python-multipart>=0.0.20",
     "python-docx>=1.1.2",
     "openpyxl>=3.1.0",
+    # images in the Excel file (openpyxl reads their size through Pillow)
+    "pillow>=11.0.0",
     "pyjwt>=2.10.0",
     "bcrypt>=4.0.0",
     "email-validator>=2.0.0",

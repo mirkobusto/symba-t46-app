@@ -127,4 +127,5 @@ def test_cir01_why_names_the_q8_answer_that_triggered_it():
                 operating_start="now", asset_lifetime_years=30,
                 decision_context=DecisionContext.NONE)
     trigger = "operating start in a future year OR Q6b < TRL7 OR analysis period or asset lifetime > 15y"
-    assert answers_in(trigger, kase) == [("Q6b", "TRL9"), ("Q8a", "now"), ("Q8c", "30 y")]
+    # since 2026-11-03 (B7) only the answer that fires the disjunction is cited
+    assert answers_in(trigger, kase) == [("Q8c", "30 y")]

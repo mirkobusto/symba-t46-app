@@ -152,13 +152,40 @@ def answers_in(trigger: str | None, case: Case) -> list[tuple[str, str]]:
     # this, CIR-01 cited only "Q6b = TRL9" as why it applied, when the asset
     # lifetime had triggered it (UX round 2026-11-02).
     lowered = trigger.lower()
+    horizon = False
     for phrase, label in _Q8_PHRASES:
-        if phrase in lowered and label not in seen:
+        if phrase not in lowered:
+            continue
+        horizon = True
+        if label not in seen:
             seen.add(label)
             answer = _answer_for(case, label)
             if answer is not None:
                 out.append((label, str(answer)))
+    # the horizon trigger is a disjunction: list only the answers that fire it
+    # (UX round 2026-11-03, B7; same rule as resultActions.answersFor)
+    if horizon and " or " in lowered:
+        firing = [a for a in out if _horizon_fires(case, a[0])]
+        if firing:
+            return firing
     return out
+
+
+def _horizon_fires(case: Case, label: str) -> bool:
+    raw = (case.advanced or {}).get("future_background_threshold_years")
+    try:
+        threshold = float(raw) if raw is not None and float(raw) > 0 else 15.0
+    except (TypeError, ValueError):
+        threshold = 15.0
+    if label == "Q6b":
+        return case.q6b is not None and case.q6b.value in ("TRL5-6", "TRL<5")
+    if label == "Q8a":
+        return case.operating_start is not None and case.operating_start.value == "future"
+    if label == "Q8b":
+        return (case.analysis_period_years or 0) > threshold
+    if label == "Q8c":
+        return (case.asset_lifetime_years or 0) > threshold
+    return True
 
 
 @dataclass

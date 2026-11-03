@@ -1503,6 +1503,7 @@ const fr: Locale = {
     guidedIntro: 'Vous voyez ici les questions que le fichier Excel posera aux entreprises. Vous n\'avez pas à les remplir maintenant : téléchargez le fichier et transmettez-le.',
     unsavedCase: 'Les fichiers ne contiennent pas encore le réseau que vous avez dessiné : enregistrez le cas (un compte est nécessaire) pour l\'inclure.',
     unsavedNetwork: 'Le réseau a des modifications non enregistrées : enregistrez le réseau pour les inclure dans les fichiers.',
+    filesNote: 'Excel : le classeur que remplissent les entreprises (à ouvrir avec Excel ou LibreOffice, plutôt sur un ordinateur). Word : le document qui l\'accompagne et l\'explique.',
     savedDiverged: 'Ces fichiers suivent la version enregistrée du cas. Enregistrez vos modifications depuis la page du résultat pour télécharger des fichiers conformes à cette page.',
     changes: 'Par rapport à la version enregistrée : {{removed}} choix à documenter ne s\'appliquent plus, {{added}} ajoutés.',
     changesFieldsGone: 'Champs qui ne sont plus demandés : {{fields}} — les valeurs saisies sont conservées mais ne sont pas exportées.',

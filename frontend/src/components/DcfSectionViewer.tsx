@@ -100,7 +100,7 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
       {/* what a data provider needs: the datum, whether it is required, the
           values it takes and why it is asked, in words; the type and the raw
           predicate were for whoever wrote the schema (UX round 2026-11-02) */}
-      <table className="dcf-table">
+      <table className="dcf-table dcf-table-fields">
         <thead>
           <tr>
             <th>{t('dcf.viewer.colField')}</th>
@@ -134,9 +134,9 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
                     </>
                   )}
                 </td>
-                <td>{f.required ? t('common.yes') : t('common.no')}</td>
-                <td>{values ? <span className="dcf-enum-values">{values.join('; ')}</span> : '—'}</td>
-                <td>{f.reason || t('dcf.viewer.always')}</td>
+                <td data-label={t('dcf.viewer.colRequired')}>{f.required ? t('common.yes') : t('common.no')}</td>
+                <td data-label={t('dcf.viewer.colValues')}>{values ? <span className="dcf-enum-values">{values.join('; ')}</span> : '—'}</td>
+                <td data-label={t('dcf.viewer.colWhy')}>{f.reason || t('dcf.viewer.always')}</td>
               </tr>
             )
           })}

@@ -1523,6 +1523,7 @@ const it: Locale = {
     guidedIntro: 'Qui vedi le domande che il file Excel farà alle aziende. Non devi compilarle tu adesso: scarica il file e passalo a chi deve compilarlo.',
     unsavedCase: 'I file non contengono ancora la rete che hai disegnato: salva il caso (serve un account) per includerla.',
     unsavedNetwork: 'La rete ha modifiche non salvate: salva la rete per includerle nei file.',
+    filesNote: 'Excel: il file che compilano le aziende (si apre con Excel o LibreOffice, meglio da computer). Word: il documento che lo accompagna e lo spiega.',
     savedDiverged: 'Questi file seguono la versione salvata del caso. Salva le modifiche dalla pagina del risultato per scaricare file uguali a questa pagina.',
     changes: 'Rispetto alla versione salvata: {{removed}} scelte da documentare non valgono più, {{added}} aggiunte.',
     changesFieldsGone: 'Campi non più chiesti: {{fields}} — i valori inseriti restano conservati ma non vanno nei file.',

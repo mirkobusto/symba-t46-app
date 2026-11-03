@@ -5147,3 +5147,35 @@ kbd {
 .nb-panel-actions { display: flex; flex-wrap: wrap; gap: var(--dd-space-2); margin-top: var(--dd-space-3); }
 .nb-missing { cursor: pointer; border: 0; }
 .nb-drawn, .nb-stray { margin-top: var(--dd-space-3); }
+
+/* ---- DCF on a phone (UX round 5, P6) ------------------------------------
+   The field tables were 513 px wide on a 390 px screen, hiding the "why it
+   is asked" column; under 640 px each field becomes a stacked card. */
+@media (max-width: 640px) {
+  .dcf-table-fields thead { display: none; }
+  .dcf-table-fields, .dcf-table-fields tbody, .dcf-table-fields tr, .dcf-table-fields td { display: block; width: 100%; }
+  .dcf-table-fields tr { border-bottom: 1px solid var(--slate-300); padding: 8px 0; }
+  .dcf-table-fields td { border: 0; padding: 2px 0; }
+  .dcf-table-fields td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; color: var(--slate-700); }
+  .dcf-enum-values { font-family: inherit; }
+  .dcf-page .dcf-table { table-layout: fixed; word-break: break-word; }
+  .dcf-files-top .btn { flex: 1 1 100%; }
+}
+/* the dots an arrow starts and ends on are hard to hit with a finger */
+@media (pointer: coarse) {
+  .react-flow__handle { width: 16px; height: 16px; }
+  .run-tip { display: none; }
+}
+.dcf-files-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; }
+.dcf-files-note { flex: 1 1 280px; margin: 0; font-size: 0.88rem; color: var(--slate-700); }
+/* the sign-out button was cut at the right edge of a phone (P6-02):
+   the user block may shrink, the e-mail gives way first */
+@media (max-width: 640px) {
+  .dd-topbar-right { min-width: 0; flex-wrap: wrap; justify-content: flex-end; }
+  .dd-topbar-user { min-width: 0; flex-wrap: wrap; }
+  .dd-topbar-user-email { max-width: 34vw; }
+  .dd-topbar-logout { white-space: nowrap; }
+}
+/* the panel is scrolled into view on a phone: keep its title clear of the sticky header */
+.nb-panel { scroll-margin-top: calc(var(--dd-site-header-height) + var(--dd-topbar-height) + 16px); }
+@media (max-width: 640px) { .nb-panel { scroll-margin-top: 220px; } }

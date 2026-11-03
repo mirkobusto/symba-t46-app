@@ -1497,6 +1497,7 @@ const de: Locale = {
     guidedIntro: 'Hier sehen Sie die Fragen, die die Excel-Datei den Unternehmen stellt. Sie müssen sie jetzt nicht ausfüllen: Laden Sie die Datei herunter und geben Sie sie weiter.',
     unsavedCase: 'Die Dateien enthalten das gezeichnete Netzwerk noch nicht: Speichern Sie den Fall (ein Konto ist nötig), um es aufzunehmen.',
     unsavedNetwork: 'Das Netzwerk hat ungespeicherte Änderungen: Speichern Sie das Netzwerk, um sie in die Dateien aufzunehmen.',
+    filesNote: 'Excel: die Arbeitsmappe, die die Unternehmen ausfüllen (mit Excel oder LibreOffice öffnen, am besten am Computer). Word: das Begleitdokument, das sie erklärt.',
     savedDiverged: 'Diese Dateien folgen der gespeicherten Version des Falls. Speichern Sie Ihre Änderungen auf der Ergebnisseite, um Dateien herunterzuladen, die dieser Seite entsprechen.',
     changes: 'Gegenüber der gespeicherten Version: {{removed}} zu dokumentierende Entscheidungen entfallen, {{added}} kommen hinzu.',
     changesFieldsGone: 'Nicht mehr abgefragte Felder: {{fields}} — die eingegebenen Werte bleiben erhalten, werden aber nicht exportiert.',

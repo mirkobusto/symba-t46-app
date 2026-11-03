@@ -288,6 +288,27 @@ export default function DataCollectionPage() {
         ) : null}
       </div>
 
+      {/* the download buttons were twenty screens down on a phone (P6-03) */}
+      <div className="dcf-files-top">
+        <p className="dcf-files-note">{t('dcf.filesNote')}</p>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleDownloadXlsx}
+          disabled={downloadingXlsx || diverged}
+        >
+          {downloadingXlsx ? t('dcf.downloadingXlsx') : t('dcf.downloadXlsx')}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleDownloadDocx}
+          disabled={downloadingDocx || diverged}
+        >
+          {downloadingDocx ? t('dcf.downloadingDocx') : t('dcf.downloadDocx')}
+        </button>
+      </div>
+
       <div className="dd-tabs" role="tablist">
         <button
           type="button"

@@ -1544,6 +1544,7 @@ const en = {
     guidedIntro: 'Here you see the questions the Excel file will ask the companies. You do not have to fill them in now: download the file and pass it on.',
     unsavedCase: 'The files do not contain the network you drew yet: save the case (an account is needed) to include it.',
     unsavedNetwork: 'The network has unsaved changes: save the network to include them in the files.',
+    filesNote: 'Excel: the workbook the companies fill in (open it with Excel or LibreOffice, better on a computer). Word: the companion document that explains it.',
     savedDiverged: 'These files follow the saved version of the case. Save your changes on the result page to download files that match this page.',
     changes: 'Since the saved version: {{removed}} choices to document no longer apply, {{added}} added.',
     changesFieldsGone: 'Fields no longer asked: {{fields}} — the values entered are kept but not exported.',

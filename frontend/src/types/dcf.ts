@@ -8,6 +8,8 @@ export interface DcfFieldDescriptor {
   required: boolean
   /** Filled by the engine from the row id — not something to type in. */
   derived?: boolean
+  /** "analyst" for a column the companies leave empty (UX round 5, D4). */
+  filled_by?: string | null
   activation_predicate: string
   enum_values?: string[] | null
   enum_ref?: string | null
@@ -32,6 +34,8 @@ export interface DcfSection {
   applies_when: string
   row_collection: string
   active: boolean
+  /** Who fills the section in: company / analyst / both (UX round 5, D4). */
+  filled_by?: string | null
   fields: DcfFieldDescriptor[]
   title?: string | null
   description?: string | null

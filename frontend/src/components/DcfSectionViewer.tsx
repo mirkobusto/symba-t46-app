@@ -93,7 +93,11 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
       </h3>
       <p className="dcf-section-who">
         <span className="dd-pill dd-pill-muted">
-          {t(ANALYST_SECTIONS.has(section.id) ? 'dcf.viewer.whoAnalyst' : 'dcf.viewer.whoCompanies')}
+          {t(section.filled_by === 'both'
+            ? 'dcf.viewer.whoBoth'
+            : (section.filled_by ? section.filled_by === 'analyst' : ANALYST_SECTIONS.has(section.id))
+              ? 'dcf.viewer.whoAnalyst'
+              : 'dcf.viewer.whoCompanies')}
         </span>
       </p>
       <p className="dcf-section-description">{description}</p>
@@ -120,6 +124,9 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
                   <strong>{f.label || f.label_en}</strong>
                   {f.derived ? (
                     <span className="dcf-derived"> · {t('dcf.derivedField')}</span>
+                  ) : null}
+                  {f.filled_by === 'analyst' ? (
+                    <span className="dcf-derived"> · {t('dcf.viewer.forAnalyst')}</span>
                   ) : null}
                   {f.help || f.description_en ? (
                     <>

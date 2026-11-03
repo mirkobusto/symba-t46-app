@@ -72,7 +72,10 @@ def value_label(lang: str, field: Any, value: Any) -> Any:
 def reason(lang: str, predicate: str | None) -> str | None:
     if not predicate or predicate == "always":
         return None
-    return _terms()[language(lang)]["reasons"].get(predicate)
+    text = _terms()[language(lang)]["reasons"].get(predicate)
+    # "(Q2)", "(Q8 or Q6b)": the companies never saw the questionnaire, the
+    # code said nothing to them (UX round 5, P2-06, P4-02, P6-07)
+    return re.sub(r"\s*\(Q\d[^)]*\)", "", text) if text else text
 
 
 def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:

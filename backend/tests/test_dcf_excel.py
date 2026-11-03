@@ -130,8 +130,10 @@ def test_actors_tab_keeps_the_field_ids_in_the_header_comments(payload_wiktor):
         if ws.cell(row=4, column=c).comment
     ]
     joined = "\n".join(notes)
-    assert "actor.id" in joined
-    assert "actor.role" in joined
+    # explained in words, without the field ids that read as code to whoever
+    # fills the file in (UX round 5, P2-05, P3-10)
+    assert "actor.id" not in joined and "actor.role" not in joined
+    assert "Allowed:" in joined
     # and row 5 is data, not a second header
     assert ws.cell(row=5, column=2).value is None
 
@@ -185,7 +187,9 @@ def test_flow_matrix_tab_has_marginal_market_when_q1c(
         for c in range(1, 30)
         if ws.cell(row=4, column=c).comment
     )
-    assert "flow.marginal_market_ref" in notes
+    # the column is there, marked for the analyst (grey, UX round 5 D4)
+    assert "flow.marginal_market_ref" not in notes
+    assert "For whoever carries out the study" in notes
 
 
 def test_inactive_tab_shows_placeholder(payload_arce):

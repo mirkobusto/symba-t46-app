@@ -8,6 +8,7 @@ const fr: Locale = {
     run: 'Exécuter',
     reset: 'Réinitialiser',
     close: 'Fermer',
+    pageLoading: 'Chargement…',
     add: 'Ajouter',
     remove: 'Supprimer',
     cancel: 'Annuler',

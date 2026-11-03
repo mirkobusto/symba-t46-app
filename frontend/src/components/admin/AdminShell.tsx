@@ -18,6 +18,7 @@
 
 import { Outlet } from 'react-router-dom'
 
+import PageSuspense from '../PageSuspense'
 import SiteHeader from '../brand/SiteHeader'
 import EuFooter from '../EuFooter'
 import HealthBanner from '../HealthBanner'
@@ -40,7 +41,9 @@ export default function AdminShell() {
           <Topbar />
           <HealthBanner />
           <main id="dd-main" className="dd-main" tabIndex={-1}>
-            <Outlet />
+            <PageSuspense>
+              <Outlet />
+            </PageSuspense>
           </main>
         </div>
       </div>

@@ -9,6 +9,7 @@ const en = {
     run: 'Run',
     reset: 'Reset',
     close: 'Close',
+    pageLoading: 'Loading…',
     add: 'Add',
     remove: 'Remove',
     cancel: 'Cancel',

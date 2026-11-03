@@ -44,7 +44,7 @@ function triggerDownload(blob: Blob, filename: string) {
 }
 
 export default function DataCollectionPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const result = useCaseStore((s) => s.result)
   const draft = useCaseStore((s) => s.draft)
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
@@ -98,7 +98,7 @@ export default function DataCollectionPage() {
     }
     // sourceCase changes whenever the store mutates — re-fetch.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(sourceCase)])
+  }, [JSON.stringify(sourceCase), i18n.language])
 
   // Attach the Network Builder draft to the saved case (if any) and pull
   // whatever was stored server-side for it.
@@ -218,14 +218,18 @@ export default function DataCollectionPage() {
         </h1>
         <p className="dd-page-sub">{t('dcf.subtitle')}</p>
         <div className="dcf-badges" style={{ marginTop: 12 }}>
+          {/* the situation in words, as on the result page; "deactivated" was engine output */}
           <span className="dd-pill dd-pill-brand">
-            <strong>ILCD:</strong> {payload.ilcd_situation ?? '—'}
+            {payload.ilcd_situation
+              ? t(`narrative.ilcd.${payload.ilcd_situation}.title`, { defaultValue: payload.ilcd_situation })
+              : '—'}
           </span>
+          {payload.lcc_type && payload.lcc_type !== 'deactivated' ? (
+            <span className="dd-pill dd-pill-brand">LCC {payload.lcc_type}</span>
+          ) : null}
           <span className="dd-pill dd-pill-brand">
-            <strong>LCC:</strong> {payload.lcc_type ?? '—'}
-          </span>
-          <span className="dd-pill dd-pill-brand">
-            <strong>S-LCA:</strong> {payload.slca_activation_state ?? '—'}
+            <strong>S-LCA:</strong>{' '}
+            {payload.slca_activation_state === 'active' ? t('common.yes') : t('common.no')}
           </span>
         </div>
       </div>

@@ -17,6 +17,12 @@ export interface DcfFieldDescriptor {
   max?: number | null
   row_condition?: string | null
   source_ref?: string | null
+  /** In the reader's language (the API's ?lang=); fall back to the _en text. */
+  label?: string | null
+  help?: string | null
+  /** Why the field is asked, in words, instead of the raw predicate. */
+  reason?: string | null
+  enum_labels?: Record<string, string> | null
 }
 
 export interface DcfSection {
@@ -27,6 +33,8 @@ export interface DcfSection {
   row_collection: string
   active: boolean
   fields: DcfFieldDescriptor[]
+  title?: string | null
+  description?: string | null
 }
 
 export interface DcfMandate {

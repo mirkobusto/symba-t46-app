@@ -11,6 +11,7 @@ import type {
   ScenarioInput,
   ScenariosResponse,
 } from '../types/api'
+import i18n from '../i18n'
 import { currentAuthToken } from '../store/authStore'
 import type {
   LoginRequest,
@@ -187,15 +188,21 @@ export function deleteCase(id: string): Promise<void> {
 
 // ----- DCF (Phase 2 backend, Phase 3 frontend integration) -----
 
+// the Data Collection File comes back in the interface language: page,
+// network editor, Excel and Word (UX round 2026-11-02)
+function langQuery(): string {
+  return `?lang=${encodeURIComponent(i18n.language || 'en')}`
+}
+
 export function fetchDcfPreview(input: Case): Promise<DcfPayload> {
-  return request<DcfPayload>('/api/dcf/preview', {
+  return request<DcfPayload>(`/api/dcf/preview${langQuery()}`, {
     method: 'POST',
     body: JSON.stringify(input),
   })
 }
 
 async function fetchDcfBlob(path: string, input: Case): Promise<Blob> {
-  const res = await fetch(`${API_BASE_URL}${path}`, {
+  const res = await fetch(`${API_BASE_URL}${path}${langQuery()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...authHeader() },
     body: JSON.stringify(input),
@@ -234,11 +241,11 @@ async function fetchBlobGet(path: string): Promise<Blob> {
  * no case id to look content up by.
  */
 export function fetchDcfXlsxForCase(caseId: string): Promise<Blob> {
-  return fetchBlobGet(`/api/dcf/${encodeURIComponent(caseId)}/export/xlsx`)
+  return fetchBlobGet(`/api/dcf/${encodeURIComponent(caseId)}/export/xlsx${langQuery()}`)
 }
 
 export function fetchDcfDocxForCase(caseId: string): Promise<Blob> {
-  return fetchBlobGet(`/api/dcf/${encodeURIComponent(caseId)}/export/docx`)
+  return fetchBlobGet(`/api/dcf/${encodeURIComponent(caseId)}/export/docx${langQuery()}`)
 }
 
 export function fetchDcfXlsx(input: Case): Promise<Blob> {

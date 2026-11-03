@@ -18,16 +18,16 @@ interface Props {
 
 export default function DcfSectionViewer({ section, mandatesByCategory }: Props) {
   const { t } = useTranslation()
+  // in the reader's language when the API sent it (?lang=), schema text otherwise
+  const title = section.title || section.title_en
+  const description = section.description || section.description_en
 
   if (!section.active) {
     return (
       <div className="dcf-section dcf-section-inactive">
-        <h3>{section.title_en}</h3>
-        <p className="dcf-section-description">{section.description_en}</p>
-        <p className="dcf-inactive-banner">
-          <strong>Not active</strong> for this case configuration
-          (applies_when: <code>{section.applies_when}</code>).
-        </p>
+        <h3>{title}</h3>
+        <p className="dcf-section-description">{description}</p>
+        <p className="dcf-inactive-banner">{t('dcf.viewer.notActive')}</p>
       </div>
     )
   }
@@ -35,8 +35,8 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
   if (section.id === 'methodological_choices' && mandatesByCategory) {
     return (
       <div className="dcf-section">
-        <h3>{section.title_en}</h3>
-        <p className="dcf-section-description">{section.description_en}</p>
+        <h3>{title}</h3>
+        <p className="dcf-section-description">{description}</p>
         {Object.entries(mandatesByCategory).map(([category, mandates]) => (
           <div key={category} className="dcf-mandate-category">
             <h4>
@@ -45,9 +45,9 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
             <table className="dcf-table">
               <thead>
                 <tr>
-                  <th>Node ID</th>
-                  <th>Method</th>
-                  <th>Statement</th>
+                  <th>{t('dcf.viewer.nodeId')}</th>
+                  <th>{t('dcf.viewer.method')}</th>
+                  <th>{t('dcf.viewer.statement')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,9 +71,9 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
   if (section.id === 'network_diagram') {
     return (
       <div className="dcf-section">
-        <h3>{section.title_en}</h3>
-        <p className="dcf-section-description">{section.description_en}</p>
-        <p className="dcf-see-below">See the interactive diagram above.</p>
+        <h3>{title}</h3>
+        <p className="dcf-section-description">{description}</p>
+        <p className="dcf-see-below">{t('dcf.viewer.seeAbove')}</p>
       </div>
     )
   }
@@ -81,49 +81,49 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
   return (
     <div className="dcf-section">
       <h3>
-        {section.title_en}{' '}
-        <span className="dcf-count">({section.fields.length} fields)</span>
+        {title}{' '}
+        <span className="dcf-count">{t('dcf.viewer.fieldsCount', { count: section.fields.length })}</span>
       </h3>
-      <p className="dcf-section-description">{section.description_en}</p>
+      <p className="dcf-section-description">{description}</p>
+      {/* what a data provider needs: the datum, whether it is required, the
+          values it takes and why it is asked, in words; the type and the raw
+          predicate were for whoever wrote the schema (UX round 2026-11-02) */}
       <table className="dcf-table">
         <thead>
           <tr>
-            <th>Field</th>
-            <th>Type</th>
-            <th>Required</th>
-            <th>Enum values / ref</th>
-            <th>Activated by</th>
+            <th>{t('dcf.viewer.colField')}</th>
+            <th>{t('dcf.viewer.colRequired')}</th>
+            <th>{t('dcf.viewer.colValues')}</th>
+            <th>{t('dcf.viewer.colWhy')}</th>
           </tr>
         </thead>
         <tbody>
-          {section.fields.map((f) => (
-            <tr key={f.id}>
-              <td>
-                <strong>{f.label_en}</strong>
-                <br />
-                <code className="dcf-field-id">{f.id}</code>
-                {f.derived ? (
-                  <span className="dcf-derived"> · {t('dcf.derivedField')}</span>
-                ) : null}
-              </td>
-              <td>{f.type}</td>
-              <td>{f.required ? 'yes' : 'no'}</td>
-              <td>
-                {f.enum_values ? (
-                  <span className="dcf-enum-values">
-                    {f.enum_values.join(', ')}
-                  </span>
-                ) : f.enum_ref ? (
-                  <code>{f.enum_ref}</code>
-                ) : (
-                  '—'
-                )}
-              </td>
-              <td>
-                <code className="dcf-predicate">{f.activation_predicate}</code>
-              </td>
-            </tr>
-          ))}
+          {section.fields.map((f) => {
+            const values = f.enum_labels
+              ? Object.values(f.enum_labels)
+              : f.enum_values ?? null
+            return (
+              <tr key={f.id}>
+                <td>
+                  <strong>{f.label || f.label_en}</strong>
+                  {f.derived ? (
+                    <span className="dcf-derived"> · {t('dcf.derivedField')}</span>
+                  ) : null}
+                  {f.help || f.description_en ? (
+                    <>
+                      <br />
+                      <span className="dcf-field-help">{f.help || f.description_en}</span>
+                    </>
+                  ) : null}
+                  <br />
+                  <code className="dcf-field-id">{f.id}</code>
+                </td>
+                <td>{f.required ? t('common.yes') : t('common.no')}</td>
+                <td>{values ? <span className="dcf-enum-values">{values.join('; ')}</span> : '—'}</td>
+                <td>{f.reason || t('dcf.viewer.always')}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

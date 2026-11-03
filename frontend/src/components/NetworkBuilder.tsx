@@ -277,7 +277,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         <aside className="nb-panel">
           {selectedSection && selectedRow ? (
             <>
-              <h3 className="nb-panel-title">{selectedSection.title_en}</h3>
+              <h3 className="nb-panel-title">{selectedSection.title || selectedSection.title_en}</h3>
               <DcfRowFields
                 section={selectedSection}
                 row={selectedRow}

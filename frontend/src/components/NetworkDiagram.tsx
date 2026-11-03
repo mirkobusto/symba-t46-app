@@ -94,26 +94,27 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
       placeholderNodes.push({
         id: originId,
         position: { x: xLeft, y: Y_TOP },
-        data: { label: `Actor ?\n(origin of ${flow.name})` },
+        // "Actor ?" read as a bug to a plant manager (UX round 2026-11-02)
+        data: { label: t('dcf.diagram.whoGives', { flow: flow.name }) },
         style: { whiteSpace: 'pre-line' },
       })
       placeholderNodes.push({
         id: destId,
         position: { x: xRight, y: Y_BOTTOM },
-        data: { label: `Actor ?\n(dest of ${flow.name})` },
+        data: { label: t('dcf.diagram.whoReceives', { flow: flow.name }) },
         style: { whiteSpace: 'pre-line' },
       })
       placeholderEdges.push({
         id: `edge-${flow.id}`,
         source: originId,
         target: destId,
-        label: `${flow.name} (q5=${flow.q5 ?? '?'})`,
+        label: flow.name,
         animated: false,
       })
     })
 
     return { nodes: placeholderNodes, edges: placeholderEdges }
-  }, [caseFlows])
+  }, [caseFlows, t])
 
   if (!payload.network_render_spec) {
     return (

@@ -90,7 +90,7 @@ export default function DcfRowFields({
             htmlFor={inputId}
           >
             <span className="nb-field-label">
-              {field.label_en}
+              {field.label || field.label_en}
               {field.required ? <span className="nb-req"> *</span> : null}
             </span>
 
@@ -129,7 +129,7 @@ export default function DcfRowFields({
                 <option value="">—</option>
                 {options.map((opt) => (
                   <option key={opt} value={opt}>
-                    {opt}
+                    {field.enum_labels?.[opt] ?? opt}
                   </option>
                 ))}
               </select>
@@ -161,18 +161,15 @@ export default function DcfRowFields({
               />
             )}
 
-            {field.description_en ? (
-              <span className="nb-field-help">{field.description_en}</span>
+            {field.help || field.description_en ? (
+              <span className="nb-field-help">{field.help || field.description_en}</span>
             ) : null}
 
-            {/* Why this field is being asked. The predicate is the
-                methodological reason the DCF wants it for *this* case —
-                showing it turns an opaque form into a traceable one. */}
-            {field.activation_predicate &&
-            field.activation_predicate !== 'always' ? (
+            {/* Why this field is being asked, in words: the raw predicate
+                ("q3.eco or q3.soc") read as code (UX round 2026-11-02). */}
+            {field.reason ? (
               <span className="nb-field-why">
-                {t('networkBuilder.whyAsked')}{' '}
-                <code>{field.activation_predicate}</code>
+                {t('networkBuilder.whyAsked')} {field.reason}
               </span>
             ) : null}
           </label>

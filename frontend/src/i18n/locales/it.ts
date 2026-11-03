@@ -91,7 +91,7 @@ const it: Locale = {
     publicToggle: 'Rendi questo report leggibile da chiunque abbia il link',
     preparedByLabel: 'Preparato da (compare sul report)',
     contactLabel: 'Contatto per domande su questo caso (facoltativo)',
-    saveSharing: 'Salva',
+    saveSharing: 'Salva nome e contatto',
     notSharedBody: 'Il report non è pubblico: solo tu puoi aprire questo caso. Attiva la condivisione per avere i link.',
     sharedBody: 'Il report è pubblico: chiunque abbia uno di questi link può leggerlo, senza le note e le quantità dei flussi.',
   },
@@ -114,7 +114,7 @@ const it: Locale = {
     open: {
       eyebrow: "Report condiviso",
       title: "Apri un report che hai ricevuto",
-      lead: "Incolla il link che ti hanno mandato, oppure solo il codice del caso alla sua fine (per esempio agri-b-sita-19a8).",
+      lead: 'Incolla il link che ti hanno mandato, oppure solo il codice del caso alla sua fine (un codice come agri-b-sita-1a2b3c4d).',
       label: "Link o codice del caso",
       placeholder: "https://…/r/…",
       invalid: "Non sembra il link di un report. Incolla tutto il link che hai ricevuto, oppure il codice dopo /r/.",
@@ -427,7 +427,7 @@ const it: Locale = {
     technicalTitle: "Dettagli tecnici (per specialisti)",
     title: 'Informazioni',
     p1:
-      "SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da un questionario sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i punteggi quantitativi sono prodotti fuori dallo strumento e compaiono qui quando arrivano.",
+      'SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da un questionario sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i numeri li calcola fuori dallo strumento chi esegue lo studio, e si possono caricare qui; nessuno li calcola in automatico.',
     p2:
       'Il questionario (Q0-Q12; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
   },

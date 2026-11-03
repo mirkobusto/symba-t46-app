@@ -70,14 +70,19 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
     }
   }
 
-  async function handleSave() {
+  // the switch applies as soon as it is touched: unticking it and closing with
+  // "Done" left the report public while the dialog said otherwise (UX round 4,
+  // 2026-11-03, P1-01); the button below saves only the name and the contact
+  async function handleSave(next: boolean = wantShared) {
     if (!caseId) return
     setSaving(true)
     try {
-      const d = await shareCase(caseId, { shared: wantShared, prepared_by: preparedBy, case_contact: contact })
+      const d = await shareCase(caseId, { shared: next, prepared_by: preparedBy, case_contact: contact })
       setShared(!!d.shared_at)
+      setWantShared(!!d.shared_at)
       setSlug(d.slug ?? slug)
     } catch (e) {
+      setWantShared(shared)   // the server did not change: show its state again
       pushToast({ type: 'error', message: e instanceof ApiError ? e.detail : (e as Error).message })
     } finally {
       setSaving(false)
@@ -103,8 +108,11 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
               <input
                 type="checkbox"
                 checked={wantShared}
-                disabled={!loaded}
-                onChange={(e) => setWantShared(e.target.checked)}
+                disabled={!loaded || saving}
+                onChange={(e) => {
+                  setWantShared(e.target.checked)
+                  void handleSave(e.target.checked)
+                }}
               />
               {t('share.publicToggle')}
             </label>
@@ -119,7 +127,7 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
             <button
               type="button"
               className="dd-btn dd-btn-secondary"
-              onClick={handleSave}
+              onClick={() => void handleSave()}
               disabled={!loaded || saving}
             >
               {t('share.saveSharing')}

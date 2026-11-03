@@ -92,3 +92,22 @@ describe('in-app dialogs', () => {
     await expect(pending).resolves.toBeNull()
   })
 })
+
+describe('share switch (UX round 4, P1-01)', () => {
+  it('turns sharing off as soon as it is unticked', async () => {
+    const calls: unknown[] = []
+    vi.stubGlobal('fetch', vi.fn((_url: string, init?: RequestInit) => {
+      if (init?.method === 'POST') calls.push(JSON.parse(String(init.body)))
+      const shared = init?.method === 'POST' ? JSON.parse(String(init.body)).shared : true
+      return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve({
+        id: 'id-1', name: 'x', slug: 'agri-b-sita-1a2b3c4d', ilcd_situation: null, created_at: '', updated_at: '',
+        shared_at: shared ? '2026-11-03T10:00:00' : null, case: {} }) } as Response)
+    }))
+    render(<ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} />)
+    const box = await screen.findByRole('checkbox')
+    await screen.findAllByRole('button', { name: 'Copy' })
+    fireEvent.click(box)
+    expect(await screen.findByText(/The report is not public/)).toBeInTheDocument()
+    expect(calls).toEqual([{ shared: false, prepared_by: '', case_contact: '' }])
+  })
+})

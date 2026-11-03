@@ -82,7 +82,7 @@ const de: Locale = {
     publicToggle: 'Diesen Bericht für alle mit dem Link lesbar machen',
     preparedByLabel: 'Erstellt von (im Bericht angezeigt)',
     contactLabel: 'Kontakt für Fragen zu diesem Fall (optional)',
-    saveSharing: 'Speichern',
+    saveSharing: 'Name und Kontakt speichern',
     notSharedBody: 'Der Bericht ist nicht öffentlich: Nur Sie können diesen Fall öffnen. Schalten Sie das Teilen ein, um die Links zu erhalten.',
     sharedBody: 'Der Bericht ist öffentlich: Wer einen dieser Links hat, kann ihn lesen, ohne die Notizen und Mengen der Flüsse.',
   },
@@ -105,7 +105,7 @@ const de: Locale = {
     open: {
       eyebrow: "Geteilter Bericht",
       title: "Einen erhaltenen Bericht öffnen",
-      lead: "Fügen Sie den Link ein, den Sie bekommen haben, oder nur den Fallcode an seinem Ende (zum Beispiel agri-b-sita-19a8).",
+      lead: 'Fügen Sie den Link ein, den Sie bekommen haben, oder nur den Fallcode an seinem Ende (ein Code wie agri-b-sita-1a2b3c4d).',
       label: "Link oder Fallcode",
       placeholder: "https://…/r/…",
       invalid: "Das sieht nicht wie ein Berichtslink aus. Fügen Sie den ganzen Link ein oder den Code nach /r/.",
@@ -401,7 +401,7 @@ const de: Locale = {
     technicalTitle: "Technische Details (für Fachleute)",
     title: 'Über',
     p1:
-      "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
+      'SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die Zahlen berechnet außerhalb des Werkzeugs, wer die Studie durchführt, und sie können hier geladen werden; niemand berechnet sie automatisch.',
     p2:
       'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
   },

@@ -108,12 +108,12 @@ _PAPERS: list[dict[str, Any]] = [
     # 5. Arce Bastias 2023 — Mendoza plastic recycling, ex-post
     {
         "id": "arce_bastias_2023",
-        "decision_context": DecisionContext.MICRO, "q1": Q1.B, "q2": Q2.A,
+        "decision_context": DecisionContext.NONE, "q1": Q1.B, "q2": Q2.A,
         "q3": Q3(env=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.PLASTICS_PACKAGING, "q6b": Q6b.TRL9, "q7": Q7.A,
-        "expected_ilcd": IlcdSituation.SITUATION_A,
+        "expected_ilcd": IlcdSituation.SITUATION_C1,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },

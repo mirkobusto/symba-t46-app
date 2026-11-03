@@ -36,7 +36,8 @@ def test_a_purpose_that_fixes_the_timing_is_checked_against_q2(purpose, fits, mi
     assert _codes(_run(study_purpose=purpose, q2=fits)) == []
     noted = _run(study_purpose=purpose, q2=misfits)
     assert _codes(noted) == ["study_purpose_vs_q2"]
-    assert noted.warnings[-1]["params"] == {"variant": purpose.value}
+    note = next(w for w in noted.warnings if w["code"] == "study_purpose_vs_q2")
+    assert note["params"] == {"variant": purpose.value}
 
 
 @pytest.mark.parametrize("purpose", [StudyPurpose.IMPROVEMENT, StudyPurpose.EXPANSION, StudyPurpose.RESTRUCTURING])

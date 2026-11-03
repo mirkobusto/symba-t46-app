@@ -37,7 +37,9 @@ from app.domain.enums import (
     DecisionContext,
     IlcdSituation,
     LccType,
+    OperatingStart,
     Q6a,
+    Q6b,
     SlcaActivationState,
     StudyPurpose,
 )
@@ -264,12 +266,18 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
                 "waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). "
                 "Check the price against that benchmark.")})
         elif sell is not None and f.q5 == Q5.b:
+            # A note, not a decision (#118): lca_mc_17 keeps the economic value
+            # test for Q5 = b. The note used to say the answer "reads it as a
+            # waste" while the node said EVT, and an analyst could not tell which
+            # to follow (UX round 2026-11-02).
             reading = ("a co-product (§8.3.2, burden shared)" if sell else
                        "a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4)")
             notes.append({"code": "flow_freedom_to_act_settles",
                           "params": {"flow": f.name or f.id, "variant": "co_product" if sell else "waste"}, "message": (
-                f"{label}: Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) "
-                f"reads it as {reading}.")})
+                f"{label}: Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) "
+                f"points to {reading}. The configuration keeps the economic value test with a sensitivity "
+                f"analysis until the study confirms it; to apply that reading directly, set Q5 to "
+                f"{'c' if sell else 'a'}.")})
         chapter = PART2_CHAPTER.get(f.sector) if f.sector else None
         if chapter:
             notes.append({"code": "flow_part2_chapter",
@@ -302,6 +310,38 @@ def _purpose_notes(case: Case, notes_so_far: list[dict[str, Any]]) -> list[dict[
         f"Study purpose: {_PURPOSE_VS_Q2[purpose][1]}. Check the two answers (D4.1 §4.3.2).")}]
 
 
+def _timing_notes(case: Case) -> list[dict[str, Any]]:
+    """Exchanges said to run today (Q2 = A) in a system that operates in a future
+    year or rests on a technology below TRL 7: the reference scenario and the
+    costing timing follow Q2, the future background follows Q8 and Q6b, and the
+    two disagree. A note, nothing changes (UX round 2026-11-02)."""
+    future = case.operating_start == OperatingStart.FUTURE or case.q6b in (Q6b.TRL5_6, Q6b.TRL_LT_5)
+    if case.q2 == Q2.A and future:
+        return [{"code": "running_but_future", "message": (
+            "Q2 says the exchanges already take place, but Q8 places operation in a future year or Q6b "
+            "puts the key technology below TRL 7. A running exchange is measured today: check Q2, Q8 and "
+            "Q6b. Meanwhile the reference scenario and the timing of the costing follow Q2, the future "
+            "background follows Q8 and Q6b.")}]
+    return []
+
+
+_SHAPING_PURPOSES = {StudyPurpose.DESIGN, StudyPurpose.EXPANSION, StudyPurpose.RESTRUCTURING}
+
+
+def _screening_notes(case: Case) -> list[dict[str, Any]]:
+    """A study that designs, expands or restructures a network but answers Q9 =
+    micro: D4.1 §4.2.3 asks the ILCD market screening for such studies (Mattila
+    et al. 2012); without it the study stays A, with B as a sensitivity. The Q9
+    help said so, the result did not (UX round 2026-11-02)."""
+    if case.study_purpose in _SHAPING_PURPOSES and case.decision_context == DecisionContext.MICRO:
+        return [{"code": "design_without_screening", "message": (
+            "The study designs, expands or restructures a network and is modelled as Situation A. "
+            "D4.1 §4.2.3: such studies need the ILCD market screening (Mattila et al. 2012); without it "
+            "the study stays A, with Situation B as a sensitivity analysis. Document the screening, or "
+            "run B as a sensitivity.")}]
+    return []
+
+
 def _compute_slca_state(soc: bool) -> SlcaActivationState:
     return SlcaActivationState.ACTIVE if soc else SlcaActivationState.DEACTIVATED
 
@@ -328,4 +368,6 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     case.warnings += _slca_notes(case)
     case.warnings += _flow_notes(case)
     case.warnings += _purpose_notes(case, case.warnings)
+    case.warnings += _timing_notes(case)
+    case.warnings += _screening_notes(case)
     return case

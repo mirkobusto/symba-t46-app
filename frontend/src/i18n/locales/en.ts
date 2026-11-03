@@ -825,11 +825,14 @@ const en = {
   },
 
   result: {
+    verdictWhy: "Why: you answered “{{answer}}” (Q9)",
+    verdictWhyQ1: "Why: Q9 is not answered, so the situation is read off what you are analysing (Q1)",
     config: {
       title: 'Your configuration',
       lead: 'What your answers decided, in the terms of the deliverables. Open a row to read the engine\'s text, in English, with the section it comes from.',
       nodeText: 'Engine text (English)',
       labels: {
+        flows: "Treatment of each flow",
         claim: 'Public claim',
         purpose: 'Kind of study',
         lcc: 'Costing',
@@ -842,6 +845,14 @@ const en = {
         shared: 'Shared assets',
       },
       values: {
+        flowTreatment: {
+          waste: "waste: no burden up to where it gains value (zero burden)",
+          evt: "undecided: economic value test, with a sensitivity analysis",
+          coproduct: "co-product: substitution of the product it replaces, with quality factor Q",
+          integrated: "interdependent: one multifunctional process, modelled as a whole",
+          allocation: "allocation (one company's accounts: no substitution credits)",
+          aggregated: "aggregated: classify each flow that can be named",
+        },
         claim: 'Comparative claim to the public: critical review by a panel of at least three independent experts, no weighting',
         claimNone: 'No public comparative claim',
         claimPolicy: "No public comparative claim; EU policy alignment (Q4 = D): independent panel review, a T4.6 choice",
@@ -867,6 +878,9 @@ const en = {
         shared: 'Their CAPEX and OPEX in the cost breakdown, shared among the partners that use them',
       },
       why: {
+        flows: "who pays whom for each flow (Q5)",
+        horizonUnanswered: "no operating year, analysis period, asset lifetime or technology maturity given, so the present is assumed; if the plants will run beyond {{threshold}} years, answer Q8",
+        lccNoPolicyNoLca: "no public objective (Q10): each partner's costs, consolidated for the network",
         slcaOff: 'the social dimension is not selected (Q3)',
         claim: 'the results will support a public claim of superiority or equivalence (Q4 = C)',
         horizonFutureGeneric: 'the study horizon reaches the future',
@@ -925,9 +939,11 @@ const en = {
       flow_sellable_but_waste: "Flow '{{flow}}': Q5 says the generator pays to get rid of it (waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
       flow_price_without_market: "Flow '{{flow}}': Q5 says the recipient pays for it (co-product), but no third party would. With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the recipient pays what an independent buyer would pay, the price of the product the flow replaces net of its extra costs to use it; if the payment only shares costs, the flow is a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). Check the price against that benchmark.",
       flow_freedom_to_act_settles: {
-        co_product: "Flow '{{flow}}': Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) reads it as a co-product (§8.3.2, burden shared).",
-        waste: "Flow '{{flow}}': Q5 leaves who pays whom open; the Freedom-to-Act answer (D4.1 §8.3.3) reads it as a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4).",
+        co_product: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a co-product (§8.3.2, burden shared). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it; to apply that reading directly, set Q5 to c.",
+        waste: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it; to apply that reading directly, set Q5 to a.",
       },
+      running_but_future: "Q2 says the exchanges already take place, but Q8 places operation in a future year or Q6b puts the key technology below TRL 7. A running exchange is measured today: check Q2, Q8 and Q6b. Meanwhile the reference scenario and the timing of the costing follow Q2, the future background follows Q8 and Q6b.",
+      design_without_screening: "The study designs, expands or restructures a network and is modelled as Situation A. D4.1 §4.2.3: such studies need the ILCD market screening (Mattila et al. 2012); without it the study stays A, with Situation B as a sensitivity analysis. Document the screening, or run B as a sensitivity.",
       flow_part2_chapter: "Flow '{{flow}}': the sector rules of D4.1 Part 2 {{chapter}} apply to it; they are listed under Sector rules.",
       case_sector_without_flow: "The case sector belongs to D4.1 Part 2 {{chapter}}, but no flow declares that chapter, so its sector rules are not listed. The chapters follow what is exchanged: declare the Part 2 sector of each flow in the flows table.",
       flow_configuration_unknown: "Flow '{{flow}}': configuration '{{configuration}}' is not one of D4.1 Part 2.",
@@ -949,7 +965,7 @@ const en = {
       moreInfo: 'More on this configuration',
     },
     next: {
-      obligations: '{{count}} obligations to document ({{groups}}): they are listed, with what triggered each one, in the Data Collection File.',
+      obligations: "{{count}} obligations to document ({{groups}}), triggered by your answers. The Data Collection File lists them, with what triggered each one, together with the practices the method asks of every study like yours.",
       families: {
         IR: '{{count}} on integrating the methods',
         CIR: '{{count}} switched on by your answers',
@@ -1213,8 +1229,8 @@ const en = {
     engineDetailsTitle: 'Engine pipeline details',
     activatedNodesCount_one: '{{count}} activated methodological node',
     activatedNodesCount_other: '{{count}} activated methodological nodes',
-    obligations_one: "{{count}} methodological practice to document",
-    obligations_other: "{{count}} methodological practices to document",
+    obligations_one: "{{count}} obligation to document",
+    obligations_other: "{{count}} obligations to document",
     cdpFlagsCount_one: '{{count}} cross-dimension tension flag',
     cdpFlagsCount_other: '{{count}} cross-dimension tension flags',
     complianceTitle: 'Compliance signals',
@@ -1251,7 +1267,7 @@ const en = {
   obligations: {
     empty: "Nothing to document for this case.",
     lead:
-      "{{total}} items apply to this case: {{mandates}} methodological mandates and {{rules}} cross-method rules triggered by your answers. Each one is a commitment to document in the LCSA report.",
+      "{{total}} items to document for this case: the {{rules}} obligations triggered by your answers (the ones counted on the result page) and {{mandates}} practices the method asks of every study like this one. Each one is a commitment to document in the LCSA report.",
     because: "Applies because:",
     notApplicable: "Does not apply here: {{fields}} — that method is switched off in Q3.",
     origin: {

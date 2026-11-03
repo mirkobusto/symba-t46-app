@@ -214,6 +214,10 @@ export default function ResultPage() {
         headline={verdict?.title ?? result.ilcd_situation ?? '—'}
         codes={verdict?.codes}
         body={verdict?.body}
+        // the situation is the first choice of the configuration and had no reason
+        subtitle={result.decision_context
+          ? t('result.verdictWhy', { answer: t(`questionnaire.q9.options.${result.decision_context}`) })
+          : t('result.verdictWhyQ1')}
       />
 
       {verdict ? <VerdictDetails verdict={verdict} /> : null}

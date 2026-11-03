@@ -1497,6 +1497,7 @@ const es: Locale = {
     guidedIntro: 'Aquí ves las preguntas que el archivo Excel hará a las empresas. No tienes que rellenarlas ahora: descarga el archivo y pásalo a quien deba rellenarlo.',
     unsavedCase: 'Los archivos aún no contienen la red que dibujaste: guarda el caso (hace falta una cuenta) para incluirla.',
     unsavedNetwork: 'La red tiene cambios sin guardar: guarda la red para incluirlos en los archivos.',
+    filesNote: 'Excel: el libro que rellenan las empresas (se abre con Excel o LibreOffice, mejor en un ordenador). Word: el documento que lo acompaña y lo explica.',
     savedDiverged: 'Estos archivos siguen la versión guardada del caso. Guarda los cambios desde la página del resultado para descargar archivos iguales a esta página.',
     changes: 'Respecto a la versión guardada: {{removed}} decisiones que documentar ya no se aplican, {{added}} añadidas.',
     changesFieldsGone: 'Campos que ya no se piden: {{fields}} — los valores introducidos se conservan pero no se exportan.',

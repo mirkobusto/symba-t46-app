@@ -12,7 +12,7 @@
 // analyst's to-do. Every arrow is one of those flows, chosen explicitly;
 // their name and payment class are read-only here (UX round 5, D2).
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactFlow, {
   Background,
@@ -22,6 +22,7 @@ import ReactFlow, {
   type Edge,
   type Node,
   type NodeDragHandler,
+  type ReactFlowInstance,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
@@ -102,6 +103,25 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const [selection, setSelection] = useState<Selection | null>(null)
   /** The flow the next arrow will be: set by clicking it in the to-do list. */
   const [armed, setArmed] = useState<string | null>(null)
+  const flowRef = useRef<ReactFlowInstance | null>(null)
+  const panelRef = useRef<HTMLElement | null>(null)
+
+  // On a narrow screen the "side" panel sits below the canvas: bring it into
+  // view when something is selected, or the fields seem not to open (P6-04)
+  useEffect(() => {
+    if (!selection || typeof window === 'undefined' || window.innerWidth > 900) return
+    panelRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
+  }, [selection])
+
+  /** Add an actor and keep it on screen: on a phone it landed outside the canvas. */
+  function handleAddActor() {
+    const rowId = addActor()
+    setSelection({ sectionId: ACTORS_SECTION, rowId })
+    // only where it lands off-canvas: on a desktop the view would jump
+    if (window.innerWidth <= 900) {
+      window.setTimeout(() => flowRef.current?.fitView({ padding: 0.2 }), 50)
+    }
+  }
 
   const actorRows = useMemo(
     () => data.rows_by_section[ACTORS_SECTION] ?? [],
@@ -316,10 +336,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => {
-            const rowId = addActor()
-            setSelection({ sectionId: ACTORS_SECTION, rowId })
-          }}
+          onClick={handleAddActor}
         >
           {t('networkBuilder.addActor')}
         </button>
@@ -397,10 +414,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => {
-                  const rowId = addActor()
-                  setSelection({ sectionId: ACTORS_SECTION, rowId })
-                }}
+                onClick={handleAddActor}
               >
                 {t('networkBuilder.addActor')}
               </button>
@@ -427,6 +441,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           }
           onPaneClick={() => setSelection(null)}
           edgeTypes={FLOW_EDGE_TYPES}
+          onInit={(instance) => { flowRef.current = instance }}
           fitView
           proOptions={{ hideAttribution: false }}
         >
@@ -435,7 +450,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         </ReactFlow>
         )}
 
-        <aside className="nb-panel">
+        <aside className="nb-panel" ref={panelRef}>
           {selectedSection && selectedRow && selection ? (
             <>
               <h3 className="nb-panel-title">{panelTitle}</h3>

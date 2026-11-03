@@ -288,6 +288,32 @@ export default function DataCollectionPage() {
         ) : null}
       </div>
 
+      {/* the download buttons were twenty screens down on a phone (P6-03) */}
+      <div className="dcf-files-top">
+        <p className="dcf-files-note">{t('dcf.filesNote')}</p>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleDownloadXlsx}
+          disabled={downloadingXlsx || diverged}
+        >
+          {downloadingXlsx ? t('dcf.downloadingXlsx') : t('dcf.downloadXlsx')}
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleDownloadDocx}
+          disabled={downloadingDocx || diverged}
+        >
+          {downloadingDocx ? t('dcf.downloadingDocx') : t('dcf.downloadDocx')}
+        </button>
+      </div>
+      {!serverCaseId || dcfDirty ? (
+        // the same note as by the bottom buttons: on a phone the top ones are
+        // the ones used (Fable review of #204)
+        <p className="dd-soft">{t(serverCaseId ? 'dcf.unsavedNetwork' : 'dcf.unsavedCase')}</p>
+      ) : null}
+
       <div className="dd-tabs" role="tablist">
         <button
           type="button"

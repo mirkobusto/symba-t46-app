@@ -58,8 +58,10 @@ describe('DataCollectionPage of a saved case worked out again', () => {
         <DataCollectionPage />
       </MemoryRouter>,
     )
-    const xlsx = await screen.findByRole('button', { name: 'Download Excel (.xlsx)' })
-    expect(xlsx).toBeDisabled()
+    // the buttons are at the top and at the bottom of the page (UX round 5, P6-03)
+    const xlsx = await screen.findAllByRole('button', { name: 'Download Excel (.xlsx)' })
+    expect(xlsx).toHaveLength(2)
+    for (const b of xlsx) expect(b).toBeDisabled()
     expect(screen.getAllByText(/These files follow the saved version of the case/).length).toBeGreaterThan(0)
     expect(screen.getByRole('link', { name: 'Go to the result to save the changes' })).toHaveAttribute('href', '/result')
   })
@@ -72,7 +74,9 @@ describe('DataCollectionPage of a saved case worked out again', () => {
         <DataCollectionPage />
       </MemoryRouter>,
     )
-    expect(await screen.findByRole('button', { name: 'Download Excel (.xlsx)' })).toBeEnabled()
+    for (const b of await screen.findAllByRole('button', { name: 'Download Excel (.xlsx)' })) {
+      expect(b).toBeEnabled()
+    }
     expect(screen.queryByText(/These files follow the saved version/)).not.toBeInTheDocument()
   })
 })

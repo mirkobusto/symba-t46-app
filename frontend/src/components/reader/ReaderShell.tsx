@@ -10,6 +10,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import PageSuspense from '../PageSuspense'
 import SiteHeader from '../brand/SiteHeader'
 import EuFooter from '../EuFooter'
 import LanguageSwitcher from '../LanguageSwitcher'
@@ -43,7 +44,9 @@ export default function ReaderShell() {
         <LanguageSwitcher />
       </div>
       <main id="reader-main" className="dd-reader-main" tabIndex={-1}>
-        <Outlet />
+        <PageSuspense>
+          <Outlet />
+        </PageSuspense>
       </main>
       <EuFooter />
       <ToastHost />

@@ -8,6 +8,7 @@ const it: Locale = {
     run: 'Esegui',
     reset: 'Reset',
     close: 'Chiudi',
+    pageLoading: 'Caricamento…',
     add: 'Aggiungi',
     remove: 'Rimuovi',
     cancel: 'Annulla',

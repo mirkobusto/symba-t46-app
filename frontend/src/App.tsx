@@ -1,27 +1,31 @@
-import { useEffect, useRef } from 'react'
+import { lazy, useEffect, useRef } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
 import AboutPage from './pages/AboutPage'
-import AggregatePage from './pages/AggregatePage'
 import CasesListPage from './pages/CasesListPage'
-import DataCollectionPage from './pages/DataCollectionPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
-import ScenariosResultPage from './pages/ScenariosResultPage'
-import StakeholderReportPage from './pages/StakeholderReportPage'
-import PrivacyPage from './pages/PrivacyPage'
-import OpenSharedReportPage from './pages/reader/OpenSharedReportPage'
-import PublicAboutPage from './pages/reader/PublicAboutPage'
-import PublicRegionPage from './pages/reader/PublicRegionPage'
-import PublicReportPage from './pages/reader/PublicReportPage'
 import WelcomePage from './pages/WelcomePage'
 import { usePreferenceStore } from './store/preferenceStore'
 import './App.css'
 import { sharedCaseOf } from './pages/reader/sharedReportPath'
+
+// Loaded on demand: the network editor (React Flow), the dashboards and the
+// public reader pages are not needed to answer the questionnaire (the bundle
+// was ~1.4 MB in one chunk). The Suspense boundary sits in the shells.
+const AggregatePage = lazy(() => import('./pages/AggregatePage'))
+const DataCollectionPage = lazy(() => import('./pages/DataCollectionPage'))
+const ScenariosResultPage = lazy(() => import('./pages/ScenariosResultPage'))
+const StakeholderReportPage = lazy(() => import('./pages/StakeholderReportPage'))
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
+const OpenSharedReportPage = lazy(() => import('./pages/reader/OpenSharedReportPage'))
+const PublicAboutPage = lazy(() => import('./pages/reader/PublicAboutPage'))
+const PublicRegionPage = lazy(() => import('./pages/reader/PublicRegionPage'))
+const PublicReportPage = lazy(() => import('./pages/reader/PublicReportPage'))
 
 /**
  * Redirects first-time visitors to /welcome unless they're on a route

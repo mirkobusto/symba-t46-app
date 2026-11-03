@@ -55,6 +55,18 @@ def enum_label(lang: str, value: Any) -> str:
     return _terms()[language(lang)]["enums"].get(str(value), str(value))
 
 
+def only_when(section: Any, field: Any, lang: str) -> str | None:
+    """"Only for rows with Status: new / replaced" for a field asked on some
+    rows only (DcfFieldDescriptor.row_condition_values); None otherwise."""
+    values = getattr(field, "row_condition_values", None)
+    if values is None:
+        return None
+    ref = next((f for f in section.fields if f.id == field.row_condition_field), None)
+    name = (ref.label or ref.label_en) if ref else field.row_condition_field
+    shown = " / ".join(enum_label(lang, v) for v in values) or "—"
+    return f"{ui(lang, 'note.only_when')} {name}: {shown}"
+
+
 def ref_label(lang: str, ref: str | None, value: Any) -> str | None:
     """Label of a value from a questionnaire vocabulary (Q6a sector, Q5 who
     pays whom), as the app's own locale words it."""

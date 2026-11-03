@@ -31,6 +31,7 @@ from app.domain.dcf_data import (
 )
 from app.domain.models import Case
 from app.engine.dcf_compose import DcfPayload, DcfSection
+from app.engine.dcf_rows import row_condition_holds
 
 # Sections whose rows come from the analyst (directly or seeded from the
 # Case). Everything else in the schema is derived by the engine and must
@@ -190,6 +191,24 @@ def validate_dcf_data(
                             detail=(
                                 f"{field_id!r} is not asked for this case's "
                                 f"configuration: the value is kept, not exported"
+                            ),
+                        )
+                    )
+                    continue
+
+                field = active_fields[field_id]
+                if not _is_empty(value) and not row_condition_holds(field, row):
+                    # asked only on some rows (e.g. CAPEX for a new asset): the
+                    # value is kept, the row's status may still change
+                    dormant.append(
+                        DcfDataIssue(
+                            code="row_condition_false",
+                            section_id=section_id,
+                            row_id=row.row_id,
+                            field_id=field_id,
+                            detail=(
+                                f"{field_id!r} is asked only where {field.row_condition}: "
+                                f"the value is kept, not exported"
                             ),
                         )
                     )

@@ -33,7 +33,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
 from app.engine.dcf_rows import actor_label, cell_values, edge_list, rows_for
-from app.services.dcf_terms import cover_rows, enum_label, offered_labels, ui, value_label
+from app.services.dcf_terms import cover_rows, enum_label, offered_labels, only_when, ui, value_label
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -263,7 +263,7 @@ def _write_data_section_tab(
         c.font = _HEADER_FONT
         c.fill = _ANALYST_FILL if field.filled_by == "analyst" else _HEADER_FILL
         c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-        note = _field_note(field, lang)
+        note = _field_note(field, lang, section)
         if note:
             c.comment = Comment(note, "SYMBA T4.6")
 
@@ -378,7 +378,7 @@ def _header_label(field) -> str:
     return f"{_label(field)} *" if field.required else _label(field)
 
 
-def _field_note(field, lang: str = "en") -> str:
+def _field_note(field, lang: str = "en", section=None) -> str:
     """The comment on a header: who fills it in when it is not the sheet's
     filler, what the field means, the values it takes and why it is asked, in
     words. No field id: it was noise to whoever fills the file in."""
@@ -395,6 +395,9 @@ def _field_note(field, lang: str = "en") -> str:
         parts.append(f"{ui(lang, 'note.allowed')}: " + "; ".join(labels))
     if field.reason:
         parts.append(f"{ui(lang, 'note.because')}: {field.reason}")
+    rows_note = only_when(section, field, lang) if section is not None else None
+    if rows_note:
+        parts.append(rows_note)
     # the field id was noise to whoever fills the file in (P2-05, P3-10, P6-07)
     return "\n".join(parts)
 

@@ -24,6 +24,9 @@ export default function PresetLoader() {
     // loading replaced a case being built, silently (UX round 2026-11-02)
     const hasWork = !!draft.q1 || !!draft.decision_context || (draft.flows?.length ?? 0) > 0
     if (hasWork && !(await askConfirm(t('preset.replaceConfirm')))) return
+    // an example is a different study: it must not be saved over the case
+    // that was open ("Save changes" overwrites, UX round 5)
+    useCaseStore.getState().setServerCase(null)
     setDraft({
       q3: { env: false, eco: false, soc: false },
       q4: [],

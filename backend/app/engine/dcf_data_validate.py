@@ -5,12 +5,15 @@ The composed `DcfPayload` already answers "which sections and fields does
 answers the complementary question: "is what the analyst entered legal
 for that descriptor".
 
-Two severities, deliberately:
+Three outcomes, deliberately:
 
-- **errors** — structural problems that would corrupt the file: rows in a
-  section the case does not have, values for a field the configuration did not
-  activate, values outside an inline enum, foreign keys pointing nowhere,
-  duplicate row ids. These block the write.
+- **errors** — structural problems that would corrupt the file: sections or
+  fields the schema does not know, values outside an inline enum, foreign
+  keys pointing nowhere, duplicate row ids. These block the write.
+- **dormant** — values kept for a section or field the current configuration
+  does not ask for (the analyst switched a dimension off after entering
+  them). They are stored, never exported, and come back if the configuration
+  asks for them again: losing them silently was worse (UX round 5, D3).
 - **missing_required** — required fields that are still empty. A Data
   Collection File is filled in over days, in dialogue with the network
   partners; a half-filled row is the normal intermediate state, so this
@@ -70,6 +73,7 @@ def validate_dcf_data(
 ) -> DcfDataValidation:
     """Check `data` against the descriptor composed for the same case."""
     errors: list[DcfDataIssue] = []
+    dormant: list[DcfDataIssue] = []
     missing: list[DcfDataIssue] = []
     completeness: list[DcfSectionCompleteness] = []
 
@@ -96,7 +100,9 @@ def validate_dcf_data(
             )
             continue
         if not section.active:
-            errors.append(
+            # kept, not exported; the structural checks below still run (the
+            # composed section has no fields, so every value lands in dormant)
+            dormant.append(
                 DcfDataIssue(
                     code="section_inactive",
                     section_id=section_id,
@@ -106,7 +112,6 @@ def validate_dcf_data(
                     ),
                 )
             )
-            continue
         if section.row_collection not in EDITABLE_ROW_COLLECTIONS:
             errors.append(
                 DcfDataIssue(
@@ -172,15 +177,15 @@ def validate_dcf_data(
                     )
                     continue
                 if field_id not in active_fields:
-                    errors.append(
+                    dormant.append(
                         DcfDataIssue(
                             code="field_not_active",
                             section_id=section_id,
                             row_id=row.row_id,
                             field_id=field_id,
                             detail=(
-                                f"{field_id!r} is not activated for this case's "
-                                f"configuration and must stay empty"
+                                f"{field_id!r} is not asked for this case's "
+                                f"configuration: the value is kept, not exported"
                             ),
                         )
                     )
@@ -232,7 +237,10 @@ def validate_dcf_data(
     _check_layout(data, row_ids_by_section, errors)
 
     return DcfDataValidation(
-        errors=errors, missing_required=missing, completeness=completeness
+        errors=errors,
+        dormant=dormant,
+        missing_required=missing,
+        completeness=completeness,
     )
 
 

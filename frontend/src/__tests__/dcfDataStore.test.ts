@@ -145,14 +145,9 @@ describe('dcfDataStore', () => {
     expect(rows[0].values['flow.unit']).toBe('t/y')
   })
 
-  it('prunes values when a Q1-Q7 edit deactivates a field', () => {
+  it('keeps values when an answer edit switches a field off (dormant, UX round 5)', () => {
     const store = useDcfDataStore.getState()
     store.syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
-    expect(
-      useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION][0]
-        .values['flow.quantity_measured'],
-    ).toBe(120)
-
     useDcfDataStore
       .getState()
       .syncWithPayload(
@@ -162,7 +157,28 @@ describe('dcfDataStore', () => {
     expect(
       useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION][0]
         .values['flow.quantity_measured'],
-    ).toBeUndefined()
+    ).toBe(120)
+  })
+
+  it('seeding the questionnaire flows does not mark the network unsaved', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const state = useDcfDataStore.getState()
+    expect(state.data.rows_by_section[FLOW_MATRIX_SECTION]).toHaveLength(CASE_FLOWS.length)
+    expect(state.dirty).toBe(false)
+  })
+
+  it('carryTo rebinds the drawn network to a new case and marks it unsaved', () => {
+    const store = useDcfDataStore.getState()
+    store.bindTo('old-case')
+    store.syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const actorId = useDcfDataStore.getState().addActor('WWTP Alfa')
+    useDcfDataStore.getState().carryTo('new-case')
+    const state = useDcfDataStore.getState()
+    expect(state.caseId).toBe('new-case')
+    expect(state.data.case_id).toBe('new-case')
+    expect(state.data.layout[actorId]).toBeDefined()
+    expect(state.data.rows_by_section[ACTORS_SECTION][0].values['actor.name']).toBe('WWTP Alfa')
+    expect(state.dirty).toBe(true)
   })
 
   it('addActor creates a row and a canvas position', () => {

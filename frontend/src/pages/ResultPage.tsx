@@ -14,9 +14,10 @@ import { usePreferenceStore } from '../store/preferenceStore'
 import { configurationRows, obligationGroups, withoutQCodes } from './configurationRows'
 import ConfigurationSummary from '../components/ConfigurationSummary'
 import { useHealth } from '../hooks/useHealth'
-import { ApiError, createCase, fetchReportDocx } from '../services/api'
+import { ApiError, createCase, fetchDcfData, fetchReportDocx, getCase, updateCase } from '../services/api'
 import { useAuthStore } from '../store/authStore'
 import { useCaseStore } from '../store/caseStore'
+import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
 import { chapterName, translateNote } from '../i18n/engineNotes'
@@ -46,6 +47,7 @@ export default function ResultPage() {
   const setServerCase = useCaseStore((s) => s.setServerCase)
   const serverCaseName = useCaseStore((s) => s.serverCaseName)
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
+  const savedDiverged = useCaseStore((s) => s.savedDiverged)
   const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
   const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
@@ -58,39 +60,140 @@ export default function ResultPage() {
   const [savingCase, setSavingCase] = useState(false)
   const [savedSlug, setSavedSlug] = useState<string | null>(null)
 
-  async function handleSaveCase() {
+  function needsSignIn(): boolean {
     // saving needs an account unless the server allows anonymous saves; say
     // so before asking for a name rather than after a 401
     if (!signedIn && anonymousSave === false) {
       pushToast({ type: 'info', message: t('cases.signInToSave'), durationMs: 8000 })
       // come back here after signing in, so the case can be saved at once (UX round 2026-11-03)
       navigate('/login', { state: { from: '/result' } })
-      return
+      return true
     }
-    const name = await askText(t('cases.saveDialog'), '', t('common.save'))
+    return false
+  }
+
+  function saveErrorToast(e: unknown) {
+    const msg = e instanceof ApiError ? e.detail : (e as Error).message
+    pushToast({
+      type: 'error',
+      message: t('cases.saveError', { detail: msg }),
+      durationMs: 8000,
+    })
+  }
+
+  /** The network drawn for the case being left, from the editor when it is
+   * bound to that case, otherwise from the server; null when none was ever
+   * stored (404). Any other failure is thrown, so it can be reported. */
+  async function networkOf(caseId: string) {
+    const dcf = useDcfDataStore.getState()
+    if (dcf.caseId === caseId) return dcf.data
+    try {
+      return (await fetchDcfData(caseId)).data
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 404) return null
+      throw e
+    }
+  }
+
+  async function handleSaveCase() {
+    if (needsSignIn()) return
+    const previousId = serverCaseId
+    const prompt = previousId
+      ? t('cases.saveAsDialog', { name: serverCaseName ?? '' })
+      : t('cases.saveDialog')
+    const name = await askText(prompt, '', t('common.save'))
     if (!name) return
     setSavingCase(true)
     try {
       // Save the result Case (post-pipeline) so the derived state + engine
       // output are persisted along with the inputs.
       const saved = await createCase(name, result ?? draft)
+      // "Save as new" started the new case with an empty network: the
+      // actors, arrows and values drawn for the previous one were lost
+      // without a word (UX round 5, P7-02). They come along now.
+      let network = null
+      let copyFailed = false
+      try {
+        network = previousId ? await networkOf(previousId) : null
+      } catch {
+        copyFailed = true
+      }
       setServerCase(saved.id, saved.name)
       if (saved.slug) setSavedSlug(saved.slug)
+      if (network && Object.values(network.rows_by_section).some((rows) => rows.length > 0)) {
+        const dcf = useDcfDataStore.getState()
+        dcf.carryTo(saved.id, network)
+        if (!(await dcf.saveToServer())) copyFailed = true
+      }
+      if (copyFailed) {
+        pushToast({ type: 'error', message: t('cases.networkNotCopied'), durationMs: 8000 })
+      }
       pushToast({
         type: 'success',
         message: t('cases.saveSuccess', { name }),
       })
     } catch (e) {
-      const msg = e instanceof ApiError ? e.detail : (e as Error).message
-      pushToast({
-        type: 'error',
-        message: t('cases.saveError', { detail: msg }),
-        durationMs: 8000,
-      })
+      saveErrorToast(e)
     } finally {
       setSavingCase(false)
     }
   }
+
+  async function handleSaveChanges() {
+    // there was no way to update a saved case: only "Save as new" (UX round 5, D3)
+    if (!serverCaseId || needsSignIn()) return
+    // a draft bound to a case without its name (older browser state) would
+    // have saved the case with an empty name (Fable review of #202)
+    let name = serverCaseName
+    if (!name) {
+      try {
+        name = (await getCase(serverCaseId)).name
+      } catch (e) {
+        saveErrorToast(e)
+        return
+      }
+    }
+    if (!(await askConfirm(t('cases.saveChangesConfirm', { name })))) return
+    setSavingCase(true)
+    try {
+      const saved = await updateCase(serverCaseId, name, result ?? draft)
+      setServerCase(saved.id, saved.name)
+      pushToast({ type: 'success', message: t('cases.saveChangesSuccess', { name }) })
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 403) {
+        pushToast({ type: 'error', message: t('cases.saveChangesForbidden'), durationMs: 8000 })
+      } else {
+        saveErrorToast(e)
+      }
+    } finally {
+      setSavingCase(false)
+    }
+  }
+
+  const saveButtons = (secondaryClass: string) => (
+    <>
+      {serverCaseId ? (
+        <button
+          type="button"
+          className={savedDiverged ? 'btn btn-primary' : secondaryClass}
+          onClick={handleSaveChanges}
+          disabled={savingCase}
+        >
+          {savingCase ? t('cases.saving') : t('cases.saveChanges')}
+        </button>
+      ) : null}
+      <button
+        type="button"
+        className={secondaryClass}
+        onClick={handleSaveCase}
+        disabled={savingCase}
+      >
+        {savingCase && !serverCaseId
+          ? t('cases.saving')
+          : t(serverCaseId ? 'cases.saveAsButton' : 'cases.saveFirstButton')}
+      </button>
+    </>
+  )
 
   const hasScenarios = (draft.alternative_scenarios ?? []).length > 0
 
@@ -251,9 +354,7 @@ export default function ResultPage() {
             <li>{t('result.guided.step3')}</li>
           </ol>
           <div className="result-guided-actions">
-            <button type="button" className="btn btn-secondary" onClick={handleSaveCase} disabled={savingCase}>
-              {savingCase ? t('cases.saving') : t(serverCaseId ? 'cases.saveAsButton' : 'cases.saveFirstButton')}
-            </button>
+            {saveButtons('btn btn-secondary')}
             <Link to="/data-collection" className="btn btn-primary">{t('dcf.openButton')}</Link>
           </div>
         </section>
@@ -451,14 +552,7 @@ export default function ResultPage() {
         >
           {t('stakeholder.openButton')}
         </Link>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={handleSaveCase}
-          disabled={savingCase}
-        >
-          {savingCase ? t('cases.saving') : t(serverCaseId ? 'cases.saveAsButton' : 'cases.saveFirstButton')}
-        </button>
+        {saveButtons('btn btn-secondary')}
         {!signedIn && anonymousSave === false ? (
           <span className="result-save-hint">{t('result.saveHint')}</span>
         ) : null}

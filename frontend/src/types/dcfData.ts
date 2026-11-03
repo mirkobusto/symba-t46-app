@@ -42,6 +42,9 @@ export interface DcfSectionCompleteness {
 
 export interface DcfDataValidation {
   errors: DcfDataIssue[]
+  /** Values kept for a section or field this configuration does not ask for:
+   * stored, never exported (UX round 5, D3). Absent from older responses. */
+  dormant?: DcfDataIssue[]
   missing_required: DcfDataIssue[]
   completeness: DcfSectionCompleteness[]
 }

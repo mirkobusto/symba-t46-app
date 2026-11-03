@@ -9,10 +9,10 @@
 //   1. **Seeding** — the Flow Matrix is `pre_seeded_from_case_flows`, so
 //      every flow the analyst declared in Q5 gets a row, keyed by the
 //      case flow id (idempotent re-seeding).
-//   2. **Staying legal** — values may only be written for fields the
-//      configuration activated. Editing the answers can deactivate a field under
-//      content already drawn, so `syncWithPayload` prunes what the
-//      backend would now reject with a 422.
+//   2. **Keeping values** — editing the answers can switch a field off
+//      under content already entered. The values stay in the draft and on the
+//      server as "dormant" (never exported) and come back if the field is
+//      asked again: pruning them lost data silently (UX round 5, D3).
 //   3. **Sync** — load / save against the server, keeping `dirty` so the
 //      UI can show unsaved state.
 
@@ -99,6 +99,9 @@ export interface DcfDataState {
   error: string | null
 
   bindTo: (caseId: string | null) => void
+  /** Rebind the current (or given) content to another saved case, keeping
+   * its rows and layout — used by "Save as new". Marks it dirty. */
+  carryTo: (caseId: string, data?: DcfData) => void
   syncWithPayload: (payload: DcfPayload, flows: Flow[]) => void
   addActor: (name?: string) => string
   connect: (originRowId: string, destRowId: string) => string | null
@@ -148,25 +151,7 @@ export const useDcfDataStore = create<DcfDataState>()(
         let data = get().data
         let changed = false
 
-        // 1. prune values for fields this configuration no longer activates
-        for (const [sectionId, rows] of Object.entries(data.rows_by_section)) {
-          const allowed = active[sectionId]
-          const nextRows = rows.map((row) => {
-            const kept: Record<string, unknown> = {}
-            let dropped = false
-            for (const [fieldId, value] of Object.entries(row.values)) {
-              if (allowed && allowed.has(fieldId)) kept[fieldId] = value
-              else dropped = true
-            }
-            return dropped ? { ...row, values: kept } : row
-          })
-          if (nextRows.some((r, i) => r !== rows[i])) {
-            data = withRows(data, sectionId, nextRows)
-            changed = true
-          }
-        }
-
-        // 2. seed a Flow Matrix row per declared case flow (idempotent:
+        // 1. seed a Flow Matrix row per declared case flow (idempotent:
         //    the row id IS the case flow id)
         const flowAllowed = active[FLOW_MATRIX_SECTION]
         if (flowAllowed) {
@@ -199,7 +184,7 @@ export const useDcfDataStore = create<DcfDataState>()(
           }
         }
 
-        // 3. seed a Flow Classification row from the Freedom-to-Act answer
+        // 2. seed a Flow Classification row from the Freedom-to-Act answer
         //    given in Q5 (Flow.sellable_elsewhere), once per flow: a row the
         //    analyst already has for that flow is theirs and is not touched
         const classAllowed = active[FLOW_CLASSIFICATION_SECTION]
@@ -234,7 +219,20 @@ export const useDcfDataStore = create<DcfDataState>()(
           }
         }
 
-        if (changed) set({ data, dirty: true })
+        // Seeding is not an edit: it does not make the network "unsaved" (the
+        // files seed the same rows on the server side).
+        if (changed) set({ data })
+      },
+
+      carryTo(caseId, data) {
+        // "Save as new": the network drawn for the previous case comes along.
+        const source = data ?? get().data
+        set({
+          caseId,
+          data: { ...source, case_id: caseId },
+          validation: null,
+          dirty: true,
+        })
       },
 
       addActor(name) {

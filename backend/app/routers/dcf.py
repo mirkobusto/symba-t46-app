@@ -42,6 +42,7 @@ from app.domain.dcf_data import DcfData, DcfDataEnvelope
 from app.domain.models import Case
 from app.engine.dcf_compose import DcfPayload, compose_dcf
 from app.engine.dcf_data_validate import validate_dcf_data
+from app.engine.dcf_rows import with_case_flows
 from app.engine.loader import LoadedSchemas, load_schemas
 from app.engine.pipeline import run as pipeline_run
 from app.models import CaseDcfData, CaseRecord, User
@@ -133,7 +134,8 @@ def export_xlsx(
     """Render the DCF as a multi-tab Excel workbook and stream it as a
     download. Default filename uses the case id."""
     payload = _run_and_compose(case, schemas)
-    blob = render_xlsx(localize(payload, lang), lang=lang)
+    data = with_case_flows(None, case, payload.case_id)
+    blob = render_xlsx(localize(payload, lang), data, lang=lang)
     filename = f"dcf_{payload.case_id[:8]}.xlsx"
     return Response(
         content=blob,
@@ -151,7 +153,8 @@ def export_docx(
     """Render the DCF as a .docx companion document and stream it as a
     download."""
     payload = _run_and_compose(case, schemas)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), lang=lang)
+    data = with_case_flows(None, case, payload.case_id)
+    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang)
     filename = f"dcf_{payload.case_id[:8]}.docx"
     return Response(
         content=blob,
@@ -233,10 +236,11 @@ def put_dcf_data(
     """Store the DCF content for a saved case (full replace).
 
     Rejects with 422 when the submission is structurally wrong for this
-    case (unknown/derived section, field the configuration did not activate,
-    broken reference, duplicate row id). Empty required fields are
-    reported in `validation.missing_required` and do NOT block the
-    write — a data collection file is filled in incrementally.
+    case (unknown/derived section, unknown field, broken reference,
+    duplicate row id). Values for a section or field this configuration
+    does not ask for are kept and listed in `validation.dormant`; empty
+    required fields are reported in `validation.missing_required`. Neither
+    blocks the write — a data collection file is filled in incrementally.
     """
     if data.case_id != case_id:
         raise HTTPException(
@@ -246,7 +250,7 @@ def put_dcf_data(
             ),
         )
 
-    _, case = _load_case_for(case_id, db, current_user, for_write=True)
+    case_rec, case = _load_case_for(case_id, db, current_user, for_write=True)
     payload = _run_and_compose(case, schemas)
     validation = validate_dcf_data(data, payload, _load_dcf_schema(), case)
     if validation.errors:
@@ -267,6 +271,9 @@ def put_dcf_data(
     else:
         rec.data_json = data.model_dump_json()
         rec.schema_version = data.schema_version
+    # "My cases" sorts and dates by the case record: saving the network is a
+    # change to the case too (UX round 5, P7-09).
+    case_rec.updated_at = data.updated_at.replace(tzinfo=None)
     db.commit()
 
     return DcfDataEnvelope(data=data, validation=validation)
@@ -307,7 +314,8 @@ def export_xlsx_for_case(
     have never been saved (it has no case id to look content up by)."""
     rec, case = _load_case_for(case_id, db, current_user, for_write=False)
     payload = _run_and_compose(case, schemas)
-    blob = render_xlsx(localize(payload, lang), _stored_data(db, case_id), rec.name, lang=lang)
+    data = with_case_flows(_stored_data(db, case_id), case, case_id)
+    blob = render_xlsx(localize(payload, lang), data, rec.name, lang=lang)
     filename = f"dcf_{rec.slug or case_id[:8]}.xlsx"
     return Response(
         content=blob,
@@ -328,7 +336,8 @@ def export_docx_for_case(
     network instead of describing it."""
     rec, case = _load_case_for(case_id, db, current_user, for_write=False)
     payload = _run_and_compose(case, schemas)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), rec.name, _stored_data(db, case_id), lang=lang)
+    data = with_case_flows(_stored_data(db, case_id), case, case_id)
+    blob = generate_dcf_docx_bytes(localize(payload, lang), rec.name, data, lang=lang)
     filename = f"dcf_{rec.slug or case_id[:8]}.docx"
     return Response(
         content=blob,

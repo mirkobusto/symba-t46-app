@@ -98,12 +98,15 @@ class DcfDataValidation(BaseModel):
 
     `errors` block the write (422). `missing_required` does not: a data
     collection file is filled in over days or weeks, so a half-filled
-    row is a normal intermediate state, not a rejection reason.
+    row is a normal intermediate state, not a rejection reason. Neither
+    does `dormant`: values for a section or field the configuration no
+    longer asks for are kept, not exported.
     """
 
     model_config = ConfigDict(extra="forbid")
 
     errors: list[DcfDataIssue] = Field(default_factory=list)
+    dormant: list[DcfDataIssue] = Field(default_factory=list)
     missing_required: list[DcfDataIssue] = Field(default_factory=list)
     completeness: list[DcfSectionCompleteness] = Field(default_factory=list)
 

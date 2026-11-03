@@ -173,6 +173,8 @@ const en = {
   },
 
   adminShell: {
+    menuOpen: "Menu",
+    menuClose: "Close",
     searchLabel: 'Search',
     searchPlaceholder: 'Search cases, partners… (⌘K)',
     footerGa: 'GA',

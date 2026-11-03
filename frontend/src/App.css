@@ -5003,3 +5003,43 @@ kbd {
 .dd-topbar-pill-health:empty {
   display: none;
 }
+
+/* ---- Sidebar on narrow screens: behind a Menu button (UX round 2026-11-02) */
+
+.dd-sidebar-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .dd-sidebar-brand {
+    justify-content: space-between;
+  }
+  .dd-sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid var(--dd-sidebar-border);
+    background: transparent;
+    color: var(--dd-sidebar-text);
+    font: inherit;
+    cursor: pointer;
+  }
+  .dd-sidebar:not(.dd-sidebar-open) .dd-sidebar-nav,
+  .dd-sidebar:not(.dd-sidebar-open) .dd-sidebar-foot {
+    display: none;
+  }
+  .dd-sidebar:not(.dd-sidebar-open) .dd-sidebar-brand {
+    margin-bottom: 0;
+    padding-bottom: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* the search box is disabled anyway; on a phone it only takes a row */
+  .dd-topbar-search {
+    display: none;
+  }
+}

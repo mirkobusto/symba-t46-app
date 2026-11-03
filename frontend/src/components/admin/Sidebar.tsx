@@ -12,7 +12,8 @@
 // The sidebar footer surfaces the mandatory EU / GA reference so it is
 // visible without scrolling to the very bottom of the page.
 
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 interface NavItem {
@@ -29,6 +30,10 @@ interface NavGroup {
 
 export default function Sidebar() {
   const { t } = useTranslation()
+  const { pathname } = useLocation()
+  // open on the page where it was opened: moving to another page closes it
+  const [openOn, setOpenOn] = useState<string | null>(null)
+  const open = openOn === pathname
 
   const groups: NavGroup[] = [
     {
@@ -60,7 +65,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <aside className="dd-sidebar" aria-label="Primary navigation">
+    <aside className={`dd-sidebar${open ? ' dd-sidebar-open' : ''}`} aria-label="Primary navigation">
       <div className="dd-sidebar-brand">
         <img
           className="dd-sidebar-brand-icon"
@@ -73,7 +78,19 @@ export default function Sidebar() {
           <span className="dd-sidebar-brand-name">SYMBA</span>
           <span className="dd-sidebar-brand-sub">T4.6 · Monitoring &amp; Reporting</span>
         </div>
+        {/* narrow screens only (CSS): the navigation took the whole first
+            screen of a phone before any content (UX round 2026-11-02) */}
+        <button
+          type="button"
+          className="dd-sidebar-toggle"
+          aria-expanded={open}
+          aria-controls="dd-sidebar-nav"
+          onClick={() => setOpenOn(open ? null : pathname)}
+        >
+          {open ? t('adminShell.menuClose') : t('adminShell.menuOpen')}
+        </button>
       </div>
+      <div id="dd-sidebar-nav" className="dd-sidebar-nav">
 
       {groups.map((group) => (
         <div key={group.title} className="dd-sidebar-group">
@@ -95,6 +112,8 @@ export default function Sidebar() {
           ))}
         </div>
       ))}
+
+      </div>
 
       <div className="dd-sidebar-foot">
         {t('adminShell.footerGa')} <a href="https://www.symbaproject.eu" target="_blank" rel="noopener noreferrer">101135562</a>

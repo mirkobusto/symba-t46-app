@@ -86,9 +86,11 @@ export default function ScenariosResultPage() {
   }
 
   const baselineRow = rowFromCase('baseline', t('scenariosResult.baselineLabel'), sr.baseline)
-  const scenarioRows = sr.scenarios.map((s) =>
-    rowFromCase(s.id, s.label || s.id, s.result),
-  )
+  // a scenario that could not be run has no configuration to compare: it is
+  // reported below, not as a row of dashes (Fable review of #205)
+  const scenarioRows = sr.scenarios
+    .filter((s) => !s.error)
+    .map((s) => rowFromCase(s.id, s.label || s.id, s.result))
   const allRows = [baselineRow, ...scenarioRows]
 
   function diffClass<T>(value: T, baseline: T): string {

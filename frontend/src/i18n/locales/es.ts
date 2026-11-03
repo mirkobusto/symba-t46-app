@@ -810,7 +810,7 @@ const es: Locale = {
   },
 
   scenarios: {
-    intro: 'Un escenario cambia algunas respuestas del cuestionario y el motor lo calcula junto al caso: la página de resultados muestra qué cambia en la configuración y en las obligaciones. No puede cambiar adónde va un flujo, a qué distancia o a qué precio: el editor de red tiene una sola red por caso, así que anota una alternativa así en las hipótesis de escenario del flujo en el Data Collection File; la herramienta todavía no compara redes distintas.',
+    intro: 'Un escenario cambia algunas respuestas del cuestionario y el motor lo calcula junto al caso: la página de resultados muestra qué cambia en la configuración y en las obligaciones. No puede cambiar adónde va un flujo, a qué distancia o a qué precio: el editor de red tiene una sola red por caso, así que anota una alternativa así en las hipótesis de escenario del flujo en el Data Collection File (se piden cuando los intercambios aún no tienen lugar o hay un escenario definido); la herramienta todavía no compara redes distintas.',
     emptyHint: 'Sin escenarios alternativos.',
     headers: { id: 'ID', label: 'Etiqueta' },
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',
@@ -1592,7 +1592,7 @@ const es: Locale = {
     publicLink: "Enlace público",
     navLink: 'Mis casos',
     title: 'Mis casos',
-    intro: 'Casos guardados en el servidor. Cargar abre el resultado del caso; desde allí, «Ajustar respuestas» las cambia y «Guardar cambios» las guarda. Eliminar borra un caso para siempre.',
+    intro: 'Casos guardados en el servidor. Cargar abre el caso (su resultado, si ya está calculado); desde allí, «Ajustar respuestas» las cambia y «Guardar cambios» las guarda. Eliminar borra un caso para siempre.',
     loadReplaceConfirm: 'Cargar este caso sustituye las respuestas en las que estás trabajando, que no están guardadas. ¿Continuar?',
     empty: 'Sin casos guardados aún. Guarda uno desde el cuestionario o la página de resultado.',
     columns: {

@@ -816,7 +816,7 @@ const fr: Locale = {
   },
 
   scenarios: {
-    intro: 'Un scénario change quelques réponses du questionnaire et le moteur le calcule à côté du cas : la page de résultats montre ce que le changement fait à la configuration et aux obligations. Il ne peut pas changer où va un flux, à quelle distance ou à quel prix : l\'éditeur de réseau contient un seul réseau par cas, notez donc une telle alternative dans les hypothèses de scénario du flux dans le Data Collection File ; l\'outil ne compare pas encore des réseaux différents.',
+    intro: 'Un scénario change quelques réponses du questionnaire et le moteur le calcule à côté du cas : la page de résultats montre ce que le changement fait à la configuration et aux obligations. Il ne peut pas changer où va un flux, à quelle distance ou à quel prix : l\'éditeur de réseau contient un seul réseau par cas, notez donc une telle alternative dans les hypothèses de scénario du flux dans le Data Collection File (demandées quand les échanges n\'ont pas encore lieu ou qu\'un scénario est défini) ; l\'outil ne compare pas encore des réseaux différents.',
     emptyHint: 'Aucun scénario alternatif.',
     headers: { id: 'ID', label: 'Étiquette' },
     labelPlaceholder: 'ex. Expansion future / TRL9 ramp-up',
@@ -1598,7 +1598,7 @@ const fr: Locale = {
     publicLink: "Lien public",
     navLink: 'Mes cas',
     title: 'Mes cas',
-    intro: 'Cas enregistrés sur le serveur. Charger ouvre le résultat du cas ; de là, « Modifier les réponses » les change et « Enregistrer les modifications » les conserve. Supprimer retire un cas définitivement.',
+    intro: 'Cas enregistrés sur le serveur. Charger ouvre le cas (son résultat, s\'il est déjà calculé) ; de là, « Modifier les réponses » les change et « Enregistrer les modifications » les conserve. Supprimer retire un cas définitivement.',
     loadReplaceConfirm: 'Charger ce cas remplace les réponses sur lesquelles vous travaillez, qui ne sont pas enregistrées. Continuer ?',
     empty: 'Aucun cas sauvegardé. Sauvegardez un cas depuis le questionnaire ou la page de résultat.',
     columns: {

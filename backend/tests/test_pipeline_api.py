@@ -316,3 +316,6 @@ def test_run_scenarios_an_override_the_case_no_longer_accepts_does_not_500(clien
     body = resp.json()
     assert body["scenarios"][0]["result"]["ilcd_situation"] is None
     assert body["scenarios"][1]["result"]["lcc_type"] == "C+E"
+    # the failure is said in a line a user can act on (Fable review of #205)
+    assert body["scenarios"][0]["error"] == "transport_sensitive: Extra inputs are not permitted"
+    assert body["scenarios"][1]["error"] is None

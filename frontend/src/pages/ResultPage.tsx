@@ -207,11 +207,11 @@ export default function ResultPage() {
   // instead of leaving the user to find the button again (UX round 5, P4-12).
   const resumeSave = location.state?.then === 'save'
   useEffect(() => {
-    if (!resumeSave || !signedIn || serverCaseId) return
+    if (!resumeSave || !signedIn || !result) return
     const id = window.setTimeout(() => {
       // drop the intent first, so a reload does not ask again
       navigate('/result', { replace: true, state: null })
-      void handleSaveCase()
+      void (serverCaseId ? handleSaveChanges() : handleSaveCase())
     }, 0)
     return () => window.clearTimeout(id)
     // runs once, on the way back from the sign-in page

@@ -858,7 +858,7 @@ const en = {
   },
 
   scenarios: {
-    intro: 'A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. It cannot change where a single flow goes, how far or at what price: the network editor holds one network per case, so note such an alternative in the scenario assumptions of the flow in the Data Collection File; the tool does not compare networks yet.',
+    intro: 'A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. It cannot change where a single flow goes, how far or at what price: the network editor holds one network per case, so note such an alternative in the scenario assumptions of the flow in the Data Collection File (asked when the exchanges do not run yet or a scenario is defined); the tool does not compare networks yet.',
     emptyHint: 'No alternative scenarios yet.',
     headers: { id: 'ID', label: 'Label' },
     labelPlaceholder: 'e.g. Future expansion / TRL9 ramp-up',
@@ -1639,7 +1639,7 @@ const en = {
     publicLink: "Public link",
     navLink: 'My cases',
     title: 'My cases',
-    intro: 'Cases saved on the server. Load opens the case\'s result; from there, "Adjust answers" changes them and "Save changes" stores them. Delete removes a case permanently.',
+    intro: 'Cases saved on the server. Load opens the case (its result, once worked out); from there, "Adjust answers" changes them and "Save changes" stores them. Delete removes a case permanently.',
     loadReplaceConfirm: 'Loading this case replaces the answers you are working on, which are not saved. Continue?',
     empty: 'No saved cases yet. Save one from the questionnaire or result page.',
     columns: {

@@ -105,6 +105,21 @@ def actor_label(row: DcfRow, fallback: str | None = None) -> str:
     return fallback or row.row_id
 
 
+def _number(value: Any) -> float | int | None:
+    """A quantity as stored: a number, or a numeric string typed in a text
+    field; never a boolean."""
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return value
+    if isinstance(value, str):
+        try:
+            return float(value.replace(",", ".")) if value.strip() else None
+        except ValueError:
+            return None
+    return None
+
+
 def _quantity(row: DcfRow) -> Any:
     """Measured quantity, else the projected one (a number, or the first
     numeric value of a per-scenario mapping, the baseline first)."""
@@ -114,11 +129,11 @@ def _quantity(row: DcfRow) -> Any:
     projected = row.values.get("flow.quantity_projected")
     if isinstance(projected, dict):
         for key in ("baseline", *projected.keys()):
-            value = projected.get(key)
-            if isinstance(value, (int, float)):
+            value = _number(projected.get(key))
+            if value is not None:
                 return value
         return None
-    return projected if projected not in ("",) else None
+    return _number(projected)
 
 
 def edge_list(data: DcfData | None) -> list[dict[str, Any]]:

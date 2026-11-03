@@ -57,4 +57,22 @@ describe('Scenario comparison', () => {
     expect(screen.getByText('Obligations added')).toBeTruthy()
     expect(screen.getByText(/IR-18/)).toBeTruthy()
   })
+
+  it('reports a scenario that could not run, without a row of dashes (Fable review of #205)', () => {
+    const base: Case = {
+      q1: 'B', q3: { env: true, eco: false, soc: false }, q4: [], flows: [], sites: [],
+      ilcd_situation: 'ILCD Situation A', lcc_type: 'deactivated', slca_activation_state: 'deactivated',
+      activated_nodes: [], applicable_rules: [], lca: {}, lcc: {},
+    }
+    useCaseStore.setState({
+      scenariosResult: { baseline: base, scenarios: [{
+        id: 'alt1', label: 'Landfill', overrides: {}, result: { ...base, ilcd_situation: null },
+        error: 'flows: Extra inputs are not permitted',
+      }] },
+    } as never)
+    render(<MemoryRouter><ScenariosResultPage /></MemoryRouter>)
+    expect(screen.getByText(/could not be run.*flows: Extra inputs/)).toBeTruthy()
+    expect(screen.queryByText(/Obligations removed/)).toBeNull()
+    expect(screen.getAllByText('Landfill')).toHaveLength(1)
+  })
 })

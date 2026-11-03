@@ -836,7 +836,7 @@ const it: Locale = {
   },
 
   scenarios: {
-    intro: 'Uno scenario cambia alcune risposte del questionario e il motore lo calcola accanto al caso: la pagina dei risultati mostra che cosa cambia nella configurazione e negli obblighi. Non può cambiare dove va un singolo flusso, a che distanza o a che prezzo: l\'editor di rete ha una sola rete per caso, quindi annota un\'alternativa del genere nelle ipotesi di scenario del flusso nel Data Collection File; lo strumento non confronta ancora reti diverse.',
+    intro: 'Uno scenario cambia alcune risposte del questionario e il motore lo calcola accanto al caso: la pagina dei risultati mostra che cosa cambia nella configurazione e negli obblighi. Non può cambiare dove va un singolo flusso, a che distanza o a che prezzo: l\'editor di rete ha una sola rete per caso, quindi annota un\'alternativa del genere nelle ipotesi di scenario del flusso nel Data Collection File (chieste quando gli scambi non avvengono ancora o c\'è uno scenario); lo strumento non confronta ancora reti diverse.',
     emptyHint: 'Nessuno scenario alternativo.',
     headers: { id: 'ID', label: 'Etichetta' },
     labelPlaceholder: 'es. Espansione futura / TRL9 ramp-up',
@@ -1618,7 +1618,7 @@ const it: Locale = {
     publicLink: "Link pubblico",
     navLink: 'I miei casi',
     title: 'I miei casi',
-    intro: 'Casi salvati sul server. Carica apre il risultato del caso; da lì «Modifica risposte» le cambia e «Salva modifiche» le registra. Elimina toglie un caso per sempre.',
+    intro: 'Casi salvati sul server. Carica apre il caso (il suo risultato, se è già calcolato); da lì «Modifica risposte» le cambia e «Salva modifiche» le registra. Elimina toglie un caso per sempre.',
     loadReplaceConfirm: 'Caricare questo caso sostituisce le risposte su cui stai lavorando, che non sono salvate. Continuare?',
     empty: 'Nessun caso salvato. Salva un caso dal questionario o dalla result page.',
     columns: {

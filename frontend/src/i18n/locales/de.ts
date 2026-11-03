@@ -810,7 +810,7 @@ const de: Locale = {
   },
 
   scenarios: {
-    intro: 'Ein Szenario ändert einige Antworten des Fragebogens, und die Engine berechnet es neben dem Fall: Die Ergebnisseite zeigt dann, was die Änderung an der Konfiguration und den Pflichten bewirkt. Es kann nicht ändern, wohin ein einzelner Fluss geht, wie weit oder zu welchem Preis: Der Netzwerk-Editor enthält ein Netzwerk pro Fall, notieren Sie eine solche Alternative also in den Szenarioannahmen des Flusses im Data Collection File; das Tool vergleicht noch keine verschiedenen Netzwerke.',
+    intro: 'Ein Szenario ändert einige Antworten des Fragebogens, und die Engine berechnet es neben dem Fall: Die Ergebnisseite zeigt dann, was die Änderung an der Konfiguration und den Pflichten bewirkt. Es kann nicht ändern, wohin ein einzelner Fluss geht, wie weit oder zu welchem Preis: Der Netzwerk-Editor enthält ein Netzwerk pro Fall, notieren Sie eine solche Alternative also in den Szenarioannahmen des Flusses im Data Collection File (gefragt, wenn die Austausche noch nicht stattfinden oder ein Szenario definiert ist); das Tool vergleicht noch keine verschiedenen Netzwerke.',
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',
@@ -1593,7 +1593,7 @@ const de: Locale = {
     publicLink: "Öffentlicher Link",
     navLink: 'Meine Fälle',
     title: 'Meine Fälle',
-    intro: 'Auf dem Server gespeicherte Fälle. Laden öffnet das Ergebnis des Falls; dort ändert „Antworten anpassen“ die Antworten und „Änderungen speichern“ sichert sie. Löschen entfernt einen Fall endgültig.',
+    intro: 'Auf dem Server gespeicherte Fälle. Laden öffnet den Fall (sein Ergebnis, wenn es schon ermittelt ist); dort ändert „Antworten anpassen“ die Antworten und „Änderungen speichern“ sichert sie. Löschen entfernt einen Fall endgültig.',
     loadReplaceConfirm: 'Das Laden dieses Falls ersetzt die Antworten, an denen Sie arbeiten und die nicht gespeichert sind. Fortfahren?',
     empty: 'Noch keine gespeicherten Fälle. Speichern Sie einen Fall aus dem Fragebogen oder der Ergebnisseite.',
     columns: {

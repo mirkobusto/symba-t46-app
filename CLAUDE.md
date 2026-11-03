@@ -256,7 +256,8 @@ Cronologia sintetica (tutto su `main`):
 
 **Lavoro aperto (nessuno bloccante sul codice)**:
 - Filtro region reale su `/api/public/region/{code}` (oggi echo del codice)
-- i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
+- i18n: `en.ts` è la source of truth; le quattro lingue hanno tutte le chiavi (verificato il 2026-11-03, lo controlla
+  `localeParity.test.ts`); solo il blocco `privacy.*` in fr/de/es è ancora la bozza inglese, in attesa della revisione legale
 - Network Builder: completo (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale, guidance in-app con esempio caricabile)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
 - **Deploy pubblico D4.6 (PU): è in piedi** su `biobasedisadvisor.symbaproject.eu` (VPS Contabo, Ubuntu 24.04), in **modalità "in costruzione"**: chi arriva vede una pagina di cortesia (503), il team entra con `?preview=<SYMBA_PREVIEW_TOKEN>` (il token sta nel `.env` del server). DNS creato il 2026-10-12, certificato Let's Encrypt valido fino al 2027-01-10 con rinnovo automatico, backup del DB ogni notte alle 3:30 con copia giornaliera sul Mac Studio. Caddy gira con tre file: `docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d`; per aprire al pubblico, lo stesso comando **senza** il terzo `-f`, dopo aver registrato l'account admin (il primo che si registra diventa admin, oppure `SYMBA_ADMIN_EMAIL`). Ogni deploy richiede la frase esplicita del proprietario "fai il deploy su produzione", una frase per deploy. La build dell'immagine e il Caddyfile sono stati eseguiti sul server più volte (ultima: 2026-11-03, `main` a `d4668a4`, #200); sulla macchina di sviluppo il demone Docker non risponde, quindi **l'unico posto dove si scopre se `Dockerfile.prod` regge è il server**: `tsc -b` compila anche i test, e un test che legge un file del backend fuori da `frontend/` rompe la build senza che nulla se ne accorga in locale (è successo due volte: PR #95 e #104). Dettagli operativi e lista dei pendenti: `~/.claude/projects/.../memory/project_deploy_contabo.md`. Non fatto di proposito: rate limiting di login/registrazione. Dal 2026-11-02 il salvataggio anonimo è spento per default (`SYMBA_ANON_SAVE`, vedi `docs/DEPLOY.md` § Authorization model): senza accesso non si salva sul server
@@ -281,7 +282,10 @@ Cronologia sintetica (tutto su `main`):
   "Hypothetical"/"Current"); l'app segue §11.1
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
 - Da guardare a occhio dopo il branding: proporzioni del logo, emblema UE a 300 px, hover/focus, 1201-1320 px in ES/FR su `/welcome`, Safari/Firefox, telefono reale, stampa della pagina risultato
-- Decisioni residue dell'audit: `contested` in `lcc_mc_04/08` resta inerte (D4.2 §3.2: è uno stato negoziale per flusso, non Q5=b); `infra.decommissioning_cost.row_condition` nel DCF non è valutato da nessun codice; I-17 chiuso in R3 (2026-10-18); I-18 (anno di Kerdlap) da verificare sul DOI
+- Decisioni residue dell'audit: la chiave `contested` è uscita dalla grammatica il 2026-10-15 (resta solo nella prosa di
+  `lcc_mc_04/08`); I-17 chiuso in R3 (2026-10-18); I-18 chiuso il 2026-11-03: Kerdlap et al. è online il 2022-01-24
+  (doi:10.1007/s11367-022-02024-1) e in stampa nel 2024 (Int J LCA 29(8):1409-1429); l'app cita 2022 come la D4.1, che
+  però accoppia l'anno online al volume a stampa (nota per l'errata della fase B); l'id del preset resta `kerdlap_2024`
 
 ---
 

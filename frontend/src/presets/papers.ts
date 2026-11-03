@@ -154,11 +154,12 @@ export const PRESETS: Preset[] = [
   },
   {
     id: 'kerdlap_2024',
-    short_ref: 'Kerdlap2024',
-    label: '9. Kerdlap 2024 — fictional urban agri-food',
-    citation: 'Kerdlap et al. (2024)',
+    short_ref: 'Kerdlap2022',
+    label: '9. Kerdlap 2022 — fictional urban agri-food',
+    // online 2022-01-24, print Int J LCA 29(8):1409-1429 (2024); D4.1 cites 2022 (I-18)
+    citation: 'Kerdlap et al. (2022)',
     description:
-      'Demonstrative 5-entity network in design phase.',
+      'Demonstrative 5-entity network in design phase (doi:10.1007/s11367-022-02024-1).',
     rationale: 'Fictional urban 5-entity agri-food network (soil farm + hydroponics + brewery + egg farm + fish farm) = Q1=B multi-actor. Q2=B because it\'s a methodological demonstration in design phase, not a real planned system. Q9 = A (micro): a demonstrative design at the scale of a few plants.' + UNSTATED,
     case: {
       q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'B', q3: { env: true, eco: true, soc: false }, q4: ['E'],

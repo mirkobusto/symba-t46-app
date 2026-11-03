@@ -706,7 +706,7 @@ const en = {
       placeholder: 'e.g. 20',
       unit: 'years',
       plain:
-        'Over which years does the study look at the system? If it describes how things work today, a picture of the present is enough. If it is about a plant that will run in a later year, or it follows the system for decades, the result depends on how electricity, fuels and markets will change, and the tool asks you to take a view on that future: the same future for the environmental and the economic reading.',
+        'Over which years does the study look at the system? If it describes how things work today, a picture of the present is enough. If it is about a plant that will run in a later year, or it follows the system for decades, the result depends on how electricity, fuels and markets will change, and the tool asks you to take a view on that future: the same future for the environmental and the economic reading. If the plants last more than 15 years, the study has to consider how energy and markets will change over those years.',
     },
     q9: {
       title: "Q9 — Which decision does the study support, and how far do its consequences reach? *",
@@ -930,6 +930,15 @@ const en = {
   },
 
   result: {
+    // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
+    guided: {
+      title: 'What this means for you',
+      lead: 'The tool has worked out how the study of your case has to be set up and which data it needs. It does not calculate whether the exchange pays off or helps the environment: an analyst or a consultant does that, with the data you collect.',
+      step1: 'Save the case so you can find it again. It needs a free account; without one, the case stays only in this browser.',
+      step2: 'Open the Data Collection File and download the Excel: your staff fill in the sheets on the actors, the flows, logistics and costs.',
+      step3: 'Give the file and the report to whoever will carry out the study (an analyst, a consultant, a university): the technical points further down are for them.',
+      analystTitle: 'Points for the analyst ({{count}})',
+    },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
       'C+N': 'Conventional LCC per partner, consolidated at network level',
@@ -991,7 +1000,7 @@ const en = {
         scope_national: 'national',
         slcaOff: 'Not included',
         reference_c2: 'Not used for credits: allocation, no substitution',
-        horizonFuture: 'Future background (SSP/RCP scenarios)',
+        horizonFuture: 'Future background: electricity, fuels and materials as expected in the years ahead (SSP/RCP climate-economic scenarios)',
         horizonPresent: 'Present-day background',
         reference_hnsrs: 'What each firm would do today without the links (HNSRS)',
         reference_modern: 'A modern counterfactual: what each firm would do today without the links (HNSRS)',
@@ -1044,6 +1053,7 @@ const en = {
         sectors: 'the chapters follow the sector declared on each flow',
         shared: 'the symbiosis uses dedicated assets (Q12)',
         multifunctionality: 'the ILCD situation (Q9)',
+        horizonLifetimeOnly: 'the assets last {{years}} years, more than {{threshold}}: the background is projected over their amortisation even though the study describes the present year (D4.2 §9.3; the threshold can be changed in the advanced settings)',
       },
     },
     notes: { title: 'Notes on your answers' },
@@ -1173,6 +1183,8 @@ const en = {
     confirmStartFresh: 'Discard the current case and start a new one? This cannot be undone.',
     noResult: { title: 'No result yet', desc: 'Submit a questionnaire to see the engine output here.', cta: 'Open questionnaire' },
     error: { title: 'Pipeline error', back: 'Back to questionnaire' },
+    saveHint: 'To keep the case on the server you need a free account; without one it stays only in this browser.',
+    scenariosBox: 'Alternative scenarios defined: {{count}}. Compare them with the case:',
   },
 
   scenariosResult: {

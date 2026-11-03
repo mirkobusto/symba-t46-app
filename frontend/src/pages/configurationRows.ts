@@ -113,7 +113,10 @@ export function configurationRows(
       reasons.push(t('result.config.why.horizonPeriod', { years: period, threshold }))
     }
     if (lifetime != null && lifetime > threshold) {
-      reasons.push(t('result.config.why.horizonLifetime', { years: lifetime, threshold }))
+      // alone, the asset lifetime puts a "future" next to a study of the present
+      // year: say so (P1-04, P3-02, UX round 2026-11-03)
+      reasons.push(t(reasons.length === 0 && !(period != null && period > threshold)
+        ? 'result.config.why.horizonLifetimeOnly' : 'result.config.why.horizonLifetime', { years: lifetime, threshold }))
     }
     rows.push({
       key: 'horizon',

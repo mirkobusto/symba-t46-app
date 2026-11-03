@@ -658,7 +658,7 @@ const de: Locale = {
       placeholder: 'z. B. 20',
       unit: 'Jahre',
       plain:
-        'Über welche Jahre betrachtet die Studie das System? Beschreibt sie, wie die Dinge heute funktionieren, genügt ein Bild der Gegenwart. Geht es um eine Anlage, die erst in einem späteren Jahr läuft, oder verfolgt sie das System über Jahrzehnte, hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft: dieselbe Zukunft für die ökologische und die wirtschaftliche Betrachtung.',
+        'Über welche Jahre betrachtet die Studie das System? Beschreibt sie, wie die Dinge heute funktionieren, genügt ein Bild der Gegenwart. Geht es um eine Anlage, die erst in einem späteren Jahr läuft, oder verfolgt sie das System über Jahrzehnte, hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft: dieselbe Zukunft für die ökologische und die wirtschaftliche Betrachtung. Halten die Anlagen länger als 15 Jahre, muss die Studie berücksichtigen, wie sich Energie und Märkte in diesen Jahren verändern.',
     },
     q9: {
       title: "Q9 — Welche Entscheidung unterstützt die Studie, und wie weit reichen ihre Folgen? *",
@@ -882,6 +882,15 @@ const de: Locale = {
   },
 
   result: {
+    // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
+    guided: {
+      title: 'Was das für Sie bedeutet',
+      lead: 'Das Tool hat festgelegt, wie die Studie zu Ihrem Fall angelegt werden muss und welche Daten sie braucht. Es berechnet nicht, ob sich der Austausch lohnt oder der Umwelt nützt: Das macht ein Analyst oder Berater mit den Daten, die Sie sammeln.',
+      step1: 'Speichern Sie den Fall, um ihn wiederzufinden. Dafür braucht es ein kostenloses Konto; ohne Konto bleibt der Fall nur in diesem Browser.',
+      step2: 'Öffnen Sie das Data Collection File und laden Sie die Excel-Datei herunter: Ihre Mitarbeitenden füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
+      step3: 'Geben Sie Datei und Bericht an die Person, die die Studie durchführt (Analyst, Berater, Hochschule): Die technischen Punkte weiter unten sind für sie.',
+      analystTitle: 'Punkte für den Analysten ({{count}})',
+    },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
       'C+N': 'Konventionelle LCC je Partner, auf Netzwerkebene konsolidiert',
@@ -943,7 +952,7 @@ const de: Locale = {
         scope_national: 'national',
         slcaOff: 'Nicht enthalten',
         reference_c2: 'Nicht für Gutschriften genutzt: Allokation, keine Substitution',
-        horizonFuture: 'Zukünftiger Hintergrund (SSP/RCP-Szenarien)',
+        horizonFuture: 'Zukünftiger Hintergrund: Strom, Brennstoffe und Materialien, wie sie in den kommenden Jahren erwartet werden (Klima- und Wirtschaftsszenarien SSP/RCP)',
         horizonPresent: 'Heutiger Hintergrund',
         reference_hnsrs: 'Was jedes Unternehmen heute ohne die Verbindungen täte (HNSRS)',
         reference_modern: 'Ein modernes Kontrafaktum: was jedes Unternehmen heute ohne die Verbindungen täte (HNSRS)',
@@ -996,6 +1005,7 @@ const de: Locale = {
         sectors: 'die Kapitel folgen dem für jeden Fluss angegebenen Sektor',
         shared: 'die Symbiose nutzt eigens errichtete Anlagen (Q12)',
         multifunctionality: 'die ILCD-Situation (Q9)',
+        horizonLifetimeOnly: 'die Anlagen halten {{years}} Jahre, mehr als {{threshold}}: Der Hintergrund wird über ihre Abschreibung projiziert, auch wenn die Studie das aktuelle Jahr beschreibt (D4.2 §9.3; die Schwelle lässt sich in den erweiterten Einstellungen ändern)',
       },
     },
     notes: { title: 'Hinweise zu Ihren Antworten' },
@@ -1126,6 +1136,8 @@ const de: Locale = {
     confirmStartFresh: 'Aktuellen Fall verwerfen und einen neuen starten? Dies kann nicht rückgängig gemacht werden.',
     noResult: { title: 'Noch kein Ergebnis', desc: 'Senden Sie einen Fragebogen ab, um die Engine-Ausgabe hier zu sehen.', cta: 'Fragebogen öffnen' },
     error: { title: 'Pipeline-Fehler', back: 'Zurück zum Fragebogen' },
+    saveHint: 'Um den Fall auf dem Server zu behalten, braucht es ein kostenloses Konto; ohne Konto bleibt er nur in diesem Browser.',
+    scenariosBox: 'Definierte Alternativszenarien: {{count}}. Vergleichen Sie sie mit dem Fall:',
   },
 
   scenariosResult: {

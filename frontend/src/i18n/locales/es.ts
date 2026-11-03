@@ -658,7 +658,7 @@ const es: Locale = {
       placeholder: 'p. ej. 20',
       unit: 'años',
       plain:
-        '¿Sobre qué años mira el estudio el sistema? Si describe cómo funcionan las cosas hoy, basta una fotografía del presente. Si trata de una planta que funcionará en un año posterior, o sigue el sistema durante décadas, el resultado depende de cómo cambien la electricidad, los combustibles y los mercados, y la herramienta te pide tomar posición sobre ese futuro: el mismo futuro para la lectura ambiental y para la económica.',
+        '¿Sobre qué años mira el estudio el sistema? Si describe cómo funcionan las cosas hoy, basta una fotografía del presente. Si trata de una planta que funcionará en un año posterior, o sigue el sistema durante décadas, el resultado depende de cómo cambien la electricidad, los combustibles y los mercados, y la herramienta te pide tomar posición sobre ese futuro: el mismo futuro para la lectura ambiental y para la económica. Si las plantas duran más de 15 años, el estudio debe tener en cuenta cómo cambiarán la energía y los mercados en esos años.',
     },
     q9: {
       title: "Q9 — ¿Qué decisión respalda el estudio y hasta dónde llegan sus consecuencias? *",
@@ -882,6 +882,15 @@ const es: Locale = {
   },
 
   result: {
+    // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
+    guided: {
+      title: 'Qué significa para ti',
+      lead: 'La herramienta ha establecido cómo debe plantearse el estudio de tu caso y qué datos necesita. No calcula si el intercambio compensa o es bueno para el medio ambiente: eso lo hace un analista o un consultor, con los datos que recojas.',
+      step1: 'Guarda el caso para encontrarlo de nuevo. Hace falta una cuenta gratuita; sin ella, el caso se queda solo en este navegador.',
+      step2: 'Abre el Data Collection File y descarga el Excel: tu personal rellena las hojas de actores, flujos, logística y costes.',
+      step3: 'Entrega el archivo y el informe a quien hará el estudio (un analista, un consultor, una universidad): los puntos técnicos de más abajo son para esa persona.',
+      analystTitle: 'Puntos para el analista ({{count}})',
+    },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
       'C+N': 'LCC convencional por socio, consolidado a nivel de red',
@@ -943,7 +952,7 @@ const es: Locale = {
         scope_national: 'nacional',
         slcaOff: 'No incluida',
         reference_c2: 'No se usa para créditos: asignación, sin sustitución',
-        horizonFuture: 'Fondo futuro (escenarios SSP/RCP)',
+        horizonFuture: 'Fondo futuro: electricidad, combustibles y materiales tal como se esperan en los próximos años (escenarios climático-económicos SSP/RCP)',
         horizonPresent: 'Fondo actual',
         reference_hnsrs: 'Lo que haría hoy cada empresa sin los vínculos (HNSRS)',
         reference_modern: 'Un contrafactual moderno: lo que haría hoy cada empresa sin los vínculos (HNSRS)',
@@ -996,6 +1005,7 @@ const es: Locale = {
         sectors: 'los capítulos siguen el sector declarado en cada flujo',
         shared: 'la simbiosis usa bienes dedicados (Q12)',
         multifunctionality: 'la situación ILCD (Q9)',
+        horizonLifetimeOnly: 'los bienes duran {{years}} años, más de {{threshold}}: el fondo se proyecta sobre su amortización aunque el estudio describa el año actual (D4.2 §9.3; el umbral se cambia en los ajustes avanzados)',
       },
     },
     notes: { title: 'Notas sobre tus respuestas' },
@@ -1126,6 +1136,8 @@ const es: Locale = {
     confirmStartFresh: '¿Descartar el caso actual y empezar uno nuevo? No se puede deshacer.',
     noResult: { title: 'Aún sin resultado', desc: 'Envía un cuestionario para ver la salida del motor aquí.', cta: 'Abrir cuestionario' },
     error: { title: 'Error de pipeline', back: 'Volver al cuestionario' },
+    saveHint: 'Para conservar el caso en el servidor hace falta una cuenta gratuita; sin ella, se queda solo en este navegador.',
+    scenariosBox: 'Escenarios alternativos definidos: {{count}}. Compáralos con el caso:',
   },
 
   scenariosResult: {

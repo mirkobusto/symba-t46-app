@@ -684,7 +684,7 @@ const it: Locale = {
       placeholder: 'es. 20',
       unit: 'anni',
       plain:
-        'Su quali anni lo studio guarda il sistema? Se descrive come funzionano le cose oggi basta una fotografia del presente. Se riguarda un impianto che funzionerà in un anno successivo, o segue il sistema per decenni, il risultato dipende da come cambieranno elettricità, combustibili e mercati, e il tool ti chiede di prendere posizione su quel futuro: lo stesso futuro per la lettura ambientale e per quella economica.',
+        'Su quali anni lo studio guarda il sistema? Se descrive come funzionano le cose oggi basta una fotografia del presente. Se riguarda un impianto che funzionerà in un anno successivo, o segue il sistema per decenni, il risultato dipende da come cambieranno elettricità, combustibili e mercati, e il tool ti chiede di prendere posizione su quel futuro: lo stesso futuro per la lettura ambientale e per quella economica. Se gli impianti durano più di 15 anni, lo studio deve considerare come cambieranno energia e mercati in quegli anni.',
     },
     q9: {
       title: "Q9 — Quale decisione sostiene lo studio, e fin dove arrivano le sue conseguenze? *",
@@ -908,6 +908,15 @@ const it: Locale = {
   },
 
   result: {
+    // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
+    guided: {
+      title: 'Che cosa significa per te',
+      lead: 'Lo strumento ha stabilito come va impostato lo studio del tuo caso e quali dati servono. Non calcola se lo scambio conviene o fa bene all\'ambiente: lo fa un analista o un consulente, con i dati che raccogli.',
+      step1: 'Salva il caso per ritrovarlo. Serve un account gratuito; senza, il caso resta solo in questo browser.',
+      step2: 'Apri il Data Collection File e scarica l\'Excel: i tuoi tecnici compilano i fogli su attori, flussi, logistica e costi.',
+      step3: 'Consegna il file e il report a chi farà lo studio (un analista, un consulente, un\'università): i punti tecnici più sotto sono per lui.',
+      analystTitle: 'Punti per l\'analista ({{count}})',
+    },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
       'C+N': 'LCC convenzionale per partner, consolidato a livello di rete',
@@ -969,7 +978,7 @@ const it: Locale = {
         scope_national: 'nazionale',
         slcaOff: 'Non inclusa',
         reference_c2: 'Non usato per crediti: allocazione, niente sostituzione',
-        horizonFuture: 'Background futuro (scenari SSP/RCP)',
+        horizonFuture: 'Background futuro: elettricità, combustibili e materiali come ci si aspetta negli anni a venire (scenari climatico-economici SSP/RCP)',
         horizonPresent: 'Background attuale',
         reference_hnsrs: 'Che cosa farebbe oggi ogni azienda senza i collegamenti (HNSRS)',
         reference_modern: 'Un controfattuale moderno: che cosa farebbe oggi ogni azienda senza i collegamenti (HNSRS)',
@@ -1022,6 +1031,7 @@ const it: Locale = {
         sectors: 'i capitoli seguono il settore dichiarato su ogni flusso',
         shared: 'la simbiosi usa beni dedicati (Q12)',
         multifunctionality: 'la situazione ILCD (Q9)',
+        horizonLifetimeOnly: 'i beni durano {{years}} anni, più di {{threshold}}: il background si proietta sul loro ammortamento anche se lo studio descrive l\'anno attuale (D4.2 §9.3; la soglia si cambia nelle impostazioni avanzate)',
       },
     },
     notes: { title: 'Note sulle tue risposte' },
@@ -1151,6 +1161,8 @@ const it: Locale = {
     confirmStartFresh: 'Scartare il caso corrente e ricominciare? Operazione non reversibile.',
     noResult: { title: 'Nessun risultato', desc: 'Invia un questionario per vedere l\'output del motore qui.', cta: 'Apri questionario' },
     error: { title: 'Errore della pipeline', back: 'Torna al questionario' },
+    saveHint: 'Per conservare il caso sul server serve un account gratuito; senza, resta solo in questo browser.',
+    scenariosBox: 'Scenari alternativi definiti: {{count}}. Confrontali con il caso:',
   },
 
   scenariosResult: {

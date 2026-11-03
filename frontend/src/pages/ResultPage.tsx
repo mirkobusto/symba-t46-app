@@ -9,7 +9,8 @@ import ShareReportModal from '../components/dd/ShareReportModal'
 import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
-import { verdictFor } from './resultNarrative'
+import { plainVerdict, verdictFor } from './resultNarrative'
+import { usePreferenceStore } from '../store/preferenceStore'
 import { configurationRows, obligationGroups } from './configurationRows'
 import ConfigurationSummary from '../components/ConfigurationSummary'
 import { useHealth } from '../hooks/useHealth'
@@ -50,6 +51,7 @@ export default function ResultPage() {
   const pushToast = useToastStore((s) => s.push)
   const signedIn = useAuthStore((s) => s.token !== null)
   const { anonymousSave } = useHealth()
+  const mode = usePreferenceStore((s) => s.mode)
   const [showReasoning, setShowReasoning] = useState(true)
   const [downloadingReport, setDownloadingReport] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
@@ -211,19 +213,55 @@ export default function ResultPage() {
   const verdict = verdictFor(result, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )
+  // guided mode speaks to a plant manager or a newcomer: the verdict in words,
+  // what to do with the result, and the methodological tensions folded away
+  // for the analyst (UX round 2026-11-03: P3-01, P3-05, P7-02)
+  const guided = mode === 'guided'
+  const headline = verdict && guided
+    ? plainVerdict(result, verdict, (key, fallback) => t(key, { defaultValue: fallback ?? '' }))
+    : verdict
+  const scenarioCount = (draft.alternative_scenarios ?? []).length
 
   return (
     <div className="dd-page result">
       <VerdictCard
         eyebrow={serverCaseName ?? t('result.title')}
-        headline={verdict?.title ?? result.ilcd_situation ?? '—'}
+        headline={headline?.title ?? result.ilcd_situation ?? '—'}
         codes={verdict?.codes}
-        body={verdict?.body}
+        body={headline?.body}
         // the situation is the first choice of the configuration and had no reason
         subtitle={result.decision_context
           ? t('result.verdictWhy', { answer: t(`questionnaire.q9.options.${result.decision_context}`) })
           : t('result.verdictWhyQ1')}
       />
+
+      {guided && blockedBy.length === 0 ? (
+        <section className="result-guided" aria-labelledby="result-guided-title">
+          <h2 id="result-guided-title">{t('result.guided.title')}</h2>
+          <p>{t('result.guided.lead')}</p>
+          <ol>
+            <li>{t('result.guided.step1')}</li>
+            <li>{t('result.guided.step2')}</li>
+            <li>{t('result.guided.step3')}</li>
+          </ol>
+          <div className="result-guided-actions">
+            <button type="button" className="btn btn-secondary" onClick={handleSaveCase} disabled={savingCase}>
+              {savingCase ? t('cases.saving') : t('cases.saveAsButton')}
+            </button>
+            <Link to="/data-collection" className="btn btn-primary">{t('dcf.openButton')}</Link>
+          </div>
+        </section>
+      ) : null}
+
+      {scenarioCount > 0 && blockedBy.length === 0 ? (
+        // the scenarios were behind one of eight buttons at the bottom (P2-15)
+        <p className="result-scenarios-box">
+          {t('result.scenariosBox', { count: scenarioCount })}{' '}
+          <button type="button" className="btn btn-secondary" onClick={handleRunScenarios} disabled={loading}>
+            {loading ? t('result.actions.runningScenarios') : t('result.actions.runScenarios')}
+          </button>
+        </p>
+      ) : null}
 
       {verdict ? <VerdictDetails verdict={verdict} /> : null}
 
@@ -262,11 +300,22 @@ export default function ResultPage() {
           <p className="result-next-lead">{t('result.next.lead')}</p>
         )}
 
-        <div className="result-next-list">
-          {todo.map((item) => (
-            <ActionItemCard key={item.key} item={item} />
-          ))}
-        </div>
+        {guided && todo.length > 0 ? (
+          <details className="result-next-analyst">
+            <summary>{t('result.guided.analystTitle', { count: todo.length })}</summary>
+            <div className="result-next-list">
+              {todo.map((item) => (
+                <ActionItemCard key={item.key} item={item} />
+              ))}
+            </div>
+          </details>
+        ) : (
+          <div className="result-next-list">
+            {todo.map((item) => (
+              <ActionItemCard key={item.key} item={item} />
+            ))}
+          </div>
+        )}
 
         {todo.length > 0 && !i18n.language.startsWith('en') ? (
           <p className="result-next-provenance">{t('result.next.provenance')}</p>
@@ -402,6 +451,9 @@ export default function ResultPage() {
         >
           {savingCase ? t('cases.saving') : t('cases.saveAsButton')}
         </button>
+        {!signedIn && anonymousSave === false ? (
+          <span className="result-save-hint">{t('result.saveHint')}</span>
+        ) : null}
         <button
           type="button"
           className="btn btn-secondary"

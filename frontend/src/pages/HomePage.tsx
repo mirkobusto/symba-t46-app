@@ -1,23 +1,20 @@
 // HomePage — workspace overview.
 //
-// The default admin landing: hero CTA to start an assessment, a 4-KPI
-// strip that surfaces workspace activity, quick links to the main
-// downstream sections, and the PresetLoader (for demo / paper cases).
-//
-// Fetches the case list to derive KPI counts; if the backend is down
-// or the response empty it falls back to zero values (no error state).
+// The landing page: three plain cards (what the tool is, what it does not
+// do, who it is for), the hero CTA to start an assessment, and the
+// PresetLoader with published cases. The KPI strip of saved cases, ILCD
+// situations and "186 Phase 1 nodes" told a newcomer nothing about whether
+// the tool fits them (UX round 2026-11-02).
 
-import { useEffect, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import KpiCard from '../components/dd/KpiCard'
 import PresetLoader from '../components/PresetLoader'
-import { ApiError, listCases } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { usePreferenceStore } from '../store/preferenceStore'
-import type { CaseSummary } from '../types/api'
+
+const INTRO = ['what', 'not', 'who'] as const
 
 export default function HomePage() {
   const { t } = useTranslation()
@@ -25,30 +22,6 @@ export default function HomePage() {
   const reset = useCaseStore((s) => s.reset)
   const mode = usePreferenceStore((s) => s.mode)
   const setMode = usePreferenceStore((s) => s.setMode)
-
-  const [cases, setCases] = useState<CaseSummary[]>([])
-
-  useEffect(() => {
-    let cancelled = false
-    listCases()
-      .then((rows) => { if (!cancelled) setCases(rows) })
-      .catch((e: unknown) => {
-        if (cancelled) return
-        if (e instanceof ApiError && (e.status === 401 || e.status === 403)) return
-        // Silent: KPIs stay at 0 rather than blocking the page.
-        console.warn('HomePage listCases failed', e)
-      })
-    return () => { cancelled = true }
-  }, [])
-
-  const total = cases.length
-  const bySituation = cases.reduce<Record<string, number>>((acc, c) => {
-    const k = c.ilcd_situation ?? 'unset'
-    acc[k] = (acc[k] ?? 0) + 1
-    return acc
-  }, {})
-  const situations = Object.keys(bySituation).filter((k) => k !== 'unset').length
-  const configured = total - (bySituation['unset'] ?? 0)
 
   function handleStart() {
     reset()
@@ -64,30 +37,13 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* KPI strip */}
-      <div className="dd-kpi-strip">
-        <KpiCard
-          label={t('home.kpi.savedCases')}
-          value={total}
-          detail={t('home.kpi.savedCasesDetail')}
-        />
-        <KpiCard
-          label={t('home.kpi.configured')}
-          value={configured}
-          detail={t('home.kpi.configuredDetail', { total })}
-          tone="success"
-        />
-        <KpiCard
-          label={t('home.kpi.situations')}
-          value={situations}
-          detail={t('home.kpi.situationsDetail')}
-        />
-        <KpiCard
-          label={t('home.kpi.language')}
-          value="EN·IT·FR·DE·ES"
-          detail={t('home.kpi.languageDetail')}
-          tone="info"
-        />
+      <div className="home-intro">
+        {INTRO.map((k) => (
+          <div key={k} className="dd-card home-intro-card">
+            <h2 className="home-intro-title">{t(`home.intro.${k}.title`)}</h2>
+            <p>{t(`home.intro.${k}.body`)}</p>
+          </div>
+        ))}
       </div>
 
       {/* Hero CTA */}

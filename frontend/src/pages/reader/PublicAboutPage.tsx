@@ -23,6 +23,9 @@ export default function PublicAboutPage() {
       <h1>{t('reader.about.title')}</h1>
       <p className="dd-soft">{t('reader.about.lead')}</p>
 
+      <h2 className="dd-section-title">{t('reader.about.isTitle')}</h2>
+      <p>{t('reader.about.isBody')}</p>
+
       <h2 className="dd-section-title">{t('reader.about.whoTitle')}</h2>
       <p>{t('reader.about.whoBody')}</p>
 

@@ -17,12 +17,12 @@ describe('App', () => {
     )
   })
 
-  it('renders the home page heading on /', () => {
+  it('sends a first visit on / to the welcome page', () => {
     render(<App />)
-    // EN default: home.title contains "SYMBA T4.6"
+    // EN default; the title lost "T4.6" in the UX round of 2026-11-02
     expect(
       screen.getByRole('heading', {
-        name: /SYMBA T4\.6/i,
+        name: /Welcome to SYMBA/i,
       }),
     ).toBeInTheDocument()
   })

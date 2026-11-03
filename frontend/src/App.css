@@ -391,6 +391,10 @@ html {
 
 /* ---- QuestionCard (4-B form layout) ---------------------------------- */
 
+/* the sticky run bar must not cover a question scrolled into view (UX round 2026-11-03) */
+.questionnaire-stepper .qcard { scroll-margin-top: 140px; }
+.stepper-total-note { color: var(--dd-muted, #5b6573); font-weight: normal; }
+
 .qcard {
   margin: 20px 0;
   padding: 16px 20px;

@@ -437,6 +437,7 @@ const es: Locale = {
       showAll: "Mostrar todas las preguntas en una página",
       showSteps: "Una pregunta cada vez",
       navLabel: "Preguntas",
+      totalChanges: 'El número de preguntas cambia con tus respuestas.',
     },
     examplesLink: "¿Quieres ver cómo responde un estudio real? Carga un ejemplo publicado",
     stillRequired: "Falta responder:",
@@ -490,12 +491,12 @@ const es: Locale = {
       },
       longStanding: {
         label: "¿La red funciona desde hace tanto tiempo que las alternativas que sustituyó (p. ej. las calderas que usaría la calefacción urbana) hoy ya no se construirían?",
-        yes: 'Sí — la referencia es un contrafactual moderno (D4.1 §11.2.2)',
+        yes: 'Sí — la referencia es un contrafactual moderno: la configuración anterior a la simbiosis queda excluida (D4.1 §11.2.2)',
         no: 'No — la red es reciente',
-        unknown: "No lo sé — la referencia es lo que haría hoy cada empresa sin los vínculos",
+        unknown: 'No lo sé — la configuración anterior a la simbiosis sigue admitida si es aún lo que cada empresa haría racionalmente hoy',
       },
       plain:
-        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. ¿Quieres comparar alternativas, como una ampliación o una tecnología nueva? Añádelas como escenarios abajo, sea cual sea tu respuesta aquí.',
+        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. ¿Quieres comparar alternativas, como una ampliación o una tecnología nueva? Se añaden como escenarios en modo experto, al final del cuestionario, sea cual sea tu respuesta aquí.',
     },
 
     q3: {
@@ -592,7 +593,7 @@ const es: Locale = {
     },
 
     q6b: {
-      title: 'Q6b — Technology Readiness Level (TRL)',
+      title: 'Q6b — Madurez de la tecnología (TRL)',
       details:
         'TRL de la tecnología dominante o crítica en la red simbiótica. Determina la elección de la calidad de los datos de inventory (medidos vs literatura vs estimación de ingeniería) y el presupuesto de incertidumbre downstream. ' +
         'Es el TRL de la tecnología clave en sí, no de su adopción: una tecnología madura que trata el mismo tipo de insumo a la misma escala que en otros lugares, usada por primera vez en esta red o región, sigue siendo TRL 9, y la novedad se ve en la calidad de los datos (lectura T4.6); un proceso maduro aplicado a un insumo nunca tratado a escala es un intercambio de bajo TRL (D4.1 §9.3.5). ' +
@@ -701,7 +702,7 @@ const es: Locale = {
       help: "Opcional. Fija la base de la unidad funcional; sin respuesta, se aplica la unidad orientada a la función de la D4.1 Part 1.",
       details: "La D4.1 Part 2 pide que la unidad funcional refleje la función principal del sistema (§4.3, §6.3, §8.3): una unidad basada en la entrada (p. ej. tratamiento de 1 tonelada de residuo) cuando el estudio compara vías de gestión de un residuo o el desempeño de una planta o servicio; una unidad basada en la salida (p. ej. 1 kg de producto, 1 MJ de energía) cuando compara productos con alternativas de mercado o respalda una afirmación de sustitución; un sistema de unidades funcionales cuando ambas funciones son coprincipales (Part 1 §5.3.2). La D4.2 §3.1 pide para el LCC una unidad doble (residuo tratado + producto obtenido) cuando la sustitución de producto guía el estudio: los dos entregables difieren; la herramienta sigue la Part 2 para el ACV e indica la diferencia.",
       options: {
-        unset: "Sin respuesta (unidad orientada a la función, D4.1 Part 1)",
+        unset: 'No lo sé / no se compara nada (la herramienta usa una unidad basada en el servicio prestado)',
         waste_treatment: "Cómo se gestiona un residuo — vías de gestión, desempeño de una planta o servicio (unidad basada en la entrada)",
         product_substitution: "Productos frente a alternativas de mercado — qué sustituye el producto recuperado (unidad basada en la salida)",
         co_primary: "Ambas: el servicio de tratamiento y los productos cuentan por igual (sistema de unidades funcionales)",
@@ -733,16 +734,30 @@ const es: Locale = {
       activeKeys_one: '{{count}} clave activa',
       activeKeys_other: '{{count}} claves activas',
     },
+    scopeNotePlain: 'La herramienta no hace los cálculos: te dice cómo debe hacerse el estudio y qué datos recoger. Los cálculos los hace después un analista.',
   },
 
   flows: {
+    // guided-mode wording of the flows table (UX round 2026-11-03)
+    plainHeaders: {
+      q5: 'Quién paga a quién',
+      sector: 'Sector de lo que se intercambia (opcional)',
+      configuration: 'Tipo de reutilización (opcional)',
+    },
+    plainOptions: {
+      a: 'Quien lo cede paga a quien lo recibe para que se lo lleve (un residuo para quien lo cede)',
+      b: 'Nadie paga, o aún no está claro',
+      c: 'Quien lo recibe paga a quien lo cede (un producto para quien lo cede)',
+      d: 'Las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)',
+      e: 'Solo una cifra total para toda la red',
+    },
     q5Note: "Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «gratuito / ambiguo» cuando esté realmente sin decidir.",
     emptyHint: 'Sin flujos. Añade al menos uno para caracterizar la Q5 por flujo.',
     headers: { id: 'ID', name: 'Nombre', q5: "Quién paga a quién (Q5)", sellable: '¿Vendible a otros?', sector: 'Sector (Parte 2)', configuration: "Configuración (Parte 2)" },
     q5Unset: "— elige quién paga a quién",
     sellable: { unset: '— sin respuesta', yes: 'Sí', no: 'No' },
     sellableHint: "Si el socio no tomara este flujo, ¿podría el generador venderlo a otro a un precio positivo? Sí lo convierte en coproducto. No, por sí solo, no lo convierte en residuo: un único comprador que paga lo que pagaría un comprador independiente (el precio del producto que el flujo sustituye, descontados sus costes adicionales para usarlo) lo sigue convirtiendo en coproducto; un flujo cedido gratis, o un pago que solo reparte costes, lo convierte en residuo (D4.1 §8.3.3). Opcional: el resultado señala cuando no coincide con Q5.",
-    sectorHint: "Elige el capítulo de la D4.1 Part 2 de lo que se intercambia, no de la empresa: residuos agrícolas y agroindustriales → Agroalimentario (§4); residuos municipales o mezclados, biorresiduos incluidos (fracción orgánica de los RSU, restos de comida domésticos) → Valorización de residuos (§8); lodos y aguas residuales tratadas, también cuando se reutilizan como agua → Aguas residuales (§6); un producto o vector energético obtenido de un flujo (biometano, digestato, electricidad) → el capítulo de ese flujo. Donde §4 y §8 se solapan en los biorresiduos, decide el origen (lectura T4.6 de la Part 2 §3.3). Opcional: el resultado lista las reglas del capítulo. La D4.1 Part 2 solo tiene capítulos para estos sectores de base biológica: para acero, cemento, calor, papel o química elige «— ninguno de estos» y solo se aplica la Part 1.",
+    sectorHint: 'Elige el capítulo de la D4.1 Part 2 de lo que se intercambia, no de la empresa: residuos agrícolas y agroindustriales → Agroalimentario (§4); residuos municipales o mezclados, biorresiduos incluidos (fracción orgánica de los RSU, restos de comida domésticos) → Valorización de residuos (§8); lodos y aguas residuales tratadas, también cuando se reutilizan como agua → Aguas residuales (§6); un producto o vector energético obtenido de un flujo (biometano, digestato, electricidad) → el capítulo de ese flujo. Donde §4 y §8 se solapan en los biorresiduos, decide el origen (lectura T4.6 de la Part 2 §3.3). Opcional: el resultado lista las reglas del capítulo. La D4.1 Part 2 solo tiene capítulos para estos sectores de base biológica: para acero, cemento, calor, papel o química elige «— ninguno de estos» y solo se aplica la Part 1. La madera y los residuos forestales (serrín, corteza, lignina, licor negro) no tienen capítulo en la Part 2: elige «— ninguno de estos».',
     sectorNone: '— ninguno de estos',
     configurationHint: "La configuración típica del flujo dentro de su capítulo de la Part 2 (D4.1 Part 2 §4.1-§8.1): el resultado indica el producto convencional que sustituye. Elige primero el sector.",
     configurationNone: "— sin respuesta",
@@ -784,6 +799,8 @@ const es: Locale = {
       d: 'd — Interdependiente',
       e: 'e — Agregado / black-box',
     },
+    plainEmpty: 'Aún no hay intercambios. Añade cada cosa que pasa entre las empresas (suero, serrín, calor, agua…).',
+    plainSectorHint: 'Opcional. Elige un sector solo si lo que se intercambia pertenece a uno de los sectores de base biológica de la lista (agroalimentario, plásticos, aguas residuales, textil, residuos). Para madera, serrín, residuos forestales o papeleros, acero, cemento o calor, deja «— ninguno de estos». Si no estás seguro, déjalo: lo fijará el analista.',
   },
 
   scenarios: {

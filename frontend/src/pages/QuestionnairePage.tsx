@@ -32,8 +32,8 @@ import { askConfirm } from '../store/dialogStore'
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
 const Q2_KEYS: Q2[] = ['A', 'B']
 const Q4_KEYS: Q4[] = ['A', 'B', 'C', 'D', 'E']
+// '(none)' next to '(not set)' was two empty choices (UX round 2026-11-03)
 const Q6A_KEYS: Q6a[] = [
-  'none',
   'agriculture_agrifood_biorefineries',
   'biobased_polymers',
   'plastics_packaging',
@@ -308,9 +308,15 @@ export default function QuestionnairePage() {
   const current = steps[Math.min(stepIndex, Math.max(steps.length - 1, 0))]
 
   function goToStep(index: number) {
-    setStepIndex(Math.max(0, Math.min(index, steps.length - 1)))
-    window.scrollTo(0, 0)
+    const next = Math.max(0, Math.min(index, steps.length - 1))
+    setStepIndex(next)
+    // after "Next" the question sat below the fold, under the banners (P3-15, P7-11)
+    if (next === 0) window.scrollTo(0, 0)
+    else window.requestAnimationFrame(() =>
+      document.getElementById(steps[next].id)?.scrollIntoView({ block: 'start' }))
   }
+  // the intro banner and the scope note are said once, on the first question
+  const firstStep = !stepper || stepIndex === 0
 
   return (
     <div
@@ -331,7 +337,7 @@ export default function QuestionnairePage() {
         </div>
       </div>
 
-      {mode === 'guided' ? (
+      {mode === 'guided' && firstStep ? (
         <div className="guided-banner" role="note">
           <strong>{t('questionnaire.guidedBannerTitle')}</strong>
           <p>{t('questionnaire.guidedBannerBody')}</p>
@@ -797,10 +803,11 @@ export default function QuestionnairePage() {
           >
             {t('questionnaire.stepper.back')}
           </button>
-          <span className="stepper-progress">
+          <span className="stepper-progress" title={t('questionnaire.stepper.totalChanges')}>
             {t('questionnaire.stepper.progress', {
               n: Math.min(stepIndex, steps.length - 1) + 1, total: steps.length, part: current.part,
             })}
+            <small className="stepper-total-note"> · {t('questionnaire.stepper.totalChanges')}</small>
           </span>
           <button
             type="button" className="btn btn-primary"
@@ -811,7 +818,11 @@ export default function QuestionnairePage() {
         </nav>
       ) : null}
 
-      <p className="questionnaire-scope-note">{t('questionnaire.scopeNote')}</p>
+      {firstStep ? (
+        <p className="questionnaire-scope-note">
+          {t(mode === 'guided' ? 'questionnaire.scopeNotePlain' : 'questionnaire.scopeNote')}
+        </p>
+      ) : null}
 
       <div className="run-bar">
         <button

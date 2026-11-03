@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { configurationsFor } from '../presets/part2Configurations'
 import type { Flow, Q5, Q6a } from '../types/api'
+import { usePreferenceStore } from '../store/preferenceStore'
 
 const Q5_KEYS: Q5[] = ['a', 'b', 'c', 'd', 'e']
 
@@ -39,6 +40,12 @@ function nextId(existing: Flow[]): string {
 
 export default function FlowsEditor({ flows, onChange }: Props) {
   const { t } = useTranslation()
+  // guided mode: who pays whom in words, headers without "Part 2", and a
+  // sector hint that says when to leave it empty (UX round 2026-11-03: the
+  // table was where a newcomer gave up, P3-04, P7-03)
+  const guided = usePreferenceStore((s) => s.mode) === 'guided'
+  const header = (k: 'q5' | 'sector' | 'configuration') =>
+    guided ? t(`flows.plainHeaders.${k}`) : t(`flows.headers.${k}`)
 
   function addFlow() {
     onChange([...flows, { id: nextId(flows), name: '' }])
@@ -60,17 +67,17 @@ export default function FlowsEditor({ flows, onChange }: Props) {
           the answer to. */}
       <p className="flows-q5-note">{t('flows.q5Note')}</p>
       {flows.length === 0 ? (
-        <p className="muted">{t('flows.emptyHint')}</p>
+        <p className="muted">{t(guided ? 'flows.plainEmpty' : 'flows.emptyHint')}</p>
       ) : (
         <table className="flows-table">
           <thead>
             <tr>
               <th>{t('flows.headers.id')}</th>
               <th>{t('flows.headers.name')}</th>
-              <th>{t('flows.headers.q5')}</th>
+              <th>{header('q5')}</th>
               <th title={t('flows.sellableHint')}>{t('flows.headers.sellable')}</th>
-              <th title={t('flows.sectorHint')}>{t('flows.headers.sector')}</th>
-              <th title={t('flows.configurationHint')}>{t('flows.headers.configuration')}</th>
+              <th title={t('flows.sectorHint')}>{header('sector')}</th>
+              <th title={t('flows.configurationHint')}>{header('configuration')}</th>
               <th aria-label="actions"></th>
             </tr>
           </thead>
@@ -102,7 +109,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     <option value="" disabled>{t('flows.q5Unset')}</option>
                     {Q5_KEYS.map((k) => (
                       <option key={k} value={k}>
-                        {t(`flows.options.${k}`)}
+                        {t(guided ? `flows.plainOptions.${k}` : `flows.options.${k}`)}
                       </option>
                     ))}
                   </select>
@@ -178,7 +185,9 @@ export default function FlowsEditor({ flows, onChange }: Props) {
         </table>
       )}
 
-      {flows.length > 0 ? <p className="flows-q5-note">{t('flows.sectorHint')}</p> : null}
+      {flows.length > 0 ? (
+        <p className="flows-q5-note">{t(guided ? 'flows.plainSectorHint' : 'flows.sectorHint')}</p>
+      ) : null}
 
       <button type="button" className="btn btn-secondary" onClick={addFlow}>
         <Plus size={16} />

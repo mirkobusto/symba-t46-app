@@ -485,6 +485,7 @@ const en = {
       showAll: "Show all the questions on one page",
       showSteps: "One question at a time",
       navLabel: "Questions",
+      totalChanges: 'The number of questions changes with your answers.',
     },
     examplesLink: "Want to see how a real study answers? Load a published example",
     stillRequired: "Still to answer:",
@@ -538,12 +539,12 @@ const en = {
       },
       longStanding: {
         label: "Has the network run for so long that the alternatives it replaced (e.g. the boilers the district heating would otherwise use) would no longer be built today?",
-        yes: 'Yes — the reference is a modern counterfactual (D4.1 §11.2.2)',
+        yes: 'Yes — the reference is a modern counterfactual: the pre-symbiosis set-up is excluded (D4.1 §11.2.2)',
         no: 'No — the network is recent',
-        unknown: "I don't know — the reference is what each firm would do today without the links",
+        unknown: 'I don\'t know — the pre-symbiosis set-up stays admissible if it is still what each firm would rationally do today',
       },
       plain:
-        'Think of the exchanges, not of the plants. If the flows between the companies already happen, you can measure them. If they are still an idea, even between plants that already run, you can only estimate them. Want to compare alternatives, such as an expansion or a new technology? Add them as scenarios below, whatever you answer here.',
+        'Think of the exchanges, not of the plants. If the flows between the companies already happen, you can measure them. If they are still an idea, even between plants that already run, you can only estimate them. Want to compare alternatives, such as an expansion or a new technology? They are added as scenarios in expert mode, at the bottom of the questionnaire, whatever you answer here.',
     },
 
     q3: {
@@ -640,7 +641,7 @@ const en = {
     },
 
     q6b: {
-      title: 'Q6b — Technology Readiness Level (TRL)',
+      title: 'Q6b — Technology maturity (TRL)',
       details:
         'TRL of the dominant or critical technology in the symbiotic network. Drives the choice of inventory data quality (measured vs literature vs engineering estimate) and the uncertainty budget downstream. ' +
         'It is the TRL of the key technology itself, not of its adoption: a mature technology that treats the same kind of input at the same scale as elsewhere, used for the first time in this network or region, is still TRL 9, and the novelty shows in the data quality (T4.6 reading); a mature process applied to an input never treated at scale is a low-TRL exchange (D4.1 §9.3.5). ' +
@@ -749,7 +750,7 @@ const en = {
       help: "Optional. It sets the basis of the functional unit; unanswered, the function-oriented unit of D4.1 Part 1 applies.",
       details: "D4.1 Part 2 asks the functional unit to reflect the primary function of the system (§4.3, §6.3, §8.3): an input-based unit (e.g. treatment of 1 tonne of waste) when the study compares waste management routes or the performance of a plant or service; an output-based unit (e.g. 1 kg of product, 1 MJ of energy) when it compares products against market alternatives or supports a substitution claim; a system of functional units when both functions are co-primary (Part 1 §5.3.2). D4.2 §3.1 asks a dual unit (waste treated + output generated) for the LCC when product substitution drives the study: the two deliverables differ, and the tool follows Part 2 for the LCA and reports the difference.",
       options: {
-        unset: "Not answered (function-oriented unit, D4.1 Part 1)",
+        unset: 'I don\'t know / nothing is compared (the tool uses a unit built on the service delivered)',
         waste_treatment: "How a waste is managed — waste routes, plant or service performance (input-based unit)",
         product_substitution: "Products against market alternatives — what the recovered output replaces (output-based unit)",
         co_primary: "Both: the treatment service and the products matter equally (system of functional units)",
@@ -781,16 +782,30 @@ const en = {
       activeKeys_one: '{{count}} active key',
       activeKeys_other: '{{count}} active keys',
     },
+    scopeNotePlain: 'The tool does not do the calculations: it tells you how the study has to be done and which data to collect. An analyst does the calculations afterwards.',
   },
 
   flows: {
+    // guided-mode wording of the flows table (UX round 2026-11-03)
+    plainHeaders: {
+      q5: 'Who pays whom',
+      sector: 'Sector of what is exchanged (optional)',
+      configuration: 'Type of reuse (optional)',
+    },
+    plainOptions: {
+      a: 'Whoever gives it pays the receiver to take it away (a waste for the giver)',
+      b: 'Nobody pays, or it is not clear yet',
+      c: 'The receiver pays whoever gives it (a product for the giver)',
+      d: 'The two plants depend on each other (one was changed to supply the other)',
+      e: 'Only one total figure for the whole network',
+    },
     q5Note: "Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick \"free / ambiguous\" when it is genuinely undecided rather than forcing a direction.",
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
     headers: { id: 'ID', name: 'Name', q5: "Who pays whom (Q5)", sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
     q5Unset: "— choose who pays whom",
     sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
     sellableHint: "If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product. No does not make it a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still makes it a co-product; a free flow, or a payment that only shares costs, makes it a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.",
-    sectorHint: "Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues → Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste) → Waste valorisation (§8); sludge and treated wastewater, also when reused as water → Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) → the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter. D4.1 Part 2 has chapters only for these bio-based sectors: for steel, cement, heat, pulp and paper or chemicals pick \"— none of these\", and only Part 1 applies.",
+    sectorHint: 'Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues → Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste) → Waste valorisation (§8); sludge and treated wastewater, also when reused as water → Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) → the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter. D4.1 Part 2 has chapters only for these bio-based sectors: for steel, cement, heat, pulp and paper or chemicals pick "— none of these", and only Part 1 applies. Wood and forest residues (sawdust, bark, lignin, black liquor) have no Part 2 chapter: pick "— none of these".',
     sectorNone: '— none of these',
     configurationHint: "The typical configuration of the flow within its Part 2 chapter (D4.1 Part 2 §4.1-§8.1): the result names the conventional product it substitutes. Pick the sector first.",
     configurationNone: "— not answered",
@@ -832,6 +847,8 @@ const en = {
       d: 'd — Interdependent',
       e: 'e — Aggregated / black-box',
     },
+    plainEmpty: 'No exchanges yet. Add each thing that moves between the companies (whey, sawdust, heat, water…).',
+    plainSectorHint: 'Optional. Pick a sector only if what is exchanged belongs to one of the listed bio-based sectors (agri-food, plastics, wastewater, textiles, waste). For wood, sawdust, forest or paper-mill residues, steel, cement or heat, leave “— none of these”. If you are not sure, leave it: the analyst can set it.',
   },
 
   scenarios: {

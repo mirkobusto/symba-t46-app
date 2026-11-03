@@ -54,7 +54,8 @@ export default function QuestionCard({
         {coded ? (
           <>
             <span className="qcard-step" aria-hidden="true" />
-            {coded[2]} <code className="qcard-code">{coded[1]}</code>
+            {/* the Q-codes came out of order and meant nothing to a newcomer (UX round 2026-11-03) */}
+            {coded[2]}{guided ? null : <> <code className="qcard-code">{coded[1]}</code></>}
           </>
         ) : title}
       </h3>

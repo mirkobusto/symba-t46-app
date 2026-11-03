@@ -437,6 +437,7 @@ const de: Locale = {
       showAll: "Alle Fragen auf einer Seite zeigen",
       showSteps: "Eine Frage nach der anderen",
       navLabel: "Fragen",
+      totalChanges: 'Die Zahl der Fragen ändert sich mit Ihren Antworten.',
     },
     examplesLink: "Wie antwortet eine echte Studie? Ein veröffentlichtes Beispiel laden",
     stillRequired: "Noch offen:",
@@ -490,12 +491,12 @@ const de: Locale = {
       },
       longStanding: {
         label: "Läuft das Netz schon so lange, dass die Alternativen, die es ersetzt hat (z. B. die Kessel, die die Fernwärme sonst nutzen würde), heute nicht mehr gebaut würden?",
-        yes: 'Ja — die Referenz ist ein modernes Kontrafaktum (D4.1 §11.2.2)',
+        yes: 'Ja — die Referenz ist ein modernes Kontrafaktum: Die Situation vor der Symbiose ist ausgeschlossen (D4.1 §11.2.2)',
         no: 'Nein — das Netzwerk ist jung',
-        unknown: "Weiß ich nicht — Referenz ist, was jedes Unternehmen heute ohne die Verbindungen täte",
+        unknown: 'Weiß nicht — die Situation vor der Symbiose bleibt zulässig, wenn sie heute noch das wäre, was jedes Unternehmen vernünftigerweise täte',
       },
       plain:
-        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen bereits laufenden Anlagen, können Sie sie nur schätzen. Sie möchten Alternativen vergleichen, etwa eine Erweiterung oder eine neue Technologie? Fügen Sie sie unten als Szenarien hinzu, unabhängig von Ihrer Antwort hier.',
+        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen bereits laufenden Anlagen, können Sie sie nur schätzen. Sie möchten Alternativen vergleichen, etwa eine Erweiterung oder eine neue Technologie? Sie werden im Expertenmodus als Szenarien am Ende des Fragebogens hinzugefügt, unabhängig von Ihrer Antwort hier.',
     },
 
     q3: {
@@ -592,7 +593,7 @@ const de: Locale = {
     },
 
     q6b: {
-      title: 'Q6b — Technology Readiness Level (TRL)',
+      title: 'Q6b — Technologiereife (TRL)',
       details:
         'TRL der dominanten oder kritischen Technologie im symbiotischen Netzwerk. Bestimmt die Wahl der Inventory-Datenqualität (gemessen vs Literatur vs Engineering-Schätzung) und das Unsicherheitsbudget downstream. ' +
         'Gemeint ist der TRL der Schlüsseltechnologie selbst, nicht ihrer Einführung: eine ausgereifte Technologie, die dieselbe Art von Input im selben Maßstab wie anderswo behandelt und in diesem Netzwerk oder dieser Region erstmals eingesetzt wird, bleibt TRL 9, und die Neuheit zeigt sich in der Datenqualität (Lesart T4.6); ein ausgereiftes Verfahren, angewandt auf einen nie im großen Maßstab behandelten Input, ist ein Austausch mit niedrigem TRL (D4.1 §9.3.5). ' +
@@ -701,7 +702,7 @@ const de: Locale = {
       help: "Optional. Sie legt die Basis der funktionellen Einheit fest; ohne Antwort gilt die funktionsorientierte Einheit von D4.1 Part 1.",
       details: "D4.1 Part 2 verlangt, dass die funktionelle Einheit die Hauptfunktion des Systems widerspiegelt (§4.3, §6.3, §8.3): eine inputbasierte Einheit (z. B. Behandlung von 1 Tonne Abfall), wenn die Studie Entsorgungswege oder die Leistung einer Anlage oder Dienstleistung vergleicht; eine outputbasierte Einheit (z. B. 1 kg Produkt, 1 MJ Energie), wenn sie Produkte mit Marktalternativen vergleicht oder eine Substitutionsaussage stützt; ein System funktioneller Einheiten, wenn beide Funktionen gleichrangig sind (Part 1 §5.3.2). D4.2 §3.1 verlangt für die LCC eine doppelte Einheit (behandelter Abfall + erzeugter Output), wenn die Produktsubstitution die Studie leitet: Die beiden Deliverables weichen ab; das Tool folgt für die Ökobilanz der Part 2 und weist auf den Unterschied hin.",
       options: {
-        unset: "Nicht beantwortet (funktionsorientierte Einheit, D4.1 Part 1)",
+        unset: 'Weiß nicht / nichts wird verglichen (das Tool nutzt eine Einheit, die auf der erbrachten Leistung beruht)',
         waste_treatment: "Wie ein Abfall behandelt wird — Entsorgungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
         product_substitution: "Produkte gegenüber Marktalternativen — was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
         co_primary: "Beides: Behandlungsleistung und Produkte zählen gleich viel (System funktioneller Einheiten)",
@@ -733,16 +734,30 @@ const de: Locale = {
       activeKeys_one: '{{count}} aktiver Schlüssel',
       activeKeys_other: '{{count}} aktive Schlüssel',
     },
+    scopeNotePlain: 'Das Tool rechnet nicht: Es sagt Ihnen, wie die Studie zu machen ist und welche Daten zu sammeln sind. Die Berechnungen macht danach ein Analyst.',
   },
 
   flows: {
+    // guided-mode wording of the flows table (UX round 2026-11-03)
+    plainHeaders: {
+      q5: 'Wer zahlt wem',
+      sector: 'Sektor des Ausgetauschten (optional)',
+      configuration: 'Art der Wiederverwendung (optional)',
+    },
+    plainOptions: {
+      a: 'Wer es abgibt, zahlt dem Empfänger für die Abnahme (für den Abgebenden ein Abfall)',
+      b: 'Niemand zahlt, oder es ist noch nicht klar',
+      c: 'Der Empfänger zahlt dem Abgebenden (für den Abgebenden ein Produkt)',
+      d: 'Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)',
+      e: 'Nur eine Gesamtzahl für das ganze Netzwerk',
+    },
     q5Note: "Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „kostenlos / mehrdeutig“, wenn es wirklich offen ist.",
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
     headers: { id: 'ID', name: 'Name', q5: "Wer zahlt wen (Q5)", sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
     q5Unset: "— wählen, wer wen bezahlt",
     sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
     sellableHint: "Würde der Partner diesen Fluss nicht abnehmen, könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt. Nein macht ihn nicht schon zu Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung), macht ihn trotzdem zum Koppelprodukt; ein kostenlos abgegebener Fluss oder eine Zahlung, die nur Kosten teilt, macht ihn zu Abfall (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht zu Q5 passt.",
-    sectorHint: "Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels. D4.1 Part 2 hat nur für diese biobasierten Sektoren Kapitel: für Stahl, Zement, Wärme, Papier oder Chemie wählen Sie „— keiner davon“, dann gilt nur Part 1.",
+    sectorHint: 'Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels. D4.1 Part 2 hat nur für diese biobasierten Sektoren Kapitel: für Stahl, Zement, Wärme, Papier oder Chemie wählen Sie „— keiner davon“, dann gilt nur Part 1. Holz und Waldreststoffe (Sägemehl, Rinde, Lignin, Schwarzlauge) haben kein Kapitel in Part 2: Wählen Sie „— keiner davon“.',
     sectorNone: '— keiner davon',
     configurationHint: "Die typische Konfiguration des Flusses in seinem Kapitel der Part 2 (D4.1 Part 2 §4.1-§8.1): Das Ergebnis nennt das konventionelle Produkt, das er ersetzt. Wählen Sie zuerst den Sektor.",
     configurationNone: "— nicht beantwortet",
@@ -784,6 +799,8 @@ const de: Locale = {
       d: 'd — Interdependent',
       e: 'e — Aggregiert / Black-box',
     },
+    plainEmpty: 'Noch kein Austausch. Fügen Sie alles hinzu, was zwischen den Unternehmen fließt (Molke, Sägemehl, Wärme, Wasser …).',
+    plainSectorHint: 'Optional. Wählen Sie einen Sektor nur, wenn das Ausgetauschte zu einem der aufgeführten biobasierten Sektoren gehört (Agrar/Lebensmittel, Kunststoffe, Abwasser, Textilien, Abfall). Für Holz, Sägemehl, Wald- oder Papierfabrikreststoffe, Stahl, Zement oder Wärme lassen Sie „— keiner davon“. Im Zweifel lassen Sie es: Der Analyst kann es festlegen.',
   },
 
   scenarios: {

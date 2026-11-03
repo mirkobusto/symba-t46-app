@@ -230,7 +230,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-Burden vs Avoidable Test',
         body: 'LCA zero-burden hierarchy vs LCC avoidable test divergence',
-        resolution: 'Consolidated 4-step decision tree per IR-15; resolved by neutral facilitator',
+        resolution: 'Four-step decision tree of D4.1 §8.3.6 applied to every flow, the E-LCC following the LCA classification (D4.2 §6.3); an interdependent flow is a co-product in both (IR-15)',
       },
       'CDP-06': {
         name: 'FU Definition Tri-Method Divergence',
@@ -482,7 +482,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-burden contro test di evitabilità',
         body: 'La gerarchia zero-burden dell\'LCA e il test di evitabilità dell\'LCC possono divergere',
-        resolution: 'Albero decisionale unico in quattro passi secondo IR-15; dirime un facilitatore neutrale',
+        resolution: 'Albero decisionale in quattro passi della D4.1 §8.3.6 applicato a ogni flusso, con l\'E-LCC che segue la classificazione dell\'LCA (D4.2 §6.3); un flusso interdipendente è un co-prodotto in entrambi (IR-15)',
       },
       'CDP-06': {
         name: 'Unità funzionale divergente fra i tre metodi',
@@ -734,7 +734,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-burden contre test d\'évitabilité',
         body: 'La hiérarchie zero-burden de la LCA et le test d\'évitabilité de la LCC peuvent diverger',
-        resolution: 'Arbre de décision unique en quatre étapes selon IR-15 ; tranché par un facilitateur neutre',
+        resolution: 'Arbre de décision en quatre étapes de la D4.1 §8.3.6 appliqué à chaque flux, l\'E-LCC suivant la classification de l\'ACV (D4.2 §6.3) ; un flux interdépendant est un coproduit dans les deux (IR-15)',
       },
       'CDP-06': {
         name: 'Unité fonctionnelle divergente entre les trois méthodes',
@@ -986,7 +986,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-Burden gegen Vermeidbarkeitstest',
         body: 'Die Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC können auseinandergehen',
-        resolution: 'Ein einziger vierstufiger Entscheidungsbaum nach IR-15; entschieden durch eine neutrale moderierende Stelle',
+        resolution: 'Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Fluss, wobei die E-LCC der Klassifizierung der Ökobilanz folgt (D4.2 §6.3); ein interdependenter Fluss ist in beiden ein Koppelprodukt (IR-15)',
       },
       'CDP-06': {
         name: 'Funktionelle Einheit in den drei Methoden verschieden',
@@ -1238,7 +1238,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-burden frente a prueba de evitabilidad',
         body: 'La jerarquía zero-burden del LCA y la prueba de evitabilidad del LCC pueden divergir',
-        resolution: 'Un único árbol de decisión de cuatro pasos según IR-15; lo dirime un facilitador neutral',
+        resolution: 'Árbol de decisión en cuatro pasos de la D4.1 §8.3.6 aplicado a cada flujo, con el E-LCC siguiendo la clasificación del ACV (D4.2 §6.3); un flujo interdependiente es un coproducto en ambos (IR-15)',
       },
       'CDP-06': {
         name: 'Unidad funcional divergente entre los tres métodos',

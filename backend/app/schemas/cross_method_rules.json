@@ -871,7 +871,7 @@
         "LCA",
         "LCC"
       ],
-      "resolution_at_l3": "Consolidated 4-step decision tree per IR-15; resolved by neutral facilitator",
+      "resolution_at_l3": "Four-step decision tree of D4.1 §8.3.6 applied to every flow, the E-LCC following the LCA classification (D4.2 §6.3); an interdependent flow is a co-product in both (IR-15)",
       "related_rules": [
         "IR-15",
         "IR-06"

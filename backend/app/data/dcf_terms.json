@@ -2206,7 +2206,7 @@
    "ins.conf": "Vertraulichkeit",
    "ins.conf_body": "Diese Arbeitsmappe kann Daten aller Partner des Netzes enthalten. Bevor Sie sie außerhalb des Studienteams weitergeben, prüfen Sie die Vertraulichkeitsvereinbarung zwischen den Partnern: die Methode verlangt, sie vor Beginn der Datenerhebung zu klären.",
    "ins.return": "An wen zurückgeben",
-   "ins.return_body": "An die Person, die die Studie durchführt (eine Analystin, ein Analyst oder ein Beratungsbüro). Wenn Sie eines der Unternehmen sind, füllen Sie nur die Zeilen der Flüsse aus, an denen Ihr Unternehmen beteiligt ist; die Dateien führt die Analyse zusammen. Wenn Sie die Studie selbst durchführen, füllen Sie die Flussklassifizierung und das Referenzszenario aus und senden Sie die Arbeitsmappe an jedes Unternehmen.",
+   "ins.return_body": "An die Person, die die Studie durchführt (eine Analystin, ein Analyst oder ein Beratungsbüro). Wenn Sie eines der Unternehmen sind, füllen Sie nur die Zeilen der Flüsse aus, an denen Ihr Unternehmen beteiligt ist; die Dateien führt die Person zusammen, die die Studie durchführt. Wenn Sie die Studie selbst durchführen, füllen Sie die Flussklassifizierung und das Referenzszenario aus und senden Sie die Arbeitsmappe an jedes Unternehmen.",
    "ins.return_by": "Zurück bis",
    "ins.return_by_hint": "(Termin mit der Person vereinbaren, die die Studie durchführt)",
    "ins.contact": "Kontakt",

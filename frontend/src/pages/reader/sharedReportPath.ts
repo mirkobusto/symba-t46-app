@@ -16,3 +16,11 @@ export function sharedReportPath(input: string): string | null {
   if (!key || !/^[A-Za-z0-9-]+$/.test(key) || key === 'open' || key === 'about') return null
   return view && VIEWS.has(view) ? `/r/${key}/${view}` : `/r/${key}`
 }
+
+// The audience tabs of a public report are routes (/r/<case>/<audience>):
+// switching tab must not throw the reader back to the top of the page
+// (UX round 2026-11-03).
+export function sharedCaseOf(pathname: string): string | null {
+  const m = /^\/r\/([^/]+)(?:\/[^/]+)?\/?$/.exec(pathname)
+  return m && !['about', 'open', 'region'].includes(m[1]) ? m[1] : null
+}

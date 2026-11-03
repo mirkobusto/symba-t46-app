@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import ErrorBoundary from './components/ErrorBoundary'
@@ -21,6 +21,7 @@ import PublicReportPage from './pages/reader/PublicReportPage'
 import WelcomePage from './pages/WelcomePage'
 import { usePreferenceStore } from './store/preferenceStore'
 import './App.css'
+import { sharedCaseOf } from './pages/reader/sharedReportPath'
 
 /**
  * Redirects first-time visitors to /welcome unless they're on a route
@@ -49,8 +50,11 @@ function WelcomeGate({ children }: { children: React.ReactNode }) {
  */
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
+  const previous = useRef(pathname)
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0)
+    const sameReport = sharedCaseOf(pathname) !== null && sharedCaseOf(pathname) === sharedCaseOf(previous.current)
+    previous.current = pathname
+    if (!hash && !sameReport) window.scrollTo(0, 0)
   }, [pathname, hash])
   return null
 }

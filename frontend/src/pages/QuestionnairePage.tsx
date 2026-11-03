@@ -27,6 +27,7 @@ import type {
   ReferenceMarketScope,
   StudyPurpose,
 } from '../types/api'
+import { askConfirm } from '../store/dialogStore'
 
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
 const Q2_KEYS: Q2[] = ['A', 'B']
@@ -255,8 +256,8 @@ export default function QuestionnairePage() {
     if (result) navigate('/result')
   }
 
-  function handleReset() {
-    if (window.confirm(t('questionnaire.confirmReset'))) {
+  async function handleReset() {
+    if (await askConfirm(t('questionnaire.confirmReset'))) {
       reset()
       setPurpose('')
       setQ1(undefined); setQ2(undefined); setLongStanding('')

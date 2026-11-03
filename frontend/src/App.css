@@ -4182,6 +4182,19 @@ kbd {
   animation: dd-modal-in 0.18s ease-out;
 }
 
+/* in-app confirm / text dialog (store/dialogStore), UX round 2026-11-03 */
+.dd-dialog { max-width: 460px; }
+.dd-dialog .dd-modal-lead { margin-top: 0; }
+.dd-dialog-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  margin: 4px 0 14px;
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  font: inherit;
+}
+
 @keyframes dd-modal-in {
   from { transform: translateY(8px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }

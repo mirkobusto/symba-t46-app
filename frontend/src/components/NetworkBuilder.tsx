@@ -35,6 +35,7 @@ import {
   type DcfDataIssue,
   type DcfRow,
 } from '../types/dcfData'
+import { askConfirm } from '../store/dialogStore'
 
 interface Props {
   payload: DcfPayload
@@ -141,11 +142,11 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     if (rowId) setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId })
   }
 
-  function handleLoadExample() {
+  async function handleLoadExample() {
     // Replacing a network someone drew would be rude; ask first.
     if (
       actorRows.length > 0 &&
-      !window.confirm(t('networkBuilder.exampleReplaceConfirm'))
+      !(await askConfirm(t('networkBuilder.exampleReplaceConfirm')))
     ) {
       return
     }

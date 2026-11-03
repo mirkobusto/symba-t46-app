@@ -1,12 +1,10 @@
 // ShareReportModal — opens from the Share button on ResultPage.
 //
 // Shows the 4 audience-specific reader URLs for the current case and
-// a Copy button for each. If the case has not been saved yet, the key
-// used in the URL is the pipeline result id; once Phase 8 adds a
-// human-friendly slug, we'll swap it in transparently.
-//
-// A note nudges the user to save the case first when the store shows
-// no server-side id yet.
+// a Copy button for each. Only a case saved on the server has a public
+// report, so without a server id (or slug) the dialog shows no URL, only
+// how to save the case first (UX round 2026-11-03: the pipeline id gave
+// links that ended on "Report not found").
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -54,15 +52,14 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
           <button type="button" className="dd-modal-close" onClick={onClose} aria-label={t('share.close')}>×</button>
         </div>
 
-        <p className="dd-modal-lead">{t('share.lead')}</p>
+        {canShare ? <p className="dd-modal-lead">{t('share.lead')}</p> : null}
 
         {!canShare ? (
           <div className="dd-pending" style={{ marginBottom: 14 }}>
             <div className="dd-pending-head">⚠ {t('share.saveFirstTitle')}</div>
             <p className="dd-pending-body">{t('share.saveFirstBody')}</p>
           </div>
-        ) : null}
-
+        ) : (
         <ul className="dd-share-list">
           {AUDIENCES.map((a) => (
             <li key={a} className="dd-share-item">
@@ -83,6 +80,7 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
             </li>
           ))}
         </ul>
+        )}
 
         <div className="dd-page-actions" style={{ justifyContent: 'flex-end' }}>
           <button type="button" className="dd-btn dd-btn-primary" onClick={onClose}>

@@ -22,6 +22,7 @@ import SiteHeader from '../brand/SiteHeader'
 import EuFooter from '../EuFooter'
 import HealthBanner from '../HealthBanner'
 import ShortcutsHelp from '../ShortcutsHelp'
+import DialogHost from '../DialogHost'
 import ToastHost from '../ToastHost'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
@@ -45,6 +46,7 @@ export default function AdminShell() {
       </div>
       <EuFooter />
       <ToastHost />
+      <DialogHost />
       <ShortcutsHelp />
     </div>
   )

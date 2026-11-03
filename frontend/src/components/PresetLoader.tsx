@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { PRESETS } from '../presets/papers'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
+import { askConfirm } from '../store/dialogStore'
 
 export default function PresetLoader() {
   const { t } = useTranslation()
@@ -17,12 +18,12 @@ export default function PresetLoader() {
   const draft = useCaseStore((s) => s.draft)
   const [presetId, setPresetId] = useState<string>(PRESETS[0]?.id ?? '')
 
-  function handleLoad() {
+  async function handleLoad() {
     const preset = PRESETS.find((p) => p.id === presetId)
     if (!preset) return
     // loading replaced a case being built, silently (UX round 2026-11-02)
     const hasWork = !!draft.q1 || !!draft.decision_context || (draft.flows?.length ?? 0) > 0
-    if (hasWork && !window.confirm(t('preset.replaceConfirm'))) return
+    if (hasWork && !(await askConfirm(t('preset.replaceConfirm')))) return
     setDraft({
       q3: { env: false, eco: false, soc: false },
       q4: [],

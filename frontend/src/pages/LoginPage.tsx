@@ -32,6 +32,10 @@ export default function LoginPage() {
     if (current === 'register' && err.status === 403) return t('auth.errors.registrationClosed')
     if (current === 'register' && err.status === 400) return t('auth.errors.emailTaken')
     if (current === 'login' && err.status === 401) return t('auth.errors.invalidCredentials')
+    // 422 is FastAPI's validation error, a JSON list the reader should never see (UX round 2026-11-03)
+    if (err.status === 422) {
+      return err.detail.includes('"email"') ? t('auth.errors.invalidEmail') : t('auth.errors.invalidInput')
+    }
     return err.detail
   }
 

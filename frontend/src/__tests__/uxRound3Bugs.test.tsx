@@ -1,0 +1,86 @@
+import '@testing-library/jest-dom'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import i18n from '../i18n'
+import ShareReportModal from '../components/dd/ShareReportModal'
+import LoginPage from '../pages/LoginPage'
+import PublicReportPage from '../pages/reader/PublicReportPage'
+
+// UX round 2026-11-03: four bugs the persona agents met.
+function answerWith(status: number, body: unknown) {
+  vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({
+    ok: status < 400, status, statusText: 'x',
+    json: () => Promise.resolve(body),
+    text: () => Promise.resolve(JSON.stringify(body)),
+  } as Response)))
+}
+
+describe('UX round 3 bugs', () => {
+  beforeEach(async () => { await i18n.changeLanguage('en') })
+  afterEach(() => vi.unstubAllGlobals())
+
+  it('shows a validation error in words, not as the JSON FastAPI returns', async () => {
+    answerWith(422, { detail: [{ type: 'value_error', loc: ['body', 'email'], msg: 'value is not a valid email address' }] })
+    render(<MemoryRouter><LoginPage /></MemoryRouter>)
+    fireEvent.click(screen.getByRole('tab', { name: 'Create account' }))
+    fireEvent.change(screen.getByLabelText(/Email/), { target: { value: 'marco@zuccherificio' } })
+    fireEvent.change(screen.getByLabelText(/Password/), { target: { value: 'hunter2-strong' } })
+    fireEvent.click(screen.getAllByRole('button', { name: 'Create account' }).find((b) => b.getAttribute('type') === 'submit')!)
+    expect(await screen.findByText(/This email address is not valid/)).toBeInTheDocument()
+    expect(screen.queryByText(/value_error/)).not.toBeInTheDocument()
+  })
+
+  it('answers an unknown report code in the reader language, with a way back to /r/open', async () => {
+    await i18n.changeLanguage('it')
+    answerWith(404, { detail: "Case 'valle-del-formaggio' not found" })
+    render(
+      <MemoryRouter initialEntries={['/r/valle-del-formaggio']}>
+        <Routes><Route path="/r/:caseId" element={<PublicReportPage />} /></Routes>
+      </MemoryRouter>,
+    )
+    expect(await screen.findByText(/Nessun report con questo codice/)).toBeInTheDocument()
+    expect(screen.queryByText(/not found/)).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Prova un altro link o codice/ })).toHaveAttribute('href', '/r/open')
+  })
+
+  it('offers no share link for a case that is not saved on the server', () => {
+    render(<ShareReportModal caseId={null} caseSlug={null} onClose={() => {}} />)
+    expect(screen.getByText(/Save the case first/)).toBeInTheDocument()
+    expect(screen.queryByText(/\/r\//)).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument()
+  })
+
+  it('lists the four links once the case has a server key', () => {
+    render(<ShareReportModal caseId="id-1" caseSlug="agri-b-sita-19a8" onClose={() => {}} />)
+    expect(screen.getAllByRole('button', { name: 'Copy' })).toHaveLength(4)
+    expect(screen.getByText(/\/r\/agri-b-sita-19a8\/authority$/)).toBeInTheDocument()
+  })
+})
+
+describe('scroll on the audience tabs of a public report', () => {
+  it('reads the case of a report path, and none of the other reader pages', async () => {
+    const { sharedCaseOf } = await import('../pages/reader/sharedReportPath')
+    expect(sharedCaseOf('/r/agri-b-sita-19a8')).toBe('agri-b-sita-19a8')
+    expect(sharedCaseOf('/r/agri-b-sita-19a8/industry')).toBe('agri-b-sita-19a8')
+    expect(sharedCaseOf('/r/open')).toBeNull()
+    expect(sharedCaseOf('/r/region/IT')).toBeNull()
+    expect(sharedCaseOf('/result')).toBeNull()
+  })
+})
+
+describe('in-app dialogs', () => {
+  it('returns the typed name, and null on cancel', async () => {
+    const { askText } = await import('../store/dialogStore')
+    const DialogHost = (await import('../components/DialogHost')).default
+    render(<DialogHost />)
+    let pending = askText('Name it', '', 'Save')
+    fireEvent.change(await screen.findByRole('textbox'), { target: { value: ' Zuccherificio ' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+    await expect(pending).resolves.toBe('Zuccherificio')
+    pending = askText('Name it')
+    fireEvent.click(await screen.findByRole('button', { name: 'Cancel' }))
+    await expect(pending).resolves.toBeNull()
+  })
+})

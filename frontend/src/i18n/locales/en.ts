@@ -1269,26 +1269,26 @@ const en = {
         whatYouSee:
           "What this page tells you today: which methodology the assessment will follow, and therefore which data you will be asked for. The data request itself is the Data Collection File.",
         whenScoring:
-          "Once the scoring arrives you will see the environmental and economic indicators for the case, so you can judge whether the exchange pays off.",
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
         whenScoring:
-          "Once the scoring arrives you will see the social indicators — workers, local community — and the environmental ones, each with the group it concerns.",
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: social indicators — workers, local community — and environmental ones, each with the group it concerns.',
       },
       authority: {
         whatYouSee:
           "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and how concentrated the key interactions are.",
         whenScoring:
-          "Once the scoring arrives you will see the environmental figures and, where the study includes them, the societal costs — the two a public decision rests on.",
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: the environmental figures and, where the study includes them, the societal costs.',
         scope: "How concentrated the key interactions are: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "What this page tells you today: which materials this symbiosis puts back into use, and whether environmental and social effects are examined.",
         whenScoring:
-          "Once the scoring arrives you will see the environmental and social indicators of the chain behind the product.",
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: the environmental and social indicators of the chain behind the product.',
         productCaveat:
           "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
       },
@@ -1317,13 +1317,13 @@ const en = {
     },
     framing: {
       industry:
-        'Full technical view of the methodological configuration and of the quantitative scoring, which is produced outside this tool by the SYMBA partner CIRCE. For whoever runs the site, and for the analyst behind the study.',
+        'Full technical view of the methodological configuration. The figures (emissions, costs) are not produced here: whoever carries out the study calculates them from the Data Collection File, and they can be loaded into this case.',
       community:
-        'Local-impact view focused on environmental quality and social benefits the symbiosis brings to the host territory.',
+        'What changes for people living near the plants: effects on the local environment and on people, positive and negative.',
       authority:
-        'Regulatory and policy view: methodological configuration, peer-review status, public-superiority claims, EU PEF alignment.',
+        'How the assessment is framed: costs, shared assets, reference scenario, public claims, time horizon, social effects.',
       'end-user':
-        'Summary view for end users of the IS-derived products and services.',
+        'What this case is about and what will be assessed. There are no results yet.',
     },
     verdictTitle: 'Methodological configuration',
     configTitle: 'What this study is set up to look at',
@@ -1332,10 +1332,10 @@ const en = {
       lcc: 'LCC type',
       slca: 'S-LCA activation',
     },
-    scoringTitle: 'Scoring (CIRCE)',
-    scoringPendingTitle: 'Scoring data not yet available',
+    scoringTitle: 'Results',
+    scoringPendingTitle: 'No results yet',
     scoringPendingBody:
-      'The CIRCE-produced LCSA scoring for this case has not been ingested yet. Once CIRCE delivers the quantitative payload, the indicators will appear here grouped by stakeholder relevance.',
+      'This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them; if they are added to this case, they appear here.',
     scoringEmpty: 'No indicators relevant for this stakeholder.',
     indicatorPending: 'pending',
     engineDetailsTitle: 'Engine pipeline details',

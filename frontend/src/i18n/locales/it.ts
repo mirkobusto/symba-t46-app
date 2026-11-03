@@ -1248,26 +1248,26 @@ const it: Locale = {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quale metodologia seguirà la valutazione, e quindi quali dati ti verranno chiesti. La richiesta vera e propria è il Data Collection File.",
         whenScoring:
-          "Quando arriveranno i punteggi vedrai gli indicatori ambientali ed economici del caso, così da giudicare se lo scambio conviene.",
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: indicatori ambientali ed economici, per giudicare se lo scambio conviene.',
       },
       community: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali flussi le aziende si scambiano, e se questo studio esamina o no gli effetti sociali.",
         whenScoring:
-          "Quando arriveranno i punteggi vedrai gli indicatori sociali — lavoratori, comunità locale — e quelli ambientali, ciascuno con il gruppo che riguarda.",
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: indicatori sociali — lavoratori, comunità locale — e ambientali, ciascuno con il gruppo che riguarda.',
       },
       authority: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e quanto sono concentrate le interazioni chiave.",
         whenScoring:
-          "Quando arriveranno i punteggi vedrai i valori ambientali e, dove lo studio li include, i costi societali — i due su cui si regge una decisione pubblica.",
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: i numeri ambientali e, dove lo studio li include, i costi per la società.',
         scope: "Quanto sono concentrate le interazioni chiave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali materiali questa simbiosi rimette in uso, e se gli effetti ambientali e sociali sono esaminati.",
         whenScoring:
-          "Quando arriveranno i punteggi vedrai gli indicatori ambientali e sociali della filiera dietro al prodotto.",
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: gli indicatori ambientali e sociali della filiera dietro il prodotto.',
         productCaveat:
           "Questa valutazione descrive lo scambio tra le aziende, non il prodotto finale che compri: lo strumento non chiede quale sia il prodotto.",
       },
@@ -1296,13 +1296,13 @@ const it: Locale = {
     },
     framing: {
       industry:
-        "Vista tecnica completa della configurazione metodologica e dei punteggi quantitativi, prodotti fuori da questo strumento dal partner SYMBA CIRCE. Per chi gestisce il sito e per l'analista dietro allo studio.",
+        'Vista tecnica completa della configurazione metodologica. I numeri (emissioni, costi) non si producono qui: li calcola chi esegue lo studio a partire dal Data Collection File, e possono essere caricati in questo caso.',
       community:
-        'Vista impatto locale focalizzata su qualità ambientale e benefici sociali che la simbiosi porta al territorio ospitante.',
+        'Che cosa cambia per chi vive vicino agli impianti: effetti sull\'ambiente della zona e sulle persone, positivi e negativi.',
       authority:
-        'Vista regolatoria e di policy: configurazione metodologica, peer-review, claim pubblici, allineamento EU PEF.',
+        'Come è impostata la valutazione: costi, beni condivisi, scenario di riferimento, affermazioni pubbliche, orizzonte, effetti sociali.',
       'end-user':
-        'Vista riassuntiva per gli end user dei prodotti e servizi derivati dalla simbiosi.',
+        'Di che cosa parla questo caso e che cosa verrà valutato. I risultati non ci sono ancora.',
     },
     verdictTitle: 'Configurazione metodologica',
     configTitle: 'Che cosa guarda questo studio',
@@ -1311,10 +1311,10 @@ const it: Locale = {
       lcc: 'Tipo LCC',
       slca: 'Attivazione S-LCA',
     },
-    scoringTitle: 'Scoring (CIRCE)',
-    scoringPendingTitle: 'Dati di scoring non ancora disponibili',
+    scoringTitle: 'Risultati',
+    scoringPendingTitle: 'Ancora nessun risultato',
     scoringPendingBody:
-      'Lo scoring LCSA prodotto da CIRCE per questo caso non è ancora stato consegnato. Quando CIRCE caricherà il payload quantitativo, gli indicatori appariranno qui raggruppati per rilevanza per stakeholder.',
+      'Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola chi esegue lo studio; se vengono aggiunti a questo caso, compaiono qui.',
     scoringEmpty: 'Nessun indicatore rilevante per questo stakeholder.',
     indicatorPending: 'in attesa',
     engineDetailsTitle: 'Dettagli pipeline engine',

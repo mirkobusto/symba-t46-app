@@ -33,7 +33,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
 from app.engine.dcf_rows import actor_label, cell_values, edge_list, rows_for
-from app.services.dcf_terms import cover_rows, enum_label, ui, value_label
+from app.services.dcf_terms import cover_rows, enum_label, offered_labels, ui, value_label
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -367,9 +367,9 @@ def _field_note(field, lang: str = "en") -> str:
     help_text = field.help or field.description_en
     if help_text:
         parts.append(str(help_text))
-    labels = field.enum_labels or ({v: enum_label(lang, v) for v in field.enum_values} if field.enum_values else None)
+    labels = offered_labels(field, lang)
     if labels:
-        parts.append(f"{ui(lang, 'note.allowed')}: " + "; ".join(labels.values()))
+        parts.append(f"{ui(lang, 'note.allowed')}: " + "; ".join(labels))
     if field.reason:
         parts.append(f"{ui(lang, 'note.because')}: {field.reason}")
     # the field id was noise to whoever fills the file in (P2-05, P3-10, P6-07)
@@ -387,9 +387,7 @@ def _add_enum_dropdowns(
     inside a label and is capped at 255 characters.
     """
     for col_idx, field in enumerate(section.fields, start=1):
-        labels = list((field.enum_labels or {}).values()) or [
-            enum_label(lang, v) for v in (field.enum_values or [])
-        ]
+        labels = offered_labels(field, lang)
         if not labels:
             continue
         if lists is None:

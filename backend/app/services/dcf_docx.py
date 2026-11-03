@@ -23,7 +23,7 @@ from docx.shared import Pt, RGBColor
 from app.domain.dcf_data import DcfData
 from app.engine.dcf_compose import DcfPayload
 from app.engine.dcf_rows import actor_label, edge_list, rows_for
-from app.services.dcf_terms import cover_rows, enum_label, ref_label, ui
+from app.services.dcf_terms import cover_rows, enum_label, offered_labels, ref_label, ui
 
 EU_FOOTER = (
     "This Project has received funding from the European Union's Horizon "
@@ -202,8 +202,8 @@ def _write_drawn_network(doc: Document, actors: list, edges: list[dict], lang: s
         gives = {}
         receives = {}
         for edge in edges:
-            gives.setdefault(edge["origin"], []).append(str(edge["name"]))
-            receives.setdefault(edge["destination"], []).append(str(edge["name"]))
+            gives.setdefault(edge["origin_id"], []).append(str(edge["name"]))
+            receives.setdefault(edge["destination_id"], []).append(str(edge["name"]))
         table = doc.add_table(rows=1, cols=5)
         table.style = "Light List Accent 1"
         head = table.rows[0].cells
@@ -220,8 +220,8 @@ def _write_drawn_network(doc: Document, actors: list, edges: list[dict], lang: s
             cells[1].text = enum_label(lang, row.values.get("actor.role")) or "—"
             sector = row.values.get("actor.sector")
             cells[2].text = ref_label(lang, "Q6a", sector) or str(sector or "—")
-            cells[3].text = ", ".join(gives.get(name, [])) or "—"
-            cells[4].text = ", ".join(receives.get(name, [])) or "—"
+            cells[3].text = ", ".join(gives.get(row.row_id, [])) or "—"
+            cells[4].text = ", ".join(receives.get(row.row_id, [])) or "—"
 
     if edges:
         doc.add_heading(ui(lang, "dx.flows"), level=2)
@@ -312,10 +312,8 @@ def _write_field_reference_section(doc: Document, payload: DcfPayload, lang: str
             if field.reason:
                 meaning.append(f"{ui(lang, 'note.because')}: {field.reason}")
             cells[1].text = " ".join(m for m in meaning if m).strip() or "—"
-            labels = field.enum_labels or (
-                {v: enum_label(lang, v) for v in field.enum_values} if field.enum_values else None
-            )
-            cells[2].text = "; ".join(labels.values()) if labels else "—"
+            labels = offered_labels(field, lang)
+            cells[2].text = "; ".join(labels) if labels else "—"
 
 
 def _write_eu_closing(doc: Document, lang: str = "en") -> None:

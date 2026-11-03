@@ -487,7 +487,7 @@
    "ins.conf": "Confidentiality",
    "ins.conf_body": "This workbook may carry data from every partner in the network. Before circulating it outside the assessment team, check the confidentiality arrangement between the partners: the methodology requires it to be settled before data collection starts.",
    "ins.return": "Who to return it to",
-   "ins.return_body": "Whoever carries out the study (an analyst or a consultant). If you are one of the companies, fill in only the rows of the flows your company takes part in; the analyst merges the files. If you carry out the study yourself, fill in the Flow classification and the Reference scenario and send the workbook to each company.",
+   "ins.return_body": "Whoever carries out the study (an analyst or a consultant). If you are one of the companies, fill in only the rows of the flows your company takes part in and, in them, only the columns of your side (origin or destination); the analyst merges the files. If you carry out the study yourself, fill in the Flow classification and the Reference scenario and send the workbook to each company.",
    "ins.return_by": "Return by",
    "ins.return_by_hint": "(agree a date with whoever carries out the study)",
    "ins.contact": "Contact",
@@ -660,7 +660,7 @@
    },
    "actor.role": {
     "label": "Ruolo",
-    "description": "Partner: partecipa agli scambi; le frecce dicono che cosa cede e riceve. Facilitatore: coordina la rete senza scambiare flussi (gestore del parco, consulente). Autorità: l'ente pubblico che autorizza o tassa. Intermediario: commercia o trasporta un flusso senza trasformarlo."
+    "description": "Partner: partecipa agli scambi; le frecce dicono che cosa cede e riceve. Facilitatore: coordina la rete senza scambiare flussi (gestore del parco, consulente). Regolatore: l'ente pubblico che autorizza o tassa. Intermediario: commercia o trasporta un flusso senza trasformarlo."
    },
    "actor.sector": {
     "label": "Settore",
@@ -1099,7 +1099,7 @@
    "ins.conf": "Riservatezza",
    "ins.conf_body": "Questo file può contenere dati di tutti i partner della rete. Prima di farlo circolare fuori dal gruppo di studio, verifica l'accordo di riservatezza fra i partner: il metodo chiede di definirlo prima di iniziare la raccolta dati.",
    "ins.return": "A chi riconsegnarlo",
-   "ins.return_body": "A chi esegue lo studio (un analista o un consulente). Se sei una delle aziende, compila solo le righe dei flussi a cui la tua azienda partecipa; i file li unisce l'analista. Se lo studio lo esegui tu, compila Classificazione e Scenario di riferimento e manda il file a ogni azienda.",
+   "ins.return_body": "A chi esegue lo studio (un analista o un consulente). Se sei una delle aziende, compila solo le righe dei flussi a cui la tua azienda partecipa e, in quelle, solo le colonne del tuo lato (origine o destinazione); i file li unisce l'analista. Se lo studio lo esegui tu, compila Classificazione e Scenario di riferimento e manda il file a ogni azienda.",
    "ins.return_by": "Da riconsegnare entro",
    "ins.return_by_hint": "(concorda una data con chi esegue lo studio)",
    "ins.contact": "Contatto",
@@ -1272,7 +1272,7 @@
    },
    "actor.role": {
     "label": "Rôle",
-    "description": "Partenaire : participe aux échanges ; les flèches disent ce qu'il cède et reçoit. Facilitateur : coordonne le réseau sans échanger de flux (gestionnaire du parc, consultant). Autorité : l'organisme public qui autorise ou taxe. Intermédiaire : commercialise ou transporte un flux sans le transformer."
+    "description": "Partenaire : participe aux échanges ; les flèches disent ce qu'il cède et reçoit. Facilitateur : coordonne le réseau sans échanger de flux (gestionnaire du parc, consultant). Régulateur : l'organisme public qui autorise ou taxe. Intermédiaire : commercialise ou transporte un flux sans le transformer."
    },
    "actor.sector": {
     "label": "Secteur",
@@ -1711,7 +1711,7 @@
    "ins.conf": "Confidentialité",
    "ins.conf_body": "Ce classeur peut contenir des données de tous les partenaires du réseau. Avant de le diffuser hors de l'équipe d'étude, vérifiez l'accord de confidentialité entre partenaires : la méthode demande de le régler avant de commencer la collecte.",
    "ins.return": "À qui le renvoyer",
-   "ins.return_body": "À la personne qui réalise l'étude (un analyste ou un consultant). Si vous êtes l'une des entreprises, remplissez seulement les lignes des flux auxquels votre entreprise participe ; l'analyste fusionne les fichiers. Si vous réalisez l'étude vous-même, remplissez la Classification des flux et le Scénario de référence et envoyez le classeur à chaque entreprise.",
+   "ins.return_body": "À la personne qui réalise l'étude (un analyste ou un consultant). Si vous êtes l'une des entreprises, remplissez seulement les lignes des flux auxquels votre entreprise participe et, dans celles-ci, seulement les colonnes de votre côté (origine ou destination) ; l'analyste fusionne les fichiers. Si vous réalisez l'étude vous-même, remplissez la Classification des flux et le Scénario de référence et envoyez le classeur à chaque entreprise.",
    "ins.return_by": "À renvoyer avant le",
    "ins.return_by_hint": "(convenez d'une date avec qui réalise l'étude)",
    "ins.contact": "Contact",
@@ -1884,7 +1884,7 @@
    },
    "actor.role": {
     "label": "Rolle",
-    "description": "Partner: nimmt an den Austauschen teil; die Pfeile zeigen, was er abgibt und aufnimmt. Moderation: koordiniert das Netzwerk, ohne Flüsse auszutauschen (Parkbetreiber, Beratung). Behörde: die öffentliche Stelle, die genehmigt oder besteuert. Vermittler: handelt oder transportiert einen Fluss, ohne ihn umzuwandeln."
+    "description": "Partner: nimmt an den Austauschen teil; die Pfeile zeigen, was er abgibt und aufnimmt. Vermittler: koordiniert das Netzwerk, ohne Flüsse auszutauschen (Parkbetreiber, Beratung). Behörde: die öffentliche Stelle, die genehmigt oder besteuert. Zwischenhändler: handelt oder transportiert einen Fluss, ohne ihn umzuwandeln."
    },
    "actor.sector": {
     "label": "Sektor",
@@ -2323,7 +2323,7 @@
    "ins.conf": "Vertraulichkeit",
    "ins.conf_body": "Diese Arbeitsmappe kann Daten aller Partner des Netzes enthalten. Bevor Sie sie außerhalb des Studienteams weitergeben, prüfen Sie die Vertraulichkeitsvereinbarung zwischen den Partnern: die Methode verlangt, sie vor Beginn der Datenerhebung zu klären.",
    "ins.return": "An wen zurückgeben",
-   "ins.return_body": "An die Person, die die Studie durchführt (eine Analystin, ein Analyst oder ein Beratungsbüro). Wenn Sie eines der Unternehmen sind, füllen Sie nur die Zeilen der Flüsse aus, an denen Ihr Unternehmen beteiligt ist; die Dateien führt die Person zusammen, die die Studie durchführt. Wenn Sie die Studie selbst durchführen, füllen Sie die Flussklassifizierung und das Referenzszenario aus und senden Sie die Arbeitsmappe an jedes Unternehmen.",
+   "ins.return_body": "An die Person, die die Studie durchführt (eine Analystin, ein Analyst oder ein Beratungsbüro). Wenn Sie eines der Unternehmen sind, füllen Sie nur die Zeilen der Flüsse aus, an denen Ihr Unternehmen beteiligt ist, und darin nur die Spalten Ihrer Seite (Herkunft oder Ziel); die Dateien führt die Person zusammen, die die Studie durchführt. Wenn Sie die Studie selbst durchführen, füllen Sie die Flussklassifizierung und das Referenzszenario aus und senden Sie die Arbeitsmappe an jedes Unternehmen.",
    "ins.return_by": "Zurück bis",
    "ins.return_by_hint": "(Termin mit der Person vereinbaren, die die Studie durchführt)",
    "ins.contact": "Kontakt",
@@ -2496,7 +2496,7 @@
    },
    "actor.role": {
     "label": "Función",
-    "description": "Socio: participa en los intercambios; las flechas dicen qué cede y qué recibe. Facilitador: coordina la red sin intercambiar flujos (gestor del parque, consultor). Autoridad: el organismo público que autoriza o grava. Intermediario: comercia o transporta un flujo sin transformarlo."
+    "description": "Socio: participa en los intercambios; las flechas dicen qué cede y qué recibe. Facilitador: coordina la red sin intercambiar flujos (gestor del parque, consultor). Regulador: el organismo público que autoriza o grava. Intermediario: comercia o transporta un flujo sin transformarlo."
    },
    "actor.sector": {
     "label": "Sector",
@@ -2935,7 +2935,7 @@
    "ins.conf": "Confidencialidad",
    "ins.conf_body": "Este libro puede contener datos de todos los socios de la red. Antes de hacerlo circular fuera del equipo del estudio, comprueba el acuerdo de confidencialidad entre los socios: el método pide cerrarlo antes de empezar la recogida de datos.",
    "ins.return": "A quién devolverlo",
-   "ins.return_body": "A quien realiza el estudio (un analista o un consultor). Si eres una de las empresas, rellena solo las filas de los flujos en los que participa tu empresa; los archivos los une el analista. Si el estudio lo realizas tú, rellena la Clasificación de flujos y el Escenario de referencia y envía el libro a cada empresa.",
+   "ins.return_body": "A quien realiza el estudio (un analista o un consultor). Si eres una de las empresas, rellena solo las filas de los flujos en los que participa tu empresa y, en ellas, solo las columnas de tu lado (origen o destino); los archivos los une el analista. Si el estudio lo realizas tú, rellena la Clasificación de flujos y el Escenario de referencia y envía el libro a cada empresa.",
    "ins.return_by": "Devolver antes del",
    "ins.return_by_hint": "(acuerda una fecha con quien realiza el estudio)",
    "ins.contact": "Contacto",

@@ -632,3 +632,21 @@ def test_the_reference_scenario_has_a_row_per_flow_and_side(client):
         ["WWTP Alfa", "sludge (WWTP Alfa → Biogas plant Beta)", "origin (gives the flow)"],
         ["Biogas plant Beta", "sludge (WWTP Alfa → Biogas plant Beta)", "destination (receives the flow)"],
     ]
+
+
+def test_files_do_not_offer_retired_values_but_show_stored_ones(client):
+    """A stored "producer" stays legible, but the dropdowns, comments and the
+    Word list only partner / facilitator / … (Fable review of #210)."""
+    from io import BytesIO
+
+    import openpyxl
+
+    case_id = _create_case(client)
+    assert client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id)).status_code == 200
+    wb = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))
+    actors = wb["Actors"]
+    role_col = next(c for c in range(1, actors.max_column + 1) if str(actors.cell(row=4, column=c).value).startswith("Role"))
+    assert "producer" not in actors.cell(row=4, column=role_col).comment.text
+    assert actors.cell(row=5, column=role_col).value == "producer"   # the stored value, shown
+    lists = {str(c.value) for row in wb["_lists"].iter_rows() for c in row if c.value}
+    assert "partner" in lists and "producer" not in lists and "gate fee paid" not in lists

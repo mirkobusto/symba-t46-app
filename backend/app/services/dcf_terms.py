@@ -212,3 +212,13 @@ def cover_rows(
     rows.append((ui(lang, "cover.lcc"), cover_value(lang, "lcc", payload.lcc_type)))
     rows.append((ui(lang, "cover.slca"), cover_value(lang, "slca", payload.slca_activation_state)))
     return rows
+
+
+def offered_labels(field: Any, lang: str) -> list[str]:
+    """The labels of the values a field offers. `enum_labels` also carries the
+    labels of retired values, to show a stored one; the dropdowns, comments
+    and the Word list only what is still offered (Fable review of #210)."""
+    if field.enum_values:
+        labels = field.enum_labels or {}
+        return [labels.get(v) or enum_label(lang, v) for v in field.enum_values]
+    return list((field.enum_labels or {}).values())

@@ -9,10 +9,11 @@
 // mode used to open that note by default, which handed a newcomer more
 // jargon rather than less (UX audit, 2026-10-13).
 
-import type { ReactNode } from 'react'
+import { useContext, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { usePreferenceStore } from '../store/preferenceStore'
+import { QuestionStepContext } from './questionStep'
 
 interface Props {
   id: string
@@ -39,10 +40,16 @@ export default function QuestionCard({
 }: Props) {
   const { t } = useTranslation()
   const guided = usePreferenceStore((s) => s.mode) === 'guided'
+  const currentStep = useContext(QuestionStepContext)
   const coded = CODED_TITLE.exec(title)
   return (
     // the id is the target of the run bar's "still to answer" links
-    <section id={id} className={`qcard${coded ? ' qcard-numbered' : ''}`} aria-labelledby={`${id}-title`}>
+    <section
+      id={id}
+      className={`qcard${coded ? ' qcard-numbered' : ''}`}
+      aria-labelledby={`${id}-title`}
+      hidden={currentStep !== null && currentStep !== id}
+    >
       <h3 id={`${id}-title`} className="qcard-title">
         {coded ? (
           <>

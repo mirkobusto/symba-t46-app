@@ -4928,3 +4928,41 @@ kbd {
 @media (max-width: 640px) {
   .result-config-row { grid-template-columns: 1fr; }
 }
+
+/* ---- Guided questionnaire, one question at a time (UX round 2026-11-02) --- */
+
+.questionnaire-stepper .qpart-title,
+.questionnaire-stepper .qcard-step {
+  /* the part and the number live in the step bar: a hidden card stops the
+     CSS counter, so every visible card would read "1." */
+  display: none;
+}
+
+.stepper-toggle {
+  margin: 0 0 8px;
+  text-align: right;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.stepper-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 0 20px;
+}
+
+.stepper-progress {
+  color: var(--slate-700);
+  text-align: center;
+}

@@ -66,3 +66,16 @@ describe('networkGraph', () => {
     expect(nodeClassName({ ...named, role: null })).toContain('nb-node-unset')
   })
 })
+
+describe('edgeOffsets', () => {
+  it('draws arrows between the same two actors apart, in either direction', async () => {
+    const { edgeOffsets } = await import('../components/networkGraph')
+    const offsets = edgeOffsets([
+      { id: 'f1', source: 'a', target: 'b', label: null, type: null },
+      { id: 'f2', source: 'b', target: 'a', label: null, type: null },
+      { id: 'f3', source: 'a', target: 'c', label: null, type: null },
+    ])
+    expect(offsets.f1).not.toBe(offsets.f2)
+    expect(offsets.f3).toBe(offsets.f1)
+  })
+})

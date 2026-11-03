@@ -13,12 +13,13 @@ import { useTranslation } from 'react-i18next'
 import ReactFlow, {
   Background,
   Controls,
+  MarkerType,
   type Edge,
   type Node,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
-import { actorNodes, flowEdges, nodeClassName } from './networkGraph'
+import { actorNodes, edgeOffsets, flowEdges, nodeClassName } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
@@ -60,11 +61,18 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
       },
       className: nodeClassName(node),
     }))
-    const edges: Edge[] = flowEdges(flowRows).map((edge) => ({
+    const drawn = flowEdges(flowRows)
+    const offsets = edgeOffsets(drawn)
+    // arrowheads and apart parallel arrows, as in the editor (UX round 5)
+    const edges: Edge[] = drawn.map((edge) => ({
       id: edge.id,
       source: edge.source,
       target: edge.target,
       label: edge.label ?? undefined,
+      type: 'smoothstep',
+      pathOptions: { offset: offsets[edge.id], borderRadius: 10 },
+      markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
+      style: { strokeWidth: 2 },
       className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
     }))
     return { nodes, edges }

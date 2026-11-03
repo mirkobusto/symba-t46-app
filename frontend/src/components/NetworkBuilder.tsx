@@ -9,13 +9,15 @@
 //
 // Flows declared in Q5 are seeded as unwired rows (store.syncWithPayload)
 // and listed under the canvas until they are drawn — that list is the
-// analyst's to-do.
+// analyst's to-do. Every arrow is one of those flows, chosen explicitly;
+// their name and payment class are read-only here (UX round 5, D2).
 
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactFlow, {
   Background,
   Controls,
+  MarkerType,
   type Connection,
   type Edge,
   type Node,
@@ -35,7 +37,10 @@ import {
   type DcfDataIssue,
   type DcfRow,
 } from '../types/dcfData'
-import { askConfirm } from '../store/dialogStore'
+import { askChoice, askConfirm } from '../store/dialogStore'
+import { useAuthStore } from '../store/authStore'
+import { useToastStore } from '../store/toastStore'
+import { edgeOffsets } from './networkGraph'
 
 interface Props {
   payload: DcfPayload
@@ -48,6 +53,9 @@ interface Selection {
   sectionId: string
   rowId: string
 }
+
+/** A questionnaire flow's name and payment class are set there (D2). */
+const QUESTIONNAIRE_FIELDS = new Set(['flow.name', 'flow.q5_class'])
 
 /** Key for the dismissible how-it-works strip. */
 const HINT_ID = 'network-builder'
@@ -77,6 +85,10 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const error = useDcfDataStore((s) => s.error)
   const addActor = useDcfDataStore((s) => s.addActor)
   const connect = useDcfDataStore((s) => s.connect)
+  const reverseFlow = useDcfDataStore((s) => s.reverseFlow)
+  const caseFlowIds = useDcfDataStore((s) => s.caseFlowIds)
+  const signedIn = useAuthStore((s) => s.token !== null)
+  const pushToast = useToastStore((s) => s.push)
   const updateValue = useDcfDataStore((s) => s.updateValue)
   const removeRow = useDcfDataStore((s) => s.removeRow)
   const setPosition = useDcfDataStore((s) => s.setPosition)
@@ -86,6 +98,8 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const dismissHint = usePreferenceStore((s) => s.dismissHint)
 
   const [selection, setSelection] = useState<Selection | null>(null)
+  /** The flow the next arrow will be: set by clicking it in the to-do list. */
+  const [armed, setArmed] = useState<string | null>(null)
 
   const actorRows = useMemo(
     () => data.rows_by_section[ACTORS_SECTION] ?? [],
@@ -117,29 +131,113 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     [actorRows, data.layout, selection, t],
   )
 
-  const edges: Edge[] = useMemo(
-    () =>
-      flowEdges(flowRows).map((edge) => ({
-        id: edge.id,
-        source: edge.source,
-        target: edge.target,
-        label: edge.label ?? undefined,
-        className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
-        selected: selection?.rowId === edge.id,
-      })),
-    [flowRows, selection],
-  )
+  const edges: Edge[] = useMemo(() => {
+    const drawn = flowEdges(flowRows)
+    const offsets = edgeOffsets(drawn)
+    return drawn.map((edge) => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+      label: edge.label ?? undefined,
+      // the direction decides who gives and who receives: it has to show
+      // (P5-02); parallel arrows between the same actors must not overlap (P1-03)
+      type: 'smoothstep',
+      pathOptions: { offset: offsets[edge.id], borderRadius: 10 },
+      markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
+      style: { strokeWidth: 2 },
+      labelBgPadding: [4, 2] as [number, number],
+      className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
+      selected: selection?.rowId === edge.id,
+    }))
+  }, [flowRows, selection])
 
-  const unwired = unwiredFlows(flowRows)
+  // the to-do list: questionnaire flows not drawn yet (rows outside the
+  // questionnaire are listed apart, below)
+  const unwired = unwiredFlows(flowRows).filter(
+    (r) => caseFlowIds.includes(r.row_id) || r.row_id.startsWith('ex-'),
+  )
 
   const onNodeDragStop: NodeDragHandler = (_e, node) => {
     setPosition(node.id, { x: node.position.x, y: node.position.y })
   }
 
-  function onConnect(conn: Connection) {
+  const flowName = (row: DcfRow) =>
+    typeof row.values['flow.name'] === 'string' && row.values['flow.name']
+      ? String(row.values['flow.name'])
+      : row.row_id
+  const actorName = (rowId: unknown) => {
+    const i = actorRows.findIndex((a) => a.row_id === rowId)
+    if (i < 0) return '—'
+    const name = actorRows[i].values['actor.name']
+    return typeof name === 'string' && name.trim() ? name : `${t('networkBuilder.actor')} ${i + 1}`
+  }
+
+  /** Which questionnaire flow a new arrow is: the armed one, the only one
+   * left, or the analyst's choice — never "the next in the list" (P1-02). */
+  async function pickFlow(): Promise<string | null> {
+    const free = unwired.filter((r) => caseFlowIds.includes(r.row_id))
+    if (armed && free.some((r) => r.row_id === armed)) return armed
+    if (free.length === 0) {
+      pushToast({ type: 'info', message: t('networkBuilder.allDrawn'), durationMs: 8000 })
+      return null
+    }
+    if (free.length === 1) return free[0].row_id
+    return askChoice(
+      t('networkBuilder.whichFlow'),
+      free.map((r) => ({
+        value: r.row_id,
+        label: flowName(r),
+        detail: r.values['flow.q5_class']
+          ? t(`flows.plainOptions.${String(r.values['flow.q5_class'])}`)
+          : undefined,
+      })),
+    )
+  }
+
+  async function onConnect(conn: Connection) {
     if (!conn.source || !conn.target) return
-    const rowId = connect(conn.source, conn.target)
+    if (conn.source === conn.target) {
+      pushToast({ type: 'info', message: t('networkBuilder.sameActor') })
+      return
+    }
+    const flowId = await pickFlow()
+    if (!flowId) return
+    const rowId = connect(conn.source, conn.target, flowId)
+    setArmed(null)
     if (rowId) setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId })
+  }
+
+  /** Field edits from the panel: an arrow from an actor to itself is refused. */
+  function onFieldChange(sectionId: string, row: DcfRow, fieldId: string, value: unknown) {
+    if (sectionId === FLOW_MATRIX_SECTION && value) {
+      const other = fieldId === 'flow.origin_actor_id'
+        ? row.values['flow.dest_actor_id']
+        : fieldId === 'flow.dest_actor_id' ? row.values['flow.origin_actor_id'] : undefined
+      if (other && other === value) {
+        pushToast({ type: 'info', message: t('networkBuilder.sameActor') })
+        return
+      }
+    }
+    updateValue(sectionId, row.row_id, fieldId, value)
+  }
+
+  async function onRemove(sectionId: string, row: DcfRow) {
+    if (sectionId === ACTORS_SECTION) {
+      const linked = flowRows.filter(
+        (f) => f.values['flow.origin_actor_id'] === row.row_id || f.values['flow.dest_actor_id'] === row.row_id,
+      ).length
+      const name = actorName(row.row_id)
+      const ok = await askConfirm(
+        linked > 0
+          ? t('networkBuilder.confirmRemoveActorFlows', { name, count: linked })
+          : t('networkBuilder.confirmRemoveActor', { name }),
+      )
+      if (!ok) return
+    } else if (!caseFlowIds.includes(row.row_id)) {
+      if (!(await askConfirm(t('networkBuilder.confirmRemoveFlow', { name: flowName(row) })))) return
+    }
+    removeRow(sectionId, row.row_id)
+    setSelection(null)
   }
 
   async function handleLoadExample() {
@@ -166,7 +264,47 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       )
     : undefined
 
-  const missingCount = validation?.missing_required.length ?? 0
+  // Counted here, on what is on screen, so it moves while fields are filled
+  // in (it used to change only after saving, P5-06); clicking it goes to the
+  // first row with a gap.
+  const missing = useMemo(() => {
+    const out: Selection[] = []
+    for (const sectionId of [ACTORS_SECTION, FLOW_MATRIX_SECTION]) {
+      const section = sectionOf(payload, sectionId)
+      if (!section?.active) continue
+      const required = section.fields.filter((f) => f.required && !f.derived)
+      for (const row of data.rows_by_section[sectionId] ?? []) {
+        for (const f of required) {
+          const v = row.values[f.id]
+          if (v === undefined || v === null || (typeof v === 'string' && v.trim() === '')) {
+            out.push({ sectionId, rowId: row.row_id })
+          }
+        }
+      }
+    }
+    return out
+  }, [payload, data])
+  const missingCount = missing.length
+
+  const drawnFlows = flowRows.filter(
+    (r) => r.values['flow.origin_actor_id'] && r.values['flow.dest_actor_id'],
+  )
+  // rows that are not a flow of the questionnaire: hand-drawn before UX round
+  // 5, or flows removed from the questionnaire since they were drawn
+  const strayFlows = flowRows.filter(
+    (r) => !caseFlowIds.includes(r.row_id) && !r.row_id.startsWith('ex-'),
+  )
+  const isQuestionnaireFlow = (rowId: string) => caseFlowIds.includes(rowId)
+  const panelTitle = (() => {
+    if (!selectedRow || !selection) return null
+    if (selection.sectionId === ACTORS_SECTION) {
+      return `${t('networkBuilder.panelActor')}: ${actorName(selectedRow.row_id)}`
+    }
+    const o = selectedRow.values['flow.origin_actor_id']
+    const d = selectedRow.values['flow.dest_actor_id']
+    const route = o && d ? ` (${actorName(o)} → ${actorName(d)})` : ''
+    return `${t('networkBuilder.panelFlow')}: ${flowName(selectedRow)}${route}`
+  })()
 
   return (
     <div className="nb-wrap">
@@ -195,15 +333,20 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         </span>
 
         {missingCount > 0 ? (
-          <span className="dd-pill dd-pill-amber">
+          <button
+            type="button"
+            className="dd-pill dd-pill-amber nb-missing"
+            onClick={() => setSelection(missing[0])}
+            title={t('networkBuilder.missingGoTo')}
+          >
             {t('networkBuilder.missingRequired', { count: missingCount })}
-          </span>
+          </button>
         ) : null}
 
         <button
           type="button"
           className="btn btn-secondary"
-          disabled={caseId === null || syncing || !dirty}
+          disabled={caseId === null || syncing || !dirty || !signedIn}
           onClick={() => void saveToServer()}
         >
           {syncing ? t('networkBuilder.saving') : t('networkBuilder.save')}
@@ -227,6 +370,18 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         </div>
       )}
 
+      {caseId !== null && !signedIn ? (
+        // after signing out the page let the network be edited and saving
+        // answered "404: Case '…' not found" (P1-05)
+        <p className="nb-warning">{t('networkBuilder.signInToSave')}</p>
+      ) : null}
+      {armed ? (
+        <p className="nb-armed" role="status">
+          {t('networkBuilder.armed', {
+            name: flowName(flowRows.find((r) => r.row_id === armed) ?? { row_id: armed, values: {} }),
+          })}
+        </p>
+      ) : null}
       {error ? <p className="error-text nb-error">{error}</p> : null}
 
       <div className="nb-canvas">
@@ -276,9 +431,9 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         )}
 
         <aside className="nb-panel">
-          {selectedSection && selectedRow ? (
+          {selectedSection && selectedRow && selection ? (
             <>
-              <h3 className="nb-panel-title">{selectedSection.title || selectedSection.title_en}</h3>
+              <h3 className="nb-panel-title">{panelTitle}</h3>
               <DcfRowFields
                 section={selectedSection}
                 row={selectedRow}
@@ -286,12 +441,33 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
                 sites={sourceCase.sites ?? []}
                 issues={issuesFor(validation, selectedRow.row_id)}
                 onChange={(fieldId, value) =>
-                  updateValue(selection!.sectionId, selectedRow.row_id, fieldId, value)
+                  onFieldChange(selection.sectionId, selectedRow, fieldId, value)
                 }
-                onRemove={() => {
-                  removeRow(selection!.sectionId, selectedRow.row_id)
-                  setSelection(null)
-                }}
+                onRemove={() => void onRemove(selection.sectionId, selectedRow)}
+                {...(selection.sectionId === FLOW_MATRIX_SECTION
+                  ? isQuestionnaireFlow(selectedRow.row_id)
+                    ? {
+                        readOnly: QUESTIONNAIRE_FIELDS,
+                        note: t('networkBuilder.fromQuestionnaire'),
+                        removeLabel: selectedRow.values['flow.origin_actor_id'] || selectedRow.values['flow.dest_actor_id']
+                          ? t('networkBuilder.unwire')
+                          : undefined,
+                      }
+                    : { note: t('networkBuilder.notInQuestionnaire') }
+                  : {})}
+                actions={
+                  selection.sectionId === FLOW_MATRIX_SECTION &&
+                  selectedRow.values['flow.origin_actor_id'] &&
+                  selectedRow.values['flow.dest_actor_id'] ? (
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => reverseFlow(selectedRow.row_id)}
+                    >
+                      {t('networkBuilder.reverse')}
+                    </button>
+                  ) : null
+                }
               />
             </>
           ) : (
@@ -309,14 +485,56 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
               <li key={row.row_id}>
                 <button
                   type="button"
-                  className="dd-pill"
-                  onClick={() =>
+                  className={`dd-pill${armed === row.row_id ? ' dd-pill-brand' : ''}`}
+                  aria-pressed={armed === row.row_id}
+                  onClick={() => {
+                    // arms the flow for the next arrow, and opens its fields: on a
+                    // phone, picking the two actors there is the way to draw it
+                    setArmed(isQuestionnaireFlow(row.row_id) ? row.row_id : null)
                     setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId: row.row_id })
-                  }
+                  }}
                 >
-                  {typeof row.values['flow.name'] === 'string'
-                    ? String(row.values['flow.name'])
-                    : row.row_id}
+                  {flowName(row)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {drawnFlows.length > 0 ? (
+        // every arrow reachable even when two overlap on the canvas (P1-03)
+        <div className="nb-unwired nb-drawn">
+          <h4>{t('networkBuilder.drawnTitle')}</h4>
+          <ul>
+            {drawnFlows.map((row) => (
+              <li key={row.row_id}>
+                <button
+                  type="button"
+                  className={`dd-pill${selection?.rowId === row.row_id ? ' dd-pill-brand' : ''}`}
+                  onClick={() => setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId: row.row_id })}
+                >
+                  {flowName(row)}: {actorName(row.values['flow.origin_actor_id'])} → {actorName(row.values['flow.dest_actor_id'])}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {strayFlows.length > 0 ? (
+        <div className="nb-unwired nb-stray">
+          <h4>{t('networkBuilder.strayTitle')}</h4>
+          <p className="nb-unwired-hint">{t('networkBuilder.strayHint')}</p>
+          <ul>
+            {strayFlows.map((row) => (
+              <li key={row.row_id}>
+                <button
+                  type="button"
+                  className="dd-pill"
+                  onClick={() => setSelection({ sectionId: FLOW_MATRIX_SECTION, rowId: row.row_id })}
+                >
+                  {flowName(row)}
                 </button>
               </li>
             ))}

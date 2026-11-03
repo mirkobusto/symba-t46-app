@@ -188,13 +188,18 @@ def test_questionnaire_flows_reach_the_flow_matrix_without_stored_content(payloa
     ]
 
 
-def test_stored_rows_win_over_questionnaire_flows():
+def test_stored_rows_keep_their_values_but_follow_the_questionnaire_name_and_q5():
+    """A file must not say "a" in the Flow Matrix and "d" in the choices."""
     from app.engine.dcf_rows import with_case_flows
 
-    case = Case(flows=[Flow(id="f1", name="sludge", q5=Q5.a)])
+    case = Case(flows=[Flow(id="f1", name="sludge", q5=Q5.d)])
     stored = DcfData(
         case_id="case-1",
-        rows_by_section={"flow_matrix": [DcfRow(row_id="f1", values={"flow.name": "renamed"})]},
+        rows_by_section={"flow_matrix": [DcfRow(
+            row_id="f1",
+            values={"flow.name": "old name", "flow.q5_class": "a", "flow.unit": "t/y"},
+        )]},
     )
     data = with_case_flows(stored, case, "case-1")
-    assert [r.values["flow.name"] for r in data.rows_by_section["flow_matrix"]] == ["renamed"]
+    [row] = data.rows_by_section["flow_matrix"]
+    assert row.values == {"flow.name": "sludge", "flow.q5_class": "d", "flow.unit": "t/y"}

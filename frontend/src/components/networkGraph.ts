@@ -88,3 +88,20 @@ export function nodeClassName(node: GraphNode, extra = ''): string {
     .filter(Boolean)
     .join(' ')
 }
+
+/**
+ * Path offset per edge, so arrows between the same two actors (in either
+ * direction) are drawn apart instead of one on top of the other — the
+ * hidden one could not be clicked (UX round 5, P1-03).
+ */
+export function edgeOffsets(edges: GraphEdge[], base = 24, step = 22): Record<string, number> {
+  const seen = new Map<string, number>()
+  const out: Record<string, number> = {}
+  for (const edge of edges) {
+    const key = [edge.source, edge.target].sort().join('|')
+    const n = seen.get(key) ?? 0
+    seen.set(key, n + 1)
+    out[edge.id] = base + n * step
+  }
+  return out
+}

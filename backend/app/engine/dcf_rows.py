@@ -32,13 +32,24 @@ def with_case_flows(data: DcfData | None, case: Case, case_id: str) -> DcfData:
     The flows declared in the questionnaire belong in the Flow Matrix of
     every file, drawn or not: a row per flow (its id is the case flow id)
     with name, payment class, unit and quantity, and the Flow
-    Classification row the Freedom-to-Act answer starts. Stored rows win.
+    Classification row the Freedom-to-Act answer starts. Stored rows keep
+    what was entered in them, except name and payment class: those are set
+    in the questionnaire and always follow it, so a file cannot say "c" in
+    the Flow Matrix and "d" in the methodological choices (UX round 5, D2).
     The browser seeds the same rows for the editor, but the files must not
-    depend on the network having been saved (UX round 5, D3/D4).
+    depend on the network having been saved (D3/D4).
     """
     base = data or DcfData(case_id=case_id)
     sections = {k: list(v) for k, v in base.rows_by_section.items()}
     matrix = sections.setdefault("flow_matrix", [])
+    by_id = {flow.id: flow for flow in case.flows if flow.id}
+    for i, row in enumerate(matrix):
+        flow = by_id.get(row.row_id)
+        if flow is None:
+            continue
+        fixed = {"flow.name": flow.name, "flow.q5_class": flow.q5.value}
+        if any(row.values.get(k) != v for k, v in fixed.items()):
+            matrix[i] = row.model_copy(update={"values": {**row.values, **fixed}})
     have = {r.row_id for r in matrix}
     for flow in case.flows:
         if not flow.id or flow.id in have:

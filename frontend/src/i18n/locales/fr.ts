@@ -1228,26 +1228,26 @@ const fr: Locale = {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quelle méthodologie l'évaluation suivra, et donc quelles données vous seront demandées. La demande elle-même, c'est le Data Collection File.",
         whenScoring:
-          "À l'arrivée des résultats chiffrés, vous verrez les indicateurs environnementaux et économiques du cas, de quoi juger si l'échange est rentable.",
+          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l\'étude avec le Data Collection File, ses résultats peuvent être chargés ici : indicateurs environnementaux et économiques, pour juger si l\'échange est rentable.',
       },
       community: {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels flux les entreprises échangent, et si cette étude examine ou non les effets sociaux.",
         whenScoring:
-          "À l'arrivée des résultats chiffrés, vous verrez les indicateurs sociaux — travailleurs, communauté locale — et les indicateurs environnementaux, chacun avec le groupe qu'il concerne.",
+          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l\'étude avec le Data Collection File, ses résultats peuvent être chargés ici : indicateurs sociaux — travailleurs, communauté locale — et environnementaux, chacun avec le groupe qu\'il concerne.',
       },
       authority: {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et à quel point les interactions clés sont concentrées.",
         whenScoring:
-          "À l'arrivée des résultats chiffrés, vous verrez les valeurs environnementales et, lorsque l'étude les inclut, les coûts sociétaux — les deux piliers d'une décision publique.",
+          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l\'étude avec le Data Collection File, ses résultats peuvent être chargés ici : les chiffres environnementaux et, quand l\'étude les inclut, les coûts pour la société.',
         scope: "Concentration des interactions clés : {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels matériaux cette symbiose remet en usage, et si les effets environnementaux et sociaux sont examinés.",
         whenScoring:
-          "À l'arrivée des résultats chiffrés, vous verrez les indicateurs environnementaux et sociaux de la filière derrière le produit.",
+          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l\'étude avec le Data Collection File, ses résultats peuvent être chargés ici : les indicateurs environnementaux et sociaux de la chaîne derrière le produit.',
         productCaveat:
           "Cette évaluation décrit l'échange entre les entreprises, pas le produit final que vous achetez : l'outil ne demande jamais quel est le produit.",
       },
@@ -1276,13 +1276,13 @@ const fr: Locale = {
     },
     framing: {
       industry:
-        'Vue technique complète de la configuration méthodologique et du scoring quantitatif, produit hors de cet outil par le partenaire SYMBA CIRCE.',
+        'Vue technique complète de la configuration méthodologique. Les chiffres (émissions, coûts) ne sont pas produits ici : la personne qui réalise l\'étude les calcule à partir du Data Collection File, et ils peuvent être chargés dans ce cas.',
       community:
-        'Vue d\'impact local axée sur la qualité environnementale et les bénéfices sociaux pour le territoire.',
+        'Ce qui change pour les riverains des sites : effets sur l\'environnement local et sur les personnes, positifs et négatifs.',
       authority:
-        'Vue réglementaire et de politique : configuration méthodologique, statut de relecture, alignement EU PEF.',
+        'Comment l\'évaluation est cadrée : coûts, biens partagés, scénario de référence, affirmations publiques, horizon, effets sociaux.',
       'end-user':
-        'Vue résumée pour les utilisateurs finaux des produits issus de la symbiose.',
+        'De quoi parle ce cas et ce qui sera évalué. Il n\'y a pas encore de résultats.',
     },
     verdictTitle: 'Configuration méthodologique',
     configTitle: 'Ce que cette étude est prévue pour examiner',
@@ -1291,10 +1291,10 @@ const fr: Locale = {
       lcc: 'Type LCC',
       slca: 'Activation S-LCA',
     },
-    scoringTitle: 'Scoring (CIRCE)',
-    scoringPendingTitle: 'Données de scoring pas encore disponibles',
+    scoringTitle: 'Résultats',
+    scoringPendingTitle: 'Pas encore de résultats',
     scoringPendingBody:
-      'Le scoring LCSA produit par CIRCE pour ce cas n\'a pas encore été ingéré. Quand CIRCE livrera la charge utile quantitative, les indicateurs apparaîtront ici groupés par pertinence pour les parties prenantes.',
+      'Cet outil ne calcule pas les chiffres environnementaux, économiques ou sociaux. Ils sont calculés par qui réalise l\'étude ; s\'ils sont ajoutés à ce cas, ils apparaissent ici.',
     scoringEmpty: 'Aucun indicateur pertinent pour cette partie prenante.',
     indicatorPending: 'en attente',
     engineDetailsTitle: 'Détails du pipeline',

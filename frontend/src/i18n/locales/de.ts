@@ -1222,26 +1222,26 @@ const de: Locale = {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welcher Methodik die Bewertung folgt und welche Daten deshalb von Ihnen verlangt werden. Die Abfrage selbst ist das Data Collection File.",
         whenScoring:
-          "Sobald die Kennzahlen vorliegen, sehen Sie die ökologischen und ökonomischen Kennzahlen des Falls und können beurteilen, ob sich der Austausch rechnet.",
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: Umwelt- und Wirtschaftsindikatoren, um zu beurteilen, ob sich der Austausch lohnt.',
       },
       community: {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Flüsse die Unternehmen austauschen, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
         whenScoring:
-          "Sobald die Kennzahlen vorliegen, sehen Sie die sozialen Indikatoren — Beschäftigte, lokale Gemeinschaft — und die ökologischen, jeweils mit der betroffenen Gruppe.",
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: soziale Indikatoren — Beschäftigte, lokale Gemeinschaft — und Umweltindikatoren, jeweils mit der Gruppe, die sie betreffen.',
       },
       authority: {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und wie konzentriert die wichtigsten Wechselwirkungen sind.",
         whenScoring:
-          "Sobald die Kennzahlen vorliegen, sehen Sie die Umweltwerte und, wo die Studie sie einschließt, die gesellschaftlichen Kosten — die beiden Grundlagen einer öffentlichen Entscheidung.",
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: die Umweltzahlen und, wo die Studie sie enthält, die gesellschaftlichen Kosten.',
         scope: "Wie konzentriert die wichtigsten Wechselwirkungen sind: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Materialien diese Symbiose wieder in Umlauf bringt und ob ökologische und soziale Wirkungen untersucht werden.",
         whenScoring:
-          "Sobald die Kennzahlen vorliegen, sehen Sie die ökologischen und sozialen Indikatoren der Kette hinter dem Produkt.",
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: die Umwelt- und Sozialindikatoren der Kette hinter dem Produkt.',
         productCaveat:
           "Diese Bewertung beschreibt den Austausch zwischen den Unternehmen, nicht das Endprodukt, das Sie kaufen: das Werkzeug fragt nie, welches Produkt es ist.",
       },
@@ -1270,13 +1270,13 @@ const de: Locale = {
     },
     framing: {
       industry:
-        'Vollständige technische Ansicht der methodischen Konfiguration und der quantitativen Bewertung, die außerhalb dieses Werkzeugs vom SYMBA-Partner CIRCE erstellt wird.',
+        'Vollständige technische Sicht auf die methodische Konfiguration. Die Zahlen (Emissionen, Kosten) entstehen nicht hier: Wer die Studie durchführt, berechnet sie aus dem Data Collection File, und sie können in diesen Fall geladen werden.',
       community:
-        'Lokale Auswirkungsansicht: Umweltqualität und soziale Vorteile für das Gastgebiet.',
+        'Was sich für Menschen in der Nähe der Anlagen ändert: Wirkungen auf die lokale Umwelt und auf Menschen, positive wie negative.',
       authority:
-        'Regulatorische und politische Ansicht: Methodische Konfiguration, Peer-Review-Status, EU-PEF-Ausrichtung.',
+        'Wie die Bewertung angelegt ist: Kosten, gemeinsame Anlagen, Referenzszenario, öffentliche Aussagen, Zeithorizont, soziale Wirkungen.',
       'end-user':
-        'Zusammenfassende Ansicht für Endnutzer der symbiose-derivierten Produkte.',
+        'Worum es in diesem Fall geht und was bewertet wird. Ergebnisse gibt es noch nicht.',
     },
     verdictTitle: 'Methodische Konfiguration',
     configTitle: 'Worauf diese Studie ausgelegt ist',
@@ -1285,10 +1285,10 @@ const de: Locale = {
       lcc: 'LCC-Typ',
       slca: 'S-LCA-Aktivierung',
     },
-    scoringTitle: 'Scoring (CIRCE)',
-    scoringPendingTitle: 'Scoring-Daten noch nicht verfügbar',
+    scoringTitle: 'Ergebnisse',
+    scoringPendingTitle: 'Noch keine Ergebnisse',
     scoringPendingBody:
-      'Das von CIRCE produzierte LCSA-Scoring für diesen Fall wurde noch nicht eingegeben. Sobald CIRCE die quantitative Nutzlast liefert, erscheinen die Indikatoren hier, gruppiert nach Stakeholder-Relevanz.',
+      'Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie; werden sie diesem Fall hinzugefügt, erscheinen sie hier.',
     scoringEmpty: 'Keine für diesen Stakeholder relevanten Indikatoren.',
     indicatorPending: 'ausstehend',
     engineDetailsTitle: 'Engine-Pipeline-Details',

@@ -1590,6 +1590,8 @@ const fr: Locale = {
     confirmRemoveActorFlows_other: 'Supprimer « {{name}} » ? Ses {{count}} flèches retournent parmi les flux à dessiner, avec leurs valeurs.',
     panelActor: 'Acteur',
     panelFlow: 'Flux',
+    arrange: 'Disposer automatiquement',
+    arrangeConfirm: 'Disposer le schéma selon le sens des flux ? Cela remplace les positions que vous avez choisies à la main.',
     signInToSave: 'Connectez-vous avec le compte qui a enregistré ce cas pour enregistrer le réseau.',
     missingGoTo: 'Aller au premier champ obligatoire vide',
     givesReceives: 'cède {{gives}} · reçoit {{receives}}',

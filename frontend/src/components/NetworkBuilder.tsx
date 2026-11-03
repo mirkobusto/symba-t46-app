@@ -29,7 +29,7 @@ import 'reactflow/dist/style.css'
 import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
 import DcfRowFields from './DcfRowFields'
-import { actorNodes, flowEdges, nodeClassName, unwiredFlows } from './networkGraph'
+import { actorNodes, flowEdges, layeredLayout, nodeClassName, unwiredFlows } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import { usePreferenceStore } from '../store/preferenceStore'
 import type { Case } from '../types/api'
@@ -95,6 +95,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const updateValue = useDcfDataStore((s) => s.updateValue)
   const removeRow = useDcfDataStore((s) => s.removeRow)
   const setPosition = useDcfDataStore((s) => s.setPosition)
+  const setLayout = useDcfDataStore((s) => s.setLayout)
   const saveToServer = useDcfDataStore((s) => s.saveToServer)
   const loadExample = useDcfDataStore((s) => s.loadExample)
   const hintDismissed = usePreferenceStore((s) => s.dismissedHints[HINT_ID])
@@ -132,6 +133,13 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     [data],
   )
 
+  /** Lay the actors out by flow direction (round 5 deferred item). */
+  async function handleArrange() {
+    if (Object.keys(data.layout).length > 0 && !(await askConfirm(t('networkBuilder.arrangeConfirm')))) return
+    setLayout(layeredLayout(actorRows.map((r) => r.row_id), flowEdges(flowRows)))
+    window.setTimeout(() => flowRef.current?.fitView({ padding: 0.2 }), 50)
+  }
+
   const flowCounts = useMemo(() => {
     const out: Record<string, { gives: number; receives: number }> = {}
     for (const row of flowRows) {
@@ -146,7 +154,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
 
   const nodes: Node[] = useMemo(
     () =>
-      actorNodes(actorRows, data.layout, (i) => `${t('networkBuilder.actor')} ${i + 1}`).map(
+      actorNodes(actorRows, data.layout, (i) => `${t('networkBuilder.actor')} ${i + 1}`, flowRows).map(
         (node) => ({
           id: node.id,
           position: node.position,
@@ -167,7 +175,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           selected: selection?.rowId === node.id,
         }),
       ),
-    [actorRows, data.layout, selection, t, flowCounts],
+    [actorRows, data.layout, selection, t, flowCounts, flowRows],
   )
 
   const edges: Edge[] = useMemo(() => {
@@ -361,6 +369,12 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         <button type="button" className="btn btn-secondary" onClick={handleLoadExample}>
           {t('networkBuilder.loadExample')}
         </button>
+
+        {actorRows.length > 1 ? (
+          <button type="button" className="btn btn-secondary" onClick={() => void handleArrange()}>
+            {t('networkBuilder.arrange')}
+          </button>
+        ) : null}
 
         <span className="nb-status">
           {caseId === null

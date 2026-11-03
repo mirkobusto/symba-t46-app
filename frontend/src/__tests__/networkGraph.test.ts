@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   actorNodes,
   flowEdges,
+  layeredLayout,
   nodeClassName,
   unwiredFlows,
 } from '../components/networkGraph'
@@ -83,5 +84,37 @@ describe('edgeShifts and flowEdgePath', () => {
     const [path2, , y2] = flowEdgePath(ends, shifts.f2)
     expect(path1).not.toBe(path2)
     expect(y1).not.toBe(y2)
+  })
+})
+
+describe('layeredLayout', () => {
+  const col = (pos: { x: number }) => (pos.x - 40) / 260
+
+  it('puts a chain in three columns, left to right', () => {
+    const p = layeredLayout(['c', 'b', 'a'], [{ source: 'a', target: 'b' }, { source: 'b', target: 'c' }])
+    expect([col(p.a), col(p.b), col(p.c)]).toEqual([0, 1, 2])
+  })
+
+  it('terminates on a cycle and still lays out every actor', () => {
+    const p = layeredLayout(['a', 'b'], [{ source: 'a', target: 'b' }, { source: 'b', target: 'a' }])
+    expect([col(p.a), col(p.b)]).toEqual([0, 1])
+  })
+
+  it('a hub with two customers: customers in the next column, on different rows', () => {
+    const p = layeredLayout(['hub', 'x', 'y'], [{ source: 'hub', target: 'x' }, { source: 'hub', target: 'y' }])
+    expect([col(p.x), col(p.y)]).toEqual([1, 1])
+    expect(p.x.y).not.toBe(p.y.y)
+  })
+
+  it('an actor with no flow goes in a last column', () => {
+    const p = layeredLayout(['a', 'b', 'lone'], [{ source: 'a', target: 'b' }])
+    expect(col(p.lone)).toBe(2)
+  })
+
+  it('actorNodes uses it when nobody has arranged the network', () => {
+    const actors = [{ row_id: 'b', values: {} }, { row_id: 'a', values: {} }]
+    const flows = [{ row_id: 'f', values: { 'flow.origin_actor_id': 'a', 'flow.dest_actor_id': 'b' } }]
+    const nodes = actorNodes(actors, {}, (i) => `A${i}`, flows)
+    expect(nodes.find((n) => n.id === 'a')!.position.x).toBeLessThan(nodes.find((n) => n.id === 'b')!.position.x)
   })
 })

@@ -123,6 +123,8 @@ export interface DcfDataState {
   ) => void
   removeRow: (sectionId: string, rowId: string) => void
   setPosition: (rowId: string, pos: DcfNodePosition) => void
+  /** Replace the positions of the actors (automatic layout). */
+  setLayout: (positions: Record<string, DcfNodePosition>) => void
   loadExample: (payload: DcfPayload, labels: ExampleLabels) => void
   loadFromServer: (caseId: string) => Promise<boolean>
   saveToServer: () => Promise<boolean>
@@ -393,6 +395,11 @@ export const useDcfDataStore = create<DcfDataState>()(
       setPosition(rowId, pos) {
         const data = get().data
         set({ data: { ...data, layout: { ...data.layout, [rowId]: pos } }, dirty: true })
+      },
+
+      setLayout(positions) {
+        const data = get().data
+        set({ data: { ...data, layout: { ...data.layout, ...positions } }, dirty: true })
       },
 
       loadExample(payload, labels) {

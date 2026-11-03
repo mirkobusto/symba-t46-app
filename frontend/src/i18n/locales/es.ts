@@ -1584,6 +1584,8 @@ const es: Locale = {
     confirmRemoveActorFlows_other: '¿Eliminar «{{name}}»? Sus {{count}} flechas vuelven a los flujos por dibujar, con sus valores.',
     panelActor: 'Actor',
     panelFlow: 'Flujo',
+    arrange: 'Ordenar automáticamente',
+    arrangeConfirm: '¿Ordenar el diagrama según la dirección de los flujos? Sustituye las posiciones que eligió a mano.',
     signInToSave: 'Inicia sesión con la cuenta que guardó este caso para guardar la red.',
     missingGoTo: 'Ir al primer campo obligatorio vacío',
     givesReceives: 'cede {{gives}} · recibe {{receives}}',

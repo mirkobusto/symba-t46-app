@@ -1610,6 +1610,8 @@ const it: Locale = {
     confirmRemoveActorFlows_other: 'Rimuovere «{{name}}»? Le sue {{count}} frecce tornano fra i flussi da disegnare, con i loro valori.',
     panelActor: 'Attore',
     panelFlow: 'Flusso',
+    arrange: 'Disponi automaticamente',
+    arrangeConfirm: 'Disporre il diagramma secondo la direzione dei flussi? Sostituisce le posizioni che hai scelto a mano.',
     signInToSave: 'Accedi con l\'account che ha salvato questo caso per salvare la rete.',
     missingGoTo: 'Vai al primo campo obbligatorio vuoto',
     givesReceives: 'cede {{gives}} · riceve {{receives}}',

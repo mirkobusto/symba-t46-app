@@ -1584,6 +1584,8 @@ const de: Locale = {
     confirmRemoveActorFlows_other: '„{{name}}“ entfernen? Seine {{count}} Pfeile kommen mit ihren Werten zurück zu den noch nicht gezeichneten Flüssen.',
     panelActor: 'Akteur',
     panelFlow: 'Fluss',
+    arrange: 'Automatisch anordnen',
+    arrangeConfirm: 'Das Diagramm nach Flussrichtung anordnen? Das ersetzt die Positionen, die Sie von Hand gesetzt haben.',
     signInToSave: 'Melden Sie sich mit dem Konto an, das diesen Fall gespeichert hat, um das Netzwerk zu speichern.',
     missingGoTo: 'Zum ersten leeren Pflichtfeld',
     givesReceives: 'gibt {{gives}} ab · nimmt {{receives}} auf',

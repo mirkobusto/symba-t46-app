@@ -199,7 +199,7 @@
    },
    "q4": {
     "A": "A. Internal",
-    "B": "B. External (no claim)",
+    "B": "B. External (no comparison with other products)",
     "C": "C. Comparative assertion disclosed to the public",
     "D": "D. EU policy alignment",
     "E": "E. Academic publication"
@@ -743,7 +743,7 @@
    },
    "q4": {
     "A": "A. Interno",
-    "B": "B. Esterno (no claim)",
+    "B": "B. Esterno (senza confronti con altri prodotti)",
     "C": "C. Asserzione comparativa divulgata al pubblico",
     "D": "D. Allineamento policy UE",
     "E": "E. Pubblicazione accademica"
@@ -1287,7 +1287,7 @@
    },
    "q4": {
     "A": "A. Interne",
-    "B": "B. Externe (sans claim)",
+    "B": "B. Externe (sans comparaison avec d'autres produits)",
     "C": "C. Affirmation comparative divulguée au public",
     "D": "D. Alignement politique UE",
     "E": "E. Publication académique"
@@ -1831,7 +1831,7 @@
    },
    "q4": {
     "A": "A. Intern",
-    "B": "B. Extern (kein Claim)",
+    "B": "B. Extern (ohne Vergleich mit anderen Produkten)",
     "C": "C. Zur Veröffentlichung bestimmte vergleichende Aussage",
     "D": "D. EU-Politik-Alignment",
     "E": "E. Akademische Publikation"
@@ -2375,7 +2375,7 @@
    },
    "q4": {
     "A": "A. Interno",
-    "B": "B. Externo (sin claim)",
+    "B": "B. Externo (sin comparación con otros productos)",
     "C": "C. Aseveración comparativa divulgada al público",
     "D": "D. Alineamiento con política UE",
     "E": "E. Publicación académica"

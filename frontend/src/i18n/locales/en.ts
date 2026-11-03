@@ -581,7 +581,7 @@ const en = {
         'You can multi-select: a typical PEF paper picks D + E.',
       options: {
         A: { label: 'A. Internal', description: 'Internal use (managerial, R&D, planning).' },
-        B: { label: 'B. External (no claim)', description: 'External communication without comparative claims.' },
+        B: { label: 'B. External (no comparison with other products)', description: 'External communication without comparative claims.' },
         C: {
           label: 'C. Comparative assertion disclosed to the public',
           description: 'Public claim of superiority or equivalence over an alternative with the same function, in any form (papers included).',

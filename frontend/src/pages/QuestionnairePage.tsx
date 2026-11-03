@@ -250,6 +250,17 @@ export default function QuestionnairePage() {
     }
   }, [patchDraft])
 
+  // the ILCD situation codes ("(Situation A)") meant nothing to a newcomer in
+  // guided mode, where the examples say the same in words (UX round 5, P4-13)
+  // Only the code goes: "(Situation B; the screening must be documented)" keeps
+  // the obligation (Fable review of #212)
+  const plainSituation = (text: string) => {
+    if (mode !== 'guided') return text
+    return text
+      .replace(/\s*\((?:ILCD\s+)?situa\S*\s+[A-C]\d?(?:,[^()]*)?\)\s*$/i, '')
+      .replace(/\((?:ILCD\s+)?situa\S*\s+[A-C]\d?\s*;\s*/i, '(')
+  }
+
   async function handleRun() {
     patchDraft(buildPatch())
     const result = await runDraft()
@@ -449,7 +460,7 @@ export default function QuestionnairePage() {
                 aria-required="true"
                 onChange={() => setDecisionContext(k)}
               />
-              <span className="opt-label">{t(`questionnaire.q9.options.${k}`)}</span>
+              <span className="opt-label">{plainSituation(t(`questionnaire.q9.options.${k}`))}</span>
               {/* Q9 is where newcomers gave up: an example per answer */}
               {mode === 'guided' ? (
                 <span className="opt-desc">{t(`questionnaire.q9.examples.${k}`)}</span>
@@ -466,7 +477,7 @@ export default function QuestionnairePage() {
                     checked={screening === k}
                     onChange={() => setScreening(k)}
                   />
-                  <span className="opt-label">{t(`questionnaire.q9.screening.${k}`)}</span>
+                  <span className="opt-label">{plainSituation(t(`questionnaire.q9.screening.${k}`))}</span>
                 </label>
               ))}
             </>

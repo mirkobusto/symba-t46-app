@@ -533,7 +533,7 @@ const de: Locale = {
         'Mehrfachauswahl möglich: Ein typisches PEF-Paper wählt D + E.',
       options: {
         A: { label: 'A. Intern', description: 'Interne Nutzung (Management, F&E, Planung).' },
-        B: { label: 'B. Extern (kein Claim)', description: 'Externe Kommunikation ohne vergleichende Aussagen.' },
+        B: { label: 'B. Extern (ohne Vergleich mit anderen Produkten)', description: 'Externe Kommunikation ohne vergleichende Aussagen.' },
         C: {
           label: 'C. Zur Veröffentlichung bestimmte vergleichende Aussage',
           description: 'Öffentliche Aussage der Überlegenheit oder Gleichwertigkeit gegenüber einer Alternative mit derselben Funktion, in jeder Form (auch Artikel).',

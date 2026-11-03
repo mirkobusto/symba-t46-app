@@ -286,8 +286,31 @@ def _write_data_section_tab(
     total_data_rows = len(stored) + blank_count
 
     _add_enum_dropdowns(ws, section, first_data_row, blank_start + blank_count, lang, lists)
-    # a company filters the flow or actor column to find its own rows (D4)
-    ws.auto_filter.ref = f"A{header_row}:{get_column_letter(len(section.fields))}{blank_start + blank_count - 1}"
+    if section.id == "actors" and stored:
+        # what each actor gives and receives, from the arrows: one role could
+        # not say both (UX round 5, D6); computed, not to be typed in
+        col = len(section.fields) + 1
+        head = ws.cell(row=header_row, column=col, value=f"{ui(lang, 'h.gives')} / {ui(lang, 'h.receives')}")
+        head.font = _HEADER_FONT
+        head.fill = _HEADER_FILL
+        head.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        head.comment = Comment(ui(lang, "note.computed"), "SYMBA T4.6")
+        flows = rows_for(data, "flow_matrix")
+        for offset, row in enumerate(stored):
+            gives = [str(f.values.get("flow.name") or f.row_id) for f in flows
+                     if f.values.get("flow.origin_actor_id") == row.row_id]
+            receives = [str(f.values.get("flow.name") or f.row_id) for f in flows
+                        if f.values.get("flow.dest_actor_id") == row.row_id]
+            text = "; ".join(x for x in (
+                f"{ui(lang, 'h.gives')}: {', '.join(gives)}" if gives else "",
+                f"{ui(lang, 'h.receives')}: {', '.join(receives)}" if receives else "",
+            ) if x)
+            ws.cell(row=first_data_row + offset, column=col, value=text or None)
+        ws.column_dimensions[get_column_letter(col)].width = 40
+    # a company filters the flow or actor column to find its own rows (D4); the
+    # computed gives/receives column of the actors sheet sorts with its rows
+    last_col = len(section.fields) + (1 if section.id == "actors" and stored else 0)
+    ws.auto_filter.ref = f"A{header_row}:{get_column_letter(last_col)}{blank_start + blank_count - 1}"
 
     # Column widths
     for col_idx, field in enumerate(section.fields, start=1):

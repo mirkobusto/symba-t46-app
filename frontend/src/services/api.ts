@@ -110,7 +110,8 @@ export function runPipeline(input: Case): Promise<Case> {
  * URL.createObjectURL + a temporary <a download>).
  */
 export async function fetchReportDocx(input: Case): Promise<Blob> {
-  const res = await fetch(`${API_BASE_URL}/api/pipeline/report`, {
+  // the case report comes in the interface language (UX round 2026-11-02)
+  const res = await fetch(`${API_BASE_URL}/api/pipeline/report${langQuery()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),

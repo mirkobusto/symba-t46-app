@@ -256,6 +256,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint).
+- Report del caso (.docx): i testi vengono dalle locali del frontend (`docxReport`, `narrative`, `engineNotes`, `actionKind`, `result.sectorChapters`, opzioni del questionario e dei flussi) attraverso `backend/app/data/report_terms.json`. Dopo aver cambiato una di queste chiavi: `cd backend && PYTHONPATH=. python scripts/sync_report_terms.py` (lo controlla `tests/test_report_terms_sync.py`).
 - Build frontend: `cd frontend && npm run build` (tsc + vite).
 - Validation script: `python backend/scripts/validate_phase1_artifacts.py --schema-dir backend/app/schemas --out-dir backend/coordination`
   Atteso: 0 critical / 0 warning / 0 UNKNOWN / status PASS.

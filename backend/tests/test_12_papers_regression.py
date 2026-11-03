@@ -165,7 +165,7 @@ _PAPERS: list[dict[str, Any]] = [
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },
-    # 9. Kerdlap 2024 — fictional urban agri-food
+    # 9. Kerdlap 2022 (online; print 2024, the id keeps 2024) — fictional urban agri-food
     {
         "id": "kerdlap_2024",
         "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.B,

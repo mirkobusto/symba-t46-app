@@ -82,7 +82,7 @@ const es: Locale = {
     publicToggle: 'Hacer que este informe lo pueda leer cualquiera que tenga el enlace',
     preparedByLabel: 'Preparado por (aparece en el informe)',
     contactLabel: 'Contacto para preguntas sobre este caso (opcional)',
-    saveSharing: 'Guardar',
+    saveSharing: 'Guardar nombre y contacto',
     notSharedBody: 'El informe no es público: solo tú puedes abrir este caso. Activa el uso compartido para obtener los enlaces.',
     sharedBody: 'El informe es público: cualquiera que tenga uno de estos enlaces puede leerlo, sin las notas ni las cantidades de los flujos.',
   },
@@ -105,7 +105,7 @@ const es: Locale = {
     open: {
       eyebrow: "Informe compartido",
       title: "Abrir un informe que has recibido",
-      lead: "Pega el enlace que te enviaron, o solo el código del caso al final (por ejemplo agri-b-sita-19a8).",
+      lead: 'Pega el enlace que te enviaron, o solo el código del caso al final (un código como agri-b-sita-1a2b3c4d).',
       label: "Enlace o código del caso",
       placeholder: "https://…/r/…",
       invalid: "No parece el enlace de un informe. Pega el enlace completo que recibiste, o el código después de /r/.",
@@ -401,7 +401,7 @@ const es: Locale = {
     technicalTitle: "Detalles técnicos (para especialistas)",
     title: 'Acerca de',
     p1:
-      "SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de un cuestionario sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — la puntuación cuantitativa se produce fuera de la herramienta y aparece aquí cuando llega.",
+      'SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de un cuestionario sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — las cifras las calcula fuera de la herramienta quien realiza el estudio, y pueden cargarse aquí; nadie las calcula automáticamente.',
     p2:
       'El cuestionario (Q0-Q12; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 12 Critical Decision Points hacen aflorar las tensiones cross-method.',
   },

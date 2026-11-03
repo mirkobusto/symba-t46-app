@@ -52,7 +52,7 @@ const en = {
     publicToggle: 'Make this report readable by anyone with the link',
     preparedByLabel: 'Prepared by (shown on the report)',
     contactLabel: 'Contact for questions about this case (optional)',
-    saveSharing: 'Save',
+    saveSharing: 'Save name and contact',
     notSharedBody: 'The report is not public: only you can open this case. Turn sharing on to get the links.',
     sharedBody: 'The report is public: anyone with one of these links can read it, without the flow notes and quantities.',
   },
@@ -75,7 +75,7 @@ const en = {
     open: {
       eyebrow: "Shared report",
       title: "Open a report you received",
-      lead: "Paste the link someone sent you, or just the case code at its end (for example agri-b-sita-19a8).",
+      lead: 'Paste the link someone sent you, or just the case code at its end (a code like agri-b-sita-1a2b3c4d).',
       label: "Link or case code",
       placeholder: "https://…/r/…",
       invalid: "That does not look like a report link. Paste the whole link you received, or the code after /r/.",
@@ -449,7 +449,7 @@ const en = {
     technicalTitle: "Technical details (for specialists)",
     title: 'About',
     p1:
-      "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
+      'SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the figures are calculated outside the tool by whoever carries out the study, and can be loaded here; nobody calculates them automatically.',
     p2:
       'The questionnaire (Q0-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
   },

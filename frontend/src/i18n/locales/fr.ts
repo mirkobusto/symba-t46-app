@@ -82,7 +82,7 @@ const fr: Locale = {
     publicToggle: 'Rendre ce rapport lisible par toute personne qui a le lien',
     preparedByLabel: 'Préparé par (affiché sur le rapport)',
     contactLabel: 'Contact pour les questions sur ce cas (facultatif)',
-    saveSharing: 'Enregistrer',
+    saveSharing: 'Enregistrer le nom et le contact',
     notSharedBody: 'Le rapport n\'est pas public : vous seul pouvez ouvrir ce cas. Activez le partage pour obtenir les liens.',
     sharedBody: 'Le rapport est public : toute personne qui a l\'un de ces liens peut le lire, sans les notes et les quantités des flux.',
   },
@@ -105,7 +105,7 @@ const fr: Locale = {
     open: {
       eyebrow: "Rapport partagé",
       title: "Ouvrir un rapport reçu",
-      lead: "Collez le lien qu'on vous a envoyé, ou seulement le code du cas à sa fin (par exemple agri-b-sita-19a8).",
+      lead: 'Collez le lien qu\'on vous a envoyé, ou seulement le code du cas à sa fin (un code comme agri-b-sita-1a2b3c4d).',
       label: "Lien ou code du cas",
       placeholder: "https://…/r/…",
       invalid: "Cela ne ressemble pas à un lien de rapport. Collez le lien complet reçu, ou le code après /r/.",
@@ -407,7 +407,7 @@ const fr: Locale = {
     technicalTitle: "Détails techniques (pour spécialistes)",
     title: 'À propos',
     p1:
-      "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir d'un questionnaire sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
+      'SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d\'une symbiose industrielle : à partir d\'un questionnaire sur le cas, il déduit quelle méthodologie s\'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les chiffres sont calculés hors de l\'outil par la personne qui réalise l\'étude, et peuvent être chargés ici ; personne ne les calcule automatiquement.',
     p2:
       "Le questionnaire (Q0-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
   },

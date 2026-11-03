@@ -1,10 +1,10 @@
 // Field editor for one DCF row (one actor, one flow).
 //
 // Renders ONLY the fields the backend activated for this case: the
-// descriptor already applied the activation predicates, so what is not
-// in `section.fields` must not be editable — writing it would come back
-// as a 422 `field_not_active`.
+// descriptor already applied the activation predicates. Values of fields
+// switched off later are kept as "dormant" and not shown (UX round 5, D3).
 
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { DcfFieldDescriptor, DcfSection } from '../types/dcf'
@@ -47,7 +47,17 @@ interface Props {
   sites: Site[]
   issues: DcfDataIssue[]
   onChange: (fieldId: string, value: unknown) => void
-  onRemove: () => void
+  /** Absent when there is nothing to remove (a questionnaire flow not drawn). */
+  onRemove?: () => void
+  /** Fields shown as text, not editable (a questionnaire flow's name and
+   * payment class are set in the questionnaire, UX round 5 D2). */
+  readOnly?: Set<string>
+  /** A line above the fields (where the row comes from). */
+  note?: string | null
+  /** Extra buttons next to Remove (e.g. reverse an arrow). */
+  actions?: ReactNode
+  /** Label of the remove button, when it does something specific. */
+  removeLabel?: string
 }
 
 function actorLabel(row: DcfRow, fallback: string): string {
@@ -62,7 +72,7 @@ function optionsFor(field: DcfFieldDescriptor): string[] | null {
 }
 
 export default function DcfRowFields({
-  section, row, actors, sites, issues, onChange, onRemove,
+  section, row, actors, sites, issues, onChange, onRemove, readOnly, note, actions, removeLabel,
 }: Props) {
   const { t } = useTranslation()
   const missing = new Set(
@@ -75,6 +85,7 @@ export default function DcfRowFields({
 
   return (
     <div className="nb-panel-body">
+      {note ? <p className="nb-panel-note">{note}</p> : null}
       {editable.map((field) => {
         const value = row.values[field.id]
         const stringValue =
@@ -94,7 +105,11 @@ export default function DcfRowFields({
               {field.required ? <span className="nb-req"> *</span> : null}
             </span>
 
-            {field.type === 'fk_actor' ? (
+            {readOnly?.has(field.id) ? (
+              <span id={inputId} className="nb-field-readonly">
+                {stringValue === '' ? '—' : (field.enum_labels?.[stringValue] ?? stringValue)}
+              </span>
+            ) : field.type === 'fk_actor' ? (
               <select
                 id={inputId}
                 value={stringValue}
@@ -176,9 +191,14 @@ export default function DcfRowFields({
         )
       })}
 
-      <button type="button" className="btn btn-danger nb-remove" onClick={onRemove}>
-        {t('networkBuilder.removeRow')}
-      </button>
+      <div className="nb-panel-actions">
+        {actions}
+        {onRemove ? (
+          <button type="button" className="btn btn-danger nb-remove" onClick={onRemove}>
+            {removeLabel ?? t('networkBuilder.removeRow')}
+          </button>
+        ) : null}
+      </div>
     </div>
   )
 }

@@ -5,8 +5,16 @@
 // agents drive (UX round 2026-11-03). Callers await a promise:
 //   if (!(await askConfirm(text))) return
 //   const name = await askText(text, defaultValue)   // null = cancelled
+//   const pick = await askChoice(text, options)      // option value, or null
 
 import { create } from 'zustand'
+
+export interface ChoiceOption {
+  value: string
+  label: string
+  /** a second, smaller line under the label */
+  detail?: string
+}
 
 interface DialogRequest {
   /** set by open(): keys the dialog so each request starts fresh */
@@ -14,6 +22,8 @@ interface DialogRequest {
   message: string
   /** present for a text dialog: the initial value of the field */
   input?: string
+  /** present for a choice dialog: one button per option */
+  options?: ChoiceOption[]
   confirmLabel?: string
   resolve: (value: string | boolean | null) => void
 }
@@ -49,6 +59,15 @@ export function askText(message: string, initial = '', confirmLabel?: string): P
   return new Promise((resolve) =>
     useDialogStore.getState().open({
       message, input: initial, confirmLabel,
+      resolve: (v) => resolve(typeof v === 'string' ? v : null),
+    }),
+  )
+}
+
+export function askChoice(message: string, options: ChoiceOption[]): Promise<string | null> {
+  return new Promise((resolve) =>
+    useDialogStore.getState().open({
+      message, options,
       resolve: (v) => resolve(typeof v === 'string' ? v : null),
     }),
   )

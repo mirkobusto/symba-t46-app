@@ -191,39 +191,123 @@ describe('dcfDataStore', () => {
     expect(state.dirty).toBe(true)
   })
 
-  it('connect wires the first seeded flow that has no endpoints yet', () => {
+  it('connect wires the chosen questionnaire flow, not the first free one (UX round 5, D2)', () => {
     const store = useDcfDataStore.getState()
     store.syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
     const a1 = useDcfDataStore.getState().addActor('A')
     const a2 = useDcfDataStore.getState().addActor('B')
 
-    const rowId = useDcfDataStore.getState().connect(a1, a2)
+    const rowId = useDcfDataStore.getState().connect(a1, a2, 'f2')
 
-    expect(rowId).toBe('f1')
+    expect(rowId).toBe('f2')
     const rows = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
     expect(rows).toHaveLength(2)
-    expect(rows[0].values['flow.origin_actor_id']).toBe(a1)
-    expect(rows[0].values['flow.dest_actor_id']).toBe(a2)
+    expect(rows[0].values['flow.origin_actor_id']).toBeUndefined()
+    expect(rows[1].values['flow.origin_actor_id']).toBe(a1)
+    expect(rows[1].values['flow.dest_actor_id']).toBe(a2)
   })
 
-  it('connect creates a new flow row once every seeded flow is wired', () => {
+  it('connect refuses a flow that is not in the questionnaire', () => {
     const store = useDcfDataStore.getState()
     store.syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
     const a1 = useDcfDataStore.getState().addActor('A')
     const a2 = useDcfDataStore.getState().addActor('B')
-    useDcfDataStore.getState().connect(a1, a2)
-    useDcfDataStore.getState().connect(a2, a1)
-
-    const rowId = useDcfDataStore.getState().connect(a1, a2)
-    expect(rowId).not.toBe('f1')
-    expect(
-      useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION],
-    ).toHaveLength(3)
+    expect(useDcfDataStore.getState().connect(a1, a2, 'fx-hand-drawn')).toBeNull()
+    expect(useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]).toHaveLength(2)
   })
 
   it('refuses to connect an actor to itself', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
     const a1 = useDcfDataStore.getState().addActor('A')
-    expect(useDcfDataStore.getState().connect(a1, a1)).toBeNull()
+    expect(useDcfDataStore.getState().connect(a1, a1, 'f1')).toBeNull()
+  })
+
+  it('reverseFlow swaps origin and destination', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const a1 = useDcfDataStore.getState().addActor('A')
+    const a2 = useDcfDataStore.getState().addActor('B')
+    useDcfDataStore.getState().connect(a1, a2, 'f1')
+    useDcfDataStore.getState().reverseFlow('f1')
+    const [f1] = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
+    expect(f1.values['flow.origin_actor_id']).toBe(a2)
+    expect(f1.values['flow.dest_actor_id']).toBe(a1)
+  })
+
+  it('removing the arrow of a questionnaire flow unwires it and keeps its values', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const a1 = useDcfDataStore.getState().addActor('A')
+    const a2 = useDcfDataStore.getState().addActor('B')
+    useDcfDataStore.getState().connect(a1, a2, 'f1')
+    useDcfDataStore.getState().removeRow(FLOW_MATRIX_SECTION, 'f1')
+    const rows = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
+    expect(rows.map((r) => r.row_id)).toEqual(['f1', 'f2'])
+    expect(rows[0].values['flow.origin_actor_id']).toBeUndefined()
+    expect(rows[0].values['flow.quantity_measured']).toBe(120)
+  })
+
+  it('removing a row that is not in the questionnaire deletes it', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    useDcfDataStore.setState((st) => ({
+      data: {
+        ...st.data,
+        rows_by_section: {
+          ...st.data.rows_by_section,
+          [FLOW_MATRIX_SECTION]: [
+            ...st.data.rows_by_section[FLOW_MATRIX_SECTION],
+            { row_id: 'fx-legacy', values: { 'flow.name': 'old' } },
+          ],
+        },
+      },
+    }))
+    useDcfDataStore.getState().removeRow(FLOW_MATRIX_SECTION, 'fx-legacy')
+    expect(
+      useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION].map((r) => r.row_id),
+    ).toEqual(['f1', 'f2'])
+  })
+
+  it('re-sync makes name and Q5 of a questionnaire flow follow the questionnaire', () => {
+    const p = payloadWith(FULL_FLOW_FIELDS)
+    useDcfDataStore.getState().syncWithPayload(p, CASE_FLOWS)
+    useDcfDataStore.getState().syncWithPayload(p, [
+      { ...CASE_FLOWS[0], name: 'dewatered sludge', q5: 'd' },
+      CASE_FLOWS[1],
+    ])
+    const [f1] = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
+    expect(f1.values['flow.name']).toBe('dewatered sludge')
+    expect(f1.values['flow.q5_class']).toBe('d')
+    expect(f1.values['flow.quantity_measured']).toBe(120) // entered values stay
+    expect(useDcfDataStore.getState().dirty).toBe(false)
+  })
+
+  it('opening a saved case with only seeded rows is not "unsaved" (Fable review of #203)', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    useDcfDataStore.getState().bindTo('case-1')
+    expect(useDcfDataStore.getState().dirty).toBe(false)
+  })
+
+  it('switching case forgets the previous questionnaire flows', () => {
+    useDcfDataStore.getState().bindTo('case-1')
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    useDcfDataStore.getState().bindTo('case-2')
+    expect(useDcfDataStore.getState().caseFlowIds).toEqual([])
+  })
+
+  it('removing or reversing a flow that is not drawn changes nothing', () => {
+    useDcfDataStore.getState().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const before = useDcfDataStore.getState().data
+    useDcfDataStore.getState().removeRow(FLOW_MATRIX_SECTION, 'f1')
+    useDcfDataStore.getState().reverseFlow('f1')
+    expect(useDcfDataStore.getState().data).toBe(before)
+    expect(useDcfDataStore.getState().dirty).toBe(false)
+  })
+
+  it('a flow removed from the questionnaire is kept, no longer counted as one of its flows', () => {
+    const p = payloadWith(FULL_FLOW_FIELDS)
+    useDcfDataStore.getState().syncWithPayload(p, CASE_FLOWS)
+    useDcfDataStore.getState().syncWithPayload(p, [CASE_FLOWS[0]])
+    const state = useDcfDataStore.getState()
+    expect(state.data.rows_by_section[FLOW_MATRIX_SECTION].map((r) => r.row_id)).toEqual(['f1', 'f2'])
+    expect(state.caseFlowIds).toEqual(['f1'])
   })
 
   it('removing an actor unwires its flows and drops its position', () => {
@@ -231,7 +315,7 @@ describe('dcfDataStore', () => {
     store.syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
     const a1 = useDcfDataStore.getState().addActor('A')
     const a2 = useDcfDataStore.getState().addActor('B')
-    useDcfDataStore.getState().connect(a1, a2)
+    useDcfDataStore.getState().connect(a1, a2, 'f1')
 
     useDcfDataStore.getState().removeRow(ACTORS_SECTION, a2)
 
@@ -333,24 +417,24 @@ describe('dcfDataStore', () => {
     expect(flows[0].values['flow.name']).toBe('flow 1')
   })
 
-  it('loading the example keeps the Q5 flows but unwires them', () => {
+  it('on a case with flows the example wires its own first two flows (UX round 5, D2)', () => {
     const p = payloadWith(FULL_FLOW_FIELDS)
     const store = useDcfDataStore.getState()
     store.syncWithPayload(p, CASE_FLOWS)
     const a1 = useDcfDataStore.getState().addActor('A')
     const a2 = useDcfDataStore.getState().addActor('B')
-    useDcfDataStore.getState().connect(a1, a2) // wires the seeded f1
+    useDcfDataStore.getState().connect(a1, a2, 'f1')
 
     useDcfDataStore.getState().loadExample(p, {
       producer: 'P', consumer: 'C', facilitator: 'F', flow: 'flow',
     })
 
     const flows = useDcfDataStore.getState().data.rows_by_section[FLOW_MATRIX_SECTION]
-    const seeded = flows.filter((r) => !r.row_id.startsWith('ex-'))
-    expect(seeded.map((r) => r.row_id)).toEqual(['f1', 'f2'])
-    // f1 pointed at an actor the example replaced: a dangling reference
-    // would be a 422 on save, so it comes back unwired.
-    expect(seeded[0].values['flow.origin_actor_id']).toBeUndefined()
-    expect(seeded[0].values['flow.name']).toBe('sludge')
+    // no generic example flows next to the case's own
+    expect(flows.map((r) => r.row_id)).toEqual(['f1', 'f2'])
+    expect(flows[0].values['flow.origin_actor_id']).toBe('ex-a1')
+    expect(flows[0].values['flow.dest_actor_id']).toBe('ex-a2')
+    expect(flows[1].values['flow.origin_actor_id']).toBe('ex-a2')
+    expect(flows[0].values['flow.name']).toBe('sludge')
   })
 })

@@ -5,6 +5,8 @@
 // here means they cannot disagree about what an actor node or a flow
 // edge is — and it is plain data, so it is testable without React.
 
+import { getSmoothStepPath, type EdgeProps } from 'reactflow'
+
 import type { DcfNodePosition, DcfRow } from '../types/dcfData'
 
 export interface GraphNode {
@@ -88,3 +90,36 @@ export function nodeClassName(node: GraphNode, extra = ''): string {
     .filter(Boolean)
     .join(' ')
 }
+
+/**
+ * How far each arrow's middle segment is moved, so arrows between the same two
+ * actors (in either direction) are drawn apart instead of one on top of the
+ * other: 0 for the first, then +24, -24, +48… (UX round 5, P1-03).
+ */
+export function edgeShifts(edges: GraphEdge[], step = 24): Record<string, number> {
+  const seen = new Map<string, number>()
+  const out: Record<string, number> = {}
+  for (const edge of edges) {
+    const key = [edge.source, edge.target].sort().join('|')
+    const n = seen.get(key) ?? 0
+    seen.set(key, n + 1)
+    out[edge.id] = n === 0 ? 0 : (n % 2 === 1 ? 1 : -1) * Math.ceil(n / 2) * step
+  }
+  return out
+}
+
+/** The path of a flow arrow with its middle segment moved by `shift` (see FlowEdge). */
+export function flowEdgePath(p: Pick<EdgeProps, 'sourceX' | 'sourceY' | 'targetX' | 'targetY' | 'sourcePosition' | 'targetPosition'>, shift: number) {
+  const { sourceX, sourceY, targetX, targetY } = p
+  // arrows leave from the bottom and enter from the top: the middle segment is
+  // horizontal when the target is below, vertical otherwise
+  const below = targetY > sourceY
+  return getSmoothStepPath({
+    ...p,
+    borderRadius: 10,
+    offset: 20,
+    centerY: below ? (sourceY + targetY) / 2 + shift : undefined,
+    centerX: below ? undefined : (sourceX + targetX) / 2 + shift,
+  })
+}
+

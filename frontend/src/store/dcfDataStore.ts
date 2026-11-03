@@ -73,10 +73,12 @@ function nextActorRowId(): string {
   return `a${Date.now().toString(36)}${actorCounter}`
 }
 
-let flowCounter = 0
-function nextFlowRowId(): string {
-  flowCounter += 1
-  return `fx${Date.now().toString(36)}${flowCounter}`
+/** Anything drawn: an actor, or a flow wired at both ends. */
+function hasDrawing(data: DcfData): boolean {
+  if (rowsOf(data, ACTORS_SECTION).length > 0) return true
+  return rowsOf(data, FLOW_MATRIX_SECTION).some(
+    (r) => r.values['flow.origin_actor_id'] && r.values['flow.dest_actor_id'],
+  )
 }
 
 /** Display names for the demo network, passed in so the store stays
@@ -92,6 +94,10 @@ export interface DcfDataState {
   /** Server case id this draft belongs to; null while the case is unsaved. */
   caseId: string | null
   data: DcfData
+  /** Ids of the flows of the questionnaire, as of the last sync. A Flow
+   * Matrix row with one of these ids IS that flow; any other row is not in
+   * the questionnaire (UX round 5, D2). */
+  caseFlowIds: string[]
   validation: DcfDataValidation | null
   dirty: boolean
   syncing: boolean
@@ -104,7 +110,11 @@ export interface DcfDataState {
   carryTo: (caseId: string, data?: DcfData) => void
   syncWithPayload: (payload: DcfPayload, flows: Flow[]) => void
   addActor: (name?: string) => string
-  connect: (originRowId: string, destRowId: string) => string | null
+  /** Wire a questionnaire flow between two actors. Null when refused: the
+   * same actor at both ends, or a flow that is not in the questionnaire. */
+  connect: (originRowId: string, destRowId: string, flowRowId: string) => string | null
+  /** Swap origin and destination of a drawn flow. */
+  reverseFlow: (rowId: string) => void
   updateValue: (
     sectionId: string,
     rowId: string,
@@ -124,6 +134,7 @@ export const useDcfDataStore = create<DcfDataState>()(
     (set, get) => ({
       caseId: null,
       data: { ...EMPTY_DATA },
+      caseFlowIds: [],
       validation: null,
       dirty: false,
       syncing: false,
@@ -142,7 +153,11 @@ export const useDcfDataStore = create<DcfDataState>()(
             case_id: caseId ?? '',
           },
           validation: null,
-          dirty: current === null && caseId !== null,
+          // the questionnaire flows of the previous case are not this one's
+          caseFlowIds: [],
+          // a local draft becoming a saved case has something to push only
+          // if something was drawn: an empty draft is not "unsaved" (P1-10)
+          dirty: current === null && caseId !== null && hasDrawing(get().data),
         })
       },
 
@@ -152,9 +167,30 @@ export const useDcfDataStore = create<DcfDataState>()(
         let changed = false
 
         // 1. seed a Flow Matrix row per declared case flow (idempotent:
-        //    the row id IS the case flow id)
+        //    the row id IS the case flow id); name and payment class of a
+        //    questionnaire flow always follow the questionnaire (D2)
         const flowAllowed = active[FLOW_MATRIX_SECTION]
         if (flowAllowed) {
+          const byId = new Map(flows.filter((f) => f.id).map((f) => [f.id as string, f]))
+          const followed = rowsOf(data, FLOW_MATRIX_SECTION).map((row) => {
+            const flow = byId.get(row.row_id)
+            if (!flow) return row
+            const values = { ...row.values }
+            let touched = false
+            if (flowAllowed.has('flow.name') && values['flow.name'] !== flow.name) {
+              values['flow.name'] = flow.name
+              touched = true
+            }
+            if (flowAllowed.has('flow.q5_class') && flow.q5 && values['flow.q5_class'] !== flow.q5) {
+              values['flow.q5_class'] = flow.q5
+              touched = true
+            }
+            return touched ? { ...row, values } : row
+          })
+          if (followed.some((r, i) => r !== rowsOf(data, FLOW_MATRIX_SECTION)[i])) {
+            data = withRows(data, FLOW_MATRIX_SECTION, followed)
+            changed = true
+          }
           const existing = new Set(
             rowsOf(data, FLOW_MATRIX_SECTION).map((r) => r.row_id),
           )
@@ -221,7 +257,9 @@ export const useDcfDataStore = create<DcfDataState>()(
 
         // Seeding is not an edit: it does not make the network "unsaved" (the
         // files seed the same rows on the server side).
-        if (changed) set({ data })
+        const caseFlowIds = flows.map((f) => f.id).filter((id): id is string => !!id)
+        if (changed) set({ data, caseFlowIds })
+        else if (caseFlowIds.join('|') !== get().caseFlowIds.join('|')) set({ caseFlowIds })
       },
 
       carryTo(caseId, data) {
@@ -251,30 +289,47 @@ export const useDcfDataStore = create<DcfDataState>()(
         return rowId
       },
 
-      connect(originRowId, destRowId) {
+      connect(originRowId, destRowId, flowRowId) {
+        // Every arrow is a flow of the questionnaire, chosen explicitly: the
+        // first free flow used to be taken whatever the two actors were, and
+        // a flow the engine does not know has no treatment, rules or
+        // obligations (UX round 5, D2).
         if (originRowId === destRowId) return null
+        if (!get().caseFlowIds.includes(flowRowId)) return null
         const data = get().data
         const rows = rowsOf(data, FLOW_MATRIX_SECTION)
-        // Prefer a seeded flow that has not been wired up yet, so the
-        // flows declared in Q5 end up on the canvas instead of duplicates.
-        const unwired = rows.find(
-          (r) =>
-            !r.values['flow.origin_actor_id'] && !r.values['flow.dest_actor_id'],
+        if (!rows.some((r) => r.row_id === flowRowId)) return null
+        const nextRows = rows.map((r) =>
+          r.row_id === flowRowId
+            ? {
+                ...r,
+                values: {
+                  ...r.values,
+                  'flow.origin_actor_id': originRowId,
+                  'flow.dest_actor_id': destRowId,
+                },
+              }
+            : r,
         )
-        const target = unwired ?? { row_id: nextFlowRowId(), values: {} }
-        const updated: DcfRow = {
-          ...target,
-          values: {
-            ...target.values,
-            'flow.origin_actor_id': originRowId,
-            'flow.dest_actor_id': destRowId,
-          },
-        }
-        const nextRows = unwired
-          ? rows.map((r) => (r.row_id === target.row_id ? updated : r))
-          : [...rows, updated]
         set({ data: withRows(data, FLOW_MATRIX_SECTION, nextRows), dirty: true })
-        return updated.row_id
+        return flowRowId
+      },
+
+      reverseFlow(rowId) {
+        const data = get().data
+        const rows = rowsOf(data, FLOW_MATRIX_SECTION)
+        const nextRows = rows.map((r) => {
+          if (r.row_id !== rowId) return r
+          const origin = r.values['flow.origin_actor_id']
+          const dest = r.values['flow.dest_actor_id']
+          if (!origin || !dest) return r
+          return {
+            ...r,
+            values: { ...r.values, 'flow.origin_actor_id': dest, 'flow.dest_actor_id': origin },
+          }
+        })
+        if (nextRows.every((r, i) => r === rows[i])) return   // nothing drawn to reverse
+        set({ data: withRows(data, FLOW_MATRIX_SECTION, nextRows), dirty: true })
       },
 
       updateValue(sectionId, rowId, fieldId, value) {
@@ -298,6 +353,21 @@ export const useDcfDataStore = create<DcfDataState>()(
 
       removeRow(sectionId, rowId) {
         const data = get().data
+        if (sectionId === FLOW_MATRIX_SECTION && get().caseFlowIds.includes(rowId)) {
+          // "Remove" on a questionnaire flow takes the arrow off the canvas;
+          // the flow goes back to the "not yet drawn" list (P1-01)
+          const target = rowsOf(data, FLOW_MATRIX_SECTION).find((r) => r.row_id === rowId)
+          if (!target?.values['flow.origin_actor_id'] && !target?.values['flow.dest_actor_id']) return
+          const unwired = rowsOf(data, FLOW_MATRIX_SECTION).map((row) => {
+            if (row.row_id !== rowId) return row
+            const values = { ...row.values }
+            delete values['flow.origin_actor_id']
+            delete values['flow.dest_actor_id']
+            return { ...row, values }
+          })
+          set({ data: withRows(data, FLOW_MATRIX_SECTION, unwired), dirty: true })
+          return
+        }
         let next = withRows(
           data,
           sectionId,
@@ -353,6 +423,7 @@ export const useDcfDataStore = create<DcfDataState>()(
           origin: string,
           dest: string,
           type: string,
+          unit: string,
         ): DcfRow => {
           const values: Record<string, unknown> = {
             'flow.origin_actor_id': origin,
@@ -360,7 +431,7 @@ export const useDcfDataStore = create<DcfDataState>()(
           }
           if (flowFields.has('flow.name')) values['flow.name'] = name
           if (flowFields.has('flow.type')) values['flow.type'] = type
-          if (flowFields.has('flow.unit')) values['flow.unit'] = 't/y'
+          if (flowFields.has('flow.unit')) values['flow.unit'] = unit
           if (flowFields.has('flow.regime')) values['flow.regime'] = 'continuous'
           if (flowFields.has('flow.uncertainty.type')) {
             values['flow.uncertainty.type'] = 'point'
@@ -368,12 +439,12 @@ export const useDcfDataStore = create<DcfDataState>()(
           return { row_id: rowId, values }
         }
 
-        // The example owns the actors, so any flow the analyst had
-        // already wired now points at actors that no longer exist. Those
-        // rows are kept — they are the flows declared in Q5 and belong in
-        // the to-do list — but unwired, since a dangling reference is a
-        // 422 on the next save.
-        const kept = rowsOf(get().data, FLOW_MATRIX_SECTION)
+        // The example owns the actors. A case with flows gets its own first
+        // two flows wired between the example actors (the editor draws only
+        // flows of the questionnaire, D2), the rest unwired in the to-do
+        // list; only a case without flows gets the two generic example flows.
+        const caseIds = get().caseFlowIds
+        const caseRows = rowsOf(get().data, FLOW_MATRIX_SECTION)
           .filter((row) => !row.row_id.startsWith('ex-'))
           .map((row) => {
             const values = { ...row.values }
@@ -381,6 +452,22 @@ export const useDcfDataStore = create<DcfDataState>()(
             delete values['flow.dest_actor_id']
             return { ...row, values }
           })
+        const wiring: [string, string][] = [['ex-a1', 'ex-a2'], ['ex-a2', 'ex-a1']]
+        let wired = 0
+        const kept = caseRows.map((row) => {
+          if (wired >= wiring.length || !caseIds.includes(row.row_id)) return row
+          const [origin, dest] = wiring[wired++]
+          return {
+            ...row,
+            values: { ...row.values, 'flow.origin_actor_id': origin, 'flow.dest_actor_id': dest },
+          }
+        })
+        const exampleFlows = caseIds.length > 0
+          ? []
+          : [
+              flowRow('ex-f1', `${labels.flow} 1`, 'ex-a1', 'ex-a2', 'by_product', 't/y'),
+              flowRow('ex-f2', `${labels.flow} 2`, 'ex-a2', 'ex-a3', 'energy', 'MWh/y'),
+            ]
 
         set({
           data: {
@@ -388,11 +475,7 @@ export const useDcfDataStore = create<DcfDataState>()(
             rows_by_section: {
               ...get().data.rows_by_section,
               [ACTORS_SECTION]: actors,
-              [FLOW_MATRIX_SECTION]: [
-                flowRow('ex-f1', `${labels.flow} 1`, 'ex-a1', 'ex-a2', 'by_product'),
-                flowRow('ex-f2', `${labels.flow} 2`, 'ex-a2', 'ex-a3', 'energy'),
-                ...kept,
-              ],
+              [FLOW_MATRIX_SECTION]: [...exampleFlows, ...kept],
             },
             layout: {
               'ex-a1': autoPosition(0),
@@ -465,6 +548,7 @@ export const useDcfDataStore = create<DcfDataState>()(
         set({
           caseId: null,
           data: { ...EMPTY_DATA },
+          caseFlowIds: [],
           validation: null,
           dirty: false,
           syncing: false,

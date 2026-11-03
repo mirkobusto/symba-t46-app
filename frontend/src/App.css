@@ -5134,3 +5134,16 @@ kbd {
 /* "the files follow the saved version" notice on the DCF page (UX round 5, D3) */
 .dcf-changes { margin-top: var(--dd-space-3); }
 .dcf-changes p { margin: 0 0 var(--dd-space-2); }
+
+/* choice dialog: "Which flow is this arrow?" (UX round 5, D2) */
+.dd-dialog-choices { list-style: none; margin: 0 0 var(--dd-space-3); padding: 0; display: grid; gap: var(--dd-space-2); }
+.dd-dialog-choice { width: 100%; text-align: left; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; border: 1px solid var(--dd-border, #d8dde6); }
+.dd-dialog-choice span { font-size: 13px; color: var(--dd-text-soft); }
+
+/* network editor, UX round 5 (D2): armed flow, read-only questionnaire fields, panel actions */
+.nb-armed { background: var(--dd-brand-bg, #e8f0fb); border-radius: var(--dd-radius); padding: var(--dd-space-2) var(--dd-space-3); margin: var(--dd-space-2) 0; }
+.nb-panel-note { font-size: 13px; color: var(--dd-text-soft); margin: 0 0 var(--dd-space-3); }
+.nb-field-readonly { display: block; padding: 6px 0; font-weight: 600; }
+.nb-panel-actions { display: flex; flex-wrap: wrap; gap: var(--dd-space-2); margin-top: var(--dd-space-3); }
+.nb-missing { cursor: pointer; border: 0; }
+.nb-drawn, .nb-stray { margin-top: var(--dd-space-3); }

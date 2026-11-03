@@ -31,11 +31,17 @@ interface Props {
   onChange: (next: Flow[]) => void
 }
 
-function nextId(existing: Flow[]): string {
+/**
+ * An id never used before in this case. Reusing the id of a deleted flow
+ * ("f3" again) silently gave the new flow the old one's row in the Data
+ * Collection File — quantities, unit, arrow — now that name and payment class
+ * follow the questionnaire (Fable review of #203).
+ */
+function nextId(existing: Flow[], now = Date.now()): string {
   const used = new Set(existing.map((f) => f.id))
-  let n = existing.length + 1
-  while (used.has(`f${n}`)) n += 1
-  return `f${n}`
+  let id = `f${now.toString(36)}`
+  while (used.has(id)) id += 'x'
+  return id
 }
 
 export default function FlowsEditor({ flows, onChange }: Props) {

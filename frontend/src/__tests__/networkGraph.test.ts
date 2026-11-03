@@ -66,3 +66,22 @@ describe('networkGraph', () => {
     expect(nodeClassName({ ...named, role: null })).toContain('nb-node-unset')
   })
 })
+
+describe('edgeShifts and flowEdgePath', () => {
+  it('draws two flows between the same actors apart, also in the same direction (Fable review of #203)', async () => {
+    const { edgeShifts, flowEdgePath } = await import('../components/networkGraph')
+    const shifts = edgeShifts([
+      { id: 'f1', source: 'a', target: 'b', label: null, type: null },
+      { id: 'f2', source: 'a', target: 'b', label: null, type: null },
+      { id: 'f3', source: 'b', target: 'a', label: null, type: null },
+      { id: 'f4', source: 'a', target: 'c', label: null, type: null },
+    ])
+    expect(new Set([shifts.f1, shifts.f2, shifts.f3]).size).toBe(3)
+    expect(shifts.f4).toBe(0)
+    const ends = { sourceX: 100, sourceY: 50, targetX: 300, targetY: 250, sourcePosition: 'bottom', targetPosition: 'top' } as never
+    const [path1, , y1] = flowEdgePath(ends, shifts.f1)
+    const [path2, , y2] = flowEdgePath(ends, shifts.f2)
+    expect(path1).not.toBe(path2)
+    expect(y1).not.toBe(y2)
+  })
+})

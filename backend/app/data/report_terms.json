@@ -296,7 +296,7 @@
     },
     "IR-06": {
      "name": "Unified Data Governance",
-     "body": "Multi-actor IS multi-dim assessments require facilitator + signed NDAs per IR-06."
+     "body": "Confidential data from two or more companies, pooled for two or more dimensions: a neutral facilitator collects it under signed NDAs before data collection starts (D4.2 §2.3; D4.1 §9.3.2). Two companies are enough; only one company's own accounts (Situation C2) are exempt (IR-06)."
     },
     "IR-07": {
      "name": "Identical Reference Scenarios",
@@ -447,17 +447,17 @@
     "CDP-01": {
      "name": "Displaced Products Divergence",
      "body": "LCA/LCC system expansion may use different displaced products",
-     "resolution": "Identical reference scenario + identical Q factor enforced (IR-09)"
+     "resolution": "Identical reference scenario and quality factor Q (IR-07, IR-09); in Situation B the LCA substitutes the marginal technology while the E-LCC prices at the average market: declared as a deviation (D4.2 §2.2), see the case note"
     },
     "CDP-02": {
      "name": "Discounting Mismatch",
-     "body": "LCA forbids discounting; LCC mandates it",
-     "resolution": "Each retains own convention (IR-05); LCC uses annualized costs for eco-efficiency"
+     "body": "LCA sums impacts over time undiscounted (no consensus on discounting them); LCC discounts monetary flows: the 'discounting firewall' of D4.1 §14.2.2",
+     "resolution": "Each keeps its convention (IR-05): impacts undiscounted as a time series, costs discounted at a stated rate with a sensitivity sweep; any ratio labelled 'discounted cost per undiscounted impact' (D4.1 §14.2.2)"
     },
     "CDP-03": {
      "name": "Single-Score vs NPV",
-     "body": "S-LCA prohibits single-score; LCC produces NPV",
-     "resolution": "Parallel interpretation per IR-04; NPV reported as economic dim only"
+     "body": "D4.3 presents social results disaggregated by stakeholder group and discourages a single social score (§9.3); the LCC produces one NPV",
+     "resolution": "Parallel interpretation (IR-04): the NPV is the economic result, the social results stay by group and indicator; no sum across the two"
     },
     "CDP-04": {
      "name": "Uncertainty Paradigm Mismatch",
@@ -481,8 +481,8 @@
     },
     "CDP-08": {
      "name": "Weighting/Aggregation Tension",
-     "body": "LCA bans weighting (public); S-LCA bans single-score; users want single scores",
-     "resolution": "No single-score for public disclosure per IR-10; internal dashboards remain 3 separate"
+     "body": "ISO 14044 excludes weighting from comparative assertions disclosed to the public and D4.1 §12.3.4 discourages it elsewhere; D4.3 §9.3 discourages a single social score; readers ask for one number",
+     "resolution": "No weighted or single score in public disclosure (IR-10); internally, three dashboards kept apart (IR-04). Under EU policy alignment (Q4 = D) the EF single score may be reported as the PEF method requires, next to the disaggregated results"
     },
     "CDP-09": {
      "name": "Futurization Asymmetry",
@@ -840,7 +840,7 @@
     },
     "IR-06": {
      "name": "Governance unificata dei dati",
-     "body": "Le valutazioni multi-dimensione su reti con più attori richiedono un facilitatore e accordi di riservatezza firmati (IR-06)."
+     "body": "Dati riservati di due o più aziende, messi insieme per due o più dimensioni: li raccoglie un facilitatore neutrale con accordi di riservatezza firmati, prima della raccolta dati (D4.2 §2.3; D4.1 §9.3.2). Bastano due aziende; è esente solo il rendiconto di una sola azienda (Situazione C2) (IR-06)."
     },
     "IR-07": {
      "name": "Scenari di riferimento identici",
@@ -991,17 +991,17 @@
     "CDP-01": {
      "name": "Divergenza sui prodotti sostituiti",
      "body": "LCA e LCC, espandendo il sistema, possono usare prodotti sostituiti diversi",
-     "resolution": "Stesso scenario di riferimento e stesso fattore di qualità, imposti da IR-09"
+     "resolution": "Stesso scenario di riferimento e stesso fattore di qualità Q (IR-07, IR-09); in Situazione B l'LCA sostituisce la tecnologia marginale mentre l'E-LCC usa il prezzo medio di mercato: dichiarato come deviazione (D4.2 §2.2), vedi la nota del caso"
     },
     "CDP-02": {
      "name": "Disaccordo sull'attualizzazione",
-     "body": "L'LCA vieta l'attualizzazione; l'LCC la impone",
-     "resolution": "Ciascuna tiene la propria convenzione (IR-05); l'LCC usa costi annualizzati per l'eco-efficienza"
+     "body": "L'LCA somma gli impatti nel tempo senza attualizzarli (non c'è consenso sull'attualizzarli); l'LCC attualizza i flussi monetari: il 'muro sull'attualizzazione' della D4.1 §14.2.2",
+     "resolution": "Ognuno tiene la sua convenzione (IR-05): impatti non attualizzati come serie temporale, costi attualizzati a un tasso dichiarato con analisi di sensibilità; ogni rapporto etichettato 'costo attualizzato per impatto non attualizzato' (D4.1 §14.2.2)"
     },
     "CDP-03": {
      "name": "Punteggio unico contro NPV",
-     "body": "L'S-LCA vieta il punteggio unico; l'LCC produce un NPV",
-     "resolution": "Interpretazione parallela secondo IR-04; l'NPV resta un risultato della sola dimensione economica"
+     "body": "La D4.3 presenta i risultati sociali per gruppo di stakeholder e sconsiglia un punteggio sociale unico (§9.3); l'LCC produce un solo VAN",
+     "resolution": "Interpretazione parallela (IR-04): il VAN è il risultato economico, i risultati sociali restano per gruppo e indicatore; nessuna somma fra i due"
     },
     "CDP-04": {
      "name": "Paradigmi di incertezza diversi",
@@ -1025,8 +1025,8 @@
     },
     "CDP-08": {
      "name": "Tensione su pesatura e aggregazione",
-     "body": "L'LCA vieta la pesatura in pubblico, l'S-LCA il punteggio unico; gli utenti vogliono un numero solo",
-     "resolution": "Nessun punteggio unico nella comunicazione pubblica (IR-10); i cruscotti interni restano 3 separati"
+     "body": "La ISO 14044 esclude la pesatura dalle asserzioni comparative divulgate al pubblico e la D4.1 §12.3.4 la sconsiglia negli altri casi; la D4.3 §9.3 sconsiglia un punteggio sociale unico; i lettori chiedono un numero solo",
+     "resolution": "Nessun punteggio pesato o unico nella divulgazione pubblica (IR-10); internamente, tre cruscotti tenuti separati (IR-04). Con l'allineamento alle politiche UE (Q4 = D) il punteggio unico EF si può riportare come chiede il metodo PEF, accanto ai risultati disaggregati"
     },
     "CDP-09": {
      "name": "Asimmetria nella proiezione al futuro",
@@ -1384,7 +1384,7 @@
     },
     "IR-06": {
      "name": "Gouvernance unifiée des données",
-     "body": "Les évaluations multidimensionnelles sur des réseaux à plusieurs acteurs exigent un facilitateur et des accords de confidentialité signés (IR-06)."
+     "body": "Données confidentielles de deux entreprises ou plus, mises en commun pour deux dimensions ou plus : un facilitateur neutre les recueille sous accords de confidentialité signés avant la collecte (D4.2 §2.3 ; D4.1 §9.3.2). Deux entreprises suffisent ; seuls les comptes d'une seule entreprise (Situation C2) en sont exemptés (IR-06)."
     },
     "IR-07": {
      "name": "Scénarios de référence identiques",
@@ -1535,17 +1535,17 @@
     "CDP-01": {
      "name": "Divergence sur les produits substitués",
      "body": "En élargissant le système, la LCA et la LCC peuvent retenir des produits substitués différents",
-     "resolution": "Même scénario de référence et même facteur de qualité, imposés par IR-09"
+     "resolution": "Même scénario de référence et même facteur de qualité Q (IR-07, IR-09) ; en Situation B l'ACV substitue la technologie marginale tandis que l'E-LCC valorise au prix moyen du marché : déclaré comme écart (D4.2 §2.2), voir la note du cas"
     },
     "CDP-02": {
      "name": "Désaccord sur l'actualisation",
-     "body": "La LCA interdit l'actualisation ; la LCC l'impose",
-     "resolution": "Chacune garde sa convention (IR-05) ; la LCC utilise des coûts annualisés pour l'éco-efficacité"
+     "body": "L'ACV additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d'actualisation » de la D4.1 §14.2.2",
+     "resolution": "Chacun garde sa convention (IR-05) : impacts non actualisés en série temporelle, coûts actualisés à un taux déclaré avec analyse de sensibilité ; tout ratio étiqueté « coût actualisé par impact non actualisé » (D4.1 §14.2.2)"
     },
     "CDP-03": {
      "name": "Score unique contre NPV",
-     "body": "La S-LCA interdit le score unique ; la LCC produit un NPV",
-     "resolution": "Interprétation parallèle selon IR-04 ; le NPV reste un résultat de la seule dimension économique"
+     "body": "La D4.3 présente les résultats sociaux par groupe de parties prenantes et déconseille un score social unique (§9.3) ; le LCC produit une seule VAN",
+     "resolution": "Interprétation parallèle (IR-04) : la VAN est le résultat économique, les résultats sociaux restent par groupe et par indicateur ; aucune somme entre les deux"
     },
     "CDP-04": {
      "name": "Paradigmes d'incertitude différents",
@@ -1569,8 +1569,8 @@
     },
     "CDP-08": {
      "name": "Tension sur la pondération et l'agrégation",
-     "body": "La LCA interdit la pondération en public, la S-LCA le score unique ; les utilisateurs veulent un seul chiffre",
-     "resolution": "Pas de score unique dans la communication publique (IR-10) ; les tableaux de bord internes restent 3 séparés"
+     "body": "L'ISO 14044 exclut la pondération des affirmations comparatives divulguées au public et la D4.1 §12.3.4 la déconseille ailleurs ; la D4.3 §9.3 déconseille un score social unique ; les lecteurs demandent un seul chiffre",
+     "resolution": "Aucun score pondéré ou unique dans la divulgation publique (IR-10) ; en interne, trois tableaux de bord séparés (IR-04). Avec l'alignement sur les politiques de l'UE (Q4 = D), le score unique EF peut être présenté comme l'exige la méthode PEF, à côté des résultats désagrégés"
     },
     "CDP-09": {
      "name": "Asymétrie de la projection dans le futur",
@@ -1928,7 +1928,7 @@
     },
     "IR-06": {
      "name": "Einheitliche Daten-Governance",
-     "body": "Mehrdimensionale Bewertungen von Netzen mit mehreren Akteuren verlangen eine moderierende Stelle und unterzeichnete Vertraulichkeitsvereinbarungen (IR-06)."
+     "body": "Vertrauliche Daten von zwei oder mehr Unternehmen, für zwei oder mehr Dimensionen zusammengeführt: Ein neutraler Vermittler erhebt sie unter unterzeichneten Vertraulichkeitsvereinbarungen vor der Datenerhebung (D4.2 §2.3; D4.1 §9.3.2). Zwei Unternehmen reichen; ausgenommen ist nur die eigene Bilanz eines einzelnen Unternehmens (Situation C2) (IR-06)."
     },
     "IR-07": {
      "name": "Identische Referenzszenarien",
@@ -2079,17 +2079,17 @@
     "CDP-01": {
      "name": "Abweichung bei den verdrängten Produkten",
      "body": "LCA und LCC können bei der Systemerweiterung unterschiedliche verdrängte Produkte ansetzen",
-     "resolution": "Gleiches Referenzszenario und gleicher Qualitätsfaktor, durchgesetzt über IR-09"
+     "resolution": "Gleiches Referenzszenario und gleicher Qualitätsfaktor Q (IR-07, IR-09); in Situation B substituiert die Ökobilanz die marginale Technologie, während die E-LCC zum durchschnittlichen Marktpreis bewertet: als Abweichung erklärt (D4.2 §2.2), siehe die Fallnotiz"
     },
     "CDP-02": {
      "name": "Uneinigkeit über die Diskontierung",
-     "body": "Die LCA verbietet die Diskontierung, die LCC schreibt sie vor",
-     "resolution": "Jede behält ihre Konvention (IR-05); die LCC nutzt annualisierte Kosten für die Öko-Effizienz"
+     "body": "Die Ökobilanz summiert Wirkungen über die Zeit ohne Diskontierung (kein Konsens über deren Diskontierung); die LCC diskontiert Geldflüsse: die „Diskontierungs-Firewall“ der D4.1 §14.2.2",
+     "resolution": "Jede behält ihre Konvention (IR-05): Wirkungen undiskontiert als Zeitreihe, Kosten zu einem angegebenen Satz diskontiert mit Sensitivitätsanalyse; jedes Verhältnis als „diskontierte Kosten je undiskontierter Wirkung“ gekennzeichnet (D4.1 §14.2.2)"
     },
     "CDP-03": {
      "name": "Einzelwert gegen NPV",
-     "body": "Die S-LCA verbietet den Einzelwert, die LCC liefert einen NPV",
-     "resolution": "Parallele Auswertung nach IR-04; der NPV bleibt ein Ergebnis allein der ökonomischen Dimension"
+     "body": "D4.3 stellt soziale Ergebnisse nach Stakeholdergruppe dar und rät von einem einzigen sozialen Wert ab (§9.3); die LCC liefert einen Kapitalwert",
+     "resolution": "Parallele Interpretation (IR-04): Der Kapitalwert ist das ökonomische Ergebnis, die sozialen Ergebnisse bleiben nach Gruppe und Indikator; keine Summe aus beiden"
     },
     "CDP-04": {
      "name": "Unterschiedliche Unsicherheitsparadigmen",
@@ -2113,8 +2113,8 @@
     },
     "CDP-08": {
      "name": "Spannung um Gewichtung und Aggregation",
-     "body": "Die LCA verbietet die Gewichtung in der Öffentlichkeit, die S-LCA den Einzelwert; Nutzende wollen eine einzige Zahl",
-     "resolution": "Kein Einzelwert in der öffentlichen Kommunikation (IR-10); interne Dashboards bleiben 3 getrennte"
+     "body": "ISO 14044 schließt Gewichtung bei zur Veröffentlichung bestimmten vergleichenden Aussagen aus und D4.1 §12.3.4 rät sonst davon ab; D4.3 §9.3 rät von einem einzigen sozialen Wert ab; Leser wollen eine Zahl",
+     "resolution": "Kein gewichteter oder einzelner Wert in der Veröffentlichung (IR-10); intern drei getrennte Dashboards (IR-04). Bei Ausrichtung auf EU-Politiken (Q4 = D) darf der EF-Einzelwert so angegeben werden, wie die PEF-Methode es verlangt, neben den aufgeschlüsselten Ergebnissen"
     },
     "CDP-09": {
      "name": "Asymmetrie der Zukunftsprojektion",
@@ -2472,7 +2472,7 @@
     },
     "IR-06": {
      "name": "Gobernanza unificada de los datos",
-     "body": "Las evaluaciones multidimensionales sobre redes con varios actores exigen un facilitador y acuerdos de confidencialidad firmados (IR-06)."
+     "body": "Datos confidenciales de dos o más empresas, reunidos para dos o más dimensiones: un facilitador neutral los recoge bajo acuerdos de confidencialidad firmados antes de la recogida de datos (D4.2 §2.3; D4.1 §9.3.2). Bastan dos empresas; solo están exentas las cuentas propias de una sola empresa (Situación C2) (IR-06)."
     },
     "IR-07": {
      "name": "Escenarios de referencia idénticos",
@@ -2623,17 +2623,17 @@
     "CDP-01": {
      "name": "Divergencia en los productos desplazados",
      "body": "Al ampliar el sistema, el LCA y el LCC pueden usar productos desplazados distintos",
-     "resolution": "Mismo escenario de referencia y mismo factor de calidad, impuestos por IR-09"
+     "resolution": "Mismo escenario de referencia y mismo factor de calidad Q (IR-07, IR-09); en la Situación B el ACV sustituye la tecnología marginal mientras que el E-LCC valora al precio medio de mercado: declarado como desviación (D4.2 §2.2), ver la nota del caso"
     },
     "CDP-02": {
      "name": "Desacuerdo sobre el descuento",
-     "body": "El LCA prohíbe el descuento; el LCC lo exige",
-     "resolution": "Cada uno mantiene su convención (IR-05); el LCC usa costes anualizados para la ecoeficiencia"
+     "body": "El ACV suma los impactos en el tiempo sin descontarlos (no hay consenso sobre descontarlos); el LCC descuenta los flujos monetarios: el «cortafuegos del descuento» de la D4.1 §14.2.2",
+     "resolution": "Cada uno mantiene su convención (IR-05): impactos sin descontar como serie temporal, costes descontados a una tasa declarada con análisis de sensibilidad; toda razón etiquetada «coste descontado por impacto sin descontar» (D4.1 §14.2.2)"
     },
     "CDP-03": {
      "name": "Puntuación única frente a NPV",
-     "body": "El S-LCA prohíbe la puntuación única; el LCC produce un NPV",
-     "resolution": "Interpretación paralela según IR-04; el NPV queda como resultado solo de la dimensión económica"
+     "body": "La D4.3 presenta los resultados sociales por grupo de partes interesadas y desaconseja una puntuación social única (§9.3); el LCC produce un único VAN",
+     "resolution": "Interpretación paralela (IR-04): el VAN es el resultado económico, los resultados sociales se quedan por grupo e indicador; ninguna suma entre ambos"
     },
     "CDP-04": {
      "name": "Paradigmas de incertidumbre distintos",
@@ -2657,8 +2657,8 @@
     },
     "CDP-08": {
      "name": "Tensión sobre ponderación y agregación",
-     "body": "El LCA prohíbe la ponderación en público y el S-LCA la puntuación única; la gente quiere una sola cifra",
-     "resolution": "Ninguna puntuación única en la comunicación pública (IR-10); los paneles internos siguen siendo 3 separados"
+     "body": "La ISO 14044 excluye la ponderación de las aseveraciones comparativas divulgadas al público y la D4.1 §12.3.4 la desaconseja en otros casos; la D4.3 §9.3 desaconseja una puntuación social única; los lectores piden un solo número",
+     "resolution": "Ninguna puntuación ponderada o única en la divulgación pública (IR-10); internamente, tres paneles separados (IR-04). Con la alineación con las políticas de la UE (Q4 = D), la puntuación única EF puede presentarse como exige el método PEF, junto a los resultados desagregados"
     },
     "CDP-09": {
      "name": "Asimetría en la proyección al futuro",

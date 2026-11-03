@@ -165,7 +165,7 @@
         "lcc_hc_03",
         "lca_mc_17"
       ],
-      "violation_message": "Multi-actor IS multi-dim assessments require facilitator + signed NDAs per IR-06.",
+      "violation_message": "Confidential data from two or more companies, pooled for two or more dimensions: a neutral facilitator collects it under signed NDAs before data collection starts (D4.2 §2.3; D4.1 §9.3.2). Two companies are enough; only one company's own accounts (Situation C2) are exempt (IR-06).",
       "review_note": "R3, 2026-10-18: was 'Q1 ∈ {A,B,C,E}'; Q1 describes the subject, and 'not Q1 = D' meant 'not one company in isolation'."
     },
     {
@@ -809,7 +809,7 @@
         "LCA",
         "LCC"
       ],
-      "resolution_at_l3": "Identical reference scenario + identical Q factor enforced (IR-09)",
+      "resolution_at_l3": "Identical reference scenario and quality factor Q (IR-07, IR-09); in Situation B the LCA substitutes the marginal technology while the E-LCC prices at the average market: declared as a deviation (D4.2 §2.2), see the case note",
       "related_rules": [
         "IR-09",
         "IR-07"
@@ -819,13 +819,13 @@
       "id": "CDP-02",
       "name": "Discounting Mismatch",
       "lifecycle_layer": "L3",
-      "tension": "LCA forbids discounting; LCC mandates it",
+      "tension": "LCA sums impacts over time undiscounted (no consensus on discounting them); LCC discounts monetary flows: the 'discounting firewall' of D4.1 §14.2.2",
       "severity": "MEDIUM",
       "methods": [
         "LCA",
         "LCC"
       ],
-      "resolution_at_l3": "Each retains own convention (IR-05); LCC uses annualized costs for eco-efficiency",
+      "resolution_at_l3": "Each keeps its convention (IR-05): impacts undiscounted as a time series, costs discounted at a stated rate with a sensitivity sweep; any ratio labelled 'discounted cost per undiscounted impact' (D4.1 §14.2.2)",
       "related_rules": [
         "IR-05"
       ]
@@ -834,13 +834,13 @@
       "id": "CDP-03",
       "name": "Single-Score vs NPV",
       "lifecycle_layer": "L3",
-      "tension": "S-LCA prohibits single-score; LCC produces NPV",
+      "tension": "D4.3 presents social results disaggregated by stakeholder group and discourages a single social score (§9.3); the LCC produces one NPV",
       "severity": "HIGH",
       "methods": [
         "LCC",
         "SLCA"
       ],
-      "resolution_at_l3": "Parallel interpretation per IR-04; NPV reported as economic dim only",
+      "resolution_at_l3": "Parallel interpretation (IR-04): the NPV is the economic result, the social results stay by group and indicator; no sum across the two",
       "related_rules": [
         "IR-04"
       ]
@@ -918,13 +918,13 @@
       "id": "CDP-08",
       "name": "Weighting/Aggregation Tension",
       "lifecycle_layer": "L3",
-      "tension": "LCA bans weighting (public); S-LCA bans single-score; users want single scores",
+      "tension": "ISO 14044 excludes weighting from comparative assertions disclosed to the public and D4.1 §12.3.4 discourages it elsewhere; D4.3 §9.3 discourages a single social score; readers ask for one number",
       "severity": "HIGH",
       "methods": [
         "LCA",
         "SLCA"
       ],
-      "resolution_at_l3": "No single-score for public disclosure per IR-10; internal dashboards remain 3 separate",
+      "resolution_at_l3": "No weighted or single score in public disclosure (IR-10); internally, three dashboards kept apart (IR-04). Under EU policy alignment (Q4 = D) the EF single score may be reported as the PEF method requires, next to the disaggregated results",
       "related_rules": [
         "IR-10",
         "IR-04"

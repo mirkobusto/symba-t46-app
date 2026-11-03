@@ -151,7 +151,7 @@ export default function CasesListPage() {
                   </button>{' '}
                   {item.slug ? (
                     <Link
-                      to={`/r/${item.slug}/community`}
+                      to={`/r/${item.slug}`}
                       className="btn btn-secondary"
                       target="_blank"
                       rel="noopener noreferrer"

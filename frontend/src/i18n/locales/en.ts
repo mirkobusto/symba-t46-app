@@ -35,7 +35,7 @@ const en = {
   share: {
     buttonLabel: 'Share report',
     title: 'Share this report',
-    lead: 'Send one of these URLs to a stakeholder. Same case, different framing for each audience — no login required to open.',
+    lead: 'Send one of these URLs to a stakeholder. Same case, different framing for each audience — no login required to open. For a product label, share the End-user link.',
     close: 'Close',
     done: 'Done',
     copy: 'Copy',
@@ -53,6 +53,14 @@ const en = {
 
   reader: {
     tagline: 'Public report',
+    // plain titles for the public views (decided by Fable, UX round 2026-11-03)
+    verdict: {
+      A: { title: 'A local exchange, assessed with average data', body: 'The exchange is small compared with the wider economy, so the study describes what it replaces with average market data (the national electricity mix, the average virgin material). This says nothing about how large its effects are on the plants or the area: those are what the study will measure.' },
+      B: { title: 'A large-scale decision, assessed with the market changes it causes', body: 'The decision is big enough to change what the wider economy builds or shuts down, so the study models those changes instead of average data.' },
+      C1: { title: 'An existing network, described as it runs', body: 'No decision is being taken: the study documents what the network already gives, compared with what each company would do without it.' },
+      C2: { title: 'One company\'s own accounts', body: 'The study reports one company\'s share of the burdens, with no credit for what its exchanges save elsewhere.' },
+    },
+    labelLine: 'Did this link come from a product label? This page describes how the companies\' exchanges will be studied. It says nothing yet about the product you bought.',
     loading: 'Loading the report…',
     notFoundTitle: 'Report not found',
     notFoundBody: 'No report has this code. Check that you copied the whole link, or ask whoever sent it for it again.',
@@ -86,6 +94,7 @@ const en = {
       pef: { name: "EU Product Environmental Footprint (PEF)", desc: "The study follows the EU footprint method, including its Circular Footprint Formula.", descC2: "Not applicable: one company's accounts use allocation, not the Circular Footprint Formula (ILCD C2)." },
       public: { name: "Public comparative claim", desc: "A public claim that a product is better than, or equivalent to, an alternative needs an ISO review panel." },
       dnsh: { name: "EU Taxonomy \"Do No Significant Harm\" (DNSH)", desc: "A separate screening for EU-taxonomy funding (art. 17); this tool does not perform it." },
+      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs (taxes and subsidies corrected, environmental effects priced) — D4.2 §2.3.', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective (Q10).', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.' },
       notPlanned: "not planned in this study",
       notAssessed: "not assessed by this tool",
     },
@@ -949,6 +958,7 @@ const en = {
         regional: 'Local impacts',
         sectors: 'Sector rules',
         shared: 'Dedicated assets',
+        claimPublic: 'Comparisons',
       },
       values: {
         noChapter: "No chapter of D4.1 Part 2 covers the declared flows: only Part 1 applies",
@@ -963,6 +973,7 @@ const en = {
         claim: 'Comparative claim to the public: critical review by a panel of at least three independent experts, no weighting',
         claimNone: 'No public comparative claim',
         claimPolicy: "No public comparative claim; EU policy alignment (Q4 = D): independent panel review, a T4.6 choice",
+        claimPublic: { none: 'This study is not meant to say that one product is better than, or as good as, another.', claim: 'The study will support a public claim that this exchange is better than, or as good as, an alternative; independent experts must review it first.', policy: 'The study follows the EU footprint method; it makes no claim that one product is better than another.' },
         scope_continental: 'continental',
         scope_sub_national: 'sub-national',
         scope_national: 'national',

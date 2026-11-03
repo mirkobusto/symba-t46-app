@@ -81,4 +81,31 @@ describe('public report', () => {
     renderAt('/r/c1')
     expect(await screen.findByText('Showing for — Local authority')).toBeTruthy()
   })
+
+  // decided by Fable on the UX round of 2026-11-03
+  it('opens a bare link on the end-user view and speaks to a product label', async () => {
+    renderAt('/r/c1')
+    expect(await screen.findByText('Showing for — End user')).toBeTruthy()
+    expect(screen.getByText(/Did this link come from a product label\?/)).toBeTruthy()
+  })
+
+  it('titles the verdict in words, keeping the ILCD code as a badge', async () => {
+    renderAt('/r/c1/community')
+    expect(await screen.findByText('A local exchange, assessed with average data')).toBeTruthy()
+    expect(screen.queryByText(/limited consequences/)).toBeNull()
+    expect(screen.getByText('ILCD Situation A')).toBeTruthy()
+  })
+
+  it('tells the authority whether the costing is set up for a public decision', async () => {
+    renderAt('/r/c1/authority')
+    expect(await screen.findByText('Set up for a public decision (societal LCC)')).toBeTruthy()
+    expect(screen.getByText(/ask the analyst to set the study up for a public objective/)).toBeTruthy()
+  })
+
+  it('does not tell the end user there is no claim when they hold a label', async () => {
+    renderAt('/r/c1/enduser')
+    expect(await screen.findByText('Comparisons')).toBeTruthy()
+    expect(screen.getByText(/not meant to say that one product is better than, or as good as, another/)).toBeTruthy()
+    expect(screen.queryByText('No public comparative claim')).toBeNull()
+  })
 })

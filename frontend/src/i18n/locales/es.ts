@@ -73,7 +73,7 @@ const es: Locale = {
 
   share: {
     buttonLabel: 'Compartir informe', title: 'Compartir este informe',
-    lead: 'Envía una de estas URLs a un stakeholder. Mismo caso, encuadre diferente para cada audiencia.',
+    lead: 'Envía una de estas URLs a un stakeholder. Mismo caso, encuadre diferente para cada audiencia. Para la etiqueta de un producto, comparte el enlace End user.',
     close: 'Cerrar', done: 'Hecho', copy: 'Copiar', copied: 'Copiado ✓',
     copyFailed: 'No se pudo copiar — copia la URL manualmente.',
     saveFirstTitle: 'Guarda primero el caso',
@@ -83,6 +83,14 @@ const es: Locale = {
 
   reader: {
     tagline: 'Informe público',
+    // plain titles for the public views (decided by Fable, UX round 2026-11-03)
+    verdict: {
+      A: { title: 'Un intercambio local, evaluado con datos medios', body: 'El intercambio es pequeño frente a la economía en su conjunto: el estudio describe lo que sustituye con datos medios de mercado (el mix eléctrico nacional, el material virgen medio). Esto no dice nada sobre lo grandes que son sus efectos en las plantas o en el territorio: eso es lo que medirá el estudio.' },
+      B: { title: 'Una decisión a gran escala, evaluada con los cambios de mercado que provoca', body: 'La decisión es lo bastante grande como para cambiar lo que la economía construye o cierra: el estudio modela esos cambios en lugar de usar datos medios.' },
+      C1: { title: 'Una red existente, descrita tal como funciona', body: 'No se toma ninguna decisión: el estudio documenta lo que la red ya aporta, frente a lo que cada empresa haría sin ella.' },
+      C2: { title: 'Las cuentas propias de una sola empresa', body: 'El estudio informa de la parte de las cargas de una sola empresa, sin crédito por lo que sus intercambios ahorran en otra parte.' },
+    },
+    labelLine: '¿Este enlace viene de la etiqueta de un producto? Esta página describe cómo se estudiarán los intercambios entre las empresas. Todavía no dice nada sobre el producto que has comprado.',
     loading: 'Cargando el informe…',
     notFoundTitle: 'Informe no encontrado',
     notFoundBody: 'No hay ningún informe con este código. Comprueba que has copiado el enlace completo, o pídeselo de nuevo a quien te lo envió.',
@@ -116,6 +124,7 @@ const es: Locale = {
       pef: { name: "Huella ambiental de producto UE (PEF)", desc: "El estudio sigue el método europeo de huella, incluida la Circular Footprint Formula.", descC2: "No aplicable: las cuentas de una sola empresa usan asignación, no la Circular Footprint Formula (ILCD C2)." },
       public: { name: "Afirmación comparativa pública", desc: "Afirmar en público que un producto es mejor o equivalente a otro exige un panel de revisión ISO." },
       dnsh: { name: "Taxonomía UE «no causar un perjuicio significativo» (DNSH)", desc: "Una verificación aparte para la financiación ligada a la taxonomía (art. 17); esta herramienta no la realiza." },
+      slcc: { name: 'Planteado para una decisión pública (LCC social)', yes: 'Sí: el cálculo de costes incluye la lectura de la sociedad que necesita una decisión pública (impuestos y subvenciones corregidos, efectos ambientales valorados) — D4.2 §2.3.', no: 'No: el cálculo de costes se queda a nivel de empresa y de cadena de valor. Si un organismo público tiene que decidir sobre este caso, pide al analista que plantee el estudio para un objetivo público (Q10).', c2: 'No aplicable: las cuentas de una sola empresa se calculan solo a nivel de empresa.', off: 'No evaluado: el estudio no tiene dimensión económica.' },
       notPlanned: "no prevista en este estudio",
       notAssessed: "no evaluada por esta herramienta",
     },
@@ -901,6 +910,7 @@ const es: Locale = {
         regional: 'Impactos locales',
         sectors: 'Reglas sectoriales',
         shared: 'Bienes dedicados',
+        claimPublic: 'Comparaciones',
       },
       values: {
         noChapter: "Ningún capítulo de la D4.1 Part 2 cubre los flujos declarados: solo se aplica la Part 1",
@@ -915,6 +925,7 @@ const es: Locale = {
         claim: 'Declaración comparativa al público: revisión crítica por un panel de al menos tres expertos independientes, sin ponderación',
         claimNone: 'Sin declaración comparativa pública',
         claimPolicy: "Sin declaración comparativa pública; alineación con las políticas de la UE (Q4 = D): revisión por un panel independiente, elección de T4.6",
+        claimPublic: { none: 'Este estudio no sirve para decir que un producto es mejor que otro, o equivalente.', claim: 'El estudio respaldará una afirmación pública de que este intercambio es mejor que una alternativa, o equivalente; antes deben revisarlo expertos independientes.', policy: 'El estudio sigue el método de huella ambiental de la UE; no afirma que un producto sea mejor que otro.' },
         scope_continental: 'continental',
         scope_sub_national: 'subnacional',
         scope_national: 'nacional',

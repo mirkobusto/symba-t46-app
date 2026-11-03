@@ -74,7 +74,7 @@ const it: Locale = {
   share: {
     buttonLabel: 'Condividi report',
     title: 'Condividi questo report',
-    lead: 'Manda uno di questi URL a uno stakeholder. Stesso caso, cornice diversa per ogni audience — nessun login necessario per aprirli.',
+    lead: 'Manda uno di questi URL a uno stakeholder. Stesso caso, cornice diversa per ogni audience — nessun login necessario per aprirli. Per un\'etichetta di prodotto, condividi il link End user.',
     close: 'Chiudi',
     done: 'Fatto',
     copy: 'Copia',
@@ -92,6 +92,14 @@ const it: Locale = {
 
   reader: {
     tagline: 'Report pubblico',
+    // plain titles for the public views (decided by Fable, UX round 2026-11-03)
+    verdict: {
+      A: { title: 'Uno scambio locale, valutato con dati medi', body: 'Lo scambio è piccolo rispetto all\'economia nel suo insieme: lo studio descrive ciò che sostituisce con dati medi di mercato (il mix elettrico nazionale, il materiale vergine medio). Non dice nulla su quanto siano grandi gli effetti sugli impianti o sul territorio: quelli li misurerà lo studio.' },
+      B: { title: 'Una decisione su larga scala, valutata con i cambiamenti di mercato che provoca', body: 'La decisione è abbastanza grande da cambiare ciò che l\'economia costruisce o chiude: lo studio modella quei cambiamenti invece di usare dati medi.' },
+      C1: { title: 'Una rete esistente, descritta così com\'è', body: 'Non c\'è una decisione da prendere: lo studio documenta ciò che la rete già dà, rispetto a quello che ogni azienda farebbe senza.' },
+      C2: { title: 'Il rendiconto di una sola azienda', body: 'Lo studio riporta la quota di carichi di una sola azienda, senza crediti per ciò che i suoi scambi fanno risparmiare altrove.' },
+    },
+    labelLine: 'Il link viene da un\'etichetta di prodotto? Questa pagina descrive come verranno studiati gli scambi fra le aziende. Non dice ancora nulla sul prodotto che hai comprato.',
     loading: 'Caricamento del report…',
     notFoundTitle: 'Report non trovato',
     notFoundBody: 'Nessun report con questo codice. Controlla di aver copiato tutto il link, oppure chiedilo di nuovo a chi te l\'ha mandato.',
@@ -125,6 +133,7 @@ const it: Locale = {
       pef: { name: "Impronta ambientale di prodotto UE (PEF)", desc: "Lo studio segue il metodo UE dell'impronta ambientale, compresa la Circular Footprint Formula.", descC2: "Non applicabile: il rendiconto di una sola azienda usa l'allocazione, non la Circular Footprint Formula (ILCD C2)." },
       public: { name: "Affermazione comparativa pubblica", desc: "Dire in pubblico che un prodotto è migliore o equivalente a un altro richiede un panel di revisione ISO." },
       dnsh: { name: "Tassonomia UE, \"non arrecare danno significativo\" (DNSH)", desc: "Una verifica a parte per i finanziamenti legati alla tassonomia UE (art. 17); questo strumento non la esegue." },
+      slcc: { name: 'Impostato per una decisione pubblica (LCC sociale)', yes: 'Sì: il costing include la lettura della società che una decisione pubblica richiede (tasse e sussidi corretti, effetti ambientali valorizzati) — D4.2 §2.3.', no: 'No: il costing resta a livello di azienda e di filiera. Se su questo caso deve decidere un ente pubblico, chiedi all\'analista di impostare lo studio per un obiettivo pubblico (Q10).', c2: 'Non applicabile: il rendiconto di una sola azienda si calcola solo a livello d\'impresa.', off: 'Non valutato: lo studio non ha la dimensione economica.' },
       notPlanned: "non prevista in questo studio",
       notAssessed: "non valutata da questo strumento",
     },
@@ -927,6 +936,7 @@ const it: Locale = {
         regional: 'Impatti locali',
         sectors: 'Regole di settore',
         shared: 'Beni dedicati',
+        claimPublic: 'Confronti',
       },
       values: {
         noChapter: "Nessun capitolo della D4.1 Part 2 riguarda i flussi dichiarati: vale solo la Part 1",
@@ -941,6 +951,7 @@ const it: Locale = {
         claim: 'Dichiarazione comparativa al pubblico: revisione critica di un panel di almeno tre esperti indipendenti, niente pesatura',
         claimNone: 'Nessuna dichiarazione comparativa pubblica',
         claimPolicy: "Nessuna dichiarazione comparativa pubblica; allineamento alle politiche UE (Q4 = D): revisione di un panel indipendente, scelta T4.6",
+        claimPublic: { none: 'Questo studio non serve a dire che un prodotto è migliore di un altro, o equivalente.', claim: 'Lo studio sosterrà un\'affermazione pubblica che questo scambio è migliore di un\'alternativa, o equivalente; prima dovranno rivederlo esperti indipendenti.', policy: 'Lo studio segue il metodo UE dell\'impronta ambientale; non afferma che un prodotto sia migliore di un altro.' },
         scope_continental: 'continentale',
         scope_sub_national: 'sub-nazionale',
         scope_national: 'nazionale',

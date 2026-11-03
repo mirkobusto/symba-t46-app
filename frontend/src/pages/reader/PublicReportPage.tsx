@@ -24,7 +24,7 @@ import ScoringIndicatorGrid from '../../components/dd/ScoringIndicatorGrid'
 import VerdictCard from '../../components/dd/VerdictCard'
 import { ApiError, fetchPublicReport } from '../../services/api'
 import type { PublicReportResponse } from '../../types/reader'
-import { verdictFor } from '../resultNarrative'
+import { plainVerdict, verdictFor } from '../resultNarrative'
 import { AUDIENCE_ROWS } from '../configurationRows'
 import ConfigurationSummary from '../../components/ConfigurationSummary'
 import { usePreferenceStore, type UserRole } from '../../store/preferenceStore'
@@ -43,7 +43,9 @@ export default function PublicReportPage() {
   const role = usePreferenceStore((s) => s.role)
   const params = useParams<{ caseId: string; audience: string }>()
   const caseId = params.caseId ?? ''
-  const audience = params.audience ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'community'
+  // without a view and a role the reader came from a bare link, most likely a
+  // product label: the end-user view (UX round 2026-11-03, decided by Fable)
+  const audience = params.audience ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'enduser'
 
   const [report, setReport] = useState<PublicReportResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -88,7 +90,9 @@ export default function PublicReportPage() {
   }
 
   const { case: c, scoring } = report
-  const verdict = verdictFor(c, (key, fallback) => t(key, { defaultValue: fallback ?? '' }))
+  const tr = (key: string, fallback?: string) => t(key, { defaultValue: fallback ?? '' })
+  const verdict = verdictFor(c, tr)
+  const plain = verdict ? plainVerdict(c, verdict, tr) : null
   const scoringIndicators = (scoring?.indicators ?? []).map((i) => ({
     dim: i.dimension,
     label: i.label_en,
@@ -112,6 +116,7 @@ export default function PublicReportPage() {
       <div className="dd-reader-what">
         <strong>{t('reader.whatTitle')}</strong>
         <p>{t('reader.whatBody')}</p>
+        <p>{t('reader.labelLine')}</p>
       </div>
 
       <section className="dd-reader-case">
@@ -131,9 +136,9 @@ export default function PublicReportPage() {
       <VerdictCard
         variant="reader"
         eyebrow={t('reader.methodEyebrow')}
-        headline={verdict?.title ?? c.ilcd_situation ?? '—'}
+        headline={plain?.title ?? c.ilcd_situation ?? '—'}
         codes={verdict?.codes}
-        body={verdict?.body}
+        body={plain?.body}
         tags={[
           c.q6a && c.q6a !== 'none'
             ? t('reader.sectorTag', { sector: t(`questionnaire.q6a.options.${c.q6a}`) })
@@ -183,6 +188,7 @@ export default function PublicReportPage() {
           only={AUDIENCE_ROWS[validAudience === 'enduser' ? 'end-user' : validAudience]}
           showNodeText={false}
           showWhy={false}
+          audience={validAudience === 'enduser' ? 'end-user' : validAudience}
           titleClassName="dd-section-title"
           title={t('reader.summaryTitle')}
         />
@@ -229,6 +235,16 @@ export default function PublicReportPage() {
                 desc: t('reader.compliance.public.desc'),
                 status: c.q4?.includes('C') ? 'ok' : 'no',
                 label: c.q4?.includes('C') ? undefined : t('reader.compliance.notPlanned'),
+              },
+              {
+                // whether the costing takes society's view a public decision needs (D4.2 §2.3)
+                key: 'slcc',
+                name: t('reader.compliance.slcc.name'),
+                desc: t(`reader.compliance.slcc.${!c.q3?.eco ? 'off'
+                  : c.ilcd_situation === 'ILCD Situation C2' ? 'c2'
+                    : (c.lcc_type ?? '').includes('S') ? 'yes' : 'no'}`),
+                status: c.q3?.eco && (c.lcc_type ?? '').includes('S') ? 'ok'
+                  : !c.q3?.eco || c.ilcd_situation === 'ILCD Situation C2' ? 'na' : 'no',
               },
               {
                 key: 'dnsh',

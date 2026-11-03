@@ -45,7 +45,9 @@ function texts(...values: unknown[]): string[] {
   return values.filter((v): v is string => typeof v === 'string' && v.trim() !== '')
 }
 
-export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
+export function configurationRows(
+  kase: Case, t: Translate, opts: { audience?: string } = {},
+): ConfigRow[] {
   const rows: ConfigRow[] = []
   const env = !!kase.q3?.env
   const eco = !!kase.q3?.eco
@@ -195,11 +197,16 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     // asks the panel review (lca_mc_36, a T4.6 choice) but forbids no weighting
     const claim = (kase.q4 ?? []).includes('C')
     const policy = !claim && (kase.q4 ?? []).includes('D')
+    // the end user holds a product label: "no public comparative claim" read as
+    // a denial of the label (UX round 2026-11-03, decided by Fable)
+    const endUser = opts.audience === 'end-user'
     rows.push({
       key: 'claim',
-      label: label('claim'),
-      value: t(claim ? 'result.config.values.claim'
-        : policy ? 'result.config.values.claimPolicy' : 'result.config.values.claimNone'),
+      label: endUser ? t('result.config.labels.claimPublic') : label('claim'),
+      value: endUser
+        ? t(`result.config.values.claimPublic.${claim ? 'claim' : policy ? 'policy' : 'none'}`)
+        : t(claim ? 'result.config.values.claim'
+          : policy ? 'result.config.values.claimPolicy' : 'result.config.values.claimNone'),
       why: claim ? t('result.config.why.claim') : policy ? t('result.config.why.claimPolicy') : undefined,
       nodeText: claim ? texts((kase.review ?? {})['scope'], lca['weighting_policy'])
         : policy ? texts((kase.review ?? {})['scope']) : [],

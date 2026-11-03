@@ -18,13 +18,15 @@ interface Props {
   showWhy?: boolean
   headingLevel?: 'h2' | 'h3' | 'h4'
   titleClassName?: string
+  /** The audience view the rows are shown in (some rows speak to it in its words). */
+  audience?: string
 }
 
 export default function ConfigurationSummary({
-  kase, only, showNodeText = true, title, showWhy = true, headingLevel = 'h2', titleClassName,
+  kase, only, showNodeText = true, title, showWhy = true, headingLevel = 'h2', titleClassName, audience,
 }: Props) {
   const { t } = useTranslation()
-  const all = configurationRows(kase, (key, options) => t(key, options ?? {}) as string)
+  const all = configurationRows(kase, (key, options) => t(key, options ?? {}) as string, { audience })
   const rows = only ? only.map((k) => all.find((r) => r.key === k)).filter((r) => r !== undefined) : all
   if (rows.length === 0) return null
   const Heading = headingLevel

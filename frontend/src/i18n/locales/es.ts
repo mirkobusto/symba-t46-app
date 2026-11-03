@@ -167,6 +167,8 @@ const es: Locale = {
   },
 
   adminShell: {
+    menuOpen: "Menú",
+    menuClose: "Cerrar",
     searchLabel: 'Buscar',
     searchPlaceholder: 'Buscar casos, socios… (⌘K)',
     footerGa: 'GA',

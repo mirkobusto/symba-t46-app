@@ -167,6 +167,8 @@ const de: Locale = {
   },
 
   adminShell: {
+    menuOpen: "Menü",
+    menuClose: "Schließen",
     searchLabel: 'Suchen',
     searchPlaceholder: 'Fälle, Partner suchen… (⌘K)',
     footerGa: 'GA',

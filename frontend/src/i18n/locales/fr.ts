@@ -173,6 +173,8 @@ const fr: Locale = {
   },
 
   adminShell: {
+    menuOpen: "Menu",
+    menuClose: "Fermer",
     searchLabel: 'Rechercher',
     searchPlaceholder: 'Rechercher des cas, partenaires… (⌘K)',
     footerGa: 'GA',

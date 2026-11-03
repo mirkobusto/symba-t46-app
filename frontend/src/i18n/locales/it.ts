@@ -192,6 +192,8 @@ const it: Locale = {
   },
 
   adminShell: {
+    menuOpen: "Menu",
+    menuClose: "Chiudi",
     searchLabel: 'Cerca',
     searchPlaceholder: 'Cerca casi, partner… (⌘K)',
     footerGa: 'GA',

@@ -1404,7 +1404,7 @@ const it: Locale = {
     navLink: 'Dashboard regionale',
     title: 'Dashboard regionale / settoriale',
     subtitle:
-      'Breakdown di tutti i casi salvati per situazione ILCD, struttura LCC, settore e concentrazione delle interazioni chiave. Per autorità locali e analisti di policy.',
+      'Quanti casi salvati in questo strumento ricadono in ogni situazione, tipo di costing, settore e concentrazione delle interazioni. Tutti i casi salvati, da qualunque regione: un filtro per regione non c\'è ancora.',
     openButton: 'Apri dashboard regionale',
     backToCases: 'Torna ai casi',
     loading: 'Caricamento dati aggregati…',
@@ -1415,11 +1415,14 @@ const it: Locale = {
     tableKey: 'Valore',
     tableCount: 'Conteggio',
     breakdownTitle: {
-      byLccType: 'Per struttura LCC',
-      bySector: 'Per settore (Q6a)',
-      byScope: 'Per concentrazione delle interazioni (Q7)',
+      byLccType: 'Per tipo di costing',
+      bySector: 'Per settore',
+      byScope: 'Per concentrazione delle interazioni',
       byIlcd: 'Per situazione ILCD',
     },
+    mostCommon: 'Il più frequente',
+    noneKey: 'non risposto',
+    noCosting: 'nessun costing',
   },
 
   obligations: {

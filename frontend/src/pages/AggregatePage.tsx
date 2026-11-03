@@ -11,14 +11,18 @@ import { Link } from 'react-router-dom'
 import KpiCard from '../components/dd/KpiCard'
 import { ApiError, fetchCasesAggregate } from '../services/api'
 import type { AggregateBreakdownEntry, CasesAggregate } from '../types/scoring'
+import { type Axis, useAxisLabel } from './aggregateLabels'
 
 function BreakdownTable({
   title,
+  axis,
   entries,
 }: {
   title: string
+  axis: Axis
   entries: AggregateBreakdownEntry[]
 }) {
+  const label = useAxisLabel()
   const { t } = useTranslation()
   return (
     <div className="aggregate-breakdown">
@@ -36,7 +40,7 @@ function BreakdownTable({
           <tbody>
             {entries.map((e) => (
               <tr key={e.key}>
-                <td>{e.key}</td>
+                <td>{label(axis, e.key)}</td>
                 <td>{e.count}</td>
               </tr>
             ))}
@@ -49,6 +53,10 @@ function BreakdownTable({
 
 export default function AggregatePage() {
   const { t } = useTranslation()
+  const label = useAxisLabel()
+  // the cards counted categories (1, 1, 1), not cases: they now name the most common one
+  const top = (axis: Axis, entries: AggregateBreakdownEntry[]) =>
+    entries.length > 0 ? label(axis, entries[0].key) : '—'
   const [data, setData] = useState<CasesAggregate | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
@@ -115,33 +123,40 @@ export default function AggregatePage() {
         />
         <KpiCard
           label={t('aggregate.breakdownTitle.byIlcd')}
-          value={data.by_ilcd_situation.length}
+          value={<span className="aggregate-top">{top('ilcd', data.by_ilcd_situation)}</span>}
+          detail={t('aggregate.mostCommon')}
         />
         <KpiCard
           label={t('aggregate.breakdownTitle.bySector')}
-          value={data.by_q6a_sector.length}
+          value={<span className="aggregate-top">{top('sector', data.by_q6a_sector)}</span>}
+          detail={t('aggregate.mostCommon')}
         />
         <KpiCard
           label={t('aggregate.breakdownTitle.byScope')}
-          value={data.by_q7_geographic_scope.length}
+          value={<span className="aggregate-top">{top('scope', data.by_q7_geographic_scope)}</span>}
+          detail={t('aggregate.mostCommon')}
         />
       </div>
 
       <div className="aggregate-breakdowns">
         <BreakdownTable
           title={t('aggregate.breakdownTitle.byIlcd')}
+          axis="ilcd"
           entries={data.by_ilcd_situation}
         />
         <BreakdownTable
           title={t('aggregate.breakdownTitle.byLccType')}
+          axis="lcc"
           entries={data.by_lcc_type}
         />
         <BreakdownTable
           title={t('aggregate.breakdownTitle.bySector')}
+          axis="sector"
           entries={data.by_q6a_sector}
         />
         <BreakdownTable
           title={t('aggregate.breakdownTitle.byScope')}
+          axis="scope"
           entries={data.by_q7_geographic_scope}
         />
       </div>

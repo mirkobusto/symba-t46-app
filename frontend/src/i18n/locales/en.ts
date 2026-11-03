@@ -1425,7 +1425,7 @@ const en = {
     navLink: 'Regional dashboard',
     title: 'Regional / sectoral dashboard',
     subtitle:
-      'Breakdown of all saved cases by ILCD situation, LCC structure, sector and concentration of the key interactions. Intended for local authorities and policy analysts.',
+      'How many cases saved in this tool fall in each situation, costing type, sector and concentration of the interactions. All saved cases, from any region: a filter by region is not available yet.',
     openButton: 'Open regional dashboard',
     backToCases: 'Back to cases',
     loading: 'Loading aggregate data…',
@@ -1436,11 +1436,14 @@ const en = {
     tableKey: 'Value',
     tableCount: 'Count',
     breakdownTitle: {
-      byLccType: 'By LCC structure',
-      bySector: 'By sector (Q6a)',
-      byScope: 'By concentration of the interactions (Q7)',
+      byLccType: 'By costing type',
+      bySector: 'By sector',
+      byScope: 'By concentration of the interactions',
       byIlcd: 'By ILCD situation',
     },
+    mostCommon: 'Most common',
+    noneKey: 'not answered',
+    noCosting: 'no costing',
   },
 
   obligations: {

@@ -157,6 +157,8 @@ class DcfPayload(BaseModel):
     # charter answers shown on the cover (2026-10-18)
     study_purpose: str | None = None
     reference_market: str | None = None
+    # a costing-only study has no ILCD situation to show (UX round 5, P3-04)
+    costing_only: bool = False
 
     sections: list[DcfSection] = Field(default_factory=list)
     mandates_by_category: dict[str, list[DcfMandate]] = Field(default_factory=dict)
@@ -177,6 +179,12 @@ _NETWORK_SECTION_ID = "network_diagram"
 # rebuilt; they are not offered in the DCF dropdowns any more, where they read
 # as "(legacy)" duplicates of current sectors (UX round 2026-11-03).
 _LEGACY_ENUM_VALUES = {"wastewater_biofactories", "agri_food", "process_industry"}
+
+# Values a field no longer offers but still accepts from stored content: the
+# flow type is the physical nature of the flow; waste or by-product is the
+# classification's judgement, and the two contradicted each other in one row
+# (UX round 5, D5, P2-09 / P3-13). The schema keeps them.
+_RETIRED_ENUM_VALUES: dict[str, set[str]] = {"flow.type": {"waste", "by_product"}}
 
 # Keys we pass through from the JSON field schema into DcfFieldDescriptor.
 _FIELD_KEYS = {
@@ -237,7 +245,8 @@ def compose_dcf(
                 if evaluate(pred, ctx):
                     clean = {k: v for k, v in field_schema.items() if k in _FIELD_KEYS}
                     if clean.get("enum_values"):
-                        clean["enum_values"] = [v for v in clean["enum_values"] if v not in _LEGACY_ENUM_VALUES]
+                        retired = _LEGACY_ENUM_VALUES | _RETIRED_ENUM_VALUES.get(clean["id"], set())
+                        clean["enum_values"] = [v for v in clean["enum_values"] if v not in retired]
                     active_fields.append(DcfFieldDescriptor(**clean))
 
         _mark_derived_ids(active_fields)
@@ -255,6 +264,7 @@ def compose_dcf(
         schema_version=dcf_schema.get("meta", {}).get("schema_version", "unknown"),
         case_id=_case_id_str(case.id),
         ilcd_situation=case.ilcd_situation.value if case.ilcd_situation else None,
+        costing_only=bool(case.q3 and case.q3.eco and not case.q3.env),
         study_purpose=case.study_purpose.value.capitalize() if case.study_purpose else None,
         reference_market=(" ".join(x for x in (
             case.reference_market_region,

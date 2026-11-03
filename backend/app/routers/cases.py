@@ -138,7 +138,10 @@ def _to_detail(rec: CaseRecord) -> CaseDetail:
 def _populate_record(rec: CaseRecord, name: str, case: Case) -> None:
     rec.name = name
     rec.case_json = case.model_dump_json()
-    rec.ilcd_situation = case.ilcd_situation.value if case.ilcd_situation else None
+    # "My cases" and the dashboard show no ILCD situation for a costing-only
+    # study: the situations dictate the LCA model (UX round 5, P3-04)
+    lca = case.q3 is None or case.q3.env
+    rec.ilcd_situation = case.ilcd_situation.value if case.ilcd_situation and lca else None
 
 
 # ---------------------------------------------------------------------------

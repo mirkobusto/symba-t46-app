@@ -129,6 +129,10 @@ def validate_dcf_data(
         all_field_ids = {
             f["id"] for f in raw_sections.get(section_id, {}).get("fields", [])
         }
+        raw_enums = {
+            f["id"]: f.get("enum_values")
+            for f in raw_sections.get(section_id, {}).get("fields", [])
+        }
         id_field = _derived_id_field(section_id, all_field_ids)
         required_ids = [
             fid for fid, f in active_fields.items() if f.required and fid != id_field
@@ -193,6 +197,9 @@ def validate_dcf_data(
 
                 _check_enum(
                     field=active_fields[field_id],
+                    # the schema's own list: a retired value stored earlier is
+                    # still legal, only no longer offered (UX round 5, D5)
+                    allowed=raw_enums.get(field_id),
                     value=value,
                     section_id=section_id,
                     row_id=row.row_id,
@@ -248,6 +255,7 @@ def _check_enum(
     *,
     field: Any,
     value: Any,
+    allowed: list[str] | None = None,
     section_id: str,
     row_id: str,
     errors: list[DcfDataIssue],
@@ -259,9 +267,10 @@ def _check_enum(
     elsewhere, and duplicating that resolution here would be a second
     source of truth.
     """
-    if _is_empty(value) or not field.enum_values:
+    values = allowed or field.enum_values
+    if _is_empty(value) or not values:
         return
-    if value not in field.enum_values:
+    if value not in values:
         errors.append(
             DcfDataIssue(
                 code="invalid_enum",

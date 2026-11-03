@@ -475,3 +475,57 @@ def test_flow_classification_rejects_an_unknown_flow(client):
         {"row_id": "c1", "values": {"classif.flow_id": "nope"}}
     ]
     assert _put_expect_422(client, case_id, body)[0]["code"] == "broken_reference"
+
+
+def _cover_cells(content: bytes) -> dict:
+    from io import BytesIO
+
+    import openpyxl
+
+    ws = openpyxl.load_workbook(BytesIO(content)).worksheets[0]
+    return {r[0].value: r[1].value for r in ws.iter_rows(min_row=3) if r[0].value}
+
+
+def test_cover_carries_the_result_rows_the_case_id_and_the_date(client):
+    """The cover says what the result page says, names the case by its readable
+    id and the day (UX round 5, D7 / P7-07)."""
+    from datetime import UTC, datetime
+
+    case_id = _create_case(client)
+    slug = client.get(f"/api/cases/{case_id}").json()["slug"]
+    rows = [{"label": "Reference scenario", "value": "What each firm would do today without the links (HNSRS)"}]
+    r = client.post(f"/api/dcf/{case_id}/export/xlsx", json={"rows": rows})
+    assert r.status_code == 200, r.text
+    cover = _cover_cells(r.content)
+    assert cover["Case ID"] == slug
+    assert cover["Generated on"] == datetime.now(UTC).date().isoformat()
+    assert cover["Reference scenario"].endswith("(HNSRS)")
+    assert "Schema version" not in cover
+    assert f'DCF_{slug}_' in r.headers["content-disposition"]
+
+
+def test_a_costing_only_cover_has_no_ilcd_situation(client):
+    body = {**WIKTOR_BODY, "q3": {"env": False, "eco": True, "soc": False}}
+    case_id = client.post("/api/cases", json={"name": "costing", "case": body}).json()["id"]
+    cover = _cover_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content)
+    assert "ILCD situation" not in cover
+    assert "Costing" in " ".join(cover) or any("LCC" in str(v) for v in cover.values())
+
+
+def test_a_draft_export_accepts_the_rows_too(client):
+    r = client.post("/api/dcf/export/docx", json={"case": WIKTOR_BODY, "rows": [{"label": "Horizon", "value": "today"}]})
+    assert r.status_code == 200, r.text
+    assert "DCF_draft_" in r.headers["content-disposition"]
+
+
+def test_flow_type_no_longer_offers_waste_but_accepts_it_when_stored(client):
+    """The flow type is the physical nature; waste/by-product is the
+    classification's call (UX round 5, D5). Stored values stay legal."""
+    case_id = _create_case(client)
+    preview = client.post("/api/dcf/preview", json=WIKTOR_BODY).json()
+    [matrix] = [s for s in preview["sections"] if s["id"] == "flow_matrix"]
+    [ftype] = [f for f in matrix["fields"] if f["id"] == "flow.type"]
+    assert "waste" not in ftype["enum_values"] and "by_product" not in ftype["enum_values"]
+    data = _two_actors_one_flow(case_id)  # stores flow.type = "waste"
+    r = client.put(f"/api/dcf/{case_id}/data", json=data)
+    assert r.status_code == 200, r.text

@@ -150,17 +150,18 @@ describe('DCF API client', () => {
     ).rejects.toBeInstanceOf(ApiError)
   })
 
-  it('fetchDcfXlsxForCase GETs the case-scoped export', async () => {
+  it('fetchDcfXlsxForCase posts the cover rows to the case-scoped export (UX round 5, D7)', async () => {
     const mock = vi.fn(() =>
       Promise.resolve(okBlobResponse('application/vnd.ms-excel')),
     ) as unknown as typeof fetch
     vi.stubGlobal('fetch', mock)
 
-    await fetchDcfXlsxForCase('c1')
+    await fetchDcfXlsxForCase('c1', [{ label: 'Horizon', value: 'today' }])
 
     const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
     const [url, init] = calls[0] as [string, RequestInit | undefined]
     expect(String(url)).toContain('/api/dcf/c1/export/xlsx')
-    expect(init?.method ?? 'GET').toBe('GET')
+    expect(init?.method).toBe('POST')
+    expect(JSON.parse(String(init?.body))).toEqual({ rows: [{ label: 'Horizon', value: 'today' }] })
   })
 })

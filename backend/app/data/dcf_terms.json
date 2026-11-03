@@ -80,7 +80,8 @@
     "label": "Flow name"
    },
    "flow.type": {
-    "label": "Flow type"
+    "label": "Physical nature of the flow",
+    "description": "Material, energy, water, utility, service or information. Whether it is a waste or a by-product is the Flow classification's call."
    },
    "flow.q5_class": {
     "label": "Who pays whom",
@@ -444,6 +445,7 @@
    "cover.purpose": "Kind of study",
    "cover.market": "Reference market",
    "cover.schema": "Schema version",
+   "cover.generated": "Generated on",
    "not_active": "This section is not active for this case.",
    "ins.title": "How to fill in this Data Collection File",
    "ins.case": "Case: {name}",
@@ -557,11 +559,11 @@
     "process_industry": "Process industry (legacy)"
    },
    "Q5": {
-    "a": "a — the supplier (A) pays the receiver (B): waste",
-    "b": "b — Free (ambiguous)",
-    "c": "c — the receiver (B) pays the supplier (A): co-product",
-    "d": "d — Interdependent",
-    "e": "e — Aggregated / black-box"
+    "a": "a — whoever gives it pays the receiver to take it away",
+    "b": "b — nobody pays, or it is not clear yet",
+    "c": "c — the receiver pays whoever gives it",
+    "d": "d — the two plants depend on each other (one was changed to supply the other)",
+    "e": "e — only one total figure for the whole network"
    }
   }
  },
@@ -646,7 +648,8 @@
     "label": "Nome del flusso"
    },
    "flow.type": {
-    "label": "Tipo di flusso"
+    "label": "Natura fisica del flusso",
+    "description": "Materiale, energia, acqua, utility, servizio o informazione. Se sia un rifiuto o un sottoprodotto lo dice la Classificazione dei flussi."
    },
    "flow.q5_class": {
     "label": "Chi paga chi",
@@ -1010,6 +1013,7 @@
    "cover.purpose": "Tipo di studio",
    "cover.market": "Mercato di riferimento",
    "cover.schema": "Versione dello schema",
+   "cover.generated": "Generato il",
    "not_active": "Questa sezione non è attiva per questo caso.",
    "ins.title": "Come compilare questo Data Collection File",
    "ins.case": "Caso: {name}",
@@ -1123,11 +1127,11 @@
     "process_industry": "Industria di processo (legacy)"
    },
    "Q5": {
-    "a": "a — chi cede (A) paga chi riceve (B): rifiuto",
-    "b": "b — Scambio gratuito (ambiguo)",
-    "c": "c — chi riceve (B) paga chi cede (A): co-prodotto",
-    "d": "d — Interdipendente",
-    "e": "e — Aggregato / black-box"
+    "a": "a — chi lo cede paga chi lo riceve perché se lo porti via",
+    "b": "b — nessuno paga, o non è ancora chiaro",
+    "c": "c — chi lo riceve paga chi lo cede",
+    "d": "d — i due impianti dipendono l'uno dall'altro (uno è stato modificato per rifornire l'altro)",
+    "e": "e — solo un dato complessivo per tutta la rete"
    }
   }
  },
@@ -1212,7 +1216,8 @@
     "label": "Nom du flux"
    },
    "flow.type": {
-    "label": "Type de flux"
+    "label": "Nature physique du flux",
+    "description": "Matière, énergie, eau, utilité, service ou information. S'il s'agit d'un déchet ou d'un sous-produit, c'est la Classification des flux qui le dit."
    },
    "flow.q5_class": {
     "label": "Qui paie qui",
@@ -1576,6 +1581,7 @@
    "cover.purpose": "Type d'étude",
    "cover.market": "Marché de référence",
    "cover.schema": "Version du schéma",
+   "cover.generated": "Généré le",
    "not_active": "Cette section n'est pas active pour ce cas.",
    "ins.title": "Comment remplir ce Data Collection File",
    "ins.case": "Cas : {name}",
@@ -1689,11 +1695,11 @@
     "process_industry": "Industrie de process (legacy)"
    },
    "Q5": {
-    "a": "a — le fournisseur (A) paie le receveur (B) : déchet",
-    "b": "b — Échange gratuit (ambigu)",
-    "c": "c — le receveur (B) paie le fournisseur (A) : co-produit",
-    "d": "d — Interdépendant",
-    "e": "e — Agrégé / black-box"
+    "a": "a — qui le cède paie qui le reçoit pour s'en débarrasser",
+    "b": "b — personne ne paie, ou ce n'est pas encore clair",
+    "c": "c — qui le reçoit paie qui le cède",
+    "d": "d — les deux installations dépendent l'une de l'autre (l'une a été modifiée pour alimenter l'autre)",
+    "e": "e — un seul chiffre total pour tout le réseau"
    }
   }
  },
@@ -1778,7 +1784,8 @@
     "label": "Name des Flusses"
    },
    "flow.type": {
-    "label": "Art des Flusses"
+    "label": "Physische Art des Flusses",
+    "description": "Material, Energie, Wasser, Versorgungsleistung, Dienstleistung oder Information. Ob es Abfall oder ein Nebenprodukt ist, sagt die Flussklassifizierung."
    },
    "flow.q5_class": {
     "label": "Wer zahlt wen",
@@ -2142,6 +2149,7 @@
    "cover.purpose": "Art der Studie",
    "cover.market": "Referenzmarkt",
    "cover.schema": "Schemaversion",
+   "cover.generated": "Erstellt am",
    "not_active": "Dieser Abschnitt ist für diesen Fall nicht aktiv.",
    "ins.title": "So füllen Sie dieses Data Collection File aus",
    "ins.case": "Fall: {name}",
@@ -2255,11 +2263,11 @@
     "process_industry": "Prozessindustrie (legacy)"
    },
    "Q5": {
-    "a": "a — der Abgeber (A) zahlt den Abnehmer (B): Abfall",
-    "b": "b — Freier Tausch (mehrdeutig)",
-    "c": "c — der Abnehmer (B) zahlt den Abgeber (A): Co-Produkt",
-    "d": "d — Interdependent",
-    "e": "e — Aggregiert / Black-box"
+    "a": "a — wer es abgibt, zahlt dem Empfänger für die Abnahme",
+    "b": "b — niemand zahlt, oder es ist noch nicht klar",
+    "c": "c — der Empfänger zahlt dem Abgebenden",
+    "d": "d — die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)",
+    "e": "e — nur eine Gesamtzahl für das ganze Netzwerk"
    }
   }
  },
@@ -2344,7 +2352,8 @@
     "label": "Nombre del flujo"
    },
    "flow.type": {
-    "label": "Tipo de flujo"
+    "label": "Naturaleza física del flujo",
+    "description": "Material, energía, agua, suministro, servicio o información. Si es un residuo o un subproducto lo dice la Clasificación de flujos."
    },
    "flow.q5_class": {
     "label": "Quién paga a quién",
@@ -2708,6 +2717,7 @@
    "cover.purpose": "Tipo de estudio",
    "cover.market": "Mercado de referencia",
    "cover.schema": "Versión del esquema",
+   "cover.generated": "Generado el",
    "not_active": "Esta sección no está activa para este caso.",
    "ins.title": "Cómo rellenar este Data Collection File",
    "ins.case": "Caso: {name}",
@@ -2821,11 +2831,11 @@
     "process_industry": "Industria de proceso (legacy)"
    },
    "Q5": {
-    "a": "a — quien cede (A) paga a quien recibe (B): residuo",
-    "b": "b — Intercambio gratuito (ambiguo)",
-    "c": "c — quien recibe (B) paga a quien cede (A): co-producto",
-    "d": "d — Interdependiente",
-    "e": "e — Agregado / black-box"
+    "a": "a — quien lo cede paga a quien lo recibe para que se lo lleve",
+    "b": "b — nadie paga, o aún no está claro",
+    "c": "c — quien lo recibe paga a quien lo cede",
+    "d": "d — las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)",
+    "e": "e — solo una cifra total para toda la red"
    }
   }
  }

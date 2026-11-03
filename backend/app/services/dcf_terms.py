@@ -155,3 +155,37 @@ def cover_value(lang: str, field: str, raw: str | None) -> str:
         name = scope.split(" (")[0].lower() if scope else m.group(2)
         return f"{m.group(1)} ({name})".strip()
     return raw
+
+
+def cover_rows(
+    payload: Any,
+    lang: str,
+    config_rows: list[dict[str, str]] | None = None,
+    case_ref: str | None = None,
+    generated_on: str | None = None,
+) -> list[tuple[str, str]]:
+    """The cover of the workbook and of the companion document.
+
+    It names the case by its readable id and the day it was generated (two
+    files of two versions looked identical, UX round 5, P7-07), and states the
+    configuration with the rows of the result page when the browser sends them
+    (D7: reference scenario, horizon, functional unit, treatment of each flow),
+    so the file and the screen say the same thing. Without them it falls back
+    to the situation and costing badges; a costing-only study has no ILCD
+    situation (P3-04). The schema version is gone: it read as "draft".
+    """
+    rows: list[tuple[str, str]] = [(ui(lang, "cover.case_id"), case_ref or payload.case_id)]
+    if generated_on:
+        rows.append((ui(lang, "cover.generated"), generated_on))
+    if config_rows:
+        # the result rows already carry the kind of study and the market (in
+        # the reference scenario row): no second copy
+        rows.extend((r["label"], r["value"]) for r in config_rows if r.get("label"))
+        return rows
+    rows.append((ui(lang, "cover.purpose"), cover_value(lang, "purpose", payload.study_purpose)))
+    rows.append((ui(lang, "cover.market"), cover_value(lang, "market", payload.reference_market)))
+    if not payload.costing_only:
+        rows.append((ui(lang, "cover.ilcd"), cover_value(lang, "ilcd", payload.ilcd_situation)))
+    rows.append((ui(lang, "cover.lcc"), cover_value(lang, "lcc", payload.lcc_type)))
+    rows.append((ui(lang, "cover.slca"), cover_value(lang, "slca", payload.slca_activation_state)))
+    return rows

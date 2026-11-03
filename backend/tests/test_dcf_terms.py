@@ -63,9 +63,15 @@ def test_the_questionnaire_vocabularies_match_the_app_locale():
     for lang in LANGUAGES:
         ts = (ROOT / f"frontend/src/i18n/locales/{lang}.ts").read_text()
         refs = _terms()[lang]["enum_refs"]
+        # Q5: the guided questionnaire's wording, after the letter; "a waste" /
+        # "a product" left to the classification (UX round 5, D5)
+        start = ts.index("    plainOptions: {")
+        block = ts[start:ts.index("\n    },", start)].replace("\\'", "'")
         for value, label in refs["Q5"].items():
-            assert re.search(rf"\n      {value}: {re.escape(json.dumps(label, ensure_ascii=False))}", ts) or \
-                f"'{label}'" in ts, (lang, value)
+            prefix, _, body = label.partition(" — ")
+            assert prefix == value, (lang, value)
+            assert re.search(rf"\n      {value}: '{re.escape(body[0].upper() + body[1:])}", block) or \
+                re.search(rf"\n      {value}: '{re.escape(body)}", block), (lang, value, body)
         assert refs["Q6a"]["steel_metals"] in ts
 
 

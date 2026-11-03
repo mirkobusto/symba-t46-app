@@ -37,7 +37,9 @@ gets edited externally.
 from __future__ import annotations
 
 import ast
+import re
 from dataclasses import dataclass
+from types import SimpleNamespace
 from typing import Any
 
 from app.engine.activate import needs_future_background
@@ -175,3 +177,26 @@ def build_context_from_case(case: Any) -> dict[str, Any]:
         "future_background": needs_future_background(case),
         "always": True,
     }
+
+
+# ---------------------------------------------------------------------------
+# Row conditions (DCF fields asked only on some rows, e.g. `infra.status == "new"`)
+# ---------------------------------------------------------------------------
+
+_ROW_REF = re.compile(r"\b([a-z_]+)\.([a-z_][a-z0-9_]*)\b")
+
+
+def row_context(context: dict[str, Any], row_values: dict[str, Any]) -> dict[str, Any]:
+    """`context` plus one read-only namespace per field prefix of the row
+    (`infra.status` → `infra.status`), so a row_condition can be evaluated."""
+    by_prefix: dict[str, dict[str, Any]] = {}
+    for field_id, value in row_values.items():
+        prefix, _, attr = field_id.partition(".")
+        if attr.isidentifier() and prefix.isidentifier():
+            by_prefix.setdefault(prefix, {})[attr] = value
+    return {**context, **{p: SimpleNamespace(**v) for p, v in by_prefix.items() if p not in context}}
+
+
+def row_condition_fields(condition: str) -> set[str]:
+    """Row fields a row_condition reads (`infra.status`), q3 excluded."""
+    return {f"{a}.{b}" for a, b in _ROW_REF.findall(condition) if a != "q3"}

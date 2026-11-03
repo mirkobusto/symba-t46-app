@@ -917,7 +917,7 @@ const de: Locale = {
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Was das für Sie bedeutet',
-      lead: 'Das Tool hat festgelegt, wie die Studie zu Ihrem Fall angelegt werden muss und welche Daten sie braucht. Es berechnet nicht, ob sich der Austausch lohnt oder der Umwelt nützt: Das macht ein Analyst oder Berater mit den Daten, die Sie sammeln.',
+      lead: 'Geteilte Fälle mit mindestens einem Partner in {{code}}, nach dem Land, das im Netzwerk-Editor für jedes Unternehmen angegeben ist. Ein Fall ohne gezeichnetes Netzwerk zählt nicht.',
       step1: 'Speichern Sie den Fall, um ihn wiederzufinden. Dafür braucht es ein kostenloses Konto; ohne Konto bleibt der Fall nur in diesem Browser.',
       step2: 'Öffnen Sie das Data Collection File, zeichnen Sie die Unternehmen und die Austausche und laden Sie dann die Excel-Datei herunter: Ihre Fachleute füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
       step3: 'Geben Sie Datei und Bericht an die Person, die die Studie durchführt (Analyst, Berater, Hochschule): Die technischen Punkte weiter unten sind für sie.',

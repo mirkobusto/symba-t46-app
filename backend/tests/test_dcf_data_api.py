@@ -545,6 +545,9 @@ def test_both_dashboards_count_a_costing_only_study_without_ilcd(client):
     body = {**WIKTOR_BODY, "q3": {"env": False, "eco": True, "soc": False}}
     case_id = client.post("/api/cases", json={"name": "costing", "case": body}).json()["id"]
     client.post(f"/api/cases/{case_id}/share", json={"shared": True})
+    # the public region counts the cases with a partner in the country
+    client.put(f"/api/dcf/{case_id}/data", json={"case_id": case_id, "rows_by_section": {"actors": [
+        {"row_id": "a1", "values": {"actor.name": "WWTP", "actor.role": "partner", "actor.country_iso2": "IT"}}]}})
     private = client.get("/api/cases/aggregate/breakdown").json()["by_ilcd_situation"]
     public = client.get("/api/public/region/IT").json()["by_ilcd_situation"]
     # both say "no situation", each in its own format

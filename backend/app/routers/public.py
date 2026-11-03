@@ -26,7 +26,7 @@ from sqlalchemy.orm import Session as OrmSession
 from app.db import get_db
 from app.domain.models import Case
 from app.domain.scoring import ScoringPayload
-from app.models import CaseRecord, CaseScoring
+from app.models import CaseDcfData, CaseRecord, CaseScoring
 
 router = APIRouter(tags=["public"])
 
@@ -122,13 +122,38 @@ def public_region_aggregate(
     region_code: str,
     db: OrmSession = Depends(get_db),
 ) -> RegionAggregate:
-    """Stub aggregate. Phase 8 will add a real region column; for now
-    we return the same breakdowns as /api/cases/aggregate/breakdown but
-    keep the endpoint shape stable so the frontend page can be shipped."""
+    """Shared cases with at least one partner in the country `region_code`
+    (ISO 3166-1 alpha-2), read from the actors of the network the case
+    stores (`actor.country_iso2`, the only per-case geography filled in).
+    A case without a drawn network does not count. Q7b is the reference
+    market, not where the partners are, so it is not used."""
     from collections import Counter
 
+    from app.domain.dcf_data import DcfData
+    from app.engine.dcf_rows import rows_for
+
+    code = region_code.strip().upper()
     # only shared cases count on a public page (UX round 2026-11-03)
-    rows = db.execute(select(CaseRecord).where(CaseRecord.shared_at.is_not(None))).scalars().all()
+    shared = db.execute(select(CaseRecord).where(CaseRecord.shared_at.is_not(None))).scalars().all()
+    stored = {
+        d.case_id: d.data_json
+        for d in db.execute(
+            select(CaseDcfData).where(CaseDcfData.case_id.in_([r.id for r in shared]))
+        ).scalars()
+    }
+
+    def _in_region(case_id: str) -> bool:
+        raw = stored.get(case_id)
+        if raw is None:
+            return False
+        try:
+            data = DcfData.model_validate_json(raw)
+        except Exception:
+            return False
+        return any(str(row.values.get("actor.country_iso2") or "").strip().upper() == code
+                   for row in rows_for(data, "actors"))
+
+    rows = [r for r in shared if _in_region(r.id)]
     ilcd_counter: Counter[str | None] = Counter()
     sector_counter: Counter[str | None] = Counter()
     from app.routers.cases import shown_ilcd
@@ -152,7 +177,7 @@ def public_region_aggregate(
         ]
 
     return RegionAggregate(
-        region=region_code,
+        region=code,
         total=len(rows),
         by_ilcd_situation=_fmt(ilcd_counter),
         by_sector=_fmt(sector_counter),

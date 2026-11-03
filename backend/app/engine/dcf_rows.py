@@ -92,9 +92,22 @@ def cell_values(section: DcfSection, row: DcfRow) -> list[Any]:
     for field in section.fields:
         if field.id == id_field:
             out.append(row.row_id)
+        elif not row_condition_holds(field, row):
+            # dormant on this row (e.g. CAPEX on an existing asset): kept, not exported
+            out.append(None)
         else:
             out.append(row.values.get(field.id))
     return out
+
+
+def row_condition_holds(field: Any, row: DcfRow) -> bool:
+    """False when the field is asked only on rows whose condition field takes
+    other values (DcfFieldDescriptor.row_condition_values)."""
+    values = getattr(field, "row_condition_values", None)
+    if values is None:
+        return True
+    current = row.values.get(field.row_condition_field)
+    return current in (None, "") or current in values
 
 
 def actor_label(row: DcfRow, fallback: str | None = None) -> str:

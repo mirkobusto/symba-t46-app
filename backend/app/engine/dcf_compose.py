@@ -25,7 +25,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.domain.models import Case
-from app.engine.predicate import build_context_from_case, evaluate
+from app.engine.predicate import build_context_from_case, evaluate, row_condition_fields, row_context
 
 # ---------------------------------------------------------------------------
 # Output models (Pydantic v2)
@@ -60,6 +60,11 @@ class DcfFieldDescriptor(BaseModel):
     min: float | None = None
     max: float | None = None
     row_condition: str | None = None
+    # the values of the row field the condition reads (e.g. the statuses of an
+    # infrastructure row) for which the field is asked, given the case; None
+    # when it is asked on every row (DCF row_condition, audit leftover)
+    row_condition_field: str | None = None
+    row_condition_values: list[str] | None = None
     source_ref: str | None = None
     # in the reader's language (services.dcf_terms.localize); None until then
     label: str | None = None
@@ -265,6 +270,7 @@ def compose_dcf(
                     active_fields.append(DcfFieldDescriptor(**clean))
 
         _mark_derived_ids(active_fields)
+        _resolve_row_conditions(active_fields, ctx)
         if sec_id == "reference_scenario" and situation_c2:
             # one company's accounts take no substitution credits: the reference
             # without the exchanges is reported only for comparison (D4.1 §7.2.3,
@@ -307,6 +313,29 @@ def compose_dcf(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+
+def _resolve_row_conditions(fields: list[DcfFieldDescriptor], ctx: dict[str, Any]) -> None:
+    """For a field asked only on some rows, list the values of the row field
+    the condition reads for which it is asked. The case-level part of the
+    condition is settled here (`… or lcc_type in [...]`): when it holds, the
+    field is asked on every row."""
+    by_id = {f.id: f for f in fields}
+    for field in fields:
+        if not field.row_condition:
+            continue
+        refs = row_condition_fields(field.row_condition)
+        if len(refs) != 1:
+            continue
+        (ref,) = refs
+        candidates = (by_id[ref].enum_values or []) if ref in by_id else []
+        if not candidates:
+            continue
+        holds = [v for v in candidates
+                 if evaluate(field.row_condition, row_context(ctx, {ref: v}))]
+        if len(holds) < len(candidates):
+            field.row_condition_field = ref
+            field.row_condition_values = holds
 
 
 def _mark_derived_ids(fields: list[DcfFieldDescriptor]) -> None:

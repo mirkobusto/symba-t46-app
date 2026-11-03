@@ -67,9 +67,31 @@ def test_slugs_carry_eight_hex_digits(client):
     assert re.search(r"-[0-9a-f]{8}$", saved["slug"]), saved["slug"]
 
 
+def _network_in(client, headers, case_id: str, country: str | None) -> None:
+    values = {"actor.name": "Dairy", "actor.role": "partner"}
+    if country:
+        values["actor.country_iso2"] = country
+    r = client.put(f"/api/dcf/{case_id}/data", headers=headers, json={
+        "case_id": case_id, "rows_by_section": {"actors": [{"row_id": "a1", "values": values}]}})
+    assert r.status_code == 200, r.text
+
+
 def test_the_public_region_counts_only_shared_cases(client):
     owner = _auth(client, "owner@example.eu")
     saved = _save(client, owner)
+    _network_in(client, owner, saved["id"], "it")
     assert client.get("/api/public/region/IT").json()["total"] == 0
     client.post(f"/api/cases/{saved['id']}/share", json={"shared": True}, headers=owner)
+    body = client.get("/api/public/region/it").json()
+    assert (body["region"], body["total"]) == ("IT", 1)
+
+
+def test_the_public_region_counts_cases_with_a_partner_there(client):
+    # by the partners' country in the drawn network, not by Q7b (round 4 leftover)
+    owner = _auth(client, "owner@example.eu")
+    in_it, no_network = _save(client, owner), _save(client, owner)
+    _network_in(client, owner, in_it["id"], "IT")
+    for saved in (in_it, no_network):
+        client.post(f"/api/cases/{saved['id']}/share", json={"shared": True}, headers=owner)
     assert client.get("/api/public/region/IT").json()["total"] == 1
+    assert client.get("/api/public/region/DE").json()["total"] == 0

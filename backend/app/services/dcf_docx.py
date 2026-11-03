@@ -23,7 +23,7 @@ from docx.shared import Pt, RGBColor
 from app.domain.dcf_data import DcfData
 from app.engine.dcf_compose import DcfPayload
 from app.engine.dcf_rows import actor_label, edge_list, rows_for
-from app.services.dcf_terms import cover_rows, enum_label, offered_labels, ref_label, ui
+from app.services.dcf_terms import cover_rows, enum_label, offered_labels, only_when, ref_label, ui
 
 EU_FOOTER = (
     "This Project has received funding from the European Union's Horizon "
@@ -311,6 +311,7 @@ def _write_field_reference_section(doc: Document, payload: DcfPayload, lang: str
             meaning.append(str(field.help or field.description_en or ""))
             if field.reason:
                 meaning.append(f"{ui(lang, 'note.because')}: {field.reason}")
+            meaning.append(only_when(section, field, lang) or "")
             cells[1].text = " ".join(m for m in meaning if m).strip() or "—"
             labels = offered_labels(field, lang)
             cells[2].text = "; ".join(labels) if labels else "—"

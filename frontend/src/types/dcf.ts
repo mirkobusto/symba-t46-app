@@ -95,6 +95,10 @@ export interface DcfObligation {
   fields: string[]
   fields_not_applicable: string[]
   source_section?: string | null
+  /** reader-facing labels and reason, filled by the API in the reader's language */
+  category_label?: string | null
+  origin_label?: string | null
+  because?: string | null
 }
 
 export interface DcfPayload {

@@ -159,13 +159,13 @@ def _write_methodological_section(doc: Document, payload: DcfPayload, lang: str 
 
     for item in payload.obligations:
         cells = table.add_row().cells
-        cells[0].text = item.category
-        cells[1].text = item.origin
+        cells[0].text = item.category_label or item.category
+        cells[1].text = item.origin_label or item.origin
         cells[2].text = item.id
         cells[3].text = (
             f"{item.title} — {item.statement}" if item.title else item.statement
         )
-        cells[4].text = item.trigger or "—"
+        cells[4].text = item.because or item.trigger or "—"
         cells[5].text = ui(lang, "status.pending")
 
 

@@ -92,7 +92,27 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
                 # the legacy sector values stay readable, but are not offered (UX round 4, P1-14)
                 field.enum_labels = {k: v for k, v in terms["enum_refs"][field.enum_ref].items()
                                      if k not in _LEGACY_ENUM_VALUES}
+    # the methodological choices: category, kind of item and the rule wording
+    # in the reader's language (UX round 4, P1-04, P2-03); mandate statements
+    # stay the deliverables' English text (owner decision R5)
+    ui_terms = terms.get("ui", {})
+    for item in out.obligations:
+        item.category_label = ui_terms.get(f"cat.{item.category}", item.category.replace("_", " "))
+        item.origin_label = ui_terms.get(f"origin.{item.origin}", item.origin)
+        if item.origin == "rule":
+            rule = (_rt_dict(code, "schema", "rule", item.id) or {})
+            item.title = rule.get("name") or item.title
+            item.statement = rule.get("body") or item.statement
+        if not item.because:
+            item.because = ui_terms.get("because.always")
     return out
+
+
+def _rt_dict(lang: str, *keys: str) -> dict[str, Any] | None:
+    node: Any = _report_terms().get(language(lang), {})
+    for k in keys:
+        node = node.get(k) if isinstance(node, dict) else None
+    return node if isinstance(node, dict) else None
 
 
 # The cover of the DCF printed the engine's English values ("ILCD Situation C1",

@@ -561,3 +561,27 @@ def test_legacy_sectors_are_not_offered_in_the_localized_labels(case_wiktor, dcf
     payload = localize(compose_dcf(case_wiktor, dcf_schema, mandates_census), "it")
     labels = {k for sec in payload.sections for f in sec.fields for k in (f.enum_labels or {})}
     assert not labels & {"wastewater_biofactories", "agri_food", "process_industry"}
+
+
+def test_methodological_choices_resolve_one_branch_per_flow(schemas, dcf_schema, mandates_census):
+    # UX round 4 (P2-05): lca_hc_17 listed "NO zero-burden (interdependent) | Standard zero-burden test"
+    from app.domain.models import Case
+    case = Case(q1="B", decision_context="micro", q2="B", q3={"env": True, "eco": True, "soc": False},
+                q4=["E"], policy_objective=False,
+                flows=[{"id": "f1", "name": "Lignin", "q5": "d"}, {"id": "f2", "name": "Steam", "q5": "b"}])
+    pipeline_run(case, schemas)
+    payload = compose_dcf(case, dcf_schema, mandates_census)
+    stmt = {o.id: o.statement for o in payload.obligations}
+    assert stmt["lca_hc_17"] == "Lignin: NO zero-burden allowed (interdependent); Steam: Standard zero-burden test"
+    assert not any(" | " in s for s in stmt.values())
+
+
+def test_methodological_choices_speak_the_reader_language(case_wiktor, dcf_schema, mandates_census):
+    # UX round 4 (P1-04, P2-03): raw categories, "Mandate", English rules, triggers as code
+    from app.services.dcf_terms import localize
+    payload = localize(compose_dcf(case_wiktor, dcf_schema, mandates_census), "it")
+    ir01 = next(o for o in payload.obligations if o.id == "IR-01")
+    assert ir01.title == "Unità funzionale condivisa" and ir01.origin_label == "Obbligo"
+    assert ir01.category_label == "Coerenza fra i metodi"
+    assert ir01.because and "dims active" not in ir01.because
+    assert all(o.category_label and "_" not in o.category_label for o in payload.obligations)

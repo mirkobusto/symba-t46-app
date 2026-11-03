@@ -8,7 +8,13 @@
 
 import { useTranslation } from 'react-i18next'
 
+import { usePreferenceStore } from '../store/preferenceStore'
 import type { DcfMandate, DcfSection } from '../types/dcf'
+
+// who fills a section in: the companies' staff, or the analyst who carries out
+// the study (UX round 4: "your staff fill in the sheets" met rows on discount
+// rates and LCI datasets, P3-06, P7-03)
+const ANALYST_SECTIONS = new Set(['flow_classification', 'reference_scenario', 'methodological_choices'])
 
 interface Props {
   section: DcfSection
@@ -18,6 +24,7 @@ interface Props {
 
 export default function DcfSectionViewer({ section, mandatesByCategory }: Props) {
   const { t } = useTranslation()
+  const guided = usePreferenceStore((s) => s.mode) === 'guided'
   // in the reader's language when the API sent it (?lang=), schema text otherwise
   const title = section.title || section.title_en
   const description = section.description || section.description_en
@@ -84,6 +91,11 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
         {title}{' '}
         <span className="dcf-count">{t('dcf.viewer.fieldsCount', { count: section.fields.length })}</span>
       </h3>
+      <p className="dcf-section-who">
+        <span className="dd-pill dd-pill-muted">
+          {t(ANALYST_SECTIONS.has(section.id) ? 'dcf.viewer.whoAnalyst' : 'dcf.viewer.whoCompanies')}
+        </span>
+      </p>
       <p className="dcf-section-description">{description}</p>
       {/* what a data provider needs: the datum, whether it is required, the
           values it takes and why it is asked, in words; the type and the raw
@@ -115,8 +127,12 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
                       <span className="dcf-field-help">{f.help || f.description_en}</span>
                     </>
                   ) : null}
-                  <br />
-                  <code className="dcf-field-id">{f.id}</code>
+                  {guided ? null : (
+                    <>
+                      <br />
+                      <code className="dcf-field-id">{f.id}</code>
+                    </>
+                  )}
                 </td>
                 <td>{f.required ? t('common.yes') : t('common.no')}</td>
                 <td>{values ? <span className="dcf-enum-values">{values.join('; ')}</span> : '—'}</td>

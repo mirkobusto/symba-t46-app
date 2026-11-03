@@ -28,6 +28,7 @@ import {
   fetchDcfXlsxForCase,
 } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
+import { usePreferenceStore } from '../store/preferenceStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
 import type { DcfPayload } from '../types/dcf'
@@ -49,6 +50,7 @@ export default function DataCollectionPage() {
   const draft = useCaseStore((s) => s.draft)
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const serverCaseName = useCaseStore((s) => s.serverCaseName)
+  const mode = usePreferenceStore((s) => s.mode)
   const pushToast = useToastStore((s) => s.push)
   const bindDcfData = useDcfDataStore((s) => s.bindTo)
   const dcfDirty = useDcfDataStore((s) => s.dirty)
@@ -217,6 +219,7 @@ export default function DataCollectionPage() {
           ) : null}
         </h1>
         <p className="dd-page-sub">{t('dcf.subtitle')}</p>
+        {mode === 'guided' ? <p className="dd-page-sub">{t('dcf.guidedIntro')}</p> : null}
         <div className="dcf-badges" style={{ marginTop: 12 }}>
           {/* the situation in words, as on the result page; "deactivated" was engine output */}
           <span className="dd-pill dd-pill-brand">
@@ -334,6 +337,11 @@ export default function DataCollectionPage() {
           {t('dcf.backToResult')}
         </Link>
       </div>
+      {!serverCaseId || dcfDirty ? (
+        // the files are built from what the server holds: a network drawn on an
+        // unsaved case is not in them yet (UX round 3-4, P1-02)
+        <p className="dd-soft">{t(serverCaseId ? 'dcf.unsavedNetwork' : 'dcf.unsavedCase')}</p>
+      ) : null}
 
       <p className="dcf-footer-note">
         {t('dcf.footerNote')}

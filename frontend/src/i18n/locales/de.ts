@@ -1415,8 +1415,8 @@ const de: Locale = {
     because: "Gilt, weil:",
     notApplicable: "Hier nicht anwendbar: {{fields}} — diese Methode ist in Q3 deaktiviert.",
     origin: {
-      mandate: "Vorgabe",
-      rule: "Methodenübergreifende Regel",
+      mandate: 'Standardpraxis',
+      rule: 'Verpflichtung',
     },
   },
   dcf: {
@@ -1433,6 +1433,8 @@ const de: Locale = {
       colValues: "Mögliche Werte",
       colWhy: "Warum gefragt",
       always: "immer",
+      whoCompanies: 'Wird von den Mitarbeitenden der Unternehmen ausgefüllt',
+      whoAnalyst: 'Entscheidet der Analyst, der die Studie durchführt',
     },
     diagram: { whoGives: "Wer gibt es ab?\n({{flow}})", whoReceives: "Wer nimmt es an?\n({{flow}})" },
     noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen' },
@@ -1458,6 +1460,9 @@ const de: Locale = {
     tabOverview: 'Übersicht',
     tabNetworkBuilder: 'Netzwerk-Editor',
     socialDeferred: 'Das soziale Inventar wird nicht in dieser Datei erhoben: Es folgt D4.3 mit eigenen Instrumenten (Fragebögen, Interviews je Stakeholdergruppe).',
+    guidedIntro: 'Hier sehen Sie die Fragen, die die Excel-Datei den Unternehmen stellt. Sie müssen sie jetzt nicht ausfüllen: Laden Sie die Datei herunter und geben Sie sie weiter.',
+    unsavedCase: 'Die Dateien enthalten das gezeichnete Netzwerk noch nicht: Speichern Sie den Fall (ein Konto ist nötig), um es aufzunehmen.',
+    unsavedNetwork: 'Das Netzwerk hat ungespeicherte Änderungen: Speichern Sie das Netzwerk, um sie in die Dateien aufzunehmen.',
   },
 
   networkDiagram: {

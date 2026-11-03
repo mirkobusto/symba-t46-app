@@ -519,7 +519,20 @@
    "yes": "yes",
    "no": "no",
    "dx.ack": "Acknowledgements & disclaimer",
-   "sheet.reference_scenario": "Reference Scenario"
+   "sheet.reference_scenario": "Reference Scenario",
+   "cat.data_sources_quality": "Data sources and quality",
+   "cat.allocation_substitution": "Allocation and substitution",
+   "cat.reference_scenario": "Reference scenario",
+   "cat.goal_scope_boundary": "Goal, scope and boundary",
+   "cat.stakeholder_materiality": "Stakeholders and materiality",
+   "cat.uncertainty_sensitivity": "Uncertainty and sensitivity",
+   "cat.reporting_disclosure": "Reporting and disclosure",
+   "cat.lcc_method_specific": "Life cycle costing",
+   "cat.lcsa_integration": "Integration of the methods",
+   "cat.Cross-method consistency": "Consistency between the methods",
+   "origin.mandate": "Standard practice",
+   "origin.rule": "Obligation",
+   "because.always": "every study of this kind"
   },
   "enum_refs": {
    "Q6a": {
@@ -1072,7 +1085,20 @@
    "yes": "sì",
    "no": "no",
    "dx.ack": "Ringraziamenti e avvertenza",
-   "sheet.reference_scenario": "Scenario di riferimento"
+   "sheet.reference_scenario": "Scenario di riferimento",
+   "cat.data_sources_quality": "Fonti e qualità dei dati",
+   "cat.allocation_substitution": "Allocazione e sostituzione",
+   "cat.reference_scenario": "Scenario di riferimento",
+   "cat.goal_scope_boundary": "Obiettivo, ambito e confini",
+   "cat.stakeholder_materiality": "Stakeholder e materialità",
+   "cat.uncertainty_sensitivity": "Incertezza e sensibilità",
+   "cat.reporting_disclosure": "Reportistica e divulgazione",
+   "cat.lcc_method_specific": "Life cycle costing",
+   "cat.lcsa_integration": "Integrazione dei metodi",
+   "cat.Cross-method consistency": "Coerenza fra i metodi",
+   "origin.mandate": "Pratica standard",
+   "origin.rule": "Obbligo",
+   "because.always": "ogni studio di questo tipo"
   },
   "enum_refs": {
    "Q6a": {
@@ -1625,7 +1651,20 @@
    "yes": "oui",
    "no": "non",
    "dx.ack": "Remerciements et avertissement",
-   "sheet.reference_scenario": "Scénario de référence"
+   "sheet.reference_scenario": "Scénario de référence",
+   "cat.data_sources_quality": "Sources et qualité des données",
+   "cat.allocation_substitution": "Allocation et substitution",
+   "cat.reference_scenario": "Scénario de référence",
+   "cat.goal_scope_boundary": "Objectif, champ et frontière",
+   "cat.stakeholder_materiality": "Parties prenantes et matérialité",
+   "cat.uncertainty_sensitivity": "Incertitude et sensibilité",
+   "cat.reporting_disclosure": "Rapport et divulgation",
+   "cat.lcc_method_specific": "Coût du cycle de vie",
+   "cat.lcsa_integration": "Intégration des méthodes",
+   "cat.Cross-method consistency": "Cohérence entre les méthodes",
+   "origin.mandate": "Pratique standard",
+   "origin.rule": "Obligation",
+   "because.always": "toute étude de ce type"
   },
   "enum_refs": {
    "Q6a": {
@@ -2178,7 +2217,20 @@
    "yes": "ja",
    "no": "nein",
    "dx.ack": "Danksagung und Haftungsausschluss",
-   "sheet.reference_scenario": "Referenzszenario"
+   "sheet.reference_scenario": "Referenzszenario",
+   "cat.data_sources_quality": "Datenquellen und -qualität",
+   "cat.allocation_substitution": "Allokation und Substitution",
+   "cat.reference_scenario": "Referenzszenario",
+   "cat.goal_scope_boundary": "Ziel, Rahmen und Grenzen",
+   "cat.stakeholder_materiality": "Stakeholder und Wesentlichkeit",
+   "cat.uncertainty_sensitivity": "Unsicherheit und Sensitivität",
+   "cat.reporting_disclosure": "Berichterstattung und Offenlegung",
+   "cat.lcc_method_specific": "Lebenszykluskosten",
+   "cat.lcsa_integration": "Integration der Methoden",
+   "cat.Cross-method consistency": "Konsistenz zwischen den Methoden",
+   "origin.mandate": "Standardpraxis",
+   "origin.rule": "Verpflichtung",
+   "because.always": "jede Studie dieser Art"
   },
   "enum_refs": {
    "Q6a": {
@@ -2731,7 +2783,20 @@
    "yes": "sí",
    "no": "no",
    "dx.ack": "Agradecimientos y aviso",
-   "sheet.reference_scenario": "Escenario de referencia"
+   "sheet.reference_scenario": "Escenario de referencia",
+   "cat.data_sources_quality": "Fuentes y calidad de los datos",
+   "cat.allocation_substitution": "Asignación y sustitución",
+   "cat.reference_scenario": "Escenario de referencia",
+   "cat.goal_scope_boundary": "Objetivo, alcance y límites",
+   "cat.stakeholder_materiality": "Partes interesadas y materialidad",
+   "cat.uncertainty_sensitivity": "Incertidumbre y sensibilidad",
+   "cat.reporting_disclosure": "Informe y divulgación",
+   "cat.lcc_method_specific": "Coste del ciclo de vida",
+   "cat.lcsa_integration": "Integración de los métodos",
+   "cat.Cross-method consistency": "Coherencia entre los métodos",
+   "origin.mandate": "Práctica estándar",
+   "origin.rule": "Obligación",
+   "because.always": "todo estudio de este tipo"
   },
   "enum_refs": {
    "Q6a": {

@@ -1378,7 +1378,7 @@ const es: Locale = {
     navLink: 'Panel regional',
     title: 'Panel regional / sectorial',
     subtitle:
-      'Desglose de todos los casos guardados por situación ILCD, estructura LCC, sector y concentración de las interacciones clave. Para autoridades locales y analistas de políticas.',
+      'Cuántos casos guardados en esta herramienta caen en cada situación, tipo de cálculo de costes, sector y concentración de las interacciones. Todos los casos guardados, de cualquier región: todavía no hay un filtro por región.',
     openButton: 'Abrir panel regional',
     backToCases: 'Volver a los casos',
     loading: 'Cargando datos agregados…',
@@ -1389,11 +1389,14 @@ const es: Locale = {
     tableKey: 'Valor',
     tableCount: 'Cantidad',
     breakdownTitle: {
-      byLccType: 'Por estructura LCC',
-      bySector: 'Por sector (Q6a)',
-      byScope: 'Por concentración de las interacciones (Q7)',
+      byLccType: 'Por tipo de cálculo de costes',
+      bySector: 'Por sector',
+      byScope: 'Por concentración de las interacciones',
       byIlcd: 'Por situación ILCD',
     },
+    mostCommon: 'El más frecuente',
+    noneKey: 'sin respuesta',
+    noCosting: 'sin cálculo de costes',
   },
 
   obligations: {

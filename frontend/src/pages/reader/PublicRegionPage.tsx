@@ -11,9 +11,11 @@ import { useParams } from 'react-router-dom'
 import KpiCard from '../../components/dd/KpiCard'
 import { ApiError, fetchPublicRegion } from '../../services/api'
 import type { PublicRegionResponse } from '../../types/reader'
+import { useAxisLabel } from '../aggregateLabels'
 
 export default function PublicRegionPage() {
   const { t } = useTranslation()
+  const label = useAxisLabel()
   const { code = 'global' } = useParams<{ code: string }>()
   const [data, setData] = useState<PublicRegionResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -63,7 +65,7 @@ export default function PublicRegionPage() {
             <thead><tr><th>{t('reader.region.tableKey')}</th><th>{t('reader.region.tableCount')}</th></tr></thead>
             <tbody>
               {data.by_ilcd_situation.map((e) => (
-                <tr key={e.key}><td>{e.key}</td><td className="dd-mono">{e.count}</td></tr>
+                <tr key={e.key}><td>{label('ilcd', e.key)}</td><td className="dd-mono">{e.count}</td></tr>
               ))}
             </tbody>
           </table>
@@ -77,7 +79,7 @@ export default function PublicRegionPage() {
             <thead><tr><th>{t('reader.region.tableKey')}</th><th>{t('reader.region.tableCount')}</th></tr></thead>
             <tbody>
               {data.by_sector.map((e) => (
-                <tr key={e.key}><td>{e.key}</td><td className="dd-mono">{e.count}</td></tr>
+                <tr key={e.key}><td>{label('sector', e.key)}</td><td className="dd-mono">{e.count}</td></tr>
               ))}
             </tbody>
           </table>

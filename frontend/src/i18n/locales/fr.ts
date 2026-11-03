@@ -1384,7 +1384,7 @@ const fr: Locale = {
     navLink: 'Tableau de bord régional',
     title: 'Tableau de bord régional / sectoriel',
     subtitle:
-      'Répartition de tous les cas sauvegardés par situation ILCD, structure LCC, secteur et concentration des interactions clés. Pour autorités locales et analystes politiques.',
+      'Combien de cas enregistrés dans cet outil relèvent de chaque situation, type de calcul des coûts, secteur et concentration des interactions. Tous les cas enregistrés, de toute région : un filtre par région n\'est pas encore disponible.',
     openButton: 'Ouvrir le tableau de bord',
     backToCases: 'Retour aux cas',
     loading: 'Chargement des données agrégées…',
@@ -1395,11 +1395,14 @@ const fr: Locale = {
     tableKey: 'Valeur',
     tableCount: 'Nombre',
     breakdownTitle: {
-      byLccType: 'Par structure LCC',
-      bySector: 'Par secteur (Q6a)',
-      byScope: 'Par concentration des interactions (Q7)',
+      byLccType: 'Par type de calcul des coûts',
+      bySector: 'Par secteur',
+      byScope: 'Par concentration des interactions',
       byIlcd: 'Par situation ILCD',
     },
+    mostCommon: 'Le plus fréquent',
+    noneKey: 'sans réponse',
+    noCosting: 'aucun calcul des coûts',
   },
 
   obligations: {

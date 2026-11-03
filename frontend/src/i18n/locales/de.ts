@@ -1378,7 +1378,7 @@ const de: Locale = {
     navLink: 'Regionales Dashboard',
     title: 'Regionales / sektorales Dashboard',
     subtitle:
-      'Aufschlüsselung aller gespeicherten Fälle nach ILCD-Situation, LCC-Struktur, Sektor und Konzentration der wichtigsten Wechselwirkungen. Für lokale Behörden und politische Analysten.',
+      'Wie viele in diesem Tool gespeicherte Fälle in jede Situation, jeden Kostenrechnungstyp, jeden Sektor und jede Konzentration der Interaktionen fallen. Alle gespeicherten Fälle aus allen Regionen: Ein Filter nach Region ist noch nicht verfügbar.',
     openButton: 'Regionales Dashboard öffnen',
     backToCases: 'Zurück zu den Fällen',
     loading: 'Aggregierte Daten werden geladen…',
@@ -1389,11 +1389,14 @@ const de: Locale = {
     tableKey: 'Wert',
     tableCount: 'Anzahl',
     breakdownTitle: {
-      byLccType: 'Nach LCC-Struktur',
-      bySector: 'Nach Sektor (Q6a)',
-      byScope: 'Nach Konzentration der Wechselwirkungen (Q7)',
+      byLccType: 'Nach Kostenrechnungstyp',
+      bySector: 'Nach Sektor',
+      byScope: 'Nach Konzentration der Interaktionen',
       byIlcd: 'Nach ILCD-Situation',
     },
+    mostCommon: 'Am häufigsten',
+    noneKey: 'nicht beantwortet',
+    noCosting: 'keine Kostenrechnung',
   },
 
   obligations: {

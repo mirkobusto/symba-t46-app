@@ -5043,3 +5043,44 @@ kbd {
     display: none;
   }
 }
+
+/* ---- Scenario changes as "question → answer" (UX round 2026-11-02) ---- */
+
+.scenario-changes {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scenario-change {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.scenario-change select.row-select {
+  max-width: 100%;
+}
+
+.scenario-change-checks {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.scenario-change-number {
+  width: 8rem;
+}
+
+.scenario-json {
+  margin-top: 10px;
+}
+
+.scenario-diff {
+  margin-top: 20px;
+  text-align: left;
+}

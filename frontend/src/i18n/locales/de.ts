@@ -705,13 +705,22 @@ const de: Locale = {
   },
 
   scenarios: {
-    intro:
-      "Ein Szenario variiert hier die *methodischen* Antworten, nicht das physische Netzwerk: es erbt die Antworten der Baseline und unterscheidet sich nur über das Overrides-Dict. Wohin ein Fluss geht, über welche Distanz oder zu welchem Preis, ist ein Netzwerkvergleich — solche Varianten zeichnet man im Netzwerk-Editor, und die Engine vergleicht sie noch nicht.",
+    intro: "Ein Szenario ändert einige Antworten des Fragebogens, und die Engine rechnet es neben dem Fall: der Vergleich zeigt dann, was die Änderung an Konfiguration und Verpflichtungen bewirkt. Verschiedene Netze zu vergleichen (wohin ein Fluss geht, wie weit, zu welchem Preis) ist ein anderer Vergleich: zeichnen Sie die Alternativen im Netz-Editor; das Tool vergleicht sie noch nicht.",
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',
     addButton: 'Szenario hinzufügen',
     removeAria: '{{id}} entfernen',
+    addChange: "Änderung hinzufügen",
+    pickQuestion: "Frage",
+    newAnswer: "Neue Antwort",
+    removeChange: "Diese Änderung entfernen",
+    noChanges: "Noch keine Änderung: das Szenario entspricht dem Fall.",
+    jsonToggle: "Als JSON bearbeiten (Fachleute)",
+    otherKeys_one: "{{count}} weitere Änderung als JSON",
+    otherKeys_other: "{{count}} weitere Änderungen als JSON",
+    changesCount_one: "{{count}} Änderung",
+    changesCount_other: "{{count}} Änderungen",
   },
 
   advanced: {
@@ -1008,23 +1017,26 @@ const de: Locale = {
   scenariosResult: {
     title: 'Szenarienvergleich',
     empty: 'Noch kein Szenariovergleich. Definieren Sie im Fragebogen ein oder mehrere alternative Szenarien und klicken Sie dann auf der Ergebnisseite auf „Szenarien ausführen“.',
-    description: 'Pipeline für die Baseline + {{n}} alternative Szenarien ausgeführt. Unterschiede vs Baseline hervorgehoben.',
+    description: "Der Fall und {{n}} alternative(s) Szenario(s), jeweils von der Engine gerechnet. Zellen, die vom Fall abweichen, sind hervorgehoben.",
     backToResult: 'Zurück zum Einzelergebnis',
     columns: {
       scenario: 'Szenario',
       ilcd: 'ILCD',
       lccType: 'LCC-Typ',
       slca: 'S-LCA',
-      activated: 'Aktiviert',
-      blocks: 'L1-BLOCK',
+      activated: "Methodische Knoten",
+      blocks: "Blockaden",
       obligations: 'Zu dokumentierende Pflichten',
-      cdps: 'L3-CDPs',
+      cdps: "Entscheidungspunkte",
     },
-    baselineLabel: 'Baseline',
+    baselineLabel: "Der Fall",
     diffSuffix: '(Diff)',
-    overrideHelp: 'Jedes Szenario erbt die Antworten der Baseline; befüllen Sie overrides (JSON-Dict) pro Szenario, um zu differieren. Leere Overrides → gleicher Fall wie Baseline.',
-    overridesPlaceholder: 'z. B. {"q1": "C"} oder {"q3": {"env": true, "eco": true}}',
+    overridesPlaceholder: "z. B. {\"q2\": \"B\"} oder {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Overrides müssen gültiges JSON für {{id}} sein',
+    whatChanges: "was sich gegenüber dem Fall ändert",
+    noChange: "An Konfiguration und Verpflichtungen ändert sich nichts.",
+    addedRules: "Hinzugekommene Verpflichtungen",
+    removedRules: "Weggefallene Verpflichtungen",
   },
 
 

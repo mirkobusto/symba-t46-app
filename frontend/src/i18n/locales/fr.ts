@@ -711,13 +711,22 @@ const fr: Locale = {
   },
 
   scenarios: {
-    intro:
-      "Un scénario fait ici varier les réponses *méthodologiques*, pas le réseau physique : il hérite des réponses de la référence et ne diffère que par le dict d'overrides. Comparer où va un flux, sur quelle distance ou à quel prix est une comparaison de réseau — ces variantes se dessinent dans l'éditeur de réseau, et le moteur ne les compare pas encore.",
+    intro: "Un scénario change quelques réponses du questionnaire, et le moteur l'exécute à côté du cas : la comparaison montre ensuite ce que le changement modifie dans la configuration et les obligations. Comparer des réseaux différents (où va un flux, à quelle distance, à quel prix) est une autre comparaison : dessinez les alternatives dans l'éditeur de réseau ; l'outil ne les compare pas encore.",
     emptyHint: 'Aucun scénario alternatif.',
     headers: { id: 'ID', label: 'Étiquette' },
     labelPlaceholder: 'ex. Expansion future / TRL9 ramp-up',
     addButton: 'Ajouter un scénario',
     removeAria: 'Supprimer {{id}}',
+    addChange: "Ajouter une modification",
+    pickQuestion: "Question",
+    newAnswer: "Nouvelle réponse",
+    removeChange: "Retirer cette modification",
+    noChanges: "Aucune modification : le scénario est identique au cas.",
+    jsonToggle: "Modifier en JSON (experts)",
+    otherKeys_one: "{{count}} autre modification en JSON",
+    otherKeys_other: "{{count}} autres modifications en JSON",
+    changesCount_one: "{{count}} modification",
+    changesCount_other: "{{count}} modifications",
   },
 
   advanced: {
@@ -1014,23 +1023,26 @@ const fr: Locale = {
   scenariosResult: {
     title: 'Comparaison de scénarios',
     empty: 'Pas encore de comparaison de scénarios. Dans le questionnaire, définissez un ou plusieurs scénarios alternatifs, puis cliquez sur « Exécuter les scénarios » sur la page de résultat.',
-    description: 'Pipeline exécutée pour la baseline + {{n}} scénarios alternatifs. Différences mises en évidence vs baseline.',
+    description: "Le cas et {{n}} scénario(s) alternatif(s), chacun exécuté par le moteur. Les cellules qui diffèrent du cas sont surlignées.",
     backToResult: 'Retour au résultat unique',
     columns: {
       scenario: 'Scénario',
       ilcd: 'ILCD',
       lccType: 'Type LCC',
       slca: 'S-LCA',
-      activated: 'Activés',
-      blocks: 'BLOCK L1',
+      activated: "Nœuds méthodologiques",
+      blocks: "Blocages",
       obligations: 'Obligations à documenter',
-      cdps: 'CDPs L3',
+      cdps: "Points de décision",
     },
-    baselineLabel: 'Baseline',
+    baselineLabel: "Le cas",
     diffSuffix: '(diff)',
-    overrideHelp: 'Chaque scénario hérite des réponses de la baseline ; remplissez overrides (dict JSON) par scénario pour différer. Overrides vides → même cas que la baseline.',
-    overridesPlaceholder: 'ex. {"q1": "C"} ou {"q3": {"env": true, "eco": true}}',
+    overridesPlaceholder: "ex. {\"q2\": \"B\"} ou {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Les overrides doivent être du JSON valide pour {{id}}',
+    whatChanges: "ce qui change par rapport au cas",
+    noChange: "Rien ne change dans la configuration ni dans les obligations.",
+    addedRules: "Obligations ajoutées",
+    removedRules: "Obligations retirées",
   },
 
 

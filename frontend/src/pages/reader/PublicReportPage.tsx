@@ -55,7 +55,10 @@ export default function PublicReportPage() {
       .then((r) => { if (!cancelled) { setReport(r); setLoading(false) } })
       .catch((e: unknown) => {
         if (cancelled) return
-        setError(e instanceof ApiError ? e.detail : (e as Error).message)
+        // a 404 is shown in the reader's language; the server's English detail
+        // ("Case '…' not found") only for other failures (UX round 2026-11-03)
+        if (e instanceof ApiError && e.status === 404) setError('')
+        else setError(e instanceof ApiError ? e.detail : (e as Error).message)
         setLoading(false)
       })
     return () => { cancelled = true }
@@ -67,14 +70,19 @@ export default function PublicReportPage() {
 
   if (loading) return <p className="dd-muted">{t('reader.loading')}</p>
 
-  if (error || !report) {
+  if (error !== null || !report) {
     return (
       <div>
         <h1>{t('reader.notFoundTitle')}</h1>
-        <p className="dd-soft">{error ?? t('reader.notFoundBody')}</p>
-        <Link to="/r/about" className="dd-btn dd-btn-secondary">
-          {t('reader.aboutLink')} →
-        </Link>
+        <p className="dd-soft">{error || t('reader.notFoundBody')}</p>
+        <div className="dd-page-actions">
+          <Link to="/r/open" className="dd-btn dd-btn-primary">
+            ← {t('reader.tryAnother')}
+          </Link>
+          <Link to="/r/about" className="dd-btn dd-btn-secondary">
+            {t('reader.aboutLink')} →
+          </Link>
+        </div>
       </div>
     )
   }

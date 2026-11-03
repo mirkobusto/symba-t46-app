@@ -13,6 +13,7 @@ import { useAuthStore } from '../store/authStore'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { CaseSummary } from '../types/api'
+import { askConfirm } from '../store/dialogStore'
 
 export default function CasesListPage() {
   const { t, i18n } = useTranslation()
@@ -74,7 +75,7 @@ export default function CasesListPage() {
   }
 
   async function handleDelete(item: CaseSummary) {
-    if (!window.confirm(t('cases.confirmDelete', { name: item.name }))) return
+    if (!(await askConfirm(t('cases.confirmDelete', { name: item.name })))) return
     try {
       await deleteCase(item.id)
       await refresh()

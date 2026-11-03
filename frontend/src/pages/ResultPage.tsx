@@ -20,6 +20,7 @@ import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
 import { chapterName, translateNote } from '../i18n/engineNotes'
 import { sectorNote, sectorStatement } from '../i18n/sectorTerms'
+import { askConfirm, askText } from '../store/dialogStore'
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -43,6 +44,7 @@ export default function ResultPage() {
   const draft = useCaseStore((s) => s.draft)
   const setServerCase = useCaseStore((s) => s.setServerCase)
   const serverCaseName = useCaseStore((s) => s.serverCaseName)
+  const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
   const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
@@ -59,13 +61,11 @@ export default function ResultPage() {
     // so before asking for a name rather than after a 401
     if (!signedIn && anonymousSave === false) {
       pushToast({ type: 'info', message: t('cases.signInToSave'), durationMs: 8000 })
-      navigate('/login')
+      // come back here after signing in, so the case can be saved at once (UX round 2026-11-03)
+      navigate('/login', { state: { from: '/result' } })
       return
     }
-    const name = window.prompt(
-      t('cases.saveDialog'),
-      t('cases.namePlaceholder'),
-    )
+    const name = await askText(t('cases.saveDialog'), '', t('common.save'))
     if (!name) return
     setSavingCase(true)
     try {
@@ -118,8 +118,8 @@ export default function ResultPage() {
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
-  function handleStartFresh() {
-    if (window.confirm(t('result.confirmStartFresh'))) {
+  async function handleStartFresh() {
+    if (await askConfirm(t('result.confirmStartFresh'))) {
       reset()
       navigate('/')
     }
@@ -414,7 +414,9 @@ export default function ResultPage() {
       </div>
       {shareOpen ? (
         <ShareReportModal
-          caseId={result?.id ?? null}
+          // only a case saved on the server has a public report: the pipeline id
+          // gave links that ended on "Report not found" (UX round 2026-11-03)
+          caseId={serverCaseId}
           caseSlug={savedSlug}
           onClose={() => setShareOpen(false)}
         />

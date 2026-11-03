@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import '../i18n'
+import DialogHost from '../components/DialogHost'
 import PresetLoader from '../components/PresetLoader'
 import StakeholderView from '../components/StakeholderView'
 import QuestionnairePage from '../pages/QuestionnairePage'
@@ -96,21 +97,24 @@ describe('answersFor — Q8 named in words', () => {
 describe('PresetLoader', () => {
   afterEach(() => vi.restoreAllMocks())
 
-  it('asks before replacing a case being built', () => {
+  it('asks before replacing a case being built', async () => {
     useCaseStore.getState().reset()
     useCaseStore.getState().setDraft({
       ...useCaseStore.getState().draft,
       q1: 'B',
       flows: [{ id: 'f1', name: 'lignin', q5: 'c' }],
     })
-    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
     render(
       <MemoryRouter>
         <PresetLoader />
+        <DialogHost />
       </MemoryRouter>,
     )
     fireEvent.click(screen.getByRole('button', { name: /load preset/i }))
-    expect(confirm).toHaveBeenCalledOnce()
+    // an in-app dialog since 2026-11-03, not window.confirm
+    expect(await screen.findByRole('dialog')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
     expect(useCaseStore.getState().draft.flows?.[0].name).toBe('lignin')
   })
 })

@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import SiteHeader from '../brand/SiteHeader'
 import EuFooter from '../EuFooter'
 import LanguageSwitcher from '../LanguageSwitcher'
+import DialogHost from '../DialogHost'
 import ToastHost from '../ToastHost'
 
 export default function ReaderShell() {
@@ -46,6 +47,7 @@ export default function ReaderShell() {
       </main>
       <EuFooter />
       <ToastHost />
+      <DialogHost />
     </div>
   )
 }

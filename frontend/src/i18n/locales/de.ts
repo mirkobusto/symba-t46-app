@@ -374,7 +374,7 @@ const de: Locale = {
       situation: 'Eine Studie über ein bestehendes Netzwerk, die eine Option dafür bewertet (eine Verbesserung, eine Erweiterung), gilt als Situation A; eine, die das Netzwerk nur dokumentiert, als Situation C1 (T4.6-Lesart von Tabelle 1 und §4.3.2 der D4.1).',
       uncertainty: 'Die Pedigree-Matrix ist verpflichtend, wenn die Ergebnisse an ein Review-Panel, an die Ausrichtung auf EU-Politiken oder in eine Veröffentlichung gehen (Q4 = C, D oder E), sonst empfohlen, und sie wird für Ökobilanz und LCC aktiviert, wenn der Austausch noch nicht stattfindet (Q2 = B, Regel CIR-02); Monte Carlo wird für die Ökobilanz unter eigenen Bedingungen verlangt (Q4 = C, D oder E oder Technologie unter TRL 9) und für die Kostenrechnung immer. D4.1 §13.3.2 und D4.2 §7.1, §10.3 verlangen beides in jeder Studie.',
       policy: "Die Ausrichtung an EU-Politik (Q4 = D) bringt CE-Delft-Preise und die Allokation nach Net Tax Factor, die D4.2 an das gesellschaftliche LCC knüpft.",
-      assets: "Q12 zählt eigens gebaute, gemeinsam genutzte Anlagen, jetzt oder vor Jahren für die Austausche gebaut (D4.1 §6.3.3), wo D4.2 §4.2 von neuen spricht.",
+      assets: 'Q12 zählt die für den Austausch gebauten Anlagen, heute oder vor Jahren, auch wenn nur ein Unternehmen sie nutzt (D4.1 §6.3.3: dem Symbiose-Szenario eigen), wo D4.2 §4.2 von neuen, gemeinsam genutzten spricht.',
     },
     contactTitle: "Kontakt",
     contactBody: "Für Fragen zum Tool oder zum Projekt schreiben Sie über die Kontaktseite der SYMBA-Website:",
@@ -667,13 +667,13 @@ const de: Locale = {
     q10: {
       title: 'Q10 — Dient die Studie einem öffentlichen Ziel oder einem öffentlichen Entscheidungsträger? *',
       help: 'Pflicht, wenn die ökonomische Dimension aktiv ist: Sie entscheidet, ob die gesellschaftliche LCC ergänzt wird.',
-      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net-Tax-Faktor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, und §2.2 verknüpft die Wahl des LCC-Typs mit der Perspektive des Entscheidungsträgers: Eine Gemeinde, ein öffentlicher Versorger oder eine Regulierungsbehörde nimmt die öffentliche Sicht ein, unabhängig vom Gegenstand der Studie (D4.2 §9.2 nennt 3-5 % als Satz eines kommunalen Partners oder öffentlichen Versorgers). Eine Gemeinde, die einen Eco-Park plant, oder ein Versorger, der eine Fernwärmeverbindung dimensioniert, antwortet mit Ja. Die strikte Berichterstattung eines einzelnen Unternehmens (Q9: Unternehmensbericht, Situation C2) behält die Kostenrechnung auf Unternehmensebene (T4.6-Designentscheidung), und das Werkzeug weist darauf hin.',
+      details: 'D4.2 §2.3 ergänzt eine gesellschaftliche LCC (Net Tax Factor, monetarisierte Externalitäten, sozialer Diskontsatz), wenn die Studie einem Ziel der öffentlichen Politik oder der Raumplanung dient, und §2.2 bindet die Wahl des LCC-Typs an die Perspektive des Entscheiders. Wer entscheidet: die Stelle, die die Studie beauftragt oder nutzen wird. Ein öffentlicher Partner im Netzwerk (ein kommunaler Fernwärmebetrieb, eine öffentliche Kläranlage) macht das Ziel nicht von sich aus öffentlich: Seine öffentlichen Kapitalkosten gehen auf Ebene der einzelnen Einheit (D4.2 §9.2) in eine Kostenrechnung auf Unternehmensebene ein. Antworten Sie mit Ja, wenn diese öffentliche Stelle über den Fall entscheidet oder ein öffentlicher Plan oder eine Politik die Studie nutzen wird. Eine Gemeinde, die einen Ökopark plant, oder ein Versorger, der eine Fernwärmeanbindung auslegt, antworten mit Ja. Die strikte Berichterstattung eines einzelnen Unternehmens (Q9: Unternehmensbericht, Situation C2) behält die Kostenrechnung auf Unternehmensebene (eine Designentscheidung von T4.6), und das Tool sagt es Ihnen.',
       options: {
         yes: 'Ja — ein Ziel der öffentlichen Politik oder Planung oder ein öffentlicher Entscheidungsträger (ergänzt die gesellschaftliche LCC)',
-        no: 'Nein — eine private Entscheidung oder die eigene Bilanz eines Unternehmens',
+        no: 'Nein — eine private Entscheidung oder die eigene Rechnung eines Unternehmens, auch mit einer öffentlichen Stelle unter den Partnern',
       },
       plain:
-        'Antworten Sie mit Ja, wenn die Studie eine öffentliche Entscheidung vorbereiten soll oder von einer öffentlichen Stelle beauftragt wird: einer Gemeinde, einer Region, einem öffentlichen Versorger, einer Regulierungsbehörde, einem Plan. Dann kommt eine zweite ökonomische Lesart aus Sicht der Gesellschaft hinzu: Steuern werden anders gezählt, und Wirkungen, die niemand in Geld bezahlt. Für die eigene Bilanz eines Unternehmens bleibt die ökonomische Lesart auf Unternehmensebene.',
+        'Antworten Sie mit Ja, wenn die Studie eine öffentliche Entscheidung vorbereiten soll oder von einer öffentlichen Stelle beauftragt wird: einer Gemeinde, einer Region, einem öffentlichen Versorger, einer Regulierungsbehörde, einem Plan. Dann kommt eine zweite ökonomische Lesart aus Sicht der Gesellschaft hinzu: Steuern werden anders gezählt, und Wirkungen, die niemand in Geld bezahlt. Für die eigene Bilanz eines Unternehmens bleibt die ökonomische Lesart auf Unternehmensebene. Entscheidend ist, wer die Studie beauftragt oder nutzen wird, nicht ob eine öffentliche Stelle im Netzwerk ist. Beispiel: Ein Stahlwerk untersucht den Verkauf von Wärme an das kommunale Netz — nein; die Gemeinde entscheidet, ob sie sich anschließt — ja.',
     },
 
     q11: {
@@ -690,16 +690,16 @@ const de: Locale = {
         "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Abfall am besten behandelt wird — verbrennen, vergären, kompostieren —, wird das Ergebnis pro Tonne behandelten Abfalls gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
     },
     q12: {
-      title: "Q12 — Nutzt die Symbiose eigens gebaute, gemeinsam genutzte Anlagen?",
-      help: "Optional, gefragt bei LCA oder LCC: Leitungen, Anlagen oder Speicher, die für die Austausche gebaut werden oder vor Jahren gebaut wurden.",
-      details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Sind Ökobilanz und LCC beide aktiv, aktiviert ein Ja außerdem die Regeln, die Investitionsgüter zwischen beiden abgleichen (IR-13, B-06); für Parks und Programme mit sozialer Dimension die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08).',
+      title: 'Q12 — Nutzt die Symbiose eigens errichtete Anlagen?',
+      help: 'Optional, gefragt, wenn Ökobilanz oder LCC aktiv sind: Leitungen, Anlagen, Lager oder Ausrüstung, die für den Austausch gebaut wurden, heute oder vor Jahren, ob sie ein Unternehmen nutzt oder mehrere.',
+      details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Sind Ökobilanz und LCC beide aktiv, aktiviert ein Ja außerdem die Regeln, die Investitionsgüter zwischen beiden abgleichen (IR-13, B-06); für Parks und Programme mit sozialer Dimension die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08). Der profitierende Partner kann ein einzelnes Unternehmen sein.',
       options: {
         unset: 'Keine Antwort',
-        yes: "Ja — Leitungen, Anlagen oder Speicher, für die Austausche gebaut, jetzt oder vor Jahren",
-        no: "Nein — die Austausche nutzen nur Anlagen, die ohnehin gebraucht würden",
+        yes: 'Ja — für den Austausch wurde etwas gebaut (eine Leitung, eine Anlage, ein Trockner, ein Tank), auch wenn es nur ein Unternehmen nutzt',
+        no: 'Nein — der Austausch nutzt nur Anlagen, die es ohnehin gäbe',
       },
       plain:
-        "Antworten Sie mit Ja, wenn für die Austausche etwas gebaut wurde oder gebaut werden muss: eine Leitung, eine gemeinsame Kläranlage, ein Tank, auch wenn er vor Jahren gebaut wurde. Seine Kosten und sein Umweltfußabdruck gehen dann in die Studie ein und werden unter den nutzenden Unternehmen aufgeteilt.",
+        'Antworten Sie mit Ja, wenn etwas gebaut wurde oder gebaut werden muss, damit der Austausch stattfindet: eine Leitung, eine Aufbereitungsanlage, ein Tank, ein Trockner, auch wenn es vor Jahren gebaut wurde. Seine Kosten und sein Fußabdruck gehen dann in die Studie ein und werden dem zugerechnet, der davon profitiert: ganz einem Unternehmen, wenn nur es die Anlage nutzt, aufgeteilt, wenn mehrere sie nutzen.',
     },
 
     q2dCard: {
@@ -862,6 +862,27 @@ const de: Locale = {
   },
 
   result: {
+    // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
+    lccTitle: {
+      'C+N': 'Konventionelle LCC je Partner, auf Netzwerkebene konsolidiert',
+      'C+N+S': 'Konventionelle LCC je Partner und Netzwerk, dazu gesellschaftliche LCC',
+      'C-LCC': 'Konventionelle LCC eines einzelnen Unternehmens',
+      'C+E': 'Konventionelle und ökologische LCC',
+      'C+E+S': 'Konventionelle, ökologische und gesellschaftliche LCC',
+    },
+    lccBadge: {
+      'C+E': 'C-LCC + E-LCC',
+      'C+E+S': 'C-LCC + E-LCC + S-LCC',
+      'C+N': 'C-LCC je Partner + Netzwerk',
+      'C+N+S': 'C-LCC je Partner + Netzwerk + S-LCC',
+      'C-LCC': 'C-LCC',
+    },
+    situationBadge: {
+      A: 'ILCD-Situation A',
+      B: 'ILCD-Situation B',
+      C1: 'ILCD-Situation C1',
+      C2: 'ILCD-Situation C2',
+    },
     verdictWhy: "Warum: Sie haben „{{answer}}“ geantwortet (Q9)",
     verdictWhyQ1: "Warum: Q9 ist nicht beantwortet, daher folgt die Situation aus dem Untersuchungsgegenstand (Q1)",
     config: {
@@ -879,7 +900,7 @@ const de: Locale = {
         fu: 'Funktionelle Einheit',
         regional: 'Lokale Wirkungen',
         sectors: 'Sektorregeln',
-        shared: 'Gemeinsame Anlagen',
+        shared: 'Eigens errichtete Anlagen',
       },
       values: {
         noChapter: "Kein Kapitel von D4.1 Part 2 betrifft die angegebenen Flüsse: es gilt nur Part 1",
@@ -913,7 +934,7 @@ const de: Locale = {
         regional_B: 'Regionale oder länderspezifische Charakterisierungsfaktoren',
         regional_C: 'Länder- oder regionsspezifische Faktoren für das Gebiet jeder Emission',
         regional_unset: 'Standortspezifische Faktoren, wo die wichtigsten Wechselwirkungen stark lokal sind',
-        shared: 'Ihre CAPEX und OPEX in der Kostenaufstellung, aufgeteilt auf die nutzenden Partner',
+        shared: 'Ihr CAPEX und OPEX in der Kostenaufstellung, den Partnern zugerechnet, die davon profitieren (ganz einem Unternehmen, wenn nur es sie nutzt)',
       },
       why: {
         noChapter: "Part 2 deckt fünf biobasierte Sektoren ab, und kein Fluss ist einem davon zugeordnet",
@@ -936,7 +957,7 @@ const de: Locale = {
         horizonTrl: 'die Schlüsseltechnologie liegt unter TRL 7',
         horizonPeriod: 'die Studie verfolgt das System {{years}} Jahre, mehr als {{threshold}}',
         horizonLifetime: 'die Anlagen halten {{years}} Jahre, mehr als {{threshold}}',
-        horizonPresent: 'heutiges Jahr, ausgereifte Technologie und ein Horizont innerhalb von {{threshold}} Jahren',
+        horizonPresent: 'heutiges Jahr, Technologie ab TRL 7 und ein Horizont innerhalb von {{threshold}} Jahren',
         referenceNotYet: 'die Austausche finden noch nicht statt (Q2)',
         referenceRunning: 'die Austausche finden bereits statt (Q2)',
         referenceLongStanding: 'das Netzwerk läuft seit vielen Jahren (Q2)',
@@ -944,7 +965,7 @@ const de: Locale = {
         fuDefault: 'was die Studie vergleicht, ist nicht beantwortet (Q11)',
         regionalUnset: 'die Konzentration der Wechselwirkungen ist nicht beantwortet (Q7)',
         sectors: 'die Kapitel folgen dem für jeden Fluss angegebenen Sektor',
-        shared: "die Symbiose nutzt eigens gebaute, gemeinsam genutzte Anlagen (Q12)",
+        shared: 'die Symbiose nutzt eigens errichtete Anlagen (Q12)',
       },
     },
     notes: { title: 'Hinweise zu Ihren Antworten' },
@@ -978,8 +999,8 @@ const de: Locale = {
       flow_sellable_but_waste: "Fluss „{{flow}}“: Laut Q5 zahlt der Erzeuger für die Entsorgung (Abfall), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
       flow_price_without_market: "Fluss „{{flow}}“: Q5 sagt, der Empfänger zahlt (Koppelprodukt), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, ist der Fluss Abfall, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Step 4). Prüfen Sie den Preis gegen diesen Maßstab.",
       flow_freedom_to_act_settles: {
-        co_product: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt; um diese Lesart direkt anzuwenden, setzen Sie Q5 auf c.",
-        waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt; um diese Lesart direkt anzuwenden, setzen Sie Q5 auf a.",
+        co_product: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",
+        waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",
       },
       running_but_future: "Q2 sagt, dass die Austausche bereits stattfinden, aber Q8 legt den Betrieb in ein künftiges Jahr oder Q6b stuft die Schlüsseltechnologie unter TRL 7 ein. Ein laufender Austausch wird heute gemessen: prüfen Sie Q2, Q8 und Q6b. Bis dahin folgen das Referenzszenario und der Zeitpunkt der Kostenbewertung Q2, der künftige Hintergrund Q8 und Q6b.",
       design_without_screening: "Die Studie plant, erweitert oder restrukturiert ein Netz und wird als Situation A modelliert. D4.1 §4.2.3: solche Studien brauchen das ILCD-Marktscreening (Mattila et al. 2012); ohne es bleibt die Studie A, mit Situation B als Sensitivitätsanalyse. Dokumentieren Sie das Screening oder rechnen Sie B als Sensitivität.",

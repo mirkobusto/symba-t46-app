@@ -36,7 +36,7 @@ describe('result reasons', () => {
   it('does not claim a mature technology nobody declared', async () => {
     await i18n.changeLanguage('en')
     expect(rows(CASE).horizon.why).toMatch(/no operating year.*answer Q8/)
-    expect(rows({ ...CASE, q6b: 'TRL9', operating_start: 'now' }).horizon.why).toMatch(/mature technology/)
+    expect(rows({ ...CASE, q6b: 'TRL9', operating_start: 'now' }).horizon.why).toMatch(/technology at TRL 7 or above/)
   })
 
   it('does not speak of value-chain views for a costing without LCA', async () => {
@@ -49,5 +49,17 @@ describe('result reasons', () => {
   it('says when no Part 2 chapter covers the flows', async () => {
     await i18n.changeLanguage('en')
     expect(rows({ ...CASE, sector_rules: [] }).sectors.value).toMatch(/No chapter of D4.1 Part 2.*only Part 1 applies/)
+  })
+})
+
+describe('verdict of a study with no LCA (UX round 2026-11-03)', () => {
+  it('is headed by the costing, with the ILCD situation as a badge', async () => {
+    const { verdictFor } = await import('../pages/resultNarrative')
+    await i18n.changeLanguage('it')
+    const tr = (key: string, fallback?: string) => i18n.t(key, { defaultValue: fallback ?? '' }) as string
+    const v = verdictFor({ ...CASE, q3: { env: false, eco: true, soc: false }, ilcd_situation: 'ILCD Situation A', lcc_type: 'C+N' }, tr)!
+    expect(v.title).toBe('LCC convenzionale per partner, consolidato a livello di rete')
+    expect(v.title).not.toMatch(/attribuzional/i)
+    expect(v.codes).toEqual(['C-LCC per partner + rete', 'Situazione ILCD A'])
   })
 })

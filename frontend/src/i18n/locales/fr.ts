@@ -380,7 +380,7 @@ const fr: Locale = {
       situation: 'Une étude d\'un réseau existant qui en évalue une option (une amélioration, une extension) est lue comme Situation A ; une étude qui se borne à documenter le réseau est Situation C1 (lecture T4.6 du tableau 1 et du §4.3.2 de la D4.1).',
       uncertainty: 'La matrice Pedigree est écrite comme obligatoire quand les résultats vont à un panel de revue, à l\'alignement sur les politiques de l\'UE ou à une publication (Q4 = C, D ou E) et comme recommandée sinon, et elle s\'active pour l\'ACV comme pour le LCC quand les échanges n\'ont pas encore lieu (Q2 = B, règle CIR-02) ; le Monte Carlo est demandé pour l\'ACV sous ses propres conditions (Q4 = C, D ou E, ou technologie sous TRL 9) et toujours pour le calcul des coûts. La D4.1 §13.3.2 et la D4.2 §7.1, §10.3 demandent les deux dans toute étude.',
       policy: "L'alignement sur les politiques de l'UE (Q4 = D) introduit les prix CE Delft et l'allocation par net tax factor, que la D4.2 associe au LCC sociétal.",
-      assets: "Q12 compte les biens dédiés et partagés construits pour les échanges, aujourd'hui ou il y a des années (D4.1 §6.3.3), là où la D4.2 §4.2 parle de biens nouveaux.",
+      assets: 'Q12 compte les biens construits pour les échanges, aujourd\'hui ou il y a des années, même quand une seule entreprise les utilise (D4.1 §6.3.3 : propres au scénario de symbiose), là où la D4.2 §4.2 parle de biens nouveaux et partagés.',
     },
     contactTitle: "Contact",
     contactBody: "Pour toute question sur l'outil ou le projet, écrivez via la page de contact du site SYMBA :",
@@ -673,13 +673,13 @@ const fr: Locale = {
     q10: {
       title: 'Q10 — L\'étude sert-elle un objectif public ou un décideur public ? *',
       help: 'Obligatoire quand la dimension économique est active : elle décide si l\'ACC sociétal est ajouté.',
-      details: 'La D4.2 §2.3 ajoute un ACC sociétal (facteur fiscal net, externalités monétisées, taux d\'actualisation social) lorsque l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, et le §2.2 lie le choix du type d\'ACC à la perspective du décideur : une municipalité, un service public ou un régulateur adopte le point de vue public, quel que soit le sujet de l\'étude (la D4.2 §9.2 indique 3-5 % comme taux d\'un partenaire municipal ou d\'un service public). Une municipalité qui planifie un éco-parc ou un service public qui dimensionne une liaison de chauffage urbain répond oui. Le rapport strict d\'une seule entreprise (Q9 : rapport d\'entreprise, situation C2) garde le coût au niveau de l\'entreprise (choix de conception T4.6), et l\'outil le signale.',
+      details: 'La D4.2 §2.3 ajoute un LCC sociétal (net tax factor, externalités monétisées, taux d\'actualisation social) quand l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, et le §2.2 lie le choix du type de LCC à la perspective du décideur. Qui décide : l\'organisme qui commande ou utilisera l\'étude. Un partenaire public au sein du réseau (une régie municipale de chauffage urbain, une station d\'épuration publique) ne rend pas à lui seul l\'objectif public : son coût public du capital entre au niveau de l\'entité (D4.2 §9.2) dans un calcul de coûts au niveau de l\'entreprise. Répondez oui quand c\'est cet organisme public qui décide du cas, ou quand un plan ou une politique publique utilisera l\'étude. Une commune qui planifie un éco-parc ou un service public qui dimensionne un raccordement de chauffage urbain répondent oui. Le reporting strict d\'une seule entreprise (Q9 : rapport d\'entreprise, Situation C2) garde le calcul de coûts au niveau de l\'entreprise (choix de conception T4.6), et l\'outil vous le dit.',
       options: {
         yes: 'Oui — un objectif de politique publique ou d\'aménagement, ou un décideur public (ajoute l\'ACC sociétal)',
-        no: 'Non — une décision privée ou le compte propre d\'une entreprise',
+        no: 'Non — une décision privée ou le compte d\'une entreprise, même avec un organisme public parmi les partenaires',
       },
       plain:
-        'Répondez oui si l\'étude doit alimenter une décision publique, ou si un organisme public la commande : une municipalité, une région, un service public, un régulateur, un plan. Une seconde lecture économique s\'ajoute alors, du point de vue de la société : les taxes comptées autrement, et les effets que personne ne paie en argent. Pour le compte propre d\'une entreprise, la lecture économique reste au niveau de l\'entreprise.',
+        'Répondez oui si l\'étude doit alimenter une décision publique, ou si un organisme public la commande : une municipalité, une région, un service public, un régulateur, un plan. Une seconde lecture économique s\'ajoute alors, du point de vue de la société : les taxes comptées autrement, et les effets que personne ne paie en argent. Pour le compte propre d\'une entreprise, la lecture économique reste au niveau de l\'entreprise. Ce qui compte, c\'est qui commande ou utilisera l\'étude, pas la présence d\'un organisme public dans le réseau. Exemple : une aciérie étudie la vente de chaleur au réseau municipal — non ; la commune décide de se raccorder — oui.',
     },
 
     q11: {
@@ -696,16 +696,16 @@ const fr: Locale = {
         "Sur quoi porte vraiment la comparaison ? Si la question est de savoir comment traiter au mieux un déchet — le brûler, le méthaniser, le composter —, le résultat se compte par tonne de déchet traité. Si la question est de savoir si le produit récupéré vaut mieux que celui qu'il remplace, il se compte par unité de produit. Si les deux comptent autant, on les compte côte à côte.",
     },
     q12: {
-      title: "Q12 — La symbiose utilise-t-elle des biens dédiés et partagés ?",
-      help: "Facultative, posée avec l'ACV ou le LCC : conduites, installations ou stockages construits pour les échanges, aujourd'hui ou il y a des années.",
-      details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Avec l\'ACV et l\'ACC actives, un oui active aussi les règles qui alignent les biens d\'équipement entre les deux (IR-13, B-06) ; pour les parcs et programmes avec la dimension sociale, les indicateurs S-ACV pour l\'investissement partagé (CIR-08).',
+      title: 'Q12 — La symbiose utilise-t-elle des biens dédiés ?',
+      help: 'Facultative, posée quand l\'ACV ou le LCC sont actifs : canalisations, installations, stockages ou équipements construits pour les échanges, aujourd\'hui ou il y a des années, qu\'une seule entreprise ou plusieurs les utilisent.',
+      details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Avec l\'ACV et l\'ACC actives, un oui active aussi les règles qui alignent les biens d\'équipement entre les deux (IR-13, B-06) ; pour les parcs et programmes avec la dimension sociale, les indicateurs S-ACV pour l\'investissement partagé (CIR-08). Le partenaire bénéficiaire peut être une seule entreprise.',
       options: {
         unset: 'Sans réponse',
-        yes: "Oui — conduites, installations ou stockages construits pour les échanges, aujourd'hui ou il y a des années",
-        no: "Non — les échanges n'utilisent que des biens qui serviraient de toute façon",
+        yes: 'Oui — quelque chose a été construit pour les échanges (une canalisation, une installation, un séchoir, une cuve), même si une seule entreprise l\'utilise',
+        no: 'Non — les échanges n\'utilisent que des biens qui existeraient de toute façon',
       },
       plain:
-        "Répondez oui si quelque chose a été construit, ou doit l'être, pour que les échanges aient lieu : une conduite, une station de traitement commune, un réservoir, même construit il y a des années. Son coût et son empreinte environnementale entrent alors dans l'étude et sont partagés entre les entreprises qui l'utilisent.",
+        'Répondez oui si quelque chose a été construit, ou doit l\'être, pour que les échanges aient lieu : une canalisation, une installation de traitement, une cuve, un séchoir, même construit il y a des années. Son coût et son empreinte entrent alors dans l\'étude et sont imputés à qui en bénéficie : tout à une seule entreprise si elle seule l\'utilise, partagés si plusieurs l\'utilisent.',
     },
 
     q2dCard: {
@@ -868,6 +868,27 @@ const fr: Locale = {
   },
 
   result: {
+    // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
+    lccTitle: {
+      'C+N': 'LCC conventionnel par partenaire, consolidé au niveau du réseau',
+      'C+N+S': 'LCC conventionnel par partenaire et réseau, plus LCC sociétal',
+      'C-LCC': 'LCC conventionnel d\'une seule entreprise',
+      'C+E': 'LCC conventionnel et environnemental',
+      'C+E+S': 'LCC conventionnel, environnemental et sociétal',
+    },
+    lccBadge: {
+      'C+E': 'C-LCC + E-LCC',
+      'C+E+S': 'C-LCC + E-LCC + S-LCC',
+      'C+N': 'C-LCC par partenaire + réseau',
+      'C+N+S': 'C-LCC par partenaire + réseau + S-LCC',
+      'C-LCC': 'C-LCC',
+    },
+    situationBadge: {
+      A: 'Situation ILCD A',
+      B: 'Situation ILCD B',
+      C1: 'Situation ILCD C1',
+      C2: 'Situation ILCD C2',
+    },
     verdictWhy: "Pourquoi : vous avez répondu « {{answer}} » (Q9)",
     verdictWhyQ1: "Pourquoi : Q9 n'a pas de réponse, la situation est donc déduite de ce que vous analysez (Q1)",
     config: {
@@ -885,7 +906,7 @@ const fr: Locale = {
         fu: 'Unité fonctionnelle',
         regional: 'Impacts locaux',
         sectors: 'Règles sectorielles',
-        shared: 'Actifs partagés',
+        shared: 'Biens dédiés',
       },
       values: {
         noChapter: "Aucun chapitre de la D4.1 Part 2 ne concerne les flux déclarés : seule la Part 1 s'applique",
@@ -919,7 +940,7 @@ const fr: Locale = {
         regional_B: 'Facteurs de caractérisation régionaux ou par pays',
         regional_C: 'Facteurs par pays ou région pour le territoire de chaque émission',
         regional_unset: 'Facteurs propres au site là où les interactions clés sont intensément locales',
-        shared: 'Leur CAPEX et leur OPEX dans la décomposition des coûts, répartis entre les partenaires qui les utilisent',
+        shared: 'Leur CAPEX et leur OPEX dans la ventilation des coûts, imputés aux partenaires qui en bénéficient (tout à une seule entreprise si elle seule les utilise)',
       },
       why: {
         noChapter: "la Part 2 couvre cinq secteurs biosourcés et aucun flux n'est déclaré dans l'un d'eux",
@@ -942,7 +963,7 @@ const fr: Locale = {
         horizonTrl: 'la technologie clé est sous TRL 7',
         horizonPeriod: 'l\'étude suit le système pendant {{years}} ans, plus de {{threshold}}',
         horizonLifetime: 'les actifs durent {{years}} ans, plus de {{threshold}}',
-        horizonPresent: 'année actuelle, technologie mature et horizon dans les {{threshold}} ans',
+        horizonPresent: 'année actuelle, technologie à TRL 7 ou plus et horizon dans les {{threshold}} ans',
         referenceNotYet: 'les échanges n\'ont pas encore lieu (Q2)',
         referenceRunning: 'les échanges ont déjà lieu (Q2)',
         referenceLongStanding: 'le réseau fonctionne depuis de nombreuses années (Q2)',
@@ -950,7 +971,7 @@ const fr: Locale = {
         fuDefault: 'ce que l\'étude compare est sans réponse (Q11)',
         regionalUnset: 'la concentration des interactions est sans réponse (Q7)',
         sectors: 'les chapitres suivent le secteur déclaré pour chaque flux',
-        shared: "la symbiose utilise des biens dédiés et partagés (Q12)",
+        shared: 'la symbiose utilise des biens dédiés (Q12)',
       },
     },
     notes: { title: 'Remarques sur vos réponses' },
@@ -984,8 +1005,8 @@ const fr: Locale = {
       flow_sellable_but_waste: "Flux « {{flow}} » : Q5 indique que le producteur paie pour s'en débarrasser (déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
       flow_price_without_market: "Flux « {{flow}} » : Q5 indique que le receveur paie (co-produit), mais aucun tiers ne l'achèterait. Avec un preneur unique, c'est le prix qui décide (D4.1 §8.3.3) : le flux est un co-produit si le receveur paie ce que paierait un acheteur indépendant, soit le prix du produit que le flux remplace net de ses coûts supplémentaires pour l'utiliser ; si le paiement ne fait que partager les coûts, le flux est un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 Step 4). Comparez le prix à cette référence.",
       flow_freedom_to_act_settles: {
-        co_product: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un coproduit (§8.3.2, charge partagée). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé ; pour appliquer directement cette lecture, mettez Q5 sur c.",
-        waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé ; pour appliquer directement cette lecture, mettez Q5 sur a.",
+        co_product: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un coproduit (§8.3.2, charge partagée). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente.",
+        waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente.",
       },
       running_but_future: "Q2 indique que les échanges ont déjà lieu, mais Q8 place l'exploitation dans une année future ou Q6b met la technologie clé sous TRL 7. Un échange en cours se mesure aujourd'hui : vérifiez Q2, Q8 et Q6b. En attendant, le scénario de référence et le calendrier de l'évaluation des coûts suivent Q2, l'arrière-plan futur suit Q8 et Q6b.",
       design_without_screening: "L'étude conçoit, étend ou restructure un réseau et elle est modélisée en Situation A. D4.1 §4.2.3 : ces études demandent le screening de marché ILCD (Mattila et al. 2012) ; sans lui, l'étude reste A, avec la Situation B en analyse de sensibilité. Documentez le screening, ou faites B en sensibilité.",

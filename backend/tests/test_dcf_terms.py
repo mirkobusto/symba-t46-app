@@ -101,3 +101,15 @@ def test_the_italian_workbook_reads_in_italian_with_names_not_ids(payload):
     assert "Depuratore Alfa" in row and "Biogas Beta" in row and "rifiuto" in row
     assert "a1" not in row
     assert any("_lists" in dv.formula1 for dv in flows.data_validations.dataValidation)
+
+
+def test_the_reference_scenario_sheet_asks_what_each_actor_would_do(payload):
+    """PR 8 (owner-approved schema change, 2026-11-03): the DCF asks the data the
+    substitution and the reference scenario need, which no sheet asked before."""
+    wb = load_workbook(BytesIO(render_xlsx(localize(payload, "it"), lang="it")))
+    ref = wb["Scenario di riferimento"]
+    headers = [c.value for c in ref[4]]
+    assert headers[:2] == ["Attore *", "Che cosa fa o farebbe questo attore senza gli scambi *"]
+    classif = [c.value for c in wb["Classificazione flussi"][4]]
+    assert "Prodotto o processo che il flusso sostituisce" in classif
+    assert "Fattore di qualità Q (0-1)" in classif

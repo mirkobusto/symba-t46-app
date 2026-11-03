@@ -230,7 +230,7 @@ Cronologia sintetica (tutto su `main`):
 - `backend/app/schemas/system_fields.json` — 16 system fields
 - `backend/app/schemas/computed_fields.json` — 12 computed fields
 - `backend/app/schemas/cir_output_fields.json` — 20 cir_output fields
-- `backend/app/schemas/dcf_schema.json` — namespace DCF separato (8 sezioni: `costs` aggiunta il 2026-08-30, `flow_classification` il 2026-10-04, entrambe approvate)
+- `backend/app/schemas/dcf_schema.json` — namespace DCF separato (9 sezioni: `costs` aggiunta il 2026-08-30, `flow_classification` il 2026-10-04, `reference_scenario` e i quattro campi della sostituzione in `flow_classification` il 2026-11-03, tutte approvate). I testi per il lettore, nelle cinque lingue, stanno in `backend/app/data/dcf_terms.json`
 
 I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 - 95 nodi FIELDED + 91 procedural_mandate = 186 (erano 96 + 90 fino al 2026-10-04: `lcc_hc_06` è diventato un puro mandato, vedi audit I-08)

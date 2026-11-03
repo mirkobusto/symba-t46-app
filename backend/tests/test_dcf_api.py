@@ -70,7 +70,7 @@ def test_preview_returns_payload():
     # sections in spec order
     ids = [s["id"] for s in body["sections"]]
     assert ids == [
-        "actors", "flow_matrix", "flow_classification", "logistics", "costs",
+        "actors", "flow_matrix", "flow_classification", "reference_scenario", "logistics", "costs",
         "infrastructure", "methodological_choices", "network_diagram",
     ]
 

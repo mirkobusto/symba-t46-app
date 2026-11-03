@@ -79,7 +79,7 @@ def test_render_returns_bytes(payload_wiktor):
 def test_workbook_has_expected_tabs(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
-    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Flow Classification",
+    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Flow Classification", "Reference Scenario",
                 "Logistics", "Costs & Revenues", "Infrastructure",
                 "Methodological Choices", "Network Diagram"]
     # plus the hidden sheet that holds the dropdown labels

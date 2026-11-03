@@ -54,7 +54,8 @@ _LABEL_FONT = Font(bold=True)
 _FOOTER_FONT = Font(size=8, italic=True, color="888888")
 
 _DATA_SECTION_ORDER = [
-    "actors", "flow_matrix", "flow_classification", "logistics", "costs", "infrastructure",
+    "actors", "flow_matrix", "flow_classification", "reference_scenario", "logistics", "costs",
+    "infrastructure",
 ]
 _LISTS_SHEET = "_lists"  # hidden: the dropdown values, one column per field
 _EMPTY_DATA_ROWS = 10

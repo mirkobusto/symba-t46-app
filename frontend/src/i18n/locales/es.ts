@@ -138,7 +138,7 @@ const es: Locale = {
     audience: {
       showingFor: 'Vista para — {{name}}',
       industry: { short: '🏭 Industria', name: 'Industria', title: 'Vista operador', body: 'Vista técnica completa.' },
-      community: { short: '🌳 Comunidad', name: 'Comunidad', title: 'Impacto local', body: "Qué cambia para quienes viven cerca de las plantas: efectos sobre el entorno local y sobre las personas, positivos y negativos." },
+      community: { short: '🌳 Comunidad', name: 'Comunidad', title: 'Impacto local', body: 'Cómo se estudiarán los efectos sobre la zona y sobre las personas cercanas a las plantas: transporte, aire, agua y suelo locales, lo que se esparce en los campos, si se escucha a los vecinos. Todavía no hay resultados.' },
       authority: { short: '🏛 Autoridad', name: 'Autoridad local', title: 'Vista regulatoria', body: "Cómo se plantea la evaluación: costes, bienes compartidos, escenario de referencia, afirmaciones públicas, horizonte, efectos sociales." },
       enduser: { short: '👤 Usuario', name: 'Usuario final', title: 'Resumen', body: "De qué trata este caso y qué se evaluará. Todavía no hay resultados." },
     },
@@ -161,6 +161,8 @@ const es: Locale = {
     preparedBy: 'Preparado por {{name}} — respuestas introducidas por el autor del caso, no verificadas por SYMBA.',
     contact: 'Para preguntas sobre este caso: {{contact}}',
     noContact: 'Para preguntas sobre este caso, dirígete a quien te envió el enlace. SYMBA construyó la herramienta; no realiza este estudio.',
+    whatYouCanDo: 'Este estudio todavía se está preparando. Si queréis que se escuche a los vecinos (entrevistas, cuestionarios), o si os preocupan el tráfico, los olores o lo que se esparce en los campos, escribid a quien lo preparó: {{contact}}. Los resultados, cuando se carguen, aparecerán en esta misma página, en el mismo enlace.',
+    whatYouCanDoTitle: 'Qué podéis hacer',
   },
 
   welcome: {
@@ -960,8 +962,25 @@ const es: Locale = {
         multifunctionality: 'Multifuncionalidad',
         flowsLcc: 'Coste de cada flujo',
         fuLcc: 'Equivalente funcional',
+        communityRegional: 'Efectos cerca de las plantas',
+        transport: 'Transporte',
+        fieldSpreading: 'Lo que se esparce en los campos',
+        notCovered: 'Lo que no cubre',
       },
       values: {
+        community: {
+          slcaOn: 'Sí: los efectos sociales se evalúan grupo por grupo: trabajadores, comunidad local, consumidores. Qué grupos se escuchan lo decide quien realiza el estudio (D4.3 §5.1, §6.2).',
+          slcaOff: 'No: los efectos sociales no se evalúan. Si los vecinos quieren ser escuchados, pedidlo al contacto de esta página.',
+          regional: 'Los efectos locales en el aire, el agua y el suelo (partículas finas, acidificación, exceso de nutrientes, consumo de agua) se evalúan con datos {{where}}, no con medias mundiales (D4.1 §13.3.3).',
+          where_A: 'del emplazamiento',
+          where_B: 'de vuestra región o país',
+          where_C: 'del territorio de cada emisión',
+          where_unset: 'del país',
+          transport: 'Cada intercambio se estudia con su transporte: camiones o conducciones, rutas y distancias reales, cargas y retornos en vacío, y la distancia a partir de la cual el camión anula el beneficio (D4.1 §13.3.1).',
+          transportLcc: 'El coste de transportar cada intercambio, y la distancia a partir de la cual deja de compensar (D4.2 §4.3).',
+          fieldSpreading: 'El estudio cuenta lo que ocurre cuando el digerido, el compost o el fertilizante recuperado se esparcen en los campos: amoníaco al aire, nitratos al agua (D4.1 Part 2 §4.3.3, §6.3.3).',
+          notCovered: 'Los olores y el ruido no son categorías de impacto de estas directrices (la Part 2 §9.3 los incluye entre los efectos que suelen quedar fuera); el aire, el agua y la toxicidad locales sí lo son. Todo efecto local que el estudio deje fuera debe declararse como punto ciego conocido (D4.1 §12.3.5).',
+        },
         flowCost: {
           a: 'residuo: la tarifa negociada; coste cero solo si el residuo es inevitable (D4.2 §6.3)',
           b: 'gratuito: precio de transferencia cero; coste cero solo si es inevitable, si no, coproducto',
@@ -1363,7 +1382,7 @@ const es: Locale = {
       industry:
         'Vista técnica completa de la configuración metodológica. Las cifras (emisiones, costes) no se producen aquí: quien realiza el estudio las calcula a partir del Data Collection File, y pueden cargarse en este caso.',
       community:
-        'Qué cambia para quienes viven cerca de las plantas: efectos sobre el entorno local y sobre las personas, positivos y negativos.',
+        'Cómo se estudiarán los efectos sobre la zona y sobre las personas cercanas a las plantas: transporte, aire, agua y suelo locales, lo que se esparce en los campos, si se escucha a los vecinos. Todavía no hay resultados.',
       authority:
         'Cómo se plantea la evaluación: costes, bienes compartidos, escenario de referencia, afirmaciones públicas, horizonte, efectos sociales.',
       'end-user':

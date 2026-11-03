@@ -147,7 +147,7 @@ const it: Locale = {
     audience: {
       showingFor: 'Vista per — {{name}}',
       industry: { short: '🏭 Industria', name: 'Industria', title: 'Vista operatore', body: 'Quadro tecnico completo della configurazione metodologica per chi gestisce la simbiosi.' },
-      community: { short: '🌳 Comunità', name: 'Comunità', title: 'Vista impatto locale', body: "Che cosa cambia per chi vive vicino agli impianti: effetti sull'ambiente della zona e sulle persone, positivi e negativi." },
+      community: { short: '🌳 Comunità', name: 'Comunità', title: 'Vista impatto locale', body: 'Come verranno studiati gli effetti sulla zona e sulle persone vicine agli impianti: trasporti, aria, acqua e suolo locali, ciò che si sparge sui campi, se i residenti vengono ascoltati. Non ci sono ancora risultati.' },
       authority: { short: '🏛 Autorità', name: 'Autorità locale', title: 'Vista regolatoria e di policy', body: "Come è impostata la valutazione: costi, beni condivisi, scenario di riferimento, affermazioni pubbliche, orizzonte, effetti sociali." },
       enduser: { short: '👤 End user', name: 'End user', title: 'Riassunto end-user', body: "Di che cosa parla questo caso e che cosa verrà valutato. I risultati non ci sono ancora." },
     },
@@ -185,6 +185,8 @@ const it: Locale = {
     preparedBy: 'Preparato da {{name}} — risposte inserite dall\'autore del caso, non verificate da SYMBA.',
     contact: 'Per domande su questo caso: {{contact}}',
     noContact: 'Per domande su questo caso rivolgiti a chi ti ha mandato il link. SYMBA ha costruito lo strumento, non conduce questo studio.',
+    whatYouCanDo: 'Questo studio è ancora in preparazione. Se volete che i residenti siano ascoltati (interviste, questionari), o se vi preoccupano camion, odori o ciò che si sparge sui campi, scrivete a chi l\'ha preparato: {{contact}}. I risultati, quando saranno caricati, compariranno su questa stessa pagina, allo stesso link.',
+    whatYouCanDoTitle: 'Cosa potete fare',
   },
 
   welcome: {
@@ -986,8 +988,25 @@ const it: Locale = {
         multifunctionality: 'Multifunzionalità',
         flowsLcc: 'Costo di ogni flusso',
         fuLcc: 'Equivalente funzionale',
+        communityRegional: 'Effetti vicino agli impianti',
+        transport: 'Trasporti',
+        fieldSpreading: 'Ciò che si sparge sui campi',
+        notCovered: 'Che cosa non copre',
       },
       values: {
+        community: {
+          slcaOn: 'Sì: gli effetti sociali sono valutati gruppo per gruppo: lavoratori, comunità locale, consumatori. Quali gruppi vengono ascoltati lo decide chi esegue lo studio (D4.3 §5.1, §6.2).',
+          slcaOff: 'No: gli effetti sociali non sono valutati. Se i residenti vogliono essere ascoltati, chiedetelo al contatto di questa pagina.',
+          regional: 'Gli effetti locali su aria, acqua e suolo (polveri sottili, acidificazione, eccesso di nutrienti, consumo d\'acqua) sono calcolati con dati {{where}}, non con medie mondiali (D4.1 §13.3.3).',
+          where_A: 'del sito',
+          where_B: 'della vostra regione o paese',
+          where_C: 'del territorio di ogni emissione',
+          where_unset: 'del paese',
+          transport: 'Ogni scambio è studiato con il suo trasporto: camion o condotte, percorsi e distanze reali, carichi e ritorni a vuoto, e la distanza oltre la quale i camion annullano il beneficio (D4.1 §13.3.1).',
+          transportLcc: 'Il costo del trasporto di ogni scambio, e la distanza oltre la quale non conviene più (D4.2 §4.3).',
+          fieldSpreading: 'Lo studio conta ciò che succede quando digestato, compost o fertilizzante recuperato vengono sparsi sui campi: ammoniaca nell\'aria, nitrati nell\'acqua (D4.1 Part 2 §4.3.3, §6.3.3).',
+          notCovered: 'Odori e rumore non sono categorie d\'impatto di queste linee guida (la Part 2 §9.3 li elenca fra gli effetti di solito lasciati fuori); lo sono aria, acqua e tossicità locali. Ogni effetto locale che lo studio lascia fuori va dichiarato come punto cieco noto (D4.1 §12.3.5).',
+        },
         flowCost: {
           a: 'rifiuto: la tariffa di conferimento negoziata; costo zero solo se il residuo è inevitabile (D4.2 §6.3)',
           b: 'gratuito: prezzo di trasferimento zero; costo zero solo se inevitabile, altrimenti co-prodotto',
@@ -1389,7 +1408,7 @@ const it: Locale = {
       industry:
         'Vista tecnica completa della configurazione metodologica. I numeri (emissioni, costi) non si producono qui: li calcola chi esegue lo studio a partire dal Data Collection File, e possono essere caricati in questo caso.',
       community:
-        'Che cosa cambia per chi vive vicino agli impianti: effetti sull\'ambiente della zona e sulle persone, positivi e negativi.',
+        'Come verranno studiati gli effetti sulla zona e sulle persone vicine agli impianti: trasporti, aria, acqua e suolo locali, ciò che si sparge sui campi, se i residenti vengono ascoltati. Non ci sono ancora risultati.',
       authority:
         'Come è impostata la valutazione: costi, beni condivisi, scenario di riferimento, affermazioni pubbliche, orizzonte, effetti sociali.',
       'end-user':

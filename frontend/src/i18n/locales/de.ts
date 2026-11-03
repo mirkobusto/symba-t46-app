@@ -138,7 +138,7 @@ const de: Locale = {
     audience: {
       showingFor: 'Ansicht für — {{name}}',
       industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Betreiberansicht', body: 'Vollständige technische Übersicht.' },
-      community: { short: '🌳 Gemeinschaft', name: 'Gemeinschaft', title: 'Lokale Auswirkungen', body: "Was sich für Menschen in der Nähe der Anlagen ändert: Wirkungen auf die lokale Umwelt und auf Menschen, positive wie negative." },
+      community: { short: '🌳 Gemeinschaft', name: 'Gemeinschaft', title: 'Lokale Auswirkungen', body: 'Wie die Wirkungen auf die Gegend und auf die Menschen in der Nähe der Anlagen untersucht werden: Transporte, lokale Luft, Wasser und Boden, was auf Felder ausgebracht wird, ob Anwohner gehört werden. Es gibt noch keine Ergebnisse.' },
       authority: { short: '🏛 Behörde', name: 'Lokale Behörde', title: 'Regulatorische Ansicht', body: "Wie die Bewertung angelegt ist: Kosten, gemeinsame Anlagen, Referenzszenario, öffentliche Aussagen, Zeithorizont, soziale Wirkungen." },
       enduser: { short: '👤 Endnutzer', name: 'Endnutzer', title: 'Zusammenfassung', body: "Worum es in diesem Fall geht und was bewertet wird. Ergebnisse gibt es noch nicht." },
     },
@@ -161,6 +161,8 @@ const de: Locale = {
     preparedBy: 'Erstellt von {{name}} — Antworten vom Autor des Falls eingegeben, nicht von SYMBA geprüft.',
     contact: 'Für Fragen zu diesem Fall: {{contact}}',
     noContact: 'Für Fragen zu diesem Fall wenden Sie sich an die Person, die Ihnen den Link geschickt hat. SYMBA hat das Tool gebaut; es führt diese Studie nicht durch.',
+    whatYouCanDo: 'Diese Studie wird noch vorbereitet. Wenn Anwohner gehört werden sollen (Interviews, Fragebögen) oder wenn Verkehr, Gerüche oder das Ausbringen auf Felder Sie beunruhigen, schreiben Sie an die Person, die sie vorbereitet hat: {{contact}}. Die Ergebnisse erscheinen, sobald sie geladen sind, auf dieser Seite unter demselben Link.',
+    whatYouCanDoTitle: 'Was Sie tun können',
   },
 
   welcome: {
@@ -960,8 +962,25 @@ const de: Locale = {
         multifunctionality: 'Multifunktionalität',
         flowsLcc: 'Kosten jedes Flusses',
         fuLcc: 'Funktionales Äquivalent',
+        communityRegional: 'Wirkungen in der Nähe der Anlagen',
+        transport: 'Transporte',
+        fieldSpreading: 'Was auf Felder ausgebracht wird',
+        notCovered: 'Nicht abgedeckt',
       },
       values: {
+        community: {
+          slcaOn: 'Ja: Soziale Wirkungen werden Gruppe für Gruppe bewertet: Beschäftigte, lokale Gemeinschaft, Verbraucher. Welche Gruppen befragt werden, entscheidet, wer die Studie durchführt (D4.3 §5.1, §6.2).',
+          slcaOff: 'Nein: Soziale Wirkungen werden nicht bewertet. Wenn Anwohner gehört werden wollen, fragen Sie den Kontakt auf dieser Seite.',
+          regional: 'Lokale Wirkungen auf Luft, Wasser und Boden (Feinstaub, Versauerung, Nährstoffüberschuss, Wasserverbrauch) werden mit Daten {{where}} bewertet, nicht mit Weltdurchschnitten (D4.1 §13.3.3).',
+          where_A: 'des Standorts',
+          where_B: 'Ihrer Region oder Ihres Landes',
+          where_C: 'des Gebiets jeder Emission',
+          where_unset: 'des Landes',
+          transport: 'Jeder Austausch wird mit seinem Transport untersucht: Lkw oder Leitungen, reale Routen und Entfernungen, Ladungen und Leerfahrten, und die Entfernung, ab der der Lkw-Transport den Nutzen aufhebt (D4.1 §13.3.1).',
+          transportLcc: 'Die Transportkosten jedes Austauschs und die Entfernung, ab der er sich nicht mehr lohnt (D4.2 §4.3).',
+          fieldSpreading: 'Die Studie zählt, was passiert, wenn Gärrest, Kompost oder zurückgewonnener Dünger auf Felder ausgebracht werden: Ammoniak in die Luft, Nitrat ins Wasser (D4.1 Part 2 §4.3.3, §6.3.3).',
+          notCovered: 'Geruch und Lärm sind keine Wirkungskategorien dieser Leitlinien (Part 2 §9.3 nennt sie unter den meist ausgelassenen Wirkungen); lokale Luft, Wasser und Toxizität sind es. Jede lokale Wirkung, die die Studie auslässt, muss als bekannter blinder Fleck erklärt werden (D4.1 §12.3.5).',
+        },
         flowCost: {
           a: 'Abfall: die ausgehandelte Annahmegebühr; Nullkosten nur, wenn der Rückstand unvermeidbar ist (D4.2 §6.3)',
           b: 'kostenlos: Verrechnungspreis null; Nullkosten nur, wenn unvermeidbar, sonst Koppelprodukt',
@@ -1363,7 +1382,7 @@ const de: Locale = {
       industry:
         'Vollständige technische Sicht auf die methodische Konfiguration. Die Zahlen (Emissionen, Kosten) entstehen nicht hier: Wer die Studie durchführt, berechnet sie aus dem Data Collection File, und sie können in diesen Fall geladen werden.',
       community:
-        'Was sich für Menschen in der Nähe der Anlagen ändert: Wirkungen auf die lokale Umwelt und auf Menschen, positive wie negative.',
+        'Wie die Wirkungen auf die Gegend und auf die Menschen in der Nähe der Anlagen untersucht werden: Transporte, lokale Luft, Wasser und Boden, was auf Felder ausgebracht wird, ob Anwohner gehört werden. Es gibt noch keine Ergebnisse.',
       authority:
         'Wie die Bewertung angelegt ist: Kosten, gemeinsame Anlagen, Referenzszenario, öffentliche Aussagen, Zeithorizont, soziale Wirkungen.',
       'end-user':

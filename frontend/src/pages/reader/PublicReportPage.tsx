@@ -210,6 +210,15 @@ export default function PublicReportPage() {
           title={t('reader.summaryTitle')}
         />
       ) : null}
+      {validAudience === 'community' ? (
+        // residents asked what they could do next (UX round 4, B3, decided by Fable)
+        <section className="dd-reader-todo">
+          <h2 className="dd-section-title">{t('reader.whatYouCanDoTitle')}</h2>
+          <p>{report.case_contact
+            ? t('reader.whatYouCanDo', { contact: report.case_contact })
+            : t('reader.noContact')}</p>
+        </section>
+      ) : null}
       {!c.q3?.env ? <p className="dd-soft">{t('stakeholder.notAssessed.environmental')}</p> : null}
       {!c.q3?.eco ? <p className="dd-soft">{t('stakeholder.notAssessed.economic')}</p> : null}
 

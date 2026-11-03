@@ -39,14 +39,112 @@ export function actorNodes(
   actors: DcfRow[],
   layout: Record<string, DcfNodePosition>,
   unnamedLabel: (index: number) => string,
+  flows: DcfRow[] = [],
 ): GraphNode[] {
+  // a network nobody has arranged yet is laid out by flow direction, not on a grid
+  const auto = actors.some((row) => layout[row.row_id])
+    ? null
+    : layeredLayout(actors.map((r) => r.row_id), flowEdges(flows))
   return actors.map((row, index) => ({
     id: row.row_id,
     label: str(row.values['actor.name']) ?? unnamedLabel(index),
     role: str(row.values['actor.role']),
     sector: str(row.values['actor.sector']),
-    position: layout[row.row_id] ?? fallbackPosition(index),
+    position: layout[row.row_id] ?? auto?.[row.row_id] ?? fallbackPosition(index),
   }))
+}
+
+const COLUMN_GAP = 260
+const ROW_GAP = 160
+
+/**
+ * Positions for the actors, left to right by flow direction (round 5
+ * deferred item, written here rather than with a layout library): each actor
+ * sits one column after the actors that send it something (longest path),
+ * cycles are broken at their back edges (A → B and B → A are legal
+ * exchanges), actors are ordered within a column by the average row of their
+ * neighbours (two sweeps), and actors with no flow go in a last column.
+ */
+export function layeredLayout(
+  actorIds: string[],
+  edges: Pick<GraphEdge, 'source' | 'target'>[],
+): Record<string, DcfNodePosition> {
+  const ids = new Set(actorIds)
+  const succ = new Map<string, string[]>(actorIds.map((id) => [id, []]))
+  const seenEdge = new Set<string>()
+  const linked = new Set<string>()
+  for (const e of edges) {
+    if (!ids.has(e.source) || !ids.has(e.target) || e.source === e.target) continue
+    const key = `${e.source}->${e.target}`
+    if (seenEdge.has(key)) continue
+    seenEdge.add(key)
+    succ.get(e.source)!.push(e.target)
+    linked.add(e.source)
+    linked.add(e.target)
+  }
+
+  // drop back edges found by a depth-first search, in actor order
+  const state = new Map<string, 'open' | 'done'>()
+  const kept: [string, string][] = []
+  const visit = (u: string) => {
+    state.set(u, 'open')
+    for (const v of succ.get(u)!) {
+      if (state.get(v) === 'open') continue // back edge: a cycle
+      kept.push([u, v])
+      if (!state.has(v)) visit(v)
+    }
+    state.set(u, 'done')
+  }
+  for (const id of actorIds) if (!state.has(id)) visit(id)
+
+  // longest path from the sources, on the acyclic edges
+  const preds = new Map<string, string[]>(actorIds.map((id) => [id, []]))
+  const succs = new Map<string, string[]>(actorIds.map((id) => [id, []]))
+  for (const [u, v] of kept) {
+    preds.get(v)!.push(u)
+    succs.get(u)!.push(v)
+  }
+  const layer = new Map<string, number>()
+  const indegree = new Map(actorIds.map((id) => [id, preds.get(id)!.length]))
+  const queue = actorIds.filter((id) => indegree.get(id) === 0)
+  for (const id of queue) layer.set(id, 0)
+  while (queue.length > 0) {
+    const u = queue.shift()!
+    for (const v of succs.get(u)!) {
+      layer.set(v, Math.max(layer.get(v) ?? 0, layer.get(u)! + 1))
+      indegree.set(v, indegree.get(v)! - 1)
+      if (indegree.get(v) === 0) queue.push(v)
+    }
+  }
+
+  const connected = actorIds.filter((id) => linked.has(id))
+  const lastColumn = connected.length > 0 ? Math.max(...connected.map((id) => layer.get(id)!)) + 1 : 0
+  for (const id of actorIds) if (!linked.has(id)) layer.set(id, lastColumn)
+
+  const columns: string[][] = []
+  for (const id of actorIds) (columns[layer.get(id)!] ??= []).push(id)
+  const rowOf = new Map<string, number>()
+  const place = () => columns.forEach((col) => col?.forEach((id, i) => rowOf.set(id, i)))
+  place()
+  const barycenter = (id: string, neighbours: string[]) =>
+    neighbours.length === 0
+      ? rowOf.get(id)!
+      : neighbours.reduce((sum, n) => sum + rowOf.get(n)!, 0) / neighbours.length
+  const sortColumn = (col: string[] | undefined, by: Map<string, string[]>) => {
+    if (!col) return
+    col.sort((a, b) => barycenter(a, by.get(a)!) - barycenter(b, by.get(b)!) || rowOf.get(a)! - rowOf.get(b)!)
+    col.forEach((id, i) => rowOf.set(id, i))
+  }
+  for (let sweep = 0; sweep < 2; sweep += 1) {
+    for (let c = 1; c < columns.length; c += 1) sortColumn(columns[c], preds)
+    for (let c = columns.length - 2; c >= 0; c -= 1) sortColumn(columns[c], succs)
+  }
+
+  const out: Record<string, DcfNodePosition> = {}
+  columns.forEach((col, c) => col?.forEach((id, i) => {
+    out[id] = { x: 40 + c * COLUMN_GAP, y: 40 + i * ROW_GAP }
+  }))
+  return out
 }
 
 /**

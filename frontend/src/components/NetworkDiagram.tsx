@@ -50,6 +50,7 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
       actorRows,
       data.layout,
       (i) => `${t('networkBuilder.actor')} ${i + 1}`,
+      flowRows,
     ).map((node) => ({
       id: node.id,
       position: node.position,

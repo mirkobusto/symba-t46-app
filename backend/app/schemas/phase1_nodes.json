@@ -1205,7 +1205,7 @@
       },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": " | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
+      "extraction_notes": "UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lcc_hc_02",
@@ -1546,7 +1546,7 @@
       },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": " | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
+      "extraction_notes": "UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lcc_hc_20",

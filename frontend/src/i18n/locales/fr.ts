@@ -1004,7 +1004,7 @@ const fr: Locale = {
           waste: 'déchet : charge nulle à partir du point où le résidu atteint pour la première fois une valeur non négative, après le test d\'évitabilité (D4.1 §8.3.6 étape 4)',
           evt: 'indécis : test de valeur économique avec une analyse de sensibilité (D4.1 §8.3.2)',
           coproduct: 'coproduit : pas de charge nulle ; substitution du produit qu\'il remplace, avec le facteur de qualité Q (D4.1 §8.3.6 étape 3)',
-          integrated: 'interdépendant : un coproduit déterminant, jamais à charge nulle ; un seul système multifonctionnel étendu (D4.1 §8.3.6 étape 2) ; l\'ACC environnementale suit la même répartition et valorise le flux au prix de marché de ce qu\'il remplace ; l\'ACC conventionnelle utilise le prix de cession négocié',
+          integrated: 'interdépendant : un coproduit déterminant, jamais à charge nulle ; un seul système multifonctionnel étendu (D4.1 §8.3.6 étape 2) ; l\'E-LCC suit la même répartition et valorise le flux au prix de marché de ce qu\'il remplace ; le C-LCC utilise le prix de cession négocié',
           integratedLca: 'interdépendant : un coproduit déterminant, jamais à charge nulle ; un seul système multifonctionnel étendu (D4.1 §8.3.6 étape 2)',
           allocation: 'allocation : pas de charge nulle ni de crédits de substitution, la comptabilité d\'une seule entreprise (D4.1 §7.2.3)',
           aggregated: 'agrégé : classer chaque flux qui peut être nommé, pas de règle pour tout le réseau (D4.1 §8.3.1)',

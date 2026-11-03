@@ -998,7 +998,7 @@ const es: Locale = {
           waste: 'residuo: carga cero desde el punto en que el residuo alcanza por primera vez un valor no negativo, tras la prueba de evitabilidad (D4.1 §8.3.6 paso 4)',
           evt: 'indeciso: prueba del valor económico con un análisis de sensibilidad (D4.1 §8.3.2)',
           coproduct: 'coproducto: sin carga cero; sustitución del producto que reemplaza, con el factor de calidad Q (D4.1 §8.3.6 paso 3)',
-          integrated: 'interdependiente: un coproducto determinante, nunca con carga cero; un único sistema multifuncional ampliado (D4.1 §8.3.6 paso 2); el CCV ambiental sigue el mismo reparto y valora el flujo al precio de mercado de lo que sustituye; el CCV convencional usa el precio de transferencia negociado',
+          integrated: 'interdependiente: un coproducto determinante, nunca con carga cero; un único sistema multifuncional ampliado (D4.1 §8.3.6 paso 2); el E-LCC sigue el mismo reparto y valora el flujo al precio de mercado de lo que sustituye; el C-LCC usa el precio de transferencia negociado',
           integratedLca: 'interdependiente: un coproducto determinante, nunca con carga cero; un único sistema multifuncional ampliado (D4.1 §8.3.6 paso 2)',
           allocation: 'asignación: sin carga cero ni créditos de sustitución, la contabilidad de una sola empresa (D4.1 §7.2.3)',
           aggregated: 'agregado: clasifica cada flujo que se pueda nombrar, sin una regla para toda la red (D4.1 §8.3.1)',

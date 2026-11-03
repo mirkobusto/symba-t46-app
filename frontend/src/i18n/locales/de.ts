@@ -998,7 +998,7 @@ const de: Locale = {
           waste: 'Abfall: Nulllast ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nach dem Vermeidbarkeitstest (D4.1 §8.3.6 Schritt 4)',
           evt: 'unentschieden: Test des wirtschaftlichen Werts mit Sensitivitätsanalyse (D4.1 §8.3.2)',
           coproduct: 'Koppelprodukt: keine Nulllast; Substitution des ersetzten Produkts mit dem Qualitätsfaktor Q (D4.1 §8.3.6 Schritt 3)',
-          integrated: 'voneinander abhängig: ein bestimmendes Koppelprodukt, nie Nulllast; ein erweitertes multifunktionales System (D4.1 §8.3.6 Schritt 2); die ökologische Lebenszykluskostenrechnung folgt derselben Aufteilung und bewertet den Fluss zum Marktpreis dessen, was er ersetzt; die konventionelle nutzt den ausgehandelten Verrechnungspreis',
+          integrated: 'voneinander abhängig: ein bestimmendes Koppelprodukt, nie Nulllast; ein erweitertes multifunktionales System (D4.1 §8.3.6 Schritt 2); die E-LCC folgt derselben Aufteilung und bewertet den Fluss zum Marktpreis dessen, was er ersetzt; die C-LCC nutzt den ausgehandelten Verrechnungspreis',
           integratedLca: 'voneinander abhängig: ein bestimmendes Koppelprodukt, nie Nulllast; ein erweitertes multifunktionales System (D4.1 §8.3.6 Schritt 2)',
           allocation: 'Allokation: keine Nulllast und keine Substitutionsgutschriften, die Bilanz eines einzelnen Unternehmens (D4.1 §7.2.3)',
           aggregated: 'aggregiert: jeden benennbaren Fluss klassifizieren, keine netzwerkweite Regel (D4.1 §8.3.1)',

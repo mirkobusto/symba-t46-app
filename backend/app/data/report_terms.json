@@ -384,7 +384,7 @@
     },
     "CIR-08": {
      "name": "Shared CAPEX Stakeholder Indicators",
-     "body": "New dedicated shared assets and a social assessment: next to the CAPEX and amortisation shared by LCA and LCC (CIR-08; D4.1 §6.3.3; D4.2 §4.2), the S-LCA reports per stakeholder group who carries the investment and who benefits from the shared infrastructure — a T4.6 reading; D4.3 §5.1 defines the groups."
+     "body": "New dedicated shared assets and a social assessment: next to the CAPEX and amortisation shared by LCA and LCC (D4.1 §6.3.3; D4.2 §4.2), the S-LCA reports per stakeholder group who carries the investment and who benefits from the shared infrastructure — a T4.6 reading; D4.3 §5.1 defines the groups (CIR-08)."
     },
     "CIR-09": {
      "name": "Iterative Update Protocol",
@@ -928,7 +928,7 @@
     },
     "CIR-08": {
      "name": "Indicatori per stakeholder su CAPEX condiviso",
-     "body": "Beni condivisi dedicati e valutazione sociale: accanto al CAPEX e all'ammortamento condivisi da LCA e LCC (CIR-08; D4.1 §6.3.3; D4.2 §4.2), l'S-LCA riporta per gruppo di stakeholder chi sostiene l'investimento e chi beneficia dell'infrastruttura condivisa — una lettura di T4.6; i gruppi li definisce la D4.3 §5.1."
+     "body": "Beni condivisi dedicati e valutazione sociale: accanto al CAPEX e all'ammortamento condivisi da LCA e LCC (D4.1 §6.3.3; D4.2 §4.2), l'S-LCA riporta per gruppo di stakeholder chi sostiene l'investimento e chi beneficia dell'infrastruttura condivisa — una lettura di T4.6; i gruppi li definisce la D4.3 §5.1 (CIR-08)."
     },
     "CIR-09": {
      "name": "Protocollo di aggiornamento iterativo",
@@ -1444,7 +1444,7 @@
     },
     "CIR-01": {
      "name": "Scénarios climatiques dynamiques LCA-LCC",
-     "body": "L'étude se projette dans le futur (exploitation une année future, technologie sous TRL 7, ou période d'analyse ou durée de vie des biens au-delà de 15 ans) : les jeux de données d'arrière-plan de l'ACV et les prix et coûts énergétiques de l'ACC suivent le même scénario SSP/RCP sur le même horizon, avec SSP2 confronté à une trajectoire d'atténuation ambitieuse (CIR-01; D4.1 §9.3.4 ; D4.2 §9.3, §11.1)."
+     "body": "L'étude se projette dans le futur (exploitation une année future, technologie sous TRL 7, ou période d'analyse ou durée de vie des biens au-delà de 15 ans) : les jeux de données d'arrière-plan de l'ACV et les prix et coûts énergétiques de l'ACC suivent le même scénario SSP/RCP sur le même horizon, avec SSP2 confronté à une trajectoire d'atténuation ambitieuse (CIR-01 ; D4.1 §9.3.4 ; D4.2 §9.3, §11.1)."
     },
     "CIR-02": {
      "name": "Matrice pedigree LCA+LCC",
@@ -1472,7 +1472,7 @@
     },
     "CIR-08": {
      "name": "Indicateurs parties prenantes sur CAPEX partagé",
-     "body": "Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l'amortissement partagés par l'ACV et l'ACC (CIR-08; D4.1 §6.3.3 ; D4.2 §4.2), l'ACV sociale indique par groupe de parties prenantes qui porte l'investissement et qui bénéficie de l'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes."
+     "body": "Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l'amortissement partagés par l'ACV et l'ACC (D4.1 §6.3.3 ; D4.2 §4.2), l'ACV sociale indique par groupe de parties prenantes qui porte l'investissement et qui bénéficie de l'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes (CIR-08)."
     },
     "CIR-09": {
      "name": "Protocole de mise à jour itérative",
@@ -2016,7 +2016,7 @@
     },
     "CIR-08": {
      "name": "Stakeholder-Indikatoren für gemeinsames CAPEX",
-     "body": "Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die Ökobilanz und Kostenrechnung teilen (CIR-08; D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1."
+     "body": "Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die Ökobilanz und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1 (CIR-08)."
     },
     "CIR-09": {
      "name": "Protokoll der iterativen Aktualisierung",
@@ -2532,7 +2532,7 @@
     },
     "CIR-01": {
      "name": "Escenarios climáticos dinámicos LCA-LCC",
-     "body": "El estudio mira al futuro (operación en un año futuro, tecnología por debajo de TRL 7, o periodo de análisis o vida de los activos de más de 15 años): los datos de fondo del ACV y los precios y costes energéticos del CCV siguen el mismo escenario SSP/RCP en el mismo horizonte, con SSP2 contrastado con una trayectoria de mitigación ambiciosa (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1)."
+     "body": "El estudio mira al futuro (operación en un año futuro, tecnología por debajo de TRL 7, o periodo de análisis o vida de los activos de más de 15 años): los datos de fondo del ACV y los precios y costes energéticos del ACC siguen el mismo escenario SSP/RCP en el mismo horizonte, con SSP2 contrastado con una trayectoria de mitigación ambiciosa (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1)."
     },
     "CIR-02": {
      "name": "Matriz pedigree LCA+LCC",
@@ -2560,7 +2560,7 @@
     },
     "CIR-08": {
      "name": "Indicadores de partes interesadas sobre CAPEX compartido",
-     "body": "Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten ACV y CCV (CIR-08; D4.1 §6.3.3; D4.2 §4.2), el ACV social indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1."
+     "body": "Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten ACV y ACC (D4.1 §6.3.3; D4.2 §4.2), el ACV social indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1 (CIR-08)."
     },
     "CIR-09": {
      "name": "Protocolo de actualización iterativa",
@@ -2608,7 +2608,7 @@
     },
     "B-05": {
      "name": "Transporte explícito sea cual sea la distribución geográfica",
-     "body": "El transporte se modela explícitamente en cada dimensión activa: como procesos unitarios de primer plano en el ACV (D4.1 §12.3.1) y como coste sensible a la distancia en el CCV (D4.2 §4.3), sea cual sea la distribución geográfica (B-05)."
+     "body": "El transporte se modela explícitamente en cada dimensión activa: como procesos unitarios de primer plano en el ACV (D4.1 §12.3.1) y como coste sensible a la distancia en el ACC (D4.2 §4.3), sea cual sea la distribución geográfica (B-05)."
     },
     "B-06": {
      "name": "Alineación de la amortización de los bienes de capital",

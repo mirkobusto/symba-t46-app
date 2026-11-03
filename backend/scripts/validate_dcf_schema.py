@@ -35,6 +35,7 @@ from app.domain.enums import (  # noqa: E402
     Q4,
     Q5,
     Q7,
+    DecisionContext,
     OperatingStart,
     Q6a,
     Q6b,
@@ -92,9 +93,14 @@ FIXTURES = [
     {"id": "synthetic_2028", "q1": Q1.B, "q2": Q2.B, "q3": Q3(env=True, eco=True),
      "q4": {Q4.B}, "flows": _flows(Q5.b), "q6a": Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES,
      "q6b": Q6b.TRL9, "q7": Q7.A, "operating_start": OperatingStart.FUTURE, "operating_start_year": 2028},
+    # synthetic: one company's corporate report (Situation C2, Q9), so the fields
+    # that only a C2 study switches off have a case that does (UX round 5, D1)
+    {"id": "synthetic_c2", "q1": Q1.D, "q2": Q2.A, "q3": Q3(env=True, eco=True),
+     "q4": {Q4.B}, "flows": _flows(Q5.c, Q5.a), "q6a": Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES,
+     "q6b": Q6b.TRL9, "q7": Q7.A, "decision_context": DecisionContext.CORPORATE_REPORT},
 ]
 
-_OPTIONAL = ("network_long_standing", "operating_start", "operating_start_year")
+_OPTIONAL = ("network_long_standing", "operating_start", "operating_start_year", "decision_context")
 
 
 # ---------------------------------------------------------------------------
@@ -234,7 +240,7 @@ def main():
             print(f"  - {i}")
         sys.exit(1)
     else:
-        print("OK — no schema issues detected on the 13 papers and the synthetic case.")
+        print("OK — no schema issues detected on the 13 papers and the synthetic cases.")
         sys.exit(0)
 
 

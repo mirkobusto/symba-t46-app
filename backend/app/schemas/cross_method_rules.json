@@ -334,8 +334,8 @@
       "id": "IR-16",
       "name": "Entity-First Calculation",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3 has ≥2 dims",
-      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company in isolation (ILCD Situation C2)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "lca.calculation_order == ['entity', 'network'] AND lcc.calculation_order == ['entity', 'flow', 'network', 'baseline'] AND slca.calculation_order == ['stakeholder', 'system']",
       "fields": [
         "lca.calculation_order",
@@ -407,8 +407,8 @@
       "id": "IR-20",
       "name": "Three-Level Analytical Isomorphism",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3 has ≥2 dims",
-      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company in isolation (ILCD Situation C2)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "each method exposes 3 analytical levels (network+entity+flow for LCA/LCC; system+stakeholder+indicator for S-LCA)",
       "fields": [
         "lca.analytical_levels",
@@ -553,7 +553,7 @@
         "lcc_hc_07"
       ],
       "review_note": "R3, 2026-10-18: Q1 ∈ {B,C} dropped (Q1 describes the subject).",
-      "violation_message": "New dedicated shared assets and a social assessment: next to the CAPEX and amortisation shared by LCA and LCC (CIR-08; D4.1 §6.3.3; D4.2 §4.2), the S-LCA reports per stakeholder group who carries the investment and who benefits from the shared infrastructure — a T4.6 reading; D4.3 §5.1 defines the groups."
+      "violation_message": "New dedicated shared assets and a social assessment: next to the CAPEX and amortisation shared by LCA and LCC (D4.1 §6.3.3; D4.2 §4.2), the S-LCA reports per stakeholder group who carries the investment and who benefits from the shared infrastructure — a T4.6 reading; D4.3 §5.1 defines the groups (CIR-08)."
     },
     {
       "id": "CIR-09",

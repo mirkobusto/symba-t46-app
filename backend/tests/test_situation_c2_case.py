@@ -147,3 +147,10 @@ def test_flow_treatment_in_c2_is_allocation_except_for_waste(case):
     [stmt] = [o.statement for o in payload.obligations if o.id == "lca_hc_17"]
     assert "Bagasse to CHP plant: allocation: no zero burden and no substitution credits" in stmt
     assert "Filter cake taken away for a gate fee: waste: zero burden" in stmt
+
+
+def test_no_network_level_rules_for_one_company(case):
+    """IR-16 (entity-first calculation) and IR-20 (three levels) ask for the
+    network level a C2 study does not have (Fable review of #209)."""
+    fired = {r["rule_id"] for r in case.applicable_rules}
+    assert not {"IR-16", "IR-20"} & fired

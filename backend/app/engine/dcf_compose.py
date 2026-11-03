@@ -385,11 +385,11 @@ def _compose_mandates(
 def _case_statement(node_id: str, case: Case) -> str | None:
     """The branch of a discriminative mandate that holds for this case.
 
-    The census joins every branch with " | " ("NO zero-burden allowed
-    (interdependent) | Standard zero-burden test"), so the DCF a partner
-    receives listed alternatives as if all applied, while the result page
-    said one thing per flow (UX round 4, P2-05). A per-flow node gives one
-    line per flow, named; the others the branch of the case."""
+    The census joins every branch with " | ", so the DCF a partner received
+    listed alternatives as if all applied, while the result page said one
+    thing per flow (UX round 4, P2-05). A per-flow node gives one line per
+    flow, named; the others the branch of the case. A per-flow mandate with a
+    predicate names the flows it holds for (UX round 5, D8)."""
     from app.engine.answer_phrases import fill
     from app.engine.branch_keys import Answers, pick_branch
     from app.engine.loader import load_schemas
@@ -433,11 +433,25 @@ def _flows_triggering(node_id: str, case: Case) -> list[str]:
     return [f.name or f.id for f in case.flows if pred(case, f)]
 
 
+def _reads_q5(node_id: str) -> bool:
+    """Whether a per-flow predicate decides on the flow's payment class: only
+    then is "Q5 = …" the reason (a predicate true for every flow is not)."""
+    import inspect
+
+    from app.engine.activate import _PREDICATES
+
+    pred = _PREDICATES.get(node_id)
+    try:
+        return pred is not None and "f.q5" in inspect.getsource(pred)
+    except (OSError, TypeError):
+        return False
+
+
 def _because(trigger: str | None, case: Case, node_id: str | None = None) -> str | None:
     """Why an item applies, in the answers it reads ("Q3 = env + eco"), not
     as a trigger expression ("Q3 has ≥2 dims active", "flow.q5 == 'b'")."""
     from app.services.narrative import answers_in
-    if node_id:
+    if node_id and _reads_q5(node_id):
         # only the flows the per-flow rule holds for, not every flow of the
         # case (P3-07, P6-09; Fable D8)
         flows = {f.name or f.id: f for f in case.flows}

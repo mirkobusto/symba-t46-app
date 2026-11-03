@@ -39,8 +39,8 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
   // which is why the card used to show a bare `block_…` id and nothing
   // else when the pipeline stopped.
   const name = term?.name || item.title || null
-  // The 10 CIR rules carry no statement of their own: the engine sends
-  // "CIR-0x applies to this case", which would stay English here.
+  // A rule without a translated body would show the engine's English
+  // fallback ("… applies to this case"): the generic sentence replaces it.
   const body = term
     ? term.body || t('result.action.appliesToCase')
     : item.detail || ''

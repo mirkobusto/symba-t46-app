@@ -271,8 +271,12 @@ Cronologia sintetica (tutto su `main`):
   una dipendenza: chiedere), più reti per caso negli scenari, immagine della rete nei file, colonne fisse dell'Excel fra
   versioni. I residui del giro 5 sono chiusi: note di lato, testi per gli studi solo economici, colonna "cede / riceve"
   e Q9 in parole in modalità guidata (#212); enunciati di CIR-02/05/07/09 scritti da Fable e approvati dal
-  proprietario (#213: CIR-05 dichiara prezzi CE Delft e Net Tax Factor scelta T4.6, fuori dal C-LCC). Le regole CIR non
-  hanno `fields`, quindi compaiono anche quando il metodo di cui parlano è spento (es. CIR-09 senza LCC): da guardare
+  proprietario (#213: CIR-05 dichiara prezzi CE Delft e Net Tax Factor scelta T4.6, fuori dal C-LCC). Le regole CIR che
+  legano LCA e LCC (CIR-01/02/05/07) si elencano solo con entrambi i metodi, CIR-09 solo con l'LCC, CIR-08 con l'S-LCA
+  (#214, `l2_validate._CIR_METHODS`, deciso da Fable): la metà del metodo attivo resta nei suoi nodi e l'azione scrive
+  comunque. Restano: pedigree, scale-up e Net Tax Factor non hanno una riga nella pagina risultato quando la regola non
+  è elencata; il NTF arriva anche a un LCC C+N, che la D4.2 non prevede (lo lega all'S-LCC); CIR-10 dice "ogni metodo"
+  ma la fonte è solo la D4.2
 - Errata per la fase B: la D4.1 scioglie HNSRS/CNSRS in due modi (glossario "Historical"/"Counterfactual", §11.1
   "Hypothetical"/"Current"); l'app segue §11.1
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
@@ -314,7 +318,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #213): **952 backend (pytest, +1 skipped) + 276 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #214): **956 backend (pytest, +1 skipped) + 276 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint). Il lint (eslint e ruff, su `app` e `tests`) si giudica dal codice di uscita, non dall'ultima riga dell'output.

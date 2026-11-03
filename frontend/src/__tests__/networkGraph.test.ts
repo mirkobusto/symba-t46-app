@@ -88,9 +88,9 @@ describe('edgeShifts and flowEdgePath', () => {
 })
 
 describe('layeredLayout', () => {
-  const col = (pos: { x: number }) => (pos.x - 40) / 260
+  const col = (pos: { y: number }) => (pos.y - 40) / 200
 
-  it('puts a chain in three columns, left to right', () => {
+  it('puts a chain in three layers, top to bottom', () => {
     const p = layeredLayout(['c', 'b', 'a'], [{ source: 'a', target: 'b' }, { source: 'b', target: 'c' }])
     expect([col(p.a), col(p.b), col(p.c)]).toEqual([0, 1, 2])
   })
@@ -100,13 +100,13 @@ describe('layeredLayout', () => {
     expect([col(p.a), col(p.b)]).toEqual([0, 1])
   })
 
-  it('a hub with two customers: customers in the next column, on different rows', () => {
+  it('a hub with two customers: customers in the next layer, side by side', () => {
     const p = layeredLayout(['hub', 'x', 'y'], [{ source: 'hub', target: 'x' }, { source: 'hub', target: 'y' }])
     expect([col(p.x), col(p.y)]).toEqual([1, 1])
-    expect(p.x.y).not.toBe(p.y.y)
+    expect(p.x.x).not.toBe(p.y.x)
   })
 
-  it('an actor with no flow goes in a last column', () => {
+  it('an actor with no flow goes in a last layer', () => {
     const p = layeredLayout(['a', 'b', 'lone'], [{ source: 'a', target: 'b' }])
     expect(col(p.lone)).toBe(2)
   })
@@ -115,6 +115,6 @@ describe('layeredLayout', () => {
     const actors = [{ row_id: 'b', values: {} }, { row_id: 'a', values: {} }]
     const flows = [{ row_id: 'f', values: { 'flow.origin_actor_id': 'a', 'flow.dest_actor_id': 'b' } }]
     const nodes = actorNodes(actors, {}, (i) => `A${i}`, flows)
-    expect(nodes.find((n) => n.id === 'a')!.position.x).toBeLessThan(nodes.find((n) => n.id === 'b')!.position.x)
+    expect(nodes.find((n) => n.id === 'a')!.position.y).toBeLessThan(nodes.find((n) => n.id === 'b')!.position.y)
   })
 })

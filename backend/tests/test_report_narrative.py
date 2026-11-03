@@ -92,10 +92,8 @@ def test_report_opens_with_the_verdict_and_the_next_steps(wiktor):
     assert "Decision support with limited consequences (ILCD Situation A)" in text
     assert "What this configuration means" in text
     assert "What to do next" in text
-    # front matter comes before the canonical section 1
-    assert text.index("What to do next") < text.index(
-        "1. Bibliographic reference and IS context"
-    )
+    # front matter comes before the answers
+    assert text.index("What to do next") < text.index("1. The answers")
 
 
 def test_report_prints_the_deliverable_citation_in_full(wiktor):
@@ -111,15 +109,23 @@ def test_report_says_why_a_rule_applies_and_what_to_document(wiktor):
     assert "[To document]" in text
 
 
-def test_report_keeps_the_canonical_eight_sections(wiktor):
+def test_report_has_four_parts_and_no_paper_placeholders(wiktor):
+    """The paper-validation sections were empty placeholders for a user's case
+    and a third of the document (UX round 2026-11-02)."""
     text = _text(wiktor)
-    for heading in (
-        "1. Bibliographic reference and IS context",
-        "5. Methodological configuration derived by the tool",
-        "7. Validation verdict (preliminary)",
-        "8. Appendix: full node activation list",
-    ):
+    for heading in ("1. The answers", "2. The configuration derived by the tool", "3. Summary",
+                    "4. Appendix: activated nodes"):
         assert heading in text
+    for gone in ("Bibliographic reference", "adopted by the authors", "paper configuration vs tool"):
+        assert gone not in text
+
+
+def test_report_in_italian(wiktor):
+    from app.services.reports import generate_case_report_bytes
+    text = "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(wiktor, lang="it"))).paragraphs)
+    assert "Verdetto" in text and "Che cosa fare adesso" in text and "1. Le risposte" in text
+    assert "Supporto decisionale con conseguenze limitate (Situazione ILCD A)" in text
+    assert "Q2 gli scambi avvengono già: B. Non ancora" in text
 
 
 def test_a_clean_case_says_so_instead_of_listing_nothing(schemas):
@@ -150,5 +156,5 @@ def test_the_report_shows_obligations_not_l2_violations():
     doc = Document(BytesIO(generate_case_report_bytes(case)))
     text = "\n".join(p.text for p in doc.paragraphs)
     assert "violation" not in text.lower()
-    assert f"5.6 Obligations to document (count): {len(case.applicable_rules)}" in text
+    assert f"Obligations to document: {len(case.applicable_rules)}" in text
     assert "Configuration complete" in text

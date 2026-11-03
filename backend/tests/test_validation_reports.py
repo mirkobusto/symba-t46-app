@@ -99,19 +99,19 @@ def test_report_lists_q8_q9_q10_and_the_notes_only_when_answered():
     base = dict(q1=Q1.E, q2=Q2.A, q3=Q3(env=True, eco=True))
     plain = _docx_text(Case(**base))
     assert "Q8" not in plain and "Q9 decision" not in plain
-    assert "Q10 public objective or public decision-maker" not in plain
+    assert "Q10 public objective" not in plain
     # unanswered Q9 / Q10 are read off Q1, and the notes say so (2026-10-18)
     assert "Notes on the answers" in plain and "Q9 is not answered" in plain
 
     answered = _docx_text(Case(**base, operating_start="future", operating_start_year=2030,
                                analysis_period_years=25, asset_lifetime_years=20,
                                decision_context=DecisionContext.STRUCTURAL, policy_objective=True))
-    assert "Q8a operating year: future (2030)" in answered
+    assert "Q8a operating year: A future year (2030)" in answered
     assert "Q8b analysis period (years): 25" in answered
     assert "Q8c asset lifetime (years): 20" in answered
     # the answer in words: the raw value "none" read as an unanswered question
-    assert "Q9 decision and scale: supports a choice that changes how much a market" in answered
-    assert "Q10 public objective or public decision-maker: yes" in answered
+    assert "Q9 decision and scale: It supports a choice that changes how much a market" in answered
+    assert "Q10 public objective: yes" in answered
     assert "Notes on the answers" in answered       # Q1=E with a structural decision is noted
     assert "ILCD Situation B" in answered
 

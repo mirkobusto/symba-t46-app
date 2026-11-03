@@ -122,6 +122,9 @@ export interface DcfDataState {
     value: unknown,
   ) => void
   removeRow: (sectionId: string, rowId: string) => void
+  /** Set one classification field of a flow, creating its Flow
+   * Classification row on the first value (round 4 leftover). */
+  setClassification: (flowRowId: string, fieldId: string, value: unknown) => void
   setPosition: (rowId: string, pos: DcfNodePosition) => void
   /** Replace the positions of the actors (automatic layout). */
   setLayout: (positions: Record<string, DcfNodePosition>) => void
@@ -351,6 +354,27 @@ export const useDcfDataStore = create<DcfDataState>()(
           return { ...row, values }
         })
         set({ data: withRows(data, sectionId, nextRows), dirty: true })
+      },
+
+      setClassification(flowRowId, fieldId, value) {
+        const data = get().data
+        const rows = rowsOf(data, FLOW_CLASSIFICATION_SECTION)
+        const existing = rows.find((r) => r.values['classif.flow_id'] === flowRowId)
+        if (existing) {
+          get().updateValue(FLOW_CLASSIFICATION_SECTION, existing.row_id, fieldId, value)
+          return
+        }
+        if (value === '' || value === null || value === undefined) return
+        const used = new Set(rows.map((r) => r.row_id))
+        let rowId = `classif-${flowRowId}`
+        for (let n = 2; used.has(rowId); n += 1) rowId = `classif-${flowRowId}-${n}`
+        set({
+          data: withRows(data, FLOW_CLASSIFICATION_SECTION, [
+            ...rows,
+            { row_id: rowId, values: { 'classif.flow_id': flowRowId, [fieldId]: value } },
+          ]),
+          dirty: true,
+        })
       },
 
       removeRow(sectionId, rowId) {

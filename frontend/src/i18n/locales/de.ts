@@ -1586,6 +1586,8 @@ const de: Locale = {
     panelFlow: 'Fluss',
     arrange: 'Automatisch anordnen',
     arrangeConfirm: 'Das Diagramm nach Flussrichtung anordnen? Das ersetzt die Positionen, die Sie von Hand gesetzt haben.',
+    panelClassification: 'Einstufung und Substitution (entscheidet die Analyse)',
+    classificationNote: 'Rechtliche und wirtschaftliche Prüfungen dieses Flusses und, falls er ein Produkt ersetzt, was er ersetzt. Dieselben Spalten stehen in der Excel-Datei.',
     signInToSave: 'Melden Sie sich mit dem Konto an, das diesen Fall gespeichert hat, um das Netzwerk zu speichern.',
     missingGoTo: 'Zum ersten leeren Pflichtfeld',
     givesReceives: 'gibt {{gives}} ab · nimmt {{receives}} auf',

@@ -1633,6 +1633,8 @@ const en = {
     panelFlow: 'Flow',
     arrange: 'Arrange automatically',
     arrangeConfirm: 'Arrange the diagram by flow direction? It replaces the positions you set by hand.',
+    panelClassification: 'Classification and substitution (the analyst decides)',
+    classificationNote: 'Legal and economic tests of this flow and, if it replaces a product, what it replaces. The same columns are in the Excel file.',
     signInToSave: 'Sign in with the account that saved this case to save the network.',
     missingGoTo: 'Go to the first empty required field',
     givesReceives: 'gives {{gives}} · receives {{receives}}',

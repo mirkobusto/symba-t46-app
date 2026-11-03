@@ -1586,6 +1586,8 @@ const es: Locale = {
     panelFlow: 'Flujo',
     arrange: 'Ordenar automáticamente',
     arrangeConfirm: '¿Ordenar el diagrama según la dirección de los flujos? Sustituye las posiciones que eligió a mano.',
+    panelClassification: 'Clasificación y sustitución (decide el analista)',
+    classificationNote: 'Pruebas jurídicas y económicas de este flujo y, si sustituye un producto, qué sustituye. Las mismas columnas están en el archivo Excel.',
     signInToSave: 'Inicia sesión con la cuenta que guardó este caso para guardar la red.',
     missingGoTo: 'Ir al primer campo obligatorio vacío',
     givesReceives: 'cede {{gives}} · recibe {{receives}}',

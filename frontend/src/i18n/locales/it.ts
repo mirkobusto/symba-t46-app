@@ -1612,6 +1612,8 @@ const it: Locale = {
     panelFlow: 'Flusso',
     arrange: 'Disponi automaticamente',
     arrangeConfirm: 'Disporre il diagramma secondo la direzione dei flussi? Sostituisce le posizioni che hai scelto a mano.',
+    panelClassification: 'Classificazione e sostituzione (decide l\'analista)',
+    classificationNote: 'Test giuridici ed economici di questo flusso e, se sostituisce un prodotto, che cosa sostituisce. Le stesse colonne sono nel file Excel.',
     signInToSave: 'Accedi con l\'account che ha salvato questo caso per salvare la rete.',
     missingGoTo: 'Vai al primo campo obbligatorio vuoto',
     givesReceives: 'cede {{gives}} · riceve {{receives}}',

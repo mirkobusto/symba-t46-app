@@ -36,6 +36,7 @@ import type { Case } from '../types/api'
 import type { DcfPayload, DcfSection } from '../types/dcf'
 import {
   ACTORS_SECTION,
+  FLOW_CLASSIFICATION_SECTION,
   FLOW_MATRIX_SECTION,
   type DcfDataIssue,
   type DcfRow,
@@ -94,6 +95,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const pushToast = useToastStore((s) => s.push)
   const updateValue = useDcfDataStore((s) => s.updateValue)
   const removeRow = useDcfDataStore((s) => s.removeRow)
+  const setClassification = useDcfDataStore((s) => s.setClassification)
   const setPosition = useDcfDataStore((s) => s.setPosition)
   const setLayout = useDcfDataStore((s) => s.setLayout)
   const saveToServer = useDcfDataStore((s) => s.saveToServer)
@@ -301,6 +303,33 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       flow: t('networkBuilder.example.flow'),
     })
     setSelection(null)
+  }
+
+  // Legal and economic classification and the substituted product of a flow,
+  // filled in next to the flow instead of only in the Excel file (round 4
+  // leftover, decided by Fable): the same Flow Classification row the file has
+  function classificationBlock(flowRow: DcfRow) {
+    const section = sectionOf(payload, FLOW_CLASSIFICATION_SECTION)
+    if (!section?.active) return null
+    const fields = section.fields.filter((f) => f.id !== 'classif.flow_id')
+    if (fields.length === 0) return null
+    const row = (data.rows_by_section[FLOW_CLASSIFICATION_SECTION] ?? [])
+      .find((r) => r.values['classif.flow_id'] === flowRow.row_id)
+      ?? { row_id: `classif-${flowRow.row_id}`, values: {} }
+    return (
+      <details className="nb-classification">
+        <summary>{t('networkBuilder.panelClassification')}</summary>
+        <DcfRowFields
+          section={{ ...section, fields }}
+          row={row}
+          actors={actorRows}
+          sites={sourceCase.sites ?? []}
+          issues={issuesFor(validation, row.row_id)}
+          note={t('networkBuilder.classificationNote')}
+          onChange={(fieldId, value) => setClassification(flowRow.row_id, fieldId, value)}
+        />
+      </details>
+    )
   }
 
   const selectedSection = selection ? sectionOf(payload, selection.sectionId) : undefined
@@ -529,6 +558,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
                   ) : null
                 }
               />
+              {selection.sectionId === FLOW_MATRIX_SECTION ? classificationBlock(selectedRow) : null}
             </>
           ) : (
             <p className="nb-panel-empty">{t('networkBuilder.selectHint')}</p>

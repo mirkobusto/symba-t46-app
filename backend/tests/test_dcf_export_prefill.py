@@ -160,9 +160,9 @@ def test_docx_reports_the_drawn_network(payload, drawn_network):
     text = _docx_text(generate_dcf_docx_bytes(payload, "wiktor", drawn_network))
     assert "WWTP Alfa" in text
     assert "Biogas Beta" in text
-    assert "2 actor(s) and 1 wired flow(s)" in text
+    assert "2 actor(s) and 1 connected flow(s)" in text
 
 
 def test_docx_falls_back_to_the_descriptive_prose(payload):
     text = _docx_text(generate_dcf_docx_bytes(payload, "wiktor"))
-    assert "rendered interactively" in text
+    assert "drawn interactively" in text

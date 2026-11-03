@@ -32,7 +32,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.orm import Session as OrmSession
 
 from app.auth.deps import get_current_user_optional
@@ -47,6 +47,7 @@ from app.engine.pipeline import run as pipeline_run
 from app.models import CaseDcfData, CaseRecord, User
 from app.services.dcf_docx import generate_dcf_docx_bytes
 from app.services.dcf_excel import render_xlsx
+from app.services.dcf_terms import localize
 
 router = APIRouter(tags=["dcf"])
 
@@ -115,22 +116,24 @@ def _run_and_compose(case: Case, schemas: LoadedSchemas) -> DcfPayload:
 def preview(
     case: Case,
     schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
 ) -> DcfPayload:
     """Compose the DCF for the submitted Case and return the structured
-    payload. Used by the in-app DataCollection page for the interactive
-    section/field/network visualization."""
-    return _run_and_compose(case, schemas)
+    payload, its text in `lang`. Used by the in-app DataCollection page for
+    the interactive section/field/network visualization."""
+    return localize(_run_and_compose(case, schemas), lang)
 
 
 @router.post("/export/xlsx")
 def export_xlsx(
     case: Case,
     schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
 ) -> Response:
     """Render the DCF as a multi-tab Excel workbook and stream it as a
     download. Default filename uses the case id."""
     payload = _run_and_compose(case, schemas)
-    blob = render_xlsx(payload)
+    blob = render_xlsx(localize(payload, lang), lang=lang)
     filename = f"dcf_{payload.case_id[:8]}.xlsx"
     return Response(
         content=blob,
@@ -143,11 +146,12 @@ def export_xlsx(
 def export_docx(
     case: Case,
     schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
 ) -> Response:
     """Render the DCF as a .docx companion document and stream it as a
     download."""
     payload = _run_and_compose(case, schemas)
-    blob = generate_dcf_docx_bytes(payload)
+    blob = generate_dcf_docx_bytes(localize(payload, lang), lang=lang)
     filename = f"dcf_{payload.case_id[:8]}.docx"
     return Response(
         content=blob,
@@ -296,13 +300,14 @@ def export_xlsx_for_case(
     db: OrmSession = Depends(get_db),
     current_user: User | None = Depends(get_current_user_optional),
     schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
 ) -> Response:
     """Excel export of a *saved* case, pre-filled with what the Network
     Builder stored. The stateless POST /export/xlsx stays for drafts that
     have never been saved (it has no case id to look content up by)."""
     rec, case = _load_case_for(case_id, db, current_user, for_write=False)
     payload = _run_and_compose(case, schemas)
-    blob = render_xlsx(payload, _stored_data(db, case_id), rec.name)
+    blob = render_xlsx(localize(payload, lang), _stored_data(db, case_id), rec.name, lang=lang)
     filename = f"dcf_{rec.slug or case_id[:8]}.xlsx"
     return Response(
         content=blob,
@@ -317,12 +322,13 @@ def export_docx_for_case(
     db: OrmSession = Depends(get_db),
     current_user: User | None = Depends(get_current_user_optional),
     schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
 ) -> Response:
     """Companion document of a saved case, with §2 reporting the drawn
     network instead of describing it."""
     rec, case = _load_case_for(case_id, db, current_user, for_write=False)
     payload = _run_and_compose(case, schemas)
-    blob = generate_dcf_docx_bytes(payload, rec.name, _stored_data(db, case_id))
+    blob = generate_dcf_docx_bytes(localize(payload, lang), rec.name, _stored_data(db, case_id), lang=lang)
     filename = f"dcf_{rec.slug or case_id[:8]}.docx"
     return Response(
         content=blob,

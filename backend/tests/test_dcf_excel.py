@@ -82,7 +82,9 @@ def test_workbook_has_expected_tabs(payload_wiktor):
     expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Flow Classification",
                 "Logistics", "Costs & Revenues", "Infrastructure",
                 "Methodological Choices", "Network Diagram"]
-    assert wb.sheetnames == expected
+    # plus the hidden sheet that holds the dropdown labels
+    assert wb.sheetnames == [*expected, "_lists"]
+    assert wb["_lists"].sheet_state == "hidden"
 
 
 def test_cover_tab_carries_case_metadata(payload_wiktor):
@@ -94,8 +96,8 @@ def test_cover_tab_carries_case_metadata(payload_wiktor):
     # Read the label/value pairs from rows 3+
     labels = {cover.cell(row=r, column=1).value for r in range(3, 11)}
     assert "Case ID" in labels
-    assert "ILCD Situation" in labels
-    assert "LCC Type" in labels
+    assert "ILCD situation" in labels
+    assert "LCC type" in labels
 
 
 def test_cover_has_no_pathway_row(payload_wiktor):
@@ -194,7 +196,7 @@ def test_inactive_tab_shows_placeholder(payload_arce):
     wb = load_workbook(BytesIO(blob))
     ws = wb["Costs & Revenues"]
     a3 = ws["A3"].value
-    assert a3 is not None and "NOT activated" in a3
+    assert a3 is not None and "not active for this case" in a3
 
 
 # ---------------------------------------------------------------------------
@@ -209,7 +211,7 @@ def test_mandates_tab_lists_mandates_and_triggered_rules(payload_wiktor):
     # Header row at 4
     headers = [ws.cell(row=4, column=c).value for c in range(1, 10)]
     assert headers == [
-        "Category", "Origin", "ID", "Method", "Statement", "Applies because",
+        "Category", "Origin", "ID", "Method", "Statement (deliverable text, English)", "Applies because",
         "Deliverable target", "Assignee", "Status",
     ]
     # Enough mandate rows for the fixture's active dimensions (ENV+ECO)
@@ -251,6 +253,8 @@ def test_eu_footer_text_is_canonical(payload_wiktor):
     assert "Horizon" in EU_FOOTER
     # check each tab has the footer in column A somewhere
     for sheet_name in wb.sheetnames:
+        if sheet_name == "_lists":
+            continue  # hidden, holds the dropdown labels
         ws = wb[sheet_name]
         found = False
         # max_row is variable; cap at 200

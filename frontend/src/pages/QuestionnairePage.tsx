@@ -252,8 +252,14 @@ export default function QuestionnairePage() {
 
   // the ILCD situation codes ("(Situation A)") meant nothing to a newcomer in
   // guided mode, where the examples say the same in words (UX round 5, P4-13)
-  const plainSituation = (text: string) =>
-    mode === 'guided' ? text.replace(/\s*\([^()]*\bsitua\w*[^()]*\)\s*$/i, '') : text
+  // Only the code goes: "(Situation B; the screening must be documented)" keeps
+  // the obligation (Fable review of #212)
+  const plainSituation = (text: string) => {
+    if (mode !== 'guided') return text
+    return text
+      .replace(/\s*\((?:ILCD\s+)?situa\S*\s+[A-C]\d?(?:,[^()]*)?\)\s*$/i, '')
+      .replace(/\((?:ILCD\s+)?situa\S*\s+[A-C]\d?\s*;\s*/i, '(')
+  }
 
   async function handleRun() {
     patchDraft(buildPatch())

@@ -659,8 +659,8 @@ def test_a_costing_only_study_says_why_it_asks_the_reference_and_the_classificat
     sections = {s["id"]: s for s in payload["sections"]}
     assert sections["flow_classification"]["description"].startswith("Asked without an LCA")
     assert "D4.2 §6.2" in sections["reference_scenario"]["description"]
-    reasons = {f["reason"] for f in sections["flow_classification"]["fields"] if f.get("reason")}
-    assert reasons == {"the costing needs it even without an LCA (D4.2 §6.2)"}
+    fields = {f["id"]: f for f in sections["flow_classification"]["fields"]}
+    assert fields["classif.substituted_product"]["reason"] == "the costing needs it even without an LCA (D4.2 §6.2)"
 
 
 def test_the_actors_sheet_says_what_each_actor_gives_and_receives(client):
@@ -673,5 +673,6 @@ def test_the_actors_sheet_says_what_each_actor_gives_and_receives(client):
     ws = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))["Actors"]
     header = [c.value for c in ws[4]]
     col = header.index("Gives / Receives") + 1
+    assert ws.auto_filter.ref.split(":")[1].startswith(ws.cell(row=4, column=col).column_letter)
     assert ws.cell(row=5, column=col).value == "Gives: sludge"
     assert ws.cell(row=6, column=col).value == "Receives: sludge"

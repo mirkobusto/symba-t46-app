@@ -103,7 +103,8 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
             field.label = ftext.get("label", field.label_en)
             field.help = ftext.get("description", field.description_en)
             field.reason = reason(code, field.activation_predicate)
-            if out.costing_only and field.reason and section.id in ("reference_scenario", "flow_classification"):
+            if (out.costing_only and field.reason
+                    and "q3.env or q3.eco" in (field.activation_predicate or "")):
                 field.reason = terms.get("ui", {}).get("reason.costing_only", field.reason)
             if field.enum_values:
                 field.enum_labels = {v: enum_label(code, v) for v in field.enum_values}

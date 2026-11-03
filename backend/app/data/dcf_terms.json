@@ -595,7 +595,8 @@
    "origin.mandate": "Required by the method",
    "origin.rule": "Required between the methods",
    "because.always": "every study of this kind",
-   "reason.costing_only": "the costing needs it even without an LCA (D4.2 §6.2)"
+   "reason.costing_only": "the costing needs it even without an LCA (D4.2 §6.2)",
+   "note.computed": "Computed from the arrows drawn in the app: do not type in it."
   },
   "enum_refs": {
    "Q6a": {
@@ -1224,7 +1225,8 @@
    "origin.mandate": "Richiesto dal metodo",
    "origin.rule": "Richiesto fra i metodi",
    "because.always": "ogni studio di questo tipo",
-   "reason.costing_only": "il costing ne ha bisogno anche senza LCA (D4.2 §6.2)"
+   "reason.costing_only": "il costing ne ha bisogno anche senza LCA (D4.2 §6.2)",
+   "note.computed": "Calcolata dalle frecce disegnate nell'app: non va compilata."
   },
   "enum_refs": {
    "Q6a": {
@@ -1433,38 +1435,38 @@
    },
    "route.distance_km": {
     "label": "Distance (km)",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.transport_mode": {
     "label": "Mode de transport",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.frequency": {
     "label": "Fréquence",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.measured_volume_year": {
     "label": "Volume mesuré (par an)",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.projected_volume_year": {
     "label": "Volume prévu par scénario (par an)",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.backhaul_strategy": {
     "label": "Trajet retour (chargement au retour)",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.transport_lci_dataset": {
     "label": "Référence du jeu de données ICV du transport"
    },
    "route.transport_cost_per_unit": {
     "label": "Coût du transport (par unité)",
-    "description": "Rempli par qui organise le transport."
+    "description": "Rempli par celui qui organise le transport."
    },
    "route.transport_sensitivity": {
     "label": "Ce qui rend ce flux sensible à la distance",
-    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur. Rempli par qui organise le transport."
+    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur. Rempli par celui qui organise le transport."
    },
    "route.break_even_distance_km": {
     "label": "Distance d'équilibre (km)",
@@ -1853,7 +1855,8 @@
    "origin.mandate": "Exigé par la méthode",
    "origin.rule": "Exigé entre les méthodes",
    "because.always": "toute étude de ce type",
-   "reason.costing_only": "le calcul des coûts en a besoin même sans ACV (D4.2 §6.2)"
+   "reason.costing_only": "le calcul des coûts en a besoin même sans ACV (D4.2 §6.2)",
+   "note.computed": "Calculée à partir des flèches dessinées dans l'application : ne pas la remplir."
   },
   "enum_refs": {
    "Q6a": {
@@ -1899,7 +1902,7 @@
    "flow_classification": {
     "title": "Klassifizierung der Flüsse (Abfall / Koppelprodukt / Nebenprodukt)",
     "description": "Eine Zeile pro Fluss, unabhängig von Q5: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: Q5 hält nur fest, wer wen bezahlt; halten Sie dies mit der Q5-Klasse des Flusses in der Flussmatrix stimmig.",
-    "description_costing_only": "Auch ohne Ökobilanz gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine Ökobilanz (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen der Analyse."
+    "description_costing_only": "Auch ohne Ökobilanz gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine Ökobilanz (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen des Analysten."
    },
    "logistics": {
     "title": "Logistik",
@@ -2482,7 +2485,8 @@
    "origin.mandate": "Von der Methode verlangt",
    "origin.rule": "Zwischen den Methoden verlangt",
    "because.always": "jede Studie dieser Art",
-   "reason.costing_only": "die Kostenrechnung braucht es auch ohne Ökobilanz (D4.2 §6.2)"
+   "reason.costing_only": "die Kostenrechnung braucht es auch ohne Ökobilanz (D4.2 §6.2)",
+   "note.computed": "Aus den in der App gezeichneten Pfeilen berechnet: nicht ausfüllen."
   },
   "enum_refs": {
    "Q6a": {
@@ -3111,7 +3115,8 @@
    "origin.mandate": "Exigido por el método",
    "origin.rule": "Exigido entre los métodos",
    "because.always": "todo estudio de este tipo",
-   "reason.costing_only": "el cálculo de costes lo necesita también sin ACV (D4.2 §6.2)"
+   "reason.costing_only": "el cálculo de costes lo necesita también sin ACV (D4.2 §6.2)",
+   "note.computed": "Calculada a partir de las flechas dibujadas en la aplicación: no se rellena."
   },
   "enum_refs": {
    "Q6a": {

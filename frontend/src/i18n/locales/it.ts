@@ -1503,6 +1503,8 @@ const it: Locale = {
       always: "sempre",
       whoCompanies: 'Lo compilano i tecnici delle aziende',
       whoAnalyst: 'Lo decide l\'analista che esegue lo studio',
+      whoBoth: 'Le aziende rispondono, decide l\'analista che esegue lo studio',
+      forAnalyst: 'per l\'analista',
     },
     diagram: { whoGives: "Chi lo cede?\n({{flow}})", whoReceives: "Chi lo riceve?\n({{flow}})" },
     noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario', received: 'Avete ricevuto il file da un analista? Allora qui non c\'è niente da fare: compilate il file Excel e rimandateglielo.' },

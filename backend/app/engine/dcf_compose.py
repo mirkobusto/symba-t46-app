@@ -50,6 +50,9 @@ class DcfFieldDescriptor(BaseModel):
     required: bool = False
     activation_predicate: str
     derived: bool = False
+    # "analyst" for a column a company leaves empty (UX round 5, D4); None =
+    # the section's filler
+    filled_by: str | None = None
     enum_values: list[str] | None = None
     enum_ref: str | None = None
     description_en: str | None = None
@@ -189,6 +192,17 @@ _LEGACY_ENUM_VALUES = {"wastewater_biofactories", "agri_food", "process_industry
 # (UX round 5, D5, P2-09 / P3-13). The schema keeps them.
 _RETIRED_ENUM_VALUES: dict[str, set[str]] = {"flow.type": {"waste", "by_product"}}
 
+# Columns of the companies' sheets that are the analyst's call: secondary
+# data, datasets, scenarios and sensitivities (D4.2 §7.1 L00809), and the
+# payment class set in the questionnaire (D4). The companies leave them empty.
+_ANALYST_FIELDS = {
+    "flow.q5_class", "flow.marginal_market_ref", "flow.scenario_assumptions",
+    "flow.lci_dataset_ref", "route.transport_lci_dataset",
+    "route.break_even_distance_km", "route.break_even_basis",
+    "cost.externality_monetized", "infra.discount_rate_pct",
+    "infra.ssp_rcp_scenario", "infra.avoided_lifetime_y",
+}
+
 # Who fills each section in (D4): the companies supply primary data on flows,
 # transport, costs and assets (D4.1 §9.3.2; D4.2 §7.1); the classification is
 # the analyst's judgement; the reference scenario is answered by the companies
@@ -261,7 +275,10 @@ def compose_dcf(
                     if clean.get("enum_values"):
                         retired = _LEGACY_ENUM_VALUES | _RETIRED_ENUM_VALUES.get(clean["id"], set())
                         clean["enum_values"] = [v for v in clean["enum_values"] if v not in retired]
-                    active_fields.append(DcfFieldDescriptor(**clean))
+                    descriptor = DcfFieldDescriptor(**clean)
+                    if descriptor.id in _ANALYST_FIELDS:
+                        descriptor.filled_by = "analyst"
+                    active_fields.append(descriptor)
 
         _mark_derived_ids(active_fields)
         sections_out.append(DcfSection(

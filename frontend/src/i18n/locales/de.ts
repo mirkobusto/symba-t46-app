@@ -1477,6 +1477,8 @@ const de: Locale = {
       always: "immer",
       whoCompanies: 'Wird von den Mitarbeitenden der Unternehmen ausgefüllt',
       whoAnalyst: 'Entscheidet der Analyst, der die Studie durchführt',
+      whoBoth: 'Die Unternehmen antworten, es entscheidet die Person, die die Studie durchführt',
+      forAnalyst: 'für die Person, die die Studie durchführt',
     },
     diagram: { whoGives: "Wer gibt es ab?\n({{flow}})", whoReceives: "Wer nimmt es an?\n({{flow}})" },
     noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen', received: 'Haben Sie die Arbeitsmappe von einer Analystin oder einem Analysten erhalten? Dann gibt es hier nichts zu tun: Füllen Sie die Excel-Datei aus und schicken Sie sie zurück.' },

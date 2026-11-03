@@ -1524,6 +1524,8 @@ const en = {
       always: "always",
       whoCompanies: 'Filled in by the companies\' staff',
       whoAnalyst: 'Decided by the analyst who carries out the study',
+      whoBoth: 'Answered by the companies, decided by the analyst who carries out the study',
+      forAnalyst: 'for the analyst',
     },
     diagram: { whoGives: "Who gives it?\n({{flow}})", whoReceives: "Who receives it?\n({{flow}})" },
     noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire', received: 'Did you receive the workbook from an analyst? Then there is nothing to do here: fill in the Excel file and send it back to them.' },

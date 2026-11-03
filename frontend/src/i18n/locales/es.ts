@@ -1477,6 +1477,8 @@ const es: Locale = {
       always: "siempre",
       whoCompanies: 'Lo rellena el personal de las empresas',
       whoAnalyst: 'Lo decide el analista que realiza el estudio',
+      whoBoth: 'Las empresas responden, decide el analista que realiza el estudio',
+      forAnalyst: 'para el analista',
     },
     diagram: { whoGives: "¿Quién lo cede?\n({{flow}})", whoReceives: "¿Quién lo recibe?\n({{flow}})" },
     noCase: { title: 'Aún no hay caso', desc: 'El Data Collection File se construye a partir de tu evaluación: responde primero el cuestionario (o abre un caso guardado) y vuelve aquí.', cta: 'Abrir el cuestionario', received: '¿Habéis recibido el libro de un analista? Entonces aquí no hay nada que hacer: rellenad el archivo Excel y devolvédselo.' },

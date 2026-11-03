@@ -91,7 +91,8 @@
     "label": "Unit"
    },
    "flow.regime": {
-    "label": "Regime"
+    "label": "Regime",
+    "description": "Continuous: it flows all the time (a pipe, a belt). Batch: it leaves in loads (a tanker every day). Intermittent: only in some periods (a season, a campaign)."
    },
    "flow.quantity_measured": {
     "label": "Measured quantity (per year)"
@@ -109,10 +110,12 @@
     "label": "Reliability of supply"
    },
    "flow.uncertainty.type": {
-    "label": "How the uncertainty is expressed"
+    "label": "How the uncertainty is expressed",
+    "description": "How sure the quantity is. Measured (meter, weighbridge, invoices): single value. Estimated: a range, minimum and maximum. A distribution or a qualitative judgement if that is all there is."
    },
    "flow.uncertainty.value": {
-    "label": "Uncertainty value (depends on how it is expressed)"
+    "label": "Uncertainty value (depends on how it is expressed)",
+    "description": "For a range: minimum and maximum, e.g. 2500-3500. For a distribution: its type and parameters. For a qualitative judgement: low / medium / high. Empty for a single value."
    },
    "flow.marginal_market_ref": {
     "label": "Marginal market reference (consequential studies)"
@@ -320,10 +323,10 @@
    "facilitator": "facilitator",
    "regulator": "regulator",
    "intermediary": "intermediary",
-   "micro": "micro",
-   "SME": "SME",
-   "mid": "mid-size",
-   "large": "large",
+   "micro": "micro (fewer than 10 staff)",
+   "SME": "small (10-49 staff)",
+   "mid": "medium (50-249 staff)",
+   "large": "large (250 staff or more)",
    "public": "public",
    "private": "private",
    "mixed": "mixed",
@@ -517,6 +520,7 @@
    "dx.active": "Active sections",
    "h.section": "Section",
    "cover.noIlcd": "None: a costing-only study (no LCA). The costing uses the reference scenario an LCA would use (D4.2 §4.1).",
+   "note.analyst": "For whoever carries out the study (grey column): companies, leave it empty.",
    "dx.s1i": "§1. How to fill in the Excel workbook",
    "dx.who_title": "Who fills in what",
    "h.sheet": "Sheet",
@@ -673,7 +677,8 @@
     "label": "Unità"
    },
    "flow.regime": {
-    "label": "Regime"
+    "label": "Regime",
+    "description": "Continuo: scorre sempre (un tubo, un nastro). A lotti: parte in carichi (una cisterna ogni giorno). Intermittente: solo in certi periodi (una stagione, una campagna)."
    },
    "flow.quantity_measured": {
     "label": "Quantità misurata (all'anno)"
@@ -691,10 +696,12 @@
     "label": "Affidabilità della fornitura"
    },
    "flow.uncertainty.type": {
-    "label": "Come si esprime l'incertezza"
+    "label": "Come si esprime l'incertezza",
+    "description": "Quanto è sicura la quantità. Misurata (contatore, pesa, fatture): valore singolo. Stimata: un intervallo, minimo e massimo. Una distribuzione o un giudizio qualitativo se c'è solo quello."
    },
    "flow.uncertainty.value": {
-    "label": "Valore dell'incertezza (dipende da come si esprime)"
+    "label": "Valore dell'incertezza (dipende da come si esprime)",
+    "description": "Per un intervallo: minimo e massimo, es. 2500-3500. Per una distribuzione: tipo e parametri. Per un giudizio qualitativo: basso / medio / alto. Vuoto per un valore singolo."
    },
    "flow.marginal_market_ref": {
     "label": "Riferimento del mercato marginale (studi consequenziali)"
@@ -902,10 +909,10 @@
    "facilitator": "facilitatore",
    "regulator": "regolatore",
    "intermediary": "intermediario",
-   "micro": "micro",
-   "SME": "PMI",
-   "mid": "media",
-   "large": "grande",
+   "micro": "micro (meno di 10 addetti)",
+   "SME": "piccola (10-49 addetti)",
+   "mid": "media (50-249 addetti)",
+   "large": "grande (250 addetti o più)",
    "public": "pubblica",
    "private": "privata",
    "mixed": "mista",
@@ -1099,6 +1106,7 @@
    "dx.active": "Sezioni attive",
    "h.section": "Sezione",
    "cover.noIlcd": "Nessuna: uno studio solo economico (senza LCA). Il costing usa lo scenario di riferimento che userebbe un'LCA (D4.2 §4.1).",
+   "note.analyst": "Per chi esegue lo studio (colonna grigia): le aziende la lasciano vuota.",
    "dx.s1i": "§1. Come compilare il file Excel",
    "dx.who_title": "Chi compila che cosa",
    "h.sheet": "Foglio",
@@ -1255,7 +1263,8 @@
     "label": "Unité"
    },
    "flow.regime": {
-    "label": "Régime"
+    "label": "Régime",
+    "description": "Continu : il circule tout le temps (une conduite, un convoyeur). Par lots : il part par chargements (une citerne par jour). Intermittent : seulement à certaines périodes (une saison, une campagne)."
    },
    "flow.quantity_measured": {
     "label": "Quantité mesurée (par an)"
@@ -1273,10 +1282,12 @@
     "label": "Fiabilité de l'approvisionnement"
    },
    "flow.uncertainty.type": {
-    "label": "Comment l'incertitude est exprimée"
+    "label": "Comment l'incertitude est exprimée",
+    "description": "Le degré de certitude de la quantité. Mesurée (compteur, pont-bascule, factures) : valeur unique. Estimée : une fourchette, minimum et maximum. Une distribution ou un jugement qualitatif s'il n'y a que cela."
    },
    "flow.uncertainty.value": {
-    "label": "Valeur de l'incertitude (selon son expression)"
+    "label": "Valeur de l'incertitude (selon son expression)",
+    "description": "Pour une fourchette : minimum et maximum, p. ex. 2500-3500. Pour une distribution : son type et ses paramètres. Pour un jugement qualitatif : faible / moyen / élevé. Vide pour une valeur unique."
    },
    "flow.marginal_market_ref": {
     "label": "Référence du marché marginal (études conséquentielles)"
@@ -1484,10 +1495,10 @@
    "facilitator": "facilitateur",
    "regulator": "régulateur",
    "intermediary": "intermédiaire",
-   "micro": "micro",
-   "SME": "PME",
-   "mid": "moyenne",
-   "large": "grande",
+   "micro": "micro (moins de 10 salariés)",
+   "SME": "petite (10-49 salariés)",
+   "mid": "moyenne (50-249 salariés)",
+   "large": "grande (250 salariés ou plus)",
    "public": "publique",
    "private": "privée",
    "mixed": "mixte",
@@ -1681,6 +1692,7 @@
    "dx.active": "Sections actives",
    "h.section": "Section",
    "cover.noIlcd": "Aucune : une étude uniquement économique (sans ACV). Le calcul des coûts utilise le scénario de référence qu'utiliserait une ACV (D4.2 §4.1).",
+   "note.analyst": "Pour la personne qui réalise l'étude (colonne grise) : entreprises, laissez-la vide.",
    "dx.s1i": "§1. Comment remplir le classeur Excel",
    "dx.who_title": "Qui remplit quoi",
    "h.sheet": "Feuille",
@@ -1837,7 +1849,8 @@
     "label": "Einheit"
    },
    "flow.regime": {
-    "label": "Betriebsweise"
+    "label": "Betriebsweise",
+    "description": "Kontinuierlich: fließt ständig (eine Leitung, ein Band). Chargenweise: geht in Ladungen (ein Tankwagen pro Tag). Zeitweise: nur in bestimmten Zeiträumen (eine Saison, eine Kampagne)."
    },
    "flow.quantity_measured": {
     "label": "Gemessene Menge (pro Jahr)"
@@ -1855,10 +1868,12 @@
     "label": "Liefersicherheit"
    },
    "flow.uncertainty.type": {
-    "label": "Wie die Unsicherheit ausgedrückt wird"
+    "label": "Wie die Unsicherheit ausgedrückt wird",
+    "description": "Wie sicher die Menge ist. Gemessen (Zähler, Waage, Rechnungen): Einzelwert. Geschätzt: eine Spanne, Minimum und Maximum. Eine Verteilung oder eine qualitative Einschätzung, wenn es nur das gibt."
    },
    "flow.uncertainty.value": {
-    "label": "Wert der Unsicherheit (je nach Ausdrucksform)"
+    "label": "Wert der Unsicherheit (je nach Ausdrucksform)",
+    "description": "Für eine Spanne: Minimum und Maximum, z. B. 2500-3500. Für eine Verteilung: Typ und Parameter. Für eine qualitative Einschätzung: niedrig / mittel / hoch. Leer bei einem Einzelwert."
    },
    "flow.marginal_market_ref": {
     "label": "Referenz des Grenzmarkts (konsequenzielle Studien)"
@@ -2066,10 +2081,10 @@
    "facilitator": "Vermittler",
    "regulator": "Behörde",
    "intermediary": "Zwischenhändler",
-   "micro": "Kleinst",
-   "SME": "KMU",
-   "mid": "mittel",
-   "large": "groß",
+   "micro": "Kleinst (weniger als 10 Beschäftigte)",
+   "SME": "klein (10-49 Beschäftigte)",
+   "mid": "mittel (50-249 Beschäftigte)",
+   "large": "groß (250 Beschäftigte oder mehr)",
    "public": "öffentlich",
    "private": "privat",
    "mixed": "gemischt",
@@ -2263,6 +2278,7 @@
    "dx.active": "Aktive Abschnitte",
    "h.section": "Abschnitt",
    "cover.noIlcd": "Keine: eine reine Kostenstudie (ohne Ökobilanz). Die Kostenrechnung verwendet das Referenzszenario, das eine Ökobilanz verwenden würde (D4.2 §4.1).",
+   "note.analyst": "Für die Person, die die Studie durchführt (graue Spalte): Unternehmen lassen sie leer.",
    "dx.s1i": "§1. So füllen Sie die Excel-Arbeitsmappe aus",
    "dx.who_title": "Wer füllt was aus",
    "h.sheet": "Blatt",
@@ -2419,7 +2435,8 @@
     "label": "Unidad"
    },
    "flow.regime": {
-    "label": "Régimen"
+    "label": "Régimen",
+    "description": "Continuo: circula siempre (una tubería, una cinta). Por lotes: sale en cargas (una cisterna al día). Intermitente: solo en ciertos periodos (una temporada, una campaña)."
    },
    "flow.quantity_measured": {
     "label": "Cantidad medida (al año)"
@@ -2437,10 +2454,12 @@
     "label": "Fiabilidad del suministro"
    },
    "flow.uncertainty.type": {
-    "label": "Cómo se expresa la incertidumbre"
+    "label": "Cómo se expresa la incertidumbre",
+    "description": "Qué seguridad hay sobre la cantidad. Medida (contador, báscula, facturas): valor único. Estimada: un intervalo, mínimo y máximo. Una distribución o un juicio cualitativo si solo hay eso."
    },
    "flow.uncertainty.value": {
-    "label": "Valor de la incertidumbre (según cómo se exprese)"
+    "label": "Valor de la incertidumbre (según cómo se exprese)",
+    "description": "Para un intervalo: mínimo y máximo, p. ej. 2500-3500. Para una distribución: tipo y parámetros. Para un juicio cualitativo: bajo / medio / alto. Vacío para un valor único."
    },
    "flow.marginal_market_ref": {
     "label": "Referencia del mercado marginal (estudios consecuenciales)"
@@ -2648,10 +2667,10 @@
    "facilitator": "facilitador",
    "regulator": "regulador",
    "intermediary": "intermediario",
-   "micro": "micro",
-   "SME": "pyme",
-   "mid": "mediana",
-   "large": "grande",
+   "micro": "micro (menos de 10 empleados)",
+   "SME": "pequeña (10-49 empleados)",
+   "mid": "mediana (50-249 empleados)",
+   "large": "grande (250 empleados o más)",
    "public": "pública",
    "private": "privada",
    "mixed": "mixta",
@@ -2845,6 +2864,7 @@
    "dx.active": "Secciones activas",
    "h.section": "Sección",
    "cover.noIlcd": "Ninguna: un estudio solo económico (sin ACV). El cálculo de costes usa el escenario de referencia que usaría un ACV (D4.2 §4.1).",
+   "note.analyst": "Para quien realiza el estudio (columna gris): las empresas la dejan vacía.",
    "dx.s1i": "§1. Cómo rellenar el libro Excel",
    "dx.who_title": "Quién rellena qué",
    "h.sheet": "Hoja",

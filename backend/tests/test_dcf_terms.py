@@ -86,7 +86,8 @@ def test_localize_fills_the_reader_fields_and_keeps_the_schema_text(payload):
     role = next(f for f in actors.fields if f.id == "actor.role")
     assert role.label == "Ruolo" and role.enum_labels["producer"] == "produttore"
     size = next(f for f in actors.fields if f.id == "actor.public_private")
-    assert size.reason == "lo studio ha la dimensione economica o quella sociale (Q3)"
+    # no "(Q3)": the companies never saw the questionnaire (UX round 5)
+    assert size.reason == "lo studio ha la dimensione economica o quella sociale"
 
 
 def test_the_italian_workbook_reads_in_italian_with_names_not_ids(payload):

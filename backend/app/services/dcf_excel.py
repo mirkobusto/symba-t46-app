@@ -47,6 +47,8 @@ EU_FOOTER = (
 
 # SYMBA palette: white + blue + green geometric (per project visual identity).
 _HEADER_FILL = PatternFill(fill_type="solid", fgColor="29364E")
+# a column the analyst fills in: grey, so a company sees it is not theirs (D4)
+_ANALYST_FILL = PatternFill(fill_type="solid", fgColor="8A93A3")
 _HEADER_FONT = Font(bold=True, color="FFFFFF", size=11)
 _TITLE_FONT = Font(bold=True, size=14, color="29364E")
 _SUBTITLE_FONT = Font(italic=True, size=10, color="404040")
@@ -107,7 +109,7 @@ def render_xlsx(
     for sec_id in _DATA_SECTION_ORDER:
         sec = sections.get(sec_id)
         if sec is not None:
-            _write_data_section_tab(wb, sec, rows_for(data, sec_id), lang, names, lists)
+            _write_data_section_tab(wb, sec, rows_for(data, sec_id), lang, names, lists, data)
 
     mc = sections.get("methodological_choices")
     if mc is not None:
@@ -130,10 +132,42 @@ def render_xlsx(
 
 
 def _names(data: DcfData | None) -> dict[str, dict[str, str]]:
-    """Actor and flow names by row id: a foreign key shows the name."""
+    """Actor and flow names by row id: a foreign key shows the name. A flow
+    also shows who gives it and who receives it, so each company finds its
+    rows (filter on the column) and nobody types an id (UX round 5, D4)."""
     actors = {r.row_id: actor_label(r) for r in rows_for(data, "actors")}
-    flows = {r.row_id: str(r.values.get("flow.name") or r.row_id) for r in rows_for(data, "flow_matrix")}
+    flows = {}
+    for r in rows_for(data, "flow_matrix"):
+        name = str(r.values.get("flow.name") or r.row_id)
+        origin = actors.get(str(r.values.get("flow.origin_actor_id") or ""))
+        dest = actors.get(str(r.values.get("flow.dest_actor_id") or ""))
+        flows[r.row_id] = f"{name} ({origin} → {dest})" if origin and dest else name
     return {"fk_actor": actors, "fk_flow": flows}
+
+
+# The foreign key a per-flow or per-actor sheet is keyed on: one row each is
+# written already, so the companies fill in rather than retype names (P1-06,
+# P2-07, P4-06, P5-01, P6-06).
+_SEED_KEY = {
+    "flow_classification": ("classif.flow_id", "flow_matrix"),
+    "logistics": ("route.flow_id", "flow_matrix"),
+    "costs": ("cost.flow_id", "flow_matrix"),
+    "reference_scenario": ("ref.actor_id", "actors"),
+}
+
+
+def _with_seeded_rows(section: DcfSection, rows: list[DcfRow], data: DcfData | None) -> list[DcfRow]:
+    key = _SEED_KEY.get(section.id)
+    if key is None or key[0] not in {f.id for f in section.fields}:
+        return rows
+    field_id, target = key
+    have = {r.values.get(field_id) for r in rows}
+    seeded = [
+        DcfRow(row_id=f"seed-{section.id}-{t.row_id}", values={field_id: t.row_id})
+        for t in rows_for(data, target)
+        if t.row_id not in have
+    ]
+    return [*rows, *seeded]
 
 
 def _title(section: DcfSection) -> str:
@@ -173,6 +207,7 @@ def _write_cover_tab(
 def _write_data_section_tab(
     wb: Workbook, section: DcfSection, rows: list[DcfRow] | None = None,
     lang: str = "en", names: dict[str, dict[str, str]] | None = None, lists=None,
+    data: DcfData | None = None,
 ) -> None:
     ws = wb.create_sheet(ui(lang, f"sheet.{section.id}"))
     names = names or {}
@@ -193,6 +228,11 @@ def _write_data_section_tab(
     ws["A2"].font = _SUBTITLE_FONT
     ws["A2"].alignment = Alignment(wrap_text=True)
     ws.merge_cells("A2:H2")
+    if section.filled_by:
+        # who fills this sheet in, on the sheet itself: it was only on the web
+        # page, not in the file the companies receive (UX round 5, D4)
+        ws["A3"] = f"{ui(lang, 'h.who')}: {ui(lang, f'who.{section.filled_by}')}"
+        ws["A3"].font = _LABEL_FONT
 
     # Row 4: header labels. The technical field id and the description
     # ride along as a cell comment instead of a second visible row: the
@@ -202,14 +242,17 @@ def _write_data_section_tab(
     for col_idx, field in enumerate(section.fields, start=1):
         c = ws.cell(row=header_row, column=col_idx, value=_header_label(field))
         c.font = _HEADER_FONT
-        c.fill = _HEADER_FILL
+        c.fill = _ANALYST_FILL if field.filled_by == "analyst" else _HEADER_FILL
         c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-        c.comment = Comment(_field_note(field, lang), "SYMBA T4.6")
+        note = _field_note(field, lang)
+        if note:
+            c.comment = Comment(note, "SYMBA T4.6")
 
     fieldid_row = header_row
 
-    # Stored rows first, then blank ones so collection can continue.
-    stored = rows or []
+    # Stored rows first, then one row per flow or actor still missing, then
+    # blank ones so collection can continue.
+    stored = _with_seeded_rows(section, rows or [], data)
     first_data_row = fieldid_row + 1
     for offset, row in enumerate(stored):
         for col_idx, (field, value) in enumerate(zip(section.fields, cell_values(section, row), strict=True), start=1):
@@ -224,6 +267,8 @@ def _write_data_section_tab(
     total_data_rows = len(stored) + blank_count
 
     _add_enum_dropdowns(ws, section, first_data_row, blank_start + blank_count, lang, lists)
+    # a company filters the flow or actor column to find its own rows (D4)
+    ws.auto_filter.ref = f"A{header_row}:{get_column_letter(len(section.fields))}{blank_start + blank_count - 1}"
 
     # Column widths
     for col_idx, field in enumerate(section.fields, start=1):
@@ -292,10 +337,14 @@ def _header_label(field) -> str:
 
 
 def _field_note(field, lang: str = "en") -> str:
-    """The comment on a header: what the field means, the values it takes
-    and why it is asked, in words; the field id stays last, for whoever
-    maps the file back to the schema."""
+    """The comment on a header: who fills it in when it is not the sheet's
+    filler, what the field means, the values it takes and why it is asked, in
+    words. No field id: it was noise to whoever fills the file in."""
     parts = []
+    # the payment class arrives filled in from the questionnaire: its own text
+    # says so, "leave it empty" would be wrong (Fable review of #208)
+    if field.filled_by == "analyst" and field.id != "flow.q5_class":
+        parts.append(ui(lang, "note.analyst"))
     help_text = field.help or field.description_en
     if help_text:
         parts.append(str(help_text))
@@ -304,7 +353,7 @@ def _field_note(field, lang: str = "en") -> str:
         parts.append(f"{ui(lang, 'note.allowed')}: " + "; ".join(labels.values()))
     if field.reason:
         parts.append(f"{ui(lang, 'note.because')}: {field.reason}")
-    parts.append(f"{ui(lang, 'note.field_id')}: {field.id}")
+    # the field id was noise to whoever fills the file in (P2-05, P3-10, P6-07)
     return "\n".join(parts)
 
 

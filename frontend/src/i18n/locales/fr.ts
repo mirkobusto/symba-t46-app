@@ -1483,6 +1483,8 @@ const fr: Locale = {
       always: "toujours",
       whoCompanies: 'Rempli par le personnel des entreprises',
       whoAnalyst: 'Décidé par l\'analyste qui réalise l\'étude',
+      whoBoth: 'Les entreprises répondent, l\'analyste qui réalise l\'étude décide',
+      forAnalyst: 'pour l\'analyste',
     },
     diagram: { whoGives: "Qui le cède ?\n({{flow}})", whoReceives: "Qui le reçoit ?\n({{flow}})" },
     noCase: { title: 'Aucun cas pour l\'instant', desc: 'Le Data Collection File se construit à partir de votre évaluation : remplissez d\'abord le questionnaire (ou ouvrez un cas enregistré), puis revenez ici.', cta: 'Ouvrir le questionnaire', received: 'Vous avez reçu le classeur d\'un analyste ? Alors il n\'y a rien à faire ici : remplissez le fichier Excel et renvoyez-le-lui.' },

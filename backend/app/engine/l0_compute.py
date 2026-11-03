@@ -115,20 +115,24 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, An
             "scale of its consequences, not by the subject of the study.")})
     else:
         if decision == _X:
-            if case.market_screening_documented is False:
+            # B only on a documented screening: the burden of proof is on the
+            # study (D4.1 §4.3.4, L00652/L00662), so an unanswered follow-up
+            # counts as "no" (decided by Fable, UX round 4, P2-01)
+            if case.market_screening_documented is True:
+                situation = _S.SITUATION_B
+            elif case.market_screening_documented is False:
                 situation = _micro(case.q1)
                 notes.append({"code": "structural_without_screening", "message": (
                     "Q9 says the effects are structural, but the market screening is not documented: the "
                     "study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity "
                     "(ILCD Handbook 2010, §5.3).")})
             else:
-                situation = _S.SITUATION_B
-                if case.market_screening_documented is None:
-                    notes.append({"code": "structural_screening_missing", "message": (
-                        "Situation B needs a documented market screening: the yearly quantity the decision "
-                        "adds to or withdraws from the affected market must exceed the capacity that market "
-                        "replaces every year, counting at most 5 % (ILCD Handbook 2010, §5.3); document it, or "
-                        "the study is Situation A with B as a sensitivity.")})
+                situation = _micro(case.q1)
+                notes.append({"code": "structural_screening_missing", "message": (
+                    "Q9 says the effects are structural, but whether the market screening is documented is "
+                    "not answered: the study is treated as ILCD Situation A, with Situation B as a "
+                    "sensitivity, until the screening is documented (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). "
+                    "Answer the follow-up to Q9 once it is.")})
         elif decision == _M:
             situation = _micro(case.q1)
         elif decision == _N:

@@ -705,7 +705,7 @@ const it: Locale = {
         corporate_report: "Rendiconto di una sola azienda che esclude ogni credito per ciò che i suoi scambi evitano altrove, es. contabilità ESG / CSRD rigorosa (Situazione C2)",
       },
       screening: {
-        label: "È documentato che la quantità annua che la decisione aggiunge o toglie al mercato interessato supera la capacità che quel mercato rinnova ogni anno (al massimo il 5 %)?",
+        label: 'È documentato che la quantità annua che la decisione aggiunge o toglie al mercato interessato supera la capacità che quel mercato rinnova ogni anno (al massimo il 5 %)? Senza risposta vale come no.',
         yes: 'Sì, è documentato (Situazione B)',
         no: 'No (Situazione A, con la Situazione B come analisi di sensibilità)',
       },
@@ -1072,7 +1072,7 @@ const it: Locale = {
         no: "Q10 non ha risposta, quindi se lo studio serve un obiettivo pubblico è letto da Q1: l'LCC sociale non viene aggiunto, come per i casi salvati prima che Q10 esistesse. Rispondi a Q10: D4.2 §2.3 aggiunge l'LCC sociale per un obiettivo di politica pubblica o di pianificazione o per un decisore pubblico, qualunque sia il soggetto dello studio.",
       },
       structural_without_screening: "Q9 dice che gli effetti sono strutturali, ma lo screening di mercato non è documentato: lo studio è trattato come Situazione ILCD A, e la Situazione B va provata come analisi di sensibilità (ILCD Handbook 2010, §5.3).",
-      structural_screening_missing: "La Situazione B richiede uno screening di mercato documentato: la quantità annua che la decisione aggiunge o toglie al mercato interessato deve superare la capacità che quel mercato rinnova ogni anno, contando al massimo il 5 % (ILCD Handbook 2010, §5.3); documentalo, oppure lo studio è in Situazione A con B come analisi di sensibilità.",
+      structural_screening_missing: 'Q9 dice che gli effetti sono strutturali, ma non è indicato se lo screening di mercato è documentato: lo studio è trattato come Situazione ILCD A, con la Situazione B come analisi di sensibilità, finché lo screening non è documentato (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). Rispondi alla domanda di seguito di Q9 quando lo è.',
       decision_scale_vs_q1: {
         c_micro: "Q1 (pre-fattibilità di settore) di solito comporta conseguenze su scala strutturale; hai risposto conseguenze limitate, quindi lo studio è trattato come Situazione ILCD A. D4.1 §4.3.4: non scegliere l'LCA consequenziale solo perché si prende una decisione.",
         e_micro: "Q1=E (monitoraggio) non comporta decisioni; hai risposto che lo studio sostiene una decisione con conseguenze limitate, quindi è trattato come Situazione ILCD A.",

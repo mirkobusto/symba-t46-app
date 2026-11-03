@@ -133,7 +133,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Sector-level attributional, no per-flow allocation",
         "lcia": "Environmental Footprint (EF, normalised+weighted PEF/OEF)",
         "scenarios": "2 (current state + symbiotic optimised)",
-        "decision_context": DecisionContext.STRUCTURAL, "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
+        "decision_context": DecisionContext.STRUCTURAL, "market_screening_documented": False, "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True), "q4": {Q4.D, Q4.E},
         "flows": _flows(Q5.e),
         "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.C,
         "rationale": (
@@ -317,7 +317,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "Multi-method depending on flow",
         "lcia": "LCA: carbon, acidification, eutrophication. S-LCA: jobs, skills, wellbeing, H&S. LCC: CAPEX, OPEX, NPV. TEA: ROI, payback.",
         "scenarios": "Multi-scenario, framework propositional",
-        "decision_context": DecisionContext.STRUCTURAL, "policy_objective": True, "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
+        "decision_context": DecisionContext.STRUCTURAL, "market_screening_documented": False, "policy_objective": True, "q1": Q1.C, "q2": Q2.B, "q3": Q3(env=True, eco=True, soc=True), "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
         "rationale": (

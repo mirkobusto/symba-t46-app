@@ -881,7 +881,9 @@ def test_full_activation_count_for_complete_case(schemas):
 
 def _q9_case(schemas, q1, decision, q2=Q2.A):
     from app.domain.enums import DecisionContext
-    case = _baseline_case(q1=q1, q2=q2, decision_context=DecisionContext(decision) if decision else None)
+    # a structural answer gives B only with a documented screening (UX round 4, P2-01)
+    case = _baseline_case(q1=q1, q2=q2, decision_context=DecisionContext(decision) if decision else None,
+                          market_screening_documented=True if decision == "structural" else None)
     l0_run(case, schemas)
     run(case, schemas)
     return case

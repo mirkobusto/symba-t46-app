@@ -727,7 +727,7 @@ const en = {
         corporate_report: "Reporting of one company that excludes any credit for what its exchanges avoid elsewhere, e.g. strict ESG / CSRD accounting (Situation C2)",
       },
       screening: {
-        label: "Is it documented that the yearly quantity the decision adds to or withdraws from the affected market exceeds the capacity that market replaces every year (at most 5 %)?",
+        label: 'Is it documented that the yearly quantity the decision adds to or withdraws from the affected market exceeds the capacity that market replaces every year (at most 5 %)? Left unanswered, it counts as no.',
         yes: 'Yes, it is documented (Situation B)',
         no: 'No (Situation A, with Situation B tested as a sensitivity)',
       },
@@ -1094,7 +1094,7 @@ const en = {
         no: "Q10 is not answered, so whether the study serves a public objective is read off Q1: the societal LCC is not added, as for cases saved before Q10 existed. Answer Q10: D4.2 §2.3 adds the societal LCC for a public policy or planning objective or a public decision-maker, whatever the subject of the study.",
       },
       structural_without_screening: "Q9 says the effects are structural, but the market screening is not documented: the study is treated as ILCD Situation A, and Situation B must be tested as a sensitivity (ILCD Handbook 2010, §5.3).",
-      structural_screening_missing: "Situation B needs a documented market screening: the yearly quantity the decision adds to or withdraws from the affected market must exceed the capacity that market replaces every year, counting at most 5 % (ILCD Handbook 2010, §5.3); document it, or the study is Situation A with B as a sensitivity.",
+      structural_screening_missing: 'Q9 says the effects are structural, but whether the market screening is documented is not answered: the study is treated as ILCD Situation A, with Situation B as a sensitivity, until the screening is documented (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). Answer the follow-up to Q9 once it is.',
       decision_scale_vs_q1: {
         c_micro: "Q1 (sector-wide pre-feasibility) usually means consequences at structural scale; you answered limited consequences, so the study is treated as ILCD Situation A. D4.1 §4.3.4: do not choose Consequential LCA simply because a decision is being made.",
         e_micro: "Q1=E (monitoring) implies no decision; you answered that a decision with limited consequences is supported, so the study is treated as ILCD Situation A.",

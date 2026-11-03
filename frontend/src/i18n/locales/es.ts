@@ -679,7 +679,7 @@ const es: Locale = {
         corporate_report: "Informe de una sola empresa que excluye todo crédito por lo que sus intercambios evitan en otros lugares, p. ej. contabilidad ESG / CSRD estricta (Situación C2)",
       },
       screening: {
-        label: "¿Está documentado que la cantidad anual que la decisión añade o retira del mercado afectado supera la capacidad que ese mercado renueva cada año (como máximo el 5 %)?",
+        label: '¿Está documentado que la cantidad anual que la decisión añade o retira del mercado afectado supera la capacidad que ese mercado renueva cada año (como máximo el 5 %)? Sin respuesta, cuenta como no.',
         yes: 'Sí, está documentado (Situación B)',
         no: 'No (Situación A, con la Situación B como análisis de sensibilidad)',
       },
@@ -1046,7 +1046,7 @@ const es: Locale = {
         no: "Q10 no tiene respuesta, así que si el estudio sirve a un objetivo público se deduce de Q1: no se añade el ACC societal, como en los casos guardados antes de que existiera Q10. Responde a Q10: la D4.2 §2.3 añade el ACC societal para un objetivo de política pública u ordenación o para un decisor público, sea cual sea el sujeto del estudio.",
       },
       structural_without_screening: "Q9 indica efectos estructurales, pero el cribado de mercado no está documentado: el estudio se trata como Situación ILCD A, y la Situación B debe probarse como análisis de sensibilidad (ILCD Handbook 2010, §5.3).",
-      structural_screening_missing: "La Situación B exige un cribado de mercado documentado: la cantidad anual que la decisión añade o retira del mercado afectado debe superar la capacidad que ese mercado renueva cada año, contando como máximo el 5 % (ILCD Handbook 2010, §5.3); documéntalo, o el estudio es Situación A con B como análisis de sensibilidad.",
+      structural_screening_missing: 'Q9 dice que los efectos son estructurales, pero no se indica si el cribado de mercado está documentado: el estudio se trata como Situación ILCD A, con la Situación B como análisis de sensibilidad, hasta que el cribado esté documentado (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). Responde a la pregunta de seguimiento de Q9 cuando lo esté.',
       decision_scale_vs_q1: {
         c_micro: "Q1 (prefactibilidad sectorial) suele implicar consecuencias a escala estructural; has respondido consecuencias limitadas, así que el estudio se trata como Situación ILCD A. D4.1 §4.3.4: no elijas el ACV consecuencial solo porque se toma una decisión.",
         e_micro: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias limitadas, así que se trata como Situación ILCD A.",

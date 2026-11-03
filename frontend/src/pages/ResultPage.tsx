@@ -14,7 +14,7 @@ import { usePreferenceStore } from '../store/preferenceStore'
 import { configurationRows, obligationGroups, withoutQCodes } from './configurationRows'
 import ConfigurationSummary from '../components/ConfigurationSummary'
 import { useHealth } from '../hooks/useHealth'
-import { ApiError, createCase, fetchDcfData, fetchReportDocx, updateCase } from '../services/api'
+import { ApiError, createCase, fetchDcfData, fetchReportDocx, getCase, updateCase } from '../services/api'
 import { useAuthStore } from '../store/authStore'
 import { useCaseStore } from '../store/caseStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
@@ -82,14 +82,16 @@ export default function ResultPage() {
   }
 
   /** The network drawn for the case being left, from the editor when it is
-   * bound to that case, otherwise from the server; null when there is none. */
+   * bound to that case, otherwise from the server; null when none was ever
+   * stored (404). Any other failure is thrown, so it can be reported. */
   async function networkOf(caseId: string) {
     const dcf = useDcfDataStore.getState()
     if (dcf.caseId === caseId) return dcf.data
     try {
       return (await fetchDcfData(caseId)).data
-    } catch {
-      return null
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 404) return null
+      throw e
     }
   }
 
@@ -109,15 +111,22 @@ export default function ResultPage() {
       // "Save as new" started the new case with an empty network: the
       // actors, arrows and values drawn for the previous one were lost
       // without a word (UX round 5, P7-02). They come along now.
-      const network = previousId ? await networkOf(previousId) : null
+      let network = null
+      let copyFailed = false
+      try {
+        network = previousId ? await networkOf(previousId) : null
+      } catch {
+        copyFailed = true
+      }
       setServerCase(saved.id, saved.name)
       if (saved.slug) setSavedSlug(saved.slug)
       if (network && Object.values(network.rows_by_section).some((rows) => rows.length > 0)) {
         const dcf = useDcfDataStore.getState()
         dcf.carryTo(saved.id, network)
-        if (!(await dcf.saveToServer())) {
-          pushToast({ type: 'error', message: t('cases.networkNotCopied'), durationMs: 8000 })
-        }
+        if (!(await dcf.saveToServer())) copyFailed = true
+      }
+      if (copyFailed) {
+        pushToast({ type: 'error', message: t('cases.networkNotCopied'), durationMs: 8000 })
       }
       pushToast({
         type: 'success',
@@ -133,7 +142,17 @@ export default function ResultPage() {
   async function handleSaveChanges() {
     // there was no way to update a saved case: only "Save as new" (UX round 5, D3)
     if (!serverCaseId || needsSignIn()) return
-    const name = serverCaseName ?? ''
+    // a draft bound to a case without its name (older browser state) would
+    // have saved the case with an empty name (Fable review of #202)
+    let name = serverCaseName
+    if (!name) {
+      try {
+        name = (await getCase(serverCaseId)).name
+      } catch (e) {
+        saveErrorToast(e)
+        return
+      }
+    }
     if (!(await askConfirm(t('cases.saveChangesConfirm', { name })))) return
     setSavingCase(true)
     try {

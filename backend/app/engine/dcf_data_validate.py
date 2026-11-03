@@ -100,6 +100,8 @@ def validate_dcf_data(
             )
             continue
         if not section.active:
+            # kept, not exported; the structural checks below still run (the
+            # composed section has no fields, so every value lands in dormant)
             dormant.append(
                 DcfDataIssue(
                     code="section_inactive",
@@ -110,7 +112,6 @@ def validate_dcf_data(
                     ),
                 )
             )
-            continue
         if section.row_collection not in EDITABLE_ROW_COLLECTIONS:
             errors.append(
                 DcfDataIssue(

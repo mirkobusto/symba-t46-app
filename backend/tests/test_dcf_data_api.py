@@ -231,16 +231,44 @@ def test_rows_of_a_section_not_asked_are_kept_as_dormant(client):
     ]
     r = client.put(f"/api/dcf/{case_id}/data", json=data)
     assert r.status_code == 200, r.text
-    assert [i["code"] for i in r.json()["validation"]["dormant"]] == ["section_inactive"]
+    assert "section_inactive" in [i["code"] for i in r.json()["validation"]["dormant"]]
+    # kept, but not in the files
+    xlsx = client.get(f"/api/dcf/{case_id}/export/xlsx")
+    from io import BytesIO
+
+    import openpyxl
+
+    wb = openpyxl.load_workbook(BytesIO(xlsx.content))
+    cells = {c.value for ws in wb.worksheets for row in ws.iter_rows() for c in row}
+    assert "c1" not in cells
 
 
-def test_saving_the_network_updates_the_case_date(client):
+def test_structural_errors_in_a_section_not_asked_still_block(client):
+    """Dormant is for values, not for malformed rows (Fable review of #202)."""
+    body = {**WIKTOR_BODY, "q3": {"env": True, "eco": False, "soc": False}}
+    case_id = client.post("/api/cases", json={"name": "env only", "case": body}).json()["id"]
+    data = _two_actors_one_flow(case_id)
+    data["rows_by_section"]["costs"] = [
+        {"row_id": "c1", "values": {"cost.no_such_field": 1}},
+        {"row_id": "c1", "values": {}},
+    ]
+    codes = {i["code"] for i in _put_expect_422(client, case_id, data)}
+    assert {"unknown_field", "duplicate_row_id"} <= codes
+
+
+def test_saving_the_network_updates_the_case_date(client, sqlite_engine):
     """"My cases" dates a case by its record: a saved network is a change too."""
-    case_id = _create_case(client)
-    before = client.get(f"/api/cases/{case_id}").json()["updated_at"]
-    import time
+    from datetime import datetime
 
-    time.sleep(1.1)
+    from sqlalchemy.orm import Session
+
+    from app.models import CaseRecord
+
+    case_id = _create_case(client)
+    with Session(sqlite_engine) as db:  # date the case back instead of sleeping
+        db.get(CaseRecord, case_id).updated_at = datetime(2020, 1, 1)
+        db.commit()
+    before = client.get(f"/api/cases/{case_id}").json()["updated_at"]
     r = client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id))
     assert r.status_code == 200, r.text
     after = client.get(f"/api/cases/{case_id}").json()["updated_at"]

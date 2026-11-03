@@ -4966,3 +4966,40 @@ kbd {
   color: var(--slate-700);
   text-align: center;
 }
+
+/* ---- Home intro and About (UX round 2026-11-02) ---------------------- */
+
+.home-intro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 0 0 24px;
+  text-align: left;
+}
+
+.home-intro-title {
+  font-size: 1rem;
+  margin: 0 0 6px;
+}
+
+.home-intro-card p {
+  margin: 0;
+}
+
+.about {
+  text-align: left;
+}
+
+.about h2 {
+  font-size: 1.1rem;
+  margin-top: 24px;
+}
+
+.about-technical {
+  margin-top: 24px;
+}
+
+/* the health pill stays only while the backend is checking or down */
+.dd-topbar-pill-health:empty {
+  display: none;
+}

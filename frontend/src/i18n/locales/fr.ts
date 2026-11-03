@@ -125,14 +125,16 @@ const fr: Locale = {
     },
     note: "Chaque onglet montre le même cas sous un angle différent ; les faits sont les mêmes dans les quatre.",
     about: {
+      isTitle: "Qu'est-ce que la symbiose industrielle ?",
+      isBody: "Quand les restes d'une entreprise (lactosérum, sciure, chaleur, eau) deviennent la matière première d'une autre au lieu d'être jetés.",
       eyebrow: 'À propos de SYMBA T4.6',
       title: 'Rapports publics · en bref',
       lead:
         "Quelqu'un a partagé un cas avec vous.",
       whoTitle: 'Qui est derrière ?',
-      whoBody: 'SYMBA est un projet Horizon Europe (GA 101135562, M22–M36).',
+      whoBody: "SYMBA est un projet de recherche financé par l'Union européenne (Horizon Europe, convention de subvention 101135562) qui développe des outils ouverts pour la symbiose industrielle dans l'industrie biosourcée. Cet outil a été développé par ENCO, avec CIRCE et CET ; il n'appartient à aucune des entreprises dont il décrit les cas.",
       whatTitle: 'Qu\'est-ce qu\'un rapport ?',
-      whatBody: 'Un rapport décrit un cas de symbiose industrielle.',
+      whatBody: "Un rapport partagé décrit comment un cas de symbiose industrielle doit être évalué : quels échanges entre entreprises il couvre et quels choix de méthode s'appliquent à son évaluation environnementale, économique et sociale. Les quatre onglets racontent le même cas à quatre types de lecteurs.",
       whereTitle: 'Où en savoir plus ?',
       whereBody: 'Visitez le site du projet',
       enterTool: 'Entrer dans l\'outil',
@@ -146,7 +148,7 @@ const fr: Locale = {
   },
 
   welcome: {
-    title: 'Bienvenue sur SYMBA T4.6',
+    title: "Bienvenue dans SYMBA",
     lead: "Cet outil détermine quelle méthodologie votre cas de symbiose industrielle exige et quelles données vous devez collecter. Il ne calcule pas les résultats environnementaux, économiques ou sociaux. Deux questions rapides et nous vous emmenons au bon endroit — vous pourrez les modifier plus tard, depuis le menu à l'intérieur de l'outil.",
     step1: { title: 'Qui êtes-vous ?' },
     step2: { title: 'Que souhaitez-vous faire ?' },
@@ -165,7 +167,7 @@ const fr: Locale = {
     tasks: {
       assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie pour un cas IS par un court questionnaire.' },
       read: { name: 'Lire un rapport partagé', desc: 'Ouvrir un cas partagé avec moi et voir le rapport.' },
-      explore: { name: 'Explorer une région / secteur', desc: 'Parcourir les insights agrégés pour ma zone.' },
+      explore: { name: 'Explorer une région / secteur', desc: "Voir comment les cas enregistrés se répartissent entre méthodes et secteurs." },
       browse: { name: 'Juste regarder', desc: 'Pas d\'objectif précis — je veux voir ce que fait l\'outil.' },
     },
   },
@@ -212,12 +214,16 @@ const fr: Locale = {
   },
 
   home: {
-    title: "SYMBA T4.6 — Outil d'évaluation IS",
-    tagline: 'Sélection méthodologique pour la Symbiose Industrielle (LCA / LCC / S-LCA).',
-    description:
-      "Répondez à un court questionnaire sur votre cas d'étude de symbiose industrielle. Le moteur de décision dérive la configuration méthodologique (situation ILCD, structure LCC, horizon de l'étude, scénario de référence) à partir des 186 nœuds Phase 1 des livrables D4.1, D4.2 et D4.3, plus les 40 règles cross-method.",
+    intro: {
+      what: { title: "Ce qu'il fait", body: "Il vous dit comment organiser l'évaluation d'un échange de symbiose industrielle, selon les lignes directrices SYMBA, et quelles données collecter auprès des entreprises concernées." },
+      not: { title: "Ce qu'il ne fait pas", body: "Il ne calcule pas les résultats : ni émissions, ni coûts, ni données sociales. Qui réalise l'étude les calcule avec les données que l'outil demande." },
+      who: { title: "Pour qui", body: "Les analystes de durabilité et les consultants y organisent leurs études ; entreprises, organismes publics et associations lisent les rapports et voient quelles données leur seront demandées." },
+    },
+    title: "SYMBA — évaluer la symbiose industrielle",
+    tagline: "Comment organiser l'évaluation environnementale, économique et sociale d'un échange entre entreprises, et quelles données collecter.",
+    description: "Répondez à des questions sur votre cas : le déchet, le sous-produit, la chaleur ou l'eau d'une entreprise qui deviennent la matière première d'une autre. Vous obtenez la configuration méthodologique que l'étude doit suivre et un Data Collection File à envoyer aux partenaires.",
     startButton: 'Démarrer une nouvelle évaluation',
-    modeLabel: 'Mode UX',
+    modeLabel: "Comment vous voulez répondre",
     modeExpert: 'Expert',
     modeGuided: 'Guidé',
     modeHint: {
@@ -226,18 +232,8 @@ const fr: Locale = {
     },
     hero: { title: 'Démarrer une nouvelle évaluation IS' },
     openCasesLink: 'Ou ouvrir un cas sauvegardé',
-    kpi: {
-      savedCases: 'Cas sauvegardés',
-      savedCasesDetail: 'tous utilisateurs confondus',
-      configured: 'Configurés',
-      configuredDetail: '{{total}} au total',
-      situations: 'Situations ILCD',
-      situationsDetail: 'A · B · C1 · C2',
-      language: 'Disponible en',
-      languageDetail: '5 langues',
-    },
-    presetsTitle: 'Études de cas validées',
-    presetsMeta: '13 fixtures issues d\'articles peer-reviewed',
+    presetsTitle: "Exemples publiés",
+    presetsMeta: "13 cas tirés d'articles scientifiques évalués par les pairs",
   },
 
   // DRAFT: English until the notice has been through legal review and is translated.
@@ -309,13 +305,28 @@ const fr: Locale = {
     ]
   },
   about: {
+    whoTitle: "Qui l'a fait",
+    whoBody: "L'outil a été développé par ENCO, avec CIRCE et CET, comme tâche T4.6 de SYMBA, un projet financé par le programme Horizon Europe de l'Union européenne (convention de subvention 101135562). Il n'appartient à aucune des entreprises dont il évalue les cas.",
+    sourcesTitle: "Sur quoi il repose",
+    sourcesBody: "Questions, règles et demandes de données suivent les livrables méthodologiques du work package 4 de SYMBA : D4.1 (analyse du cycle de vie de la symbiose industrielle, avec ses chapitres sectoriels), D4.2 (coût du cycle de vie) et D4.3 (analyse sociale du cycle de vie). Chaque ligne du résultat cite la section dont elle vient.",
+    notTitle: "Ce qu'il ne fait pas",
+    notBody: "Il ne calcule pas de résultats environnementaux, économiques ou sociaux (ni kg CO2eq, ni VAN, ni indicateurs sociaux) : il dit comment organiser l'étude et quelles données collecter. Les chiffres sont calculés par qui réalise l'étude, avec des logiciels d'ACV et de coûts dédiés.",
+    divergencesTitle: "Où il s'écarte des livrables, volontairement",
+    divergencesLead: "Quelques choix sont propres à l'outil, indiqués ici pour qu'un relecteur les voie :",
+    divergences: {
+      c2: "Les comptes d'une seule entreprise (Situation ILCD C2) ne sont évalués qu'au niveau de l'entreprise : un choix de l'outil, pas une règle de la D4.2.",
+      uncertainty: "La matrice Pedigree et l'analyse Monte Carlo suivent les réponses (affirmation publique, maturité technologique), alors que la D4.1 et la D4.2 les demandent dans toute étude.",
+      policy: "L'alignement sur les politiques de l'UE (Q4 = D) introduit les prix CE Delft et l'allocation par net tax factor, que la D4.2 associe au LCC sociétal.",
+      assets: "Q12 compte les biens dédiés et partagés construits pour les échanges, aujourd'hui ou il y a des années (D4.1 §6.3.3), là où la D4.2 §4.2 parle de biens nouveaux.",
+    },
+    contactTitle: "Contact",
+    contactBody: "Pour toute question sur l'outil ou le projet, écrivez via la page de contact du site SYMBA :",
+    technicalTitle: "Détails techniques (pour spécialistes)",
     title: 'À propos',
     p1:
       "SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d'une symbiose industrielle : à partir d'un questionnaire sur le cas, il déduit quelle méthodologie s'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les scores quantitatifs sont produits hors de l'outil et s'affichent ici une fois livrés.",
     p2:
       "Le questionnaire (Q0-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
-    p3:
-      'Affichage de la configuration par pillar, overrides avancés et panneau « Show reasoning » sont tous opérationnels.',
   },
 
   error: {
@@ -1052,9 +1063,8 @@ const fr: Locale = {
   },
 
   preset: {
-    title: 'Charger un cas publié comme preset',
-    help:
-      '13 fixtures de l\'échantillon de validation (12 papers + Leiva Escombreras / Frövi). Charge les réponses, flux compris, dans le questionnaire pour inspecter et exécuter le moteur end-to-end.',
+    title: "Charger un exemple publié",
+    help: "Charge dans le questionnaire les réponses d'un cas publié, pour voir ce que l'outil tire d'une vraie étude.",
     loadButton: 'Charger preset',
     rationaleToggle: 'Pourquoi ces réponses ? (rationale de compilation)',
     replaceConfirm: "Charger cet exemple remplace les réponses en cours. Enregistrez d'abord votre cas si vous voulez le garder. Charger l'exemple ?",

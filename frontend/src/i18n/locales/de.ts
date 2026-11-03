@@ -125,9 +125,11 @@ const de: Locale = {
     },
     note: "Jeder Reiter zeigt denselben Fall aus einem anderen Blickwinkel; die Fakten sind in allen vier gleich.",
     about: {
+      isTitle: "Was ist industrielle Symbiose?",
+      isBody: "Wenn die Reste eines Unternehmens (Molke, Sägemehl, Wärme, Wasser) zum Rohstoff eines anderen werden, statt weggeworfen zu werden.",
       eyebrow: 'Über SYMBA T4.6', title: 'Öffentliche Berichte', lead: 'Jemand hat einen Fall mit Ihnen geteilt.',
-      whoTitle: 'Wer steckt dahinter?', whoBody: 'SYMBA ist ein Horizon-Europe-Projekt (GA 101135562).',
-      whatTitle: 'Was ist ein Bericht?', whatBody: 'Ein Bericht beschreibt einen Fall industrieller Symbiose.',
+      whoTitle: 'Wer steckt dahinter?', whoBody: "SYMBA ist ein von der Europäischen Union gefördertes Forschungsprojekt (Horizon Europe, Finanzhilfevereinbarung 101135562), das offene Werkzeuge für industrielle Symbiose in der biobasierten Industrie entwickelt. Dieses Tool wurde von ENCO mit CIRCE und CET entwickelt; es gehört keinem der Unternehmen, deren Fälle es beschreibt.",
+      whatTitle: 'Was ist ein Bericht?', whatBody: "Ein geteilter Bericht beschreibt, wie ein Fall industrieller Symbiose zu bewerten ist: welche Austausche zwischen Unternehmen er umfasst und welche methodischen Entscheidungen für seine ökologische, ökonomische und soziale Bewertung gelten. Die vier Reiter erzählen denselben Fall vier Arten von Lesern.",
       whereTitle: 'Mehr erfahren?', whereBody: 'Besuchen Sie die Projekt-Website',
       enterTool: 'Zum Tool',
       backToReport: "Zurück zum Bericht",
@@ -140,7 +142,7 @@ const de: Locale = {
   },
 
   welcome: {
-    title: 'Willkommen bei SYMBA T4.6',
+    title: "Willkommen bei SYMBA",
     lead: "Dieses Werkzeug ermittelt, welche Methodik Ihr Fall industrieller Symbiose verlangt und welche Daten Sie erheben müssen. Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse. Zwei kurze Fragen, dann bringen wir Sie an die richtige Stelle — beides lässt sich später im Menü des Werkzeugs ändern.",
     step1: { title: 'Wer sind Sie?' },
     step2: { title: 'Was möchten Sie tun?' },
@@ -159,7 +161,7 @@ const de: Locale = {
     tasks: {
       assess: { name: 'Neue Bewertung starten', desc: 'Methodik für einen IS-Fall mit einem kurzen Fragebogen konfigurieren.' },
       read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
-      explore: { name: 'Region / Sektor erkunden', desc: 'Aggregierte Einblicke für mein Gebiet durchsuchen.' },
+      explore: { name: 'Region / Sektor erkunden', desc: "Sehen Sie, wie sich die gespeicherten Fälle auf Methoden und Sektoren verteilen." },
       browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel — ich möchte sehen, was das Tool tut.' },
     },
   },
@@ -206,12 +208,16 @@ const de: Locale = {
   },
 
   home: {
-    title: 'SYMBA T4.6 — IS-Bewertungstool',
-    tagline: 'Methodische Auswahl für Industrielle Symbiose (LCA / LCC / S-LCA).',
-    description:
-      'Beantworten Sie einen kurzen Fragebogen zu Ihrer industriellen Symbiose-Fallstudie. Die Entscheidungs-Engine leitet die methodische Konfiguration (ILCD-Situation, LCC-Struktur, Studienhorizont, Referenzszenario) aus den 186 Phase-1-Knoten der Deliverables D4.1, D4.2 und D4.3 sowie den 40 Cross-Method-Validierungsregeln ab.',
+    intro: {
+      what: { title: "Was es tut", body: "Es sagt Ihnen, wie die Bewertung eines Austauschs industrieller Symbiose nach den SYMBA-Leitlinien anzulegen ist und welche Daten bei den beteiligten Unternehmen zu erheben sind." },
+      not: { title: "Was es nicht tut", body: "Es berechnet keine Ergebnisse: keine Emissionen, Kosten oder sozialen Kennzahlen. Diese berechnet, wer die Studie durchführt, mit den Daten, die das Tool erfragt." },
+      who: { title: "Für wen", body: "Nachhaltigkeitsanalysten und Berater legen hier ihre Studien an; Unternehmen, Behörden und Verbände lesen die Berichte und sehen, welche Daten von ihnen erfragt werden." },
+    },
+    title: "SYMBA — industrielle Symbiose bewerten",
+    tagline: "Wie man die ökologische, ökonomische und soziale Bewertung eines Austauschs zwischen Unternehmen anlegt, und welche Daten zu erheben sind.",
+    description: "Beantworten Sie Fragen zu Ihrem Fall: Abfall, Nebenprodukt, Wärme oder Wasser eines Unternehmens werden zum Rohstoff eines anderen. Sie erhalten die methodische Konfiguration, der die Studie folgen muss, und ein Data Collection File für die Partner.",
     startButton: 'Neue Bewertung starten',
-    modeLabel: 'UX-Modus',
+    modeLabel: "Wie Sie antworten möchten",
     modeExpert: 'Experte',
     modeGuided: 'Geführt',
     modeHint: {
@@ -220,18 +226,8 @@ const de: Locale = {
     },
     hero: { title: 'Neue IS-Bewertung starten' },
     openCasesLink: 'Oder gespeicherten Fall öffnen',
-    kpi: {
-      savedCases: 'Gespeicherte Fälle',
-      savedCasesDetail: 'alle Nutzer',
-      configured: 'Konfiguriert',
-      configuredDetail: '{{total}} insgesamt',
-      situations: 'ILCD-Situationen',
-      situationsDetail: 'A · B · C1 · C2',
-      language: 'Verfügbar in',
-      languageDetail: '5 Sprachen',
-    },
-    presetsTitle: 'Validierte Fallstudien',
-    presetsMeta: '13 Fixtures aus peer-reviewten Artikeln',
+    presetsTitle: "Veröffentlichte Beispiele",
+    presetsMeta: "13 Fälle aus begutachteten Fachartikeln",
   },
 
   // DRAFT: English until the notice has been through legal review and is translated.
@@ -303,13 +299,28 @@ const de: Locale = {
     ]
   },
   about: {
+    whoTitle: "Wer es gemacht hat",
+    whoBody: "Das Tool wurde von ENCO mit CIRCE und CET als Task T4.6 von SYMBA entwickelt, einem vom Programm Horizon Europe der Europäischen Union geförderten Projekt (Finanzhilfevereinbarung 101135562). Es gehört keinem der Unternehmen, deren Fälle es bewertet.",
+    sourcesTitle: "Worauf es beruht",
+    sourcesBody: "Fragen, Regeln und Datenanforderungen folgen den methodischen Deliverables von Arbeitspaket 4 von SYMBA: D4.1 (Ökobilanz industrieller Symbiose, mit ihren Sektorkapiteln), D4.2 (Lebenszykluskosten) und D4.3 (soziale Ökobilanz). Jede Zeile des Ergebnisses nennt den Abschnitt, aus dem sie stammt.",
+    notTitle: "Was es nicht tut",
+    notBody: "Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse (keine kg CO2eq, keinen Kapitalwert, keine sozialen Indikatoren): Es sagt, wie die Studie anzulegen ist und welche Daten zu erheben sind. Die Zahlen berechnet, wer die Studie durchführt, mit eigener Software für Ökobilanz und Kostenrechnung.",
+    divergencesTitle: "Wo es bewusst von den Deliverables abweicht",
+    divergencesLead: "Einige Entscheidungen sind die des Tools, hier genannt, damit ein Gutachter sie sieht:",
+    divergences: {
+      c2: "Die Bilanz eines einzelnen Unternehmens (ILCD-Situation C2) wird nur auf Unternehmensebene gerechnet: eine Entscheidung des Tools, keine Regel von D4.2.",
+      uncertainty: "Pedigree-Matrix und Monte-Carlo-Analyse folgen den Antworten (öffentliche Aussage, Technologiereife), während D4.1 und D4.2 sie für jede Studie verlangen.",
+      policy: "Die Ausrichtung an EU-Politik (Q4 = D) bringt CE-Delft-Preise und die Allokation nach Net Tax Factor, die D4.2 an das gesellschaftliche LCC knüpft.",
+      assets: "Q12 zählt eigens gebaute, gemeinsam genutzte Anlagen, jetzt oder vor Jahren für die Austausche gebaut (D4.1 §6.3.3), wo D4.2 §4.2 von neuen spricht.",
+    },
+    contactTitle: "Kontakt",
+    contactBody: "Für Fragen zum Tool oder zum Projekt schreiben Sie über die Kontaktseite der SYMBA-Website:",
+    technicalTitle: "Technische Details (für Fachleute)",
     title: 'Über',
     p1:
       "SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die quantitativen Kennzahlen entstehen außerhalb des Werkzeugs und erscheinen hier, sobald sie vorliegen.",
     p2:
       'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
-    p3:
-      'Pillar-Konfigurationsanzeige, erweiterte Overrides und das „Show reasoning"-Panel sind alle aktiv.',
   },
 
   error: {
@@ -1046,9 +1057,8 @@ const de: Locale = {
   },
 
   preset: {
-    title: 'Veröffentlichten Fall als Preset laden',
-    help:
-      '13 Fixtures aus dem Validierungs-Sample (12 Papers + Leiva Escombreras / Frövi). Lädt die Antworten samt Flüssen in den Fragebogen, um die Engine end-to-end zu inspizieren und auszuführen.',
+    title: "Ein veröffentlichtes Beispiel laden",
+    help: "Lädt die Antworten eines veröffentlichten Falls in den Fragebogen, damit Sie sehen, was das Tool aus einer echten Studie ableitet.",
     loadButton: 'Preset laden',
     rationaleToggle: 'Warum diese Antworten? (Compilation-Rationale)',
     replaceConfirm: "Das Laden dieses Beispiels ersetzt die Antworten, an denen Sie arbeiten. Speichern Sie Ihren Fall zuerst, wenn Sie ihn behalten möchten. Beispiel laden?",

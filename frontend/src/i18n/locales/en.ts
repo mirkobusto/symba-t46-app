@@ -115,14 +115,16 @@ const en = {
     },
     note: "Each tab shows the same case from a different point of view; the facts are the same in all four.",
     about: {
+      isTitle: "What is industrial symbiosis?",
+      isBody: "When one company's leftovers (whey, sawdust, heat, water) become another company's raw material instead of being thrown away.",
       eyebrow: 'About SYMBA T4.6',
       title: 'Public reports · at a glance',
       lead:
         'Someone shared a case with you.',
       whoTitle: 'Who\'s behind this?',
-      whoBody: 'SYMBA is a Horizon Europe project (GA 101135562, M22–M36) building open, methodologically-sound tools for industrial symbiosis in the bio-based industrial ecosystem. Task T4.6 is the monitoring & reporting system.',
+      whoBody: "SYMBA is a research project funded by the European Union (Horizon Europe, Grant Agreement 101135562) that develops open tools for industrial symbiosis in bio-based industry. This tool was developed by ENCO, with CIRCE and CET; it belongs to none of the companies whose cases it describes.",
       whatTitle: 'What is a "report"?',
-      whatBody: 'A shared report describes one case of industrial symbiosis: which actors cooperate, how the environmental / economic / social benefits are assessed, and which methodological choices were made. Same case, four different framings for four audiences.',
+      whatBody: "A shared report describes how one case of industrial symbiosis is to be assessed: which exchanges between companies it covers, and which method choices apply to its environmental, economic and social assessment. The four tabs tell the same case to four kinds of reader.",
       whereTitle: 'Where can I learn more?',
       whereBody: 'Visit the project website or read the deliverables at',
       enterTool: 'Enter the tool',
@@ -145,7 +147,7 @@ const en = {
   },
 
   welcome: {
-    title: 'Welcome to SYMBA T4.6',
+    title: "Welcome to SYMBA",
     lead:
       "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place — you can change both later, from the menu inside the tool.",
     step1: { title: 'Who are you?' },
@@ -165,7 +167,7 @@ const en = {
     tasks: {
       assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
-      explore: { name: 'Explore a region / sector', desc: 'Browse aggregate insights for my area or industry.' },
+      explore: { name: 'Explore a region / sector', desc: "See how the saved cases are spread across methods and sectors." },
       browse: { name: 'Just look around', desc: 'No specific goal — I want to see what the tool does.' },
     },
   },
@@ -253,12 +255,16 @@ const en = {
   },
 
   home: {
-    title: 'SYMBA T4.6 — Monitoring & Reporting System',
-    tagline: 'Industrial Symbiosis methodology, inventory and multi-stakeholder reporting for LCA / LCC / S-LCA along the bio-based value chain.',
-    description:
-      'Answer a short questionnaire about your industrial-symbiosis case study. The decision engine derives the methodological configuration (ILCD situation, LCC structure, study horizon, reference scenario) from the 186 Phase 1 nodes of deliverables D4.1, D4.2 and D4.3, plus the 40 cross-method validation rules. Then collect inventory data with the partners of the symbiosis network and surface the multi-stakeholder report.',
+    intro: {
+      what: { title: "What it does", body: "Tells you how the assessment of an industrial-symbiosis exchange has to be set up, following the SYMBA guidelines, and which data to collect from the companies involved." },
+      not: { title: "What it does not do", body: "It does not compute the results: no emissions, costs or social figures. Whoever carries out the study calculates them with the data the tool asks for." },
+      who: { title: "Who it is for", body: "Sustainability analysts and consultants set up their studies here; companies, public bodies and associations read the reports and see which data they will be asked for." },
+    },
+    title: "SYMBA — assessing industrial symbiosis",
+    tagline: "How to set up the environmental, cost and social assessment of an exchange between companies, and which data to collect.",
+    description: "Answer questions about your case: one company's waste, by-product, heat or water becoming another's input. You get the methodological configuration the study has to follow and a Data Collection File to send to the partners.",
     startButton: 'Start new assessment',
-    modeLabel: 'UX mode',
+    modeLabel: "How you want to answer",
     modeExpert: 'Expert',
     modeGuided: 'Guided',
     modeHint: {
@@ -269,18 +275,8 @@ const en = {
       title: 'Start a new IS assessment',
     },
     openCasesLink: 'Or open a saved case',
-    kpi: {
-      savedCases: 'Saved cases',
-      savedCasesDetail: 'across all users',
-      configured: 'Configured',
-      configuredDetail: '{{total}} total',
-      situations: 'ILCD situations',
-      situationsDetail: 'A · B · C1 · C2',
-      language: 'Available in',
-      languageDetail: '5 UI languages',
-    },
-    presetsTitle: 'Validated case studies',
-    presetsMeta: '13 fixtures from peer-reviewed papers',
+    presetsTitle: "Published examples",
+    presetsMeta: "13 cases from peer-reviewed papers",
   },
 
   privacy: {
@@ -351,13 +347,28 @@ const en = {
     ]
   },
   about: {
+    whoTitle: "Who made it",
+    whoBody: "The tool was developed by ENCO, with CIRCE and CET, as task T4.6 of SYMBA, a project funded by the European Union's Horizon Europe programme (Grant Agreement 101135562). It belongs to none of the companies whose cases it assesses.",
+    sourcesTitle: "What it rests on",
+    sourcesBody: "The questions, rules and data requests follow the methodological deliverables of SYMBA work package 4: D4.1 (life cycle assessment of industrial symbiosis, with its sector chapters), D4.2 (life cycle costing) and D4.3 (social life cycle assessment). Every row of the result names the section it comes from.",
+    notTitle: "What it does not do",
+    notBody: "It does not compute environmental, cost or social results (no kg CO2eq, no NPV, no social indicators): it says how the study has to be set up and which data to collect. The figures are calculated by whoever carries out the study, with dedicated LCA and costing software.",
+    divergencesTitle: "Where it departs from the deliverables, on purpose",
+    divergencesLead: "A few choices are the tool's own, stated here so that a reviewer can see them:",
+    divergences: {
+      c2: "One company's accounts (ILCD Situation C2) are costed at company level only: a choice of this tool, not a rule of D4.2.",
+      uncertainty: "The Pedigree matrix and the Monte Carlo analysis follow the answers (public claim, technology maturity), where D4.1 and D4.2 ask for them in every study.",
+      policy: "EU policy alignment (Q4 = D) brings in CE Delft prices and net-tax-factor allocation, which D4.2 ties to the societal LCC.",
+      assets: "Q12 counts the dedicated shared assets built for the exchanges now or years ago (D4.1 §6.3.3), where D4.2 §4.2 speaks of new ones.",
+    },
+    contactTitle: "Contact",
+    contactBody: "For questions about the tool or the project, write through the contact page of the SYMBA website:",
+    technicalTitle: "Technical details (for specialists)",
     title: 'About',
     p1:
       "SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the quantitative scoring is produced outside the tool and shown here once delivered.",
     p2:
       'The questionnaire (Q0-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
-    p3:
-      'Per-pillar config display, advanced overrides, and the "Show reasoning" panel are all live.',
   },
 
   error: {
@@ -1092,9 +1103,8 @@ const en = {
   },
 
   preset: {
-    title: 'Load a published case as preset',
-    help:
-      '13 fixtures from the validation sample (12 papers + Leiva Escombreras / Frövi). Loads the answers, flows included, into the questionnaire so you can inspect and run the engine end-to-end.',
+    title: "Load a published example",
+    help: "Loads the answers of a published case into the questionnaire, so you can see what the tool derives from a real study.",
     loadButton: 'Load preset',
     rationaleToggle: 'Why these answers? (compilation rationale)',
     replaceConfirm: "Loading this example replaces the answers you are working on. Save your case first if you want to keep it. Load the example?",

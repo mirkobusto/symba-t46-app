@@ -128,7 +128,7 @@ const fr: Locale = {
     compliance: {
       peer: { name: "Revue indépendante", desc: "Un relecteur vérifie l'étude selon l'ISO 14044, comme pour une publication scientifique." },
       pef: { name: "Empreinte environnementale de produit UE (PEF)", desc: "L'étude suit la méthode européenne d'empreinte, y compris la Circular Footprint Formula.", descC2: "Non applicable : les comptes d'une seule entreprise utilisent l'allocation, pas la Circular Footprint Formula (ILCD C2).", descB: 'Exécutée comme analyse de sensibilité : la Situation B est modélisée de façon conséquentielle.' },
-      public: { name: "Affirmation comparative publique", desc: "Affirmer publiquement qu'un produit est meilleur ou équivalent à un autre exige un panel de revue ISO." },
+      public: { name: 'Affirmation comparative divulguée au public', desc: "Affirmer publiquement qu'un produit est meilleur ou équivalent à un autre exige un panel de revue ISO." },
       dnsh: { name: "Taxonomie UE « ne pas causer de préjudice important » (DNSH)", desc: "Un contrôle distinct pour les financements liés à la taxonomie (art. 17) ; cet outil ne le réalise pas." },
       slcc: { name: 'Conçu pour une décision publique (LCC sociétal)', yes: 'Oui : le calcul des coûts inclut la lecture de la société qu\'exige une décision publique (taxes et subventions corrigées, effets environnementaux valorisés) — D4.2 §2.3.', no: 'Non : le calcul des coûts reste au niveau de l\'entreprise et de la chaîne de valeur. Si un organisme public doit décider de ce cas, demandez à l\'analyste de configurer l\'étude pour un objectif public (Q10).', c2: 'Sans objet : les comptes d\'une seule entreprise sont calculés au niveau de l\'entreprise seulement.', off: 'Non évalué : l\'étude n\'a pas de dimension économique.' },
       notPlanned: "non prévue dans cette étude",
@@ -535,7 +535,7 @@ const fr: Locale = {
         A: { label: 'A. Interne', description: 'Usage interne (managérial, R&D, planification).' },
         B: { label: 'B. Externe (sans claim)', description: 'Communication externe sans affirmations comparatives.' },
         C: {
-          label: 'C. Claim public de supériorité',
+          label: 'C. Affirmation comparative divulguée au public',
           description: 'Affirmation publique de supériorité ou d\'équivalence face à une alternative de même fonction, sous toute forme (articles compris).',
           warn: 'Active la revue OBLIGATOIRE par panel de 3+ experts indépendants (ISO 14044), pondération non autorisée.',
         },
@@ -943,7 +943,7 @@ const fr: Locale = {
       nodeText: 'Texte du moteur (anglais)',
       labels: {
         flows: "Traitement de chaque flux",
-        claim: 'Allégation publique',
+        claim: 'Affirmation comparative',
         purpose: 'Type d\'étude',
         lcc: 'Coûts',
         slca: 'Évaluation sociale',
@@ -966,9 +966,9 @@ const fr: Locale = {
           allocation: "allocation (comptes d'une seule entreprise : pas de crédit de substitution)",
           aggregated: "agrégé : classer chaque flux que l'on peut nommer",
         },
-        claim: 'Allégation comparative au public : revue critique par un panel d\'au moins trois experts indépendants, pas de pondération',
-        claimNone: 'Pas d\'allégation comparative publique',
-        claimPolicy: "Pas d'allégation comparative publique ; alignement sur les politiques de l'UE (Q4 = D) : revue par un panel indépendant, choix T4.6",
+        claim: 'Affirmation comparative divulguée au public (supériorité ou équivalence) : revue critique par un panel d\'au moins trois experts indépendants, pas de pondération',
+        claimNone: 'Pas d\'affirmation comparative divulguée au public',
+        claimPolicy: 'Pas d\'affirmation comparative divulguée au public ; alignement sur les politiques de l\'UE (Q4 = D) : revue par un panel indépendant, choix de T4.6',
         claimPublic: { none: 'Cette étude n\'a pas pour but de dire qu\'un produit est meilleur qu\'un autre, ou équivalent.', claim: 'L\'étude soutiendra une affirmation publique selon laquelle cet échange est meilleur qu\'une alternative, ou équivalent ; des experts indépendants doivent d\'abord la revoir.', policy: 'L\'étude suit la méthode européenne d\'empreinte environnementale ; elle n\'affirme pas qu\'un produit soit meilleur qu\'un autre.' },
         scope_continental: 'continental',
         scope_sub_national: 'infranational',
@@ -977,9 +977,9 @@ const fr: Locale = {
         reference_c2: 'Non utilisé pour des crédits : allocation, pas de substitution',
         horizonFuture: 'Arrière-plan futur : électricité, combustibles et matériaux tels qu\'attendus dans les années à venir (scénarios climatiques et économiques SSP/RCP)',
         horizonPresent: 'Arrière-plan actuel',
-        reference_hnsrs: 'Ce que ferait aujourd\'hui chaque entreprise sans les liens (HNSRS)',
-        reference_modern: 'Un contrefactuel moderne : ce que ferait aujourd\'hui chaque entreprise sans les liens (HNSRS)',
-        reference_cnsrs: 'Le scénario sans la symbiose, sur l\'horizon de l\'étude (CNSRS)',
+        reference_hnsrs: 'Ce que ferait aujourd\'hui chaque entreprise sans les liens (scénario de référence non symbiotique hypothétique, HNSRS)',
+        reference_modern: 'Un contrefactuel moderne : ce que ferait aujourd\'hui chaque entreprise sans les liens (scénario de référence non symbiotique hypothétique, HNSRS)',
+        reference_cnsrs: 'Le scénario sans la symbiose, sur l\'horizon de l\'étude (scénario de référence non symbiotique actuel, CNSRS)',
         market: 'marché : {{market}}',
         fu_waste_treatment: 'Fondée sur l\'entrée : le traitement du déchet',
         fu_product_substitution: 'Fondée sur la sortie : les produits et ce qu\'ils remplacent',
@@ -1003,7 +1003,7 @@ const fr: Locale = {
         horizonUnanswered: "aucune année d'exploitation, période, durée de vie ou maturité technologique indiquée : le présent est supposé ; si les installations fonctionneront au-delà de {{threshold}} ans, répondez à Q8",
         lccNoPolicyNoLca: "pas d'objectif public (Q10) : les coûts de chaque partenaire, consolidés pour le réseau",
         slcaOff: 'la dimension sociale n\'est pas sélectionnée (Q3)',
-        claim: 'les résultats appuieront une allégation publique de supériorité ou d\'équivalence (Q4 = C)',
+        claim: 'les résultats soutiendront une affirmation comparative divulguée au public, de supériorité ou d\'équivalence (Q4 = C)',
         horizonFutureGeneric: 'l\'horizon de l\'étude atteint le futur',
         horizonFutureYear: 'le système fonctionne une année future',
         label: 'Pourquoi :',
@@ -1106,6 +1106,7 @@ const fr: Locale = {
       allClear:
         'Aucune obligation méthodologique ne s\'applique à ces réponses et aucun point de décision critique n\'est apparu. Prochaine étape : ouvrez le Data Collection File.',
       ctaHint: 'Le Data Collection File est calibré sur cette configuration : il ne demande que ce dont votre cas a besoin.',
+      glossary: 'Trois types d\'éléments, nommés de la même façon partout : les obligations sont des pratiques que vos réponses déclenchent ; les pratiques standard sont demandées à toute étude et listées dans le Data Collection File ; les points de décision sont des tensions entre les méthodes, chacun avec la convention que l\'outil propose.',
     },
     actionKind: {
       block: 'Bloquant',
@@ -1128,7 +1129,7 @@ const fr: Locale = {
       title: 'Détail technique (sortie du moteur)',
       lead: 'Tout ce que le pipeline a produit, pour revue et traçabilité.',
     },
-    title: 'Sortie du moteur',
+    title: 'Votre résultat',
     summary: {
       ilcdSituation: 'Situation ILCD',
       lccType: 'Type LCC',
@@ -1186,6 +1187,8 @@ const fr: Locale = {
     noChange: "Rien ne change dans la configuration ni dans les obligations.",
     addedRules: "Obligations ajoutées",
     removedRules: "Obligations retirées",
+    description_one: 'Le cas et {{count}} scénario alternatif, chacun passé par le moteur. Les cellules qui diffèrent du cas sont mises en évidence.',
+    description_other: 'Le cas et {{count}} scénarios alternatifs, chacun passé par le moteur. Les cellules qui diffèrent du cas sont mises en évidence.',
   },
 
 
@@ -1264,6 +1267,10 @@ const fr: Locale = {
       invalidCredentials: 'Email ou mot de passe incorrect.',
       invalidEmail: 'Adresse e-mail non valide : vérifiez la partie après le @ (par ex. nom@entreprise.fr).',
       invalidInput: 'Vérifiez l\'e-mail et le mot de passe (au moins 8 caractères).',
+    },
+    roles: {
+      admin: 'administrateur',
+      analyst: 'compte',
     },
   },
 
@@ -1369,7 +1376,7 @@ const fr: Locale = {
       peerReview: 'Relecture indépendante par les pairs : {{status}}',
       pef: 'Alignement EU PEF (Q4=D) : {{status}}',
       pefC2: "Alignement EU PEF (Q4=D) : non appliqué, le rapport d'une entreprise utilise l'allocation et non la Circular Footprint Formula (Situation ILCD C2)",
-      publicClaim: 'Revendication publique (Q4=C) : {{status}}',
+      publicClaim: 'Affirmation comparative divulguée au public (Q4=C) : {{status}}',
     },
   },
 
@@ -1460,7 +1467,7 @@ const fr: Locale = {
     whyAsked: 'Demandé parce que :',
     hint: {
       step1: "Ajoutez un acteur par participant à la symbiose — une usine, un service public, une commune.",
-      step2: "Faites glisser du bord d'un nœud vers un autre pour les relier : cette flèche est une ligne de la matrice des flux.",
+      step2: 'Faites glisser du bord d\'un nœud vers un autre pour les relier : cette flèche est une ligne de la matrice des flux.',
       step3: 'Sélectionnez un nœud ou une flèche et remplissez ses champs dans le panneau latéral. Seuls les champs utiles à votre configuration sont affichés.',
       dismiss: "J'ai compris",
     },
@@ -1476,7 +1483,7 @@ const fr: Locale = {
     },
     title: 'Éditeur de réseau',
     subtitle:
-      "Dessinez le réseau de symbiose : chaque nœud est un acteur, chaque flèche une ligne de la matrice des flux. Ce que vous dessinez ici alimente l'Excel et le rapport.",
+      'Dessinez le réseau de symbiose : chaque nœud est un acteur, chaque flèche une ligne de la matrice des flux. Ce que vous dessinez ici alimente l\'Excel et le rapport.',
     addActor: 'Ajouter un acteur',
     actor: 'Acteur',
     noRole: 'rôle non défini',
@@ -1494,6 +1501,13 @@ const fr: Locale = {
     unwiredTitle: 'Flux pas encore dessinés',
     unwiredHint:
       'Ces flux proviennent de vos réponses Q5. Reliez deux acteurs sur le canevas pour raccorder le suivant.',
+    roles: {
+      producer: 'producteur',
+      consumer: 'utilisateur',
+      facilitator: 'facilitateur',
+      regulator: 'régulateur',
+      intermediary: 'intermédiaire',
+    },
   },
 
   cases: {

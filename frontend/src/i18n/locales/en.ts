@@ -98,7 +98,7 @@ const en = {
     compliance: {
       peer: { name: "Independent peer review", desc: "A reviewer checks the study against ISO 14044, as for a scientific publication." },
       pef: { name: "EU Product Environmental Footprint (PEF)", desc: "The study follows the EU footprint method, including its Circular Footprint Formula.", descC2: "Not applicable: one company's accounts use allocation, not the Circular Footprint Formula (ILCD C2).", descB: 'Run as a sensitivity: Situation B is modelled consequentially.' },
-      public: { name: "Public comparative claim", desc: "A public claim that a product is better than, or equivalent to, an alternative needs an ISO review panel." },
+      public: { name: 'Comparative assertion disclosed to the public', desc: "A public claim that a product is better than, or equivalent to, an alternative needs an ISO review panel." },
       dnsh: { name: "EU Taxonomy \"Do No Significant Harm\" (DNSH)", desc: "A separate screening for EU-taxonomy funding (art. 17); this tool does not perform it." },
       slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs (taxes and subsidies corrected, environmental effects priced) — D4.2 §2.3.', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective (Q10).', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.' },
       notPlanned: "not planned in this study",
@@ -577,7 +577,7 @@ const en = {
         A: { label: 'A. Internal', description: 'Internal use (managerial, R&D, planning).' },
         B: { label: 'B. External (no claim)', description: 'External communication without comparative claims.' },
         C: {
-          label: 'C. Public superiority claim',
+          label: 'C. Comparative assertion disclosed to the public',
           description: 'Public claim of superiority or equivalence over an alternative with the same function, in any form (papers included).',
           warn: 'Activates MANDATORY panel review of 3+ independent experts (ISO 14044), no weighting allowed.',
         },
@@ -985,7 +985,7 @@ const en = {
       nodeText: 'Engine text (English)',
       labels: {
         flows: "Treatment of each flow",
-        claim: 'Public claim',
+        claim: 'Comparative assertion',
         purpose: 'Kind of study',
         lcc: 'Costing',
         slca: 'Social assessment',
@@ -1008,9 +1008,9 @@ const en = {
           allocation: "allocation (one company's accounts: no substitution credits)",
           aggregated: "aggregated: classify each flow that can be named",
         },
-        claim: 'Comparative claim to the public: critical review by a panel of at least three independent experts, no weighting',
-        claimNone: 'No public comparative claim',
-        claimPolicy: "No public comparative claim; EU policy alignment (Q4 = D): independent panel review, a T4.6 choice",
+        claim: 'Comparative assertion disclosed to the public (superiority or equivalence): critical review by a panel of at least three independent experts, no weighting',
+        claimNone: 'No comparative assertion disclosed to the public',
+        claimPolicy: 'No comparative assertion disclosed to the public; EU policy alignment (Q4 = D): independent panel review, a T4.6 choice',
         claimPublic: { none: 'This study is not meant to say that one product is better than, or as good as, another.', claim: 'The study will support a public claim that this exchange is better than, or as good as, an alternative; independent experts must review it first.', policy: 'The study follows the EU footprint method; it makes no claim that one product is better than another.' },
         scope_continental: 'continental',
         scope_sub_national: 'sub-national',
@@ -1019,9 +1019,9 @@ const en = {
         reference_c2: 'Not used for credits: allocation, no substitution',
         horizonFuture: 'Future background: electricity, fuels and materials as expected in the years ahead (SSP/RCP climate-economic scenarios)',
         horizonPresent: 'Present-day background',
-        reference_hnsrs: 'What each firm would do today without the links (HNSRS)',
-        reference_modern: 'A modern counterfactual: what each firm would do today without the links (HNSRS)',
-        reference_cnsrs: 'Business as usual without the symbiosis, over the study\'s time horizon (CNSRS)',
+        reference_hnsrs: 'What each firm would do today without the links (Hypothetical Non-Symbiotic Reference Scenario, HNSRS)',
+        reference_modern: 'A modern counterfactual: what each firm would do today without the links (Hypothetical Non-Symbiotic Reference Scenario, HNSRS)',
+        reference_cnsrs: 'Business as usual without the symbiosis, over the study\'s time horizon (Current Non-Symbiotic Reference Scenario, CNSRS)',
         market: 'market: {{market}}',
         fu_waste_treatment: 'Input-based: the treatment of the waste',
         fu_product_substitution: 'Output-based: the products and what they replace',
@@ -1045,7 +1045,7 @@ const en = {
         horizonUnanswered: "no operating year, analysis period, asset lifetime or technology maturity given, so the present is assumed; if the plants will run beyond {{threshold}} years, answer Q8",
         lccNoPolicyNoLca: "no public objective (Q10): each partner's costs, consolidated for the network",
         slcaOff: 'the social dimension is not selected (Q3)',
-        claim: 'the results will support a public claim of superiority or equivalence (Q4 = C)',
+        claim: 'the results will support a comparative assertion disclosed to the public, of superiority or equivalence (Q4 = C)',
         horizonFutureGeneric: 'the study horizon reaches the future',
         horizonFutureYear: 'the system operates in a future year',
         label: 'Why:',
@@ -1147,6 +1147,7 @@ const en = {
       allClear:
         'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: open the Data Collection File.',
       ctaHint: 'The Data Collection File is calibrated on this configuration: it only asks for what your case needs.',
+      glossary: 'Three kinds of item, named the same everywhere: obligations are practices your answers switch on; standard practices are asked of every study and listed in the Data Collection File; decision points are tensions between the methods, each with the convention the tool proposes.',
     },
     actionKind: {
       block: 'Blocking',
@@ -1169,7 +1170,7 @@ const en = {
       title: 'Technical detail (engine output)',
       lead: 'Everything the pipeline produced, for review and traceability.',
     },
-    title: 'Engine output',
+    title: 'Your result',
     summary: {
       ilcdSituation: 'ILCD situation',
       lccType: 'LCC type',
@@ -1227,6 +1228,8 @@ const en = {
     noChange: "Nothing changes in the configuration or in the obligations.",
     addedRules: "Obligations added",
     removedRules: "Obligations removed",
+    description_one: 'The case and {{count}} alternative scenario, each run through the engine. Cells that differ from the case are highlighted.',
+    description_other: 'The case and {{count}} alternative scenarios, each run through the engine. Cells that differ from the case are highlighted.',
   },
 
   reasoning: {
@@ -1305,6 +1308,10 @@ const en = {
       invalidCredentials: 'Wrong email or password.',
       invalidEmail: 'This email address is not valid: check the part after the @ (e.g. name@company.com).',
       invalidInput: 'Check the email and the password (at least 8 characters).',
+    },
+    roles: {
+      admin: 'administrator',
+      analyst: 'account',
     },
   },
 
@@ -1410,7 +1417,7 @@ const en = {
       peerReview: 'Independent peer review: {{status}}',
       pef: 'EU PEF alignment (Q4=D): {{status}}',
       pefC2: "EU PEF alignment (Q4=D): not applied, one company's accounts use allocation instead of the Circular Footprint Formula (ILCD Situation C2)",
-      publicClaim: 'Public superiority claim (Q4=C): {{status}}',
+      publicClaim: 'Comparative assertion disclosed to the public (Q4=C): {{status}}',
     },
   },
 
@@ -1501,7 +1508,7 @@ const en = {
     whyAsked: 'Asked because:',
     hint: {
       step1: 'Add one actor per participant in the symbiosis — a plant, a utility, a municipality.',
-      step2: 'Drag from the edge of a node to another to connect them: that arrow is a row of the flow matrix.',
+      step2: 'Drag from the edge of a node to another to connect them: that arrow is a row of the Flow Matrix.',
       step3: 'Select a node or an arrow and fill its fields in the side panel. Only the fields your configuration needs are shown.',
       dismiss: 'Got it',
     },
@@ -1517,7 +1524,7 @@ const en = {
     },
     title: 'Network builder',
     subtitle:
-      'Draw the symbiosis network: every node is an actor, every arrow a row of the flow matrix. What you draw here is what the Excel and the report will carry.',
+      'Draw the symbiosis network: every node is an actor, every arrow a row of the Flow Matrix. What you draw here is what the Excel and the report will carry.',
     addActor: 'Add actor',
     actor: 'Actor',
     noRole: 'role not set',
@@ -1535,6 +1542,13 @@ const en = {
     unwiredTitle: 'Flows not yet drawn',
     unwiredHint:
       'These flows come from your Q5 answers. Connect two actors on the canvas to wire the next one up.',
+    roles: {
+      producer: 'producer',
+      consumer: 'user',
+      facilitator: 'facilitator',
+      regulator: 'regulator',
+      intermediary: 'intermediary',
+    },
   },
 
   cases: {

@@ -106,7 +106,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
             label: (
               <span className="nb-node-label">
                 <strong>{node.label}</strong>
-                <em>{node.role ?? t('networkBuilder.noRole')}</em>
+                <em>{node.role ? t(`networkBuilder.roles.${node.role}`, { defaultValue: node.role }) : t('networkBuilder.noRole')}</em>
               </span>
             ),
           },

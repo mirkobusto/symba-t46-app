@@ -54,7 +54,7 @@ export default function Topbar() {
             </span>
             <span className="dd-topbar-user-info">
               <span className="dd-topbar-user-email">{user.email}</span>
-              <span className="dd-topbar-user-role">{user.role}</span>
+              <span className="dd-topbar-user-role">{t(`auth.roles.${user.role}`, { defaultValue: user.role })}</span>
             </span>
             <button
               type="button"

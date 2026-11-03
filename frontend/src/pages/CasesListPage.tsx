@@ -14,9 +14,11 @@ import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { CaseSummary } from '../types/api'
 import { askConfirm } from '../store/dialogStore'
+import { useAxisLabel } from './aggregateLabels'
 
 export default function CasesListPage() {
   const { t, i18n } = useTranslation()
+  const label = useAxisLabel()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
   const setServerCase = useCaseStore((s) => s.setServerCase)
@@ -136,7 +138,12 @@ export default function CasesListPage() {
                     </div>
                   ) : null}
                 </td>
-                <td>{item.ilcd_situation ?? '—'}</td>
+                <td>
+                  {item.ilcd_situation ? label('ilcd', item.ilcd_situation) : '—'}
+                  <div className="muted" style={{ fontSize: 12 }}>
+                    {t(item.shared_at ? 'cases.sharedYes' : 'cases.sharedNo')}
+                  </div>
+                </td>
                 <td className="muted">
                   {new Date(item.updated_at).toLocaleString(i18n.language)}
                 </td>

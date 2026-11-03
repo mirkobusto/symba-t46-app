@@ -11,7 +11,7 @@ import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { plainVerdict, verdictFor } from './resultNarrative'
 import { usePreferenceStore } from '../store/preferenceStore'
-import { configurationRows, obligationGroups } from './configurationRows'
+import { configurationRows, obligationGroups, withoutQCodes } from './configurationRows'
 import ConfigurationSummary from '../components/ConfigurationSummary'
 import { useHealth } from '../hooks/useHealth'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
@@ -227,12 +227,16 @@ export default function ResultPage() {
       <VerdictCard
         eyebrow={serverCaseName ?? t('result.title')}
         headline={headline?.title ?? result.ilcd_situation ?? '—'}
-        codes={verdict?.codes}
+        // the ILCD and LCC badges meant nothing to a plant manager (UX round 4)
+        codes={guided ? undefined : verdict?.codes}
         body={headline?.body}
         // the situation is the first choice of the configuration and had no reason
-        subtitle={result.decision_context
-          ? t('result.verdictWhy', { answer: t(`questionnaire.q9.options.${result.decision_context}`) })
-          : t('result.verdictWhyQ1')}
+        subtitle={(() => {
+          const why = result.decision_context
+            ? t('result.verdictWhy', { answer: t(`questionnaire.q9.options.${result.decision_context}`) })
+            : t('result.verdictWhyQ1')
+          return guided ? withoutQCodes(why) : why
+        })()}
       />
 
       {guided && blockedBy.length === 0 ? (
@@ -240,13 +244,15 @@ export default function ResultPage() {
           <h2 id="result-guided-title">{t('result.guided.title')}</h2>
           <p>{t('result.guided.lead')}</p>
           <ol>
-            <li>{t('result.guided.step1')}</li>
+            <li>{serverCaseId
+              ? t('result.guided.step1Saved', { name: serverCaseName ?? '' })
+              : t('result.guided.step1')}</li>
             <li>{t('result.guided.step2')}</li>
             <li>{t('result.guided.step3')}</li>
           </ol>
           <div className="result-guided-actions">
             <button type="button" className="btn btn-secondary" onClick={handleSaveCase} disabled={savingCase}>
-              {savingCase ? t('cases.saving') : t('cases.saveAsButton')}
+              {savingCase ? t('cases.saving') : t(serverCaseId ? 'cases.saveAsButton' : 'cases.saveFirstButton')}
             </button>
             <Link to="/data-collection" className="btn btn-primary">{t('dcf.openButton')}</Link>
           </div>
@@ -274,7 +280,7 @@ export default function ResultPage() {
           </h2>
           <ul>
             {notes.map((w, i) => (
-              <li key={`${w.code}-${i}`}>{translateNote(t, w)}</li>
+              <li key={`${w.code}-${i}`}>{translateNote(t, w, guided)}</li>
             ))}
           </ul>
         </section>
@@ -451,7 +457,7 @@ export default function ResultPage() {
           onClick={handleSaveCase}
           disabled={savingCase}
         >
-          {savingCase ? t('cases.saving') : t('cases.saveAsButton')}
+          {savingCase ? t('cases.saving') : t(serverCaseId ? 'cases.saveAsButton' : 'cases.saveFirstButton')}
         </button>
         {!signedIn && anonymousSave === false ? (
           <span className="result-save-hint">{t('result.saveHint')}</span>

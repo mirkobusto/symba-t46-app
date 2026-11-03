@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next'
 
 import { configurationRows } from '../pages/configurationRows'
 import type { Case } from '../types/api'
+import { usePreferenceStore } from '../store/preferenceStore'
+import { withoutQCodes } from '../pages/configurationRows'
 
 interface Props {
   kase: Case
@@ -26,6 +28,8 @@ export default function ConfigurationSummary({
   kase, only, showNodeText = true, title, showWhy = true, headingLevel = 'h2', titleClassName, audience,
 }: Props) {
   const { t } = useTranslation()
+  // guided mode never shows the Q-codes, so "(Q9)" in a reason pointed nowhere (UX round 4)
+  const guided = usePreferenceStore((s) => s.mode) === 'guided'
   const all = configurationRows(kase, (key, options) => t(key, options ?? {}) as string, { audience })
   const rows = only ? only.map((k) => all.find((r) => r.key === k)).filter((r) => r !== undefined) : all
   if (rows.length === 0) return null
@@ -44,7 +48,8 @@ export default function ConfigurationSummary({
               <span className="result-config-value">{row.value}</span>
               {showWhy && row.why ? (
                 <span className="result-config-why">
-                  <span className="result-config-why-label">{t('result.config.why.label')}</span> {row.why}
+                  <span className="result-config-why-label">{t('result.config.why.label')}</span>{' '}
+                  {guided ? withoutQCodes(row.why) : row.why}
                 </span>
               ) : null}
               {showNodeText && row.nodeText.length > 0 ? (

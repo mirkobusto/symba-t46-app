@@ -46,7 +46,7 @@ describe('UX round 3 bugs', () => {
   })
 
   it('offers no share link for a case that is not saved on the server', () => {
-    render(<ShareReportModal caseId={null} caseSlug={null} onClose={() => {}} />)
+    render(<MemoryRouter><ShareReportModal caseId={null} caseSlug={null} onClose={() => {}} /></MemoryRouter>)
     expect(screen.getByText(/Save the case first/)).toBeInTheDocument()
     expect(screen.queryByText(/\/r\//)).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument()
@@ -55,13 +55,13 @@ describe('UX round 3 bugs', () => {
   it('lists the four links only once the owner has shared the case', async () => {
     answerWith(200, { id: 'id-1', name: 'x', slug: 'agri-b-sita-19a8c0de', ilcd_situation: null,
       created_at: '', updated_at: '', shared_at: null, case: {} })
-    const { unmount } = render(<ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} />)
+    const { unmount } = render(<MemoryRouter><ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} /></MemoryRouter>)
     expect(await screen.findByText(/The report is not public/)).toBeInTheDocument()
     expect(screen.queryAllByRole('button', { name: 'Copy' })).toHaveLength(0)
     unmount()
     answerWith(200, { id: 'id-1', name: 'x', slug: 'agri-b-sita-19a8c0de', ilcd_situation: null,
       created_at: '', updated_at: '', shared_at: '2026-11-03T10:00:00', case: {} })
-    render(<ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} />)
+    render(<MemoryRouter><ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} /></MemoryRouter>)
     expect(await screen.findAllByRole('button', { name: 'Copy' })).toHaveLength(4)
     expect(screen.getByText(/\/r\/agri-b-sita-19a8c0de\/authority$/)).toBeInTheDocument()
   })
@@ -103,7 +103,7 @@ describe('share switch (UX round 4, P1-01)', () => {
         id: 'id-1', name: 'x', slug: 'agri-b-sita-1a2b3c4d', ilcd_situation: null, created_at: '', updated_at: '',
         shared_at: shared ? '2026-11-03T10:00:00' : null, case: {} }) } as Response)
     }))
-    render(<ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} />)
+    render(<MemoryRouter><ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} /></MemoryRouter>)
     const box = await screen.findByRole('checkbox')
     await screen.findAllByRole('button', { name: 'Copy' })
     fireEvent.click(box)

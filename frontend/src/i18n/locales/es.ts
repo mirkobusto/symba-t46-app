@@ -85,6 +85,7 @@ const es: Locale = {
     saveSharing: 'Guardar nombre y contacto',
     notSharedBody: 'El informe no es público: solo tú puedes abrir este caso. Activa el uso compartido para obtener los enlaces.',
     sharedBody: 'El informe es público: cualquiera que tenga uno de estos enlaces puede leerlo, sin las notas ni las cantidades de los flujos.',
+    signInButton: 'Inicia sesión para guardar y compartir',
   },
 
   reader: {
@@ -130,7 +131,7 @@ const es: Locale = {
       pef: { name: "Huella ambiental de producto UE (PEF)", desc: "El estudio sigue el método europeo de huella, incluida la Circular Footprint Formula.", descC2: "No aplicable: las cuentas de una sola empresa usan asignación, no la Circular Footprint Formula (ILCD C2).", descB: 'Ejecutada como análisis de sensibilidad: la Situación B se modela de forma consecuencial.' },
       public: { name: 'Aseveración comparativa divulgada al público', desc: "Afirmar en público que un producto es mejor o equivalente a otro exige un panel de revisión ISO." },
       dnsh: { name: "Taxonomía UE «no causar un perjuicio significativo» (DNSH)", desc: "Una verificación aparte para la financiación ligada a la taxonomía (art. 17); esta herramienta no la realiza." },
-      slcc: { name: 'Planteado para una decisión pública (LCC social)', yes: 'Sí: el cálculo de costes incluye la lectura de la sociedad que necesita una decisión pública (impuestos y subvenciones corregidos, efectos ambientales valorados) — D4.2 §2.3.', no: 'No: el cálculo de costes se queda a nivel de empresa y de cadena de valor. Si un organismo público tiene que decidir sobre este caso, pide al analista que plantee el estudio para un objetivo público (Q10).', c2: 'No aplicable: las cuentas de una sola empresa se calculan solo a nivel de empresa.', off: 'No evaluado: el estudio no tiene dimensión económica.' },
+      slcc: { name: 'Planteado para una decisión pública (LCC social)', yes: 'Sí: el cálculo de costes incluye la lectura de la sociedad que necesita una decisión pública (impuestos y subvenciones corregidos, efectos ambientales valorados) — D4.2 §2.3.', no: 'No: el cálculo de costes se queda a nivel de empresa y de cadena de valor. Si un organismo público tiene que decidir sobre este caso, pide al analista que plantee el estudio para un objetivo público.', c2: 'No aplicable: las cuentas de una sola empresa se calculan solo a nivel de empresa.', off: 'No evaluado: el estudio no tiene dimensión económica.' },
       notPlanned: "no prevista en este estudio",
       notAssessed: "no evaluada por esta herramienta",
     },
@@ -478,7 +479,7 @@ const es: Locale = {
         E: { label: 'E. Monitorización', description: 'Monitorización temporal de una simbiosis ya operativa.' },
       },
       plain:
-        'Di qué estás examinando: un intercambio, un parque, un programa, una empresa, una simbiosis que sigues en el tiempo. La respuesta describe el sistema y su límite; cómo se modela el estudio lo deciden las preguntas siguientes, empezando por para qué sirve el estudio (Q9). Si dudas entre dos opciones, quédate con la que describe aquello cuyos efectos quieres medir.',
+        'Di qué estás examinando: un intercambio, un parque, un programa, una empresa, una simbiosis que sigues en el tiempo. La respuesta describe el sistema y su límite; cómo se modela el estudio lo deciden las preguntas siguientes, empezando por para qué sirve el estudio. Si dudas entre dos opciones, quédate con la que describe aquello cuyos efectos quieres medir.',
     },
 
     q2: {
@@ -589,7 +590,7 @@ const es: Locale = {
         process_industry: 'Industria de proceso (legacy)',
       },
       plain:
-        'El sector principal del caso: la actividad de la empresa que más pesa en masa, energía o valor. Describe el caso; las reglas sectoriales de las guías siguen lo que es cada flujo, que declaras en la tabla de flujos. Si el caso abarca varios sectores, elige Multisector e ignora las entradas (legacy).',
+        'El sector principal del caso: la actividad de la empresa que más pesa en masa, energía o valor. Describe el caso; las reglas sectoriales de las guías siguen lo que es cada flujo, que declaras en la tabla de flujos. Si el caso abarca varios sectores, elige Multisector.',
     },
 
     q6b: {
@@ -751,7 +752,7 @@ const es: Locale = {
       d: 'Las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)',
       e: 'Solo una cifra total para toda la red',
     },
-    q5Note: "Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «gratuito / ambiguo» cuando esté realmente sin decidir.",
+    q5Note: 'Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige b (nadie paga, o aún no está claro) cuando esté realmente sin decidir.',
     emptyHint: 'Sin flujos. Añade al menos uno para caracterizar la Q5 por flujo.',
     headers: { id: 'ID', name: 'Nombre', q5: "Quién paga a quién (Q5)", sellable: '¿Vendible a otros?', sector: 'Sector (Parte 2)', configuration: "Configuración (Parte 2)" },
     q5Unset: "— elige quién paga a quién",
@@ -899,6 +900,13 @@ const es: Locale = {
   },
 
   result: {
+    // guided mode: notes in plain words (UX round 4)
+    engineNotesPlain: {
+      flow_freedom_to_act_settles: {
+        co_product: 'Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces no es un residuo. Está bien así; el analista decide cómo contarlo.',
+        waste: 'Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: puede contar como residuo, sin carga por tu parte. Lo comprueba el analista.',
+      },
+    },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Qué significa para ti',
@@ -907,6 +915,7 @@ const es: Locale = {
       step2: 'Abre el Data Collection File y descarga el Excel: tu personal rellena las hojas de actores, flujos, logística y costes.',
       step3: 'Entrega el archivo y el informe a quien hará el estudio (un analista, un consultor, una universidad): los puntos técnicos de más abajo son para esa persona.',
       analystTitle: 'Puntos para el analista ({{count}})',
+      step1Saved: '✓ Guardado como «{{name}}»: lo encuentras en Mis casos.',
     },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
@@ -1533,6 +1542,9 @@ const es: Locale = {
     saveSuccess: 'Guardado como "{{name}}"',
     loadError: 'Carga fallida — {{detail}}',
     deleteError: 'Eliminación fallida — {{detail}}',
+    saveFirstButton: 'Guardar el caso…',
+    sharedYes: 'Compartido: enlace público activo',
+    sharedNo: 'Privado',
   },
 }
 

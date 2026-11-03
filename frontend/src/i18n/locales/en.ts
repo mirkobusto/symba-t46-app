@@ -1107,7 +1107,7 @@ const en = {
       noTensions:
         "No critical decision point between the methods was surfaced for these answers. The obligations below still apply.",
       allClear:
-        'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: collect the inventory data.',
+        'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: open the Data Collection File.',
       ctaHint: 'The Data Collection File is calibrated on this configuration: it only asks for what your case needs.',
     },
     actionKind: {
@@ -1429,7 +1429,7 @@ const en = {
     navLink: 'Data Collection',
     title: 'Data Collection File',
     subtitle:
-      "Calibrated on the derived configuration. Download the Excel companion to collect inventory data with the symbiosis partners, then return for the final report.",
+      'Calibrated on the derived configuration. Download the Excel to collect, with the partners, the data on the exchanges and on each actor\'s reference; the process inventory of each plant is collected separately.',
     loading: 'Composing the Data Collection File…',
     errorTitle: 'Could not generate Data Collection File',
     errorNoPayload: 'No payload returned by the server.',
@@ -1441,10 +1441,11 @@ const en = {
     downloadingDocx: 'Preparing document…',
     downloadError: 'Download failed',
     footerNote:
-      'The Data Collection File is an export-ready inventory worksheet. Fill the empty rows offline (or distribute to your network partners) and return the data to the analyst leading the LCSA.',
+      'The Data Collection File describes the exchanges, not the processes: fill the empty rows offline (or distribute them to the partners) and return the file to the analyst leading the study, who collects the plant inventories with the LCA and costing software.',
     openButton: 'Open Data Collection File',
     tabOverview: 'Overview',
     tabNetworkBuilder: 'Network builder',
+    socialDeferred: 'Social inventory is not collected in this file: it follows D4.3 with its own instruments (questionnaires, interviews per stakeholder group).',
   },
 
   networkDiagram: {

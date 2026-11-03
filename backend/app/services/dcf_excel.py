@@ -32,7 +32,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
 from app.engine.dcf_rows import actor_label, cell_values, edge_list, rows_for
-from app.services.dcf_terms import enum_label, ui, value_label
+from app.services.dcf_terms import cover_value, enum_label, ui, value_label
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -148,11 +148,11 @@ def _write_cover_tab(
 
     rows = [
         (ui(lang, "cover.case_id"), payload.case_id),
-        (ui(lang, "cover.ilcd"), payload.ilcd_situation or "—"),
-        (ui(lang, "cover.lcc"), payload.lcc_type or "—"),
-        (ui(lang, "cover.slca"), enum_label(lang, payload.slca_activation_state) or "—"),
-        (ui(lang, "cover.purpose"), payload.study_purpose or "—"),
-        (ui(lang, "cover.market"), payload.reference_market or "—"),
+        (ui(lang, "cover.ilcd"), cover_value(lang, "ilcd", payload.ilcd_situation)),
+        (ui(lang, "cover.lcc"), cover_value(lang, "lcc", payload.lcc_type)),
+        (ui(lang, "cover.slca"), cover_value(lang, "slca", payload.slca_activation_state)),
+        (ui(lang, "cover.purpose"), cover_value(lang, "purpose", payload.study_purpose)),
+        (ui(lang, "cover.market"), cover_value(lang, "market", payload.reference_market)),
         (ui(lang, "cover.schema"), payload.schema_version),
     ]
     for i, (label, value) in enumerate(rows, start=3):

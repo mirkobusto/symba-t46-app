@@ -225,13 +225,20 @@ export default function DataCollectionPage() {
               : '—'}
           </span>
           {payload.lcc_type && payload.lcc_type !== 'deactivated' ? (
-            <span className="dd-pill dd-pill-brand">LCC {payload.lcc_type}</span>
+            <span className="dd-pill dd-pill-brand">
+              {t(`result.lccBadge.${payload.lcc_type}`, { defaultValue: `LCC ${payload.lcc_type}` })}
+            </span>
           ) : null}
           <span className="dd-pill dd-pill-brand">
             <strong>S-LCA:</strong>{' '}
             {payload.slca_activation_state === 'active' ? t('common.yes') : t('common.no')}
           </span>
         </div>
+        {payload.slca_activation_state === 'active' ? (
+          // the S-LCA inventory follows D4.3 with its own instruments; this file
+          // does not collect it (decided by Fable, UX round 2026-11-03)
+          <p className="dd-soft" style={{ marginTop: 10 }}>{t('dcf.socialDeferred')}</p>
+        ) : null}
       </div>
 
       <div className="dd-tabs" role="tablist">

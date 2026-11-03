@@ -13,6 +13,7 @@ with notes written for whoever built the software.
 from __future__ import annotations
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -90,3 +91,45 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
             elif field.enum_ref and field.enum_ref in terms.get("enum_refs", {}):
                 field.enum_labels = dict(terms["enum_refs"][field.enum_ref])
     return out
+
+
+# The cover of the DCF printed the engine's English values ("ILCD Situation C1",
+# "deactivated", "Analysis", "(national)") under translated labels (UX round
+# 2026-11-03). They are worded with the app's own texts, which
+# scripts/sync_report_terms.py copies into app/data/report_terms.json.
+@lru_cache(maxsize=1)
+def _report_terms() -> dict[str, Any]:
+    path = Path(__file__).resolve().parents[1] / "data" / "report_terms.json"
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _rt(lang: str, *keys: str) -> str | None:
+    node: Any = _report_terms().get(language(lang), {})
+    for k in keys:
+        node = node.get(k) if isinstance(node, dict) else None
+    return node if isinstance(node, str) else None
+
+
+def cover_value(lang: str, field: str, raw: str | None) -> str:
+    """A value of the DCF cover in `lang`; the raw value when no wording exists."""
+    if not raw:
+        return "—"
+    if field == "ilcd":
+        return _rt(lang, "page", "situationBadge", raw.replace("ILCD Situation ", "")) or raw
+    if field == "lcc":
+        if raw == "deactivated":
+            return _rt(lang, "docx", "none") or raw
+        return _rt(lang, "page", "lccBadge", raw) or raw
+    if field == "slca":
+        return _rt(lang, "common", "yes" if raw == "active" else "no") or raw
+    if field == "purpose":
+        return _rt(lang, "options", "q0", raw.lower()) or raw
+    if field == "market":
+        m = re.match(r"^(.*?)\s*\(([^)]*)\)$", raw)
+        if not m:
+            return raw
+        scope = _rt(lang, "options", "scope", m.group(2).replace("-", "_"))
+        # the option label carries its own explanation in brackets: keep the name
+        name = scope.split(" (")[0].lower() if scope else m.group(2)
+        return f"{m.group(1)} ({name})".strip()
+    return raw

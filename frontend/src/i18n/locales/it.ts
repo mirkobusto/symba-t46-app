@@ -171,7 +171,7 @@ const it: Locale = {
     region: {
       eyebrow: 'Regione · {{code}}',
       title: 'Dashboard regionale',
-      lead: 'Vista aggregata di tutti i casi IS di questa regione. I numeri si aggiornano quando nuovi casi vengono salvati.',
+      lead: 'Casi condivisi con almeno un partner in {{code}}, secondo il paese indicato per ogni azienda nell\'editor di rete. Un caso senza rete disegnata non conta.',
       total: 'Casi',
       situations: 'Situazioni ILCD',
       sectors: 'Settori coperti',

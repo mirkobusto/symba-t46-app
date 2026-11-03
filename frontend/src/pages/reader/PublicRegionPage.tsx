@@ -1,8 +1,7 @@
 // PublicRegionPage — /r/region/:code
 //
-// Aggregate view of IS cases for a given region. Uses the public
-// aggregate endpoint (returns global counts today; region filtering
-// will land in Phase 8 with the slug/region column).
+// Aggregate view of the shared IS cases with at least one partner in the
+// country `code` (ISO 3166-1 alpha-2, from the actors of the drawn network).
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -50,7 +49,7 @@ export default function PublicRegionPage() {
         {t('reader.region.eyebrow', { code: data.region })}
       </div>
       <h1>{t('reader.region.title')}</h1>
-      <p className="dd-soft">{t('reader.region.lead')}</p>
+      <p className="dd-soft">{t('reader.region.lead', { code: data.region })}</p>
 
       <div className="dd-kpi-strip" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
         <KpiCard label={t('reader.region.total')} value={data.total} tone="info" />

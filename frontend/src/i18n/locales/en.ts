@@ -152,7 +152,7 @@ const en = {
     region: {
       eyebrow: 'Region · {{code}}',
       title: 'Regional dashboard',
-      lead: 'Aggregate view of all IS cases matching this region. Numbers refresh as new cases are saved.',
+      lead: 'Shared cases with at least one partner in {{code}}, from the country given to each company in the network editor. A case whose network is not drawn does not count.',
       total: 'Cases',
       situations: 'ILCD situations',
       sectors: 'Sectors covered',

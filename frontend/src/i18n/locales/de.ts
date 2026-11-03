@@ -1584,6 +1584,8 @@ const de: Locale = {
     confirmRemoveActorFlows_other: '„{{name}}“ entfernen? Seine {{count}} Pfeile kommen mit ihren Werten zurück zu den noch nicht gezeichneten Flüssen.',
     panelActor: 'Akteur',
     panelFlow: 'Fluss',
+    panelClassification: 'Einstufung und Substitution (entscheidet die Analyse)',
+    classificationNote: 'Rechtliche und wirtschaftliche Prüfungen dieses Flusses und, falls er ein Produkt ersetzt, was er ersetzt. Dieselben Spalten stehen in der Excel-Datei.',
     signInToSave: 'Melden Sie sich mit dem Konto an, das diesen Fall gespeichert hat, um das Netzwerk zu speichern.',
     missingGoTo: 'Zum ersten leeren Pflichtfeld',
     givesReceives: 'gibt {{gives}} ab · nimmt {{receives}} auf',

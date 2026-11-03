@@ -123,6 +123,18 @@ describe('dcfDataStore', () => {
     ).toBe('yes')
   })
 
+  it('setClassification creates the flow\'s classification row on the first value, then updates it', () => {
+    const st = useDcfDataStore.getState()
+    st.setClassification('f9', 'classif.legal_status', '')
+    expect(useDcfDataStore.getState().data.rows_by_section[FLOW_CLASSIFICATION_SECTION] ?? []).toEqual([])
+    st.setClassification('f9', 'classif.legal_status', 'by_product')
+    st.setClassification('f9', 'classif.avoidable', 'yes')
+    const rows = useDcfDataStore.getState().data.rows_by_section[FLOW_CLASSIFICATION_SECTION]!
+    expect(rows).toEqual([{ row_id: 'classif-f9', values: {
+      'classif.flow_id': 'f9', 'classif.legal_status': 'by_product', 'classif.avoidable': 'yes' } }])
+    expect(useDcfDataStore.getState().dirty).toBe(true)
+  })
+
   it('re-seeding is idempotent', () => {
     const p = payloadWith(FULL_FLOW_FIELDS)
     useDcfDataStore.getState().syncWithPayload(p, CASE_FLOWS)

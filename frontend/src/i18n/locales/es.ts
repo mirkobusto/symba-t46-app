@@ -1584,6 +1584,8 @@ const es: Locale = {
     confirmRemoveActorFlows_other: '¿Eliminar «{{name}}»? Sus {{count}} flechas vuelven a los flujos por dibujar, con sus valores.',
     panelActor: 'Actor',
     panelFlow: 'Flujo',
+    panelClassification: 'Clasificación y sustitución (decide el analista)',
+    classificationNote: 'Pruebas jurídicas y económicas de este flujo y, si sustituye un producto, qué sustituye. Las mismas columnas están en el archivo Excel.',
     signInToSave: 'Inicia sesión con la cuenta que guardó este caso para guardar la red.',
     missingGoTo: 'Ir al primer campo obligatorio vacío',
     givesReceives: 'cede {{gives}} · recibe {{receives}}',

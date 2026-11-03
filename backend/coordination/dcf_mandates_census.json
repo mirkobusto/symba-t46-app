@@ -25,7 +25,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a77.3.2",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Substitution data quality and source documented",
         "all_matched_categories": [
@@ -312,10 +314,11 @@
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a78.2.4",
         "trigger_q": [
-          "q5"
+          "q5",
+          "ilcd"
         ],
         "trigger_condition": null,
-        "statement": "NO zero-burden allowed (interdependent) | Standard zero-burden test",
+        "statement": "waste: zero burden from the point where the residue first reaches non-negative value, after the avoidability test (D4.1 \u00a78.3.6 Step 4) | undecided: economic value test with a sensitivity analysis (D4.1 \u00a78.3.2) | allocation: no zero burden and no substitution credits, one company's accounts (D4.1 \u00a77.2.3) | co-product: no zero burden; substitution of the product it replaces with the quality factor Q (D4.1 \u00a78.3.6 Step 3) | interdependent: a determining co-product, never zero burden; one expanded multifunctional system (D4.1 \u00a78.3.6 Step 2) | aggregated: classify each flow that can be named, no network-wide rule (D4.1 \u00a78.3.1)",
         "all_matched_categories": [
           "allocation_substitution"
         ],
@@ -333,7 +336,7 @@
           "q5"
         ],
         "trigger_condition": null,
-        "statement": "negative value: the generator pays a gate fee; zero burden only after the avoidability test (D4.2 \u00a76.1; \u00a76.2) | zero value: no established market demand, transferred free; checked with the Economic Value Test of D4.1 \u00a78.3.2 (D4.2 \u00a76.1) | positive value: a co-product at the agreed transfer price (D4.2 \u00a76.1) | interdependent multifunctional production: a deliberate co-product (D4.2 \u00a76.1; \u00a76.2) | aggregated in the source: no uniform rule, the valuation is decided flow by flow in the DCF (D4.2 \u00a76.1)",
+        "statement": "negative value: the generator pays a gate fee; zero burden only after the avoidability test (D4.2 \u00a76.1; \u00a76.2) | zero value: no established market demand, transferred free; checked with the Economic Value Test of D4.1 \u00a78.3.2 (D4.2 \u00a76.1) | positive value: a co-product at the agreed transfer price (D4.2 \u00a76.1) | interdependent: a determining co-product; upstream costs allocated, in the C-LCC at the negotiated transfer price (D4.2 \u00a76.1; \u00a76.2) | aggregated in the source: no uniform rule, the valuation is decided flow by flow in the DCF (D4.2 \u00a76.1)",
         "all_matched_categories": [
           "allocation_substitution"
         ],
@@ -501,7 +504,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a74.3.1",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Multi-actor stakeholder identification before scoping",
         "all_matched_categories": [
@@ -635,7 +640,9 @@
         "type": "MC",
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a715.1",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Interpretation on three levels, not a single aggregated result (D4.1 \u00a715.1, \u00a715.3.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors.",
         "all_matched_categories": [
@@ -651,7 +658,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.2 \u00a72.3",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "3-level structure (Network/Entity/Flow) mandatory",
         "all_matched_categories": [
@@ -1362,7 +1371,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.2 \u00a75.3",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Entity-level before network consolidation (4-step sequence)",
         "all_matched_categories": [
@@ -1410,7 +1421,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.2 \u00a78.3",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Strict 4-step calculation sequence (Entity->Flow->Network->Baseline)",
         "all_matched_categories": [
@@ -1480,7 +1493,9 @@
         "type": "MC",
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a710.3.1",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Multi-level contribution analysis \u2014 network, entity and flow \u2014 should structure the results of every IS LCA, e.g. with a matrix model such as UM\u00b3-LCE\u00b3-ISN or Brightway with demand-vector manipulation (D4.1 \u00a710.3.1)",
         "all_matched_categories": [

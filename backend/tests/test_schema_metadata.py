@@ -71,5 +71,6 @@ def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
         assert category in frontier
     assert "Biodiversity loss is not one of the four" in frontier
     # D4.1 §15.1 L01539: a single aggregated result is insufficient
-    levels = nodes["lca_mc_31"]["default_value"]
+    # dormant in Situation C2 since UX round 5: the text is the one branch
+    levels = nodes["lca_mc_31"]["default_value"]["ilcd in {A,A-multi,B,C1}"]
     assert "three levels" in levels and "preferred" not in levels

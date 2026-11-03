@@ -572,7 +572,12 @@ def test_methodological_choices_resolve_one_branch_per_flow(schemas, dcf_schema,
     pipeline_run(case, schemas)
     payload = compose_dcf(case, dcf_schema, mandates_census)
     stmt = {o.id: o.statement for o in payload.obligations}
-    assert stmt["lca_hc_17"] == "Lignin: NO zero-burden allowed (interdependent); Steam: Standard zero-burden test"
+    # one sentence per class, the same as the result page (UX round 5, Fable D1/D5)
+    assert stmt["lca_hc_17"] == (
+        "Lignin: interdependent: a determining co-product, never zero burden; one expanded "
+        "multifunctional system (D4.1 §8.3.6 Step 2); Steam: undecided: economic value test "
+        "with a sensitivity analysis (D4.1 §8.3.2)"
+    )
     assert not any(" | " in s for s in stmt.values())
 
 
@@ -581,7 +586,21 @@ def test_methodological_choices_speak_the_reader_language(case_wiktor, dcf_schem
     from app.services.dcf_terms import localize
     payload = localize(compose_dcf(case_wiktor, dcf_schema, mandates_census), "it")
     ir01 = next(o for o in payload.obligations if o.id == "IR-01")
-    assert ir01.title == "Unità funzionale condivisa" and ir01.origin_label == "Obbligo"
-    assert ir01.category_label == "Coerenza fra i metodi"
+    assert ir01.title == "Unità funzionale condivisa" and ir01.origin_label == "Richiesto fra i metodi"
+    assert ir01.category_label == "Regole fra i metodi (quelle contate nella pagina risultato)"
     assert ir01.because and "dims active" not in ir01.because
     assert all(o.category_label and "_" not in o.category_label for o in payload.obligations)
+
+
+def test_a_per_flow_mandate_names_only_the_flows_that_trigger_it(schemas, dcf_schema, mandates_census):
+    """MFCA (lcc_hc_38) holds for Q5 = b flows: it names them, and its reason
+    lists only them (UX round 5, Fable D8)."""
+    case = Case(
+        q1=Q1.B, q2=Q2.A, q3=Q3(env=True, eco=True), q4={Q4.B}, q7=Q7.B,
+        flows=[Flow(id="f1", name="Whey", q5=Q5.a), Flow(id="f2", name="Digestate", q5=Q5.b)],
+    )
+    pipeline_run(case, schemas)
+    payload = compose_dcf(case, dcf_schema, mandates_census)
+    [mfca] = [o for o in payload.obligations if o.id == "lcc_hc_38"]
+    assert mfca.statement.startswith("Digestate: ")
+    assert mfca.because == "Q5 = Digestate: b"

@@ -32,7 +32,7 @@ def _baseline_case(**overrides) -> Case:
 
 
 # ---------------------------------------------------------------------------
-# 1. DEFAULT activation — 116 nodes always activate on any case
+# 1. DEFAULT activation — 109 nodes always activate on any case
 # ---------------------------------------------------------------------------
 
 
@@ -46,8 +46,10 @@ def test_all_default_nodes_activate(schemas):
     # lca_mc_07, which branches on Q11 (comparison goal) since 2026-10-18; plus lca_mc_16,
     # lca_mc_29 and lcc_mc_14, the same for every Q7 since 2026-10-18 (transport for every exchange);
     # minus lcc_hc_07, which branches on Q12 (dedicated shared assets) since 2026-10-18;
-    # minus lcc_hc_02 and lcc_hc_03, which branch on Situation C2 since 2026-10-18
-    assert len(default_ids) == 116
+    # minus lcc_hc_02 and lcc_hc_03, which branch on Situation C2 since 2026-10-18;
+    # minus seven network-level mandates (lca_hc_02, lca_hc_11, lca_mc_31, lca_mc_34,
+    # lcc_hc_01, lcc_hc_09, lcc_hc_19), dormant in Situation C2 since UX round 5 (Fable D1)
+    assert len(default_ids) == 109
 
 
 def test_l0_nodes_skipped(schemas):

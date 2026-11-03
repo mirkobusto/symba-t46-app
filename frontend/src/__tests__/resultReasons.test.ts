@@ -27,9 +27,9 @@ describe('result reasons', () => {
   it("names each flow's treatment", async () => {
     await i18n.changeLanguage('en')
     const flows = rows(CASE).flows
-    expect(flows.value).toContain('Slag to cement: co-product: substitution of the product it replaces')
+    expect(flows.value).toContain('Slag to cement: co-product: no zero burden; substitution of the product it replaces with the quality factor Q')
     expect(flows.value).toContain('Waste heat: undecided: economic value test')
-    expect(flows.value).toContain('Dust: waste: no burden')
+    expect(flows.value).toContain('Dust: waste: zero burden from the point where the residue first reaches non-negative value')
     expect(flows.why).toMatch(/Q5/)
   })
 

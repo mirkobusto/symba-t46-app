@@ -24,6 +24,7 @@ import {
   fetchDcfDocx,
   fetchDcfDocxForCase,
   fetchDcfPreview,
+  getCase,
   fetchDcfXlsx,
   fetchDcfXlsxForCase,
 } from '../services/api'
@@ -32,6 +33,7 @@ import { usePreferenceStore } from '../store/preferenceStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
 import type { DcfPayload } from '../types/dcf'
+import { dcfChanges, hasChanges, type DcfChanges } from './dcfChanges'
 
 function triggerDownload(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob)
@@ -50,6 +52,7 @@ export default function DataCollectionPage() {
   const draft = useCaseStore((s) => s.draft)
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const serverCaseName = useCaseStore((s) => s.serverCaseName)
+  const savedDiverged = useCaseStore((s) => s.savedDiverged)
   const mode = usePreferenceStore((s) => s.mode)
   const pushToast = useToastStore((s) => s.push)
   const bindDcfData = useDcfDataStore((s) => s.bindTo)
@@ -64,6 +67,7 @@ export default function DataCollectionPage() {
   const [downloadingXlsx, setDownloadingXlsx] = useState(false)
   const [downloadingDocx, setDownloadingDocx] = useState(false)
   const [tab, setTab] = useState<'overview' | 'network'>('overview')
+  const [changes, setChanges] = useState<DcfChanges | null>(null)
 
   const sourceCase = result ?? draft
   // Without an answered Q1 there is no case to build a file from: the API would answer
@@ -109,9 +113,27 @@ export default function DataCollectionPage() {
     if (serverCaseId) void loadDcfData(serverCaseId)
   }, [serverCaseId, bindDcfData, loadDcfData])
 
-  // Seed the flow rows declared in Q5 and drop values for fields this
-  // configuration no longer activates (an answer edit can deactivate a field
-  // under content that was already drawn).
+  // After the answers were worked out again, say what that changed in the
+  // file against the saved version (UX round 5, D3 / P7-06).
+  const diverged = serverCaseId !== null && savedDiverged
+  useEffect(() => {
+    if (!diverged || !serverCaseId || !payload) return
+    let cancelled = false
+    getCase(serverCaseId)
+      .then((saved) => fetchDcfPreview(saved.case))
+      .then((before) => {
+        if (!cancelled) setChanges(dcfChanges(before, payload))
+      })
+      .catch(() => {
+        if (!cancelled) setChanges(null)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [diverged, serverCaseId, payload])
+
+  // Seed the flow rows declared in Q5 (values of fields this configuration
+  // no longer asks for are kept, dormant: see dcfDataStore).
   useEffect(() => {
     if (payload) syncDcfWithPayload(payload, sourceCase.flows ?? [])
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -237,6 +259,25 @@ export default function DataCollectionPage() {
             {payload.slca_activation_state === 'active' ? t('common.yes') : t('common.no')}
           </span>
         </div>
+        {diverged ? (
+          <div className="nb-warning dcf-changes" role="status">
+            <p>{t('dcf.savedDiverged')}</p>
+            {changes && hasChanges(changes) ? (
+              <p>
+                {t('dcf.changes', { removed: changes.removed, added: changes.added })}
+                {changes.fieldsGone.length > 0
+                  ? ' ' + t('dcf.changesFieldsGone', { fields: changes.fieldsGone.join(', ') })
+                  : ''}
+                {changes.fieldsNew.length > 0
+                  ? ' ' + t('dcf.changesFieldsNew', { fields: changes.fieldsNew.join(', ') })
+                  : ''}
+              </p>
+            ) : changes ? (
+              <p>{t('dcf.changesNone')}</p>
+            ) : null}
+            <Link to="/result" className="btn btn-primary">{t('dcf.goSaveChanges')}</Link>
+          </div>
+        ) : null}
         {payload.slca_activation_state === 'active' ? (
           // the S-LCA inventory follows D4.3 with its own instruments; this file
           // does not collect it (decided by Fable, UX round 2026-11-03)
@@ -321,7 +362,7 @@ export default function DataCollectionPage() {
           type="button"
           className="btn btn-primary"
           onClick={handleDownloadXlsx}
-          disabled={downloadingXlsx}
+          disabled={downloadingXlsx || diverged}
         >
           {downloadingXlsx ? t('dcf.downloadingXlsx') : t('dcf.downloadXlsx')}
         </button>
@@ -329,7 +370,7 @@ export default function DataCollectionPage() {
           type="button"
           className="btn btn-secondary"
           onClick={handleDownloadDocx}
-          disabled={downloadingDocx}
+          disabled={downloadingDocx || diverged}
         >
           {downloadingDocx ? t('dcf.downloadingDocx') : t('dcf.downloadDocx')}
         </button>
@@ -337,7 +378,11 @@ export default function DataCollectionPage() {
           {t('dcf.backToResult')}
         </Link>
       </div>
-      {!serverCaseId || dcfDirty ? (
+      {diverged ? (
+        // the files of a saved case come from the server copy: downloading them
+        // now would contradict this page (UX round 5, P7-01)
+        <p className="dd-soft">{t('dcf.savedDiverged')}</p>
+      ) : !serverCaseId || dcfDirty ? (
         // the files are built from what the server holds: a network drawn on an
         // unsaved case is not in them yet (UX round 3-4, P1-02)
         <p className="dd-soft">{t(serverCaseId ? 'dcf.unsavedNetwork' : 'dcf.unsavedCase')}</p>

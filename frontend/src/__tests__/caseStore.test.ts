@@ -76,6 +76,24 @@ describe('caseStore', () => {
     expect(useCaseStore.getState().error).toBeNull()
   })
 
+  it('working out a saved case again marks it as diverging from the saved copy', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(okResponse({ ilcd_situation: 'ILCD Situation A' }))),
+    )
+    await useCaseStore.getState().runDraft()
+    expect(useCaseStore.getState().savedDiverged).toBe(false) // nothing saved yet
+
+    useCaseStore.getState().setServerCase('case-1', 'Dairy')
+    expect(useCaseStore.getState().savedDiverged).toBe(false)
+    await useCaseStore.getState().runDraft()
+    expect(useCaseStore.getState().savedDiverged).toBe(true)
+
+    // saving (or loading) the case again clears it
+    useCaseStore.getState().setServerCase('case-1', 'Dairy')
+    expect(useCaseStore.getState().savedDiverged).toBe(false)
+  })
+
   it('runDraft sets error on 400', async () => {
     vi.stubGlobal(
       'fetch',

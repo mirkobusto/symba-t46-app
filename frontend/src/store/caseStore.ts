@@ -42,6 +42,13 @@ export interface CaseState {
   /** Name of that server-side case, for the pages that should say which
    * case you are looking at. */
   serverCaseName: string | null
+  /**
+   * The answers were worked out again after the case was saved or loaded:
+   * what the pages show may no longer be what the server holds, and the
+   * files of a saved case are built from the server copy. Cleared when the
+   * case is saved or loaded (UX round 5, D3).
+   */
+  savedDiverged: boolean
 
   setDraft: (next: Case) => void
   /** Adopt an already-run case as the current result (loading a saved
@@ -91,13 +98,14 @@ export const useCaseStore = create<CaseState>()(
       lastSavedAt: null,
       serverCaseId: null,
       serverCaseName: null,
+      savedDiverged: false,
 
       setDraft: (next) => set({ draft: withCurrentAnswers(next), lastSavedAt: Date.now() }),
 
       setResult: (next) => set({ result: next }),
 
       setServerCase: (id, name = null) =>
-        set({ serverCaseId: id, serverCaseName: name }),
+        set({ serverCaseId: id, serverCaseName: name, savedDiverged: false }),
 
       patchDraft: (patch) =>
         set({ draft: { ...get().draft, ...patch }, lastSavedAt: Date.now() }),
@@ -106,7 +114,7 @@ export const useCaseStore = create<CaseState>()(
         set({ loading: true, error: null })
         try {
           const result = await runPipeline(get().draft)
-          set({ result, loading: false })
+          set({ result, loading: false, savedDiverged: get().serverCaseId !== null })
           // milliseconds and the English situation code meant nothing to a
           // reader; the result page names the situation in words
           useToastStore.getState().push({
@@ -175,6 +183,7 @@ export const useCaseStore = create<CaseState>()(
           lastSavedAt: null,
           serverCaseId: null,
           serverCaseName: null,
+          savedDiverged: false,
         }),
     }),
     {
@@ -210,6 +219,7 @@ export const useCaseStore = create<CaseState>()(
         lastSavedAt: state.lastSavedAt,
         serverCaseId: state.serverCaseId,
         serverCaseName: state.serverCaseName,
+        savedDiverged: state.savedDiverged,
       }),
     },
   ),

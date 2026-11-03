@@ -166,3 +166,35 @@ def test_docx_reports_the_drawn_network(payload, drawn_network):
 def test_docx_falls_back_to_the_descriptive_prose(payload):
     text = _docx_text(generate_dcf_docx_bytes(payload, "wiktor"))
     assert "drawn interactively" in text
+
+
+def test_questionnaire_flows_reach_the_flow_matrix_without_stored_content(payload):
+    """The files list every questionnaire flow even when no network was ever
+    saved: the browser no longer saves seeded rows on its own (UX round 5)."""
+    from app.engine.dcf_rows import with_case_flows
+
+    case = Case(
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
+        flows=[Flow(id="f1", name="sludge", q5=Q5.a, sellable_elsewhere=False)],
+    )
+    data = with_case_flows(None, case, "case-1")
+    wb = load_workbook(BytesIO(render_xlsx(payload, data)))
+    cells = {c.value for ws in wb.worksheets for row in ws.iter_rows() for c in row}
+    assert "sludge" in cells
+    classif = data.rows_by_section["flow_classification"]
+    assert [r.values for r in classif] == [
+        {"classif.flow_id": "f1", "classif.independent_market": "no"}
+    ]
+
+
+def test_stored_rows_win_over_questionnaire_flows():
+    from app.engine.dcf_rows import with_case_flows
+
+    case = Case(flows=[Flow(id="f1", name="sludge", q5=Q5.a)])
+    stored = DcfData(
+        case_id="case-1",
+        rows_by_section={"flow_matrix": [DcfRow(row_id="f1", values={"flow.name": "renamed"})]},
+    )
+    data = with_case_flows(stored, case, "case-1")
+    assert [r.values["flow.name"] for r in data.rows_by_section["flow_matrix"]] == ["renamed"]

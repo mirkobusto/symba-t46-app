@@ -5130,3 +5130,7 @@ kbd {
   margin-top: 20px;
   text-align: left;
 }
+
+/* "the files follow the saved version" notice on the DCF page (UX round 5, D3) */
+.dcf-changes { margin-top: var(--dd-space-3); }
+.dcf-changes p { margin: 0 0 var(--dd-space-2); }

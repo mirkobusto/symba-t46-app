@@ -188,14 +188,63 @@ def test_unknown_field_is_rejected(client):
     assert _put_expect_422(client, case_id, data)[0]["code"] == "unknown_field"
 
 
-def test_field_not_activated_for_this_pathway_is_rejected(client):
-    """flow.marginal_market_ref only activates for q1 == 'C'; Wiktor is 'B'."""
+def test_value_for_a_field_not_asked_is_kept_as_dormant(client):
+    """flow.marginal_market_ref only activates for q1 == 'C'; Wiktor is 'B'.
+
+    A value entered before the configuration changed is stored and reported
+    as dormant, not rejected and not exported (UX round 5, D3)."""
     case_id = _create_case(client)
     data = _two_actors_one_flow(case_id)
     data["rows_by_section"]["flow_matrix"][0]["values"]["flow.marginal_market_ref"] = "x"
-    issues = _put_expect_422(client, case_id, data)
-    assert issues[0]["code"] == "field_not_active"
-    assert issues[0]["field_id"] == "flow.marginal_market_ref"
+    r = client.put(f"/api/dcf/{case_id}/data", json=data)
+    assert r.status_code == 200, r.text
+    validation = r.json()["validation"]
+    assert validation["errors"] == []
+    assert [(i["code"], i["field_id"]) for i in validation["dormant"]] == [
+        ("field_not_active", "flow.marginal_market_ref")
+    ]
+    stored = client.get(f"/api/dcf/{case_id}/data").json()["data"]
+    assert stored["rows_by_section"]["flow_matrix"][0]["values"][
+        "flow.marginal_market_ref"
+    ] == "x"
+    xlsx = client.get(f"/api/dcf/{case_id}/export/xlsx")
+    assert xlsx.status_code == 200
+    from io import BytesIO
+
+    import openpyxl
+
+    wb = openpyxl.load_workbook(BytesIO(xlsx.content))
+    cells = {c.value for ws in wb.worksheets for row in ws.iter_rows() for c in row}
+    assert "x" not in cells
+
+
+def test_rows_of_a_section_not_asked_are_kept_as_dormant(client):
+    """Costs are asked only with the economic dimension: rows entered before
+    it was switched off are kept, not rejected (UX round 5, D3)."""
+    body = {**WIKTOR_BODY, "q3": {"env": True, "eco": False, "soc": False}}
+    r = client.post("/api/cases", json={"name": "env only", "case": body})
+    assert r.status_code == 201, r.text
+    case_id = r.json()["id"]
+    data = _two_actors_one_flow(case_id)
+    data["rows_by_section"]["costs"] = [
+        {"row_id": "c1", "values": {"cost.flow_id": "f1"}}
+    ]
+    r = client.put(f"/api/dcf/{case_id}/data", json=data)
+    assert r.status_code == 200, r.text
+    assert [i["code"] for i in r.json()["validation"]["dormant"]] == ["section_inactive"]
+
+
+def test_saving_the_network_updates_the_case_date(client):
+    """"My cases" dates a case by its record: a saved network is a change too."""
+    case_id = _create_case(client)
+    before = client.get(f"/api/cases/{case_id}").json()["updated_at"]
+    import time
+
+    time.sleep(1.1)
+    r = client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id))
+    assert r.status_code == 200, r.text
+    after = client.get(f"/api/cases/{case_id}").json()["updated_at"]
+    assert after > before
 
 
 def test_derived_id_field_is_rejected(client):

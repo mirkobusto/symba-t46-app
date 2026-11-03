@@ -49,6 +49,12 @@ const en = {
       authority: '🏛 Local authority',
       enduser: '👤 End user',
     },
+    publicToggle: 'Make this report readable by anyone with the link',
+    preparedByLabel: 'Prepared by (shown on the report)',
+    contactLabel: 'Contact for questions about this case (optional)',
+    saveSharing: 'Save',
+    notSharedBody: 'The report is not public: only you can open this case. Turn sharing on to get the links.',
+    sharedBody: 'The report is public: anyone with one of these links can read it, without the flow notes and quantities.',
   },
 
   reader: {
@@ -156,6 +162,9 @@ const en = {
       errorTitle: 'Region not available',
       errorBody: 'Could not fetch aggregate data for this region.',
     },
+    preparedBy: 'Prepared by {{name}} — answers entered by the author of the case, not checked by SYMBA.',
+    contact: 'For questions about this case: {{contact}}',
+    noContact: 'For questions about this case, ask whoever sent you the link. SYMBA built the tool; it does not carry out this study.',
   },
 
   welcome: {
@@ -1238,7 +1247,7 @@ const en = {
   auth: {
     title: 'Sign in',
     subtitle:
-      'Optional for browsing legacy / public cases. Required to create private cases that only you can change.',
+      'An account is needed to save cases on the server and to share them. A saved case is read only by people who have its link, and only after you share it.',
     tabLogin: 'Sign in',
     tabRegister: 'Create account',
     emailLabel: 'Email',
@@ -1488,7 +1497,7 @@ const en = {
   },
 
   cases: {
-    signInToSave: "Saving a case on the server needs an account. Sign in or register here; your draft stays in this browser.",
+    signInToSave: 'Saving a case on the server needs an account. Sign in or register here; your draft stays in this browser. A saved case is public only if you share it.',
     signInToList: "Your saved cases appear here once you sign in. Shared reports open from the link you received.",
     publicLink: "Public link",
     navLink: 'My cases',

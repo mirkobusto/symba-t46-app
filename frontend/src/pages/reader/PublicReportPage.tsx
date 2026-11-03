@@ -128,6 +128,12 @@ export default function PublicReportPage() {
         ) : null}
         {c.q2 ? <p>{t(c.q2 === 'A' ? 'reader.running.yes' : 'reader.running.no')}</p> : null}
         {market ? <p>{t('reader.market', { market })}</p> : null}
+        {/* who prepared the case and whom to ask: written by the owner when sharing
+            (UX round 2026-11-03, decided by Fable) */}
+        {report.prepared_by ? <p>{t('reader.preparedBy', { name: report.prepared_by })}</p> : null}
+        <p>{report.case_contact
+          ? t('reader.contact', { contact: report.case_contact })
+          : t('reader.noContact')}</p>
         <p className="dd-soft">
           {t('reader.updated', { date: new Date(report.updated_at).toLocaleDateString(i18n.language) })}
         </p>

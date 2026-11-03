@@ -88,6 +88,12 @@ const it: Locale = {
       authority: '🏛 Autorità locale',
       enduser: '👤 End user',
     },
+    publicToggle: 'Rendi questo report leggibile da chiunque abbia il link',
+    preparedByLabel: 'Preparato da (compare sul report)',
+    contactLabel: 'Contatto per domande su questo caso (facoltativo)',
+    saveSharing: 'Salva',
+    notSharedBody: 'Il report non è pubblico: solo tu puoi aprire questo caso. Attiva la condivisione per avere i link.',
+    sharedBody: 'Il report è pubblico: chiunque abbia uno di questi link può leggerlo, senza le note e le quantità dei flussi.',
   },
 
   reader: {
@@ -175,6 +181,9 @@ const it: Locale = {
       errorTitle: 'Regione non disponibile',
       errorBody: 'Impossibile ottenere i dati aggregati per questa regione.',
     },
+    preparedBy: 'Preparato da {{name}} — risposte inserite dall\'autore del caso, non verificate da SYMBA.',
+    contact: 'Per domande su questo caso: {{contact}}',
+    noContact: 'Per domande su questo caso rivolgiti a chi ti ha mandato il link. SYMBA ha costruito lo strumento, non conduce questo studio.',
   },
 
   welcome: {
@@ -1217,7 +1226,7 @@ const it: Locale = {
   auth: {
     title: 'Accedi',
     subtitle:
-      'Opzionale per consultare i casi legacy / pubblici. Necessario per creare casi privati che solo tu puoi modificare.',
+      'Serve un account per salvare i casi sul server e per condividerli. Un caso salvato lo legge solo chi ha il suo link, e solo dopo che lo hai condiviso.',
     tabLogin: 'Accedi',
     tabRegister: 'Crea account',
     emailLabel: 'Email',
@@ -1467,7 +1476,7 @@ const it: Locale = {
   },
 
   cases: {
-    signInToSave: "Per salvare un caso sul server serve un account. Accedi o registrati qui; la bozza resta in questo browser.",
+    signInToSave: 'Per salvare un caso sul server serve un account. Accedi o registrati qui; la bozza resta in questo browser. Un caso salvato è pubblico solo se lo condividi.',
     signInToList: "I tuoi casi salvati compaiono qui dopo l'accesso. I report condivisi si aprono dal link che hai ricevuto.",
     publicLink: "Link pubblico",
     navLink: 'I miei casi',

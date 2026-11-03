@@ -5,7 +5,12 @@ Produces short, human-readable, URL-safe slugs like:
     wastewater-b-sita-3f0b
 
     ^         ^  ^    ^
-    Q6a       Q7 ILCD situation (sitA, sitB, sitC1, sitC2), first 4 chars of the case id
+    Q6a       Q7 ILCD situation (sitA, sitB, sitC1, sitC2), first 8 chars of the case id
+
+Since 2026-11-03 the id part has 8 hex characters (the first UUID block, 32
+random bits): with 4, a slug could be guessed by trying 65,536 endings.
+Guessing alone no longer opens a case anyway: the public report answers only
+for shared cases (CaseRecord.shared_at).
 
 Falls back gracefully when Q6a / Q7 / the situation are missing:
 
@@ -65,7 +70,7 @@ def _situation_abbrev(situation: str | None) -> str:
 
 
 def generate_case_slug(case: Case, short_id: str) -> str:
-    """Compose a base slug from case properties + a 4-char id suffix
+    """Compose a base slug from case properties + an 8-char id suffix
     for lexical distinctness. Uniqueness against the database is
     checked separately (see `assign_unique_slug`)."""
     sector = _SECTOR_ABBREV.get(
@@ -79,7 +84,7 @@ def generate_case_slug(case: Case, short_id: str) -> str:
         parts.append(q7)
     if situation:
         parts.append(situation)
-    parts.append(short_id[:4].lower())
+    parts.append(short_id[:8].lower())
 
     return "-".join(p for p in parts if p)
 

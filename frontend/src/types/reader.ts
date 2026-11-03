@@ -10,6 +10,9 @@ export interface PublicReportResponse {
   ilcd_situation: string | null
   created_at: string
   updated_at: string
+  shared_at?: string | null
+  prepared_by?: string | null
+  case_contact?: string | null
   case: Case
   scoring: ScoringPayload | null
 }

@@ -52,10 +52,18 @@ describe('UX round 3 bugs', () => {
     expect(screen.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument()
   })
 
-  it('lists the four links once the case has a server key', () => {
-    render(<ShareReportModal caseId="id-1" caseSlug="agri-b-sita-19a8" onClose={() => {}} />)
-    expect(screen.getAllByRole('button', { name: 'Copy' })).toHaveLength(4)
-    expect(screen.getByText(/\/r\/agri-b-sita-19a8\/authority$/)).toBeInTheDocument()
+  it('lists the four links only once the owner has shared the case', async () => {
+    answerWith(200, { id: 'id-1', name: 'x', slug: 'agri-b-sita-19a8c0de', ilcd_situation: null,
+      created_at: '', updated_at: '', shared_at: null, case: {} })
+    const { unmount } = render(<ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} />)
+    expect(await screen.findByText(/The report is not public/)).toBeInTheDocument()
+    expect(screen.queryAllByRole('button', { name: 'Copy' })).toHaveLength(0)
+    unmount()
+    answerWith(200, { id: 'id-1', name: 'x', slug: 'agri-b-sita-19a8c0de', ilcd_situation: null,
+      created_at: '', updated_at: '', shared_at: '2026-11-03T10:00:00', case: {} })
+    render(<ShareReportModal caseId="id-1" caseSlug={null} onClose={() => {}} />)
+    expect(await screen.findAllByRole('button', { name: 'Copy' })).toHaveLength(4)
+    expect(screen.getByText(/\/r\/agri-b-sita-19a8c0de\/authority$/)).toBeInTheDocument()
   })
 })
 

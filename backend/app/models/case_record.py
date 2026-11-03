@@ -42,6 +42,14 @@ class CaseRecord(Base):
     slug: Mapped[str | None] = mapped_column(
         String(96), nullable=True, unique=True, index=True
     )
+    # Sharing (UX round 2026-11-03, decided by Fable): the public report
+    # answers only once the owner shares the case; until then the slug or the
+    # id read nothing. Who prepared the case and whom to ask are shown on the
+    # public report, written by the owner when sharing.
+    # scripts/migrate_add_case_sharing.py adds the three columns.
+    shared_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    prepared_by: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    case_contact: Mapped[str | None] = mapped_column(String(200), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(), nullable=False
     )

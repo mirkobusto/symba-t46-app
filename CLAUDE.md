@@ -348,7 +348,7 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
   da nessun codice. Il campo API `by_q7_geographic_scope` dell'aggregato ha ancora il vecchio nome (l'etichetta è
   giusta), e `activated_by.kind = 'case_sector'` compare solo nei risultati salvati prima del 2026-10-18.
 - 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
-- Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy).
+- Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy). Dal 2026-11-03 `migrate_add_case_sharing.py`: un caso salvato è pubblico solo dopo che il proprietario lo condivide (`shared_at`, deciso da Fable); va eseguito sul server prima della prima richiesta.
 - Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).
 - `coordination/current-state/_CURRENT_STATE.md` è storico (fermo a Sprint 0/1): lo stato corrente è **questo file**.
 - **Divergenze dai deliverable tenute di proposito** (decisione 2026-10-04, dalla verifica app-vs-deliverable; versione di riferimento: REVISED del 30/06/2026):

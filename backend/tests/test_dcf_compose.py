@@ -228,7 +228,9 @@ def test_field_descriptor_carries_metadata(case_wiktor, dcf_schema, mandates_cen
     assert isinstance(sample, DcfFieldDescriptor)
     assert sample.type == "enum"
     assert sample.enum_values is not None
-    assert "producer" in sample.enum_values
+    # the arrows say who gives and receives: "partner" replaces producer/consumer,
+    # which stay legal for stored rows but are no longer offered (UX round 5, D6)
+    assert "partner" in sample.enum_values and "producer" not in sample.enum_values
 
 
 # ---------------------------------------------------------------------------

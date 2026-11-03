@@ -615,3 +615,20 @@ def test_a_case_never_drawn_gets_a_row_per_questionnaire_flow(client):
     wb = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))
     firsts = [wb["Logistics"].cell(row=r, column=1).value for r in range(5, 9)]
     assert firsts.count("sludge (WWTP Alfa → Biogas plant Beta)") == 1
+
+
+def test_the_reference_scenario_has_a_row_per_flow_and_side(client):
+    """UX round 5, D6: the origin says where the flow would go, the
+    destination what it would buy instead; one cell per actor could not."""
+    from io import BytesIO
+
+    import openpyxl
+
+    case_id = _create_case(client)
+    assert client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id)).status_code == 200
+    ws = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))["Reference Scenario"]
+    rows = [[c.value for c in ws[r]][:3] for r in (5, 6)]
+    assert rows == [
+        ["WWTP Alfa", "sludge (WWTP Alfa → Biogas plant Beta)", "origin (gives the flow)"],
+        ["Biogas plant Beta", "sludge (WWTP Alfa → Biogas plant Beta)", "destination (receives the flow)"],
+    ]

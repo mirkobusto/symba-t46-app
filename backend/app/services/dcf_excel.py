@@ -156,7 +156,26 @@ _SEED_KEY = {
 }
 
 
+def _reference_rows(rows: list[DcfRow], data: DcfData | None) -> list[DcfRow]:
+    """Two rows per flow, one for the actor that gives it and one for the
+    actor that receives it: one cell per actor could not hold an actor that
+    gives a flow and receives another (UX round 5, D6; D4.1 §11.1)."""
+    have = {(r.values.get("ref.flow_id"), r.values.get("ref.side")) for r in rows}
+    seeded = []
+    for f in rows_for(data, "flow_matrix"):
+        for side, actor_key in (("origin", "flow.origin_actor_id"), ("destination", "flow.dest_actor_id")):
+            if (f.row_id, side) in have:
+                continue
+            values = {"ref.flow_id": f.row_id, "ref.side": side}
+            if f.values.get(actor_key):
+                values["ref.actor_id"] = f.values[actor_key]
+            seeded.append(DcfRow(row_id=f"seed-ref-{f.row_id}-{side}", values=values))
+    return [*rows, *seeded]
+
+
 def _with_seeded_rows(section: DcfSection, rows: list[DcfRow], data: DcfData | None) -> list[DcfRow]:
+    if section.id == "reference_scenario" and "ref.side" in {f.id for f in section.fields}:
+        return _reference_rows(rows, data)
     key = _SEED_KEY.get(section.id)
     if key is None or key[0] not in {f.id for f in section.fields}:
         return rows

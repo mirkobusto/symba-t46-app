@@ -31,11 +31,11 @@
    },
    "network_diagram": {
     "title": "Network diagram",
-    "description": "The picture of the network, drawn from the Actors and Flow Matrix sheets. Edit it in the Network builder of the web app, where actors and flows are placed and connected; this sheet shows the result."
+    "description": "The links of the network, drawn from the Actors and Flow Matrix sheets in the Network builder of the web app; this sheet lists them, the drawing stays in the app."
    },
    "reference_scenario": {
-    "title": "Reference scenario per actor",
-    "description": "One row per actor: what it does, or would do, without the exchanges of the symbiosis (where it would dispose of the flow, what it would buy in its place). The reference scenario of the study (D4.1 §11) is built from these rows.",
+    "title": "Reference scenario per actor and flow",
+    "description": "One row per actor and per flow it gives or receives: for the origin, where the flow would go without the exchange (disposal route, other buyer); for the destination, what it would buy or produce instead (D4.1 §11.1).",
     "description_c2": "Optional in Situation C2: one company's accounts take no substitution credits (D4.1 §7.2.3); the reference without the exchanges is reported only for comparison (D4.1 §11.3.1)."
    }
   },
@@ -47,7 +47,8 @@
     "label": "Actor name"
    },
    "actor.role": {
-    "label": "Role"
+    "label": "Role",
+    "description": "Partner: takes part in the exchanges; the arrows say what it gives and receives. Facilitator: coordinates the network without exchanging flows (park operator, consultant). Regulator: the public authority that permits or taxes. Intermediary: trades or transports a flow without transforming it."
    },
    "actor.sector": {
     "label": "Sector",
@@ -209,19 +210,19 @@
     "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unit of the disposal cost",
+    "label": "Unit of the two avoided costs (e.g. EUR/t, EUR/year)",
     "description": "e.g. EUR/t, EUR/year."
    },
    "cost.exchange_price": {
-    "label": "Price of the exchanged flow",
-    "description": "Price agreed between the partners. Zero and negative values are meaningful: a gate fee paid to take the flow away is a negative price."
+    "label": "Price the destination actor pays the origin actor (per unit)",
+    "description": "Positive: the receiver pays. Zero: free. Negative: the origin actor pays the receiver a gate fee to take the flow (D4.2 §5.2). One value, agreed by the two partners."
    },
    "cost.price_basis": {
     "label": "Basis of that price"
    },
    "cost.opex_delta_year": {
-    "label": "Change in operating costs (per year)",
-    "description": "Operating cost the exchange adds or removes per year, transport excluded (it belongs in Logistics)."
+    "label": "Change in the origin actor's yearly operating cost (excluding transport)",
+    "description": "What the exchange adds or saves each year for the actor that gives the flow; transport goes in Logistics."
    },
    "cost.currency_year": {
     "label": "Currency and reference year",
@@ -294,8 +295,8 @@
     "label": "Actor"
    },
    "ref.without_symbiosis": {
-    "label": "What this actor does or would do without the exchanges",
-    "description": "For an origin: where the flow would go (disposal route, another buyer). For a receiver: what it would buy or produce in its place."
+    "label": "What this actor does, or would do, without this flow",
+    "description": "For the origin: where the flow would go (disposal route, another buyer). For the destination: what it would buy or produce instead."
    },
    "ref.source": {
     "label": "Source",
@@ -316,6 +317,22 @@
    "classif.substituted_lci_dataset": {
     "label": "LCI dataset of the replaced product",
     "description": "Background dataset that models the substituted product, with database and version."
+   },
+   "cost.opex_delta_dest_year": {
+    "label": "Change in the destination actor's yearly operating cost (excluding transport)",
+    "description": "What the exchange adds or saves each year for the actor that receives the flow (D4.2 §5.3: each firm's actual cost structure)."
+   },
+   "cost.avoided_procurement_cost": {
+    "label": "What the destination actor pays today for what this flow replaces (avoided purchase)",
+    "description": "The receiver's avoided cost: what it would buy without the exchange (D4.2 §6.2). Filled in by the destination actor."
+   },
+   "ref.flow_id": {
+    "label": "Flow",
+    "description": "The flow this row is about: one row for the actor that gives it, one for the actor that receives it."
+   },
+   "ref.side": {
+    "label": "Side of the flow",
+    "description": "Origin: the actor gives this flow. Destination: the actor receives it."
    }
   },
   "enums": {
@@ -412,7 +429,11 @@
    "decommissioned": "decommissioned",
    "single_actor": "one actor",
    "joint_venture": "joint venture",
-   "third_party": "third party"
+   "third_party": "third party",
+   "gate_fee": "gate fee",
+   "partner": "partner",
+   "origin": "origin (gives the flow)",
+   "destination": "destination (receives the flow)"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "the study credits substitution (not the strict accounting of one company, Situation C2)",
@@ -522,6 +543,8 @@
    "dx.s3_body": "For each sheet of the workbook: what each column asks, the values it accepts and who fills it in. The same text appears as a comment on the column header in Excel.",
    "dx.active": "Active sections",
    "h.section": "Section",
+   "h.gives": "Gives",
+   "h.receives": "Receives",
    "cover.noIlcd": "None: a costing-only study (no LCA). The costing uses the reference scenario an LCA would use (D4.2 §4.1).",
    "note.analyst": "For whoever carries out the study (grey column): companies, leave it empty.",
    "dx.s1i": "§1. How to fill in the Excel workbook",
@@ -620,11 +643,11 @@
    },
    "network_diagram": {
     "title": "Diagramma della rete",
-    "description": "L'immagine della rete, disegnata dai fogli Attori e Matrice dei flussi. Si modifica nell'editor di rete dell'app web, dove si posizionano e collegano attori e flussi; questo foglio mostra il risultato."
+    "description": "I collegamenti della rete, disegnati dai fogli Attori e Matrice dei flussi nell'editor di rete dell'app; questo foglio li elenca, il disegno resta nell'app."
    },
    "reference_scenario": {
-    "title": "Scenario di riferimento per attore",
-    "description": "Una riga per attore: che cosa fa, o farebbe, senza gli scambi della simbiosi (dove smaltirebbe il flusso, che cosa comprerebbe al suo posto). Lo scenario di riferimento dello studio (D4.1 §11) si costruisce da queste righe.",
+    "title": "Scenario di riferimento per attore e flusso",
+    "description": "Una riga per attore e per flusso che cede o riceve: per l'origine, dove andrebbe il flusso senza lo scambio (smaltimento, un altro acquirente); per la destinazione, che cosa comprerebbe o produrrebbe al suo posto (D4.1 §11.1).",
     "description_c2": "Facoltativo in Situazione C2: il rendiconto di una sola azienda non prende crediti di sostituzione (D4.1 §7.2.3); il riferimento senza gli scambi si riporta solo per confronto (D4.1 §11.3.1)."
    }
   },
@@ -636,7 +659,8 @@
     "label": "Nome dell'attore"
    },
    "actor.role": {
-    "label": "Ruolo"
+    "label": "Ruolo",
+    "description": "Partner: partecipa agli scambi; le frecce dicono che cosa cede e riceve. Facilitatore: coordina la rete senza scambiare flussi (gestore del parco, consulente). Autorità: l'ente pubblico che autorizza o tassa. Intermediario: commercia o trasporta un flusso senza trasformarlo."
    },
    "actor.sector": {
     "label": "Settore",
@@ -798,19 +822,19 @@
     "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unità del costo di smaltimento",
+    "label": "Unità dei due costi evitati (es. EUR/t, EUR/anno)",
     "description": "es. EUR/t, EUR/anno."
    },
    "cost.exchange_price": {
-    "label": "Prezzo del flusso scambiato",
-    "description": "Prezzo concordato fra i partner. Zero e valori negativi hanno senso: una tariffa pagata per far ritirare il flusso è un prezzo negativo."
+    "label": "Prezzo che l'attore di destinazione paga all'attore di origine (per unità)",
+    "description": "Positivo: paga chi riceve. Zero: gratuito. Negativo: chi cede paga a chi riceve una tariffa di conferimento perché lo prenda (D4.2 §5.2). Un solo valore, concordato dai due partner."
    },
    "cost.price_basis": {
     "label": "Base di quel prezzo"
    },
    "cost.opex_delta_year": {
-    "label": "Variazione dei costi operativi (all'anno)",
-    "description": "Costo operativo che lo scambio aggiunge o toglie ogni anno, trasporto escluso (va in Logistica)."
+    "label": "Variazione annua dei costi operativi dell'attore di origine (trasporto escluso)",
+    "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi cede il flusso; il trasporto va in Logistica."
    },
    "cost.currency_year": {
     "label": "Valuta e anno di riferimento",
@@ -883,8 +907,8 @@
     "label": "Attore"
    },
    "ref.without_symbiosis": {
-    "label": "Che cosa fa o farebbe questo attore senza gli scambi",
-    "description": "Per chi cede: dove andrebbe il flusso (smaltimento, un altro acquirente). Per chi riceve: che cosa comprerebbe o produrrebbe al suo posto."
+    "label": "Che cosa fa, o farebbe, questo attore senza questo flusso",
+    "description": "Per l'origine: dove andrebbe il flusso (smaltimento, un altro acquirente). Per la destinazione: che cosa comprerebbe o produrrebbe al suo posto."
    },
    "ref.source": {
     "label": "Fonte",
@@ -905,6 +929,22 @@
    "classif.substituted_lci_dataset": {
     "label": "Dataset LCI del prodotto sostituito",
     "description": "Il dataset di background che modella il prodotto sostituito, con banca dati e versione."
+   },
+   "cost.opex_delta_dest_year": {
+    "label": "Variazione annua dei costi operativi dell'attore di destinazione (trasporto escluso)",
+    "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi riceve il flusso (D4.2 §5.3: la struttura di costo reale di ciascuna impresa)."
+   },
+   "cost.avoided_procurement_cost": {
+    "label": "Quanto paga oggi l'attore di destinazione per ciò che il flusso sostituisce (acquisto evitato)",
+    "description": "Il costo evitato di chi riceve: che cosa comprerebbe senza lo scambio (D4.2 §6.2). Lo compila l'attore di destinazione."
+   },
+   "ref.flow_id": {
+    "label": "Flusso",
+    "description": "Il flusso di cui parla la riga: una riga per l'attore che lo cede, una per quello che lo riceve."
+   },
+   "ref.side": {
+    "label": "Lato del flusso",
+    "description": "Origine: l'attore cede questo flusso. Destinazione: l'attore lo riceve."
    }
   },
   "enums": {
@@ -1001,7 +1041,11 @@
    "decommissioned": "dismesso",
    "single_actor": "un solo attore",
    "joint_venture": "joint venture",
-   "third_party": "terzi"
+   "third_party": "terzi",
+   "gate_fee": "tariffa di conferimento",
+   "partner": "partner",
+   "origin": "origine (cede il flusso)",
+   "destination": "destinazione (riceve il flusso)"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "lo studio riconosce crediti di sostituzione (non è il rendiconto di una sola azienda, Situazione C2)",
@@ -1111,6 +1155,8 @@
    "dx.s3_body": "Per ogni foglio del file: che cosa chiede ogni colonna, quali valori accetta e chi la compila. Lo stesso testo è il commento all'intestazione della colonna in Excel.",
    "dx.active": "Sezioni attive",
    "h.section": "Sezione",
+   "h.gives": "Cede",
+   "h.receives": "Riceve",
    "cover.noIlcd": "Nessuna: uno studio solo economico (senza LCA). Il costing usa lo scenario di riferimento che userebbe un'LCA (D4.2 §4.1).",
    "note.analyst": "Per chi esegue lo studio (colonna grigia): le aziende la lasciano vuota.",
    "dx.s1i": "§1. Come compilare il file Excel",
@@ -1209,11 +1255,11 @@
    },
    "network_diagram": {
     "title": "Diagramme du réseau",
-    "description": "L'image du réseau, tirée des feuilles Acteurs et Matrice des flux. Elle se modifie dans l'éditeur de réseau de l'application web, où l'on place et relie acteurs et flux ; cette feuille montre le résultat."
+    "description": "Les liens du réseau, dessinés à partir des feuilles Acteurs et Matrice des flux dans l'éditeur de réseau de l'application ; cette feuille les liste, le dessin reste dans l'application."
    },
    "reference_scenario": {
-    "title": "Scénario de référence par acteur",
-    "description": "Une ligne par acteur : ce qu'il fait, ou ferait, sans les échanges de la symbiose (où il éliminerait le flux, ce qu'il achèterait à la place). Le scénario de référence de l'étude (D4.1 §11) se construit à partir de ces lignes.",
+    "title": "Scénario de référence par acteur et par flux",
+    "description": "Une ligne par acteur et par flux qu'il cède ou reçoit : pour l'origine, où irait le flux sans l'échange (élimination, autre acheteur) ; pour la destination, ce qu'il achèterait ou produirait à la place (D4.1 §11.1).",
     "description_c2": "Facultatif en situation C2 : la comptabilité d'une seule entreprise ne prend pas de crédits de substitution (D4.1 §7.2.3) ; la référence sans les échanges n'est rapportée que pour comparaison (D4.1 §11.3.1)."
    }
   },
@@ -1225,7 +1271,8 @@
     "label": "Nom de l'acteur"
    },
    "actor.role": {
-    "label": "Rôle"
+    "label": "Rôle",
+    "description": "Partenaire : participe aux échanges ; les flèches disent ce qu'il cède et reçoit. Facilitateur : coordonne le réseau sans échanger de flux (gestionnaire du parc, consultant). Autorité : l'organisme public qui autorise ou taxe. Intermédiaire : commercialise ou transporte un flux sans le transformer."
    },
    "actor.sector": {
     "label": "Secteur",
@@ -1387,19 +1434,19 @@
     "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unité du coût d'élimination",
+    "label": "Unité des deux coûts évités (p. ex. EUR/t, EUR/an)",
     "description": "ex. EUR/t, EUR/an."
    },
    "cost.exchange_price": {
-    "label": "Prix du flux échangé",
-    "description": "Prix convenu entre les partenaires. Zéro et les valeurs négatives ont un sens : une redevance payée pour faire enlever le flux est un prix négatif."
+    "label": "Prix que l'acteur de destination paie à l'acteur d'origine (par unité)",
+    "description": "Positif : le receveur paie. Zéro : gratuit. Négatif : l'acteur d'origine paie au receveur une redevance pour qu'il prenne le flux (D4.2 §5.2). Une seule valeur, convenue par les deux partenaires."
    },
    "cost.price_basis": {
     "label": "Base de ce prix"
    },
    "cost.opex_delta_year": {
-    "label": "Variation des coûts d'exploitation (par an)",
-    "description": "Coût d'exploitation que l'échange ajoute ou retire chaque année, transport exclu (il va dans Logistique)."
+    "label": "Variation annuelle des coûts d'exploitation de l'acteur d'origine (hors transport)",
+    "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui cède le flux ; le transport va dans Logistique."
    },
    "cost.currency_year": {
     "label": "Devise et année de référence",
@@ -1472,8 +1519,8 @@
     "label": "Acteur"
    },
    "ref.without_symbiosis": {
-    "label": "Ce que cet acteur fait ou ferait sans les échanges",
-    "description": "Pour qui cède : où irait le flux (élimination, un autre acheteur). Pour qui reçoit : ce qu'il achèterait ou produirait à la place."
+    "label": "Ce que fait, ou ferait, cet acteur sans ce flux",
+    "description": "Pour l'origine : où irait le flux (élimination, un autre acheteur). Pour la destination : ce qu'il achèterait ou produirait à la place."
    },
    "ref.source": {
     "label": "Source",
@@ -1494,6 +1541,22 @@
    "classif.substituted_lci_dataset": {
     "label": "Jeu de données ICV du produit remplacé",
     "description": "Le jeu de données d'arrière-plan qui modélise le produit substitué, avec base et version."
+   },
+   "cost.opex_delta_dest_year": {
+    "label": "Variation annuelle des coûts d'exploitation de l'acteur de destination (hors transport)",
+    "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui reçoit le flux (D4.2 §5.3 : la structure de coûts réelle de chaque entreprise)."
+   },
+   "cost.avoided_procurement_cost": {
+    "label": "Ce que l'acteur de destination paie aujourd'hui pour ce que le flux remplace (achat évité)",
+    "description": "Le coût évité du receveur : ce qu'il achèterait sans l'échange (D4.2 §6.2). Rempli par l'acteur de destination."
+   },
+   "ref.flow_id": {
+    "label": "Flux",
+    "description": "Le flux dont parle la ligne : une ligne pour l'acteur qui le cède, une pour celui qui le reçoit."
+   },
+   "ref.side": {
+    "label": "Côté du flux",
+    "description": "Origine : l'acteur cède ce flux. Destination : l'acteur le reçoit."
    }
   },
   "enums": {
@@ -1590,7 +1653,11 @@
    "decommissioned": "démantelé",
    "single_actor": "un seul acteur",
    "joint_venture": "coentreprise",
-   "third_party": "tiers"
+   "third_party": "tiers",
+   "gate_fee": "redevance de prise en charge",
+   "partner": "partenaire",
+   "origin": "origine (cède le flux)",
+   "destination": "destination (reçoit le flux)"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "l'étude crédite la substitution (ce n'est pas la comptabilité d'une seule entreprise, situation C2)",
@@ -1700,6 +1767,8 @@
    "dx.s3_body": "Pour chaque feuille du classeur : ce que demande chaque colonne, les valeurs acceptées et qui la remplit. Le même texte figure en commentaire sur l'en-tête de colonne dans Excel.",
    "dx.active": "Sections actives",
    "h.section": "Section",
+   "h.gives": "Cède",
+   "h.receives": "Reçoit",
    "cover.noIlcd": "Aucune : une étude uniquement économique (sans ACV). Le calcul des coûts utilise le scénario de référence qu'utiliserait une ACV (D4.2 §4.1).",
    "note.analyst": "Pour la personne qui réalise l'étude (colonne grise) : entreprises, laissez-la vide.",
    "dx.s1i": "§1. Comment remplir le classeur Excel",
@@ -1798,11 +1867,11 @@
    },
    "network_diagram": {
     "title": "Netzdiagramm",
-    "description": "Das Bild des Netzes, aus den Blättern Akteure und Flussmatrix gezeichnet. Bearbeitet wird es im Netz-Editor der Web-App, wo Akteure und Flüsse platziert und verbunden werden; dieses Blatt zeigt das Ergebnis."
+    "description": "Die Verbindungen des Netzwerks, gezeichnet aus den Blättern Akteure und Flussmatrix im Netzwerk-Editor der App; dieses Blatt listet sie, die Zeichnung bleibt in der App."
    },
    "reference_scenario": {
-    "title": "Referenzszenario je Akteur",
-    "description": "Eine Zeile pro Akteur: was er ohne die Austausche der Symbiose tut oder täte (wohin er den Fluss entsorgen, was er stattdessen kaufen würde). Daraus wird das Referenzszenario der Studie (D4.1 §11) gebildet.",
+    "title": "Referenzszenario je Akteur und Fluss",
+    "description": "Eine Zeile je Akteur und je Fluss, den er abgibt oder aufnimmt: für die Herkunft, wohin der Fluss ohne den Austausch ginge (Entsorgung, ein anderer Abnehmer); für das Ziel, was er stattdessen kaufen oder herstellen würde (D4.1 §11.1).",
     "description_c2": "Optional in Situation C2: Die Bilanz eines einzelnen Unternehmens rechnet keine Substitutionsgutschriften an (D4.1 §7.2.3); die Referenz ohne die Austausche wird nur zum Vergleich angegeben (D4.1 §11.3.1)."
    }
   },
@@ -1814,7 +1883,8 @@
     "label": "Name des Akteurs"
    },
    "actor.role": {
-    "label": "Rolle"
+    "label": "Rolle",
+    "description": "Partner: nimmt an den Austauschen teil; die Pfeile zeigen, was er abgibt und aufnimmt. Moderation: koordiniert das Netzwerk, ohne Flüsse auszutauschen (Parkbetreiber, Beratung). Behörde: die öffentliche Stelle, die genehmigt oder besteuert. Vermittler: handelt oder transportiert einen Fluss, ohne ihn umzuwandeln."
    },
    "actor.sector": {
     "label": "Sektor",
@@ -1976,19 +2046,19 @@
     "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet."
    },
    "cost.disposal_cost_unit": {
-    "label": "Einheit der Entsorgungskosten",
+    "label": "Einheit der beiden vermiedenen Kosten (z. B. EUR/t, EUR/Jahr)",
     "description": "z. B. EUR/t, EUR/Jahr."
    },
    "cost.exchange_price": {
-    "label": "Preis des ausgetauschten Flusses",
-    "description": "Zwischen den Partnern vereinbarter Preis. Null und negative Werte sind sinnvoll: eine bezahlte Annahmegebühr ist ein negativer Preis."
+    "label": "Preis, den der Zielakteur dem Herkunftsakteur zahlt (pro Einheit)",
+    "description": "Positiv: der Empfänger zahlt. Null: kostenlos. Negativ: der Herkunftsakteur zahlt dem Empfänger eine Annahmegebühr für die Abnahme (D4.2 §5.2). Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.price_basis": {
     "label": "Grundlage dieses Preises"
    },
    "cost.opex_delta_year": {
-    "label": "Änderung der Betriebskosten (pro Jahr)",
-    "description": "Betriebskosten, die der Austausch pro Jahr hinzufügt oder einspart, ohne Transport (der gehört in Logistik)."
+    "label": "Jährliche Änderung der Betriebskosten des Herkunftsakteurs (ohne Transport)",
+    "description": "Was der Austausch jedes Jahr für den abgebenden Akteur hinzufügt oder einspart; der Transport gehört in Logistik."
    },
    "cost.currency_year": {
     "label": "Währung und Bezugsjahr",
@@ -2061,8 +2131,8 @@
     "label": "Akteur"
    },
    "ref.without_symbiosis": {
-    "label": "Was dieser Akteur ohne die Austausche tut oder täte",
-    "description": "Für den Abgeber: wohin der Fluss ginge (Entsorgung, ein anderer Käufer). Für den Abnehmer: was er stattdessen kaufen oder herstellen würde."
+    "label": "Was dieser Akteur ohne diesen Fluss tut oder täte",
+    "description": "Für die Herkunft: wohin der Fluss ginge (Entsorgung, ein anderer Abnehmer). Für das Ziel: was er stattdessen kaufen oder herstellen würde."
    },
    "ref.source": {
     "label": "Quelle",
@@ -2083,6 +2153,22 @@
    "classif.substituted_lci_dataset": {
     "label": "Sachbilanzdatensatz des ersetzten Produkts",
     "description": "Der Hintergrunddatensatz, der das ersetzte Produkt modelliert, mit Datenbank und Version."
+   },
+   "cost.opex_delta_dest_year": {
+    "label": "Jährliche Änderung der Betriebskosten des Zielakteurs (ohne Transport)",
+    "description": "Was der Austausch jedes Jahr für den aufnehmenden Akteur hinzufügt oder einspart (D4.2 §5.3: die tatsächliche Kostenstruktur jedes Unternehmens)."
+   },
+   "cost.avoided_procurement_cost": {
+    "label": "Was der Zielakteur heute für das bezahlt, was dieser Fluss ersetzt (vermiedener Einkauf)",
+    "description": "Die vermiedenen Kosten des Empfängers: was er ohne den Austausch kaufen würde (D4.2 §6.2). Vom Zielakteur auszufüllen."
+   },
+   "ref.flow_id": {
+    "label": "Fluss",
+    "description": "Der Fluss, um den es in der Zeile geht: eine Zeile für den abgebenden, eine für den aufnehmenden Akteur."
+   },
+   "ref.side": {
+    "label": "Seite des Flusses",
+    "description": "Herkunft: der Akteur gibt diesen Fluss ab. Ziel: der Akteur nimmt ihn auf."
    }
   },
   "enums": {
@@ -2179,7 +2265,11 @@
    "decommissioned": "stillgelegt",
    "single_actor": "ein Akteur",
    "joint_venture": "Joint Venture",
-   "third_party": "Dritte"
+   "third_party": "Dritte",
+   "gate_fee": "Annahmegebühr",
+   "partner": "Partner",
+   "origin": "Herkunft (gibt den Fluss ab)",
+   "destination": "Ziel (nimmt den Fluss auf)"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "die Studie rechnet Substitution an (keine Bilanz eines einzelnen Unternehmens, Situation C2)",
@@ -2289,6 +2379,8 @@
    "dx.s3_body": "Für jedes Blatt der Arbeitsmappe: was jede Spalte fragt, welche Werte sie annimmt und wer sie ausfüllt. Derselbe Text steht als Kommentar an der Spaltenüberschrift in Excel.",
    "dx.active": "Aktive Abschnitte",
    "h.section": "Abschnitt",
+   "h.gives": "Gibt ab",
+   "h.receives": "Nimmt auf",
    "cover.noIlcd": "Keine: eine reine Kostenstudie (ohne Ökobilanz). Die Kostenrechnung verwendet das Referenzszenario, das eine Ökobilanz verwenden würde (D4.2 §4.1).",
    "note.analyst": "Für die Person, die die Studie durchführt (graue Spalte): Unternehmen lassen sie leer.",
    "dx.s1i": "§1. So füllen Sie die Excel-Arbeitsmappe aus",
@@ -2387,11 +2479,11 @@
    },
    "network_diagram": {
     "title": "Diagrama de la red",
-    "description": "La imagen de la red, dibujada a partir de las hojas Actores y Matriz de flujos. Se edita en el editor de red de la aplicación web, donde se colocan y conectan actores y flujos; esta hoja muestra el resultado."
+    "description": "Los enlaces de la red, dibujados a partir de las hojas Actores y Matriz de flujos en el editor de red de la aplicación; esta hoja los enumera, el dibujo queda en la aplicación."
    },
    "reference_scenario": {
-    "title": "Escenario de referencia por actor",
-    "description": "Una fila por actor: qué hace, o haría, sin los intercambios de la simbiosis (dónde eliminaría el flujo, qué compraría en su lugar). El escenario de referencia del estudio (D4.1 §11) se construye con estas filas.",
+    "title": "Escenario de referencia por actor y flujo",
+    "description": "Una fila por actor y por flujo que cede o recibe: para el origen, adónde iría el flujo sin el intercambio (eliminación, otro comprador); para el destino, qué compraría o produciría en su lugar (D4.1 §11.1).",
     "description_c2": "Opcional en la situación C2: la contabilidad de una sola empresa no toma créditos de sustitución (D4.1 §7.2.3); la referencia sin los intercambios se indica solo para comparar (D4.1 §11.3.1)."
    }
   },
@@ -2403,7 +2495,8 @@
     "label": "Nombre del actor"
    },
    "actor.role": {
-    "label": "Función"
+    "label": "Función",
+    "description": "Socio: participa en los intercambios; las flechas dicen qué cede y qué recibe. Facilitador: coordina la red sin intercambiar flujos (gestor del parque, consultor). Autoridad: el organismo público que autoriza o grava. Intermediario: comercia o transporta un flujo sin transformarlo."
    },
    "actor.sector": {
     "label": "Sector",
@@ -2565,19 +2658,19 @@
     "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unidad del coste de eliminación",
+    "label": "Unidad de los dos costes evitados (p. ej. EUR/t, EUR/año)",
     "description": "p. ej. EUR/t, EUR/año."
    },
    "cost.exchange_price": {
-    "label": "Precio del flujo intercambiado",
-    "description": "Precio acordado entre los socios. Cero y los valores negativos tienen sentido: una tasa pagada para que retiren el flujo es un precio negativo."
+    "label": "Precio que el actor de destino paga al actor de origen (por unidad)",
+    "description": "Positivo: paga quien recibe. Cero: gratuito. Negativo: el actor de origen paga a quien recibe una tasa para que se lleve el flujo (D4.2 §5.2). Un solo valor, acordado por los dos socios."
    },
    "cost.price_basis": {
     "label": "Base de ese precio"
    },
    "cost.opex_delta_year": {
-    "label": "Variación de los costes de operación (al año)",
-    "description": "Coste de operación que el intercambio añade o quita cada año, sin el transporte (va en Logística)."
+    "label": "Variación anual de los costes de explotación del actor de origen (sin transporte)",
+    "description": "Lo que el intercambio añade o ahorra cada año a quien cede el flujo; el transporte va en Logística."
    },
    "cost.currency_year": {
     "label": "Moneda y año de referencia",
@@ -2650,8 +2743,8 @@
     "label": "Actor"
    },
    "ref.without_symbiosis": {
-    "label": "Qué hace o haría este actor sin los intercambios",
-    "description": "Para quien cede: adónde iría el flujo (eliminación, otro comprador). Para quien recibe: qué compraría o produciría en su lugar."
+    "label": "Qué hace, o haría, este actor sin este flujo",
+    "description": "Para el origen: adónde iría el flujo (eliminación, otro comprador). Para el destino: qué compraría o produciría en su lugar."
    },
    "ref.source": {
     "label": "Fuente",
@@ -2672,6 +2765,22 @@
    "classif.substituted_lci_dataset": {
     "label": "Conjunto de datos ICV del producto sustituido",
     "description": "El conjunto de datos de fondo que modela el producto sustituido, con base de datos y versión."
+   },
+   "cost.opex_delta_dest_year": {
+    "label": "Variación anual de los costes de explotación del actor de destino (sin transporte)",
+    "description": "Lo que el intercambio añade o ahorra cada año a quien recibe el flujo (D4.2 §5.3: la estructura de costes real de cada empresa)."
+   },
+   "cost.avoided_procurement_cost": {
+    "label": "Lo que paga hoy el actor de destino por lo que este flujo sustituye (compra evitada)",
+    "description": "El coste evitado de quien recibe: lo que compraría sin el intercambio (D4.2 §6.2). Lo rellena el actor de destino."
+   },
+   "ref.flow_id": {
+    "label": "Flujo",
+    "description": "El flujo del que habla la fila: una fila para el actor que lo cede, otra para el que lo recibe."
+   },
+   "ref.side": {
+    "label": "Lado del flujo",
+    "description": "Origen: el actor cede este flujo. Destino: el actor lo recibe."
    }
   },
   "enums": {
@@ -2768,7 +2877,11 @@
    "decommissioned": "desmantelado",
    "single_actor": "un solo actor",
    "joint_venture": "empresa conjunta",
-   "third_party": "terceros"
+   "third_party": "terceros",
+   "gate_fee": "tasa de recepción",
+   "partner": "socio",
+   "origin": "origen (cede el flujo)",
+   "destination": "destino (recibe el flujo)"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "el estudio acredita la sustitución (no es la contabilidad de una sola empresa, situación C2)",
@@ -2878,6 +2991,8 @@
    "dx.s3_body": "Para cada hoja del libro: qué pide cada columna, qué valores acepta y quién la rellena. El mismo texto aparece como comentario en el encabezado de la columna en Excel.",
    "dx.active": "Secciones activas",
    "h.section": "Sección",
+   "h.gives": "Cede",
+   "h.receives": "Recibe",
    "cover.noIlcd": "Ninguna: un estudio solo económico (sin ACV). El cálculo de costes usa el escenario de referencia que usaría un ACV (D4.2 §4.1).",
    "note.analyst": "Para quien realiza el estudio (columna gris): las empresas la dejan vacía.",
    "dx.s1i": "§1. Cómo rellenar el libro Excel",

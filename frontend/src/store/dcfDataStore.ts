@@ -412,8 +412,8 @@ export const useDcfDataStore = create<DcfDataState>()(
         }
 
         const actors = [
-          actorRow('ex-a1', labels.producer, 'producer'),
-          actorRow('ex-a2', labels.consumer, 'consumer'),
+          actorRow('ex-a1', labels.producer, 'partner'),
+          actorRow('ex-a2', labels.consumer, 'partner'),
           actorRow('ex-a3', labels.facilitator, 'facilitator'),
         ]
 

@@ -197,19 +197,31 @@ def _write_drawn_network(doc: Document, actors: list, edges: list[dict], lang: s
 
     if actors:
         doc.add_heading(ui(lang, "dx.actors"), level=2)
-        table = doc.add_table(rows=1, cols=3)
+        # what each actor gives and receives, from the arrows: one role could
+        # not say both (UX round 5, D6)
+        gives = {}
+        receives = {}
+        for edge in edges:
+            gives.setdefault(edge["origin"], []).append(str(edge["name"]))
+            receives.setdefault(edge["destination"], []).append(str(edge["name"]))
+        table = doc.add_table(rows=1, cols=5)
         table.style = "Light List Accent 1"
         head = table.rows[0].cells
-        for i, h in enumerate([ui(lang, "h.actor"), ui(lang, "h.role"), ui(lang, "h.sector")]):
+        headers = [ui(lang, "h.actor"), ui(lang, "h.role"), ui(lang, "h.sector"),
+                   ui(lang, "h.gives"), ui(lang, "h.receives")]
+        for i, h in enumerate(headers):
             head[i].text = h
             for run in head[i].paragraphs[0].runs:
                 run.bold = True
         for row in actors:
             cells = table.add_row().cells
-            cells[0].text = actor_label(row)
+            name = actor_label(row)
+            cells[0].text = name
             cells[1].text = enum_label(lang, row.values.get("actor.role")) or "—"
             sector = row.values.get("actor.sector")
             cells[2].text = ref_label(lang, "Q6a", sector) or str(sector or "—")
+            cells[3].text = ", ".join(gives.get(name, [])) or "—"
+            cells[4].text = ", ".join(receives.get(name, [])) or "—"
 
     if edges:
         doc.add_heading(ui(lang, "dx.flows"), level=2)

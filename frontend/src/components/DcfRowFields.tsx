@@ -81,7 +81,11 @@ export default function DcfRowFields({
 
   // actor.id / flow.id are filled from row_id server-side; the composer
   // marks them so the form and the descriptor agree on what is asked for.
-  const editable = section.fields.filter((f) => !f.derived)
+  // a site can only be picked once the case declares sites: an empty list
+  // with only "—" left people stuck (UX round 5, P4-11, P5-14)
+  const editable = section.fields.filter(
+    (f) => !f.derived && !(f.type === 'fk_site' && sites.length === 0),
+  )
 
   return (
     <div className="nb-panel-body">

@@ -36,7 +36,11 @@ def language(lang: str | None) -> str:
 
 
 # values a field no longer offers but may still hold (see dcf_compose)
-_RETIRED_LABELS = {"flow.type": ("waste", "by_product")}
+_RETIRED_LABELS = {
+    "flow.type": ("waste", "by_product"),
+    "cost.price_basis": ("gate_fee_paid", "gate_fee_received"),
+    "actor.role": ("producer", "consumer"),
+}
 
 
 def ui(lang: str, key: str, **params: Any) -> str:

@@ -94,11 +94,17 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
         section.description = text.get("description", section.description_en)
         if section.id == "reference_scenario" and out.situation_c2:
             section.description = text.get("description_c2", section.description)
+        elif out.costing_only and section.id in ("reference_scenario", "flow_classification"):
+            # without an LCA the two sheets read as LCA leftovers: say why the
+            # costing needs them (Fable D9, D4.2 §6.2, §6.3)
+            section.description = text.get("description_costing_only", section.description)
         for field in section.fields:
             ftext = terms["fields"].get(field.id, {})
             field.label = ftext.get("label", field.label_en)
             field.help = ftext.get("description", field.description_en)
             field.reason = reason(code, field.activation_predicate)
+            if out.costing_only and field.reason and section.id in ("reference_scenario", "flow_classification"):
+                field.reason = terms.get("ui", {}).get("reason.costing_only", field.reason)
             if field.enum_values:
                 field.enum_labels = {v: enum_label(code, v) for v in field.enum_values}
                 # a stored retired value is shown with its label, not as "—"

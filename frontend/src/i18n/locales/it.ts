@@ -559,7 +559,7 @@ const it: Locale = {
         'È possibile selezione multipla: un tipico paper PEF sceglie D + E.',
       options: {
         A: { label: 'A. Interno', description: 'Uso interno (gestionale, R&S, pianificazione).' },
-        B: { label: 'B. Esterno (no claim)', description: 'Comunicazione esterna senza affermazioni comparative.' },
+        B: { label: 'B. Esterno (senza confronti con altri prodotti)', description: 'Comunicazione esterna senza affermazioni comparative.' },
         C: {
           label: 'C. Asserzione comparativa divulgata al pubblico',
           description: 'Affermazione pubblica di superiorità o equivalenza rispetto a un\'alternativa con la stessa funzione, in qualunque forma (articoli compresi).',

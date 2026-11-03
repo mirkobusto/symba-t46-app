@@ -650,3 +650,28 @@ def test_files_do_not_offer_retired_values_but_show_stored_ones(client):
     assert actors.cell(row=5, column=role_col).value == "producer"   # the stored value, shown
     lists = {str(c.value) for row in wb["_lists"].iter_rows() for c in row if c.value}
     assert "partner" in lists and "producer" not in lists and "gate fee paid" not in lists
+
+
+def test_a_costing_only_study_says_why_it_asks_the_reference_and_the_classification(client):
+    """Fable D9: without an LCA the two sheets cite D4.2, not D4.1."""
+    body = {**WIKTOR_BODY, "q3": {"env": False, "eco": True, "soc": False}}
+    payload = client.post("/api/dcf/preview", json=body).json()
+    sections = {s["id"]: s for s in payload["sections"]}
+    assert sections["flow_classification"]["description"].startswith("Asked without an LCA")
+    assert "D4.2 §6.2" in sections["reference_scenario"]["description"]
+    reasons = {f["reason"] for f in sections["flow_classification"]["fields"] if f.get("reason")}
+    assert reasons == {"the costing needs it even without an LCA (D4.2 §6.2)"}
+
+
+def test_the_actors_sheet_says_what_each_actor_gives_and_receives(client):
+    from io import BytesIO
+
+    import openpyxl
+
+    case_id = _create_case(client)
+    assert client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id)).status_code == 200
+    ws = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))["Actors"]
+    header = [c.value for c in ws[4]]
+    col = header.index("Gives / Receives") + 1
+    assert ws.cell(row=5, column=col).value == "Gives: sludge"
+    assert ws.cell(row=6, column=col).value == "Receives: sludge"

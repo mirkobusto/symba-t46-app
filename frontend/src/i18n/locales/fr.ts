@@ -539,7 +539,7 @@ const fr: Locale = {
         "Multi-sélection possible : un papier PEF typique choisit D + E.",
       options: {
         A: { label: 'A. Interne', description: 'Usage interne (managérial, R&D, planification).' },
-        B: { label: 'B. Externe (sans claim)', description: 'Communication externe sans affirmations comparatives.' },
+        B: { label: 'B. Externe (sans comparaison avec d\'autres produits)', description: 'Communication externe sans affirmations comparatives.' },
         C: {
           label: 'C. Affirmation comparative divulguée au public',
           description: 'Affirmation publique de supériorité ou d\'équivalence face à une alternative de même fonction, sous toute forme (articles compris).',

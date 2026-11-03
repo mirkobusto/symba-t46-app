@@ -11,7 +11,8 @@
    },
    "flow_classification": {
     "title": "Flow classification (waste / co-product / by-product)",
-    "description": "One row per flow, whatever Q5 says: the legal and economic tests that decide how a flow is treated (D4.1 §8.3, D4.2 §6.2). They are the analyst's judgements: Q5 only records who pays whom, so keep this consistent with the Q5 class of the flow in the Flow Matrix."
+    "description": "One row per flow, whatever Q5 says: the legal and economic tests that decide how a flow is treated (D4.1 §8.3, D4.2 §6.2). They are the analyst's judgements: Q5 only records who pays whom, so keep this consistent with the Q5 class of the flow in the Flow Matrix.",
+    "description_costing_only": "Asked without an LCA: the costing uses the same reference scenario an LCA would (D4.2 §6.2) and needs every flow classified as avoidable or unavoidable before any cost or zero-cost assumption (D4.2 §6.3). The analyst's judgements."
    },
    "logistics": {
     "title": "Logistics",
@@ -36,7 +37,8 @@
    "reference_scenario": {
     "title": "Reference scenario per actor and flow",
     "description": "One row per actor and per flow it gives or receives: for the origin, where the flow would go without the exchange (disposal route, other buyer); for the destination, what it would buy or produce instead (D4.1 §11.1).",
-    "description_c2": "Optional in Situation C2: one company's accounts take no substitution credits (D4.1 §7.2.3); the reference without the exchanges is reported only for comparison (D4.1 §11.3.1)."
+    "description_c2": "Optional in Situation C2: one company's accounts take no substitution credits (D4.1 §7.2.3); the reference without the exchanges is reported only for comparison (D4.1 §11.3.1).",
+    "description_costing_only": "Asked without an LCA: the avoided costs are measured against the reference scenario the parallel LCA would use (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -94,30 +96,35 @@
    },
    "flow.regime": {
     "label": "Regime",
-    "description": "Continuous: it flows all the time (a pipe, a belt). Batch: it leaves in loads (a tanker every day). Intermittent: only in some periods (a season, a campaign)."
+    "description": "Continuous: it flows all the time (a pipe, a belt). Batch: it leaves in loads (a tanker every day). Intermittent: only in some periods (a season, a campaign). Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.quantity_measured": {
-    "label": "Measured quantity (per year)"
+    "label": "Measured quantity (per year)",
+    "description": "Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.quantity_projected": {
-    "label": "Projected quantity (per scenario, per year)"
+    "label": "Projected quantity (per scenario, per year)",
+    "description": "Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.quality.purity_pct": {
-    "label": "Purity (%)"
+    "label": "Purity (%)",
+    "description": "Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.quality.contamination_level": {
-    "label": "Contamination level"
+    "label": "Contamination level",
+    "description": "Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.quality.reliability_of_supply": {
-    "label": "Reliability of supply"
+    "label": "Reliability of supply",
+    "description": "Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.uncertainty.type": {
     "label": "How the uncertainty is expressed",
-    "description": "How sure the quantity is. Measured (meter, weighbridge, invoices): single value. Estimated: a range, minimum and maximum. A distribution or a qualitative judgement if that is all there is."
+    "description": "How sure the quantity is. Measured (meter, weighbridge, invoices): single value. Estimated: a range, minimum and maximum. A distribution or a qualitative judgement if that is all there is. Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.uncertainty.value": {
     "label": "Uncertainty value (depends on how it is expressed)",
-    "description": "For a range: minimum and maximum, e.g. 2500-3500. For a distribution: its type and parameters. For a qualitative judgement: low / medium / high. Empty for a single value."
+    "description": "For a range: minimum and maximum, e.g. 2500-3500. For a distribution: its type and parameters. For a qualitative judgement: low / medium / high. Empty for a single value. Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.marginal_market_ref": {
     "label": "Marginal market reference (consequential studies)"
@@ -167,32 +174,39 @@
     "label": "Flow"
    },
    "route.distance_km": {
-    "label": "Distance (km)"
+    "label": "Distance (km)",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.transport_mode": {
-    "label": "Transport mode"
+    "label": "Transport mode",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.frequency": {
-    "label": "Frequency"
+    "label": "Frequency",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.measured_volume_year": {
-    "label": "Measured volume (per year)"
+    "label": "Measured volume (per year)",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.projected_volume_year": {
-    "label": "Projected volume per scenario (per year)"
+    "label": "Projected volume per scenario (per year)",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.backhaul_strategy": {
-    "label": "Return trip (backhaul)"
+    "label": "Return trip (backhaul)",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.transport_lci_dataset": {
     "label": "Transport LCI dataset reference"
    },
    "route.transport_cost_per_unit": {
-    "label": "Transport cost (per unit)"
+    "label": "Transport cost (per unit)",
+    "description": "Filled in by whoever organises the transport."
    },
    "route.transport_sensitivity": {
     "label": "What makes this flow sensitive to distance",
-    "description": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity."
+    "description": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity. Filled in by whoever organises the transport."
    },
    "route.break_even_distance_km": {
     "label": "Break-even distance (km)",
@@ -207,7 +221,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Current disposal / management cost (avoided)",
-    "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids."
+    "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids. Filled in by the origin actor (the one that gives the flow)."
    },
    "cost.disposal_cost_unit": {
     "label": "Unit of the two avoided costs (e.g. EUR/t, EUR/year)",
@@ -218,7 +232,8 @@
     "description": "Positive: the receiver pays. Zero: free. Negative: the origin actor pays the receiver a gate fee to take the flow (D4.2 §5.2). One value, agreed by the two partners."
    },
    "cost.price_basis": {
-    "label": "Basis of that price"
+    "label": "Basis of that price",
+    "description": "One value, agreed by the two partners."
    },
    "cost.opex_delta_year": {
     "label": "Change in the origin actor's yearly operating cost (excluding transport)",
@@ -226,14 +241,15 @@
    },
    "cost.currency_year": {
     "label": "Currency and reference year",
-    "description": "e.g. EUR2024. Required: without it the figures cannot be compared or deflated."
+    "description": "e.g. EUR2024. Required: without it the figures cannot be compared or deflated. One value, agreed by the two partners."
    },
    "cost.contract_horizon_y": {
     "label": "Contract horizon (years)",
-    "description": "How long the arrangement is agreed for. Asked for prospective studies, where it bounds the payback."
+    "description": "How long the arrangement is agreed for. Asked for prospective studies, where it bounds the payback. One value, agreed by the two partners."
    },
    "cost.price_volatility": {
-    "label": "Price volatility"
+    "label": "Price volatility",
+    "description": "One value, agreed by the two partners."
    },
    "cost.externality_monetized": {
     "label": "Externalities monetised for this flow",
@@ -578,7 +594,8 @@
    "cat.Cross-method consistency": "Rules between the methods (the ones counted on the result page)",
    "origin.mandate": "Required by the method",
    "origin.rule": "Required between the methods",
-   "because.always": "every study of this kind"
+   "because.always": "every study of this kind",
+   "reason.costing_only": "the costing needs it even without an LCA (D4.2 §6.2)"
   },
   "enum_refs": {
    "Q6a": {
@@ -623,7 +640,8 @@
    },
    "flow_classification": {
     "title": "Classificazione dei flussi (rifiuto / co-prodotto / sottoprodotto)",
-    "description": "Una riga per flusso, qualunque cosa dica Q5: le verifiche giuridiche ed economiche che decidono come si tratta un flusso (D4.1 §8.3, D4.2 §6.2). Sono giudizi dell'analista: Q5 registra solo chi paga chi, quindi tienili coerenti con la classe Q5 del flusso nella Matrice dei flussi."
+    "description": "Una riga per flusso, qualunque cosa dica Q5: le verifiche giuridiche ed economiche che decidono come si tratta un flusso (D4.1 §8.3, D4.2 §6.2). Sono giudizi dell'analista: Q5 registra solo chi paga chi, quindi tienili coerenti con la classe Q5 del flusso nella Matrice dei flussi.",
+    "description_costing_only": "Chiesta anche senza LCA: il costing usa lo stesso scenario di riferimento che userebbe un'LCA (D4.2 §6.2) e ogni flusso va classificato evitabile o inevitabile prima di qualunque ipotesi di costo o di costo zero (D4.2 §6.3). Giudizi dell'analista."
    },
    "logistics": {
     "title": "Logistica",
@@ -648,7 +666,8 @@
    "reference_scenario": {
     "title": "Scenario di riferimento per attore e flusso",
     "description": "Una riga per attore e per flusso che cede o riceve: per l'origine, dove andrebbe il flusso senza lo scambio (smaltimento, un altro acquirente); per la destinazione, che cosa comprerebbe o produrrebbe al suo posto (D4.1 §11.1).",
-    "description_c2": "Facoltativo in Situazione C2: il rendiconto di una sola azienda non prende crediti di sostituzione (D4.1 §7.2.3); il riferimento senza gli scambi si riporta solo per confronto (D4.1 §11.3.1)."
+    "description_c2": "Facoltativo in Situazione C2: il rendiconto di una sola azienda non prende crediti di sostituzione (D4.1 §7.2.3); il riferimento senza gli scambi si riporta solo per confronto (D4.1 §11.3.1).",
+    "description_costing_only": "Chiesto anche senza LCA: i costi evitati si misurano rispetto allo scenario di riferimento che userebbe un'LCA parallela (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -706,30 +725,35 @@
    },
    "flow.regime": {
     "label": "Regime",
-    "description": "Continuo: scorre sempre (un tubo, un nastro). A lotti: parte in carichi (una cisterna ogni giorno). Intermittente: solo in certi periodi (una stagione, una campagna)."
+    "description": "Continuo: scorre sempre (un tubo, un nastro). A lotti: parte in carichi (una cisterna ogni giorno). Intermittente: solo in certi periodi (una stagione, una campagna). Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.quantity_measured": {
-    "label": "Quantità misurata (all'anno)"
+    "label": "Quantità misurata (all'anno)",
+    "description": "Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.quantity_projected": {
-    "label": "Quantità prevista (per scenario, all'anno)"
+    "label": "Quantità prevista (per scenario, all'anno)",
+    "description": "Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.quality.purity_pct": {
-    "label": "Purezza (%)"
+    "label": "Purezza (%)",
+    "description": "Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.quality.contamination_level": {
-    "label": "Livello di contaminazione"
+    "label": "Livello di contaminazione",
+    "description": "Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.quality.reliability_of_supply": {
-    "label": "Affidabilità della fornitura"
+    "label": "Affidabilità della fornitura",
+    "description": "Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.uncertainty.type": {
     "label": "Come si esprime l'incertezza",
-    "description": "Quanto è sicura la quantità. Misurata (contatore, pesa, fatture): valore singolo. Stimata: un intervallo, minimo e massimo. Una distribuzione o un giudizio qualitativo se c'è solo quello."
+    "description": "Quanto è sicura la quantità. Misurata (contatore, pesa, fatture): valore singolo. Stimata: un intervallo, minimo e massimo. Una distribuzione o un giudizio qualitativo se c'è solo quello. Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.uncertainty.value": {
     "label": "Valore dell'incertezza (dipende da come si esprime)",
-    "description": "Per un intervallo: minimo e massimo, es. 2500-3500. Per una distribuzione: tipo e parametri. Per un giudizio qualitativo: basso / medio / alto. Vuoto per un valore singolo."
+    "description": "Per un intervallo: minimo e massimo, es. 2500-3500. Per una distribuzione: tipo e parametri. Per un giudizio qualitativo: basso / medio / alto. Vuoto per un valore singolo. Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.marginal_market_ref": {
     "label": "Riferimento del mercato marginale (studi consequenziali)"
@@ -779,32 +803,39 @@
     "label": "Flusso"
    },
    "route.distance_km": {
-    "label": "Distanza (km)"
+    "label": "Distanza (km)",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.transport_mode": {
-    "label": "Mezzo di trasporto"
+    "label": "Mezzo di trasporto",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.frequency": {
-    "label": "Frequenza"
+    "label": "Frequenza",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.measured_volume_year": {
-    "label": "Volume misurato (all'anno)"
+    "label": "Volume misurato (all'anno)",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.projected_volume_year": {
-    "label": "Volume previsto per scenario (all'anno)"
+    "label": "Volume previsto per scenario (all'anno)",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.backhaul_strategy": {
-    "label": "Viaggio di ritorno (carico al ritorno)"
+    "label": "Viaggio di ritorno (carico al ritorno)",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.transport_lci_dataset": {
     "label": "Riferimento del dataset LCI del trasporto"
    },
    "route.transport_cost_per_unit": {
-    "label": "Costo del trasporto (per unità)"
+    "label": "Costo del trasporto (per unità)",
+    "description": "Lo compila chi organizza il trasporto."
    },
    "route.transport_sensitivity": {
     "label": "Che cosa rende questo flusso sensibile alla distanza",
-    "description": "La distanza di pareggio dipende dal tipo di flusso (D4.2 §4.2): voluminoso o di poco valore, umido, calore/vapore/acqua in condotta, o merce di alto valore."
+    "description": "La distanza di pareggio dipende dal tipo di flusso (D4.2 §4.2): voluminoso o di poco valore, umido, calore/vapore/acqua in condotta, o merce di alto valore. Lo compila chi organizza il trasporto."
    },
    "route.break_even_distance_km": {
     "label": "Distanza di pareggio (km)",
@@ -819,7 +850,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Costo attuale di smaltimento / gestione (evitato)",
-    "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita."
+    "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita. Lo compila l'attore di origine (chi cede il flusso)."
    },
    "cost.disposal_cost_unit": {
     "label": "Unità dei due costi evitati (es. EUR/t, EUR/anno)",
@@ -830,7 +861,8 @@
     "description": "Positivo: paga chi riceve. Zero: gratuito. Negativo: chi cede paga a chi riceve una tariffa di conferimento perché lo prenda (D4.2 §5.2). Un solo valore, concordato dai due partner."
    },
    "cost.price_basis": {
-    "label": "Base di quel prezzo"
+    "label": "Base di quel prezzo",
+    "description": "Un solo valore, concordato dai due partner."
    },
    "cost.opex_delta_year": {
     "label": "Variazione annua dei costi operativi dell'attore di origine (trasporto escluso)",
@@ -838,14 +870,15 @@
    },
    "cost.currency_year": {
     "label": "Valuta e anno di riferimento",
-    "description": "es. EUR2024. Obbligatorio: senza, i valori non si possono confrontare né deflazionare."
+    "description": "es. EUR2024. Obbligatorio: senza, i valori non si possono confrontare né deflazionare. Un solo valore, concordato dai due partner."
    },
    "cost.contract_horizon_y": {
     "label": "Durata del contratto (anni)",
-    "description": "Per quanto tempo è concordato l'accordo. Chiesto per gli studi prospettici, dove limita il ritorno dell'investimento."
+    "description": "Per quanto tempo è concordato l'accordo. Chiesto per gli studi prospettici, dove limita il ritorno dell'investimento. Un solo valore, concordato dai due partner."
    },
    "cost.price_volatility": {
-    "label": "Volatilità del prezzo"
+    "label": "Volatilità del prezzo",
+    "description": "Un solo valore, concordato dai due partner."
    },
    "cost.externality_monetized": {
     "label": "Esternalità monetizzate per questo flusso",
@@ -1190,7 +1223,8 @@
    "cat.Cross-method consistency": "Regole fra i metodi (quelle contate nella pagina risultato)",
    "origin.mandate": "Richiesto dal metodo",
    "origin.rule": "Richiesto fra i metodi",
-   "because.always": "ogni studio di questo tipo"
+   "because.always": "ogni studio di questo tipo",
+   "reason.costing_only": "il costing ne ha bisogno anche senza LCA (D4.2 §6.2)"
   },
   "enum_refs": {
    "Q6a": {
@@ -1235,7 +1269,8 @@
    },
    "flow_classification": {
     "title": "Classification des flux (déchet / coproduit / sous-produit)",
-    "description": "Une ligne par flux, quoi que dise Q5 : les tests juridiques et économiques qui décident du traitement d'un flux (D4.1 §8.3, D4.2 §6.2). Ce sont des jugements de l'analyste : Q5 n'enregistre que qui paie qui, gardez-les cohérents avec la classe Q5 du flux dans la Matrice des flux."
+    "description": "Une ligne par flux, quoi que dise Q5 : les tests juridiques et économiques qui décident du traitement d'un flux (D4.1 §8.3, D4.2 §6.2). Ce sont des jugements de l'analyste : Q5 n'enregistre que qui paie qui, gardez-les cohérents avec la classe Q5 du flux dans la Matrice des flux.",
+    "description_costing_only": "Demandée même sans ACV : le calcul des coûts utilise le même scénario de référence qu'une ACV (D4.2 §6.2) et chaque flux doit être classé évitable ou inévitable avant toute hypothèse de coût ou de coût nul (D4.2 §6.3). Jugements de l'analyste."
    },
    "logistics": {
     "title": "Logistique",
@@ -1260,7 +1295,8 @@
    "reference_scenario": {
     "title": "Scénario de référence par acteur et par flux",
     "description": "Une ligne par acteur et par flux qu'il cède ou reçoit : pour l'origine, où irait le flux sans l'échange (élimination, autre acheteur) ; pour la destination, ce qu'il achèterait ou produirait à la place (D4.1 §11.1).",
-    "description_c2": "Facultatif en situation C2 : la comptabilité d'une seule entreprise ne prend pas de crédits de substitution (D4.1 §7.2.3) ; la référence sans les échanges n'est rapportée que pour comparaison (D4.1 §11.3.1)."
+    "description_c2": "Facultatif en situation C2 : la comptabilité d'une seule entreprise ne prend pas de crédits de substitution (D4.1 §7.2.3) ; la référence sans les échanges n'est rapportée que pour comparaison (D4.1 §11.3.1).",
+    "description_costing_only": "Demandé même sans ACV : les coûts évités se mesurent par rapport au scénario de référence qu'utiliserait une ACV parallèle (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -1318,30 +1354,35 @@
    },
    "flow.regime": {
     "label": "Régime",
-    "description": "Continu : il circule tout le temps (une conduite, un convoyeur). Par lots : il part par chargements (une citerne par jour). Intermittent : seulement à certaines périodes (une saison, une campagne)."
+    "description": "Continu : il circule tout le temps (une conduite, un convoyeur). Par lots : il part par chargements (une citerne par jour). Intermittent : seulement à certaines périodes (une saison, une campagne). Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.quantity_measured": {
-    "label": "Quantité mesurée (par an)"
+    "label": "Quantité mesurée (par an)",
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.quantity_projected": {
-    "label": "Quantité prévue (par scénario, par an)"
+    "label": "Quantité prévue (par scénario, par an)",
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.quality.purity_pct": {
-    "label": "Pureté (%)"
+    "label": "Pureté (%)",
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.quality.contamination_level": {
-    "label": "Niveau de contamination"
+    "label": "Niveau de contamination",
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.quality.reliability_of_supply": {
-    "label": "Fiabilité de l'approvisionnement"
+    "label": "Fiabilité de l'approvisionnement",
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.uncertainty.type": {
     "label": "Comment l'incertitude est exprimée",
-    "description": "Le degré de certitude de la quantité. Mesurée (compteur, pont-bascule, factures) : valeur unique. Estimée : une fourchette, minimum et maximum. Une distribution ou un jugement qualitatif s'il n'y a que cela."
+    "description": "Le degré de certitude de la quantité. Mesurée (compteur, pont-bascule, factures) : valeur unique. Estimée : une fourchette, minimum et maximum. Une distribution ou un jugement qualitatif s'il n'y a que cela. Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.uncertainty.value": {
     "label": "Valeur de l'incertitude (selon son expression)",
-    "description": "Pour une fourchette : minimum et maximum, p. ex. 2500-3500. Pour une distribution : son type et ses paramètres. Pour un jugement qualitatif : faible / moyen / élevé. Vide pour une valeur unique."
+    "description": "Pour une fourchette : minimum et maximum, p. ex. 2500-3500. Pour une distribution : son type et ses paramètres. Pour un jugement qualitatif : faible / moyen / élevé. Vide pour une valeur unique. Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.marginal_market_ref": {
     "label": "Référence du marché marginal (études conséquentielles)"
@@ -1391,32 +1432,39 @@
     "label": "Flux"
    },
    "route.distance_km": {
-    "label": "Distance (km)"
+    "label": "Distance (km)",
+    "description": "Rempli par qui organise le transport."
    },
    "route.transport_mode": {
-    "label": "Mode de transport"
+    "label": "Mode de transport",
+    "description": "Rempli par qui organise le transport."
    },
    "route.frequency": {
-    "label": "Fréquence"
+    "label": "Fréquence",
+    "description": "Rempli par qui organise le transport."
    },
    "route.measured_volume_year": {
-    "label": "Volume mesuré (par an)"
+    "label": "Volume mesuré (par an)",
+    "description": "Rempli par qui organise le transport."
    },
    "route.projected_volume_year": {
-    "label": "Volume prévu par scénario (par an)"
+    "label": "Volume prévu par scénario (par an)",
+    "description": "Rempli par qui organise le transport."
    },
    "route.backhaul_strategy": {
-    "label": "Trajet retour (chargement au retour)"
+    "label": "Trajet retour (chargement au retour)",
+    "description": "Rempli par qui organise le transport."
    },
    "route.transport_lci_dataset": {
     "label": "Référence du jeu de données ICV du transport"
    },
    "route.transport_cost_per_unit": {
-    "label": "Coût du transport (par unité)"
+    "label": "Coût du transport (par unité)",
+    "description": "Rempli par qui organise le transport."
    },
    "route.transport_sensitivity": {
     "label": "Ce qui rend ce flux sensible à la distance",
-    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur."
+    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur. Rempli par qui organise le transport."
    },
    "route.break_even_distance_km": {
     "label": "Distance d'équilibre (km)",
@@ -1431,7 +1479,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Coût actuel d'élimination / de gestion (évité)",
-    "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite."
+    "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite. Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "cost.disposal_cost_unit": {
     "label": "Unité des deux coûts évités (p. ex. EUR/t, EUR/an)",
@@ -1442,7 +1490,8 @@
     "description": "Positif : le receveur paie. Zéro : gratuit. Négatif : l'acteur d'origine paie au receveur une redevance pour qu'il prenne le flux (D4.2 §5.2). Une seule valeur, convenue par les deux partenaires."
    },
    "cost.price_basis": {
-    "label": "Base de ce prix"
+    "label": "Base de ce prix",
+    "description": "Une seule valeur, convenue par les deux partenaires."
    },
    "cost.opex_delta_year": {
     "label": "Variation annuelle des coûts d'exploitation de l'acteur d'origine (hors transport)",
@@ -1450,14 +1499,15 @@
    },
    "cost.currency_year": {
     "label": "Devise et année de référence",
-    "description": "ex. EUR2024. Obligatoire : sans elle, les montants ne peuvent être ni comparés ni déflatés."
+    "description": "ex. EUR2024. Obligatoire : sans elle, les montants ne peuvent être ni comparés ni déflatés. Une seule valeur, convenue par les deux partenaires."
    },
    "cost.contract_horizon_y": {
     "label": "Durée du contrat (années)",
-    "description": "Pour combien de temps l'accord est conclu. Demandé pour les études prospectives, où il borne le retour sur investissement."
+    "description": "Pour combien de temps l'accord est conclu. Demandé pour les études prospectives, où il borne le retour sur investissement. Une seule valeur, convenue par les deux partenaires."
    },
    "cost.price_volatility": {
-    "label": "Volatilité du prix"
+    "label": "Volatilité du prix",
+    "description": "Une seule valeur, convenue par les deux partenaires."
    },
    "cost.externality_monetized": {
     "label": "Externalités monétisées pour ce flux",
@@ -1802,7 +1852,8 @@
    "cat.Cross-method consistency": "Règles entre les méthodes (celles comptées sur la page de résultat)",
    "origin.mandate": "Exigé par la méthode",
    "origin.rule": "Exigé entre les méthodes",
-   "because.always": "toute étude de ce type"
+   "because.always": "toute étude de ce type",
+   "reason.costing_only": "le calcul des coûts en a besoin même sans ACV (D4.2 §6.2)"
   },
   "enum_refs": {
    "Q6a": {
@@ -1847,7 +1898,8 @@
    },
    "flow_classification": {
     "title": "Klassifizierung der Flüsse (Abfall / Koppelprodukt / Nebenprodukt)",
-    "description": "Eine Zeile pro Fluss, unabhängig von Q5: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: Q5 hält nur fest, wer wen bezahlt; halten Sie dies mit der Q5-Klasse des Flusses in der Flussmatrix stimmig."
+    "description": "Eine Zeile pro Fluss, unabhängig von Q5: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: Q5 hält nur fest, wer wen bezahlt; halten Sie dies mit der Q5-Klasse des Flusses in der Flussmatrix stimmig.",
+    "description_costing_only": "Auch ohne Ökobilanz gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine Ökobilanz (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen der Analyse."
    },
    "logistics": {
     "title": "Logistik",
@@ -1872,7 +1924,8 @@
    "reference_scenario": {
     "title": "Referenzszenario je Akteur und Fluss",
     "description": "Eine Zeile je Akteur und je Fluss, den er abgibt oder aufnimmt: für die Herkunft, wohin der Fluss ohne den Austausch ginge (Entsorgung, ein anderer Abnehmer); für das Ziel, was er stattdessen kaufen oder herstellen würde (D4.1 §11.1).",
-    "description_c2": "Optional in Situation C2: Die Bilanz eines einzelnen Unternehmens rechnet keine Substitutionsgutschriften an (D4.1 §7.2.3); die Referenz ohne die Austausche wird nur zum Vergleich angegeben (D4.1 §11.3.1)."
+    "description_c2": "Optional in Situation C2: Die Bilanz eines einzelnen Unternehmens rechnet keine Substitutionsgutschriften an (D4.1 §7.2.3); die Referenz ohne die Austausche wird nur zum Vergleich angegeben (D4.1 §11.3.1).",
+    "description_costing_only": "Auch ohne Ökobilanz gefragt: Die vermiedenen Kosten werden am Referenzszenario gemessen, das eine parallele Ökobilanz verwenden würde (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -1930,30 +1983,35 @@
    },
    "flow.regime": {
     "label": "Betriebsweise",
-    "description": "Kontinuierlich: fließt ständig (eine Leitung, ein Band). Chargenweise: geht in Ladungen (ein Tankwagen pro Tag). Zeitweise: nur in bestimmten Zeiträumen (eine Saison, eine Kampagne)."
+    "description": "Kontinuierlich: fließt ständig (eine Leitung, ein Band). Chargenweise: geht in Ladungen (ein Tankwagen pro Tag). Zeitweise: nur in bestimmten Zeiträumen (eine Saison, eine Kampagne). Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.quantity_measured": {
-    "label": "Gemessene Menge (pro Jahr)"
+    "label": "Gemessene Menge (pro Jahr)",
+    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.quantity_projected": {
-    "label": "Erwartete Menge (pro Szenario, pro Jahr)"
+    "label": "Erwartete Menge (pro Szenario, pro Jahr)",
+    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.quality.purity_pct": {
-    "label": "Reinheit (%)"
+    "label": "Reinheit (%)",
+    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.quality.contamination_level": {
-    "label": "Verunreinigungsgrad"
+    "label": "Verunreinigungsgrad",
+    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.quality.reliability_of_supply": {
-    "label": "Liefersicherheit"
+    "label": "Liefersicherheit",
+    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.uncertainty.type": {
     "label": "Wie die Unsicherheit ausgedrückt wird",
-    "description": "Wie sicher die Menge ist. Gemessen (Zähler, Waage, Rechnungen): Einzelwert. Geschätzt: eine Spanne, Minimum und Maximum. Eine Verteilung oder eine qualitative Einschätzung, wenn es nur das gibt."
+    "description": "Wie sicher die Menge ist. Gemessen (Zähler, Waage, Rechnungen): Einzelwert. Geschätzt: eine Spanne, Minimum und Maximum. Eine Verteilung oder eine qualitative Einschätzung, wenn es nur das gibt. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.uncertainty.value": {
     "label": "Wert der Unsicherheit (je nach Ausdrucksform)",
-    "description": "Für eine Spanne: Minimum und Maximum, z. B. 2500-3500. Für eine Verteilung: Typ und Parameter. Für eine qualitative Einschätzung: niedrig / mittel / hoch. Leer bei einem Einzelwert."
+    "description": "Für eine Spanne: Minimum und Maximum, z. B. 2500-3500. Für eine Verteilung: Typ und Parameter. Für eine qualitative Einschätzung: niedrig / mittel / hoch. Leer bei einem Einzelwert. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.marginal_market_ref": {
     "label": "Referenz des Grenzmarkts (konsequenzielle Studien)"
@@ -2003,32 +2061,39 @@
     "label": "Fluss"
    },
    "route.distance_km": {
-    "label": "Entfernung (km)"
+    "label": "Entfernung (km)",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.transport_mode": {
-    "label": "Verkehrsmittel"
+    "label": "Verkehrsmittel",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.frequency": {
-    "label": "Häufigkeit"
+    "label": "Häufigkeit",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.measured_volume_year": {
-    "label": "Gemessenes Volumen (pro Jahr)"
+    "label": "Gemessenes Volumen (pro Jahr)",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.projected_volume_year": {
-    "label": "Erwartetes Volumen pro Szenario (pro Jahr)"
+    "label": "Erwartetes Volumen pro Szenario (pro Jahr)",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.backhaul_strategy": {
-    "label": "Rückfahrt (Rückladung)"
+    "label": "Rückfahrt (Rückladung)",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.transport_lci_dataset": {
     "label": "Referenz des Transport-Sachbilanzdatensatzes"
    },
    "route.transport_cost_per_unit": {
-    "label": "Transportkosten (pro Einheit)"
+    "label": "Transportkosten (pro Einheit)",
+    "description": "Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.transport_sensitivity": {
     "label": "Was diesen Fluss entfernungsabhängig macht",
-    "description": "Die Break-even-Distanz hängt von der Art des Flusses ab (D4.2 §4.2): sperrig oder geringwertig, feucht, Wärme/Dampf/Wasser in Leitungen oder hochwertige Ware."
+    "description": "Die Break-even-Distanz hängt von der Art des Flusses ab (D4.2 §4.2): sperrig oder geringwertig, feucht, Wärme/Dampf/Wasser in Leitungen oder hochwertige Ware. Von der Seite auszufüllen, die den Transport organisiert."
    },
    "route.break_even_distance_km": {
     "label": "Break-even-Distanz (km)",
@@ -2043,7 +2108,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Heutige Entsorgungs- / Behandlungskosten (vermieden)",
-    "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet."
+    "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "cost.disposal_cost_unit": {
     "label": "Einheit der beiden vermiedenen Kosten (z. B. EUR/t, EUR/Jahr)",
@@ -2054,7 +2119,8 @@
     "description": "Positiv: der Empfänger zahlt. Null: kostenlos. Negativ: der Herkunftsakteur zahlt dem Empfänger eine Annahmegebühr für die Abnahme (D4.2 §5.2). Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.price_basis": {
-    "label": "Grundlage dieses Preises"
+    "label": "Grundlage dieses Preises",
+    "description": "Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.opex_delta_year": {
     "label": "Jährliche Änderung der Betriebskosten des Herkunftsakteurs (ohne Transport)",
@@ -2062,14 +2128,15 @@
    },
    "cost.currency_year": {
     "label": "Währung und Bezugsjahr",
-    "description": "z. B. EUR2024. Pflicht: ohne sie lassen sich die Zahlen weder vergleichen noch deflationieren."
+    "description": "z. B. EUR2024. Pflicht: ohne sie lassen sich die Zahlen weder vergleichen noch deflationieren. Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.contract_horizon_y": {
     "label": "Vertragslaufzeit (Jahre)",
-    "description": "Für wie lange die Vereinbarung gilt. Für prospektive Studien gefragt, wo sie die Amortisation begrenzt."
+    "description": "Für wie lange die Vereinbarung gilt. Für prospektive Studien gefragt, wo sie die Amortisation begrenzt. Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.price_volatility": {
-    "label": "Preisvolatilität"
+    "label": "Preisvolatilität",
+    "description": "Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.externality_monetized": {
     "label": "Für diesen Fluss monetarisierte externe Effekte",
@@ -2414,7 +2481,8 @@
    "cat.Cross-method consistency": "Regeln zwischen den Methoden (die auf der Ergebnisseite gezählten)",
    "origin.mandate": "Von der Methode verlangt",
    "origin.rule": "Zwischen den Methoden verlangt",
-   "because.always": "jede Studie dieser Art"
+   "because.always": "jede Studie dieser Art",
+   "reason.costing_only": "die Kostenrechnung braucht es auch ohne Ökobilanz (D4.2 §6.2)"
   },
   "enum_refs": {
    "Q6a": {
@@ -2459,7 +2527,8 @@
    },
    "flow_classification": {
     "title": "Clasificación de los flujos (residuo / coproducto / subproducto)",
-    "description": "Una fila por flujo, diga lo que diga Q5: las pruebas jurídicas y económicas que deciden cómo se trata un flujo (D4.1 §8.3, D4.2 §6.2). Son juicios del analista: Q5 solo registra quién paga a quién, así que mantenlos coherentes con la clase Q5 del flujo en la Matriz de flujos."
+    "description": "Una fila por flujo, diga lo que diga Q5: las pruebas jurídicas y económicas que deciden cómo se trata un flujo (D4.1 §8.3, D4.2 §6.2). Son juicios del analista: Q5 solo registra quién paga a quién, así que mantenlos coherentes con la clase Q5 del flujo en la Matriz de flujos.",
+    "description_costing_only": "Se pide también sin ACV: el cálculo de costes usa el mismo escenario de referencia que un ACV (D4.2 §6.2) y cada flujo debe clasificarse como evitable o inevitable antes de cualquier hipótesis de coste o de coste cero (D4.2 §6.3). Juicios del analista."
    },
    "logistics": {
     "title": "Logística",
@@ -2484,7 +2553,8 @@
    "reference_scenario": {
     "title": "Escenario de referencia por actor y flujo",
     "description": "Una fila por actor y por flujo que cede o recibe: para el origen, adónde iría el flujo sin el intercambio (eliminación, otro comprador); para el destino, qué compraría o produciría en su lugar (D4.1 §11.1).",
-    "description_c2": "Opcional en la situación C2: la contabilidad de una sola empresa no toma créditos de sustitución (D4.1 §7.2.3); la referencia sin los intercambios se indica solo para comparar (D4.1 §11.3.1)."
+    "description_c2": "Opcional en la situación C2: la contabilidad de una sola empresa no toma créditos de sustitución (D4.1 §7.2.3); la referencia sin los intercambios se indica solo para comparar (D4.1 §11.3.1).",
+    "description_costing_only": "Se pide también sin ACV: los costes evitados se miden respecto al escenario de referencia que usaría un ACV paralelo (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -2542,30 +2612,35 @@
    },
    "flow.regime": {
     "label": "Régimen",
-    "description": "Continuo: circula siempre (una tubería, una cinta). Por lotes: sale en cargas (una cisterna al día). Intermitente: solo en ciertos periodos (una temporada, una campaña)."
+    "description": "Continuo: circula siempre (una tubería, una cinta). Por lotes: sale en cargas (una cisterna al día). Intermitente: solo en ciertos periodos (una temporada, una campaña). Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.quantity_measured": {
-    "label": "Cantidad medida (al año)"
+    "label": "Cantidad medida (al año)",
+    "description": "Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.quantity_projected": {
-    "label": "Cantidad prevista (por escenario, al año)"
+    "label": "Cantidad prevista (por escenario, al año)",
+    "description": "Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.quality.purity_pct": {
-    "label": "Pureza (%)"
+    "label": "Pureza (%)",
+    "description": "Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.quality.contamination_level": {
-    "label": "Nivel de contaminación"
+    "label": "Nivel de contaminación",
+    "description": "Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.quality.reliability_of_supply": {
-    "label": "Fiabilidad del suministro"
+    "label": "Fiabilidad del suministro",
+    "description": "Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.uncertainty.type": {
     "label": "Cómo se expresa la incertidumbre",
-    "description": "Qué seguridad hay sobre la cantidad. Medida (contador, báscula, facturas): valor único. Estimada: un intervalo, mínimo y máximo. Una distribución o un juicio cualitativo si solo hay eso."
+    "description": "Qué seguridad hay sobre la cantidad. Medida (contador, báscula, facturas): valor único. Estimada: un intervalo, mínimo y máximo. Una distribución o un juicio cualitativo si solo hay eso. Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.uncertainty.value": {
     "label": "Valor de la incertidumbre (según cómo se exprese)",
-    "description": "Para un intervalo: mínimo y máximo, p. ej. 2500-3500. Para una distribución: tipo y parámetros. Para un juicio cualitativo: bajo / medio / alto. Vacío para un valor único."
+    "description": "Para un intervalo: mínimo y máximo, p. ej. 2500-3500. Para una distribución: tipo y parámetros. Para un juicio cualitativo: bajo / medio / alto. Vacío para un valor único. Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.marginal_market_ref": {
     "label": "Referencia del mercado marginal (estudios consecuenciales)"
@@ -2615,32 +2690,39 @@
     "label": "Flujo"
    },
    "route.distance_km": {
-    "label": "Distancia (km)"
+    "label": "Distancia (km)",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.transport_mode": {
-    "label": "Modo de transporte"
+    "label": "Modo de transporte",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.frequency": {
-    "label": "Frecuencia"
+    "label": "Frecuencia",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.measured_volume_year": {
-    "label": "Volumen medido (al año)"
+    "label": "Volumen medido (al año)",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.projected_volume_year": {
-    "label": "Volumen previsto por escenario (al año)"
+    "label": "Volumen previsto por escenario (al año)",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.backhaul_strategy": {
-    "label": "Viaje de vuelta (carga de retorno)"
+    "label": "Viaje de vuelta (carga de retorno)",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.transport_lci_dataset": {
     "label": "Referencia del conjunto de datos ICV del transporte"
    },
    "route.transport_cost_per_unit": {
-    "label": "Coste del transporte (por unidad)"
+    "label": "Coste del transporte (por unidad)",
+    "description": "Lo rellena quien organiza el transporte."
    },
    "route.transport_sensitivity": {
     "label": "Qué hace a este flujo sensible a la distancia",
-    "description": "La distancia de equilibrio depende del tipo de flujo (D4.2 §4.2): voluminoso o de poco valor, húmedo, calor/vapor/agua por tubería o mercancía de alto valor."
+    "description": "La distancia de equilibrio depende del tipo de flujo (D4.2 §4.2): voluminoso o de poco valor, húmedo, calor/vapor/agua por tubería o mercancía de alto valor. Lo rellena quien organiza el transporte."
    },
    "route.break_even_distance_km": {
     "label": "Distancia de equilibrio (km)",
@@ -2655,7 +2737,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Coste actual de eliminación / gestión (evitado)",
-    "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita."
+    "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita. Lo rellena el actor de origen (quien cede el flujo)."
    },
    "cost.disposal_cost_unit": {
     "label": "Unidad de los dos costes evitados (p. ej. EUR/t, EUR/año)",
@@ -2666,7 +2748,8 @@
     "description": "Positivo: paga quien recibe. Cero: gratuito. Negativo: el actor de origen paga a quien recibe una tasa para que se lleve el flujo (D4.2 §5.2). Un solo valor, acordado por los dos socios."
    },
    "cost.price_basis": {
-    "label": "Base de ese precio"
+    "label": "Base de ese precio",
+    "description": "Un solo valor, acordado por los dos socios."
    },
    "cost.opex_delta_year": {
     "label": "Variación anual de los costes de explotación del actor de origen (sin transporte)",
@@ -2674,14 +2757,15 @@
    },
    "cost.currency_year": {
     "label": "Moneda y año de referencia",
-    "description": "p. ej. EUR2024. Obligatorio: sin él, las cifras no se pueden comparar ni deflactar."
+    "description": "p. ej. EUR2024. Obligatorio: sin él, las cifras no se pueden comparar ni deflactar. Un solo valor, acordado por los dos socios."
    },
    "cost.contract_horizon_y": {
     "label": "Duración del contrato (años)",
-    "description": "Por cuánto tiempo se ha acordado. Se pide en estudios prospectivos, donde limita la recuperación de la inversión."
+    "description": "Por cuánto tiempo se ha acordado. Se pide en estudios prospectivos, donde limita la recuperación de la inversión. Un solo valor, acordado por los dos socios."
    },
    "cost.price_volatility": {
-    "label": "Volatilidad del precio"
+    "label": "Volatilidad del precio",
+    "description": "Un solo valor, acordado por los dos socios."
    },
    "cost.externality_monetized": {
     "label": "Externalidades monetizadas para este flujo",
@@ -3026,7 +3110,8 @@
    "cat.Cross-method consistency": "Reglas entre los métodos (las que se cuentan en la página de resultados)",
    "origin.mandate": "Exigido por el método",
    "origin.rule": "Exigido entre los métodos",
-   "because.always": "todo estudio de este tipo"
+   "because.always": "todo estudio de este tipo",
+   "reason.costing_only": "el cálculo de costes lo necesita también sin ACV (D4.2 §6.2)"
   },
   "enum_refs": {
    "Q6a": {

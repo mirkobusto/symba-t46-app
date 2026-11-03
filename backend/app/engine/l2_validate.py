@@ -508,8 +508,10 @@ def _action_cir_04(c: Case) -> None:
 
 
 def _action_cir_05(c: Case) -> None:
-    if c.ilcd_situation != IlcdSituation.SITUATION_C2:
-        # strict accounting of one partner: allocation, no substitution credits (D4.1 §7.2.3)
+    if c.ilcd_situation not in (IlcdSituation.SITUATION_C2, IlcdSituation.SITUATION_B):
+        # C2, strict accounting of one partner: allocation, no substitution credits
+        # (D4.1 §7.2.3); B: consequential modelling governs, the CFF is a sensitivity
+        # (D4.1 Table 1, §7.3.3; decided 2026-11-03)
         _write_unless_set(c, "lca.allocation_method", "pef_cff")
     # a company-level LCC keeps to the firm's own cash flows: no monetised
     # externalities, no Net Tax Factor (D4.2 §11.2, §2.2; review 2026-10-18)

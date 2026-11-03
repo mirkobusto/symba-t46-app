@@ -691,7 +691,7 @@ def test_pef_nodes_write_only_when_q4_includes_d(schemas):
 
 
 @pytest.mark.parametrize("q1", list(Q1))
-def test_q4_d_ends_on_pef_cff_except_in_situation_c2(schemas, q1):
+def test_q4_d_ends_on_pef_cff_except_in_situations_c2_and_b(schemas, q1):
     """The Q4 = D branches of lca_mc_13/14 give the CFF (CIR-05 no longer writes over
     them since R3, 2026-10-18), except in Situation C2 (here Q1=D with Q9
     unanswered), where D4.1 §7.2.3 is explicit: "use Allocation (Step 3). Do not
@@ -702,8 +702,14 @@ def test_q4_d_ends_on_pef_cff_except_in_situation_c2(schemas, q1):
     module reads it, so the analyst cannot override this today."""
     case = _baseline_case(q1=q1, q2=Q2.A, q4={Q4.D})
     pipeline_run(case, schemas)
-    expected = "allocation" if q1 == Q1.D else "PEF CFF"
-    assert case.lca["allocation_method"] == expected
+    if q1 == Q1.D:
+        assert case.lca["allocation_method"] == "allocation"
+    elif q1 == Q1.C:
+        # Q1=C reads as Situation B: the consequential model governs, the CFF is a
+        # sensitivity (decided by Fable on the UX round of 2026-11-03, P2-01)
+        assert case.lca["allocation_method"].startswith("consequential expansion against the long-term")
+    else:
+        assert case.lca["allocation_method"] == "PEF CFF"
 
 
 # ---------------------------------------------------------------------------

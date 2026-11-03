@@ -155,13 +155,14 @@
    "flow_part2_chapter": "Flow '{{flow}}': the sector rules of D4.1 Part 2 {{chapter}} apply to it; they are listed under Sector rules.",
    "case_sector_without_flow": "The case sector belongs to D4.1 Part 2 {{chapter}}, but no flow declares that chapter, so its sector rules are not listed. The chapters follow what is exchanged: declare the Part 2 sector of each flow in the flows table.",
    "flow_configuration_unknown": "Flow '{{flow}}': configuration '{{configuration}}' is not one of D4.1 Part 2.",
-   "flow_configuration_other_chapter": "Flow '{{flow}}': its configuration belongs to {{chapter}}, not to the declared {{declared}}; the rules of both chapters are listed."
+   "flow_configuration_other_chapter": "Flow '{{flow}}': its configuration belongs to {{chapter}}, not to the declared {{declared}}; the rules of both chapters are listed.",
+   "b_consequential_over_pef": "Situation B asks for consequential modelling against the marginal technology (D4.1 Table 1), while EU policy alignment (Q4 = D) asks for the PEF Circular Footprint Formula, an attributional partition. The consequential model governs; run the CFF as a sensitivity and declare both in the methodological charter (D4.1 §7.3.3; D4.2 §2.2)."
   },
   "actionKind": {
    "block": "Blocking",
    "obligation": "To document",
    "decision": "To decide",
-   "decisionResolved": "Settled by the engine — check it"
+   "decisionResolved": "Convention proposed by the tool — confirm it or justify another choice"
   },
   "chapters": {
    "§4": "§4 Agri-Food and Biorefineries",
@@ -696,13 +697,14 @@
    "flow_part2_chapter": "Flusso «{{flow}}»: gli si applicano le regole di settore della D4.1 Part 2 {{chapter}}; sono elencate in Regole di settore.",
    "case_sector_without_flow": "Il settore del caso appartiene alla D4.1 Part 2 {{chapter}}, ma nessun flusso dichiara quel capitolo, quindi le sue regole di settore non sono elencate. I capitoli seguono ciò che si scambia: dichiara il settore della Part 2 di ogni flusso nella tabella dei flussi.",
    "flow_configuration_unknown": "Flusso «{{flow}}»: la configurazione «{{configuration}}» non è una di quelle della D4.1 Part 2.",
-   "flow_configuration_other_chapter": "Flusso «{{flow}}»: la sua configurazione appartiene a {{chapter}}, non al capitolo dichiarato {{declared}}; sono elencate le regole di entrambi i capitoli."
+   "flow_configuration_other_chapter": "Flusso «{{flow}}»: la sua configurazione appartiene a {{chapter}}, non al capitolo dichiarato {{declared}}; sono elencate le regole di entrambi i capitoli.",
+   "b_consequential_over_pef": "La Situazione B chiede una modellazione conseguenziale sulla tecnologia marginale (D4.1 Tabella 1), mentre l'allineamento alle politiche UE (Q4 = D) chiede la Circular Footprint Formula della PEF, una ripartizione attribuzionale. Governa il modello conseguenziale; esegui la CFF come analisi di sensibilità e dichiara entrambe nella carta metodologica (D4.1 §7.3.3; D4.2 §2.2)."
   },
   "actionKind": {
    "block": "Bloccante",
    "obligation": "Da documentare",
    "decision": "Da decidere",
-   "decisionResolved": "Risolto dal motore: da verificare"
+   "decisionResolved": "Convenzione proposta dallo strumento — confermala o motiva un'altra scelta"
   },
   "chapters": {
    "§4": "§4 Agroalimentare e bioraffinerie",
@@ -1237,13 +1239,14 @@
    "flow_part2_chapter": "Flux « {{flow}} » : les règles sectorielles de la D4.1 Part 2 {{chapter}} s'y appliquent ; elles figurent sous Règles sectorielles.",
    "case_sector_without_flow": "Le secteur du cas relève de la D4.1 Part 2 {{chapter}}, mais aucun flux ne déclare ce chapitre : ses règles sectorielles ne sont donc pas listées. Les chapitres suivent ce qui est échangé : déclarez le secteur de la Part 2 de chaque flux dans le tableau des flux.",
    "flow_configuration_unknown": "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
-   "flow_configuration_other_chapter": "Flux « {{flow}} » : sa configuration relève de {{chapter}}, pas du chapitre déclaré {{declared}} ; les règles des deux chapitres sont listées."
+   "flow_configuration_other_chapter": "Flux « {{flow}} » : sa configuration relève de {{chapter}}, pas du chapitre déclaré {{declared}} ; les règles des deux chapitres sont listées.",
+   "b_consequential_over_pef": "La Situation B demande une modélisation conséquentielle sur la technologie marginale (D4.1 tableau 1), tandis que l'alignement sur les politiques de l'UE (Q4 = D) demande la Circular Footprint Formula du PEF, une répartition attributionnelle. Le modèle conséquentiel prévaut ; exécutez la CFF comme analyse de sensibilité et déclarez les deux dans la charte méthodologique (D4.1 §7.3.3 ; D4.2 §2.2)."
   },
   "actionKind": {
    "block": "Bloquant",
    "obligation": "À documenter",
    "decision": "À décider",
-   "decisionResolved": "Tranché par le moteur : à vérifier"
+   "decisionResolved": "Convention proposée par l'outil — confirmez-la ou justifiez un autre choix"
   },
   "chapters": {
    "§4": "§4 Agroalimentaire et bioraffineries",
@@ -1778,13 +1781,14 @@
    "flow_part2_chapter": "Fluss „{{flow}}“: Für ihn gelten die Sektorregeln von D4.1 Part 2 {{chapter}}; sie stehen unter Sektorregeln.",
    "case_sector_without_flow": "Der Sektor des Falls gehört zu D4.1 Part 2 {{chapter}}, aber kein Fluss gibt dieses Kapitel an, daher werden seine Sektorregeln nicht aufgeführt. Die Kapitel folgen dem, was ausgetauscht wird: Geben Sie in der Flusstabelle für jeden Fluss den Part-2-Sektor an.",
    "flow_configuration_unknown": "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
-   "flow_configuration_other_chapter": "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt."
+   "flow_configuration_other_chapter": "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
+   "b_consequential_over_pef": "Situation B verlangt eine konsequenzielle Modellierung gegen die marginale Technologie (D4.1 Tabelle 1), während die Ausrichtung auf EU-Politiken (Q4 = D) die Circular Footprint Formula des PEF verlangt, eine attributive Aufteilung. Das konsequenzielle Modell hat Vorrang; führen Sie die CFF als Sensitivitätsanalyse durch und erklären Sie beides in der Methodencharta (D4.1 §7.3.3; D4.2 §2.2)."
   },
   "actionKind": {
    "block": "Blockierend",
    "obligation": "Zu dokumentieren",
    "decision": "Zu entscheiden",
-   "decisionResolved": "Von der Engine entschieden: prüfen"
+   "decisionResolved": "Vom Tool vorgeschlagene Konvention — bestätigen Sie sie oder begründen Sie eine andere Wahl"
   },
   "chapters": {
    "§4": "§4 Agrar, Lebensmittel und Bioraffinerien",
@@ -2319,13 +2323,14 @@
    "flow_part2_chapter": "Flujo «{{flow}}»: se le aplican las reglas sectoriales de la D4.1 Part 2 {{chapter}}; aparecen en Reglas sectoriales.",
    "case_sector_without_flow": "El sector del caso pertenece a la D4.1 Part 2 {{chapter}}, pero ningún flujo declara ese capítulo, así que sus reglas sectoriales no se listan. Los capítulos siguen lo que se intercambia: declara el sector de la Part 2 de cada flujo en la tabla de flujos.",
    "flow_configuration_unknown": "Flujo «{{flow}}»: la configuración «{{configuration}}» no es una de la D4.1 Part 2.",
-   "flow_configuration_other_chapter": "Flujo «{{flow}}»: su configuración pertenece a {{chapter}}, no al capítulo declarado {{declared}}; se listan las reglas de ambos capítulos."
+   "flow_configuration_other_chapter": "Flujo «{{flow}}»: su configuración pertenece a {{chapter}}, no al capítulo declarado {{declared}}; se listan las reglas de ambos capítulos.",
+   "b_consequential_over_pef": "La Situación B pide una modelización consecuencial frente a la tecnología marginal (D4.1 tabla 1), mientras que la alineación con las políticas de la UE (Q4 = D) pide la Circular Footprint Formula de la PEF, un reparto atribucional. Prevalece el modelo consecuencial; ejecuta la CFF como análisis de sensibilidad y declara ambos en la carta metodológica (D4.1 §7.3.3; D4.2 §2.2)."
   },
   "actionKind": {
    "block": "Bloqueante",
    "obligation": "Por documentar",
    "decision": "Por decidir",
-   "decisionResolved": "Resuelto por el motor: a revisar"
+   "decisionResolved": "Convención propuesta por la herramienta — confírmala o justifica otra elección"
   },
   "chapters": {
    "§4": "§4 Agroalimentario y biorrefinerías",

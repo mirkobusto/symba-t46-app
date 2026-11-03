@@ -24,7 +24,7 @@ describe('configurationRows', () => {
   it('says what the answers decided, with the reason', async () => {
     await i18n.changeLanguage('en')
     const rows = Object.fromEntries(configurationRows(BASE, t).map((r) => [r.key, r]))
-    expect(Object.keys(rows)).toEqual(['lcc', 'slca', 'horizon', 'reference', 'fu', 'regional', 'claim', 'shared'])
+    expect(Object.keys(rows)).toEqual(['lcc', 'slca', 'horizon', 'reference', 'multifunctionality', 'fu', 'regional', 'claim', 'shared'])
     expect(rows.claim.value).toBe('No public comparative claim')
     expect(rows.slca.value).toBe('Not included')
     expect(rows.slca.why).toMatch(/Q3/)
@@ -96,5 +96,15 @@ describe('obligationGroups', () => {
     expect(obligationGroups(rules)).toEqual([
       { family: 'IR', count: 2 }, { family: 'CIR', count: 1 }, { family: 'FU', count: 1 }, { family: 'B', count: 1 },
     ])
+  })
+
+  // decided by Fable on the UX round of 2026-11-03 (P2-01)
+  it('says how multifunctionality is resolved, and where the PEF CFF stands', async () => {
+    await i18n.changeLanguage('en')
+    const multi = (kase: Case) => configurationRows(kase, t).find((r) => r.key === 'multifunctionality')!.value
+    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation B', q4: ['D'] })).toBe(
+      'Consequential: substitution against the marginal technology — PEF CFF as a sensitivity (Q4 = D)')
+    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation C2', q4: ['D'] })).toMatch(/^Allocation.*CFF is not applied$/)
+    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation A', q4: [] })).toMatch(/^Substitution .*quality factor Q$/)
   })
 })

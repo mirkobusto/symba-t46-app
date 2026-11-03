@@ -14,6 +14,7 @@ combined deliverable.
 from __future__ import annotations
 
 from io import BytesIO
+from typing import Any
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
@@ -22,7 +23,7 @@ from docx.shared import Pt, RGBColor
 from app.domain.dcf_data import DcfData
 from app.engine.dcf_compose import DcfPayload
 from app.engine.dcf_rows import actor_label, edge_list, rows_for
-from app.services.dcf_terms import cover_value, enum_label, ref_label, ui
+from app.services.dcf_terms import cover_rows, enum_label, ref_label, ui
 
 EU_FOOTER = (
     "This Project has received funding from the European Union's Horizon "
@@ -57,6 +58,7 @@ def generate_dcf_docx_bytes(
     case_title: str | None = None,
     data: DcfData | None = None,
     lang: str = "en",
+    cover: dict[str, Any] | None = None,
 ) -> bytes:
     """Render a DCF docx from a DcfPayload and return the bytes.
 
@@ -66,7 +68,7 @@ def generate_dcf_docx_bytes(
     doc = Document()
     doc.styles["Normal"].font.size = Pt(11)
 
-    _write_cover_block(doc, payload, case_title, lang)
+    _write_cover_block(doc, payload, case_title, lang, cover or {})
     _write_methodological_section(doc, payload, lang)
     _write_network_section(doc, payload, data, lang)
     _write_excel_reference_section(doc, payload, lang)
@@ -82,7 +84,11 @@ def generate_dcf_docx_bytes(
 # ---------------------------------------------------------------------------
 
 
-def _write_cover_block(doc: Document, payload: DcfPayload, case_title: str | None, lang: str = "en") -> None:
+def _write_cover_block(
+    doc: Document, payload: DcfPayload, case_title: str | None, lang: str = "en",
+    cover: dict[str, Any] | None = None,
+) -> None:
+    cover = cover or {}
     heading = doc.add_heading(case_title or ui(lang, "title"), level=0)
     heading.runs[0].font.size = Pt(20)
     heading.runs[0].font.color.rgb = SYMBA_NAVY
@@ -112,15 +118,7 @@ def _write_cover_block(doc: Document, payload: DcfPayload, case_title: str | Non
     doc.add_heading(ui(lang, "dx.cover"), level=1)
     table = doc.add_table(rows=0, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.LEFT
-    rows = [
-        (ui(lang, "cover.case_id"), payload.case_id),
-        (ui(lang, "cover.ilcd"), cover_value(lang, "ilcd", payload.ilcd_situation)),
-        (ui(lang, "cover.lcc"), cover_value(lang, "lcc", payload.lcc_type)),
-        (ui(lang, "cover.slca"), cover_value(lang, "slca", payload.slca_activation_state)),
-        (ui(lang, "cover.purpose"), cover_value(lang, "purpose", payload.study_purpose)),
-        (ui(lang, "cover.market"), cover_value(lang, "market", payload.reference_market)),
-        (ui(lang, "cover.schema"), payload.schema_version),
-    ]
+    rows = cover_rows(payload, lang, cover.get("rows"), cover.get("case_ref"), cover.get("generated_on"))
     for label, value in rows:
         cells = table.add_row().cells
         cells[0].text = label

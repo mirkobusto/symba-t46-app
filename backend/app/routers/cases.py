@@ -135,10 +135,19 @@ def _to_detail(rec: CaseRecord) -> CaseDetail:
     )
 
 
+def shown_ilcd(case: Case) -> str | None:
+    """The ILCD situation as the lists and dashboards show it: none for a
+    costing-only study, the situations dictate the LCA model (UX round 5,
+    P3-04). One helper, so "My cases" and both dashboards agree."""
+    if not case.ilcd_situation or not case.q3.env:
+        return None
+    return case.ilcd_situation.value
+
+
 def _populate_record(rec: CaseRecord, name: str, case: Case) -> None:
     rec.name = name
     rec.case_json = case.model_dump_json()
-    rec.ilcd_situation = case.ilcd_situation.value if case.ilcd_situation else None
+    rec.ilcd_situation = shown_ilcd(case)
 
 
 # ---------------------------------------------------------------------------
@@ -221,7 +230,7 @@ def aggregate_breakdown(db: OrmSession = Depends(get_db)) -> CasesAggregate:
             continue
         sector_counter[case.q6a.value if case.q6a else None] += 1
         scope_counter[case.q7.value if case.q7 else None] += 1
-        ilcd_counter[case.ilcd_situation.value if case.ilcd_situation else None] += 1
+        ilcd_counter[shown_ilcd(case)] += 1
         lcc_counter[case.lcc_type.value if case.lcc_type else None] += 1
 
     return CasesAggregate(

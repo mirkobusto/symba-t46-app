@@ -102,6 +102,8 @@ export interface DcfObligation {
 }
 
 export interface DcfPayload {
+  /** a costing-only study has no ILCD situation to show (UX round 5) */
+  costing_only?: boolean
   schema_version: string
   case_id: string
   ilcd_situation: string | null

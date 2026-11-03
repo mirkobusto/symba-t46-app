@@ -27,12 +27,14 @@ pay the JSON-load cost only once.
 from __future__ import annotations
 
 import json
+import re
 from datetime import UTC, datetime
 from functools import lru_cache
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Response, status
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session as OrmSession
 
 from app.auth.deps import get_current_user_optional
@@ -108,6 +110,44 @@ def _run_and_compose(case: Case, schemas: LoadedSchemas) -> DcfPayload:
     )
 
 
+class CoverRow(BaseModel):
+    """One row of the result page's "Your configuration", worded in `lang`."""
+
+    label: str
+    value: str
+    why: str | None = None
+
+
+class DcfExportRequest(BaseModel):
+    """What the browser sends with a download: the configuration rows the
+    result page shows, so the cover of the files says the same (UX round 5, D7).
+    `case` is needed only for a draft that was never saved."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    case: Case | None = None
+    rows: list[CoverRow] = Field(default_factory=list)
+
+
+def _today() -> str:
+    return datetime.now(UTC).date().isoformat()
+
+
+def _filename(ref: str | None, ext: str) -> str:
+    """DCF_<case>_<date>: the files of two cases, or of two weeks, no longer
+    share the name dcf_<8 hex> (UX round 5, P7-07)."""
+    safe = re.sub(r"[^A-Za-z0-9_-]+", "-", ref or "draft").strip("-") or "draft"
+    return f"DCF_{safe}_{_today()}.{ext}"
+
+
+def _cover(rows: list[CoverRow], case_ref: str | None) -> dict[str, Any]:
+    return {
+        "rows": [r.model_dump() for r in rows],
+        "case_ref": case_ref,
+        "generated_on": _today(),
+    }
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
@@ -125,18 +165,26 @@ def preview(
     return localize(_run_and_compose(case, schemas), lang)
 
 
+def _draft_request(body: DcfExportRequest | Case) -> tuple[Case, list[CoverRow]]:
+    if isinstance(body, Case):
+        return body, []
+    if body.case is None:
+        raise HTTPException(status_code=422, detail="case is required for a draft export")
+    return body.case, body.rows
+
+
 @router.post("/export/xlsx")
 def export_xlsx(
-    case: Case,
+    body: Annotated[DcfExportRequest | Case, Body()],
     schemas: LoadedSchemas = Depends(_get_schemas),
     lang: str = Query("en"),
 ) -> Response:
-    """Render the DCF as a multi-tab Excel workbook and stream it as a
-    download. Default filename uses the case id."""
+    """Render the DCF of a draft that was never saved as an Excel workbook."""
+    case, rows = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = render_xlsx(localize(payload, lang), data, lang=lang)
-    filename = f"dcf_{payload.case_id[:8]}.xlsx"
+    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=_cover(rows, None))
+    filename = _filename(None, "xlsx")
     return Response(
         content=blob,
         media_type=XLSX_MIME,
@@ -146,16 +194,16 @@ def export_xlsx(
 
 @router.post("/export/docx")
 def export_docx(
-    case: Case,
+    body: Annotated[DcfExportRequest | Case, Body()],
     schemas: LoadedSchemas = Depends(_get_schemas),
     lang: str = Query("en"),
 ) -> Response:
-    """Render the DCF as a .docx companion document and stream it as a
-    download."""
+    """The companion document of a draft that was never saved."""
+    case, rows = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang)
-    filename = f"dcf_{payload.case_id[:8]}.docx"
+    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=_cover(rows, None))
+    filename = _filename(None, "docx")
     return Response(
         content=blob,
         media_type=DOCX_MIME,
@@ -301,6 +349,30 @@ def _stored_data(db: OrmSession, case_id: str) -> DcfData | None:
     return DcfData.model_validate_json(rec.data_json) if rec else None
 
 
+def _saved_export(
+    kind: str, case_id: str, rows: list[CoverRow], db: OrmSession,
+    user: User | None, schemas: LoadedSchemas, lang: str,
+) -> Response:
+    """Files of a saved case, pre-filled with what the Network Builder stored
+    and the questionnaire flows; the cover carries the configuration rows."""
+    rec, case = _load_case_for(case_id, db, user, for_write=False)
+    payload = _run_and_compose(case, schemas)
+    data = with_case_flows(_stored_data(db, case_id), case, case_id)
+    cover = _cover(rows, rec.slug or case_id[:8])
+    if kind == "xlsx":
+        blob = render_xlsx(localize(payload, lang), data, rec.name, lang=lang, cover=cover)
+        mime = XLSX_MIME
+    else:
+        blob = generate_dcf_docx_bytes(localize(payload, lang), rec.name, data, lang=lang, cover=cover)
+        mime = DOCX_MIME
+    filename = _filename(rec.slug or case_id[:8], kind)
+    return Response(
+        content=blob,
+        media_type=mime,
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
 @router.get("/{case_id}/export/xlsx")
 def export_xlsx_for_case(
     case_id: str,
@@ -309,19 +381,22 @@ def export_xlsx_for_case(
     schemas: LoadedSchemas = Depends(_get_schemas),
     lang: str = Query("en"),
 ) -> Response:
-    """Excel export of a *saved* case, pre-filled with what the Network
-    Builder stored. The stateless POST /export/xlsx stays for drafts that
-    have never been saved (it has no case id to look content up by)."""
-    rec, case = _load_case_for(case_id, db, current_user, for_write=False)
-    payload = _run_and_compose(case, schemas)
-    data = with_case_flows(_stored_data(db, case_id), case, case_id)
-    blob = render_xlsx(localize(payload, lang), data, rec.name, lang=lang)
-    filename = f"dcf_{rec.slug or case_id[:8]}.xlsx"
-    return Response(
-        content=blob,
-        media_type=XLSX_MIME,
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
-    )
+    """Excel export of a *saved* case. The stateless POST /export/xlsx stays
+    for drafts that have never been saved."""
+    return _saved_export("xlsx", case_id, [], db, current_user, schemas, lang)
+
+
+@router.post("/{case_id}/export/xlsx")
+def export_xlsx_for_case_with_cover(
+    case_id: str,
+    body: DcfExportRequest,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+    schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
+) -> Response:
+    """As the GET, with the result page's configuration rows on the cover."""
+    return _saved_export("xlsx", case_id, body.rows, db, current_user, schemas, lang)
 
 
 @router.get("/{case_id}/export/docx")
@@ -332,15 +407,18 @@ def export_docx_for_case(
     schemas: LoadedSchemas = Depends(_get_schemas),
     lang: str = Query("en"),
 ) -> Response:
-    """Companion document of a saved case, with §2 reporting the drawn
-    network instead of describing it."""
-    rec, case = _load_case_for(case_id, db, current_user, for_write=False)
-    payload = _run_and_compose(case, schemas)
-    data = with_case_flows(_stored_data(db, case_id), case, case_id)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), rec.name, data, lang=lang)
-    filename = f"dcf_{rec.slug or case_id[:8]}.docx"
-    return Response(
-        content=blob,
-        media_type=DOCX_MIME,
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
-    )
+    """Companion document of a saved case, with §2 reporting the drawn network."""
+    return _saved_export("docx", case_id, [], db, current_user, schemas, lang)
+
+
+@router.post("/{case_id}/export/docx")
+def export_docx_for_case_with_cover(
+    case_id: str,
+    body: DcfExportRequest,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+    schemas: LoadedSchemas = Depends(_get_schemas),
+    lang: str = Query("en"),
+) -> Response:
+    """As the GET, with the result page's configuration rows on the cover."""
+    return _saved_export("docx", case_id, body.rows, db, current_user, schemas, lang)

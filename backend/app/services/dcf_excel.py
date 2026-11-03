@@ -22,6 +22,7 @@ Design principles:
 from __future__ import annotations
 
 from io import BytesIO
+from typing import Any
 
 from openpyxl import Workbook
 from openpyxl.comments import Comment
@@ -32,7 +33,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
 from app.engine.dcf_rows import actor_label, cell_values, edge_list, rows_for
-from app.services.dcf_terms import cover_value, enum_label, ui, value_label
+from app.services.dcf_terms import cover_rows, enum_label, ui, value_label
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -74,8 +75,13 @@ def render_xlsx(
     data: DcfData | None = None,
     case_title: str | None = None,
     lang: str = "en",
+    cover: dict[str, Any] | None = None,
 ) -> bytes:
     """Render the DcfPayload to an xlsx workbook and return raw bytes.
+
+    `cover` carries what the cover states beyond the payload: `rows` (the
+    result page's configuration, worded in `lang`), `case_ref` (the case's
+    readable id) and `generated_on` (the date).
 
     `data` is the content stored by the Network Builder, when the case
     has any: its rows are written under the headers so the analyst gets
@@ -92,7 +98,7 @@ def render_xlsx(
     lists = wb.create_sheet(_LISTS_SHEET)
     lists.sheet_state = "hidden"
 
-    _write_cover_tab(wb, payload, case_title, lang)
+    _write_cover_tab(wb, payload, case_title, lang, cover or {})
     _write_instructions_tab(wb, payload, case_title, lang)
 
     sections = {s.id: s for s in payload.sections}
@@ -139,22 +145,16 @@ def _label(field) -> str:
 
 
 def _write_cover_tab(
-    wb: Workbook, payload: DcfPayload, case_title: str | None = None, lang: str = "en"
+    wb: Workbook, payload: DcfPayload, case_title: str | None = None, lang: str = "en",
+    cover: dict[str, Any] | None = None,
 ) -> None:
+    cover = cover or {}
     ws = wb.create_sheet(ui(lang, "sheet.cover"))
     # The recipient knows the case by its name, not by a uuid.
     ws["A1"] = f"{ui(lang, 'title')} — {case_title}" if case_title else ui(lang, "title")
     ws["A1"].font = _TITLE_FONT
 
-    rows = [
-        (ui(lang, "cover.case_id"), payload.case_id),
-        (ui(lang, "cover.ilcd"), cover_value(lang, "ilcd", payload.ilcd_situation)),
-        (ui(lang, "cover.lcc"), cover_value(lang, "lcc", payload.lcc_type)),
-        (ui(lang, "cover.slca"), cover_value(lang, "slca", payload.slca_activation_state)),
-        (ui(lang, "cover.purpose"), cover_value(lang, "purpose", payload.study_purpose)),
-        (ui(lang, "cover.market"), cover_value(lang, "market", payload.reference_market)),
-        (ui(lang, "cover.schema"), payload.schema_version),
-    ]
+    rows = cover_rows(payload, lang, cover.get("rows"), cover.get("case_ref"), cover.get("generated_on"))
     for i, (label, value) in enumerate(rows, start=3):
         ws.cell(row=i, column=1, value=label).font = _LABEL_FONT
         ws.cell(row=i, column=2, value=value)
@@ -163,8 +163,10 @@ def _write_cover_tab(
     ws.cell(row=footer_row, column=1, value=EU_FOOTER).font = _FOOTER_FONT
     ws.merge_cells(start_row=footer_row, start_column=1, end_row=footer_row, end_column=4)
 
-    ws.column_dimensions["A"].width = 24
-    ws.column_dimensions["B"].width = 50
+    ws.column_dimensions["A"].width = 30
+    ws.column_dimensions["B"].width = 90
+    for r in range(3, 3 + len(rows)):
+        ws.cell(row=r, column=2).alignment = Alignment(wrap_text=True, vertical="top")
     _set_print_footer(ws)
 
 

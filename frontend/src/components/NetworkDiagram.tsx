@@ -57,7 +57,9 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
         label: (
           <span className="nb-node-label">
             <strong>{node.label}</strong>
-            <em>{node.role ?? t('networkBuilder.noRole')}</em>
+            <em>{node.role
+              ? t(`networkBuilder.roles.${node.role}`, { defaultValue: node.role })
+              : t('networkBuilder.noRole')}</em>
           </span>
         ),
       },
@@ -131,10 +133,7 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
   if (!payload.network_render_spec) {
     return (
       <div className="dcf-network-placeholder">
-        <p>
-          The Network Diagram section is not active for this case
-          configuration.
-        </p>
+        <p>{t('networkDiagram.inactive')}</p>
       </div>
     )
   }
@@ -143,17 +142,24 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
     <div className="dcf-network-diagram-wrap">
       {drawn ? (
         <div className="dcf-network-badges">
-          <span className="dd-pill dd-pill-brand">
-            {payload.ilcd_situation ?? '—'}
-          </span>
-          <span className="dd-pill dd-pill-brand">
-            LCC {payload.lcc_type ?? '—'}
-          </span>
+          {/* the same words as the rest of the page: the saved diagram switched to
+              English codes and roles (UX round 5, P4-07, P5-10, P6-08) */}
+          {payload.ilcd_situation && !payload.costing_only ? (
+            <span className="dd-pill dd-pill-brand">
+              {t(`result.situationBadge.${payload.ilcd_situation.replace('ILCD Situation ', '')}`, {
+                defaultValue: payload.ilcd_situation,
+              })}
+            </span>
+          ) : null}
+          {payload.lcc_type && payload.lcc_type !== 'deactivated' ? (
+            <span className="dd-pill dd-pill-brand">
+              {t(`result.lccBadge.${payload.lcc_type}`, { defaultValue: `LCC ${payload.lcc_type}` })}
+            </span>
+          ) : null}
           <span className="dd-pill dd-pill-muted">
-            {t('networkDiagram.counts', {
-              actors: drawnGraph.nodes.length,
-              flows: drawnGraph.edges.length,
-            })}
+            {t('networkDiagram.actors', { count: drawnGraph.nodes.length })}
+            {' · '}
+            {t('networkDiagram.flows', { count: drawnGraph.edges.length })}
           </span>
         </div>
       ) : (

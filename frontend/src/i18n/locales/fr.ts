@@ -635,7 +635,7 @@ const fr: Locale = {
       },
       market: {
         label: 'Marché de référence : d\'où viendraient les produits remplacés ?',
-        help: 'Le marché auquel puiserait le contrefactuel, pas le marché des produits de la symbiose. Facultatif.',
+        help: 'Où les entreprises achèteraient, sans les échanges, ce que les échanges remplacent : pas le marché des produits de la symbiose. Facultatif.',
         region: 'Pays ou région',
         regionPlaceholder: 'ex. Italie, Catalogne, UE',
         scope: {
@@ -763,7 +763,7 @@ const fr: Locale = {
       d: 'Les deux installations dépendent l\'une de l\'autre (l\'une a été modifiée pour alimenter l\'autre)',
       e: 'Un seul chiffre total pour tout le réseau',
     },
-    q5Note: 'Répondez selon l\'arrangement actuel — convenu, ou prévu si l\'échange n\'existe pas encore. C\'est une hypothèse de départ, pas un résultat : si l\'étude change qui paie qui, revenez le modifier. Choisissez b (personne ne paie, ou ce n\'est pas encore clair) quand c\'est réellement indécis.',
+    q5Note: 'Répondez selon l\'arrangement actuel — convenu, ou prévu si l\'échange n\'existe pas encore. C\'est une hypothèse de départ, pas un résultat : si l\'étude change qui paie qui, revenez le modifier. Choisissez « Personne ne paie, ou ce n\'est pas encore clair » quand c\'est réellement indécis.',
     emptyHint: 'Aucun flux. Ajoutez-en au moins un pour caractériser la Q5 par-flux.',
     headers: { id: 'ID', name: 'Nom', q5: "Qui paie qui (Q5)", sellable: 'Vendable à d\'autres ?', sector: 'Secteur (Partie 2)', configuration: "Configuration (Partie 2)" },
     q5Unset: "— choisir qui paie qui",
@@ -968,6 +968,7 @@ const fr: Locale = {
         regional: 'Impacts locaux',
         sectors: 'Règles sectorielles',
         shared: 'Biens dédiés',
+        sharedLca: 'Leur production et leur fin de vie inventoriées dans l\'ACV et amorties sur la durée de vie technique de chaque bien (D4.1 §6.3.3)',
         claimPublic: 'Comparaisons',
         multifunctionality: 'Multifonctionnalité',
         flowsLcc: 'Coût de chaque flux',
@@ -1004,6 +1005,7 @@ const fr: Locale = {
           evt: "indécis : test de valeur économique, avec analyse de sensibilité",
           coproduct: "coproduit : substitution du produit remplacé, avec facteur de qualité Q",
           integrated: 'interdépendant : un coproduit déterminant ; l\'ACV modélise les deux procédés comme un seul système multifonctionnel étendu et répartit la charge par substitution (allocation seulement là où la substitution n\'est pas défendable) ; l\'E-LCC suit la même répartition, en valorisant le flux au prix de marché de ce qu\'il remplace ; le C-LCC utilise le prix de cession négocié',
+          integratedLca: 'interdépendant : un coproduit déterminant ; l\'ACV modélise les deux procédés comme un seul système multifonctionnel étendu et répartit la charge par substitution (allocation seulement là où la substitution n\'est pas défendable)',
           allocation: "allocation (comptes d'une seule entreprise : pas de crédit de substitution)",
           aggregated: "agrégé : classer chaque flux que l'on peut nommer",
         },
@@ -1520,6 +1522,11 @@ const fr: Locale = {
 
   networkDiagram: {
     counts: '{{actors}} acteurs · {{flows}} flux',
+    actors_one: '{{count}} acteur',
+    actors_other: '{{count}} acteurs',
+    flows_one: '{{count}} flux',
+    flows_other: '{{count}} flux',
+    inactive: 'Le diagramme du réseau ne fait pas partie de la configuration de ce cas.',
     placeholder:
       "Aperçu seulement — ceci est un substitut construit à partir des flux déclarés dans le questionnaire. Dessinez le vrai réseau dans l'onglet Éditeur de réseau et il apparaîtra ici, dans l'Excel et dans le rapport.",
   },

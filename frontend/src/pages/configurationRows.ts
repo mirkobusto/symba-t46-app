@@ -188,7 +188,9 @@ export function configurationRows(
     const treatments = (kase.flows ?? []).map((f) => {
       const raw = String((perFlow as Record<string, unknown>)[f.id] ?? '')
       const kind = FLOW_TREATMENT.find(([start]) => raw.startsWith(start))?.[1]
-      return `${f.name || f.id}: ${kind ? t(`result.config.values.flowTreatment.${kind}`) : raw || '—'}`
+      // without a costing the interdependent row spoke of E-LCC and C-LCC (P3-12)
+      const key = kind === 'integrated' && !eco ? 'integratedLca' : kind
+      return `${f.name || f.id}: ${key ? t(`result.config.values.flowTreatment.${key}`) : raw || '—'}`
     })
     rows.push({
       key: 'flows',
@@ -335,7 +337,9 @@ export function configurationRows(
     rows.push({
       key: 'shared',
       label: label('shared'),
-      value: t('result.config.values.shared'),
+      // CAPEX and OPEX are costing words: an LCA alone inventories the assets
+      // over their technical lifetime (D4.1 §6.3.3; UX round 5, P3-12)
+      value: t(eco ? 'result.config.values.shared' : 'result.config.values.sharedLca'),
       why: t('result.config.why.shared'),
       nodeText: texts(lcc['capital_goods.included'], lca['capital_goods.included']),
     })

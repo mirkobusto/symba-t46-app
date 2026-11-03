@@ -629,7 +629,7 @@ const de: Locale = {
       },
       market: {
         label: 'Referenzmarkt: Woher kämen die ersetzten Produkte?',
-        help: 'Der Markt, aus dem das Kontrafaktum schöpfen würde, nicht der Markt der Symbioseprodukte. Optional.',
+        help: 'Wo die Unternehmen ohne die Austausche kaufen würden, was die Austausche ersetzen – nicht der Markt der Symbioseprodukte. Optional.',
         region: 'Land oder Region',
         regionPlaceholder: 'z. B. Italien, Katalonien, EU',
         scope: {
@@ -757,7 +757,7 @@ const de: Locale = {
       d: 'Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)',
       e: 'Nur eine Gesamtzahl für das ganze Netzwerk',
     },
-    q5Note: 'Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie b (niemand zahlt, oder es ist noch nicht klar), wenn es wirklich offen ist.',
+    q5Note: 'Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „Niemand zahlt, oder es ist noch nicht klar“, wenn es wirklich offen ist.',
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
     headers: { id: 'ID', name: 'Name', q5: "Wer zahlt wen (Q5)", sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
     q5Unset: "— wählen, wer wen bezahlt",
@@ -962,6 +962,7 @@ const de: Locale = {
         regional: 'Lokale Wirkungen',
         sectors: 'Sektorregeln',
         shared: 'Eigens errichtete Anlagen',
+        sharedLca: 'Ihre Herstellung und ihr Lebensende werden in der Ökobilanz inventarisiert und über die technische Lebensdauer jedes Guts abgeschrieben (D4.1 §6.3.3)',
         claimPublic: 'Vergleiche',
         multifunctionality: 'Multifunktionalität',
         flowsLcc: 'Kosten jedes Flusses',
@@ -998,6 +999,7 @@ const de: Locale = {
           evt: "offen: ökonomischer Werttest, mit Sensitivitätsanalyse",
           coproduct: "Koppelprodukt: Substitution des ersetzten Produkts, mit Qualitätsfaktor Q",
           integrated: 'interdependent: ein bestimmendes Koppelprodukt; die Ökobilanz modelliert die beiden Prozesse als ein erweitertes multifunktionales System und teilt die Last durch Substitution (Allokation nur, wo die Substitution nicht vertretbar ist); die E-LCC folgt derselben Aufteilung und bewertet den Fluss zum Marktpreis dessen, was er ersetzt; die C-LCC nutzt den ausgehandelten Verrechnungspreis',
+          integratedLca: 'voneinander abhängig: ein bestimmendes Koppelprodukt; die Ökobilanz modelliert die beiden Prozesse als ein erweitertes multifunktionales System und teilt die Last durch Substitution (Allokation nur, wo Substitution nicht vertretbar ist)',
           allocation: "Allokation (Bilanz eines Unternehmens: keine Substitutionsgutschriften)",
           aggregated: "aggregiert: jeden benennbaren Fluss einordnen",
         },
@@ -1514,6 +1516,11 @@ const de: Locale = {
 
   networkDiagram: {
     counts: '{{actors}} Akteure · {{flows}} Flüsse',
+    actors_one: '{{count}} Akteur',
+    actors_other: '{{count}} Akteure',
+    flows_one: '{{count}} Fluss',
+    flows_other: '{{count}} Flüsse',
+    inactive: 'Das Netzwerkdiagramm gehört nicht zur Konfiguration dieses Falls.',
     placeholder:
       'Nur Vorschau — dies ist ein Platzhalter aus den im Fragebogen deklarierten Flüssen. Zeichnen Sie das echte Netzwerk im Tab Netzwerk-Editor, dann erscheint es hier, in der Excel-Datei und im Bericht.',
   },

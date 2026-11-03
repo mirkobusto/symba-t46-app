@@ -655,7 +655,7 @@ const it: Locale = {
       },
       market: {
         label: 'Mercato di riferimento: da dove verrebbero i prodotti sostituiti?',
-        help: 'Il mercato da cui attingerebbe il controfattuale, non il mercato dei prodotti della simbiosi. Facoltativo.',
+        help: 'Dove le aziende comprerebbero, senza gli scambi, ciò che gli scambi sostituiscono: non il mercato dei prodotti della simbiosi. Facoltativo.',
         region: 'Paese o regione',
         regionPlaceholder: 'es. Italia, Catalogna, UE',
         scope: {
@@ -783,7 +783,7 @@ const it: Locale = {
       d: 'I due impianti dipendono l\'uno dall\'altro (uno è stato modificato per rifornire l\'altro)',
       e: 'Solo un dato complessivo per tutta la rete',
     },
-    q5Note: 'Rispondi con l\'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un\'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli b (nessuno paga, o non è ancora chiaro) quando è davvero indeciso, invece di forzare una direzione.',
+    q5Note: 'Rispondi con l\'assetto attuale — quello concordato, o quello previsto se lo scambio non è ancora in essere. È un\'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli «Nessuno paga, o non è ancora chiaro» quando è davvero indeciso, invece di forzare una direzione.',
     emptyHint: 'Nessun flusso. Aggiungine almeno uno per caratterizzare la Q5 per-flusso.',
     headers: { id: 'ID', name: 'Nome', q5: "Chi paga chi (Q5)", sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
     q5Unset: "— scegli chi paga chi",
@@ -988,6 +988,7 @@ const it: Locale = {
         regional: 'Impatti locali',
         sectors: 'Regole di settore',
         shared: 'Beni dedicati',
+        sharedLca: 'La loro produzione e il fine vita inventariati nell\'LCA e ammortizzati sulla vita tecnica di ciascun bene (D4.1 §6.3.3)',
         claimPublic: 'Confronti',
         multifunctionality: 'Multifunzionalità',
         flowsLcc: 'Costo di ogni flusso',
@@ -1024,6 +1025,7 @@ const it: Locale = {
           evt: "incerto: test del valore economico, con analisi di sensibilità",
           coproduct: "co-prodotto: sostituzione del prodotto che rimpiazza, con fattore di qualità Q",
           integrated: 'interdipendente: un co-prodotto determinante; l\'LCA modella i due processi come un unico sistema multifunzionale espanso e ripartisce il carico per sostituzione (allocazione solo dove la sostituzione non è difendibile); l\'E-LCC segue la stessa ripartizione, valutando il flusso al prezzo di mercato di ciò che sostituisce; il C-LCC usa il prezzo di trasferimento negoziato',
+          integratedLca: 'interdipendente: un co-prodotto determinante; l\'LCA modella i due processi come un unico sistema multifunzionale espanso e ripartisce il carico per sostituzione (allocazione solo dove la sostituzione non è difendibile)',
           allocation: "allocazione (rendiconto di una sola azienda: nessun credito di sostituzione)",
           aggregated: "aggregato: classificare ogni flusso che si può nominare",
         },
@@ -1540,6 +1542,11 @@ const it: Locale = {
 
   networkDiagram: {
     counts: '{{actors}} attori · {{flows}} flussi',
+    actors_one: '{{count}} attore',
+    actors_other: '{{count}} attori',
+    flows_one: '{{count}} flusso',
+    flows_other: '{{count}} flussi',
+    inactive: 'Il diagramma della rete non fa parte della configurazione di questo caso.',
     placeholder:
       "Solo anteprima — questo è un segnaposto costruito dai flussi dichiarati nel questionario. Disegna la rete vera nel tab Editor di rete e comparirà qui, nell'Excel e nel report.",
   },

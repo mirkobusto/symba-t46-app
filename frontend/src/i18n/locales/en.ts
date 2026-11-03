@@ -677,7 +677,7 @@ const en = {
       },
       market: {
         label: 'Reference market: where would the replaced products come from?',
-        help: 'The market the counterfactual would draw on, not the market of the symbiosis products. Optional.',
+        help: 'Where the companies would buy, without the exchanges, what the exchanges replace — not the market of the symbiosis products. Optional.',
         region: 'Country or region',
         regionPlaceholder: 'e.g. Italy, Catalonia, EU',
         scope: {
@@ -805,7 +805,7 @@ const en = {
       d: 'The two plants depend on each other (one was changed to supply the other)',
       e: 'Only one total figure for the whole network',
     },
-    q5Note: 'Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick b (nobody pays, or it is not clear yet) when it is genuinely undecided rather than forcing a direction.',
+    q5Note: 'Answer with the arrangement as it stands today — agreed, or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick “Nobody pays, or it is not clear yet” when it is genuinely undecided rather than forcing a direction.',
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
     headers: { id: 'ID', name: 'Name', q5: "Who pays whom (Q5)", sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
     q5Unset: "— choose who pays whom",
@@ -1010,6 +1010,7 @@ const en = {
         regional: 'Local impacts',
         sectors: 'Sector rules',
         shared: 'Dedicated assets',
+        sharedLca: 'Their production and end of life inventoried in the LCA and amortised over each asset\'s technical lifetime (D4.1 §6.3.3)',
         claimPublic: 'Comparisons',
         multifunctionality: 'Multifunctionality',
         flowsLcc: 'Cost of each flow',
@@ -1046,6 +1047,7 @@ const en = {
           evt: "undecided: economic value test, with a sensitivity analysis",
           coproduct: "co-product: substitution of the product it replaces, with quality factor Q",
           integrated: 'interdependent: a determining co-product; the LCA models the two processes as one expanded multifunctional system and shares the burden by substitution (allocation only where substitution is not defensible); the E-LCC follows the same partition, valuing the flow at the market price of what it replaces; the C-LCC uses the negotiated transfer price',
+          integratedLca: 'interdependent: a determining co-product; the LCA models the two processes as one expanded multifunctional system and shares the burden by substitution (allocation only where substitution is not defensible)',
           allocation: "allocation (one company's accounts: no substitution credits)",
           aggregated: "aggregated: classify each flow that can be named",
         },
@@ -1561,6 +1563,11 @@ const en = {
 
   networkDiagram: {
     counts: '{{actors}} actors · {{flows}} flows',
+    actors_one: '{{count}} actor',
+    actors_other: '{{count}} actors',
+    flows_one: '{{count}} flow',
+    flows_other: '{{count}} flows',
+    inactive: 'The network diagram is not part of this case\'s configuration.',
     placeholder:
       'Preview only — this is a placeholder built from the flows declared in the questionnaire. Draw the real network in the Network builder tab and it appears here, in the Excel and in the report.',
   },

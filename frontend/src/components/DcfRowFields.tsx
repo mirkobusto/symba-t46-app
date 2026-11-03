@@ -142,6 +142,13 @@ export default function DcfRowFields({
                 onChange={(e) => onChange(field.id, e.target.value)}
               >
                 <option value="">—</option>
+                {stringValue && !options.includes(stringValue) ? (
+                  // a value no longer offered but stored earlier: shown, not
+                  // blanked to "—" (Fable review of #206)
+                  <option value={stringValue} disabled>
+                    {field.enum_labels?.[stringValue] ?? stringValue}
+                  </option>
+                ) : null}
                 {options.map((opt) => (
                   <option key={opt} value={opt}>
                     {field.enum_labels?.[opt] ?? opt}

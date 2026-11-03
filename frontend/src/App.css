@@ -4811,7 +4811,7 @@ kbd {
   align-items: center;
   gap: var(--dd-space-2);
   font-size: 13px;
-  text-transform: capitalize;
+  /* no "Data Sources And Quality": the labels are already in sentence case (P1-09) */
   margin: 0 0 var(--dd-space-2);
   padding-bottom: var(--dd-space-2);
   border-bottom: 1px solid var(--dd-border);

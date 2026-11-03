@@ -34,6 +34,8 @@ import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
 import type { DcfPayload } from '../types/dcf'
 import { dcfChanges, hasChanges, type DcfChanges } from './dcfChanges'
+import { configurationRows } from './configurationRows'
+import { dcfFilename } from './dcfFilename'
 
 function triggerDownload(blob: Blob, filename: string) {
   const url = URL.createObjectURL(blob)
@@ -149,23 +151,26 @@ export default function DataCollectionPage() {
    * would be worse than a moment's wait.
    */
   async function exportBlob(kind: 'xlsx' | 'docx'): Promise<Blob> {
+    // the cover states the configuration with the result page's own rows
+    // (UX round 5, D7)
+    const rows = result
+      ? configurationRows(result, (key, options) => t(key, options ?? {}) as string)
+          .map(({ label, value }) => ({ label, value }))
+      : []
     if (serverCaseId) {
       if (dcfDirty) await saveDcfData()
       return kind === 'xlsx'
-        ? fetchDcfXlsxForCase(serverCaseId)
-        : fetchDcfDocxForCase(serverCaseId)
+        ? fetchDcfXlsxForCase(serverCaseId, rows)
+        : fetchDcfDocxForCase(serverCaseId, rows)
     }
-    return kind === 'xlsx' ? fetchDcfXlsx(sourceCase) : fetchDcfDocx(sourceCase)
+    return kind === 'xlsx' ? fetchDcfXlsx(sourceCase, rows) : fetchDcfDocx(sourceCase, rows)
   }
 
   async function handleDownloadXlsx() {
     setDownloadingXlsx(true)
     try {
       const blob = await exportBlob('xlsx')
-      const name = payload?.case_id
-        ? `dcf_${payload.case_id.slice(0, 8)}.xlsx`
-        : 'dcf.xlsx'
-      triggerDownload(blob, name)
+      triggerDownload(blob, dcfFilename(serverCaseName, 'xlsx'))
     } catch (e) {
       pushToast({
         type: 'error',
@@ -184,10 +189,7 @@ export default function DataCollectionPage() {
     setDownloadingDocx(true)
     try {
       const blob = await exportBlob('docx')
-      const name = payload?.case_id
-        ? `dcf_${payload.case_id.slice(0, 8)}.docx`
-        : 'dcf.docx'
-      triggerDownload(blob, name)
+      triggerDownload(blob, dcfFilename(serverCaseName, 'docx'))
     } catch (e) {
       pushToast({
         type: 'error',
@@ -250,11 +252,14 @@ export default function DataCollectionPage() {
         {mode === 'guided' ? <p className="dd-page-sub">{t('dcf.guidedIntro')}</p> : null}
         <div className="dcf-badges" style={{ marginTop: 12 }}>
           {/* the situation in words, as on the result page; "deactivated" was engine output */}
-          <span className="dd-pill dd-pill-brand">
-            {payload.ilcd_situation
-              ? t(`narrative.ilcd.${payload.ilcd_situation}.title`, { defaultValue: payload.ilcd_situation })
-              : '—'}
-          </span>
+          {payload.costing_only ? null : (
+            // a costing-only study has no ILCD situation (UX round 5, P3-04)
+            <span className="dd-pill dd-pill-brand">
+              {payload.ilcd_situation
+                ? t(`narrative.ilcd.${payload.ilcd_situation}.title`, { defaultValue: payload.ilcd_situation })
+                : '—'}
+            </span>
+          )}
           {payload.lcc_type && payload.lcc_type !== 'deactivated' ? (
             <span className="dd-pill dd-pill-brand">
               {t(`result.lccBadge.${payload.lcc_type}`, { defaultValue: `LCC ${payload.lcc_type}` })}

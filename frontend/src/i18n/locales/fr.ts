@@ -664,7 +664,7 @@ const fr: Locale = {
       placeholder: 'ex. 20',
       unit: 'ans',
       plain:
-        'Sur quelles années l\'étude regarde-t-elle le système ? Si elle décrit comment les choses fonctionnent aujourd\'hui, une photographie du présent suffit. Si elle porte sur une installation qui fonctionnera une année ultérieure, ou suit le système sur des décennies, le résultat dépend de l\'évolution de l\'électricité, des carburants et des marchés, et l\'outil vous demande de vous prononcer sur cet avenir : le même avenir pour la lecture environnementale et pour la lecture économique.',
+        'Sur quelles années l\'étude regarde-t-elle le système ? Si elle décrit comment les choses fonctionnent aujourd\'hui, une photographie du présent suffit. Si elle porte sur une installation qui fonctionnera une année ultérieure, ou suit le système sur des décennies, le résultat dépend de l\'évolution de l\'électricité, des carburants et des marchés, et l\'outil vous demande de vous prononcer sur cet avenir : le même avenir pour la lecture environnementale et pour la lecture économique. Si les installations durent plus de 15 ans, l\'étude doit tenir compte de l\'évolution de l\'énergie et des marchés pendant ces années.',
     },
     q9: {
       title: "Q9 — Quelle décision l'étude soutient-elle, et jusqu'où vont ses conséquences ? *",
@@ -888,6 +888,15 @@ const fr: Locale = {
   },
 
   result: {
+    // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
+    guided: {
+      title: 'Ce que cela signifie pour vous',
+      lead: 'L\'outil a établi comment l\'étude de votre cas doit être conçue et de quelles données elle a besoin. Il ne calcule pas si l\'échange est rentable ou bon pour l\'environnement : c\'est le travail d\'un analyste ou d\'un consultant, avec les données que vous collectez.',
+      step1: 'Enregistrez le cas pour le retrouver. Il faut un compte gratuit ; sans compte, le cas reste seulement dans ce navigateur.',
+      step2: 'Ouvrez le Data Collection File et téléchargez l\'Excel : votre personnel remplit les feuilles sur les acteurs, les flux, la logistique et les coûts.',
+      step3: 'Remettez le fichier et le rapport à qui réalisera l\'étude (un analyste, un consultant, une université) : les points techniques plus bas sont pour lui.',
+      analystTitle: 'Points pour l\'analyste ({{count}})',
+    },
     // a study with no LCA is headed by its costing (decided by Fable, UX round 2026-11-03)
     lccTitle: {
       'C+N': 'LCC conventionnel par partenaire, consolidé au niveau du réseau',
@@ -949,7 +958,7 @@ const fr: Locale = {
         scope_national: 'national',
         slcaOff: 'Non incluse',
         reference_c2: 'Non utilisé pour des crédits : allocation, pas de substitution',
-        horizonFuture: 'Arrière-plan futur (scénarios SSP/RCP)',
+        horizonFuture: 'Arrière-plan futur : électricité, combustibles et matériaux tels qu\'attendus dans les années à venir (scénarios climatiques et économiques SSP/RCP)',
         horizonPresent: 'Arrière-plan actuel',
         reference_hnsrs: 'Ce que ferait aujourd\'hui chaque entreprise sans les liens (HNSRS)',
         reference_modern: 'Un contrefactuel moderne : ce que ferait aujourd\'hui chaque entreprise sans les liens (HNSRS)',
@@ -1002,6 +1011,7 @@ const fr: Locale = {
         sectors: 'les chapitres suivent le secteur déclaré pour chaque flux',
         shared: 'la symbiose utilise des biens dédiés (Q12)',
         multifunctionality: 'la situation ILCD (Q9)',
+        horizonLifetimeOnly: 'les biens durent {{years}} ans, plus de {{threshold}} : l\'arrière-plan est projeté sur leur amortissement même si l\'étude décrit l\'année actuelle (D4.2 §9.3 ; le seuil se modifie dans les paramètres avancés)',
       },
     },
     notes: { title: 'Remarques sur vos réponses' },
@@ -1132,6 +1142,8 @@ const fr: Locale = {
     confirmStartFresh: 'Effacer le cas actuel et en démarrer un nouveau ? Opération irréversible.',
     noResult: { title: 'Aucun résultat', desc: 'Soumettez un questionnaire pour voir la sortie du moteur ici.', cta: 'Ouvrir le questionnaire' },
     error: { title: 'Erreur de pipeline', back: 'Retour au questionnaire' },
+    saveHint: 'Pour garder le cas sur le serveur, il faut un compte gratuit ; sans compte, il reste seulement dans ce navigateur.',
+    scenariosBox: 'Scénarios alternatifs définis : {{count}}. Comparez-les avec le cas :',
   },
 
   scenariosResult: {

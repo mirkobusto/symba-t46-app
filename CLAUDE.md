@@ -193,6 +193,31 @@ Corpus degli 8 casi a 63 sì / 6 no (le stesse divergenze decise), CP10 12/18, C
 perde di proposito i due capitoli della Part 2). Fase B (revisione dei deliverable) ferma sul modulo di errata e sul
 responsabile della D4.1 Part 1.
 
+Il **2026-11-02/03** sono stati mergiati e messi in linea quattro **giri di agenti-utente** (PR #161-#200, server a
+`d4668a4`). Sette persone: analista, revisore CE, industria in modalità guidata, autorità, comunità, consumatore da
+telefono, principiante. Le decisioni di metodo e di design le ha prese Fable, per delega del proprietario, citando i
+deliverable. I report e le sintesi stanno in `~/SymbaBackups/ux-audit-2026-11-02/`, `ux-audit-2026-11-03/` e
+`ux-audit-2026-11-03-r4/`; il passaggio di consegne in `~/SymbaBackups/HANDOVER_2026-11-03.md`. In sintesi:
+- **Giro 1 (#161-#176)**: salvataggio anonimo spento (#162); report pubblico leggibile e pagina per incollare il
+  link; modalità guidata una domanda per volta; DCF in 5 lingue (#169); Home e About per non esperti; menu su
+  telefono; scenari come "domanda → nuova risposta" (#172); campi DCF per la sostituzione e lo scenario di
+  riferimento (#173, schema); report .docx nella lingua dell'utente (#175); un'unica regola Q9 per gli esempi.
+- **Giro 2 (#177-#185)**: **condivisione esplicita** (#183: un caso salvato è pubblico solo dopo che il proprietario
+  lo condivide, slug con 8 cifre esadecimali, payload pubblico ripulito, "Preparato da" e contatto); "La tua
+  configurazione" nel report .docx; nessuna promessa che un partner calcoli i punteggi; **Situazione B con Q4 = D
+  resta conseguenziale e la CFF è una sensibilità**, un flusso Q5 = d ha una sola ripartizione, riga
+  "Multifunzionalità" (#185, schema).
+- **Giro 3 (#186-#193)**: risultato guidato con "Che cosa significa per te" e questionario guidato in parole;
+  un nome per ogni cosa (#188, "asserzione comparativa divulgata al pubblico" della ISO); HNSRS e CNSRS sciolte;
+  dashboard con etichette; la regola dell'orizzonte cita solo le risposte che la fanno scattare; **CDP-05 risolta
+  con l'albero di D4.1 §8.3.6** (#192, schema); l'interruttore di condivisione vale subito.
+- **Giro 4 (#194-#200)**: niente codici Q in modalità guidata e nelle viste pubbliche; DCF con un ramo per flusso e
+  chi compila cosa (#195); **Q9 strutturale senza screening di mercato documentato = Situazione A** (#196: nessun
+  esempio pubblicato è più in B); studio solo economico con righe proprie e senza bollino ILCD; **CDP-10 non più
+  elencata** (#197, `l3_report._NOT_A_DECISION`: 11 punti di decisione); scheda Comunità in parole (#199); testi
+  CDP-01/02/03/08 e IR-06 in termini normativi (#200, schema). IR-06 vale anche per due sole aziende (Fable su
+  D4.2 §2.3).
+
 Cronologia sintetica (tutto su `main`):
 - Sprint 4 Step 2 (scaffold) chiuso 2026-05-08
 - Sprint 4 Step 3 (engine) chiuso: 7 commit + regression suite 12-paper, tutti i moduli phase implementati
@@ -211,8 +236,16 @@ Cronologia sintetica (tutto su `main`):
 - i18n: `en.ts` è la source of truth; `de`/`es` indietro di ~50 chiavi sui namespace `reader.*` / `share.*`, `it` di ~20
 - Network Builder: completo (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale, guidance in-app con esempio caricabile)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
-- **Deploy pubblico D4.6 (PU): è in piedi** su `biobasedisadvisor.symbaproject.eu` (VPS Contabo, Ubuntu 24.04), in **modalità "in costruzione"**: chi arriva vede una pagina di cortesia (503), il team entra con `?preview=<SYMBA_PREVIEW_TOKEN>` (il token sta nel `.env` del server). DNS creato il 2026-10-12, certificato Let's Encrypt valido fino al 2027-01-10 con rinnovo automatico, backup del DB ogni notte alle 3:30 con copia giornaliera sul Mac Studio. Caddy gira con tre file: `docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d`; per aprire al pubblico, lo stesso comando **senza** il terzo `-f`, dopo aver registrato l'account admin (il primo che si registra diventa admin). La build dell'immagine e il Caddyfile sono stati eseguiti sul server più volte (ultima: 2026-10-18, `main` a #153); sulla macchina di sviluppo il demone Docker non risponde, quindi **l'unico posto dove si scopre se `Dockerfile.prod` regge è il server**: `tsc -b` compila anche i test, e un test che legge un file del backend fuori da `frontend/` rompe la build senza che nulla se ne accorga in locale (è successo due volte: PR #95 e #104). Dettagli operativi e lista dei pendenti: `~/.claude/projects/.../memory/project_deploy_contabo.md`. Non fatto di proposito: rate limiting di login/registrazione. Dal 2026-11-02 il salvataggio anonimo è spento per default (`SYMBA_ANON_SAVE`, vedi `docs/DEPLOY.md` § Authorization model): senza accesso non si salva sul server
-- `rerun_saved_cases.py` va eseguito sul server dopo ogni deploy che tocchi il motore (prima senza `--apply` per vedere quanti casi cambiano). Dopo ogni deploy fino al 2026-10-18 (#153) ha riportato 0 casi: il database del server è ancora vuoto
+- **Deploy pubblico D4.6 (PU): è in piedi** su `biobasedisadvisor.symbaproject.eu` (VPS Contabo, Ubuntu 24.04), in **modalità "in costruzione"**: chi arriva vede una pagina di cortesia (503), il team entra con `?preview=<SYMBA_PREVIEW_TOKEN>` (il token sta nel `.env` del server). DNS creato il 2026-10-12, certificato Let's Encrypt valido fino al 2027-01-10 con rinnovo automatico, backup del DB ogni notte alle 3:30 con copia giornaliera sul Mac Studio. Caddy gira con tre file: `docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d`; per aprire al pubblico, lo stesso comando **senza** il terzo `-f`, dopo aver registrato l'account admin (il primo che si registra diventa admin, oppure `SYMBA_ADMIN_EMAIL`). Ogni deploy richiede la frase esplicita del proprietario "fai il deploy su produzione", una frase per deploy. La build dell'immagine e il Caddyfile sono stati eseguiti sul server più volte (ultima: 2026-11-03, `main` a `d4668a4`, #200); sulla macchina di sviluppo il demone Docker non risponde, quindi **l'unico posto dove si scopre se `Dockerfile.prod` regge è il server**: `tsc -b` compila anche i test, e un test che legge un file del backend fuori da `frontend/` rompe la build senza che nulla se ne accorga in locale (è successo due volte: PR #95 e #104). Dettagli operativi e lista dei pendenti: `~/.claude/projects/.../memory/project_deploy_contabo.md`. Non fatto di proposito: rate limiting di login/registrazione. Dal 2026-11-02 il salvataggio anonimo è spento per default (`SYMBA_ANON_SAVE`, vedi `docs/DEPLOY.md` § Authorization model): senza accesso non si salva sul server
+- `rerun_saved_cases.py` va eseguito sul server dopo ogni deploy che tocchi il motore (prima senza `--apply` per vedere quanti casi cambiano). Dopo ogni deploy fino al 2026-11-03 (#200) ha riportato 0 casi: il database del server è ancora vuoto
+- Dal giro 4 (non bloccanti): classificazione e sostituzione si compilano solo in Excel, non nell'editor di rete, che
+  non ha più ruoli per attore né un layout automatico; gli scenari non cambiano Q5 per flusso e il modulo non parte dal
+  valore del caso; Q1 non ha una voce per "un'azienda che cede a due clienti" e Q7 è difficile con partner in regioni
+  diverse; in "I miei casi" "Carica" apre il risultato; la vista Industria interna è ancora tecnica ("Dettagli pipeline
+  engine"); il testo semplice di Q8 non avvisa mentre si scrive una vita oltre 15 anni; i 91 mandati procedurali
+  restano in inglese (decisione R5)
+- Errata per la fase B: la D4.1 scioglie HNSRS/CNSRS in due modi (glossario "Historical"/"Counterfactual", §11.1
+  "Hypothetical"/"Current"); l'app segue §11.1
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
 - Da guardare a occhio dopo il branding: proporzioni del logo, emblema UE a 300 px, hover/focus, 1201-1320 px in ES/FR su `/welcome`, Safari/Firefox, telefono reale, stampa della pagina risultato
 - Decisioni residue dell'audit: `contested` in `lcc_mc_04/08` resta inerte (D4.2 §3.2: è uno stato negoziale per flusso, non Q5=b); `infra.decommissioning_cost.row_condition` nel DCF non è valutato da nessun codice; I-17 chiuso in R3 (2026-10-18); I-18 (anno di Kerdlap) da verificare sul DOI
@@ -252,10 +285,12 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #176): **865 backend (pytest, +1 skipped) + 227 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #200): **888 backend (pytest, +1 skipped) + 254 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
-- Lint frontend: `cd frontend && npm run lint` (eslint).
+- Lint frontend: `cd frontend && npm run lint` (eslint). Il lint (eslint e ruff, su `app` e `tests`) si giudica dal codice di uscita, non dall'ultima riga dell'output.
+- Decisioni di metodo e di design (dal 2026-11-03): le prende Fable, come agente in sola lettura, citando i deliverable; prima di applicarle si verificano facendo girare il motore. Gli schemi restano soggetti a diff e OK del proprietario.
+- Giri di agenti-utente: sempre su una copia locale (build del frontend in una cartella temporanea, server su 8091 con un database vuoto), mai sul server.
 - Report del caso (.docx): i testi vengono dalle locali del frontend (`docxReport`, `narrative`, `engineNotes`, `actionKind`, `result.sectorChapters`, opzioni del questionario e dei flussi) attraverso `backend/app/data/report_terms.json`. Dopo aver cambiato una di queste chiavi: `cd backend && PYTHONPATH=. python scripts/sync_report_terms.py` (lo controlla `tests/test_report_terms_sync.py`).
 - Build frontend: `cd frontend && npm run build` (tsc + vite).
 - Validation script: `python backend/scripts/validate_phase1_artifacts.py --schema-dir backend/app/schemas --out-dir backend/coordination`

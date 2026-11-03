@@ -26,6 +26,8 @@ pay the JSON-load cost only once.
 """
 from __future__ import annotations
 
+import base64
+import binascii
 import json
 import re
 from datetime import UTC, datetime
@@ -127,6 +129,28 @@ class DcfExportRequest(BaseModel):
 
     case: Case | None = None
     rows: list[CoverRow] = Field(default_factory=list)
+    # the network as the browser draws it, base64 PNG (owner decision 2026-11-03:
+    # a faithful image in both files); ~6 MB of base64 at most
+    network_png: str | None = Field(default=None, max_length=8_000_000)
+
+
+_PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+
+
+def _network_png(body: DcfExportRequest | Case | None) -> bytes | None:
+    """The PNG the browser sent, decoded; 422 when it is not a PNG."""
+    raw = getattr(body, "network_png", None)
+    if not raw:
+        return None
+    if raw.startswith("data:"):
+        raw = raw.partition(",")[2]
+    try:
+        png = base64.b64decode(raw, validate=True)
+    except (binascii.Error, ValueError) as exc:
+        raise HTTPException(status_code=422, detail="network_png is not base64") from exc
+    if not png.startswith(_PNG_SIGNATURE):
+        raise HTTPException(status_code=422, detail="network_png is not a PNG image")
+    return png
 
 
 def _today() -> str:
@@ -140,11 +164,12 @@ def _filename(ref: str | None, ext: str) -> str:
     return f"DCF_{safe}_{_today()}.{ext}"
 
 
-def _cover(rows: list[CoverRow], case_ref: str | None) -> dict[str, Any]:
+def _cover(rows: list[CoverRow], case_ref: str | None, network_png: bytes | None = None) -> dict[str, Any]:
     return {
         "rows": [r.model_dump() for r in rows],
         "case_ref": case_ref,
         "generated_on": _today(),
+        "network_png": network_png,
     }
 
 
@@ -183,7 +208,7 @@ def export_xlsx(
     case, rows = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=_cover(rows, None))
+    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=_cover(rows, None, _network_png(body)))
     filename = _filename(None, "xlsx")
     return Response(
         content=blob,
@@ -202,7 +227,7 @@ def export_docx(
     case, rows = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=_cover(rows, None))
+    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=_cover(rows, None, _network_png(body)))
     filename = _filename(None, "docx")
     return Response(
         content=blob,
@@ -351,14 +376,14 @@ def _stored_data(db: OrmSession, case_id: str) -> DcfData | None:
 
 def _saved_export(
     kind: str, case_id: str, rows: list[CoverRow], db: OrmSession,
-    user: User | None, schemas: LoadedSchemas, lang: str,
+    user: User | None, schemas: LoadedSchemas, lang: str, network_png: bytes | None = None,
 ) -> Response:
     """Files of a saved case, pre-filled with what the Network Builder stored
     and the questionnaire flows; the cover carries the configuration rows."""
     rec, case = _load_case_for(case_id, db, user, for_write=False)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(_stored_data(db, case_id), case, case_id)
-    cover = _cover(rows, rec.slug or case_id[:8])
+    cover = _cover(rows, rec.slug or case_id[:8], network_png)
     # whom to send it back to: the "Prepared by" and contact of the shared case
     # (the workbook left a placeholder although the case had them, P2-13)
     cover["contact"] = " — ".join(x for x in (rec.prepared_by, rec.case_contact) if x) or None
@@ -399,7 +424,7 @@ def export_xlsx_for_case_with_cover(
     lang: str = Query("en"),
 ) -> Response:
     """As the GET, with the result page's configuration rows on the cover."""
-    return _saved_export("xlsx", case_id, body.rows, db, current_user, schemas, lang)
+    return _saved_export("xlsx", case_id, body.rows, db, current_user, schemas, lang, _network_png(body))
 
 
 @router.get("/{case_id}/export/docx")
@@ -424,4 +449,4 @@ def export_docx_for_case_with_cover(
     lang: str = Query("en"),
 ) -> Response:
     """As the GET, with the result page's configuration rows on the cover."""
-    return _saved_export("docx", case_id, body.rows, db, current_user, schemas, lang)
+    return _saved_export("docx", case_id, body.rows, db, current_user, schemas, lang, _network_png(body))

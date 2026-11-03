@@ -410,7 +410,7 @@ const fr: Locale = {
     p1:
       'SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d\'une symbiose industrielle : à partir d\'un questionnaire sur le cas, il déduit quelle méthodologie s\'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les chiffres sont calculés hors de l\'outil par la personne qui réalise l\'étude, et peuvent être chargés ici ; personne ne les calcule automatiquement.',
     p2:
-      "Le questionnaire (Q0-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 12 Critical Decision Points font émerger les tensions cross-method.",
+      "Le questionnaire (Q0-Q12 ; Q9 fixe la situation ILCD, Q10 l'ACC sociétal) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 11 Critical Decision Points font émerger les tensions cross-method.",
   },
 
   error: {
@@ -564,7 +564,7 @@ const fr: Locale = {
         'e — AGRÉGÉ / boîte noire : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C\'est une limite de la source, pas un choix de modélisation : D4.1 §8.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. ' +
         'Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de zéro-charge) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.',
       plain:
-        "Pour chaque chose qui circule entre les entreprises — chaleur, eau, scories, CO₂ — la question ici est seulement qui paie qui : l'expéditeur paie pour s'en débarrasser, personne ne paie, ou le destinataire paie pour l'obtenir. Si l'expéditeur a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l'argent. Si votre source ne donne qu'un chiffre pour tout le réseau, choisissez la dernière option : on vous interrogera tout de même sur chaque flux que vous savez nommer, car une règle unique pour tout le réseau n'est pas admise. Savoir si un flux est un déchet au sens du droit se décide plus tard, dans le fichier de collecte de données, pas ici.",
+        'Pour chaque chose qui circule entre les entreprises — chaleur, eau, scories, CO₂ — la question ici est seulement qui paie qui : l\'expéditeur paie pour s\'en débarrasser, personne ne paie, ou le destinataire paie pour l\'obtenir. Si l\'expéditeur a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l\'argent. Pour ce partenaire, toutefois : un séchoir construit pour vendre le flux à n\'importe qui n\'est pas de l\'interdépendance — choisissez « le destinataire paie » et déclarez-le parmi les biens dédiés. Si votre source ne donne qu\'un chiffre pour tout le réseau, choisissez la dernière option ; on vous demandera quand même chaque flux que vous savez nommer. Le statut juridique de déchet se décide plus tard, dans le fichier de collecte.',
     },
 
     q6a: {
@@ -964,8 +964,17 @@ const fr: Locale = {
         shared: 'Biens dédiés',
         claimPublic: 'Comparaisons',
         multifunctionality: 'Multifonctionnalité',
+        flowsLcc: 'Coût de chaque flux',
+        fuLcc: 'Équivalent fonctionnel',
       },
       values: {
+        flowCost: {
+          a: 'déchet : la redevance négociée ; coût nul seulement si le résidu est inévitable (D4.2 §6.3)',
+          b: 'gratuit : prix de cession nul ; coût nul seulement si inévitable, sinon coproduit',
+          c: 'coproduit : le prix négocié',
+          d: 'interdépendant : un coproduit déterminant au prix de cession négocié ; le coût nul ne s\'applique pas (D4.1 §8.3.6, étape 2)',
+          e: 'agrégé : donner un prix à chaque flux que l\'on peut nommer',
+        },
         noChapter: "Aucun chapitre de la D4.1 Part 2 ne concerne les flux déclarés : seule la Part 1 s'applique",
         flowTreatment: {
           waste: "déchet : aucune charge jusqu'au point où il prend de la valeur (charge nulle)",
@@ -1005,6 +1014,9 @@ const fr: Locale = {
         multiPefSubstitution: ' — répartie avec la Circular Footprint Formula du PEF (Q4 = D)',
         multiPefConsequential: ' — CFF du PEF comme analyse de sensibilité (Q4 = D)',
         multiPefAllocation: ' — la CFF ne s\'applique pas',
+        fuLcc_waste_treatment: 'Fondé sur l\'entrée : le traitement du déchet (D4.2 §3.1)',
+        fuLcc_dual: 'Double : le déchet traité et le produit généré, chacun avec ses coûts évités et ses recettes (D4.2 §3.1)',
+        fuLcc_function: 'Le portefeuille de fonctions que le réseau assure, chacune avec ses coûts évités et ses recettes (D4.2 §3.1)',
       },
       why: {
         noChapter: "la Part 2 couvre cinq secteurs biosourcés et aucun flux n'est déclaré dans l'un d'eux",
@@ -1038,6 +1050,7 @@ const fr: Locale = {
         shared: 'la symbiose utilise des biens dédiés (Q12)',
         multifunctionality: 'la situation ILCD (Q9)',
         horizonLifetimeOnly: 'les biens durent {{years}} ans, plus de {{threshold}} : l\'arrière-plan est projeté sur leur amortissement même si l\'étude décrit l\'année actuelle (D4.2 §9.3 ; le seuil se modifie dans les paramètres avancés)',
+        referenceNoLca: 'le calcul des coûts utilise le scénario de référence qu\'utiliserait une ACV en Situation ILCD {{situation}} (D4.2 §4.1) ; la situation ne prescrit aucun modèle de coûts',
       },
     },
     notes: { title: 'Remarques sur vos réponses' },
@@ -1081,6 +1094,8 @@ const fr: Locale = {
       flow_configuration_unknown: "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
       flow_configuration_other_chapter: "Flux « {{flow}} » : sa configuration relève de {{chapter}}, pas du chapitre déclaré {{declared}} ; les règles des deux chapitres sont listées.",
       b_consequential_over_pef: 'La Situation B demande une modélisation conséquentielle sur la technologie marginale (D4.1 tableau 1), tandis que l\'alignement sur les politiques de l\'UE (Q4 = D) demande la Circular Footprint Formula du PEF, une répartition attributionnelle. Le modèle conséquentiel prévaut ; exécutez la CFF comme analyse de sensibilité et déclarez les deux dans la charte méthodologique (D4.1 §7.3.3 ; D4.2 §2.2).',
+      b_lcc_not_consequential: 'Situation B : l\'ACV substitue la technologie marginale (D4.1 tableau 1), tandis que le LCC environnemental valorise les produits déplacés au prix moyen du marché de ce qu\'ils remplacent (D4.2 §6.2) : cet outil n\'a pas de formulation conséquentielle du calcul des coûts. La D4.2 §2.2 demande un seul paradigme, identique entre ACV et LCC : déclarez la différence dans la charte méthodologique comme écart méthodologique, et valorisez les produits déplacés au prix du fournisseur marginal dans une analyse de sensibilité.',
+      flow_interdependent_but_marketable: 'Flux « {{flow}} » : Q5 indique que l\'expéditeur a modifié son procédé pour ce partenaire, et le flux se vendrait aussi à d\'autres. Les deux peuvent être vrais pour un coproduit déterminant (D4.1 §8.3.6, étape 2). Vérifiez : si la modification visait les spécifications de ce partenaire, gardez d ; si elle visait n\'importe quel acheteur (un séchoir qui rend la pulpe commercialisable comme aliment), le flux est un coproduit dépendant (Q5 = c, substitution avec le facteur de qualité Q) et l\'équipement est un bien dédié (Q12). Une note ne change jamais Q5.',
     },
     sectorChapters: { '§4': "§4 Agroalimentaire et bioraffineries", '§5': "§5 Plastiques et emballages", '§6': "§6 Eaux usées et bio-usines", '§7': "§7 Textile et textiles techniques", '§8': "§8 Valorisation des déchets" },
     sectorRules: {

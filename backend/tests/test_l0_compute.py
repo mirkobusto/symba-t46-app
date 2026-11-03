@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.domain.enums import Q1, IlcdSituation, LccType, SlcaActivationState
+from app.domain.enums import Q1, Q5, IlcdSituation, LccType, SlcaActivationState
 from app.domain.models import Q3, Case
 from app.engine.l0_compute import run
 
@@ -344,7 +344,8 @@ def test_q10_with_the_economic_dimension_off_the_lcc_stays_deactivated(q1, polic
 def test_q10_notes_only_for_contradictions(q1, policy, codes):
     case = Case(q1=q1, q3=Q3(env=True, eco=True), policy_objective=policy)
     run(case, None)
-    assert _codes(case) == codes
+    # Q1 = C reads as Situation B, which adds the LCA/LCC paradigm note (UX round 4)
+    assert [c for c in _codes(case) if c != "b_lcc_not_consequential"] == codes
 
 
 def test_q9_and_q10_notes_accumulate_and_are_rebuilt():
@@ -441,3 +442,28 @@ def test_no_q10_note_without_the_economic_dimension_or_in_c2():
         case = Case(q1=Q1.A, **kw)
         run(case, None)
         assert "q10_unanswered" not in {w["code"] for w in case.warnings}, kw
+
+
+
+# UX round 4 (decided by Fable): P2-02, P2-08, P3-02
+def test_situation_b_with_an_environmental_lcc_declares_the_paradigm_gap():
+    case = Case(q1=Q1.C, q2=Q2.B, q3=Q3(env=True, eco=True), decision_context=DecisionContext.STRUCTURAL,
+                market_screening_documented=True, policy_objective=False)
+    run(case, None)
+    assert "b_lcc_not_consequential" in _codes(case)
+
+
+def test_without_lca_no_screening_note():
+    case = Case(q1=Q1.C, q2=Q2.B, q3=Q3(env=False, eco=True), decision_context=DecisionContext.STRUCTURAL,
+                policy_objective=False)
+    run(case, None)
+    assert not {"structural_screening_missing", "design_without_screening"} & set(_codes(case))
+
+
+def test_interdependent_flow_that_would_sell_to_anyone_gets_a_note():
+    from app.domain.models import Flow
+    case = Case(q1=Q1.B, q2=Q2.A, q3=Q3(env=True), decision_context=DecisionContext.MICRO,
+                flows=[Flow(id="f1", name="pulp", q5=Q5.d, sellable_elsewhere=True)])
+    run(case, None)
+    assert "flow_interdependent_but_marketable" in _codes(case)
+    assert case.flows[0].q5 == Q5.d

@@ -153,9 +153,13 @@ export function configurationRows(
       key: 'reference',
       label: label('reference'),
       value: market ? `${value} — ${t('result.config.values.market', { market })}` : value,
-      why: t(kase.q2 === 'B' ? 'result.config.why.referenceNotYet'
+      why: [t(kase.q2 === 'B' ? 'result.config.why.referenceNotYet'
         : kase.network_long_standing ? 'result.config.why.referenceLongStanding'
           : 'result.config.why.referenceRunning'),
+      // without LCA the situation prescribes no costing model, only the reference (P2-08)
+      !env && kase.ilcd_situation
+        ? t('result.config.why.referenceNoLca', { situation: kase.ilcd_situation.replace('ILCD Situation ', '') })
+        : null].filter(Boolean).join('; '),
       nodeText: texts(lca['reference_scenario.type'], lca['reference_scenario.content']),
     })
   }
@@ -188,10 +192,36 @@ export function configurationRows(
       label: label('flows'),
       value: treatments.join('; '),
       why: t('result.config.why.flows'),
-      nodeText: [JSON.stringify(perFlow)],
+      // per flow, by name: the JSON of flow ids was no citation (UX round 4, P2-06)
+      nodeText: (kase.flows ?? []).map((f) =>
+        `${f.name || f.id}: ${String((perFlow as Record<string, unknown>)[f.id] ?? '—')}`),
+    })
+  } else if (!env && eco && (kase.flows ?? []).length > 0) {
+    // a costing without LCA still values each flow (C-LCC at the negotiated price,
+    // D4.2 §6.3): decided by Fable, UX round 4, P2-08
+    rows.push({
+      key: 'flows',
+      label: t('result.config.labels.flowsLcc'),
+      value: (kase.flows ?? []).map((f) =>
+        `${f.name || f.id}: ${f.q5 ? t(`result.config.values.flowCost.${f.q5}`) : '—'}`).join('; '),
+      why: t('result.config.why.flows'),
+      nodeText: texts(lcc['secondary_flow_valuation']),
     })
   }
 
+  if (!env && eco) {
+    // without a parallel LCA the costing still needs a functional equivalent (D4.2 §3.1)
+    const goal = kase.comparison_goal
+    const kind = goal === 'waste_treatment' ? 'waste_treatment' : goal ? 'dual' : 'function'
+    rows.push({
+      key: 'fu',
+      label: t('result.config.labels.fuLcc'),
+      value: t(`result.config.values.fuLcc_${kind}`),
+      why: goal ? t('result.config.why.fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
+        : t('result.config.why.fuDefault'),
+      nodeText: texts(lcc['functional_equivalent']),
+    })
+  }
   if (env) {
     const goal = kase.comparison_goal
     rows.push({

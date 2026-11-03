@@ -452,7 +452,7 @@ const en = {
     p1:
       'SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results — the figures are calculated outside the tool by whoever carries out the study, and can be loaded here; nobody calculates them automatically.',
     p2:
-      'The questionnaire (Q0-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 12 Critical Decision Points surface cross-method tensions to the user.',
+      'The questionnaire (Q0-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 11 Critical Decision Points surface cross-method tensions to the user.',
   },
 
   error: {
@@ -606,7 +606,7 @@ const en = {
         'e — AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §8.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
         'Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.',
       plain:
-        "For each thing that moves between the companies — heat, water, slag, CO₂ — the question here is only who pays whom: the sender pays to be rid of it, nobody pays, or the receiver pays for it. If the sender deliberately changed its own process in order to supply it, pick that whatever the money says. If your source gives one figure for the whole network, pick the last option — but you will still be asked about every flow you can name, because one rule for the whole network is not allowed. Whether a flow counts as waste in law is settled later, in the data collection file, not here.",
+        'For each thing that moves between the companies — heat, water, slag, CO₂ — the question here is only who pays whom: the sender pays to be rid of it, nobody pays, or the receiver pays for it. If the sender deliberately changed its own process in order to supply it, pick that whatever the money says. For that partner, though: a dryer built to sell the flow to anyone is not interdependence — pick \'the receiver pays\' and declare the dryer under dedicated assets. If your source gives one figure for the whole network, pick the last option — but you will still be asked about every flow you can name, because one rule for the whole network is not allowed. Whether a flow counts as waste in law is settled later, in the data collection file, not here.',
     },
 
     q6a: {
@@ -1006,8 +1006,17 @@ const en = {
         shared: 'Dedicated assets',
         claimPublic: 'Comparisons',
         multifunctionality: 'Multifunctionality',
+        flowsLcc: 'Cost of each flow',
+        fuLcc: 'Functional equivalent',
       },
       values: {
+        flowCost: {
+          a: 'waste: the gate fee as negotiated; zero cost only if the residual is unavoidable (D4.2 §6.3)',
+          b: 'free: zero transfer price; zero cost only if unavoidable, otherwise a co-product',
+          c: 'co-product: the negotiated price',
+          d: 'interdependent: a determining co-product at the negotiated transfer price; zero cost does not apply (D4.1 §8.3.6 Step 2)',
+          e: 'aggregated: price each flow that can be named',
+        },
         noChapter: "No chapter of D4.1 Part 2 covers the declared flows: only Part 1 applies",
         flowTreatment: {
           waste: "waste: no burden up to where it gains value (zero burden)",
@@ -1047,6 +1056,9 @@ const en = {
         multiPefSubstitution: ' — partitioned with the PEF Circular Footprint Formula (Q4 = D)',
         multiPefConsequential: ' — PEF CFF as a sensitivity (Q4 = D)',
         multiPefAllocation: ' — the CFF is not applied',
+        fuLcc_waste_treatment: 'Input-based: the treatment of the waste (D4.2 §3.1)',
+        fuLcc_dual: 'Dual: the waste treated and the output generated, each with its avoided costs and revenues (D4.2 §3.1)',
+        fuLcc_function: 'The portfolio of functions the network delivers, each with its avoided costs and revenues (D4.2 §3.1)',
       },
       why: {
         noChapter: "Part 2 covers five bio-based sectors; no flow is declared in one of them",
@@ -1080,6 +1092,7 @@ const en = {
         shared: 'the symbiosis uses dedicated assets (Q12)',
         multifunctionality: 'the ILCD situation (Q9)',
         horizonLifetimeOnly: 'the assets last {{years}} years, more than {{threshold}}: the background is projected over their amortisation even though the study describes the present year (D4.2 §9.3; the threshold can be changed in the advanced settings)',
+        referenceNoLca: 'the costing uses the reference scenario an LCA in ILCD Situation {{situation}} would use (D4.2 §4.1); the situation prescribes no costing model',
       },
     },
     notes: { title: 'Notes on your answers' },
@@ -1123,6 +1136,8 @@ const en = {
       flow_configuration_unknown: "Flow '{{flow}}': configuration '{{configuration}}' is not one of D4.1 Part 2.",
       flow_configuration_other_chapter: "Flow '{{flow}}': its configuration belongs to {{chapter}}, not to the declared {{declared}}; the rules of both chapters are listed.",
       b_consequential_over_pef: 'Situation B asks for consequential modelling against the marginal technology (D4.1 Table 1), while EU policy alignment (Q4 = D) asks for the PEF Circular Footprint Formula, an attributional partition. The consequential model governs; run the CFF as a sensitivity and declare both in the methodological charter (D4.1 §7.3.3; D4.2 §2.2).',
+      b_lcc_not_consequential: 'Situation B: the LCA substitutes the marginal technology (D4.1 Table 1), while the environmental LCC values displaced products at the average market price of what they replace (D4.2 §6.2): this tool has no consequential costing formulation. D4.2 §2.2 asks one paradigm, identical between LCA and LCC: declare the difference in the methodological charter as a methodological deviation, and price the displaced products at the marginal supplier\'s price in a sensitivity.',
+      flow_interdependent_but_marketable: 'Flow \'{{flow}}\': Q5 says the sender changed its process for this partner, and the flow would also sell to others. Both can be true for a determining co-product (D4.1 §8.3.6 Step 2). Check which it is: if the change was made to meet this partner\'s specification, keep d; if it was made to reach any buyer (a dryer that turns the pulp into a tradable feed), the flow is a dependent co-product (Q5 = c, substitution with the quality factor Q) and the equipment is a dedicated asset (Q12). A note never changes Q5.',
     },
     sectorChapters: { '§4': "§4 Agri-Food and Biorefineries", '§5': "§5 Plastics and Packaging", '§6': "§6 Wastewater and Biofactories", '§7': "§7 Textile and Technical Textiles", '§8': "§8 Waste Valorisation" },
     sectorRules: {

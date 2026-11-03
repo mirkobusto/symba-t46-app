@@ -404,7 +404,7 @@ const de: Locale = {
     p1:
       'SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die Zahlen berechnet außerhalb des Werkzeugs, wer die Studie durchführt, und sie können hier geladen werden; niemand berechnet sie automatisch.',
     p2:
-      'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 12 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
+      'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 11 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
   },
 
   error: {
@@ -558,7 +558,7 @@ const de: Locale = {
         'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §8.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
         'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
       plain:
-        "Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Sie werden dennoch nach jedem Fluss gefragt, den Sie benennen können, denn eine einzige Regel für das ganze Netz ist nicht zulässig. Ob ein Fluss rechtlich Abfall ist, wird später im Data Collection File entschieden, nicht hier.",
+        'Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Allerdings für diesen Partner: Ein Trockner, gebaut, um den Fluss an beliebige Käufer zu verkaufen, ist keine Interdependenz — wählen Sie „der Empfänger zahlt“ und geben Sie ihn bei den eigens errichteten Anlagen an. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option — jeder benennbare Fluss wird trotzdem abgefragt. Ob ein Fluss rechtlich Abfall ist, klärt später das Data Collection File.',
     },
 
     q6a: {
@@ -958,8 +958,17 @@ const de: Locale = {
         shared: 'Eigens errichtete Anlagen',
         claimPublic: 'Vergleiche',
         multifunctionality: 'Multifunktionalität',
+        flowsLcc: 'Kosten jedes Flusses',
+        fuLcc: 'Funktionales Äquivalent',
       },
       values: {
+        flowCost: {
+          a: 'Abfall: die ausgehandelte Annahmegebühr; Nullkosten nur, wenn der Rückstand unvermeidbar ist (D4.2 §6.3)',
+          b: 'kostenlos: Verrechnungspreis null; Nullkosten nur, wenn unvermeidbar, sonst Koppelprodukt',
+          c: 'Koppelprodukt: der ausgehandelte Preis',
+          d: 'interdependent: ein bestimmendes Koppelprodukt zum ausgehandelten Verrechnungspreis; Nullkosten gelten nicht (D4.1 §8.3.6, Schritt 2)',
+          e: 'aggregiert: jeden benennbaren Fluss bepreisen',
+        },
         noChapter: "Kein Kapitel von D4.1 Part 2 betrifft die angegebenen Flüsse: es gilt nur Part 1",
         flowTreatment: {
           waste: "Abfall: keine Last bis zu dem Punkt, an dem er Wert gewinnt (lastenfrei)",
@@ -999,6 +1008,9 @@ const de: Locale = {
         multiPefSubstitution: ' — aufgeteilt mit der Circular Footprint Formula des PEF (Q4 = D)',
         multiPefConsequential: ' — PEF-CFF als Sensitivitätsanalyse (Q4 = D)',
         multiPefAllocation: ' — die CFF wird nicht angewendet',
+        fuLcc_waste_treatment: 'Inputbasiert: die Behandlung des Abfalls (D4.2 §3.1)',
+        fuLcc_dual: 'Doppelt: der behandelte Abfall und das erzeugte Produkt, jeweils mit vermiedenen Kosten und Erlösen (D4.2 §3.1)',
+        fuLcc_function: 'Das Bündel der Funktionen, die das Netzwerk erbringt, jeweils mit vermiedenen Kosten und Erlösen (D4.2 §3.1)',
       },
       why: {
         noChapter: "Part 2 deckt fünf biobasierte Sektoren ab, und kein Fluss ist einem davon zugeordnet",
@@ -1032,6 +1044,7 @@ const de: Locale = {
         shared: 'die Symbiose nutzt eigens errichtete Anlagen (Q12)',
         multifunctionality: 'die ILCD-Situation (Q9)',
         horizonLifetimeOnly: 'die Anlagen halten {{years}} Jahre, mehr als {{threshold}}: Der Hintergrund wird über ihre Abschreibung projiziert, auch wenn die Studie das aktuelle Jahr beschreibt (D4.2 §9.3; die Schwelle lässt sich in den erweiterten Einstellungen ändern)',
+        referenceNoLca: 'die Kostenrechnung nutzt das Referenzszenario, das eine Ökobilanz in ILCD-Situation {{situation}} verwenden würde (D4.2 §4.1); die Situation schreibt kein Kostenmodell vor',
       },
     },
     notes: { title: 'Hinweise zu Ihren Antworten' },
@@ -1075,6 +1088,8 @@ const de: Locale = {
       flow_configuration_unknown: "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
       flow_configuration_other_chapter: "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
       b_consequential_over_pef: 'Situation B verlangt eine konsequenzielle Modellierung gegen die marginale Technologie (D4.1 Tabelle 1), während die Ausrichtung auf EU-Politiken (Q4 = D) die Circular Footprint Formula des PEF verlangt, eine attributive Aufteilung. Das konsequenzielle Modell hat Vorrang; führen Sie die CFF als Sensitivitätsanalyse durch und erklären Sie beides in der Methodencharta (D4.1 §7.3.3; D4.2 §2.2).',
+      b_lcc_not_consequential: 'Situation B: Die Ökobilanz substituiert die marginale Technologie (D4.1 Tabelle 1), während die ökologische LCC verdrängte Produkte zum durchschnittlichen Marktpreis dessen bewertet, was sie ersetzen (D4.2 §6.2): Dieses Tool hat keine konsequenzielle Fassung der Kostenrechnung. D4.2 §2.2 verlangt ein Paradigma, identisch zwischen Ökobilanz und LCC: Erklären Sie den Unterschied in der Methodencharta als methodische Abweichung und bewerten Sie die verdrängten Produkte in einer Sensitivitätsanalyse zum Preis des marginalen Anbieters.',
+      flow_interdependent_but_marketable: 'Fluss „{{flow}}“: Q5 sagt, der Abgebende habe seinen Prozess für diesen Partner geändert, und der Fluss würde sich auch an andere verkaufen. Beides kann bei einem bestimmenden Koppelprodukt zutreffen (D4.1 §8.3.6, Schritt 2). Prüfen Sie: Wurde die Änderung für die Spezifikation dieses Partners vorgenommen, bleibt d; wurde sie für beliebige Käufer vorgenommen (ein Trockner, der die Pülpe zu handelbarem Futter macht), ist der Fluss ein abhängiges Koppelprodukt (Q5 = c, Substitution mit dem Qualitätsfaktor Q) und die Anlage eine eigens errichtete Anlage (Q12). Eine Notiz ändert Q5 nie.',
     },
     sectorChapters: { '§4': "§4 Agrar, Lebensmittel und Bioraffinerien", '§5': "§5 Kunststoffe und Verpackungen", '§6': "§6 Abwasser und Biofabriken", '§7': "§7 Textil und technische Textilien", '§8': "§8 Abfallverwertung" },
     sectorRules: {

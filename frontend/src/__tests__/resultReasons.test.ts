@@ -53,13 +53,14 @@ describe('result reasons', () => {
 })
 
 describe('verdict of a study with no LCA (UX round 2026-11-03)', () => {
-  it('is headed by the costing, with the ILCD situation as a badge', async () => {
+  it('is headed by the costing, with the LCC badge only', async () => {
     const { verdictFor } = await import('../pages/resultNarrative')
     await i18n.changeLanguage('it')
     const tr = (key: string, fallback?: string) => i18n.t(key, { defaultValue: fallback ?? '' }) as string
     const v = verdictFor({ ...CASE, q3: { env: false, eco: true, soc: false }, ilcd_situation: 'ILCD Situation A', lcc_type: 'C+N' }, tr)!
     expect(v.title).toBe('LCC convenzionale per partner, consolidato a livello di rete')
     expect(v.title).not.toMatch(/attribuzional/i)
-    expect(v.codes).toEqual(['C-LCC per partner + rete', 'Situazione ILCD A'])
+    // no ILCD badge without an LCA (UX round 4, P2-08)
+    expect(v.codes).toEqual(['C-LCC per partner + rete'])
   })
 })

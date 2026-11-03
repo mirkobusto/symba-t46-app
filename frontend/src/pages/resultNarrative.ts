@@ -90,7 +90,8 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
       title: lookup(t, `result.lccTitle.${lcc}`) ?? lccBadge ?? lcc,
       body: lookup(t, `narrative.lcc.${lcc}.short`) ?? '',
       method: method.filter((m) => m !== lookup(t, `narrative.lcc.${lcc}.short`)),
-      codes: [lccBadge, situationBadge].filter((s): s is string => Boolean(s)),
+      // the ILCD situations are LCA categories: no badge without an LCA (P2-08)
+      codes: [lccBadge].filter((s): s is string => Boolean(s)),
       details,
     }
   }

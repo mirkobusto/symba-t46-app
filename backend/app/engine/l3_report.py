@@ -112,6 +112,11 @@ def _build_cdp_entry(cdp: dict[str, Any]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
+# CDP-10 describes computational effort and surfaces no choice: it stays in the
+# schema (closure) but is not listed to the user (decided by Fable, UX round 4, P2-09)
+_NOT_A_DECISION = {"CDP-10"}
+
+
 def run(case: Case, schemas: LoadedSchemas) -> Case:
     """Enforce IR-04 + IR-10 and append surfaced CDPs to `case.cdp_flags`.
 
@@ -160,6 +165,8 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     cdps = schemas.cross_method_rules.get("critical_decision_points", [])
     for cdp in cdps:
         if cdp.get("lifecycle_layer") != "L3":
+            continue
+        if (cdp.get("cdp_id") or cdp.get("id")) in _NOT_A_DECISION:
             continue
         if _cdp_methods_active(case, cdp.get("methods", [])):
             case.cdp_flags.append(_build_cdp_entry(cdp))

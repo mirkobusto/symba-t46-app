@@ -430,7 +430,7 @@ const it: Locale = {
     p1:
       'SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da un questionario sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati — i numeri li calcola fuori dallo strumento chi esegue lo studio, e si possono caricare qui; nessuno li calcola in automatico.',
     p2:
-      'Il questionario (Q0-Q12; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 12 Critical Decision Points emergono per evidenziare tensioni cross-method.',
+      'Il questionario (Q0-Q12; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 11 Critical Decision Points emergono per evidenziare tensioni cross-method.',
   },
 
   error: {
@@ -584,7 +584,7 @@ const it: Locale = {
         'e — AGGREGATO / black-box: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §8.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. ' +
         'Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.',
       plain:
-        "Per ogni cosa che si muove fra le aziende — calore, acqua, scorie, CO₂ — qui la domanda è soltanto chi paga chi: chi manda il flusso paga per liberarsene, nessuno paga, oppure chi lo riceve lo paga. Se chi manda ha cambiato di proposito il proprio processo per fornirlo, scegli quella voce qualunque cosa dica il denaro. Se la tua fonte dà un unico numero per tutta la rete, scegli l'ultima opzione: ti verrà comunque chiesto di ogni flusso che sai nominare, perché una regola unica per tutta la rete non è ammessa. Se un flusso sia un rifiuto per la legge si decide dopo, nel file di raccolta dati, non qui.",
+        'Per ogni cosa che si muove fra le aziende — calore, acqua, scorie, CO₂ — qui la domanda è soltanto chi paga chi: chi manda il flusso paga per liberarsene, nessuno paga, oppure chi lo riceve lo paga. Se chi manda ha cambiato di proposito il proprio processo per fornirlo, scegli quella voce qualunque cosa dica il denaro. Per quel partner, però: un essiccatoio costruito per vendere il flusso a chiunque non è interdipendenza: scegli «chi lo riceve paga» e dichiaralo fra i beni dedicati. Se la tua fonte dà un unico numero per tutta la rete, scegli l\'ultima opzione: ti verrà comunque chiesto di ogni flusso che sai nominare, perché una regola unica per tutta la rete non è ammessa. Se un flusso sia un rifiuto per la legge si decide dopo, nel file di raccolta dati, non qui.',
     },
 
     q6a: {
@@ -984,8 +984,17 @@ const it: Locale = {
         shared: 'Beni dedicati',
         claimPublic: 'Confronti',
         multifunctionality: 'Multifunzionalità',
+        flowsLcc: 'Costo di ogni flusso',
+        fuLcc: 'Equivalente funzionale',
       },
       values: {
+        flowCost: {
+          a: 'rifiuto: la tariffa di conferimento negoziata; costo zero solo se il residuo è inevitabile (D4.2 §6.3)',
+          b: 'gratuito: prezzo di trasferimento zero; costo zero solo se inevitabile, altrimenti co-prodotto',
+          c: 'co-prodotto: il prezzo negoziato',
+          d: 'interdipendente: un co-prodotto determinante al prezzo di trasferimento negoziato; il costo zero non si applica (D4.1 §8.3.6, passo 2)',
+          e: 'aggregato: dare un prezzo a ogni flusso che si può nominare',
+        },
         noChapter: "Nessun capitolo della D4.1 Part 2 riguarda i flussi dichiarati: vale solo la Part 1",
         flowTreatment: {
           waste: "rifiuto: nessun carico fino al punto in cui acquista valore (carico zero)",
@@ -1025,6 +1034,9 @@ const it: Locale = {
         multiPefSubstitution: ' — ripartita con la Circular Footprint Formula della PEF (Q4 = D)',
         multiPefConsequential: ' — CFF della PEF come analisi di sensibilità (Q4 = D)',
         multiPefAllocation: ' — la CFF non si applica',
+        fuLcc_waste_treatment: 'Basato sull\'input: il trattamento del rifiuto (D4.2 §3.1)',
+        fuLcc_dual: 'Duplice: il rifiuto trattato e l\'output generato, ciascuno con i suoi costi evitati e ricavi (D4.2 §3.1)',
+        fuLcc_function: 'Il portafoglio di funzioni che la rete svolge, ciascuna con i suoi costi evitati e ricavi (D4.2 §3.1)',
       },
       why: {
         noChapter: "la Part 2 copre cinque settori bio-based e nessun flusso è dichiarato in uno di essi",
@@ -1058,6 +1070,7 @@ const it: Locale = {
         shared: 'la simbiosi usa beni dedicati (Q12)',
         multifunctionality: 'la situazione ILCD (Q9)',
         horizonLifetimeOnly: 'i beni durano {{years}} anni, più di {{threshold}}: il background si proietta sul loro ammortamento anche se lo studio descrive l\'anno attuale (D4.2 §9.3; la soglia si cambia nelle impostazioni avanzate)',
+        referenceNoLca: 'il costing usa lo scenario di riferimento che userebbe un\'LCA in Situazione ILCD {{situation}} (D4.2 §4.1); la situazione non prescrive alcun modello di costing',
       },
     },
     notes: { title: 'Note sulle tue risposte' },
@@ -1101,6 +1114,8 @@ const it: Locale = {
       flow_configuration_unknown: "Flusso «{{flow}}»: la configurazione «{{configuration}}» non è una di quelle della D4.1 Part 2.",
       flow_configuration_other_chapter: "Flusso «{{flow}}»: la sua configurazione appartiene a {{chapter}}, non al capitolo dichiarato {{declared}}; sono elencate le regole di entrambi i capitoli.",
       b_consequential_over_pef: 'La Situazione B chiede una modellazione conseguenziale sulla tecnologia marginale (D4.1 Tabella 1), mentre l\'allineamento alle politiche UE (Q4 = D) chiede la Circular Footprint Formula della PEF, una ripartizione attribuzionale. Governa il modello conseguenziale; esegui la CFF come analisi di sensibilità e dichiara entrambe nella carta metodologica (D4.1 §7.3.3; D4.2 §2.2).',
+      b_lcc_not_consequential: 'Situazione B: l\'LCA sostituisce la tecnologia marginale (D4.1 Tabella 1), mentre l\'LCC ambientale valuta i prodotti spostati al prezzo medio di mercato di ciò che sostituiscono (D4.2 §6.2): questo strumento non ha una formulazione conseguenziale del costing. La D4.2 §2.2 chiede un solo paradigma, identico fra LCA e LCC: dichiara la differenza nella carta metodologica come deviazione metodologica, e valuta i prodotti spostati al prezzo del fornitore marginale in un\'analisi di sensibilità.',
+      flow_interdependent_but_marketable: 'Flusso «{{flow}}»: Q5 dice che chi lo cede ha cambiato il processo per questo partner, e il flusso si venderebbe anche ad altri. Le due cose possono convivere per un co-prodotto determinante (D4.1 §8.3.6, passo 2). Verifica: se la modifica è stata fatta per le specifiche di questo partner, tieni d; se è stata fatta per raggiungere qualunque acquirente (un essiccatoio che rende la polpa un mangime vendibile), il flusso è un co-prodotto dipendente (Q5 = c, sostituzione con fattore di qualità Q) e l\'impianto è un bene dedicato (Q12). La nota non cambia mai Q5.',
     },
     sectorChapters: { '§4': "§4 Agroalimentare e bioraffinerie", '§5': "§5 Plastica e imballaggi", '§6': "§6 Acque reflue e biofabbriche", '§7': "§7 Tessile e tessili tecnici", '§8': "§8 Valorizzazione dei rifiuti" },
     sectorRules: {

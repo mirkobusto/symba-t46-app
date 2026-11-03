@@ -27,7 +27,7 @@ import { useTranslation } from 'react-i18next'
 
 import ConfigurationSummary from './ConfigurationSummary'
 import { AUDIENCE_ROWS } from '../pages/configurationRows'
-import { verdictFor, type VerdictDetail } from '../pages/resultNarrative'
+import { plainVerdict, verdictFor, type VerdictDetail } from '../pages/resultNarrative'
 import type { Case } from '../types/api'
 import type { Dimension, ScoringIndicator, ScoringPayload } from '../types/scoring'
 
@@ -86,6 +86,10 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
   const verdict = verdictFor(caseData, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )
+  // the public audiences read the verdict in words; industry keeps the analyst's title
+  const headline = verdict && stakeholderType !== 'industry'
+    ? plainVerdict(caseData, verdict, (key, fallback) => t(key, { defaultValue: fallback ?? '' }))
+    : verdict ?? { title: '', body: '' }
   const axes = AXIS_FILTER[stakeholderType]
   // "Not assessed" is news for the audience that came for that dimension.
   // the slca row says it where the audience has it; the paragraph is for the others
@@ -121,11 +125,12 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
 
       <section className="stakeholder-section">
         <h3>{t('stakeholder.verdictTitle')}</h3>
-        <p className="stakeholder-verdict-title">{verdict.title}</p>
-        <p className="stakeholder-verdict-body">{verdict.body}</p>
+        <p className="stakeholder-verdict-title">{headline.title}</p>
+        <p className="stakeholder-verdict-body">{headline.body}</p>
         {(caseData.blocked_by ?? []).length === 0 ? (
           <ConfigurationSummary
             kase={caseData}
+            audience={stakeholderType}
             only={AUDIENCE_ROWS[stakeholderType]}
             showNodeText={false}
             showWhy={false}

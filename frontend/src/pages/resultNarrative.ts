@@ -105,3 +105,19 @@ export function verdictFor(kase: Case | null, t: Translate): Verdict | null {
     details,
   }
 }
+
+/**
+ * The verdict in words for a public reader. "Decision support with limited
+ * consequences" read as "the effects are small" to a resident, a consumer and
+ * a regional officer (UX round 2026-11-03, decided by Fable): the public
+ * views say what kind of study it is, the ILCD code stays in the badges.
+ * A study with no LCA keeps the costing headline of verdictFor.
+ */
+export function plainVerdict(kase: Case, verdict: Verdict, t: Translate): { title: string; body: string } {
+  const situation = kase.ilcd_situation?.replace('ILCD Situation ', '')
+  if (!kase.q3?.env || !situation) return { title: verdict.title, body: verdict.body }
+  return {
+    title: lookup(t, `reader.verdict.${situation}.title`) ?? verdict.title,
+    body: lookup(t, `reader.verdict.${situation}.body`) ?? verdict.body,
+  }
+}

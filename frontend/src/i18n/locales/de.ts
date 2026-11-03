@@ -73,7 +73,7 @@ const de: Locale = {
 
   share: {
     buttonLabel: 'Bericht teilen', title: 'Diesen Bericht teilen',
-    lead: 'Senden Sie eine dieser URLs an einen Stakeholder. Gleicher Fall, unterschiedliche Rahmung pro Zielgruppe.',
+    lead: 'Senden Sie eine dieser URLs an einen Stakeholder. Gleicher Fall, unterschiedliche Rahmung pro Zielgruppe. Für ein Produktetikett teilen Sie den End-user-Link.',
     close: 'Schließen', done: 'Fertig', copy: 'Kopieren', copied: 'Kopiert ✓',
     copyFailed: 'Kopieren nicht möglich — bitte manuell kopieren.',
     saveFirstTitle: 'Fall zuerst speichern',
@@ -83,6 +83,14 @@ const de: Locale = {
 
   reader: {
     tagline: 'Öffentlicher Bericht',
+    // plain titles for the public views (decided by Fable, UX round 2026-11-03)
+    verdict: {
+      A: { title: 'Ein lokaler Austausch, bewertet mit Durchschnittsdaten', body: 'Der Austausch ist klein im Vergleich zur Wirtschaft insgesamt: Die Studie beschreibt, was er ersetzt, mit durchschnittlichen Marktdaten (dem nationalen Strommix, dem durchschnittlichen Primärmaterial). Das sagt nichts darüber, wie groß seine Wirkungen auf die Anlagen oder die Region sind: Die misst die Studie.' },
+      B: { title: 'Eine Entscheidung im großen Maßstab, bewertet mit den Marktveränderungen, die sie auslöst', body: 'Die Entscheidung ist groß genug, um zu verändern, was die Wirtschaft baut oder stilllegt: Die Studie modelliert diese Veränderungen statt Durchschnittsdaten zu verwenden.' },
+      C1: { title: 'Ein bestehendes Netzwerk, beschrieben, wie es läuft', body: 'Es wird keine Entscheidung getroffen: Die Studie dokumentiert, was das Netzwerk bereits leistet, verglichen mit dem, was jedes Unternehmen ohne es täte.' },
+      C2: { title: 'Die eigene Bilanz eines Unternehmens', body: 'Die Studie berichtet den Lastenanteil eines einzelnen Unternehmens, ohne Gutschrift für das, was sein Austausch anderswo einspart.' },
+    },
+    labelLine: 'Kommt dieser Link von einem Produktetikett? Diese Seite beschreibt, wie der Austausch zwischen den Unternehmen untersucht wird. Über das Produkt, das Sie gekauft haben, sagt sie noch nichts.',
     loading: 'Lade Bericht…',
     notFoundTitle: 'Bericht nicht gefunden',
     notFoundBody: 'Zu diesem Code gibt es keinen Bericht. Prüfen Sie, ob Sie den ganzen Link kopiert haben, oder bitten Sie die Person, die ihn geschickt hat, erneut darum.',
@@ -116,6 +124,7 @@ const de: Locale = {
       pef: { name: "EU-Produktumweltfußabdruck (PEF)", desc: "Die Studie folgt der EU-Fußabdruckmethode einschließlich der Circular Footprint Formula.", descC2: "Nicht anwendbar: die Bilanz eines einzelnen Unternehmens nutzt Allokation, nicht die Circular Footprint Formula (ILCD C2)." },
       public: { name: "Öffentliche vergleichende Aussage", desc: "Öffentlich zu behaupten, ein Produkt sei besser als oder gleichwertig mit einem anderen, erfordert ein ISO-Prüfgremium." },
       dnsh: { name: "EU-Taxonomie „keine erhebliche Beeinträchtigung“ (DNSH)", desc: "Eine eigene Prüfung für Finanzierungen nach der EU-Taxonomie (Art. 17); dieses Tool führt sie nicht durch." },
+      slcc: { name: 'Für eine öffentliche Entscheidung angelegt (gesellschaftliche LCC)', yes: 'Ja: Die Kostenrechnung enthält die gesellschaftliche Sicht, die eine öffentliche Entscheidung braucht (Steuern und Subventionen bereinigt, Umweltwirkungen bewertet) — D4.2 §2.3.', no: 'Nein: Die Kostenrechnung bleibt auf Ebene von Unternehmen und Wertschöpfungskette. Soll eine öffentliche Stelle über diesen Fall entscheiden, bitten Sie den Analysten, die Studie für ein öffentliches Ziel anzulegen (Q10).', c2: 'Nicht zutreffend: Die Bilanz eines einzelnen Unternehmens wird nur auf Unternehmensebene gerechnet.', off: 'Nicht bewertet: Die Studie hat keine ökonomische Dimension.' },
       notPlanned: "in dieser Studie nicht vorgesehen",
       notAssessed: "von diesem Tool nicht bewertet",
     },
@@ -901,6 +910,7 @@ const de: Locale = {
         regional: 'Lokale Wirkungen',
         sectors: 'Sektorregeln',
         shared: 'Eigens errichtete Anlagen',
+        claimPublic: 'Vergleiche',
       },
       values: {
         noChapter: "Kein Kapitel von D4.1 Part 2 betrifft die angegebenen Flüsse: es gilt nur Part 1",
@@ -915,6 +925,7 @@ const de: Locale = {
         claim: 'Vergleichende Aussage gegenüber der Öffentlichkeit: kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
         claimNone: 'Keine öffentliche vergleichende Aussage',
         claimPolicy: "Keine öffentliche vergleichende Aussage; Ausrichtung an der EU-Politik (Q4 = D): Prüfung durch ein unabhängiges Panel, Entscheidung von T4.6",
+        claimPublic: { none: 'Diese Studie soll nicht sagen, dass ein Produkt besser als ein anderes oder gleichwertig ist.', claim: 'Die Studie wird eine öffentliche Aussage stützen, dass dieser Austausch besser als eine Alternative oder gleichwertig ist; unabhängige Fachleute müssen sie zuerst prüfen.', policy: 'Die Studie folgt der EU-Methode des Umweltfußabdrucks; sie behauptet nicht, dass ein Produkt besser als ein anderes ist.' },
         scope_continental: 'kontinental',
         scope_sub_national: 'subnational',
         scope_national: 'national',

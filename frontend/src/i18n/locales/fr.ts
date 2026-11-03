@@ -377,7 +377,8 @@ const fr: Locale = {
     divergencesLead: "Quelques choix sont propres à l'outil, indiqués ici pour qu'un relecteur les voie :",
     divergences: {
       c2: "Les comptes d'une seule entreprise (Situation ILCD C2) ne sont évalués qu'au niveau de l'entreprise : un choix de l'outil, pas une règle de la D4.2.",
-      uncertainty: "La matrice Pedigree et l'analyse Monte Carlo suivent les réponses (affirmation publique, maturité technologique), alors que la D4.1 et la D4.2 les demandent dans toute étude.",
+      situation: 'Une étude d\'un réseau existant qui en évalue une option (une amélioration, une extension) est lue comme Situation A ; une étude qui se borne à documenter le réseau est Situation C1 (lecture T4.6 du tableau 1 et du §4.3.2 de la D4.1).',
+      uncertainty: 'La matrice Pedigree est écrite comme obligatoire quand les résultats vont à un panel de revue, à l\'alignement sur les politiques de l\'UE ou à une publication (Q4 = C, D ou E) et comme recommandée sinon, et elle s\'active pour l\'ACV comme pour le LCC quand les échanges n\'ont pas encore lieu (Q2 = B, règle CIR-02) ; le Monte Carlo est demandé pour l\'ACV sous ses propres conditions (Q4 = C, D ou E, ou technologie sous TRL 9) et toujours pour le calcul des coûts. La D4.1 §13.3.2 et la D4.2 §7.1, §10.3 demandent les deux dans toute étude.',
       policy: "L'alignement sur les politiques de l'UE (Q4 = D) introduit les prix CE Delft et l'allocation par net tax factor, que la D4.2 associe au LCC sociétal.",
       assets: "Q12 compte les biens dédiés et partagés construits pour les échanges, aujourd'hui ou il y a des années (D4.1 §6.3.3), là où la D4.2 §4.2 parle de biens nouveaux.",
     },

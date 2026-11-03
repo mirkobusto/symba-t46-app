@@ -156,12 +156,12 @@ _PAPERS: list[dict[str, Any]] = [
     # 8. Danielsson 2018 — Kalundborg, ENV+ECO, public-claim Q4=C
     {
         "id": "danielsson_2018",
-        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True,
+        "decision_context": DecisionContext.NONE, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True,
         "q3": Q3(env=True, eco=True),
         "q4": {Q4.C},
         "flows": _flows(Q5.e),
         "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
-        "expected_ilcd": IlcdSituation.SITUATION_A,
+        "expected_ilcd": IlcdSituation.SITUATION_C1,
         "expected_lcc_type": LccType.C_LCC_PLUS_E_LCC,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },

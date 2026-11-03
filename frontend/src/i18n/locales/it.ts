@@ -397,7 +397,8 @@ const it: Locale = {
     divergencesLead: "Alcune scelte sono dello strumento, dichiarate qui perché un revisore le veda:",
     divergences: {
       c2: "Il rendiconto di una sola azienda (Situazione ILCD C2) ha solo costi a livello d'azienda: una scelta dello strumento, non una regola della D4.2.",
-      uncertainty: "Matrice Pedigree e analisi Monte Carlo seguono le risposte (dichiarazione pubblica, maturità della tecnologia), mentre la D4.1 e la D4.2 le chiedono in ogni studio.",
+      situation: 'Uno studio su una rete esistente che ne valuta un\'opzione (un miglioramento, un\'espansione) è letto come Situazione A; uno che si limita a documentare la rete è Situazione C1 (lettura T4.6 della Tabella 1 e del §4.3.2 di D4.1).',
+      uncertainty: 'La matrice Pedigree è scritta come obbligatoria quando i risultati vanno a un panel di revisione, all\'allineamento con le politiche UE o a una pubblicazione (Q4 = C, D o E) e come raccomandata negli altri casi, e si accende sia per l\'LCA sia per l\'LCC quando gli scambi non avvengono ancora (Q2 = B, regola CIR-02); il Monte Carlo è chiesto per l\'LCA con condizioni proprie (Q4 = C, D o E, oppure tecnologia sotto TRL 9) e sempre per il costing. D4.1 §13.3.2 e D4.2 §7.1, §10.3 li chiedono entrambi in ogni studio.',
       policy: "L'allineamento alle politiche UE (Q4 = D) porta i prezzi CE Delft e l'allocazione con il net tax factor, che la D4.2 lega all'LCC sociale.",
       assets: "Q12 conta i beni dedicati e condivisi costruiti per gli scambi, oggi o anni fa (D4.1 §6.3.3), dove la D4.2 §4.2 parla di beni nuovi.",
     },

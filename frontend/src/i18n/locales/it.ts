@@ -340,7 +340,7 @@ const it: Locale = {
   privacy: {
     "title": "Privacy e conservazione dei dati",
     "draft": "BOZZA per revisione legale — non è ancora l'informativa definitiva. Le voci tra [parentesi quadre] devono essere completate dal titolare di questa installazione.",
-    "updated": "Versione: bozza 1, 2026-10-04.",
+    "updated": "Versione: bozza 2, 2026-11-03.",
     "sections": [
       {
         "id": "controller",
@@ -382,7 +382,7 @@ const it: Locale = {
         "id": "recipients",
         "title": "5. Chi può vederli",
         "paragraphs": [
-          "Fornitore di hosting: [SEGNAPOSTO]. I link del tipo /r/… sono non elencati, non privati: chiunque abbia il link può leggere quel report. Per salvare un caso sul server serve un account; ogni caso salvato può essere letto e modificato solo da chi lo ha salvato e dall'amministratore (il primo account registrato), che può leggere e modificare ogni caso: non inserire dati personali di terzi."
+          "Fornitore di hosting: [SEGNAPOSTO]. Un caso salvato non è pubblico: il suo report si legge a un link del tipo /r/… solo dopo che chi lo ha salvato attiva la condivisione nella finestra Condividi, e smette di essere leggibile quando la condivisione viene spenta. Finché è condiviso, chiunque abbia il link può leggere il report: le risposte e i nomi dei flussi, senza note, quantità, siti o scenari. Il nome e il contatto scritti in \"Preparato da\" e \"Contatto per questo caso\" sono pubblicati sul report per scelta dell'utente; lasciali vuoti per non pubblicare nulla. Per salvare un caso sul server serve un account; ogni caso salvato può essere letto e modificato solo da chi lo ha salvato e dall'amministratore (il primo account registrato), che può leggere e modificare ogni caso: non inserire dati personali di terzi."
         ],
         "items": []
       },

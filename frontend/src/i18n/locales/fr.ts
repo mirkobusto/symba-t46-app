@@ -320,7 +320,7 @@ const fr: Locale = {
   privacy: {
     "title": "Privacy and data storage",
     "draft": "DRAFT for legal review — not yet the privacy notice of record. Items in [square brackets] are for the controller of this deployment to complete.",
-    "updated": "Version: draft 1, 2026-10-04.",
+    "updated": "Version: draft 2, 2026-11-03.",
     "sections": [
       {
         "id": "controller",
@@ -362,7 +362,7 @@ const fr: Locale = {
         "id": "recipients",
         "title": "5. Who can see it",
         "paragraphs": [
-          "Hosting provider: [PLACEHOLDER]. Links of the form /r/… are unlisted, not private: anyone who has the link can read that report. Saving a case on the server requires an account; each saved case can be read and changed only by its owner and by the administrator (the first account registered), who can read and change every case: do not enter personal data of third parties."
+          "Hosting provider: [PLACEHOLDER]. A saved case is not public: its report can be read at a link of the form /r/… only after its owner turns sharing on in the Share dialog, and stops being readable when sharing is turned off. While shared, anyone who has the link can read the report: the answers and the names of the flows, without flow notes, quantities, sites or scenarios. The name and the contact written in \"Prepared by\" and \"Contact for this case\" are published on the report by the user's choice; leave them empty to publish neither. Saving a case on the server requires an account; each saved case can be read and changed only by its owner and by the administrator (the first account registered), who can read and change every case: do not enter personal data of third parties."
         ],
         "items": []
       },

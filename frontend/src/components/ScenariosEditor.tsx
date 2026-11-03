@@ -1,10 +1,11 @@
-// Alternative scenarios editor (open to every study, D4.1 §4.3.3) — per-scenario JSON overrides
-// (Follow-up E completing Feature C).
+// Alternative scenarios editor (open to every study, D4.1 §4.3.3).
 //
-// Each scenario row exposes a textarea where the user pastes a JSON
-// dict of Case-shaped overrides. Live validation: invalid JSON shows
-// a red border + an error chip; valid JSON updates scenario.overrides
-// on the parent immediately.
+// A scenario changes a few answers of the questionnaire and the engine runs
+// it next to the case. Each change is picked as "question → new answer", with
+// the questionnaire's own labels: writing JSON with the engine's keys was the
+// only way until the agent UX round of 2026-11-02, and the analyst had to
+// guess both the key and the format. The JSON stays, folded, for experts and
+// for keys the form does not cover.
 
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
@@ -17,6 +18,59 @@ interface Props {
   onChange: (next: AlternativeScenario[]) => void
 }
 
+type Translate = (key: string, options?: Record<string, unknown>) => string
+
+interface ChangeSpec {
+  /** Case field the override sets. */
+  key: string
+  title: (t: Translate) => string
+  kind: 'choice' | 'multi' | 'dims' | 'number'
+  options?: { value: unknown; label: (t: Translate) => string }[]
+}
+
+// "Q9 — Which decision…? *" → "Which decision…?"
+function cardTitle(title: string): string {
+  return title.replace(/^Q\d+[ab]?\s+—\s+/, '').replace(/\s*\*$/, '')
+}
+
+const q = (key: string) => (t: Translate) => cardTitle(t(`questionnaire.${key}.title`))
+const choice = (values: string[], label: (v: string) => string) =>
+  values.map((v) => ({ value: v, label: (t: Translate) => t(label(v)) }))
+const yesNo = (base: string) => [
+  { value: true, label: (t: Translate) => t(`${base}.yes`) },
+  { value: false, label: (t: Translate) => t(`${base}.no`) },
+]
+
+const CHANGES: ChangeSpec[] = [
+  { key: 'q3', title: q('q3'), kind: 'dims' },
+  { key: 'decision_context', title: q('q9'), kind: 'choice',
+    options: choice(['micro', 'structural', 'none', 'corporate_report'], (v) => `questionnaire.q9.options.${v}`) },
+  { key: 'q2', title: q('q2'), kind: 'choice',
+    options: choice(['A', 'B'], (v) => `questionnaire.q2.options.${v}.label`) },
+  { key: 'operating_start', title: (t) => t('questionnaire.q8.start.label'), kind: 'choice',
+    options: choice(['now', 'future'], (v) => `questionnaire.q8.start.options.${v}`) },
+  { key: 'analysis_period_years', title: (t) => t('questionnaire.q8.period.label'), kind: 'number' },
+  { key: 'asset_lifetime_years', title: (t) => t('questionnaire.q8.lifetime.label'), kind: 'number' },
+  { key: 'q6b', title: q('q6b'), kind: 'choice',
+    options: choice(['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5'], (v) => `questionnaire.q6b.options.${v}`) },
+  { key: 'policy_objective', title: q('q10'), kind: 'choice', options: yesNo('questionnaire.q10.options') },
+  { key: 'q4', title: q('q4'), kind: 'multi',
+    options: choice(['A', 'B', 'C', 'D', 'E'], (v) => `questionnaire.q4.options.${v}.label`) },
+  { key: 'comparison_goal', title: q('q11'), kind: 'choice',
+    options: choice(['waste_treatment', 'product_substitution', 'co_primary'], (v) => `questionnaire.q11.options.${v}`) },
+  { key: 'q7', title: q('q7'), kind: 'choice',
+    options: choice(['A', 'B', 'C'], (v) => `questionnaire.q7.options.${v}.label`) },
+  { key: 'dedicated_shared_assets', title: q('q12'), kind: 'choice', options: yesNo('questionnaire.q12.options') },
+]
+const SPEC = Object.fromEntries(CHANGES.map((c) => [c.key, c]))
+
+function defaultValue(spec: ChangeSpec): unknown {
+  if (spec.kind === 'dims') return { env: true, eco: true, soc: false }
+  if (spec.kind === 'multi') return []
+  if (spec.kind === 'number') return 20
+  return spec.options?.[0]?.value
+}
+
 function nextId(existing: AlternativeScenario[]): string {
   const used = new Set(existing.map((s) => s.id))
   let n = existing.length + 1
@@ -26,17 +80,16 @@ function nextId(existing: AlternativeScenario[]): string {
 
 export default function ScenariosEditor({ scenarios, onChange }: Props) {
   const { t } = useTranslation()
-  // Track per-scenario raw textarea content + parse error so the user
-  // can edit invalid JSON without losing keystrokes.
+  // raw JSON per scenario while it is being edited, so a half-typed object
+  // is not lost; cleared whenever the form changes the overrides
   const [rawOverrides, setRawOverrides] = useState<Record<string, string>>({})
   const [parseErrors, setParseErrors] = useState<Record<string, boolean>>({})
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   function addScenario() {
-    onChange([
-      ...scenarios,
-      { id: nextId(scenarios), label: '', overrides: {} },
-    ])
+    const id = nextId(scenarios)
+    onChange([...scenarios, { id, label: '', overrides: {} }])
+    setExpanded({ ...expanded, [id]: true })
   }
 
   function removeScenario(id: string) {
@@ -45,6 +98,33 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
 
   function updateScenario(id: string, patch: Partial<AlternativeScenario>) {
     onChange(scenarios.map((s) => (s.id === id ? { ...s, ...patch } : s)))
+  }
+
+  function setOverrides(s: AlternativeScenario, overrides: Record<string, unknown>) {
+    const raw = { ...rawOverrides }
+    delete raw[s.id]
+    setRawOverrides(raw)
+    updateScenario(s.id, { overrides })
+  }
+
+  function addChange(s: AlternativeScenario) {
+    const spec = CHANGES.find((c) => !(c.key in s.overrides))
+    if (spec) setOverrides(s, { ...s.overrides, [spec.key]: defaultValue(spec) })
+  }
+
+  function replaceChange(s: AlternativeScenario, oldKey: string, newKey: string) {
+    const next: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(s.overrides)) {
+      if (k === oldKey) next[newKey] = defaultValue(SPEC[newKey])
+      else next[k] = v
+    }
+    setOverrides(s, next)
+  }
+
+  function removeChange(s: AlternativeScenario, key: string) {
+    const next = { ...s.overrides }
+    delete next[key]
+    setOverrides(s, next)
   }
 
   function getRaw(s: AlternativeScenario): string {
@@ -72,14 +152,68 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
     }
   }
 
-  function toggleExpanded(id: string) {
-    setExpanded({ ...expanded, [id]: !expanded[id] })
+  function renderAnswer(s: AlternativeScenario, spec: ChangeSpec) {
+    const value = s.overrides[spec.key]
+    const set = (v: unknown) => setOverrides(s, { ...s.overrides, [spec.key]: v })
+    if (spec.kind === 'number') {
+      return (
+        <input
+          type="number" min={0} className="row-input scenario-change-number"
+          aria-label={t('scenarios.newAnswer')}
+          value={typeof value === 'number' ? value : ''}
+          onChange={(e) => set(e.target.value === '' ? null : Number(e.target.value))}
+        />
+      )
+    }
+    if (spec.kind === 'dims') {
+      const dims = (value ?? {}) as Record<string, boolean>
+      return (
+        <span className="scenario-change-checks">
+          {(['env', 'eco', 'soc'] as const).map((d) => (
+            <label key={d}>
+              <input type="checkbox" checked={!!dims[d]} onChange={() => set({ ...dims, [d]: !dims[d] })} />
+              {' '}{t(`questionnaire.q3.${d}`)}
+            </label>
+          ))}
+        </span>
+      )
+    }
+    if (spec.kind === 'multi') {
+      const chosen = new Set((value ?? []) as string[])
+      return (
+        <span className="scenario-change-checks">
+          {spec.options!.map((o) => (
+            <label key={String(o.value)}>
+              <input
+                type="checkbox" checked={chosen.has(o.value as string)}
+                onChange={() => {
+                  const next = new Set(chosen)
+                  if (next.has(o.value as string)) next.delete(o.value as string)
+                  else next.add(o.value as string)
+                  set([...next])
+                }}
+              />
+              {' '}{o.label(t)}
+            </label>
+          ))}
+        </span>
+      )
+    }
+    const index = spec.options!.findIndex((o) => o.value === value)
+    return (
+      <select
+        className="row-select" aria-label={t('scenarios.newAnswer')}
+        value={index}
+        onChange={(e) => set(spec.options![Number(e.target.value)].value)}
+      >
+        {spec.options!.map((o, i) => <option key={i} value={i}>{o.label(t)}</option>)}
+      </select>
+    )
   }
 
   return (
     <div className="scenarios-editor">
       <p className="muted">{t('scenarios.intro')}</p>
-      <p className="muted">{t('scenariosResult.overrideHelp')}</p>
 
       {scenarios.length === 0 ? (
         <p className="muted">{t('scenarios.emptyHint')}</p>
@@ -88,57 +222,94 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
           {scenarios.map((s) => {
             const isOpen = expanded[s.id] ?? false
             const hasError = parseErrors[s.id] ?? false
-            const overrideKeys = Object.keys(s.overrides).length
+            const formKeys = Object.keys(s.overrides).filter((k) => k in SPEC)
+            const otherKeys = Object.keys(s.overrides).filter((k) => !(k in SPEC))
             return (
               <div key={s.id} className="scenario-row">
                 <div className="scenario-row-header">
                   <button
                     type="button"
                     className="scenario-toggle"
-                    onClick={() => toggleExpanded(s.id)}
-                    aria-label={isOpen ? 'Collapse' : 'Expand'}
+                    onClick={() => setExpanded({ ...expanded, [s.id]: !isOpen })}
+                    aria-expanded={isOpen}
+                    aria-label={s.label || s.id}
                   >
                     {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                   </button>
-                  <code>{s.id}</code>
                   <input
                     type="text"
                     className="row-input"
                     value={s.label}
                     placeholder={t('scenarios.labelPlaceholder')}
-                    onChange={(e) =>
-                      updateScenario(s.id, { label: e.target.value })
-                    }
+                    aria-label={t('scenarios.headers.label')}
+                    onChange={(e) => updateScenario(s.id, { label: e.target.value })}
                   />
                   <span className="muted scenario-overrides-count">
-                    {overrideKeys === 0
-                      ? '—'
-                      : `${overrideKeys} override${overrideKeys === 1 ? '' : 's'}`}
+                    {t('scenarios.changesCount', { count: Object.keys(s.overrides).length })}
                   </span>
                   <button
                     type="button"
                     className="icon-btn"
                     onClick={() => removeScenario(s.id)}
-                    aria-label={t('scenarios.removeAria', { id: s.id })}
+                    aria-label={t('scenarios.removeAria', { id: s.label || s.id })}
                   >
                     <Trash2 size={16} />
                   </button>
                 </div>
                 {isOpen ? (
                   <div className="scenario-overrides">
-                    <textarea
-                      className={`row-input scenario-overrides-input${hasError ? ' has-error' : ''}`}
-                      value={getRaw(s)}
-                      placeholder={t('scenariosResult.overridesPlaceholder')}
-                      onChange={(e) => handleOverridesChange(s.id, e.target.value)}
-                      rows={4}
-                      spellCheck={false}
-                    />
-                    {hasError ? (
-                      <p className="opt-warn">
-                        {t('scenariosResult.overridesParseError', { id: s.id })}
-                      </p>
+                    {formKeys.length === 0 ? (
+                      <p className="muted">{t('scenarios.noChanges')}</p>
+                    ) : (
+                      <ul className="scenario-changes">
+                        {formKeys.map((key) => (
+                          <li key={key} className="scenario-change">
+                            <select
+                              className="row-select" aria-label={t('scenarios.pickQuestion')}
+                              value={key}
+                              onChange={(e) => replaceChange(s, key, e.target.value)}
+                            >
+                              {CHANGES.filter((c) => c.key === key || !(c.key in s.overrides)).map((c) => (
+                                <option key={c.key} value={c.key}>{c.title(t)}</option>
+                              ))}
+                            </select>
+                            <span aria-hidden="true">→</span>
+                            {renderAnswer(s, SPEC[key])}
+                            <button
+                              type="button" className="icon-btn"
+                              onClick={() => removeChange(s, key)}
+                              aria-label={t('scenarios.removeChange')}
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {formKeys.length < CHANGES.length ? (
+                      <button type="button" className="btn btn-secondary" onClick={() => addChange(s)}>
+                        <Plus size={14} /> {t('scenarios.addChange')}
+                      </button>
                     ) : null}
+                    {otherKeys.length > 0 ? (
+                      <p className="muted">{t('scenarios.otherKeys', { count: otherKeys.length })}</p>
+                    ) : null}
+                    <details className="scenario-json">
+                      <summary>{t('scenarios.jsonToggle')}</summary>
+                      <textarea
+                        className={`row-input scenario-overrides-input${hasError ? ' has-error' : ''}`}
+                        value={getRaw(s)}
+                        placeholder={t('scenariosResult.overridesPlaceholder')}
+                        onChange={(e) => handleOverridesChange(s.id, e.target.value)}
+                        rows={4}
+                        spellCheck={false}
+                      />
+                      {hasError ? (
+                        <p className="opt-warn">
+                          {t('scenariosResult.overridesParseError', { id: s.label || s.id })}
+                        </p>
+                      ) : null}
+                    </details>
                   </div>
                 ) : null}
               </div>
@@ -147,13 +318,8 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
         </div>
       )}
 
-      <button
-        type="button"
-        className="btn btn-secondary"
-        onClick={addScenario}
-      >
-        <Plus size={16} />
-        {t('scenarios.addButton')}
+      <button type="button" className="btn btn-secondary" onClick={addScenario}>
+        <Plus size={16} /> {t('scenarios.addButton')}
       </button>
     </div>
   )

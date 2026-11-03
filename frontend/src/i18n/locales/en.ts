@@ -753,13 +753,22 @@ const en = {
   },
 
   scenarios: {
-    intro:
-      "A scenario here varies the *methodological* answers, not the physical network: each one inherits the answers of the baseline and differs only through the overrides dict (\"what if this were ex-post\", \"what if the sector were different\"). Comparing where a flow goes, over what distance, or at what price is a network comparison — draw those alternatives in the Network Builder; the engine does not compare them yet.",
+    intro: "A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. Comparing different networks (where a flow goes, how far, at what price) is a different comparison: draw the alternatives in the network editor; the tool does not compare them yet.",
     emptyHint: 'No alternative scenarios yet.',
     headers: { id: 'ID', label: 'Label' },
     labelPlaceholder: 'e.g. Future expansion / TRL9 ramp-up',
     addButton: 'Add scenario',
     removeAria: 'Remove {{id}}',
+    addChange: "Add a change",
+    pickQuestion: "Question",
+    newAnswer: "New answer",
+    removeChange: "Remove this change",
+    noChanges: "No change yet: the scenario is the same as the case.",
+    jsonToggle: "Edit as JSON (experts)",
+    otherKeys_one: "{{count}} other change set as JSON",
+    otherKeys_other: "{{count}} other changes set as JSON",
+    changesCount_one: "{{count}} change",
+    changesCount_other: "{{count}} changes",
   },
 
   advanced: {
@@ -1055,23 +1064,26 @@ const en = {
   scenariosResult: {
     title: 'Scenario comparison',
     empty: 'No scenarios result yet. In the questionnaire, define one or more alternative scenarios, then click "Run scenarios" on the result page.',
-    description: 'Pipeline run for the baseline + {{n}} alternative scenario(s). Diffs highlighted vs baseline.',
+    description: "The case and {{n}} alternative scenario(s), each run through the engine. Cells that differ from the case are highlighted.",
     backToResult: 'Back to single result',
     columns: {
       scenario: 'Scenario',
       ilcd: 'ILCD',
       lccType: 'LCC type',
       slca: 'S-LCA',
-      activated: 'Activated',
-      blocks: 'L1 blocks',
+      activated: "Methodological nodes",
+      blocks: "Blocks",
       obligations: 'Obligations to document',
-      cdps: 'L3 CDPs',
+      cdps: "Decision points",
     },
-    baselineLabel: 'Baseline',
+    baselineLabel: "The case",
     diffSuffix: '(diff)',
-    overrideHelp: 'Each scenario inherits the answers of the baseline; populate `overrides` (JSON dict) per scenario to differ. Empty overrides → same case as baseline.',
-    overridesPlaceholder: 'e.g. {"q1": "C"} or {"q3": {"env": true, "eco": true}}',
+    overridesPlaceholder: "e.g. {\"q2\": \"B\"} or {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Overrides must be valid JSON for {{id}}',
+    whatChanges: "what changes compared with the case",
+    noChange: "Nothing changes in the configuration or in the obligations.",
+    addedRules: "Obligations added",
+    removedRules: "Obligations removed",
   },
 
   reasoning: {

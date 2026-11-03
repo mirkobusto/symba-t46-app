@@ -5,8 +5,10 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { schemaTerm } from '../i18n/schemaTerms'
 import { useCaseStore } from '../store/caseStore'
 import type { Case } from '../types/api'
+import { configurationRows } from './configurationRows'
 
 interface RowData {
   id: string
@@ -33,8 +35,39 @@ function rowFromCase(id: string, label: string, c: Case): RowData {
   }
 }
 
+interface Diff {
+  rows: { label: string; before: string; after: string }[]
+  added: string[]
+  removed: string[]
+}
+
+// What a scenario changes against the case, in the words of the result page:
+// the comparison showed only counts ("107 / 109 nodes"), which told the
+// analyst nothing about which practice the change brings (UX round 2026-11-02).
+function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<string, unknown>) => string, lang: string): Diff {
+  const before = Object.fromEntries(configurationRows(base, t).map((r) => [r.key, r]))
+  const after = Object.fromEntries(configurationRows(scenario, t).map((r) => [r.key, r]))
+  const keys = [...new Set([...Object.keys(before), ...Object.keys(after)])]
+  const rows = keys
+    .filter((k) => before[k]?.value !== after[k]?.value)
+    .map((k) => ({
+      label: (after[k] ?? before[k]).label,
+      before: before[k]?.value ?? '—',
+      after: after[k]?.value ?? '—',
+    }))
+  const name = (id: string, fallback?: string | null) =>
+    `${id} ${schemaTerm(lang, 'rule', id)?.name ?? fallback ?? ''}`.trim()
+  const baseRules = new Map((base.applicable_rules ?? []).map((r) => [r.rule_id, r.name]))
+  const scRules = new Map((scenario.applicable_rules ?? []).map((r) => [r.rule_id, r.name]))
+  return {
+    rows,
+    added: [...scRules].filter(([id]) => !baseRules.has(id)).map(([id, n]) => name(id, n)),
+    removed: [...baseRules].filter(([id]) => !scRules.has(id)).map(([id, n]) => name(id, n)),
+  }
+}
+
 export default function ScenariosResultPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const sr = useCaseStore((s) => s.scenariosResult)
 
   if (!sr) {
@@ -117,6 +150,34 @@ export default function ScenariosResultPage() {
           </tbody>
         </table>
       </div>
+
+      {sr.scenarios.map((sc) => {
+        const d = diffAgainst(sr.baseline, sc.result, t as never, i18n.language)
+        const nothing = d.rows.length === 0 && d.added.length === 0 && d.removed.length === 0
+        return (
+          <section key={sc.id} className="scenario-diff">
+            <h2 className="result-notes-title">
+              {sc.label || sc.id} — {t('scenariosResult.whatChanges')}
+            </h2>
+            {nothing ? <p className="muted">{t('scenariosResult.noChange')}</p> : null}
+            {d.rows.length > 0 ? (
+              <ul>
+                {d.rows.map((r) => (
+                  <li key={r.label}>
+                    <strong>{r.label}</strong>: {r.before} → {r.after}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {d.added.length > 0 ? (
+              <p><strong>{t('scenariosResult.addedRules')}</strong>: {d.added.join('; ')}</p>
+            ) : null}
+            {d.removed.length > 0 ? (
+              <p><strong>{t('scenariosResult.removedRules')}</strong>: {d.removed.join('; ')}</p>
+            ) : null}
+          </section>
+        )
+      })}
 
       <div className="result-actions">
         <Link to="/result" className="btn btn-secondary">

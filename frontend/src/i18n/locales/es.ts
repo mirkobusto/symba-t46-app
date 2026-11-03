@@ -705,13 +705,22 @@ const es: Locale = {
   },
 
   scenarios: {
-    intro:
-      "Aquí un escenario varía las respuestas *metodológicas*, no la red física: hereda las respuestas de la línea base y solo difiere por el dict de overrides. Comparar a dónde va un flujo, a qué distancia o a qué precio es una comparación de red — esas variantes se dibujan en el editor de red, y el motor todavía no las compara.",
+    intro: "Un escenario cambia algunas respuestas del cuestionario y el motor lo ejecuta junto al caso: la comparación muestra después qué cambia en la configuración y en las obligaciones. Comparar redes distintas (adónde va un flujo, a qué distancia, a qué precio) es otra comparación: dibuja las alternativas en el editor de red; la herramienta aún no las compara.",
     emptyHint: 'Sin escenarios alternativos.',
     headers: { id: 'ID', label: 'Etiqueta' },
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',
     addButton: 'Añadir escenario',
     removeAria: 'Eliminar {{id}}',
+    addChange: "Añadir un cambio",
+    pickQuestion: "Pregunta",
+    newAnswer: "Nueva respuesta",
+    removeChange: "Quitar este cambio",
+    noChanges: "Ningún cambio: el escenario es igual al caso.",
+    jsonToggle: "Editar como JSON (expertos)",
+    otherKeys_one: "{{count}} cambio más definido como JSON",
+    otherKeys_other: "{{count}} cambios más definidos como JSON",
+    changesCount_one: "{{count}} cambio",
+    changesCount_other: "{{count}} cambios",
   },
 
   advanced: {
@@ -1008,23 +1017,26 @@ const es: Locale = {
   scenariosResult: {
     title: 'Comparación de escenarios',
     empty: 'Todavía no hay comparación de escenarios. En el cuestionario define uno o más escenarios alternativos y luego pulsa «Ejecutar escenarios» en la página de resultados.',
-    description: 'Pipeline ejecutada para la baseline + {{n}} escenarios alternativos. Diferencias destacadas vs baseline.',
+    description: "El caso y {{n}} escenario(s) alternativo(s), cada uno ejecutado por el motor. Las celdas que difieren del caso aparecen resaltadas.",
     backToResult: 'Volver al resultado único',
     columns: {
       scenario: 'Escenario',
       ilcd: 'ILCD',
       lccType: 'Tipo LCC',
       slca: 'S-LCA',
-      activated: 'Activados',
-      blocks: 'BLOCK L1',
+      activated: "Nodos metodológicos",
+      blocks: "Bloqueos",
       obligations: 'Obligaciones a documentar',
-      cdps: 'CDPs L3',
+      cdps: "Puntos de decisión",
     },
-    baselineLabel: 'Baseline',
+    baselineLabel: "El caso",
     diffSuffix: '(diff)',
-    overrideHelp: 'Cada escenario hereda las respuestas de la baseline; rellena overrides (dict JSON) por escenario para diferir. Overrides vacíos → mismo caso que la baseline.',
-    overridesPlaceholder: 'p. ej. {"q1": "C"} o {"q3": {"env": true, "eco": true}}',
+    overridesPlaceholder: "p. ej. {\"q2\": \"B\"} o {\"q3\": {\"env\": true, \"eco\": true}}",
     overridesParseError: 'Los overrides deben ser JSON válido para {{id}}',
+    whatChanges: "qué cambia respecto al caso",
+    noChange: "No cambia nada en la configuración ni en las obligaciones.",
+    addedRules: "Obligaciones añadidas",
+    removedRules: "Obligaciones quitadas",
   },
 
 

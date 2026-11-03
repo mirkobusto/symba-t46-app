@@ -99,7 +99,7 @@ def render_xlsx(
     lists.sheet_state = "hidden"
 
     _write_cover_tab(wb, payload, case_title, lang, cover or {})
-    _write_instructions_tab(wb, payload, case_title, lang)
+    _write_instructions_tab(wb, payload, case_title, lang, (cover or {}).get("contact"))
 
     sections = {s.id: s for s in payload.sections}
     names = _names(data)
@@ -245,7 +245,8 @@ _INSTRUCTIONS = ["what", "how", "unknown", "units", "conf", "return"]
 
 
 def _write_instructions_tab(
-    wb: Workbook, payload: DcfPayload, case_title: str | None = None, lang: str = "en"
+    wb: Workbook, payload: DcfPayload, case_title: str | None = None, lang: str = "en",
+    contact: str | None = None,
 ) -> None:
     """A sheet for the person who has to fill this in.
 
@@ -265,14 +266,18 @@ def _write_instructions_tab(
         c = ws.cell(row=row, column=1, value=ui(lang, f"ins.{key}"))
         c.font = _HEADER_FONT
         c.fill = _HEADER_FILL
-        ws.cell(row=row, column=2, value=ui(lang, f"ins.{key}_body")).alignment = Alignment(wrap_text=True)
+        body = ui(lang, f"ins.{key}_body")
+        if key == "conf":
+            # what to do with a value that cannot be shared (P2-10)
+            body += "\n\n" + ui(lang, "ins.conf_values")
+        ws.cell(row=row, column=2, value=body).alignment = Alignment(wrap_text=True)
         row += 2
 
     ws.cell(row=row, column=1, value=ui(lang, "ins.return_by")).font = _HEADER_FONT
     ws.cell(row=row, column=2, value=ui(lang, "ins.return_by_hint"))
     row += 1
     ws.cell(row=row, column=1, value=ui(lang, "ins.contact")).font = _HEADER_FONT
-    ws.cell(row=row, column=2, value=ui(lang, "ins.contact_hint"))
+    ws.cell(row=row, column=2, value=contact or ui(lang, "ins.contact_hint"))
 
     ws.column_dimensions["A"].width = 26
     ws.column_dimensions["B"].width = 96

@@ -68,10 +68,15 @@ def generate_dcf_docx_bytes(
     doc = Document()
     doc.styles["Normal"].font.size = Pt(11)
 
+    # Companies first, the analyst's list last: the document opened with 60-120
+    # rows of English methodology the data providers did not need, and promised
+    # a field-by-field §3 that held only counts (UX round 5, D10; P1-08, P2-02,
+    # P4-08, P5-13, P6-09).
     _write_cover_block(doc, payload, case_title, lang, cover or {})
-    _write_methodological_section(doc, payload, lang)
+    _write_instructions_section(doc, payload, lang, (cover or {}).get("contact"))
     _write_network_section(doc, payload, data, lang)
-    _write_excel_reference_section(doc, payload, lang)
+    _write_field_reference_section(doc, payload, lang)
+    _write_methodological_section(doc, payload, lang)
     _write_eu_closing(doc, lang)
 
     buf = BytesIO()
@@ -135,7 +140,8 @@ def _write_methodological_section(doc: Document, payload: DcfPayload, lang: str 
     the same job for the analyst, so they share a table; `Origin` keeps
     them distinguishable for review.
     """
-    doc.add_heading(ui(lang, "dx.s1"), level=1)
+    doc.add_heading(ui(lang, "dx.annex"), level=1)
+    doc.add_paragraph(ui(lang, "dx.annex_intro")).runs[0].italic = True
 
     if not payload.obligations:
         doc.add_paragraph(ui(lang, "dx.s1_none"))
@@ -222,26 +228,78 @@ def _write_drawn_network(doc: Document, actors: list, edges: list[dict], lang: s
             cells[3].text = enum_label(lang, edge["type"]) or "—"
 
 
-def _write_excel_reference_section(doc: Document, payload: DcfPayload, lang: str = "en") -> None:
-    doc.add_heading(ui(lang, "dx.s3"), level=1)
-    doc.add_paragraph(ui(lang, "dx.s3_body"))
+_INSTRUCTION_KEYS = ["what", "how", "unknown", "units", "conf", "return"]
 
-    doc.add_heading(ui(lang, "dx.active"), level=2)
-    table = doc.add_table(rows=1, cols=3)
-    table.style = "Light List Accent 1"
-    head = table.rows[0].cells
-    for i, h in enumerate([ui(lang, f"h.{k}") for k in ("section", "active", "fields")]):
-        head[i].text = h
-        for run in head[i].paragraphs[0].runs:
+
+def _bold_row(table, cells: list[str]) -> None:
+    row = table.rows[0].cells if len(table.rows) == 1 and not table.rows[0].cells[0].text else table.add_row().cells
+    for i, text in enumerate(cells):
+        row[i].text = text
+        for run in row[i].paragraphs[0].runs:
             run.bold = True
 
+
+def _write_instructions_section(
+    doc: Document, payload: DcfPayload, lang: str = "en", contact: str | None = None
+) -> None:
+    """§1: what the Instructions sheet of the workbook says, and who fills in
+    which sheet, with the contact of the shared case when there is one."""
+    doc.add_heading(ui(lang, "dx.s1i"), level=1)
+    for key in _INSTRUCTION_KEYS:
+        p = doc.add_paragraph()
+        p.add_run(ui(lang, f"ins.{key}") + ". ").bold = True
+        p.add_run(ui(lang, f"ins.{key}_body"))
+        if key == "conf":
+            doc.add_paragraph(ui(lang, "ins.conf_values"))
+
+    doc.add_heading(ui(lang, "dx.who_title"), level=2)
+    table = doc.add_table(rows=1, cols=2)
+    table.style = "Light List Accent 1"
+    _bold_row(table, [ui(lang, "h.sheet"), ui(lang, "h.who")])
     for section in payload.sections:
-        if section.id in {"methodological_choices", "network_diagram"}:
+        if not section.active or section.id == "network_diagram" or not section.filled_by:
             continue
         cells = table.add_row().cells
         cells[0].text = section.title or section.title_en
-        cells[1].text = ui(lang, "yes") if section.active else ui(lang, "no")
-        cells[2].text = str(len(section.fields)) if section.active else "—"
+        cells[1].text = ui(lang, f"who.{section.filled_by}")
+
+    p = doc.add_paragraph()
+    p.add_run(ui(lang, "ins.return_by") + ": ").bold = True
+    p.add_run(ui(lang, "ins.return_by_hint"))
+    p = doc.add_paragraph()
+    p.add_run(ui(lang, "ins.contact") + ": ").bold = True
+    p.add_run(contact or ui(lang, "ins.contact_hint"))
+
+
+def _write_field_reference_section(doc: Document, payload: DcfPayload, lang: str = "en") -> None:
+    """§3: every column of every active sheet — what it asks, the values it
+    takes, who fills it in. It used to promise this and give section counts."""
+    doc.add_heading(ui(lang, "dx.s3"), level=1)
+    doc.add_paragraph(ui(lang, "dx.s3_body"))
+    for section in payload.sections:
+        if not section.active or not section.fields:
+            continue
+        doc.add_heading(section.title or section.title_en, level=2)
+        if section.filled_by:
+            p = doc.add_paragraph()
+            p.add_run(ui(lang, "h.who") + ": ").bold = True
+            p.add_run(ui(lang, f"who.{section.filled_by}"))
+        table = doc.add_table(rows=1, cols=3)
+        table.style = "Light List Accent 1"
+        _bold_row(table, [ui(lang, "h.column"), ui(lang, "h.meaning"), ui(lang, "h.values")])
+        for field in section.fields:
+            if field.derived:
+                continue
+            cells = table.add_row().cells
+            cells[0].text = (field.label or field.label_en) + (" *" if field.required else "")
+            meaning = [str(field.help or field.description_en or "")]
+            if field.reason:
+                meaning.append(f"{ui(lang, 'note.because')}: {field.reason}")
+            cells[1].text = " ".join(m for m in meaning if m).strip() or "—"
+            labels = field.enum_labels or (
+                {v: enum_label(lang, v) for v in field.enum_values} if field.enum_values else None
+            )
+            cells[2].text = "; ".join(labels.values()) if labels else "—"
 
 
 def _write_eu_closing(doc: Document, lang: str = "en") -> None:

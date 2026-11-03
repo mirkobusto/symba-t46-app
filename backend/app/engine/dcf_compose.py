@@ -167,6 +167,11 @@ class DcfPayload(BaseModel):
 _METHODOLOGICAL_SECTION_ID = "methodological_choices"
 _NETWORK_SECTION_ID = "network_diagram"
 
+# Sector values kept in the schema for cases saved before the Q6a list was
+# rebuilt; they are not offered in the DCF dropdowns any more, where they read
+# as "(legacy)" duplicates of current sectors (UX round 2026-11-03).
+_LEGACY_ENUM_VALUES = {"wastewater_biofactories", "agri_food", "process_industry"}
+
 # Keys we pass through from the JSON field schema into DcfFieldDescriptor.
 _FIELD_KEYS = {
     "id", "label_en", "type", "required", "activation_predicate",
@@ -225,6 +230,8 @@ def compose_dcf(
                 pred = field_schema.get("activation_predicate", "always")
                 if evaluate(pred, ctx):
                     clean = {k: v for k, v in field_schema.items() if k in _FIELD_KEYS}
+                    if clean.get("enum_values"):
+                        clean["enum_values"] = [v for v in clean["enum_values"] if v not in _LEGACY_ENUM_VALUES]
                     active_fields.append(DcfFieldDescriptor(**clean))
 
         _mark_derived_ids(active_fields)

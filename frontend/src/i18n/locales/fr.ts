@@ -443,6 +443,7 @@ const fr: Locale = {
       showAll: "Afficher toutes les questions sur une page",
       showSteps: "Une question à la fois",
       navLabel: "Questions",
+      totalChanges: 'Le nombre de questions change selon vos réponses.',
     },
     examplesLink: "Voir comment répond une vraie étude ? Chargez un exemple publié",
     stillRequired: "Il reste à répondre :",
@@ -496,12 +497,12 @@ const fr: Locale = {
       },
       longStanding: {
         label: "Le réseau fonctionne-t-il depuis si longtemps que les alternatives qu'il a remplacées (par ex. les chaudières que le chauffage urbain utiliserait) ne seraient plus construites aujourd'hui ?",
-        yes: 'Oui — la référence est un contrefactuel moderne (D4.1 §11.2.2)',
+        yes: 'Oui — la référence est un contrefactuel moderne : la configuration d\'avant la symbiose est exclue (D4.1 §11.2.2)',
         no: 'Non — le réseau est récent',
-        unknown: "Je ne sais pas — la référence est ce que chaque entreprise ferait aujourd'hui sans les liens",
+        unknown: 'Je ne sais pas — la configuration d\'avant la symbiose reste admise si c\'est encore ce que chaque entreprise ferait rationnellement aujourd\'hui',
       },
       plain:
-        'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Vous voulez comparer des alternatives, comme une extension ou une nouvelle technologie ? Ajoutez-les comme scénarios ci-dessous, quelle que soit votre réponse ici.',
+        'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Vous voulez comparer des alternatives, comme une extension ou une nouvelle technologie ? Elles s\'ajoutent comme scénarios en mode expert, en bas du questionnaire, quelle que soit votre réponse ici.',
     },
 
     q3: {
@@ -598,7 +599,7 @@ const fr: Locale = {
     },
 
     q6b: {
-      title: 'Q6b — Niveau de maturité technologique (TRL)',
+      title: 'Q6b — Maturité de la technologie (TRL)',
       details:
         "TRL de la technologie dominante ou critique du réseau symbiotique. Détermine le choix de la qualité des données d'inventaire (mesurées vs littérature vs estimation d'ingénierie) et le budget d'incertitude downstream. " +
         "C'est le TRL de la technologie clé elle-même, non de son adoption : une technologie mature qui traite le même type d'intrant à la même échelle qu'ailleurs, utilisée pour la première fois dans ce réseau ou cette région, reste TRL 9, et la nouveauté se voit dans la qualité des données (lecture T4.6) ; un procédé mature appliqué à un intrant jamais traité à l'échelle est un échange à faible TRL (D4.1 §9.3.5). " +
@@ -707,7 +708,7 @@ const fr: Locale = {
       help: "Facultative. Elle fixe la base de l'unité fonctionnelle ; sans réponse, l'unité orientée fonction de la D4.1 Part 1 s'applique.",
       details: "La D4.1 Part 2 demande que l'unité fonctionnelle reflète la fonction principale du système (§4.3, §6.3, §8.3) : une unité basée sur l'intrant (p. ex. traitement d'une tonne de déchet) lorsque l'étude compare des filières de gestion d'un déchet ou la performance d'une installation ou d'un service ; une unité basée sur l'extrant (p. ex. 1 kg de produit, 1 MJ d'énergie) lorsqu'elle compare des produits à leurs alternatives de marché ou étaye une allégation de substitution ; un système d'unités fonctionnelles lorsque les deux fonctions sont co-principales (Part 1 §5.3.2). La D4.2 §3.1 demande pour la LCC une unité double (déchet traité + produit obtenu) lorsque la substitution de produit guide l'étude : les deux livrables divergent, l'outil suit la Part 2 pour l'ACV et signale l'écart.",
       options: {
-        unset: "Pas de réponse (unité orientée fonction, D4.1 Part 1)",
+        unset: 'Je ne sais pas / rien n\'est comparé (l\'outil utilise une unité fondée sur le service rendu)',
         waste_treatment: "La gestion d'un déchet — filières, performance d'une installation ou d'un service (unité basée sur l'intrant)",
         product_substitution: "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
         co_primary: "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)",
@@ -739,16 +740,30 @@ const fr: Locale = {
       activeKeys_one: '{{count}} clé active',
       activeKeys_other: '{{count}} clés actives',
     },
+    scopeNotePlain: 'L\'outil ne fait pas les calculs : il vous dit comment l\'étude doit être faite et quelles données collecter. Un analyste fait ensuite les calculs.',
   },
 
   flows: {
+    // guided-mode wording of the flows table (UX round 2026-11-03)
+    plainHeaders: {
+      q5: 'Qui paie qui',
+      sector: 'Secteur de ce qui est échangé (facultatif)',
+      configuration: 'Type de réemploi (facultatif)',
+    },
+    plainOptions: {
+      a: 'Qui le cède paie qui le reçoit pour s\'en débarrasser (un déchet pour qui le cède)',
+      b: 'Personne ne paie, ou ce n\'est pas encore clair',
+      c: 'Qui le reçoit paie qui le cède (un produit pour qui le cède)',
+      d: 'Les deux installations dépendent l\'une de l\'autre (l\'une a été modifiée pour alimenter l\'autre)',
+      e: 'Un seul chiffre total pour tout le réseau',
+    },
     q5Note: "Répondez selon l'arrangement actuel — convenu, ou prévu si l'échange n'existe pas encore. C'est une hypothèse de départ, pas un résultat : si l'étude change qui paie qui, revenez le modifier. Choisissez « gratuit / ambigu » quand c'est réellement indécis.",
     emptyHint: 'Aucun flux. Ajoutez-en au moins un pour caractériser la Q5 par-flux.',
     headers: { id: 'ID', name: 'Nom', q5: "Qui paie qui (Q5)", sellable: 'Vendable à d\'autres ?', sector: 'Secteur (Partie 2)', configuration: "Configuration (Partie 2)" },
     q5Unset: "— choisir qui paie qui",
     sellable: { unset: '— sans réponse', yes: 'Oui', no: 'Non' },
     sellableHint: "Si le partenaire ne prenait pas ce flux, le générateur pourrait-il le vendre à quelqu'un d'autre à un prix positif ? Oui en fait un co-produit. Non n'en fait pas à lui seul un déchet : un preneur unique qui paie ce que paierait un acheteur indépendant (le prix du produit que le flux remplace, net de ses coûts supplémentaires pour l'utiliser) en fait quand même un co-produit ; un flux cédé gratuitement, ou un paiement qui ne fait que partager les coûts, en fait un déchet (D4.1 §8.3.3). Facultatif : le résultat signale quand il ne concorde pas avec Q5.",
-    sectorHint: "Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n'a de chapitres que pour ces secteurs biosourcés : pour l'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s'applique.",
+    sectorHint: 'Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l\'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d\'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l\'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n\'a de chapitres que pour ces secteurs biosourcés : pour l\'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s\'applique. Le bois et les résidus forestiers (sciure, écorce, lignine, liqueur noire) n\'ont pas de chapitre dans la Part 2 : choisissez « — aucun de ceux-ci ».',
     sectorNone: '— aucun de ceux-ci',
     configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur.",
     configurationNone: "— pas de réponse",
@@ -790,6 +805,8 @@ const fr: Locale = {
       d: 'd — Interdépendant',
       e: 'e — Agrégé / black-box',
     },
+    plainEmpty: 'Aucun échange. Ajoutez chaque chose qui passe entre les entreprises (lactosérum, sciure, chaleur, eau…).',
+    plainSectorHint: 'Facultatif. Choisissez un secteur seulement si ce qui est échangé relève d\'un des secteurs biosourcés listés (agroalimentaire, plastiques, eaux usées, textile, déchets). Pour le bois, la sciure, les résidus forestiers ou papetiers, l\'acier, le ciment ou la chaleur, laissez « — aucun de ceux-ci ». En cas de doute, laissez : l\'analyste le fixera.',
   },
 
   scenarios: {

@@ -258,7 +258,7 @@
     "corporate_report": "Reporting of one company that excludes any credit for what its exchanges avoid elsewhere, e.g. strict ESG / CSRD accounting (Situation C2)"
    },
    "q11": {
-    "unset": "Not answered (function-oriented unit, D4.1 Part 1)",
+    "unset": "I don't know / nothing is compared (the tool uses a unit built on the service delivered)",
     "waste_treatment": "How a waste is managed — waste routes, plant or service performance (input-based unit)",
     "product_substitution": "Products against market alternatives — what the recovered output replaces (output-based unit)",
     "co_primary": "Both: the treatment service and the products matter equally (system of functional units)"
@@ -800,7 +800,7 @@
     "corporate_report": "Rendiconto di una sola azienda che esclude ogni credito per ciò che i suoi scambi evitano altrove, es. contabilità ESG / CSRD rigorosa (Situazione C2)"
    },
    "q11": {
-    "unset": "Non risposta (unità orientata alla funzione, D4.1 Part 1)",
+    "unset": "Non lo so / non si confronta niente (lo strumento usa un'unità costruita sul servizio reso)",
     "waste_treatment": "Come si gestisce un rifiuto — vie di gestione, prestazioni di un impianto o servizio (unità basata sull'input)",
     "product_substitution": "Prodotti contro alternative di mercato — che cosa sostituisce il prodotto recuperato (unità basata sull'output)",
     "co_primary": "Entrambe: il servizio di trattamento e i prodotti contano allo stesso modo (sistema di unità funzionali)"
@@ -1342,7 +1342,7 @@
     "corporate_report": "Rapport d'une seule entreprise qui exclut tout crédit pour ce que ses échanges évitent ailleurs, p. ex. une comptabilité ESG / CSRD stricte (Situation C2)"
    },
    "q11": {
-    "unset": "Pas de réponse (unité orientée fonction, D4.1 Part 1)",
+    "unset": "Je ne sais pas / rien n'est comparé (l'outil utilise une unité fondée sur le service rendu)",
     "waste_treatment": "La gestion d'un déchet — filières, performance d'une installation ou d'un service (unité basée sur l'intrant)",
     "product_substitution": "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
     "co_primary": "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)"
@@ -1884,7 +1884,7 @@
     "corporate_report": "Bericht eines einzelnen Unternehmens, der jede Gutschrift für das ausschließt, was seine Austausche anderswo vermeiden, z. B. strikte ESG-/CSRD-Bilanzierung (Situation C2)"
    },
    "q11": {
-    "unset": "Nicht beantwortet (funktionsorientierte Einheit, D4.1 Part 1)",
+    "unset": "Weiß nicht / nichts wird verglichen (das Tool nutzt eine Einheit, die auf der erbrachten Leistung beruht)",
     "waste_treatment": "Wie ein Abfall behandelt wird — Entsorgungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
     "product_substitution": "Produkte gegenüber Marktalternativen — was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
     "co_primary": "Beides: Behandlungsleistung und Produkte zählen gleich viel (System funktioneller Einheiten)"
@@ -2426,7 +2426,7 @@
     "corporate_report": "Informe de una sola empresa que excluye todo crédito por lo que sus intercambios evitan en otros lugares, p. ej. contabilidad ESG / CSRD estricta (Situación C2)"
    },
    "q11": {
-    "unset": "Sin respuesta (unidad orientada a la función, D4.1 Part 1)",
+    "unset": "No lo sé / no se compara nada (la herramienta usa una unidad basada en el servicio prestado)",
     "waste_treatment": "Cómo se gestiona un residuo — vías de gestión, desempeño de una planta o servicio (unidad basada en la entrada)",
     "product_substitution": "Productos frente a alternativas de mercado — qué sustituye el producto recuperado (unidad basada en la salida)",
     "co_primary": "Ambas: el servicio de tratamiento y los productos cuentan por igual (sistema de unidades funcionales)"

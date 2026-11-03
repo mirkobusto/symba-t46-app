@@ -546,3 +546,10 @@ def test_alternative_scenarios_open_the_projected_fields_whatever_q2(schemas, dc
     pipeline_run(case, schemas)
     fields = {f.id for sec in compose_dcf(case, dcf_schema, mandates_census).sections for f in sec.fields}
     assert {"flow.quantity_measured", "flow.quantity_projected", "infra.capex_amount"} <= fields
+
+
+def test_legacy_sectors_are_not_offered(case_wiktor, dcf_schema, mandates_census):
+    # UX round 2026-11-03: "(legacy)" duplicates of current sectors in the dropdowns
+    payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
+    offered = {v for sec in payload.sections for f in sec.fields for v in (f.enum_values or [])}
+    assert not offered & {"wastewater_biofactories", "agri_food", "process_industry"}

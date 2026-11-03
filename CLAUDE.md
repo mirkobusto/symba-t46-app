@@ -218,6 +218,29 @@ deliverable. I report e le sintesi stanno in `~/SymbaBackups/ux-audit-2026-11-02
   CDP-01/02/03/08 e IR-06 in termini normativi (#200, schema). IR-06 vale anche per due sole aziende (Fable su
   D4.2 §2.3).
 
+Il **2026-11-03** (sera) è stato mergiato il **giro 5, sul Data Collection File e l'editor di rete** (PR #202-#210, non
+ancora in linea). Sette persone, driver con `drag:` e `--dl`, report e decisioni di Fable in
+`~/SymbaBackups/ux-audit-2026-11-03-r5/` (`SINTESI.md`, `DECISIONI_FABLE.md`). Ogni PR rivista da Fable prima del merge:
+- **#202 caso riaperto**: "Salva modifiche" (PUT), "Salva come nuovo" copia la rete, `caseStore.savedDiverged` blocca i
+  download mentre la pagina diverge dalla copia salvata (i file escono dal server) e mostra che cosa è cambiato; i
+  valori dei campi spenti restano **dormienti** (`validation.dormant`, mai esportati); `with_case_flows` mette i flussi
+  del questionario nei file anche senza rete salvata.
+- **#203 editor**: ogni freccia è un flusso del questionario scelto esplicitamente (chip armato, unico libero, o
+  finestra "Quale flusso"); nome e Q5 in sola lettura e allineati al questionario (anche nei file); "Rimuovi" stacca;
+  punte, frecce parallele separate (`FlowEdge`), inverti verso, contatore in tempo reale; gli id dei flussi non si
+  riusano più.
+- **#204 telefono**, **#205 contorno** (report pubblico per chi riceve il file, errori degli scenari leggibili,
+  conferma su "Carica", ritorno dopo l'accesso), **#206 lessico e copertina** (Q5 con le parole del questionario,
+  copertina con le righe della pagina risultato inviate dal browser, file `DCF_<caso>_<data>`, nessuna situazione ILCD
+  negli studi solo economici), **#207 Word** (prima le aziende, poi le colonne, allegato per l'analista), **#208 Excel**
+  (chi compila in riga 3, colonne dell'analista grigie, righe già pronte con "nome (origine → destinazione)", filtro).
+- **#209 schema (C2, regole)**: in C2 niente campi di sostituzione, scenario di riferimento facoltativo, sette mandati
+  di rete dormienti (DEFAULT 116 → 109), IR-16/IR-20 spente; `lca_hc_17` una frase per classe Q5 + ramo C2;
+  CIR-01/08/10 con enunciato; CAPEX solo con l'economico; contaminazione "non pertinente".
+- **#210 schema (DCF)**: `filled_by` su sezioni e campi; prezzo dal lato di chi riceve con base `gate_fee`; OPEX e
+  acquisto evitato di chi riceve; ruolo `partner` (producer/consumer ritirati ma leggibili); scenario di riferimento
+  per attore e flusso (`ref.flow_id`, `ref.side`), due righe per flusso nell'Excel.
+
 Cronologia sintetica (tutto su `main`):
 - Sprint 4 Step 2 (scaffold) chiuso 2026-05-08
 - Sprint 4 Step 3 (engine) chiuso: 7 commit + regression suite 12-paper, tutti i moduli phase implementati
@@ -244,6 +267,11 @@ Cronologia sintetica (tutto su `main`):
   diverse; in "I miei casi" "Carica" apre il risultato; la vista Industria interna è ancora tecnica ("Dettagli pipeline
   engine"); il testo semplice di Q8 non avvisa mentre si scrive una vita oltre 15 anni; i 91 mandati procedurali
   restano in inglese (decisione R5)
+- Dal giro 5 (rinviati, decisi da Fable): file per azienda (c'è il filtro), layout automatico del diagramma (serve
+  una dipendenza: chiedere), più reti per caso negli scenari, immagine della rete nei file, colonne fisse dell'Excel fra
+  versioni. Residui: enunciati di CIR-02/05/07/09 ancora "applies to this case"; note di lato (origine/destinazione) su
+  quantità, qualità, logistica; testi `description_costing_only` della D9; colonna "cede / riceve" nel foglio Attori
+  (c'è nel Word e sul nodo); "(Situazione A/C1)" nelle opzioni di Q9 in modalità guidata
 - Errata per la fase B: la D4.1 scioglie HNSRS/CNSRS in due modi (glossario "Historical"/"Counterfactual", §11.1
   "Hypothetical"/"Current"); l'app segue §11.1
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
@@ -285,7 +313,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #200): **888 backend (pytest, +1 skipped) + 254 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #210): **914 backend (pytest, +1 skipped) + 276 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint). Il lint (eslint e ruff, su `app` e `tests`) si giudica dal codice di uscita, non dall'ultima riga dell'output.

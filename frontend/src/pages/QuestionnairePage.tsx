@@ -787,7 +787,7 @@ export default function QuestionnairePage() {
             title={t('questionnaire.q2dCard.title')}
             help={t('questionnaire.q2dCard.help')}
           >
-            <ScenariosEditor scenarios={scenarios} onChange={setScenarios} />
+            <ScenariosEditor scenarios={scenarios} onChange={setScenarios} baseline={buildPatch()} />
           </QuestionCard>
         ) : null}
 

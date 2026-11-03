@@ -820,6 +820,7 @@ const es: Locale = {
     addChange: "Añadir un cambio",
     pickQuestion: "Pregunta",
     newAnswer: "Nueva respuesta",
+    flowQ5Title: 'Quién paga a quién, por flujo',
     removeChange: "Quitar este cambio",
     noChanges: "Ningún cambio: el escenario es igual al caso.",
     jsonToggle: "Editar como JSON (expertos)",
@@ -1213,6 +1214,7 @@ const es: Locale = {
 
   scenariosResult: {
     title: 'Comparación de escenarios',
+    flowQ5Row: 'Quién paga a quién: {{flow}}',
     empty: 'Todavía no hay comparación de escenarios. En el cuestionario define uno o más escenarios alternativos y luego pulsa «Ejecutar escenarios» en la página de resultados.',
     description: "El caso y {{n}} escenario(s) alternativo(s), cada uno ejecutado por el motor. Las celdas que difieren del caso aparecen resaltadas.",
     backToResult: 'Volver al resultado único',

@@ -161,6 +161,24 @@ def test_run_scenarios_with_two_alternatives(client):
     assert body["scenarios"][1]["result"]["ilcd_situation"] == "ILCD Situation B"
 
 
+def test_run_scenarios_change_q5_of_one_flow(client):
+    """flow_q5 changes who pays whom for one flow of the case, the others stay."""
+    flows = [{"id": "f1", "name": "Slag", "q5": "a"}, {"id": "f2", "name": "Heat", "q5": "c"}]
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": {"q1": "B", "q2": "B", "q3": {"env": True, "eco": True, "soc": False},
+                     "flows": flows},
+        "scenarios": [
+            {"id": "alt1", "label": "Slag sold", "overrides": {"flow_q5": {"f1": "c"}}},
+            {"id": "alt2", "label": "Unknown flow", "overrides": {"flow_q5": {"zz": "c"}}},
+        ],
+    })
+    assert resp.status_code == 200
+    ok, bad = resp.json()["scenarios"]
+    assert ok["error"] is None
+    assert [(f["id"], f["q5"]) for f in ok["result"]["flows"]] == [("f1", "c"), ("f2", "c")]
+    assert "no flow with id 'zz'" in bad["error"]
+
+
 def test_run_scenarios_baseline_q1_none_returns_400(client):
     resp = client.post("/api/pipeline/run-scenarios", json={
         "baseline": {

@@ -147,7 +147,19 @@ def _apply_overrides(baseline: Case, overrides: dict[str, Any]) -> Case:
     state for q3 / q4 etc.).
     """
     base = baseline.model_dump(mode="python")
+    overrides = dict(overrides)
+    # Q5 per flow: {flow id: class} on the case's own flows; replacing the whole
+    # `flows` list from a scenario is not allowed (round 4 leftover; P7-11)
+    flow_q5 = overrides.pop("flow_q5", None)
     base.update(overrides)
+    if flow_q5 is not None:
+        if not isinstance(flow_q5, dict):
+            raise ValueError("flow_q5: expected an object {flow id: a|b|c|d|e}")
+        flows = {f["id"]: f for f in base.get("flows") or []}
+        for flow_id, q5 in flow_q5.items():
+            if flow_id not in flows:
+                raise ValueError(f"flow_q5: no flow with id {flow_id!r} in the case")
+            flows[flow_id]["q5"] = q5
     # Strip engine-output fields so the new pipeline run starts clean
     for k in (
         "activated_nodes", "blocked_by", "rule_violations", "cdp_flags",

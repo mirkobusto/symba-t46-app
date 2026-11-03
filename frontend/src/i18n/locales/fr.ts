@@ -826,6 +826,7 @@ const fr: Locale = {
     addChange: "Ajouter une modification",
     pickQuestion: "Question",
     newAnswer: "Nouvelle réponse",
+    flowQ5Title: 'Qui paie qui, par flux',
     removeChange: "Retirer cette modification",
     noChanges: "Aucune modification : le scénario est identique au cas.",
     jsonToggle: "Modifier en JSON (experts)",
@@ -1219,6 +1220,7 @@ const fr: Locale = {
 
   scenariosResult: {
     title: 'Comparaison de scénarios',
+    flowQ5Row: 'Qui paie qui : {{flow}}',
     empty: 'Pas encore de comparaison de scénarios. Dans le questionnaire, définissez un ou plusieurs scénarios alternatifs, puis cliquez sur « Exécuter les scénarios » sur la page de résultat.',
     description: "Le cas et {{n}} scénario(s) alternatif(s), chacun exécuté par le moteur. Les cellules qui diffèrent du cas sont surlignées.",
     backToResult: 'Retour au résultat unique',

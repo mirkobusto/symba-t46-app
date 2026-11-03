@@ -5122,6 +5122,25 @@ kbd {
   width: 8rem;
 }
 
+.scenario-change-flows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 20rem;
+}
+
+.scenario-change-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.scenario-change-flow > span {
+  min-width: 8rem;
+  font-weight: 500;
+}
+
 .scenario-json {
   margin-top: 10px;
 }

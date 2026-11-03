@@ -820,6 +820,7 @@ const de: Locale = {
     addChange: "Änderung hinzufügen",
     pickQuestion: "Frage",
     newAnswer: "Neue Antwort",
+    flowQ5Title: 'Wer zahlt wem, je Fluss',
     removeChange: "Diese Änderung entfernen",
     noChanges: "Noch keine Änderung: das Szenario entspricht dem Fall.",
     jsonToggle: "Als JSON bearbeiten (Fachleute)",
@@ -1213,6 +1214,7 @@ const de: Locale = {
 
   scenariosResult: {
     title: 'Szenarienvergleich',
+    flowQ5Row: 'Wer zahlt wem: {{flow}}',
     empty: 'Noch kein Szenariovergleich. Definieren Sie im Fragebogen ein oder mehrere alternative Szenarien und klicken Sie dann auf der Ergebnisseite auf „Szenarien ausführen“.',
     description: "Der Fall und {{n}} alternative(s) Szenario(s), jeweils von der Engine gerechnet. Zellen, die vom Fall abweichen, sind hervorgehoben.",
     backToResult: 'Zurück zum Einzelergebnis',

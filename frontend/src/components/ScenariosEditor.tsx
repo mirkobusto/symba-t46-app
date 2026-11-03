@@ -11,11 +11,14 @@ import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import type { AlternativeScenario } from '../types/api'
+import type { AlternativeScenario, Case, Flow } from '../types/api'
 
 interface Props {
   scenarios: AlternativeScenario[]
   onChange: (next: AlternativeScenario[]) => void
+  /** The answers of the case: a new change starts from them, and the flows
+   * give the per-flow "who pays whom" change its rows. */
+  baseline?: Partial<Case>
 }
 
 type Translate = (key: string, options?: Record<string, unknown>) => string
@@ -24,7 +27,7 @@ interface ChangeSpec {
   /** Case field the override sets. */
   key: string
   title: (t: Translate) => string
-  kind: 'choice' | 'multi' | 'dims' | 'number'
+  kind: 'choice' | 'multi' | 'dims' | 'number' | 'flowQ5'
   options?: { value: unknown; label: (t: Translate) => string }[]
 }
 
@@ -61,10 +64,25 @@ const CHANGES: ChangeSpec[] = [
   { key: 'q7', title: q('q7'), kind: 'choice',
     options: choice(['A', 'B', 'C'], (v) => `questionnaire.q7.options.${v}.label`) },
   { key: 'dedicated_shared_assets', title: q('q12'), kind: 'choice', options: yesNo('questionnaire.q12.options') },
+  // Q5 per flow (lcc_mc_04/08 are per flow, D4.2 §3.2, §6.2): sent as
+  // {flow id: class}, applied by the runner to the case's own flows
+  { key: 'flow_q5', title: (t) => t('scenarios.flowQ5Title'), kind: 'flowQ5' },
 ]
+const Q5_KEYS = ['a', 'b', 'c', 'd', 'e'] as const
 const SPEC = Object.fromEntries(CHANGES.map((c) => [c.key, c]))
 
-function defaultValue(spec: ChangeSpec): unknown {
+// a new change starts from the case's own answer, not from a fixed value
+// (round 4 leftover: the form did not start from the case)
+function defaultValue(spec: ChangeSpec, baseline: Partial<Case> = {}): unknown {
+  if (spec.kind === 'flowQ5') {
+    return Object.fromEntries((baseline.flows ?? []).filter((f) => f.q5).map((f) => [f.id, f.q5]))
+  }
+  const current = (baseline as Record<string, unknown>)[spec.key]
+  if (current !== undefined && current !== null && current !== '') {
+    if (Array.isArray(current)) return [...current]
+    if (typeof current === 'object') return { ...(current as object) }
+    return current
+  }
   if (spec.kind === 'dims') return { env: true, eco: true, soc: false }
   if (spec.kind === 'multi') return []
   if (spec.kind === 'number') return 20
@@ -87,8 +105,11 @@ const NOT_OVERRIDABLE = new Set([
   'governance', 'methodological_charter', 'review', 'system',
 ])
 
-export default function ScenariosEditor({ scenarios, onChange }: Props) {
+export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: Props) {
   const { t } = useTranslation()
+  const flows: Flow[] = baseline.flows ?? []
+  // the per-flow change needs flows to change
+  const changes = CHANGES.filter((c) => c.kind !== 'flowQ5' || flows.length > 0)
   // raw JSON per scenario while it is being edited, so a half-typed object
   // is not lost; cleared whenever the form changes the overrides
   const [rawOverrides, setRawOverrides] = useState<Record<string, string>>({})
@@ -117,14 +138,14 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
   }
 
   function addChange(s: AlternativeScenario) {
-    const spec = CHANGES.find((c) => !(c.key in s.overrides))
-    if (spec) setOverrides(s, { ...s.overrides, [spec.key]: defaultValue(spec) })
+    const spec = changes.find((c) => !(c.key in s.overrides))
+    if (spec) setOverrides(s, { ...s.overrides, [spec.key]: defaultValue(spec, baseline) })
   }
 
   function replaceChange(s: AlternativeScenario, oldKey: string, newKey: string) {
     const next: Record<string, unknown> = {}
     for (const [k, v] of Object.entries(s.overrides)) {
-      if (k === oldKey) next[newKey] = defaultValue(SPEC[newKey])
+      if (k === oldKey) next[newKey] = defaultValue(SPEC[newKey], baseline)
       else next[k] = v
     }
     setOverrides(s, next)
@@ -170,6 +191,25 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
   function renderAnswer(s: AlternativeScenario, spec: ChangeSpec) {
     const value = s.overrides[spec.key]
     const set = (v: unknown) => setOverrides(s, { ...s.overrides, [spec.key]: v })
+    if (spec.kind === 'flowQ5') {
+      const byFlow = (value ?? {}) as Record<string, string>
+      return (
+        <span className="scenario-change-flows">
+          {flows.map((f) => (
+            <label key={f.id} className="scenario-change-flow">
+              <span>{f.name || f.id}</span>
+              <select
+                className="row-select" aria-label={`${t('scenarios.newAnswer')}: ${f.name || f.id}`}
+                value={byFlow[f.id] ?? f.q5 ?? ''}
+                onChange={(e) => set({ ...byFlow, [f.id]: e.target.value })}
+              >
+                {Q5_KEYS.map((k) => <option key={k} value={k}>{t(`flows.options.${k}`)}</option>)}
+              </select>
+            </label>
+          ))}
+        </span>
+      )
+    }
     if (spec.kind === 'number') {
       return (
         <input
@@ -284,7 +324,7 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                               value={key}
                               onChange={(e) => replaceChange(s, key, e.target.value)}
                             >
-                              {CHANGES.filter((c) => c.key === key || !(c.key in s.overrides)).map((c) => (
+                              {changes.filter((c) => c.key === key || !(c.key in s.overrides)).map((c) => (
                                 <option key={c.key} value={c.key}>{c.title(t)}</option>
                               ))}
                             </select>
@@ -301,7 +341,7 @@ export default function ScenariosEditor({ scenarios, onChange }: Props) {
                         ))}
                       </ul>
                     )}
-                    {formKeys.length < CHANGES.length ? (
+                    {formKeys.length < changes.length ? (
                       <button type="button" className="btn btn-secondary" onClick={() => addChange(s)}>
                         <Plus size={14} /> {t('scenarios.addChange')}
                       </button>

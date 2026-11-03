@@ -111,6 +111,24 @@ describe('public report', () => {
 
   it('says whom to ask about the case', async () => {
     renderAt('/r/c1/community')
-    expect(await screen.findByText(/ask whoever sent you the link/)).toBeTruthy()
+    expect((await screen.findAllByText(/ask whoever sent you the link/)).length).toBeGreaterThan(0)
+  })
+})
+
+describe('community view (UX round 4, B3)', () => {
+  beforeEach(() => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({
+      ok: true, status: 200, json: () => Promise.resolve({ ...REPORT, case_contact: 'study@example.org' }),
+    } as Response)))
+  })
+  afterEach(() => vi.unstubAllGlobals())
+
+  it('answers residents in their words and says what they can do', async () => {
+    renderAt('/r/c1/community')
+    expect(await screen.findByText('Transport')).toBeTruthy()
+    expect(screen.getByText(/Odour and noise are not impact categories/)).toBeTruthy()
+    expect(screen.getByText(/the local community, consumers/)).toBeTruthy()
+    expect(screen.getByText('What you can do')).toBeTruthy()
+    expect(screen.queryByText(/characterisation factors/i)).toBeNull()
   })
 })

@@ -88,9 +88,12 @@ export function configurationRows(
   rows.push({
     key: 'slca',
     label: label('slca'),
-    value: kase.q3?.soc && kase.slca_activation_state
-      ? t(`narrative.slca.${kase.slca_activation_state}.short`)
-      : t('result.config.values.slcaOff'),
+    // residents asked whether they would be heard (UX round 4, B3)
+    value: opts.audience === 'community'
+      ? t(kase.q3?.soc ? 'result.config.values.community.slcaOn' : 'result.config.values.community.slcaOff')
+      : kase.q3?.soc && kase.slca_activation_state
+        ? t(`narrative.slca.${kase.slca_activation_state}.short`)
+        : t('result.config.values.slcaOff'),
     why: kase.q3?.soc ? undefined : t('result.config.why.slcaOff'),
     nodeText: texts((kase.slca ?? {})['boundary']),
   })
@@ -232,12 +235,48 @@ export function configurationRows(
         : t('result.config.why.fuDefault'),
       nodeText: texts(lca['functional_unit']),
     })
+    const community = opts.audience === 'community'
     rows.push({
       key: 'regional',
-      label: label('regional'),
-      value: t(`result.config.values.regional_${kase.q7 ?? 'unset'}`),
+      label: community ? t('result.config.labels.communityRegional') : label('regional'),
+      value: community
+        ? t('result.config.values.community.regional', {
+          where: t(`result.config.values.community.where_${kase.q7 ?? 'unset'}`),
+        })
+        : t(`result.config.values.regional_${kase.q7 ?? 'unset'}`),
       why: kase.q7 ? `${t(`questionnaire.q7.options.${kase.q7}.label`)} (Q7)` : t('result.config.why.regionalUnset'),
       nodeText: texts(lca['lcia_method']),
+    })
+  }
+
+  // the Community view answers residents in their words: transport, local effects,
+  // what is spread on fields, whether they are heard, what is not covered
+  // (decided by Fable, UX round 4, B3; D4.1 §13.3.1, §13.3.3, Part 2 §4.3.3,
+  // §6.3.3, §9.3; D4.3 §5.1, §6.2)
+  const forCommunity = opts.audience === 'community'
+  if (forCommunity && (env || eco)) {
+    rows.push({
+      key: 'transport',
+      label: t('result.config.labels.transport'),
+      value: t(env ? 'result.config.values.community.transport' : 'result.config.values.community.transportLcc'),
+      nodeText: texts(lca['transport.foreground'], lcc['transport_costs']),
+    })
+  }
+  const spreading = (kase.sector_rules ?? []).some((r) => r.id === 'p2_agrifood_03' || r.id === 'p2_wastewater_01')
+  if (forCommunity && env && spreading) {
+    rows.push({
+      key: 'fieldSpreading',
+      label: t('result.config.labels.fieldSpreading'),
+      value: t('result.config.values.community.fieldSpreading'),
+      nodeText: [],
+    })
+  }
+  if (forCommunity && env) {
+    rows.push({
+      key: 'notCovered',
+      label: t('result.config.labels.notCovered'),
+      value: t('result.config.values.community.notCovered'),
+      nodeText: [],
     })
   }
 
@@ -329,7 +368,7 @@ export function obligationGroups(rules: ApplicableRule[]): ObligationGroup[] {
  *  the public side for the authority, the unit and the claim for the end user. */
 export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end-user', string[]> = {
   industry: ['lcc', 'shared', 'horizon', 'reference', 'multifunctionality'],
-  community: ['regional', 'slca', 'sectors'],
+  community: ['transport', 'regional', 'fieldSpreading', 'slca', 'notCovered'],
   // shared infrastructure is what a public co-funder typically finances
   authority: ['lcc', 'shared', 'reference', 'claim', 'horizon', 'slca'],
   'end-user': ['fu', 'claim', 'slca'],

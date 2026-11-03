@@ -117,7 +117,7 @@ const en = {
         short: '🌳 Community',
         name: 'Community',
         title: 'Local-impact view',
-        body: "What changes for people living near the plants: effects on the local environment and on people, positive and negative.",
+        body: 'How the effects on the area and on the people near the plants will be studied: transport, local air, water and soil, what is spread on fields, whether residents are heard. There are no results yet.',
       },
       authority: {
         short: '🏛 Authority',
@@ -166,6 +166,8 @@ const en = {
     preparedBy: 'Prepared by {{name}} — answers entered by the author of the case, not checked by SYMBA.',
     contact: 'For questions about this case: {{contact}}',
     noContact: 'For questions about this case, ask whoever sent you the link. SYMBA built the tool; it does not carry out this study.',
+    whatYouCanDo: 'This study is still being set up. If you want residents to be heard (interviews, questionnaires), or if traffic, odours or what is spread on fields worry you, write to whoever prepared it: {{contact}}. Results, once loaded, appear on this same page at this same link.',
+    whatYouCanDoTitle: 'What you can do',
   },
 
   welcome: {
@@ -1008,8 +1010,25 @@ const en = {
         multifunctionality: 'Multifunctionality',
         flowsLcc: 'Cost of each flow',
         fuLcc: 'Functional equivalent',
+        communityRegional: 'Effects near the plants',
+        transport: 'Transport',
+        fieldSpreading: 'What is spread on fields',
+        notCovered: 'Not covered',
       },
       values: {
+        community: {
+          slcaOn: 'Yes: social effects are assessed group by group — workers, the local community, consumers. Which groups are interviewed is decided by whoever carries out the study (D4.3 §5.1, §6.2).',
+          slcaOff: 'No: social effects are not assessed. If residents want to be heard, ask the contact on this page to add them.',
+          regional: 'Local air, water and soil effects (fine particles, acidification, excess nutrients, water use) are assessed with data for {{where}}, not world averages (D4.1 §13.3.3).',
+          where_A: 'this site',
+          where_B: 'your region or country',
+          where_C: 'the territory of each emission',
+          where_unset: 'the country',
+          transport: 'Every exchange is studied with its own transport: lorries or pipelines, real routes and distances, loads and empty return trips, and the distance beyond which trucking cancels the benefit (D4.1 §13.3.1).',
+          transportLcc: 'The cost of transporting every exchange, and the distance beyond which it no longer pays (D4.2 §4.3).',
+          fieldSpreading: 'The study counts what happens when digestate, compost or recovered fertiliser is spread on fields: ammonia to the air, nitrates to water (D4.1 Part 2 §4.3.3, §6.3.3).',
+          notCovered: 'Odour and noise are not impact categories of these guidelines (D4.1 Part 2 §9.3 lists them among the effects usually left out); local air, water and toxicity are. Any local effect the study leaves out must be declared as a known blind spot (D4.1 §12.3.5).',
+        },
         flowCost: {
           a: 'waste: the gate fee as negotiated; zero cost only if the residual is unavoidable (D4.2 §6.3)',
           b: 'free: zero transfer price; zero cost only if unavoidable, otherwise a co-product',
@@ -1410,7 +1429,7 @@ const en = {
       industry:
         'Full technical view of the methodological configuration. The figures (emissions, costs) are not produced here: whoever carries out the study calculates them from the Data Collection File, and they can be loaded into this case.',
       community:
-        'What changes for people living near the plants: effects on the local environment and on people, positive and negative.',
+        'How the effects on the area and on the people near the plants will be studied: transport, local air, water and soil, what is spread on fields, whether residents are heard. There are no results yet.',
       authority:
         'How the assessment is framed: costs, shared assets, reference scenario, public claims, time horizon, social effects.',
       'end-user':

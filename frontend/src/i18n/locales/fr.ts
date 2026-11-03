@@ -138,7 +138,7 @@ const fr: Locale = {
     audience: {
       showingFor: 'Vue pour — {{name}}',
       industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Vue opérateur', body: 'Vue technique complète pour les opérateurs.' },
-      community: { short: '🌳 Communauté', name: 'Communauté', title: 'Vue impact local', body: "Ce qui change pour les riverains des sites : effets sur l'environnement local et sur les personnes, positifs et négatifs." },
+      community: { short: '🌳 Communauté', name: 'Communauté', title: 'Vue impact local', body: 'Comment seront étudiés les effets sur la zone et sur les personnes proches des installations : transports, air, eau et sol locaux, ce qui est épandu sur les champs, si les habitants sont entendus. Il n\'y a pas encore de résultats.' },
       authority: { short: '🏛 Autorité', name: 'Autorité locale', title: 'Vue réglementaire', body: "Comment l'évaluation est cadrée : coûts, biens partagés, scénario de référence, affirmations publiques, horizon, effets sociaux." },
       enduser: { short: '👤 Utilisateur', name: 'Utilisateur final', title: 'Résumé', body: "De quoi parle ce cas et ce qui sera évalué. Il n'y a pas encore de résultats." },
     },
@@ -167,6 +167,8 @@ const fr: Locale = {
     preparedBy: 'Préparé par {{name}} — réponses saisies par l\'auteur du cas, non vérifiées par SYMBA.',
     contact: 'Pour les questions sur ce cas : {{contact}}',
     noContact: 'Pour les questions sur ce cas, adressez-vous à la personne qui vous a envoyé le lien. SYMBA a construit l\'outil ; il ne réalise pas cette étude.',
+    whatYouCanDo: 'Cette étude est encore en préparation. Si vous voulez que les habitants soient entendus (entretiens, questionnaires), ou si le trafic, les odeurs ou ce qui est épandu sur les champs vous inquiètent, écrivez à la personne qui l\'a préparée : {{contact}}. Les résultats, une fois chargés, apparaîtront sur cette même page, au même lien.',
+    whatYouCanDoTitle: 'Ce que vous pouvez faire',
   },
 
   welcome: {
@@ -966,8 +968,25 @@ const fr: Locale = {
         multifunctionality: 'Multifonctionnalité',
         flowsLcc: 'Coût de chaque flux',
         fuLcc: 'Équivalent fonctionnel',
+        communityRegional: 'Effets près des installations',
+        transport: 'Transports',
+        fieldSpreading: 'Ce qui est épandu sur les champs',
+        notCovered: 'Ce qui n\'est pas couvert',
       },
       values: {
+        community: {
+          slcaOn: 'Oui : les effets sociaux sont évalués groupe par groupe : travailleurs, communauté locale, consommateurs. Les groupes interrogés sont choisis par la personne qui réalise l\'étude (D4.3 §5.1, §6.2).',
+          slcaOff: 'Non : les effets sociaux ne sont pas évalués. Si les habitants veulent être entendus, demandez-le au contact de cette page.',
+          regional: 'Les effets locaux sur l\'air, l\'eau et le sol (particules fines, acidification, excès de nutriments, consommation d\'eau) sont évalués avec des données {{where}}, pas des moyennes mondiales (D4.1 §13.3.3).',
+          where_A: 'du site',
+          where_B: 'de votre région ou de votre pays',
+          where_C: 'du territoire de chaque émission',
+          where_unset: 'du pays',
+          transport: 'Chaque échange est étudié avec son transport : camions ou canalisations, itinéraires et distances réels, chargements et retours à vide, et la distance au-delà de laquelle le camionnage annule le bénéfice (D4.1 §13.3.1).',
+          transportLcc: 'Le coût du transport de chaque échange, et la distance au-delà de laquelle il n\'est plus rentable (D4.2 §4.3).',
+          fieldSpreading: 'L\'étude compte ce qui se passe quand le digestat, le compost ou l\'engrais récupéré sont épandus sur les champs : ammoniac dans l\'air, nitrates dans l\'eau (D4.1 Part 2 §4.3.3, §6.3.3).',
+          notCovered: 'Les odeurs et le bruit ne sont pas des catégories d\'impact de ces lignes directrices (la Part 2 §9.3 les cite parmi les effets habituellement laissés de côté) ; l\'air, l\'eau et la toxicité locaux le sont. Tout effet local que l\'étude laisse de côté doit être déclaré comme angle mort connu (D4.1 §12.3.5).',
+        },
         flowCost: {
           a: 'déchet : la redevance négociée ; coût nul seulement si le résidu est inévitable (D4.2 §6.3)',
           b: 'gratuit : prix de cession nul ; coût nul seulement si inévitable, sinon coproduit',
@@ -1369,7 +1388,7 @@ const fr: Locale = {
       industry:
         'Vue technique complète de la configuration méthodologique. Les chiffres (émissions, coûts) ne sont pas produits ici : la personne qui réalise l\'étude les calcule à partir du Data Collection File, et ils peuvent être chargés dans ce cas.',
       community:
-        'Ce qui change pour les riverains des sites : effets sur l\'environnement local et sur les personnes, positifs et négatifs.',
+        'Comment seront étudiés les effets sur la zone et sur les personnes proches des installations : transports, air, eau et sol locaux, ce qui est épandu sur les champs, si les habitants sont entendus. Il n\'y a pas encore de résultats.',
       authority:
         'Comment l\'évaluation est cadrée : coûts, biens partagés, scénario de référence, affirmations publiques, horizon, effets sociaux.',
       'end-user':

@@ -82,12 +82,15 @@ describe('configurationRows edge cases', () => {
 describe('AUDIENCE_ROWS', () => {
   it('names only rows the builder knows', async () => {
     await i18n.changeLanguage('en')
-    const keys = new Set(configurationRows({ ...BASE, q3: { env: true, eco: true, soc: true }, q4: ['C'],
+    const kase: Case = { ...BASE, q3: { env: true, eco: true, soc: true }, q4: ['C'],
       slca_activation_state: 'active',
       sector_rules: [{ chapter_key: 'agrifood', chapter: '§4 Agri-Food and Biorefineries', activated_by: [{ kind: 'flow', name: 'x' }],
-        id: 'r', group: 'g', strength: 'must', applies_when: null, statement: '', source: '', lines: '' }] }, t)
-      .map((r) => r.key))
-    for (const rows of Object.values(AUDIENCE_ROWS)) for (const key of rows) expect(keys.has(key)).toBe(true)
+        id: 'p2_agrifood_03', group: 'g', strength: 'must', applies_when: null, statement: '', source: '', lines: '' }] } as Case
+    // each audience view asks the builder for its own rows (the community rows exist only there)
+    for (const [audience, rows] of Object.entries(AUDIENCE_ROWS)) {
+      const keys = new Set(configurationRows(kase, t, { audience }).map((r) => r.key))
+      for (const key of rows) expect(keys.has(key), `${audience}: ${key}`).toBe(true)
+    }
   })
 })
 

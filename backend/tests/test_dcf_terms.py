@@ -116,7 +116,9 @@ def test_the_reference_scenario_sheet_asks_what_each_actor_would_do(payload):
     wb = load_workbook(BytesIO(render_xlsx(localize(payload, "it"), lang="it")))
     ref = wb["Scenario di riferimento"]
     headers = [c.value for c in ref[4]]
-    assert headers[:2] == ["Attore *", "Che cosa fa o farebbe questo attore senza gli scambi *"]
+    # one row per actor and per flow it gives or receives (UX round 5, D6)
+    assert headers[:4] == ["Attore *", "Flusso", "Lato del flusso",
+                           "Che cosa fa, o farebbe, questo attore senza questo flusso *"]
     classif = [c.value for c in wb["Classificazione flussi"][4]]
     assert "Prodotto o processo che il flusso sostituisce" in classif
     assert "Fattore di qualità Q (0-1)" in classif

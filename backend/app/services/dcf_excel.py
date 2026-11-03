@@ -33,7 +33,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
 from app.engine.dcf_rows import actor_label, cell_values, edge_list, rows_for
-from app.services.dcf_terms import cover_rows, enum_label, ui, value_label
+from app.services.dcf_terms import cover_rows, enum_label, offered_labels, ui, value_label
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -156,7 +156,26 @@ _SEED_KEY = {
 }
 
 
+def _reference_rows(rows: list[DcfRow], data: DcfData | None) -> list[DcfRow]:
+    """Two rows per flow, one for the actor that gives it and one for the
+    actor that receives it: one cell per actor could not hold an actor that
+    gives a flow and receives another (UX round 5, D6; D4.1 §11.1)."""
+    have = {(r.values.get("ref.flow_id"), r.values.get("ref.side")) for r in rows}
+    seeded = []
+    for f in rows_for(data, "flow_matrix"):
+        for side, actor_key in (("origin", "flow.origin_actor_id"), ("destination", "flow.dest_actor_id")):
+            if (f.row_id, side) in have:
+                continue
+            values = {"ref.flow_id": f.row_id, "ref.side": side}
+            if f.values.get(actor_key):
+                values["ref.actor_id"] = f.values[actor_key]
+            seeded.append(DcfRow(row_id=f"seed-ref-{f.row_id}-{side}", values=values))
+    return [*rows, *seeded]
+
+
 def _with_seeded_rows(section: DcfSection, rows: list[DcfRow], data: DcfData | None) -> list[DcfRow]:
+    if section.id == "reference_scenario" and "ref.side" in {f.id for f in section.fields}:
+        return _reference_rows(rows, data)
     key = _SEED_KEY.get(section.id)
     if key is None or key[0] not in {f.id for f in section.fields}:
         return rows
@@ -348,9 +367,9 @@ def _field_note(field, lang: str = "en") -> str:
     help_text = field.help or field.description_en
     if help_text:
         parts.append(str(help_text))
-    labels = field.enum_labels or ({v: enum_label(lang, v) for v in field.enum_values} if field.enum_values else None)
+    labels = offered_labels(field, lang)
     if labels:
-        parts.append(f"{ui(lang, 'note.allowed')}: " + "; ".join(labels.values()))
+        parts.append(f"{ui(lang, 'note.allowed')}: " + "; ".join(labels))
     if field.reason:
         parts.append(f"{ui(lang, 'note.because')}: {field.reason}")
     # the field id was noise to whoever fills the file in (P2-05, P3-10, P6-07)
@@ -368,9 +387,7 @@ def _add_enum_dropdowns(
     inside a label and is capped at 255 characters.
     """
     for col_idx, field in enumerate(section.fields, start=1):
-        labels = list((field.enum_labels or {}).values()) or [
-            enum_label(lang, v) for v in (field.enum_values or [])
-        ]
+        labels = offered_labels(field, lang)
         if not labels:
             continue
         if lists is None:

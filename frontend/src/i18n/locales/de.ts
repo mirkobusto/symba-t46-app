@@ -1582,12 +1582,14 @@ const de: Locale = {
     panelFlow: 'Fluss',
     signInToSave: 'Melden Sie sich mit dem Konto an, das diesen Fall gespeichert hat, um das Netzwerk zu speichern.',
     missingGoTo: 'Zum ersten leeren Pflichtfeld',
+    givesReceives: 'gibt {{gives}} ab · nimmt {{receives}} auf',
     selectHint:
       'Wählen Sie einen Akteur oder einen Fluss, um dessen Felder zu bearbeiten.',
     removeRow: 'Entfernen',
     unwiredTitle: 'Noch nicht gezeichnete Flüsse',
     unwiredHint: 'Diese Flüsse stammen aus dem Fragebogen. Klicken Sie einen an und verbinden Sie dann den abgebenden mit dem aufnehmenden Akteur, oder klicken Sie ihn an und wählen Sie die beiden Akteure im Seitenfeld (so geht es auf dem Telefon).',
     roles: {
+      partner: 'Partner',
       producer: 'Erzeuger',
       consumer: 'Abnehmer',
       facilitator: 'Vermittler',

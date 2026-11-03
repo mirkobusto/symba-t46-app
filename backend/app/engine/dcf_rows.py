@@ -157,6 +157,8 @@ def edge_list(data: DcfData | None) -> list[dict[str, Any]]:
         edges.append(
             {
                 "flow_id": row.row_id,
+                "origin_id": origin,
+                "destination_id": dest,
                 "name": row.values.get("flow.name") or row.row_id,
                 "origin": actor_label(origin_row, origin) if origin_row else origin,
                 "destination": actor_label(dest_row, dest) if dest_row else dest,

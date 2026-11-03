@@ -5179,3 +5179,4 @@ kbd {
 /* the panel is scrolled into view on a phone: keep its title clear of the sticky header */
 .nb-panel { scroll-margin-top: calc(var(--dd-site-header-height) + var(--dd-topbar-height) + 16px); }
 @media (max-width: 640px) { .nb-panel { scroll-margin-top: 220px; } }
+.nb-node-label small { color: var(--dd-text-muted); font-size: 10px; }

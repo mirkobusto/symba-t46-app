@@ -1588,11 +1588,13 @@ const fr: Locale = {
     panelFlow: 'Flux',
     signInToSave: 'Connectez-vous avec le compte qui a enregistré ce cas pour enregistrer le réseau.',
     missingGoTo: 'Aller au premier champ obligatoire vide',
+    givesReceives: 'cède {{gives}} · reçoit {{receives}}',
     selectHint: 'Sélectionnez un acteur ou un flux pour modifier ses champs.',
     removeRow: 'Supprimer',
     unwiredTitle: 'Flux pas encore dessinés',
     unwiredHint: 'Ces flux viennent du questionnaire. Cliquez sur l\'un d\'eux, puis reliez l\'acteur qui le cède à celui qui le reçoit, ou cliquez dessus et choisissez les deux acteurs dans le panneau (la façon de faire sur un téléphone).',
     roles: {
+      partner: 'partenaire',
       producer: 'producteur',
       consumer: 'utilisateur',
       facilitator: 'facilitateur',

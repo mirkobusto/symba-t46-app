@@ -16,13 +16,15 @@
       "description_en": "Roster of participants in the IS network. New first-class concept: actors are not in the current Case model — the DCF promotes them to enable origin/destination on flows and the network diagram.",
       "applies_when": "always",
       "row_collection": "user_added",
+      "filled_by": "company",
       "fields": [
         {
           "id": "actor.id",
           "label_en": "Actor ID",
           "type": "string",
           "required": true,
-          "activation_predicate": "always"
+          "activation_predicate": "always",
+          "filled_by": "engine"
         },
         {
           "id": "actor.name",
@@ -36,6 +38,7 @@
           "label_en": "Role",
           "type": "enum",
           "enum_values": [
+            "partner",
             "producer",
             "consumer",
             "facilitator",
@@ -108,13 +111,15 @@
       "description_en": "One row per actor-to-actor exchange. Extends the existing Flow model (id, name, q5) with origin/destination, type, quantity, quality, uncertainty.",
       "applies_when": "always",
       "row_collection": "pre_seeded_from_case_flows",
+      "filled_by": "company",
       "fields": [
         {
           "id": "flow.id",
           "label_en": "Flow ID",
           "type": "string",
           "required": true,
-          "activation_predicate": "always"
+          "activation_predicate": "always",
+          "filled_by": "engine"
         },
         {
           "id": "flow.origin_actor_id",
@@ -161,6 +166,7 @@
           "enum_ref": "Q5",
           "required": true,
           "activation_predicate": "always",
+          "filled_by": "analyst",
           "description_en": "Mirrors the existing flow.q5 from the questionnaire."
         },
         {
@@ -256,21 +262,24 @@
           "label_en": "Marginal market reference (consequential)",
           "type": "string_docref",
           "required": false,
-          "activation_predicate": "q3.env and ilcd_situation == \"ILCD Situation B\""
+          "activation_predicate": "q3.env and ilcd_situation == \"ILCD Situation B\"",
+          "filled_by": "analyst"
         },
         {
           "id": "flow.scenario_assumptions",
           "label_en": "Scenario assumptions (ex-ante)",
           "type": "text",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios"
+          "activation_predicate": "q2 == \"B\" or has_scenarios",
+          "filled_by": "analyst"
         },
         {
           "id": "flow.lci_dataset_ref",
           "label_en": "LCI background dataset reference",
           "type": "string_docref",
           "required": false,
-          "activation_predicate": "q3.env"
+          "activation_predicate": "q3.env",
+          "filled_by": "analyst"
         }
       ]
     },
@@ -280,6 +289,7 @@
       "description_en": "One row per flow, whatever Q5 says: the legal and economic tests that decide how a flow is treated (D4.1 §8.3, D4.2 §6.2). They are the analyst's judgements: Q5 only records who pays whom, and nothing cross-checks the two, so keep this consistent with the Q5 class of the flow in the Flow Matrix.",
       "applies_when": "q3.env or q3.eco",
       "row_collection": "auto_from_flow_matrix",
+      "filled_by": "analyst",
       "fields": [
         {
           "id": "classif.flow_id",
@@ -431,10 +441,11 @@
     },
     {
       "id": "reference_scenario",
-      "title_en": "Reference scenario per actor",
-      "description_en": "One row per actor: what it does, or would do, without the exchanges of the symbiosis (where it would dispose of the flow, what it would buy in its place). The reference scenario of the study (D4.1 §11) is built from these rows.",
+      "title_en": "Reference scenario per actor and flow",
+      "description_en": "One row per actor and per flow it gives or receives: for the origin, where the flow would go without the exchange (disposal route, other buyer); for the destination, what it would buy or produce instead (D4.1 §11.1).",
       "applies_when": "q3.env or q3.eco",
-      "row_collection": "user_added",
+      "row_collection": "auto_from_flow_matrix",
+      "filled_by": "both",
       "fields": [
         {
           "id": "ref.actor_id",
@@ -444,8 +455,26 @@
           "activation_predicate": "always"
         },
         {
+          "id": "ref.flow_id",
+          "label_en": "Flow",
+          "type": "fk_flow",
+          "required": false,
+          "activation_predicate": "always"
+        },
+        {
+          "id": "ref.side",
+          "label_en": "Side of the flow",
+          "type": "enum",
+          "enum_values": [
+            "origin",
+            "destination"
+          ],
+          "required": false,
+          "activation_predicate": "always"
+        },
+        {
           "id": "ref.without_symbiosis",
-          "label_en": "What this actor does or would do without the exchanges",
+          "label_en": "What this actor does, or would do, without this flow",
           "type": "text",
           "required": true,
           "activation_predicate": "always",
@@ -467,6 +496,7 @@
       "description_en": "One row per route, i.e. per flow, co-located flows included: a pipeline, a conveyor or on-site handling is a unit process too (D4.1 §12.3.1). Auto-derived from the Flow Matrix. The break-even distance is asked for every flow, whatever Q7 says; a study with only the social dimension has no transport to model, so the section is off for it.",
       "applies_when": "q3.env or q3.eco",
       "row_collection": "auto_from_flow_matrix",
+      "filled_by": "company",
       "fields": [
         {
           "id": "route.flow_id",
@@ -543,7 +573,8 @@
           "label_en": "Transport LCI dataset reference",
           "type": "string_docref",
           "required": false,
-          "activation_predicate": "q3.env"
+          "activation_predicate": "q3.env",
+          "filled_by": "analyst"
         },
         {
           "id": "route.transport_cost_per_unit",
@@ -575,6 +606,7 @@
           "min": 0,
           "required": false,
           "activation_predicate": "always",
+          "filled_by": "analyst",
           "description_en": "Distance beyond which the exchange stops paying off for this flow, from your own sensitivity run on primary logistics data (D4.1 §12.3.1). Not a fixed assumption: do not copy a literature value.",
           "source_ref": "lca_hc_21"
         },
@@ -590,6 +622,7 @@
           ],
           "required": false,
           "activation_predicate": "always",
+          "filled_by": "analyst",
           "description_en": "What the break-even was computed on; a GWP-only break-even can mislead (D4.1 §12.2.1).",
           "source_ref": "lca_hc_21"
         }
@@ -601,6 +634,7 @@
       "description_en": "The economic terms of the exchange, one row per flow. Gated on the economic dimension: without q3.eco the engine configures no LCC and this section does not apply. `cost.current_disposal_cost` is the economic counterfactual — what the origin actor pays today for the flow the symbiosis diverts (D4.2 calls this reference the CNSRS, Current Non-Symbiotic Reference Scenario); without it there is no avoided cost to put against the investment.",
       "applies_when": "q3.eco",
       "row_collection": "auto_from_flow_matrix",
+      "filled_by": "company",
       "fields": [
         {
           "id": "cost.flow_id",
@@ -618,8 +652,16 @@
           "description_en": "What the origin actor pays today to get rid of this flow. The economic counterfactual (CNSRS): the symbiosis avoids it."
         },
         {
+          "id": "cost.avoided_procurement_cost",
+          "label_en": "What the destination actor pays today for what this flow replaces (avoided purchase)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "The recipient's avoided cost: what it would buy without the exchange (D4.2 §6.2 L00769)."
+        },
+        {
           "id": "cost.disposal_cost_unit",
-          "label_en": "Unit of the disposal cost",
+          "label_en": "Unit of the two avoided costs (e.g. EUR/t, EUR/year)",
           "type": "string",
           "required": false,
           "activation_predicate": "always",
@@ -627,11 +669,11 @@
         },
         {
           "id": "cost.exchange_price",
-          "label_en": "Price of the exchanged flow",
+          "label_en": "Price the destination actor pays the origin actor (per unit)",
           "type": "float",
           "required": false,
           "activation_predicate": "always",
-          "description_en": "Agreed price between the partners. Zero and negative values are meaningful: a gate fee paid to take the flow away is a negative price."
+          "description_en": "Positive: the receiver pays. Zero: free. Negative: the origin actor pays the receiver a gate fee to take the flow (D4.2 §5.2)."
         },
         {
           "id": "cost.price_basis",
@@ -640,6 +682,7 @@
           "required": false,
           "activation_predicate": "always",
           "enum_values": [
+            "gate_fee",
             "gate_fee_paid",
             "gate_fee_received",
             "market_price",
@@ -649,11 +692,19 @@
         },
         {
           "id": "cost.opex_delta_year",
-          "label_en": "Recurring opex delta (per year)",
+          "label_en": "Change in the origin actor's yearly operating cost (excluding transport)",
           "type": "float",
           "required": false,
           "activation_predicate": "always",
           "description_en": "Operating cost the exchange adds or removes per year, excluding transport (that lives in Logistics)."
+        },
+        {
+          "id": "cost.opex_delta_dest_year",
+          "label_en": "Change in the destination actor's yearly operating cost (excluding transport)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Each firm's actual cost structure (D4.2 §5.3 L00701): what the exchange adds or saves for the receiver."
         },
         {
           "id": "cost.currency_year",
@@ -690,6 +741,7 @@
           "type": "bool",
           "required": false,
           "activation_predicate": "lcc_type in [\"C+E\", \"C+E+S\"]",
+          "filled_by": "analyst",
           "description_en": "Monetising environmental impacts belongs to E-LCC and S-LCC, not to a conventional LCC (D4.2 §2.2). Flag it so the same amount is not counted twice, once as a cash cost and once as an externality."
         }
       ]
@@ -700,13 +752,15 @@
       "description_en": "Assets involved in the IS network. One row per asset (production line, treatment plant, pipeline, storage, conversion unit, supporting facility).",
       "applies_when": "always",
       "row_collection": "user_added",
+      "filled_by": "company",
       "fields": [
         {
           "id": "infra.id",
           "label_en": "Infrastructure ID",
           "type": "string",
           "required": true,
-          "activation_predicate": "always"
+          "activation_predicate": "always",
+          "filled_by": "engine"
         },
         {
           "id": "infra.linked_actor_id",
@@ -806,6 +860,7 @@
           "type": "float",
           "required": false,
           "activation_predicate": "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)",
+          "filled_by": "analyst",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -822,6 +877,7 @@
           "type": "int",
           "required": false,
           "activation_predicate": "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
           "row_condition": "infra.status == \"replaced\""
         },
         {
@@ -845,6 +901,7 @@
           ],
           "required": false,
           "activation_predicate": "future_background and (q3.env or q3.eco)",
+          "filled_by": "analyst",
           "source_ref": "lcc_hc_23"
         },
         {
@@ -868,6 +925,7 @@
       "description_en": "The methodological practices this case has to document, grouped by category. The engine fills this sheet in from your answers: it is not something a data provider completes, it is the list the assessment team has to act on and record in the LCSA report.",
       "applies_when": "always",
       "row_collection": "auto_from_activated_nodes",
+      "filled_by": "analyst",
       "auto_source": {
         "type": "procedural_mandates",
         "census_file": "backend/coordination/dcf_mandates_census.json",
@@ -934,7 +992,7 @@
     {
       "id": "network_diagram",
       "title_en": "Network Diagram",
-      "description_en": "The picture of the network, drawn from the Actors and Flow Matrix sheets. Edit it in the Network builder of the web app, where actors and flows are placed and connected; this sheet shows the result.",
+      "description_en": "The links of the network, drawn from the Actors and Flow Matrix sheets. Edit it in the Network builder of the web app, where actors and flows are placed and connected; this sheet lists the links, the drawing stays in the app.",
       "applies_when": "always",
       "row_collection": "derived",
       "render_spec": {
@@ -944,6 +1002,7 @@
           "color_palette_ref": "Q6a",
           "shape_by": "actor.role",
           "shape_map": {
+            "partner": "circle",
             "producer": "circle",
             "consumer": "square",
             "facilitator": "hexagon",

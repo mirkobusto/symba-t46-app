@@ -1582,11 +1582,13 @@ const es: Locale = {
     panelFlow: 'Flujo',
     signInToSave: 'Inicia sesión con la cuenta que guardó este caso para guardar la red.',
     missingGoTo: 'Ir al primer campo obligatorio vacío',
+    givesReceives: 'cede {{gives}} · recibe {{receives}}',
     selectHint: 'Selecciona un actor o un flujo para editar sus campos.',
     removeRow: 'Eliminar',
     unwiredTitle: 'Flujos aún no dibujados',
     unwiredHint: 'Estos flujos vienen del cuestionario. Haz clic en uno y conecta el actor que lo cede con el que lo recibe, o haz clic en él y elige los dos actores en el panel (así se hace desde el móvil).',
     roles: {
+      partner: 'socio',
       producer: 'productor',
       consumer: 'usuario',
       facilitator: 'facilitador',

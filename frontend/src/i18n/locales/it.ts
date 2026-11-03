@@ -1608,11 +1608,13 @@ const it: Locale = {
     panelFlow: 'Flusso',
     signInToSave: 'Accedi con l\'account che ha salvato questo caso per salvare la rete.',
     missingGoTo: 'Vai al primo campo obbligatorio vuoto',
+    givesReceives: 'cede {{gives}} · riceve {{receives}}',
     selectHint: 'Seleziona un attore o un flusso per modificarne i campi.',
     removeRow: 'Rimuovi',
     unwiredTitle: 'Flussi non ancora disegnati',
     unwiredHint: 'Questi flussi vengono dal questionario. Cliccane uno, poi collega l\'attore che lo cede a quello che lo riceve, oppure cliccalo e scegli i due attori nel pannello (è il modo per farlo dal telefono).',
     roles: {
+      partner: 'partner',
       producer: 'produttore',
       consumer: 'utilizzatore',
       facilitator: 'facilitatore',

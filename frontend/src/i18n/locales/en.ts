@@ -1629,11 +1629,13 @@ const en = {
     panelFlow: 'Flow',
     signInToSave: 'Sign in with the account that saved this case to save the network.',
     missingGoTo: 'Go to the first empty required field',
+    givesReceives: 'gives {{gives}} · receives {{receives}}',
     selectHint: 'Select an actor or a flow to edit its fields.',
     removeRow: 'Remove',
     unwiredTitle: 'Flows not yet drawn',
     unwiredHint: 'These flows come from the questionnaire. Click one, then connect the actor that gives it to the one that receives it — or click it and pick the two actors in the panel (the way to do it on a phone).',
     roles: {
+      partner: 'partner',
       producer: 'producer',
       consumer: 'consumer',
       facilitator: 'facilitator',

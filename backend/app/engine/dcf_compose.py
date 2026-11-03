@@ -50,8 +50,8 @@ class DcfFieldDescriptor(BaseModel):
     required: bool = False
     activation_predicate: str
     derived: bool = False
-    # "analyst" for a column a company leaves empty (UX round 5, D4); None =
-    # the section's filler
+    # "analyst" for a column a company leaves empty, "engine" for an id
+    # (UX round 5, D4); None = the section's filler
     filled_by: str | None = None
     enum_values: list[str] | None = None
     enum_ref: str | None = None
@@ -83,8 +83,7 @@ class DcfSection(BaseModel):
     title_en: str
     description_en: str
     applies_when: str
-    # who fills the section in: "company", "analyst" or "both" (UX round 5,
-    # D4/D10; from a code table until the schema carries it)
+    # who fills the section in: "company", "analyst" or "both" (UX round 5, D4)
     filled_by: str | None = None
     row_collection: str
     active: bool
@@ -192,35 +191,20 @@ _LEGACY_ENUM_VALUES = {"wastewater_biofactories", "agri_food", "process_industry
 # flow type is the physical nature of the flow; waste or by-product is the
 # classification's judgement, and the two contradicted each other in one row
 # (UX round 5, D5, P2-09 / P3-13). The schema keeps them.
-_RETIRED_ENUM_VALUES: dict[str, set[str]] = {"flow.type": {"waste", "by_product"}}
-
-# Columns of the companies' sheets that are the analyst's call: secondary
-# data, datasets, scenarios and sensitivities (D4.2 §7.1 L00809), and the
-# payment class set in the questionnaire (D4). The companies leave them empty.
-_ANALYST_FIELDS = {
-    "flow.q5_class", "flow.marginal_market_ref", "flow.scenario_assumptions",
-    "flow.lci_dataset_ref", "route.transport_lci_dataset",
-    "route.break_even_distance_km", "route.break_even_basis",
-    "cost.externality_monetized", "infra.discount_rate_pct",
-    "infra.ssp_rcp_scenario", "infra.avoided_lifetime_y",
+_RETIRED_ENUM_VALUES: dict[str, set[str]] = {
+    "flow.type": {"waste", "by_product"},
+    # the price is read from the receiver's side, one basis "gate fee" (D4)
+    "cost.price_basis": {"gate_fee_paid", "gate_fee_received"},
+    # the arrows say who gives and who receives; the role says the rest (D6)
+    "actor.role": {"producer", "consumer"},
 }
 
-# Who fills each section in (D4): the companies supply primary data on flows,
-# transport, costs and assets (D4.1 §9.3.2; D4.2 §7.1); the classification is
-# the analyst's judgement; the reference scenario is answered by the companies
-# and decided by the analyst.
-_SECTION_FILLED_BY = {
-    "actors": "company", "flow_matrix": "company", "logistics": "company",
-    "costs": "company", "infrastructure": "company",
-    "flow_classification": "analyst", "methodological_choices": "analyst",
-    "reference_scenario": "both",
-}
 
 # Keys we pass through from the JSON field schema into DcfFieldDescriptor.
 _FIELD_KEYS = {
     "id", "label_en", "type", "required", "activation_predicate",
     "enum_values", "enum_ref", "description_en", "default",
-    "min", "max", "row_condition", "source_ref",
+    "min", "max", "row_condition", "source_ref", "filled_by",
 }
 
 
@@ -278,10 +262,7 @@ def compose_dcf(
                     if clean.get("enum_values"):
                         retired = _LEGACY_ENUM_VALUES | _RETIRED_ENUM_VALUES.get(clean["id"], set())
                         clean["enum_values"] = [v for v in clean["enum_values"] if v not in retired]
-                    descriptor = DcfFieldDescriptor(**clean)
-                    if descriptor.id in _ANALYST_FIELDS:
-                        descriptor.filled_by = "analyst"
-                    active_fields.append(descriptor)
+                    active_fields.append(DcfFieldDescriptor(**clean))
 
         _mark_derived_ids(active_fields)
         if sec_id == "reference_scenario" and situation_c2:
@@ -292,7 +273,7 @@ def compose_dcf(
                 field.required = False
         sections_out.append(DcfSection(
             id=sec_id,
-            filled_by=_SECTION_FILLED_BY.get(sec_id),
+            filled_by=sec_schema.get("filled_by"),
             title_en=sec_schema["title_en"],
             description_en=sec_schema["description_en"],
             applies_when=applies_when,
@@ -339,7 +320,7 @@ def _mark_derived_ids(fields: list[DcfFieldDescriptor]) -> None:
 def _make_derived_section(sec_schema: dict[str, Any], active: bool) -> DcfSection:
     return DcfSection(
         id=sec_schema["id"],
-        filled_by=_SECTION_FILLED_BY.get(sec_schema["id"]),
+        filled_by=sec_schema.get("filled_by"),
         title_en=sec_schema["title_en"],
         description_en=sec_schema["description_en"],
         applies_when=sec_schema.get("applies_when", "always"),

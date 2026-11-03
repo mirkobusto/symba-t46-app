@@ -132,6 +132,18 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     [data],
   )
 
+  const flowCounts = useMemo(() => {
+    const out: Record<string, { gives: number; receives: number }> = {}
+    for (const row of flowRows) {
+      const o = row.values['flow.origin_actor_id']
+      const d = row.values['flow.dest_actor_id']
+      if (typeof o !== 'string' || typeof d !== 'string') continue
+      out[o] = { gives: (out[o]?.gives ?? 0) + 1, receives: out[o]?.receives ?? 0 }
+      out[d] = { gives: out[d]?.gives ?? 0, receives: (out[d]?.receives ?? 0) + 1 }
+    }
+    return out
+  }, [flowRows])
+
   const nodes: Node[] = useMemo(
     () =>
       actorNodes(actorRows, data.layout, (i) => `${t('networkBuilder.actor')} ${i + 1}`).map(
@@ -143,6 +155,11 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
               <span className="nb-node-label">
                 <strong>{node.label}</strong>
                 <em>{node.role ? t(`networkBuilder.roles.${node.role}`, { defaultValue: node.role }) : t('networkBuilder.noRole')}</em>
+                {/* what it gives and receives, from the arrows: one role could
+                    not say both (UX round 5, D6) */}
+                {flowCounts[node.id] ? (
+                  <small>{t('networkBuilder.givesReceives', flowCounts[node.id])}</small>
+                ) : null}
               </span>
             ),
           },
@@ -150,7 +167,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           selected: selection?.rowId === node.id,
         }),
       ),
-    [actorRows, data.layout, selection, t],
+    [actorRows, data.layout, selection, t, flowCounts],
   )
 
   const edges: Edge[] = useMemo(() => {

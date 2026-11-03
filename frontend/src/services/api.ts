@@ -166,6 +166,16 @@ export function getCase(id: string): Promise<CaseDetail> {
   return request<CaseDetail>(`/api/cases/${encodeURIComponent(id)}`)
 }
 
+/** Turn the public report of a saved case on or off (UX round 2026-11-03). */
+export function shareCase(
+  id: string, body: { shared: boolean; prepared_by?: string | null; case_contact?: string | null },
+): Promise<CaseDetail> {
+  return request<CaseDetail>(`/api/cases/${encodeURIComponent(id)}/share`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
 export function createCase(name: string, kase: Case): Promise<CaseDetail> {
   return request<CaseDetail>('/api/cases', {
     method: 'POST',

@@ -108,4 +108,9 @@ describe('public report', () => {
     expect(screen.getByText(/not meant to say that one product is better than, or as good as, another/)).toBeTruthy()
     expect(screen.queryByText('No public comparative claim')).toBeNull()
   })
+
+  it('says whom to ask about the case', async () => {
+    renderAt('/r/c1/community')
+    expect(await screen.findByText(/ask whoever sent you the link/)).toBeTruthy()
+  })
 })

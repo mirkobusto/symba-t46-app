@@ -2,9 +2,12 @@
 
 Used by the ReaderShell (frontend Phase 6) for the `/r/:caseId/:audience`
 share URLs and by the /r/region/:code aggregate view. These endpoints
-are read-only and expose only cases whose visibility permits public
-reading; ownership is not checked because these URLs are shared
-deliberately by the case owner via the ShareReportModal (Phase 7).
+are read-only and expose only the cases their owner has shared
+(CaseRecord.shared_at, set from the ShareReportModal): an unshared case
+answers 404 whether it is asked by slug or by id (UX round 2026-11-03,
+decided by Fable; before, every saved case was readable by anyone who
+guessed its slug). The case is returned without the analyst's working
+material: flow notes and quantities, sites, scenarios, raw diagnostics.
 
 Endpoints:
     GET /api/public/report/{case_id_or_slug}   -> PublicReport
@@ -41,8 +44,29 @@ class PublicReport(BaseModel):
     ilcd_situation: str | None
     created_at: datetime
     updated_at: datetime
+    shared_at: datetime | None = None
+    prepared_by: str | None = None
+    case_contact: str | None = None
     case: Case
     scoring: ScoringPayload | None = None
+
+
+# advanced settings a reader's view depends on (the horizon threshold, the
+# asset lifetime fallback); the rest is the analyst's working material
+_PUBLIC_ADVANCED = ("future_background_threshold_years", "asset_lifetime")
+
+
+def _public_case(case: Case) -> Case:
+    """The case as a public reader sees it, without working notes."""
+    return case.model_copy(update={
+        "sites": [],
+        "alternative_scenarios": [],
+        "warnings": [],
+        "rule_violations": [],
+        "advanced": {k: v for k, v in case.advanced.items() if k in _PUBLIC_ADVANCED},
+        "flows": [f.model_copy(update={"notes": None, "physical_quantity": None, "physical_unit": None})
+                  for f in case.flows],
+    })
 
 
 def _find_case(db: OrmSession, key: str) -> CaseRecord | None:
@@ -61,7 +85,7 @@ def public_report(
     db: OrmSession = Depends(get_db),
 ) -> PublicReport:
     rec = _find_case(db, key)
-    if rec is None:
+    if rec is None or rec.shared_at is None:   # an unshared case does not exist for the public
         raise HTTPException(status_code=404, detail=f"Case {key!r} not found")
 
     scoring_rec = db.get(CaseScoring, rec.id)
@@ -78,7 +102,10 @@ def public_report(
         ilcd_situation=rec.ilcd_situation,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
-        case=Case.model_validate_json(rec.case_json),
+        shared_at=rec.shared_at,
+        prepared_by=rec.prepared_by,
+        case_contact=rec.case_contact,
+        case=_public_case(Case.model_validate_json(rec.case_json)),
         scoring=scoring,
     )
 
@@ -100,7 +127,8 @@ def public_region_aggregate(
     keep the endpoint shape stable so the frontend page can be shipped."""
     from collections import Counter
 
-    rows = db.execute(select(CaseRecord)).scalars().all()
+    # only shared cases count on a public page (UX round 2026-11-03)
+    rows = db.execute(select(CaseRecord).where(CaseRecord.shared_at.is_not(None))).scalars().all()
     ilcd_counter: Counter[str | None] = Counter()
     sector_counter: Counter[str | None] = Counter()
     for r in rows:

@@ -4182,6 +4182,18 @@ kbd {
   animation: dd-modal-in 0.18s ease-out;
 }
 
+/* share dialog: sharing switch and the two lines shown on the public report */
+.dd-share-settings { display: grid; gap: 10px; margin-bottom: 16px; }
+.dd-share-toggle { display: flex; gap: 8px; align-items: center; font-weight: 600; }
+.dd-share-field { display: grid; gap: 4px; font-size: 14px; }
+.dd-share-field input {
+  padding: 7px 9px;
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  font: inherit;
+}
+.dd-share-settings .dd-btn { justify-self: start; }
+
 /* in-app confirm / text dialog (store/dialogStore), UX round 2026-11-03 */
 .dd-dialog { max-width: 460px; }
 .dd-dialog .dd-modal-lead { margin-top: 0; }

@@ -19,10 +19,10 @@ to admins. The predicates live in `app.auth.ownership`.
 from __future__ import annotations
 
 from collections import Counter
-from datetime import datetime
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy import false, or_, select
 from sqlalchemy.orm import Session as OrmSession
 
@@ -50,6 +50,7 @@ class CaseSummary(BaseModel):
     ilcd_situation: str | None
     created_at: datetime
     updated_at: datetime
+    shared_at: datetime | None = None
 
 
 class CaseSavePayload(BaseModel):
@@ -68,7 +69,19 @@ class CaseDetail(BaseModel):
     ilcd_situation: str | None
     created_at: datetime
     updated_at: datetime
+    shared_at: datetime | None = None
+    prepared_by: str | None = None
+    case_contact: str | None = None
     case: Case
+
+
+class SharePayload(BaseModel):
+    """Body of POST /{id}/share: turn the public report on or off, and say who
+    prepared the case and whom to ask (shown on the public report)."""
+
+    shared: bool
+    prepared_by: str | None = Field(default=None, max_length=120)
+    case_contact: str | None = Field(default=None, max_length=200)
 
 
 class AggregateBreakdownEntry(BaseModel):
@@ -103,6 +116,7 @@ def _to_summary(rec: CaseRecord) -> CaseSummary:
         ilcd_situation=rec.ilcd_situation,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
+        shared_at=rec.shared_at,
     )
 
 
@@ -114,6 +128,9 @@ def _to_detail(rec: CaseRecord) -> CaseDetail:
         ilcd_situation=rec.ilcd_situation,
         created_at=rec.created_at,
         updated_at=rec.updated_at,
+        shared_at=rec.shared_at,
+        prepared_by=rec.prepared_by,
+        case_contact=rec.case_contact,
         case=Case.model_validate_json(rec.case_json),
     )
 
@@ -287,3 +304,29 @@ def delete_case(
         raise HTTPException(status_code=403, detail="Not allowed to delete this case")
     db.delete(rec)
     db.commit()
+
+
+@router.post("/{case_id}/share", response_model=CaseDetail)
+def share_case(
+    case_id: str,
+    payload: SharePayload,
+    db: OrmSession = Depends(get_db),
+    current_user: User | None = Depends(get_current_user_optional),
+) -> CaseDetail:
+    """Turn the public report of a case on or off (UX round 2026-11-03).
+
+    Only whoever may modify the case may share it. Turning it off makes the
+    public links answer 404 again; the slug stays, so sharing again restores
+    the same links.
+    """
+    rec = db.get(CaseRecord, case_id)
+    if rec is None or not can_view(rec, current_user):
+        raise HTTPException(status_code=404, detail=f"Case {case_id!r} not found")
+    if not can_modify(rec, current_user):
+        raise HTTPException(status_code=403, detail="Not allowed to share this case")
+    rec.shared_at = (rec.shared_at or datetime.now(UTC).replace(tzinfo=None)) if payload.shared else None
+    rec.prepared_by = (payload.prepared_by or "").strip() or None
+    rec.case_contact = (payload.case_contact or "").strip() or None
+    db.commit()
+    db.refresh(rec)
+    return _to_detail(rec)

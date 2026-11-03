@@ -79,6 +79,12 @@ const es: Locale = {
     saveFirstTitle: 'Guarda primero el caso',
     saveFirstBody: 'Para compartir, el caso tiene que estar guardado en el servidor, y para guardarlo hace falta una cuenta. Inicia sesión, guarda el caso con «Guardar como nuevo…» y vuelve a abrir esta ventana.',
     audience: { industry: '🏭 Industria', community: '🌳 Comunidad', authority: '🏛 Autoridad local', enduser: '👤 Usuario' },
+    publicToggle: 'Hacer que este informe lo pueda leer cualquiera que tenga el enlace',
+    preparedByLabel: 'Preparado por (aparece en el informe)',
+    contactLabel: 'Contacto para preguntas sobre este caso (opcional)',
+    saveSharing: 'Guardar',
+    notSharedBody: 'El informe no es público: solo tú puedes abrir este caso. Activa el uso compartido para obtener los enlaces.',
+    sharedBody: 'El informe es público: cualquiera que tenga uno de estos enlaces puede leerlo, sin las notas ni las cantidades de los flujos.',
   },
 
   reader: {
@@ -151,6 +157,9 @@ const es: Locale = {
       bySituationTitle: 'Por situación ILCD', bySectorTitle: 'Por sector', tableKey: 'Valor', tableCount: 'Cantidad',
       errorTitle: 'Región no disponible', errorBody: 'No se pudieron cargar los datos.',
     },
+    preparedBy: 'Preparado por {{name}} — respuestas introducidas por el autor del caso, no verificadas por SYMBA.',
+    contact: 'Para preguntas sobre este caso: {{contact}}',
+    noContact: 'Para preguntas sobre este caso, dirígete a quien te envió el enlace. SYMBA construyó la herramienta; no realiza este estudio.',
   },
 
   welcome: {
@@ -1191,7 +1200,7 @@ const es: Locale = {
 
   auth: {
     title: 'Iniciar sesión',
-    subtitle: 'Opcional para consultar casos legacy / públicos. Necesario para crear casos privados.',
+    subtitle: 'Hace falta una cuenta para guardar casos en el servidor y para compartirlos. Un caso guardado solo lo lee quien tiene su enlace, y solo después de que lo compartas.',
     tabLogin: 'Iniciar sesión',
     tabRegister: 'Crear cuenta',
     emailLabel: 'Email',
@@ -1441,7 +1450,7 @@ const es: Locale = {
   },
 
   cases: {
-    signInToSave: "Guardar un caso en el servidor requiere una cuenta. Inicia sesión o regístrate aquí; tu borrador se queda en este navegador.",
+    signInToSave: 'Guardar un caso en el servidor requiere una cuenta. Inicia sesión o regístrate aquí; tu borrador se queda en este navegador. Un caso guardado solo es público si lo compartes.',
     signInToList: "Tus casos guardados aparecen aquí cuando inicias sesión. Los informes compartidos se abren desde el enlace que recibiste.",
     publicLink: "Enlace público",
     navLink: 'Mis casos',

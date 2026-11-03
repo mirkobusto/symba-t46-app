@@ -79,6 +79,12 @@ const de: Locale = {
     saveFirstTitle: 'Fall zuerst speichern',
     saveFirstBody: 'Zum Teilen muss der Fall auf dem Server gespeichert sein, und zum Speichern braucht es ein Konto. Melden Sie sich an, speichern Sie den Fall mit „Als neu speichern…“ und öffnen Sie dieses Fenster erneut.',
     audience: { industry: '🏭 Industrie', community: '🌳 Gemeinschaft', authority: '🏛 Lokale Behörde', enduser: '👤 Endnutzer' },
+    publicToggle: 'Diesen Bericht für alle mit dem Link lesbar machen',
+    preparedByLabel: 'Erstellt von (im Bericht angezeigt)',
+    contactLabel: 'Kontakt für Fragen zu diesem Fall (optional)',
+    saveSharing: 'Speichern',
+    notSharedBody: 'Der Bericht ist nicht öffentlich: Nur Sie können diesen Fall öffnen. Schalten Sie das Teilen ein, um die Links zu erhalten.',
+    sharedBody: 'Der Bericht ist öffentlich: Wer einen dieser Links hat, kann ihn lesen, ohne die Notizen und Mengen der Flüsse.',
   },
 
   reader: {
@@ -151,6 +157,9 @@ const de: Locale = {
       bySituationTitle: 'Nach ILCD-Situation', bySectorTitle: 'Nach Sektor', tableKey: 'Wert', tableCount: 'Anzahl',
       errorTitle: 'Region nicht verfügbar', errorBody: 'Daten konnten nicht geladen werden.',
     },
+    preparedBy: 'Erstellt von {{name}} — Antworten vom Autor des Falls eingegeben, nicht von SYMBA geprüft.',
+    contact: 'Für Fragen zu diesem Fall: {{contact}}',
+    noContact: 'Für Fragen zu diesem Fall wenden Sie sich an die Person, die Ihnen den Link geschickt hat. SYMBA hat das Tool gebaut; es führt diese Studie nicht durch.',
   },
 
   welcome: {
@@ -1191,7 +1200,7 @@ const de: Locale = {
 
   auth: {
     title: 'Anmelden',
-    subtitle: 'Optional zum Durchsuchen von Legacy-/öffentlichen Fällen. Erforderlich, um private Fälle zu erstellen.',
+    subtitle: 'Zum Speichern von Fällen auf dem Server und zum Teilen braucht es ein Konto. Einen gespeicherten Fall liest nur, wer seinen Link hat, und erst nachdem Sie ihn geteilt haben.',
     tabLogin: 'Anmelden',
     tabRegister: 'Konto erstellen',
     emailLabel: 'E-Mail',
@@ -1442,7 +1451,7 @@ const de: Locale = {
   },
 
   cases: {
-    signInToSave: "Zum Speichern eines Falls auf dem Server brauchen Sie ein Konto. Melden Sie sich hier an oder registrieren Sie sich; Ihr Entwurf bleibt in diesem Browser.",
+    signInToSave: 'Zum Speichern eines Falls auf dem Server braucht es ein Konto. Melden Sie sich hier an oder registrieren Sie sich; Ihr Entwurf bleibt in diesem Browser. Ein gespeicherter Fall ist nur öffentlich, wenn Sie ihn teilen.',
     signInToList: "Ihre gespeicherten Fälle erscheinen hier nach der Anmeldung. Geteilte Berichte öffnen Sie über den erhaltenen Link.",
     publicLink: "Öffentlicher Link",
     navLink: 'Meine Fälle',

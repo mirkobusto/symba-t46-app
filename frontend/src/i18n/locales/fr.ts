@@ -79,6 +79,12 @@ const fr: Locale = {
     saveFirstTitle: 'Sauvegardez d\'abord le cas',
     saveFirstBody: 'Pour partager, le cas doit être enregistré sur le serveur, et l\'enregistrement demande un compte. Connectez-vous, enregistrez le cas avec « Enregistrer comme nouveau… », puis rouvrez cette fenêtre.',
     audience: { industry: '🏭 Industrie', community: '🌳 Communauté', authority: '🏛 Autorité locale', enduser: '👤 Utilisateur' },
+    publicToggle: 'Rendre ce rapport lisible par toute personne qui a le lien',
+    preparedByLabel: 'Préparé par (affiché sur le rapport)',
+    contactLabel: 'Contact pour les questions sur ce cas (facultatif)',
+    saveSharing: 'Enregistrer',
+    notSharedBody: 'Le rapport n\'est pas public : vous seul pouvez ouvrir ce cas. Activez le partage pour obtenir les liens.',
+    sharedBody: 'Le rapport est public : toute personne qui a l\'un de ces liens peut le lire, sans les notes et les quantités des flux.',
   },
 
   reader: {
@@ -157,6 +163,9 @@ const fr: Locale = {
       bySituationTitle: 'Par situation ILCD', bySectorTitle: 'Par secteur', tableKey: 'Valeur', tableCount: 'Nombre',
       errorTitle: 'Région indisponible', errorBody: 'Impossible de charger les données.',
     },
+    preparedBy: 'Préparé par {{name}} — réponses saisies par l\'auteur du cas, non vérifiées par SYMBA.',
+    contact: 'Pour les questions sur ce cas : {{contact}}',
+    noContact: 'Pour les questions sur ce cas, adressez-vous à la personne qui vous a envoyé le lien. SYMBA a construit l\'outil ; il ne réalise pas cette étude.',
   },
 
   welcome: {
@@ -1197,7 +1206,7 @@ const fr: Locale = {
 
   auth: {
     title: 'Se connecter',
-    subtitle: 'Facultatif pour consulter les cas legacy / publics. Requis pour créer des cas privés que vous seul pouvez modifier.',
+    subtitle: 'Un compte est nécessaire pour enregistrer des cas sur le serveur et pour les partager. Un cas enregistré n\'est lu que par les personnes qui ont son lien, et seulement après que vous l\'avez partagé.',
     tabLogin: 'Se connecter',
     tabRegister: 'Créer un compte',
     emailLabel: 'Email',
@@ -1447,7 +1456,7 @@ const fr: Locale = {
   },
 
   cases: {
-    signInToSave: "Enregistrer un cas sur le serveur demande un compte. Connectez-vous ou inscrivez-vous ici ; votre brouillon reste dans ce navigateur.",
+    signInToSave: 'Enregistrer un cas sur le serveur demande un compte. Connectez-vous ou inscrivez-vous ici ; votre brouillon reste dans ce navigateur. Un cas enregistré n\'est public que si vous le partagez.',
     signInToList: "Vos cas enregistrés apparaissent ici une fois connecté. Les rapports partagés s'ouvrent depuis le lien reçu.",
     publicLink: "Lien public",
     navLink: 'Mes cas',

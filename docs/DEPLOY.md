@@ -90,6 +90,8 @@ What has to exist before it works, and who does it:
 6. **Existing saved cases**: after an upgrade run `scripts/rerun_saved_cases.py` (dry run first, then `--apply`).
    A database created before 2026-10-18 needs `scripts/migrate_remove_pathway.py` once, before the first request
    (dry run, then `--apply`): it renames `case_records.pathway_id` to `ilcd_situation` and drops the legacy tables.
+   A database created before 2026-11-03 needs `scripts/migrate_add_case_sharing.py` once, before the first request:
+   it adds `shared_at`, `prepared_by` and `case_contact` to `case_records` (idempotent; existing cases stay unshared).
 
 Known limits of a public instance, to decide as owner: cases saved **without signing in** are readable and writable
 by anyone who can reach the tool (fine for demo data, not for personal data); login and registration have no rate
@@ -177,7 +179,9 @@ behind a feature-flag.
 | `/api/cases/{id}` without an owner (`owner_id IS NULL`) | read only | read only | read + write |
 | `/api/cases` (owned rows) | hidden (404) | own rows only | all rows |
 | `/api/scoring/{case_id}` | follows the owning case | follows the owning case | all |
-| `/api/public/*` (share links) | open by design | open | open |
+| `/api/cases/{id}/share` | refused | own rows only | all rows |
+| `/api/public/report/*` (share links) | shared cases only (404 otherwise) | same | same |
+| `/api/public/region/*` | counts shared cases only | same | same |
 
 The table is the default. `SYMBA_ANON_SAVE=true` restores the pre-2026-11-02
 flow: visitors save without signing in, cases without an owner are listed to
@@ -186,11 +190,15 @@ visitor can delete or overwrite another visitor's study.
 
 One deliberate gap to keep in mind before announcing a public URL:
 
-1. **Share links are unlisted, not private.** `/r/:slug/:audience`
-   and the `/api/public/*` endpoints behind them resolve for anyone who
-   has the URL, including for owned cases — that is the point of the
-   Phase 7 share modal. Do not put confidential demo-region data behind
-   a share link.
+1. **Share links are unlisted, not private.** Since 2026-11-03 a saved case
+   is public only once its owner shares it from the share dialog (and stops
+   being public when sharing is turned off); then `/r/:slug/:audience` and
+   `/api/public/report/:slug` resolve for anyone who has the URL. Slugs end in
+   8 hex digits and the public payload leaves out flow notes, quantities,
+   sites, scenarios and diagnostics, but the answers and the flow names are
+   readable: do not share a case with confidential data. The name and contact
+   written in "Prepared by" are published by the owner's choice; the privacy
+   notice has to say so (owner, legal).
 
 The pipeline and DCF endpoints are stateless computations over the body
 the caller posts, so they carry no data of other users; they are left

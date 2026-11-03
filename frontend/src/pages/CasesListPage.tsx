@@ -149,7 +149,7 @@ export default function CasesListPage() {
                     <Upload size={14} />
                     {t('cases.loadButton')}
                   </button>{' '}
-                  {item.slug ? (
+                  {item.slug && item.shared_at ? (
                     <Link
                       to={`/r/${item.slug}`}
                       className="btn btn-secondary"

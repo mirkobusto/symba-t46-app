@@ -235,7 +235,7 @@ PAPERS: list[dict[str, Any]] = [
         "allocation": "System expansion (substitution-based displacement)",
         "lcia": "t CO2, m3 water, MWh energy, t materials, M EUR savings",
         "scenarios": "3 (Baseline 2015, 2018, 2019)",
-        "decision_context": DecisionContext.MICRO, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
+        "decision_context": DecisionContext.NONE, "policy_objective": False, "q1": Q1.B, "q2": Q2.A, "network_long_standing": True, "q3": Q3(env=True, eco=True), "q4": {Q4.C},
         "flows": _flows(Q5.e),
         "q6a": Q6a.ENERGY_UTILITIES, "q6b": Q6b.TRL9, "q7": Q7.B,
         "rationale": (

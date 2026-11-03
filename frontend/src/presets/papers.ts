@@ -36,8 +36,10 @@ const named = (...pairs: [Q5Letter, string][]) =>
 const inSector = (sector: Q6a, fs: ReturnType<typeof flows>) => fs.map((f) => ({ ...f, sector }))
 
 // Q0, Q8, Q11 and Q12 came after these fixtures were compiled; the papers do
-// not state them, so they stay unanswered
+// not state them, so they stay unanswered. Q0 is set where it decides Q9
+// (an evaluated option → A, documentation only → C1; preset alignment 2026-11-03)
 const UNSTATED = ' Q0, Q8, Q11 and Q12 are not stated in the paper and stay unanswered.'
+const UNSTATED_BUT_Q0 = ' Q8, Q11 and Q12 are not stated in the paper and stay unanswered.'
 
 export const PRESETS: Preset[] = [
   {
@@ -46,9 +48,9 @@ export const PRESETS: Preset[] = [
     label: '1. Sokka 2011 — Kymenlaakso (FI, pulp & paper)',
     citation: 'Sokka et al. (2011)',
     description: 'Six-actor IES, ENV-only LCA, RS3 improvement scenario.',
-    rationale: 'Q1=B: six-actor IES (UPM Kymi + cogen + CaCO3 + ClO2 + WWTP + Kouvola town) is unambiguously a multi-actor network, not a single company. Q2=A: the exchanges operate; the RS3 \'improvement\' scenario goes on top as an alternative. Q3=ENV-only because the paper is a pure LCA. Q4=E: peer-reviewed academic. Q5=e because the entire complex is modelled as a black-box (no per-flow detail in the published data). Q6a pulp_paper, Q6b TRL9 (operational), Q7=B regional cluster. Q9 = A (micro): besides the existing complex, the study explores the RS3 improvement, a choice at plant scale that changes no market. A study with no alternative to explore would be C1 (see Arce Bastias 2023).' + UNSTATED,
+    rationale: 'Q1=B: six-actor IES (UPM Kymi + cogen + CaCO3 + ClO2 + WWTP + Kouvola town) is unambiguously a multi-actor network, not a single company. Q2=A: the exchanges operate; the RS3 \'improvement\' scenario goes on top as an alternative. Q3=ENV-only because the paper is a pure LCA. Q4=E: peer-reviewed academic. Q5=e because the entire complex is modelled as a black-box (no per-flow detail in the published data). Q6a pulp_paper, Q6b TRL9 (operational), Q7=B regional cluster. The paper\'s three reference scenarios (RS1 natural gas, RS2 peat, RS3 improvement) are reference-system and improvement assumptions the tool\'s scenarios cannot express (they vary questionnaire answers only), so none is loaded. Q9 = A (micro): the study evaluates an improvement of the complex (Q0 = improvement), a choice at plant scale that changes no market (D4.1 Table 1, §4.3.2); documenting the complex alone would be C1 (see Arce Bastias 2023).' + UNSTATED_BUT_Q0,
     case: {
-      q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
+      study_purpose: 'improvement', q1: 'B', decision_context: 'micro', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
       flows: named(['e', 'Exchanges of the whole complex (aggregated)']), q6a: 'pulp_paper', q6b: 'TRL9', q7: 'B',
     },
   },
@@ -95,9 +97,9 @@ export const PRESETS: Preset[] = [
     label: '5. Arce Bastias 2023 — Mendoza (AR, plastics)',
     citation: 'Arce Bastias et al. (2023)',
     description: '3-entity network, ex-post, three allocation methods tested.',
-    rationale: '3-entity network (Madera Plástica Mendoza) = Q1=B. Q2=A (operational) because the paper analyses an existing network ex-post. Methodological exploration paper (tests 3 allocation methods) — the tool applies system expansion as default per the empirical 10/12 dominance; the user can engage expert-mode to compare full / partial (SPI) / system expansion as the authors did. Q9 = C1 (no choice): the paper documents what an existing network delivers, with no alternative to explore; the three allocation methods are a methodological comparison, not options for the network. C1 models the credits by substitution on the average market mix.' + UNSTATED,
+    rationale: '3-entity network (Madera Plástica Mendoza) = Q1=B. Q2=A (operational) because the paper analyses an existing network ex-post. Methodological exploration paper (tests 3 allocation methods) — the tool applies system expansion as default per the empirical 10/12 dominance; the user can engage expert-mode to compare full / partial (SPI) / system expansion as the authors did. Q0 = analysis, Q9 = C1 (no choice): the paper documents what an existing network delivers, with no alternative to explore; the three allocation methods are a methodological comparison, not options for the network. C1 models the credits by substitution on the average market mix.' + UNSTATED_BUT_Q0,
     case: {
-      q1: 'B', decision_context: 'none', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
+      study_purpose: 'analysis', q1: 'B', decision_context: 'none', q2: 'A', q3: { env: true, eco: false, soc: false }, q4: ['E'],
       flows: inSector('plastics_packaging', flows('b', 'c')), q6a: 'plastics_packaging', q6b: 'TRL9', q7: 'A',
     },
   },
@@ -144,9 +146,9 @@ export const PRESETS: Preset[] = [
     label: '8. Danielsson 2018 — Kalundborg (DK, 8-member)',
     citation: 'Danielsson et al. (2018)',
     description: 'Iconic IS network, public-claim Q4=C (Symbiosis Center).',
-    rationale: 'Kalundborg Symbiosis: 8-member association operational since 1972 — the iconic IS network in literature, canonical Q1=B. Q4=C is the public superiority claim: the Symbiosis Center DK report explicitly promotes Kalundborg as a superior model, which activates MANDATORY panel review of 3+ ISO-14044 experts (no weighting allowed). Q3=ENV+ECO (CO2, water, energy, materials, M EUR savings). Q9 = A (micro): the study is consequential (marginal electricity) and runs evolution and sensitivity scenarios on the network, so it explores choices; documenting the network alone, with average-mix credits, would be C1 (see Arce Bastias 2023).' + UNSTATED,
+    rationale: 'Kalundborg Symbiosis: an 8-member association running since 1972, the canonical multi-actor network (Q1 = B, long-standing: the reference is a modern counterfactual, D4.1 §11.2.2). Q9 = C1 (no choice): the study documents what the network delivered in 2015 and in two later snapshots (2018, 2019); none of them is an option to choose between, so no decision is supported (D4.1 Table 1, Situation C: "no decision being made"; §7.2.3 C1). The paper credits the displaced electricity with a marginal technology; C1 prescribes the average market mix, as Situation A does: a declared divergence between the example and the paper, not an argument for either situation (marginal data is the mark of Situation B, which needs a documented market screening). Q3 = ENV+ECO (CO2, water, energy, materials, M EUR savings). Q4 = C: the claim comes from the Symbiosis Center DK report that presents Kalundborg as a superior model, not from the LCA itself; it brings the panel review of 3+ ISO 14044 experts and no weighting.' + UNSTATED_BUT_Q0,
     case: {
-      q1: 'B', decision_context: 'micro', policy_objective: false, q2: 'A', network_long_standing: true, q3: { env: true, eco: true, soc: false }, q4: ['C'],
+      study_purpose: 'analysis', q1: 'B', decision_context: 'none', policy_objective: false, q2: 'A', network_long_standing: true, q3: { env: true, eco: true, soc: false }, q4: ['C'],
       flows: named(['e', 'Kalundborg exchanges (aggregated)']), q6a: 'energy_utilities', q6b: 'TRL9', q7: 'B',
     },
   },

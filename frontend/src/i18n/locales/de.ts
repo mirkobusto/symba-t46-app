@@ -371,7 +371,8 @@ const de: Locale = {
     divergencesLead: "Einige Entscheidungen sind die des Tools, hier genannt, damit ein Gutachter sie sieht:",
     divergences: {
       c2: "Die Bilanz eines einzelnen Unternehmens (ILCD-Situation C2) wird nur auf Unternehmensebene gerechnet: eine Entscheidung des Tools, keine Regel von D4.2.",
-      uncertainty: "Pedigree-Matrix und Monte-Carlo-Analyse folgen den Antworten (öffentliche Aussage, Technologiereife), während D4.1 und D4.2 sie für jede Studie verlangen.",
+      situation: 'Eine Studie über ein bestehendes Netzwerk, die eine Option dafür bewertet (eine Verbesserung, eine Erweiterung), gilt als Situation A; eine, die das Netzwerk nur dokumentiert, als Situation C1 (T4.6-Lesart von Tabelle 1 und §4.3.2 der D4.1).',
+      uncertainty: 'Die Pedigree-Matrix ist verpflichtend, wenn die Ergebnisse an ein Review-Panel, an die Ausrichtung auf EU-Politiken oder in eine Veröffentlichung gehen (Q4 = C, D oder E), sonst empfohlen, und sie wird für Ökobilanz und LCC aktiviert, wenn der Austausch noch nicht stattfindet (Q2 = B, Regel CIR-02); Monte Carlo wird für die Ökobilanz unter eigenen Bedingungen verlangt (Q4 = C, D oder E oder Technologie unter TRL 9) und für die Kostenrechnung immer. D4.1 §13.3.2 und D4.2 §7.1, §10.3 verlangen beides in jeder Studie.',
       policy: "Die Ausrichtung an EU-Politik (Q4 = D) bringt CE-Delft-Preise und die Allokation nach Net Tax Factor, die D4.2 an das gesellschaftliche LCC knüpft.",
       assets: "Q12 zählt eigens gebaute, gemeinsam genutzte Anlagen, jetzt oder vor Jahren für die Austausche gebaut (D4.1 §6.3.3), wo D4.2 §4.2 von neuen spricht.",
     },

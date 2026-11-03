@@ -419,7 +419,8 @@ const en = {
     divergencesLead: "A few choices are the tool's own, stated here so that a reviewer can see them:",
     divergences: {
       c2: "One company's accounts (ILCD Situation C2) are costed at company level only: a choice of this tool, not a rule of D4.2.",
-      uncertainty: "The Pedigree matrix and the Monte Carlo analysis follow the answers (public claim, technology maturity), where D4.1 and D4.2 ask for them in every study.",
+      situation: 'A study of an existing network that evaluates an option for it (an improvement, an expansion) is read as Situation A; one that only documents the network is Situation C1 (T4.6 reading of D4.1 Table 1 and §4.3.2).',
+      uncertainty: 'The Pedigree matrix is written as mandatory when the results go to a review panel, to EU policy alignment or to a publication (Q4 = C, D or E) and as recommended otherwise, and it is switched on for both LCA and LCC when the exchanges do not take place yet (Q2 = B, rule CIR-02); Monte Carlo is asked for the LCA with its own conditions (Q4 = C, D or E, or technology below TRL 9) and always for the costing. D4.1 §13.3.2 and D4.2 §7.1, §10.3 ask both in every study.',
       policy: "EU policy alignment (Q4 = D) brings in CE Delft prices and net-tax-factor allocation, which D4.2 ties to the societal LCC.",
       assets: "Q12 counts the dedicated shared assets built for the exchanges now or years ago (D4.1 §6.3.3), where D4.2 §4.2 speaks of new ones.",
     },

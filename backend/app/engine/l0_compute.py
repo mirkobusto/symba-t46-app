@@ -209,6 +209,13 @@ def _c2_pef_notes(case: Case) -> list[dict[str, Any]]:
             "credits (D4.1 §7.2.3), so the PEF Circular Footprint Formula asked by Q4=D is not applied: "
             "the CFF is a product method. If the study is a product footprint rather than a corporate "
             "report, review Q9.")}]
+    if case.ilcd_situation == _S.SITUATION_B and Q4.D in case.q4 and case.q3.env:
+        # decided by Fable on the UX round of 2026-11-03 (P2-01): one paradigm governs
+        return [{"code": "b_consequential_over_pef", "message": (
+            "Situation B asks for consequential modelling against the marginal technology (D4.1 Table 1), "
+            "while EU policy alignment (Q4 = D) asks for the PEF Circular Footprint Formula, an "
+            "attributional partition. The consequential model governs; run the CFF as a sensitivity and "
+            "declare both in the methodological charter (D4.1 §7.3.3; D4.2 §2.2).")}]
     return []
 
 

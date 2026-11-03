@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 import { PUBLIC_DELIVERABLES_URL, SITE_URL } from '../components/brand/siteLinks'
 
-const DIVERGENCES = ['situation', 'c2', 'uncertainty', 'policy', 'assets'] as const
+const DIVERGENCES = ['situation', 'c2', 'uncertainty', 'policy', 'assets', 'interdependent', 'lccB'] as const
 
 export default function AboutPage() {
   const { t } = useTranslation()

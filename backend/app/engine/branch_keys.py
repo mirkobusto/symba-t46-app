@@ -27,6 +27,10 @@ Grammar (anything else raises `BranchKeyError`; it is never skipped):
     long_standing=true      Q2 = A (the exchanges already take place) and Q2b:
                             the network has run for many years (D4.1 §11.2.2).
                             Put it before `q2=A`: first match wins
+    K1 & K2 [& …]           all the keys match (added 2026-11-03 for
+                            `ilcd=B & q4 includes 'D'`, decided by Fable: in
+                            Situation B the consequential model governs and the
+                            PEF CFF is a sensitivity)
 
 Conventions, decided with the node owner:
 
@@ -172,6 +176,13 @@ def parse_branch_key(key: str) -> BranchKey:
     raw = key
     key = key.strip()
 
+    if " & " in key:
+        parts = [parse_branch_key(k) for k in key.split(" & ")]
+        return BranchKey(
+            raw, frozenset().union(*(p.variables for p in parts)),
+            lambda a: all(p.matches(a) for p in parts),
+        )
+
     if m := _EQ.match(key):
         var, value = m.groups()
         _check_values(var, [value], raw)
@@ -228,7 +239,8 @@ def parse_branch_key(key: str) -> BranchKey:
     raise BranchKeyError(
         f"branch key {raw!r} is not in the grammar of engine/branch_keys.py "
         "(qX=V | qX in {..} | q4 includes 'V' | q6b<TRLn | q3.F=true|false | "
-        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V | long_standing=true | shared_assets=true)"
+        "q3.F-only | q3.F+G | ilcd=C | lcc_type=T | sector=V | long_standing=true | shared_assets=true | "
+        "K1 & K2)"
     )
 
 

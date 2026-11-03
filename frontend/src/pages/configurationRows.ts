@@ -157,6 +157,22 @@ export function configurationRows(
     })
   }
 
+  // how multifunctionality is resolved follows the ILCD situation; with Q4 = D
+  // the PEF CFF partitions in A/C1, is a sensitivity in B and is not applied in
+  // C2 (decided by Fable on the UX round of 2026-11-03, P2-01)
+  if (env && kase.ilcd_situation) {
+    const sit = kase.ilcd_situation.replace('ILCD Situation ', '')
+    const kind = sit === 'B' ? 'Consequential' : sit === 'C2' ? 'Allocation' : 'Substitution'
+    const pef = (kase.q4 ?? []).includes('D') ? t(`result.config.values.multiPef${kind}`) : ''
+    rows.push({
+      key: 'multifunctionality',
+      label: label('multifunctionality'),
+      value: `${t(`result.config.values.multi${kind}`)}${pef}`,
+      why: t('result.config.why.multifunctionality'),
+      nodeText: texts(lca['allocation_method']),
+    })
+  }
+
   const perFlow = lca['zero_burden_classification']
   if (env && perFlow && typeof perFlow === 'object' && (kase.flows ?? []).length > 0) {
     const treatments = (kase.flows ?? []).map((f) => {
@@ -279,7 +295,7 @@ export function obligationGroups(rules: ApplicableRule[]): ObligationGroup[] {
  *  costs and assets for industry, local impacts and people for the community,
  *  the public side for the authority, the unit and the claim for the end user. */
 export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end-user', string[]> = {
-  industry: ['lcc', 'shared', 'horizon', 'reference'],
+  industry: ['lcc', 'shared', 'horizon', 'reference', 'multifunctionality'],
   community: ['regional', 'slca', 'sectors'],
   // shared infrastructure is what a public co-funder typically finances
   authority: ['lcc', 'shared', 'reference', 'claim', 'horizon', 'slca'],

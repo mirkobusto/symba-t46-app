@@ -229,8 +229,11 @@ export default function PublicReportPage() {
                 key: 'pef',
                 name: t('reader.compliance.pef.name'),
                 // one company's accounts (C2) use allocation, not the CFF (D4.1 §7.2.3)
+                // in B the CFF is a sensitivity of the consequential model (decided 2026-11-03)
                 desc: t(c.q4?.includes('D') && c.ilcd_situation === 'ILCD Situation C2'
-                  ? 'reader.compliance.pef.descC2' : 'reader.compliance.pef.desc'),
+                  ? 'reader.compliance.pef.descC2'
+                  : c.q4?.includes('D') && c.ilcd_situation === 'ILCD Situation B'
+                    ? 'reader.compliance.pef.descB' : 'reader.compliance.pef.desc'),
                 status: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2' ? 'ok' : 'no',
                 label: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2'
                   ? undefined : t('reader.compliance.notPlanned'),

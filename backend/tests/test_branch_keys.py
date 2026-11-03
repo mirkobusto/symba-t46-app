@@ -292,3 +292,10 @@ def test_long_standing_key_needs_exchanges_that_take_place():
     assert not key.matches(Answers.from_case(Case(q2=Q2.A, network_long_standing=False)))
     assert not key.matches(Answers.from_case(Case(q2=Q2.A)))
     assert not key.matches(Answers.from_case(Case(q2=Q2.B, network_long_standing=True)))
+
+
+def test_conjunction_needs_every_part():
+    # added 2026-11-03 for "ilcd=B & q4 includes 'D'" (decided by Fable)
+    from app.engine.branch_keys import parse_branch_key
+    key = parse_branch_key("ilcd=B & q4 includes 'D'")
+    assert key.variables == {"ilcd", "q4"}

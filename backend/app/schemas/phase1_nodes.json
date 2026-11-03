@@ -705,11 +705,12 @@
       "field_status": null,
       "default_value": {
         "ilcd=C2": "allocation",
+        "ilcd=B & q4 includes 'D'": "consequential expansion against the long-term marginal technology (D4.1 Table 1, §7.2.1); with Q4 = D the PEF Circular Footprint Formula is run as a sensitivity for EU comparability, not as the governing rule (D4.1 §7.3.3; D4.2 §2.2, one paradigm)",
         "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00914). Same token as lca_mc_12."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00914). Same token as lca_mc_12. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): in Situation B with Q4 = D the consequential model governs and the PEF CFF is a sensitivity (D4.1 Table 1, §7.3.3; D4.2 §2.2); branch 'ilcd=B & q4 includes 'D'' before the Q4 = D branch."
     },
     {
       "id": "lca_mc_14",
@@ -727,11 +728,12 @@
       "field_status": null,
       "default_value": {
         "ilcd=C2": "allocation",
+        "ilcd=B & q4 includes 'D'": "consequential expansion against the long-term marginal technology (D4.1 Table 1, §7.2.1); with Q4 = D the PEF Circular Footprint Formula is run as a sensitivity for EU comparability, not as the governing rule (D4.1 §7.3.3; D4.2 §2.2, one paradigm)",
         "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00914). Same token as lca_mc_12."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00868 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00914). Same token as lca_mc_12. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): same Situation B branch as lca_mc_13."
     },
     {
       "id": "lca_mc_15",
@@ -1391,7 +1393,7 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §6.2",
-      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §6.3). | Rewritten on FINAL v2 text, review 2026-10-15: L00729 (zero cost only when both tests hold), L00735 (causal test), L00739-L00741 (interdependent production: zero cost 'methodologically incorrect'), L00751 ('every secondary flow ... is classified as avoidable or unavoidable before any cost or zero-cost assumption'; prevention scenario 'should'). Q5=e now has its own value instead of the former default 'C-LCC: zero-cost not default'; the former 'q5 in {c,d}: price = negotiated transfer' had no basis for c.",
+      "extraction_notes": "FINAL v2 numbering, review 2026-10-15 (was D4.2 §6.3). | Rewritten on FINAL v2 text, review 2026-10-15: L00729 (zero cost only when both tests hold), L00735 (causal test), L00739-L00741 (interdependent production: zero cost 'methodologically incorrect'), L00751 ('every secondary flow ... is classified as avoidable or unavoidable before any cost or zero-cost assumption'; prevention scenario 'should'). Q5=e now has its own value instead of the former default 'C-LCC: zero-cost not default'; the former 'q5 in {c,d}: price = negotiated transfer' had no basis for c. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): Q5 = d allocated in the E-LCC with the partition of the parallel LCA (D4.2 §6.3).",
       "category": "DERIVED",
       "trigger_q": [
         "q5"
@@ -1401,7 +1403,7 @@
       "field": "lcc.avoidable_unavoidable_classification",
       "field_status": null,
       "default_value": {
-        "q5=d": "Deliberately co-produced: the generator modified its process for the receiver, so zero cost is methodologically incorrect and the upstream costs are allocated — negotiated transfer price in the C-LCC, a physical or economic allocation key in the E-LCC (D4.2 §6.2); the flow is still classified in the charter (§6.3)",
+        "q5=d": "Deliberately co-produced: the generator modified its process for the receiver, so zero cost is methodologically incorrect and the upstream costs are allocated — negotiated transfer price in the C-LCC; in the E-LCC allocated with the partition of the parallel LCA (D4.2 §6.2-§6.3); the flow is still classified in the charter (§6.3)",
         "q5 in {a,b,c}": "Classify the flow as avoidable or unavoidable before any valuation, with a documented causal test: if the agreement disappeared, would the generator reduce or eliminate it? Only unavoidable flows with no positive market value are eligible for zero cost; avoidable flows are flagged in the results, and the LCC should include a waste-prevention scenario (D4.2 §6.2-§6.3)",
         "q5=e": "Aggregated flows cannot be tested one by one: zero cost is not admissible until each secondary flow is classified as avoidable or unavoidable (D4.2 §6.2-§6.3)"
       },
@@ -2028,12 +2030,12 @@
         "q5=a": "C-LCC: the gate fee as negotiated; zero cost only if the residual is unavoidable and has no positive market value; E-LCC: zero cost if the LCA applies zero burden, otherwise market price proxy; S-LCC: opportunity cost, quantified with MFCA, to be considered for avoidable residuals (D4.2 §6.2-§6.3)",
         "q5=b": "C-LCC: zero transfer price, but zero cost only if the residual is unavoidable and has no positive market value, otherwise it is a co-product; E-LCC: follows the LCA classification of the flow, zero cost with zero burden, market price proxy with allocation; S-LCC: opportunity cost, quantified with MFCA, to be considered for avoidable residuals (D4.2 §6.2-§6.3)",
         "q5=c": "C-LCC: the negotiated price; E-LCC and S-LCC: market price proxy when the LCA treats the flow as a co-product; if the flow has no independent market, the LCA treats it as a residue with zero burden despite the price and the E-LCC applies zero cost (D4.1 §8.3.3; D4.2 §6.2-§6.3)",
-        "q5=d": "Zero cost does not apply: the generator modified its process for the receiver, so upstream costs are allocated between primary product and co-product — negotiated transfer price in the C-LCC, a physical or economic allocation key in the E-LCC (D4.2 §6.2)"
+        "q5=d": "Zero cost does not apply: the flow is a determining co-product (D4.1 §8.3.6 Step 2). C-LCC: the negotiated transfer price; E-LCC: the same partition as the LCA — the flow valued at the market price of what it replaces, the upstream costs of the modified process shared with the LCA's key (D4.2 §6.3, §5.1; D4.2 §6.2 names an allocation key, erratum noted)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: D4.2 L00723 (zero cost for the C-LCC, opportunity cost for S-LCC/policy), L00729 (zero cost 'admissible only when both criteria are simultaneously satisfied'), L00741 (interdependent production), L00757 (C-LCC), L00759 (E-LCC follows the LCA), L00761 (S-LCC, 'should be considered for avoidable residuals'). The former 'opportunity' for Q5=b applied the S-LCC rule to every LCC type. The 'contested' key is removed (see lcc_mc_04). Fable review 2026-10-15: Q5=c made conditional: a price without an independent market is a residue for the LCA (D4.1 §8.3.3, L00994), so the E-LCC applies zero cost (D4.2 L00759)."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: D4.2 L00723 (zero cost for the C-LCC, opportunity cost for S-LCC/policy), L00729 (zero cost 'admissible only when both criteria are simultaneously satisfied'), L00741 (interdependent production), L00757 (C-LCC), L00759 (E-LCC follows the LCA), L00761 (S-LCC, 'should be considered for avoidable residuals'). The former 'opportunity' for Q5=b applied the S-LCC rule to every LCC type. The 'contested' key is removed (see lcc_mc_04). Fable review 2026-10-15: Q5=c made conditional: a price without an independent market is a residue for the LCA (D4.1 §8.3.3, L00994), so the E-LCC applies zero cost (D4.2 L00759). | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): Q5 = d is a determining co-product in both methods (D4.1 §8.3.6 Step 2); the E-LCC follows the LCA partition (D4.2 §6.3) instead of the allocation key of §6.2."
     },
     {
       "id": "lcc_mc_09",

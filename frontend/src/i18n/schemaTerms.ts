@@ -123,7 +123,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-02': {
         name: 'Pedigree Matrix LCA+LCC',
-        body: '',
+        body: 'The exchanges do not take place yet: every flow entering the LCA model is scored on the five Pedigree indicators, and the LCC documents the source tier of each major inventory parameter and scores its uncertainty on the same five indicators, so that both methods propagate the same data-quality uncertainty (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'GIS-Coupled Spatial Modeling',
@@ -135,7 +135,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'PEF CFF Activation',
-        body: '',
+        body: 'The study is aligned with EU policy: the LCA applies the PEF Circular Footprint Formula and the E-LCC mirrors it with the same A factor, Qs/Qp ratio and R1/R2/R3 rates, so that burdens and costs refer to one multifunctional partition; the CFF is a sensitivity in Situation B, a T4.6 reading of D4.1 Table 1, and is not applied in Situation C2. EF 3.1 as impact method is T4.6\'s reading of the PEF Recommendation. Except in a company-level C-LCC, the LCC applies the Net Tax Factor and, where a parallel LCA exists, monetises externalities at EU environmental prices (CE Delft): a T4.6 choice tied to this rule, while D4.2 links both to the S-LCC (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Frontier Categories Cascade',
@@ -143,7 +143,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Engineering Scale-up Frameworks',
-        body: '',
+        body: 'A technology below TRL 7: the LCA does not scale lab or pilot inventories linearly but applies and documents one of the four techniques (stoichiometric recalculation, step-to-equipment mapping with Lang factors, batch-to-continuous conversion, learning curves), and the LCC estimates CAPEX with the six-tenths rule, CEPCI indices to the reference year and Lang factors for total installed cost (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Shared CAPEX Stakeholder Indicators',
@@ -151,7 +151,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Iterative Update Protocol',
-        body: '',
+        body: 'The exchanges do not take place yet and the technology is not yet at TRL 9: the LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data — at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Real-World Failure Modes',
@@ -375,7 +375,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-02': {
         name: 'Matrice pedigree LCA+LCC',
-        body: '',
+        body: 'Gli scambi non avvengono ancora: ogni flusso che entra nel modello LCA riceve un punteggio sui cinque indicatori della matrice pedigree, e l\'LCC documenta il livello della fonte di ogni parametro principale dell\'inventario e ne valuta l\'incertezza sugli stessi cinque indicatori, così che i due metodi propaghino la stessa incertezza sulla qualità dei dati (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'Modellazione spaziale con GIS',
@@ -387,7 +387,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Attivazione della formula PEF (CFF)',
-        body: '',
+        body: 'Lo studio è allineato alla politica UE: l\'LCA applica la Circular Footprint Formula del PEF e l\'E-LCC la rispecchia con lo stesso fattore A, lo stesso rapporto Qs/Qp e gli stessi tassi R1/R2/R3, così che oneri e costi si riferiscano a un\'unica ripartizione multifunzionale; nella Situazione B la CFF è un\'analisi di sensibilità, una lettura di T4.6 della Tabella 1 della D4.1, e nella Situazione C2 non si applica. EF 3.1 come metodo di impatto è la lettura di T4.6 della Raccomandazione PEF. Tranne che in un C-LCC aziendale, l\'LCC applica il Net Tax Factor e, dove c\'è un\'LCA parallela, monetizza le esternalità ai prezzi ambientali UE (CE Delft): una scelta di T4.6 legata a questa regola, mentre la D4.2 li lega entrambi all\'S-LCC (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Cascata delle categorie di frontiera',
@@ -395,7 +395,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Metodi di scale-up ingegneristico',
-        body: '',
+        body: 'Una tecnologia sotto TRL 7: l\'LCA non scala linearmente gli inventari di laboratorio o di impianto pilota, ma applica e documenta una delle quattro tecniche (ricalcolo stechiometrico, mappatura dei passi di processo sulle apparecchiature con i fattori di Lang, conversione da batch a continuo, curve di apprendimento), e l\'LCC stima il CAPEX con la regola dei sei decimi, gli indici CEPCI riportati all\'anno di riferimento e i fattori di Lang per il costo di installazione totale (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Indicatori per stakeholder su CAPEX condiviso',
@@ -403,7 +403,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protocollo di aggiornamento iterativo',
-        body: '',
+        body: 'Gli scambi non avvengono ancora e la tecnologia non è ancora a TRL 9: la carta metodologica dell\'LCC fissa all\'inizio quando aggiornare il modello con i dati di esercizio — alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modalità di guasto nel mondo reale',
@@ -627,7 +627,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-02': {
         name: 'Matrice pedigree LCA+LCC',
-        body: '',
+        body: 'Les échanges n\'ont pas encore lieu : chaque flux qui entre dans le modèle ACV est noté sur les cinq indicateurs de la matrice pedigree, et l\'ACC documente le niveau de source de chaque paramètre principal de l\'inventaire et note son incertitude sur les cinq mêmes indicateurs, pour que les deux méthodes propagent la même incertitude sur la qualité des données (CIR-02 ; D4.1 §9.3.5, §13.3.2 ; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'Modélisation spatiale couplée au SIG',
@@ -639,7 +639,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Activation de la formule PEF (CFF)',
-        body: '',
+        body: 'L\'étude est alignée sur la politique de l\'UE : l\'ACV applique la Circular Footprint Formula du PEF et l\'E-LCC la reproduit avec le même facteur A, le même rapport Qs/Qp et les mêmes taux R1/R2/R3, pour que charges et coûts se rapportent à une seule partition multifonctionnelle ; en Situation B la CFF est une analyse de sensibilité, une lecture de T4.6 du tableau 1 de la D4.1, et en Situation C2 elle ne s\'applique pas. EF 3.1 comme méthode d\'impact est la lecture de T4.6 de la Recommandation PEF. Sauf dans un C-LCC d\'entreprise, l\'ACC applique le Net Tax Factor et, lorsqu\'une ACV parallèle existe, monétise les externalités aux prix environnementaux de l\'UE (CE Delft) : un choix de T4.6 lié à cette règle, alors que la D4.2 les rattache tous deux au S-LCC (CIR-05 ; D4.1 §7.2.3, §7.3.2, §7.3.3 ; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Cascade des catégories de frontière',
@@ -647,7 +647,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Méthodes d\'extrapolation d\'échelle',
-        body: '',
+        body: 'Une technologie sous TRL 7 : l\'ACV ne met pas à l\'échelle linéairement les inventaires de laboratoire ou de pilote, mais applique et documente l\'une des quatre techniques (recalcul stœchiométrique, correspondance des étapes avec les équipements par les facteurs de Lang, conversion du discontinu au continu, courbes d\'apprentissage), et l\'ACC estime le CAPEX avec la règle des six dixièmes, les indices CEPCI ramenés à l\'année de référence et les facteurs de Lang pour le coût total installé (CIR-07 ; D4.1 §9.3.5 ; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Indicateurs parties prenantes sur CAPEX partagé',
@@ -655,7 +655,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protocole de mise à jour itérative',
-        body: '',
+        body: 'Les échanges n\'ont pas encore lieu et la technologie n\'est pas encore à TRL 9 : la charte méthodologique de l\'ACC fixe dès le départ quand mettre à jour le modèle avec les données d\'exploitation — à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modes de défaillance en conditions réelles',
@@ -879,7 +879,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-02': {
         name: 'Pedigree-Matrix LCA+LCC',
-        body: '',
+        body: 'Die Austausche finden noch nicht statt: Jeder Fluss im Modell der Ökobilanz wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die Lebenszykluskostenrechnung dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'GIS-gekoppelte räumliche Modellierung',
@@ -891,7 +891,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Aktivierung der PEF-Formel (CFF)',
-        body: '',
+        body: 'Die Studie ist auf die EU-Politik ausgerichtet: Die Ökobilanz wendet die Circular Footprint Formula des PEF an, und die E-LCC bildet sie mit demselben A-Faktor, demselben Verhältnis Qs/Qp und denselben Raten R1/R2/R3 nach, sodass sich Lasten und Kosten auf eine einzige multifunktionale Aufteilung beziehen; in Situation B ist die CFF eine Sensitivitätsanalyse, eine Lesart von T4.6 zu Tabelle 1 der D4.1, in Situation C2 wird sie nicht angewendet. EF 3.1 als Wirkungsabschätzungsmethode ist die Lesart von T4.6 der PEF-Empfehlung. Außer in einer unternehmensbezogenen C-LCC wendet die Lebenszykluskostenrechnung den Net Tax Factor an und monetarisiert, wo eine parallele Ökobilanz besteht, Externalitäten zu EU-Umweltpreisen (CE Delft): eine Entscheidung von T4.6, die an diese Regel gebunden ist, während D4.2 beide der S-LCC zuordnet (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Kaskade der Grenzkategorien',
@@ -899,7 +899,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Verfahren zur technischen Hochskalierung',
-        body: '',
+        body: 'Eine Technologie unter TRL 7: Die Ökobilanz skaliert Labor- oder Pilotinventare nicht linear, sondern wendet eine der vier Techniken an und dokumentiert sie (stöchiometrische Neuberechnung, Zuordnung der Prozessschritte zu Apparaten mit Lang-Faktoren, Umstellung von Batch- auf kontinuierlichen Betrieb, Lernkurven), und die Lebenszykluskostenrechnung schätzt den CAPEX mit der Sechs-Zehntel-Regel, mit auf das Bezugsjahr umgerechneten CEPCI-Indizes und mit Lang-Faktoren für die Gesamtanlagenkosten (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Stakeholder-Indikatoren für gemeinsames CAPEX',
@@ -907,7 +907,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protokoll der iterativen Aktualisierung',
-        body: '',
+        body: 'Die Austausche finden noch nicht statt, und die Technologie hat TRL 9 noch nicht erreicht: Die methodische Charta der Lebenszykluskostenrechnung legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird — bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Ausfallarten im realen Betrieb',
@@ -1131,7 +1131,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-02': {
         name: 'Matriz pedigree LCA+LCC',
-        body: '',
+        body: 'Los intercambios aún no tienen lugar: cada flujo que entra en el modelo ACV se puntúa con los cinco indicadores de la matriz pedigree, y el ACC documenta el nivel de fuente de cada parámetro principal del inventario y puntúa su incertidumbre con los mismos cinco indicadores, para que ambos métodos propaguen la misma incertidumbre sobre la calidad de los datos (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'Modelización espacial acoplada a SIG',
@@ -1143,7 +1143,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Activación de la fórmula PEF (CFF)',
-        body: '',
+        body: 'El estudio está alineado con la política de la UE: el ACV aplica la Circular Footprint Formula del PEF y el E-LCC la refleja con el mismo factor A, la misma relación Qs/Qp y las mismas tasas R1/R2/R3, para que cargas y costes se refieran a una única partición multifuncional; en la Situación B la CFF es un análisis de sensibilidad, una lectura de T4.6 de la tabla 1 de la D4.1, y en la Situación C2 no se aplica. EF 3.1 como método de impacto es la lectura de T4.6 de la Recomendación PEF. Salvo en un C-LCC de empresa, el ACC aplica el Net Tax Factor y, donde existe un ACV paralelo, monetiza las externalidades a precios ambientales de la UE (CE Delft): una elección de T4.6 ligada a esta regla, mientras que la D4.2 vincula ambos al S-LCC (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Cascada de las categorías de frontera',
@@ -1151,7 +1151,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Métodos de escalado de ingeniería',
-        body: '',
+        body: 'Una tecnología por debajo de TRL 7: el ACV no escala linealmente los inventarios de laboratorio o piloto, sino que aplica y documenta una de las cuatro técnicas (recálculo estequiométrico, correspondencia de las etapas con los equipos mediante factores de Lang, conversión de discontinuo a continuo, curvas de aprendizaje), y el ACC estima el CAPEX con la regla de las seis décimas, los índices CEPCI llevados al año de referencia y los factores de Lang para el coste total instalado (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Indicadores de partes interesadas sobre CAPEX compartido',
@@ -1159,7 +1159,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protocolo de actualización iterativa',
-        body: '',
+        body: 'Los intercambios aún no tienen lugar y la tecnología aún no está en TRL 9: la carta metodológica del ACC fija desde el inicio cuándo actualizar el modelo con datos de operación — en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modos de fallo en condiciones reales',

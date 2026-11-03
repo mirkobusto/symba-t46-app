@@ -165,7 +165,7 @@
         "ramp_up",
         "contract_renewal"
       ],
-      "trigger_summary": "Q6b <= TRL 7 AND Q2 = B (ex-ante)",
+      "trigger_summary": "Q6b below TRL 9 AND Q2 = B (ex-ante)",
       "notes": "Event triggers that activate the iterative update protocol on the case object. Distinct from other CIR outputs in that it lives under case.* prefix (not pillar-specific) because the protocol is case-level, not method-level. NOTE: this entry was added post-classification — Mirko's original Category C table listed 19 fields and missed CIR-09's action LHS; corrected here to reach ZERO unknown."
     }
   ]

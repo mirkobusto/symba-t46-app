@@ -455,7 +455,8 @@
       "source_nodes": [
         "lca_hc_13",
         "lcc_hc_39"
-      ]
+      ],
+      "violation_message": "The exchanges do not take place yet: every flow entering the LCA model is scored on the five Pedigree indicators, and the LCC documents the source tier of each major inventory parameter and scores its uncertainty on the same five indicators, so that both methods propagate the same data-quality uncertainty (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1)."
     },
     {
       "id": "CIR-03",
@@ -506,7 +507,8 @@
         "lca_mc_13",
         "lca_mc_14",
         "lcc_mc_19"
-      ]
+      ],
+      "violation_message": "The study is aligned with EU policy: the LCA applies the PEF Circular Footprint Formula and the E-LCC mirrors it with the same A factor, Qs/Qp ratio and R1/R2/R3 rates, so that burdens and costs refer to one multifunctional partition; the CFF is a sensitivity in Situation B, a T4.6 reading of D4.1 Table 1, and is not applied in Situation C2. EF 3.1 as impact method is T4.6's reading of the PEF Recommendation. Except in a company-level C-LCC, the LCC applies the Net Tax Factor and, where a parallel LCA exists, monetises externalities at EU environmental prices (CE Delft): a T4.6 choice tied to this rule, while D4.2 links both to the S-LCC (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2)."
     },
     {
       "id": "CIR-06",
@@ -537,7 +539,8 @@
       "source_nodes": [
         "lca_mc_20",
         "lcc_hc_15"
-      ]
+      ],
+      "violation_message": "A technology below TRL 7: the LCA does not scale lab or pilot inventories linearly but applies and documents one of the four techniques (stoichiometric recalculation, step-to-equipment mapping with Lang factors, batch-to-continuous conversion, learning curves), and the LCC estimates CAPEX with the six-tenths rule, CEPCI indices to the reference year and Lang factors for total installed cost (CIR-07; D4.1 §9.3.5; D4.2 §7.3)."
     },
     {
       "id": "CIR-08",
@@ -559,14 +562,15 @@
       "id": "CIR-09",
       "name": "Iterative Update Protocol",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q6b ≤ TRL 7 AND Q2 = B (ex-ante)",
+      "trigger_condition_raw": "Q6b below TRL 9 AND Q2 = B (ex-ante)",
       "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5'] AND case.q2 == 'B'",
       "actions": [
         "case.iterative_update_triggers = ['commissioning', 'ramp_up', 'contract_renewal']"
       ],
       "source_nodes": [
         "lcc_hc_37"
-      ]
+      ],
+      "violation_message": "The exchanges do not take place yet and the technology is not yet at TRL 9: the LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data — at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1)."
     },
     {
       "id": "CIR-10",

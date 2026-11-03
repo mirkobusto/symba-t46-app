@@ -477,14 +477,14 @@ const de: Locale = {
         'D — einzelnes Unternehmen quantifiziert seinen symbiotischen Beitrag für ESG / CSRD / Nachhaltigkeitsberichte (z. B. „Wir haben 12 kt Schlacke an Zementhersteller verkauft, hier ist unsere Gutschrift"). Subjekt ist EIN UNTERNEHMEN. ' +
         'E — periodisches Monitoring einer bereits operativen Symbiose (jährliche KPI-Updates, Post-Implementation-Überwachung). Subjekt ist die ZEITREIHE, nicht eine einmalige Studie.',
       options: {
-        A: { label: 'A. Spezifischer Austausch', description: "Ein symbiotischer Austausch zwischen zwei Unternehmen, bestehend oder geplant." },
-        B: { label: 'B. Eco-park / Netzwerk', description: 'Ein Öko-Industriepark oder ein symbiotisches Multi-Akteurs-Netzwerk.' },
+        A: { label: 'A. Spezifischer Austausch', description: "Ein symbiotischer Austausch zwischen zwei Unternehmen, für sich betrachtet, bestehend oder geplant." },
+        B: { label: 'B. Eco-park / Netzwerk', description: "Ein Öko-Industriepark oder ein symbiotisches Multi-Akteurs-Netzwerk, oder ein Unternehmen, das zwei oder mehr Partner beliefert." },
         C: { label: 'C. Politik / Programm', description: 'Eine Politik- oder Programmentscheidung auf regionaler oder nationaler Ebene.' },
         D: { label: 'D. Unternehmensbericht', description: 'Der symbiotische Beitrag eines einzelnen Unternehmens für ESG/CSRD-Reporting.' },
         E: { label: 'E. Monitoring', description: 'Zeitliches Monitoring einer bereits operativen Symbiose.' },
       },
       plain:
-        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie. Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen.',
+        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie. Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen. Ein Unternehmen, das zwei oder mehr Partner beliefert, zählt als Netzwerk (B).',
     },
 
     q2: {
@@ -619,7 +619,7 @@ const de: Locale = {
 
     q7: {
       title: 'Q7 — Wie konzentriert sind die wichtigsten Wechselwirkungen?',
-      help: 'Sie bestimmt, wie die Wirkungsabschätzung regionalisiert wird. Der Transport wird für jeden Austausch explizit modelliert, unabhängig von der Antwort; die Break-even-Distanz wird im Data Collection File für jeden Fluss abgefragt.',
+      help: 'Sie bestimmt, wie die Wirkungsabschätzung regionalisiert wird. Der Transport wird für jeden Austausch explizit modelliert, unabhängig von der Antwort; die Break-even-Distanz wird im Data Collection File für jeden Fluss abgefragt. Partner in verschiedenen Regionen oder Ländern: C; B nur, wenn alle Standorte in einer Region liegen.',
       details:
         'D4.1 §12.2.3: Ein globaler oder nationaler Durchschnitts-Charakterisierungsfaktor erfasst die Bedeutung eines Systems nicht, dessen wichtigste Wechselwirkungen stark lokal sind (z. B. eine Wasserteilungs-Synergie in einer trockenen Region). A — ein Standort oder benachbarte Anlagen: standortspezifische Faktoren für Wasserknappheit, Eutrophierung und Versauerung, und die Maßstabsabweichung wird angezeigt, wo regionale Faktoren auf Standortebene angewandt werden (§12.3.3). B — innerhalb einer Region: regionalisierte Faktoren, z. B. die länderspezifischen Faktoren nach Seppälä / Posch für ein regionales Cluster (§12.3.3). C — über Regionen oder Grenzen hinweg: räumlich explizite Faktoren am Ort jeder Emission. Der Transport hängt nie von dieser Antwort ab: Jede Verbindung ist ein eigener Prozess im Vordergrundsystem mit Primärdaten, und GIS oder Routenplanung wird für jeden Austausch empfohlen (§12.3.1). Der zweite Teil fragt nach dem Markt, aus dem die ersetzten Produkte stammen: Hintergrund-Mixe und Referenzszenario werden darauf bezogen, in der Regel national oder subnational, kontinental nur für weltweit gehandelte Güter ohne subkontinentalen Markt (§11.3.1).',
       options: {
@@ -629,7 +629,7 @@ const de: Locale = {
       },
       market: {
         label: 'Referenzmarkt: Woher kämen die ersetzten Produkte?',
-        help: 'Wo die Unternehmen ohne die Austausche kaufen würden, was die Austausche ersetzen – nicht der Markt der Symbioseprodukte. Optional.',
+        help: 'Wo die Unternehmen ohne die Austausche kaufen würden, was die Austausche ersetzen – nicht der Markt der Symbioseprodukte. Optional. Beispiel: Für ein Nebenprodukt, das als Futter dient, woher das Sojaschrot käme, das es ersetzt.',
         region: 'Land oder Region',
         regionPlaceholder: 'z. B. Italien, Katalonien, EU',
         scope: {
@@ -640,11 +640,12 @@ const de: Locale = {
         },
       },
       plain:
-        'Wie nah die wichtigsten Wechselwirkungen zwischen den Unternehmen beieinander liegen: an einem Standort, innerhalb einer Region oder über Regionen oder Grenzen hinweg. Das entscheidet, wie lokal die Umweltwirkungen bewertet werden: Wasser- oder Luftverschmutzung neben einem Standort zählt anders als dieselbe Menge über ein Land verteilt. Der Transport wird in jedem Fall gezählt. Sagen Sie dann, woher die Produkte, die die Symbiose ersetzt, sonst kämen: aus einem Land, einer Region oder, bei weltweit gehandelten Gütern, einem Kontinent.',
+        'Wie nah die wichtigsten Wechselwirkungen zwischen den Unternehmen beieinander liegen: an einem Standort, innerhalb einer Region oder über Regionen oder Grenzen hinweg. Das entscheidet, wie lokal die Umweltwirkungen bewertet werden: Wasser- oder Luftverschmutzung neben einem Standort zählt anders als dieselbe Menge über ein Land verteilt. Der Transport wird in jedem Fall gezählt. Sagen Sie dann, woher die Produkte, die die Symbiose ersetzt, sonst kämen: aus einem Land, einer Region oder, bei weltweit gehandelten Gütern, einem Kontinent. Partner in verschiedenen Regionen oder Ländern: C; B nur, wenn alle Standorte in einer Region liegen.',
     },
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
+      horizonWarning: 'Über {{threshold}} Jahre: Die Studie muss abschätzen, wie sich Energie und Märkte verändern (zukünftiger Hintergrund für Ökobilanz und Lebenszykluskostenrechnung).',
       details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
@@ -1412,13 +1413,11 @@ const de: Locale = {
       'Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie; werden sie diesem Fall hinzugefügt, erscheinen sie hier.',
     scoringEmpty: 'Keine für diesen Stakeholder relevanten Indikatoren.',
     indicatorPending: 'ausstehend',
-    engineDetailsTitle: 'Engine-Pipeline-Details',
-    activatedNodesCount_one: '{{count}} aktivierter methodischer Knoten',
-    activatedNodesCount_other: '{{count}} aktivierte methodische Knoten',
+    engineDetailsTitle: 'Was die Analyse für Sie dokumentiert',
     obligations_one: "{{count}} zu dokumentierende Verpflichtung",
     obligations_other: "{{count}} zu dokumentierende Verpflichtungen",
-    cdpFlagsCount_one: '{{count}} dimensionsübergreifende Spannung',
-    cdpFlagsCount_other: '{{count}} dimensionsübergreifende Spannungen',
+    cdpFlagsCount_one: '{{count}} Entscheidungspunkt, den die Analyse klären muss',
+    cdpFlagsCount_other: '{{count}} Entscheidungspunkte, die die Analyse klären muss',
     complianceTitle: 'Compliance-Signale',
     compliance: {
       peerReview: 'Unabhängige Begutachtung: {{status}}',
@@ -1607,7 +1606,7 @@ const de: Locale = {
     publicLink: "Öffentlicher Link",
     navLink: 'Meine Fälle',
     title: 'Meine Fälle',
-    intro: 'Auf dem Server gespeicherte Fälle. Laden öffnet den Fall (sein Ergebnis, wenn es schon ermittelt ist); dort ändert „Antworten anpassen“ die Antworten und „Änderungen speichern“ sichert sie. Löschen entfernt einen Fall endgültig.',
+    intro: 'Auf dem Server gespeicherte Fälle. „Öffnen“ zeigt den Fall (sein Ergebnis, wenn es schon ermittelt ist); „Antworten anpassen“ öffnet seinen Fragebogen, und „Änderungen speichern“ im Ergebnis sichert, was Sie ändern. Löschen entfernt einen Fall endgültig.',
     loadReplaceConfirm: 'Das Laden dieses Falls ersetzt die Antworten, an denen Sie arbeiten und die nicht gespeichert sind. Fortfahren?',
     empty: 'Noch keine gespeicherten Fälle. Speichern Sie einen Fall aus dem Fragebogen oder der Ergebnisseite.',
     columns: {
@@ -1615,7 +1614,8 @@ const de: Locale = {
       situation: 'ILCD-Situation',
       updated: 'Aktualisiert',
     },
-    loadButton: 'Laden',
+    loadButton: 'Öffnen',
+    editButton: 'Antworten anpassen',
     deleteButton: 'Löschen',
     confirmDelete: '"{{name}}" endgültig löschen? Dies kann nicht rückgängig gemacht werden.',
     saveButton: 'Fall speichern',

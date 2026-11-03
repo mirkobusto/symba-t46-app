@@ -329,6 +329,11 @@ export default function QuestionnairePage() {
   // the intro banner and the scope note are said once, on the first question
   const firstStep = !stepper || stepIndex === 0
 
+  // warn while typing, as the engine decides (activate.horizon_exceeds_threshold, D4.2 §9.3)
+  const horizonThreshold = Number(advanced['future_background_threshold_years']) || 15
+  const horizonOver = [analysisPeriod, assetLifetime]
+    .some((v) => v.trim() !== '' && Number(v) > horizonThreshold)
+
   return (
     <div
       ref={pageRef}
@@ -526,6 +531,7 @@ export default function QuestionnairePage() {
           help={t('questionnaire.q8.help')}
           plain={t('questionnaire.q8.plain')}
           details={t('questionnaire.q8.details')}
+          warning={horizonOver ? t('questionnaire.q8.horizonWarning', { threshold: horizonThreshold }) : undefined}
         >
           <p className="opt-label">{t('questionnaire.q8.start.label')}</p>
           {START_KEYS.map((k) => (

@@ -210,12 +210,8 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
       {stakeholderType === 'industry' ? (
         <section className="stakeholder-section">
           <h3>{t('stakeholder.engineDetailsTitle')}</h3>
+          {/* in words, not engine internals (round 4 leftover: "Engine pipeline details") */}
           <ul className="stakeholder-ul">
-            <li>
-              {t('stakeholder.activatedNodesCount', {
-                count: caseData.activated_nodes?.length ?? 0,
-              })}
-            </li>
             <li>
               {/* Obligations, not violations: telling a local community it
                   is looking at "4 rule violations" reads as an accusation,

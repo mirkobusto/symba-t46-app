@@ -525,14 +525,14 @@ const en = {
         'D — a single company quantifying its symbiotic contribution for ESG / CSRD / sustainability reporting (e.g. "we sold 12 kt of slag to cement makers, here is our credit"). The subject is ONE COMPANY. ' +
         'E — periodic monitoring of an already-operating symbiosis (annual KPI updates, post-implementation surveillance). The subject is the TIME SERIES, not a one-off study.',
       options: {
-        A: { label: 'A. Specific exchange', description: "A symbiotic exchange between two companies, existing or planned." },
-        B: { label: 'B. Eco-park / network', description: 'An eco-industrial park or multi-actor symbiotic network.' },
+        A: { label: 'A. Specific exchange', description: "A symbiotic exchange between two companies, studied on its own, existing or planned." },
+        B: { label: 'B. Eco-park / network', description: "An eco-industrial park or multi-actor symbiotic network, or one company supplying two or more partners." },
         C: { label: 'C. Policy / programme', description: 'A policy or programme decision at regional or national scale.' },
         D: { label: 'D. Corporate report', description: "A single company's symbiotic contribution for ESG/CSRD reporting." },
         E: { label: 'E. Monitoring', description: 'Time-series monitoring of an already operational symbiosis.' },
       },
       plain:
-        'Say what you are examining: one exchange, a park, a programme, one company, a symbiosis you follow over time. The answer describes the system and its boundary; how the study is modelled is decided by the questions that follow, starting with what the study is for. If you hesitate between two options, keep the one that describes the thing whose effects you want to measure.',
+        'Say what you are examining: one exchange, a park, a programme, one company, a symbiosis you follow over time. The answer describes the system and its boundary; how the study is modelled is decided by the questions that follow, starting with what the study is for. If you hesitate between two options, keep the one that describes the thing whose effects you want to measure. One company supplying two or more partners counts as a network (B).',
     },
 
     q2: {
@@ -667,7 +667,7 @@ const en = {
 
     q7: {
       title: 'Q7 — How concentrated are the key interactions?',
-      help: 'It sets how the impact assessment is regionalised. Transport is modelled explicitly for every exchange whatever you answer; the break-even distance is asked for every flow in the Data Collection File.',
+      help: 'It sets how the impact assessment is regionalised. Transport is modelled explicitly for every exchange whatever you answer; the break-even distance is asked for every flow in the Data Collection File. Partners in different regions or countries: C; B only if every site is in one region.',
       details:
         'D4.1 §12.2.3: a global or national average characterisation factor fails to capture the significance of a system whose key interactions are intensely local (e.g. a water-sharing synergy in an arid region). A — one site or adjacent plants: spatially specific factors for water scarcity, eutrophication and acidification, and the scale mismatch flagged where regional factors are applied at site level (§12.3.3). B — within one region: regionalised factors, e.g. the Seppälä / Posch country-dependent factors for a regional cluster (§12.3.3). C — across regions or borders: spatially explicit factors at the location of each emission. Transport never depends on this answer: every link is a distinct foreground unit process with primary data, and GIS or routing is recommended for every exchange (§12.3.1). The second part asks for the market the replaced products come from: background mixes and the reference scenario are resolved on it, national or sub-national as a rule, continental only for globally traded commodities with no sub-continental market (§11.3.1).',
       options: {
@@ -677,7 +677,7 @@ const en = {
       },
       market: {
         label: 'Reference market: where would the replaced products come from?',
-        help: 'Where the companies would buy, without the exchanges, what the exchanges replace — not the market of the symbiosis products. Optional.',
+        help: 'Where the companies would buy, without the exchanges, what the exchanges replace — not the market of the symbiosis products. Optional. Example: for a by-product used as feed, where the soy meal it replaces would come from.',
         region: 'Country or region',
         regionPlaceholder: 'e.g. Italy, Catalonia, EU',
         scope: {
@@ -688,11 +688,12 @@ const en = {
         },
       },
       plain:
-        'How close together the companies\' key interactions happen: on one site, within one region, or across regions or borders. It decides how locally the environmental impacts are assessed: water or air pollution next to one site counts differently from the same amount spread over a country. Transport is counted whatever you answer. Then say where the products the symbiosis replaces would otherwise come from: a country, a region or, for goods traded worldwide, a continent.',
+        'How close together the companies\' key interactions happen: on one site, within one region, or across regions or borders. It decides how locally the environmental impacts are assessed: water or air pollution next to one site counts differently from the same amount spread over a country. Transport is counted whatever you answer. Then say where the products the symbiosis replaces would otherwise come from: a country, a region or, for goods traded worldwide, a continent. Partners in different regions or countries: C; B only if every site is in one region.',
     },
     q8: {
       title: 'Q8 — Time horizon of the study',
       help: 'Optional. One horizon for LCA and LCC alike.',
+      horizonWarning: 'Over {{threshold}} years: the study will have to take a view on how energy and markets change (future background for LCA and LCC).',
       details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study. The analysis period is the time span the study covers; as a rule it matches the technical lifetime of the main assets (D4.2 §9). The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
       start: {
         label: 'In which year does the system operate, or is it assumed to operate?',
@@ -1459,13 +1460,11 @@ const en = {
       'This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them; if they are added to this case, they appear here.',
     scoringEmpty: 'No indicators relevant for this stakeholder.',
     indicatorPending: 'pending',
-    engineDetailsTitle: 'Engine pipeline details',
-    activatedNodesCount_one: '{{count}} activated methodological node',
-    activatedNodesCount_other: '{{count}} activated methodological nodes',
+    engineDetailsTitle: 'What the analyst will document for you',
     obligations_one: "{{count}} obligation to document",
     obligations_other: "{{count}} obligations to document",
-    cdpFlagsCount_one: '{{count}} cross-dimension tension flag',
-    cdpFlagsCount_other: '{{count}} cross-dimension tension flags',
+    cdpFlagsCount_one: '{{count}} decision point the analyst must settle',
+    cdpFlagsCount_other: '{{count}} decision points the analyst must settle',
     complianceTitle: 'Compliance signals',
     compliance: {
       peerReview: 'Independent peer review: {{status}}',
@@ -1653,7 +1652,7 @@ const en = {
     publicLink: "Public link",
     navLink: 'My cases',
     title: 'My cases',
-    intro: 'Cases saved on the server. Load opens the case (its result, once worked out); from there, "Adjust answers" changes them and "Save changes" stores them. Delete removes a case permanently.',
+    intro: 'Cases saved on the server. "Open" shows the case (its result, once worked out); "Adjust answers" opens its questionnaire, and "Save changes" on the result stores what you change. Delete removes a case permanently.',
     loadReplaceConfirm: 'Loading this case replaces the answers you are working on, which are not saved. Continue?',
     empty: 'No saved cases yet. Save one from the questionnaire or result page.',
     columns: {
@@ -1661,7 +1660,8 @@ const en = {
       situation: 'ILCD situation',
       updated: 'Updated',
     },
-    loadButton: 'Load',
+    loadButton: 'Open',
+    editButton: 'Adjust answers',
     deleteButton: 'Delete',
     confirmDelete: 'Delete "{{name}}" permanently? This cannot be undone.',
     saveButton: 'Save case',

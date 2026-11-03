@@ -37,7 +37,14 @@ describe('My cases: Load asks before dropping unsaved answers', () => {
   it('asks when the open case was worked out again and not saved', async () => {
     useCaseStore.setState({ draft: { q1: 'B' }, serverCaseId: 'c1', savedDiverged: true } as never)
     render(<MemoryRouter><CasesListPage /><DialogHost /></MemoryRouter>)
-    fireEvent.click(await screen.findByRole('button', { name: 'Load' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Open' }))
+    expect(await screen.findByText(/replaces the answers you are working on/)).toBeInTheDocument()
+  })
+
+  it('also asks before "Adjust answers"', async () => {
+    useCaseStore.setState({ draft: { q1: 'B' }, serverCaseId: null, savedDiverged: false } as never)
+    render(<MemoryRouter><CasesListPage /><DialogHost /></MemoryRouter>)
+    fireEvent.click(await screen.findByRole('button', { name: 'Adjust answers' }))
     expect(await screen.findByText(/replaces the answers you are working on/)).toBeInTheDocument()
   })
 })

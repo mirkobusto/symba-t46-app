@@ -49,7 +49,9 @@ export default function CasesListPage() {
   }, [])
   /* eslint-enable react-hooks/set-state-in-effect */
 
-  async function handleLoad(id: string) {
+  // "Open" lands on the saved verdict, "Edit answers" on the questionnaire
+  // (round 4 leftover: Load always opened the result)
+  async function handleLoad(id: string, target: 'result' | 'questionnaire' = 'result') {
     // loading replaced unsaved answers without a word (UX round 5, P7-09)
     const st = useCaseStore.getState()
     const hasWork = !!st.draft.q1 || (st.draft.flows?.length ?? 0) > 0
@@ -68,7 +70,7 @@ export default function CasesListPage() {
       // user re-run the questionnaire to see what they just opened.
       if (detail.case.ilcd_situation) {
         setResult(detail.case)
-        navigate('/result')
+        navigate(target === 'result' ? '/result' : '/questionnaire')
       } else {
         setResult(null)
         navigate('/questionnaire')
@@ -162,6 +164,13 @@ export default function CasesListPage() {
                   >
                     <Upload size={14} />
                     {t('cases.loadButton')}
+                  </button>{' '}
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => handleLoad(item.id, 'questionnaire')}
+                  >
+                    {t('cases.editButton')}
                   </button>{' '}
                   {item.slug && item.shared_at ? (
                     <Link

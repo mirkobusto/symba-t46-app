@@ -483,14 +483,14 @@ const fr: Locale = {
         'D — entreprise unique quantifiant sa contribution symbiotique pour reporting ESG / CSRD / durabilité (ex. « nous avons vendu 12 kt de laitier aux cimentiers, voici notre crédit »). Le sujet est UNE SEULE ENTREPRISE. ' +
         "E — suivi périodique d'une symbiose déjà opérationnelle (mises à jour KPI annuelles, surveillance post-implémentation). Le sujet est la SÉRIE TEMPORELLE, pas une étude ponctuelle.",
       options: {
-        A: { label: 'A. Échange spécifique', description: "Un échange symbiotique entre deux entreprises, existantes ou en projet." },
-        B: { label: 'B. Eco-park / réseau', description: 'Un parc éco-industriel ou un réseau symbiotique multi-acteurs.' },
+        A: { label: 'A. Échange spécifique', description: "Un échange symbiotique entre deux entreprises, étudié seul, existant ou en projet." },
+        B: { label: 'B. Eco-park / réseau', description: "Un parc éco-industriel ou un réseau symbiotique multi-acteurs, ou une entreprise qui fournit deux partenaires ou plus." },
         C: { label: 'C. Politique / programme', description: "Une décision de politique ou programme à l'échelle régionale ou nationale." },
         D: { label: 'D. Rapport entreprise', description: "La contribution symbiotique d'une seule entreprise pour reporting ESG/CSRD." },
         E: { label: 'E. Suivi', description: "Suivi temporel d'une symbiose déjà opérationnelle." },
       },
       plain:
-        'Dites ce que vous examinez : un échange, un parc, un programme, une entreprise, une symbiose suivie dans le temps. La réponse décrit le système et sa frontière ; la manière de modéliser l\'étude est décidée par les questions suivantes, à commencer par la finalité de l\'étude. Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets.',
+        'Dites ce que vous examinez : un échange, un parc, un programme, une entreprise, une symbiose suivie dans le temps. La réponse décrit le système et sa frontière ; la manière de modéliser l\'étude est décidée par les questions suivantes, à commencer par la finalité de l\'étude. Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets. Une entreprise qui fournit deux partenaires ou plus compte comme un réseau (B).',
     },
 
     q2: {
@@ -625,7 +625,7 @@ const fr: Locale = {
 
     q7: {
       title: 'Q7 — À quel point les interactions clés sont-elles concentrées ?',
-      help: 'Elle fixe la régionalisation de l\'évaluation des impacts. Le transport est modélisé explicitement pour chaque échange, quelle que soit la réponse ; la distance d\'équilibre est demandée pour chaque flux dans le Data Collection File.',
+      help: 'Elle fixe la régionalisation de l\'évaluation des impacts. Le transport est modélisé explicitement pour chaque échange, quelle que soit la réponse ; la distance d\'équilibre est demandée pour chaque flux dans le Data Collection File. Partenaires dans des régions ou des pays différents : C ; B seulement si tous les sites sont dans une même région.',
       details:
         'D4.1 §12.2.3 : un facteur de caractérisation moyen mondial ou national ne saisit pas la portée d\'un système dont les interactions clés sont intensément locales (ex. une synergie de partage d\'eau dans une région aride). A — un site ou des installations adjacentes : facteurs spécifiques au lieu pour la rareté de l\'eau, l\'eutrophisation et l\'acidification, et le décalage d\'échelle signalé là où des facteurs régionaux sont appliqués au niveau du site (§12.3.3). B — au sein d\'une région : facteurs régionalisés, ex. les facteurs par pays de Seppälä / Posch pour un cluster régional (§12.3.3). C — entre régions ou par-delà les frontières : facteurs spatialement explicites au lieu de chaque émission. Le transport ne dépend jamais de cette réponse : chaque liaison est un processus unitaire distinct du premier plan avec des données primaires, et un SIG ou un outil de calcul d\'itinéraires est recommandé pour chaque échange (§12.3.1). La seconde partie demande le marché d\'où viennent les produits remplacés : les mix d\'arrière-plan et le scénario de référence s\'y rapportent, national ou infranational en règle générale, continental seulement pour les produits échangés à l\'échelle mondiale sans marché infra-continental (§11.3.1).',
       options: {
@@ -635,7 +635,7 @@ const fr: Locale = {
       },
       market: {
         label: 'Marché de référence : d\'où viendraient les produits remplacés ?',
-        help: 'Où les entreprises achèteraient, sans les échanges, ce que les échanges remplacent : pas le marché des produits de la symbiose. Facultatif.',
+        help: 'Où les entreprises achèteraient, sans les échanges, ce que les échanges remplacent : pas le marché des produits de la symbiose. Facultatif. Exemple : pour un sous-produit utilisé comme aliment pour animaux, d\'où viendrait le tourteau de soja qu\'il remplace.',
         region: 'Pays ou région',
         regionPlaceholder: 'ex. Italie, Catalogne, UE',
         scope: {
@@ -646,11 +646,12 @@ const fr: Locale = {
         },
       },
       plain:
-        'À quel point les interactions clés entre les entreprises sont proches : sur un site, au sein d\'une région, ou entre régions ou par-delà les frontières. Cela décide à quelle échelle locale les impacts environnementaux sont évalués : une pollution de l\'eau ou de l\'air à côté d\'un site ne pèse pas comme la même quantité répartie sur un pays. Le transport est compté dans tous les cas. Indiquez ensuite d\'où viendraient sinon les produits que la symbiose remplace : un pays, une région ou, pour les biens échangés dans le monde entier, un continent.',
+        'À quel point les interactions clés entre les entreprises sont proches : sur un site, au sein d\'une région, ou entre régions ou par-delà les frontières. Cela décide à quelle échelle locale les impacts environnementaux sont évalués : une pollution de l\'eau ou de l\'air à côté d\'un site ne pèse pas comme la même quantité répartie sur un pays. Le transport est compté dans tous les cas. Indiquez ensuite d\'où viendraient sinon les produits que la symbiose remplace : un pays, une région ou, pour les biens échangés dans le monde entier, un continent. Partenaires dans des régions ou des pays différents : C ; B seulement si tous les sites sont dans une même région.',
     },
     q8: {
       title: 'Q8 — Horizon temporel de l\'étude',
       help: 'Facultative. Un seul horizon pour l\'ACV et l\'ACC.',
+      horizonWarning: 'Au-delà de {{threshold}} ans : l\'étude devra prévoir l\'évolution de l\'énergie et des marchés (arrière-plan futur pour l\'ACV et l\'ACC).',
       details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude. La période d\'analyse est la durée couverte par l\'étude ; en règle générale, elle coïncide avec la durée de vie technique des actifs principaux (D4.2 §9). La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
       start: {
         label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
@@ -1418,13 +1419,11 @@ const fr: Locale = {
       'Cet outil ne calcule pas les chiffres environnementaux, économiques ou sociaux. Ils sont calculés par qui réalise l\'étude ; s\'ils sont ajoutés à ce cas, ils apparaissent ici.',
     scoringEmpty: 'Aucun indicateur pertinent pour cette partie prenante.',
     indicatorPending: 'en attente',
-    engineDetailsTitle: 'Détails du pipeline',
-    activatedNodesCount_one: '{{count}} nœud méthodologique activé',
-    activatedNodesCount_other: '{{count}} nœuds méthodologiques activés',
+    engineDetailsTitle: 'Ce que l\'analyste documentera pour vous',
     obligations_one: "{{count}} obligation à documenter",
     obligations_other: "{{count}} obligations à documenter",
-    cdpFlagsCount_one: '{{count}} tension inter-dimensions',
-    cdpFlagsCount_other: '{{count}} tensions inter-dimensions',
+    cdpFlagsCount_one: '{{count}} point de décision que l\'analyste doit trancher',
+    cdpFlagsCount_other: '{{count}} points de décision que l\'analyste doit trancher',
     complianceTitle: 'Signaux de conformité',
     compliance: {
       peerReview: 'Relecture indépendante par les pairs : {{status}}',
@@ -1612,7 +1611,7 @@ const fr: Locale = {
     publicLink: "Lien public",
     navLink: 'Mes cas',
     title: 'Mes cas',
-    intro: 'Cas enregistrés sur le serveur. Charger ouvre le cas (son résultat, s\'il est déjà calculé) ; de là, « Modifier les réponses » les change et « Enregistrer les modifications » les conserve. Supprimer retire un cas définitivement.',
+    intro: 'Cas enregistrés sur le serveur. « Ouvrir » affiche le cas (son résultat, s\'il est déjà calculé) ; « Modifier les réponses » ouvre son questionnaire, et « Enregistrer les modifications » sur le résultat conserve ce que vous changez. Supprimer retire un cas définitivement.',
     loadReplaceConfirm: 'Charger ce cas remplace les réponses sur lesquelles vous travaillez, qui ne sont pas enregistrées. Continuer ?',
     empty: 'Aucun cas sauvegardé. Sauvegardez un cas depuis le questionnaire ou la page de résultat.',
     columns: {
@@ -1620,7 +1619,8 @@ const fr: Locale = {
       situation: 'Situation ILCD',
       updated: 'Mis à jour',
     },
-    loadButton: 'Charger',
+    loadButton: 'Ouvrir',
+    editButton: 'Modifier les réponses',
     deleteButton: 'Supprimer',
     confirmDelete: 'Supprimer "{{name}}" définitivement ? Opération irréversible.',
     saveButton: 'Sauvegarder',

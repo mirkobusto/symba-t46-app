@@ -503,14 +503,14 @@ const it: Locale = {
         'D — singola azienda che quantifica il proprio contributo simbiotico per reportistica ESG / CSRD / sostenibilità (es. "abbiamo venduto 12 kt di scoria ai cementifici, ecco il nostro credito"). Il soggetto è UNA SOLA AZIENDA. ' +
         'E — monitoraggio periodico di una simbiosi già operativa (aggiornamenti KPI annuali, sorveglianza post-implementazione). Il soggetto è la SERIE STORICA, non uno studio una tantum.',
       options: {
-        A: { label: 'A. Scambio specifico', description: "Uno scambio simbiotico tra due aziende, esistenti o in progetto." },
-        B: { label: 'B. Eco-park / rete', description: 'Un parco eco-industriale o una rete simbiotica multi-attore.' },
+        A: { label: 'A. Scambio specifico', description: "Uno scambio simbiotico tra due aziende, studiato da solo, esistente o in progetto." },
+        B: { label: 'B. Eco-park / rete', description: "Un parco eco-industriale o una rete simbiotica multi-attore, oppure un'azienda che rifornisce due o più partner." },
         C: { label: 'C. Policy / programma', description: 'Una decisione di policy o programma a scala regionale o nazionale.' },
         D: { label: 'D. Report aziendale', description: "Il contributo simbiotico di una singola azienda per reportistica ESG/CSRD." },
         E: { label: 'E. Monitoraggio', description: 'Monitoraggio temporale di una simbiosi già operativa.' },
       },
       plain:
-        'Di\' che cosa stai esaminando: uno scambio, un parco, un programma, un\'azienda, una simbiosi che segui nel tempo. La risposta descrive il sistema e il suo confine; come si modella lo studio lo decidono le domande seguenti, a partire da a che cosa serve lo studio. Se esiti fra due opzioni, tieni quella che descrive la cosa di cui vuoi misurare gli effetti.',
+        'Di\' che cosa stai esaminando: uno scambio, un parco, un programma, un\'azienda, una simbiosi che segui nel tempo. La risposta descrive il sistema e il suo confine; come si modella lo studio lo decidono le domande seguenti, a partire da a che cosa serve lo studio. Se esiti fra due opzioni, tieni quella che descrive la cosa di cui vuoi misurare gli effetti. Un\'azienda che rifornisce due o più partner conta come rete (B).',
     },
 
     q2: {
@@ -645,7 +645,7 @@ const it: Locale = {
 
     q7: {
       title: 'Q7 — Quanto sono concentrate le interazioni chiave?',
-      help: 'Decide come si regionalizza la valutazione degli impatti. Il trasporto si modella in modo esplicito per ogni scambio, qualunque sia la risposta; la distanza di pareggio si chiede per ogni flusso nel Data Collection File.',
+      help: 'Decide come si regionalizza la valutazione degli impatti. Il trasporto si modella in modo esplicito per ogni scambio, qualunque sia la risposta; la distanza di pareggio si chiede per ogni flusso nel Data Collection File. Partner in regioni o paesi diversi: C; B solo se tutti i siti stanno in una regione.',
       details:
         'D4.1 §12.2.3: un fattore di caratterizzazione medio globale o nazionale non coglie il significato di un sistema le cui interazioni chiave sono intensamente locali (es. una sinergia di condivisione dell\'acqua in una regione arida). A — un sito o impianti adiacenti: fattori specifici per il luogo per scarsità idrica, eutrofizzazione e acidificazione, e il disallineamento di scala segnalato dove fattori regionali si applicano a livello di sito (§12.3.3). B — dentro una regione: fattori regionalizzati, es. i fattori per paese di Seppälä / Posch per un cluster regionale (§12.3.3). C — fra regioni o oltre confine: fattori spazialmente espliciti nel luogo di ogni emissione. Il trasporto non dipende mai da questa risposta: ogni collegamento è un processo unitario distinto del foreground con dati primari, e GIS o strumenti di calcolo dei percorsi sono raccomandati per ogni scambio (§12.3.1). La seconda parte chiede il mercato da cui vengono i prodotti sostituiti: su di esso si risolvono i mix del background e lo scenario di riferimento, di regola nazionale o sub-nazionale, continentale solo per merci scambiate su scala globale senza un mercato sub-continentale (§11.3.1).',
       options: {
@@ -655,7 +655,7 @@ const it: Locale = {
       },
       market: {
         label: 'Mercato di riferimento: da dove verrebbero i prodotti sostituiti?',
-        help: 'Dove le aziende comprerebbero, senza gli scambi, ciò che gli scambi sostituiscono: non il mercato dei prodotti della simbiosi. Facoltativo.',
+        help: 'Dove le aziende comprerebbero, senza gli scambi, ciò che gli scambi sostituiscono: non il mercato dei prodotti della simbiosi. Facoltativo. Esempio: per un sottoprodotto usato come mangime, da dove verrebbe la farina di soia che sostituisce.',
         region: 'Paese o regione',
         regionPlaceholder: 'es. Italia, Catalogna, UE',
         scope: {
@@ -666,11 +666,12 @@ const it: Locale = {
         },
       },
       plain:
-        'Quanto sono vicine le interazioni chiave fra le aziende: su un sito, dentro una regione, o fra regioni o oltre confine. Decide quanto localmente si valutano gli impatti ambientali: l\'inquinamento dell\'acqua o dell\'aria accanto a un sito pesa diversamente dalla stessa quantità sparsa in un paese. Il trasporto si conta comunque. Poi di\' da dove verrebbero altrimenti i prodotti che la simbiosi sostituisce: un paese, una regione o, per le merci scambiate in tutto il mondo, un continente.',
+        'Quanto sono vicine le interazioni chiave fra le aziende: su un sito, dentro una regione, o fra regioni o oltre confine. Decide quanto localmente si valutano gli impatti ambientali: l\'inquinamento dell\'acqua o dell\'aria accanto a un sito pesa diversamente dalla stessa quantità sparsa in un paese. Il trasporto si conta comunque. Poi di\' da dove verrebbero altrimenti i prodotti che la simbiosi sostituisce: un paese, una regione o, per le merci scambiate in tutto il mondo, un continente. Partner in regioni o paesi diversi: C; B solo se tutti i siti stanno in una regione.',
     },
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',
       help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
+      horizonWarning: 'Oltre {{threshold}} anni: lo studio dovrà prevedere come cambiano energia e mercati (background futuro per LCA e LCC).',
       details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio. Il periodo di analisi è l\'arco di tempo coperto dallo studio; di norma coincide con la vita tecnica degli asset principali (D4.2 §9). La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
       start: {
         label: 'In quale anno opera il sistema, o si assume che operi?',
@@ -1438,13 +1439,11 @@ const it: Locale = {
       'Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola chi esegue lo studio; se vengono aggiunti a questo caso, compaiono qui.',
     scoringEmpty: 'Nessun indicatore rilevante per questo stakeholder.',
     indicatorPending: 'in attesa',
-    engineDetailsTitle: 'Dettagli pipeline engine',
-    activatedNodesCount_one: '{{count}} nodo metodologico attivato',
-    activatedNodesCount_other: '{{count}} nodi metodologici attivati',
+    engineDetailsTitle: 'Che cosa documenterà l\'analista per te',
     obligations_one: "{{count}} obbligo da documentare",
     obligations_other: "{{count}} obblighi da documentare",
-    cdpFlagsCount_one: '{{count}} tensione cross-dimensionale',
-    cdpFlagsCount_other: '{{count}} tensioni cross-dimensionali',
+    cdpFlagsCount_one: '{{count}} punto di decisione che l\'analista deve sciogliere',
+    cdpFlagsCount_other: '{{count}} punti di decisione che l\'analista deve sciogliere',
     complianceTitle: 'Segnali di compliance',
     compliance: {
       peerReview: 'Revisione indipendente fra pari: {{status}}',
@@ -1632,7 +1631,7 @@ const it: Locale = {
     publicLink: "Link pubblico",
     navLink: 'I miei casi',
     title: 'I miei casi',
-    intro: 'Casi salvati sul server. Carica apre il caso (il suo risultato, se è già calcolato); da lì «Modifica risposte» le cambia e «Salva modifiche» le registra. Elimina toglie un caso per sempre.',
+    intro: 'Casi salvati sul server. «Apri» mostra il caso (il suo risultato, se è già calcolato); «Modifica risposte» apre il suo questionario, e «Salva modifiche» nel risultato registra ciò che cambi. Elimina toglie un caso per sempre.',
     loadReplaceConfirm: 'Caricare questo caso sostituisce le risposte su cui stai lavorando, che non sono salvate. Continuare?',
     empty: 'Nessun caso salvato. Salva un caso dal questionario o dalla result page.',
     columns: {
@@ -1640,7 +1639,8 @@ const it: Locale = {
       situation: 'Situazione ILCD',
       updated: 'Aggiornato',
     },
-    loadButton: 'Carica',
+    loadButton: 'Apri',
+    editButton: 'Modifica risposte',
     deleteButton: 'Elimina',
     confirmDelete: 'Eliminare "{{name}}" definitivamente? Operazione non reversibile.',
     saveButton: 'Salva caso',

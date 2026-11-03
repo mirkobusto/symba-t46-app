@@ -45,6 +45,15 @@ describe('Questionnaire Q8 — time horizon', () => {
     fireEvent.click(document.querySelector('input[name="q9"][value="micro"]')!)
   }
 
+  it('warns while typing a lifetime over the 15-year threshold (round 4 leftover)', () => {
+    renderPage()
+    const input = q8Input() as HTMLInputElement
+    fireEvent.change(input, { target: { value: '12' } })
+    expect(screen.queryByText(/Over 15 years/)).not.toBeInTheDocument()
+    fireEvent.change(input, { target: { value: '20' } })
+    expect(screen.getByText(/Over 15 years/)).toBeInTheDocument()
+  })
+
   it('shows the Q8 field, empty by default', () => {
     renderPage()
     const input = q8Input() as HTMLInputElement

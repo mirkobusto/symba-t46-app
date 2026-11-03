@@ -334,8 +334,8 @@
       "id": "IR-16",
       "name": "Entity-First Calculation",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3 has ≥2 dims",
-      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company in isolation (ILCD Situation C2)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "lca.calculation_order == ['entity', 'network'] AND lcc.calculation_order == ['entity', 'flow', 'network', 'baseline'] AND slca.calculation_order == ['stakeholder', 'system']",
       "fields": [
         "lca.calculation_order",
@@ -407,8 +407,8 @@
       "id": "IR-20",
       "name": "Three-Level Analytical Isomorphism",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3 has ≥2 dims",
-      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company in isolation (ILCD Situation C2)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "each method exposes 3 analytical levels (network+entity+flow for LCA/LCC; system+stakeholder+indicator for S-LCA)",
       "fields": [
         "lca.analytical_levels",
@@ -439,7 +439,8 @@
         "lca_mc_21",
         "lcc_mc_13",
         "lcc_hc_23"
-      ]
+      ],
+      "violation_message": "The study reaches into the future (operation in a future year, technology below TRL 7, or an analysis period or asset lifetime beyond 15 years): LCA background datasets and LCC prices and energy costs follow the same SSP/RCP scenario over the same horizon, with SSP2 tested against an ambitious-mitigation pathway (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1)."
     },
     {
       "id": "CIR-02",
@@ -551,7 +552,8 @@
         "lca_hc_18",
         "lcc_hc_07"
       ],
-      "review_note": "R3, 2026-10-18: Q1 ∈ {B,C} dropped (Q1 describes the subject)."
+      "review_note": "R3, 2026-10-18: Q1 ∈ {B,C} dropped (Q1 describes the subject).",
+      "violation_message": "New dedicated shared assets and a social assessment: next to the CAPEX and amortisation shared by LCA and LCC (D4.1 §6.3.3; D4.2 §4.2), the S-LCA reports per stakeholder group who carries the investment and who benefits from the shared infrastructure — a T4.6 reading; D4.3 §5.1 defines the groups (CIR-08)."
     },
     {
       "id": "CIR-09",
@@ -579,7 +581,8 @@
       ],
       "source_nodes": [
         "lcc_hc_30"
-      ]
+      ],
+      "violation_message": "The interpretation of every method discusses the documented failure modes of real symbioses — end-of-life undercosting of shared infrastructure, supply-chain and logistics failures, biological variability (5-66 % production losses), commodity price discontinuities — as part of the assessment, with the stress tests D4.2 asks for: production losses of 20 %, 50 % and 66 %, end-of-life costs two to five times the base case (CIR-10; D4.2 §12.3, §13)."
     }
   ],
   "fu_rules": [
@@ -761,7 +764,7 @@
         "lca_hc_21",
         "lcc_hc_06"
       ],
-      "violation_message": "Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §12.3.1, D4.2 §4.3)."
+      "violation_message": "Transport is modelled explicitly in every active dimension: as foreground unit processes in the LCA (D4.1 §12.3.1) and as a distance-sensitive cost in the LCC (D4.2 §4.3), whatever the geographic spread (B-05)."
     },
     {
       "id": "B-06",

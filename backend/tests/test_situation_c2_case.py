@@ -102,3 +102,55 @@ def test_situation_c2_comes_from_q9_not_from_q1():
     assert case.lca["allocation_method"] == "allocation"
     assert case.lca["system_boundary"].startswith("company:")
     assert "c2_allocation_over_pef" in {w["code"] for w in case.warnings}
+
+
+def test_network_mandates_are_dormant_for_one_company(case):
+    """UX round 5, Fable D1: one company's accounts have no network level
+    (D4.1 §7.2.3 L00899)."""
+    dormant = {"lca_hc_02", "lca_hc_11", "lca_mc_31", "lca_mc_34", "lcc_hc_01", "lcc_hc_09", "lcc_hc_19"}
+    assert not dormant & set(case.activated_nodes)
+
+
+def test_the_dcf_asks_no_substitution_data_and_the_reference_is_optional(case):
+    import json
+    from pathlib import Path
+
+    from app.engine.dcf_compose import compose_dcf
+
+    root = Path(__file__).resolve().parents[1]
+    schema = json.loads((root / "app/schemas/dcf_schema.json").read_text())
+    census = json.loads((root / "coordination/dcf_mandates_census.json").read_text())
+    payload = compose_dcf(case, schema, census)
+    sections = {s.id: s for s in payload.sections}
+    classif = {f.id for f in sections["flow_classification"].fields}
+    assert not classif & {"classif.quality_factor_q", "classif.quality_factor_basis",
+                          "classif.substituted_lci_dataset", "classif.substituted_product"}
+    ref = {f.id: f for f in sections["reference_scenario"].fields}
+    assert ref["ref.without_symbiosis"].required is False
+    assert payload.situation_c2 is True
+
+
+def test_flow_treatment_in_c2_is_allocation_except_for_waste(case):
+    """lca_hc_17 in C2: allocation for a co-product, a waste keeps zero burden
+    after the avoidability test (UX round 5, Fable D1; #130)."""
+    import json
+    from pathlib import Path
+
+    from app.engine.dcf_compose import compose_dcf
+
+    root = Path(__file__).resolve().parents[1]
+    payload = compose_dcf(
+        case,
+        json.loads((root / "app/schemas/dcf_schema.json").read_text()),
+        json.loads((root / "coordination/dcf_mandates_census.json").read_text()),
+    )
+    [stmt] = [o.statement for o in payload.obligations if o.id == "lca_hc_17"]
+    assert "Bagasse to CHP plant: allocation: no zero burden and no substitution credits" in stmt
+    assert "Filter cake taken away for a gate fee: waste: zero burden" in stmt
+
+
+def test_no_network_level_rules_for_one_company(case):
+    """IR-16 (entity-first calculation) and IR-20 (three levels) ask for the
+    network level a C2 study does not have (Fable review of #209)."""
+    fired = {r["rule_id"] for r in case.applicable_rules}
+    assert not {"IR-16", "IR-20"} & fired

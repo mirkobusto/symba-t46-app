@@ -35,7 +35,8 @@
    },
    "reference_scenario": {
     "title": "Reference scenario per actor",
-    "description": "One row per actor: what it does, or would do, without the exchanges of the symbiosis (where it would dispose of the flow, what it would buy in its place). The reference scenario of the study (D4.1 §11) is built from these rows."
+    "description": "One row per actor: what it does, or would do, without the exchanges of the symbiosis (where it would dispose of the flow, what it would buy in its place). The reference scenario of the study (D4.1 §11) is built from these rows.",
+    "description_c2": "Optional in Situation C2: one company's accounts take no substitution credits (D4.1 §7.2.3); the reference without the exchanges is reported only for comparison (D4.1 §11.3.1)."
    }
   },
   "fields": {
@@ -414,6 +415,8 @@
    "third_party": "third party"
   },
   "reasons": {
+   "q3.env and ilcd_situation != \"ILCD Situation C2\"": "the study credits substitution (not the strict accounting of one company, Situation C2)",
+   "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"": "the study has the environmental or the economic dimension, outside the strict accounting of one company (Situation C2)",
    "future_background and (q3.env or q3.eco)": "the study needs a future background (Q8 or Q6b)",
    "lcc_type in [\"C+E\", \"C+E+S\"]": "the costing includes the environmental LCC",
    "lcc_type in [\"C+E+S\", \"C+N+S\"]": "the costing includes the societal LCC",
@@ -549,9 +552,9 @@
    "cat.reporting_disclosure": "Reporting and disclosure",
    "cat.lcc_method_specific": "Life cycle costing",
    "cat.lcsa_integration": "Integration of the methods",
-   "cat.Cross-method consistency": "Consistency between the methods",
-   "origin.mandate": "Standard practice",
-   "origin.rule": "Obligation",
+   "cat.Cross-method consistency": "Rules between the methods (the ones counted on the result page)",
+   "origin.mandate": "Required by the method",
+   "origin.rule": "Required between the methods",
    "because.always": "every study of this kind"
   },
   "enum_refs": {
@@ -621,7 +624,8 @@
    },
    "reference_scenario": {
     "title": "Scenario di riferimento per attore",
-    "description": "Una riga per attore: che cosa fa, o farebbe, senza gli scambi della simbiosi (dove smaltirebbe il flusso, che cosa comprerebbe al suo posto). Lo scenario di riferimento dello studio (D4.1 §11) si costruisce da queste righe."
+    "description": "Una riga per attore: che cosa fa, o farebbe, senza gli scambi della simbiosi (dove smaltirebbe il flusso, che cosa comprerebbe al suo posto). Lo scenario di riferimento dello studio (D4.1 §11) si costruisce da queste righe.",
+    "description_c2": "Facoltativo in Situazione C2: il rendiconto di una sola azienda non prende crediti di sostituzione (D4.1 §7.2.3); il riferimento senza gli scambi si riporta solo per confronto (D4.1 §11.3.1)."
    }
   },
   "fields": {
@@ -1000,6 +1004,8 @@
    "third_party": "terzi"
   },
   "reasons": {
+   "q3.env and ilcd_situation != \"ILCD Situation C2\"": "lo studio riconosce crediti di sostituzione (non è il rendiconto di una sola azienda, Situazione C2)",
+   "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"": "lo studio ha la dimensione ambientale o quella economica, fuori dal rendiconto di una sola azienda (Situazione C2)",
    "future_background and (q3.env or q3.eco)": "lo studio richiede un background futuro (Q8 o Q6b)",
    "lcc_type in [\"C+E\", \"C+E+S\"]": "la valutazione dei costi include l'LCC ambientale",
    "lcc_type in [\"C+E+S\", \"C+N+S\"]": "la valutazione dei costi include l'LCC sociale",
@@ -1135,9 +1141,9 @@
    "cat.reporting_disclosure": "Reportistica e divulgazione",
    "cat.lcc_method_specific": "Life cycle costing",
    "cat.lcsa_integration": "Integrazione dei metodi",
-   "cat.Cross-method consistency": "Coerenza fra i metodi",
-   "origin.mandate": "Pratica standard",
-   "origin.rule": "Obbligo",
+   "cat.Cross-method consistency": "Regole fra i metodi (quelle contate nella pagina risultato)",
+   "origin.mandate": "Richiesto dal metodo",
+   "origin.rule": "Richiesto fra i metodi",
    "because.always": "ogni studio di questo tipo"
   },
   "enum_refs": {
@@ -1207,7 +1213,8 @@
    },
    "reference_scenario": {
     "title": "Scénario de référence par acteur",
-    "description": "Une ligne par acteur : ce qu'il fait, ou ferait, sans les échanges de la symbiose (où il éliminerait le flux, ce qu'il achèterait à la place). Le scénario de référence de l'étude (D4.1 §11) se construit à partir de ces lignes."
+    "description": "Une ligne par acteur : ce qu'il fait, ou ferait, sans les échanges de la symbiose (où il éliminerait le flux, ce qu'il achèterait à la place). Le scénario de référence de l'étude (D4.1 §11) se construit à partir de ces lignes.",
+    "description_c2": "Facultatif en situation C2 : la comptabilité d'une seule entreprise ne prend pas de crédits de substitution (D4.1 §7.2.3) ; la référence sans les échanges n'est rapportée que pour comparaison (D4.1 §11.3.1)."
    }
   },
   "fields": {
@@ -1586,6 +1593,8 @@
    "third_party": "tiers"
   },
   "reasons": {
+   "q3.env and ilcd_situation != \"ILCD Situation C2\"": "l'étude crédite la substitution (ce n'est pas la comptabilité d'une seule entreprise, situation C2)",
+   "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"": "l'étude a la dimension environnementale ou économique, hors de la comptabilité d'une seule entreprise (situation C2)",
    "future_background and (q3.env or q3.eco)": "l'étude demande un arrière-plan futur (Q8 ou Q6b)",
    "lcc_type in [\"C+E\", \"C+E+S\"]": "l'évaluation des coûts inclut le LCC environnemental",
    "lcc_type in [\"C+E+S\", \"C+N+S\"]": "l'évaluation des coûts inclut le LCC sociétal",
@@ -1721,9 +1730,9 @@
    "cat.reporting_disclosure": "Rapport et divulgation",
    "cat.lcc_method_specific": "Coût du cycle de vie",
    "cat.lcsa_integration": "Intégration des méthodes",
-   "cat.Cross-method consistency": "Cohérence entre les méthodes",
-   "origin.mandate": "Pratique standard",
-   "origin.rule": "Obligation",
+   "cat.Cross-method consistency": "Règles entre les méthodes (celles comptées sur la page de résultat)",
+   "origin.mandate": "Exigé par la méthode",
+   "origin.rule": "Exigé entre les méthodes",
    "because.always": "toute étude de ce type"
   },
   "enum_refs": {
@@ -1793,7 +1802,8 @@
    },
    "reference_scenario": {
     "title": "Referenzszenario je Akteur",
-    "description": "Eine Zeile pro Akteur: was er ohne die Austausche der Symbiose tut oder täte (wohin er den Fluss entsorgen, was er stattdessen kaufen würde). Daraus wird das Referenzszenario der Studie (D4.1 §11) gebildet."
+    "description": "Eine Zeile pro Akteur: was er ohne die Austausche der Symbiose tut oder täte (wohin er den Fluss entsorgen, was er stattdessen kaufen würde). Daraus wird das Referenzszenario der Studie (D4.1 §11) gebildet.",
+    "description_c2": "Optional in Situation C2: Die Bilanz eines einzelnen Unternehmens rechnet keine Substitutionsgutschriften an (D4.1 §7.2.3); die Referenz ohne die Austausche wird nur zum Vergleich angegeben (D4.1 §11.3.1)."
    }
   },
   "fields": {
@@ -2172,6 +2182,8 @@
    "third_party": "Dritte"
   },
   "reasons": {
+   "q3.env and ilcd_situation != \"ILCD Situation C2\"": "die Studie rechnet Substitution an (keine Bilanz eines einzelnen Unternehmens, Situation C2)",
+   "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"": "die Studie hat die ökologische oder die ökonomische Dimension, außerhalb der Bilanz eines einzelnen Unternehmens (Situation C2)",
    "future_background and (q3.env or q3.eco)": "die Studie braucht einen künftigen Hintergrund (Q8 oder Q6b)",
    "lcc_type in [\"C+E\", \"C+E+S\"]": "die Kostenbewertung umfasst das ökologische LCC",
    "lcc_type in [\"C+E+S\", \"C+N+S\"]": "die Kostenbewertung umfasst das gesellschaftliche LCC",
@@ -2307,9 +2319,9 @@
    "cat.reporting_disclosure": "Berichterstattung und Offenlegung",
    "cat.lcc_method_specific": "Lebenszykluskosten",
    "cat.lcsa_integration": "Integration der Methoden",
-   "cat.Cross-method consistency": "Konsistenz zwischen den Methoden",
-   "origin.mandate": "Standardpraxis",
-   "origin.rule": "Verpflichtung",
+   "cat.Cross-method consistency": "Regeln zwischen den Methoden (die auf der Ergebnisseite gezählten)",
+   "origin.mandate": "Von der Methode verlangt",
+   "origin.rule": "Zwischen den Methoden verlangt",
    "because.always": "jede Studie dieser Art"
   },
   "enum_refs": {
@@ -2379,7 +2391,8 @@
    },
    "reference_scenario": {
     "title": "Escenario de referencia por actor",
-    "description": "Una fila por actor: qué hace, o haría, sin los intercambios de la simbiosis (dónde eliminaría el flujo, qué compraría en su lugar). El escenario de referencia del estudio (D4.1 §11) se construye con estas filas."
+    "description": "Una fila por actor: qué hace, o haría, sin los intercambios de la simbiosis (dónde eliminaría el flujo, qué compraría en su lugar). El escenario de referencia del estudio (D4.1 §11) se construye con estas filas.",
+    "description_c2": "Opcional en la situación C2: la contabilidad de una sola empresa no toma créditos de sustitución (D4.1 §7.2.3); la referencia sin los intercambios se indica solo para comparar (D4.1 §11.3.1)."
    }
   },
   "fields": {
@@ -2758,6 +2771,8 @@
    "third_party": "terceros"
   },
   "reasons": {
+   "q3.env and ilcd_situation != \"ILCD Situation C2\"": "el estudio acredita la sustitución (no es la contabilidad de una sola empresa, situación C2)",
+   "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"": "el estudio tiene la dimensión ambiental o la económica, fuera de la contabilidad de una sola empresa (situación C2)",
    "future_background and (q3.env or q3.eco)": "el estudio necesita un fondo futuro (Q8 o Q6b)",
    "lcc_type in [\"C+E\", \"C+E+S\"]": "la evaluación de costes incluye el LCC ambiental",
    "lcc_type in [\"C+E+S\", \"C+N+S\"]": "la evaluación de costes incluye el LCC social",
@@ -2893,9 +2908,9 @@
    "cat.reporting_disclosure": "Informe y divulgación",
    "cat.lcc_method_specific": "Coste del ciclo de vida",
    "cat.lcsa_integration": "Integración de los métodos",
-   "cat.Cross-method consistency": "Coherencia entre los métodos",
-   "origin.mandate": "Práctica estándar",
-   "origin.rule": "Obligación",
+   "cat.Cross-method consistency": "Reglas entre los métodos (las que se cuentan en la página de resultados)",
+   "origin.mandate": "Exigido por el método",
+   "origin.rule": "Exigido entre los métodos",
    "because.always": "todo estudio de este tipo"
   },
   "enum_refs": {

@@ -149,7 +149,8 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     # 38 since lca_mc_16 and lcc_mc_14 no longer branch on Q7, 39 with lcc_hc_07 on Q12 (2026-10-18)
     # 38 since lcc_mc_13 is a predicate node (R3, 2026-10-18)
     # 40 with lcc_hc_02 and lcc_hc_03 on Situation C2 (end-to-end review, 2026-10-18)
-    assert len(_branch_nodes(schemas)) == 40
+    # 47 with seven network mandates dormant in Situation C2 (UX round 5, Fable D1)
+    assert len(_branch_nodes(schemas)) == 47
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):
@@ -226,6 +227,9 @@ _OVERLAPPING_NODES = {
     # Situation C2 comes first in these (allocation, no substitution credits, D4.1 §7.2.3)
     "lca_mc_05", "lca_mc_13", "lca_mc_14", "lca_mc_17",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19",
+    # a waste or undecided flow keeps its own rule in C2 too; C2 comes before the
+    # co-product and interdependent rules (UX round 5, Fable D1)
+    "lca_hc_17",
     # slca_mc_04 left on 2026-10-18 with its q7=D branch
     # long_standing=true comes before q2=A: the modern counterfactual (D4.1 §11.2.2)
     "lca_mc_26",

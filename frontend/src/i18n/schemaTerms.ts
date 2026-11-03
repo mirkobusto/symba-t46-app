@@ -119,7 +119,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Dynamic Climate Scenarios LCA-LCC',
-        body: '',
+        body: 'The study reaches into the future (operation in a future year, technology below TRL 7, or an analysis period or asset lifetime beyond 15 years): LCA background datasets and LCC prices and energy costs follow the same SSP/RCP scenario over the same horizon, with SSP2 tested against an ambitious-mitigation pathway (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Pedigree Matrix LCA+LCC',
@@ -147,7 +147,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Shared CAPEX Stakeholder Indicators',
-        body: '',
+        body: 'New dedicated shared assets and a social assessment: next to the CAPEX and amortisation shared by LCA and LCC (D4.1 §6.3.3; D4.2 §4.2), the S-LCA reports per stakeholder group who carries the investment and who benefits from the shared infrastructure — a T4.6 reading; D4.3 §5.1 defines the groups (CIR-08).',
       },
       'CIR-09': {
         name: 'Iterative Update Protocol',
@@ -155,7 +155,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Real-World Failure Modes',
-        body: '',
+        body: 'The interpretation of every method discusses the documented failure modes of real symbioses — end-of-life undercosting of shared infrastructure, supply-chain and logistics failures, biological variability (5-66 % production losses), commodity price discontinuities — as part of the assessment, with the stress tests D4.2 asks for: production losses of 20 %, 50 % and 66 %, end-of-life costs two to five times the base case (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Function-Oriented FU Default',
@@ -195,7 +195,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Geographic Spread Transport Coupling',
-        body: 'Explicit transport in both the LCA foreground and the LCC costs, whatever the geographic spread, per B-05 (D4.1 §12.3.1, D4.2 §4.3).',
+        body: 'Transport is modelled explicitly in every active dimension: as foreground unit processes in the LCA (D4.1 §12.3.1) and as a distance-sensitive cost in the LCC (D4.2 §4.3), whatever the geographic spread (B-05).',
       },
       'B-06': {
         name: 'Capital Goods Amortization Alignment',
@@ -371,7 +371,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Scenari climatici dinamici LCA-LCC',
-        body: '',
+        body: 'Lo studio guarda al futuro (esercizio in un anno futuro, tecnologia sotto TRL 7, o periodo di analisi o vita dei beni oltre 15 anni): i dataset di background dell\'LCA e i prezzi e i costi energetici dell\'LCC seguono lo stesso scenario SSP/RCP sullo stesso orizzonte, con SSP2 messo a confronto con un percorso di mitigazione ambizioso (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Matrice pedigree LCA+LCC',
@@ -399,7 +399,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Indicatori per stakeholder su CAPEX condiviso',
-        body: '',
+        body: 'Beni condivisi dedicati e valutazione sociale: accanto al CAPEX e all\'ammortamento condivisi da LCA e LCC (D4.1 §6.3.3; D4.2 §4.2), l\'S-LCA riporta per gruppo di stakeholder chi sostiene l\'investimento e chi beneficia dell\'infrastruttura condivisa — una lettura di T4.6; i gruppi li definisce la D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocollo di aggiornamento iterativo',
@@ -407,7 +407,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Modalità di guasto nel mondo reale',
-        body: '',
+        body: 'L\'interpretazione di ogni metodo discute le modalità di guasto documentate delle simbiosi reali — sottostima dei costi di fine vita delle infrastrutture condivise, guasti logistici e di fornitura, variabilità biologica (perdite di produzione del 5-66 %), discontinuità dei prezzi — come parte della valutazione, con le prove di stress della D4.2: perdite del 20, 50 e 66 %, costi di fine vita da due a cinque volte il caso base (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unità funzionale orientata alla funzione',
@@ -447,7 +447,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Trasporto esplicito qualunque sia la distribuzione geografica',
-        body: 'Trasporto esplicito sia nel foreground dell\'LCA sia nei costi dell\'LCC, qualunque sia la distribuzione geografica (B-05; D4.1 §12.3.1, D4.2 §4.3).',
+        body: 'Il trasporto si modella esplicitamente in ogni dimensione attiva: come processi unitari di foreground nell\'LCA (D4.1 §12.3.1) e come costo sensibile alla distanza nell\'LCC (D4.2 §4.3), qualunque sia la distribuzione geografica (B-05).',
       },
       'B-06': {
         name: 'Allineamento dell\'ammortamento dei beni capitali',
@@ -623,7 +623,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Scénarios climatiques dynamiques LCA-LCC',
-        body: '',
+        body: 'L\'étude se projette dans le futur (exploitation une année future, technologie sous TRL 7, ou période d\'analyse ou durée de vie des biens au-delà de 15 ans) : les jeux de données d\'arrière-plan de l\'ACV et les prix et coûts énergétiques de l\'ACC suivent le même scénario SSP/RCP sur le même horizon, avec SSP2 confronté à une trajectoire d\'atténuation ambitieuse (CIR-01 ; D4.1 §9.3.4 ; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Matrice pedigree LCA+LCC',
@@ -651,7 +651,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Indicateurs parties prenantes sur CAPEX partagé',
-        body: '',
+        body: 'Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l\'amortissement partagés par l\'ACV et l\'ACC (D4.1 §6.3.3 ; D4.2 §4.2), l\'ACV sociale indique par groupe de parties prenantes qui porte l\'investissement et qui bénéficie de l\'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocole de mise à jour itérative',
@@ -659,7 +659,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Modes de défaillance en conditions réelles',
-        body: '',
+        body: 'L\'interprétation de chaque méthode discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances logistiques et d\'approvisionnement, variabilité biologique (pertes de production de 5 à 66 %), ruptures de prix — comme partie de l\'évaluation, avec les tests de résistance demandés par la D4.2 : pertes de production de 20, 50 et 66 %, coûts de fin de vie de deux à cinq fois le cas de base (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unité fonctionnelle orientée fonction',
@@ -699,7 +699,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Transport explicite quelle que soit la répartition géographique',
-        body: 'Transport explicite à la fois dans le premier plan de la LCA et dans les coûts de la LCC, quelle que soit la répartition géographique (B-05 ; D4.1 §12.3.1, D4.2 §4.3).',
+        body: 'Le transport est modélisé explicitement dans chaque dimension active : comme procédés élémentaires d\'avant-plan dans l\'ACV (D4.1 §12.3.1) et comme coût sensible à la distance dans l\'ACC (D4.2 §4.3), quelle que soit la répartition géographique (B-05).',
       },
       'B-06': {
         name: 'Alignement de l\'amortissement des biens d\'équipement',
@@ -875,7 +875,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Dynamische Klimaszenarien LCA-LCC',
-        body: '',
+        body: 'Die Studie reicht in die Zukunft (Betrieb in einem künftigen Jahr, Technologie unter TRL 7 oder Analysezeitraum bzw. Lebensdauer der Anlagen über 15 Jahre): Hintergrunddatensätze der Ökobilanz sowie Preise und Energiekosten der Lebenszykluskostenrechnung folgen demselben SSP/RCP-Szenario über denselben Horizont, wobei SSP2 gegen einen ambitionierten Minderungspfad getestet wird (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Pedigree-Matrix LCA+LCC',
@@ -903,7 +903,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Stakeholder-Indikatoren für gemeinsames CAPEX',
-        body: '',
+        body: 'Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die Ökobilanz und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protokoll der iterativen Aktualisierung',
@@ -911,7 +911,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Ausfallarten im realen Betrieb',
-        body: '',
+        body: 'Die Interpretation jeder Methode erörtert die dokumentierten Ausfallmuster realer Symbiosen — unterschätzte Rückbaukosten gemeinsamer Infrastruktur, Liefer- und Logistikausfälle, biologische Schwankungen (Produktionsverluste von 5-66 %), Preisbrüche — als Teil der Bewertung, mit den Stresstests der D4.2: Produktionsverluste von 20, 50 und 66 %, Rückbaukosten zwei- bis fünfmal so hoch wie im Basisfall (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Funktionsorientierte funktionelle Einheit',
@@ -951,7 +951,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Expliziter Transport unabhängig von der räumlichen Verteilung',
-        body: 'Expliziter Transport sowohl im Vordergrund der LCA als auch in den Kosten der LCC, unabhängig von der räumlichen Verteilung (B-05; D4.1 §12.3.1, D4.2 §4.3).',
+        body: 'Der Transport wird in jeder aktiven Dimension explizit modelliert: als Vordergrundprozesse in der Ökobilanz (D4.1 §12.3.1) und als entfernungsabhängige Kosten in der Kostenrechnung (D4.2 §4.3), unabhängig von der geografischen Verteilung (B-05).',
       },
       'B-06': {
         name: 'Abstimmung der Abschreibung von Investitionsgütern',
@@ -1127,7 +1127,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Escenarios climáticos dinámicos LCA-LCC',
-        body: '',
+        body: 'El estudio mira al futuro (operación en un año futuro, tecnología por debajo de TRL 7, o periodo de análisis o vida de los activos de más de 15 años): los datos de fondo del ACV y los precios y costes energéticos del ACC siguen el mismo escenario SSP/RCP en el mismo horizonte, con SSP2 contrastado con una trayectoria de mitigación ambiciosa (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Matriz pedigree LCA+LCC',
@@ -1155,7 +1155,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Indicadores de partes interesadas sobre CAPEX compartido',
-        body: '',
+        body: 'Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten ACV y ACC (D4.1 §6.3.3; D4.2 §4.2), el ACV social indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocolo de actualización iterativa',
@@ -1163,7 +1163,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Modos de fallo en condiciones reales',
-        body: '',
+        body: 'La interpretación de cada método discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de la infraestructura compartida, fallos logísticos y de suministro, variabilidad biológica (pérdidas de producción del 5-66 %), rupturas de precios — como parte de la evaluación, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20, 50 y 66 %, costes de fin de vida de dos a cinco veces el caso base (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unidad funcional orientada a la función',
@@ -1203,7 +1203,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Transporte explícito sea cual sea la distribución geográfica',
-        body: 'Transporte explícito tanto en el primer plano del LCA como en los costes del LCC, sea cual sea la distribución geográfica (B-05; D4.1 §12.3.1, D4.2 §4.3).',
+        body: 'El transporte se modela explícitamente en cada dimensión activa: como procesos unitarios de primer plano en el ACV (D4.1 §12.3.1) y como coste sensible a la distancia en el ACC (D4.2 §4.3), sea cual sea la distribución geográfica (B-05).',
       },
       'B-06': {
         name: 'Alineación de la amortización de los bienes de capital',

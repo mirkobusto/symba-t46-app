@@ -142,11 +142,15 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-13": lambda c: c.q3.env and c.q3.eco and bool(c.dedicated_shared_assets),
     "IR-14": lambda c: _q3_dims_active(c) >= 2,
     "IR-15": lambda c: c.q3.env and c.q3.eco and any(f.q5 in {Q5.a, Q5.b} for f in c.flows),
-    "IR-16": lambda c: _q3_dims_active(c) >= 2,
+    # one company (Situation C2) has no network level to compute or report
+    # (UX round 5, Fable review of #209; D4.1 §7.2.3)
+    "IR-16": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     "IR-17": lambda c: True,
     "IR-18": lambda c: _q4_intersects(c, {"C"}),
     "IR-19": lambda c: True,
-    "IR-20": lambda c: _q3_dims_active(c) >= 2,
+    # one company (Situation C2) has no network level to compute or report
+    # (UX round 5, Fable review of #209; D4.1 §7.2.3)
+    "IR-20": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     # --- CIR (10) ---
     "CIR-01": needs_future_background,
     "CIR-02": lambda c: c.q2 == Q2.B,

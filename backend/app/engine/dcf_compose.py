@@ -165,6 +165,8 @@ class DcfPayload(BaseModel):
     reference_market: str | None = None
     # a costing-only study has no ILCD situation to show (UX round 5, P3-04)
     costing_only: bool = False
+    # Situation C2: the reference scenario is optional (Fable D1)
+    situation_c2: bool = False
 
     sections: list[DcfSection] = Field(default_factory=list)
     mandates_by_category: dict[str, list[DcfMandate]] = Field(default_factory=dict)
@@ -241,6 +243,7 @@ def compose_dcf(
     Returns: DcfPayload.
     """
     ctx = build_context_from_case(case)
+    situation_c2 = ctx.get("ilcd_situation") == "ILCD Situation C2"
 
     sections_out: list[DcfSection] = []
     mandates_by_category: dict[str, list[DcfMandate]] = {}
@@ -281,6 +284,12 @@ def compose_dcf(
                     active_fields.append(descriptor)
 
         _mark_derived_ids(active_fields)
+        if sec_id == "reference_scenario" and situation_c2:
+            # one company's accounts take no substitution credits: the reference
+            # without the exchanges is reported only for comparison (D4.1 §7.2.3,
+            # §11.3.1; Fable D1)
+            for field in active_fields:
+                field.required = False
         sections_out.append(DcfSection(
             id=sec_id,
             filled_by=_SECTION_FILLED_BY.get(sec_id),
@@ -297,6 +306,7 @@ def compose_dcf(
         case_id=_case_id_str(case.id),
         ilcd_situation=case.ilcd_situation.value if case.ilcd_situation else None,
         costing_only=bool(case.q3 and case.q3.eco and not case.q3.env),
+        situation_c2=situation_c2,
         study_purpose=case.study_purpose.value.capitalize() if case.study_purpose else None,
         reference_market=(" ".join(x for x in (
             case.reference_market_region,
@@ -375,11 +385,11 @@ def _compose_mandates(
 def _case_statement(node_id: str, case: Case) -> str | None:
     """The branch of a discriminative mandate that holds for this case.
 
-    The census joins every branch with " | " ("NO zero-burden allowed
-    (interdependent) | Standard zero-burden test"), so the DCF a partner
-    receives listed alternatives as if all applied, while the result page
-    said one thing per flow (UX round 4, P2-05). A per-flow node gives one
-    line per flow, named; the others the branch of the case."""
+    The census joins every branch with " | ", so the DCF a partner received
+    listed alternatives as if all applied, while the result page said one
+    thing per flow (UX round 4, P2-05). A per-flow node gives one line per
+    flow, named; the others the branch of the case. A per-flow mandate with a
+    predicate names the flows it holds for (UX round 5, D8)."""
     from app.engine.answer_phrases import fill
     from app.engine.branch_keys import Answers, pick_branch
     from app.engine.loader import load_schemas
@@ -387,6 +397,11 @@ def _case_statement(node_id: str, case: Case) -> str | None:
     node = load_schemas().nodes_by_id.get(node_id)
     default = node.get("default_value") if node else None
     if not isinstance(default, dict):
+        # a per-flow mandate with a predicate (MFCA for Q5 = b, …) said "this
+        # flow" without saying which: name the flows it holds for (Fable D8)
+        names = _flows_triggering(node_id, case) if node and node.get("per_flow") else []
+        if names and isinstance(default, str):
+            return f"{', '.join(names)}: {default}"
         return None
     if node.get("per_flow") and case.flows:
         lines = []
@@ -408,10 +423,41 @@ def _method_of(fields: list[str]) -> str:
     return "cross-method"
 
 
-def _because(trigger: str | None, case: Case) -> str | None:
+def _flows_triggering(node_id: str, case: Case) -> list[str]:
+    """Names of the flows a per-flow predicate node holds for."""
+    from app.engine.activate import _PREDICATES
+
+    pred = _PREDICATES.get(node_id)
+    if pred is None or pred.__code__.co_argcount != 2:
+        return []
+    return [f.name or f.id for f in case.flows if pred(case, f)]
+
+
+def _reads_q5(node_id: str) -> bool:
+    """Whether a per-flow predicate decides on the flow's payment class: only
+    then is "Q5 = …" the reason (a predicate true for every flow is not)."""
+    import inspect
+
+    from app.engine.activate import _PREDICATES
+
+    pred = _PREDICATES.get(node_id)
+    try:
+        return pred is not None and "f.q5" in inspect.getsource(pred)
+    except (OSError, TypeError):
+        return False
+
+
+def _because(trigger: str | None, case: Case, node_id: str | None = None) -> str | None:
     """Why an item applies, in the answers it reads ("Q3 = env + eco"), not
     as a trigger expression ("Q3 has ≥2 dims active", "flow.q5 == 'b'")."""
     from app.services.narrative import answers_in
+    if node_id and _reads_q5(node_id):
+        # only the flows the per-flow rule holds for, not every flow of the
+        # case (P3-07, P6-09; Fable D8)
+        flows = {f.name or f.id: f for f in case.flows}
+        names = _flows_triggering(node_id, case)
+        if names:
+            return "Q5 = " + " · ".join(f"{n}: {flows[n].q5.value}" for n in names)
     if not trigger:
         return None
     answers = answers_in(trigger.replace("flow.q5", "Q5").replace("case.q", "Q"), case)
@@ -433,7 +479,7 @@ def _compose_obligations(
             category=category,
             trigger=mandate.trigger_condition,
             source_section=mandate.source_section,
-            because=_because(mandate.trigger_condition, case),
+            because=_because(mandate.trigger_condition, case, mandate.node_id),
         )
         for category, mandates in by_category.items()
         for mandate in mandates

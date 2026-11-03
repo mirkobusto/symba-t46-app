@@ -213,7 +213,8 @@
             "low",
             "med",
             "high",
-            "unknown"
+            "unknown",
+            "not_applicable"
           ],
           "required": false,
           "activation_predicate": "always"
@@ -389,7 +390,7 @@
           "label_en": "Product or process the flow replaces",
           "type": "string",
           "required": false,
-          "activation_predicate": "q3.env or q3.eco",
+          "activation_predicate": "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"",
           "description_en": "What the receiving actor would use without this flow, or what the origin would do with it: the substituted product of a substitution (D4.1 §8.3), and the counterpart of the price in the economic reference."
         },
         {
@@ -399,7 +400,7 @@
           "min": 0,
           "max": 1,
           "required": false,
-          "activation_predicate": "q3.env",
+          "activation_predicate": "q3.env and ilcd_situation != \"ILCD Situation C2\"",
           "description_en": "Ratio between the quality of the recovered flow and that of the product it replaces, which corrects the substitution credit (D4.1 §8.3)."
         },
         {
@@ -407,7 +408,7 @@
           "label_en": "Basis of the quality factor Q",
           "type": "text",
           "required": false,
-          "activation_predicate": "q3.env",
+          "activation_predicate": "q3.env and ilcd_situation != \"ILCD Situation C2\"",
           "description_en": "The property the ratio rests on (e.g. energy content, protein, purity) and its source."
         },
         {
@@ -415,7 +416,7 @@
           "label_en": "LCI dataset of the replaced product",
           "type": "string_docref",
           "required": false,
-          "activation_predicate": "q3.env",
+          "activation_predicate": "q3.env and ilcd_situation != \"ILCD Situation C2\"",
           "description_en": "Background dataset that models the substituted product, with database and version."
         },
         {
@@ -778,7 +779,7 @@
           "label_en": "CAPEX amount",
           "type": "float",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True",
+          "activation_predicate": "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -786,7 +787,7 @@
           "label_en": "CAPEX currency + reference year (e.g. EUR2024)",
           "type": "string",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True",
+          "activation_predicate": "q3.eco and (q2 == \"B\" or has_scenarios or dedicated_shared_assets == True)",
           "row_condition": "infra.status == \"new\""
         },
         {
@@ -820,7 +821,7 @@
           "label_en": "Avoided lifetime (years, for substitution accounting)",
           "type": "int",
           "required": false,
-          "activation_predicate": "always",
+          "activation_predicate": "(q3.env or q3.eco) and ilcd_situation != \"ILCD Situation C2\"",
           "row_condition": "infra.status == \"replaced\""
         },
         {

@@ -70,16 +70,20 @@
       "method": "LCA",
       "type": "HC",
       "source_section": "D4.1 §4.3.1",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Multi-actor stakeholder identification before scoping",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Multi-actor stakeholder identification before scoping"
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.3.1)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §5.3.1). | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lca_hc_03",
@@ -224,16 +228,20 @@
       "method": "LCA",
       "type": "HC",
       "source_section": "D4.1 §7.3.2",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Substitution data quality and source documented",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Substitution data quality and source documented"
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.2)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.2). | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lca_hc_12",
@@ -330,20 +338,25 @@
       "source_section": "D4.1 §8.2.4",
       "category": "DERIVED",
       "trigger_q": [
-        "q5"
+        "q5",
+        "ilcd"
       ],
       "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
       "default_value": {
-        "q5=d": "NO zero-burden allowed (interdependent)",
-        "default": "Standard zero-burden test"
+        "q5=a": "waste: zero burden from the point where the residue first reaches non-negative value, after the avoidability test (D4.1 §8.3.6 Step 4)",
+        "q5=b": "undecided: economic value test with a sensitivity analysis (D4.1 §8.3.2)",
+        "ilcd=C2": "allocation: no zero burden and no substitution credits, one company's accounts (D4.1 §7.2.3)",
+        "q5=c": "co-product: no zero burden; substitution of the product it replaces with the quality factor Q (D4.1 §8.3.6 Step 3)",
+        "q5=d": "interdependent: a determining co-product, never zero burden; one expanded multifunctional system (D4.1 §8.3.6 Step 2)",
+        "q5=e": "aggregated: classify each flow that can be named, no network-wide rule (D4.1 §8.3.1)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.2.4)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.2.4). | UX round 5, 2026-11-03 (Fable D1): L00899, L01013, L01047"
     },
     {
       "id": "lca_hc_18",
@@ -1033,16 +1046,20 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §15.1",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Interpretation on three levels, not a single aggregated result (D4.1 §15.1, §15.3.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors.",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Interpretation on three levels, not a single aggregated result (D4.1 §15.1, §15.3.1): network (collective performance against the reference scenario), entity (each company's environmental and economic balance) and flow (each symbiotic link, to find the most valuable exchanges and the hotspots); a matrix-based LCA model lets system results be disaggregated back to processes and actors."
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.1) | Rewritten on FINAL v2 text, review 2026-10-15: L01539 ('a single, aggregated result ... is insufficient. The interpretation must be structured ...'), L01541-L01545 (the three levels), L01571 (matrix-based model, 'should'). The former text, 'Network-level analysis preferred for IS', contradicted L01539. LCC twin: lcc_hc_01. Fable review 2026-10-15: L01569-L01571 are in §15.3.1, now cited."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.1) | Rewritten on FINAL v2 text, review 2026-10-15: L01539 ('a single, aggregated result ... is insufficient. The interpretation must be structured ...'), L01541-L01545 (the three levels), L01571 (matrix-based model, 'should'). The former text, 'Network-level analysis preferred for IS', contradicted L01539. LCC twin: lcc_hc_01. Fable review 2026-10-15: L01569-L01571 are in §15.3.1, now cited. | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lca_mc_32",
@@ -1089,16 +1106,20 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §10.3.1",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Multi-level contribution analysis — network, entity and flow — should structure the results of every IS LCA, e.g. with a matrix model such as UM³-LCE³-ISN or Brightway with demand-vector manipulation (D4.1 §10.3.1)",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Multi-level contribution analysis — network, entity and flow — should structure the results of every IS LCA, e.g. with a matrix model such as UM³-LCE³-ISN or Brightway with demand-vector manipulation (D4.1 §10.3.1)"
+      },
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 marks DEFAULT but description has Q3 conditional; preserved as DEFAULT per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01180 ('should be structured to provide a multi-level contribution analysis'), L01186, L01192. The former condition 'when Q3.ECO + Q3.ENV' is not in the text."
+      "extraction_notes": "v1 marks DEFAULT but description has Q3 conditional; preserved as DEFAULT per v1 | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §11.3.1). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01180 ('should be structured to provide a multi-level contribution analysis'), L01186, L01192. The former condition 'when Q3.ECO + Q3.ENV' is not in the text. | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lca_mc_35",
@@ -1171,15 +1192,20 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §2.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "3-level structure (Network/Entity/Flow) mandatory",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "3-level structure (Network/Entity/Flow) mandatory"
+      },
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lcc_hc_02",
@@ -1325,16 +1351,20 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §5.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Entity-level before network consolidation (4-step sequence)",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Entity-level before network consolidation (4-step sequence)"
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §5.2); audit 2026-10-04."
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §5.2); audit 2026-10-04. | UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lcc_hc_10",
@@ -1503,15 +1533,20 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §8.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Strict 4-step calculation sequence (Entity->Flow->Network->Baseline)",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Strict 4-step calculation sequence (Entity->Flow->Network->Baseline)"
+      },
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "UX round 5, 2026-11-03 (Fable D1): dormant in Situation C2, a single company has no network level (D4.1 §7.2.3 L00899)"
     },
     {
       "id": "lcc_hc_20",
@@ -2054,13 +2089,13 @@
         "q5=a": "negative value: the generator pays a gate fee; zero burden only after the avoidability test (D4.2 §6.1; §6.2)",
         "q5=b": "zero value: no established market demand, transferred free; checked with the Economic Value Test of D4.1 §8.3.2 (D4.2 §6.1)",
         "q5=c": "positive value: a co-product at the agreed transfer price (D4.2 §6.1)",
-        "q5=d": "interdependent multifunctional production: a deliberate co-product (D4.2 §6.1; §6.2)",
+        "q5=d": "interdependent: a determining co-product; upstream costs allocated, in the C-LCC at the negotiated transfer price (D4.2 §6.1; §6.2)",
         "q5=e": "aggregated in the source: no uniform rule, the valuation is decided flow by flow in the DCF (D4.2 §6.1)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "v1 default text refers to 'Avoidable/Unavoidable per Q5 answer' — restated per Q5 option for clarity | source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §6.2); audit 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00701 ('an active methodological decision ... rather than a default assumption to be applied uniformly'), L00705-L00709 (positive, zero, negative value), L00729, L00741. 'EVT' is the Economic Value Test of D4.1 §8.3.2, now spelled out; Q5=e no longer gets 'uniform'."
+      "extraction_notes": "v1 default text refers to 'Avoidable/Unavoidable per Q5 answer' — restated per Q5 option for clarity | source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §6.2); audit 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00701 ('an active methodological decision ... rather than a default assumption to be applied uniformly'), L00705-L00709 (positive, zero, negative value), L00729, L00741. 'EVT' is the Economic Value Test of D4.1 §8.3.2, now spelled out; Q5=e no longer gets 'uniform'. | UX round 5, 2026-11-03 (Fable D1): one word with lca_hc_17 (determining, not deliberate)"
     },
     {
       "id": "lcc_mc_10",

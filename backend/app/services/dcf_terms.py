@@ -88,6 +88,8 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
         text = terms["sections"].get(section.id, {})
         section.title = text.get("title", section.title_en)
         section.description = text.get("description", section.description_en)
+        if section.id == "reference_scenario" and out.situation_c2:
+            section.description = text.get("description_c2", section.description)
         for field in section.fields:
             ftext = terms["fields"].get(field.id, {})
             field.label = ftext.get("label", field.label_en)

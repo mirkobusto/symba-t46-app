@@ -7,12 +7,16 @@ paper-specific bibliographic sections; this one writes a user's case.
 Since the agent UX round of 2026-11-02 it is written in the interface
 language and no longer carries the paper-validation sections (bibliography,
 the authors' configuration, paper vs tool), which were empty placeholders for
-a user's case and a third of the document. The verdict, the engine notes and
-the answer labels come from the app's own translations
-(app/data/report_terms.json, copied from the frontend locales by
-scripts/sync_report_terms.py); rule titles, sector-rule statements and the
-engine's key-by-key output stay in English, as traced on the deliverables
-(owner decision, R5).
+a user's case and a third of the document. The verdict, the engine notes,
+the answer labels and the rule / CDP names, texts and resolutions come from
+the app's own translations (app/data/report_terms.json, copied from the
+frontend locales and i18n/schemaTerms.ts by scripts/sync_report_terms.py).
+Since the round of 2026-11-03 the document also carries "Your configuration":
+the rows are computed by the result page (pages/configurationRows.ts) and sent
+with the request, so the two cannot drift. Node statements, sector-rule
+statements and the engine's key-by-key output stay in English, as traced on
+the deliverables (owner decision R5); the key-by-key output sits in the
+appendix.
 """
 from __future__ import annotations
 
@@ -59,6 +63,22 @@ def _t(lang: str, path: str, default: str | None = None, **params: Any) -> str:
     return re.sub(r"\{\{(\w+)\}\}", lambda m: str(params.get(m.group(1), m.group(0))), text)
 
 
+def _schema(lang: str, kind: str, code: str) -> dict[str, str]:
+    """Rule / CDP / block wording in `lang`, English when the table lacks it."""
+    terms = _terms()
+    table = terms.get(language(lang), terms["en"]).get("schema", {}).get(kind, {})
+    return table.get(code) or terms["en"].get("schema", {}).get(kind, {}).get(code) or {}
+
+
+def _engine_value(value: Any) -> str:
+    """A pillar value as text: per-flow dicts read as 'f1: …; f2: …', not as a Python repr."""
+    if isinstance(value, dict):
+        return "; ".join(f"{k}: {_engine_value(v)}" for k, v in value.items())
+    if isinstance(value, list | tuple | set):
+        return ", ".join(_engine_value(v) for v in value)
+    return str(value)
+
+
 def _format_q3(q3: Q3, lang: str = "en") -> str:
     parts = [_t(lang, f"options.q3.{d}") for d in ("env", "eco", "soc") if getattr(q3, d)]
     return " + ".join(parts) or _t(lang, "docx.none")
@@ -94,8 +114,8 @@ def _write_verdict(doc: Document, verdict: Verdict, lang: str = "en", case: Case
         run = codes.add_run(" · ".join(verdict.codes))
         run.italic = True
         run.font.size = Pt(9)
-    if verdict.detail:
-        doc.add_paragraph(verdict.detail)
+    if verdict.detail and not verdict.sections:   # the sections below repeat it otherwise
+        doc.add_paragraph(_t(lang, f"narrative.ilcd.{situation}.detail", verdict.detail))
 
     if not verdict.sections:
         return
@@ -114,7 +134,7 @@ def _write_verdict(doc: Document, verdict: Verdict, lang: str = "en", case: Case
         code_run = para.add_run(f"[{section.code}]")
         code_run.font.size = Pt(9)
         if section.detail:
-            doc.add_paragraph(section.detail)
+            doc.add_paragraph(_t(lang, f"narrative.{kind}.{section.code}.detail", section.detail))
         if section.quote:
             quoted = doc.add_paragraph(style="Intense Quote")
             quoted.add_run(f"\u201c{section.quote}\u201d").italic = True
@@ -139,7 +159,9 @@ def _write_next_steps(
         # a decision the engine has settled is not "to decide" (result page, PR #165)
         kind = "decisionResolved" if item.kind == "decision" and item.code in (resolved or set()) else item.kind
         head.add_run(f"[{_t(lang, f'actionKind.{kind}', item.kind)}] ").bold = True
-        head.add_run(item.title).bold = True
+        schema_kind = {"obligation": "rule", "decision": "cdp"}.get(item.kind, "block")
+        term = _schema(lang, schema_kind, item.code)
+        head.add_run(term.get("name") or item.title).bold = True
         code_run = head.add_run(f"  {item.code}")
         code_run.font.size = Pt(9)
 
@@ -147,19 +169,21 @@ def _write_next_steps(
             why = doc.add_paragraph()
             why.add_run(f"{_t(lang, 'docx.whyHere')} ").italic = True
             why.add_run(", ".join(f"{label} = {value}" for label, value in item.answers))
-            if item.trigger:
-                trigger_run = why.add_run(f"  ({item.trigger})")
-                trigger_run.font.size = Pt(9)
 
         if item.fields:
             todo = doc.add_paragraph()
             todo.add_run(f"{_t(lang, 'docx.toDocument')} ").italic = True
             todo.add_run(", ".join(item.fields))
 
-        if item.detail:
+        body = term.get("body") or item.detail
+        if body:
             detail = doc.add_paragraph()
-            detail_run = detail.add_run(item.detail)
+            detail_run = detail.add_run(body)
             detail_run.font.size = Pt(9)
+        if term.get("resolution"):
+            how = doc.add_paragraph()
+            how.add_run(f"{_t(lang, 'page.resolution')}: ").italic = True
+            how.add_run(term["resolution"])
 
 
 def _note(lang: str, w: dict[str, Any]) -> str:
@@ -177,9 +201,28 @@ def _yes_no(lang: str, value: bool) -> str:
     return _t(lang, "common.yes" if value else "common.no")
 
 
-def generate_case_report_bytes(case: Case, title: str | None = None, lang: str = "en") -> bytes:
+def _write_configuration(doc: Document, rows: list[dict[str, Any]], lang: str) -> None:
+    """The result page's "Your configuration", row by row with its reason."""
+    doc.add_heading(_t(lang, "page.configTitle"), level=1)
+    table = doc.add_table(rows=0, cols=2)
+    table.style = "Light List Accent 1"
+    for row in rows:
+        cells = table.add_row().cells
+        cells[0].text = str(row.get("label", ""))
+        cells[0].paragraphs[0].runs[0].bold = True
+        cells[1].text = str(row.get("value", ""))
+        if row.get("why"):
+            why = cells[1].add_paragraph()
+            why.add_run(f"{_t(lang, 'page.why')} ").italic = True
+            why.add_run(str(row["why"])).italic = True
+
+
+def generate_case_report_bytes(
+    case: Case, title: str | None = None, lang: str = "en", rows: list[dict[str, Any]] | None = None,
+) -> bytes:
     """Build a .docx for `case` (assumed already pipeline-run) in `lang` and
-    return the bytes for streaming via FastAPI Response."""
+    return the bytes for streaming via FastAPI Response. `rows` are the
+    result page's configuration rows, already worded in `lang`."""
     doc = Document()
     doc.styles["Normal"].font.size = Pt(11)
     q = lambda key: _t(lang, f"docx.q.{key}")  # noqa: E731
@@ -192,6 +235,8 @@ def generate_case_report_bytes(case: Case, title: str | None = None, lang: str =
     verdict = verdict_for(case)
     if verdict is not None:
         _write_verdict(doc, verdict, lang, case)
+    if rows:
+        _write_configuration(doc, rows, lang)
     resolved = {str(c.get("cdp_id")) for c in case.cdp_flags if c.get("resolution")}
     _write_next_steps(doc, action_items(case), lang, resolved)
 
@@ -246,7 +291,10 @@ def generate_case_report_bytes(case: Case, title: str | None = None, lang: str =
     if case.dedicated_shared_assets is not None:
         _add_kv(doc, q("q12"), _yes_no(lang, case.dedicated_shared_assets))
     if case.alternative_scenarios:
-        _add_kv(doc, _t(lang, "docx.scenarios"), str(len(case.alternative_scenarios)))
+        # the names and the answers each one changes; the comparison is on the scenarios page
+        _add_kv(doc, _t(lang, "docx.scenarios"), "; ".join(
+            f"{sc.label} ({', '.join(f'{k} = {_engine_value(v)}' for k, v in sc.overrides.items()) or '—'})"
+            for sc in case.alternative_scenarios))
     if case.advanced:
         _add_kv(doc, _t(lang, "docx.advanced"), ", ".join(f"{k}={v}" for k, v in case.advanced.items()))
 
@@ -281,6 +329,14 @@ def generate_case_report_bytes(case: Case, title: str | None = None, lang: str =
             doc.add_paragraph(f"[{r['strength']}] {r['statement']} ({r['source']}, {r['lines']}){note}",
                               style="List Bullet")
 
+
+    # ----- 3. Summary -----
+    doc.add_heading(_t(lang, "docx.summary"), level=1)
+    doc.add_paragraph(_t(lang, "docx.blocked") if case.blocked_by else
+                      _t(lang, "docx.complete", obligations=len(case.applicable_rules), cdps=len(case.cdp_flags)))
+
+    # ----- 4. Appendix: engine output (English) and activated nodes -----
+    doc.add_heading(_t(lang, "docx.appendix"), level=1)
     doc.add_heading(_t(lang, "docx.pillars"), level=2)
     pillar_pairs = [
         ("LCA", case.lca), ("LCC", case.lcc), ("S-LCA", case.slca), ("Report", case.report),
@@ -294,24 +350,17 @@ def generate_case_report_bytes(case: Case, title: str | None = None, lang: str =
         any_written = True
         doc.add_heading(name, level=3)
         for k, v in pillar.items():
-            doc.add_paragraph(f"  {k} = {v}")
+            doc.add_paragraph(f"  {k} = {_engine_value(v)}")
     if not any_written:
         doc.add_paragraph(_t(lang, "docx.noPillars"))
-
-    # ----- 3. Summary -----
-    doc.add_heading(_t(lang, "docx.summary"), level=1)
-    doc.add_paragraph(_t(lang, "docx.blocked") if case.blocked_by else
-                      _t(lang, "docx.complete", obligations=len(case.applicable_rules), cdps=len(case.cdp_flags)))
-
-    # ----- 4. Appendix: activated nodes -----
-    doc.add_heading(_t(lang, "docx.appendix"), level=1)
+    doc.add_heading(_t(lang, "docx.nodes"), level=2)
     grouped: dict[str, list[str]] = {}
     for nid in case.activated_nodes:
         grouped.setdefault(nid.split("_")[0], []).append(nid)
     counts = Counter({k: len(v) for k, v in grouped.items()})
     _add_kv(doc, _t(lang, "docx.countsByPrefix"), ", ".join(f"{k}={n}" for k, n in counts.most_common()))
     for prefix in sorted(grouped):
-        doc.add_heading(f"{prefix} ({len(grouped[prefix])})", level=2)
+        doc.add_heading(f"{prefix} ({len(grouped[prefix])})", level=3)
         doc.add_paragraph(", ".join(grouped[prefix]))
 
     buf = BytesIO()

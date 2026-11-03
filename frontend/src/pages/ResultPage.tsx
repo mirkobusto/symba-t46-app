@@ -10,7 +10,7 @@ import VerdictCard from '../components/dd/VerdictCard'
 import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { verdictFor } from './resultNarrative'
-import { obligationGroups } from './configurationRows'
+import { configurationRows, obligationGroups } from './configurationRows'
 import ConfigurationSummary from '../components/ConfigurationSummary'
 import { useHealth } from '../hooks/useHealth'
 import { ApiError, createCase, fetchReportDocx } from '../services/api'
@@ -139,7 +139,12 @@ export default function ResultPage() {
   async function handleDownloadReport() {
     setDownloadingReport(true)
     try {
-      const blob = await fetchReportDocx(draft)
+      // the rows the page shows, so the document carries the same configuration
+      const rows = result
+        ? configurationRows(result, (key, options) => t(key, options ?? {}) as string)
+            .map(({ label, value, why }) => ({ label, value, why }))
+        : []
+      const blob = await fetchReportDocx(draft, rows)
       triggerDownload(blob, 'symba-case-report.docx')
     } catch (e) {
       const detail =

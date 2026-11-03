@@ -17,6 +17,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 LOCALES = ROOT / "frontend" / "src" / "i18n" / "locales"
+SCHEMA_TERMS = ROOT / "frontend" / "src" / "i18n" / "schemaTerms.ts"
 OUT = ROOT / "backend" / "app" / "data" / "report_terms.json"
 LANGUAGES = ("en", "it", "fr", "de", "es")
 
@@ -117,15 +118,23 @@ def _options(tree: dict[str, Any]) -> dict[str, dict[str, str]]:
     }
 
 
+def _schema_terms() -> dict[str, Any]:
+    """Rule, CDP and block names and texts, translated in schemaTerms.ts
+    (UX round 2026-11-03: the report printed them in English)."""
+    text = SCHEMA_TERMS.read_text(encoding="utf-8")
+    return _Parser(text, text.index("{", text.index("SCHEMA_TERMS"))).obj()
+
+
 def extract() -> dict[str, Any]:
     out: dict[str, Any] = {}
+    schema = _schema_terms()
     for lang in LANGUAGES:
         text = (LOCALES / f"{lang}.ts").read_text(encoding="utf-8")
         start = text.index("{", text.index("const "))
         tree = _Parser(text, start).obj()
         out[lang] = {
             "docx": tree["docxReport"],
-            "narrative": {k: {s: {f: v for f, v in row.items() if f in ("title", "short")}
+            "narrative": {k: {s: {f: v for f, v in row.items() if f in ("title", "short", "detail")}
                               for s, row in tree["narrative"][k].items()}
                           for k in ("ilcd", "lcc", "slca")},
             "engineNotes": tree["result"]["engineNotes"],
@@ -133,6 +142,11 @@ def extract() -> dict[str, Any]:
             "chapters": tree["result"]["sectorChapters"],
             "common": {"yes": tree["common"]["yes"], "no": tree["common"]["no"]},
             "options": _options(tree),
+            "schema": schema[lang],
+            # labels shared with the result page, so the document and the screen agree
+            "page": {"configTitle": tree["result"]["config"]["title"],
+                     "why": tree["result"]["config"]["why"]["label"],
+                     "resolution": tree["result"]["action"]["resolution"]},
         }
     return out
 

@@ -109,12 +109,19 @@ export function runPipeline(input: Case): Promise<Case> {
  * Caller is responsible for triggering the browser download (e.g. via
  * URL.createObjectURL + a temporary <a download>).
  */
-export async function fetchReportDocx(input: Case): Promise<Blob> {
-  // the case report comes in the interface language (UX round 2026-11-02)
+export interface ReportRow {
+  label: string
+  value: string
+  why?: string
+}
+
+export async function fetchReportDocx(input: Case, rows: ReportRow[] = []): Promise<Blob> {
+  // the case report comes in the interface language (UX round 2026-11-02), with
+  // the result page's "Your configuration" rows (UX round 2026-11-03)
   const res = await fetch(`${API_BASE_URL}/api/pipeline/report${langQuery()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
+    body: JSON.stringify({ case: input, rows }),
   })
   if (!res.ok) {
     let detail = res.statusText

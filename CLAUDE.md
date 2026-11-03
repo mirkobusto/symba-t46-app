@@ -269,9 +269,10 @@ Cronologia sintetica (tutto su `main`):
   restano in inglese (decisione R5)
 - Dal giro 5 (rinviati, decisi da Fable): file per azienda (c'è il filtro), layout automatico del diagramma (serve
   una dipendenza: chiedere), più reti per caso negli scenari, immagine della rete nei file, colonne fisse dell'Excel fra
-  versioni. Residui: enunciati di CIR-02/05/07/09 ancora "applies to this case"; note di lato (origine/destinazione) su
-  quantità, qualità, logistica; testi `description_costing_only` della D9; colonna "cede / riceve" nel foglio Attori
-  (c'è nel Word e sul nodo); "(Situazione A/C1)" nelle opzioni di Q9 in modalità guidata
+  versioni. I residui del giro 5 sono chiusi: note di lato, testi per gli studi solo economici, colonna "cede / riceve"
+  e Q9 in parole in modalità guidata (#212); enunciati di CIR-02/05/07/09 scritti da Fable e approvati dal
+  proprietario (#213: CIR-05 dichiara prezzi CE Delft e Net Tax Factor scelta T4.6, fuori dal C-LCC). Le regole CIR non
+  hanno `fields`, quindi compaiono anche quando il metodo di cui parlano è spento (es. CIR-09 senza LCC): da guardare
 - Errata per la fase B: la D4.1 scioglie HNSRS/CNSRS in due modi (glossario "Historical"/"Counterfactual", §11.1
   "Hypothetical"/"Current"); l'app segue §11.1
 - **Informativa privacy** (`/privacy`): è una bozza con segnaposto per titolare, base giuridica, hosting, log del proxy, backup, contatto e autorità; serve revisione legale. Il footer non rimanda più alle policy del sito principale
@@ -313,7 +314,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #210): **914 backend (pytest, +1 skipped) + 276 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #213): **952 backend (pytest, +1 skipped) + 276 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint). Il lint (eslint e ruff, su `app` e `tests`) si giudica dal codice di uscita, non dall'ultima riga dell'output.

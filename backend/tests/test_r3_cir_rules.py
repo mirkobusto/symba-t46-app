@@ -93,3 +93,17 @@ def test_l3_rules_are_obligations_too():
     case = run(Case(q1=Q1.B, q3=Q3(env=True, eco=True), decision_context="micro", policy_objective=False))
     l3 = {r["rule_id"] for r in case.applicable_rules} & {"IR-04", "IR-10"}
     assert l3, "at least one L3 interpretation rule applies to a two-dimension study"
+
+
+@pytest.mark.parametrize("q4, q6b, q2, dims", list(itertools.product(
+    [set(), {Q4.D}], [Q6b.TRL9, Q6b.TRL7_8, Q6b.TRL5_6], [Q2.A, Q2.B],
+    [Q3(env=True), Q3(eco=True), Q3(env=True, eco=True, soc=True)])))
+def test_every_applicable_rule_has_a_statement(q4, q6b, q2, dims):
+    # CIR-02/05/07/09 said only "CIR-0x applies to this case" until UX round 5
+    case = _until_activate(Case(q1=Q1.B, q2=q2, q3=dims, q4=q4, q6b=q6b, q7=Q7.B, decision_context="micro",
+                                policy_objective=False, analysis_period_years=25,
+                                dedicated_shared_assets=True))
+    l2_run(case, SCHEMAS)
+    assert case.applicable_rules
+    for rule in case.applicable_rules:
+        assert "applies to this case" not in rule["statement"], rule["rule_id"]

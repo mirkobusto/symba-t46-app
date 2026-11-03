@@ -107,3 +107,46 @@ def test_every_applicable_rule_has_a_statement(q4, q6b, q2, dims):
     assert case.applicable_rules
     for rule in case.applicable_rules:
         assert "applies to this case" not in rule["statement"], rule["rule_id"]
+
+
+# A CIR rule tying two methods together is listed only when both are on; the
+# active half stays with its nodes and the action still writes (Fable, round 5).
+
+def _listed_case(dims: Q3, **kw) -> Case:
+    case = _until_activate(Case(q1=Q1.B, q2=Q2.B, q3=dims, q4={Q4.D}, q7=Q7.B, decision_context="micro",
+                                policy_objective=False, **kw))
+    l2_run(case, SCHEMAS)
+    return case
+
+
+def _listed(case: Case) -> set[str]:
+    return {r["rule_id"] for r in case.applicable_rules}
+
+
+def test_economic_only_drops_the_lca_lcc_rules():
+    case = _listed_case(Q3(eco=True), q6b=Q6b.TRL7_8)
+    assert not {"CIR-02", "CIR-05"} & _listed(case)
+    assert {"CIR-09", "CIR-10"} <= _listed(case)
+    # the actions still write their LCC half
+    assert case.lcc["allocation"].startswith("Net Tax Factor")
+    assert case.lcc["uncertainty.pedigree"].startswith("Pedigree Matrix")
+    assert {"lcc_hc_39", "lcc_mc_19", "lcc_hc_37"} <= set(case.activated_nodes)
+
+
+def test_environmental_only_drops_the_rules_that_need_the_lcc():
+    case = _listed_case(Q3(env=True), q6b=Q6b.TRL5_6, analysis_period_years=25)
+    assert not {"CIR-01", "CIR-02", "CIR-05", "CIR-07", "CIR-09"} & _listed(case)
+    assert "CIR-10" in _listed(case)
+    assert "scale_up_framework" in case.lca
+    assert {"lca_mc_21", "lca_hc_13", "lca_mc_13", "lca_mc_20"} <= set(case.activated_nodes)
+
+
+def test_both_methods_keep_every_rule():
+    case = _listed_case(Q3(env=True, eco=True), q6b=Q6b.TRL5_6, analysis_period_years=25)
+    assert {"CIR-01", "CIR-02", "CIR-05", "CIR-07", "CIR-09", "CIR-10"} <= _listed(case)
+
+
+def test_every_live_cir_rule_has_its_methods():
+    from app.engine.l2_validate import _CIR_METHODS
+    retired = {"CIR-03", "CIR-04", "CIR-06"}   # trigger always false since R3
+    assert set(_CIR_METHODS) == {r for r in SCHEMAS.rules_by_id if r.startswith("CIR-")} - retired

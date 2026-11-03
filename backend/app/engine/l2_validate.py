@@ -30,7 +30,9 @@ Two outputs, deliberately different in kind:
 
 For action-bearing rules (CIR): when trigger fires, execute the actions
 (write the configured RHS values to the LHS pillar fields). CIR rules
-never "fail"; they enforce configuration coherence post-activation.
+never "fail"; they enforce configuration coherence post-activation. A CIR
+rule is listed in `case.applicable_rules` only when the methods it ties
+together are on (`_CIR_METHODS`); its action runs either way.
 
 Conventions established in earlier commits and reused here:
 
@@ -476,7 +478,7 @@ _ASSERT_FNS: dict[str, Callable[[Case], bool]] = {
 # lca_hc_13 for CIR-02, the Q4 = D branches of lca_mc_13/14/25 and lcc_mc_19 for
 # CIR-05, lca_mc_20 / lcc_hc_15 for CIR-07, lcc_hc_30 for CIR-10), and a token
 # written over that prose erased the reasons the reader needs. The rule still
-# appears among the obligations to document.
+# appears among the obligations to document when its methods are on (_CIR_METHODS).
 # ---------------------------------------------------------------------------
 
 
@@ -584,6 +586,26 @@ _ACTION_FNS: dict[str, Callable[[Case], None]] = {
 }
 
 
+# Methods a CIR rule needs before it is listed among the obligations (UX round 5,
+# decided by Fable on 2026-11-03). The rules integrating LCA and LCC add only the
+# alignment of the two halves, and each half is carried by its source nodes:
+# CIR-01 the same horizon (D4.2 L01297; lca_mc_21, lcc_hc_23), CIR-02 the same
+# five Pedigree indicators (D4.1 L01500, D4.2 L00845; lca_hc_13, lcc_hc_39),
+# CIR-05 the E-LCC mirroring the CFF, and no E-LCC without an LCA (D4.2 L00649,
+# #119; lca_mc_13/14/25, lcc_mc_19), CIR-07 both scale-ups (D4.1 L01134-L01142,
+# D4.2 L00901-L00907; lca_mc_20, lcc_hc_15). CIR-09 is the LCC charter
+# (D4.2 L00853), CIR-08 the S-LCA. CIR-10 holds with any method.
+_CIR_METHODS: dict[str, tuple[str, ...]] = {
+    "CIR-01": ("lca", "lcc"),
+    "CIR-02": ("lca", "lcc"),
+    "CIR-05": ("lca", "lcc"),
+    "CIR-07": ("lca", "lcc"),
+    "CIR-08": ("slca",),
+    "CIR-09": ("lcc",),
+    "CIR-10": (),
+}
+
+
 # ---------------------------------------------------------------------------
 # Main loop
 # ---------------------------------------------------------------------------
@@ -631,6 +653,13 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         if declared and not applicable:
             # Every field this rule governs lives in a method the case
             # switched off — the rule has nothing to say here.
+            continue
+        if any(_pillar_is_off(case, p) for p in _CIR_METHODS.get(rule_id, ())):
+            # A CIR rule that ties two methods together says nothing when one
+            # is off: the active half is carried by its own nodes. The action
+            # still runs (_write drops what lands in an off pillar).
+            if rule_id in _ACTION_FNS:
+                _ACTION_FNS[rule_id](case)
             continue
         case.applicable_rules.append({
             "rule_id": rule_id,

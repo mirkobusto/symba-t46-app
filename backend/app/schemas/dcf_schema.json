@@ -385,12 +385,78 @@
           "description_en": "Cases the tests do not settle on their own and that need an explicit, documented reading (cut-off or substitution)."
         },
         {
+          "id": "classif.substituted_product",
+          "label_en": "Product or process the flow replaces",
+          "type": "string",
+          "required": false,
+          "activation_predicate": "q3.env or q3.eco",
+          "description_en": "What the receiving actor would use without this flow, or what the origin would do with it: the substituted product of a substitution (D4.1 §8.3), and the counterpart of the price in the economic reference."
+        },
+        {
+          "id": "classif.quality_factor_q",
+          "label_en": "Quality factor Q (0-1)",
+          "type": "float",
+          "min": 0,
+          "max": 1,
+          "required": false,
+          "activation_predicate": "q3.env",
+          "description_en": "Ratio between the quality of the recovered flow and that of the product it replaces, which corrects the substitution credit (D4.1 §8.3)."
+        },
+        {
+          "id": "classif.quality_factor_basis",
+          "label_en": "Basis of the quality factor Q",
+          "type": "text",
+          "required": false,
+          "activation_predicate": "q3.env",
+          "description_en": "The property the ratio rests on (e.g. energy content, protein, purity) and its source."
+        },
+        {
+          "id": "classif.substituted_lci_dataset",
+          "label_en": "LCI dataset of the replaced product",
+          "type": "string_docref",
+          "required": false,
+          "activation_predicate": "q3.env",
+          "description_en": "Background dataset that models the substituted product, with database and version."
+        },
+        {
           "id": "classif.evidence",
           "label_en": "Evidence and reasoning",
           "type": "text",
           "required": false,
           "activation_predicate": "always",
           "description_en": "Documents or reasoning behind the answers above."
+        }
+      ]
+    },
+    {
+      "id": "reference_scenario",
+      "title_en": "Reference scenario per actor",
+      "description_en": "One row per actor: what it does, or would do, without the exchanges of the symbiosis (where it would dispose of the flow, what it would buy in its place). The reference scenario of the study (D4.1 §11) is built from these rows.",
+      "applies_when": "q3.env or q3.eco",
+      "row_collection": "user_added",
+      "fields": [
+        {
+          "id": "ref.actor_id",
+          "label_en": "Actor",
+          "type": "fk_actor",
+          "required": true,
+          "activation_predicate": "always"
+        },
+        {
+          "id": "ref.without_symbiosis",
+          "label_en": "What this actor does or would do without the exchanges",
+          "type": "text",
+          "required": true,
+          "activation_predicate": "always",
+          "description_en": "For an origin: where the flow would go (disposal route, another buyer). For a receiver: what it would buy or produce in its place."
+        },
+        {
+          "id": "ref.source",
+          "label_en": "Source",
+          "type": "string_docref",
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Where the information comes from (plant records, contract, interview, literature)."
         }
       ]
     },

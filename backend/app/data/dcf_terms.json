@@ -32,6 +32,10 @@
    "network_diagram": {
     "title": "Network diagram",
     "description": "The picture of the network, drawn from the Actors and Flow Matrix sheets. Edit it in the Network builder of the web app, where actors and flows are placed and connected; this sheet shows the result."
+   },
+   "reference_scenario": {
+    "title": "Reference scenario per actor",
+    "description": "One row per actor: what it does, or would do, without the exchanges of the symbiosis (where it would dispose of the flow, what it would buy in its place). The reference scenario of the study (D4.1 §11) is built from these rows."
    }
   },
   "fields": {
@@ -280,6 +284,33 @@
    },
    "infra.ownership": {
     "label": "Ownership model"
+   },
+   "ref.actor_id": {
+    "label": "Actor"
+   },
+   "ref.without_symbiosis": {
+    "label": "What this actor does or would do without the exchanges",
+    "description": "For an origin: where the flow would go (disposal route, another buyer). For a receiver: what it would buy or produce in its place."
+   },
+   "ref.source": {
+    "label": "Source",
+    "description": "Where the information comes from (plant records, contract, interview, literature)."
+   },
+   "classif.substituted_product": {
+    "label": "Product or process the flow replaces",
+    "description": "What the receiving actor would use without this flow, or what the origin would do with it: the substituted product of a substitution (D4.1 §8.3), and the counterpart of the price in the economic reference."
+   },
+   "classif.quality_factor_q": {
+    "label": "Quality factor Q (0-1)",
+    "description": "Ratio between the quality of the recovered flow and that of the product it replaces, which corrects the substitution credit (D4.1 §8.3)."
+   },
+   "classif.quality_factor_basis": {
+    "label": "Basis of the quality factor Q",
+    "description": "The property the ratio rests on (e.g. energy content, protein, purity) and its source."
+   },
+   "classif.substituted_lci_dataset": {
+    "label": "LCI dataset of the replaced product",
+    "description": "Background dataset that models the substituted product, with database and version."
    }
   },
   "enums": {
@@ -487,7 +518,8 @@
    "h.fields": "Active fields",
    "yes": "yes",
    "no": "no",
-   "dx.ack": "Acknowledgements & disclaimer"
+   "dx.ack": "Acknowledgements & disclaimer",
+   "sheet.reference_scenario": "Reference Scenario"
   },
   "enum_refs": {
    "Q6a": {
@@ -553,6 +585,10 @@
    "network_diagram": {
     "title": "Diagramma della rete",
     "description": "L'immagine della rete, disegnata dai fogli Attori e Matrice dei flussi. Si modifica nell'editor di rete dell'app web, dove si posizionano e collegano attori e flussi; questo foglio mostra il risultato."
+   },
+   "reference_scenario": {
+    "title": "Scenario di riferimento per attore",
+    "description": "Una riga per attore: che cosa fa, o farebbe, senza gli scambi della simbiosi (dove smaltirebbe il flusso, che cosa comprerebbe al suo posto). Lo scenario di riferimento dello studio (D4.1 §11) si costruisce da queste righe."
    }
   },
   "fields": {
@@ -801,6 +837,33 @@
    },
    "infra.ownership": {
     "label": "Modello di proprietà"
+   },
+   "ref.actor_id": {
+    "label": "Attore"
+   },
+   "ref.without_symbiosis": {
+    "label": "Che cosa fa o farebbe questo attore senza gli scambi",
+    "description": "Per chi cede: dove andrebbe il flusso (smaltimento, un altro acquirente). Per chi riceve: che cosa comprerebbe o produrrebbe al suo posto."
+   },
+   "ref.source": {
+    "label": "Fonte",
+    "description": "Da dove viene l'informazione (registri d'impianto, contratto, intervista, letteratura)."
+   },
+   "classif.substituted_product": {
+    "label": "Prodotto o processo che il flusso sostituisce",
+    "description": "Che cosa userebbe chi riceve senza questo flusso, o che cosa ne farebbe chi lo cede: il prodotto sostituito di una sostituzione (D4.1 §8.3), e la controparte del prezzo nel riferimento economico."
+   },
+   "classif.quality_factor_q": {
+    "label": "Fattore di qualità Q (0-1)",
+    "description": "Rapporto fra la qualità del flusso recuperato e quella del prodotto che sostituisce, che corregge il credito di sostituzione (D4.1 §8.3)."
+   },
+   "classif.quality_factor_basis": {
+    "label": "Su che cosa si basa Q",
+    "description": "La proprietà su cui si calcola il rapporto (es. contenuto energetico, proteine, purezza) e la sua fonte."
+   },
+   "classif.substituted_lci_dataset": {
+    "label": "Dataset LCI del prodotto sostituito",
+    "description": "Il dataset di background che modella il prodotto sostituito, con banca dati e versione."
    }
   },
   "enums": {
@@ -1008,7 +1071,8 @@
    "h.fields": "Campi attivi",
    "yes": "sì",
    "no": "no",
-   "dx.ack": "Ringraziamenti e avvertenza"
+   "dx.ack": "Ringraziamenti e avvertenza",
+   "sheet.reference_scenario": "Scenario di riferimento"
   },
   "enum_refs": {
    "Q6a": {
@@ -1074,6 +1138,10 @@
    "network_diagram": {
     "title": "Diagramme du réseau",
     "description": "L'image du réseau, tirée des feuilles Acteurs et Matrice des flux. Elle se modifie dans l'éditeur de réseau de l'application web, où l'on place et relie acteurs et flux ; cette feuille montre le résultat."
+   },
+   "reference_scenario": {
+    "title": "Scénario de référence par acteur",
+    "description": "Une ligne par acteur : ce qu'il fait, ou ferait, sans les échanges de la symbiose (où il éliminerait le flux, ce qu'il achèterait à la place). Le scénario de référence de l'étude (D4.1 §11) se construit à partir de ces lignes."
    }
   },
   "fields": {
@@ -1322,6 +1390,33 @@
    },
    "infra.ownership": {
     "label": "Modèle de propriété"
+   },
+   "ref.actor_id": {
+    "label": "Acteur"
+   },
+   "ref.without_symbiosis": {
+    "label": "Ce que cet acteur fait ou ferait sans les échanges",
+    "description": "Pour qui cède : où irait le flux (élimination, un autre acheteur). Pour qui reçoit : ce qu'il achèterait ou produirait à la place."
+   },
+   "ref.source": {
+    "label": "Source",
+    "description": "D'où vient l'information (registres du site, contrat, entretien, littérature)."
+   },
+   "classif.substituted_product": {
+    "label": "Produit ou procédé que le flux remplace",
+    "description": "Ce que le receveur utiliserait sans ce flux, ou ce qu'en ferait celui qui le cède : le produit substitué d'une substitution (D4.1 §8.3), et la contrepartie du prix dans la référence économique."
+   },
+   "classif.quality_factor_q": {
+    "label": "Facteur de qualité Q (0-1)",
+    "description": "Rapport entre la qualité du flux récupéré et celle du produit qu'il remplace, qui corrige le crédit de substitution (D4.1 §8.3)."
+   },
+   "classif.quality_factor_basis": {
+    "label": "Base du facteur de qualité Q",
+    "description": "La propriété sur laquelle repose le rapport (ex. contenu énergétique, protéines, pureté) et sa source."
+   },
+   "classif.substituted_lci_dataset": {
+    "label": "Jeu de données ICV du produit remplacé",
+    "description": "Le jeu de données d'arrière-plan qui modélise le produit substitué, avec base et version."
    }
   },
   "enums": {
@@ -1529,7 +1624,8 @@
    "h.fields": "Champs actifs",
    "yes": "oui",
    "no": "non",
-   "dx.ack": "Remerciements et avertissement"
+   "dx.ack": "Remerciements et avertissement",
+   "sheet.reference_scenario": "Scénario de référence"
   },
   "enum_refs": {
    "Q6a": {
@@ -1595,6 +1691,10 @@
    "network_diagram": {
     "title": "Netzdiagramm",
     "description": "Das Bild des Netzes, aus den Blättern Akteure und Flussmatrix gezeichnet. Bearbeitet wird es im Netz-Editor der Web-App, wo Akteure und Flüsse platziert und verbunden werden; dieses Blatt zeigt das Ergebnis."
+   },
+   "reference_scenario": {
+    "title": "Referenzszenario je Akteur",
+    "description": "Eine Zeile pro Akteur: was er ohne die Austausche der Symbiose tut oder täte (wohin er den Fluss entsorgen, was er stattdessen kaufen würde). Daraus wird das Referenzszenario der Studie (D4.1 §11) gebildet."
    }
   },
   "fields": {
@@ -1843,6 +1943,33 @@
    },
    "infra.ownership": {
     "label": "Eigentumsmodell"
+   },
+   "ref.actor_id": {
+    "label": "Akteur"
+   },
+   "ref.without_symbiosis": {
+    "label": "Was dieser Akteur ohne die Austausche tut oder täte",
+    "description": "Für den Abgeber: wohin der Fluss ginge (Entsorgung, ein anderer Käufer). Für den Abnehmer: was er stattdessen kaufen oder herstellen würde."
+   },
+   "ref.source": {
+    "label": "Quelle",
+    "description": "Woher die Information stammt (Betriebsaufzeichnungen, Vertrag, Interview, Literatur)."
+   },
+   "classif.substituted_product": {
+    "label": "Produkt oder Prozess, den der Fluss ersetzt",
+    "description": "Was der Abnehmer ohne diesen Fluss verwenden würde oder was der Abgeber damit täte: das ersetzte Produkt einer Substitution (D4.1 §8.3) und das Gegenstück zum Preis in der ökonomischen Referenz."
+   },
+   "classif.quality_factor_q": {
+    "label": "Qualitätsfaktor Q (0-1)",
+    "description": "Verhältnis zwischen der Qualität des zurückgewonnenen Flusses und der des ersetzten Produkts, das die Substitutionsgutschrift korrigiert (D4.1 §8.3)."
+   },
+   "classif.quality_factor_basis": {
+    "label": "Grundlage des Qualitätsfaktors Q",
+    "description": "Die Eigenschaft, auf der das Verhältnis beruht (z. B. Energiegehalt, Protein, Reinheit), und ihre Quelle."
+   },
+   "classif.substituted_lci_dataset": {
+    "label": "Sachbilanzdatensatz des ersetzten Produkts",
+    "description": "Der Hintergrunddatensatz, der das ersetzte Produkt modelliert, mit Datenbank und Version."
    }
   },
   "enums": {
@@ -2050,7 +2177,8 @@
    "h.fields": "Aktive Felder",
    "yes": "ja",
    "no": "nein",
-   "dx.ack": "Danksagung und Haftungsausschluss"
+   "dx.ack": "Danksagung und Haftungsausschluss",
+   "sheet.reference_scenario": "Referenzszenario"
   },
   "enum_refs": {
    "Q6a": {
@@ -2116,6 +2244,10 @@
    "network_diagram": {
     "title": "Diagrama de la red",
     "description": "La imagen de la red, dibujada a partir de las hojas Actores y Matriz de flujos. Se edita en el editor de red de la aplicación web, donde se colocan y conectan actores y flujos; esta hoja muestra el resultado."
+   },
+   "reference_scenario": {
+    "title": "Escenario de referencia por actor",
+    "description": "Una fila por actor: qué hace, o haría, sin los intercambios de la simbiosis (dónde eliminaría el flujo, qué compraría en su lugar). El escenario de referencia del estudio (D4.1 §11) se construye con estas filas."
    }
   },
   "fields": {
@@ -2364,6 +2496,33 @@
    },
    "infra.ownership": {
     "label": "Modelo de propiedad"
+   },
+   "ref.actor_id": {
+    "label": "Actor"
+   },
+   "ref.without_symbiosis": {
+    "label": "Qué hace o haría este actor sin los intercambios",
+    "description": "Para quien cede: adónde iría el flujo (eliminación, otro comprador). Para quien recibe: qué compraría o produciría en su lugar."
+   },
+   "ref.source": {
+    "label": "Fuente",
+    "description": "De dónde procede la información (registros de planta, contrato, entrevista, literatura)."
+   },
+   "classif.substituted_product": {
+    "label": "Producto o proceso que el flujo sustituye",
+    "description": "Lo que usaría quien recibe sin este flujo, o lo que haría con él quien lo cede: el producto sustituido de una sustitución (D4.1 §8.3), y la contrapartida del precio en la referencia económica."
+   },
+   "classif.quality_factor_q": {
+    "label": "Factor de calidad Q (0-1)",
+    "description": "Relación entre la calidad del flujo recuperado y la del producto que sustituye, que corrige el crédito de sustitución (D4.1 §8.3)."
+   },
+   "classif.quality_factor_basis": {
+    "label": "Base del factor de calidad Q",
+    "description": "La propiedad en la que se basa la relación (p. ej. contenido energético, proteína, pureza) y su fuente."
+   },
+   "classif.substituted_lci_dataset": {
+    "label": "Conjunto de datos ICV del producto sustituido",
+    "description": "El conjunto de datos de fondo que modela el producto sustituido, con base de datos y versión."
    }
   },
   "enums": {
@@ -2571,7 +2730,8 @@
    "h.fields": "Campos activos",
    "yes": "sí",
    "no": "no",
-   "dx.ack": "Agradecimientos y aviso"
+   "dx.ack": "Agradecimientos y aviso",
+   "sheet.reference_scenario": "Escenario de referencia"
   },
   "enum_refs": {
    "Q6a": {

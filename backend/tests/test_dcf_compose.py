@@ -129,7 +129,7 @@ def test_all_sections_present_in_spec_order(case_wiktor, dcf_schema, mandates_ce
     payload = compose_dcf(case_wiktor, dcf_schema, mandates_census)
     section_ids = [s.id for s in payload.sections]
     assert section_ids == [
-        "actors", "flow_matrix", "flow_classification", "logistics", "costs",
+        "actors", "flow_matrix", "flow_classification", "reference_scenario", "logistics", "costs",
         "infrastructure", "methodological_choices", "network_diagram",
     ]
 

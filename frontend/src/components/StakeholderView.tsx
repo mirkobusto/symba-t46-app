@@ -182,9 +182,9 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
 
         {showCodes ? (
           <p className="stakeholder-codes">
-            {[caseData.ilcd_situation, caseData.lcc_type]
-              .filter(Boolean)
-              .join(' · ')}
+            {/* the same badges as the result page, in words (UX round 4, P4-02);
+                no ILCD badge without an LCA (P2-08) */}
+            {(verdict.codes ?? []).join(' · ')}
           </p>
         ) : null}
       </section>

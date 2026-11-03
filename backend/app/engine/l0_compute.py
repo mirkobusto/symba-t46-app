@@ -254,9 +254,10 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
     Freedom-to-Act (D4.1 §8.3.3, L00990-994): a flow a third party would buy is a
     co-product, one nobody would buy is a waste whatever the nominal price. The
     test is checked against who pays whom (Q5): a = generator pays, c = recipient
-    pays, b = undecided. Q5 = d is left alone because interdependent production
-    makes the flow a co-product regardless of price (L00974, L00996); Q5 = e
-    aggregates the flow away. A note never changes Q5.
+    pays, b = undecided. For Q5 = d the price does not matter (interdependent
+    production is a co-product regardless of price, L00974, L00996), but a flow
+    that would also sell to anyone gets a note on specificity to the partner
+    (UX round 4, P3-02); Q5 = e aggregates the flow away. A note never changes Q5.
     """
     notes: list[dict[str, Any]] = []
     for f in case.flows:
@@ -276,6 +277,18 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
                 "replaces net of its extra costs to use it; if the payment only shares costs, the flow is a "
                 "waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). "
                 "Check the price against that benchmark.")})
+        elif sell is True and f.q5 == Q5.d:
+            # specificity to the partner, not the price, makes a flow interdependent:
+            # a dryer built to sell the pulp to anyone is a dependent co-product plus a
+            # dedicated asset (decided by Fable, UX round 4, P3-02)
+            notes.append({"code": "flow_interdependent_but_marketable", "params": {"flow": f.name or f.id},
+                          "message": (
+                f"{label}: Q5 says the sender changed its process for this partner, and the flow would "
+                "also sell to others. Both can be true for a determining co-product (D4.1 §8.3.6 Step 2). "
+                "Check which it is: if the change was made to meet this partner's specification, keep d; "
+                "if it was made to reach any buyer (a dryer that turns the pulp into a tradable feed), the "
+                "flow is a dependent co-product (Q5 = c, substitution with the quality factor Q) and the "
+                "equipment is a dedicated asset (Q12). A note never changes Q5.")})
         elif sell is not None and f.q5 == Q5.b:
             # A note, not a decision (#118): lca_mc_17 keeps the economic value
             # test for Q5 = b. Q5 records who pays whom, so the note no longer asks to
@@ -342,6 +355,28 @@ def _timing_notes(case: Case) -> list[dict[str, Any]]:
 _SHAPING_PURPOSES = {StudyPurpose.DESIGN, StudyPurpose.EXPANSION, StudyPurpose.RESTRUCTURING}
 
 
+def _b_lcc_notes(case: Case) -> list[dict[str, Any]]:
+    """Situation B with an environmental LCC: the LCA substitutes the marginal
+    technology, the E-LCC prices at the average market (no costing node is
+    consequential). D4.2 §2.2 asks one paradigm: declare the deviation
+    (decided by Fable, UX round 4, P2-02)."""
+    lcc = case.lcc_type.value if case.lcc_type else ""
+    if case.ilcd_situation == _S.SITUATION_B and case.q3.env and case.q3.eco and "E" in lcc:
+        return [{"code": "b_lcc_not_consequential", "message": (
+            "Situation B: the LCA substitutes the marginal technology (D4.1 Table 1), while the "
+            "environmental LCC values displaced products at the average market price of what they replace "
+            "(D4.2 §6.2): this tool has no consequential costing formulation. D4.2 §2.2 asks one paradigm, "
+            "identical between LCA and LCC: declare the difference in the methodological charter as a "
+            "methodological deviation, and price the displaced products at the marginal supplier's price "
+            "in a sensitivity.")}]
+    return []
+
+
+# notes about the ILCD situation speak of LCA modelling: without an LCA they
+# have nothing to say (decided by Fable, UX round 4, P2-08)
+_LCA_ONLY_NOTES = {"structural_without_screening", "structural_screening_missing", "design_without_screening"}
+
+
 def _screening_notes(case: Case) -> list[dict[str, Any]]:
     """A study that designs, expands or restructures a network but answers Q9 =
     micro: D4.1 §4.2.3 asks the ILCD market screening for such studies (Mattila
@@ -384,4 +419,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
     case.warnings += _purpose_notes(case, case.warnings)
     case.warnings += _timing_notes(case)
     case.warnings += _screening_notes(case)
+    case.warnings += _b_lcc_notes(case)
+    if not case.q3.env:
+        case.warnings = [w for w in case.warnings if w["code"] not in _LCA_ONLY_NOTES]
     return case

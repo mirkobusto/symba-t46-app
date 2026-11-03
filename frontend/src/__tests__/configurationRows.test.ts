@@ -68,7 +68,8 @@ describe('configurationRows edge cases', () => {
     const keys = configurationRows({ ...BASE, q3: { env: false, eco: true, soc: false }, lcc_type: 'C+N' }, t)
       .map((r) => r.key)
     expect(keys).toContain('reference')
-    expect(keys).not.toContain('fu')
+    // a costing without LCA keeps its functional equivalent and the cost of each flow (UX round 4, P2-08)
+    expect(keys).toContain('fu')
   })
 
   it('an unanswered Q10 says the costing was read off Q1', async () => {

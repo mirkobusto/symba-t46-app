@@ -803,11 +803,14 @@ const it: Locale = {
   },
 
   result: {
+    verdictWhy: "Perché: hai risposto «{{answer}}» (Q9)",
+    verdictWhyQ1: "Perché: Q9 non ha risposta, quindi la situazione si ricava da che cosa stai analizzando (Q1)",
     config: {
       title: 'La tua configurazione',
       lead: 'Che cosa hanno deciso le tue risposte, nei termini dei deliverable. Apri una riga per leggere il testo del motore, in inglese, con la sezione da cui viene.',
       nodeText: 'Testo del motore (inglese)',
       labels: {
+        flows: "Trattamento dei flussi",
         claim: 'Dichiarazione pubblica',
         purpose: 'Tipo di studio',
         lcc: 'Costi',
@@ -820,6 +823,14 @@ const it: Locale = {
         shared: 'Beni condivisi',
       },
       values: {
+        flowTreatment: {
+          waste: "rifiuto: nessun carico fino al punto in cui acquista valore (carico zero)",
+          evt: "incerto: test del valore economico, con analisi di sensibilità",
+          coproduct: "co-prodotto: sostituzione del prodotto che rimpiazza, con fattore di qualità Q",
+          integrated: "interdipendente: un unico processo multifunzionale, modellato per intero",
+          allocation: "allocazione (rendiconto di una sola azienda: nessun credito di sostituzione)",
+          aggregated: "aggregato: classificare ogni flusso che si può nominare",
+        },
         claim: 'Dichiarazione comparativa al pubblico: revisione critica di un panel di almeno tre esperti indipendenti, niente pesatura',
         claimNone: 'Nessuna dichiarazione comparativa pubblica',
         claimPolicy: "Nessuna dichiarazione comparativa pubblica; allineamento alle politiche UE (Q4 = D): revisione di un panel indipendente, scelta T4.6",
@@ -845,6 +856,9 @@ const it: Locale = {
         shared: 'CAPEX e OPEX nel prospetto dei costi, ripartiti fra i partner che li usano',
       },
       why: {
+        flows: "chi paga chi per ogni flusso (Q5)",
+        horizonUnanswered: "nessun anno di esercizio, periodo, vita degli asset o maturità della tecnologia indicati, quindi si assume il presente; se gli impianti funzioneranno oltre {{threshold}} anni, rispondi a Q8",
+        lccNoPolicyNoLca: "nessun obiettivo pubblico (Q10): i costi di ogni partner, consolidati per la rete",
         slcaOff: 'la dimensione sociale non è selezionata (Q3)',
         claim: 'i risultati sosterranno una dichiarazione pubblica di superiorità o equivalenza (Q4 = C)',
         horizonFutureGeneric: 'l\'orizzonte dello studio arriva nel futuro',
@@ -903,9 +917,11 @@ const it: Locale = {
       flow_sellable_but_waste: "Flusso «{{flow}}»: Q5 dice che chi lo genera paga per disfarsene (rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6 Step 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
       flow_price_without_market: "Flusso «{{flow}}»: Q5 dice che chi riceve paga (co-prodotto), ma nessun terzo lo comprerebbe. Con un solo acquirente decide il prezzo (D4.1 §8.3.3): il flusso è un co-prodotto se chi riceve paga quanto pagherebbe un compratore indipendente, cioè il prezzo del prodotto che il flusso sostituisce al netto dei suoi costi in più per usarlo; se il pagamento divide solo i costi, il flusso è un rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6 Step 4). Confronta il prezzo con questo riferimento.",
       flow_freedom_to_act_settles: {
-        co_product: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi; la risposta Freedom-to-Act (D4.1 §8.3.3) lo legge come co-prodotto (§8.3.2, carico ripartito).",
-        waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi; la risposta Freedom-to-Act (D4.1 §8.3.3) lo legge come rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4).",
+        co_product: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un co-prodotto (§8.3.2, carico ripartito). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma; per applicare subito questa lettura, imposta Q5 su c.",
+        waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma; per applicare subito questa lettura, imposta Q5 su a.",
       },
+      running_but_future: "Q2 dice che gli scambi avvengono già, ma Q8 colloca l'esercizio in un anno futuro o Q6b mette la tecnologia chiave sotto TRL 7. Uno scambio in corso si misura oggi: controlla Q2, Q8 e Q6b. Intanto lo scenario di riferimento e i tempi della valutazione dei costi seguono Q2, il background futuro segue Q8 e Q6b.",
+      design_without_screening: "Lo studio progetta, espande o ristruttura una rete ed è modellato come Situazione A. D4.1 §4.2.3: questi studi richiedono lo screening di mercato ILCD (Mattila et al. 2012); senza, lo studio resta A, con la Situazione B come analisi di sensibilità. Documenta lo screening, oppure esegui B come sensibilità.",
       flow_part2_chapter: "Flusso «{{flow}}»: gli si applicano le regole di settore della D4.1 Part 2 {{chapter}}; sono elencate in Regole di settore.",
       case_sector_without_flow: "Il settore del caso appartiene alla D4.1 Part 2 {{chapter}}, ma nessun flusso dichiara quel capitolo, quindi le sue regole di settore non sono elencate. I capitoli seguono ciò che si scambia: dichiara il settore della Part 2 di ogni flusso nella tabella dei flussi.",
       flow_configuration_unknown: "Flusso «{{flow}}»: la configurazione «{{configuration}}» non è una di quelle della D4.1 Part 2.",
@@ -927,7 +943,7 @@ const it: Locale = {
       moreInfo: 'Approfondisci questa configurazione',
     },
     next: {
-      obligations: '{{count}} obblighi da documentare ({{groups}}): sono elencati, con quello che ha attivato ciascuno, nel Data Collection File.',
+      obligations: "{{count}} obblighi da documentare ({{groups}}), attivati dalle tue risposte. Il Data Collection File li elenca, con quello che ha attivato ciascuno, insieme alle pratiche che il metodo chiede a ogni studio come il tuo.",
       families: {
         IR: '{{count}} sull\'integrazione dei metodi',
         CIR: '{{count}} accesi dalle tue risposte',
@@ -1192,8 +1208,8 @@ const it: Locale = {
     engineDetailsTitle: 'Dettagli pipeline engine',
     activatedNodesCount_one: '{{count}} nodo metodologico attivato',
     activatedNodesCount_other: '{{count}} nodi metodologici attivati',
-    obligations_one: "{{count}} pratica metodologica da documentare",
-    obligations_other: "{{count}} pratiche metodologiche da documentare",
+    obligations_one: "{{count}} obbligo da documentare",
+    obligations_other: "{{count}} obblighi da documentare",
     cdpFlagsCount_one: '{{count}} tensione cross-dimensionale',
     cdpFlagsCount_other: '{{count}} tensioni cross-dimensionali',
     complianceTitle: 'Segnali di compliance',
@@ -1230,7 +1246,7 @@ const it: Locale = {
   obligations: {
     empty: "Niente da documentare per questo caso.",
     lead:
-      "{{total}} voci riguardano questo caso: {{mandates}} mandati metodologici e {{rules}} regole cross-method attivate dalle tue risposte. Ognuna è un impegno da documentare nel report LCSA.",
+      "{{total}} voci da documentare per questo caso: i {{rules}} obblighi attivati dalle tue risposte (quelli contati nella pagina risultato) e {{mandates}} pratiche che il metodo chiede a ogni studio come questo. Ognuna è un impegno da documentare nel report LCSA.",
     because: "Si applica perché:",
     notApplicable: "Qui non si applica: {{fields}} — quel metodo è spento in Q3.",
     origin: {

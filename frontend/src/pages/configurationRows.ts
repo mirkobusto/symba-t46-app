@@ -29,6 +29,18 @@ function num(value: unknown): number | null {
   return typeof n === 'number' && Number.isFinite(n) ? n : null
 }
 
+// lca_mc_17 per flow, by the start of its value: the row says what each
+// flow's multifunctionality comes to, which analysts and reviewers check first
+// and could only find as JSON in the technical detail (UX round 2026-11-02)
+const FLOW_TREATMENT: [string, string][] = [
+  ['zero-burden', 'waste'],
+  ['EVT', 'evt'],
+  ['substitution', 'coproduct'],
+  ['integrated', 'integrated'],
+  ['allocation', 'allocation'],
+  ['aggregated', 'aggregated'],
+]
+
 function texts(...values: unknown[]): string[] {
   return values.filter((v): v is string => typeof v === 'string' && v.trim() !== '')
 }
@@ -58,7 +70,8 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
     } else {
       if (!env) reasons.push(t('result.config.why.lccNoLca'))
       reasons.push(t(kase.policy_objective == null ? 'result.config.why.lccPolicyInferred'
-        : type.includes('S') ? 'result.config.why.lccPolicy' : 'result.config.why.lccNoPolicy'))
+        : type.includes('S') ? 'result.config.why.lccPolicy'
+          : env ? 'result.config.why.lccNoPolicy' : 'result.config.why.lccNoPolicyNoLca'))
     }
     const why = reasons.join('; ')
     rows.push({
@@ -105,7 +118,11 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
       label: label('horizon'),
       value: t(future ? 'result.config.values.horizonFuture' : 'result.config.values.horizonPresent'),
       why: future ? (reasons.join('; ') || t('result.config.why.horizonFutureGeneric'))
-        : t('result.config.why.horizonPresent', { threshold }),
+        // "mature technology" was asserted for a case that never answered Q8 or Q6b
+        : kase.operating_start == null && kase.analysis_period_years == null
+          && lifetime == null && kase.q6b == null
+          ? t('result.config.why.horizonUnanswered', { threshold })
+          : t('result.config.why.horizonPresent', { threshold }),
       nodeText: texts(lca['background_futurisation'], lcc['background_dynamic']),
     })
   }
@@ -135,6 +152,22 @@ export function configurationRows(kase: Case, t: Translate): ConfigRow[] {
         : kase.network_long_standing ? 'result.config.why.referenceLongStanding'
           : 'result.config.why.referenceRunning'),
       nodeText: texts(lca['reference_scenario.type'], lca['reference_scenario.content']),
+    })
+  }
+
+  const perFlow = lca['zero_burden_classification']
+  if (env && perFlow && typeof perFlow === 'object' && (kase.flows ?? []).length > 0) {
+    const treatments = (kase.flows ?? []).map((f) => {
+      const raw = String((perFlow as Record<string, unknown>)[f.id] ?? '')
+      const kind = FLOW_TREATMENT.find(([start]) => raw.startsWith(start))?.[1]
+      return `${f.name || f.id}: ${kind ? t(`result.config.values.flowTreatment.${kind}`) : raw || '—'}`
+    })
+    rows.push({
+      key: 'flows',
+      label: label('flows'),
+      value: treatments.join('; '),
+      why: t('result.config.why.flows'),
+      nodeText: [JSON.stringify(perFlow)],
     })
   }
 

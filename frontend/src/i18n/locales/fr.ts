@@ -783,11 +783,14 @@ const fr: Locale = {
   },
 
   result: {
+    verdictWhy: "Pourquoi : vous avez répondu « {{answer}} » (Q9)",
+    verdictWhyQ1: "Pourquoi : Q9 n'a pas de réponse, la situation est donc déduite de ce que vous analysez (Q1)",
     config: {
       title: 'Votre configuration',
       lead: 'Ce que vos réponses ont décidé, dans les termes des livrables. Ouvrez une ligne pour lire le texte du moteur, en anglais, avec la section dont il provient.',
       nodeText: 'Texte du moteur (anglais)',
       labels: {
+        flows: "Traitement de chaque flux",
         claim: 'Allégation publique',
         purpose: 'Type d\'étude',
         lcc: 'Coûts',
@@ -800,6 +803,14 @@ const fr: Locale = {
         shared: 'Actifs partagés',
       },
       values: {
+        flowTreatment: {
+          waste: "déchet : aucune charge jusqu'au point où il prend de la valeur (charge nulle)",
+          evt: "indécis : test de valeur économique, avec analyse de sensibilité",
+          coproduct: "coproduit : substitution du produit remplacé, avec facteur de qualité Q",
+          integrated: "interdépendant : un seul procédé multifonctionnel, modélisé en entier",
+          allocation: "allocation (comptes d'une seule entreprise : pas de crédit de substitution)",
+          aggregated: "agrégé : classer chaque flux que l'on peut nommer",
+        },
         claim: 'Allégation comparative au public : revue critique par un panel d\'au moins trois experts indépendants, pas de pondération',
         claimNone: 'Pas d\'allégation comparative publique',
         claimPolicy: "Pas d'allégation comparative publique ; alignement sur les politiques de l'UE (Q4 = D) : revue par un panel indépendant, choix T4.6",
@@ -825,6 +836,9 @@ const fr: Locale = {
         shared: 'Leur CAPEX et leur OPEX dans la décomposition des coûts, répartis entre les partenaires qui les utilisent',
       },
       why: {
+        flows: "qui paie qui pour chaque flux (Q5)",
+        horizonUnanswered: "aucune année d'exploitation, période, durée de vie ou maturité technologique indiquée : le présent est supposé ; si les installations fonctionneront au-delà de {{threshold}} ans, répondez à Q8",
+        lccNoPolicyNoLca: "pas d'objectif public (Q10) : les coûts de chaque partenaire, consolidés pour le réseau",
         slcaOff: 'la dimension sociale n\'est pas sélectionnée (Q3)',
         claim: 'les résultats appuieront une allégation publique de supériorité ou d\'équivalence (Q4 = C)',
         horizonFutureGeneric: 'l\'horizon de l\'étude atteint le futur',
@@ -883,9 +897,11 @@ const fr: Locale = {
       flow_sellable_but_waste: "Flux « {{flow}} » : Q5 indique que le producteur paie pour s'en débarrasser (déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
       flow_price_without_market: "Flux « {{flow}} » : Q5 indique que le receveur paie (co-produit), mais aucun tiers ne l'achèterait. Avec un preneur unique, c'est le prix qui décide (D4.1 §8.3.3) : le flux est un co-produit si le receveur paie ce que paierait un acheteur indépendant, soit le prix du produit que le flux remplace net de ses coûts supplémentaires pour l'utiliser ; si le paiement ne fait que partager les coûts, le flux est un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 Step 4). Comparez le prix à cette référence.",
       flow_freedom_to_act_settles: {
-        co_product: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui ; la réponse Freedom-to-Act (D4.1 §8.3.3) le lit comme un coproduit (§8.3.2, charge partagée).",
-        waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui ; la réponse Freedom-to-Act (D4.1 §8.3.3) le lit comme un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4).",
+        co_product: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un coproduit (§8.3.2, charge partagée). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé ; pour appliquer directement cette lecture, mettez Q5 sur c.",
+        waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé ; pour appliquer directement cette lecture, mettez Q5 sur a.",
       },
+      running_but_future: "Q2 indique que les échanges ont déjà lieu, mais Q8 place l'exploitation dans une année future ou Q6b met la technologie clé sous TRL 7. Un échange en cours se mesure aujourd'hui : vérifiez Q2, Q8 et Q6b. En attendant, le scénario de référence et le calendrier de l'évaluation des coûts suivent Q2, l'arrière-plan futur suit Q8 et Q6b.",
+      design_without_screening: "L'étude conçoit, étend ou restructure un réseau et elle est modélisée en Situation A. D4.1 §4.2.3 : ces études demandent le screening de marché ILCD (Mattila et al. 2012) ; sans lui, l'étude reste A, avec la Situation B en analyse de sensibilité. Documentez le screening, ou faites B en sensibilité.",
       flow_part2_chapter: "Flux « {{flow}} » : les règles sectorielles de la D4.1 Part 2 {{chapter}} s'y appliquent ; elles figurent sous Règles sectorielles.",
       case_sector_without_flow: "Le secteur du cas relève de la D4.1 Part 2 {{chapter}}, mais aucun flux ne déclare ce chapitre : ses règles sectorielles ne sont donc pas listées. Les chapitres suivent ce qui est échangé : déclarez le secteur de la Part 2 de chaque flux dans le tableau des flux.",
       flow_configuration_unknown: "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
@@ -907,7 +923,7 @@ const fr: Locale = {
       moreInfo: 'En savoir plus sur cette configuration',
     },
     next: {
-      obligations: '{{count}} obligations à documenter ({{groups}}) : elles sont listées, avec ce qui a déclenché chacune, dans le Data Collection File.',
+      obligations: "{{count}} obligations à documenter ({{groups}}), déclenchées par vos réponses. Le Data Collection File les liste, avec ce qui a déclenché chacune, avec les pratiques que la méthode demande à toute étude comme la vôtre.",
       families: {
         IR: '{{count}} sur l\'intégration des méthodes',
         CIR: '{{count}} activées par vos réponses',
@@ -1172,8 +1188,8 @@ const fr: Locale = {
     engineDetailsTitle: 'Détails du pipeline',
     activatedNodesCount_one: '{{count}} nœud méthodologique activé',
     activatedNodesCount_other: '{{count}} nœuds méthodologiques activés',
-    obligations_one: "{{count}} pratique méthodologique à documenter",
-    obligations_other: "{{count}} pratiques méthodologiques à documenter",
+    obligations_one: "{{count}} obligation à documenter",
+    obligations_other: "{{count}} obligations à documenter",
     cdpFlagsCount_one: '{{count}} tension inter-dimensions',
     cdpFlagsCount_other: '{{count}} tensions inter-dimensions',
     complianceTitle: 'Signaux de conformité',
@@ -1210,7 +1226,7 @@ const fr: Locale = {
   obligations: {
     empty: "Rien à documenter pour ce cas.",
     lead:
-      "{{total}} éléments concernent ce cas : {{mandates}} mandats méthodologiques et {{rules}} règles inter-méthodes déclenchées par vos réponses. Chacun est un engagement à documenter dans le rapport ACV-D.",
+      "{{total}} éléments à documenter pour ce cas : les {{rules}} obligations déclenchées par vos réponses (celles comptées sur la page de résultat) et {{mandates}} pratiques que la méthode demande à toute étude comme celle-ci. Chacun est un engagement à documenter dans le rapport LCSA.",
     because: "S'applique parce que :",
     notApplicable: "Ne s'applique pas ici : {{fields}} — cette méthode est désactivée en Q3.",
     origin: {

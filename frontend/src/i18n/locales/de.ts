@@ -777,11 +777,14 @@ const de: Locale = {
   },
 
   result: {
+    verdictWhy: "Warum: Sie haben „{{answer}}“ geantwortet (Q9)",
+    verdictWhyQ1: "Warum: Q9 ist nicht beantwortet, daher folgt die Situation aus dem Untersuchungsgegenstand (Q1)",
     config: {
       title: 'Ihre Konfiguration',
       lead: 'Was Ihre Antworten entschieden haben, in den Begriffen der Deliverables. Öffnen Sie eine Zeile, um den Text der Engine auf Englisch mit seinem Abschnitt zu lesen.',
       nodeText: 'Text der Engine (Englisch)',
       labels: {
+        flows: "Behandlung der Flüsse",
         claim: 'Öffentliche Aussage',
         purpose: 'Art der Studie',
         lcc: 'Kosten',
@@ -794,6 +797,14 @@ const de: Locale = {
         shared: 'Gemeinsame Anlagen',
       },
       values: {
+        flowTreatment: {
+          waste: "Abfall: keine Last bis zu dem Punkt, an dem er Wert gewinnt (lastenfrei)",
+          evt: "offen: ökonomischer Werttest, mit Sensitivitätsanalyse",
+          coproduct: "Koppelprodukt: Substitution des ersetzten Produkts, mit Qualitätsfaktor Q",
+          integrated: "verflochten: ein multifunktionaler Prozess, als Ganzes modelliert",
+          allocation: "Allokation (Bilanz eines Unternehmens: keine Substitutionsgutschriften)",
+          aggregated: "aggregiert: jeden benennbaren Fluss einordnen",
+        },
         claim: 'Vergleichende Aussage gegenüber der Öffentlichkeit: kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
         claimNone: 'Keine öffentliche vergleichende Aussage',
         claimPolicy: "Keine öffentliche vergleichende Aussage; Ausrichtung an der EU-Politik (Q4 = D): Prüfung durch ein unabhängiges Panel, Entscheidung von T4.6",
@@ -819,6 +830,9 @@ const de: Locale = {
         shared: 'Ihre CAPEX und OPEX in der Kostenaufstellung, aufgeteilt auf die nutzenden Partner',
       },
       why: {
+        flows: "wer wen bezahlt, je Fluss (Q5)",
+        horizonUnanswered: "kein Betriebsjahr, Zeitraum, Lebensdauer oder Technologiereife angegeben, daher wird die Gegenwart angenommen; laufen die Anlagen länger als {{threshold}} Jahre, beantworten Sie Q8",
+        lccNoPolicyNoLca: "kein öffentliches Ziel (Q10): die Kosten jedes Partners, für das Netz konsolidiert",
         slcaOff: 'die soziale Dimension ist nicht ausgewählt (Q3)',
         claim: 'die Ergebnisse sollen eine öffentliche Aussage über Überlegenheit oder Gleichwertigkeit stützen (Q4 = C)',
         horizonFutureGeneric: 'der Studienhorizont reicht in die Zukunft',
@@ -877,9 +891,11 @@ const de: Locale = {
       flow_sellable_but_waste: "Fluss „{{flow}}“: Laut Q5 zahlt der Erzeuger für die Entsorgung (Abfall), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
       flow_price_without_market: "Fluss „{{flow}}“: Q5 sagt, der Empfänger zahlt (Koppelprodukt), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, ist der Fluss Abfall, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Step 4). Prüfen Sie den Preis gegen diesen Maßstab.",
       flow_freedom_to_act_settles: {
-        co_product: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt; die Freedom-to-Act-Antwort (D4.1 §8.3.3) liest ihn als Koppelprodukt (§8.3.2, Last geteilt).",
-        waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt; die Freedom-to-Act-Antwort (D4.1 §8.3.3) liest ihn als Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4).",
+        co_product: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt; um diese Lesart direkt anzuwenden, setzen Sie Q5 auf c.",
+        waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt; um diese Lesart direkt anzuwenden, setzen Sie Q5 auf a.",
       },
+      running_but_future: "Q2 sagt, dass die Austausche bereits stattfinden, aber Q8 legt den Betrieb in ein künftiges Jahr oder Q6b stuft die Schlüsseltechnologie unter TRL 7 ein. Ein laufender Austausch wird heute gemessen: prüfen Sie Q2, Q8 und Q6b. Bis dahin folgen das Referenzszenario und der Zeitpunkt der Kostenbewertung Q2, der künftige Hintergrund Q8 und Q6b.",
+      design_without_screening: "Die Studie plant, erweitert oder restrukturiert ein Netz und wird als Situation A modelliert. D4.1 §4.2.3: solche Studien brauchen das ILCD-Marktscreening (Mattila et al. 2012); ohne es bleibt die Studie A, mit Situation B als Sensitivitätsanalyse. Dokumentieren Sie das Screening oder rechnen Sie B als Sensitivität.",
       flow_part2_chapter: "Fluss „{{flow}}“: Für ihn gelten die Sektorregeln von D4.1 Part 2 {{chapter}}; sie stehen unter Sektorregeln.",
       case_sector_without_flow: "Der Sektor des Falls gehört zu D4.1 Part 2 {{chapter}}, aber kein Fluss gibt dieses Kapitel an, daher werden seine Sektorregeln nicht aufgeführt. Die Kapitel folgen dem, was ausgetauscht wird: Geben Sie in der Flusstabelle für jeden Fluss den Part-2-Sektor an.",
       flow_configuration_unknown: "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
@@ -901,7 +917,7 @@ const de: Locale = {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },
     next: {
-      obligations: '{{count}} zu dokumentierende Pflichten ({{groups}}): Sie stehen, mit ihrem jeweiligen Auslöser, im Data Collection File.',
+      obligations: "{{count}} zu dokumentierende Verpflichtungen ({{groups}}), ausgelöst durch Ihre Antworten. Das Data Collection File listet sie mit ihrem Auslöser auf, zusammen mit den Praktiken, die die Methode von jeder solchen Studie verlangt.",
       families: {
         IR: '{{count}} zur Integration der Methoden',
         CIR: '{{count}} durch Ihre Antworten ausgelöst',
@@ -1166,8 +1182,8 @@ const de: Locale = {
     engineDetailsTitle: 'Engine-Pipeline-Details',
     activatedNodesCount_one: '{{count}} aktivierter methodischer Knoten',
     activatedNodesCount_other: '{{count}} aktivierte methodische Knoten',
-    obligations_one: "{{count}} zu dokumentierende methodische Praktik",
-    obligations_other: "{{count}} zu dokumentierende methodische Praktiken",
+    obligations_one: "{{count}} zu dokumentierende Verpflichtung",
+    obligations_other: "{{count}} zu dokumentierende Verpflichtungen",
     cdpFlagsCount_one: '{{count}} dimensionsübergreifende Spannung',
     cdpFlagsCount_other: '{{count}} dimensionsübergreifende Spannungen',
     complianceTitle: 'Compliance-Signale',
@@ -1204,7 +1220,7 @@ const de: Locale = {
   obligations: {
     empty: "Für diesen Fall ist nichts zu dokumentieren.",
     lead:
-      "{{total}} Punkte betreffen diesen Fall: {{mandates}} methodische Vorgaben und {{rules}} methodenübergreifende Regeln, ausgelöst durch Ihre Antworten. Jeder ist eine im LCSA-Bericht zu dokumentierende Verpflichtung.",
+      "{{total}} zu dokumentierende Punkte für diesen Fall: die {{rules}} durch Ihre Antworten ausgelösten Verpflichtungen (die auf der Ergebnisseite gezählten) und {{mandates}} Praktiken, die die Methode von jeder solchen Studie verlangt. Jeder ist eine Verpflichtung, im LCSA-Bericht dokumentiert zu werden.",
     because: "Gilt, weil:",
     notApplicable: "Hier nicht anwendbar: {{fields}} — diese Methode ist in Q3 deaktiviert.",
     origin: {

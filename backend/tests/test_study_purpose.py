@@ -65,7 +65,7 @@ def test_report_and_dcf_cover_carry_the_purpose():
     case = _run(study_purpose=StudyPurpose.DESIGN, q2=Q2.B, reference_market_region="Italy",
                 reference_market_scope="sub_national")
     text = "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(case))).paragraphs)
-    assert "Q0 study purpose (D4.1 §4.3.2): design" in text
+    assert "Q0 kind of study: Design" in text
     root = Path(__file__).resolve().parents[1]
     payload = compose_dcf(case, json.loads((root / "app/schemas/dcf_schema.json").read_text()),
                           json.loads((root / "coordination/dcf_mandates_census.json").read_text()))

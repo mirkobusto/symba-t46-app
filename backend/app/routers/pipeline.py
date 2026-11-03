@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from pydantic import BaseModel
 
 from app.domain.models import Case
@@ -51,10 +51,10 @@ def run_pipeline(case: Case, schemas: LoadedSchemas = Depends(_get_schemas)) -> 
 
 @router.post("/report")
 def generate_report(
-    case: Case, schemas: LoadedSchemas = Depends(_get_schemas)
+    case: Case, schemas: LoadedSchemas = Depends(_get_schemas), lang: str = Query("en"),
 ) -> Response:
-    """Run the pipeline on the submitted Case and stream a .docx
-    validation-style report (8-section canonical layout).
+    """Run the pipeline on the submitted Case and stream the .docx case
+    report, in `lang`.
 
     Returns the document as an `application/vnd.openxmlformats-
     officedocument.wordprocessingml.document` attachment so browsers
@@ -65,7 +65,7 @@ def generate_report(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    body = generate_case_report_bytes(result)
+    body = generate_case_report_bytes(result, lang=lang)
     return Response(
         content=body,
         media_type=DOCX_MIME,

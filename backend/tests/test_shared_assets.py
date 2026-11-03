@@ -59,7 +59,7 @@ def test_q12_is_shown_in_the_obligations_and_the_report():
     assert answers_in("Q3.ENV+ECO AND new dedicated shared assets (Q12)", case) == [
         ("Q3", "env + eco"), ("Q12", "yes")]
     text = "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(case))).paragraphs)
-    assert "Q12 new dedicated shared assets: yes" in text
+    assert "Q12 dedicated shared assets: yes" in text
 
 
 @pytest.mark.parametrize("raw, expected", [(True, True), ("true", True), ("false", False), (0, False)])

@@ -45,4 +45,9 @@ describe('result reasons', () => {
     expect(lcc.why).toMatch(/each partner's costs, consolidated for the network/)
     expect(lcc.why).not.toMatch(/value-chain/)
   })
+
+  it('says when no Part 2 chapter covers the flows', async () => {
+    await i18n.changeLanguage('en')
+    expect(rows({ ...CASE, sector_rules: [] }).sectors.value).toMatch(/No chapter of D4.1 Part 2.*only Part 1 applies/)
+  })
 })

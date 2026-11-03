@@ -375,7 +375,7 @@ const de: Locale = {
         'D — einzelnes Unternehmen quantifiziert seinen symbiotischen Beitrag für ESG / CSRD / Nachhaltigkeitsberichte (z. B. „Wir haben 12 kt Schlacke an Zementhersteller verkauft, hier ist unsere Gutschrift"). Subjekt ist EIN UNTERNEHMEN. ' +
         'E — periodisches Monitoring einer bereits operativen Symbiose (jährliche KPI-Updates, Post-Implementation-Überwachung). Subjekt ist die ZEITREIHE, nicht eine einmalige Studie.',
       options: {
-        A: { label: 'A. Spezifischer Austausch', description: 'Ein symbiotischer Austausch zwischen zwei bestehenden Unternehmen.' },
+        A: { label: 'A. Spezifischer Austausch', description: "Ein symbiotischer Austausch zwischen zwei Unternehmen, bestehend oder geplant." },
         B: { label: 'B. Eco-park / Netzwerk', description: 'Ein Öko-Industriepark oder ein symbiotisches Multi-Akteurs-Netzwerk.' },
         C: { label: 'C. Politik / Programm', description: 'Eine Politik- oder Programmentscheidung auf regionaler oder nationaler Ebene.' },
         D: { label: 'D. Unternehmensbericht', description: 'Der symbiotische Beitrag eines einzelnen Unternehmens für ESG/CSRD-Reporting.' },
@@ -394,9 +394,10 @@ const de: Locale = {
         B: { label: 'B. Noch nicht', description: 'Geplant, entworfen oder gerade erst beginnend, auch zwischen bereits bestehenden Anlagen.' },
       },
       longStanding: {
-        label: 'Läuft das Netzwerk seit vielen Jahren, sodass die Anlagen, die es ersetzt hat, heute nicht mehr gebaut würden?',
+        label: "Läuft das Netz schon so lange, dass die Alternativen, die es ersetzt hat (z. B. die Kessel, die die Fernwärme sonst nutzen würde), heute nicht mehr gebaut würden?",
         yes: 'Ja — die Referenz ist ein modernes Kontrafaktum (D4.1 §11.2.2)',
         no: 'Nein — das Netzwerk ist jung',
+        unknown: "Weiß ich nicht — Referenz ist, was jedes Unternehmen heute ohne die Verbindungen täte",
       },
       plain:
         'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen bereits laufenden Anlagen, können Sie sie nur schätzen. Sie möchten Alternativen vergleichen, etwa eine Erweiterung oder eine neue Technologie? Fügen Sie sie unten als Szenarien hinzu, unabhängig von Ihrer Antwort hier.',
@@ -407,8 +408,8 @@ const de: Locale = {
       help: 'Mindestens eine ist erforderlich. Umwelt und Ökonomie sind die übliche Paarung.',
       details:
         'ENV — Umwelt-Lebenszyklusanalyse (LCA): Auswirkungen auf Klima, Ökosysteme, Ressourcennutzung. Fast immer ausgewählt. ' +
-        'ECO — ökonomische Dimension, bewertet mit Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb der LCC (aktiviert durch ECO und durch umstrittene Stoffströme in Q5), keine Alternative dazu; CBA und TEA bietet diese Engine nicht an. ' +
-        'SOC — S-LCA. Aktivierung löst eine längere Regelkette aus (Stakeholder-Kategorien Worker / lokale Gemeinschaft / Wertschöpfungskette) und erzwingt L1 BLOCK 2, wenn der erweiterte Override slca_framework_override auf „absolute" gesetzt ist. ' +
+        'ECO — ökonomische Dimension, bewertet mit Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb des LCC, keine Alternative dazu; CBA und TEA bietet dieses Tool nicht an. ' +
+        'SOC — S-LCA. Die Auswahl fügt die sozialen Regeln hinzu (Stakeholder-Kategorien: Beschäftigte, lokale Gemeinschaft, Wertschöpfungskette). ' +
         'Die meisten veröffentlichten IS-Papers laufen nur mit ENV (z. B. Sokka, Daddi); einige koppeln ENV+ECO (Hashimoto, Wiktor); nur eine Handvoll fügt SOC hinzu.',
       warning: 'Mindestens eine Dimension auswählen, um fortzufahren.',
       env: 'Umwelt (LCA)',
@@ -419,7 +420,7 @@ const de: Locale = {
     },
 
     q4: {
-      title: 'Q4 — Wofür wird diese Studie verwendet?',
+      title: "Q4 — Wie werden Sie die Ergebnisse nutzen und kommunizieren?",
       help: 'Mehrfachauswahl. Einige Verwendungen kombinieren sich (z. B. D + E für ein EU-PEF-Paper).',
       details:
         'A — interne Nutzung: Management-Dashboards, F&E-Screening, Werks-Entscheidungen. Wenige methodische Einschränkungen. ' +
@@ -450,11 +451,11 @@ const de: Locale = {
     q5: {
       title: 'Q5 — Art jedes symbiotischen Flusses (pro Fluss)',
       help:
-        'Fügen Sie eine Zeile pro symbiotischem Hauptfluss hinzu und wählen Sie dessen Q5-Kategorie. Pflicht für Q1 ∈ {A, B, D}; sonst optional.',
+        "Fügen Sie pro symbiotischem Hauptfluss eine Zeile hinzu und geben Sie an, wer wen bezahlt. Pflicht, wenn Sie einen Austausch, ein Netz oder ein einzelnes Unternehmen untersuchen (Q1 = A, B oder D); sonst optional.",
       details:
         'Wählen Sie für jeden Hauptstrom zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…), wer wen bezahlt: ' +
         'a — A zahlt B für die Abnahme des Flusses (eine Annahmegebühr: negativer Marktwert, ein ABFALL für A, D4.1 §8.3.2). Zero-Burden gilt ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Fluss im Data Collection File erklärt. ' +
-        'b — der Fluss wird KOSTENLOS abgegeben (unklarer Status): Die Engine leitet in die Klärungskette für kostenlose Flüsse. ' +
+        'b — der Fluss wird KOSTENLOS abgegeben (unklarer Status): der ökonomische Werttest entscheidet, ob er Abfall oder Koppelprodukt ist, mit Sensitivitätsanalyse. ' +
         'c — B zahlt A für den Fluss (positiver Marktwert: ein KOPPELPRODUKT für A): Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Fluss zahlen (Freedom-to-Act-Test, D4.1 §8.3.3), ist der Preis administrativ und der Fluss wird als Abfall modelliert. ' +
         'd — INTERDEPENDENTER Fluss: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
         'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §8.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
@@ -468,8 +469,8 @@ const de: Locale = {
       help: 'Der Hauptsektor des Falls, als Beschreibung. Die Sektorregeln von D4.1 Part 2 folgen dem Sektor jedes ausgetauschten Flusses, der in der Flusstabelle angegeben wird.',
       details:
         'Der Sektor beschreibt den Fall und öffnet einige sektorspezifische Felder im Data Collection File; die Sektorregeln von D4.1 Part 2 folgen dem für jeden Fluss angegebenen Sektor, weil die Kapitel dem folgen, was ausgetauscht wird. Wählen Sie die nächste Übereinstimmung zum dominanten Sektor des Falls (Akteur mit größtem Beitrag in Masse/Energie/Wert). ' +
-        'Beispiele: pulp_paper für Sokka 2011 (UPM Kymi); cement_construction für Hashimoto 2010 (Kawasaki); textile_leather für Daddi 2017 (Gerbereicluster); wastewater_sludge_biofactories für Wiktor 2018; chemicals_fertilizers für Leiva 2025 Escombreras; biobased_polymers für Briassoulis. ' +
-        'Für gemischte Fälle multi_sector verwenden. Die „(legacy)"-Einträge unten existieren für rückwärtskompatibles Laden alter Fixtures — bevorzugen Sie die neue 14-Sektor-Liste.',
+        'Beispiele: Zellstoff und Papier für Sokka 2011 (UPM Kymi); Zement / Bau für Hashimoto 2010 (Kawasaki); Textil / Leder für Daddi 2017 (Gerbereicluster); Abwasser / Schlamm / Biofactories für Wiktor 2018; Chemie / Düngemittel für Leiva 2025 Escombreras; Biobasierte Polymere für Briassoulis. ' +
+        'Für gemischte Fälle Multi-Sektor verwenden.',
       options: {
         none: '(keiner)',
         agriculture_agrifood_biorefineries: 'Landwirtschaft / Agri-Food / Bioraffinerien',
@@ -486,7 +487,7 @@ const de: Locale = {
         food_production: 'Lebensmittelproduktion',
         multi_tenant_urban_building: 'Mehrmieter-Stadtgebäude',
         multi_sector: 'Multi-Sektor',
-        other: 'Sonstige (angeben)',
+        other: "Sonstige",
         wastewater_biofactories: 'Abwasser / Schlämme / Biofactories (legacy)',
         agri_food: 'Agri-Food / Bioraffinerien (legacy)',
         process_industry: 'Prozessindustrie (legacy)',
@@ -565,7 +566,7 @@ const de: Locale = {
         'Über welche Jahre betrachtet die Studie das System? Beschreibt sie, wie die Dinge heute funktionieren, genügt ein Bild der Gegenwart. Geht es um eine Anlage, die erst in einem späteren Jahr läuft, oder verfolgt sie das System über Jahrzehnte, hängt das Ergebnis davon ab, wie sich Strom, Brennstoffe und Märkte verändern, und das Werkzeug bittet Sie um eine Einschätzung dieser Zukunft: dieselbe Zukunft für die ökologische und die wirtschaftliche Betrachtung.',
     },
     q9: {
-      title: 'Q9 — Wozu dient die Studie, und wie weit reichen ihre Wirkungen? *',
+      title: "Q9 — Welche Entscheidung unterstützt die Studie, und wie weit reichen ihre Folgen? *",
       help: 'Pflicht. Sie legt die Modellierungssituation fest (ILCD A, B, C1 oder C2); Q1 beschreibt nur den Gegenstand.',
       details: "Tabelle 1 in D4.1 klassifiziert die Studie nach der unterstützten Entscheidung und der Größenordnung ihrer Folgen, nicht nach ihrem Gegenstand (D4.1 §4.2.3). Mikro (Situation A) ist der Standard für Entscheidungen über einzelne Austausche und Anlagen. Strukturell (Situation B) gilt, wenn die Entscheidung die installierte Kapazität eines Marktes verändert: Das ILCD Handbook nimmt das an, wenn die jährliche Nachfrage oder das jährliche Angebot, das die Entscheidung einem Markt hinzufügt oder entzieht, die Kapazität übersteigt, die dieser Markt jedes Jahr erneuert, gerechnet mit höchstens 5 % (z. B. erneuern 10 Mt Anlagen mit 25 Jahren Lebensdauer 0,4 Mt pro Jahr). Die Planung eines neuen Parks, eine regionale Umstrukturierung oder ein Programm brauchen dieses Screening (Mattila et al. 2012); ohne es bleibt die Studie A, mit B als Sensitivitätsanalyse. Ein bestehendes Netzwerk zu dokumentieren, oder ein Unternehmensbericht, der anrechnet, was seine Austausche anderswo einsparen, ist Situation C1 (Substitution, §7.2.3); der Bericht eines einzelnen Unternehmens, der jede Gutschrift für seine Austausche ausschließt, ist C2 (Allokation, keine Gutschriften, §7.2.3), mit Kosten nur auf Unternehmensebene (Entwurfsentscheidung von T4.6).",
       examples: {
@@ -614,16 +615,16 @@ const de: Locale = {
         "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Abfall am besten behandelt wird — verbrennen, vergären, kompostieren —, wird das Ergebnis pro Tonne behandelten Abfalls gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
     },
     q12: {
-      title: 'Q12 — Braucht die Symbiose neue, eigens errichtete und gemeinsam genutzte Anlagen?',
-      help: 'Optional, gefragt wenn Ökobilanz oder LCC aktiv ist: Leitungen, Anlagen oder Lager, die für die Symbiose gebaut werden.',
+      title: "Q12 — Nutzt die Symbiose eigens gebaute, gemeinsam genutzte Anlagen?",
+      help: "Optional, gefragt bei LCA oder LCC: Leitungen, Anlagen oder Speicher, die für die Austausche gebaut werden oder vor Jahren gebaut wurden.",
       details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Sind Ökobilanz und LCC beide aktiv, aktiviert ein Ja außerdem die Regeln, die Investitionsgüter zwischen beiden abgleichen (IR-13, B-06); für Parks und Programme mit sozialer Dimension die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08).',
       options: {
         unset: 'Keine Antwort',
-        yes: 'Ja — für die Symbiose werden neue Leitungen, Anlagen oder Lager gebaut',
-        no: 'Nein — die Austausche nutzen bestehende Anlagen',
+        yes: "Ja — Leitungen, Anlagen oder Speicher, für die Austausche gebaut, jetzt oder vor Jahren",
+        no: "Nein — die Austausche nutzen nur Anlagen, die ohnehin gebraucht würden",
       },
       plain:
-        'Antworten Sie mit Ja, wenn für die Austausche etwas Neues gebaut werden muss: eine Leitung, eine gemeinsame Aufbereitungsanlage, ein Lagertank. Seine Kosten und sein ökologischer Fußabdruck werden dann in der Studie gezählt und auf die Unternehmen verteilt, die es nutzen.',
+        "Antworten Sie mit Ja, wenn für die Austausche etwas gebaut wurde oder gebaut werden muss: eine Leitung, eine gemeinsame Kläranlage, ein Tank, auch wenn er vor Jahren gebaut wurde. Seine Kosten und sein Umweltfußabdruck gehen dann in die Studie ein und werden unter den nutzenden Unternehmen aufgeteilt.",
     },
 
     q2dCard: {
@@ -646,7 +647,7 @@ const de: Locale = {
     q5Unset: "— wählen, wer wen bezahlt",
     sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
     sellableHint: "Würde der Partner diesen Fluss nicht abnehmen, könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt. Nein macht ihn nicht schon zu Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung), macht ihn trotzdem zum Koppelprodukt; ein kostenlos abgegebener Fluss oder eine Zahlung, die nur Kosten teilt, macht ihn zu Abfall (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht zu Q5 passt.",
-    sectorHint: "Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels.",
+    sectorHint: "Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels. D4.1 Part 2 hat nur für diese biobasierten Sektoren Kapitel: für Stahl, Zement, Wärme, Papier oder Chemie wählen Sie „— keiner davon“, dann gilt nur Part 1.",
     sectorNone: '— keiner davon',
     configurationHint: "Die typische Konfiguration des Flusses in seinem Kapitel der Part 2 (D4.1 Part 2 §4.1-§8.1): Das Ergebnis nennt das konventionelle Produkt, das er ersetzt. Wählen Sie zuerst den Sektor.",
     configurationNone: "— nicht beantwortet",
@@ -797,6 +798,7 @@ const de: Locale = {
         shared: 'Gemeinsame Anlagen',
       },
       values: {
+        noChapter: "Kein Kapitel von D4.1 Part 2 betrifft die angegebenen Flüsse: es gilt nur Part 1",
         flowTreatment: {
           waste: "Abfall: keine Last bis zu dem Punkt, an dem er Wert gewinnt (lastenfrei)",
           evt: "offen: ökonomischer Werttest, mit Sensitivitätsanalyse",
@@ -830,6 +832,7 @@ const de: Locale = {
         shared: 'Ihre CAPEX und OPEX in der Kostenaufstellung, aufgeteilt auf die nutzenden Partner',
       },
       why: {
+        noChapter: "Part 2 deckt fünf biobasierte Sektoren ab, und kein Fluss ist einem davon zugeordnet",
         flows: "wer wen bezahlt, je Fluss (Q5)",
         horizonUnanswered: "kein Betriebsjahr, Zeitraum, Lebensdauer oder Technologiereife angegeben, daher wird die Gegenwart angenommen; laufen die Anlagen länger als {{threshold}} Jahre, beantworten Sie Q8",
         lccNoPolicyNoLca: "kein öffentliches Ziel (Q10): die Kosten jedes Partners, für das Netz konsolidiert",
@@ -857,7 +860,7 @@ const de: Locale = {
         fuDefault: 'was die Studie vergleicht, ist nicht beantwortet (Q11)',
         regionalUnset: 'die Konzentration der Wechselwirkungen ist nicht beantwortet (Q7)',
         sectors: 'die Kapitel folgen dem für jeden Fluss angegebenen Sektor',
-        shared: 'die Symbiose braucht neue, eigens errichtete und gemeinsam genutzte Anlagen (Q12)',
+        shared: "die Symbiose nutzt eigens gebaute, gemeinsam genutzte Anlagen (Q12)",
       },
     },
     notes: { title: 'Hinweise zu Ihren Antworten' },

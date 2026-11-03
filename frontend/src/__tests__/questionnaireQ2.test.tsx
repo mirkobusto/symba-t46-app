@@ -56,6 +56,15 @@ describe('Questionnaire Q2 — do the exchanges already take place?', () => {
     expect(bodies[0].network_long_standing).toBe(true)
   })
 
+  it('lets the user say they do not know, which leaves Q2b unanswered', async () => {
+    fireEvent.click(document.querySelector('input[name="q2"][value="A"]')!)
+    fireEvent.click(document.querySelector('input[name="q2-long-standing"][value="yes"]')!)
+    fireEvent.click(document.querySelector('input[name="q2-long-standing"][value="unknown"]')!)
+    run()
+    await waitFor(() => expect(bodies.length).toBe(1))
+    expect(bodies[0].network_long_standing).toBeNull()
+  })
+
   it('does not send Q2b when the exchanges do not take place yet', async () => {
     fireEvent.click(document.querySelector('input[name="q2"][value="A"]')!)
     fireEvent.click(document.querySelector('input[name="q2-long-standing"][value="no"]')!)

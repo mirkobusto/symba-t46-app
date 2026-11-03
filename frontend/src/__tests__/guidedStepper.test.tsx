@@ -52,7 +52,7 @@ describe('guided questionnaire, one question at a time', () => {
 
   it('takes a "still to answer" link to that question', () => {
     renderPage()
-    fireEvent.click(screen.getByRole('link', { name: /What is the study for/ }))
+    fireEvent.click(screen.getByRole('link', { name: /Which decision does the study support/ }))
     expect(visibleCards()).toEqual(['q9'])
   })
 

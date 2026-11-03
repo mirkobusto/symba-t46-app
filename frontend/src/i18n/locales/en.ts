@@ -423,7 +423,7 @@ const en = {
         'D — a single company quantifying its symbiotic contribution for ESG / CSRD / sustainability reporting (e.g. "we sold 12 kt of slag to cement makers, here is our credit"). The subject is ONE COMPANY. ' +
         'E — periodic monitoring of an already-operating symbiosis (annual KPI updates, post-implementation surveillance). The subject is the TIME SERIES, not a one-off study.',
       options: {
-        A: { label: 'A. Specific exchange', description: 'A symbiotic exchange between two existing companies.' },
+        A: { label: 'A. Specific exchange', description: "A symbiotic exchange between two companies, existing or planned." },
         B: { label: 'B. Eco-park / network', description: 'An eco-industrial park or multi-actor symbiotic network.' },
         C: { label: 'C. Policy / programme', description: 'A policy or programme decision at regional or national scale.' },
         D: { label: 'D. Corporate report', description: "A single company's symbiotic contribution for ESG/CSRD reporting." },
@@ -442,9 +442,10 @@ const en = {
         B: { label: 'B. Not yet', description: 'Planned, designed or only just starting, even between plants that already exist.' },
       },
       longStanding: {
-        label: 'Has the network run for many years, so that the plants it replaced would no longer be built today?',
+        label: "Has the network run for so long that the alternatives it replaced (e.g. the boilers the district heating would otherwise use) would no longer be built today?",
         yes: 'Yes — the reference is a modern counterfactual (D4.1 §11.2.2)',
         no: 'No — the network is recent',
+        unknown: "I don't know — the reference is what each firm would do today without the links",
       },
       plain:
         'Think of the exchanges, not of the plants. If the flows between the companies already happen, you can measure them. If they are still an idea, even between plants that already run, you can only estimate them. Want to compare alternatives, such as an expansion or a new technology? Add them as scenarios below, whatever you answer here.',
@@ -455,8 +456,8 @@ const en = {
       help: 'At least one is required. Environmental and economic are the usual pairing.',
       details:
         'ENV — Environmental Life Cycle Assessment (LCA): impacts on climate, ecosystems, resource use. Almost always selected. ' +
-        'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC (activated by ECO and by contested flows in Q5), not an alternative to it; CBA and TEA are not offered by this engine. ' +
-        'SOC — Social LCA. Selecting it activates a longer rule chain (worker / local-community / value-chain stakeholder categories) and forces L1 BLOCK 2 if the advanced override slca_framework_override is set to "absolute". ' +
+        'ECO — economic dimension, assessed with Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) is a technique used inside the LCC, not an alternative to it; CBA and TEA are not offered by this tool. ' +
+        'SOC — Social LCA. Selecting it adds the social rules (worker, local-community and value-chain stakeholder categories). ' +
         'Most published IS papers run ENV-only (e.g. Sokka, Daddi); a few couple ENV+ECO (Hashimoto, Wiktor); only a handful add SOC.',
       warning: 'Select at least one dimension to proceed.',
       env: 'Environmental (LCA)',
@@ -467,7 +468,7 @@ const en = {
     },
 
     q4: {
-      title: 'Q4 — What will this study be used for?',
+      title: "Q4 — How will you use and communicate the results?",
       help: 'Multi-select. Some uses combine (e.g. D + E for an EU PEF paper).',
       details:
         'A — internal use: management dashboards, R&D screening, plant-level decisions. Few methodological constraints. ' +
@@ -498,11 +499,11 @@ const en = {
     q5: {
       title: 'Q5 — Nature of each symbiotic flow (per flow)',
       help:
-        'Add one row per main symbiotic flow and pick its Q5 category. Mandatory for Q1 ∈ {A, B, D}; optional otherwise.',
+        "Add one row per main symbiotic flow and say who pays whom. Required when you analyse an exchange, a network or one company (Q1 = A, B or D); optional otherwise.",
       details:
         'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick who pays whom: ' +
         'a — A pays B to take the flow (a gate fee: negative market value, a WASTE for A, D4.1 §8.3.2). Zero-burden applies from the point where the residue first reaches non-negative value, not at the gate. Paying is not the same as unavoidable: D4.2 §6.2 also requires the causal avoidability test, declared per flow in the Data Collection File. ' +
-        'b — flow exchanged for FREE (ambiguous status): the engine routes to the free-flow disambiguation chain. ' +
+        'b — flow exchanged for FREE (ambiguous status): the economic value test decides whether it is a waste or a co-product, with a sensitivity analysis. ' +
         'c — B pays A for the flow (positive market value: a CO-PRODUCT for A): substitution against the displaced virgin material, with a quality-corrected ratio. The PEF Circular Footprint Formula is not tied to Q5: it comes from Q4=D. If no third party would pay for the flow (Freedom-to-Act test, D4.1 §8.3.3), the price is administrative and the flow is modeled as waste. ' +
         'd — INTERDEPENDENT flow: A deliberately altered its process (quality, quantity, post-treatment) to supply B; a co-product whatever the price, never zero-burden. ' +
         'e — AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §8.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
@@ -516,8 +517,8 @@ const en = {
       help: 'The main sector of the case, as a description. The sector rules of D4.1 Part 2 follow the sector of each exchanged flow, declared in the flows table.',
       details:
         'The sector describes the case and opens a few sector-specific fields in the Data Collection File; the sector rules of D4.1 Part 2 follow the sector declared for each flow, because the chapters follow what is exchanged. Pick the closest match to the dominant sector of the case (the actor that contributes most mass/energy/value). ' +
-        'Examples: pulp_paper for Sokka 2011 (UPM Kymi); cement_construction for Hashimoto 2010 (Kawasaki); textile_leather for Daddi 2017 (tannery cluster); wastewater_sludge_biofactories for Wiktor 2018; chemicals_fertilizers for Leiva 2025 Escombreras; biobased_polymers for Briassoulis. ' +
-        'For mixed cases use multi_sector. The "(legacy)" entries at the bottom exist for backward-compatible loading of older fixtures — prefer the new 14-sector list.',
+        'Examples: Pulp & paper for Sokka 2011 (UPM Kymi); Cement / construction for Hashimoto 2010 (Kawasaki); Textile / leather for Daddi 2017 (tannery cluster); Wastewater / sludge / biofactories for Wiktor 2018; Chemicals / fertilizers for Leiva 2025 Escombreras; Bio-based polymers for Briassoulis. ' +
+        'For mixed cases use Multi-sector.',
       options: {
         none: '(none)',
         agriculture_agrifood_biorefineries: 'Agriculture / agri-food / biorefineries',
@@ -534,7 +535,7 @@ const en = {
         food_production: 'Food production',
         multi_tenant_urban_building: 'Multi-tenant urban building',
         multi_sector: 'Multi-sector',
-        other: 'Other (specify)',
+        other: "Other",
         wastewater_biofactories: 'Wastewater / sludge / biofactories (legacy)',
         agri_food: 'Agri-food / biorefineries (legacy)',
         process_industry: 'Process industry (legacy)',
@@ -613,7 +614,7 @@ const en = {
         'Over which years does the study look at the system? If it describes how things work today, a picture of the present is enough. If it is about a plant that will run in a later year, or it follows the system for decades, the result depends on how electricity, fuels and markets will change, and the tool asks you to take a view on that future: the same future for the environmental and the economic reading.',
     },
     q9: {
-      title: 'Q9 — What is the study for, and how far do its effects reach? *',
+      title: "Q9 — Which decision does the study support, and how far do its consequences reach? *",
       help: 'Required. It sets the modelling situation (ILCD A, B, C1 or C2); Q1 only describes the subject.',
       details: "D4.1 Table 1 classifies the study by the decision it supports and the scale of its consequences, not by its subject (D4.1 §4.2.3). Micro (Situation A) is the default for decisions on single exchanges and plants. Structural (Situation B) applies when the decision changes the capacity installed in a market: the ILCD Handbook assumes it when the yearly demand or supply the decision adds to or withdraws from a market exceeds the capacity that market replaces every year, counting at most 5 % (e.g. 10 Mt of plants lasting 25 years replace 0.4 Mt a year). The design of a new park, a regional restructuring or a programme needs this screening (Mattila et al. 2012); without it the study stays A, with B as a sensitivity. Documenting an existing network, or a company report that counts what its exchanges save elsewhere, is Situation C1 (substitution, §7.2.3); a report of one company that excludes any credit for its exchanges is C2 (allocation, no credits, §7.2.3), costed at company level only (a T4.6 design choice).",
       examples: {
@@ -662,16 +663,16 @@ const en = {
         "What is the comparison really about? If the question is how best to deal with a waste — burn it, digest it, compost it — the result is counted per tonne of waste treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
     },
     q12: {
-      title: 'Q12 — Does the symbiosis need new dedicated shared assets?',
-      help: 'Optional, asked when LCA or LCC is on: pipelines, plants or storage built for the symbiosis.',
+      title: "Q12 — Does the symbiosis use dedicated shared assets?",
+      help: "Optional, asked when LCA or LCC is on: pipelines, plants or storage built for the exchanges, now or years ago.",
       details: 'D4.2 §4.2 asks whether the network requires new dedicated shared assets: if it does, their CAPEX and ongoing OPEX must be included in the cost breakdown and allocated among the partners that benefit from them. D4.1 §6.3.3 includes the capital goods and infrastructure unique to the IS scenario, amortised over each asset\'s technical lifetime (Q8). With both LCA and LCC on, a yes also switches on the rules that align capital goods between the two (IR-13, B-06); for parks and programmes with the social dimension, the S-LCA indicators for shared investment (CIR-08).',
       options: {
         unset: 'Not answered',
-        yes: 'Yes — new pipelines, plants or storage are built for the symbiosis',
-        no: 'No — the exchanges use existing assets',
+        yes: "Yes — pipelines, plants or storage built for the exchanges, now or years ago",
+        no: "No — the exchanges use only assets that would be needed anyway",
       },
       plain:
-        'Answer yes if something new has to be built for the exchanges to happen: a pipeline, a shared treatment plant, a storage tank. Its cost and its environmental footprint are then counted in the study and shared among the companies that use it.',
+        "Answer yes if something was built, or has to be built, for the exchanges to happen: a pipeline, a shared treatment plant, a storage tank, even one built years ago. Its cost and its environmental footprint are then counted in the study and shared among the companies that use it.",
     },
 
     q2dCard: {
@@ -694,7 +695,7 @@ const en = {
     q5Unset: "— choose who pays whom",
     sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
     sellableHint: "If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product. No does not make it a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still makes it a co-product; a free flow, or a payment that only shares costs, makes it a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.",
-    sectorHint: "Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues → Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste) → Waste valorisation (§8); sludge and treated wastewater, also when reused as water → Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) → the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter.",
+    sectorHint: "Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues → Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste) → Waste valorisation (§8); sludge and treated wastewater, also when reused as water → Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) → the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter. D4.1 Part 2 has chapters only for these bio-based sectors: for steel, cement, heat, pulp and paper or chemicals pick \"— none of these\", and only Part 1 applies.",
     sectorNone: '— none of these',
     configurationHint: "The typical configuration of the flow within its Part 2 chapter (D4.1 Part 2 §4.1-§8.1): the result names the conventional product it substitutes. Pick the sector first.",
     configurationNone: "— not answered",
@@ -845,6 +846,7 @@ const en = {
         shared: 'Shared assets',
       },
       values: {
+        noChapter: "No chapter of D4.1 Part 2 covers the declared flows: only Part 1 applies",
         flowTreatment: {
           waste: "waste: no burden up to where it gains value (zero burden)",
           evt: "undecided: economic value test, with a sensitivity analysis",
@@ -878,6 +880,7 @@ const en = {
         shared: 'Their CAPEX and OPEX in the cost breakdown, shared among the partners that use them',
       },
       why: {
+        noChapter: "Part 2 covers five bio-based sectors; no flow is declared in one of them",
         flows: "who pays whom for each flow (Q5)",
         horizonUnanswered: "no operating year, analysis period, asset lifetime or technology maturity given, so the present is assumed; if the plants will run beyond {{threshold}} years, answer Q8",
         lccNoPolicyNoLca: "no public objective (Q10): each partner's costs, consolidated for the network",
@@ -905,7 +908,7 @@ const en = {
         fuDefault: 'what the study compares is not answered (Q11)',
         regionalUnset: 'the concentration of the interactions is not answered (Q7)',
         sectors: 'the chapters follow the sector declared on each flow',
-        shared: 'the symbiosis needs new dedicated shared assets (Q12)',
+        shared: "the symbiosis uses dedicated shared assets (Q12)",
       },
     },
     notes: { title: 'Notes on your answers' },

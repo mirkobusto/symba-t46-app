@@ -481,12 +481,13 @@ export default function QuestionnairePage() {
           {q2 === 'A' && !oneCompany && (
             <>
               <p className="opt-label">{t('questionnaire.q2.longStanding.label')}</p>
-              {(['yes', 'no'] as const).map((k) => (
+              {/* "I don't know" leaves it unanswered: the plain HNSRS reference */}
+              {(['yes', 'no', 'unknown'] as const).map((k) => (
                 <label key={k} className="opt opt-single">
                   <input
                     type="radio" name="q2-long-standing" value={k}
-                    checked={longStanding === k}
-                    onChange={() => setLongStanding(k)}
+                    checked={longStanding === (k === 'unknown' ? '' : k)}
+                    onChange={() => setLongStanding(k === 'unknown' ? '' : k)}
                   />
                   <span className="opt-label">{t(`questionnaire.q2.longStanding.${k}`)}</span>
                 </label>

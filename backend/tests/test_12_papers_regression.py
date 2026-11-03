@@ -96,12 +96,12 @@ _PAPERS: list[dict[str, Any]] = [
     # 4. Paulu 2022 — Czech industry-wide policy assessment
     {
         "id": "paulu_2022",
-        "decision_context": DecisionContext.STRUCTURAL, "q1": Q1.C, "q2": Q2.B,
+        "decision_context": DecisionContext.STRUCTURAL, "market_screening_documented": False, "q1": Q1.C, "q2": Q2.B,
         "q3": Q3(env=True),
         "q4": {Q4.D, Q4.E},  # multi-select: PEF + academic
         "flows": _flows(Q5.e),
         "q6a": Q6a.WASTE_VALORIZATION, "q6b": Q6b.TRL9, "q7": Q7.C,
-        "expected_ilcd": IlcdSituation.SITUATION_B,
+        "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.DEACTIVATED,
         "expected_slca": SlcaActivationState.DEACTIVATED,
     },
@@ -206,12 +206,12 @@ _PAPERS: list[dict[str, Any]] = [
     # WorkingDoc Q7=n/a → None
     {
         "id": "briassoulis_2023",
-        "decision_context": DecisionContext.STRUCTURAL, "policy_objective": True, "q1": Q1.C, "q2": Q2.B,
+        "decision_context": DecisionContext.STRUCTURAL, "market_screening_documented": False, "policy_objective": True, "q1": Q1.C, "q2": Q2.B,
         "q3": Q3(env=True, eco=True, soc=True),
         "q4": {Q4.E},
         "flows": _flows(Q5.b, Q5.c),
         "q6a": Q6a.BIOBASED_POLYMERS, "q6b": Q6b.TRL9, "q7": None,
-        "expected_ilcd": IlcdSituation.SITUATION_B,
+        "expected_ilcd": IlcdSituation.SITUATION_A,
         "expected_lcc_type": LccType.E_LCC_PLUS_S_LCC_PLUS_NTF,  # Q1=C + eco
         "expected_slca": SlcaActivationState.ACTIVE,
     },

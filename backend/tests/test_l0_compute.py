@@ -260,7 +260,8 @@ def test_q9_answers_consistent_with_q1_leave_no_note(q1, decision):
 
 @pytest.mark.parametrize("screening, situation, code", [
     (True, _S.SITUATION_B, None),
-    (None, _S.SITUATION_B, "structural_screening_missing"),
+    # unanswered counts as no: the burden of proof is on the study (UX round 4, P2-01)
+    (None, _S.SITUATION_A, "structural_screening_missing"),
     (False, _S.SITUATION_A, "structural_without_screening"),
 ])
 def test_q9_structural_needs_the_market_screening(screening, situation, code):

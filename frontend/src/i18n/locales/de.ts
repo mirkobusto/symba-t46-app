@@ -679,7 +679,7 @@ const de: Locale = {
         corporate_report: "Bericht eines einzelnen Unternehmens, der jede Gutschrift für das ausschließt, was seine Austausche anderswo vermeiden, z. B. strikte ESG-/CSRD-Bilanzierung (Situation C2)",
       },
       screening: {
-        label: "Ist dokumentiert, dass die jährliche Menge, die die Entscheidung dem betroffenen Markt hinzufügt oder entzieht, die Kapazität übersteigt, die dieser Markt jedes Jahr erneuert (höchstens 5 %)?",
+        label: 'Ist dokumentiert, dass die jährliche Menge, die die Entscheidung dem betroffenen Markt hinzufügt oder entzieht, die Kapazität übersteigt, die dieser Markt jedes Jahr erneuert (höchstens 5 %)? Ohne Antwort gilt sie als Nein.',
         yes: 'Ja, es ist dokumentiert (Situation B)',
         no: 'Nein (Situation A, mit Situation B als Sensitivitätsanalyse)',
       },
@@ -1046,7 +1046,7 @@ const de: Locale = {
         no: "Q10 ist nicht beantwortet, daher wird aus Q1 abgeleitet, ob die Studie einem öffentlichen Ziel dient: Die gesellschaftliche LCC wird nicht ergänzt, wie bei Fällen, die vor Q10 gespeichert wurden. Beantworten Sie Q10: D4.2 §2.3 ergänzt die gesellschaftliche LCC für ein Ziel der öffentlichen Politik oder Planung oder einen öffentlichen Entscheidungsträger, unabhängig vom Gegenstand der Studie.",
       },
       structural_without_screening: "Q9 nennt strukturelle Auswirkungen, aber das Markt-Screening ist nicht dokumentiert: Die Studie wird als ILCD-Situation A behandelt, und Situation B muss als Sensitivitätsanalyse geprüft werden (ILCD Handbook 2010, §5.3).",
-      structural_screening_missing: "Situation B verlangt ein dokumentiertes Markt-Screening: Die jährliche Menge, die die Entscheidung dem betroffenen Markt hinzufügt oder entzieht, muss die Kapazität übersteigen, die dieser Markt jedes Jahr erneuert, gerechnet mit höchstens 5 % (ILCD Handbook 2010, §5.3); dokumentieren Sie es, sonst gilt Situation A mit B als Sensitivitätsanalyse.",
+      structural_screening_missing: 'Q9 nennt strukturelle Wirkungen, aber ob das Markt-Screening dokumentiert ist, ist nicht beantwortet: Die Studie wird als ILCD-Situation A behandelt, mit Situation B als Sensitivitätsanalyse, bis das Screening dokumentiert ist (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). Beantworten Sie die Folgefrage zu Q9, sobald es so weit ist.',
       decision_scale_vs_q1: {
         c_micro: "Q1 (sektorweite Vorstudie) bedeutet meist Folgen in struktureller Größenordnung; Sie haben begrenzte Folgen angegeben, daher wird die Studie als ILCD-Situation A behandelt. D4.1 §4.3.4: Wählen Sie die konsequenzielle Ökobilanz nicht allein deshalb, weil eine Entscheidung getroffen wird.",
         e_micro: "Q1=E (Monitoring) setzt keine Entscheidung voraus; Sie haben angegeben, dass die Studie eine Entscheidung mit begrenzten Folgen stützt, daher wird sie als ILCD-Situation A behandelt.",

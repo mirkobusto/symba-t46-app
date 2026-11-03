@@ -84,9 +84,9 @@ export const PRESETS: Preset[] = [
     label: '4. Paulu 2022 — Czech industry-wide (CZ, policy)',
     citation: 'Paulu et al. (2022)',
     description: 'National policy assessment, EU PEF + academic publication.',
-    rationale: 'Q1=C because this is a pure POLICY assessment at national scale (Czech Republic CCP & C&DW management), not a specific exchange or eco-park. Q4=D+E is the canonical multi-select case: EU PEF/EF method (D activates CIR-05 PEF Circular Footprint Formula) AND academic publication (E full SI). Q7=C (interactions across the country). Q9 = B (structural): a national policy changes how much a whole market handles. The paper does not document the ILCD market screening, so the result carries a note asking for it.' + UNSTATED,
+    rationale: 'Q1=C because this is a pure POLICY assessment at national scale (Czech Republic CCP & C&DW management), not a specific exchange or eco-park. Q4=D+E is the canonical multi-select case: EU PEF/EF method (D activates CIR-05 PEF Circular Footprint Formula) AND academic publication (E full SI). Q7=C (interactions across the country). Q9 = structural: a national policy changes how much a market handles, the very example Table 1 gives for Situation B. The paper does not document the market screening D4.1 §4.3.4 asks for, so the tool configures Situation A with B as a sensitivity: the burden of proof is on the study. An analyst who documents the yearly quantities against the capacity the market replaces answers yes and gets B. With Q4 = D the CFF governs in A.' + UNSTATED,
     case: {
-      q1: 'C', decision_context: 'structural', q2: 'B', q3: { env: true, eco: false, soc: false },
+      q1: 'C', decision_context: 'structural', market_screening_documented: false, q2: 'B', q3: { env: true, eco: false, soc: false },
       q4: ['D', 'E'],
       flows: inSector('waste_valorization', named(['e', 'Construction and demolition waste (aggregated)'])), q6a: 'waste_valorization', q6b: 'TRL9', q7: 'C',
     },
@@ -195,9 +195,9 @@ export const PRESETS: Preset[] = [
     label: '12. Briassoulis 2023 — bio-polymers framework (EU)',
     citation: 'Briassoulis et al. (2023)',
     description: 'Industry-wide propositional framework, full LCSA + TEA.',
-    rationale: 'Industry-wide bio-polymer framework = Q1=C (sector-level). Propositional framework in design phase = Q2=B. Full LCSA with TEA addition (CAPEX, OPEX, NPV, ROI, payback). Q7 not applicable (n/a in WorkingDoc — multi-country EU framework, no specific geography). Q9 = B (structural): an industry-wide framework for a whole sector. The paper does not document the ILCD market screening, so the result carries a note asking for it.' + UNSTATED,
+    rationale: 'Industry-wide bio-polymer framework = Q1=C (sector-level). Propositional framework in design phase = Q2=B. Full LCSA with TEA addition (CAPEX, OPEX, NPV, ROI, payback). Q7 not applicable (n/a in WorkingDoc — multi-country EU framework, no specific geography). Q9 = structural (an industry-wide framework for a whole sector); the market screening is not documented: Situation A with B as a sensitivity, as for Paulu 2022.' + UNSTATED,
     case: {
-      q1: 'C', decision_context: 'structural', policy_objective: true, q2: 'B', q3: { env: true, eco: true, soc: true }, q4: ['E'],
+      q1: 'C', decision_context: 'structural', market_screening_documented: false, policy_objective: true, q2: 'B', q3: { env: true, eco: true, soc: true }, q4: ['E'],
       flows: inSector('biobased_polymers', flows('b', 'c')), q6a: 'biobased_polymers', q6b: 'TRL9', q7: null,
     },
   },

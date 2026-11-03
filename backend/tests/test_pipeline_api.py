@@ -227,7 +227,8 @@ def test_pipeline_run_q8_negative_is_rejected(client):
 def test_pipeline_run_q9_structural_decision_moves_the_situation_and_the_framework(client):
     base = {"q1": "A", "q2": "A", "q3": {"env": True, "eco": False, "soc": False}}
     plain = client.post("/api/pipeline/run", json=base).json()
-    scaled = client.post("/api/pipeline/run", json={**base, "decision_context": "structural"}).json()
+    scaled = client.post("/api/pipeline/run", json={**base, "decision_context": "structural",
+                                                    "market_screening_documented": True}).json()
     assert plain["ilcd_situation"] == "ILCD Situation A"
     assert [w["code"] for w in plain["warnings"]] == ["q9_unanswered"]
     assert scaled["decision_context"] == "structural"

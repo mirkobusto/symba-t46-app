@@ -62,10 +62,15 @@ const Q4_WARN_KEYS: Partial<Record<Q4, string>> = {
   D: 'questionnaire.q4.options.D.warn',
 }
 
-/** Years as the API wants them: a non-negative number, or null when empty/invalid. */
+/** The bound the engine accepts (Case.analysis_period_years, le=500): not a
+ * methodological limit, a typo guard. 0, negatives and 9999 went through
+ * silently, to be dropped or refused by the engine (Kimi test 2026-11-04, A8-04). */
+const MAX_YEARS = 500
+
+/** Years as the API wants them: a number above 0, or null when empty/invalid. */
 function parseYears(raw: string): number | null {
   const n = Number(raw.trim())
-  return raw.trim() !== '' && Number.isFinite(n) && n >= 0 ? n : null
+  return raw.trim() !== '' && Number.isFinite(n) && n > 0 && n <= MAX_YEARS ? n : null
 }
 
 /** A calendar year, or null when empty/invalid. */
@@ -185,6 +190,9 @@ export default function QuestionnairePage() {
   // Q9 is required: the ILCD situation follows it (D4.1 Table 1), not Q1
   // Q10 is required when the economic dimension is on: it decides the societal LCC
   const flowsWithoutQ5 = flows.some((f) => !f.q5)
+  // Q8 is optional, but what is typed in it must be a number of years
+  const q8Invalid = [analysisPeriod, assetLifetime].some((v) => v.trim() !== '' && parseYears(v) === null)
+    || (operatingStart === 'future' && startYear.trim() !== '' && parseYear(startYear) === null)
   // what still blocks the run, in page order, named by the card title (the
   // step number on screen is a CSS counter, the Q code alone meant nothing to
   // a newcomer, and "Q1 is required" stayed silent about Q9 and Q10)
@@ -194,6 +202,7 @@ export default function QuestionnairePage() {
     ...(decisionContext === '' ? [{ id: 'q9', label: cardTitle(t('questionnaire.q9.title')) }] : []),
     ...(eco && policy === '' ? [{ id: 'q10', label: cardTitle(t('questionnaire.q10.title')) }] : []),
     ...(flowsWithoutQ5 ? [{ id: 'q5', label: t('questionnaire.flowsMissingQ5') }] : []),
+    ...(q8Invalid ? [{ id: 'q8', label: `${cardTitle(t('questionnaire.q8.title'))} (${t('questionnaire.q8.invalidShort')})` }] : []),
   ]
   const canRun = missing.length === 0 && !loading
 
@@ -531,7 +540,8 @@ export default function QuestionnairePage() {
           help={t('questionnaire.q8.help')}
           plain={t('questionnaire.q8.plain')}
           details={t('questionnaire.q8.details')}
-          warning={horizonOver ? t('questionnaire.q8.horizonWarning', { threshold: horizonThreshold }) : undefined}
+          warning={q8Invalid ? t('questionnaire.q8.invalid', { max: MAX_YEARS })
+            : horizonOver ? t('questionnaire.q8.horizonWarning', { threshold: horizonThreshold }) : undefined}
         >
           <p className="opt-label">{t('questionnaire.q8.start.label')}</p>
           {START_KEYS.map((k) => (
@@ -558,7 +568,7 @@ export default function QuestionnairePage() {
           <p className="opt-label">{t('questionnaire.q8.period.label')}</p>
           <label className="qnum">
             <input
-              type="number" min={0} step="any" inputMode="decimal"
+              type="number" min={0} max={MAX_YEARS} step="any" inputMode="decimal"
               className="qnum-input" data-field="analysis-period"
               value={analysisPeriod}
               placeholder={t('questionnaire.q8.period.placeholder')}
@@ -569,7 +579,7 @@ export default function QuestionnairePage() {
           <p className="opt-label">{t('questionnaire.q8.lifetime.label')}</p>
           <label className="qnum">
             <input
-              type="number" min={0} step="any" inputMode="decimal"
+              type="number" min={0} max={MAX_YEARS} step="any" inputMode="decimal"
               className="qnum-input" data-field="asset-lifetime"
               value={assetLifetime}
               placeholder={t('questionnaire.q8.placeholder')}

@@ -696,6 +696,8 @@ const en = {
     },
     q8: {
       title: 'Q8 — Time horizon of the study',
+      invalid: "Write the years as a number above 0 (at most {{max}}); the year of operation between 1900 and 2200.",
+      invalidShort: "years above 0",
       help: 'Optional. One horizon for LCA and LCC alike.',
       horizonWarning: 'Over {{threshold}} years: the study will have to take a view on how energy and markets change (future background for LCA and LCC).',
       details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study. The analysis period is the time span the study covers; as a rule it matches the technical lifetime of the main assets (D4.2 §9). The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
@@ -1366,6 +1368,8 @@ const en = {
   },
 
   auth: {
+    logoutUnsaved: "Signing out empties this browser's case and network, so the next person does not find them. Some changes are not saved on the server and will be lost.",
+    sessionExpired: "Your session has expired: sign in again. The case stays in this browser.",
     title: 'Sign in',
     subtitle:
       'An account is needed to save cases on the server and to share them. A saved case is read only by people who have its link, and only after you share it.',

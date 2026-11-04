@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { ApiError, runPipeline } from '../services/api'
+import { ApiError, authLogin, createCase, runPipeline } from '../services/api'
+import { useAuthStore } from '../store/authStore'
 
 const okResponse = (body: unknown) =>
   ({
@@ -53,5 +54,35 @@ describe('runPipeline', () => {
       expect((e as ApiError).status).toBe(400)
       expect((e as ApiError).detail).toContain('Invalid Q1')
     }
+  })
+})
+
+// Kimi test 2026-11-04, A8-08: a refused token kept the page "signed in"
+describe('a refused token', () => {
+  const user = { id: 'u1', email: 'a@b.c', role: 'user' } as never
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    useAuthStore.getState().clearSession()
+  })
+
+  it('is forgotten when the server answers 401', async () => {
+    useAuthStore.getState().setSession('stale', user)
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(errResponse(401, 'Invalid token'))))
+    await expect(createCase('x', { q1: 'A' })).rejects.toBeInstanceOf(ApiError)
+    expect(useAuthStore.getState().token).toBeNull()
+  })
+
+  it('is kept when the 401 is a wrong password', async () => {
+    useAuthStore.getState().setSession('valid', user)
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(errResponse(401, 'Invalid credentials'))))
+    await expect(authLogin({ email: 'a@b.c', password: 'nope-nope' })).rejects.toBeInstanceOf(ApiError)
+    expect(useAuthStore.getState().token).toBe('valid')
+  })
+
+  it('is kept on other errors', async () => {
+    useAuthStore.getState().setSession('valid', user)
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(errResponse(403, 'Forbidden'))))
+    await expect(createCase('x', { q1: 'A' })).rejects.toBeInstanceOf(ApiError)
+    expect(useAuthStore.getState().token).toBe('valid')
   })
 })

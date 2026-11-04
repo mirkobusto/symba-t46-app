@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 
 import ErrorBoundary from './components/ErrorBoundary'
 import Layout from './components/Layout'
+import SessionCheck from './components/SessionCheck'
 import AboutPage from './pages/AboutPage'
 import CasesListPage from './pages/CasesListPage'
 import HomePage from './pages/HomePage'
@@ -68,6 +69,7 @@ export default function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <ScrollToTop />
+        <SessionCheck />
         <WelcomeGate>
           <Routes>
             <Route path="/welcome" element={<WelcomePage />} />

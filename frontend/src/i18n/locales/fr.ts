@@ -654,6 +654,8 @@ const fr: Locale = {
     },
     q8: {
       title: 'Q8 — Horizon temporel de l\'étude',
+      invalid: "Indiquez les années par un nombre supérieur à 0 (au plus {{max}}) ; l'année d'exploitation entre 1900 et 2200.",
+      invalidShort: "années supérieures à 0",
       help: 'Facultative. Un seul horizon pour l\'ACV et l\'ACC.',
       horizonWarning: 'Au-delà de {{threshold}} ans : l\'étude devra prévoir l\'évolution de l\'énergie et des marchés (arrière-plan futur pour l\'ACV et l\'ACC).',
       details: 'Les livrables exigent un seul horizon temporel pour l\'ACV, l\'ACC et l\'ACV-S (D4.2 §11, D4.1 §14). Des scénarios d\'arrière-plan futurs (SSP/RCP) sont ajoutés aux deux lorsque le système fonctionne une année future (D4.1 §9.3.5, §12.3.2), lorsque la technologie clé est en dessous de TRL 7 (Q6b) ou lorsque la période d\'analyse ou la durée de vie des actifs principaux dépasse 15 ans (D4.2 §9.3, qui donne ce chiffre sans source ; il peut être modifié dans les réglages avancés). Sans réponse, l\'année d\'exploitation est celle de l\'étude. La période d\'analyse est la durée couverte par l\'étude ; en règle générale, elle coïncide avec la durée de vie technique des actifs principaux (D4.2 §9). La durée de vie des actifs principaux est aussi la période d\'amortissement de leurs biens d\'équipement, la même en ACV et en ACC (D4.1 §6.3.3, §14.2.2) ; les actifs d\'une autre durée de vie vont dans le fichier de collecte de données.',
@@ -1326,6 +1328,8 @@ const fr: Locale = {
   },
 
   auth: {
+    logoutUnsaved: "En vous déconnectant, le cas et le réseau de ce navigateur sont vidés, pour que la personne suivante ne les trouve pas. Certaines modifications ne sont pas enregistrées sur le serveur et seront perdues.",
+    sessionExpired: "Votre session a expiré : reconnectez-vous. Le cas reste dans ce navigateur.",
     title: 'Se connecter',
     subtitle: 'Un compte est nécessaire pour enregistrer des cas sur le serveur et pour les partager. Un cas enregistré n\'est lu que par les personnes qui ont son lien, et seulement après que vous l\'avez partagé.',
     tabLogin: 'Se connecter',

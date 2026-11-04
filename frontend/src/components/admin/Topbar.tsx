@@ -14,6 +14,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { useAuthStore } from '../../store/authStore'
+import { askConfirm } from '../../store/dialogStore'
+import { clearLocalWork, hasUnsavedWork } from '../../store/signOut'
 import HealthCheck from '../HealthCheck'
 import LanguageSwitcher from '../LanguageSwitcher'
 
@@ -24,8 +26,12 @@ export default function Topbar() {
   const user = useAuthStore((s) => s.user)
   const clearSession = useAuthStore((s) => s.clearSession)
 
-  function handleLogout() {
+  async function handleLogout() {
+    // the case and the network go with the account: the next person on this
+    // browser must not find them (Kimi test 2026-11-04, A1-01)
+    if (hasUnsavedWork() && !(await askConfirm(t('auth.logoutUnsaved'), t('auth.logout')))) return
     clearSession()
+    clearLocalWork()
     navigate('/')
   }
 
@@ -60,7 +66,7 @@ export default function Topbar() {
             <button
               type="button"
               className="dd-topbar-logout"
-              onClick={handleLogout}
+              onClick={() => void handleLogout()}
             >
               {t('auth.logout')}
             </button>

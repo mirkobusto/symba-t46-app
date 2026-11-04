@@ -74,6 +74,13 @@ export default function ResultPage() {
   }
 
   function saveErrorToast(e: unknown) {
+    // the token was refused (and forgotten by the API client): sign in again
+    // and come back to save, instead of a bare error (Kimi test 2026-11-04, A8-08)
+    if (e instanceof ApiError && e.status === 401) {
+      pushToast({ type: 'info', message: t('auth.sessionExpired'), durationMs: 10000 })
+      navigate('/login', { state: { from: '/result', then: 'save' } })
+      return
+    }
     const msg = e instanceof ApiError ? e.detail : (e as Error).message
     pushToast({
       type: 'error',

@@ -147,3 +147,24 @@ def test_a_scenario_network_is_exported_while_the_case_network_is_empty(client):
     assert client.put(f"/api/dcf/{case_id}/data", json=body).status_code == 200
     docx = client.post(f"/api/dcf/{case_id}/export/docx", json={"rows": []})
     assert "Actor added: Landfill" in "\n".join(p.text for p in Document(io.BytesIO(docx.content)).paragraphs)
+
+
+@pytest.mark.parametrize(("variant", "scenario_id", "promised"), [
+    (None, "alt1", False),        # the case's network only
+    (LANDFILL, "alt7", False),    # a network kept, dormant: its scenario left
+    (LANDFILL, "alt1", True),
+])
+def test_the_excel_promises_scenario_networks_only_when_one_follows(client, variant, scenario_id, promised):
+    """Kimi test 2026-11-04, A3-02: "a scenario with a network of its own
+    follows below" was written above an empty space."""
+    import io
+
+    from openpyxl import load_workbook
+
+    case_id = _save(client)
+    body = _network(case_id, variant, scenario_id=scenario_id)
+    assert client.put(f"/api/dcf/{case_id}/data", json=body).status_code == 200
+    xlsx = client.post(f"/api/dcf/{case_id}/export/xlsx", json={"rows": []})
+    cells = [str(c.value) for ws in load_workbook(io.BytesIO(xlsx.content)).worksheets for row in ws.iter_rows() for c in row
+             if c.value is not None]
+    assert any("follows below" in c for c in cells) is promised

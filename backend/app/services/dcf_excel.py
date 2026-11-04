@@ -503,8 +503,9 @@ def _write_network_tab(
         ws.add_image(_scaled_image(network_png, 900), "H2")
 
     edges = edge_list(data)
+    own_networks = scenario_networks(data, scenarios)
     # a scenario's network may be drawn while the case's is still empty (Q2 = B)
-    if not edges and not scenario_networks(data, scenarios):
+    if not edges and not own_networks:
         ws["A3"] = ui(lang, "nw.none")
         ws["A3"].alignment = Alignment(wrap_text=True)
         ws.column_dimensions["A"].width = 90
@@ -512,7 +513,9 @@ def _write_network_tab(
         _set_print_footer(ws)
         return
 
-    ws["A2"] = ui(lang, "nw.intro")
+    # "scenarios follow below" only when one does (Kimi test 2026-11-04, A3-02)
+    intro = ui(lang, "nw.intro")
+    ws["A2"] = f"{intro} {ui(lang, 'nw.intro_scenarios')}" if own_networks else intro
     ws["A2"].font = _SUBTITLE_FONT
     ws["A2"].alignment = Alignment(wrap_text=True)
 
@@ -536,7 +539,7 @@ def _write_network_tab(
     last = edge_block(4, edges)
     # each scenario with a network of its own: its links below the case's
     # (scenario networks, owner OK 2026-11-04)
-    for label, variant in scenario_networks(data, scenarios):
+    for label, variant in own_networks:
         ws.cell(row=last + 2, column=1, value=ui(lang, "nw.sc_title", label=label)).font = _SUBTITLE_FONT
         last = edge_block(last + 3, edge_list_rows(variant.rows_by_section.get("actors", []),
                                                     variant.rows_by_section.get("flow_matrix", [])))

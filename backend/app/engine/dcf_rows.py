@@ -74,6 +74,27 @@ def with_case_flows(data: DcfData | None, case: Case, case_id: str) -> DcfData:
                 },
             )
         )
+    # a scenario's network follows the questionnaire too: names, and who pays
+    # whom as the scenario sets it (flow_q5 override), else as the case does
+    networks = {}
+    for scenario in case.alternative_scenarios:
+        variant = base.networks_by_scenario.get(scenario.id)
+        if variant is None:
+            continue
+        q5_override = scenario.overrides.get("flow_q5") if isinstance(scenario.overrides, dict) else None
+        q5_override = q5_override if isinstance(q5_override, dict) else {}
+        rows = []
+        for row in variant.rows_by_section.get("flow_matrix", []):
+            flow = by_id.get(row.row_id)
+            if flow is not None:
+                fixed = {"flow.name": flow.name, "flow.q5_class": str(q5_override.get(flow.id, flow.q5.value))}
+                row = row.model_copy(update={"values": {**row.values, **fixed}})
+            rows.append(row)
+        networks[scenario.id] = variant.model_copy(
+            update={"rows_by_section": {**variant.rows_by_section, "flow_matrix": rows}})
+    if networks:
+        return base.model_copy(update={"rows_by_section": sections,
+                                       "networks_by_scenario": {**base.networks_by_scenario, **networks}})
     return base.model_copy(update={"rows_by_section": sections})
 
 
@@ -158,9 +179,14 @@ def edge_list(data: DcfData | None) -> list[dict[str, Any]]:
     """
     if data is None:
         return []
-    actors = {r.row_id: r for r in rows_for(data, "actors")}
+    return edge_list_rows(rows_for(data, "actors"), rows_for(data, "flow_matrix"))
+
+
+def edge_list_rows(actor_rows: list[DcfRow], flow_rows: list[DcfRow]) -> list[dict[str, Any]]:
+    """`edge_list` on given rows: the case's network or a scenario's."""
+    actors = {r.row_id: r for r in actor_rows}
     edges: list[dict[str, Any]] = []
-    for row in rows_for(data, "flow_matrix"):
+    for row in flow_rows:
         origin = row.values.get("flow.origin_actor_id")
         dest = row.values.get("flow.dest_actor_id")
         if not isinstance(origin, str) or not isinstance(dest, str):
@@ -182,3 +208,79 @@ def edge_list(data: DcfData | None) -> list[dict[str, Any]]:
             }
         )
     return edges
+
+
+# ---------------------------------------------------------------------------
+# A scenario's network against the case's, in words (no arithmetic)
+# ---------------------------------------------------------------------------
+
+DIFF_VALUE_FIELDS = ("flow.quantity_measured", "flow.quantity_projected", "flow.unit", "flow.type")
+
+
+def _wired(row: DcfRow) -> tuple[str, str] | None:
+    origin, dest = row.values.get("flow.origin_actor_id"), row.values.get("flow.dest_actor_id")
+    return (origin, dest) if isinstance(origin, str) and origin and isinstance(dest, str) and dest else None
+
+
+def network_diff(
+    base_actors: list[DcfRow], base_flows: list[DcfRow],
+    var_actors: list[DcfRow], var_flows: list[DcfRow],
+) -> dict[str, list[dict[str, Any]]]:
+    """What a scenario's network changes against the case's, matched by row
+    id (never by name): actors added, removed or renamed; flows sent from or
+    to another actor, flows that do not take place in the scenario, flows that
+    take place only there; quantity, unit and type as entered. The same rules
+    as frontend/src/pages/networkDiff.ts (shared fixtures in the tests)."""
+    base_a = {r.row_id: r for r in base_actors}
+    var_a = {r.row_id: r for r in var_actors}
+
+    def name_in(actors: dict[str, DcfRow], actor_id: str) -> str:
+        row = actors.get(actor_id)
+        return actor_label(row, actor_id) if row else actor_id
+
+    diff: dict[str, list[dict[str, Any]]] = {
+        "actors_added": [], "actors_removed": [], "actors_renamed": [],
+        "flows_rerouted": [], "flows_dropped": [], "flows_only_in_scenario": [], "value_changes": [],
+    }
+    for actor_id, row in var_a.items():
+        if actor_id not in base_a:
+            diff["actors_added"].append({"actor": actor_label(row, actor_id)})
+        elif actor_label(row, actor_id) != actor_label(base_a[actor_id], actor_id):
+            diff["actors_renamed"].append({"before": actor_label(base_a[actor_id], actor_id), "after": actor_label(row, actor_id)})
+    for actor_id, row in base_a.items():
+        if actor_id not in var_a:
+            diff["actors_removed"].append({"actor": actor_label(row, actor_id)})
+
+    base_f = {r.row_id: r for r in base_flows}
+    var_f = {r.row_id: r for r in var_flows}
+    for flow_id, row in base_f.items():
+        before = _wired(row)
+        if before is None:
+            continue
+        name = row.values.get("flow.name") or flow_id
+        other = var_f.get(flow_id)
+        after = _wired(other) if other else None
+        if after is None:
+            diff["flows_dropped"].append({"flow": name})
+            continue
+        if after != before:
+            diff["flows_rerouted"].append({
+                "flow": name,
+                "from_before": name_in(base_a, before[0]), "to_before": name_in(base_a, before[1]),
+                "from_after": name_in(var_a, after[0]), "to_after": name_in(var_a, after[1]),
+            })
+        for field in DIFF_VALUE_FIELDS:
+            was, now = row.values.get(field), other.values.get(field)
+            if was in ("", None) and now in ("", None):
+                continue
+            if was != now:
+                diff["value_changes"].append({"flow": name, "field": field, "before": was, "after": now})
+    for flow_id, row in var_f.items():
+        wired = _wired(row)
+        if wired is None or (flow_id in base_f and _wired(base_f[flow_id]) is not None):
+            continue
+        diff["flows_only_in_scenario"].append({
+            "flow": row.values.get("flow.name") or flow_id,
+            "from": name_in(var_a, wired[0]), "to": name_in(var_a, wired[1]),
+        })
+    return diff

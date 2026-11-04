@@ -24,6 +24,7 @@ from __future__ import annotations
 from typing import Any
 
 from app.domain.dcf_data import (
+    SCENARIO_NETWORK_SECTIONS,
     DcfData,
     DcfDataIssue,
     DcfDataValidation,
@@ -261,6 +262,7 @@ def validate_dcf_data(
         )
 
     _check_layout(data, row_ids_by_section, errors)
+    _check_scenario_networks(data, payload, raw_schema, case, errors, dormant)
 
     return DcfDataValidation(
         errors=errors,
@@ -268,6 +270,41 @@ def validate_dcf_data(
         missing_required=missing,
         completeness=completeness,
     )
+
+
+def _check_scenario_networks(
+    data: DcfData,
+    payload: DcfPayload,
+    raw_schema: dict[str, Any],
+    case: Case,
+    errors: list[DcfDataIssue],
+    dormant: list[DcfDataIssue],
+) -> None:
+    """A scenario's own network is checked like the case's (fields, values,
+    references and positions resolved inside the variant), holds only actors
+    and flows, and is kept, dormant, when its scenario is no longer in the
+    questionnaire. Its gaps are not counted: the case's network is the form."""
+    known = {s.id for s in case.alternative_scenarios}
+    for scenario_id, variant in data.networks_by_scenario.items():
+        if scenario_id not in known:
+            dormant.append(DcfDataIssue(
+                code="scenario_unknown", section_id="actors", scenario_id=scenario_id,
+                detail=f"scenario {scenario_id!r} is no longer in the questionnaire: its network is kept, not exported",
+            ))
+        for section_id in variant.rows_by_section:
+            if section_id not in SCENARIO_NETWORK_SECTIONS:
+                errors.append(DcfDataIssue(
+                    code="scenario_section_not_allowed", section_id=section_id, scenario_id=scenario_id,
+                    detail=f"a scenario's network holds actors and flows only, not {section_id!r}",
+                ))
+        inner = validate_dcf_data(
+            DcfData(case_id=data.case_id,
+                    rows_by_section={k: v for k, v in variant.rows_by_section.items() if k in SCENARIO_NETWORK_SECTIONS},
+                    layout=variant.layout),
+            payload, raw_schema, case,
+        )
+        errors.extend(i.model_copy(update={"scenario_id": scenario_id}) for i in inner.errors)
+        dormant.extend(i.model_copy(update={"scenario_id": scenario_id}) for i in inner.dormant)
 
 
 def _check_enum(

@@ -6,6 +6,7 @@ import '../i18n'
 import ScenariosEditor from '../components/ScenariosEditor'
 import ScenariosResultPage from '../pages/ScenariosResultPage'
 import { useCaseStore } from '../store/caseStore'
+import { useDcfDataStore } from '../store/dcfDataStore'
 import type { AlternativeScenario, Case } from '../types/api'
 
 // Scenarios as "question → new answer" instead of JSON, and a comparison that
@@ -72,7 +73,7 @@ describe('ScenariosEditor JSON', () => {
     fireEvent.click(screen.getByText(/as JSON/i))
     const box = document.querySelector('textarea.scenario-overrides-input') as HTMLTextAreaElement
     fireEvent.change(box, { target: { value: '{"flows": [{"id": "f3", "q5": "a"}]}' } })
-    expect(screen.getByText(/A scenario changes answers of the questionnaire only/)).toBeTruthy()
+    expect(screen.getByText(/the flows themselves and what the engine writes cannot be changed here/)).toBeTruthy()
     expect(onChange).not.toHaveBeenCalledWith([expect.objectContaining({ overrides: expect.objectContaining({ flows: expect.anything() }) })])
   })
 })
@@ -125,5 +126,33 @@ describe('Scenario comparison', () => {
     expect(screen.getByText(/could not be run.*flows: Extra inputs/)).toBeTruthy()
     expect(screen.queryByText(/Obligations removed/)).toBeNull()
     expect(screen.getAllByText('Landfill')).toHaveLength(1)
+  })
+
+  it('says in words where the scenario sends the flows (scenario networks)', () => {
+    const base: Case = {
+      q1: 'B', q3: { env: true, eco: false, soc: false }, q4: [], sites: [], flows: [],
+      ilcd_situation: 'ILCD Situation A', lcc_type: 'deactivated', slca_activation_state: 'deactivated',
+      activated_nodes: [], applicable_rules: [], lca: {}, lcc: {},
+    }
+    const actors = [{ row_id: 'a1', values: { 'actor.name': 'WWTP' } }, { row_id: 'a2', values: { 'actor.name': 'Biogas' } }]
+    useCaseStore.setState({
+      serverCaseId: null,
+      scenariosResult: { baseline: base, scenarios: [
+        { id: 'alt1', label: 'Landfill', overrides: {}, result: base },
+        { id: 'alt2', label: 'Same', overrides: {}, result: base },
+      ] },
+    } as never)
+    useDcfDataStore.setState({ caseId: null, data: {
+      schema_version: '1.1', case_id: '', layout: {},
+      rows_by_section: { actors, flow_matrix: [{ row_id: 'f1', values: { 'flow.name': 'sludge', 'flow.origin_actor_id': 'a1', 'flow.dest_actor_id': 'a2' } }] },
+      networks_by_scenario: { alt1: { layout: {}, rows_by_section: {
+        actors: [...actors, { row_id: 'a9', values: { 'actor.name': 'Landfill Sud' } }],
+        flow_matrix: [{ row_id: 'f1', values: { 'flow.name': 'sludge', 'flow.origin_actor_id': 'a1', 'flow.dest_actor_id': 'a9' } }],
+      } } },
+    } } as never)
+    render(<MemoryRouter><ScenariosResultPage /></MemoryRouter>)
+    expect(screen.getByText('Actor added: Landfill Sud')).toBeTruthy()
+    expect(screen.getByText('sludge: WWTP → Biogas becomes WWTP → Landfill Sud')).toBeTruthy()
+    expect(screen.getByText(/This scenario uses the case's network/)).toBeTruthy()
   })
 })

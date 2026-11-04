@@ -2,11 +2,16 @@
 // Renders a table with one row per scenario (baseline + alternatives)
 // and key derived states. Diffs vs baseline are highlighted.
 
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { schemaTerm } from '../i18n/schemaTerms'
+import { fetchDcfData } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
+import { useDcfDataStore } from '../store/dcfDataStore'
+import { ACTORS_SECTION, FLOW_MATRIX_SECTION, type DcfData } from '../types/dcfData'
+import { isEmptyDiff, networkDiff, type NetworkDiff } from './networkDiff'
 import type { Case } from '../types/api'
 import { configurationRows } from './configurationRows'
 import { useAxisLabel } from './aggregateLabels'
@@ -79,11 +84,70 @@ function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<strin
   }
 }
 
+/** The DCF content of the open case: the editor's draft when it is this
+ * case's (unsaved changes included), else what the server stores. Read only:
+ * the editor's draft is never replaced from here. */
+function useCaseNetwork(): DcfData | null {
+  const serverCaseId = useCaseStore((s) => s.serverCaseId)
+  const draftCaseId = useDcfDataStore((s) => s.caseId)
+  const draft = useDcfDataStore((s) => s.data)
+  const [fetched, setFetched] = useState<{ id: string; data: DcfData | null } | null>(null)
+  const own = draftCaseId === serverCaseId
+  useEffect(() => {
+    if (own || !serverCaseId) return
+    let cancelled = false
+    fetchDcfData(serverCaseId)
+      .then((env) => { if (!cancelled) setFetched({ id: serverCaseId, data: env.data }) })
+      .catch(() => { if (!cancelled) setFetched({ id: serverCaseId, data: null }) })
+    return () => { cancelled = true }
+  }, [own, serverCaseId])
+  if (own) return draft
+  return fetched?.id === serverCaseId ? fetched.data : null
+}
+
+type T = (k: string, o?: Record<string, unknown>) => string
+
+function shown(value: unknown): string {
+  return value === null || value === undefined || value === '' ? '—' : String(value)
+}
+
+/** One line per change, in the reader's words. */
+function diffLines(d: NetworkDiff, t: T): string[] {
+  return [
+    ...d.actors_added.map((x) => t('scenariosResult.networkActorAdded', x)),
+    ...d.actors_removed.map((x) => t('scenariosResult.networkActorRemoved', x)),
+    ...d.actors_renamed.map((x) => t('scenariosResult.networkActorRenamed', x)),
+    ...d.flows_rerouted.map((x) => t('scenariosResult.networkFlowRerouted', {
+      flow: x.flow, fromBefore: x.from_before, toBefore: x.to_before, fromAfter: x.from_after, toAfter: x.to_after,
+    })),
+    ...d.flows_dropped.map((x) => t('scenariosResult.networkFlowDropped', x)),
+    ...d.flows_only_in_scenario.map((x) => t('scenariosResult.networkFlowOnlyHere', x)),
+    ...d.value_changes.map((x) => t('scenariosResult.networkValue', {
+      flow: x.flow, field: t(`scenariosResult.networkField_${x.field.replace('flow.', '')}`),
+      before: shown(x.before), after: shown(x.after),
+    })),
+  ]
+}
+
+function NetworkBlock({ data, scenarioId, t }: { data: DcfData | null; scenarioId: string; t: T }) {
+  const variant = data?.networks_by_scenario?.[scenarioId]
+  if (!data || !variant) {
+    return <p className="muted">{t('scenariosResult.networkNone')}</p>
+  }
+  const rows = (section: string, from: { rows_by_section: Record<string, DcfData['rows_by_section'][string]> }) =>
+    from.rows_by_section[section] ?? []
+  const d = networkDiff(rows(ACTORS_SECTION, data), rows(FLOW_MATRIX_SECTION, data),
+    rows(ACTORS_SECTION, variant), rows(FLOW_MATRIX_SECTION, variant))
+  if (isEmptyDiff(d)) return <p className="muted">{t('scenariosResult.networkSame')}</p>
+  return <ul>{diffLines(d, t).map((line) => <li key={line}>{line}</li>)}</ul>
+}
+
 export default function ScenariosResultPage() {
   const { t, i18n } = useTranslation()
   // the same words as the result page: no raw 'ILCD Situation', 'C+E' or 'alt1' (UX round 4)
   const label = useAxisLabel()
   const sr = useCaseStore((s) => s.scenariosResult)
+  const network = useCaseNetwork()
 
   if (!sr) {
     return (
@@ -200,6 +264,9 @@ export default function ScenariosResultPage() {
             {d.removed.length > 0 ? (
               <p><strong>{t('scenariosResult.removedRules')}</strong>: {d.removed.join('; ')}</p>
             ) : null}
+            {/* where the flows go, drawn in the network editor (owner OK 2026-11-04) */}
+            <h3 className="scenario-network-title">{t('scenariosResult.networkTitle')}</h3>
+            <NetworkBlock data={network} scenarioId={sc.id} t={t as never} />
           </section>
         )
       })}

@@ -648,6 +648,8 @@ const de: Locale = {
     },
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
+      invalid: "Geben Sie die Jahre als Zahl über 0 an (höchstens {{max}}); das Betriebsjahr zwischen 1900 und 2200.",
+      invalidShort: "Jahre über 0",
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
       horizonWarning: 'Über {{threshold}} Jahre: Die Studie muss abschätzen, wie sich Energie und Märkte verändern (zukünftiger Hintergrund für Ökobilanz und Lebenszykluskostenrechnung).',
       details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',

@@ -101,4 +101,16 @@ describe('Questionnaire Q8 — time horizon', () => {
     expect(bodies[0].operating_start).toBe('now')
     expect(bodies[0].operating_start_year).toBeNull()
   })
+
+  // Kimi test 2026-11-04, A8-04: 0, negatives and 9999 went through silently
+  it.each(['0', '-5', '9999'])('refuses %s years with a message, and lets a real period run', (value) => {
+    renderPage()
+    const run = () => screen.getByRole('button', { name: /work out the configuration/i })
+    fireEvent.change(q8('analysis-period')!, { target: { value } })
+    expect(screen.getByText(/Write the years as a number above 0/)).toBeInTheDocument()
+    expect(run()).toBeDisabled()
+    fireEvent.change(q8('analysis-period')!, { target: { value: '12.5' } })
+    expect(screen.queryByText(/Write the years as a number above 0/)).not.toBeInTheDocument()
+    expect(run()).toBeEnabled()
+  })
 })

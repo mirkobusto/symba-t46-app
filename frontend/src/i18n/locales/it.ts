@@ -674,6 +674,8 @@ const it: Locale = {
     },
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',
+      invalid: "Scrivi gli anni come numero maggiore di 0 (al massimo {{max}}); l'anno di esercizio tra 1900 e 2200.",
+      invalidShort: "anni maggiori di 0",
       help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
       horizonWarning: 'Oltre {{threshold}} anni: lo studio dovrà prevedere come cambiano energia e mercati (background futuro per LCA e LCC).',
       details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio. Il periodo di analisi è l\'arco di tempo coperto dallo studio; di norma coincide con la vita tecnica degli asset principali (D4.2 §9). La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',

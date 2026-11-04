@@ -65,7 +65,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <aside className={`dd-sidebar${open ? ' dd-sidebar-open' : ''}`} aria-label="Primary navigation">
+    <aside className={`dd-sidebar${open ? ' dd-sidebar-open' : ''}`} aria-label={t('adminShell.navLabel')}>
       <div className="dd-sidebar-brand">
         <img
           className="dd-sidebar-brand-icon"

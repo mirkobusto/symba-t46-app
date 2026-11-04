@@ -12,13 +12,13 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactFlow, {
   Background,
-  Controls,
   MarkerType,
   type Edge,
   type Node,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
+import FlowControls from './FlowControls'
 import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
 import { actorNodes, edgeShifts, flowEdges, nodeClassName } from './networkGraph'
@@ -176,7 +176,7 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
           fitView
         >
           <Background />
-          <Controls />
+          <FlowControls />
         </ReactFlow>
       </div>
     </div>

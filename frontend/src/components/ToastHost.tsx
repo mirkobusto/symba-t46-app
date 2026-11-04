@@ -3,17 +3,19 @@
 // the toast store's setTimeout.
 
 import { X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { useToastStore } from '../store/toastStore'
 
 export default function ToastHost() {
+  const { t: tr } = useTranslation()
   const toasts = useToastStore((s) => s.toasts)
   const dismiss = useToastStore((s) => s.dismiss)
 
   if (toasts.length === 0) return null
 
   return (
-    <div className="toast-host" role="region" aria-label="Notifications">
+    <div className="toast-host" role="region" aria-label={tr('toast.region')}>
       {toasts.map((t) => (
         <div
           key={t.id}
@@ -25,7 +27,7 @@ export default function ToastHost() {
             type="button"
             className="toast-close"
             onClick={() => dismiss(t.id)}
-            aria-label="Dismiss notification"
+            aria-label={tr('toast.dismiss')}
           >
             <X size={14} />
           </button>

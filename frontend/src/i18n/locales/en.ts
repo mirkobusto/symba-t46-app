@@ -6,6 +6,7 @@
 
 const en = {
   common: {
+    actions: 'Actions',
     run: 'Run',
     reset: 'Reset',
     close: 'Close',
@@ -26,6 +27,7 @@ const en = {
   },
 
   layout: {
+    skipToMain: 'Skip to main content',
     brand: 'SYMBA T4.6',
     brandTag: 'Monitoring & Reporting System for Industrial Symbiosis',
     about: 'About',
@@ -201,6 +203,7 @@ const en = {
   },
 
   adminShell: {
+    navLabel: 'Main navigation',
     menuOpen: "Menu",
     menuClose: "Close",
     searchLabel: 'Search',
@@ -881,8 +884,9 @@ const en = {
 
   advanced: {
     intro:
-      "Expert-mode overrides. Each key is read by the engine via dict.get; missing keys mean \"use the default\". Values are coerced to true/false/number/string as appropriate.",
+      'Expert-mode overrides. A key left empty keeps the default; a value is read as true/false, a number or text.',
     headers: { key: 'Key', value: 'Value', hint: 'Hint', custom: 'custom' },
+    examplePlaceholder: 'e.g. {{example}}',
     addCustom: 'Add custom key',
     clearAria: 'Clear {{key}}',
     removeAria: 'Remove {{key}}',
@@ -1344,6 +1348,8 @@ const en = {
   },
 
   toast: {
+    region: 'Notifications',
+    dismiss: 'Dismiss notification',
     pipelineCompleted: "Configuration ready",
     pipelineError: 'Pipeline error — {{detail}}',
     scenariosCompleted: '{{n}} scenarios run',
@@ -1582,6 +1588,13 @@ const en = {
     goSaveChanges: 'Go to the result to save the changes',
   },
 
+  flowControls: {
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out',
+    fitView: 'Fit the whole network',
+    lock: 'Lock the diagram',
+    unlock: 'Unlock the diagram',
+  },
   networkDiagram: {
     counts: '{{actors}} actors · {{flows}} flows',
     actors_one: '{{count}} actor',

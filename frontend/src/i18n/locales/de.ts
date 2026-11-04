@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const de: Locale = {
   common: {
+    actions: 'Aktionen',
     run: 'Ausführen',
     reset: 'Zurücksetzen',
     close: 'Schließen',
@@ -65,6 +66,7 @@ const de: Locale = {
   },
 
   layout: {
+    skipToMain: 'Zum Hauptinhalt springen',
     brand: 'SYMBA T4.6',
     brandTag: 'Monitoring- und Reporting-System für industrielle Symbiose',
     about: 'Über',
@@ -195,6 +197,7 @@ const de: Locale = {
   },
 
   adminShell: {
+    navLabel: 'Hauptnavigation',
     menuOpen: "Menü",
     menuClose: "Schließen",
     searchLabel: 'Suchen',
@@ -833,8 +836,9 @@ const de: Locale = {
 
   advanced: {
     intro:
-      'Expertenmodus-Overrides. Jeder Schlüssel wird von der Engine via dict.get gelesen; fehlende Schlüssel bedeuten „verwende den Default". Werte werden zu true/false/Zahl/String je nach Bedarf konvertiert.',
+      'Einstellungen für den Expertenmodus. Ein leer gelassener Schlüssel behält den Standardwert; ein Wert wird als true/false, Zahl oder Text gelesen.',
     headers: { key: 'Schlüssel', value: 'Wert', hint: 'Hinweis', custom: 'custom' },
+    examplePlaceholder: 'z. B. {{example}}',
     addCustom: 'Custom-Schlüssel hinzufügen',
     clearAria: '{{key}} löschen',
     removeAria: '{{key}} entfernen',
@@ -1298,6 +1302,8 @@ const de: Locale = {
   },
 
   toast: {
+    region: 'Benachrichtigungen',
+    dismiss: 'Benachrichtigung schließen',
     pipelineCompleted: "Konfiguration bereit",
     pipelineError: 'Pipeline-Fehler — {{detail}}',
     scenariosCompleted: '{{n}} Szenarien ausgeführt',
@@ -1535,6 +1541,13 @@ const de: Locale = {
     goSaveChanges: 'Zum Ergebnis, um die Änderungen zu speichern',
   },
 
+  flowControls: {
+    zoomIn: 'Vergrößern',
+    zoomOut: 'Verkleinern',
+    fitView: 'Ganzes Netzwerk anzeigen',
+    lock: 'Diagramm sperren',
+    unlock: 'Diagramm entsperren',
+  },
   networkDiagram: {
     counts: '{{actors}} Akteure · {{flows}} Flüsse',
     actors_one: '{{count}} Akteur',

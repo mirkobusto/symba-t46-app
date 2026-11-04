@@ -1320,6 +1320,7 @@ const de: Locale = {
   },
 
   auth: {
+    sessionExpired: "Ihre Sitzung ist abgelaufen: Melden Sie sich erneut an. Der Fall bleibt in diesem Browser.",
     title: 'Anmelden',
     subtitle: 'Zum Speichern von Fällen auf dem Server und zum Teilen braucht es ein Konto. Einen gespeicherten Fall liest nur, wer seinen Link hat, und erst nachdem Sie ihn geteilt haben.',
     tabLogin: 'Anmelden',

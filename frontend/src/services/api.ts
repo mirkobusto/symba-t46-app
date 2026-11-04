@@ -12,7 +12,7 @@ import type {
   ScenariosResponse,
 } from '../types/api'
 import i18n from '../i18n'
-import { currentAuthToken } from '../store/authStore'
+import { currentAuthToken, useAuthStore } from '../store/authStore'
 import type {
   LoginRequest,
   RegisterRequest,
@@ -64,7 +64,11 @@ function authHeader(): Record<string, string> {
   return token ? { Authorization: `Bearer ${token}` } : {}
 }
 
+/** Paths where a 401 means wrong credentials, not an expired session. */
+const SIGN_IN_PATHS = ['/api/auth/login', '/api/auth/register']
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const sentToken = currentAuthToken() !== null
   const res = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
     headers: {
@@ -73,6 +77,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       ...(init?.headers ?? {}),
     },
   })
+  // the server no longer accepts the token (expired, or a new signing secret):
+  // forget it, so the page stops showing someone signed in (Kimi test
+  // 2026-11-04, A8-08). The case draft stays in the browser.
+  if (res.status === 401 && sentToken && !SIGN_IN_PATHS.includes(path)) {
+    useAuthStore.getState().clearSession()
+  }
   if (!res.ok) {
     let detail = res.statusText
     try {

@@ -1345,6 +1345,7 @@ const it: Locale = {
   },
 
   auth: {
+    sessionExpired: "La sessione è scaduta: accedi di nuovo. Il caso resta in questo browser.",
     title: 'Accedi',
     subtitle:
       'Serve un account per salvare i casi sul server e per condividerli. Un caso salvato lo legge solo chi ha il suo link, e solo dopo che lo hai condiviso.',

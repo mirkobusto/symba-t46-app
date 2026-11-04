@@ -1366,6 +1366,7 @@ const en = {
   },
 
   auth: {
+    sessionExpired: "Your session has expired: sign in again. The case stays in this browser.",
     title: 'Sign in',
     subtitle:
       'An account is needed to save cases on the server and to share them. A saved case is read only by people who have its link, and only after you share it.',

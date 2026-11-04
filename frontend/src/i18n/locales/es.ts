@@ -1320,6 +1320,7 @@ const es: Locale = {
   },
 
   auth: {
+    sessionExpired: "Tu sesión ha caducado: vuelve a iniciar sesión. El caso se queda en este navegador.",
     title: 'Iniciar sesión',
     subtitle: 'Hace falta una cuenta para guardar casos en el servidor y para compartirlos. Un caso guardado solo lo lee quien tiene su enlace, y solo después de que lo compartas.',
     tabLogin: 'Iniciar sesión',

@@ -140,7 +140,9 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
   }
 
   return (
-    <div className="dcf-network-diagram-wrap">
+    // a preview built from the questionnaire is not a network anyone drew: it
+    // stays out of the files' picture (Kimi test 2026-11-04, A1-02)
+    <div className="dcf-network-diagram-wrap" data-placeholder={drawn ? undefined : 'true'}>
       {drawn ? (
         <div className="dcf-network-badges">
           {/* the same words as the rest of the page: the saved diagram switched to

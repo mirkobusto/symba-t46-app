@@ -46,6 +46,9 @@ export function networkBounds(viewport: Element): Bounds | null {
 /** Base64 PNG (data URL) of the whole network, or null when nothing is drawn. */
 export async function captureNetworkPng(root: ParentNode = document): Promise<string | null> {
   const viewport = root.querySelector<HTMLElement>('.react-flow .react-flow__viewport')
+  // the preview built from the questionnaire flows: the files say no network
+  // is drawn yet, a picture of one would contradict them (A1-02)
+  if (viewport?.closest('[data-placeholder]')) return null
   const bounds = viewport ? networkBounds(viewport) : null
   if (!viewport || !bounds) return null
   const scale = Math.min(1, MAX_WIDTH / (bounds.width + 2 * PADDING))

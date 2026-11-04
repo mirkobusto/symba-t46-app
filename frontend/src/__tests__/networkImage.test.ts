@@ -50,6 +50,11 @@ describe('captureNetworkPng', () => {
     expect(options.style!.transform).toMatch(/scale\(0\.5\)$/)
   })
 
+  it('leaves out the preview built from the questionnaire (A1-02)', async () => {
+    document.body.innerHTML = `<div data-placeholder="true">${flow(node(0, 0))}</div>`
+    expect(await captureNetworkPng()).toBeNull()
+  })
+
   it('a failed capture still lets the files download', async () => {
     vi.mocked(toPng).mockRejectedValueOnce(new Error('tainted canvas'))
     document.body.innerHTML = flow(node(0, 0))

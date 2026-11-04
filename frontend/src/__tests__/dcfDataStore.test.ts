@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useDcfDataStore } from '../store/dcfDataStore'
+import { networkView, useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
 import {
@@ -448,5 +448,60 @@ describe('dcfDataStore', () => {
     expect(flows[0].values['flow.dest_actor_id']).toBe('ex-a2')
     expect(flows[1].values['flow.origin_actor_id']).toBe('ex-a2')
     expect(flows[0].values['flow.name']).toBe('sludge')
+  })
+})
+
+describe('dcfDataStore: scenario networks (owner OK 2026-11-04)', () => {
+  const st = () => useDcfDataStore.getState()
+  const view = () => networkView(st().data, st().activeScenario)
+  const SCENARIOS = [{ id: 'alt1', label: 'Landfill', overrides: { flow_q5: { f1: 'b' } } }]
+
+  beforeEach(() => {
+    st().reset()
+    st().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), CASE_FLOWS)
+    const a1 = st().addActor('WWTP')
+    const a2 = st().addActor('Biogas')
+    st().connect(a1, a2, 'f1')
+  })
+
+  it('reads the case network until the first change, then copies it', () => {
+    st().setActiveScenario('alt1')
+    expect(view().rows_by_section[ACTORS_SECTION]).toHaveLength(2)
+    expect(st().data.networks_by_scenario?.alt1).toBeUndefined()
+    st().addActor('Landfill')
+    expect(view().rows_by_section[ACTORS_SECTION]).toHaveLength(3)
+    expect(st().data.rows_by_section[ACTORS_SECTION]).toHaveLength(2)   // the case's network is untouched
+    expect(st().data.networks_by_scenario?.alt1.rows_by_section[ACTORS_SECTION]).toHaveLength(3)
+    expect(st().dirty).toBe(true)
+  })
+
+  it('a classification written while a scenario is active belongs to the case', () => {
+    st().setActiveScenario('alt1')
+    st().setClassification('f1', 'classif.legal_status', 'by_product')
+    expect(st().data.networks_by_scenario?.alt1).toBeUndefined()
+    expect(st().data.rows_by_section[FLOW_CLASSIFICATION_SECTION]).toHaveLength(1)
+  })
+
+  it('dropping the scenario network reads the case again', () => {
+    st().setActiveScenario('alt1')
+    st().addActor('Landfill')
+    st().dropScenarioNetwork('alt1')
+    expect(view().rows_by_section[ACTORS_SECTION]).toHaveLength(2)
+  })
+
+  it('a scenario network follows the questionnaire and its flow_q5', () => {
+    st().setActiveScenario('alt1')
+    st().addActor('Landfill')
+    st().syncWithPayload(payloadWith(FULL_FLOW_FIELDS), [...CASE_FLOWS, { id: 'f9', name: 'heat', q5: 'c' }], SCENARIOS)
+    const rows = st().data.networks_by_scenario!.alt1.rows_by_section[FLOW_MATRIX_SECTION]
+    expect(rows.find((r) => r.row_id === 'f1')!.values['flow.q5_class']).toBe('b')
+    expect(rows.find((r) => r.row_id === 'f9')!.values['flow.name']).toBe('heat')
+  })
+
+  it('carryTo keeps the scenario networks', () => {
+    st().setActiveScenario('alt1')
+    st().addActor('Landfill')
+    st().carryTo('case-2')
+    expect(st().data.networks_by_scenario?.alt1).toBeDefined()
   })
 })

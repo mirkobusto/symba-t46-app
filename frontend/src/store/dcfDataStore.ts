@@ -20,7 +20,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { ApiError, fetchDcfData, putDcfData } from '../services/api'
-import type { Flow } from '../types/api'
+import type { AlternativeScenario, Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
 import {
   ACTORS_SECTION,
@@ -81,6 +81,59 @@ function hasDrawing(data: DcfData): boolean {
   )
 }
 
+// ----- Scenario networks (designed by Fable, owner OK 2026-11-04) -----
+// While a scenario is active the editor works on its own network: actors,
+// flows and positions. It reads through to the case's network until the
+// first change, which copies it. Every other section stays the case's.
+
+const NETWORK_SECTIONS = [ACTORS_SECTION, FLOW_MATRIX_SECTION]
+
+/** The network the editor shows: the case's, or the active scenario's. */
+export function networkView(data: DcfData, scenarioId: string | null): DcfData {
+  const variant = scenarioId ? data.networks_by_scenario?.[scenarioId] : undefined
+  if (!variant) return data
+  return {
+    ...data,
+    rows_by_section: {
+      ...data.rows_by_section,
+      [ACTORS_SECTION]: variant.rows_by_section[ACTORS_SECTION] ?? [],
+      [FLOW_MATRIX_SECTION]: variant.rows_by_section[FLOW_MATRIX_SECTION] ?? [],
+    },
+    layout: variant.layout,
+  }
+}
+
+/** Write `next` (an edited view) back: actors, flows and positions to the
+ * active scenario's network when they changed, everything else to the case. */
+function commitView(data: DcfData, scenarioId: string | null, next: DcfData): DcfData {
+  if (!scenarioId) return next
+  const view = networkView(data, scenarioId)
+  const networkChanged = next.layout !== view.layout
+    || NETWORK_SECTIONS.some((id) => next.rows_by_section[id] !== view.rows_by_section[id])
+  const base: DcfData = {
+    ...data,
+    rows_by_section: {
+      ...next.rows_by_section,
+      [ACTORS_SECTION]: rowsOf(data, ACTORS_SECTION),
+      [FLOW_MATRIX_SECTION]: rowsOf(data, FLOW_MATRIX_SECTION),
+    },
+  }
+  if (!networkChanged) return base
+  return {
+    ...base,
+    networks_by_scenario: {
+      ...(data.networks_by_scenario ?? {}),
+      [scenarioId]: {
+        rows_by_section: {
+          [ACTORS_SECTION]: rowsOf(next, ACTORS_SECTION),
+          [FLOW_MATRIX_SECTION]: rowsOf(next, FLOW_MATRIX_SECTION),
+        },
+        layout: next.layout,
+      },
+    },
+  }
+}
+
 /** Display names for the demo network, passed in so the store stays
  * free of i18n. */
 export interface ExampleLabels {
@@ -103,12 +156,17 @@ export interface DcfDataState {
   syncing: boolean
   lastSyncedAt: number | null
   error: string | null
+  /** The scenario whose network the editor shows; null = the case's. Not saved. */
+  activeScenario: string | null
 
   bindTo: (caseId: string | null) => void
+  setActiveScenario: (scenarioId: string | null) => void
+  /** Drop a scenario's own network: it reads the case's network again. */
+  dropScenarioNetwork: (scenarioId: string) => void
   /** Rebind the current (or given) content to another saved case, keeping
    * its rows and layout — used by "Save as new". Marks it dirty. */
   carryTo: (caseId: string, data?: DcfData) => void
-  syncWithPayload: (payload: DcfPayload, flows: Flow[]) => void
+  syncWithPayload: (payload: DcfPayload, flows: Flow[], scenarios?: AlternativeScenario[]) => void
   addActor: (name?: string) => string
   /** Wire a questionnaire flow between two actors. Null when refused: the
    * same actor at both ends, or a flow that is not in the questionnaire. */
@@ -145,6 +203,19 @@ export const useDcfDataStore = create<DcfDataState>()(
       syncing: false,
       lastSyncedAt: null,
       error: null,
+      activeScenario: null,
+
+      setActiveScenario(scenarioId) {
+        set({ activeScenario: scenarioId })
+      },
+
+      dropScenarioNetwork(scenarioId) {
+        const data = get().data
+        if (!data.networks_by_scenario?.[scenarioId]) return
+        const networks = { ...data.networks_by_scenario }
+        delete networks[scenarioId]
+        set({ data: { ...data, networks_by_scenario: networks }, dirty: true })
+      },
 
       bindTo(caseId) {
         const current = get().caseId
@@ -158,6 +229,7 @@ export const useDcfDataStore = create<DcfDataState>()(
             case_id: caseId ?? '',
           },
           validation: null,
+          activeScenario: null,
           // the questionnaire flows of the previous case are not this one's
           caseFlowIds: [],
           // a local draft becoming a saved case has something to push only
@@ -166,7 +238,7 @@ export const useDcfDataStore = create<DcfDataState>()(
         })
       },
 
-      syncWithPayload(payload, flows) {
+      syncWithPayload(payload, flows, scenarios) {
         const active = activeFieldsBySection(payload)
         let data = get().data
         let changed = false
@@ -260,6 +332,57 @@ export const useDcfDataStore = create<DcfDataState>()(
           }
         }
 
+        // 3. a scenario's own network follows the questionnaire too: names,
+        //    who pays whom as the scenario sets it (flow_q5) or as the case
+        //    does, and a row (unwired) for a flow added after the copy
+        const variants = data.networks_by_scenario ?? {}
+        if (flowAllowed && Object.keys(variants).length > 0) {
+          const overridesOf = new Map((scenarios ?? []).map((sc) => [sc.id, sc.overrides?.flow_q5]))
+          let variantsChanged = false
+          const nextVariants: typeof variants = {}
+          for (const [scenarioId, variant] of Object.entries(variants)) {
+            const q5Of = (overridesOf.get(scenarioId) ?? {}) as Record<string, string>
+            const rows = variant.rows_by_section[FLOW_MATRIX_SECTION] ?? []
+            const have = new Set(rows.map((r) => r.row_id))
+            let touched = false
+            const followed = rows.map((row) => {
+              const flow = flows.find((f) => f.id === row.row_id)
+              if (!flow) return row
+              const q5 = q5Of[row.row_id] ?? flow.q5
+              const values = { ...row.values }
+              let changedRow = false
+              if (flowAllowed.has('flow.name') && values['flow.name'] !== flow.name) {
+                values['flow.name'] = flow.name
+                changedRow = true
+              }
+              if (flowAllowed.has('flow.q5_class') && q5 && values['flow.q5_class'] !== q5) {
+                values['flow.q5_class'] = q5
+                changedRow = true
+              }
+              if (!changedRow) return row
+              touched = true
+              return { ...row, values }
+            })
+            for (const flow of flows) {
+              if (!flow.id || have.has(flow.id)) continue
+              const values: Record<string, unknown> = {}
+              if (flowAllowed.has('flow.name')) values['flow.name'] = flow.name
+              const q5 = q5Of[flow.id] ?? flow.q5
+              if (flowAllowed.has('flow.q5_class') && q5) values['flow.q5_class'] = q5
+              followed.push({ row_id: flow.id, values })
+              touched = true
+            }
+            nextVariants[scenarioId] = touched
+              ? { ...variant, rows_by_section: { ...variant.rows_by_section, [FLOW_MATRIX_SECTION]: followed } }
+              : variant
+            variantsChanged ||= touched
+          }
+          if (variantsChanged) {
+            data = { ...data, networks_by_scenario: nextVariants }
+            changed = true
+          }
+        }
+
         // Seeding is not an edit: it does not make the network "unsaved" (the
         // files seed the same rows on the server side).
         const caseFlowIds = flows.map((f) => f.id).filter((id): id is string => !!id)
@@ -279,16 +402,17 @@ export const useDcfDataStore = create<DcfDataState>()(
       },
 
       addActor(name) {
-        const data = get().data
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
         const rows = rowsOf(data, ACTORS_SECTION)
         const rowId = nextActorRowId()
         const values: Record<string, unknown> = {}
         if (name) values['actor.name'] = name
         set({
-          data: {
+          data: commitView(stored, activeScenario, {
             ...withRows(data, ACTORS_SECTION, [...rows, { row_id: rowId, values }]),
             layout: { ...data.layout, [rowId]: autoPosition(rows.length) },
-          },
+          }),
           dirty: true,
         })
         return rowId
@@ -301,7 +425,8 @@ export const useDcfDataStore = create<DcfDataState>()(
         // obligations (UX round 5, D2).
         if (originRowId === destRowId) return null
         if (!get().caseFlowIds.includes(flowRowId)) return null
-        const data = get().data
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
         const rows = rowsOf(data, FLOW_MATRIX_SECTION)
         if (!rows.some((r) => r.row_id === flowRowId)) return null
         const nextRows = rows.map((r) =>
@@ -316,12 +441,13 @@ export const useDcfDataStore = create<DcfDataState>()(
               }
             : r,
         )
-        set({ data: withRows(data, FLOW_MATRIX_SECTION, nextRows), dirty: true })
+        set({ data: commitView(stored, activeScenario, withRows(data, FLOW_MATRIX_SECTION, nextRows)), dirty: true })
         return flowRowId
       },
 
       reverseFlow(rowId) {
-        const data = get().data
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
         const rows = rowsOf(data, FLOW_MATRIX_SECTION)
         const nextRows = rows.map((r) => {
           if (r.row_id !== rowId) return r
@@ -334,11 +460,12 @@ export const useDcfDataStore = create<DcfDataState>()(
           }
         })
         if (nextRows.every((r, i) => r === rows[i])) return   // nothing drawn to reverse
-        set({ data: withRows(data, FLOW_MATRIX_SECTION, nextRows), dirty: true })
+        set({ data: commitView(stored, activeScenario, withRows(data, FLOW_MATRIX_SECTION, nextRows)), dirty: true })
       },
 
       updateValue(sectionId, rowId, fieldId, value) {
-        const data = get().data
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
         const rows = rowsOf(data, sectionId)
         const nextRows = rows.map((row) => {
           if (row.row_id !== rowId) return row
@@ -353,7 +480,7 @@ export const useDcfDataStore = create<DcfDataState>()(
           }
           return { ...row, values }
         })
-        set({ data: withRows(data, sectionId, nextRows), dirty: true })
+        set({ data: commitView(stored, activeScenario, withRows(data, sectionId, nextRows)), dirty: true })
       },
 
       setClassification(flowRowId, fieldId, value) {
@@ -378,7 +505,8 @@ export const useDcfDataStore = create<DcfDataState>()(
       },
 
       removeRow(sectionId, rowId) {
-        const data = get().data
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
         if (sectionId === FLOW_MATRIX_SECTION && get().caseFlowIds.includes(rowId)) {
           // "Remove" on a questionnaire flow takes the arrow off the canvas;
           // the flow goes back to the "not yet drawn" list (P1-01)
@@ -391,7 +519,7 @@ export const useDcfDataStore = create<DcfDataState>()(
             delete values['flow.dest_actor_id']
             return { ...row, values }
           })
-          set({ data: withRows(data, FLOW_MATRIX_SECTION, unwired), dirty: true })
+          set({ data: commitView(stored, activeScenario, withRows(data, FLOW_MATRIX_SECTION, unwired)), dirty: true })
           return
         }
         let next = withRows(
@@ -413,17 +541,19 @@ export const useDcfDataStore = create<DcfDataState>()(
           })
           next = { ...withRows(next, FLOW_MATRIX_SECTION, flows), layout }
         }
-        set({ data: next, dirty: true })
+        set({ data: commitView(stored, activeScenario, next), dirty: true })
       },
 
       setPosition(rowId, pos) {
-        const data = get().data
-        set({ data: { ...data, layout: { ...data.layout, [rowId]: pos } }, dirty: true })
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
+        set({ data: commitView(stored, activeScenario, { ...data, layout: { ...data.layout, [rowId]: pos } }), dirty: true })
       },
 
       setLayout(positions) {
-        const data = get().data
-        set({ data: { ...data, layout: { ...data.layout, ...positions } }, dirty: true })
+        const { data: stored, activeScenario } = get()
+        const data = networkView(stored, activeScenario)
+        set({ data: commitView(stored, activeScenario, { ...data, layout: { ...data.layout, ...positions } }), dirty: true })
       },
 
       loadExample(payload, labels) {
@@ -585,6 +715,7 @@ export const useDcfDataStore = create<DcfDataState>()(
           syncing: false,
           lastSyncedAt: null,
           error: null,
+          activeScenario: null,
         })
       },
     }),

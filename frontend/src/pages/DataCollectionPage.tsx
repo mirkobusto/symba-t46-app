@@ -141,9 +141,9 @@ export default function DataCollectionPage() {
   // Seed the flow rows declared in Q5 (values of fields this configuration
   // no longer asks for are kept, dormant: see dcfDataStore).
   useEffect(() => {
-    if (payload) syncDcfWithPayload(payload, sourceCase.flows ?? [])
+    if (payload) syncDcfWithPayload(payload, sourceCase.flows ?? [], sourceCase.alternative_scenarios ?? [])
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [payload, JSON.stringify(sourceCase.flows), dcfLastSynced])
+  }, [payload, JSON.stringify(sourceCase.flows), JSON.stringify(sourceCase.alternative_scenarios), dcfLastSynced])
 
   /**
    * A saved case exports through the case-scoped endpoint, so the file
@@ -159,7 +159,8 @@ export default function DataCollectionPage() {
           .map(({ label, value }) => ({ label, value }))
       : []
     // the network as drawn on screen, when one is (owner decision 2026-11-03)
-    const png = await captureNetworkPng()
+    // only the case's network goes in the picture, not a scenario's open in the editor
+    const png = tab === 'network' && useDcfDataStore.getState().activeScenario ? null : await captureNetworkPng()
     if (serverCaseId) {
       if (dcfDirty) await saveDcfData()
       return kind === 'xlsx'

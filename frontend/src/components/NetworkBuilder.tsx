@@ -30,7 +30,7 @@ import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
 import DcfRowFields from './DcfRowFields'
 import { actorNodes, flowEdges, layeredLayout, nodeClassName, unwiredFlows } from './networkGraph'
-import { useDcfDataStore } from '../store/dcfDataStore'
+import { networkView, useDcfDataStore } from '../store/dcfDataStore'
 import { usePreferenceStore } from '../store/preferenceStore'
 import type { Case } from '../types/api'
 import type { DcfPayload, DcfSection } from '../types/dcf'
@@ -82,7 +82,19 @@ function issuesFor(
 
 export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const { t } = useTranslation()
-  const data = useDcfDataStore((s) => s.data)
+  const stored = useDcfDataStore((s) => s.data)
+  // the case's network, or the active scenario's own (scenario networks,
+  // designed by Fable, owner OK 2026-11-04)
+  const activeScenario = useDcfDataStore((s) => s.activeScenario)
+  const setActiveScenario = useDcfDataStore((s) => s.setActiveScenario)
+  const dropScenarioNetwork = useDcfDataStore((s) => s.dropScenarioNetwork)
+  const data = useMemo(() => networkView(stored, activeScenario), [stored, activeScenario])
+  const scenarios = useMemo(() => sourceCase.alternative_scenarios ?? [], [sourceCase.alternative_scenarios])
+  const orphans = useMemo(
+    () => Object.keys(stored.networks_by_scenario ?? {}).filter((id) => !scenarios.some((sc) => sc.id === id)),
+    [stored.networks_by_scenario, scenarios],
+  )
+  const ownNetwork = !!(activeScenario && stored.networks_by_scenario?.[activeScenario])
   const validation = useDcfDataStore((s) => s.validation)
   const dirty = useDcfDataStore((s) => s.dirty)
   const syncing = useDcfDataStore((s) => s.syncing)
@@ -115,6 +127,21 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     if (!selection || typeof window === 'undefined' || window.innerWidth > 900) return
     panelRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'start' })
   }, [selection])
+
+  async function handleDropScenario() {
+    if (!activeScenario || !(await askConfirm(t('networkBuilder.scenarioDropConfirm')))) return
+    const id = activeScenario
+    dropScenarioNetwork(id)
+    // an orphan has nothing left to show
+    if (!scenarios.some((sc) => sc.id === id)) setActiveScenario(null)
+  }
+
+  // a scenario deleted from the questionnaire, with no network of its own
+  useEffect(() => {
+    if (activeScenario && !scenarios.some((sc) => sc.id === activeScenario) && !orphans.includes(activeScenario)) {
+      setActiveScenario(null)
+    }
+  }, [activeScenario, scenarios, orphans, setActiveScenario])
 
   /** Add an actor and keep it on screen: on a phone it landed outside the canvas. */
   function handleAddActor() {
@@ -386,6 +413,40 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
 
   return (
     <div className="nb-wrap">
+      {scenarios.length > 0 || orphans.length > 0 ? (
+        <div className="nb-scenario">
+          <label>
+            {t('networkBuilder.scenarioPick')}{' '}
+            <select
+              className="row-select"
+              value={activeScenario ?? ''}
+              onChange={(e) => {
+                setSelection(null)
+                setActiveScenario(e.target.value || null)
+              }}
+            >
+              <option value="">{t('networkBuilder.scenarioCase')}</option>
+              {scenarios.map((sc) => <option key={sc.id} value={sc.id}>{sc.label || sc.id}</option>)}
+              {orphans.map((id) => (
+                <option key={id} value={id}>{t('networkBuilder.scenarioOrphan', { id })}</option>
+              ))}
+            </select>
+          </label>
+          {activeScenario ? (
+            <p className="nb-scenario-note">
+              {t(ownNetwork ? 'networkBuilder.scenarioOwn' : 'networkBuilder.scenarioReadThrough')}
+              {ownNetwork ? (
+                <>
+                  {' '}
+                  <button type="button" className="btn btn-secondary" onClick={() => void handleDropScenario()}>
+                    {t('networkBuilder.scenarioDrop')}
+                  </button>
+                </>
+              ) : null}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
       <div className="nb-toolbar">
         <button
           type="button"
@@ -395,9 +456,11 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           {t('networkBuilder.addActor')}
         </button>
 
-        <button type="button" className="btn btn-secondary" onClick={handleLoadExample}>
-          {t('networkBuilder.loadExample')}
-        </button>
+        {activeScenario ? null : (
+          <button type="button" className="btn btn-secondary" onClick={handleLoadExample}>
+            {t('networkBuilder.loadExample')}
+          </button>
+        )}
 
         {actorRows.length > 1 ? (
           <button type="button" className="btn btn-secondary" onClick={() => void handleArrange()}>
@@ -413,7 +476,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
               : t('networkBuilder.synced')}
         </span>
 
-        {missingCount > 0 ? (
+        {missingCount > 0 && !activeScenario ? (
           <button
             type="button"
             className="dd-pill dd-pill-amber nb-missing"
@@ -558,7 +621,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
                   ) : null
                 }
               />
-              {selection.sectionId === FLOW_MATRIX_SECTION ? classificationBlock(selectedRow) : null}
+              {selection.sectionId === FLOW_MATRIX_SECTION && !activeScenario ? classificationBlock(selectedRow) : null}
             </>
           ) : (
             <p className="nb-panel-empty">{t('networkBuilder.selectHint')}</p>

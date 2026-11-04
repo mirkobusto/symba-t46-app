@@ -398,17 +398,17 @@ const de: Locale = {
     sourcesTitle: "Worauf es beruht",
     sourcesBody: "Fragen, Regeln und Datenanforderungen folgen den methodischen Deliverables von Arbeitspaket 4 von SYMBA: D4.1 (Ökobilanz industrieller Symbiose, mit ihren Sektorkapiteln), D4.2 (Lebenszykluskosten) und D4.3 (soziale Ökobilanz). Jede Zeile des Ergebnisses nennt den Abschnitt, aus dem sie stammt.",
     notTitle: "Was es nicht tut",
-    notBody: "Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse (keine kg CO2eq, keinen Kapitalwert, keine sozialen Indikatoren): Es sagt, wie die Studie anzulegen ist und welche Daten zu erheben sind. Die Zahlen berechnet, wer die Studie durchführt, mit eigener Software für Ökobilanz und Kostenrechnung.",
+    notBody: "Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse (keine kg CO2eq, keinen Kapitalwert, keine sozialen Indikatoren): Es sagt, wie die Studie anzulegen ist und welche Daten zu erheben sind. Die Zahlen berechnet, wer die Studie durchführt, mit eigener Software für LCA und Kostenrechnung.",
     divergencesTitle: "Wo es bewusst von den Deliverables abweicht",
     divergencesLead: "Einige Entscheidungen sind die des Tools, hier genannt, damit ein Gutachter sie sieht:",
     divergences: {
       c2: "Die Bilanz eines einzelnen Unternehmens (ILCD-Situation C2) wird nur auf Unternehmensebene gerechnet: eine Entscheidung des Tools, keine Regel von D4.2.",
       situation: 'Eine Studie über ein bestehendes Netzwerk, die eine Option dafür bewertet (eine Verbesserung, eine Erweiterung), gilt als Situation A; eine, die das Netzwerk nur dokumentiert, als Situation C1 (T4.6-Lesart von Tabelle 1 und §4.3.2 der D4.1).',
-      uncertainty: 'Die Pedigree-Matrix ist verpflichtend, wenn die Ergebnisse an ein Review-Panel, an die Ausrichtung auf EU-Politiken oder in eine Veröffentlichung gehen (Q4 = C, D oder E), sonst empfohlen, und sie wird für Ökobilanz und LCC aktiviert, wenn der Austausch noch nicht stattfindet (Q2 = B, Regel CIR-02); Monte Carlo wird für die Ökobilanz unter eigenen Bedingungen verlangt (Q4 = C, D oder E oder Technologie unter TRL 9) und für die Kostenrechnung immer. D4.1 §13.3.2 und D4.2 §7.1, §10.3 verlangen beides in jeder Studie.',
+      uncertainty: 'Die Pedigree-Matrix ist verpflichtend, wenn die Ergebnisse an ein Review-Panel, an die Ausrichtung auf EU-Politiken oder in eine Veröffentlichung gehen (Q4 = C, D oder E), sonst empfohlen, und sie wird für LCA und LCC aktiviert, wenn der Austausch noch nicht stattfindet (Q2 = B, Regel CIR-02); Monte Carlo wird für die LCA unter eigenen Bedingungen verlangt (Q4 = C, D oder E oder Technologie unter TRL 9) und für die Kostenrechnung immer. D4.1 §13.3.2 und D4.2 §7.1, §10.3 verlangen beides in jeder Studie.',
       policy: "Die Ausrichtung an EU-Politik (Q4 = D) bringt CE-Delft-Preise und die Allokation nach Net Tax Factor, die D4.2 an das gesellschaftliche LCC knüpft.",
       assets: 'Q12 zählt die für den Austausch gebauten Anlagen, heute oder vor Jahren, auch wenn nur ein Unternehmen sie nutzt (D4.1 §6.3.3: dem Symbiose-Szenario eigen), wo D4.2 §4.2 von neuen, gemeinsam genutzten spricht.',
-      interdependent: 'Für einen interdependenten Fluss (Q5 = d) nennt D4.2 §6.2 einen Allokationsschlüssel in der E-LCC, während D4.1 §8.3.6 von der Substitution ausgeht; das Tool lässt die E-LCC der Ökobilanz folgen (D4.2 §6.3) und weist auf den Unterschied hin.',
-      lccB: 'In Situation B ist die Ökobilanz konsequenziell, und die Circular Footprint Formula des PEF läuft, wenn verlangt (Q4 = D), als Sensitivitätsanalyse; kein Knoten der Kostenrechnung hat bisher eine konsequenzielle Fassung, daher folgt die LCC ihrem Typ (D4.2 §2.2 verlangt ein Paradigma je Studie).',
+      interdependent: 'Für einen interdependenten Fluss (Q5 = d) nennt D4.2 §6.2 einen Allokationsschlüssel in der E-LCC, während D4.1 §8.3.6 von der Substitution ausgeht; das Tool lässt die E-LCC der LCA folgen (D4.2 §6.3) und weist auf den Unterschied hin.',
+      lccB: 'In Situation B ist die LCA konsequenziell, und die Circular Footprint Formula des PEF läuft, wenn verlangt (Q4 = D), als Sensitivitätsanalyse; kein Knoten der Kostenrechnung hat bisher eine konsequenzielle Fassung, daher folgt die LCC ihrem Typ (D4.2 §2.2 verlangt ein Paradigma je Studie).',
     },
     contactTitle: "Kontakt",
     contactBody: "Für Fragen zum Tool oder zum Projekt schreiben Sie über die Kontaktseite der SYMBA-Website:",
@@ -432,7 +432,7 @@ const de: Locale = {
       exchanges: 'Die Austausche',
       description: 'Beschreibung des Falls',
     },
-    scopeNote: "Dieses Werkzeug berechnet keine Ökobilanz-/LCC-/S-LCA-Zahlen. Es leitet die methodische Konfiguration Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
+    scopeNote: "Dieses Werkzeug berechnet keine LCA-/LCC-/S-LCA-Zahlen. Es leitet die methodische Konfiguration Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
@@ -517,9 +517,9 @@ const de: Locale = {
       title: 'Q3 — Welche Nachhaltigkeitsdimensionen einbeziehen? *',
       help: 'Mindestens eine ist erforderlich. Umwelt und Ökonomie sind die übliche Paarung.',
       details:
-        'ENV — Umwelt-Lebenszyklusanalyse (LCA): Auswirkungen auf Klima, Ökosysteme, Ressourcennutzung. Fast immer ausgewählt. ' +
-        'ECO — ökonomische Dimension, bewertet mit Life Cycle Costing (LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb des LCC, keine Alternative dazu; CBA und TEA bietet dieses Tool nicht an. ' +
-        'SOC — S-LCA. Die Auswahl fügt die sozialen Regeln hinzu (Stakeholder-Kategorien: Beschäftigte, lokale Gemeinschaft, Wertschöpfungskette). ' +
+        'ENV — Ökobilanz (LCA, Life Cycle Assessment): Auswirkungen auf Klima, Ökosysteme, Ressourcennutzung. Fast immer ausgewählt. ' +
+        'ECO — ökonomische Dimension, bewertet mit Lebenszykluskosten (Life Cycle Costing, LCC, D4.2). MFCA (Material Flow Cost Accounting, ISO 14051) ist eine Technik innerhalb des LCC, keine Alternative dazu; CBA und TEA bietet dieses Tool nicht an. ' +
+        'SOC — soziale Ökobilanz (S-LCA). Die Auswahl fügt die sozialen Regeln hinzu (Stakeholder-Kategorien: Beschäftigte, lokale Gemeinschaft, Wertschöpfungskette). ' +
         'Die meisten veröffentlichten IS-Papers laufen nur mit ENV (z. B. Sokka, Daddi); einige koppeln ENV+ECO (Hashimoto, Wiktor); nur eine Handvoll fügt SOC hinzu.',
       warning: 'Mindestens eine Dimension auswählen, um fortzufahren.',
       env: 'Umwelt (LCA)',
@@ -655,7 +655,7 @@ const de: Locale = {
       invalid: "Geben Sie die Jahre als Zahl über 0 an (höchstens {{max}}); das Betriebsjahr zwischen 1900 und 2200.",
       invalidShort: "Jahre über 0",
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
-      horizonWarning: 'Über {{threshold}} Jahre: Die Studie muss abschätzen, wie sich Energie und Märkte verändern (zukünftiger Hintergrund für Ökobilanz und Lebenszykluskostenrechnung).',
+      horizonWarning: 'Über {{threshold}} Jahre: Die Studie muss abschätzen, wie sich Energie und Märkte verändern (zukünftiger Hintergrund für LCA und LCC).',
       details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
@@ -717,7 +717,7 @@ const de: Locale = {
     q11: {
       title: "Q11 — Was vergleicht die Studie?",
       help: "Optional. Sie legt die Basis der funktionellen Einheit fest; ohne Antwort gilt die funktionsorientierte Einheit von D4.1 Part 1.",
-      details: "D4.1 Part 2 verlangt, dass die funktionelle Einheit die Hauptfunktion des Systems widerspiegelt (§4.3, §6.3, §8.3): eine inputbasierte Einheit (z. B. Behandlung von 1 Tonne Abfall), wenn die Studie Entsorgungswege oder die Leistung einer Anlage oder Dienstleistung vergleicht; eine outputbasierte Einheit (z. B. 1 kg Produkt, 1 MJ Energie), wenn sie Produkte mit Marktalternativen vergleicht oder eine Substitutionsaussage stützt; ein System funktioneller Einheiten, wenn beide Funktionen gleichrangig sind (Part 1 §5.3.2). D4.2 §3.1 verlangt für die LCC eine doppelte Einheit (behandelter Abfall + erzeugter Output), wenn die Produktsubstitution die Studie leitet: Die beiden Deliverables weichen ab; das Tool folgt für die Ökobilanz der Part 2 und weist auf den Unterschied hin.",
+      details: "D4.1 Part 2 verlangt, dass die funktionelle Einheit die Hauptfunktion des Systems widerspiegelt (§4.3, §6.3, §8.3): eine inputbasierte Einheit (z. B. Behandlung von 1 Tonne Abfall), wenn die Studie Entsorgungswege oder die Leistung einer Anlage oder Dienstleistung vergleicht; eine outputbasierte Einheit (z. B. 1 kg Produkt, 1 MJ Energie), wenn sie Produkte mit Marktalternativen vergleicht oder eine Substitutionsaussage stützt; ein System funktioneller Einheiten, wenn beide Funktionen gleichrangig sind (Part 1 §5.3.2). D4.2 §3.1 verlangt für die LCC eine doppelte Einheit (behandelter Abfall + erzeugter Output), wenn die Produktsubstitution die Studie leitet: Die beiden Deliverables weichen ab; das Tool folgt für die LCA der Part 2 und weist auf den Unterschied hin.",
       options: {
         unset: 'Weiß nicht / nichts wird verglichen (das Tool nutzt eine Einheit, die auf der erbrachten Leistung beruht)',
         waste_treatment: "Wie ein Abfall behandelt wird — Entsorgungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
@@ -729,8 +729,8 @@ const de: Locale = {
     },
     q12: {
       title: 'Q12 — Nutzt die Symbiose eigens errichtete Anlagen?',
-      help: 'Optional, gefragt, wenn Ökobilanz oder LCC aktiv sind: Leitungen, Anlagen, Lager oder Ausrüstung, die für den Austausch gebaut wurden, heute oder vor Jahren, ob sie ein Unternehmen nutzt oder mehrere.',
-      details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Sind Ökobilanz und LCC beide aktiv, aktiviert ein Ja außerdem die Regeln, die Investitionsgüter zwischen beiden abgleichen (IR-13, B-06); für Parks und Programme mit sozialer Dimension die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08). Der profitierende Partner kann ein einzelnes Unternehmen sein.',
+      help: 'Optional, gefragt, wenn LCA oder LCC aktiv sind: Leitungen, Anlagen, Lager oder Ausrüstung, die für den Austausch gebaut wurden, heute oder vor Jahren, ob sie ein Unternehmen nutzt oder mehrere.',
+      details: 'D4.2 §4.2 fragt, ob das Netzwerk neue, eigens errichtete und gemeinsam genutzte Anlagen braucht: Wenn ja, gehören deren CAPEX und laufende OPEX in die Kostenaufstellung und werden auf die begünstigten Partner verteilt. D4.1 §6.3.3 schließt die für das Symbioseszenario spezifischen Investitionsgüter und Infrastrukturen ein, abgeschrieben über die technische Lebensdauer jeder Anlage (Q8). Sind LCA und LCC beide aktiv, aktiviert ein Ja außerdem die Regeln, die Investitionsgüter zwischen beiden abgleichen (IR-13, B-06); für Parks und Programme mit sozialer Dimension die S-LCA-Indikatoren für gemeinsame Investitionen (CIR-08). Der profitierende Partner kann ein einzelnes Unternehmen sein.',
       options: {
         unset: 'Keine Antwort',
         yes: 'Ja — für den Austausch wurde etwas gebaut (eine Leitung, eine Anlage, ein Trockner, ein Tank), auch wenn es nur ein Unternehmen nutzt',
@@ -885,24 +885,24 @@ const de: Locale = {
         detail: 'In Q3 ist keine ökonomische Dimension gewählt, daher konfiguriert das Tool keine Kostenrechnung. Braucht der Fall einen Business Case, was bei einer Symbiose, die mehrere Unternehmen unterschreiben müssen, meist zutrifft, gehen Sie zurück zu Q3 und aktivieren Sie die ökonomische Dimension.',
       },
       'C+E': {
-        short: 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die Ökobilanz).',
-        detail: 'Zwei Sichten laufen parallel. Die konventionelle LCC beantwortet, ob es sich für das einzelne Unternehmen rechnet: reale Zahlungsströme, Steuern und Gebühren als Kosten, Subventionen als Minderungen. Die ökologische LCC erweitert die Grenze auf alle Akteure im Lebenszyklus und bleibt mit der parallelen Ökobilanz konsistent, sodass beide nebeneinander gelesen werden können. Vorsicht vor Doppelzählung: Eine CO2- oder Deponiesteuer, die schon in den Zahlungsströmen steht, darf nicht noch einmal als monetarisierte Externalität auftauchen.',
+        short: 'Konventionelle LCC (die realen Zahlungsströme des Unternehmens) plus ökologische LCC (die Wertschöpfungskette, auf denselben Grenzen wie die LCA).',
+        detail: 'Zwei Sichten laufen parallel. Die konventionelle LCC beantwortet, ob es sich für das einzelne Unternehmen rechnet: reale Zahlungsströme, Steuern und Gebühren als Kosten, Subventionen als Minderungen. Die ökologische LCC erweitert die Grenze auf alle Akteure im Lebenszyklus und bleibt mit der parallelen LCA konsistent, sodass beide nebeneinander gelesen werden können. Vorsicht vor Doppelzählung: Eine CO2- oder Deponiesteuer, die schon in den Zahlungsströmen steht, darf nicht noch einmal als monetarisierte Externalität auftauchen.',
       },
       'C+E+S': {
         short: 'Konventionelle und ökologische LCC plus gesellschaftliche LCC: Steuern und Subventionen über den Net Tax Factor angepasst, Umweltwirkungen monetarisiert.',
-        detail: 'Zu Unternehmens- und Wertschöpfungskettensicht kommt die Wohlfahrtssicht. Steuern und Subventionen sind Transfers innerhalb der Gesellschaft und keine realen Kosten für sie; sie werden daher ausgeschlossen oder über den Net Tax Factor in Schattenpreise umgerechnet, und die Umweltwirkungen aus der parallelen Ökobilanz werden monetarisiert. Das ist die Konfiguration, die eine öffentliche Entscheidung braucht, und deshalb bringt ein öffentliches oder politisches Ziel sie mit.',
+        detail: 'Zu Unternehmens- und Wertschöpfungskettensicht kommt die Wohlfahrtssicht. Steuern und Subventionen sind Transfers innerhalb der Gesellschaft und keine realen Kosten für sie; sie werden daher ausgeschlossen oder über den Net Tax Factor in Schattenpreise umgerechnet, und die Umweltwirkungen aus der parallelen LCA werden monetarisiert. Das ist die Konfiguration, die eine öffentliche Entscheidung braucht, und deshalb bringt ein öffentliches oder politisches Ziel sie mit.',
       },
       'C-LCC': {
         short: 'Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.',
         detail: 'Nur die Sicht des Unternehmens. Jedes Politikinstrument ist ein realer Zahlungsstrom: Steuern und Gebühren sind Kosten, Subventionen senken Capex oder Opex. Das ist der richtige Rahmen für die Unternehmensberichterstattung, und er sagt bewusst nichts über Wirkungen in der Wertschöpfungskette oder in der Gesellschaft: Sie zu behaupten, ginge über das hinaus, was eine Rechnung für einen einzelnen Akteur tragen kann.',
       },
       'C+N': {
-        short: 'Konventionelle LCC je Partner, auf Netzwerkebene konsolidiert. Keine ökologische LCC: Der Fall hat keine Ökobilanz, mit der sie konsistent sein könnte.',
-        detail: 'Zuerst die realen Zahlungsströme jedes Unternehmens, dann dieselben Konten über das Netzwerk summiert, wobei sich die Zahlungen zwischen Partnern aufheben. Die ökologische LCC entfällt, weil D4.2 sie auf der Systemgrenze einer parallelen Ökobilanz aufbaut und der Fall keine Umweltdimension bewertet. Aktivieren Sie die Umweltdimension in Q3, wenn die Studie die Sicht der Wertschöpfungskette braucht.',
+        short: 'Konventionelle LCC je Partner, auf Netzwerkebene konsolidiert. Keine ökologische LCC: Der Fall hat keine LCA, mit der sie konsistent sein könnte.',
+        detail: 'Zuerst die realen Zahlungsströme jedes Unternehmens, dann dieselben Konten über das Netzwerk summiert, wobei sich die Zahlungen zwischen Partnern aufheben. Die ökologische LCC entfällt, weil D4.2 sie auf der Systemgrenze einer parallelen LCA aufbaut und der Fall keine Umweltdimension bewertet. Aktivieren Sie die Umweltdimension in Q3, wenn die Studie die Sicht der Wertschöpfungskette braucht.',
       },
       'C+N+S': {
-        short: 'Konventionelle LCC je Partner und für das Netzwerk, plus gesellschaftliche LCC mit dem Net Tax Factor. Ohne Ökobilanz werden Umweltwirkungen nicht monetarisiert.',
-        detail: 'Unternehmens- und Netzwerkkonten wie oben, plus die Wohlfahrtssicht, die eine öffentliche Entscheidung braucht: Steuern und Subventionen über den Net Tax Factor umgerechnet, ein sozialer Diskontsatz und eine Systemgrenze bis zum Lebensende. Es fehlt die Monetarisierung der Umweltwirkungen, die die Ergebnisse einer parallelen Ökobilanz erfordert: Aktivieren Sie die Umweltdimension in Q3, um sie hinzuzufügen.',
+        short: 'Konventionelle LCC je Partner und für das Netzwerk, plus gesellschaftliche LCC mit dem Net Tax Factor. Ohne LCA werden Umweltwirkungen nicht monetarisiert.',
+        detail: 'Unternehmens- und Netzwerkkonten wie oben, plus die Wohlfahrtssicht, die eine öffentliche Entscheidung braucht: Steuern und Subventionen über den Net Tax Factor umgerechnet, ein sozialer Diskontsatz und eine Systemgrenze bis zum Lebensende. Es fehlt die Monetarisierung der Umweltwirkungen, die die Ergebnisse einer parallelen LCA erfordert: Aktivieren Sie die Umweltdimension in Q3, um sie hinzuzufügen.',
       },
     },
     slca: {
@@ -976,7 +976,7 @@ const de: Locale = {
         regional: 'Lokale Wirkungen',
         sectors: 'Sektorregeln',
         shared: 'Eigens errichtete Anlagen',
-        sharedLca: 'Ihre Herstellung und ihr Lebensende werden in der Ökobilanz inventarisiert und über die technische Lebensdauer jedes Guts abgeschrieben (D4.1 §6.3.3)',
+        sharedLca: 'Ihre Herstellung und ihr Lebensende werden in der LCA inventarisiert und über die technische Lebensdauer jedes Guts abgeschrieben (D4.1 §6.3.3)',
         claimPublic: 'Vergleiche',
         multifunctionality: 'Multifunktionalität',
         flowsLcc: 'Kosten jedes Flusses',
@@ -1085,7 +1085,7 @@ const de: Locale = {
         shared: 'die Symbiose nutzt eigens errichtete Anlagen (Q12)',
         multifunctionality: 'die ILCD-Situation (Q9)',
         horizonLifetimeOnly: 'die Anlagen halten {{years}} Jahre, mehr als {{threshold}}: Der Hintergrund wird über ihre Abschreibung projiziert, auch wenn die Studie das aktuelle Jahr beschreibt (D4.2 §9.3; die Schwelle lässt sich in den erweiterten Einstellungen ändern)',
-        referenceNoLca: 'die Kostenrechnung nutzt das Referenzszenario, das eine Ökobilanz in ILCD-Situation {{situation}} verwenden würde (D4.2 §4.1); die Situation schreibt kein Kostenmodell vor',
+        referenceNoLca: 'die Kostenrechnung nutzt das Referenzszenario, das eine LCA in ILCD-Situation {{situation}} verwenden würde (D4.2 §4.1); die Situation schreibt kein Kostenmodell vor',
       },
     },
     notes: { title: 'Hinweise zu Ihren Antworten' },
@@ -1102,7 +1102,7 @@ const de: Locale = {
       structural_without_screening: "Q9 nennt strukturelle Auswirkungen, aber das Markt-Screening ist nicht dokumentiert: Die Studie wird als ILCD-Situation A behandelt, und Situation B muss als Sensitivitätsanalyse geprüft werden (ILCD Handbook 2010, §5.3).",
       structural_screening_missing: 'Q9 nennt strukturelle Wirkungen, aber ob das Markt-Screening dokumentiert ist, ist nicht beantwortet: Die Studie wird als ILCD-Situation A behandelt, mit Situation B als Sensitivitätsanalyse, bis das Screening dokumentiert ist (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). Beantworten Sie die Folgefrage zu Q9, sobald es so weit ist.',
       decision_scale_vs_q1: {
-        c_micro: "Q1 (sektorweite Vorstudie) bedeutet meist Folgen in struktureller Größenordnung; Sie haben begrenzte Folgen angegeben, daher wird die Studie als ILCD-Situation A behandelt. D4.1 §4.3.4: Wählen Sie die konsequenzielle Ökobilanz nicht allein deshalb, weil eine Entscheidung getroffen wird.",
+        c_micro: "Q1 (sektorweite Vorstudie) bedeutet meist Folgen in struktureller Größenordnung; Sie haben begrenzte Folgen angegeben, daher wird die Studie als ILCD-Situation A behandelt. D4.1 §4.3.4: Wählen Sie die konsequenzielle LCA nicht allein deshalb, weil eine Entscheidung getroffen wird.",
         e_micro: "Q1=E (Monitoring) setzt keine Entscheidung voraus; Sie haben angegeben, dass die Studie eine Entscheidung mit begrenzten Folgen stützt, daher wird sie als ILCD-Situation A behandelt.",
         e_structural: "Q1=E (Monitoring) setzt keine Entscheidung voraus; Sie haben angegeben, dass die Studie eine Entscheidung mit strukturellen Folgen stützt, daher wird sie als ILCD-Situation B behandelt.",
       },
@@ -1111,11 +1111,11 @@ const de: Locale = {
       c2_keeps_c_lcc: "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) behält die Kostenrechnung auf Unternehmensebene (nur C-LCC), was immer Q10 sagt: eine Entwurfsentscheidung von T4.6, da ein einzelnes Unternehmen keine Netzwerkebene hat.",
       policy_no_but_q1_c: "Q1=C (sektorweite Vorstudie) dient meist einer öffentlichen Politik; Sie haben dies verneint, daher wird die gesellschaftliche Kostenrechnung (S-LCC, Net Tax Factor, sozialer Diskontsatz) nicht hinzugefügt.",
       lcc_without_lca: {
-        plain: "Q3 enthält keine Umweltdimension, es gibt also keine parallele Ökobilanz: Die Kostenrechnung ist die konventionelle LCC jedes Partners, auf Netzwerkebene konsolidiert (D4.2 §4.1), ohne die ökologische LCC, die D4.2 auf der Systemgrenze der Ökobilanz aufbaut.",
-        policy: "Q3 enthält keine Umweltdimension, es gibt also keine parallele Ökobilanz: Die Kostenrechnung ist die konventionelle LCC jedes Partners, auf Netzwerkebene konsolidiert (D4.2 §4.1), ohne die ökologische LCC, die D4.2 auf der Systemgrenze der Ökobilanz aufbaut. Die gesellschaftliche LCC behält Net Tax Factor und sozialen Diskontsatz, aber ohne Ökobilanzergebnisse lassen sich Externalitäten nicht monetarisieren (D4.2 §11.2).",
+        plain: "Q3 enthält keine Umweltdimension, es gibt also keine parallele LCA: Die Kostenrechnung ist die konventionelle LCC jedes Partners, auf Netzwerkebene konsolidiert (D4.2 §4.1), ohne die ökologische LCC, die D4.2 auf der Systemgrenze der LCA aufbaut.",
+        policy: "Q3 enthält keine Umweltdimension, es gibt also keine parallele LCA: Die Kostenrechnung ist die konventionelle LCC jedes Partners, auf Netzwerkebene konsolidiert (D4.2 §4.1), ohne die ökologische LCC, die D4.2 auf der Systemgrenze der LCA aufbaut. Die gesellschaftliche LCC behält Net Tax Factor und sozialen Diskontsatz, aber ohne LCA-Ergebnisse lassen sich Externalitäten nicht monetarisieren (D4.2 §11.2).",
       },
       c2_allocation_over_pef: "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) verwendet Allokation und keine Substitutionsgutschriften (D4.1 §7.2.3); die von Q4=D verlangte Circular Footprint Formula der PEF wird daher nicht angewandt: Die CFF ist eine Produktmethode. Ist die Studie ein Produkt-Fußabdruck und kein Unternehmensbericht, prüfen Sie Q9.",
-      slca_alone: "Q3 wählt nur die soziale Dimension. D4.3 §3.1 baut die S-LCA auf der funktionellen Einheit und den Systemgrenzen einer Ökobilanz oder LCC auf; ist keine gewählt, dokumentieren Sie Bezugseinheit und Systemgrenze in der methodischen Charta.",
+      slca_alone: "Q3 wählt nur die soziale Dimension. D4.3 §3.1 baut die S-LCA auf der funktionellen Einheit und den Systemgrenzen einer LCA oder LCC auf; ist keine gewählt, dokumentieren Sie Bezugseinheit und Systemgrenze in der methodischen Charta.",
       flow_sellable_but_waste: "Fluss „{{flow}}“: Laut Q5 zahlt der Erzeuger für die Entsorgung (Abfall), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
       flow_price_without_market: "Fluss „{{flow}}“: Q5 sagt, der Empfänger zahlt (Koppelprodukt), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, ist der Fluss Abfall, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Step 4). Prüfen Sie den Preis gegen diesen Maßstab.",
       flow_freedom_to_act_settles: {
@@ -1129,7 +1129,7 @@ const de: Locale = {
       flow_configuration_unknown: "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
       flow_configuration_other_chapter: "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
       b_consequential_over_pef: 'Situation B verlangt eine konsequenzielle Modellierung gegen die marginale Technologie (D4.1 Tabelle 1), während die Ausrichtung auf EU-Politiken (Q4 = D) die Circular Footprint Formula des PEF verlangt, eine attributive Aufteilung. Das konsequenzielle Modell hat Vorrang; führen Sie die CFF als Sensitivitätsanalyse durch und erklären Sie beides in der Methodencharta (D4.1 §7.3.3; D4.2 §2.2).',
-      b_lcc_not_consequential: 'Situation B: Die Ökobilanz substituiert die marginale Technologie (D4.1 Tabelle 1), während die ökologische LCC verdrängte Produkte zum durchschnittlichen Marktpreis dessen bewertet, was sie ersetzen (D4.2 §6.2): Dieses Tool hat keine konsequenzielle Fassung der Kostenrechnung. D4.2 §2.2 verlangt ein Paradigma, identisch zwischen Ökobilanz und LCC: Erklären Sie den Unterschied in der Methodencharta als methodische Abweichung und bewerten Sie die verdrängten Produkte in einer Sensitivitätsanalyse zum Preis des marginalen Anbieters.',
+      b_lcc_not_consequential: 'Situation B: Die LCA substituiert die marginale Technologie (D4.1 Tabelle 1), während die ökologische LCC verdrängte Produkte zum durchschnittlichen Marktpreis dessen bewertet, was sie ersetzen (D4.2 §6.2): Dieses Tool hat keine konsequenzielle Fassung der Kostenrechnung. D4.2 §2.2 verlangt ein Paradigma, identisch zwischen LCA und LCC: Erklären Sie den Unterschied in der Methodencharta als methodische Abweichung und bewerten Sie die verdrängten Produkte in einer Sensitivitätsanalyse zum Preis des marginalen Anbieters.',
       flow_interdependent_but_marketable: 'Fluss „{{flow}}“: Q5 sagt, der Abgebende habe seinen Prozess für diesen Partner geändert, und der Fluss würde sich auch an andere verkaufen. Beides kann bei einem bestimmenden Koppelprodukt zutreffen (D4.1 §8.3.6, Schritt 2). Prüfen Sie: Wurde die Änderung für die Spezifikation dieses Partners vorgenommen, bleibt d; wurde sie für beliebige Käufer vorgenommen (ein Trockner, der die Pülpe zu handelbarem Futter macht), ist der Fluss ein abhängiges Koppelprodukt (Q5 = c, Substitution mit dem Qualitätsfaktor Q) und die Anlage eine eigens errichtete Anlage (Q12). Eine Notiz ändert Q5 nie.',
     },
     sectorChapters: { '§4': "§4 Agrar, Lebensmittel und Bioraffinerien", '§5': "§5 Kunststoffe und Verpackungen", '§6': "§6 Abwasser und Biofabriken", '§7': "§7 Textil und technische Textilien", '§8': "§8 Abfallverwertung" },
@@ -1534,7 +1534,7 @@ const de: Locale = {
     downloadingDocx: 'Dokument wird vorbereitet…',
     downloadError: 'Download fehlgeschlagen',
     footerNote:
-      'Das Data Collection File beschreibt den Austausch, nicht die Prozesse: Füllen Sie die leeren Zeilen offline aus (oder verteilen Sie sie an die Partner) und geben Sie die Datei an den Analysten zurück, der die Studie leitet und die Anlageninventare mit der Ökobilanz- und Kostensoftware erhebt.',
+      'Das Data Collection File beschreibt den Austausch, nicht die Prozesse: Füllen Sie die leeren Zeilen offline aus (oder verteilen Sie sie an die Partner) und geben Sie die Datei an den Analysten zurück, der die Studie leitet und die Anlageninventare mit der LCA- und Kostensoftware erhebt.',
     openButton: 'Data Collection File öffnen',
     tabOverview: 'Übersicht',
     tabNetworkBuilder: 'Netzwerk-Editor',

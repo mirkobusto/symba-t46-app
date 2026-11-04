@@ -423,6 +423,15 @@ def test_flow_sector_names_the_part2_chapter(sector, chapter):
         assert f"Part 2 {chapter} " in notes[0]
 
 
+def test_no_part2_chapter_note_without_the_lca():
+    """The Part 2 rules are listed only with the LCA (#156): the note pointed
+    to an empty list in a social-only study (Kimi test 2026-11-04, A2-04)."""
+    case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(soc=True),
+                flows=[{"id": "f1", "name": "x", "q5": "c", "sector": "food_production"}])
+    run(case, None)
+    assert not [w for w in case.warnings if w["code"] == "flow_part2_chapter"]
+
+
 
 def test_unanswered_q9_and_q10_are_read_off_q1_with_a_note():
     """Q1 decides only for cases saved before Q9 / Q10 existed, and says so."""

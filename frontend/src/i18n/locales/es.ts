@@ -155,7 +155,7 @@ const es: Locale = {
       backToReport: "Volver al informe",
     },
     region: {
-      eyebrow: 'Región · {{code}}', title: 'Panel regional', lead: 'Vista agregada.', total: 'Casos', situations: 'Situaciones ILCD', sectors: 'Sectores',
+      eyebrow: 'Región · {{code}}', title: 'Panel regional', lead: 'Casos compartidos con al menos un socio en {{code}}, según el país indicado para cada empresa en el editor de red. Un caso sin red dibujada no cuenta.', total: 'Casos', situations: 'Situaciones ILCD', sectors: 'Sectores',
       bySituationTitle: 'Por situación ILCD', bySectorTitle: 'Por sector', tableKey: 'Valor', tableCount: 'Cantidad',
       errorTitle: 'Región no disponible', errorBody: 'No se pudieron cargar los datos.',
     },
@@ -918,7 +918,7 @@ const es: Locale = {
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Qué significa para ti',
-      lead: 'Casos compartidos con al menos un socio en {{code}}, según el país indicado para cada empresa en el editor de red. Un caso sin red dibujada no cuenta.',
+      lead: 'La herramienta ha establecido cómo debe plantearse el estudio de tu caso y qué datos necesita. No calcula si el intercambio compensa o es bueno para el medio ambiente: eso lo hace un analista o un consultor, con los datos que recojas.',
       step1: 'Guarda el caso para encontrarlo de nuevo. Hace falta una cuenta gratuita; sin ella, el caso se queda solo en este navegador.',
       step2: 'Abre el Data Collection File, dibuja las empresas y los intercambios y después descarga el Excel: tu personal rellena las hojas sobre los actores, los flujos, la logística y los costes.',
       step3: 'Entrega el archivo y el informe a quien hará el estudio (un analista, un consultor, una universidad): los puntos técnicos de más abajo son para esa persona.',

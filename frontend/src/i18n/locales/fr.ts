@@ -161,7 +161,7 @@ const fr: Locale = {
       backToReport: "Retour au rapport",
     },
     region: {
-      eyebrow: 'Région · {{code}}', title: 'Tableau de bord régional', lead: 'Vue agrégée des cas IS.', total: 'Cas', situations: 'Situations ILCD', sectors: 'Secteurs couverts',
+      eyebrow: 'Région · {{code}}', title: 'Tableau de bord régional', lead: 'Cas partagés avec au moins un partenaire en {{code}}, d\'après le pays indiqué pour chaque entreprise dans l\'éditeur de réseau. Un cas dont le réseau n\'est pas dessiné ne compte pas.', total: 'Cas', situations: 'Situations ILCD', sectors: 'Secteurs couverts',
       bySituationTitle: 'Par situation ILCD', bySectorTitle: 'Par secteur', tableKey: 'Valeur', tableCount: 'Nombre',
       errorTitle: 'Région indisponible', errorBody: 'Impossible de charger les données.',
     },
@@ -924,7 +924,7 @@ const fr: Locale = {
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Ce que cela signifie pour vous',
-      lead: 'Cas partagés avec au moins un partenaire en {{code}}, d\'après le pays indiqué pour chaque entreprise dans l\'éditeur de réseau. Un cas dont le réseau n\'est pas dessiné ne compte pas.',
+      lead: 'L\'outil a établi comment l\'étude de votre cas doit être conçue et de quelles données elle a besoin. Il ne calcule pas si l\'échange est rentable ou bon pour l\'environnement : c\'est le travail d\'un analyste ou d\'un consultant, avec les données que vous collectez.',
       step1: 'Enregistrez le cas pour le retrouver. Il faut un compte gratuit ; sans compte, le cas reste seulement dans ce navigateur.',
       step2: 'Ouvrez le Data Collection File, dessinez les entreprises et les échanges, puis téléchargez l\'Excel : vos équipes remplissent les feuilles sur les acteurs, les flux, la logistique et les coûts.',
       step3: 'Remettez le fichier et le rapport à qui réalisera l\'étude (un analyste, un consultant, une université) : les points techniques plus bas sont pour lui.',

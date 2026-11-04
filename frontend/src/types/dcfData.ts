@@ -17,11 +17,21 @@ export interface DcfNodePosition {
   y: number
 }
 
+/** The network of one alternative scenario: actors and flows only, a copy
+ * of the case's network made on the first edit (designed by Fable, owner OK
+ * 2026-11-04). */
+export interface DcfNetworkVariant {
+  rows_by_section: Record<string, DcfRow[]>
+  layout: Record<string, DcfNodePosition>
+}
+
 export interface DcfData {
   schema_version: string
   case_id: string
   rows_by_section: Record<string, DcfRow[]>
   layout: Record<string, DcfNodePosition>
+  /** Keyed by AlternativeScenario.id; absent in content saved before 1.1. */
+  networks_by_scenario?: Record<string, DcfNetworkVariant>
   updated_at?: string | null
 }
 
@@ -31,6 +41,7 @@ export interface DcfDataIssue {
   row_id: string | null
   field_id: string | null
   detail: string
+  scenario_id?: string | null
 }
 
 export interface DcfSectionCompleteness {
@@ -54,7 +65,7 @@ export interface DcfDataEnvelope {
   validation: DcfDataValidation
 }
 
-export const DCF_DATA_SCHEMA_VERSION = '1.0'
+export const DCF_DATA_SCHEMA_VERSION = '1.1'
 
 // Section ids the Network Builder edits.
 export const ACTORS_SECTION = 'actors'

@@ -49,3 +49,25 @@ describe('NetworkBuilder: classification panel', () => {
     expect(rows).toEqual([{ row_id: 'classif-f1', values: { 'classif.flow_id': 'f1', 'classif.legal_status': 'by_product' } }])
   })
 })
+
+describe('NetworkBuilder: scenario networks (owner OK 2026-11-04)', () => {
+  beforeAll(() => {
+    globalThis.ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {} } as never
+  })
+  beforeEach(() => useDcfDataStore.getState().reset())
+  const WITH_SCENARIO = { ...CASE, alternative_scenarios: [{ id: 'alt1', label: 'Landfill', overrides: {} }] } as unknown as Case
+
+  it('switches to a scenario network, says it reads the case, hides the classification', () => {
+    useDcfDataStore.getState().syncWithPayload(PAYLOAD, CASE.flows ?? [])
+    render(<MemoryRouter><NetworkBuilder payload={PAYLOAD} sourceCase={WITH_SCENARIO} caseId={null} /></MemoryRouter>)
+    fireEvent.change(screen.getByLabelText(/Network of/), { target: { value: 'alt1' } })
+    expect(screen.getByText(/This scenario uses the case's network/)).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'Sludge' }))
+    expect(screen.queryByText(/Classification and substitution/)).toBeNull()
+  })
+
+  it('shows no picker without scenarios', () => {
+    render(<MemoryRouter><NetworkBuilder payload={PAYLOAD} sourceCase={CASE} caseId={null} /></MemoryRouter>)
+    expect(screen.queryByLabelText(/Network of/)).toBeNull()
+  })
+})

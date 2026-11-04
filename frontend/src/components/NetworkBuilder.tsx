@@ -73,10 +73,12 @@ function sectionOf(payload: DcfPayload, id: string): DcfSection | undefined {
 function issuesFor(
   validation: { errors: DcfDataIssue[]; missing_required: DcfDataIssue[] } | null,
   rowId: string,
+  scenarioId: string | null = null,
 ): DcfDataIssue[] {
   if (!validation) return []
+  // a scenario's network has rows with the case's ids: keep each issue on its network
   return [...validation.errors, ...validation.missing_required].filter(
-    (i) => i.row_id === rowId,
+    (i) => i.row_id === rowId && (i.scenario_id ?? null) === scenarioId,
   )
 }
 
@@ -541,13 +543,16 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
               >
                 {t('networkBuilder.addActor')}
               </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleLoadExample}
-              >
-                {t('networkBuilder.loadExample')}
-              </button>
+              {/* the example replaces the case's network: not from a scenario's */}
+              {activeScenario ? null : (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleLoadExample}
+                >
+                  {t('networkBuilder.loadExample')}
+                </button>
+              )}
             </div>
           </div>
         ) : (
@@ -582,7 +587,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
                 row={selectedRow}
                 actors={actorRows}
                 sites={sourceCase.sites ?? []}
-                issues={issuesFor(validation, selectedRow.row_id)}
+                issues={issuesFor(validation, selectedRow.row_id, activeScenario)}
                 onChange={(fieldId, value) =>
                   onFieldChange(selection.sectionId, selectedRow, fieldId, value)
                 }

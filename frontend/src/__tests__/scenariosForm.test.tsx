@@ -64,6 +64,18 @@ describe('ScenariosEditor starts from the case', () => {
   })
 })
 
+describe('ScenariosEditor ids', () => {
+  it('does not reuse the id of a deleted scenario whose network is kept (Fable review)', () => {
+    useDcfDataStore.setState({ data: { schema_version: '1.1', case_id: '', rows_by_section: {}, layout: {},
+      networks_by_scenario: { alt1: { rows_by_section: {}, layout: {} } } } } as never)
+    const onChange = vi.fn()
+    render(<ScenariosEditor scenarios={[]} onChange={onChange} />)
+    fireEvent.click(screen.getByRole('button', { name: /add scenario/i }))
+    expect((onChange.mock.calls.at(-1)![0] as AlternativeScenario[])[0].id).toBe('alt2')
+    useDcfDataStore.getState().reset()
+  })
+})
+
 describe('ScenariosEditor JSON', () => {
   it('refuses keys a scenario cannot change, instead of a silent failed run (UX round 5, P7-11)', () => {
     const onChange = vi.fn()

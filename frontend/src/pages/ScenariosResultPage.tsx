@@ -139,7 +139,7 @@ function NetworkBlock({ data, scenarioId, t }: { data: DcfData | null; scenarioI
   const d = networkDiff(rows(ACTORS_SECTION, data), rows(FLOW_MATRIX_SECTION, data),
     rows(ACTORS_SECTION, variant), rows(FLOW_MATRIX_SECTION, variant))
   if (isEmptyDiff(d)) return <p className="muted">{t('scenariosResult.networkSame')}</p>
-  return <ul>{diffLines(d, t).map((line) => <li key={line}>{line}</li>)}</ul>
+  return <ul>{diffLines(d, t).map((line, i) => <li key={i}>{line}</li>)}</ul>
 }
 
 export default function ScenariosResultPage() {

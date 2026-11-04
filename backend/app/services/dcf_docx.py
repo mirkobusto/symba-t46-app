@@ -22,7 +22,7 @@ from docx.shared import Inches, Pt, RGBColor
 
 from app.domain.dcf_data import DcfData
 from app.engine.dcf_compose import DcfPayload
-from app.engine.dcf_rows import actor_label, edge_list, rows_for
+from app.engine.dcf_rows import actor_label, edge_list, network_diff, rows_for, scenario_networks
 from app.services.dcf_terms import cover_rows, enum_label, offered_labels, only_when, ref_label, ui
 
 EU_FOOTER = (
@@ -74,7 +74,7 @@ def generate_dcf_docx_bytes(
     # P4-08, P5-13, P6-09).
     _write_cover_block(doc, payload, case_title, lang, cover or {})
     _write_instructions_section(doc, payload, lang, (cover or {}).get("contact"))
-    _write_network_section(doc, payload, data, lang, (cover or {}).get("network_png"))
+    _write_network_section(doc, payload, data, lang, (cover or {}).get("network_png"), (cover or {}).get("scenarios"))
     _write_field_reference_section(doc, payload, lang)
     _write_methodological_section(doc, payload, lang)
     _write_eu_closing(doc, lang)
@@ -175,7 +175,7 @@ def _write_methodological_section(doc: Document, payload: DcfPayload, lang: str 
 
 def _write_network_section(
     doc: Document, payload: DcfPayload, data: DcfData | None = None, lang: str = "en",
-    network_png: bytes | None = None,
+    network_png: bytes | None = None, scenarios: list[tuple[str, str]] | None = None,
 ) -> None:
     doc.add_heading(ui(lang, "dx.s2"), level=1)
     if payload.network_render_spec is None:
@@ -187,8 +187,10 @@ def _write_network_section(
 
     actors = rows_for(data, "actors")
     edges = edge_list(data)
-    if actors or edges:
+    # a scenario's network may be drawn while the case's is still empty (Q2 = B)
+    if actors or edges or scenario_networks(data, scenarios):
         _write_drawn_network(doc, actors, edges, lang)
+        _write_scenario_networks(doc, data, actors, scenarios or [], lang)
         return
 
     doc.add_paragraph(ui(lang, "dx.s2_static"))
@@ -242,6 +244,33 @@ def _write_drawn_network(doc: Document, actors: list, edges: list[dict], lang: s
             cells[1].text = str(edge["origin"])
             cells[2].text = str(edge["destination"])
             cells[3].text = enum_label(lang, edge["type"]) or "—"
+
+
+def _write_scenario_networks(doc: Document, data: DcfData | None, actors: list, scenarios: list[tuple[str, str]],
+                             lang: str = "en") -> None:
+    """Each scenario with a network of its own: what it changes against the
+    case's network, in words (scenario networks, owner OK 2026-11-04)."""
+    flows = rows_for(data, "flow_matrix")
+    for label, variant in scenario_networks(data, scenarios):
+        doc.add_heading(ui(lang, "dx.s2_sc_heading", label=label), level=2)
+        diff = network_diff(actors, flows, variant.rows_by_section.get("actors", []),
+                            variant.rows_by_section.get("flow_matrix", []))
+        lines = (
+            [ui(lang, "dx.s2_sc_actor_added", **x) for x in diff["actors_added"]]
+            + [ui(lang, "dx.s2_sc_actor_removed", **x) for x in diff["actors_removed"]]
+            + [ui(lang, "dx.s2_sc_actor_renamed", **x) for x in diff["actors_renamed"]]
+            + [ui(lang, "dx.s2_sc_flow_rerouted", **x) for x in diff["flows_rerouted"]]
+            + [ui(lang, "dx.s2_sc_flow_dropped", **x) for x in diff["flows_dropped"]]
+            + [ui(lang, "dx.s2_sc_flow_only_here", **x) for x in diff["flows_only_in_scenario"]]
+            + [ui(lang, "dx.s2_sc_value", flow=x["flow"],
+                  field=ui(lang, "dx.s2_sc_field." + x["field"].removeprefix("flow.")),
+                  before="—" if x["before"] in (None, "") else x["before"],
+                  after="—" if x["after"] in (None, "") else x["after"]) for x in diff["value_changes"]]
+        )
+        if not lines:
+            doc.add_paragraph(ui(lang, "dx.s2_sc_same"))
+        for line in lines:
+            doc.add_paragraph(line, style="List Bullet")
 
 
 _INSTRUCTION_KEYS = ["what", "how", "unknown", "units", "conf", "return"]

@@ -104,3 +104,46 @@ def test_the_scenario_network_follows_the_questionnaire_and_its_flow_q5():
     out = with_case_flows(data, case, "c")
     [row] = out.networks_by_scenario["alt1"].rows_by_section["flow_matrix"]
     assert (row.values["flow.name"], row.values["flow.q5_class"]) == ("sludge", "b")
+
+
+def test_the_files_carry_each_scenario_network(client):
+    import io
+
+    from docx import Document
+    from openpyxl import load_workbook
+
+    case_id = _save(client)
+    assert client.put(f"/api/dcf/{case_id}/data", json=_network(case_id, LANDFILL)).status_code == 200
+    xlsx = client.post(f"/api/dcf/{case_id}/export/xlsx", json={"rows": []})
+    cells = [str(c.value) for ws in load_workbook(io.BytesIO(xlsx.content)).worksheets for row in ws.iter_rows() for c in row
+             if c.value is not None]
+    assert any(c.startswith("Scenario “Landfill”") for c in cells)
+    assert "Landfill" in cells   # the scenario's edge goes to the landfill
+    docx = client.post(f"/api/dcf/{case_id}/export/docx", json={"rows": []})
+    text = "\n".join(p.text for p in Document(io.BytesIO(docx.content)).paragraphs)
+    assert "Actor added: Landfill" in text
+    assert "sludge: WWTP → Biogas becomes WWTP → Landfill" in text
+
+
+def test_a_network_whose_scenario_left_is_not_exported(client):
+    import io
+
+    from docx import Document
+
+    case_id = _save(client)
+    assert client.put(f"/api/dcf/{case_id}/data", json=_network(case_id, LANDFILL, scenario_id="alt7")).status_code == 200
+    docx = client.post(f"/api/dcf/{case_id}/export/docx", json={"rows": []})
+    assert "Landfill" not in "\n".join(p.text for p in Document(io.BytesIO(docx.content)).paragraphs)
+
+
+def test_a_scenario_network_is_exported_while_the_case_network_is_empty(client):
+    """Q2 = B: the analyst may draw the scenario first (Fable review of #228)."""
+    import io
+
+    from docx import Document
+
+    case_id = _save(client)
+    body = {"case_id": case_id, "rows_by_section": {}, "networks_by_scenario": {"alt1": LANDFILL}}
+    assert client.put(f"/api/dcf/{case_id}/data", json=body).status_code == 200
+    docx = client.post(f"/api/dcf/{case_id}/export/docx", json={"rows": []})
+    assert "Actor added: Landfill" in "\n".join(p.text for p in Document(io.BytesIO(docx.content)).paragraphs)

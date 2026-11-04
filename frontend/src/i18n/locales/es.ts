@@ -812,7 +812,7 @@ const es: Locale = {
   },
 
   scenarios: {
-    intro: 'Un escenario cambia algunas respuestas del cuestionario y el motor lo calcula junto al caso: la página de resultados muestra qué cambia en la configuración y en las obligaciones. Quién paga a quién puede cambiar por flujo. Adónde van los flujos (a un vertedero en lugar de a un socio, un socio nuevo, un socio que sale) se dibuja como red propia del escenario en el editor de red del Data Collection File, y la comparación dice qué cambia; distancias y precios quedan en las hipótesis de escenario de cada flujo. La herramienta no calcula resultados.',
+    intro: 'Un escenario cambia algunas respuestas del cuestionario y el motor lo calcula junto al caso: la página de resultados muestra qué cambia en la configuración y en las obligaciones. Quién paga a quién puede cambiar por flujo. Adónde van los flujos (a un vertedero en lugar de a un socio, un socio nuevo, un socio que sale) se dibuja como red propia del escenario en el editor de red del Data Collection File, y la comparación dice qué cambia; distancias y precios quedan en las hipótesis de escenario de cada flujo. A partir de las redes no se calcula ningún resultado.',
     emptyHint: 'Sin escenarios alternativos.',
     headers: { id: 'ID', label: 'Etiqueta' },
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',

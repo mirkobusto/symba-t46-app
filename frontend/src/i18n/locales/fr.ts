@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const fr: Locale = {
   common: {
+    actions: 'Actions',
     run: 'Exécuter',
     reset: 'Réinitialiser',
     close: 'Fermer',
@@ -65,6 +66,7 @@ const fr: Locale = {
   },
 
   layout: {
+    skipToMain: 'Aller au contenu principal',
     brand: 'SYMBA T4.6',
     brandTag: 'Système de Suivi et de Reporting pour la Symbiose Industrielle',
     about: 'À propos',
@@ -161,7 +163,7 @@ const fr: Locale = {
       backToReport: "Retour au rapport",
     },
     region: {
-      eyebrow: 'Région · {{code}}', title: 'Tableau de bord régional', lead: 'Vue agrégée des cas IS.', total: 'Cas', situations: 'Situations ILCD', sectors: 'Secteurs couverts',
+      eyebrow: 'Région · {{code}}', title: 'Tableau de bord régional', lead: 'Cas partagés avec au moins un partenaire en {{code}}, d\'après le pays indiqué pour chaque entreprise dans l\'éditeur de réseau. Un cas dont le réseau n\'est pas dessiné ne compte pas.', total: 'Cas', situations: 'Situations ILCD', sectors: 'Secteurs couverts',
       bySituationTitle: 'Par situation ILCD', bySectorTitle: 'Par secteur', tableKey: 'Valeur', tableCount: 'Nombre',
       errorTitle: 'Région indisponible', errorBody: 'Impossible de charger les données.',
     },
@@ -201,6 +203,7 @@ const fr: Locale = {
   },
 
   adminShell: {
+    navLabel: 'Navigation principale',
     menuOpen: "Menu",
     menuClose: "Fermer",
     searchLabel: 'Rechercher',
@@ -839,8 +842,9 @@ const fr: Locale = {
 
   advanced: {
     intro:
-      "Overrides mode expert. Chaque clé est lue par le moteur via dict.get ; les clés manquantes signifient « utilise le défaut ». Les valeurs sont coercées en true/false/nombre/chaîne selon le besoin.",
+      'Réglages du mode expert. Une clé laissée vide garde la valeur par défaut ; une valeur se lit comme true/false, un nombre ou du texte.',
     headers: { key: 'Clé', value: 'Valeur', hint: 'Astuce', custom: 'custom' },
+    examplePlaceholder: 'ex. {{example}}',
     addCustom: 'Ajouter une clé custom',
     clearAria: 'Effacer {{key}}',
     removeAria: 'Supprimer {{key}}',
@@ -924,7 +928,7 @@ const fr: Locale = {
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Ce que cela signifie pour vous',
-      lead: 'Cas partagés avec au moins un partenaire en {{code}}, d\'après le pays indiqué pour chaque entreprise dans l\'éditeur de réseau. Un cas dont le réseau n\'est pas dessiné ne compte pas.',
+      lead: 'L\'outil a établi comment l\'étude de votre cas doit être conçue et de quelles données elle a besoin. Il ne calcule pas si l\'échange est rentable ou bon pour l\'environnement : c\'est le travail d\'un analyste ou d\'un consultant, avec les données que vous collectez.',
       step1: 'Enregistrez le cas pour le retrouver. Il faut un compte gratuit ; sans compte, le cas reste seulement dans ce navigateur.',
       step2: 'Ouvrez le Data Collection File, dessinez les entreprises et les échanges, puis téléchargez l\'Excel : vos équipes remplissent les feuilles sur les acteurs, les flux, la logistique et les coûts.',
       step3: 'Remettez le fichier et le rapport à qui réalisera l\'étude (un analyste, un consultant, une université) : les points techniques plus bas sont pour lui.',
@@ -1304,6 +1308,8 @@ const fr: Locale = {
   },
 
   toast: {
+    region: 'Notifications',
+    dismiss: 'Fermer la notification',
     pipelineCompleted: "Configuration prête",
     pipelineError: 'Erreur pipeline — {{detail}}',
     scenariosCompleted: '{{n}} scénarios exécutés',
@@ -1541,6 +1547,13 @@ const fr: Locale = {
     goSaveChanges: 'Aller au résultat pour enregistrer les modifications',
   },
 
+  flowControls: {
+    zoomIn: 'Zoom avant',
+    zoomOut: 'Zoom arrière',
+    fitView: 'Afficher tout le réseau',
+    lock: 'Verrouiller le diagramme',
+    unlock: 'Déverrouiller le diagramme',
+  },
   networkDiagram: {
     counts: '{{actors}} acteurs · {{flows}} flux',
     actors_one: '{{count}} acteur',

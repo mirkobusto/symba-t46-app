@@ -17,6 +17,7 @@
 // so they remain available on every admin route.
 
 import { Outlet } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import PageSuspense from '../PageSuspense'
 import SiteHeader from '../brand/SiteHeader'
@@ -29,10 +30,11 @@ import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 
 export default function AdminShell() {
+  const { t } = useTranslation()
   return (
     <div className="dd-shell">
       <a href="#dd-main" className="skip-link">
-        Skip to main content
+        {t('layout.skipToMain')}
       </a>
       <SiteHeader />
       <div className="dd-app">

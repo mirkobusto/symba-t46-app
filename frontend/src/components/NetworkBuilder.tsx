@@ -16,7 +16,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactFlow, {
   Background,
-  Controls,
   MarkerType,
   type Connection,
   type Edge,
@@ -26,6 +25,7 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
+import FlowControls from './FlowControls'
 import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
 import DcfRowFields from './DcfRowFields'
@@ -574,7 +574,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           proOptions={{ hideAttribution: false }}
         >
           <Background />
-          <Controls />
+          <FlowControls />
         </ReactFlow>
         )}
 

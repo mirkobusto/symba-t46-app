@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const de: Locale = {
   common: {
+    actions: 'Aktionen',
     run: 'Ausführen',
     reset: 'Zurücksetzen',
     close: 'Schließen',
@@ -65,6 +66,7 @@ const de: Locale = {
   },
 
   layout: {
+    skipToMain: 'Zum Hauptinhalt springen',
     brand: 'SYMBA T4.6',
     brandTag: 'Monitoring- und Reporting-System für industrielle Symbiose',
     about: 'Über',
@@ -155,7 +157,7 @@ const de: Locale = {
       backToReport: "Zurück zum Bericht",
     },
     region: {
-      eyebrow: 'Region · {{code}}', title: 'Regionales Dashboard', lead: 'Aggregierte Ansicht.', total: 'Fälle', situations: 'ILCD-Situationen', sectors: 'Sektoren',
+      eyebrow: 'Region · {{code}}', title: 'Regionales Dashboard', lead: 'Geteilte Fälle mit mindestens einem Partner in {{code}}, nach dem Land, das im Netzwerk-Editor für jedes Unternehmen angegeben ist. Ein Fall ohne gezeichnetes Netzwerk zählt nicht.', total: 'Fälle', situations: 'ILCD-Situationen', sectors: 'Sektoren',
       bySituationTitle: 'Nach ILCD-Situation', bySectorTitle: 'Nach Sektor', tableKey: 'Wert', tableCount: 'Anzahl',
       errorTitle: 'Region nicht verfügbar', errorBody: 'Daten konnten nicht geladen werden.',
     },
@@ -195,6 +197,7 @@ const de: Locale = {
   },
 
   adminShell: {
+    navLabel: 'Hauptnavigation',
     menuOpen: "Menü",
     menuClose: "Schließen",
     searchLabel: 'Suchen',
@@ -833,8 +836,9 @@ const de: Locale = {
 
   advanced: {
     intro:
-      'Expertenmodus-Overrides. Jeder Schlüssel wird von der Engine via dict.get gelesen; fehlende Schlüssel bedeuten „verwende den Default". Werte werden zu true/false/Zahl/String je nach Bedarf konvertiert.',
+      'Einstellungen für den Expertenmodus. Ein leer gelassener Schlüssel behält den Standardwert; ein Wert wird als true/false, Zahl oder Text gelesen.',
     headers: { key: 'Schlüssel', value: 'Wert', hint: 'Hinweis', custom: 'custom' },
+    examplePlaceholder: 'z. B. {{example}}',
     addCustom: 'Custom-Schlüssel hinzufügen',
     clearAria: '{{key}} löschen',
     removeAria: '{{key}} entfernen',
@@ -918,7 +922,7 @@ const de: Locale = {
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
       title: 'Was das für Sie bedeutet',
-      lead: 'Geteilte Fälle mit mindestens einem Partner in {{code}}, nach dem Land, das im Netzwerk-Editor für jedes Unternehmen angegeben ist. Ein Fall ohne gezeichnetes Netzwerk zählt nicht.',
+      lead: 'Das Tool hat festgelegt, wie die Studie zu Ihrem Fall angelegt werden muss und welche Daten sie braucht. Es berechnet nicht, ob sich der Austausch lohnt oder der Umwelt nützt: Das macht ein Analyst oder Berater mit den Daten, die Sie sammeln.',
       step1: 'Speichern Sie den Fall, um ihn wiederzufinden. Dafür braucht es ein kostenloses Konto; ohne Konto bleibt der Fall nur in diesem Browser.',
       step2: 'Öffnen Sie das Data Collection File, zeichnen Sie die Unternehmen und die Austausche und laden Sie dann die Excel-Datei herunter: Ihre Fachleute füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
       step3: 'Geben Sie Datei und Bericht an die Person, die die Studie durchführt (Analyst, Berater, Hochschule): Die technischen Punkte weiter unten sind für sie.',
@@ -1298,6 +1302,8 @@ const de: Locale = {
   },
 
   toast: {
+    region: 'Benachrichtigungen',
+    dismiss: 'Benachrichtigung schließen',
     pipelineCompleted: "Konfiguration bereit",
     pipelineError: 'Pipeline-Fehler — {{detail}}',
     scenariosCompleted: '{{n}} Szenarien ausgeführt',
@@ -1535,6 +1541,13 @@ const de: Locale = {
     goSaveChanges: 'Zum Ergebnis, um die Änderungen zu speichern',
   },
 
+  flowControls: {
+    zoomIn: 'Vergrößern',
+    zoomOut: 'Verkleinern',
+    fitView: 'Ganzes Netzwerk anzeigen',
+    lock: 'Diagramm sperren',
+    unlock: 'Diagramm entsperren',
+  },
   networkDiagram: {
     counts: '{{actors}} Akteure · {{flows}} Flüsse',
     actors_one: '{{count}} Akteur',

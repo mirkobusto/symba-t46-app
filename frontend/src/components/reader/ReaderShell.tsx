@@ -23,7 +23,7 @@ export default function ReaderShell() {
   return (
     <div className="dd-reader">
       <a href="#reader-main" className="skip-link">
-        Skip to main content
+        {t('layout.skipToMain')}
       </a>
       <SiteHeader />
       <div className="dd-reader-header">

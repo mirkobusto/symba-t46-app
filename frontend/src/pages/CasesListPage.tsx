@@ -133,7 +133,7 @@ export default function CasesListPage() {
               <th>{t('cases.columns.name')}</th>
               <th>{t('cases.columns.situation')}</th>
               <th>{t('cases.columns.updated')}</th>
-              <th aria-label="actions"></th>
+              <th aria-label={t('common.actions')}></th>
             </tr>
           </thead>
           <tbody>

@@ -84,7 +84,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
               <th title={t('flows.sellableHint')}>{t('flows.headers.sellable')}</th>
               <th title={t('flows.sectorHint')}>{header('sector')}</th>
               <th title={t('flows.configurationHint')}>{header('configuration')}</th>
-              <th aria-label="actions"></th>
+              <th aria-label={t('common.actions')}></th>
             </tr>
           </thead>
           <tbody>

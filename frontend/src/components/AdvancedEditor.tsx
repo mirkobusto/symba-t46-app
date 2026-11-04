@@ -67,7 +67,7 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
             <th>{t('advanced.headers.key')}</th>
             <th>{t('advanced.headers.value')}</th>
             <th>{t('advanced.headers.hint')}</th>
-            <th aria-label="actions"></th>
+            <th aria-label={t('common.actions')}></th>
           </tr>
         </thead>
         <tbody>
@@ -81,7 +81,7 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
                   type="text"
                   className="row-input"
                   value={valueOf(k.key)}
-                  placeholder={`e.g. ${k.example}`}
+                  placeholder={t('advanced.examplePlaceholder', { example: k.example })}
                   onChange={(e) => setKey(k.key, e.target.value)}
                 />
               </td>

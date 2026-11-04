@@ -26,6 +26,14 @@ const EMPTY_DRAFT: Case = {
   advanced: {},
 }
 
+/** An error in words: a failed fetch (server down, no network) said only
+ * "Failed to fetch" next to the run button (Kimi test 2026-11-04, A8-02). */
+function errorDetail(e: unknown): string {
+  if (e instanceof ApiError) return `${e.status}: ${e.detail}`
+  if (e instanceof TypeError) return i18n.t('common.serverUnreachable')
+  return e instanceof Error ? e.message : 'Unknown error'
+}
+
 export interface CaseState {
   draft: Case
   result: Case | null
@@ -123,12 +131,7 @@ export const useCaseStore = create<CaseState>()(
           })
           return result
         } catch (e) {
-          const detail =
-            e instanceof ApiError
-              ? `${e.status}: ${e.detail}`
-              : e instanceof Error
-                ? e.message
-                : 'Unknown error'
+          const detail = errorDetail(e)
           set({ loading: false, error: detail, result: null })
           useToastStore.getState().push({
             type: 'error',
@@ -158,12 +161,7 @@ export const useCaseStore = create<CaseState>()(
           })
           return response
         } catch (e) {
-          const detail =
-            e instanceof ApiError
-              ? `${e.status}: ${e.detail}`
-              : e instanceof Error
-                ? e.message
-                : 'Unknown error'
+          const detail = errorDetail(e)
           set({ loading: false, error: detail, scenariosResult: null })
           useToastStore.getState().push({
             type: 'error',

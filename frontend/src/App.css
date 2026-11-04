@@ -617,6 +617,12 @@ html {
 .flows-table tbody tr:last-child td {
   border-bottom: none;
 }
+/* a case name without spaces (a pasted id, a long word) pushed the buttons of
+   its row and the page title off screen (Kimi test 2026-11-04, A8-09) */
+.cases-table td:first-child,
+.dd-page-title {
+  overflow-wrap: anywhere;
+}
 .flows-table code {
   background: var(--slate-100);
   padding: 2px 6px;

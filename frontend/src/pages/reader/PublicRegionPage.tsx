@@ -12,6 +12,18 @@ import { ApiError, fetchPublicRegion } from '../../services/api'
 import type { PublicRegionResponse } from '../../types/reader'
 import { useAxisLabel } from '../aggregateLabels'
 
+/** Whether `code` names a country: a typo'd link ("XX") showed an empty but
+ * normal-looking dashboard, as if the country had no activity (Kimi test
+ * 2026-11-04, A6-02). */
+function isCountryCode(code: string): boolean {
+  if (!/^[A-Za-z]{2}$/.test(code)) return false
+  try {
+    return new Intl.DisplayNames(['en'], { type: 'region', fallback: 'none' }).of(code.toUpperCase()) !== undefined
+  } catch {
+    return true   // no Intl support: let the server answer
+  }
+}
+
 export default function PublicRegionPage() {
   const { t } = useTranslation()
   const label = useAxisLabel()
@@ -20,7 +32,10 @@ export default function PublicRegionPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
+  const known = isCountryCode(code)
+
   useEffect(() => {
+    if (!known) return
     let cancelled = false
     fetchPublicRegion(code)
       .then((r) => { if (!cancelled) { setData(r); setLoading(false) } })
@@ -30,7 +45,16 @@ export default function PublicRegionPage() {
         setLoading(false)
       })
     return () => { cancelled = true }
-  }, [code])
+  }, [code, known])
+
+  if (!known) {
+    return (
+      <div>
+        <h1>{t('reader.region.unknownTitle')}</h1>
+        <p className="dd-soft">{t('reader.region.unknownBody', { code })}</p>
+      </div>
+    )
+  }
 
   if (loading) return <p className="dd-muted">{t('reader.loading')}</p>
 
@@ -57,6 +81,10 @@ export default function PublicRegionPage() {
         <KpiCard label={t('reader.region.sectors')} value={data.by_sector.length} />
       </div>
 
+      {/* zero counters over two header-only tables read as broken (A6-03) */}
+      {data.total === 0 ? <p className="dd-soft">{t('reader.region.empty', { code: data.region })}</p> : null}
+
+      {data.total === 0 ? null : (<>
       <section>
         <h2 className="dd-section-title">{t('reader.region.bySituationTitle')}</h2>
         <div className="dd-card" style={{ marginTop: 8 }}>
@@ -84,6 +112,7 @@ export default function PublicRegionPage() {
           </table>
         </div>
       </section>
+      </>)}
     </article>
   )
 }

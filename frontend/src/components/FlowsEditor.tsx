@@ -88,11 +88,12 @@ export default function FlowsEditor({ flows, onChange }: Props) {
             </tr>
           </thead>
           <tbody>
-            {flows.map((f) => (
+            {flows.map((f, i) => (
               <tr key={f.id}>
-                <td>
-                  <code>{f.id}</code>
-                </td>
+                {/* a row number: the generated id ("fmw27vk3f") meant nothing on
+                    screen (Kimi test 2026-11-04, A7-05); it stays on hover for the
+                    scenarios' JSON */}
+                <td title={f.id}>{i + 1}</td>
                 <td>
                   <input
                     type="text"
@@ -181,7 +182,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     type="button"
                     className="icon-btn"
                     onClick={() => removeFlow(f.id)}
-                    aria-label={t('flows.removeAria', { id: f.id })}
+                    aria-label={t('flows.removeAria', { id: f.name || i + 1 })}
                   >
                     <Trash2 size={16} />
                   </button>

@@ -47,4 +47,23 @@ describe('locale parity', () => {
       .map(([k, v]) => `${k}: en {${referencePlaceholders[k]}} vs {${v}}`)
     expect(differing).toEqual([])
   })
+
+  // One acronym per method: the deliverables' LCA, LCC, S-LCA in every
+  // language; the local name only where the method is named on purpose
+  // (decided by Fable after the Kimi test, 2026-11-04: A5-03, A6-07)
+  const LOCAL_ACRONYMS: Record<string, RegExp> = {
+    fr: /\b(ACV|ACC|CCV|S-ACV|ACV-S|ACVS)\b/,
+    es: /\b(ACV|ACC|CCV|S-ACV|ACV-S|ACVS)\b/,
+    de: /Ökobilanz|Lebenszykluskosten/,
+  }
+  const NAMED_ON_PURPOSE = ['about.sourcesBody', 'questionnaire.q3.details']
+  it.each([['fr', fr], ['es', es], ['de', de]])('%s uses the acronyms of the deliverables', (lang, locale) => {
+    const strings = Object.entries(placeholders(locale)).map(([k]) => k)
+    const flat = (node: unknown, path: string[]): unknown =>
+      path.reduce<unknown>((n, k) => (n as Record<string, unknown>)?.[k], node)
+    const offending = strings
+      .filter((k) => !NAMED_ON_PURPOSE.includes(k) && !k.startsWith('privacy.'))
+      .filter((k) => LOCAL_ACRONYMS[lang].test(String(flat(locale, k.split('.')))))
+    expect(offending).toEqual([])
+  })
 })

@@ -398,17 +398,17 @@ const es: Locale = {
     sourcesTitle: "En qué se basa",
     sourcesBody: "Preguntas, reglas y peticiones de datos siguen los entregables metodológicos del paquete de trabajo 4 de SYMBA: D4.1 (análisis del ciclo de vida de la simbiosis industrial, con sus capítulos sectoriales), D4.2 (coste del ciclo de vida) y D4.3 (análisis social del ciclo de vida). Cada fila del resultado cita la sección de la que procede.",
     notTitle: "Qué no hace",
-    notBody: "No calcula resultados ambientales, económicos ni sociales (ni kg CO2eq, ni VAN, ni indicadores sociales): dice cómo plantear el estudio y qué datos recoger. Las cifras las calcula quien realiza el estudio, con programas dedicados de ACV y de costes.",
+    notBody: "No calcula resultados ambientales, económicos ni sociales (ni kg CO2eq, ni VAN, ni indicadores sociales): dice cómo plantear el estudio y qué datos recoger. Las cifras las calcula quien realiza el estudio, con programas dedicados de LCA y de costes.",
     divergencesTitle: "Dónde se aparta de los entregables, a propósito",
     divergencesLead: "Algunas decisiones son de la herramienta, indicadas aquí para que un revisor las vea:",
     divergences: {
       c2: "Las cuentas de una sola empresa (Situación ILCD C2) solo se valoran a nivel de empresa: una decisión de la herramienta, no una regla de la D4.2.",
       situation: 'Un estudio de una red existente que evalúa una opción para ella (una mejora, una ampliación) se lee como Situación A; uno que solo documenta la red es Situación C1 (lectura T4.6 de la tabla 1 y del §4.3.2 de la D4.1).',
-      uncertainty: 'La matriz Pedigree se escribe como obligatoria cuando los resultados van a un panel de revisión, a la alineación con las políticas de la UE o a una publicación (Q4 = C, D o E) y como recomendada en los demás casos, y se activa tanto para el ACV como para el LCC cuando los intercambios aún no se producen (Q2 = B, regla CIR-02); el Monte Carlo se pide para el ACV con sus propias condiciones (Q4 = C, D o E, o tecnología por debajo de TRL 9) y siempre para el cálculo de costes. La D4.1 §13.3.2 y la D4.2 §7.1, §10.3 piden ambos en todo estudio.',
+      uncertainty: 'La matriz Pedigree se escribe como obligatoria cuando los resultados van a un panel de revisión, a la alineación con las políticas de la UE o a una publicación (Q4 = C, D o E) y como recomendada en los demás casos, y se activa tanto para el LCA como para el LCC cuando los intercambios aún no se producen (Q2 = B, regla CIR-02); el Monte Carlo se pide para el LCA con sus propias condiciones (Q4 = C, D o E, o tecnología por debajo de TRL 9) y siempre para el cálculo de costes. La D4.1 §13.3.2 y la D4.2 §7.1, §10.3 piden ambos en todo estudio.',
       policy: "La alineación con las políticas de la UE (Q4 = D) introduce los precios CE Delft y la asignación por net tax factor, que la D4.2 vincula al LCC social.",
       assets: 'Q12 cuenta los bienes construidos para los intercambios, hoy o hace años, aunque los use una sola empresa (D4.1 §6.3.3: propios del escenario de simbiosis), donde la D4.2 §4.2 habla de bienes nuevos y compartidos.',
-      interdependent: 'Para un flujo interdependiente (Q5 = d) la D4.2 §6.2 indica una clave de asignación en el E-LCC, mientras que la D4.1 §8.3.6 parte de la sustitución; la herramienta pide al E-LCC que siga al ACV (D4.2 §6.3) y señala la diferencia.',
-      lccB: 'En la Situación B el ACV es consecuencial y la Circular Footprint Formula de la PEF, cuando se pide (Q4 = D), se ejecuta como análisis de sensibilidad; ningún nodo del cálculo de costes tiene aún una formulación consecuencial, así que el LCC sigue su tipo (la D4.2 §2.2 pide un solo paradigma por estudio).',
+      interdependent: 'Para un flujo interdependiente (Q5 = d) la D4.2 §6.2 indica una clave de asignación en el E-LCC, mientras que la D4.1 §8.3.6 parte de la sustitución; la herramienta pide al E-LCC que siga al LCA (D4.2 §6.3) y señala la diferencia.',
+      lccB: 'En la Situación B el LCA es consecuencial y la Circular Footprint Formula de la PEF, cuando se pide (Q4 = D), se ejecuta como análisis de sensibilidad; ningún nodo del cálculo de costes tiene aún una formulación consecuencial, así que el LCC sigue su tipo (la D4.2 §2.2 pide un solo paradigma por estudio).',
     },
     contactTitle: "Contacto",
     contactBody: "Para preguntas sobre la herramienta o el proyecto, escribe desde la página de contacto del sitio de SYMBA:",
@@ -417,7 +417,7 @@ const es: Locale = {
     p1:
       'SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de un cuestionario sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — las cifras las calcula fuera de la herramienta quien realiza el estudio, y pueden cargarse aquí; nadie las calcula automáticamente.',
     p2:
-      'El cuestionario (Q0-Q12; Q9 fija la situación ILCD, Q10 el ACC societal) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 11 Critical Decision Points hacen aflorar las tensiones cross-method.',
+      'El cuestionario (Q0-Q12; Q9 fija la situación ILCD, Q10 el S-LCC) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 11 Critical Decision Points hacen aflorar las tensiones cross-method.',
   },
 
   error: {
@@ -432,7 +432,7 @@ const es: Locale = {
       exchanges: 'Los intercambios',
       description: 'Descripción del caso',
     },
-    scopeNote: "Esta herramienta no calcula las cifras de ACV/LCC/S-ACV. Deriva la configuración metodológica que tu caso requiere y los datos que debes recoger; la puntuación cuantitativa se produce externamente y aparece aquí cuando llega.",
+    scopeNote: "Esta herramienta no calcula las cifras de LCA/LCC/S-LCA. Deriva la configuración metodológica que tu caso requiere y los datos que debes recoger; la puntuación cuantitativa se produce externamente y aparece aquí cuando llega.",
     title: 'Cuestionario',
     guidedBannerTitle: 'Modo guiado activo',
     guidedBannerBody:
@@ -517,9 +517,9 @@ const es: Locale = {
       title: 'Q3 — ¿Qué dimensiones de sostenibilidad incluir? *',
       help: 'Al menos una es obligatoria. Ambiental y económica son la pareja habitual.',
       details:
-        'ENV — Análisis de Ciclo de Vida ambiental (LCA): impactos en clima, ecosistemas, uso de recursos. Casi siempre seleccionada. ' +
-        'ECO — dimensión económica, evaluada con Life Cycle Costing (LCC, D4.2). La MFCA (Material Flow Cost Accounting, ISO 14051) es una técnica usada dentro del LCC, no una alternativa; esta herramienta no ofrece ACB ni TEA. ' +
-        'SOC — ACV social. Seleccionarla añade las reglas sociales (categorías de partes interesadas: trabajadores, comunidad local, cadena de valor). ' +
+        'ENV — análisis de ciclo de vida ambiental (LCA; en español suele decirse ACV): impactos en clima, ecosistemas, uso de recursos. Casi siempre seleccionada. ' +
+        'ECO — dimensión económica, evaluada con el coste del ciclo de vida (Life Cycle Costing, LCC, D4.2). La MFCA (Material Flow Cost Accounting, ISO 14051) es una técnica usada dentro del LCC, no una alternativa; esta herramienta no ofrece ACB ni TEA. ' +
+        'SOC — análisis social del ciclo de vida (S-LCA). Seleccionarla añade las reglas sociales (categorías de partes interesadas: trabajadores, comunidad local, cadena de valor). ' +
         'La mayoría de papers IS publicados ejecutan solo ENV (p. ej. Sokka, Daddi); algunos acoplan ENV+ECO (Hashimoto, Wiktor); solo unos pocos añaden SOC.',
       warning: 'Selecciona al menos una dimensión para continuar.',
       env: 'Ambiental (LCA)',
@@ -654,9 +654,9 @@ const es: Locale = {
       title: 'Q8 — Horizonte temporal del estudio',
       invalid: "Escribe los años como un número mayor que 0 (como máximo {{max}}); el año de funcionamiento entre 1900 y 2200.",
       invalidShort: "años mayores que 0",
-      help: 'Opcional. Un solo horizonte para el ACV y el ACC.',
-      horizonWarning: 'Más de {{threshold}} años: el estudio tendrá que prever cómo cambian la energía y los mercados (fondo futuro para el ACV y el ACC).',
-      details: 'Los entregables exigen un solo horizonte temporal para el ACV, el ACC y el ACV-S (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio. El periodo de análisis es el lapso que cubre el estudio; por norma coincide con la vida útil técnica de los activos principales (D4.2 §9). La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en ACV y ACC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
+      help: 'Opcional. Un solo horizonte para el LCA y el LCC.',
+      horizonWarning: 'Más de {{threshold}} años: el estudio tendrá que prever cómo cambian la energía y los mercados (fondo futuro para el LCA y el LCC).',
+      details: 'Los entregables exigen un solo horizonte temporal para el LCA, el LCC y el S-LCA (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio. El periodo de análisis es el lapso que cubre el estudio; por norma coincide con la vida útil técnica de los activos principales (D4.2 §9). La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en LCA y LCC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
       start: {
         label: '¿En qué año funciona el sistema, o se supone que funciona?',
         options: {
@@ -704,10 +704,10 @@ const es: Locale = {
     },
     q10: {
       title: 'Q10 — ¿El estudio sirve a un objetivo público o a un decisor público? *',
-      help: 'Obligatoria cuando la dimensión económica está activa: decide si se añade el ACC societal.',
+      help: 'Obligatoria cuando la dimensión económica está activa: decide si se añade el S-LCC.',
       details: 'La D4.2 §2.3 añade un LCC social (net tax factor, externalidades monetizadas, tasa de descuento social) cuando el estudio sirve a un objetivo de política pública o de planificación territorial, y el §2.2 vincula la elección del tipo de LCC a la perspectiva de quien decide. Quién decide: el organismo que encarga o usará el estudio. Un socio público dentro de la red (una empresa municipal de calefacción urbana, una depuradora pública) no hace pública por sí solo el objetivo: su coste público del capital entra a nivel de entidad (D4.2 §9.2) dentro de un cálculo de costes a nivel de empresa. Responde sí cuando sea ese organismo público quien decide sobre el caso, o cuando un plan o una política pública vaya a usar el estudio. Un municipio que planifica un ecoparque o un servicio público que dimensiona una conexión de calefacción urbana responden sí. El informe estricto de una sola empresa (Q9: informe corporativo, Situación C2) mantiene el cálculo de costes a nivel de empresa (una decisión de diseño de T4.6), y la herramienta te lo dice.',
       options: {
-        yes: 'Sí — un objetivo de política pública u ordenación, o un decisor público (añade el ACC societal)',
+        yes: 'Sí — un objetivo de política pública u ordenación, o un decisor público (añade el S-LCC)',
         no: 'No — una decisión privada o la cuenta propia de una empresa, aunque haya un organismo público entre los socios',
       },
       plain:
@@ -717,7 +717,7 @@ const es: Locale = {
     q11: {
       title: "Q11 — ¿Qué compara el estudio?",
       help: "Opcional. Fija la base de la unidad funcional; sin respuesta, se aplica la unidad orientada a la función de la D4.1 Part 1.",
-      details: "La D4.1 Part 2 pide que la unidad funcional refleje la función principal del sistema (§4.3, §6.3, §8.3): una unidad basada en la entrada (p. ej. tratamiento de 1 tonelada de residuo) cuando el estudio compara vías de gestión de un residuo o el desempeño de una planta o servicio; una unidad basada en la salida (p. ej. 1 kg de producto, 1 MJ de energía) cuando compara productos con alternativas de mercado o respalda una afirmación de sustitución; un sistema de unidades funcionales cuando ambas funciones son coprincipales (Part 1 §5.3.2). La D4.2 §3.1 pide para el LCC una unidad doble (residuo tratado + producto obtenido) cuando la sustitución de producto guía el estudio: los dos entregables difieren; la herramienta sigue la Part 2 para el ACV e indica la diferencia.",
+      details: "La D4.1 Part 2 pide que la unidad funcional refleje la función principal del sistema (§4.3, §6.3, §8.3): una unidad basada en la entrada (p. ej. tratamiento de 1 tonelada de residuo) cuando el estudio compara vías de gestión de un residuo o el desempeño de una planta o servicio; una unidad basada en la salida (p. ej. 1 kg de producto, 1 MJ de energía) cuando compara productos con alternativas de mercado o respalda una afirmación de sustitución; un sistema de unidades funcionales cuando ambas funciones son coprincipales (Part 1 §5.3.2). La D4.2 §3.1 pide para el LCC una unidad doble (residuo tratado + producto obtenido) cuando la sustitución de producto guía el estudio: los dos entregables difieren; la herramienta sigue la Part 2 para el LCA e indica la diferencia.",
       options: {
         unset: 'No lo sé / no se compara nada (la herramienta usa una unidad basada en el servicio prestado)',
         waste_treatment: "Cómo se gestiona un residuo — vías de gestión, desempeño de una planta o servicio (unidad basada en la entrada)",
@@ -729,8 +729,8 @@ const es: Locale = {
     },
     q12: {
       title: 'Q12 — ¿La simbiosis usa bienes dedicados?',
-      help: 'Opcional, se pregunta cuando el ACV o el LCC están activos: conducciones, plantas, almacenes o equipos construidos para los intercambios, hoy o hace años, los use una sola empresa o varias.',
-      details: 'La D4.2 §4.2 pregunta si la red requiere nuevos activos dedicados y compartidos: en tal caso, su CAPEX y su OPEX corriente deben incluirse en el desglose de costes y repartirse entre los socios que se benefician de ellos. La D4.1 §6.3.3 incluye los bienes de capital e infraestructuras propios del escenario de simbiosis, amortizados a lo largo de la vida técnica de cada activo (Q8). Con ACV y ACC activos, un sí activa también las reglas que alinean los bienes de capital entre ambos (IR-13, B-06); para parques y programas con la dimensión social, los indicadores S-ACV de inversión compartida (CIR-08). El socio beneficiario puede ser una sola empresa.',
+      help: 'Opcional, se pregunta cuando el LCA o el LCC están activos: conducciones, plantas, almacenes o equipos construidos para los intercambios, hoy o hace años, los use una sola empresa o varias.',
+      details: 'La D4.2 §4.2 pregunta si la red requiere nuevos activos dedicados y compartidos: en tal caso, su CAPEX y su OPEX corriente deben incluirse en el desglose de costes y repartirse entre los socios que se benefician de ellos. La D4.1 §6.3.3 incluye los bienes de capital e infraestructuras propios del escenario de simbiosis, amortizados a lo largo de la vida técnica de cada activo (Q8). Con LCA y LCC activos, un sí activa también las reglas que alinean los bienes de capital entre ambos (IR-13, B-06); para parques y programas con la dimensión social, los indicadores S-LCA de inversión compartida (CIR-08). El socio beneficiario puede ser una sola empresa.',
       options: {
         unset: 'Sin respuesta',
         yes: 'Sí — se construyó algo para los intercambios (una conducción, una planta, un secadero, un depósito), aunque lo use una sola empresa',
@@ -850,9 +850,9 @@ const es: Locale = {
     removeAria: 'Eliminar {{key}}',
     hints: {
       slca_framework_override: "Establecer a 'absolute' para probar L1 BLOCK 2 (con Q3.soc=true)",
-      asset_lifetime: 'Años (heredado; se usa si la vida útil de Q8 está vacía); un horizonte por encima del umbral (15 por defecto) añade el fondo futuro al ACV y al ACC (lca_mc_21, lcc_hc_23, CIR-01)',
+      asset_lifetime: 'Años (heredado; se usa si la vida útil de Q8 está vacía); un horizonte por encima del umbral (15 por defecto) añade el fondo futuro al LCA y al LCC (lca_mc_21, lcc_hc_23, CIR-01)',
       future_background_threshold_years:
-        'Años. El horizonte de estudio a partir del cual el ACV y el ACC requieren fondo futuro (lca_mc_21, lcc_hc_23, CIR-01). Por defecto 15, la cifra que el D4.2 §9.3 da sin fuente; si la cambias, justifícala en la carta metodológica',
+        'Años. El horizonte de estudio a partir del cual el LCA y el LCC requieren fondo futuro (lca_mc_21, lcc_hc_23, CIR-01). Por defecto 15, la cifra que el D4.2 §9.3 da sin fuente; si la cambias, justifícala en la carta metodológica',
     },
   },
 
@@ -885,33 +885,33 @@ const es: Locale = {
         detail: 'En Q3 no está seleccionada la dimensión económica, así que la herramienta no configura ningún cálculo de costes. Si el caso necesita un business case, como suele ocurrir con una simbiosis que deben firmar varias empresas, vuelve a Q3 y activa la dimensión económica.',
       },
       'C+E': {
-        short: 'LCC convencional (los flujos de caja reales de la empresa) más LCC ambiental (la cadena de valor, sobre los mismos límites que la ACV).',
-        detail: 'Dos vistas en paralelo. El LCC convencional responde si le compensa a cada empresa: flujos de caja reales, impuestos y tasas como costes, subvenciones como reducciones. El LCC ambiental amplía el límite a todos los actores del ciclo de vida y se mantiene coherente con el ACV paralelo, para que ambos se lean lado a lado. Cuidado con el doble cómputo: un impuesto al carbono o al vertedero que ya está en los flujos de caja no debe reaparecer como externalidad monetizada.',
+        short: 'LCC convencional (los flujos de caja reales de la empresa) más LCC ambiental (la cadena de valor, sobre los mismos límites que el LCA).',
+        detail: 'Dos vistas en paralelo. El LCC convencional responde si le compensa a cada empresa: flujos de caja reales, impuestos y tasas como costes, subvenciones como reducciones. El LCC ambiental amplía el límite a todos los actores del ciclo de vida y se mantiene coherente con el LCA paralelo, para que ambos se lean lado a lado. Cuidado con el doble cómputo: un impuesto al carbono o al vertedero que ya está en los flujos de caja no debe reaparecer como externalidad monetizada.',
       },
       'C+E+S': {
         short: 'LCC convencional y ambiental más LCC societal: impuestos y subvenciones ajustados con el Net Tax Factor, impactos ambientales monetizados.',
-        detail: 'A las vistas de la empresa y de la cadena de valor se suma la del bienestar social. Impuestos y subvenciones son transferencias dentro de la sociedad y no costes reales para ella, así que se excluyen o se convierten en precios sombra mediante el Net Tax Factor, y los impactos ambientales del ACV paralelo se monetizan. Es la configuración que necesita una decisión pública, y por eso la introduce un objetivo público o de política.',
+        detail: 'A las vistas de la empresa y de la cadena de valor se suma la del bienestar social. Impuestos y subvenciones son transferencias dentro de la sociedad y no costes reales para ella, así que se excluyen o se convierten en precios sombra mediante el Net Tax Factor, y los impactos ambientales del LCA paralelo se monetizan. Es la configuración que necesita una decisión pública, y por eso la introduce un objetivo público o de política.',
       },
       'C-LCC': {
         short: 'Solo LCC convencional — la perspectiva de la empresa, equivalente a un análisis de coste total de propiedad.',
         detail: 'Solo la perspectiva de la empresa. Cada instrumento de política es un flujo de caja real: impuestos y tasas son costes, las subvenciones reducen el capex o el opex. Es el marco adecuado para el informe corporativo, y no dice nada a propósito sobre los efectos en la cadena de valor o en la sociedad: afirmarlos iría más allá de lo que puede sostener la cuenta de un solo actor.',
       },
       'C+N': {
-        short: 'LCC convencional para cada socio, consolidado a nivel de red. Sin LCC ambiental: el caso no tiene un ACV con el que mantener la coherencia.',
-        detail: 'Primero los flujos de caja reales de cada empresa, luego las mismas cuentas sumadas en la red, donde los pagos entre socios se anulan. El LCC ambiental queda fuera porque el D4.2 lo construye sobre la frontera de un ACV paralelo, y el caso no evalúa la dimensión ambiental. Activa la dimensión ambiental en Q3 si el estudio necesita la vista de cadena de valor.',
+        short: 'LCC convencional para cada socio, consolidado a nivel de red. Sin LCC ambiental: el caso no tiene un LCA con el que mantener la coherencia.',
+        detail: 'Primero los flujos de caja reales de cada empresa, luego las mismas cuentas sumadas en la red, donde los pagos entre socios se anulan. El LCC ambiental queda fuera porque el D4.2 lo construye sobre la frontera de un LCA paralelo, y el caso no evalúa la dimensión ambiental. Activa la dimensión ambiental en Q3 si el estudio necesita la vista de cadena de valor.',
       },
       'C+N+S': {
-        short: 'LCC convencional por socio y para la red, más LCC social con el Net Tax Factor. Sin un ACV, los impactos ambientales no se monetizan.',
-        detail: 'Las cuentas de empresa y de red como arriba, más la vista de bienestar que necesita una decisión pública: impuestos y subvenciones convertidos con el Net Tax Factor, una tasa de descuento social y una frontera que llega al fin de vida. Falta la monetización de los impactos ambientales, que requiere los resultados de un ACV paralelo: activa la dimensión ambiental en Q3 para añadirla.',
+        short: 'LCC convencional por socio y para la red, más LCC social con el Net Tax Factor. Sin un LCA, los impactos ambientales no se monetizan.',
+        detail: 'Las cuentas de empresa y de red como arriba, más la vista de bienestar que necesita una decisión pública: impuestos y subvenciones convertidos con el Net Tax Factor, una tasa de descuento social y una frontera que llega al fin de vida. Falta la monetización de los impactos ambientales, que requiere los resultados de un LCA paralelo: activa la dimensión ambiental en Q3 para añadirla.',
       },
     },
     slca: {
       'active': {
-        short: 'S-ACV activa: indicadores sociales por grupo de partes interesadas.',
+        short: 'S-LCA activa: indicadores sociales por grupo de partes interesadas.',
         detail: 'La dimensión social está activa. Cada grupo de partes interesadas (trabajadores, consumidores, comunidades locales, actores de la cadena de valor) se vincula a los procesos que le afectan y, desde ahí, a las subcategorías de impacto y los indicadores. Ese vínculo vale lo que vale la participación que lo respalda: hablar con los grupos implicados forma parte de la recogida de datos, no es un extra opcional.',
       },
       'deactivated': {
-        short: 'S-ACV no activada — la dimensión social está desactivada en Q3.',
+        short: 'S-LCA no activada — la dimensión social está desactivada en Q3.',
         detail: 'En Q3 no está seleccionada la dimensión social, así que no se configura ni un mapa de partes interesadas ni ningún indicador social. Actívala en Q3 si el caso tiene que decir algo sobre trabajadores o comunidades locales, lo que suele ocurrir cuando una simbiosis se presenta a un municipio o a una comunidad.',
       },
     },
@@ -976,7 +976,7 @@ const es: Locale = {
         regional: 'Impactos locales',
         sectors: 'Reglas sectoriales',
         shared: 'Bienes dedicados',
-        sharedLca: 'Su producción y su fin de vida se inventarían en el ACV y se amortizan a lo largo de la vida técnica de cada bien (D4.1 §6.3.3)',
+        sharedLca: 'Su producción y su fin de vida se inventarían en el LCA y se amortizan a lo largo de la vida técnica de cada bien (D4.1 §6.3.3)',
         claimPublic: 'Comparaciones',
         multifunctionality: 'Multifuncionalidad',
         flowsLcc: 'Coste de cada flujo',
@@ -1066,7 +1066,7 @@ const es: Locale = {
         lccC2: 'informe estricto de una sola empresa: solo costes a nivel de empresa',
         referenceC2: "informe estricto de una sola empresa: asignación, ningún crédito por lo que la simbiosis sustituye (D4.1 §7.2.3)",
         claimPolicy: "los resultados respaldarán la alineación con las políticas de la UE (Q4 = D)",
-        lccNoLca: 'sin dimensión ambiental: no hay ACC ambiental que alinear',
+        lccNoLca: 'sin dimensión ambiental: no hay E-LCC que alinear',
         lccPolicy: 'has respondido que el estudio sirve a un objetivo público (Q10)',
         lccPolicyInferred: 'deducido de Q1, porque Q10 no tiene respuesta',
         lccNoPolicy: 'sin objetivo público (Q10): perspectivas de empresa y de cadena de valor',
@@ -1085,7 +1085,7 @@ const es: Locale = {
         shared: 'la simbiosis usa bienes dedicados (Q12)',
         multifunctionality: 'la situación ILCD (Q9)',
         horizonLifetimeOnly: 'los bienes duran {{years}} años, más de {{threshold}}: el fondo se proyecta sobre su amortización aunque el estudio describa el año actual (D4.2 §9.3; el umbral se cambia en los ajustes avanzados)',
-        referenceNoLca: 'el cálculo de costes usa el escenario de referencia que usaría un ACV en la Situación ILCD {{situation}} (D4.2 §4.1); la situación no prescribe ningún modelo de costes',
+        referenceNoLca: 'el cálculo de costes usa el escenario de referencia que usaría un LCA en la Situación ILCD {{situation}} (D4.2 §4.1); la situación no prescribe ningún modelo de costes',
       },
     },
     notes: { title: 'Notas sobre tus respuestas' },
@@ -1096,13 +1096,13 @@ const es: Locale = {
       },
       q9_unanswered: "Q9 no tiene respuesta, así que la situación ILCD (situación {{situation}}) se deduce de Q1, como en los casos guardados antes de que existiera Q9. Responde a Q9: la Tabla 1 de la D4.1 fija la situación según la decisión y la escala de sus consecuencias, no según el sujeto del estudio.",
       q10_unanswered: {
-        yes: "Q10 no tiene respuesta, así que si el estudio sirve a un objetivo público se deduce de Q1: se añade el ACC societal, como en los casos guardados antes de que existiera Q10. Responde a Q10: la D4.2 §2.3 añade el ACC societal para un objetivo de política pública u ordenación o para un decisor público, sea cual sea el sujeto del estudio.",
-        no: "Q10 no tiene respuesta, así que si el estudio sirve a un objetivo público se deduce de Q1: no se añade el ACC societal, como en los casos guardados antes de que existiera Q10. Responde a Q10: la D4.2 §2.3 añade el ACC societal para un objetivo de política pública u ordenación o para un decisor público, sea cual sea el sujeto del estudio.",
+        yes: "Q10 no tiene respuesta, así que si el estudio sirve a un objetivo público se deduce de Q1: se añade el S-LCC, como en los casos guardados antes de que existiera Q10. Responde a Q10: la D4.2 §2.3 añade el S-LCC para un objetivo de política pública u ordenación o para un decisor público, sea cual sea el sujeto del estudio.",
+        no: "Q10 no tiene respuesta, así que si el estudio sirve a un objetivo público se deduce de Q1: no se añade el S-LCC, como en los casos guardados antes de que existiera Q10. Responde a Q10: la D4.2 §2.3 añade el S-LCC para un objetivo de política pública u ordenación o para un decisor público, sea cual sea el sujeto del estudio.",
       },
       structural_without_screening: "Q9 indica efectos estructurales, pero el cribado de mercado no está documentado: el estudio se trata como Situación ILCD A, y la Situación B debe probarse como análisis de sensibilidad (ILCD Handbook 2010, §5.3).",
       structural_screening_missing: 'Q9 dice que los efectos son estructurales, pero no se indica si el cribado de mercado está documentado: el estudio se trata como Situación ILCD A, con la Situación B como análisis de sensibilidad, hasta que el cribado esté documentado (D4.1 §4.3.4; ILCD Handbook 2010, §5.3). Responde a la pregunta de seguimiento de Q9 cuando lo esté.',
       decision_scale_vs_q1: {
-        c_micro: "Q1 (prefactibilidad sectorial) suele implicar consecuencias a escala estructural; has respondido consecuencias limitadas, así que el estudio se trata como Situación ILCD A. D4.1 §4.3.4: no elijas el ACV consecuencial solo porque se toma una decisión.",
+        c_micro: "Q1 (prefactibilidad sectorial) suele implicar consecuencias a escala estructural; has respondido consecuencias limitadas, así que el estudio se trata como Situación ILCD A. D4.1 §4.3.4: no elijas el LCA consecuencial solo porque se toma una decisión.",
         e_micro: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias limitadas, así que se trata como Situación ILCD A.",
         e_structural: "Q1=E (seguimiento) no implica decisiones; has respondido que el estudio respalda una decisión de consecuencias estructurales, así que se trata como Situación ILCD B.",
       },
@@ -1111,11 +1111,11 @@ const es: Locale = {
       c2_keeps_c_lcc: "El reporte estricto de una sola empresa (Situación ILCD C2) mantiene el costeo a nivel de empresa (solo C-LCC) diga lo que diga Q10: es una decisión de diseño de T4.6, porque una sola empresa no tiene nivel de red.",
       policy_no_but_q1_c: "Q1=C (prefactibilidad sectorial) suele servir a una política pública; has respondido que no, así que no se añade el costeo social (S-LCC, net tax factor, tasa de descuento social).",
       lcc_without_lca: {
-        plain: "Q3 no incluye la dimensión ambiental, así que no hay un ACV paralelo: el costeo es el LCC convencional de cada socio, consolidado a nivel de red (D4.2 §4.1), sin el LCC ambiental, que la D4.2 construye sobre el límite del ACV.",
-        policy: "Q3 no incluye la dimensión ambiental, así que no hay un ACV paralelo: el costeo es el LCC convencional de cada socio, consolidado a nivel de red (D4.2 §4.1), sin el LCC ambiental, que la D4.2 construye sobre el límite del ACV. El LCC social mantiene el net tax factor y la tasa de descuento social, pero sin resultados de ACV las externalidades no se pueden monetizar (D4.2 §11.2).",
+        plain: "Q3 no incluye la dimensión ambiental, así que no hay un LCA paralelo: el costeo es el LCC convencional de cada socio, consolidado a nivel de red (D4.2 §4.1), sin el LCC ambiental, que la D4.2 construye sobre el límite del LCA.",
+        policy: "Q3 no incluye la dimensión ambiental, así que no hay un LCA paralelo: el costeo es el LCC convencional de cada socio, consolidado a nivel de red (D4.2 §4.1), sin el LCC ambiental, que la D4.2 construye sobre el límite del LCA. El LCC social mantiene el net tax factor y la tasa de descuento social, pero sin resultados de LCA las externalidades no se pueden monetizar (D4.2 §11.2).",
       },
       c2_allocation_over_pef: "El reporte estricto de una sola empresa (Situación ILCD C2) usa asignación y ningún crédito de sustitución (D4.1 §7.2.3), así que la Circular Footprint Formula de la PEF que pide Q4=D no se aplica: la CFF es un método de producto. Si el estudio es una huella de producto y no un informe corporativo, revisa Q9.",
-      slca_alone: "Q3 selecciona solo la dimensión social. La D4.3 §3.1 construye el ACV social sobre la unidad funcional y los límites de un ACV o un LCC; si no se selecciona ninguno, documenta la unidad de referencia y el límite en la carta metodológica.",
+      slca_alone: "Q3 selecciona solo la dimensión social. La D4.3 §3.1 construye el S-LCA sobre la unidad funcional y los límites de un LCA o un LCC; si no se selecciona ninguno, documenta la unidad de referencia y el límite en la carta metodológica.",
       flow_sellable_but_waste: "Flujo «{{flow}}»: Q5 dice que el generador paga por deshacerse de él (residuo), pero un tercero pagaría por él. D4.1 §8.3.3 y §8.3.6 paso 1: un flujo con un valor de mercado positivo e independiente es un coproducto, y su carga aguas arriba se reparte (sustitución o asignación), no se corta. Revisa Q5 para este flujo.",
       flow_price_without_market: "Flujo «{{flow}}»: Q5 dice que el receptor paga (coproducto), pero ningún tercero lo compraría. Con un único comprador decide el precio (D4.1 §8.3.3): el flujo es un coproducto si el receptor paga lo que pagaría un comprador independiente, es decir, el precio del producto que el flujo sustituye descontados sus costes adicionales para usarlo; si el pago solo reparte costes, el flujo es un residuo, con carga cero desde donde alcanza por primera vez un valor no negativo (§8.3.6 Step 4). Compara el precio con esa referencia.",
       flow_freedom_to_act_settles: {
@@ -1129,7 +1129,7 @@ const es: Locale = {
       flow_configuration_unknown: "Flujo «{{flow}}»: la configuración «{{configuration}}» no es una de la D4.1 Part 2.",
       flow_configuration_other_chapter: "Flujo «{{flow}}»: su configuración pertenece a {{chapter}}, no al capítulo declarado {{declared}}; se listan las reglas de ambos capítulos.",
       b_consequential_over_pef: 'La Situación B pide una modelización consecuencial frente a la tecnología marginal (D4.1 tabla 1), mientras que la alineación con las políticas de la UE (Q4 = D) pide la Circular Footprint Formula de la PEF, un reparto atribucional. Prevalece el modelo consecuencial; ejecuta la CFF como análisis de sensibilidad y declara ambos en la carta metodológica (D4.1 §7.3.3; D4.2 §2.2).',
-      b_lcc_not_consequential: 'Situación B: el ACV sustituye la tecnología marginal (D4.1 tabla 1), mientras que el LCC ambiental valora los productos desplazados al precio medio de mercado de lo que sustituyen (D4.2 §6.2): esta herramienta no tiene una formulación consecuencial del cálculo de costes. La D4.2 §2.2 pide un solo paradigma, idéntico entre ACV y LCC: declara la diferencia en la carta metodológica como desviación metodológica, y valora los productos desplazados al precio del proveedor marginal en un análisis de sensibilidad.',
+      b_lcc_not_consequential: 'Situación B: el LCA sustituye la tecnología marginal (D4.1 tabla 1), mientras que el LCC ambiental valora los productos desplazados al precio medio de mercado de lo que sustituyen (D4.2 §6.2): esta herramienta no tiene una formulación consecuencial del cálculo de costes. La D4.2 §2.2 pide un solo paradigma, idéntico entre LCA y LCC: declara la diferencia en la carta metodológica como desviación metodológica, y valora los productos desplazados al precio del proveedor marginal en un análisis de sensibilidad.',
       flow_interdependent_but_marketable: 'Flujo «{{flow}}»: Q5 dice que quien lo cede cambió su proceso para este socio, y el flujo también se vendería a otros. Ambas cosas pueden darse en un coproducto determinante (D4.1 §8.3.6, paso 2). Comprueba: si el cambio se hizo para las especificaciones de este socio, mantén d; si se hizo para llegar a cualquier comprador (un secadero que convierte la pulpa en un pienso vendible), el flujo es un coproducto dependiente (Q5 = c, sustitución con el factor de calidad Q) y el equipo es un bien dedicado (Q12). Una nota nunca cambia Q5.',
     },
     sectorChapters: { '§4': "§4 Agroalimentario y biorrefinerías", '§5': "§5 Plásticos y envases", '§6': "§6 Aguas residuales y biofactorías", '§7': "§7 Textil y textiles técnicos", '§8': "§8 Valorización de residuos" },
@@ -1534,7 +1534,7 @@ const es: Locale = {
     downloadingDocx: 'Preparando documento…',
     downloadError: 'Descarga fallida',
     footerNote:
-      'El Data Collection File describe los intercambios, no los procesos: rellena las filas vacías sin conexión (o repártelas entre los socios) y devuelve el archivo al analista que dirige el estudio, que recoge los inventarios de las plantas con el software de ACV y de costes.',
+      'El Data Collection File describe los intercambios, no los procesos: rellena las filas vacías sin conexión (o repártelas entre los socios) y devuelve el archivo al analista que dirige el estudio, que recoge los inventarios de las plantas con el software de LCA y de costes.',
     openButton: 'Abrir Data Collection File',
     tabOverview: 'Resumen',
     tabNetworkBuilder: 'Editor de red',

@@ -1310,7 +1310,7 @@
    "flow_classification": {
     "title": "Classification des flux (déchet / coproduit / sous-produit)",
     "description": "Une ligne par flux, quoi que dise Q5 : les tests juridiques et économiques qui décident du traitement d'un flux (D4.1 §8.3, D4.2 §6.2). Ce sont des jugements de l'analyste : Q5 n'enregistre que qui paie qui, gardez-les cohérents avec la classe Q5 du flux dans la Matrice des flux.",
-    "description_costing_only": "Demandée même sans ACV : le calcul des coûts utilise le même scénario de référence qu'une ACV (D4.2 §6.2) et chaque flux doit être classé évitable ou inévitable avant toute hypothèse de coût ou de coût nul (D4.2 §6.3). Jugements de l'analyste."
+    "description_costing_only": "Demandée même sans LCA : le calcul des coûts utilise le même scénario de référence qu'une LCA (D4.2 §6.2) et chaque flux doit être classé évitable ou inévitable avant toute hypothèse de coût ou de coût nul (D4.2 §6.3). Jugements de l'analyste."
    },
    "logistics": {
     "title": "Logistique",
@@ -1336,7 +1336,7 @@
     "title": "Scénario de référence par acteur et par flux",
     "description": "Une ligne par acteur et par flux qu'il cède ou reçoit : pour l'origine, où irait le flux sans l'échange (élimination, autre acheteur) ; pour la destination, ce qu'il achèterait ou produirait à la place (D4.1 §11.1).",
     "description_c2": "Facultatif en situation C2 : la comptabilité d'une seule entreprise ne prend pas de crédits de substitution (D4.1 §7.2.3) ; la référence sans les échanges n'est rapportée que pour comparaison (D4.1 §11.3.1).",
-    "description_costing_only": "Demandé même sans ACV : les coûts évités se mesurent par rapport au scénario de référence qu'utiliserait une ACV parallèle (D4.2 §6.2)."
+    "description_costing_only": "Demandé même sans LCA : les coûts évités se mesurent par rapport au scénario de référence qu'utiliserait une LCA parallèle (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -1588,7 +1588,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Durée d'amortissement (années) : durée de vie technique de ce bien",
-    "description": "Pas de valeur unique : la durée de vie technique de chaque bien (D4.2 §4.2, §7.3). Durées de référence du tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans. Utilisez la même durée dans l'ACV (D4.1 §14.2.2)."
+    "description": "Pas de valeur unique : la durée de vie technique de chaque bien (D4.2 §4.2, §7.3). Durées de référence du tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans. Utilisez la même durée dans la LCA (D4.1 §14.2.2)."
    },
    "infra.discount_rate_pct": {
     "label": "Taux d'actualisation (%)"
@@ -1794,7 +1794,7 @@
    "ins.title": "Comment remplir ce Data Collection File",
    "ins.case": "Cas : {name}",
    "ins.what": "Ce qu'est ce fichier",
-   "ins.what_body": "Une feuille de collecte de données pour un cas de symbiose industrielle : les acteurs, les flux échangés et leur classification, la référence de chaque acteur sans les échanges, la logistique, les coûts et les biens. Ce n'est pas un inventaire de procédés : les entrées, sorties et émissions de chaque installation se collectent à part, avec les modèles des logiciels d'ACV et de calcul des coûts. Les données sociales (groupes de parties prenantes, indicateurs, entretiens) ne sont pas collectées ici : elles suivent les lignes directrices S-LCA (D4.3) avec leurs propres instruments ; ce fichier n'enregistre que la taille et la propriété de chaque acteur.",
+   "ins.what_body": "Une feuille de collecte de données pour un cas de symbiose industrielle : les acteurs, les flux échangés et leur classification, la référence de chaque acteur sans les échanges, la logistique, les coûts et les biens. Ce n'est pas un inventaire de procédés : les entrées, sorties et émissions de chaque installation se collectent à part, avec les modèles des logiciels de LCA et de calcul des coûts. Les données sociales (groupes de parties prenantes, indicateurs, entretiens) ne sont pas collectées ici : elles suivent les lignes directrices S-LCA (D4.3) avec leurs propres instruments ; ce fichier n'enregistre que la taille et la propriété de chaque acteur.",
    "ins.how": "Comment le remplir",
    "ins.how_body": "Une ligne par élément. Les colonnes marquées * sont obligatoires. Quand l'en-tête d'une colonne porte une note (un petit coin rouge), survolez-le pour lire la définition, les valeurs admises et la raison de la question. Les cellules à liste n'acceptent que les valeurs proposées : ne les écrasez pas avec du texte libre.",
    "ins.unknown": "Si vous ne connaissez pas une valeur",
@@ -1878,7 +1878,7 @@
    "h.section": "Section",
    "h.gives": "Cède",
    "h.receives": "Reçoit",
-   "cover.noIlcd": "Aucune : une étude uniquement économique (sans ACV). Le calcul des coûts utilise le scénario de référence qu'utiliserait une ACV (D4.2 §4.1).",
+   "cover.noIlcd": "Aucune : une étude uniquement économique (sans LCA). Le calcul des coûts utilise le scénario de référence qu'utiliserait une LCA (D4.2 §4.1).",
    "note.analyst": "Pour la personne qui réalise l'étude (colonne grise) : entreprises, laissez-la vide.",
    "dx.s1i": "§1. Comment remplir le classeur Excel",
    "dx.who_title": "Qui remplit quoi",
@@ -1912,7 +1912,7 @@
    "origin.mandate": "Exigé par la méthode",
    "origin.rule": "Exigé entre les méthodes",
    "because.always": "toute étude de ce type",
-   "reason.costing_only": "le calcul des coûts en a besoin même sans ACV (D4.2 §6.2)",
+   "reason.costing_only": "le calcul des coûts en a besoin même sans LCA (D4.2 §6.2)",
    "note.computed": "Calculée à partir des flèches dessinées dans l'application : ne pas la remplir."
   },
   "enum_refs": {
@@ -1959,7 +1959,7 @@
    "flow_classification": {
     "title": "Klassifizierung der Flüsse (Abfall / Koppelprodukt / Nebenprodukt)",
     "description": "Eine Zeile pro Fluss, unabhängig von Q5: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: Q5 hält nur fest, wer wen bezahlt; halten Sie dies mit der Q5-Klasse des Flusses in der Flussmatrix stimmig.",
-    "description_costing_only": "Auch ohne Ökobilanz gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine Ökobilanz (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen des Analysten."
+    "description_costing_only": "Auch ohne LCA gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine LCA (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen des Analysten."
    },
    "logistics": {
     "title": "Logistik",
@@ -1985,7 +1985,7 @@
     "title": "Referenzszenario je Akteur und Fluss",
     "description": "Eine Zeile je Akteur und je Fluss, den er abgibt oder aufnimmt: für die Herkunft, wohin der Fluss ohne den Austausch ginge (Entsorgung, ein anderer Abnehmer); für das Ziel, was er stattdessen kaufen oder herstellen würde (D4.1 §11.1).",
     "description_c2": "Optional in Situation C2: Die Bilanz eines einzelnen Unternehmens rechnet keine Substitutionsgutschriften an (D4.1 §7.2.3); die Referenz ohne die Austausche wird nur zum Vergleich angegeben (D4.1 §11.3.1).",
-    "description_costing_only": "Auch ohne Ökobilanz gefragt: Die vermiedenen Kosten werden am Referenzszenario gemessen, das eine parallele Ökobilanz verwenden würde (D4.2 §6.2)."
+    "description_costing_only": "Auch ohne LCA gefragt: Die vermiedenen Kosten werden am Referenzszenario gemessen, das eine parallele LCA verwenden würde (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -2443,7 +2443,7 @@
    "ins.title": "So füllen Sie dieses Data Collection File aus",
    "ins.case": "Fall: {name}",
    "ins.what": "Was diese Datei ist",
-   "ins.what_body": "Ein Datenerhebungsblatt für einen Fall industrieller Symbiose: die Akteure, die ausgetauschten Flüsse und ihre Klassifizierung, die Referenz jedes Akteurs ohne den Austausch, Logistik, Kosten und Anlagen. Es ist kein Prozessinventar: Inputs, Outputs und Emissionen jeder Anlage werden getrennt erhoben, mit den Vorlagen der Ökobilanz- und Kostensoftware. Soziale Daten (Stakeholdergruppen, Indikatoren, Interviews) werden hier nicht erhoben: Sie folgen den S-LCA-Leitlinien (D4.3) mit eigenen Instrumenten; diese Datei erfasst nur Größe und Eigentum jedes Akteurs.",
+   "ins.what_body": "Ein Datenerhebungsblatt für einen Fall industrieller Symbiose: die Akteure, die ausgetauschten Flüsse und ihre Klassifizierung, die Referenz jedes Akteurs ohne den Austausch, Logistik, Kosten und Anlagen. Es ist kein Prozessinventar: Inputs, Outputs und Emissionen jeder Anlage werden getrennt erhoben, mit den Vorlagen der LCA- und Kostensoftware. Soziale Daten (Stakeholdergruppen, Indikatoren, Interviews) werden hier nicht erhoben: Sie folgen den S-LCA-Leitlinien (D4.3) mit eigenen Instrumenten; diese Datei erfasst nur Größe und Eigentum jedes Akteurs.",
    "ins.how": "So füllen Sie es aus",
    "ins.how_body": "Eine Zeile pro Eintrag. Mit * markierte Spalten sind Pflicht. Wo eine Spaltenüberschrift eine Notiz hat (eine kleine rote Ecke), fahren Sie darüber, um Definition, zulässige Werte und den Grund der Frage zu sehen. Zellen mit Auswahlliste akzeptieren nur die angebotenen Werte: überschreiben Sie sie nicht mit freiem Text.",
    "ins.unknown": "Wenn Sie einen Wert nicht kennen",
@@ -2527,7 +2527,7 @@
    "h.section": "Abschnitt",
    "h.gives": "Gibt ab",
    "h.receives": "Nimmt auf",
-   "cover.noIlcd": "Keine: eine reine Kostenstudie (ohne Ökobilanz). Die Kostenrechnung verwendet das Referenzszenario, das eine Ökobilanz verwenden würde (D4.2 §4.1).",
+   "cover.noIlcd": "Keine: eine reine Kostenstudie (ohne LCA). Die Kostenrechnung verwendet das Referenzszenario, das eine LCA verwenden würde (D4.2 §4.1).",
    "note.analyst": "Für die Person, die die Studie durchführt (graue Spalte): Unternehmen lassen sie leer.",
    "dx.s1i": "§1. So füllen Sie die Excel-Arbeitsmappe aus",
    "dx.who_title": "Wer füllt was aus",
@@ -2561,7 +2561,7 @@
    "origin.mandate": "Von der Methode verlangt",
    "origin.rule": "Zwischen den Methoden verlangt",
    "because.always": "jede Studie dieser Art",
-   "reason.costing_only": "die Kostenrechnung braucht es auch ohne Ökobilanz (D4.2 §6.2)",
+   "reason.costing_only": "die Kostenrechnung braucht es auch ohne LCA (D4.2 §6.2)",
    "note.computed": "Aus den in der App gezeichneten Pfeilen berechnet: nicht ausfüllen."
   },
   "enum_refs": {
@@ -2608,7 +2608,7 @@
    "flow_classification": {
     "title": "Clasificación de los flujos (residuo / coproducto / subproducto)",
     "description": "Una fila por flujo, diga lo que diga Q5: las pruebas jurídicas y económicas que deciden cómo se trata un flujo (D4.1 §8.3, D4.2 §6.2). Son juicios del analista: Q5 solo registra quién paga a quién, así que mantenlos coherentes con la clase Q5 del flujo en la Matriz de flujos.",
-    "description_costing_only": "Se pide también sin ACV: el cálculo de costes usa el mismo escenario de referencia que un ACV (D4.2 §6.2) y cada flujo debe clasificarse como evitable o inevitable antes de cualquier hipótesis de coste o de coste cero (D4.2 §6.3). Juicios del analista."
+    "description_costing_only": "Se pide también sin LCA: el cálculo de costes usa el mismo escenario de referencia que un LCA (D4.2 §6.2) y cada flujo debe clasificarse como evitable o inevitable antes de cualquier hipótesis de coste o de coste cero (D4.2 §6.3). Juicios del analista."
    },
    "logistics": {
     "title": "Logística",
@@ -2634,7 +2634,7 @@
     "title": "Escenario de referencia por actor y flujo",
     "description": "Una fila por actor y por flujo que cede o recibe: para el origen, adónde iría el flujo sin el intercambio (eliminación, otro comprador); para el destino, qué compraría o produciría en su lugar (D4.1 §11.1).",
     "description_c2": "Opcional en la situación C2: la contabilidad de una sola empresa no toma créditos de sustitución (D4.1 §7.2.3); la referencia sin los intercambios se indica solo para comparar (D4.1 §11.3.1).",
-    "description_costing_only": "Se pide también sin ACV: los costes evitados se miden respecto al escenario de referencia que usaría un ACV paralelo (D4.2 §6.2)."
+    "description_costing_only": "Se pide también sin LCA: los costes evitados se miden respecto al escenario de referencia que usaría un LCA paralelo (D4.2 §6.2)."
    }
   },
   "fields": {
@@ -2886,7 +2886,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Periodo de amortización (años): vida técnica de este bien",
-    "description": "Sin valor único: la vida técnica de cada bien (D4.2 §4.2, §7.3). Vidas de referencia en la Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años. Usa el mismo periodo en el ACV (D4.1 §14.2.2)."
+    "description": "Sin valor único: la vida técnica de cada bien (D4.2 §4.2, §7.3). Vidas de referencia en la Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años. Usa el mismo periodo en el LCA (D4.1 §14.2.2)."
    },
    "infra.discount_rate_pct": {
     "label": "Tasa de descuento (%)"
@@ -3092,7 +3092,7 @@
    "ins.title": "Cómo rellenar este Data Collection File",
    "ins.case": "Caso: {name}",
    "ins.what": "Qué es este archivo",
-   "ins.what_body": "Una hoja de recogida de datos para un caso de simbiosis industrial: los actores, los flujos intercambiados y su clasificación, la referencia de cada actor sin los intercambios, la logística, los costes y los bienes. No es un inventario de procesos: las entradas, salidas y emisiones de cada planta se recogen aparte, con las plantillas del software de ACV y de costes. Los datos sociales (grupos de partes interesadas, indicadores, entrevistas) no se recogen aquí: siguen las directrices de S-LCA (D4.3) con sus propios instrumentos; este archivo solo registra el tamaño y la propiedad de cada actor.",
+   "ins.what_body": "Una hoja de recogida de datos para un caso de simbiosis industrial: los actores, los flujos intercambiados y su clasificación, la referencia de cada actor sin los intercambios, la logística, los costes y los bienes. No es un inventario de procesos: las entradas, salidas y emisiones de cada planta se recogen aparte, con las plantillas del software de LCA y de costes. Los datos sociales (grupos de partes interesadas, indicadores, entrevistas) no se recogen aquí: siguen las directrices de S-LCA (D4.3) con sus propios instrumentos; este archivo solo registra el tamaño y la propiedad de cada actor.",
    "ins.how": "Cómo rellenarlo",
    "ins.how_body": "Una fila por elemento. Las columnas con * son obligatorias. Donde el encabezado de una columna tiene una nota (una pequeña esquina roja), pasa sobre él para ver la definición, los valores admitidos y por qué se pide el campo. Las celdas con lista solo aceptan los valores propuestos: no las sobrescribas con texto libre.",
    "ins.unknown": "Si no conoces un valor",
@@ -3176,7 +3176,7 @@
    "h.section": "Sección",
    "h.gives": "Cede",
    "h.receives": "Recibe",
-   "cover.noIlcd": "Ninguna: un estudio solo económico (sin ACV). El cálculo de costes usa el escenario de referencia que usaría un ACV (D4.2 §4.1).",
+   "cover.noIlcd": "Ninguna: un estudio solo económico (sin LCA). El cálculo de costes usa el escenario de referencia que usaría un LCA (D4.2 §4.1).",
    "note.analyst": "Para quien realiza el estudio (columna gris): las empresas la dejan vacía.",
    "dx.s1i": "§1. Cómo rellenar el libro Excel",
    "dx.who_title": "Quién rellena qué",
@@ -3210,7 +3210,7 @@
    "origin.mandate": "Exigido por el método",
    "origin.rule": "Exigido entre los métodos",
    "because.always": "todo estudio de este tipo",
-   "reason.costing_only": "el cálculo de costes lo necesita también sin ACV (D4.2 §6.2)",
+   "reason.costing_only": "el cálculo de costes lo necesita también sin LCA (D4.2 §6.2)",
    "note.computed": "Calculada a partir de las flechas dibujadas en la aplicación: no se rellena."
   },
   "enum_refs": {

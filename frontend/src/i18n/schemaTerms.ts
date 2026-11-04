@@ -623,11 +623,11 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Scénarios climatiques dynamiques LCA-LCC',
-        body: 'L\'étude se projette dans le futur (exploitation une année future, technologie sous TRL 7, ou période d\'analyse ou durée de vie des biens au-delà de 15 ans) : les jeux de données d\'arrière-plan de l\'ACV et les prix et coûts énergétiques de l\'ACC suivent le même scénario SSP/RCP sur le même horizon, avec SSP2 confronté à une trajectoire d\'atténuation ambitieuse (CIR-01 ; D4.1 §9.3.4 ; D4.2 §9.3, §11.1).',
+        body: 'L\'étude se projette dans le futur (exploitation une année future, technologie sous TRL 7, ou période d\'analyse ou durée de vie des biens au-delà de 15 ans) : les jeux de données d\'arrière-plan de la LCA et les prix et coûts énergétiques du LCC suivent le même scénario SSP/RCP sur le même horizon, avec SSP2 confronté à une trajectoire d\'atténuation ambitieuse (CIR-01 ; D4.1 §9.3.4 ; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Matrice pedigree LCA+LCC',
-        body: 'Les échanges n\'ont pas encore lieu : chaque flux qui entre dans le modèle ACV est noté sur les cinq indicateurs de la matrice pedigree, et l\'ACC documente le niveau de source de chaque paramètre principal de l\'inventaire et note son incertitude sur les cinq mêmes indicateurs, pour que les deux méthodes propagent la même incertitude sur la qualité des données (CIR-02 ; D4.1 §9.3.5, §13.3.2 ; D4.2 §7.1).',
+        body: 'Les échanges n\'ont pas encore lieu : chaque flux qui entre dans le modèle LCA est noté sur les cinq indicateurs de la matrice pedigree, et le LCC documente le niveau de source de chaque paramètre principal de l\'inventaire et note son incertitude sur les cinq mêmes indicateurs, pour que les deux méthodes propagent la même incertitude sur la qualité des données (CIR-02 ; D4.1 §9.3.5, §13.3.2 ; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'Modélisation spatiale couplée au SIG',
@@ -639,7 +639,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Activation de la formule PEF (CFF)',
-        body: 'L\'étude est alignée sur la politique de l\'UE : l\'ACV applique la Circular Footprint Formula du PEF et l\'E-LCC la reproduit avec le même facteur A, le même rapport Qs/Qp et les mêmes taux R1/R2/R3, pour que charges et coûts se rapportent à une seule partition multifonctionnelle ; en Situation B la CFF est une analyse de sensibilité, une lecture de T4.6 du tableau 1 de la D4.1, et en Situation C2 elle ne s\'applique pas. EF 3.1 comme méthode d\'impact est la lecture de T4.6 de la Recommandation PEF. Sauf dans un C-LCC d\'entreprise, l\'ACC applique le Net Tax Factor et, lorsqu\'une ACV parallèle existe, monétise les externalités aux prix environnementaux de l\'UE (CE Delft) : un choix de T4.6 lié à cette règle, alors que la D4.2 les rattache tous deux au S-LCC (CIR-05 ; D4.1 §7.2.3, §7.3.2, §7.3.3 ; D4.2 §5.1, §11.2).',
+        body: 'L\'étude est alignée sur la politique de l\'UE : la LCA applique la Circular Footprint Formula du PEF et l\'E-LCC la reproduit avec le même facteur A, le même rapport Qs/Qp et les mêmes taux R1/R2/R3, pour que charges et coûts se rapportent à une seule partition multifonctionnelle ; en Situation B la CFF est une analyse de sensibilité, une lecture de T4.6 du tableau 1 de la D4.1, et en Situation C2 elle ne s\'applique pas. EF 3.1 comme méthode d\'impact est la lecture de T4.6 de la Recommandation PEF. Sauf dans un C-LCC d\'entreprise, le LCC applique le Net Tax Factor et, lorsqu\'une LCA parallèle existe, monétise les externalités aux prix environnementaux de l\'UE (CE Delft) : un choix de T4.6 lié à cette règle, alors que la D4.2 les rattache tous deux au S-LCC (CIR-05 ; D4.1 §7.2.3, §7.3.2, §7.3.3 ; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Cascade des catégories de frontière',
@@ -647,19 +647,19 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Méthodes d\'extrapolation d\'échelle',
-        body: 'Une technologie sous TRL 7 : l\'ACV ne met pas à l\'échelle linéairement les inventaires de laboratoire ou de pilote, mais applique et documente l\'une des quatre techniques (recalcul stœchiométrique, correspondance des étapes avec les équipements par les facteurs de Lang, conversion du discontinu au continu, courbes d\'apprentissage), et l\'ACC estime le CAPEX avec la règle des six dixièmes, les indices CEPCI ramenés à l\'année de référence et les facteurs de Lang pour le coût total installé (CIR-07 ; D4.1 §9.3.5 ; D4.2 §7.3).',
+        body: 'Une technologie sous TRL 7 : la LCA ne met pas à l\'échelle linéairement les inventaires de laboratoire ou de pilote, mais applique et documente l\'une des quatre techniques (recalcul stœchiométrique, correspondance des étapes avec les équipements par les facteurs de Lang, conversion du discontinu au continu, courbes d\'apprentissage), et le LCC estime le CAPEX avec la règle des six dixièmes, les indices CEPCI ramenés à l\'année de référence et les facteurs de Lang pour le coût total installé (CIR-07 ; D4.1 §9.3.5 ; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Indicateurs parties prenantes sur CAPEX partagé',
-        body: 'Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l\'amortissement partagés par l\'ACV et l\'ACC (D4.1 §6.3.3 ; D4.2 §4.2), l\'ACV sociale indique par groupe de parties prenantes qui porte l\'investissement et qui bénéficie de l\'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes (CIR-08).',
+        body: 'Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l\'amortissement partagés par la LCA et le LCC (D4.1 §6.3.3 ; D4.2 §4.2), la S-LCA indique par groupe de parties prenantes qui porte l\'investissement et qui bénéficie de l\'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocole de mise à jour itérative',
-        body: 'Les échanges n\'ont pas encore lieu et la technologie n\'est pas encore à TRL 9 : la charte méthodologique de l\'ACC fixe dès le départ quand mettre à jour le modèle avec les données d\'exploitation — à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1).',
+        body: 'Les échanges n\'ont pas encore lieu et la technologie n\'est pas encore à TRL 9 : la charte méthodologique du LCC fixe dès le départ quand mettre à jour le modèle avec les données d\'exploitation — à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modes de défaillance en conditions réelles',
-        body: 'L\'interprétation de l\'ACC discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d\'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières — comme partie de l\'évaluation et non dans une annexe sur les risques, avec les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu\'une ACV ou une ACV sociale est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau — une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13).',
+        body: 'L\'interprétation du LCC discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d\'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières — comme partie de l\'évaluation et non dans une annexe sur les risques, avec les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu\'une LCA ou une S-LCA est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau — une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unité fonctionnelle orientée fonction',
@@ -667,7 +667,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'FU-02': {
         name: 'Système d\'unités fonctionnelles (fonctions co-primaires)',
-        body: 'Quand le service de traitement et les produits sont des fonctions co-primaires, l\'ACV exige un système d\'unités fonctionnelles (SFU) (FU-02).',
+        body: 'Quand le service de traitement et les produits sont des fonctions co-primaires, la LCA exige un système d\'unités fonctionnelles (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Égalité EF-UF (LCA+LCC)',
@@ -699,7 +699,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Transport explicite quelle que soit la répartition géographique',
-        body: 'Le transport est modélisé explicitement dans chaque dimension active : comme procédés élémentaires d\'avant-plan dans l\'ACV (D4.1 §12.3.1) et comme coût sensible à la distance dans l\'ACC (D4.2 §4.3), quelle que soit la répartition géographique (B-05).',
+        body: 'Le transport est modélisé explicitement dans chaque dimension active : comme procédés élémentaires d\'avant-plan dans la LCA (D4.1 §12.3.1) et comme coût sensible à la distance dans le LCC (D4.2 §4.3), quelle que soit la répartition géographique (B-05).',
       },
       'B-06': {
         name: 'Alignement de l\'amortissement des biens d\'équipement',
@@ -714,11 +714,11 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-01': {
         name: 'Divergence sur les produits substitués',
         body: 'En élargissant le système, la LCA et la LCC peuvent retenir des produits substitués différents',
-        resolution: 'Même scénario de référence et même facteur de qualité Q (IR-07, IR-09) ; en Situation B l\'ACV substitue la technologie marginale tandis que l\'E-LCC valorise au prix moyen du marché : déclaré comme écart (D4.2 §2.2), voir la note du cas',
+        resolution: 'Même scénario de référence et même facteur de qualité Q (IR-07, IR-09) ; en Situation B la LCA substitue la technologie marginale tandis que l\'E-LCC valorise au prix moyen du marché : déclaré comme écart (D4.2 §2.2), voir la note du cas',
       },
       'CDP-02': {
         name: 'Désaccord sur l\'actualisation',
-        body: 'L\'ACV additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d\'actualisation » de la D4.1 §14.2.2',
+        body: 'L\'LCA additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d\'actualisation » de la D4.1 §14.2.2',
         resolution: 'Chacun garde sa convention (IR-05) : impacts non actualisés en série temporelle, coûts actualisés à un taux déclaré avec analyse de sensibilité ; tout ratio étiqueté « coût actualisé par impact non actualisé » (D4.1 §14.2.2)',
       },
       'CDP-03': {
@@ -734,7 +734,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-burden contre test d\'évitabilité',
         body: 'La hiérarchie zero-burden de la LCA et le test d\'évitabilité de la LCC peuvent diverger',
-        resolution: 'Arbre de décision en quatre étapes de la D4.1 §8.3.6 appliqué à chaque flux, l\'E-LCC suivant la classification de l\'ACV (D4.2 §6.3) ; un flux interdépendant est un coproduit dans les deux (IR-15)',
+        resolution: 'Arbre de décision en quatre étapes de la D4.1 §8.3.6 appliqué à chaque flux, l\'E-LCC suivant la classification de la LCA (D4.2 §6.3) ; un flux interdépendant est un coproduit dans les deux (IR-15)',
       },
       'CDP-06': {
         name: 'Unité fonctionnelle divergente entre les trois méthodes',
@@ -875,11 +875,11 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Dynamische Klimaszenarien LCA-LCC',
-        body: 'Die Studie reicht in die Zukunft (Betrieb in einem künftigen Jahr, Technologie unter TRL 7 oder Analysezeitraum bzw. Lebensdauer der Anlagen über 15 Jahre): Hintergrunddatensätze der Ökobilanz sowie Preise und Energiekosten der Lebenszykluskostenrechnung folgen demselben SSP/RCP-Szenario über denselben Horizont, wobei SSP2 gegen einen ambitionierten Minderungspfad getestet wird (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
+        body: 'Die Studie reicht in die Zukunft (Betrieb in einem künftigen Jahr, Technologie unter TRL 7 oder Analysezeitraum bzw. Lebensdauer der Anlagen über 15 Jahre): Hintergrunddatensätze der LCA sowie Preise und Energiekosten der LCC folgen demselben SSP/RCP-Szenario über denselben Horizont, wobei SSP2 gegen einen ambitionierten Minderungspfad getestet wird (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Pedigree-Matrix LCA+LCC',
-        body: 'Die Austausche finden noch nicht statt: Jeder Fluss im Modell der Ökobilanz wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die Lebenszykluskostenrechnung dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
+        body: 'Die Austausche finden noch nicht statt: Jeder Fluss im Modell der LCA wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die LCC dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'GIS-gekoppelte räumliche Modellierung',
@@ -891,7 +891,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Aktivierung der PEF-Formel (CFF)',
-        body: 'Die Studie ist auf die EU-Politik ausgerichtet: Die Ökobilanz wendet die Circular Footprint Formula des PEF an, und die E-LCC bildet sie mit demselben A-Faktor, demselben Verhältnis Qs/Qp und denselben Raten R1/R2/R3 nach, sodass sich Lasten und Kosten auf eine einzige multifunktionale Aufteilung beziehen; in Situation B ist die CFF eine Sensitivitätsanalyse, eine Lesart von T4.6 zu Tabelle 1 der D4.1, in Situation C2 wird sie nicht angewendet. EF 3.1 als Wirkungsabschätzungsmethode ist die Lesart von T4.6 der PEF-Empfehlung. Außer in einer unternehmensbezogenen C-LCC wendet die Lebenszykluskostenrechnung den Net Tax Factor an und monetarisiert, wo eine parallele Ökobilanz besteht, Externalitäten zu EU-Umweltpreisen (CE Delft): eine Entscheidung von T4.6, die an diese Regel gebunden ist, während D4.2 beide der S-LCC zuordnet (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
+        body: 'Die Studie ist auf die EU-Politik ausgerichtet: Die LCA wendet die Circular Footprint Formula des PEF an, und die E-LCC bildet sie mit demselben A-Faktor, demselben Verhältnis Qs/Qp und denselben Raten R1/R2/R3 nach, sodass sich Lasten und Kosten auf eine einzige multifunktionale Aufteilung beziehen; in Situation B ist die CFF eine Sensitivitätsanalyse, eine Lesart von T4.6 zu Tabelle 1 der D4.1, in Situation C2 wird sie nicht angewendet. EF 3.1 als Wirkungsabschätzungsmethode ist die Lesart von T4.6 der PEF-Empfehlung. Außer in einer unternehmensbezogenen C-LCC wendet die LCC den Net Tax Factor an und monetarisiert, wo eine parallele LCA besteht, Externalitäten zu EU-Umweltpreisen (CE Delft): eine Entscheidung von T4.6, die an diese Regel gebunden ist, während D4.2 beide der S-LCC zuordnet (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Kaskade der Grenzkategorien',
@@ -899,19 +899,19 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Verfahren zur technischen Hochskalierung',
-        body: 'Eine Technologie unter TRL 7: Die Ökobilanz skaliert Labor- oder Pilotinventare nicht linear, sondern wendet eine der vier Techniken an und dokumentiert sie (stöchiometrische Neuberechnung, Zuordnung der Prozessschritte zu Apparaten mit Lang-Faktoren, Umstellung von Batch- auf kontinuierlichen Betrieb, Lernkurven), und die Lebenszykluskostenrechnung schätzt den CAPEX mit der Sechs-Zehntel-Regel, mit auf das Bezugsjahr umgerechneten CEPCI-Indizes und mit Lang-Faktoren für die Gesamtanlagenkosten (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
+        body: 'Eine Technologie unter TRL 7: Die LCA skaliert Labor- oder Pilotinventare nicht linear, sondern wendet eine der vier Techniken an und dokumentiert sie (stöchiometrische Neuberechnung, Zuordnung der Prozessschritte zu Apparaten mit Lang-Faktoren, Umstellung von Batch- auf kontinuierlichen Betrieb, Lernkurven), und die LCC schätzt den CAPEX mit der Sechs-Zehntel-Regel, mit auf das Bezugsjahr umgerechneten CEPCI-Indizes und mit Lang-Faktoren für die Gesamtanlagenkosten (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Stakeholder-Indikatoren für gemeinsames CAPEX',
-        body: 'Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die Ökobilanz und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1 (CIR-08).',
+        body: 'Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die LCA und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protokoll der iterativen Aktualisierung',
-        body: 'Die Austausche finden noch nicht statt, und die Technologie hat TRL 9 noch nicht erreicht: Die methodische Charta der Lebenszykluskostenrechnung legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird — bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1).',
+        body: 'Die Austausche finden noch nicht statt, und die Technologie hat TRL 9 noch nicht erreicht: Die methodische Charta der LCC legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird — bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Ausfallarten im realen Betrieb',
-        body: 'Die Interpretation der Lebenszykluskostenrechnung erörtert die dokumentierten Versagensarten realer Symbiosen — Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen — als Teil der Bewertung und nicht in einem Risikoanhang, mit den Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine Ökobilanz oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen — eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13).',
+        body: 'Die Interpretation der LCC erörtert die dokumentierten Versagensarten realer Symbiosen — Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen — als Teil der Bewertung und nicht in einem Risikoanhang, mit den Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine LCA oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen — eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Funktionsorientierte funktionelle Einheit',
@@ -919,7 +919,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'FU-02': {
         name: 'System funktioneller Einheiten (gleichrangige Funktionen)',
-        body: 'Sind Behandlungsleistung und Produkte gleichrangige Funktionen, verlangt die Ökobilanz ein System funktioneller Einheiten (SFU) (FU-02).',
+        body: 'Sind Behandlungsleistung und Produkte gleichrangige Funktionen, verlangt die LCA ein System funktioneller Einheiten (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Gleichheit von FE und funktioneller Einheit (LCA+LCC)',
@@ -951,7 +951,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Expliziter Transport unabhängig von der räumlichen Verteilung',
-        body: 'Der Transport wird in jeder aktiven Dimension explizit modelliert: als Vordergrundprozesse in der Ökobilanz (D4.1 §12.3.1) und als entfernungsabhängige Kosten in der Kostenrechnung (D4.2 §4.3), unabhängig von der geografischen Verteilung (B-05).',
+        body: 'Der Transport wird in jeder aktiven Dimension explizit modelliert: als Vordergrundprozesse in der LCA (D4.1 §12.3.1) und als entfernungsabhängige Kosten in der Kostenrechnung (D4.2 §4.3), unabhängig von der geografischen Verteilung (B-05).',
       },
       'B-06': {
         name: 'Abstimmung der Abschreibung von Investitionsgütern',
@@ -966,11 +966,11 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-01': {
         name: 'Abweichung bei den verdrängten Produkten',
         body: 'LCA und LCC können bei der Systemerweiterung unterschiedliche verdrängte Produkte ansetzen',
-        resolution: 'Gleiches Referenzszenario und gleicher Qualitätsfaktor Q (IR-07, IR-09); in Situation B substituiert die Ökobilanz die marginale Technologie, während die E-LCC zum durchschnittlichen Marktpreis bewertet: als Abweichung erklärt (D4.2 §2.2), siehe die Fallnotiz',
+        resolution: 'Gleiches Referenzszenario und gleicher Qualitätsfaktor Q (IR-07, IR-09); in Situation B substituiert die LCA die marginale Technologie, während die E-LCC zum durchschnittlichen Marktpreis bewertet: als Abweichung erklärt (D4.2 §2.2), siehe die Fallnotiz',
       },
       'CDP-02': {
         name: 'Uneinigkeit über die Diskontierung',
-        body: 'Die Ökobilanz summiert Wirkungen über die Zeit ohne Diskontierung (kein Konsens über deren Diskontierung); die LCC diskontiert Geldflüsse: die „Diskontierungs-Firewall“ der D4.1 §14.2.2',
+        body: 'Die LCA summiert Wirkungen über die Zeit ohne Diskontierung (kein Konsens über deren Diskontierung); die LCC diskontiert Geldflüsse: die „Diskontierungs-Firewall“ der D4.1 §14.2.2',
         resolution: 'Jede behält ihre Konvention (IR-05): Wirkungen undiskontiert als Zeitreihe, Kosten zu einem angegebenen Satz diskontiert mit Sensitivitätsanalyse; jedes Verhältnis als „diskontierte Kosten je undiskontierter Wirkung“ gekennzeichnet (D4.1 §14.2.2)',
       },
       'CDP-03': {
@@ -986,7 +986,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-Burden gegen Vermeidbarkeitstest',
         body: 'Die Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC können auseinandergehen',
-        resolution: 'Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Fluss, wobei die E-LCC der Klassifizierung der Ökobilanz folgt (D4.2 §6.3); ein interdependenter Fluss ist in beiden ein Koppelprodukt (IR-15)',
+        resolution: 'Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Fluss, wobei die E-LCC der Klassifizierung der LCA folgt (D4.2 §6.3); ein interdependenter Fluss ist in beiden ein Koppelprodukt (IR-15)',
       },
       'CDP-06': {
         name: 'Funktionelle Einheit in den drei Methoden verschieden',
@@ -1127,11 +1127,11 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-01': {
         name: 'Escenarios climáticos dinámicos LCA-LCC',
-        body: 'El estudio mira al futuro (operación en un año futuro, tecnología por debajo de TRL 7, o periodo de análisis o vida de los activos de más de 15 años): los datos de fondo del ACV y los precios y costes energéticos del ACC siguen el mismo escenario SSP/RCP en el mismo horizonte, con SSP2 contrastado con una trayectoria de mitigación ambiciosa (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
+        body: 'El estudio mira al futuro (operación en un año futuro, tecnología por debajo de TRL 7, o periodo de análisis o vida de los activos de más de 15 años): los datos de fondo del LCA y los precios y costes energéticos del LCC siguen el mismo escenario SSP/RCP en el mismo horizonte, con SSP2 contrastado con una trayectoria de mitigación ambiciosa (CIR-01; D4.1 §9.3.4; D4.2 §9.3, §11.1).',
       },
       'CIR-02': {
         name: 'Matriz pedigree LCA+LCC',
-        body: 'Los intercambios aún no tienen lugar: cada flujo que entra en el modelo ACV se puntúa con los cinco indicadores de la matriz pedigree, y el ACC documenta el nivel de fuente de cada parámetro principal del inventario y puntúa su incertidumbre con los mismos cinco indicadores, para que ambos métodos propaguen la misma incertidumbre sobre la calidad de los datos (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
+        body: 'Los intercambios aún no tienen lugar: cada flujo que entra en el modelo LCA se puntúa con los cinco indicadores de la matriz pedigree, y el LCC documenta el nivel de fuente de cada parámetro principal del inventario y puntúa su incertidumbre con los mismos cinco indicadores, para que ambos métodos propaguen la misma incertidumbre sobre la calidad de los datos (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'Modelización espacial acoplada a SIG',
@@ -1143,7 +1143,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-05': {
         name: 'Activación de la fórmula PEF (CFF)',
-        body: 'El estudio está alineado con la política de la UE: el ACV aplica la Circular Footprint Formula del PEF y el E-LCC la refleja con el mismo factor A, la misma relación Qs/Qp y las mismas tasas R1/R2/R3, para que cargas y costes se refieran a una única partición multifuncional; en la Situación B la CFF es un análisis de sensibilidad, una lectura de T4.6 de la tabla 1 de la D4.1, y en la Situación C2 no se aplica. EF 3.1 como método de impacto es la lectura de T4.6 de la Recomendación PEF. Salvo en un C-LCC de empresa, el ACC aplica el Net Tax Factor y, donde existe un ACV paralelo, monetiza las externalidades a precios ambientales de la UE (CE Delft): una elección de T4.6 ligada a esta regla, mientras que la D4.2 vincula ambos al S-LCC (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
+        body: 'El estudio está alineado con la política de la UE: el LCA aplica la Circular Footprint Formula del PEF y el E-LCC la refleja con el mismo factor A, la misma relación Qs/Qp y las mismas tasas R1/R2/R3, para que cargas y costes se refieran a una única partición multifuncional; en la Situación B la CFF es un análisis de sensibilidad, una lectura de T4.6 de la tabla 1 de la D4.1, y en la Situación C2 no se aplica. EF 3.1 como método de impacto es la lectura de T4.6 de la Recomendación PEF. Salvo en un C-LCC de empresa, el LCC aplica el Net Tax Factor y, donde existe un LCA paralelo, monetiza las externalidades a precios ambientales de la UE (CE Delft): una elección de T4.6 ligada a esta regla, mientras que la D4.2 vincula ambos al S-LCC (CIR-05; D4.1 §7.2.3, §7.3.2, §7.3.3; D4.2 §5.1, §11.2).',
       },
       'CIR-06': {
         name: 'Cascada de las categorías de frontera',
@@ -1151,19 +1151,19 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-07': {
         name: 'Métodos de escalado de ingeniería',
-        body: 'Una tecnología por debajo de TRL 7: el ACV no escala linealmente los inventarios de laboratorio o piloto, sino que aplica y documenta una de las cuatro técnicas (recálculo estequiométrico, correspondencia de las etapas con los equipos mediante factores de Lang, conversión de discontinuo a continuo, curvas de aprendizaje), y el ACC estima el CAPEX con la regla de las seis décimas, los índices CEPCI llevados al año de referencia y los factores de Lang para el coste total instalado (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
+        body: 'Una tecnología por debajo de TRL 7: el LCA no escala linealmente los inventarios de laboratorio o piloto, sino que aplica y documenta una de las cuatro técnicas (recálculo estequiométrico, correspondencia de las etapas con los equipos mediante factores de Lang, conversión de discontinuo a continuo, curvas de aprendizaje), y el LCC estima el CAPEX con la regla de las seis décimas, los índices CEPCI llevados al año de referencia y los factores de Lang para el coste total instalado (CIR-07; D4.1 §9.3.5; D4.2 §7.3).',
       },
       'CIR-08': {
         name: 'Indicadores de partes interesadas sobre CAPEX compartido',
-        body: 'Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten ACV y ACC (D4.1 §6.3.3; D4.2 §4.2), el ACV social indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1 (CIR-08).',
+        body: 'Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten LCA y LCC (D4.1 §6.3.3; D4.2 §4.2), el S-LCA indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocolo de actualización iterativa',
-        body: 'Los intercambios aún no tienen lugar y la tecnología aún no está en TRL 9: la carta metodológica del ACC fija desde el inicio cuándo actualizar el modelo con datos de operación — en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1).',
+        body: 'Los intercambios aún no tienen lugar y la tecnología aún no está en TRL 9: la carta metodológica del LCC fija desde el inicio cuándo actualizar el modelo con datos de operación — en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modos de fallo en condiciones reales',
-        body: 'La interpretación del ACC discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas — como parte de la evaluación y no en un anexo de riesgos, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un ACV o un ACV social se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red — una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13).',
+        body: 'La interpretación del LCC discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas — como parte de la evaluación y no en un anexo de riesgos, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un LCA o un S-LCA se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red — una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unidad funcional orientada a la función',
@@ -1171,7 +1171,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'FU-02': {
         name: 'Sistema de unidades funcionales (funciones coprimarias)',
-        body: 'Cuando el servicio de tratamiento y los productos son funciones coprimarias, el ACV exige un sistema de unidades funcionales (SFU) (FU-02).',
+        body: 'Cuando el servicio de tratamiento y los productos son funciones coprimarias, el LCA exige un sistema de unidades funcionales (SFU) (FU-02).',
       },
       'FU-03': {
         name: 'Igualdad EF-UF (LCA+LCC)',
@@ -1203,7 +1203,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-05': {
         name: 'Transporte explícito sea cual sea la distribución geográfica',
-        body: 'El transporte se modela explícitamente en cada dimensión activa: como procesos unitarios de primer plano en el ACV (D4.1 §12.3.1) y como coste sensible a la distancia en el ACC (D4.2 §4.3), sea cual sea la distribución geográfica (B-05).',
+        body: 'El transporte se modela explícitamente en cada dimensión activa: como procesos unitarios de primer plano en el LCA (D4.1 §12.3.1) y como coste sensible a la distancia en el LCC (D4.2 §4.3), sea cual sea la distribución geográfica (B-05).',
       },
       'B-06': {
         name: 'Alineación de la amortización de los bienes de capital',
@@ -1218,11 +1218,11 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-01': {
         name: 'Divergencia en los productos desplazados',
         body: 'Al ampliar el sistema, el LCA y el LCC pueden usar productos desplazados distintos',
-        resolution: 'Mismo escenario de referencia y mismo factor de calidad Q (IR-07, IR-09); en la Situación B el ACV sustituye la tecnología marginal mientras que el E-LCC valora al precio medio de mercado: declarado como desviación (D4.2 §2.2), ver la nota del caso',
+        resolution: 'Mismo escenario de referencia y mismo factor de calidad Q (IR-07, IR-09); en la Situación B el LCA sustituye la tecnología marginal mientras que el E-LCC valora al precio medio de mercado: declarado como desviación (D4.2 §2.2), ver la nota del caso',
       },
       'CDP-02': {
         name: 'Desacuerdo sobre el descuento',
-        body: 'El ACV suma los impactos en el tiempo sin descontarlos (no hay consenso sobre descontarlos); el LCC descuenta los flujos monetarios: el «cortafuegos del descuento» de la D4.1 §14.2.2',
+        body: 'El LCA suma los impactos en el tiempo sin descontarlos (no hay consenso sobre descontarlos); el LCC descuenta los flujos monetarios: el «cortafuegos del descuento» de la D4.1 §14.2.2',
         resolution: 'Cada uno mantiene su convención (IR-05): impactos sin descontar como serie temporal, costes descontados a una tasa declarada con análisis de sensibilidad; toda razón etiquetada «coste descontado por impacto sin descontar» (D4.1 §14.2.2)',
       },
       'CDP-03': {
@@ -1238,7 +1238,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-burden frente a prueba de evitabilidad',
         body: 'La jerarquía zero-burden del LCA y la prueba de evitabilidad del LCC pueden divergir',
-        resolution: 'Árbol de decisión en cuatro pasos de la D4.1 §8.3.6 aplicado a cada flujo, con el E-LCC siguiendo la clasificación del ACV (D4.2 §6.3); un flujo interdependiente es un coproducto en ambos (IR-15)',
+        resolution: 'Árbol de decisión en cuatro pasos de la D4.1 §8.3.6 aplicado a cada flujo, con el E-LCC siguiendo la clasificación del LCA (D4.2 §6.3); un flujo interdependiente es un coproducto en ambos (IR-15)',
       },
       'CDP-06': {
         name: 'Unidad funcional divergente entre los tres métodos',

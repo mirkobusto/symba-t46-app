@@ -510,4 +510,51 @@ describe('dcfDataStore: scenario networks (owner OK 2026-11-04)', () => {
     st().carryTo('case-2')
     expect(st().data.networks_by_scenario?.alt1).toBeDefined()
   })
+
+  // Kimi test 2026-11-04, A3-01: coming back to the page reloaded the server
+  // copy over a scenario network not saved yet
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+  const serverCopy = {
+    data: { schema_version: '1.1', case_id: 'case-1', rows_by_section: {}, layout: {} },
+    validation: { errors: [], missing_required: [], completeness: [] },
+  }
+
+  it('loading from the server keeps unsaved changes, a scenario network included', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(okResponse(serverCopy))))
+    st().bindTo('case-1')
+    st().setActiveScenario('alt1')
+    st().addActor('Landfill')
+    expect(st().dirty).toBe(true)
+    await st().loadFromServer('case-1')
+    expect(st().data.networks_by_scenario?.alt1).toBeDefined()
+    expect(st().dirty).toBe(true)
+  })
+
+  it('a change made while the server copy is on its way is kept too', async () => {
+    let answer: (r: Response) => void = () => {}
+    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>((resolve) => { answer = resolve })))
+    st().bindTo('case-1')
+    useDcfDataStore.setState({ dirty: false })
+    const loading = st().loadFromServer('case-1')
+    st().setActiveScenario('alt1')
+    st().addActor('Landfill')
+    answer(okResponse(serverCopy) as unknown as Response)
+    await loading
+    expect(st().data.networks_by_scenario?.alt1).toBeDefined()
+  })
+
+  it('without unsaved changes the server copy replaces the draft', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(okResponse(serverCopy))))
+    st().bindTo('case-1')
+    useDcfDataStore.setState({ dirty: false })
+    await st().loadFromServer('case-1')
+    expect(st().data.rows_by_section).toEqual({})
+  })
+
+  it('the unsaved flag survives a reload', () => {
+    const partialize = useDcfDataStore.persist.getOptions().partialize!
+    expect(partialize({ ...st(), dirty: true })).toMatchObject({ dirty: true })
+  })
 })

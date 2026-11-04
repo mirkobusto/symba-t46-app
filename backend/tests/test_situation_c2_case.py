@@ -154,3 +154,14 @@ def test_no_network_level_rules_for_one_company(case):
     network level a C2 study does not have (Fable review of #209)."""
     fired = {r["rule_id"] for r in case.applicable_rules}
     assert not {"IR-16", "IR-20"} & fired
+
+
+def test_no_substitution_asks_in_c2(case):
+    """C2 allocates and takes no substitution credits (D4.1 §7.2.3 L00899): no
+    quality factor Q, no rule aligning it (IR-09), no choice of displaced
+    products (CDP-01), although the bagasse is Q5=c (Kimi test 2026-11-04,
+    A2-06, A2-09; decided by Fable, owner OK)."""
+    assert case.lca["q_factor"].startswith("Not applied: Situation C2 uses allocation")
+    assert case.lcc["q_factor"].startswith("Not applied to the firm's own cash flows")
+    assert "IR-09" not in {r["rule_id"] for r in case.applicable_rules}
+    assert "CDP-01" not in {c["cdp_id"] for c in case.cdp_flags}

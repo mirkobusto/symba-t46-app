@@ -207,8 +207,8 @@
       "id": "IR-09",
       "name": "Multifunctionality Alignment",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3.ENV+ECO AND any flow has Q5=c (substitution)",
-      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND any(flow.q5 == 'c' for flow in case.flows)",
+      "trigger_condition_raw": "Q3.ENV+ECO AND any flow has Q5=c (substitution) AND not one company in isolation (ILCD Situation C2)",
+      "trigger_condition": "case.q3.env == true AND case.q3.eco == true AND any(flow.q5 == 'c' for flow in case.flows) AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "lca.q_factor == lcc.q_factor",
       "fields": [
         "lca.q_factor",

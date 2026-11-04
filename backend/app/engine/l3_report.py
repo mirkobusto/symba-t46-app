@@ -28,7 +28,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any
 
-from app.domain.enums import Q1
+from app.domain.enums import Q1, IlcdSituation
 from app.domain.models import Case
 from app.engine.l2_validate import _get, _q3_dims_active, _q4_intersects
 from app.engine.loader import LoadedSchemas
@@ -115,6 +115,10 @@ def _build_cdp_entry(cdp: dict[str, Any]) -> dict[str, Any]:
 # CDP-10 describes computational effort and surfaces no choice: it stays in the
 # schema (closure) but is not listed to the user (decided by Fable, UX round 4, P2-09)
 _NOT_A_DECISION = {"CDP-10"}
+# CDP-01 asks which products are displaced, for the substitution IR-09 aligns:
+# one company in isolation (C2) allocates and takes no substitution credits
+# (D4.1 §7.2.3), so there is nothing to decide (Kimi test 2026-11-04, decided by Fable)
+_NOT_IN_C2 = {"CDP-01"}
 
 
 def run(case: Case, schemas: LoadedSchemas) -> Case:
@@ -167,6 +171,9 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         if cdp.get("lifecycle_layer") != "L3":
             continue
         if (cdp.get("cdp_id") or cdp.get("id")) in _NOT_A_DECISION:
+            continue
+        if (case.ilcd_situation == IlcdSituation.SITUATION_C2
+                and (cdp.get("cdp_id") or cdp.get("id")) in _NOT_IN_C2):
             continue
         if _cdp_methods_active(case, cdp.get("methods", [])):
             case.cdp_flags.append(_build_cdp_entry(cdp))

@@ -150,7 +150,8 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     # 38 since lcc_mc_13 is a predicate node (R3, 2026-10-18)
     # 40 with lcc_hc_02 and lcc_hc_03 on Situation C2 (end-to-end review, 2026-10-18)
     # 47 with seven network mandates dormant in Situation C2 (UX round 5, Fable D1)
-    assert len(_branch_nodes(schemas)) == 47
+    # 49 with the quality factor Q (lca_mc_15, lcc_mc_20) not applied in C2 (Kimi test 2026-11-04)
+    assert len(_branch_nodes(schemas)) == 49
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):

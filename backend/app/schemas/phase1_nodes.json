@@ -753,16 +753,21 @@
       "method": "LCA",
       "type": "MC",
       "source_section": "D4.1 §8.3.6",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lca.q_factor",
       "field_status": null,
-      "default_value": "Quality correction factor Q for substitution, with its basis declared — functional or performance ratio, empirical substitution, market-price ratio or the PEF CFF quality ratios — and reported as a range with sensitivity to the basis; the ranges by material class in D4.1 are indicative defaults to challenge, not constants (D4.1 §8.3.6; bases and ranges: §7.3.2)",
+      "default_value": {
+        "ilcd=C2": "Not applied: Situation C2 uses allocation and takes no substitution credits (D4.1 §7.2.3), so no quality factor Q is needed; if a substitution-based comparison is reported alongside the accounts, Q follows the default rule (D4.1 §8.3.6; bases and ranges: §7.3.2)",
+        "default": "Quality correction factor Q for substitution, with its basis declared — functional or performance ratio, empirical substitution, market-price ratio or the PEF CFF quality ratios — and reported as a range with sensitivity to the basis; the ranges by material class in D4.1 are indicative defaults to challenge, not constants (D4.1 §8.3.6; bases and ranges: §7.3.2)"
+      },
       "override_path": "advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.6). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00886-L00894 (four bases), L00898 ('indicative defaults to challenge'), L00910 ('Report Q as a range'). Departs on purpose from L01014, which gives 'Q (0.6-1.0 for typical downcycling cases per Rigamonti et al., 2018)': sprint 2 (P1-028) does not find that range in Rigamonti 2018, and D4.1 itself goes down to 0.20-0.25 (L00904, L00908)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.6). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00886-L00894 (four bases), L00898 ('indicative defaults to challenge'), L00910 ('Report Q as a range'). Departs on purpose from L01014, which gives 'Q (0.6-1.0 for typical downcycling cases per Rigamonti et al., 2018)': sprint 2 (P1-028) does not find that range in Rigamonti 2018, and D4.1 itself goes down to 0.20-0.25 (L00904, L00908). | Situation C2 branch (Kimi test 2026-11-04, decided by Fable, owner OK 2026-11-04): D4.1 §7.2.3 L00899 'use Allocation (Step 3). Do not apply substitution credits'."
     },
     {
       "id": "lca_mc_16",
@@ -2301,16 +2306,21 @@
       "method": "LCC",
       "type": "MC",
       "source_section": "D4.2 §3.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lcc.q_factor",
       "field_status": null,
-      "default_value": "Quality correction: physical + market price differentials",
+      "default_value": {
+        "ilcd=C2": "Not applied to the firm's own cash flows (C-LCC at negotiated prices, D4.2 §5.3); only if the accounts are compared with an optional reference scenario, correct quality by physical or market-price differentials (D4.2 §3.3)",
+        "default": "Quality correction: physical + market price differentials"
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §3.2); audit 2026-10-04."
+      "extraction_notes": "source_section renumbered to the REVISED D4.2 (the 2026-05-08 extraction cited D4.2 §3.2); audit 2026-10-04. | Situation C2 branch (Kimi test 2026-11-04, decided by Fable, owner OK 2026-11-04): D4.1 §7.2.3 L00899 'use Allocation (Step 3). Do not apply substitution credits', D4.2 §5.3 L00697 (negotiated prices)."
     },
     {
       "id": "slca_t_01",

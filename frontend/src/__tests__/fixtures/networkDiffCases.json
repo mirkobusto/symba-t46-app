@@ -1,0 +1,280 @@
+{
+ "base": {
+  "actors": [
+   {
+    "row_id": "a1",
+    "values": {
+     "actor.name": "WWTP Alfa"
+    }
+   },
+   {
+    "row_id": "a2",
+    "values": {
+     "actor.name": "Biogas Beta"
+    }
+   }
+  ],
+  "flows": [
+   {
+    "row_id": "f1",
+    "values": {
+     "flow.name": "sludge",
+     "flow.origin_actor_id": "a1",
+     "flow.dest_actor_id": "a2",
+     "flow.quantity_measured": 120,
+     "flow.unit": "t/y"
+    }
+   },
+   {
+    "row_id": "f2",
+    "values": {
+     "flow.name": "biogas",
+     "flow.origin_actor_id": "a2",
+     "flow.dest_actor_id": "a1"
+    }
+   }
+  ]
+ },
+ "cases": [
+  {
+   "name": "identical",
+   "variant": {
+    "actors": [
+     {
+      "row_id": "a1",
+      "values": {
+       "actor.name": "WWTP Alfa"
+      }
+     },
+     {
+      "row_id": "a2",
+      "values": {
+       "actor.name": "Biogas Beta"
+      }
+     }
+    ],
+    "flows": [
+     {
+      "row_id": "f1",
+      "values": {
+       "flow.name": "sludge",
+       "flow.origin_actor_id": "a1",
+       "flow.dest_actor_id": "a2",
+       "flow.quantity_measured": 120,
+       "flow.unit": "t/y"
+      }
+     },
+     {
+      "row_id": "f2",
+      "values": {
+       "flow.name": "biogas",
+       "flow.origin_actor_id": "a2",
+       "flow.dest_actor_id": "a1"
+      }
+     }
+    ]
+   },
+   "expected": {
+    "actors_added": [],
+    "actors_removed": [],
+    "actors_renamed": [],
+    "flows_rerouted": [],
+    "flows_dropped": [],
+    "flows_only_in_scenario": [],
+    "value_changes": []
+   }
+  },
+  {
+   "name": "landfill instead of the biogas plant",
+   "variant": {
+    "actors": [
+     {
+      "row_id": "a1",
+      "values": {
+       "actor.name": "WWTP Alfa"
+      }
+     },
+     {
+      "row_id": "a2",
+      "values": {
+       "actor.name": "Biogas Beta"
+      }
+     },
+     {
+      "row_id": "a9",
+      "values": {
+       "actor.name": "Landfill Sud"
+      }
+     }
+    ],
+    "flows": [
+     {
+      "row_id": "f1",
+      "values": {
+       "flow.name": "sludge",
+       "flow.origin_actor_id": "a1",
+       "flow.dest_actor_id": "a9",
+       "flow.quantity_measured": 120,
+       "flow.unit": "t/y"
+      }
+     },
+     {
+      "row_id": "f2",
+      "values": {
+       "flow.name": "biogas"
+      }
+     }
+    ]
+   },
+   "expected": {
+    "actors_added": [
+     {
+      "actor": "Landfill Sud"
+     }
+    ],
+    "actors_removed": [],
+    "actors_renamed": [],
+    "flows_rerouted": [
+     {
+      "flow": "sludge",
+      "from_before": "WWTP Alfa",
+      "to_before": "Biogas Beta",
+      "from_after": "WWTP Alfa",
+      "to_after": "Landfill Sud"
+     }
+    ],
+    "flows_dropped": [
+     {
+      "flow": "biogas"
+     }
+    ],
+    "flows_only_in_scenario": [],
+    "value_changes": []
+   }
+  },
+  {
+   "name": "partner leaves, renamed actor, quantity changed",
+   "variant": {
+    "actors": [
+     {
+      "row_id": "a1",
+      "values": {
+       "actor.name": "WWTP Alfa (new line)"
+      }
+     }
+    ],
+    "flows": [
+     {
+      "row_id": "f1",
+      "values": {
+       "flow.name": "sludge",
+       "flow.origin_actor_id": "a1",
+       "flow.dest_actor_id": "a1",
+       "flow.quantity_measured": 80,
+       "flow.unit": "t/y"
+      }
+     }
+    ]
+   },
+   "expected": {
+    "actors_added": [],
+    "actors_removed": [
+     {
+      "actor": "Biogas Beta"
+     }
+    ],
+    "actors_renamed": [
+     {
+      "before": "WWTP Alfa",
+      "after": "WWTP Alfa (new line)"
+     }
+    ],
+    "flows_rerouted": [
+     {
+      "flow": "sludge",
+      "from_before": "WWTP Alfa",
+      "to_before": "Biogas Beta",
+      "from_after": "WWTP Alfa (new line)",
+      "to_after": "WWTP Alfa (new line)"
+     }
+    ],
+    "flows_dropped": [
+     {
+      "flow": "biogas"
+     }
+    ],
+    "flows_only_in_scenario": [],
+    "value_changes": [
+     {
+      "flow": "sludge",
+      "field": "flow.quantity_measured",
+      "before": 120,
+      "after": 80
+     }
+    ]
+   }
+  },
+  {
+   "name": "a flow only in the scenario",
+   "variant": {
+    "actors": [
+     {
+      "row_id": "a1",
+      "values": {
+       "actor.name": "WWTP Alfa"
+      }
+     },
+     {
+      "row_id": "a2",
+      "values": {
+       "actor.name": "Biogas Beta"
+      }
+     }
+    ],
+    "flows": [
+     {
+      "row_id": "f1",
+      "values": {
+       "flow.name": "sludge",
+       "flow.origin_actor_id": "a1",
+       "flow.dest_actor_id": "a2",
+       "flow.quantity_measured": 120,
+       "flow.unit": "t/y"
+      }
+     },
+     {
+      "row_id": "f2",
+      "values": {
+       "flow.name": "biogas",
+       "flow.origin_actor_id": "a2",
+       "flow.dest_actor_id": "a1"
+      }
+     },
+     {
+      "row_id": "f3",
+      "values": {
+       "flow.name": "heat",
+       "flow.origin_actor_id": "a2",
+       "flow.dest_actor_id": "a1"
+      }
+     }
+    ]
+   },
+   "expected": {
+    "actors_added": [],
+    "actors_removed": [],
+    "actors_renamed": [],
+    "flows_rerouted": [],
+    "flows_dropped": [],
+    "flows_only_in_scenario": [
+     {
+      "flow": "heat",
+      "from": "Biogas Beta",
+      "to": "WWTP Alfa"
+     }
+    ],
+    "value_changes": []
+   }
+  }
+ ]
+}

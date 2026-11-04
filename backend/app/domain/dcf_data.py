@@ -29,7 +29,12 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-DCF_DATA_SCHEMA_VERSION = "1.0"
+# 1.1 (2026-11-04): `networks_by_scenario`, additive; 1.0 blobs load unchanged
+DCF_DATA_SCHEMA_VERSION = "1.1"
+
+# what a scenario's own network may hold: the actors and the flows between them
+# (distances, costs, classification stay with the case's network)
+SCENARIO_NETWORK_SECTIONS = frozenset({"actors", "flow_matrix"})
 
 
 class DcfRow(BaseModel):
@@ -57,6 +62,20 @@ class DcfNodePosition(BaseModel):
     y: float
 
 
+class DcfNetworkVariant(BaseModel):
+    """The network of one alternative scenario, drawn in the editor: a copy of
+    the case's actors and flows made on the first edit, then changed (an actor
+    added, a flow sent elsewhere). Flow rows keep the questionnaire flow ids;
+    a flow missing or unwired here does not take place in the scenario.
+    Designed by Fable, approved by the owner on 2026-11-04 (D4.1 §4.3.3,
+    L00646, L01304; D4.2 §10.3)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    rows_by_section: dict[str, list[DcfRow]] = Field(default_factory=dict)
+    layout: dict[str, DcfNodePosition] = Field(default_factory=dict)
+
+
 class DcfData(BaseModel):
     """Everything the analyst has entered for one case's DCF."""
 
@@ -66,6 +85,8 @@ class DcfData(BaseModel):
     case_id: str
     rows_by_section: dict[str, list[DcfRow]] = Field(default_factory=dict)
     layout: dict[str, DcfNodePosition] = Field(default_factory=dict)
+    # keyed by AlternativeScenario.id of the case
+    networks_by_scenario: dict[str, DcfNetworkVariant] = Field(default_factory=dict)
     updated_at: datetime | None = None
 
 
@@ -80,6 +101,8 @@ class DcfDataIssue(BaseModel):
     row_id: str | None = None
     field_id: str | None = None
     detail: str
+    # set when the issue is in a scenario's own network
+    scenario_id: str | None = None
 
 
 class DcfSectionCompleteness(BaseModel):

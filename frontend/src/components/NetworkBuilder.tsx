@@ -29,7 +29,7 @@ import FlowControls from './FlowControls'
 import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
 import DcfRowFields from './DcfRowFields'
-import { actorNodes, flowEdges, layeredLayout, nodeClassName, unwiredFlows } from './networkGraph'
+import { MIN_ZOOM, actorNodes, flowEdges, layeredLayout, nodeClassName, unwiredFlows } from './networkGraph'
 import { networkView, useDcfDataStore } from '../store/dcfDataStore'
 import { usePreferenceStore } from '../store/preferenceStore'
 import type { Case } from '../types/api'
@@ -144,6 +144,12 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       setActiveScenario(null)
     }
   }, [activeScenario, scenarios, orphans, setActiveScenario])
+
+  // the case's network and a scenario's may sit in different places: show
+  // the whole of the one just opened
+  useEffect(() => {
+    window.setTimeout(() => flowRef.current?.fitView({ padding: 0.2 }), 50)
+  }, [activeScenario])
 
   /** Add an actor and keep it on screen: on a phone it landed outside the canvas. */
   function handleAddActor() {
@@ -571,6 +577,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           edgeTypes={FLOW_EDGE_TYPES}
           onInit={(instance) => { flowRef.current = instance }}
           fitView
+          minZoom={MIN_ZOOM}
           proOptions={{ hideAttribution: false }}
         >
           <Background />

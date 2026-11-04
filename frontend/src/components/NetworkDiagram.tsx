@@ -21,7 +21,7 @@ import 'reactflow/dist/style.css'
 import FlowControls from './FlowControls'
 import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
-import { actorNodes, edgeShifts, flowEdges, nodeClassName } from './networkGraph'
+import { MIN_ZOOM, actorNodes, edgeShifts, flowEdges, nodeClassName } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
@@ -174,6 +174,7 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
           nodesConnectable={false}
           edgeTypes={FLOW_EDGE_TYPES}
           fitView
+          minZoom={MIN_ZOOM}
         >
           <Background />
           <FlowControls />

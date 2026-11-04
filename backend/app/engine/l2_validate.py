@@ -138,7 +138,10 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-06": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     "IR-07": lambda c: _q3_dims_active(c) >= 2,
     "IR-08": lambda c: c.q3.env and c.q3.eco,
-    "IR-09": lambda c: c.q3.env and c.q3.eco and any(f.q5 == Q5.c for f in c.flows),
+    # a single company in isolation (C2) allocates and takes no substitution
+    # credits (D4.1 §7.2.3): no Q to align (Kimi test 2026-11-04, decided by Fable)
+    "IR-09": lambda c: (c.q3.env and c.q3.eco and any(f.q5 == Q5.c for f in c.flows)
+                        and c.ilcd_situation != IlcdSituation.SITUATION_C2),
     "IR-11": lambda c: _q4_intersects(c, {"C", "D"}) and _q3_dims_active(c) >= 2,
     "IR-12": lambda c: c.q3.env or c.q3.eco,   # transport is modeled for every Q7 (audit I-08)
     "IR-13": lambda c: c.q3.env and c.q3.eco and bool(c.dedicated_shared_assets),

@@ -1320,6 +1320,7 @@ const de: Locale = {
   },
 
   auth: {
+    logoutUnsaved: "Beim Abmelden werden Fall und Netzwerk in diesem Browser geleert, damit die nächste Person sie nicht vorfindet. Einige Änderungen sind nicht auf dem Server gespeichert und gehen verloren.",
     sessionExpired: "Ihre Sitzung ist abgelaufen: Melden Sie sich erneut an. Der Fall bleibt in diesem Browser.",
     title: 'Anmelden',
     subtitle: 'Zum Speichern von Fällen auf dem Server und zum Teilen braucht es ein Konto. Einen gespeicherten Fall liest nur, wer seinen Link hat, und erst nachdem Sie ihn geteilt haben.',

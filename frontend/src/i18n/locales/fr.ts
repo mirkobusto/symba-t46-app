@@ -1326,6 +1326,7 @@ const fr: Locale = {
   },
 
   auth: {
+    logoutUnsaved: "En vous déconnectant, le cas et le réseau de ce navigateur sont vidés, pour que la personne suivante ne les trouve pas. Certaines modifications ne sont pas enregistrées sur le serveur et seront perdues.",
     sessionExpired: "Votre session a expiré : reconnectez-vous. Le cas reste dans ce navigateur.",
     title: 'Se connecter',
     subtitle: 'Un compte est nécessaire pour enregistrer des cas sur le serveur et pour les partager. Un cas enregistré n\'est lu que par les personnes qui ont son lien, et seulement après que vous l\'avez partagé.',

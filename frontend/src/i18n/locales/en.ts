@@ -1366,6 +1366,7 @@ const en = {
   },
 
   auth: {
+    logoutUnsaved: "Signing out empties this browser's case and network, so the next person does not find them. Some changes are not saved on the server and will be lost.",
     sessionExpired: "Your session has expired: sign in again. The case stays in this browser.",
     title: 'Sign in',
     subtitle:

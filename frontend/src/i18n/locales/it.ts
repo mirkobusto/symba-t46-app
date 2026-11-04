@@ -1345,6 +1345,7 @@ const it: Locale = {
   },
 
   auth: {
+    logoutUnsaved: "Uscendo, il caso e la rete di questo browser vengono svuotati, così chi accede dopo non li trova. Alcune modifiche non sono salvate sul server e andranno perse.",
     sessionExpired: "La sessione è scaduta: accedi di nuovo. Il caso resta in questo browser.",
     title: 'Accedi',
     subtitle:

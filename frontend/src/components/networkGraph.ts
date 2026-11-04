@@ -224,3 +224,7 @@ export function flowEdgePath(p: Pick<EdgeProps, 'sourceX' | 'sourceY' | 'targetX
   })
 }
 
+/** Lowest zoom of the editor and the preview. React Flow stops at 0.5, where a
+ * large or arranged network no longer fits the canvas, and fit-view stops
+ * with it (Kimi test 2026-11-04, A7-09, A8-10). */
+export const MIN_ZOOM = 0.1

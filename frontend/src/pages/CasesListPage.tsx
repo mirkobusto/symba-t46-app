@@ -127,7 +127,7 @@ export default function CasesListPage() {
           </Link>
         </div>
       ) : (
-        <table className="flows-table">
+        <table className="flows-table cases-table">
           <thead>
             <tr>
               <th>{t('cases.columns.name')}</th>

@@ -415,7 +415,12 @@ export default function ResultPage() {
       <section className="result-next">
         <h2 className="result-next-title">
           {t('result.next.title')}
-          <span className="dd-pill dd-pill-muted">{todo.length}</span>
+          {/* the count read as a stray "11" after the heading (Kimi test
+              2026-11-04, A1-07): a screen reader now hears "11 items" */}
+          <span className="dd-pill dd-pill-muted">
+            {todo.length}
+            <span className="visually-hidden"> {t('result.next.countUnit', { count: todo.length })}</span>
+          </span>
         </h2>
 
         {blockedBy.length > 0 ? (

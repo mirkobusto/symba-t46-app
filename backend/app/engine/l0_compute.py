@@ -305,7 +305,10 @@ def _flow_notes(case: Case) -> list[dict[str, Any]]:
                 f"analysis until the study confirms it: do not change who pays whom; record this reading in "
                 f"the flow classification of the Data Collection File (Freedom-to-Act and the step of the "
                 f"decision tree), which the study documents.")})
-        chapter = PART2_CHAPTER.get(f.sector) if f.sector else None
+        # the Part 2 rules are LCA modelling rules, listed only with the LCA
+        # (#156): without it the note pointed to an empty list (Kimi test
+        # 2026-11-04, A2-04)
+        chapter = PART2_CHAPTER.get(f.sector) if f.sector and case.q3.env else None
         if chapter:
             notes.append({"code": "flow_part2_chapter",
                           "params": {"flow": f.name or f.id, "chapter": chapter.split(" ")[0]}, "message": (

@@ -6,6 +6,7 @@
 
 const en = {
   common: {
+    serverUnreachable: "the server cannot be reached; check the connection and try again",
     actions: 'Actions',
     run: 'Run',
     reset: 'Reset',
@@ -153,6 +154,9 @@ const en = {
       backToReport: "Back to the report",
     },
     region: {
+      unknownTitle: "Unknown country code",
+      unknownBody: "“{{code}}” is not a country code. The address ends with the two-letter code of a country, such as /r/region/IT.",
+      empty: "No shared case has a partner in {{code}} yet.",
       eyebrow: 'Region · {{code}}',
       title: 'Regional dashboard',
       lead: 'Shared cases with at least one partner in {{code}}, from the country given to each company in the network editor. A case whose network is not drawn does not count.',
@@ -1201,6 +1205,8 @@ const en = {
       },
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and, where the engine settles it, how.',
+      countUnit_one: 'item',
+      countUnit_other: 'items',
       provenance:
         "Rule and decision wording is translated from the engine's English table. The code next to each item — IR-01, CDP-02 — is the reference that does not change between languages.",
       noTensions:
@@ -1617,7 +1623,7 @@ const en = {
     whyAsked: 'Asked because:',
     hint: {
       step1: 'Add one actor per participant in the symbiosis — a plant, a utility, a municipality.',
-      step2: 'Click a flow in the list below the canvas, then drag from the bottom dot of the actor that gives it to the top dot of the actor that receives it: that arrow is a row of the Flow Matrix.',
+      step2: 'Click a flow in the list below the canvas, then drag from the bottom dot of the actor that gives it to the top dot of the actor that receives it: that arrow is a row of the Flow Matrix. To move an arrow already drawn, click it and change its origin or destination actor in the side panel.',
       step3: 'Select a node or an arrow and fill its fields in the side panel. Only the fields your configuration needs are shown.',
       dismiss: 'Got it',
     },
@@ -1647,7 +1653,7 @@ const en = {
     missingRequired_one: '{{count}} required field still empty',
     missingRequired_other: '{{count}} required fields still empty',
     whichFlow: 'Which flow is this arrow?',
-    allDrawn: 'All the flows of the questionnaire are drawn. To add one, add it to the flows table of the questionnaire and work out the configuration again.',
+    allDrawn: 'All the flows of the questionnaire are drawn. To add one, add it to the flows table of the questionnaire and work out the configuration again. To move an arrow already drawn, click it and change its origin or destination actor in the side panel.',
     sameActor: 'An arrow goes from one actor to another: origin and destination must be different actors.',
     armed: 'Next arrow: "{{name}}". Drag from the bottom dot of the actor that gives it to the top dot of the actor that receives it — or pick the two actors in the panel.',
     drawnTitle: 'Flows drawn',

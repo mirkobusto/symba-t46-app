@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const fr: Locale = {
   common: {
+    serverUnreachable: "le serveur est injoignable ; vérifiez la connexion et réessayez",
     actions: 'Actions',
     run: 'Exécuter',
     reset: 'Réinitialiser',
@@ -163,6 +164,9 @@ const fr: Locale = {
       backToReport: "Retour au rapport",
     },
     region: {
+      unknownTitle: "Code pays inconnu",
+      unknownBody: "« {{code}} » n'est pas un code de pays. L'adresse se termine par le code à deux lettres d'un pays, par exemple /r/region/FR.",
+      empty: "Aucun cas partagé n'a encore de partenaire en {{code}}.",
       eyebrow: 'Région · {{code}}', title: 'Tableau de bord régional', lead: 'Cas partagés avec au moins un partenaire en {{code}}, d\'après le pays indiqué pour chaque entreprise dans l\'éditeur de réseau. Un cas dont le réseau n\'est pas dessiné ne compte pas.', total: 'Cas', situations: 'Situations ILCD', sectors: 'Secteurs couverts',
       bySituationTitle: 'Par situation ILCD', bySectorTitle: 'Par secteur', tableKey: 'Valeur', tableCount: 'Nombre',
       errorTitle: 'Région indisponible', errorBody: 'Impossible de charger les données.',
@@ -1160,6 +1164,8 @@ const fr: Locale = {
       title: 'Que faire maintenant',
       lead:
         "Pratiques méthodologiques rendues obligatoires par vos réponses, plus les décisions encore ouvertes. Chacune indique pourquoi elle concerne votre cas.",
+      countUnit_one: 'élément',
+      countUnit_other: 'éléments',
       provenance:
         "Les intitulés des règles et des points de décision sont traduits depuis la table anglaise du moteur. Le code à côté de chaque élément — IR-01, CDP-02 — est la référence qui ne change pas d'une langue à l'autre, et le nom anglais reste à côté.",
       noTensions:
@@ -1576,7 +1582,7 @@ const fr: Locale = {
     whyAsked: 'Demandé parce que :',
     hint: {
       step1: "Ajoutez un acteur par participant à la symbiose — une usine, un service public, une commune.",
-      step2: 'Cliquez sur un flux dans la liste sous le dessin, puis tirez depuis le point du bas de l\'acteur qui le cède vers le point du haut de l\'acteur qui le reçoit : cette flèche est une ligne de la Matrice des flux.',
+      step2: 'Cliquez sur un flux dans la liste sous le dessin, puis tirez depuis le point du bas de l\'acteur qui le cède vers le point du haut de l\'acteur qui le reçoit : cette flèche est une ligne de la Matrice des flux. Pour déplacer une flèche déjà dessinée, cliquez dessus et changez l\'acteur d\'origine ou de destination dans le panneau latéral.',
       step3: 'Sélectionnez un nœud ou une flèche et remplissez ses champs dans le panneau latéral. Seuls les champs utiles à votre configuration sont affichés.',
       dismiss: "J'ai compris",
     },
@@ -1606,7 +1612,7 @@ const fr: Locale = {
     missingRequired_one: '{{count}} champ obligatoire encore vide',
     missingRequired_other: '{{count}} champs obligatoires encore vides',
     whichFlow: 'Quel flux représente cette flèche ?',
-    allDrawn: 'Tous les flux du questionnaire sont dessinés. Pour en ajouter un, ajoutez-le au tableau des flux du questionnaire et recalculez la configuration.',
+    allDrawn: 'Tous les flux du questionnaire sont dessinés. Pour en ajouter un, ajoutez-le au tableau des flux du questionnaire et recalculez la configuration. Pour déplacer une flèche déjà dessinée, cliquez dessus et changez l\'acteur d\'origine ou de destination dans le panneau latéral.',
     sameActor: 'Une flèche va d\'un acteur à un autre : l\'origine et la destination doivent être des acteurs différents.',
     armed: 'Prochaine flèche : « {{name}} ». Tirez depuis le point du bas de l\'acteur qui le cède vers le point du haut de l\'acteur qui le reçoit, ou choisissez les deux acteurs dans le panneau.',
     drawnTitle: 'Flux dessinés',

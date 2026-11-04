@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const de: Locale = {
   common: {
+    serverUnreachable: "der Server ist nicht erreichbar; prüfen Sie die Verbindung und versuchen Sie es erneut",
     actions: 'Aktionen',
     run: 'Ausführen',
     reset: 'Zurücksetzen',
@@ -157,6 +158,9 @@ const de: Locale = {
       backToReport: "Zurück zum Bericht",
     },
     region: {
+      unknownTitle: "Unbekannter Ländercode",
+      unknownBody: "„{{code}}“ ist kein Ländercode. Die Adresse endet mit dem zweistelligen Code eines Landes, zum Beispiel /r/region/DE.",
+      empty: "Noch kein geteilter Fall hat einen Partner in {{code}}.",
       eyebrow: 'Region · {{code}}', title: 'Regionales Dashboard', lead: 'Geteilte Fälle mit mindestens einem Partner in {{code}}, nach dem Land, das im Netzwerk-Editor für jedes Unternehmen angegeben ist. Ein Fall ohne gezeichnetes Netzwerk zählt nicht.', total: 'Fälle', situations: 'ILCD-Situationen', sectors: 'Sektoren',
       bySituationTitle: 'Nach ILCD-Situation', bySectorTitle: 'Nach Sektor', tableKey: 'Wert', tableCount: 'Anzahl',
       errorTitle: 'Region nicht verfügbar', errorBody: 'Daten konnten nicht geladen werden.',
@@ -1154,6 +1158,8 @@ const de: Locale = {
       title: 'Was jetzt zu tun ist',
       lead:
         'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
+      countUnit_one: 'Punkt',
+      countUnit_other: 'Punkte',
       provenance:
         "Die Bezeichnungen der Regeln und Entscheidungspunkte sind aus der englischen Tabelle des Motors übersetzt. Der Code neben jedem Eintrag — IR-01, CDP-02 — ist die Referenz, die in allen Sprachen gleich bleibt, und der englische Name steht daneben.",
       noTensions:
@@ -1570,7 +1576,7 @@ const de: Locale = {
     whyAsked: 'Abgefragt, weil:',
     hint: {
       step1: 'Fügen Sie je einen Akteur pro Teilnehmer der Symbiose hinzu — ein Werk, einen Versorger, eine Kommune.',
-      step2: 'Klicken Sie einen Fluss in der Liste unter der Zeichnung an und ziehen Sie dann vom unteren Punkt des abgebenden Akteurs zum oberen Punkt des aufnehmenden: Dieser Pfeil ist eine Zeile der Flussmatrix.',
+      step2: 'Klicken Sie einen Fluss in der Liste unter der Zeichnung an und ziehen Sie dann vom unteren Punkt des abgebenden Akteurs zum oberen Punkt des aufnehmenden: Dieser Pfeil ist eine Zeile der Flussmatrix. Um einen schon gezeichneten Pfeil zu verschieben, klicken Sie ihn an und ändern Sie Herkunfts- oder Zielakteur im Seitenbereich.',
       step3: 'Wählen Sie einen Knoten oder einen Pfeil und füllen Sie die Felder im Seitenpanel aus. Angezeigt werden nur die Felder, die Ihre Konfiguration benötigt.',
       dismiss: 'Verstanden',
     },
@@ -1600,7 +1606,7 @@ const de: Locale = {
     missingRequired_one: '{{count}} Pflichtfeld noch leer',
     missingRequired_other: '{{count}} Pflichtfelder noch leer',
     whichFlow: 'Welcher Fluss ist dieser Pfeil?',
-    allDrawn: 'Alle Flüsse des Fragebogens sind gezeichnet. Um einen hinzuzufügen, ergänzen Sie ihn in der Flusstabelle des Fragebogens und ermitteln Sie die Konfiguration neu.',
+    allDrawn: 'Alle Flüsse des Fragebogens sind gezeichnet. Um einen hinzuzufügen, ergänzen Sie ihn in der Flusstabelle des Fragebogens und ermitteln Sie die Konfiguration neu. Um einen schon gezeichneten Pfeil zu verschieben, klicken Sie ihn an und ändern Sie Herkunfts- oder Zielakteur im Seitenbereich.',
     sameActor: 'Ein Pfeil führt von einem Akteur zu einem anderen: Herkunft und Ziel müssen verschiedene Akteure sein.',
     armed: 'Nächster Pfeil: „{{name}}“. Ziehen Sie vom unteren Punkt des abgebenden Akteurs zum oberen Punkt des aufnehmenden Akteurs, oder wählen Sie die beiden Akteure im Seitenfeld.',
     drawnTitle: 'Gezeichnete Flüsse',

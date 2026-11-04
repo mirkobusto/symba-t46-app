@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const it: Locale = {
   common: {
+    serverUnreachable: "il server non è raggiungibile; controlla la connessione e riprova",
     actions: 'Azioni',
     run: 'Esegui',
     reset: 'Reset',
@@ -172,6 +173,9 @@ const it: Locale = {
       backToReport: "Torna al report",
     },
     region: {
+      unknownTitle: "Codice paese sconosciuto",
+      unknownBody: "«{{code}}» non è il codice di un paese. L'indirizzo finisce con il codice di due lettere di un paese, per esempio /r/region/IT.",
+      empty: "Nessun caso condiviso ha ancora un partner in {{code}}.",
       eyebrow: 'Regione · {{code}}',
       title: 'Dashboard regionale',
       lead: 'Casi condivisi con almeno un partner in {{code}}, secondo il paese indicato per ogni azienda nell\'editor di rete. Un caso senza rete disegnata non conta.',
@@ -1179,6 +1183,8 @@ const it: Locale = {
       },
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e, dove il motore lo risolve, come.',
+      countUnit_one: 'voce',
+      countUnit_other: 'voci',
       provenance:
         "I nomi e gli enunciati delle regole sono tradotti dalla tabella inglese del motore. Il codice accanto a ogni voce — IR-01, CDP-02 — è il riferimento che non cambia da una lingua all'altra, e accanto resta il nome inglese.",
       noTensions:
@@ -1596,7 +1602,7 @@ const it: Locale = {
     whyAsked: 'Richiesto perché:',
     hint: {
       step1: 'Aggiungi un attore per ogni partecipante alla simbiosi — un impianto, una utility, un comune.',
-      step2: 'Clicca un flusso nell\'elenco sotto il disegno, poi trascina dal punto in basso dell\'attore che lo cede al punto in alto dell\'attore che lo riceve: quella freccia è una riga della Matrice dei flussi.',
+      step2: 'Clicca un flusso nell\'elenco sotto il disegno, poi trascina dal punto in basso dell\'attore che lo cede al punto in alto dell\'attore che lo riceve: quella freccia è una riga della Matrice dei flussi. Per spostare una freccia già disegnata, cliccala e cambia l\'attore di origine o di destinazione nel pannello a lato.',
       step3: 'Seleziona un nodo o una freccia e compila i campi nel pannello laterale. Vedi solo i campi che servono alla tua configurazione.',
       dismiss: 'Ho capito',
     },
@@ -1626,7 +1632,7 @@ const it: Locale = {
     missingRequired_one: '{{count}} campo obbligatorio ancora vuoto',
     missingRequired_other: '{{count}} campi obbligatori ancora vuoti',
     whichFlow: 'Quale flusso è questa freccia?',
-    allDrawn: 'Tutti i flussi del questionario sono disegnati. Per aggiungerne uno, aggiungilo alla tabella dei flussi del questionario e ricalcola la configurazione.',
+    allDrawn: 'Tutti i flussi del questionario sono disegnati. Per aggiungerne uno, aggiungilo alla tabella dei flussi del questionario e ricalcola la configurazione. Per spostare una freccia già disegnata, cliccala e cambia l\'attore di origine o di destinazione nel pannello a lato.',
     sameActor: 'Una freccia va da un attore a un altro: origine e destinazione devono essere attori diversi.',
     armed: 'Prossima freccia: «{{name}}». Trascina dal punto in basso dell\'attore che lo cede al punto in alto dell\'attore che lo riceve, oppure scegli i due attori nel pannello.',
     drawnTitle: 'Flussi disegnati',

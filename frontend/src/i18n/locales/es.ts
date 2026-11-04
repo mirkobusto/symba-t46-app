@@ -5,6 +5,7 @@ import type { Locale } from './en'
 
 const es: Locale = {
   common: {
+    serverUnreachable: "no se puede contactar con el servidor; comprueba la conexión y vuelve a intentarlo",
     actions: 'Acciones',
     run: 'Ejecutar',
     reset: 'Reiniciar',
@@ -157,6 +158,9 @@ const es: Locale = {
       backToReport: "Volver al informe",
     },
     region: {
+      unknownTitle: "Código de país desconocido",
+      unknownBody: "«{{code}}» no es un código de país. La dirección termina con el código de dos letras de un país, por ejemplo /r/region/ES.",
+      empty: "Ningún caso compartido tiene todavía un socio en {{code}}.",
       eyebrow: 'Región · {{code}}', title: 'Panel regional', lead: 'Casos compartidos con al menos un socio en {{code}}, según el país indicado para cada empresa en el editor de red. Un caso sin red dibujada no cuenta.', total: 'Casos', situations: 'Situaciones ILCD', sectors: 'Sectores',
       bySituationTitle: 'Por situación ILCD', bySectorTitle: 'Por sector', tableKey: 'Valor', tableCount: 'Cantidad',
       errorTitle: 'Región no disponible', errorBody: 'No se pudieron cargar los datos.',
@@ -1154,6 +1158,8 @@ const es: Locale = {
       title: 'Qué hacer ahora',
       lead:
         'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
+      countUnit_one: 'elemento',
+      countUnit_other: 'elementos',
       provenance:
         "Los nombres y enunciados de las reglas están traducidos de la tabla inglesa del motor. El código junto a cada elemento — IR-01, CDP-02 — es la referencia que no cambia de un idioma a otro, y el nombre en inglés se mantiene al lado.",
       noTensions:
@@ -1570,7 +1576,7 @@ const es: Locale = {
     whyAsked: 'Se pide porque:',
     hint: {
       step1: 'Añade un actor por cada participante en la simbiosis — una planta, una utility, un ayuntamiento.',
-      step2: 'Haz clic en un flujo de la lista bajo el dibujo y arrastra desde el punto de abajo del actor que lo cede al punto de arriba del actor que lo recibe: esa flecha es una fila de la Matriz de flujos.',
+      step2: 'Haz clic en un flujo de la lista bajo el dibujo y arrastra desde el punto de abajo del actor que lo cede al punto de arriba del actor que lo recibe: esa flecha es una fila de la Matriz de flujos. Para mover una flecha ya dibujada, haz clic en ella y cambia el actor de origen o de destino en el panel lateral.',
       step3: 'Selecciona un nodo o una flecha y rellena sus campos en el panel lateral. Solo se muestran los campos que necesita tu configuración.',
       dismiss: 'Entendido',
     },
@@ -1600,7 +1606,7 @@ const es: Locale = {
     missingRequired_one: '{{count}} campo obligatorio aún vacío',
     missingRequired_other: '{{count}} campos obligatorios aún vacíos',
     whichFlow: '¿Qué flujo es esta flecha?',
-    allDrawn: 'Todos los flujos del cuestionario están dibujados. Para añadir uno, añádelo a la tabla de flujos del cuestionario y vuelve a calcular la configuración.',
+    allDrawn: 'Todos los flujos del cuestionario están dibujados. Para añadir uno, añádelo a la tabla de flujos del cuestionario y vuelve a calcular la configuración. Para mover una flecha ya dibujada, haz clic en ella y cambia el actor de origen o de destino en el panel lateral.',
     sameActor: 'Una flecha va de un actor a otro: el origen y el destino deben ser actores distintos.',
     armed: 'Próxima flecha: «{{name}}». Arrastra desde el punto de abajo del actor que lo cede al punto de arriba del actor que lo recibe, o elige los dos actores en el panel.',
     drawnTitle: 'Flujos dibujados',

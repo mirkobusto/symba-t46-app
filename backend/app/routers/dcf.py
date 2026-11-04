@@ -164,12 +164,15 @@ def _filename(ref: str | None, ext: str) -> str:
     return f"DCF_{safe}_{_today()}.{ext}"
 
 
-def _cover(rows: list[CoverRow], case_ref: str | None, network_png: bytes | None = None) -> dict[str, Any]:
+def _cover(rows: list[CoverRow], case_ref: str | None, network_png: bytes | None = None,
+           case: Case | None = None) -> dict[str, Any]:
     return {
         "rows": [r.model_dump() for r in rows],
         "case_ref": case_ref,
         "generated_on": _today(),
         "network_png": network_png,
+        # (id, label) of the case's scenarios, for their own networks
+        "scenarios": [(s.id, s.label or s.id) for s in case.alternative_scenarios] if case else [],
     }
 
 
@@ -208,7 +211,7 @@ def export_xlsx(
     case, rows = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=_cover(rows, None, _network_png(body)))
+    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=_cover(rows, None, _network_png(body), case))
     filename = _filename(None, "xlsx")
     return Response(
         content=blob,
@@ -227,7 +230,7 @@ def export_docx(
     case, rows = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=_cover(rows, None, _network_png(body)))
+    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=_cover(rows, None, _network_png(body), case))
     filename = _filename(None, "docx")
     return Response(
         content=blob,
@@ -383,7 +386,7 @@ def _saved_export(
     rec, case = _load_case_for(case_id, db, user, for_write=False)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(_stored_data(db, case_id), case, case_id)
-    cover = _cover(rows, rec.slug or case_id[:8], network_png)
+    cover = _cover(rows, rec.slug or case_id[:8], network_png, case)
     # whom to send it back to: the "Prepared by" and contact of the shared case
     # (the workbook left a placeholder although the case had them, P2-13)
     cover["contact"] = " — ".join(x for x in (rec.prepared_by, rec.case_contact) if x) or None

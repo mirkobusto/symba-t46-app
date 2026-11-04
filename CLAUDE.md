@@ -255,22 +255,26 @@ Cronologia sintetica (tutto su `main`):
 - Visual identity "Data Dashboard" (PR #42, merge 2026-08-29): design token `--dd-*`, AdminShell, libreria `dd/*`, wizard `/welcome`, reader shell + rotte pubbliche `/r/*`, ShareReportModal, slug leggibili dei case
 
 **Lavoro aperto (nessuno bloccante sul codice)**:
-- Filtro region reale su `/api/public/region/{code}` (oggi echo del codice)
+- `/api/public/region/{code}` conta i casi condivisi con almeno un attore di quel paese nella rete disegnata
+  (`actor.country_iso2`, #219); nessuna pagina dell'app rimanda ancora a `/r/region/:code`
 - i18n: `en.ts` è la source of truth; le quattro lingue hanno tutte le chiavi (verificato il 2026-11-03, lo controlla
   `localeParity.test.ts`); solo il blocco `privacy.*` in fr/de/es è ancora la bozza inglese, in attesa della revisione legale
 - Network Builder: completo (persistenza, editor drag-drop, round-trip su xlsx/docx + diagramma reale, guidance in-app con esempio caricabile)
 - Pagina admin per la coda scoring CIRCE — bloccata sulla specifica I/O CIRCE (TBD)
 - **Deploy pubblico D4.6 (PU): è in piedi** su `biobasedisadvisor.symbaproject.eu` (VPS Contabo, Ubuntu 24.04), in **modalità "in costruzione"**: chi arriva vede una pagina di cortesia (503), il team entra con `?preview=<SYMBA_PREVIEW_TOKEN>` (il token sta nel `.env` del server). DNS creato il 2026-10-12, certificato Let's Encrypt valido fino al 2027-01-10 con rinnovo automatico, backup del DB ogni notte alle 3:30 con copia giornaliera sul Mac Studio. Caddy gira con tre file: `docker compose -f docker-compose.prod.yml -f docker-compose.public.yml -f docker-compose.construction.yml up -d`; per aprire al pubblico, lo stesso comando **senza** il terzo `-f`, dopo aver registrato l'account admin (il primo che si registra diventa admin, oppure `SYMBA_ADMIN_EMAIL`). Ogni deploy richiede la frase esplicita del proprietario "fai il deploy su produzione", una frase per deploy. La build dell'immagine e il Caddyfile sono stati eseguiti sul server più volte (ultima: 2026-11-03, `main` a `d4668a4`, #200); sulla macchina di sviluppo il demone Docker non risponde, quindi **l'unico posto dove si scopre se `Dockerfile.prod` regge è il server**: `tsc -b` compila anche i test, e un test che legge un file del backend fuori da `frontend/` rompe la build senza che nulla se ne accorga in locale (è successo due volte: PR #95 e #104). Dettagli operativi e lista dei pendenti: `~/.claude/projects/.../memory/project_deploy_contabo.md`. Non fatto di proposito: rate limiting di login/registrazione. Dal 2026-11-02 il salvataggio anonimo è spento per default (`SYMBA_ANON_SAVE`, vedi `docs/DEPLOY.md` § Authorization model): senza accesso non si salva sul server
 - `rerun_saved_cases.py` va eseguito sul server dopo ogni deploy che tocchi il motore (prima senza `--apply` per vedere quanti casi cambiano). Dopo ogni deploy fino al 2026-11-03 (#200) ha riportato 0 casi: il database del server è ancora vuoto
-- Dal giro 4 (non bloccanti): classificazione e sostituzione si compilano solo in Excel, non nell'editor di rete, che
-  non ha più ruoli per attore né un layout automatico; gli scenari non cambiano Q5 per flusso e il modulo non parte dal
-  valore del caso; Q1 non ha una voce per "un'azienda che cede a due clienti" e Q7 è difficile con partner in regioni
-  diverse; in "I miei casi" "Carica" apre il risultato; la vista Industria interna è ancora tecnica ("Dettagli pipeline
-  engine"); il testo semplice di Q8 non avvisa mentre si scrive una vita oltre 15 anni; i 91 mandati procedurali
-  restano in inglese (decisione R5)
-- Dal giro 5 (rinviati, decisi da Fable): file per azienda (c'è il filtro), layout automatico del diagramma (serve
-  una dipendenza: chiedere), più reti per caso negli scenari, immagine della rete nei file, colonne fisse dell'Excel fra
-  versioni. I residui del giro 5 sono chiusi: note di lato, testi per gli studi solo economici, colonna "cede / riceve"
+- **Lavori aperti chiusi il 2026-11-03/04** (#216-#228, triage e decisioni di Fable, schema non toccato): I-18 chiuso;
+  avviso di Q8 mentre si scrive; "Apri" / "Modifica risposte" in "I miei casi"; vista Industria in parole; Q1 (un'azienda
+  che rifornisce due partner = B) e Q7 (partner in regioni diverse = C); scenari con chi paga chi per flusso
+  (`flow_q5`) e modulo che parte dalle risposte del caso; `row_condition` valutate (#219); classificazione e
+  sostituzione nell'editor di rete; layout automatico dall'alto in basso (codice nostro, `layeredLayout`); immagine
+  della rete in Word ed Excel (html-to-image 1.11.11 e Pillow, approvate dal proprietario); pagine caricate su
+  richiesta; **reti degli scenari** (sotto). Scartati da Fable, con il perché: i ruoli per attore esistono già
+  (`actor.role`); file per azienda (resta il filtro; una versione vera richiede `side` per campo nello schema, D4.2
+  §12.2); colonne fisse dell'Excel (nessuno reimporta i file); `Case.study_phase` / `Case.sites` restano (togliere
+  rompe i casi salvati); `by_q7_geographic_scope` resta (nome interno). I 91 mandati procedurali restano in inglese
+  (decisione R5)
+- Dal giro 5: I residui del giro 5 sono chiusi: note di lato, testi per gli studi solo economici, colonna "cede / riceve"
   e Q9 in parole in modalità guidata (#212); enunciati di CIR-02/05/07/09 scritti da Fable e approvati dal
   proprietario (#213: CIR-05 dichiara prezzi CE Delft e Net Tax Factor scelta T4.6, fuori dal C-LCC). Le regole CIR che
   legano LCA e LCC (CIR-01/02/05/07) si elencano solo con entrambi i metodi, CIR-09 solo con l'LCC, CIR-08 con l'S-LCA
@@ -322,7 +326,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-03, dopo #215): **958 backend (pytest, +1 skipped) + 277 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-04, dopo #228): **980 backend (pytest, +1 skipped) + 309 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint). Il lint (eslint e ruff, su `app` e `tests`) si giudica dal codice di uscita, non dall'ultima riga dell'output.
@@ -408,7 +412,15 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 
 ## Lavoro deferito noto
 
-- **Scenari di rete** (deciso 2026-08-30, "entrambi in due tempi"): oggi uno scenario può variare solo le risposte del questionario tramite `overrides`, quindi non può esprimere "flusso in discarica vs flusso al partner" — il confronto che un analista cerca quando studia scambi che non avvengono ancora (Q2=B). Fase 1 fatta: l'editor lo dice esplicitamente invece di promettere un confronto che non fa. Fase 2 da progettare: uno scenario come variante della rete disegnata (stessi attori, flussi/distanze/quantità diverse), il che sposta gli scenari dal Case al DCF e richiede di ripensare il runner.
+- **Scenari di rete: fatti** (2026-11-04, #225-#228, progetto di Fable, OK del proprietario). Uno scenario resta una voce di
+  `Case.alternative_scenarios` (risposte diverse, `flow_q5` compreso; motore e runner invariati) e può avere una **rete
+  propria** in `DcfData.networks_by_scenario[id]` (attori e flussi soltanto, copia della rete del caso alla prima
+  modifica nell'editor, attori in più ammessi: D4.1 L00646, L01304; D4.2 §10.3). Il confronto degli scenari e il §2 del
+  Word dicono a parole che cosa cambia (`network_diff` / `networkDiff.ts`, stesse fixture), l'Excel elenca i collegamenti
+  di ogni rete di scenario; nessun calcolo. Una rete il cui scenario è uscito dal questionario resta dormiente
+  (`scenario_unknown`), non esportata. Fuori per ora: distanze per scenario (si annotano nelle ipotesi di scenario del
+  flusso; aggiungere `logistics` è una riga del validatore). Nota per l'errata: le righe D4.2 citate in `lcc_mc_16`
+  (L01235-L01239) corrispondono a L01271-L01275 del testo attuale.
 
 - Monitoring / telemetry non presenti — da aggiungere quando il tool entrerà in uso reale.
 - **I nodi di un metodo spento non si attivano** (fix 2026-08-30): `lcc_trig_01` dichiara "q3.eco=false → all LCC nodes deactivated" e `slca_t_01` l'analogo per il sociale, ma l'engine attivava comunque tutti i 61 nodi LCC e 66 SLCA. Ora `activate._method_is_off` salta il metodo e `_write` scarta le scritture nei pilastri spenti (coprendo anche le azioni CIR dell'L2). Conseguenza: il numero di nodi attivati e i mandati del DCF **dipendono da Q3** — l'invariante "almeno 116 nodi DEFAULT" non vale più ed è stato sostituito nei test da asserzioni method-aware.
@@ -416,12 +428,13 @@ Il modello di autorizzazione è tabellato in `docs/DEPLOY.md` § Authorization m
 - **I-17 chiuso in R3** (2026-10-18): nessuna regola L2 legge più attributi che `Case` non ha. IR-13, B-06 e CIR-08 leggono Q12 (`dedicated_shared_assets`), FU-02 legge Q11 (`comparison_goal`), CIR-03, CIR-04 e CIR-06 sono ritirate perché i nodi coprono già ogni caso (trasporto esplicito, percolazione per ogni rete non bilaterale, categorie di frontiera in ogni studio). Restano lette da `case.advanced` solo `asset_lifetime` (ripiego di Q8), `future_background_threshold_years` e `slca_framework_override`.
 - **Flow classification è solo nel DCF** (audit I-09, 2026-10-04): i test giuridici ed economici per flusso (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) sono campi della sezione `flow_classification`, giudizi dell'analista. La pipeline non legge i dati del DCF, quindi nessun nodo li consuma e IR-15/CDP-05 restano non verificati. Dal 2026-10-15 (#118) il test Freedom-to-Act si può dare anche per flusso nella tabella Q5 (`Flow.sellable_elsewhere`, facoltativo): il motore lo confronta con Q5 e lascia una nota se non concordano (mai su Q5=d, D4.1 L00996), e il valore inizializza una volta sola `classif.independent_market` nel DCF. Per Q5=e `lcc_hc_12` non scatta e `lcc_hc_13` scrive un valore proprio (dal 2026-10-15): i flussi aggregati non possono avere costo zero finché ognuno non è classificato evitabile/inevitabile (D4.2 §6.3, L00751).
 - **Ingressi che nessuna domanda imposta** (revisione 2026-10-18): `Case.study_phase` (letto da IR-17) e `Case.sites`
-  restano ai default; `infra.decommissioning_cost.row_condition` e le altre `row_condition` del DCF non sono valutate
-  da nessun codice. Il campo API `by_q7_geographic_scope` dell'aggregato ha ancora il vecchio nome (l'etichetta è
+  restano ai default. Le `row_condition` del DCF sono valutate dal 2026-11-03 (#219: un valore su una riga dove il
+  campo non è chiesto è dormiente e non esportato). Il campo API `by_q7_geographic_scope` dell'aggregato ha ancora il vecchio nome (l'etichetta è
   giusta), e `activated_by.kind = 'case_sector'` compare solo nei risultati salvati prima del 2026-10-18.
 - 13 assertion "NLP-style" in `l2_validate.py` sono stub `True` con `# TODO(nlp-assertion)` (IR-05/11/17/20, FU-03/05, B-02/07, …) + 2 `TODO(symbolic-action)`. Il gap è metodologicamente noto, non un bug.
 - Nessuna migrazione Alembic: le migrazioni sono script one-shot in `backend/scripts/` (es. `migrate_add_case_slug.py`, idempotente, da eseguire dopo il deploy). Dal 2026-11-03 `migrate_add_case_sharing.py`: un caso salvato è pubblico solo dopo che il proprietario lo condivide (`shared_at`, deciso da Fable); va eseguito sul server prima della prima richiesta.
-- Bundle frontend ~674 kB senza code-splitting (warning Vite, non bloccante).
+- Bundle frontend: dal 2026-11-03 (#223) editor di rete, cruscotti e pagine pubbliche si caricano su richiesta; restano
+  l'ingresso (~545 kB) e un blocco condiviso con le cinque lingue (~674 kB), sopra la soglia di avviso di Vite.
 - `coordination/current-state/_CURRENT_STATE.md` è storico (fermo a Sprint 0/1): lo stato corrente è **questo file**.
 - **Divergenze dai deliverable tenute di proposito** (decisione 2026-10-04, dalla verifica app-vs-deliverable; versione di riferimento: REVISED del 30/06/2026):
   - **Situazione C2 → "C-LCC only"** è una scelta dichiarata di T4.6, non derivata da D4.2 (fino al 2026-10-15 seguiva Q1=D; ora segue Q9 e la situazione derivata). BLOCK 1 non può mai scattare, perché in C2 il tipo è già forzato a company-only; il suo messaggio dice che è una scelta di progetto, non una regola ILCD.

@@ -33,7 +33,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 
 from app.domain.dcf_data import DcfData, DcfRow
 from app.engine.dcf_compose import DcfPayload, DcfSection
-from app.engine.dcf_rows import actor_label, cell_values, edge_list, rows_for
+from app.engine.dcf_rows import actor_label, cell_values, edge_list, edge_list_rows, rows_for, scenario_networks
 from app.services.dcf_terms import cover_rows, enum_label, offered_labels, only_when, ui, value_label
 
 # ---------------------------------------------------------------------------
@@ -118,7 +118,7 @@ def render_xlsx(
 
     nw = sections.get("network_diagram")
     if nw is not None:
-        _write_network_tab(wb, nw, data, lang, (cover or {}).get("network_png"))
+        _write_network_tab(wb, nw, data, lang, (cover or {}).get("network_png"), (cover or {}).get("scenarios"))
 
     wb.move_sheet(_LISTS_SHEET, offset=len(wb.sheetnames))
 
@@ -491,7 +491,7 @@ def _write_mandates_tab(
 
 def _write_network_tab(
     wb: Workbook, section: DcfSection, data: DcfData | None, lang: str = "en",
-    network_png: bytes | None = None,
+    network_png: bytes | None = None, scenarios: list[tuple[str, str]] | None = None,
 ) -> None:
     """Edge list of the drawn network, or the placeholder note when the
     analyst has not drawn one yet; the picture of the network, as the app
@@ -516,27 +516,34 @@ def _write_network_tab(
     ws["A2"].alignment = Alignment(wrap_text=True)
 
     headers = [ui(lang, f"h.{k}") for k in ("flow", "origin_actor", "dest_actor", "type", "quantity", "unit")]
-    header_row = 4
-    for col_idx, label in enumerate(headers, start=1):
-        c = ws.cell(row=header_row, column=col_idx, value=label)
-        c.font = _HEADER_FONT
-        c.fill = _HEADER_FILL
-        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
-    for offset, edge in enumerate(edges, start=1):
-        ws.cell(row=header_row + offset, column=1, value=edge["name"])
-        ws.cell(row=header_row + offset, column=2, value=edge["origin"])
-        ws.cell(row=header_row + offset, column=3, value=edge["destination"])
-        ws.cell(row=header_row + offset, column=4, value=enum_label(lang, edge["type"]) or None)
-        ws.cell(row=header_row + offset, column=5, value=edge["quantity"])
-        ws.cell(row=header_row + offset, column=6, value=edge["unit"])
+    def edge_block(header_row: int, block_edges: list[dict]) -> int:
+        for col_idx, label in enumerate(headers, start=1):
+            c = ws.cell(row=header_row, column=col_idx, value=label)
+            c.font = _HEADER_FONT
+            c.fill = _HEADER_FILL
+            c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        for offset, edge in enumerate(block_edges, start=1):
+            ws.cell(row=header_row + offset, column=1, value=edge["name"])
+            ws.cell(row=header_row + offset, column=2, value=edge["origin"])
+            ws.cell(row=header_row + offset, column=3, value=edge["destination"])
+            ws.cell(row=header_row + offset, column=4, value=enum_label(lang, edge["type"]) or None)
+            ws.cell(row=header_row + offset, column=5, value=edge["quantity"])
+            ws.cell(row=header_row + offset, column=6, value=edge["unit"])
+        return header_row + len(block_edges)
+
+    last = edge_block(4, edges)
+    # each scenario with a network of its own: its links below the case's
+    # (scenario networks, owner OK 2026-11-04)
+    for label, variant in scenario_networks(data, scenarios):
+        ws.cell(row=last + 2, column=1, value=ui(lang, "nw.sc_title", label=label)).font = _SUBTITLE_FONT
+        last = edge_block(last + 3, edge_list_rows(variant.rows_by_section.get("actors", []),
+                                                    variant.rows_by_section.get("flow_matrix", [])))
 
     for col_idx, label in enumerate(headers, start=1):
         ws.column_dimensions[get_column_letter(col_idx)].width = max(16, len(label) + 6)
 
-    ws.cell(
-        row=header_row + len(edges) + 2, column=1, value=EU_FOOTER
-    ).font = _FOOTER_FONT
+    ws.cell(row=last + 2, column=1, value=EU_FOOTER).font = _FOOTER_FONT
     _set_print_footer(ws)
 
 

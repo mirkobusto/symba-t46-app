@@ -284,3 +284,12 @@ def network_diff(
             "from": name_in(var_a, wired[0]), "to": name_in(var_a, wired[1]),
         })
     return diff
+
+
+def scenario_networks(data: DcfData | None, scenarios: list[tuple[str, str]] | None) -> list[tuple[str, Any]]:
+    """(label, network) of each scenario of the case that has a network of its
+    own, in the questionnaire's order; a network whose scenario left the
+    questionnaire is dormant and not exported."""
+    if data is None or not scenarios:
+        return []
+    return [(label, data.networks_by_scenario[sid]) for sid, label in scenarios if sid in data.networks_by_scenario]

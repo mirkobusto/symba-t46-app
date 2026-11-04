@@ -254,6 +254,22 @@ Cronologia sintetica (tutto su `main`):
 - Fase D (PR #41): auth JWT + bcrypt, cases ownership-aware (primo utente registrato = admin)
 - Visual identity "Data Dashboard" (PR #42, merge 2026-08-29): design token `--dd-*`, AdminShell, libreria `dd/*`, wizard `/welcome`, reader shell + rotte pubbliche `/r/*`, ShareReportModal, slug leggibili dei case
 
+Il **2026-11-04** (sera) è stato mergiato il **giro del test di Kimi** (PR #229-#237, non ancora in linea): un agente
+esterno ha provato l'app su un clone locale; valutazione, falsi positivi e stato in
+`~/SymbaBackups/kimi-test-2026-11-04/VALUTAZIONE.md`. In sintesi: frase regionale finita per errore nel testo guidato
+fr/de/es (#229, il test di parità controlla ora i segnaposto `{{…}}`) ed etichette inglesi residue tradotte (controlli di
+React Flow in `FlowControls.tsx`); **tornando sulla pagina del DCF la copia del server sovrascriveva ogni modifica non
+salvata alla rete** (#230: `loadFromServer` tiene la bozza `dirty`, persistita); immagine della rete nei file inquadrata
+su tutti i nodi e `MIN_ZOOM` 0.1 (#231); liste dell'Excel bloccanti fino a 200 righe e note su unità e capacità (#232);
+token rifiutato dimenticato con avviso "sessione scaduta", "Esci" svuota bozza e rete, Q8 tra 0 e 500, l'anteprima
+segnaposto fuori dai file (#233); telefono e focus da tastiera (#234); voci minori (#235); **in Situazione C2 niente
+fattore Q, IR-09 né CDP-01** (#236, schema: `lca_mc_15` e `lcc_mc_20` con ramo `ilcd=C2`, trigger di IR-09; DEFAULT
+109 → 107, nodi di ramo 47 → 49; deciso da Fable, OK del proprietario); **una sigla per metodo in fr/es/de**
+(LCA, LCC, S-LCA dei deliverable, nome locale solo nella spiegazione di Q3; #237, deciso da Fable, protetto da
+`localeParity.test.ts`). Non fatto: CIR-10 resta "Always" (proposta di Fable non scelta dal proprietario), note per le
+altre 33 colonne dell'Excel, protezione dei fogli. Errata per la fase B: D4.2 L00241 ("minimum 10,000-iteration") contro
+§10.3 L01249; D4.2 §2.2 usa "C-LCC" per Conventional (L00465) e Consequential LCC (L00473).
+
 **Lavoro aperto (nessuno bloccante sul codice)**:
 - `/api/public/region/{code}` conta i casi condivisi con almeno un attore di quel paese nella rete disegnata
   (`actor.country_iso2`, #219); nessuna pagina dell'app rimanda ancora a `/r/region/:code`
@@ -326,7 +342,7 @@ I 5 JSON sono **closure ufficiale** post-round-2 (vedi `field_gaps.md`):
 ## Workflow di sviluppo
 
 - Prima di modificare un file in `backend/app/schemas/` chiedi conferma con un breve diff.
-- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-04, dopo #228): **981 backend (pytest, +1 skipped) + 311 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
+- Test devono sempre passare prima del commit. Baseline corrente (`main` al 2026-11-04, dopo #237): **988 backend (pytest, +1 skipped) + 337 frontend (vitest)**. Il numero sale a ogni PR che aggiunge test: confrontare con `main`, non con questo valore.
 - Comando test backend: `cd backend && PYTHONPATH=. python -m pytest tests/ -q` (su Windows: `$env:PYTHONPATH = "."` prima del comando).
 - Comando test frontend: `cd frontend && npm test -- --run`.
 - Lint frontend: `cd frontend && npm run lint` (eslint). Il lint (eslint e ruff, su `app` e `tests`) si giudica dal codice di uscita, non dall'ultima riga dell'output.

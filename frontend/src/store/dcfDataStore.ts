@@ -661,6 +661,14 @@ export const useDcfDataStore = create<DcfDataState>()(
         set({ syncing: true, error: null })
         try {
           const env = await fetchDcfData(caseId)
+          // Coming back to the page reloaded the server copy over changes not
+          // saved yet, a scenario's own network included (Kimi test 2026-11-04,
+          // A3-01): unsaved work on this case, from before the request or made
+          // while it ran, stays; the page keeps saying it is unsaved.
+          if (get().caseId === caseId && get().dirty) {
+            set({ syncing: false })
+            return false
+          }
           set({
             caseId,
             data: env.data,
@@ -730,7 +738,8 @@ export const useDcfDataStore = create<DcfDataState>()(
     }),
     {
       name: 'symba-dcf-draft',
-      partialize: (state) => ({ caseId: state.caseId, data: state.data }),
+      // `dirty` too: after a reload the draft must still know it holds unsaved work
+      partialize: (state) => ({ caseId: state.caseId, data: state.data, dirty: state.dirty }),
     },
   ),
 )

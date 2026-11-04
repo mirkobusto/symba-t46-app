@@ -598,6 +598,7 @@ export default function QuestionnairePage() {
         >
           <select
             value={q6b ?? ''}
+            aria-labelledby="q6b-title"
             onChange={(e) => setQ6b((e.target.value || undefined) as Q6b | undefined)}
             className="select"
           >
@@ -777,6 +778,7 @@ export default function QuestionnairePage() {
         >
           <select
             value={q6a ?? ''}
+            aria-labelledby="q6a-title"
             onChange={(e) => setQ6a((e.target.value || undefined) as Q6a | undefined)}
             className="select"
           >

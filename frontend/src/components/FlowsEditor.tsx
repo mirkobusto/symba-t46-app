@@ -98,6 +98,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     type="text"
                     className="row-input"
                     value={f.name}
+                    aria-label={t('flows.headers.name')}
                     placeholder={t('flows.namePlaceholder')}
                     onChange={(e) => updateFlow(f.id, { name: e.target.value })}
                   />

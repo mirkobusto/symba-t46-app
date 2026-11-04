@@ -323,6 +323,20 @@ html {
   transition: background 0.15s, border-color 0.15s, color 0.15s;
   font-family: var(--dd-font-ui);
   text-decoration: none;
+  /* a link styled as a button: width 100% plus padding ran past a phone
+     screen on the result page (Kimi test 2026-11-04, A7-02) */
+  box-sizing: border-box;
+}
+/* Buttons and tabs reached with the keyboard show where the focus is, in
+   the colour the site header already uses (Kimi test 2026-11-04, A8-11:
+   the browser's own ring was thin and grey on the ink pills). */
+.btn:focus-visible,
+.dd-btn:focus-visible,
+.dd-tab:focus-visible,
+.icon-btn:focus-visible,
+.toast-close:focus-visible {
+  outline: 2px solid var(--dd-brand);
+  outline-offset: 2px;
 }
 .btn:disabled {
   opacity: 0.5;
@@ -863,6 +877,11 @@ html {
   margin: 8px 0 0;
 }
 
+/* a field reached by Tab or by a "still required" link lands above the bar */
+:root:has(.run-bar) {
+  scroll-padding-bottom: 140px;
+}
+
 .run-bar {
   position: sticky;
   bottom: 0;
@@ -1237,13 +1256,56 @@ html {
   .error-page h1 {
     font-size: 24px;
   }
-  /* Stack the run bar (Run pipeline + Reset draft) vertically */
+  /* A compact run bar: stacked, Run + Reset + "still required" took a
+     quarter of a phone screen and the questions scrolled under it (Kimi test
+     2026-11-04, A7-01). Run and Reset share a row, the list wraps below in
+     small type, and the keyboard tip goes (no keyboard on a phone). */
   .run-bar {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 0;
   }
   .run-bar .btn {
-    width: 100%;
+    padding: 10px 14px;
+  }
+  .run-bar .btn-primary {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal;
+  }
+  .run-bar .run-missing {
+    flex-basis: 100%;
+    font-size: 12px;
+  }
+  .run-bar .run-tip {
+    display: none;
+  }
+  /* "My cases" as one card per case: in a sideways-scrolling table the
+     Open / Adjust answers / delete buttons sat off screen with nothing to say
+     so (Kimi test 2026-11-04, A7-03) */
+  .flows-table.cases-table,
+  .cases-table tbody,
+  .cases-table tr,
+  .cases-table td {
+    display: block;
+    white-space: normal;
+  }
+  .cases-table thead {
+    display: none;
+  }
+  .cases-table tr {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .flows-table.cases-table tbody td {
+    border-bottom: none;
+    padding: 2px 0;
+  }
+  .cases-table td:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
   }
   /* Allow flows / scenarios / advanced tables to scroll horizontally */
   .flows-table {
@@ -2985,6 +3047,9 @@ kbd {
   }
   .dd-topbar {
     padding: 8px 16px;
+    /* on a phone the site header already stays on top: two fixed bars took a
+       third of the screen (Kimi test 2026-11-04, A7-01) */
+    position: static;
   }
 }
 
@@ -4175,6 +4240,8 @@ kbd {
 }
 
 .dd-modal {
+  /* width 100% plus padding ran past a phone screen (Kimi test 2026-11-04, A7-02) */
+  box-sizing: border-box;
   background: var(--dd-surface);
   border-radius: var(--dd-radius-lg);
   box-shadow: var(--dd-shadow-lg);

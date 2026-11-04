@@ -81,6 +81,7 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
                   type="text"
                   className="row-input"
                   value={valueOf(k.key)}
+                  aria-label={`${t('advanced.headers.value')}: ${k.key}`}
                   placeholder={t('advanced.examplePlaceholder', { example: k.example })}
                   onChange={(e) => setKey(k.key, e.target.value)}
                 />
@@ -111,6 +112,7 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
                   type="text"
                   className="row-input"
                   value={valueOf(k)}
+                  aria-label={`${t('advanced.headers.value')}: ${k}`}
                   onChange={(e) => setKey(k, e.target.value)}
                 />
               </td>

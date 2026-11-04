@@ -92,7 +92,8 @@
     "description": "Set in the questionnaire: change it there and work out the configuration again. It records only who pays whom; whether the flow is legally a waste is the Flow classification's call."
    },
    "flow.unit": {
-    "label": "Unit"
+    "label": "Unit",
+    "description": "The unit of this flow's quantities, per year (for example t/yr, MWh/yr, m³/yr). Write it the same way in every row and sheet about this flow, so the files of different companies can be added up. Filled in by the origin actor (the one that gives the flow)."
    },
    "flow.regime": {
     "label": "Regime",
@@ -268,10 +269,12 @@
     "label": "Status"
    },
    "infra.capacity_value": {
-    "label": "Capacity (number)"
+    "label": "Capacity (number)",
+    "description": "How much the asset can handle, as a number only; its unit goes in the next column."
    },
    "infra.capacity_unit": {
-    "label": "Capacity unit"
+    "label": "Capacity unit",
+    "description": "The unit of the capacity, per year or per hour as the asset is rated (for example t/yr, MWh/yr, kW)."
    },
    "infra.year_built": {
     "label": "Year built"
@@ -495,7 +498,7 @@
    "ins.what": "What this file is",
    "ins.what_body": "A data collection worksheet for one industrial-symbiosis case: the actors, the exchanged flows and their classification, each actor's reference without the exchanges, logistics, costs and assets. It is not a process inventory: the inputs, outputs and emissions of each plant are collected separately, with the LCA and costing software templates. Social data (stakeholder groups, indicators, interviews) are not collected here: they follow the S-LCA guidelines (D4.3) with their own instruments; this file records only each actor's size and ownership.",
    "ins.how": "How to fill it in",
-   "ins.how_body": "One row per item. Columns marked * are required. Hover a column header for the definition, the allowed values and the reason the field is asked. Cells with a dropdown only accept the listed values: do not overwrite them with free text.",
+   "ins.how_body": "One row per item. Columns marked * are required. Where a column header has a note (a small red corner), hover it for the definition, the allowed values and the reason the field is asked. Cells with a dropdown only accept the listed values: do not overwrite them with free text.",
    "ins.unknown": "If you do not know a value",
    "ins.unknown_body": "Leave it empty rather than guessing, and say so. An empty cell is a known gap; a guessed number is an unknown error.",
    "ins.units": "Units and currency",
@@ -738,7 +741,8 @@
     "description": "Impostato nel questionario: cambialo lì e ricalcola la configurazione. Registra solo chi paga chi; se il flusso sia giuridicamente un rifiuto lo dice la Classificazione dei flussi."
    },
    "flow.unit": {
-    "label": "Unità"
+    "label": "Unità",
+    "description": "L'unità delle quantità di questo flusso, all'anno (per esempio t/anno, MWh/anno, m³/anno). Scrivila allo stesso modo in ogni riga e foglio che parla di questo flusso, così i file delle diverse aziende si possono sommare. Lo compila l'attore di origine (chi cede il flusso)."
    },
    "flow.regime": {
     "label": "Regime",
@@ -914,10 +918,12 @@
     "label": "Stato"
    },
    "infra.capacity_value": {
-    "label": "Capacità (numero)"
+    "label": "Capacità (numero)",
+    "description": "Quanto l'impianto può trattare, solo il numero; l'unità va nella colonna seguente."
    },
    "infra.capacity_unit": {
-    "label": "Unità della capacità"
+    "label": "Unità della capacità",
+    "description": "L'unità della capacità, all'anno o all'ora secondo come è dichiarato l'impianto (per esempio t/anno, MWh/anno, kW)."
    },
    "infra.year_built": {
     "label": "Anno di costruzione"
@@ -1141,7 +1147,7 @@
    "ins.what": "Che cos'è questo file",
    "ins.what_body": "Un foglio di raccolta dati per un caso di simbiosi industriale: gli attori, i flussi scambiati e la loro classificazione, il riferimento di ogni attore senza gli scambi, la logistica, i costi e i beni. Non è un inventario di processo: input, output ed emissioni di ogni impianto si raccolgono a parte, con i modelli dei software di LCA e di costing. I dati sociali (gruppi di stakeholder, indicatori, interviste) non si raccolgono qui: seguono le linee guida S-LCA (D4.3) con i loro strumenti; questo file registra solo la dimensione e la proprietà di ogni attore.",
    "ins.how": "Come compilarlo",
-   "ins.how_body": "Una riga per voce. Le colonne con * sono obbligatorie. Passa sull'intestazione di una colonna per leggere la definizione, i valori ammessi e il motivo per cui il campo è chiesto. Le celle con un menu accettano solo i valori elencati: non sovrascriverle con testo libero.",
+   "ins.how_body": "Una riga per voce. Le colonne con * sono obbligatorie. Dove l'intestazione di una colonna ha una nota (un piccolo angolo rosso), passaci sopra per leggere la definizione, i valori ammessi e il motivo per cui il campo è chiesto. Le celle con un menu accettano solo i valori elencati: non sovrascriverle con testo libero.",
    "ins.unknown": "Se non conosci un valore",
    "ins.unknown_body": "Lascialo vuoto invece di tirare a indovinare, e dillo. Una cella vuota è una lacuna nota; un numero inventato è un errore che nessuno vede.",
    "ins.units": "Unità e valuta",
@@ -1384,7 +1390,8 @@
     "description": "Fixé dans le questionnaire : modifiez-le là-bas et recalculez la configuration. Il indique seulement qui paie qui ; si le flux est juridiquement un déchet, c'est la Classification des flux qui le dit."
    },
    "flow.unit": {
-    "label": "Unité"
+    "label": "Unité",
+    "description": "L'unité des quantités de ce flux, par an (par exemple t/an, MWh/an, m³/an). Écrivez-la de la même façon dans chaque ligne et chaque feuille qui parle de ce flux, pour que les fichiers des différentes entreprises puissent s'additionner. Rempli par l'acteur d'origine (celui qui cède le flux)."
    },
    "flow.regime": {
     "label": "Régime",
@@ -1560,10 +1567,12 @@
     "label": "Statut"
    },
    "infra.capacity_value": {
-    "label": "Capacité (nombre)"
+    "label": "Capacité (nombre)",
+    "description": "Ce que l'installation peut traiter, en nombre seulement ; l'unité va dans la colonne suivante."
    },
    "infra.capacity_unit": {
-    "label": "Unité de capacité"
+    "label": "Unité de capacité",
+    "description": "L'unité de la capacité, par an ou par heure selon la façon dont l'installation est dimensionnée (par exemple t/an, MWh/an, kW)."
    },
    "infra.year_built": {
     "label": "Année de construction"
@@ -1787,7 +1796,7 @@
    "ins.what": "Ce qu'est ce fichier",
    "ins.what_body": "Une feuille de collecte de données pour un cas de symbiose industrielle : les acteurs, les flux échangés et leur classification, la référence de chaque acteur sans les échanges, la logistique, les coûts et les biens. Ce n'est pas un inventaire de procédés : les entrées, sorties et émissions de chaque installation se collectent à part, avec les modèles des logiciels d'ACV et de calcul des coûts. Les données sociales (groupes de parties prenantes, indicateurs, entretiens) ne sont pas collectées ici : elles suivent les lignes directrices S-LCA (D4.3) avec leurs propres instruments ; ce fichier n'enregistre que la taille et la propriété de chaque acteur.",
    "ins.how": "Comment le remplir",
-   "ins.how_body": "Une ligne par élément. Les colonnes marquées * sont obligatoires. Survolez l'en-tête d'une colonne pour lire la définition, les valeurs admises et la raison de la question. Les cellules à liste n'acceptent que les valeurs proposées : ne les écrasez pas avec du texte libre.",
+   "ins.how_body": "Une ligne par élément. Les colonnes marquées * sont obligatoires. Quand l'en-tête d'une colonne porte une note (un petit coin rouge), survolez-le pour lire la définition, les valeurs admises et la raison de la question. Les cellules à liste n'acceptent que les valeurs proposées : ne les écrasez pas avec du texte libre.",
    "ins.unknown": "Si vous ne connaissez pas une valeur",
    "ins.unknown_body": "Laissez-la vide plutôt que de deviner, et signalez-le. Une cellule vide est une lacune connue ; un chiffre deviné est une erreur invisible.",
    "ins.units": "Unités et devise",
@@ -2030,7 +2039,8 @@
     "description": "Im Fragebogen festgelegt: Ändern Sie es dort und ermitteln Sie die Konfiguration neu. Es hält nur fest, wer wen bezahlt; ob der Fluss rechtlich Abfall ist, sagt die Flussklassifizierung."
    },
    "flow.unit": {
-    "label": "Einheit"
+    "label": "Einheit",
+    "description": "Die Einheit der Mengen dieses Flusses, pro Jahr (zum Beispiel t/Jahr, MWh/Jahr, m³/Jahr). Schreiben Sie sie in jeder Zeile und jedem Blatt zu diesem Fluss gleich, damit sich die Dateien der verschiedenen Unternehmen zusammenrechnen lassen. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
    },
    "flow.regime": {
     "label": "Betriebsweise",
@@ -2206,10 +2216,12 @@
     "label": "Status"
    },
    "infra.capacity_value": {
-    "label": "Kapazität (Zahl)"
+    "label": "Kapazität (Zahl)",
+    "description": "Was die Anlage verarbeiten kann, nur als Zahl; die Einheit steht in der nächsten Spalte."
    },
    "infra.capacity_unit": {
-    "label": "Einheit der Kapazität"
+    "label": "Einheit der Kapazität",
+    "description": "Die Einheit der Kapazität, pro Jahr oder pro Stunde, je nachdem, wie die Anlage ausgelegt ist (zum Beispiel t/Jahr, MWh/Jahr, kW)."
    },
    "infra.year_built": {
     "label": "Baujahr"
@@ -2312,7 +2324,7 @@
    "info": "Information",
    "continuous": "kontinuierlich",
    "batch": "chargenweise",
-   "intermittent": "unregelmäßig",
+   "intermittent": "zeitweise",
    "low": "niedrig",
    "med": "mittel",
    "high": "hoch",
@@ -2433,7 +2445,7 @@
    "ins.what": "Was diese Datei ist",
    "ins.what_body": "Ein Datenerhebungsblatt für einen Fall industrieller Symbiose: die Akteure, die ausgetauschten Flüsse und ihre Klassifizierung, die Referenz jedes Akteurs ohne den Austausch, Logistik, Kosten und Anlagen. Es ist kein Prozessinventar: Inputs, Outputs und Emissionen jeder Anlage werden getrennt erhoben, mit den Vorlagen der Ökobilanz- und Kostensoftware. Soziale Daten (Stakeholdergruppen, Indikatoren, Interviews) werden hier nicht erhoben: Sie folgen den S-LCA-Leitlinien (D4.3) mit eigenen Instrumenten; diese Datei erfasst nur Größe und Eigentum jedes Akteurs.",
    "ins.how": "So füllen Sie es aus",
-   "ins.how_body": "Eine Zeile pro Eintrag. Mit * markierte Spalten sind Pflicht. Fahren Sie über eine Spaltenüberschrift, um Definition, zulässige Werte und den Grund der Frage zu sehen. Zellen mit Auswahlliste akzeptieren nur die angebotenen Werte: überschreiben Sie sie nicht mit freiem Text.",
+   "ins.how_body": "Eine Zeile pro Eintrag. Mit * markierte Spalten sind Pflicht. Wo eine Spaltenüberschrift eine Notiz hat (eine kleine rote Ecke), fahren Sie darüber, um Definition, zulässige Werte und den Grund der Frage zu sehen. Zellen mit Auswahlliste akzeptieren nur die angebotenen Werte: überschreiben Sie sie nicht mit freiem Text.",
    "ins.unknown": "Wenn Sie einen Wert nicht kennen",
    "ins.unknown_body": "Lassen Sie ihn leer, statt zu raten, und sagen Sie es. Eine leere Zelle ist eine bekannte Lücke; eine geratene Zahl ist ein unsichtbarer Fehler.",
    "ins.units": "Einheiten und Währung",
@@ -2676,7 +2688,8 @@
     "description": "Se fija en el cuestionario: cámbialo allí y vuelve a calcular la configuración. Solo indica quién paga a quién; si el flujo es jurídicamente un residuo lo dice la Clasificación de flujos."
    },
    "flow.unit": {
-    "label": "Unidad"
+    "label": "Unidad",
+    "description": "La unidad de las cantidades de este flujo, al año (por ejemplo t/año, MWh/año, m³/año). Escríbela igual en cada fila y hoja que hable de este flujo, para que los archivos de las distintas empresas se puedan sumar. Lo rellena el actor de origen (quien cede el flujo)."
    },
    "flow.regime": {
     "label": "Régimen",
@@ -2852,10 +2865,12 @@
     "label": "Estado"
    },
    "infra.capacity_value": {
-    "label": "Capacidad (número)"
+    "label": "Capacidad (número)",
+    "description": "Cuánto puede tratar la instalación, solo el número; la unidad va en la columna siguiente."
    },
    "infra.capacity_unit": {
-    "label": "Unidad de capacidad"
+    "label": "Unidad de capacidad",
+    "description": "La unidad de la capacidad, al año o por hora según cómo esté dimensionada la instalación (por ejemplo t/año, MWh/año, kW)."
    },
    "infra.year_built": {
     "label": "Año de construcción"
@@ -3079,7 +3094,7 @@
    "ins.what": "Qué es este archivo",
    "ins.what_body": "Una hoja de recogida de datos para un caso de simbiosis industrial: los actores, los flujos intercambiados y su clasificación, la referencia de cada actor sin los intercambios, la logística, los costes y los bienes. No es un inventario de procesos: las entradas, salidas y emisiones de cada planta se recogen aparte, con las plantillas del software de ACV y de costes. Los datos sociales (grupos de partes interesadas, indicadores, entrevistas) no se recogen aquí: siguen las directrices de S-LCA (D4.3) con sus propios instrumentos; este archivo solo registra el tamaño y la propiedad de cada actor.",
    "ins.how": "Cómo rellenarlo",
-   "ins.how_body": "Una fila por elemento. Las columnas con * son obligatorias. Pasa sobre el encabezado de una columna para ver la definición, los valores admitidos y por qué se pide el campo. Las celdas con lista solo aceptan los valores propuestos: no las sobrescribas con texto libre.",
+   "ins.how_body": "Una fila por elemento. Las columnas con * son obligatorias. Donde el encabezado de una columna tiene una nota (una pequeña esquina roja), pasa sobre él para ver la definición, los valores admitidos y por qué se pide el campo. Las celdas con lista solo aceptan los valores propuestos: no las sobrescribas con texto libre.",
    "ins.unknown": "Si no conoces un valor",
    "ins.unknown_body": "Déjalo vacío en lugar de adivinar, y dilo. Una celda vacía es una laguna conocida; un número inventado es un error que nadie ve.",
    "ins.units": "Unidades y moneda",

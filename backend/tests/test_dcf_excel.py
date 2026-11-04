@@ -158,6 +158,16 @@ def test_enum_columns_get_a_dropdown(payload_wiktor):
     assert ws.data_validations.dataValidation, "no dropdown on the Actors tab"
 
 
+def test_dropdowns_refuse_free_text_and_reach_added_rows(payload_wiktor):
+    """Kimi test 2026-11-04: Excel took any free text in a list cell although
+    the instructions say it does not (A4-04), and a twelfth row had no list
+    (A4-08)."""
+    ws = load_workbook(BytesIO(render_xlsx(payload_wiktor)))["Actors"]
+    for dv in ws.data_validations.dataValidation:
+        assert dv.showErrorMessage and dv.error
+        assert max(rng.max_row for rng in dv.sqref.ranges) >= 5 + 199
+
+
 def test_instructions_tab_tells_the_recipient_what_to_do(payload_wiktor):
     ws = load_workbook(BytesIO(render_xlsx(payload_wiktor, None, "Wiktor")))["Instructions"]
     text = "\n".join(

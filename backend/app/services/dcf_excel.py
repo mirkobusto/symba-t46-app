@@ -66,6 +66,9 @@ _EMPTY_DATA_ROWS = 10
 # Even a fully-filled section keeps a few blank rows: collection continues
 # offline after the export.
 _MIN_BLANK_ROWS = 3
+# Dropdowns reach well below the prepared rows: a company adding a twelfth
+# actor or asset got a cell without its list (Kimi test 2026-11-04, A4-08).
+_DROPDOWN_ROWS = 200
 
 
 # ---------------------------------------------------------------------------
@@ -286,7 +289,8 @@ def _write_data_section_tab(
             ws.cell(row=r, column=col_idx, value=None)
     total_data_rows = len(stored) + blank_count
 
-    _add_enum_dropdowns(ws, section, first_data_row, blank_start + blank_count, lang, lists)
+    _add_enum_dropdowns(ws, section, first_data_row,
+                        max(blank_start + blank_count, first_data_row + _DROPDOWN_ROWS - 1), lang, lists)
     if section.id == "actors" and stored:
         # what each actor gives and receives, from the arrows: one role could
         # not say both (UX round 5, D6); computed, not to be typed in
@@ -426,6 +430,9 @@ def _add_enum_dropdowns(
         dv = DataValidation(
             type="list", formula1=f"'{_LISTS_SHEET}'!${letter_l}$1:${letter_l}${len(labels)}",
             allow_blank=True, showDropDown=False,
+            # the error text was there but never shown: Excel took any free
+            # text, against what the instructions say (Kimi test 2026-11-04, A4-04)
+            showErrorMessage=True,
         )
         dv.error = ui(lang, "dv.error")
         dv.errorTitle = ui(lang, "dv.title")

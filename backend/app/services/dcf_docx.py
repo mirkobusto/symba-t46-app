@@ -187,7 +187,8 @@ def _write_network_section(
 
     actors = rows_for(data, "actors")
     edges = edge_list(data)
-    if actors or edges:
+    # a scenario's network may be drawn while the case's is still empty (Q2 = B)
+    if actors or edges or scenario_networks(data, scenarios):
         _write_drawn_network(doc, actors, edges, lang)
         _write_scenario_networks(doc, data, actors, scenarios or [], lang)
         return

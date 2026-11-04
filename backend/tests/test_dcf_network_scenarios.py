@@ -134,3 +134,16 @@ def test_a_network_whose_scenario_left_is_not_exported(client):
     assert client.put(f"/api/dcf/{case_id}/data", json=_network(case_id, LANDFILL, scenario_id="alt7")).status_code == 200
     docx = client.post(f"/api/dcf/{case_id}/export/docx", json={"rows": []})
     assert "Landfill" not in "\n".join(p.text for p in Document(io.BytesIO(docx.content)).paragraphs)
+
+
+def test_a_scenario_network_is_exported_while_the_case_network_is_empty(client):
+    """Q2 = B: the analyst may draw the scenario first (Fable review of #228)."""
+    import io
+
+    from docx import Document
+
+    case_id = _save(client)
+    body = {"case_id": case_id, "rows_by_section": {}, "networks_by_scenario": {"alt1": LANDFILL}}
+    assert client.put(f"/api/dcf/{case_id}/data", json=body).status_code == 200
+    docx = client.post(f"/api/dcf/{case_id}/export/docx", json={"rows": []})
+    assert "Actor added: Landfill" in "\n".join(p.text for p in Document(io.BytesIO(docx.content)).paragraphs)

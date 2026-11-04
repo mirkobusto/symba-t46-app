@@ -812,7 +812,7 @@ const de: Locale = {
   },
 
   scenarios: {
-    intro: 'Ein Szenario ändert einige Antworten des Fragebogens, und die Engine rechnet es neben dem Fall: Die Ergebnisseite zeigt, was die Änderung an der Konfiguration und an den Pflichten bewirkt. Wer wem zahlt, kann sich je Fluss ändern. Wohin die Flüsse gehen (auf eine Deponie statt zu einem Partner, ein neuer Partner, ein Partner, der ausscheidet), wird als eigenes Netzwerk des Szenarios im Netzwerk-Editor des Data Collection File gezeichnet, und der Vergleich sagt, was sich ändert; Entfernungen und Preise bleiben in den Szenarioannahmen jedes Flusses. Das Werkzeug berechnet keine Ergebnisse.',
+    intro: 'Ein Szenario ändert einige Antworten des Fragebogens, und die Engine rechnet es neben dem Fall: Die Ergebnisseite zeigt, was die Änderung an der Konfiguration und an den Pflichten bewirkt. Wer wem zahlt, kann sich je Fluss ändern. Wohin die Flüsse gehen (auf eine Deponie statt zu einem Partner, ein neuer Partner, ein Partner, der ausscheidet), wird als eigenes Netzwerk des Szenarios im Netzwerk-Editor des Data Collection File gezeichnet, und der Vergleich sagt, was sich ändert; Entfernungen und Preise bleiben in den Szenarioannahmen jedes Flusses. Aus den Netzwerken wird kein Ergebnis berechnet.',
     emptyHint: 'Noch keine alternativen Szenarien.',
     headers: { id: 'ID', label: 'Bezeichnung' },
     labelPlaceholder: 'z. B. Zukünftige Erweiterung / TRL9 Ramp-up',

@@ -498,6 +498,12 @@ describe('dcfDataStore: scenario networks (owner OK 2026-11-04)', () => {
     expect(rows.find((r) => r.row_id === 'f9')!.values['flow.name']).toBe('heat')
   })
 
+  it('the example never replaces the case network from a scenario (Fable review)', () => {
+    st().setActiveScenario('alt1')
+    st().loadExample(payloadWith(FULL_FLOW_FIELDS), { producer: 'P', consumer: 'C', facilitator: 'F', flow: 'Flow' })
+    expect(st().data.rows_by_section[ACTORS_SECTION].map((r) => r.values['actor.name'])).toEqual(['WWTP', 'Biogas'])
+  })
+
   it('carryTo keeps the scenario networks', () => {
     st().setActiveScenario('alt1')
     st().addActor('Landfill')

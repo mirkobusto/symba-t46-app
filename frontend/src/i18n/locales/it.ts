@@ -838,7 +838,7 @@ const it: Locale = {
   },
 
   scenarios: {
-    intro: 'Uno scenario cambia alcune risposte del questionario e il motore lo calcola accanto al caso: la pagina dei risultati mostra che cosa cambia nella configurazione e negli obblighi. Chi paga chi può cambiare per flusso. Dove vanno i flussi (in discarica invece che a un partner, un partner nuovo, un partner che esce) si disegna come rete propria dello scenario nell\'editor di rete del Data Collection File, e il confronto dice che cosa cambia; distanze e prezzi restano nelle ipotesi di scenario di ogni flusso. Lo strumento non calcola risultati.',
+    intro: 'Uno scenario cambia alcune risposte del questionario e il motore lo calcola accanto al caso: la pagina dei risultati mostra che cosa cambia nella configurazione e negli obblighi. Chi paga chi può cambiare per flusso. Dove vanno i flussi (in discarica invece che a un partner, un partner nuovo, un partner che esce) si disegna come rete propria dello scenario nell\'editor di rete del Data Collection File, e il confronto dice che cosa cambia; distanze e prezzi restano nelle ipotesi di scenario di ogni flusso. Dalle reti non si calcola nessun risultato.',
     emptyHint: 'Nessuno scenario alternativo.',
     headers: { id: 'ID', label: 'Etichetta' },
     labelPlaceholder: 'es. Espansione futura / TRL9 ramp-up',

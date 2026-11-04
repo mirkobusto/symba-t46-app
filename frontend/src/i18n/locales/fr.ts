@@ -818,7 +818,7 @@ const fr: Locale = {
   },
 
   scenarios: {
-    intro: 'Un scénario change quelques réponses du questionnaire et le moteur le calcule à côté du cas : la page de résultats montre ce que le changement fait à la configuration et aux obligations. Qui paie qui peut changer par flux. Où vont les flux (en décharge au lieu d\'un partenaire, un nouveau partenaire, un partenaire qui part) se dessine comme réseau propre du scénario dans l\'éditeur de réseau du Data Collection File, et la comparaison dit ce qui change ; distances et prix restent dans les hypothèses de scénario de chaque flux. L\'outil ne calcule aucun résultat.',
+    intro: 'Un scénario change quelques réponses du questionnaire et le moteur le calcule à côté du cas : la page de résultats montre ce que le changement fait à la configuration et aux obligations. Qui paie qui peut changer par flux. Où vont les flux (en décharge au lieu d\'un partenaire, un nouveau partenaire, un partenaire qui part) se dessine comme réseau propre du scénario dans l\'éditeur de réseau du Data Collection File, et la comparaison dit ce qui change ; distances et prix restent dans les hypothèses de scénario de chaque flux. Aucun résultat n\'est calculé à partir des réseaux.',
     emptyHint: 'Aucun scénario alternatif.',
     headers: { id: 'ID', label: 'Étiquette' },
     labelPlaceholder: 'ex. Expansion future / TRL9 ramp-up',

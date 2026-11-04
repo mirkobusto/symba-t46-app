@@ -11,6 +11,7 @@ import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useDcfDataStore } from '../store/dcfDataStore'
 import type { AlternativeScenario, Case, Flow } from '../types/api'
 
 interface Props {
@@ -90,7 +91,10 @@ function defaultValue(spec: ChangeSpec, baseline: Partial<Case> = {}): unknown {
 }
 
 function nextId(existing: AlternativeScenario[]): string {
-  const used = new Set(existing.map((s) => s.id))
+  // nor the id of a deleted scenario whose network is kept: a new scenario
+  // would silently take that network over (Fable review of #226-#228)
+  const kept = Object.keys(useDcfDataStore.getState().data.networks_by_scenario ?? {})
+  const used = new Set([...existing.map((s) => s.id), ...kept])
   let n = existing.length + 1
   while (used.has(`alt${n}`)) n += 1
   return `alt${n}`

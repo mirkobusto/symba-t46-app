@@ -503,7 +503,8 @@ def _write_network_tab(
         ws.add_image(_scaled_image(network_png, 900), "H2")
 
     edges = edge_list(data)
-    if not edges:
+    # a scenario's network may be drawn while the case's is still empty (Q2 = B)
+    if not edges and not scenario_networks(data, scenarios):
         ws["A3"] = ui(lang, "nw.none")
         ws["A3"].alignment = Alignment(wrap_text=True)
         ws.column_dimensions["A"].width = 90

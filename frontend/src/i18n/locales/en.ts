@@ -860,7 +860,7 @@ const en = {
   },
 
   scenarios: {
-    intro: 'A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. Who pays whom can change per flow. Where the flows go (to a landfill instead of a partner, a new partner, a partner that leaves) is drawn as the scenario\'s own network in the network editor of the Data Collection File, and the comparison says what changes; distances and prices stay in the scenario assumptions of each flow. The tool computes no results.',
+    intro: 'A scenario changes a few answers of the questionnaire, and the engine runs it next to the case: the result page then shows what the change does to the configuration and to the obligations. Who pays whom can change per flow. Where the flows go (to a landfill instead of a partner, a new partner, a partner that leaves) is drawn as the scenario\'s own network in the network editor of the Data Collection File, and the comparison says what changes; distances and prices stay in the scenario assumptions of each flow. No result is computed from the networks.',
     emptyHint: 'No alternative scenarios yet.',
     headers: { id: 'ID', label: 'Label' },
     labelPlaceholder: 'e.g. Future expansion / TRL9 ramp-up',

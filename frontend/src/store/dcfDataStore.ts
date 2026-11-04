@@ -355,7 +355,8 @@ export const useDcfDataStore = create<DcfDataState>()(
                 values['flow.name'] = flow.name
                 changedRow = true
               }
-              if (flowAllowed.has('flow.q5_class') && q5 && values['flow.q5_class'] !== q5) {
+              // without the scenarios the override is unknown: leave the class as it is
+              if (scenarios && flowAllowed.has('flow.q5_class') && q5 && values['flow.q5_class'] !== q5) {
                 values['flow.q5_class'] = q5
                 changedRow = true
               }
@@ -369,6 +370,12 @@ export const useDcfDataStore = create<DcfDataState>()(
               if (flowAllowed.has('flow.name')) values['flow.name'] = flow.name
               const q5 = q5Of[flow.id] ?? flow.q5
               if (flowAllowed.has('flow.q5_class') && q5) values['flow.q5_class'] = q5
+              // as seeded for the case: otherwise the comparison would report a
+              // unit and a quantity "removed" that nobody touched
+              if (flow.physical_unit && flowAllowed.has('flow.unit')) values['flow.unit'] = flow.physical_unit
+              if (flow.physical_quantity != null && flowAllowed.has('flow.quantity_measured')) {
+                values['flow.quantity_measured'] = flow.physical_quantity
+              }
               followed.push({ row_id: flow.id, values })
               touched = true
             }
@@ -557,6 +564,8 @@ export const useDcfDataStore = create<DcfDataState>()(
       },
 
       loadExample(payload, labels) {
+        // it writes the case's network; never from a scenario's (Fable review)
+        if (get().activeScenario) return
         // A worked example is the fastest way to understand what the
         // canvas expects: three actors, two wired flows, plausible
         // values — but only for fields this configuration actually activated,

@@ -483,7 +483,7 @@
    "sheet.infrastructure": "Infrastructure",
    "sheet.methodological_choices": "Methodological Choices",
    "sheet.network_diagram": "Network Diagram",
-   "title": "SYMBA T4.6 — Data Collection File",
+   "title": "SYMBA T4.6: Data Collection File",
    "cover.case_id": "Case ID",
    "cover.ilcd": "ILCD situation",
    "cover.lcc": "LCC type",
@@ -593,7 +593,7 @@
    "h.column": "Column",
    "h.meaning": "What it asks",
    "h.values": "Allowed values",
-   "dx.annex": "Annex A — For whoever carries out the study: methodological choices to document",
+   "dx.annex": "Annex A. For whoever carries out the study: methodological choices to document",
    "dx.annex_intro": "Not for the data providers. The statements are the deliverables' text, in English.",
    "h.active": "Active for this case",
    "h.fields": "Active fields",
@@ -640,11 +640,11 @@
     "process_industry": "Process industry (legacy)"
    },
    "Q5": {
-    "a": "a — whoever gives it pays the receiver to take it away",
-    "b": "b — nobody pays, or it is not clear yet",
-    "c": "c — the receiver pays whoever gives it",
-    "d": "d — the two plants depend on each other (one was changed to supply the other)",
-    "e": "e — only one total figure for the whole network"
+    "a": "a. Whoever gives it pays the receiver to take it away",
+    "b": "b. Nobody pays, or it is not clear yet",
+    "c": "c. The receiver pays whoever gives it",
+    "d": "d. The two plants depend on each other (one was changed to supply the other)",
+    "e": "e. Only one total figure for the whole network"
    }
   }
  },
@@ -1132,7 +1132,7 @@
    "sheet.infrastructure": "Infrastrutture",
    "sheet.methodological_choices": "Scelte metodologiche",
    "sheet.network_diagram": "Diagramma della rete",
-   "title": "SYMBA T4.6 — Data Collection File",
+   "title": "SYMBA T4.6: Data Collection File",
    "cover.case_id": "ID del caso",
    "cover.ilcd": "Situazione ILCD",
    "cover.lcc": "Tipo di LCC",
@@ -1242,7 +1242,7 @@
    "h.column": "Colonna",
    "h.meaning": "Che cosa chiede",
    "h.values": "Valori ammessi",
-   "dx.annex": "Allegato A — Per chi esegue lo studio: scelte metodologiche da documentare",
+   "dx.annex": "Allegato A. Per chi esegue lo studio: scelte metodologiche da documentare",
    "dx.annex_intro": "Non per chi fornisce i dati. Gli enunciati sono il testo dei deliverable, in inglese.",
    "h.active": "Attiva per questo caso",
    "h.fields": "Campi attivi",
@@ -1289,11 +1289,11 @@
     "process_industry": "Industria di processo (legacy)"
    },
    "Q5": {
-    "a": "a — chi lo cede paga chi lo riceve perché se lo porti via",
-    "b": "b — nessuno paga, o non è ancora chiaro",
-    "c": "c — chi lo riceve paga chi lo cede",
-    "d": "d — i due impianti dipendono l'uno dall'altro (uno è stato modificato per rifornire l'altro)",
-    "e": "e — solo un dato complessivo per tutta la rete"
+    "a": "a. Chi lo cede paga chi lo riceve perché se lo porti via",
+    "b": "b. Nessuno paga, o non è ancora chiaro",
+    "c": "c. Chi lo riceve paga chi lo cede",
+    "d": "d. I due impianti dipendono l'uno dall'altro (uno è stato modificato per rifornire l'altro)",
+    "e": "e. Solo un dato complessivo per tutta la rete"
    }
   }
  },
@@ -1938,11 +1938,11 @@
     "process_industry": "Industrie de process (legacy)"
    },
    "Q5": {
-    "a": "a — qui le cède paie qui le reçoit pour s'en débarrasser",
-    "b": "b — personne ne paie, ou ce n'est pas encore clair",
-    "c": "c — qui le reçoit paie qui le cède",
-    "d": "d — les deux installations dépendent l'une de l'autre (l'une a été modifiée pour alimenter l'autre)",
-    "e": "e — un seul chiffre total pour tout le réseau"
+    "a": "a. Qui le cède paie qui le reçoit pour s'en débarrasser",
+    "b": "b. Personne ne paie, ou ce n'est pas encore clair",
+    "c": "c. Qui le reçoit paie qui le cède",
+    "d": "d. Les deux installations dépendent l'une de l'autre (l'une a été modifiée pour alimenter l'autre)",
+    "e": "e. Un seul chiffre total pour tout le réseau"
    }
   }
  },
@@ -2587,11 +2587,11 @@
     "process_industry": "Prozessindustrie (legacy)"
    },
    "Q5": {
-    "a": "a — wer es abgibt, zahlt dem Empfänger für die Abnahme",
-    "b": "b — niemand zahlt, oder es ist noch nicht klar",
-    "c": "c — der Empfänger zahlt dem Abgebenden",
-    "d": "d — die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)",
-    "e": "e — nur eine Gesamtzahl für das ganze Netzwerk"
+    "a": "a. Wer es abgibt, zahlt dem Empfänger für die Abnahme",
+    "b": "b. Niemand zahlt, oder es ist noch nicht klar",
+    "c": "c. Der Empfänger zahlt dem Abgebenden",
+    "d": "d. Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)",
+    "e": "e. Nur eine Gesamtzahl für das ganze Netzwerk"
    }
   }
  },
@@ -3236,11 +3236,11 @@
     "process_industry": "Industria de proceso (legacy)"
    },
    "Q5": {
-    "a": "a — quien lo cede paga a quien lo recibe para que se lo lleve",
-    "b": "b — nadie paga, o aún no está claro",
-    "c": "c — quien lo recibe paga a quien lo cede",
-    "d": "d — las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)",
-    "e": "e — solo una cifra total para toda la red"
+    "a": "a. Quien lo cede paga a quien lo recibe para que se lo lleve",
+    "b": "b. Nadie paga, o aún no está claro",
+    "c": "c. Quien lo recibe paga a quien lo cede",
+    "d": "d. Las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)",
+    "e": "e. Solo una cifra total para toda la red"
    }
   }
  }

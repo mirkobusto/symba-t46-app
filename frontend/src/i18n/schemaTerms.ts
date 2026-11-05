@@ -399,15 +399,15 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Indicatori per stakeholder su CAPEX condiviso',
-        body: 'Beni condivisi dedicati e valutazione sociale: accanto al CAPEX e all\'ammortamento condivisi da LCA e LCC (D4.1 §6.3.3; D4.2 §4.2), l\'S-LCA riporta per gruppo di stakeholder chi sostiene l\'investimento e chi beneficia dell\'infrastruttura condivisa — una lettura di T4.6; i gruppi li definisce la D4.3 §5.1 (CIR-08).',
+        body: 'Beni condivisi dedicati e valutazione sociale: accanto al CAPEX e all\'ammortamento condivisi da LCA e LCC (D4.1 §6.3.3; D4.2 §4.2), l\'S-LCA riporta per gruppo di stakeholder chi sostiene l\'investimento e chi beneficia dell\'infrastruttura condivisa (una lettura di T4.6); i gruppi li definisce la D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocollo di aggiornamento iterativo',
-        body: 'Gli scambi non avvengono ancora e la tecnologia non è ancora a TRL 9: la carta metodologica dell\'LCC fissa all\'inizio quando aggiornare il modello con i dati di esercizio — alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1).',
+        body: 'Gli scambi non avvengono ancora e la tecnologia non è ancora a TRL 9: la carta metodologica dell\'LCC fissa all\'inizio quando aggiornare il modello con i dati di esercizio: alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modalità di guasto nel mondo reale',
-        body: 'L\'interpretazione dell\'LCC discute le modalità di guasto documentate delle simbiosi reali — sottostima dei costi di fine vita delle infrastrutture condivise, guasti logistici e di fornitura, variabilità biologica (perdite di produzione del 5-66 %), discontinuità dei prezzi — come parte della valutazione e non in un\'appendice sui rischi, con le prove di stress della D4.2: perdite del 20, 50 e 66 %, costi di fine vita da due a cinque volte il caso base. Dove un\'LCA o un\'S-LCA corre in parallelo, gli stessi scenari di guasto entrano nella loro interpretazione, così che i metodi mettano alla prova una sola rete — una lettura di T4.6, perché D4.1 e D4.3 non nominano queste modalità di guasto (CIR-10; D4.2 §12.3, §13).',
+        body: 'L\'interpretazione dell\'LCC discute le modalità di guasto documentate delle simbiosi reali (sottostima dei costi di fine vita delle infrastrutture condivise, guasti logistici e di fornitura, variabilità biologica (perdite di produzione del 5-66 %), discontinuità dei prezzi) come parte della valutazione e non in un\'appendice sui rischi, con le prove di stress della D4.2: perdite del 20, 50 e 66 %, costi di fine vita da due a cinque volte il caso base. Dove un\'LCA o un\'S-LCA corre in parallelo, gli stessi scenari di guasto entrano nella loro interpretazione, così che i metodi mettano alla prova una sola rete. È una lettura di T4.6, perché D4.1 e D4.3 non nominano queste modalità di guasto (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unità funzionale orientata alla funzione',

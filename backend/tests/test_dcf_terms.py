@@ -68,10 +68,10 @@ def test_the_questionnaire_vocabularies_match_the_app_locale():
         start = ts.index("    plainOptions: {")
         block = ts[start:ts.index("\n    },", start)].replace("\\'", "'")
         for value, label in refs["Q5"].items():
-            prefix, _, body = label.partition(" — ")
+            prefix, _, body = label.partition(". ")
             assert prefix == value, (lang, value)
-            assert re.search(rf"\n      {value}: '{re.escape(body[0].upper() + body[1:])}", block) or \
-                re.search(rf"\n      {value}: '{re.escape(body)}", block), (lang, value, body)
+            assert re.search(rf"\n      {value}: '{re.escape(body)}", block) or \
+                re.search(rf"\n      {value}: '{re.escape(body[0].lower() + body[1:])}", block), (lang, value, body)
         assert refs["Q6a"]["steel_metals"] in ts
 
 

@@ -136,7 +136,11 @@ def _mount_frontend(app: FastAPI) -> None:
                     return FileResponse(candidate)
             except (OSError, ValueError):
                 pass   # an embedded NUL byte or an unreadable path is just "not a file": serve the SPA
-        return FileResponse(index_html)
+        # The page must be checked again on every visit: it names the hashed
+        # chunks of the build, and a copy kept from before a deploy asks for
+        # chunks that no longer exist (the lazy pages failed to open after the
+        # deploy of 2026-11-05). The ETag keeps the check cheap.
+        return FileResponse(index_html, headers={"Cache-Control": "no-cache"})
 
 
 app = create_app()

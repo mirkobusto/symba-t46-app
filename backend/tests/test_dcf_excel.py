@@ -91,7 +91,7 @@ def test_cover_tab_carries_case_metadata(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
     cover = wb["Cover"]
-    assert cover["A1"].value == "SYMBA T4.6 — Data Collection File"
+    assert cover["A1"].value == "SYMBA T4.6: Data Collection File"
 
     # Read the label/value pairs from rows 3+
     labels = {cover.cell(row=r, column=1).value for r in range(3, 11)}

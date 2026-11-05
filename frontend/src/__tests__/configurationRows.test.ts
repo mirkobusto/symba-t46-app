@@ -122,7 +122,7 @@ describe('obligationGroups', () => {
     await i18n.changeLanguage('en')
     const multi = (kase: Case) => configurationRows(kase, t).find((r) => r.key === 'multifunctionality')!.value
     expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation B', q4: ['D'] })).toBe(
-      'Consequential: substitution against the marginal technology — PEF CFF as a sensitivity (Q4 = D)')
+      'Consequential: substitution against the marginal technology; PEF CFF as a sensitivity (Q4 = D)')
     expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation C2', q4: ['D'] })).toMatch(/^Allocation.*CFF is not applied$/)
     expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation A', q4: [] })).toMatch(/^Substitution .*quality factor Q$/)
   })

@@ -217,7 +217,7 @@ docker exec symba-t46 python scripts/rerun_saved_cases.py --apply  # poi applica
 
 ## Passo 9: l'informativa privacy
 
-La pagina `/privacy` è una **bozza**: dice cosa fa davvero l'applicazione (account, casi salvati, log, memoria del browser), ma lascia dei `[SEGNAPOSTO]` per
+La pagina `/privacy` è una **bozza**: dice cosa fa l'applicazione (account, casi salvati, log, memoria del browser), ma lascia dei `[SEGNAPOSTO]` per
 quello che solo tu sai: chi è il titolare del trattamento (il partner che gestisce il server), la base giuridica, dove sta il server, quanto tempo si
 conservano i backup, a chi scrivere per esercitare i diritti, quale autorità di controllo. Compilali con il DPO del partner e fai fare una revisione
 legale prima di pubblicizzare l'indirizzo. I testi sono nei file `frontend/src/i18n/locales/en.ts` e `it.ts`, sezione `privacy`: modificali **nel repository, dal tuo computer** (un commit e una pull request, che poi si unisce a `main`), non direttamente sul server (rompe il successivo `git pull`); poi sul server fai l'aggiornamento del passo 8.

@@ -7,7 +7,7 @@ Per `SPRINT4_BOOTSTRAP_v2.md` §7 Step 5 + `SYMBA_T46_Validation_WorkingDoc_v1.m
 
 ## Files (not committed)
 
-The generated `.docx` files are gitignored — they are regenerable from
+The generated `.docx` files are gitignored: they are regenerable from
 the fixtures and the engine, and would otherwise pollute git history with
 binary blobs. To produce them locally:
 

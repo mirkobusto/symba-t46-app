@@ -15,10 +15,10 @@ Documentation index: [`docs/README.md`](docs/README.md). Deployment:
 
 ## Stack
 
-- **Frontend** — React 19 + TypeScript + Vite, Vitest + React Testing Library
-- **Backend** — Python 3.12 + FastAPI + SQLAlchemy 2 + SQLite + Pydantic v2,
+- **Frontend**: React 19 + TypeScript + Vite, Vitest + React Testing Library
+- **Backend**: Python 3.12 + FastAPI + SQLAlchemy 2 + SQLite + Pydantic v2,
   pytest + ruff
-- **CI** — GitHub Actions (per-area workflows under `.github/workflows/`)
+- **CI**: GitHub Actions (per-area workflows under `.github/workflows/`)
 
 ## Quickstart — Docker (recommended for dev)
 

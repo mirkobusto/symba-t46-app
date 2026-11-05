@@ -79,13 +79,13 @@ describe('public report', () => {
   it("opens a link without a view on the reader's own role", async () => {
     usePreferenceStore.setState({ role: 'authority' })
     renderAt('/r/c1')
-    expect(await screen.findByText('Showing for — Local authority')).toBeTruthy()
+    expect(await screen.findByText('Showing for: Local authority')).toBeTruthy()
   })
 
   // decided by Fable on the UX round of 2026-11-03
   it('opens a bare link on the end-user view and speaks to a product label', async () => {
     renderAt('/r/c1')
-    expect(await screen.findByText('Showing for — End user')).toBeTruthy()
+    expect(await screen.findByText('Showing for: End user')).toBeTruthy()
     expect(screen.getByText(/Did this link come from a product label\?/)).toBeTruthy()
   })
 

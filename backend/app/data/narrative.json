@@ -4,7 +4,7 @@
     "ILCD Situation A": {
       "title": "Decision support with limited consequences (ILCD Situation A)",
       "short": "Micro-level decision support: the exchange is too small to change the background system. Attributional modelling, with substitution against the average market mix.",
-      "detail": "The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken.",
+      "detail": "The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix: the national grid mix for electricity, average virgin production for a material. D4.1 warns against reaching for consequential modelling merely because a decision is being taken.",
       "quote": "The decision (e.g., a synergy between two factories) has limited consequences. It does not cause large-scale, structural changes to the background system (e.g., it is too small to trigger the construction of new power plants or shift global market prices). Modeling Rule: Apply Attributional Modeling with Substitution.",
       "source": "D4.1 Part 1 §7.2.1"
     },
@@ -17,8 +17,8 @@
     },
     "ILCD Situation C1": {
       "title": "Documenting an existing network (ILCD Situation C1)",
-      "short": "Accounting with interactions — documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.",
-      "detail": "You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A.",
+      "short": "Accounting with interactions: documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.",
+      "detail": "You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix, operationally the same rule as Situation A.",
       "quote": "Situation C1 (Monitoring with Interactions): If the goal is to document the benefits of an existing IS network to the wider economy, use Substitution with the Average Market Mix (identical to Situation A).",
       "source": "D4.1 Part 1 §7.2.3"
     },
@@ -32,8 +32,8 @@
   },
   "lcc": {
     "deactivated": {
-      "short": "No economic analysis — the economic dimension is off in Q3.",
-      "detail": "Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on.",
+      "short": "No economic analysis: the economic dimension is off in Q3.",
+      "detail": "Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case (and for a symbiosis that has to be signed by several firms it usually does), go back to Q3 and switch the economic dimension on.",
       "quote": "",
       "source": ""
     },
@@ -50,8 +50,8 @@
       "source": "D4.2 §2.2 — Selecting the LCC Type"
     },
     "C-LCC": {
-      "short": "Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.",
-      "detail": "Only the firm's own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support.",
+      "short": "Conventional LCC only: the firm perspective, equivalent to a total cost of ownership analysis.",
+      "detail": "Only the firm's own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it says nothing about value-chain or societal effects: claiming those would overstate what a single-actor account can support.",
       "quote": "Conventional LCC (C-LCC) — The Firm Perspective: Evaluates strict financial feasibility from the perspective of an individual actor, equivalent to a Total Cost of Ownership analysis. All policy instruments are modeled as real cash flows: taxes and fees are costs; subsidies are CAPEX or OPEX reductions.",
       "source": "D4.2 §2.2 — Selecting the LCC Type"
     },
@@ -71,13 +71,13 @@
   "slca": {
     "active": {
       "short": "S-LCA active: social indicators per stakeholder group.",
-      "detail": "The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.",
+      "detail": "The social dimension is on. Each stakeholder group (workers, consumers, local communities, value-chain actors) is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra.",
       "quote": "The classification of stakeholders follows the UNEP/SETAC framework and is adapted to the characteristics of Industrial Symbiosis systems. The main stakeholder categories typically include workers, consumers, local communities and value chain actors, each associated with specific social aspects.",
       "source": "D4.3 §5.1 (p. 15)"
     },
     "deactivated": {
-      "short": "S-LCA not activated — the social dimension is off in Q3.",
-      "detail": "Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community.",
+      "short": "S-LCA not activated: the social dimension is off in Q3.",
+      "detail": "Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities, which is usually the case when a symbiosis is presented to a municipality or a community.",
       "quote": "",
       "source": ""
     }

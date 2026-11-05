@@ -62,7 +62,7 @@
     "ILCD Situation A": {
      "title": "Decision support with limited consequences (ILCD Situation A)",
      "short": "Micro-level decision support: the exchange is too small to change the background system. Attributional modelling, with substitution against the average market mix.",
-     "detail": "The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix — the national grid mix for electricity, average virgin production for a material. D4.1 warns explicitly against reaching for consequential modelling merely because a decision is being taken."
+     "detail": "The exchange affects the actors involved, not what the wider economy produces or how. You therefore model with average, accounting-style data, and represent what the symbiosis displaces by substituting the average market mix: the national grid mix for electricity, average virgin production for a material. D4.1 warns against reaching for consequential modelling merely because a decision is being taken."
     },
     "ILCD Situation B": {
      "title": "Decision support with structural consequences (ILCD Situation B)",
@@ -71,8 +71,8 @@
     },
     "ILCD Situation C1": {
      "title": "Documenting an existing network (ILCD Situation C1)",
-     "short": "Accounting with interactions — documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.",
-     "detail": "You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix — operationally the same rule as Situation A."
+     "short": "Accounting with interactions: documenting what an existing network gives the wider economy. Substitution at the average market mix, as in Situation A.",
+     "detail": "You are documenting a network that exists rather than supporting a decision, so the study is descriptive. But since the point is to show what the network gives the wider economy, multifunctionality is still resolved by substitution at the average market mix, operationally the same rule as Situation A."
     },
     "ILCD Situation C2": {
      "title": "Strict reporting of one company (ILCD Situation C2)",
@@ -82,8 +82,8 @@
    },
    "lcc": {
     "deactivated": {
-     "short": "No economic analysis — the economic dimension is off in Q3.",
-     "detail": "Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case — and for a symbiosis that has to be signed by several firms it usually does — go back to Q3 and switch the economic dimension on."
+     "short": "No economic analysis: the economic dimension is off in Q3.",
+     "detail": "Q3 has no economic dimension selected, so the engine configures no costing at all. If the case needs a business case (and for a symbiosis that has to be signed by several firms it usually does), go back to Q3 and switch the economic dimension on."
     },
     "C+E": {
      "short": "Conventional LCC (the firm's real cash flows) plus environmental LCC (the value chain, on the same boundary as the LCA).",
@@ -94,8 +94,8 @@
      "detail": "On top of the firm and value-chain views comes the welfare view. Taxes and subsidies are transfers inside society rather than real costs to it, so they are excluded or converted into shadow prices through the Net Tax Factor, and the environmental impacts from the parallel LCA are monetised. This is the configuration a public decision needs, which is why a public or policy objective brings it in."
     },
     "C-LCC": {
-     "short": "Conventional LCC only — the firm perspective, equivalent to a total cost of ownership analysis.",
-     "detail": "Only the firm's own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it deliberately says nothing about value-chain or societal effects — claiming those would overstate what a single-actor account can support."
+     "short": "Conventional LCC only: the firm perspective, equivalent to a total cost of ownership analysis.",
+     "detail": "Only the firm's own perspective. Every policy instrument is a real cash flow: taxes and fees are costs, subsidies reduce capex or opex. It is the right frame for corporate reporting, and it says nothing about value-chain or societal effects: claiming those would overstate what a single-actor account can support."
     },
     "C+N": {
      "short": "Conventional LCC for each partner, consolidated at network level. No environmental LCC: the case has no LCA to keep it consistent with.",
@@ -109,11 +109,11 @@
    "slca": {
     "active": {
      "short": "S-LCA active: social indicators per stakeholder group.",
-     "detail": "The social dimension is on. Each stakeholder group — workers, consumers, local communities, value-chain actors — is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra."
+     "detail": "The social dimension is on. Each stakeholder group (workers, consumers, local communities, value-chain actors) is mapped to the processes it is affected by, and from there to impact subcategories and indicators. The mapping is only as good as the engagement behind it, so talking to the groups involved is part of the data collection, not an optional extra."
     },
     "deactivated": {
-     "short": "S-LCA not activated — the social dimension is off in Q3.",
-     "detail": "Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities — which is usually the case when a symbiosis is presented to a municipality or a community."
+     "short": "S-LCA not activated: the social dimension is off in Q3.",
+     "detail": "Q3 has no social dimension selected, so no stakeholder mapping and no social indicator are configured. Switch it on in Q3 if the case has to say anything about workers or local communities, which is usually the case when a symbiosis is presented to a municipality or a community."
     }
    }
   },
@@ -164,7 +164,7 @@
    "block": "Blocking",
    "obligation": "To document",
    "decision": "To decide",
-   "decisionResolved": "Convention proposed by the tool — confirm it or justify another choice"
+   "decisionResolved": "Convention proposed by the tool: confirm it or justify another choice"
   },
   "chapters": {
    "§4": "§4 Agri-Food and Biorefineries",
@@ -210,11 +210,11 @@
     "soc": "Social (S-LCA)"
    },
    "q5": {
-    "a": "a — the supplier (A) pays the receiver (B): waste",
-    "b": "b — Free (ambiguous)",
-    "c": "c — the receiver (B) pays the supplier (A): co-product",
-    "d": "d — Interdependent",
-    "e": "e — Aggregated / black-box"
+    "a": "a. The supplier (A) pays the receiver (B): waste",
+    "b": "b. Free (ambiguous)",
+    "c": "c. The receiver (B) pays the supplier (A): co-product",
+    "d": "d. Interdependent",
+    "e": "e. Aggregated / black-box"
    },
    "q6a": {
     "none": "(none)",
@@ -238,10 +238,10 @@
     "process_industry": "Process industry (legacy)"
    },
    "q6b": {
-    "TRL9": "TRL 9 — fully operational",
-    "TRL7-8": "TRL 7-8 — pilot / pre-commercial",
-    "TRL5-6": "TRL 5-6 — prototype",
-    "TRL<5": "TRL <5 — early R&D"
+    "TRL9": "TRL 9: fully operational",
+    "TRL7-8": "TRL 7-8: pilot / pre-commercial",
+    "TRL5-6": "TRL 5-6: prototype",
+    "TRL<5": "TRL <5: early R&D"
    },
    "q7": {
     "A": "A. One site",
@@ -261,8 +261,8 @@
    },
    "q11": {
     "unset": "I don't know / nothing is compared (the tool uses a unit built on the service delivered)",
-    "waste_treatment": "How a waste is managed — waste routes, plant or service performance (input-based unit)",
-    "product_substitution": "Products against market alternatives — what the recovered output replaces (output-based unit)",
+    "waste_treatment": "How a waste is managed: waste routes, plant or service performance (input-based unit)",
+    "product_substitution": "Products against market alternatives: what the recovered output replaces (output-based unit)",
     "co_primary": "Both: the treatment service and the products matter equally (system of functional units)"
    },
    "scope": {

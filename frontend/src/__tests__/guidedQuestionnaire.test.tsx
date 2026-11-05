@@ -17,13 +17,13 @@ describe('guided questionnaire', () => {
     usePreferenceStore.setState({ mode: 'guided' })
     render(<FlowsEditor flows={[{ id: 'f1', name: 'sawdust' }]} onChange={() => {}} />)
     expect(screen.getByRole('option', { name: /Nobody pays, or it is not clear yet/ })).toBeInTheDocument()
-    expect(screen.queryByRole('option', { name: /^b — / })).toBeNull()
+    expect(screen.queryByRole('option', { name: /^b\. / })).toBeNull()
     expect(screen.getByText(/For wood, sawdust, forest or paper-mill residues/)).toBeInTheDocument()
   })
 
   it('keeps the analyst labels in expert mode', () => {
     render(<FlowsEditor flows={[{ id: 'f1', name: 'sawdust' }]} onChange={() => {}} />)
-    expect(screen.getByRole('option', { name: /^b — / })).toBeInTheDocument()
+    expect(screen.getByRole('option', { name: /^b\. / })).toBeInTheDocument()
   })
 
   it('hides the Q-code of a question in guided mode', () => {

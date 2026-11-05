@@ -5,7 +5,7 @@ single Docker container exposing the React/Vite frontend + the FastAPI
 backend on the same port.
 
 The deployment target for **D4.6** (Public dissemination level per the
-Grant Agreement) is a publicly reachable URL — see `docs/implementation/
+Grant Agreement) is a publicly reachable URL; see `docs/implementation/
 DATA_COLLECTION_FILE_v1.md` and the consortium internal docs for
 hosting details.
 
@@ -41,7 +41,7 @@ SQLite database persists in the named volume `symba-data`.
 
 ## Behind a reverse proxy (recommended for public deployment)
 
-The container does not terminate TLS — front it with a reverse proxy
+The container does not terminate TLS: front it with a reverse proxy
 (Caddy / Traefik / nginx). Example Caddy config:
 
 ```caddyfile
@@ -129,7 +129,7 @@ docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 If the data model changes (new ORM tables / columns), the app currently
-uses `Base.metadata.create_all` on startup — new tables are added
+uses `Base.metadata.create_all` on startup: new tables are added
 automatically, **but new columns on existing tables are NOT**. A
 proper Alembic migration setup is on the Phase D / post-MVP roadmap
 (see `CLAUDE.md` § Lavoro deferito noto).
@@ -143,8 +143,8 @@ docker compose -f docker-compose.prod.yml logs -f
 Built-in health check: the container declares a `HEALTHCHECK` hitting
 `/health` every 30s. `docker ps` shows `(healthy)` once it passes.
 
-External monitoring / telemetry: out-of-scope for the MVP — see
-CLAUDE.md. For a production deployment add an APM (e.g. Sentry)
+External monitoring / telemetry: out-of-scope for the MVP (see
+CLAUDE.md). For a production deployment add an APM (e.g. Sentry)
 behind a feature-flag.
 
 ## What the container bundles
@@ -158,7 +158,7 @@ behind a feature-flag.
 
 ## Production hardening checklist (Phase D / post-MVP)
 
-- [x] Auth + role-based access control (Phase D — JWT + bcrypt, first
+- [x] Auth + role-based access control (Phase D: JWT + bcrypt, first
       registered user becomes admin)
 - [x] `/api/scoring/*` restricted to the owner of the scored case (admins
       included); see "Authorization model" below
@@ -166,8 +166,8 @@ behind a feature-flag.
 - [ ] Alembic migrations (post-MVP)
 - [ ] Sentry / APM (post-MVP)
 - [ ] Rate limiting on `/api/scoring` ingest endpoint (post-MVP)
-- [ ] Backup automation (cron) — see "Data backup" above
-- [ ] HTTPS via reverse proxy (Caddy / Traefik / nginx) — see above
+- [ ] Backup automation (cron); see "Data backup" above
+- [ ] HTTPS via reverse proxy (Caddy / Traefik / nginx); see above
 
 ## Authorization model (what is open, what is not)
 
@@ -208,4 +208,4 @@ open on purpose.
 
 This Project has received funding from the European Union's Horizon
 Europe Research and Innovation Programme under Grant Agreement N.
-101135562 — www.symbaproject.eu.
+101135562 (www.symbaproject.eu).

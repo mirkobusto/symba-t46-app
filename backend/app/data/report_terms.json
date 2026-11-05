@@ -606,7 +606,7 @@
     "ILCD Situation A": {
      "title": "Supporto decisionale con conseguenze limitate (Situazione ILCD A)",
      "short": "Supporto a decisione micro: lo scambio è troppo piccolo per cambiare il sistema di background. Modellazione attribuzionale, con sostituzione sul mix di mercato medio.",
-     "detail": "Lo scambio riguarda gli attori coinvolti, non cosa l'economia più ampia produce o come. Modelli quindi con dati medi, di tipo contabile, e rappresenti ciò che la simbiosi sostituisce usando il mix di mercato medio — il mix di rete nazionale per l'elettricità, la produzione vergine media per un materiale. Il D4.1 mette esplicitamente in guardia dal passare al consequenziale solo perché c'è una decisione di mezzo."
+     "detail": "Lo scambio riguarda gli attori coinvolti, non cosa l'economia più ampia produce o come. Modelli quindi con dati medi, di tipo contabile, e rappresenti ciò che la simbiosi sostituisce usando il mix di mercato medio: il mix di rete nazionale per l'elettricità, la produzione vergine media per un materiale. Il D4.1 mette in guardia dal passare al consequenziale solo perché c'è una decisione di mezzo."
     },
     "ILCD Situation B": {
      "title": "Supporto decisionale con conseguenze strutturali (Situazione ILCD B)",
@@ -615,8 +615,8 @@
     },
     "ILCD Situation C1": {
      "title": "Documentare una rete esistente (Situazione ILCD C1)",
-     "short": "Contabilità con interazioni — documentare cosa una rete esistente restituisce all'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situazione A.",
-     "detail": "Stai documentando una rete che esiste, non supportando una decisione, quindi lo studio è descrittivo. Ma dato che il punto è mostrare cosa la rete restituisce all'economia più ampia, la multifunzionalità si risolve comunque per sostituzione sul mix di mercato medio — operativamente la stessa regola della Situazione A."
+     "short": "Contabilità con interazioni: documentare cosa una rete esistente restituisce all'economia più ampia. Sostituzione sul mix di mercato medio, come nella Situazione A.",
+     "detail": "Stai documentando una rete che esiste, non supportando una decisione, quindi lo studio è descrittivo. Ma dato che il punto è mostrare cosa la rete restituisce all'economia più ampia, la multifunzionalità si risolve comunque per sostituzione sul mix di mercato medio, operativamente la stessa regola della Situazione A."
     },
     "ILCD Situation C2": {
      "title": "Rendiconto rigoroso di una sola azienda (Situazione ILCD C2)",
@@ -626,8 +626,8 @@
    },
    "lcc": {
     "deactivated": {
-     "short": "Nessuna analisi economica — la dimensione economica non è attiva in Q3.",
-     "detail": "In Q3 non è selezionata la dimensione economica, quindi il motore non configura alcun costing. Se il caso ha bisogno di un business case — e per una simbiosi che deve essere firmata da più imprese di solito serve — torna su Q3 e attiva la dimensione economica."
+     "short": "Nessuna analisi economica: la dimensione economica non è attiva in Q3.",
+     "detail": "In Q3 non è selezionata la dimensione economica, quindi il motore non configura alcun costing. Se il caso ha bisogno di un business case (e per una simbiosi che deve essere firmata da più imprese di solito serve), torna su Q3 e attiva la dimensione economica."
     },
     "C+E": {
      "short": "LCC convenzionale (i flussi di cassa reali dell'impresa) più LCC ambientale (la catena del valore, sugli stessi confini della LCA).",
@@ -638,8 +638,8 @@
      "detail": "Sopra la vista d'impresa e quella di catena del valore arriva quella di benessere collettivo. Tasse e sussidi sono trasferimenti interni alla società più che costi reali per essa, quindi vengono esclusi o convertiti in prezzi ombra con il Net Tax Factor, e gli impatti ambientali della LCA parallela vengono monetizzati. È la configurazione che serve a una decisione pubblica, ed è per questo che la porta un obiettivo pubblico o di policy."
     },
     "C-LCC": {
-     "short": "Solo LCC convenzionale — la prospettiva dell'impresa, equivalente a un'analisi del costo totale di possesso.",
-     "detail": "Solo la prospettiva dell'impresa. Ogni strumento di policy è un flusso di cassa reale: tasse e oneri sono costi, i sussidi riducono capex o opex. È il taglio giusto per la rendicontazione aziendale, e deliberatamente non dice nulla sugli effetti di catena del valore o societali — rivendicarli sovrastimerebbe ciò che un conto mono-attore può sostenere."
+     "short": "Solo LCC convenzionale: la prospettiva dell'impresa, equivalente a un'analisi del costo totale di possesso.",
+     "detail": "Solo la prospettiva dell'impresa. Ogni strumento di policy è un flusso di cassa reale: tasse e oneri sono costi, i sussidi riducono capex o opex. È il taglio giusto per la rendicontazione aziendale, e non dice nulla sugli effetti di catena del valore o societali: rivendicarli sovrastimerebbe ciò che un conto mono-attore può sostenere."
     },
     "C+N": {
      "short": "LCC convenzionale per ogni partner, consolidato a livello di rete. Nessun LCC ambientale: il caso non ha un'LCA con cui restare coerente.",
@@ -653,11 +653,11 @@
    "slca": {
     "active": {
      "short": "S-LCA attiva: indicatori sociali per gruppo di stakeholder.",
-     "detail": "La dimensione sociale è attiva. Ogni gruppo di stakeholder — lavoratori, consumatori, comunità locali, attori della catena del valore — viene mappato sui processi da cui è interessato, e da lì su sottocategorie di impatto e indicatori. La mappatura vale quanto l'ascolto che c'è dietro, quindi parlare con i gruppi coinvolti fa parte della raccolta dati, non è un extra."
+     "detail": "La dimensione sociale è attiva. Ogni gruppo di stakeholder (lavoratori, consumatori, comunità locali, attori della catena del valore) viene mappato sui processi da cui è interessato, e da lì su sottocategorie di impatto e indicatori. La mappatura vale quanto l'ascolto che c'è dietro, quindi parlare con i gruppi coinvolti fa parte della raccolta dati, non è un extra."
     },
     "deactivated": {
-     "short": "S-LCA non attivata — la dimensione sociale non è attiva in Q3.",
-     "detail": "In Q3 non è selezionata la dimensione sociale, quindi non viene configurata né mappatura degli stakeholder né alcun indicatore sociale. Attivala in Q3 se il caso deve dire qualcosa su lavoratori o comunità locali — cosa che di solito serve quando una simbiosi viene presentata a un comune o a una comunità."
+     "short": "S-LCA non attivata: la dimensione sociale non è attiva in Q3.",
+     "detail": "In Q3 non è selezionata la dimensione sociale, quindi non viene configurata né mappatura degli stakeholder né alcun indicatore sociale. Attivala in Q3 se il caso deve dire qualcosa su lavoratori o comunità locali, cosa che di solito serve quando una simbiosi viene presentata a un comune o a una comunità."
     }
    }
   },
@@ -708,7 +708,7 @@
    "block": "Bloccante",
    "obligation": "Da documentare",
    "decision": "Da decidere",
-   "decisionResolved": "Convenzione proposta dallo strumento — confermala o motiva un'altra scelta"
+   "decisionResolved": "Convenzione proposta dallo strumento: confermala o motiva un'altra scelta"
   },
   "chapters": {
    "§4": "§4 Agroalimentare e bioraffinerie",
@@ -754,11 +754,11 @@
     "soc": "Sociale (S-LCA)"
    },
    "q5": {
-    "a": "a — chi cede (A) paga chi riceve (B): rifiuto",
-    "b": "b — Scambio gratuito (ambiguo)",
-    "c": "c — chi riceve (B) paga chi cede (A): co-prodotto",
-    "d": "d — Interdipendente",
-    "e": "e — Aggregato / black-box"
+    "a": "a. Chi cede (A) paga chi riceve (B): rifiuto",
+    "b": "b. Scambio gratuito (ambiguo)",
+    "c": "c. Chi riceve (B) paga chi cede (A): co-prodotto",
+    "d": "d. Interdipendente",
+    "e": "e. Aggregato / black-box"
    },
    "q6a": {
     "none": "(nessuno)",
@@ -782,10 +782,10 @@
     "process_industry": "Industria di processo (legacy)"
    },
    "q6b": {
-    "TRL9": "TRL 9 — pienamente operativo",
-    "TRL7-8": "TRL 7-8 — pilota / pre-commerciale",
-    "TRL5-6": "TRL 5-6 — prototipo",
-    "TRL<5": "TRL <5 — R&S iniziale"
+    "TRL9": "TRL 9: pienamente operativo",
+    "TRL7-8": "TRL 7-8: pilota / pre-commerciale",
+    "TRL5-6": "TRL 5-6: prototipo",
+    "TRL<5": "TRL <5: R&S iniziale"
    },
    "q7": {
     "A": "A. Un sito",
@@ -805,8 +805,8 @@
    },
    "q11": {
     "unset": "Non lo so / non si confronta niente (lo strumento usa un'unità costruita sul servizio reso)",
-    "waste_treatment": "Come si gestisce un rifiuto — vie di gestione, prestazioni di un impianto o servizio (unità basata sull'input)",
-    "product_substitution": "Prodotti contro alternative di mercato — che cosa sostituisce il prodotto recuperato (unità basata sull'output)",
+    "waste_treatment": "Come si gestisce un rifiuto: vie di gestione, prestazioni di un impianto o servizio (unità basata sull'input)",
+    "product_substitution": "Prodotti contro alternative di mercato: che cosa sostituisce il prodotto recuperato (unità basata sull'output)",
     "co_primary": "Entrambe: il servizio di trattamento e i prodotti contano allo stesso modo (sistema di unità funzionali)"
    },
    "scope": {

@@ -39,6 +39,13 @@ def test_client_side_routes_get_the_spa(client):
         assert client.get(path).text == "<html>SPA</html>"
 
 
+def test_the_spa_is_revalidated_on_every_visit(client):
+    # a cached index.html names the chunks of an older build (2026-11-05)
+    for path in ("/", "/stakeholder-report"):
+        assert client.get(path).headers["cache-control"] == "no-cache"
+    assert "no-cache" not in client.get("/assets/app.js").headers.get("cache-control", "")
+
+
 def test_the_catch_all_cannot_escape_the_bundle(client):
     # httpx normalises a literal "/../" before sending, so only the %2f form reaches the
     # guard; either way the answer is the SPA, never the file outside the bundle.

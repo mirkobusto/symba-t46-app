@@ -1,4 +1,4 @@
-import { lazy, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import ErrorBoundary from './components/ErrorBoundary'
@@ -13,20 +13,22 @@ import ResultPage from './pages/ResultPage'
 import WelcomePage from './pages/WelcomePage'
 import { usePreferenceStore } from './store/preferenceStore'
 import './App.css'
+import { lazyPage } from './lazyPage'
 import { sharedCaseOf } from './pages/reader/sharedReportPath'
 
 // Loaded on demand: the network editor (React Flow), the dashboards and the
 // public reader pages are not needed to answer the questionnaire (the bundle
-// was ~1.4 MB in one chunk). The Suspense boundary sits in the shells.
-const AggregatePage = lazy(() => import('./pages/AggregatePage'))
-const DataCollectionPage = lazy(() => import('./pages/DataCollectionPage'))
-const ScenariosResultPage = lazy(() => import('./pages/ScenariosResultPage'))
-const StakeholderReportPage = lazy(() => import('./pages/StakeholderReportPage'))
-const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
-const OpenSharedReportPage = lazy(() => import('./pages/reader/OpenSharedReportPage'))
-const PublicAboutPage = lazy(() => import('./pages/reader/PublicAboutPage'))
-const PublicRegionPage = lazy(() => import('./pages/reader/PublicRegionPage'))
-const PublicReportPage = lazy(() => import('./pages/reader/PublicReportPage'))
+// was ~1.4 MB in one chunk). The Suspense boundary sits in the shells; a
+// chunk gone after a deploy reloads the page once (lazyPage).
+const AggregatePage = lazyPage(() => import('./pages/AggregatePage'))
+const DataCollectionPage = lazyPage(() => import('./pages/DataCollectionPage'))
+const ScenariosResultPage = lazyPage(() => import('./pages/ScenariosResultPage'))
+const StakeholderReportPage = lazyPage(() => import('./pages/StakeholderReportPage'))
+const PrivacyPage = lazyPage(() => import('./pages/PrivacyPage'))
+const OpenSharedReportPage = lazyPage(() => import('./pages/reader/OpenSharedReportPage'))
+const PublicAboutPage = lazyPage(() => import('./pages/reader/PublicAboutPage'))
+const PublicRegionPage = lazyPage(() => import('./pages/reader/PublicRegionPage'))
+const PublicReportPage = lazyPage(() => import('./pages/reader/PublicReportPage'))
 
 /**
  * Redirects first-time visitors to /welcome unless they're on a route

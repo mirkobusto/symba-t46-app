@@ -6,13 +6,16 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { SPEC, answerChanges, changedAnswers, inertAnswerHints } from '../components/scenarioChanges'
+import { translateNote } from '../i18n/engineNotes'
 import { schemaTerm } from '../i18n/schemaTerms'
 import { fetchDcfData } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
+import { usePreferenceStore } from '../store/preferenceStore'
 import { ACTORS_SECTION, FLOW_MATRIX_SECTION, type DcfData } from '../types/dcfData'
 import { isEmptyDiff, networkDiff, type NetworkDiff } from './networkDiff'
-import type { Case } from '../types/api'
+import type { Case, CaseWarning, NodeChange, NodeChanges } from '../types/api'
 import { configurationRows } from './configurationRows'
 import { useAxisLabel } from './aggregateLabels'
 
@@ -47,32 +50,36 @@ interface Diff {
   removed: string[]
 }
 
+type Axis = (axis: 'ilcd' | 'lcc', value: string) => string
+
 // What a scenario changes against the case, in the words of the result page:
 // the comparison showed only counts ("107 / 109 nodes"), which told the
 // analyst nothing about which practice the change brings (UX round 2026-11-02).
-function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<string, unknown>) => string, lang: string): Diff {
+// The situation, the costing and the S-LCA lead, as in the table above
+// (UX round 2026-11-08, P1-01).
+function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<string, unknown>) => string, lang: string, axis: Axis): Diff {
+  const rows: Diff['rows'] = []
+  const derived: [string, string | null | undefined, string | null | undefined, (v: string) => string][] = [
+    [t('scenariosResult.columns.ilcd'), base.ilcd_situation, scenario.ilcd_situation, (v) => axis('ilcd', v)],
+    [t('scenariosResult.columns.lccType'), base.lcc_type, scenario.lcc_type, (v) => axis('lcc', v)],
+    [t('scenariosResult.columns.slca'), base.slca_activation_state, scenario.slca_activation_state,
+      (v) => t(v === 'active' ? 'common.yes' : 'common.no')],
+  ]
+  for (const [label, was, now, say] of derived) {
+    if ((was ?? null) !== (now ?? null)) {
+      rows.push({ label, before: was ? say(was) : '—', after: now ? say(now) : '—' })
+    }
+  }
   const before = Object.fromEntries(configurationRows(base, t).map((r) => [r.key, r]))
   const after = Object.fromEntries(configurationRows(scenario, t).map((r) => [r.key, r]))
   const keys = [...new Set([...Object.keys(before), ...Object.keys(after)])]
-  const rows = keys
+  rows.push(...keys
     .filter((k) => before[k]?.value !== after[k]?.value)
     .map((k) => ({
       label: (after[k] ?? before[k]).label,
       before: before[k]?.value ?? '—',
       after: after[k]?.value ?? '—',
-    }))
-  // a scenario may change who pays whom for one flow: name the flow and both classes
-  const baseQ5 = new Map((base.flows ?? []).map((f) => [f.id, f.q5]))
-  for (const f of scenario.flows ?? []) {
-    const was = baseQ5.get(f.id)
-    if (was && f.q5 && was !== f.q5) {
-      rows.push({
-        label: t('scenariosResult.flowQ5Row', { flow: f.name || f.id }),
-        before: t(`flows.options.${was}`),
-        after: t(`flows.options.${f.q5}`),
-      })
-    }
-  }
+    })))
   const name = (id: string, fallback?: string | null) =>
     `${id} ${schemaTerm(lang, 'rule', id)?.name ?? fallback ?? ''}`.trim()
   const baseRules = new Map((base.applicable_rules ?? []).map((r) => [r.rule_id, r.name]))
@@ -82,6 +89,62 @@ function diffAgainst(base: Case, scenario: Case, t: (k: string, o?: Record<strin
     added: [...scRules].filter(([id]) => !baseRules.has(id)).map(([id, n]) => name(id, n)),
     removed: [...baseRules].filter(([id]) => !scRules.has(id)).map(([id, n]) => name(id, n)),
   }
+}
+
+// notes the hints already say in their own words
+const SAID_BY_HINTS = new Set(['structural_screening_missing', 'structural_without_screening'])
+
+/** Engine notes the scenario has and the case has not: often the reason a
+ * change of answer changes nothing (UX round 2026-11-08, P1-01). */
+function newNotes(base: Case, scenario: Case): CaseWarning[] {
+  const key = (w: CaseWarning) => `${w.code}|${JSON.stringify(w.params ?? {})}`
+  const seen = new Set((base.warnings ?? []).map(key))
+  return (scenario.warnings ?? []).filter((w) => !seen.has(key(w)))
+}
+
+function NodeList({ nodes, changed }: { nodes: NodeChange[]; changed?: boolean }) {
+  const { t } = useTranslation()
+  return (
+    <ul className="scenario-node-list">
+      {nodes.map((n) => (
+        <li key={n.id}>
+          <span className="muted">{methodName(n.method)}{n.source_section ? `, ${n.source_section}` : ''}: </span>
+          {n.text}
+          {changed && n.before ? (
+            <><br /><span className="muted">{t('scenariosResult.nodes.before')} {n.before}</span></>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function methodName(method?: string | null): string {
+  return method === 'SLCA' ? 'S-LCA' : method ?? ''
+}
+
+/** The practices behind the configuration that the scenario adds, removes or
+ * words differently, with their text as traced on the deliverables (P6-09). */
+function NodeChangesBlock({ changes }: { changes?: NodeChanges | null }) {
+  const { t } = useTranslation()
+  if (!changes) return null
+  const groups: [string, NodeChange[], boolean][] = [
+    ['added', changes.added, false],
+    ['removed', changes.removed, false],
+    ['changed', changes.changed, true],
+  ]
+  if (groups.every(([, list]) => list.length === 0)) return null
+  return (
+    <div className="scenario-nodes">
+      <p className="muted">{t('scenariosResult.nodes.lead')}</p>
+      {groups.filter(([, list]) => list.length > 0).map(([kind, list, changed]) => (
+        <details key={kind} className="scenario-nodes-group">
+          <summary>{t(`scenariosResult.nodes.${kind}`, { count: list.length })}</summary>
+          <NodeList nodes={list} changed={changed} />
+        </details>
+      ))}
+    </div>
+  )
 }
 
 /** The DCF content of the open case: the editor's draft when it is this
@@ -147,7 +210,12 @@ export default function ScenariosResultPage() {
   // the same words as the result page: no raw 'ILCD Situation', 'C+E' or 'alt1' (UX round 4)
   const label = useAxisLabel()
   const sr = useCaseStore((s) => s.scenariosResult)
+  // the changes set as JSON outside the form (advanced settings and the like)
+  // cannot be read off the two runs: they are named from the scenario itself
+  const draftScenarios = useCaseStore((s) => s.draft.alternative_scenarios)
   const network = useCaseNetwork()
+  // guided mode: no question codes and no engine notes written for analysts
+  const guided = usePreferenceStore((s) => s.mode) === 'guided'
 
   if (!sr) {
     return (
@@ -241,13 +309,36 @@ export default function ScenariosResultPage() {
             </section>
           )
         }
-        const d = diffAgainst(sr.baseline, sc.result, t as never, i18n.language)
+        const tt = t as never as (k: string, o?: Record<string, unknown>) => string
+        const d = diffAgainst(sr.baseline, sc.result, tt, i18n.language, label as Axis)
+        const changed = changedAnswers(sr.baseline, sc.result)
+        const answers = answerChanges(changed, sr.baseline, tt)
+        const ownKeys = Object.keys(draftScenarios?.find((x) => x.id === sc.id)?.overrides ?? {})
+        answers.otherKeys.push(...ownKeys.filter((k) => !(k in SPEC)))
+        const hints = inertAnswerHints(changed, sr.baseline, tt, guided)
+        const notes = guided ? [] : newNotes(sr.baseline, sc.result).filter((w) => !SAID_BY_HINTS.has(w.code))
         const nothing = d.rows.length === 0 && d.added.length === 0 && d.removed.length === 0
         return (
           <section key={sc.id} className="scenario-diff">
             <h2 className="result-notes-title">
               {sc.label || sc.id} — {t('scenariosResult.whatChanges')}
             </h2>
+            {/* the answers first: "Nothing changes" alone hid what the scenario tried (P1-01) */}
+            <p><strong>{t('scenariosResult.answersTitle')}</strong></p>
+            {answers.changes.length === 0 && answers.otherKeys.length === 0 ? (
+              // never "same answers" next to a configuration that differs
+              nothing ? <p className="muted">{t('scenariosResult.sameAnswers')}</p> : null
+            ) : (
+              <ul>
+                {answers.changes.map((c) => (
+                  <li key={c.question}>{c.question}: {c.before} → {c.after}</li>
+                ))}
+                {answers.otherKeys.length > 0 ? (
+                  <li className="muted">{t('scenarios.otherKeys', { count: answers.otherKeys.length })}</li>
+                ) : null}
+              </ul>
+            )}
+            <p><strong>{t('scenariosResult.configTitle')}</strong></p>
             {nothing ? <p className="muted">{t('scenariosResult.noChange')}</p> : null}
             {d.rows.length > 0 ? (
               <ul>
@@ -264,6 +355,18 @@ export default function ScenariosResultPage() {
             {d.removed.length > 0 ? (
               <p><strong>{t('scenariosResult.removedRules')}</strong>: {d.removed.join('; ')}</p>
             ) : null}
+            {hints.length > 0 || notes.length > 0 ? (
+              <div className="scenario-why">
+                <p><strong>{t('scenariosResult.whyTitle')}</strong></p>
+                <ul>
+                  {hints.map((h) => <li key={h}>{h}</li>)}
+                  {notes.map((w, i) => <li key={`${w.code}-${i}`}>{translateNote(t, w)}</li>)}
+                </ul>
+              </div>
+            ) : nothing && answers.changes.length > 0 ? (
+              <p className="muted">{t('scenariosResult.noChangeWhy')}</p>
+            ) : null}
+            <NodeChangesBlock changes={sc.node_changes} />
             {/* where the flows go, drawn in the network editor (owner OK 2026-11-04) */}
             <h3 className="scenario-network-title">{t('scenariosResult.networkTitle')}</h3>
             <NetworkBlock data={network} scenarioId={sc.id} t={t as never} />

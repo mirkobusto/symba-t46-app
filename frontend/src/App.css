@@ -5229,6 +5229,21 @@ kbd {
   text-align: left;
 }
 
+/* a follow-up question sits under the one it follows, as in the questionnaire (UX round 6) */
+.scenario-change-followup {
+  margin-left: 24px;
+  padding-left: 10px;
+  border-left: 2px solid var(--dd-border, #d8dde6);
+}
+
+/* why the configuration stays the same, and the practices behind it (UX round 6, P1-01, P6-09) */
+.scenario-why ul,
+.scenario-node-list {
+  margin: 4px 0 8px;
+}
+.scenario-nodes-group { margin: 4px 0; }
+.scenario-node-list li { margin-bottom: 6px; overflow-wrap: anywhere; }
+
 /* "the files follow the saved version" notice on the DCF page (UX round 5, D3) */
 .dcf-changes { margin-top: var(--dd-space-3); }
 .dcf-changes p { margin: 0 0 var(--dd-space-2); }

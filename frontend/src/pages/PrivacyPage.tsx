@@ -19,6 +19,11 @@ export default function PrivacyPage() {
   return (
     <div className="about privacy">
       <h1>{t('privacy.title')}</h1>
+      {/* fr/de/es carry the English draft until the legal review: say so in the
+          reader's language (UX round 6, P3-14, P4-14); empty in en and it */}
+      {t('privacy.languageNote') ? (
+        <p className="privacy-draft" role="note">{t('privacy.languageNote')}</p>
+      ) : null}
       <p className="privacy-draft" role="note">
         {t('privacy.draft')}
       </p>

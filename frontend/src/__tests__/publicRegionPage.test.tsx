@@ -34,7 +34,7 @@ describe('PublicRegionPage', () => {
       json: () => Promise.resolve({ region: 'FR', total: 0, by_ilcd_situation: [], by_sector: [] }),
     } as Response)))
     renderAt('/r/region/FR')
-    expect(await screen.findByText('No shared case has a partner in FR yet.')).toBeInTheDocument()
+    expect(await screen.findByText('No shared case has a company in this country yet.')).toBeInTheDocument()
     expect(screen.queryByRole('table')).not.toBeInTheDocument()
   })
 })

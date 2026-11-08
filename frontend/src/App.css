@@ -2080,6 +2080,28 @@ kbd {
   font-size: 1rem;
 }
 
+/* one line under each title says what the values mean (UX round 6, P4-20) */
+.aggregate-hint {
+  margin: -4px 0 10px;
+  font-size: 0.85rem;
+}
+
+/* cases without a value, apart from the ranked values (P7-23) */
+.aggregate-none {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.aggregate-country-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.aggregate-country-list li {
+  margin: 4px 0;
+}
+
 .aggregate-actions {
   display: flex;
   gap: 10px;

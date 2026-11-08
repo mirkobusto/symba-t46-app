@@ -111,6 +111,13 @@ export default function LoginPage() {
           ) : null}
         </label>
 
+        {/* the form said nothing about the data an account keeps (UX round 6, P3-14) */}
+        {tab === 'register' ? (
+          <p className="auth-privacy muted">
+            <Link to="/privacy">{t('auth.privacyLink')}</Link>
+          </p>
+        ) : null}
+
         {error ? <p className="error-text">{error}</p> : null}
 
         <button

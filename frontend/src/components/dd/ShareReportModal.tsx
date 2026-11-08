@@ -167,6 +167,8 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
         {caseId && shared && key ? (
           <>
             <p className="dd-modal-lead">{t('share.sharedBody')} {t('share.lead')}</p>
+            {/* nobody said when a case counts on a country page (UX round 6, P3-08) */}
+            <p className="dd-soft">{t('share.countryPage')}</p>
             <ul className="dd-share-list">
               {AUDIENCES.map((a) => (
                 <li key={a} className="dd-share-item">

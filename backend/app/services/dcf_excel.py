@@ -533,6 +533,8 @@ def _write_data_section_tab(wb: Workbook, section: DcfSection, ctx: _Context, li
             ctx.actor_names_ref = f"'{ws.title}'!${letter}${first_data_row}:${letter}${dropdown_last}"
     else:
         _add_actor_dropdowns(ws, columns, first_data_row, dropdown_last, ctx)
+        if section.row_collection == "user_added":
+            _add_flow_dropdowns(ws, columns, first_data_row, dropdown_last, ctx, lists)
     last_col = len(columns)
     if section.id == "actors" and stored:
         last_col += 1
@@ -670,6 +672,31 @@ def _add_actor_dropdowns(ws, columns: list[_Column], first_row: int, last_row: i
             continue
         dv = DataValidation(type="list", formula1=ctx.actor_names_ref, allow_blank=True,
                             showDropDown=False, showErrorMessage=True, errorStyle="warning")
+        dv.error = ui(ctx.lang, "dv.error")
+        dv.errorTitle = ui(ctx.lang, "dv.title")
+        ws.add_data_validation(dv)
+        letter = get_column_letter(col_idx)
+        dv.add(f"{letter}{first_row}:{letter}{last_row}")
+
+
+def _add_flow_dropdowns(ws, columns: list[_Column], first_row: int, last_row: int, ctx: _Context,
+                        lists=None) -> None:
+    """A column that names a flow, on rows the company adds itself (the flow
+    an asset serves), offers the flows of the Flow Matrix as "name (origin →
+    destination)": an id typed by hand reaches nobody (UX round 6, P2-05).
+    The rows built from the Flow Matrix carry the flow already."""
+    labels = list(ctx.names["fk_flow"].values())
+    if lists is None or not labels:
+        return
+    for col_idx, col in enumerate(columns, start=1):
+        if col.field.type != "fk_flow":
+            continue
+        list_col = lists.max_column + 1 if lists.max_row > 1 or lists["A1"].value else 1
+        letter_l = get_column_letter(list_col)
+        for i, label in enumerate(labels, start=1):
+            lists.cell(row=i, column=list_col, value=label)
+        dv = DataValidation(type="list", formula1=f"'{_LISTS_SHEET}'!${letter_l}$1:${letter_l}${len(labels)}",
+                            allow_blank=True, showDropDown=False, showErrorMessage=True, errorStyle="warning")
         dv.error = ui(ctx.lang, "dv.error")
         dv.errorTitle = ui(ctx.lang, "dv.title")
         ws.add_data_validation(dv)

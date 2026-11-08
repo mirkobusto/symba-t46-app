@@ -213,6 +213,8 @@ def main():
             pred = f.get("activation_predicate", "always")
             active_for = [fix["id"] for fix in FIXTURES
                           if f["id"] in per_paper_active_fields.get(fix["id"], [])]
+            if pred == "False":
+                continue  # retired on purpose: stored values stay dormant (UX round 6)
             if pred == "always":
                 if len(active_for) != len(FIXTURES) and sec_predicate == "always":
                     issues.append(f"[{sec_id}.{f['id']}] always-on but inactive for some papers: section-gated by {sec_predicate}")

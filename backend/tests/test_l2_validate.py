@@ -115,7 +115,7 @@ def test_CIR_01_listed_as_applicable_for_long_lived_assets(schemas):
     ({"q2": Q2.A, "q6b": Q6b.TRL_LT_5}, True), ({"q2": Q2.A, "analysis_period_years": 25}, True),
 ])
 def test_lca_and_lcc_end_with_the_same_background(schemas, extra, expected):
-    """One study horizon for both methods (D4.2 L01261): after the whole pipeline LCA
+    """One study horizon for both methods (D4.2 L01297): after the whole pipeline LCA
     and LCC agree. Since R3 (2026-10-18) the nodes say it (lca_mc_21, lcc_hc_23; lcc_mc_13
     only when the horizon stays in the present) and CIR-01 no longer writes over them."""
     case = _ready_case(q3=Q3(env=True, eco=True), **{k: v for k, v in extra.items() if k != "q2"}, q2=extra["q2"])
@@ -362,7 +362,7 @@ def test_cir_03_no_longer_follows_q7():
 def test_no_lca_without_the_environmental_dimension(schemas):
     """An economic-only study gets no LCA nodes and no Part 2 sector rules (all
     64 are LCA rules). What stays: the reference scenario and the classification
-    of each flow, which D4.2 asks the LCC to share (L00725, §6.3), and the review
+    of each flow, which D4.2 asks the LCC to share (L00749, §6.3), and the review
     of a public claim and the methodological charter, which govern the whole study."""
     case = _ready_case(q3=Q3(eco=True), q4={Q4.C})
     case.flows = [Flow(id="f1", name="spent grain", q5=Q5.b, sector=Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES)]

@@ -3,7 +3,7 @@
   "version": "0.2",
   "extracted_from": "SPRINT4_BOOTSTRAP_v2.md §3 Q6a (14 sectors + Other)",
   "purpose": "Q6a sector enumeration and the sector rules of D4.1 Part 2 (FINAL v2). `sectors` lists the 14 sector IDs. `overlays` maps each Part 2 chapter (§4-§8, with its §9 LCIA categories) to the Q6a sectors that activate it and to its rules. engine/sector_rules lists the rules of the chapters a case touches (a flow's declared sector or Q6a) as mandates to document.",
-  "extraction_notes": "Sector IDs follow snake_case for stable JSON keys. Display labels (with slashes, parentheses, etc.) are a frontend concern. The current Q6a enum (5 placeholder values) covers a subset; expanding to all 14 is tracked as a follow-up. | 2026-10-15 (phase A, step 5): 64 rules from the 69 census rows of groups A1 (LCIA) and A2 (modelling) of D4.1 Part 2, drafted from the numbered FINAL v2 text, quotes checked by script, reviewed by Fable. Excluded here: the substituted-product rows of §x.1 and the functional-unit rows (later PRs). `when_key` uses the branch-key grammar of engine/branch_keys.py (rule shown only when it matches); `note` points to the Part 1 rule a sector rule must not loosen. Each rule keeps its census ids and a short verbatim quote for the deliverable revision. | 2026-10-18 (step 5, PR 3): `configurations` per chapter, the typical IS configurations of §4.1-§8.1 (26) with the conventional product each substitutes; a flow can declare one (Flow.configuration).",
+  "extraction_notes": "Sector IDs follow snake_case for stable JSON keys. Display labels (with slashes, parentheses, etc.) are a frontend concern. The current Q6a enum (5 placeholder values) covers a subset; expanding to all 14 is tracked as a follow-up. | 2026-10-15 (phase A, step 5): 64 rules from the 69 census rows of groups A1 (LCIA) and A2 (modelling) of D4.1 Part 2, drafted from the numbered FINAL v2 text, quotes checked by script, reviewed by Fable. Excluded here: the substituted-product rows of §x.1 and the functional-unit rows (later PRs). `when_key` uses the branch-key grammar of engine/branch_keys.py (rule shown only when it matches); `note` points to the Part 1 rule a sector rule must not loosen. Each rule keeps its census ids and a short verbatim quote for the deliverable revision. | 2026-10-18 (step 5, PR 3): `configurations` per chapter, the typical IS configurations of §4.1-§8.1 (26) with the conventional product each substitutes; a flow can declare one (Flow.configuration). | 2026-11-08 (UX round 6, P6-02): `lines` and the Part 1 lines of `note` renumbered on the FINAL v2 texts of finalv2_work/testo (step 5 had used an earlier conversion of the same texts, 28 lines apart in Part 2 and 31-37 in Part 1); tests/test_deliverable_citations.py checks each cited line against the verbatim quote or a stored anchor.",
   "sectors": [
     {
       "id": "agriculture_agrifood_biorefineries",
@@ -81,7 +81,7 @@
           "applies_when": null,
           "statement": "The system boundary must encompass the \"connective tissue\" of the symbiosis.",
           "source": "D4.1 Part 2 §4.2",
-          "lines": "L00393",
+          "lines": "L00421",
           "census_ids": [
             "E3-014"
           ],
@@ -96,7 +96,7 @@
           "applies_when": "use-stage emissions are decisive",
           "statement": "The system boundary must extend downstream where use-stage emissions are decisive.",
           "source": "D4.1 Part 2 §4.2",
-          "lines": "L00393",
+          "lines": "L00421",
           "census_ids": [
             "E3-014"
           ],
@@ -111,7 +111,7 @@
           "applies_when": null,
           "statement": "Foreground modelling must include mass and energy balances, direct process emissions (including fugitive emissions and emissions from downstream land application), and process-specific reagent/enzyme dosages. System boundaries must include the downstream emissions of recovered fertilisers or soil amendments where these are used or applied to land.",
           "source": "D4.1 Part 2 §4.2",
-          "lines": "L00399, L00427",
+          "lines": "L00427, L00455",
           "census_ids": [
             "E3-015",
             "E3-022"
@@ -127,7 +127,7 @@
           "applies_when": "conditioning/purification/separation steps are necessary for the IS product to function as a substitute",
           "statement": "Foreground modelling must include the conditioning/purification/separation steps required to achieve market-ready product quality when these steps are necessary for the IS product to function as a substitute.",
           "source": "D4.1 Part 2 §4.2",
-          "lines": "L00401",
+          "lines": "L00429",
           "census_ids": [
             "E3-016"
           ],
@@ -142,7 +142,7 @@
           "applies_when": null,
           "statement": "Background processes should be represented with recognised, geographically representative LCI datasets for energy supply, generic chemicals, infrastructure and substituted conventional products (stated as consistent with Situation A micro-level decision support).",
           "source": "D4.1 Part 2 §4.2",
-          "lines": "L00403",
+          "lines": "L00431",
           "census_ids": [
             "E3-017"
           ],
@@ -157,7 +157,7 @@
           "applies_when": null,
           "statement": "For co-products (bioenergy, digestate and other products), substitution should be prioritised to credit avoided conventional products displaced by co-products (e.g., mineral fertilisers, fossil energy).",
           "source": "D4.1 Part 2 §4.3",
-          "lines": "L00411",
+          "lines": "L00439",
           "census_ids": [
             "E3-018"
           ],
@@ -172,13 +172,13 @@
           "applies_when": "the input is a true waste (Market Value test)",
           "statement": "A cut-off assumption should be applied for true wastes at the point of collection, excluding upstream agricultural impacts.",
           "source": "D4.1 Part 2 §4.3",
-          "lines": "L00427",
+          "lines": "L00455",
           "census_ids": [
             "E3-021"
           ],
           "verbatim": "a cut-off assumption should be applied for true wastes at the point of collection, excluding upstream agricultural impacts",
           "when_key": null,
-          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01016): the point named here holds when the residue already has that value there."
+          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01047): the point named here holds when the residue already has that value there."
         },
         {
           "id": "p2_agrifood_09",
@@ -187,7 +187,7 @@
           "applies_when": "the conversion route is assessed with lab/pilot data",
           "statement": "Scale-up frameworks (Piccinno et al., 2016; Tsoy et al., 2020; Moni et al., 2020; Bergerson et al., 2020; Cucurachi et al., 2018) must be applied to project industrial-scale inventory from lab/pilot data.",
           "source": "D4.1 Part 2 §4.3",
-          "lines": "L00435",
+          "lines": "L00463",
           "census_ids": [
             "E3-023"
           ],
@@ -202,7 +202,7 @@
           "applies_when": "the conversion route is assessed with lab/pilot data",
           "statement": "Results based on upscaled lab/pilot inventory must be accompanied by uncertainty/sensitivity analysis.",
           "source": "D4.1 Part 2 §4.3",
-          "lines": "L00435",
+          "lines": "L00463",
           "census_ids": [
             "E3-024"
           ],
@@ -217,7 +217,7 @@
           "applies_when": null,
           "statement": "Key geographical parameters (notably transport distances and regional grid electricity) should be modelled explicitly with context-specific values rather than generic/global averages.",
           "source": "D4.1 Part 2 §4.3",
-          "lines": "L00443",
+          "lines": "L00471",
           "census_ids": [
             "E3-025"
           ],
@@ -232,7 +232,7 @@
           "applies_when": null,
           "statement": "A multi-criteria LCIA must be applied, including at minimum climate change, eutrophication, acidification and toxicity-related categories. The LCIA shall be tailored to the sector, and its dominant categories must be considered (§9.1): GWP, eutrophication (terrestrial, freshwater, marine), acidification potential, toxicity (human and ecological) and land use.",
           "source": "D4.1 Part 2 §4.3; §9.1",
-          "lines": "L00451, L00767, L00771",
+          "lines": "L00479, L00795, L00799",
           "census_ids": [
             "E3-026",
             "E3-097",
@@ -249,7 +249,7 @@
           "applies_when": "circular bioeconomy strategies such as food waste to bioenergy or biochemicals",
           "statement": "Circular bioeconomy strategies typically decrease fossil resource depletion and GWP but frequently drive up eutrophication, acidification and ecotoxicity, mainly through direct nutrient emissions during field application of digestate or compost and the high energy/solvent demand of intensive extraction.",
           "source": "D4.1 Part 2 §9.1",
-          "lines": "L00773, L00767",
+          "lines": "L00801, L00795",
           "census_ids": [
             "E3-099"
           ],
@@ -264,14 +264,14 @@
           "applies_when": null,
           "statement": "Underrepresented/emerging categories that must be considered (per the §9 introduction) are indirect land use change (critical but frequently under-assessed), soil carbon flux, biodiversity loss and agricultural water scarcity.",
           "source": "D4.1 Part 2 §9.1",
-          "lines": "L00775, L00767",
+          "lines": "L00803, L00795",
           "census_ids": [
             "E3-097",
             "E3-100"
           ],
           "verbatim": "Indirect Land Use Change (iLUC) is critical but frequently under-assessed.",
           "when_key": null,
-          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01246, L01256)."
         }
       ],
       "configurations": [
@@ -280,7 +280,7 @@
           "label": "Organic waste to bioenergy & fertiliser (AD/composting)",
           "substitutes": "natural gas / grid electricity and mineral NPK fertilisers",
           "source": "D4.1 Part 2 §4.1",
-          "lines": "L00381",
+          "lines": "L00409",
           "verbatim": "Substitutes natural gas / grid electricity and mineral NPK fertilisers"
         },
         {
@@ -288,7 +288,7 @@
           "label": "Food/agri by-products to animal feed (bioconversion)",
           "substitutes": "soy meal and/or fishmeal",
           "source": "D4.1 Part 2 §4.1",
-          "lines": "L00383",
+          "lines": "L00411",
           "verbatim": "Substitutes soy meal and/or fishmeal"
         },
         {
@@ -296,7 +296,7 @@
           "label": "Agro-residues to platform chemicals / bioplastics",
           "substitutes": "fossil-based chemicals and plastics",
           "source": "D4.1 Part 2 §4.1",
-          "lines": "L00385",
+          "lines": "L00413",
           "verbatim": "Substitutes fossil-based chemicals and plastics"
         },
         {
@@ -304,7 +304,7 @@
           "label": "Agro-industrial residues to high-value compounds",
           "substitutes": "synthetic additives and conventional counterparts",
           "source": "D4.1 Part 2 §4.1",
-          "lines": "L00387",
+          "lines": "L00415",
           "verbatim": "Substitutes synthetic additives and conventional counterparts"
         },
         {
@@ -312,7 +312,7 @@
           "label": "Nutrient recovery to soil amendment / fertiliser substitution",
           "substitutes": "synthetic mineral N/P fertilisers",
           "source": "D4.1 Part 2 §4.1",
-          "lines": "L00389",
+          "lines": "L00417",
           "verbatim": "Substitutes synthetic mineral N/P fertilisers"
         }
       ]
@@ -331,7 +331,7 @@
           "applies_when": "relevant to the circular strategy (notably reusable packaging)",
           "statement": "Where relevant, the foreground typically includes packaging manufacturing and use-phase operations (notably reverse logistics and washing for reusables), in addition to collection, sorting, pre-treatment and reprocessing.",
           "source": "D4.1 Part 2 §5.2",
-          "lines": "L00471",
+          "lines": "L00499",
           "census_ids": [
             "E3-032"
           ],
@@ -346,7 +346,7 @@
           "applies_when": null,
           "statement": "Foreground modelling must include sorting efficiencies, technical yields, reject rates and transport distances, using primary or well-documented literature values, with reverse logistics included in the transport distances where applicable.",
           "source": "D4.1 Part 2 §5.2",
-          "lines": "L00477",
+          "lines": "L00505",
           "census_ids": [
             "E3-033",
             "E3-033"
@@ -362,7 +362,7 @@
           "applies_when": "the system is a reusable packaging system",
           "statement": "For reusable systems, the foreground must include the number of reuse rotations, return rates and key behavioural parameters that determine real achieved lifetime.",
           "source": "D4.1 Part 2 §5.2",
-          "lines": "L00479",
+          "lines": "L00507",
           "census_ids": [
             "E3-034"
           ],
@@ -377,13 +377,13 @@
           "applies_when": null,
           "statement": "Background processes should be sourced from recognised generic LCI databases to represent energy supply, auxiliary chemicals and production of displaced virgin resins/monomers.",
           "source": "D4.1 Part 2 §5.2",
-          "lines": "L00481",
+          "lines": "L00509",
           "census_ids": [
             "E3-035"
           ],
           "verbatim": "Background processes should be sourced from recognised generic LCI databases to represent energy supply, auxiliary chemicals, and production of displaced virgin resins/monomers",
           "when_key": null,
-          "note": "For Situation B, Part 1 asks long-run marginal technologies instead (D4.1 §11.3.1, L01293)."
+          "note": "For Situation B, Part 1 asks long-run marginal technologies instead (D4.1 §11.3.1, L01330)."
         },
         {
           "id": "p2_plastics_06",
@@ -392,13 +392,13 @@
           "applies_when": "system expansion is used (notably for open-loop recycling)",
           "statement": "When system expansion is used, a quality correction factor must be applied, selected per the four-tier Q hierarchy of Part 1, Section 7.3.2 (functional/performance ratio; empirical substitution; market-price ratio; PEF CFF Q_sin/Q_p), to reflect physical or market-value degradation of the recyclate versus virgin resin.",
           "source": "D4.1 Part 2 §5.3",
-          "lines": "L00489",
+          "lines": "L00517",
           "census_ids": [
             "E3-036"
           ],
           "verbatim": "a quality correction factor shall be applied when using system expansion, selected per the four-tier Q hierarchy of Part 1, Section 7.3.2",
           "when_key": "ilcd in {A,B,C1}",
-          "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer."
+          "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00915): this chapter names the basis to prefer."
         },
         {
           "id": "p2_plastics_07",
@@ -407,7 +407,7 @@
           "applies_when": null,
           "statement": "For end-of-life allocation and recycled content, a consistent boundary approach should be applied across scenarios.",
           "source": "D4.1 Part 2 §5.3",
-          "lines": "L00497",
+          "lines": "L00525",
           "census_ids": [
             "E3-037"
           ],
@@ -422,13 +422,13 @@
           "applies_when": "the study seeks policy alignment or substitution data is complex",
           "statement": "For policy alignment or where substitution data is complex, standardised formulas such as the PEF Circular Footprint Formula (CFF) (Part 1, Section 7.3.3) should be used.",
           "source": "D4.1 Part 2 §5.3",
-          "lines": "L00497",
+          "lines": "L00525",
           "census_ids": [
             "E3-038"
           ],
           "verbatim": "For policy alignment or where substitution data is complex, standardised formulas such as the PEF Circular Footprint Formula (CFF) (Part 1, Section 7.3.3) should be used",
           "when_key": "ilcd in {A,B,C1}",
-          "note": "Part 1 calls the CFF mandatory for EU policy-aligned studies (L00894) and a valid alternative (L00914); with Q4 = D the engine applies it, except in Situation C2."
+          "note": "Part 1 calls the CFF mandatory for EU policy-aligned studies (L00925) and a valid alternative (L00945); with Q4 = D the engine applies it, except in Situation C2."
         },
         {
           "id": "p2_plastics_09",
@@ -437,7 +437,7 @@
           "applies_when": "the technology (e.g., chemical recycling, advanced depolymerisation) is represented by lab/pilot data",
           "statement": "Upscaling frameworks (Piccinno et al., 2016; Tsoy et al., 2020; Moni et al., 2020; Bergerson et al., 2020; Cucurachi et al., 2018) must be used to derive industrial-scale material and energy flows from lab/pilot data, and assumptions must be clearly documented for comparability.",
           "source": "D4.1 Part 2 §5.3",
-          "lines": "L00513",
+          "lines": "L00541",
           "census_ids": [
             "E3-041"
           ],
@@ -452,7 +452,7 @@
           "applies_when": null,
           "statement": "Sensitivity analyses should cover regional energy mixes, reverse-logistics transport distances and end-of-life processing yields.",
           "source": "D4.1 Part 2 §5.3",
-          "lines": "L00521",
+          "lines": "L00549",
           "census_ids": [
             "E3-042"
           ],
@@ -467,7 +467,7 @@
           "applies_when": null,
           "statement": "A multi-criteria impact assessment must be applied, tracking GWP alongside indicators relevant to the strategy (e.g., abiotic depletion, eutrophication, land use). The LCIA shall be tailored to the sector, and its dominant categories must be considered (§9.2): climate change/GWP, abiotic resource depletion (fossil and elements), acidification, eutrophication and human toxicity.",
           "source": "D4.1 Part 2 §5.3; §9.2",
-          "lines": "L00529, L00767, L00779",
+          "lines": "L00557, L00795, L00807",
           "census_ids": [
             "E3-043",
             "E3-097",
@@ -484,7 +484,7 @@
           "applies_when": "bio-based plastics (e.g., PLA) replace petrochemical plastics",
           "statement": "Replacing petrochemical plastics with bio-based alternatives lowers GWP and fossil depletion but frequently shifts burdens to land use, eutrophication and water depletion due to the agricultural cultivation of biomass feedstocks.",
           "source": "D4.1 Part 2 §9.2",
-          "lines": "L00783, L00767",
+          "lines": "L00811, L00795",
           "census_ids": [
             "E3-102"
           ],
@@ -499,7 +499,7 @@
           "applies_when": "single-use packaging is replaced by reusable packaging",
           "statement": "Shifting from single-use to reusable packaging reduces solid waste and material production impacts but shifts the burden to the use phase, increasing water consumption and GWP through washing/sanitization energy and detergents and reverse logistics.",
           "source": "D4.1 Part 2 §9.2",
-          "lines": "L00785, L00767",
+          "lines": "L00813, L00795",
           "census_ids": [
             "E3-103"
           ],
@@ -514,14 +514,14 @@
           "applies_when": null,
           "statement": "Underrepresented/emerging categories that must be considered (per the §9 introduction) are marine litter, micro/macro-plastic degradation and human exposure to migrating chemicals; standard LCIA methods currently lack robust characterisation factors for the physical impacts of plastic leakage on aquatic ecosystems.",
           "source": "D4.1 Part 2 §9.2",
-          "lines": "L00787, L00767",
+          "lines": "L00815, L00795",
           "census_ids": [
             "E3-097",
             "E3-104"
           ],
           "verbatim": "Underrepresented / Emerging Categories: Marine litter, micro/macro-plastic degradation, and human exposure to migrating chemicals.",
           "when_key": null,
-          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01246, L01256)."
         }
       ],
       "configurations": [
@@ -530,7 +530,7 @@
           "label": "Mechanical recycling (open-/closed-loop)",
           "substitutes": "virgin PET/PP/HDPE, often with quality loss limiting end-use",
           "source": "D4.1 Part 2 §5.1",
-          "lines": "L00459",
+          "lines": "L00487",
           "verbatim": "Substitutes virgin PET/PP/HDPE, often with quality loss limiting end-use"
         },
         {
@@ -538,7 +538,7 @@
           "label": "Chemical recycling (thermochemical/depolymerisation)",
           "substitutes": "virgin monomers and/or crude-oil-derived feedstocks",
           "source": "D4.1 Part 2 §5.1",
-          "lines": "L00461",
+          "lines": "L00489",
           "verbatim": "Substitutes virgin monomers and/or crude-oil-derived feedstocks"
         },
         {
@@ -546,7 +546,7 @@
           "label": "Reusable packaging systems (PSS)",
           "substitutes": "single-use packaging, and avoids the associated waste management",
           "source": "D4.1 Part 2 §5.1",
-          "lines": "L00463",
+          "lines": "L00491",
           "verbatim": "Substitutes single-use packaging and avoids associated waste management"
         },
         {
@@ -554,7 +554,7 @@
           "label": "Bio-based / biodegradable packaging",
           "substitutes": "petrochemical plastics",
           "source": "D4.1 Part 2 §5.1",
-          "lines": "L00465",
+          "lines": "L00493",
           "verbatim": "substituting petrochemical plastics"
         },
         {
@@ -562,7 +562,7 @@
           "label": "Upcycling and decontamination for high-value loops",
           "substitutes": "virgin resins in higher-value applications",
           "source": "D4.1 Part 2 §5.1",
-          "lines": "L00467",
+          "lines": "L00495",
           "verbatim": "substitution of virgin resins in higher-value applications"
         }
       ]
@@ -580,7 +580,7 @@
           "applies_when": null,
           "statement": "The foreground (plant-wide water and sludge lines plus recovery units) must extend downstream to the final use and emissions of recovered outputs; field emissions from the land application of recovered fertiliser products and biochar must be quantified explicitly where they occur.",
           "source": "D4.1 Part 2 §6.2",
-          "lines": "L00553, L00561, L00587",
+          "lines": "L00581, L00589, L00615",
           "census_ids": [
             "E3-050",
             "E3-052",
@@ -597,7 +597,7 @@
           "applies_when": null,
           "statement": "Foreground modelling must include a comprehensive material flow analysis (MFA) across unit processes, explicitly tracking TS, TN, TP, COD and heavy metals.",
           "source": "D4.1 Part 2 §6.2",
-          "lines": "L00559",
+          "lines": "L00587",
           "census_ids": [
             "E3-051"
           ],
@@ -612,7 +612,7 @@
           "applies_when": null,
           "statement": "Direct emissions must be quantified explicitly in the foreground inventory, including fugitive CH₄ from digestion and N₂O from biological tanks.",
           "source": "D4.1 Part 2 §6.2",
-          "lines": "L00561",
+          "lines": "L00589",
           "census_ids": [
             "E3-052"
           ],
@@ -627,7 +627,7 @@
           "applies_when": null,
           "statement": "Background processes should be modelled using recognised LCI databases with region-specific energy mixes and consistent datasets for the conventional substituted products (stated as consistent with Situation A micro-level decision support).",
           "source": "D4.1 Part 2 §6.2",
-          "lines": "L00563",
+          "lines": "L00591",
           "census_ids": [
             "E3-053"
           ],
@@ -642,7 +642,7 @@
           "applies_when": "functional equivalence is supported by recovery performance",
           "statement": "For WWTP biofactories (sanitation service plus products), substitution should be used to credit avoided conventional equivalents (e.g., synthetic fertilisers; fossil energy), provided functional equivalence is supported by recovery performance.",
           "source": "D4.1 Part 2 §6.3",
-          "lines": "L00571",
+          "lines": "L00599",
           "census_ids": [
             "E3-054"
           ],
@@ -657,13 +657,13 @@
           "applies_when": "the flow is influent wastewater",
           "statement": "Influent wastewater must be burden-free at the plant gate (cut-off).",
           "source": "D4.1 Part 2 §6.3",
-          "lines": "L00587",
+          "lines": "L00615",
           "census_ids": [
             "E3-058"
           ],
           "verbatim": "influent wastewater shall be burden-free at the plant gate (cut-off)",
           "when_key": null,
-          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01016): the point named here holds when the residue already has that value there."
+          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01047): the point named here holds when the residue already has that value there."
         },
         {
           "id": "p2_wastewater_09",
@@ -672,7 +672,7 @@
           "applies_when": "the configuration integrates recovery units into the plant (e.g., struvite precipitation)",
           "statement": "Plant-wide simulation models should be used to generate dynamic foreground inventories for integrated recovery configurations.",
           "source": "D4.1 Part 2 §6.3",
-          "lines": "L00595",
+          "lines": "L00623",
           "census_ids": [
             "E3-060"
           ],
@@ -687,7 +687,7 @@
           "applies_when": null,
           "statement": "Regional electricity mixes and specific transport distances must be modelled accurately, particularly for energy-intensive recovery steps and transport-intensive reuse options.",
           "source": "D4.1 Part 2 §6.3",
-          "lines": "L00603",
+          "lines": "L00631",
           "census_ids": [
             "E3-061"
           ],
@@ -702,7 +702,7 @@
           "applies_when": null,
           "statement": "A multi-criteria LCIA must be applied, including at minimum climate change, freshwater/marine eutrophication, acidification, toxicity-related categories and water consumption. The LCIA shall be tailored to the sector, and its dominant categories must be considered (§9.3): GWP, eutrophication (freshwater/marine), ecotoxicity (freshwater/marine), acidification and cumulative energy demand.",
           "source": "D4.1 Part 2 §6.3; §9.3",
-          "lines": "L00611, L00767, L00791",
+          "lines": "L00639, L00795, L00819",
           "census_ids": [
             "E3-062",
             "E3-097",
@@ -719,7 +719,7 @@
           "applies_when": "the plant is upgraded for advanced resource recovery (e.g., struvite precipitation) or high-grade water reclamation",
           "statement": "Advanced resource recovery or high-grade water reclamation reduces eutrophication and aquatic toxicity but significantly increases GWP, acidification and energy demand because of intensive electricity and chemical inputs.",
           "source": "D4.1 Part 2 §9.3",
-          "lines": "L00793, L00767",
+          "lines": "L00821, L00795",
           "census_ids": [
             "E3-106"
           ],
@@ -734,7 +734,7 @@
           "applies_when": "recovered sludge or biochar is applied to land",
           "statement": "Applying recovered sludge/biochar to land can increase terrestrial ecotoxicity due to heavy metal accumulation.",
           "source": "D4.1 Part 2 §9.3",
-          "lines": "L00793, L00767",
+          "lines": "L00821, L00795",
           "census_ids": [
             "E3-106"
           ],
@@ -749,7 +749,7 @@
           "applies_when": null,
           "statement": "Underrepresented/emerging categories that must be considered (per the §9 introduction) are the Water Scarcity Index (WSI) and water depletion, highly relevant for water reclamation and reuse scenarios but not universally applied; emerging contaminants (e.g. pharmaceuticals) and localised odour and noise impacts are further under-represented categories to consider.",
           "source": "D4.1 Part 2 §9.3",
-          "lines": "L00795, L00767",
+          "lines": "L00823, L00795",
           "census_ids": [
             "E3-097",
             "E3-107",
@@ -758,7 +758,7 @@
           ],
           "verbatim": "Water Scarcity Index (WSI) and Water Depletion. While highly relevant for water reclamation and reuse scenarios, these are not universally applied, missing critical regional contexts of water stress",
           "when_key": null,
-          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01246, L01256)."
         }
       ],
       "configurations": [
@@ -767,7 +767,7 @@
           "label": "Nutrient recovery (P & N) to fertiliser products",
           "substitutes": "synthetic mineral fertilisers and upstream phosphate rock/urea supply",
           "source": "D4.1 Part 2 §6.1",
-          "lines": "L00539",
+          "lines": "L00567",
           "verbatim": "Substitutes synthetic mineral fertilisers and upstream phosphate rock/urea supply"
         },
         {
@@ -775,7 +775,7 @@
           "label": "Wastewater/sludge to energy (biogas/CHP or upgrading)",
           "substitutes": "natural gas and grid electricity",
           "source": "D4.1 Part 2 §6.1",
-          "lines": "L00541",
+          "lines": "L00569",
           "verbatim": "Substitutes natural gas and grid electricity"
         },
         {
@@ -783,7 +783,7 @@
           "label": "Sludge pyrolysis to biochar + energy carriers",
           "substitutes": "soil amendments/fertilisers and/or fossil fuels",
           "source": "D4.1 Part 2 §6.1",
-          "lines": "L00543",
+          "lines": "L00571",
           "verbatim": "Substitutes soil amendments/fertilisers and/or fossil fuels"
         },
         {
@@ -791,7 +791,7 @@
           "label": "Water reclamation and reuse",
           "substitutes": "freshwater withdrawals and tap water",
           "source": "D4.1 Part 2 §6.1",
-          "lines": "L00545",
+          "lines": "L00573",
           "verbatim": "Substitutes freshwater withdrawals and tap water"
         },
         {
@@ -799,7 +799,7 @@
           "label": "Screening waste to SRF for industry",
           "substitutes": "fossil fuels (e.g., petroleum coke) in cement kilns",
           "source": "D4.1 Part 2 §6.1",
-          "lines": "L00547",
+          "lines": "L00575",
           "verbatim": "Substitutes fossil fuels (e.g., petroleum coke) in cement kilns"
         },
         {
@@ -807,7 +807,7 @@
           "label": "Microalgae-based wastewater biorefineries",
           "substitutes": "conventional pigments and energy sources",
           "source": "D4.1 Part 2 §6.1",
-          "lines": "L00549",
+          "lines": "L00577",
           "verbatim": "Substitutes conventional pigments and energy sources"
         }
       ]
@@ -825,7 +825,7 @@
           "applies_when": "the configuration is circular",
           "statement": "For circular configurations, the foreground explicitly represents reverse logistics, sorting networks and the specific recycling or remanufacturing technologies, and this connective tissue must be actively modelled.",
           "source": "D4.1 Part 2 §7.2",
-          "lines": "L00631",
+          "lines": "L00659",
           "census_ids": [
             "E3-068"
           ],
@@ -840,7 +840,7 @@
           "applies_when": "circular routes are modelled",
           "statement": "Foreground modelling of circular routes must quantify material losses, reject rates and sorting inefficiencies at each stage to correctly calculate the yield and quality of secondary materials.",
           "source": "D4.1 Part 2 §7.2",
-          "lines": "L00637",
+          "lines": "L00665",
           "census_ids": [
             "E3-069"
           ],
@@ -855,7 +855,7 @@
           "applies_when": null,
           "statement": "The use phase must be modelled explicitly using consumer behaviour data (e.g., washing frequency, appliance efficiency).",
           "source": "D4.1 Part 2 §7.2",
-          "lines": "L00639",
+          "lines": "L00667",
           "census_ids": [
             "E3-070"
           ],
@@ -870,13 +870,13 @@
           "applies_when": null,
           "statement": "Background processes (generic grids, bulk chemicals, displaced virgin production) should be sourced from robust recognised LCI databases (Part 1, Section 4.2.3).",
           "source": "D4.1 Part 2 §7.2",
-          "lines": "L00641",
+          "lines": "L00669",
           "census_ids": [
             "E3-071"
           ],
           "verbatim": "Background processes (generic grids, bulk chemicals, displaced virgin production) should be sourced from robust recognised LCI databases (Part 1, Section 4.2.3)",
           "when_key": null,
-          "note": "For Situation B, Part 1 asks long-run marginal technologies instead (D4.1 §11.3.1, L01293)."
+          "note": "For Situation B, Part 1 asks long-run marginal technologies instead (D4.1 §11.3.1, L01330)."
         },
         {
           "id": "p2_textiles_05",
@@ -885,13 +885,13 @@
           "applies_when": null,
           "statement": "A quality correction factor selected per the four-tier Q hierarchy of Part 1, Section 7.3.2 (functional/performance ratio; empirical substitution; market-price ratio; PEF CFF Q_sin/Q_p) should be applied to represent reduced substitution potential of recycled fibres versus virgin fibres.",
           "source": "D4.1 Part 2 §7.3",
-          "lines": "L00657",
+          "lines": "L00685",
           "census_ids": [
             "E3-073"
           ],
           "verbatim": "a quality correction factor selected per the four-tier Q hierarchy of Part 1, Section 7.3.2 (functional/performance ratio; empirical substitution; market-price ratio; PEF CFF Q_sin/Q_p) should be applied",
           "when_key": "ilcd in {A,B,C1}",
-          "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer."
+          "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00915): this chapter names the basis to prefer."
         },
         {
           "id": "p2_textiles_06",
@@ -900,13 +900,13 @@
           "applies_when": "the textile input is a true waste by the Market Value test",
           "statement": "A zero-burden (cut-off) approach should be adopted for pre- and post-consumer textile waste, with burdens for the secondary product starting at waste collection and sorting.",
           "source": "D4.1 Part 2 §7.3",
-          "lines": "L00665",
+          "lines": "L00693",
           "census_ids": [
             "E3-074"
           ],
           "verbatim": "a zero-burden (cut-off) approach should be adopted for pre- and post-consumer textile waste, with burdens for the secondary product starting at waste collection and sorting",
           "when_key": null,
-          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01016): the point named here holds when the residue already has that value there."
+          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01047): the point named here holds when the residue already has that value there."
         },
         {
           "id": "p2_textiles_07",
@@ -915,7 +915,7 @@
           "applies_when": "the recycling pathway is represented by lab/pilot data",
           "statement": "Prospective LCA with upscaling frameworks (Piccinno et al., 2016; Tsoy et al., 2020; Moni et al., 2020; Bergerson et al., 2020; Cucurachi et al., 2018) must be applied to emerging recycling pathways.",
           "source": "D4.1 Part 2 §7.3",
-          "lines": "L00673",
+          "lines": "L00701",
           "census_ids": [
             "E3-075"
           ],
@@ -930,7 +930,7 @@
           "applies_when": "the recycling pathway is represented by lab/pilot data",
           "statement": "Results of upscaled pathways must include sensitivity analysis on key scale-dependent parameters (e.g., energy demand, yields, solvent use).",
           "source": "D4.1 Part 2 §7.3",
-          "lines": "L00673",
+          "lines": "L00701",
           "census_ids": [
             "E3-076"
           ],
@@ -945,7 +945,7 @@
           "applies_when": null,
           "statement": "Multi-criteria LCIA must be used, including freshwater/marine ecotoxicity, human toxicity and water depletion alongside climate change. The LCIA shall be tailored to the sector, and its dominant categories must be considered (§9.4): climate change/GWP, water use/scarcity, human toxicity (cancer and non-cancer), freshwater ecotoxicity and eutrophication.",
           "source": "D4.1 Part 2 §7.3; §9.4",
-          "lines": "L00681, L00767, L00799",
+          "lines": "L00709, L00795, L00827",
           "census_ids": [
             "E3-077",
             "E3-097",
@@ -962,7 +962,7 @@
           "applies_when": "textiles are chemically recycled",
           "statement": "Chemical recycling of textiles reduces virgin material extraction but uses toxic solvents and high thermal energy, trading solid waste reduction for increased human toxicity and GWP.",
           "source": "D4.1 Part 2 §9.4",
-          "lines": "L00803, L00767",
+          "lines": "L00831, L00795",
           "census_ids": [
             "E3-109"
           ],
@@ -977,7 +977,7 @@
           "applies_when": "clothing life is extended via Product-Service Systems (rental/reuse)",
           "statement": "Extending clothing life via PSS avoids new manufacturing impacts but frequently leads to large increases in freshwater ecotoxicity and water depletion due to intensified commercial laundering and consumer transport.",
           "source": "D4.1 Part 2 §9.4",
-          "lines": "L00805, L00767",
+          "lines": "L00833, L00795",
           "census_ids": [
             "E3-110"
           ],
@@ -992,7 +992,7 @@
           "applies_when": "natural fibre substitutes (e.g., cotton) are used",
           "statement": "Natural fibre substitutes (e.g., cotton) offset carbon benefits via severe agricultural water scarcity and toxicity.",
           "source": "D4.1 Part 2 §9.4",
-          "lines": "L00805, L00767",
+          "lines": "L00833, L00795",
           "census_ids": [
             "E3-110"
           ],
@@ -1007,14 +1007,14 @@
           "applies_when": null,
           "statement": "Underrepresented/emerging categories that must be considered (per the §9 introduction) are microplastic fibre shedding during washing, specific land footprint metrics for natural fibres and specific quality degradation metrics for downcycling limits.",
           "source": "D4.1 Part 2 §9.4",
-          "lines": "L00807, L00767",
+          "lines": "L00835, L00795",
           "census_ids": [
             "E3-097",
             "E3-111"
           ],
           "verbatim": "Microplastic fiber shedding during washing phases, specific Land Footprint metrics for natural fibers, and specific quality degradation metrics for downcycling limits",
           "when_key": null,
-          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01246, L01256)."
         }
       ],
       "configurations": [
@@ -1023,7 +1023,7 @@
           "label": "Fibre-to-fibre recycling (closed-loop)",
           "substitutes": "virgin fibres (e.g., cotton, wool) and fossil-based polyester",
           "source": "D4.1 Part 2 §7.1",
-          "lines": "L00619",
+          "lines": "L00647",
           "verbatim": "Substitutes virgin fibres (e.g., cotton, wool) and fossil-based polyester"
         },
         {
@@ -1031,7 +1031,7 @@
           "label": "Downcycling to non-wovens and composites (open-loop)",
           "substitutes": "glass wool, polyurethane foam, and virgin polymer resins",
           "source": "D4.1 Part 2 §7.1",
-          "lines": "L00621",
+          "lines": "L00649",
           "verbatim": "Substitutes glass wool, polyurethane foam, and virgin polymer resins"
         },
         {
@@ -1039,7 +1039,7 @@
           "label": "Chemical valorisation to biochemicals/monomers",
           "substitutes": "fossil-based chemical feedstocks",
           "source": "D4.1 Part 2 §7.1",
-          "lines": "L00623",
+          "lines": "L00651",
           "verbatim": "Substitutes fossil-based chemical feedstocks"
         },
         {
@@ -1047,7 +1047,7 @@
           "label": "Recycled carbon fibre (rCF) for technical textiles",
           "substitutes": "highly energy-intensive virgin carbon fibre",
           "source": "D4.1 Part 2 §7.1",
-          "lines": "L00625",
+          "lines": "L00653",
           "verbatim": "Substitutes highly energy-intensive virgin carbon fibre"
         },
         {
@@ -1055,7 +1055,7 @@
           "label": "Product-Service Systems (PSS) and reuse",
           "substitutes": "production, retail, and disposal of newly manufactured garments",
           "source": "D4.1 Part 2 §7.1",
-          "lines": "L00627",
+          "lines": "L00655",
           "verbatim": "Substitutes production, retail, and disposal of newly manufactured garments"
         }
       ]
@@ -1073,7 +1073,7 @@
           "applies_when": null,
           "statement": "The foreground typically covers the full technological chain from the waste collection gate to the final disposal of process rejects (grave), and upstream burdens that generated the original waste are usually excluded.",
           "source": "D4.1 Part 2 §8.2",
-          "lines": "L00703",
+          "lines": "L00731",
           "census_ids": [
             "E3-083"
           ],
@@ -1088,7 +1088,7 @@
           "applies_when": null,
           "statement": "Foreground modelling must include process-specific mass and energy balances, explicitly representing sorting efficiencies, technical yields and the exact energy consumption of intensive pre-treatments such as shredding/drying, to mitigate truncation error.",
           "source": "D4.1 Part 2 §8.2",
-          "lines": "L00709",
+          "lines": "L00737",
           "census_ids": [
             "E3-084"
           ],
@@ -1103,7 +1103,7 @@
           "applies_when": null,
           "statement": "Background processes should be sourced from recognised LCI databases, using regionalised market/energy mixes and consistent datasets for avoided virgin materials (stated as corresponding to Situation A).",
           "source": "D4.1 Part 2 §8.2",
-          "lines": "L00711",
+          "lines": "L00739",
           "census_ids": [
             "E3-085"
           ],
@@ -1118,7 +1118,7 @@
           "applies_when": null,
           "statement": "The reference scenario (the Current Non-Symbiotic Reference Scenario, CNSRS, of Part 1, Section 11) must reflect actual local waste management practice (e.g., sanitary landfill with/without gas recovery, open dumping, mass incineration), not generic global averages.",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00727",
+          "lines": "L00755",
           "census_ids": [
             "E3-089"
           ],
@@ -1133,7 +1133,7 @@
           "applies_when": null,
           "statement": "System expansion should be used to credit displaced virgin production.",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00735",
+          "lines": "L00763",
           "census_ids": [
             "E3-090"
           ],
@@ -1148,13 +1148,13 @@
           "applies_when": "recovered materials have lower properties/market value than virgin counterparts",
           "statement": "A quality correction factor (substitution ratio) must be applied where recovered materials have lower properties/market value than virgin counterparts, selected per the four-tier Q hierarchy of Part 1, Section 7.3.2 (functional/performance ratio; empirical substitution; market-price ratio; PEF CFF Q_sin/Q_p).",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00735",
+          "lines": "L00763",
           "census_ids": [
             "E3-091"
           ],
           "verbatim": "a quality correction factor (substitution ratio) shall be applied where recovered materials have lower properties/market value than virgin counterparts",
           "when_key": "ilcd in {A,B,C1}",
-          "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00884): this chapter names the basis to prefer."
+          "note": "Part 1 requires Q whenever the secondary product performs differently (D4.1 §7.3.2, L00915): this chapter names the basis to prefer."
         },
         {
           "id": "p2_waste_valorisation_07",
@@ -1163,13 +1163,13 @@
           "applies_when": "the feedstock is a true waste",
           "statement": "A cut-off approach must be applied for true waste feedstocks at collection.",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00743",
+          "lines": "L00771",
           "census_ids": [
             "E3-092"
           ],
           "verbatim": "a cut-off approach shall be applied for true waste feedstocks at collection",
           "when_key": null,
-          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01016): the point named here holds when the residue already has that value there."
+          "note": "Part 1 places the zero-burden point where the residue first reaches a non-negative market value (D4.1 §8.3.6, L01047): the point named here holds when the residue already has that value there."
         },
         {
           "id": "p2_waste_valorisation_08",
@@ -1178,7 +1178,7 @@
           "applies_when": "the secondary product entails distinct environmental releases in use (e.g., land application of compost/biochar)",
           "statement": "Boundaries should be extended to include downstream use-phase emissions when the secondary product entails distinct environmental releases.",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00743",
+          "lines": "L00771",
           "census_ids": [
             "E3-093"
           ],
@@ -1193,7 +1193,7 @@
           "applies_when": "the valorisation route is represented by lab/pilot data",
           "statement": "Prospective LCA with scale-up models (Piccinno et al., 2016; Tsoy et al., 2020; Moni et al., 2020; Bergerson et al., 2020; Cucurachi et al., 2018) must be applied to emerging valorisation technologies.",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00751",
+          "lines": "L00779",
           "census_ids": [
             "E3-094"
           ],
@@ -1208,7 +1208,7 @@
           "applies_when": "the valorisation route is represented by lab/pilot data",
           "statement": "The prospective LCA must be accompanied by sensitivity/uncertainty analysis on key scale-dependent parameters.",
           "source": "D4.1 Part 2 §8.3",
-          "lines": "L00751",
+          "lines": "L00779",
           "census_ids": [
             "E3-095"
           ],
@@ -1223,7 +1223,7 @@
           "applies_when": null,
           "statement": "Multi-criteria LCIA must report GWP alongside abiotic resource depletion, eutrophication and toxicity-related categories. The LCIA shall be tailored to the sector, and its dominant categories must be considered (§9.5): GWP, human toxicity, terrestrial/aquatic ecotoxicity, abiotic resource depletion (fossil and elements), acidification and particulate matter formation.",
           "source": "D4.1 Part 2 §8.3; §9.5",
-          "lines": "L00759, L00767, L00811",
+          "lines": "L00787, L00795, L00839",
           "census_ids": [
             "E3-096",
             "E3-097",
@@ -1240,7 +1240,7 @@
           "applies_when": "secondary materials are recovered through energy-intensive pre-treatment, chemical/biological leaching or thermal combustion (e.g., urban mining of WEEE, mine tailings, SRF co-processing)",
           "statement": "Recovering secondary materials offers credits in abiotic resource depletion and reduces GWP, but energy-intensive pre-treatment and leaching agents or thermal combustion routinely shift burdens to human toxicity, acidification, ecotoxicity and particulate matter.",
           "source": "D4.1 Part 2 §9.5",
-          "lines": "L00813, L00767",
+          "lines": "L00841, L00795",
           "census_ids": [
             "E3-113"
           ],
@@ -1255,14 +1255,14 @@
           "applies_when": null,
           "statement": "Underrepresented/emerging categories that must be considered (per the §9 introduction) are soil carbon sequestration (particularly relevant for biochar or organic soil amendments), long-term leaching of heavy metals from secondary construction materials (e.g., slags/ashes in concrete) and land use changes related to avoided landfill space.",
           "source": "D4.1 Part 2 §9.5",
-          "lines": "L00815, L00767",
+          "lines": "L00843, L00795",
           "census_ids": [
             "E3-097",
             "E3-114"
           ],
           "verbatim": "Soil Carbon Sequestration (particularly relevant for biochar or organic soil amendments but often excluded due to methodological gaps), long-term leaching of heavy metals from secondary construction materials",
           "when_key": null,
-          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01214, L01224)."
+          "note": "Part 1 asks frontier categories to be reported where the network implicates the flow, even with uncertain factors, and an omitted one to be declared as a blind spot (D4.1 §10.3.5, L01246, L01256)."
         }
       ],
       "configurations": [
@@ -1271,7 +1271,7 @@
           "label": "MSW/RDF/SRF to energy (co-processing)",
           "substitutes": "petroleum coke/coal",
           "source": "D4.1 Part 2 §8.1",
-          "lines": "L00691",
+          "lines": "L00719",
           "verbatim": "Substitutes petroleum coke/coal"
         },
         {
@@ -1279,7 +1279,7 @@
           "label": "Biowaste to nutrients and energy",
           "substitutes": "natural gas, grid electricity, and synthetic mineral fertilisers",
           "source": "D4.1 Part 2 §8.1",
-          "lines": "L00693",
+          "lines": "L00721",
           "verbatim": "Substitutes natural gas, grid electricity, and synthetic mineral fertilisers"
         },
         {
@@ -1287,7 +1287,7 @@
           "label": "Industrial residues/tailings to construction materials and metals",
           "substitutes": "primary metals and virgin aggregates",
           "source": "D4.1 Part 2 §8.1",
-          "lines": "L00695",
+          "lines": "L00723",
           "verbatim": "Substitutes primary metals and virgin aggregates"
         },
         {
@@ -1295,7 +1295,7 @@
           "label": "WEEE and urban mining",
           "substitutes": "mining and refining of virgin ores",
           "source": "D4.1 Part 2 §8.1",
-          "lines": "L00697",
+          "lines": "L00725",
           "verbatim": "Substitutes mining and refining of virgin ores"
         },
         {
@@ -1303,7 +1303,7 @@
           "label": "Plastic waste upcycling (mechanical/thermochemical)",
           "substitutes": "virgin polymer resins and/or crude oil",
           "source": "D4.1 Part 2 §8.1",
-          "lines": "L00699",
+          "lines": "L00727",
           "verbatim": "Substitutes virgin polymer resins and/or crude oil"
         }
       ]

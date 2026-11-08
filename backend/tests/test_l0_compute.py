@@ -77,8 +77,8 @@ def test_lcc_C_plus_E_plus_S_for_q1_C_with_eco(schemas):
      (Q1.D, Q3(eco=True), True, LccType.C_LCC_ONLY)],   # C2 keeps the company-only costing
 )
 def test_no_lca_means_no_e_lcc(q1, q3, policy, expected):
-    """D4.2 §4.1: the E-LCC is built on the parallel LCA boundary (L00551); without
-    it the network level is the C-LCC consolidation (L00547, L00601)."""
+    """D4.2 §4.1: the E-LCC is built on the parallel LCA boundary (L00575); without
+    it the network level is the C-LCC consolidation (L00571, L00625)."""
     case = Case(q1=q1, q3=q3, policy_objective=policy)
     run(case, None)
     assert case.lcc_type is expected
@@ -265,7 +265,7 @@ def test_q9_answers_consistent_with_q1_leave_no_note(q1, decision):
     (False, _S.SITUATION_A, "structural_without_screening"),
 ])
 def test_q9_structural_needs_the_market_screening(screening, situation, code):
-    """D4.1 L00632: the burden of proof is on Situation B; L01293: the screening."""
+    """D4.1 L00662: the burden of proof is on Situation B; L01330: the screening."""
     case = Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True), decision_context=_X, market_screening_documented=screening)
     run(case, None)
     assert case.ilcd_situation == situation
@@ -394,7 +394,7 @@ _FLOW_CODES = {"flow_sellable_but_waste", "flow_price_without_market", "flow_fre
     [("a", True, "flow_sellable_but_waste"), ("a", False, None), ("a", None, None),
      ("c", False, "flow_price_without_market"), ("c", True, None), ("c", None, None),
      ("b", True, "flow_freedom_to_act_settles"), ("b", False, "flow_freedom_to_act_settles"), ("b", None, None),
-     # interdependent production is a co-product whatever the price (D4.1 L00996)
+     # interdependent production is a co-product whatever the price (D4.1 L01027)
      ("d", False, None), ("d", True, None), ("e", False, None), ("e", True, None)],
 )
 def test_freedom_to_act_is_checked_against_q5(q5, sellable, code):

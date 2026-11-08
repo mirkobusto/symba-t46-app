@@ -115,8 +115,8 @@ def _pillar_is_off(case: Case, prefix: str) -> bool:
 
 
 # What the LCC takes from the LCA even when no LCA is done: the same reference
-# scenario (D4.2 L00725) and the same classification of each flow (D4.2 §6.3,
-# L00729). Owner decision 2026-10-18, after the corpus run on Catalano 2024.
+# scenario (D4.2 L00749) and the same classification of each flow (D4.2 §6.3,
+# L00753). Owner decision 2026-10-18, after the corpus run on Catalano 2024.
 _LCA_NODES_SHARED_WITH_LCC = frozenset({"lca_mc_26", "lca_mc_27", "lca_mc_17"})
 _LCA_KEYS_SHARED_WITH_LCC = frozenset({
     "reference_scenario.type", "reference_scenario.content", "zero_burden_classification"})
@@ -186,7 +186,7 @@ def asset_lifetime_years(case: Case) -> float:
 
 
 # Length of the study horizon (analysis period, else asset lifetime) above which
-# future background is required: D4.2 §9.3 L01131 ("asset lifetimes exceeding
+# future background is required: D4.2 §9.3 L01167 ("asset lifetimes exceeding
 # fifteen years"), which cites no source behind the figure. Default of a parameter
 # the analyst can change through `advanced["future_background_threshold_years"]`.
 FUTURE_BACKGROUND_LIFETIME_YEARS = 15.0
@@ -208,8 +208,8 @@ LOW_TRL = frozenset({Q6b.TRL5_6, Q6b.TRL_LT_5})
 
 
 def horizon_exceeds_threshold(case: Case) -> bool:
-    """D4.2 L01131 speaks of asset lifetimes, the study of its analysis period
-    (L01044 aligns the two): either one beyond the threshold is enough (owner
+    """D4.2 L01167 speaks of asset lifetimes, the study of its analysis period
+    (L01075 aligns the two): either one beyond the threshold is enough (owner
     decision 2026-10-15, after Fable's review)."""
     threshold = future_background_threshold_years(case)
     period = case.analysis_period_years
@@ -224,11 +224,11 @@ def operates_in_future(case: Case) -> bool:
 
 
 def needs_future_background(case: Case) -> bool:
-    """One study horizon for LCA and LCC (D4.2 L01261, L01277; D4.1 L01521):
+    """One study horizon for LCA and LCC (D4.2 L01297, L01313; D4.1 L01558):
     future background (SSP/RCP) when the system operates in a future year
-    (D4.1 L01100, L01393), when the key technology is below TRL 7 (L01100), or
+    (D4.1 L01132, L01430), when the key technology is below TRL 7 (L01132), or
     when the analysis period or the asset lifetime runs beyond the threshold
-    (D4.2 L01131, 15 years by default, changeable by the analyst). Read by lca_mc_21,
+    (D4.2 L01167, 15 years by default, changeable by the analyst). Read by lca_mc_21,
     lcc_hc_23 and CIR-01 (owner decision 2026-10-15, replacing ex-ante OR
     lifetime)."""
     return (operates_in_future(case) or case.q6b in LOW_TRL
@@ -237,7 +237,7 @@ def needs_future_background(case: Case) -> bool:
 
 _E_LCC_FAMILY = {LccType.E_LCC_PLUS_S_LCC_PLUS_NTF, LccType.C_LCC_PLUS_E_LCC}
 
-# lca_mc_30 keys AWARE on water exchanges (D4.1 L01401): since 2026-10-18 it
+# lca_mc_30 keys AWARE on water exchanges (D4.1 L01438): since 2026-10-18 it
 # reads the sector declared on the flows, not the case sector (Q6a). The legacy
 # alias is kept for stored cases and old fixtures.
 _WASTEWATER_SECTORS = {Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, Q6a.WASTEWATER_BIOFACTORIES}
@@ -463,7 +463,7 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
 
 
 # Capital goods are amortised over the technical lifetime of each asset, the same
-# period in LCA and LCC (D4.1 §6.3.3, §14.2.2; D4.2 §4.2 L00575). The Q8 asset
+# period in LCA and LCC (D4.1 §6.3.3, §14.2.2; D4.2 §4.2 L00599). The Q8 asset
 # lifetime is the primary asset's; per-asset periods belong to the DCF.
 _AMORTISATION_FIELDS = (("lca_hc_18", "lca.capital_goods.amortization_period"),
                         ("lcc_hc_07", "lcc.capital_goods.amortization_period"))

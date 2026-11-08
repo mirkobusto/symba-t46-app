@@ -184,7 +184,7 @@ class Case(BaseModel):
     q2: Q2 | None = None
     # Q2b (only with Q2 = A) — has the network run for many years, so that the
     # plants it replaced would no longer be built today? True: the HNSRS is a
-    # modern counterfactual built with the strategies of D4.1 §11.2.2 (L01250).
+    # modern counterfactual built with the strategies of D4.1 §11.2.2 (L01282).
     # None = not answered: the plain HNSRS of §11.1.
     network_long_standing: bool | None = None
     q3: Q3 = Field(default_factory=Q3)
@@ -201,7 +201,7 @@ class Case(BaseModel):
     reference_market_region: str | None = Field(default=None, max_length=120)
     reference_market_scope: ReferenceMarketScope | None = None
     # Q8 (optional) — the study's time horizon, one for LCA and LCC (D4.2 §11,
-    # L01261). Q8a: when the system operates (now / a future year); Q8b: how many
+    # L01297). Q8a: when the system operates (now / a future year); Q8b: how many
     # years the study follows it (analysis period); Q8c: technical lifetime of the
     # main assets, used only when the analysis period is not given (D4.2 §9.1).
     # None = not answered. Future background (lca_mc_21, lcc_hc_23, CIR-01) is
@@ -219,7 +219,7 @@ class Case(BaseModel):
     # Q9b (only with Q9 = structural) — is the market screening documented: the yearly
     # quantity added to or withdrawn from the affected market exceeds the capacity it
     # replaces every year, at most 5 % (ILCD Handbook 2010, §5.3)? False: Situation A
-    # with B as a sensitivity (L00632). None: B, with a note asking for the proof.
+    # with B as a sensitivity (L00662). None: B, with a note asking for the proof.
     market_screening_documented: bool | None = None
     # Q10 (optional) — does the study serve a public policy or territorial
     # planning objective? D4.2 §2.3 adds an S-LCC in that case. None = not
@@ -232,7 +232,7 @@ class Case(BaseModel):
     comparison_goal: ComparisonGoal | None = None
 
     # Q12 (optional, asked when LCA or LCC is on) — does the symbiosis need new
-    # dedicated shared assets (pipelines, plants, storage)? D4.2 §4.2 (L00567): their
+    # dedicated shared assets (pipelines, plants, storage)? D4.2 §4.2 (L00591): their
     # CAPEX and OPEX go in the cost breakdown, allocated among the benefiting
     # partners; D4.1 §6.3.3: capital goods unique to the IS scenario are included.
     # Read by lcc_hc_07, lca_hc_18 / lca_mc_10 ({shared_assets}), IR-13, B-06, CIR-08.

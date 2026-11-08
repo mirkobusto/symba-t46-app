@@ -20,7 +20,7 @@ from app.domain.models import Case
 PLACEHOLDERS = ("reference_market", "affected_market", "interaction_scale", "shared_assets")
 _TOKEN = re.compile(r"\{(" + "|".join(PLACEHOLDERS) + r")\}")
 
-# D4.1 §11.3.1 (L01291): the average matches the market the counterfactual would
+# D4.1 §11.3.1 (L01328): the average matches the market the counterfactual would
 # draw on, typically national or sub-national; continental averages only for
 # globally traded commodities with no sub-continental market.
 _SCOPE = {
@@ -31,7 +31,7 @@ _SCOPE = {
 _GENERIC_MARKET = ("the market the counterfactual would draw on (typically national or sub-national; "
                    "continental only for globally traded commodities, D4.1 §11.3.1)")
 
-# D4.1 §12.2.3 (L01365) and §12.3.3 (L01403, L01415).
+# D4.1 §12.2.3 (L01402) and §12.3.3 (L01440, L01452).
 _INTERACTIONS = {
     Q7.A: ("key interactions are intensely local (one site): spatially specific characterisation factors "
            "for water scarcity, eutrophication and acidification, and the scale mismatch flagged where "
@@ -61,7 +61,7 @@ def reference_market(case: Case) -> str:
 
 def affected_market(case: Case) -> str:
     """The market named for a marginal (consequential) reference: the name and
-    scope only, without the averaging rule of L01291, which is for averages."""
+    scope only, without the averaging rule of L01328, which is for averages."""
     region = (case.reference_market_region or "").strip()
     scope = case.reference_market_scope.value.replace("_", "-") if case.reference_market_scope else None
     detail = ", ".join(x for x in (region, f"{scope} scope" if scope else None) if x)

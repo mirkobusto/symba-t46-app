@@ -263,6 +263,8 @@ const en = {
     menuClose: 'Close menu',
     backToSite: 'Project website',
     tool: 'Monitoring tool',
+    // heading of the website links in the phone menu (UX round 6, P4-09)
+    phoneGroup: 'SYMBA project website (in English)',
     nav: {
       about: 'About',
       project: 'Project',
@@ -538,6 +540,8 @@ const en = {
     },
     examplesLink: "Want to see how a real study answers? Load a published example",
     stillRequired: "Still to answer:",
+    // phone: the count replaces the list of titles in the fixed bar (UX round 6, P4-02)
+    goToFirstMissing: "go to the first",
     flowsMissingQ5: "who pays whom, for every flow",
     shortcutTip: 'Tip: Ctrl/⌘+Enter to run',
 

@@ -19,6 +19,10 @@ import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import LanguageSwitcher from '../LanguageSwitcher'
+import { SITE_NAV, SITE_URL } from '../brand/siteLinks'
+import AccountControls from './AccountControls'
+
 interface NavItem {
   to: string
   label: string
@@ -115,6 +119,29 @@ export default function Sidebar() {
           ))}
         </div>
       ))}
+
+      {/* phone only (CSS): the topbar row and the site header's own burger
+          are hidden there, so language, account and the project website's
+          links live in this one menu. Hidden on wide screens, where the
+          topbar and the site header carry them (UX round 6, P4-06, P5-08;
+          decided by Fable). */}
+      <div className="dd-sidebar-phone">
+        <div className="dd-sidebar-account">
+          <LanguageSwitcher />
+          <AccountControls />
+        </div>
+        <div className="dd-sidebar-group dd-sidebar-site">
+          <div className="dd-sidebar-group-title">{t('siteHeader.phoneGroup')}</div>
+          <a className="dd-sidebar-link" href={SITE_URL}>
+            <span className="dd-sidebar-label">{t('siteHeader.backToSite')}</span>
+          </a>
+          {SITE_NAV.map((item) => (
+            <a key={item.key} className="dd-sidebar-link" href={item.href}>
+              <span className="dd-sidebar-label">{t(`siteHeader.nav.${item.key}`)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
 
       </div>
 

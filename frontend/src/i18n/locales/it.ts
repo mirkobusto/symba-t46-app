@@ -54,7 +54,8 @@ const it: Locale = {
     menuOpen: 'Apri il menu',
     menuClose: 'Chiudi il menu',
     backToSite: 'Sito del progetto',
-    tool: 'Monitoraggio',
+    tool: 'Strumento di monitoraggio',
+    phoneGroup: 'Sito del progetto SYMBA (in inglese)',
     // Labels of the sections of the project website, which is in English.
     nav: {
       about: 'About',
@@ -516,6 +517,7 @@ const it: Locale = {
     },
     examplesLink: "Vuoi vedere come risponde uno studio vero? Carica un esempio pubblicato",
     stillRequired: "Mancano ancora:",
+    goToFirstMissing: "vai alla prima",
     flowsMissingQ5: "chi paga chi, per ogni flusso",
     shortcutTip: 'Suggerimento: Ctrl/⌘+Enter per eseguire',
 

@@ -9,7 +9,7 @@
 //     ("New assessment" reopened the current answers without saying so: the
 //     item is named for what it opens, and a new assessment starts from the
 //     questionnaire or Home, asking first; UX round 6, P6-14)
-//   - Reports    → Stakeholder views / Regional dashboard
+//   - Reports    → Stakeholder views / Regional dashboard / DCF / Read a shared report
 //   - System     → About / Change role (Scoring queue will land in a later phase)
 //
 // The sidebar footer surfaces the mandatory EU / GA reference so it is
@@ -18,6 +18,10 @@
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+
+import LanguageSwitcher from '../LanguageSwitcher'
+import { SITE_NAV, SITE_URL } from '../brand/siteLinks'
+import AccountControls from './AccountControls'
 
 interface NavItem {
   to: string
@@ -54,6 +58,8 @@ export default function Sidebar() {
         { to: '/stakeholder-report', label: t('adminShell.nav.stakeholder'), glyph: '⊞' },
         { to: '/aggregate', label: t('adminShell.nav.aggregate'), glyph: '⊠' },
         { to: '/data-collection', label: t('adminShell.nav.dcf'), glyph: '↓' },
+        // a reader who received a link had no way back to it from the menu (UX round 6, P5-05, P4-16)
+        { to: '/r/open', label: t('adminShell.nav.openShared'), glyph: '↗' },
       ],
     },
     {
@@ -115,6 +121,29 @@ export default function Sidebar() {
           ))}
         </div>
       ))}
+
+      {/* phone only (CSS): the topbar row and the site header's own burger
+          are hidden there, so language, account and the project website's
+          links live in this one menu. Hidden on wide screens, where the
+          topbar and the site header carry them (UX round 6, P4-06, P5-08;
+          decided by Fable). */}
+      <div className="dd-sidebar-phone">
+        <div className="dd-sidebar-account">
+          <LanguageSwitcher />
+          <AccountControls />
+        </div>
+        <div className="dd-sidebar-group dd-sidebar-site">
+          <div className="dd-sidebar-group-title">{t('siteHeader.phoneGroup')}</div>
+          <a className="dd-sidebar-link" href={SITE_URL}>
+            <span className="dd-sidebar-label">{t('siteHeader.backToSite')}</span>
+          </a>
+          {SITE_NAV.map((item) => (
+            <a key={item.key} className="dd-sidebar-link" href={item.href}>
+              <span className="dd-sidebar-label">{t(`siteHeader.nav.${item.key}`)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
 
       </div>
 

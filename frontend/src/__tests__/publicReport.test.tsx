@@ -89,6 +89,49 @@ describe('public report', () => {
     expect(screen.getByText(/Did this link come from a product label\?/)).toBeTruthy()
   })
 
+  it('puts the choice of view right under what the page is (UX round 6, P4-04)', async () => {
+    renderAt('/r/c1')
+    const lead = await screen.findByText(/Who are you reading as\?/)
+    const tabs = screen.getByRole('tablist')
+    const caseTitle = screen.getByText('The case')
+    expect(lead.compareDocumentPosition(tabs) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(tabs.compareDocumentPosition(caseTitle) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+    expect(screen.getByRole('link', { name: /Who is behind SYMBA\?/ }).getAttribute('href')).toBe('/r/about')
+    expect(screen.getByText(/This page applies to this case only/)).toBeTruthy()
+  })
+
+  it('says where the plants are and whose names the exchanges carry (P4-08, P5-03)', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({
+      ok: true, status: 200,
+      json: () => Promise.resolve({
+        ...REPORT, countries: ['IT'],
+        case: { ...REPORT.case, flows: [{ id: 'f1', name: 'Siero al biogas', q5: 'a', sector: 'agriculture_agrifood_biorefineries' }] },
+      }),
+    } as Response)))
+    renderAt('/r/c1/community')
+    expect(await screen.findByText('Where the plants are: Italy')).toBeTruthy()
+    expect(screen.getByText('The exchanges, as named by whoever prepared the case:')).toBeTruthy()
+    expect(screen.getByText('Siero al biogas (Agriculture / agri-food / biorefineries)')).toBeTruthy()
+    // the region is the plants', not the reader's (P4-07)
+    expect(screen.getByText(/with data for the region or country where the plants are/)).toBeTruthy()
+  })
+
+  it('gives the end user rows in words and something to do (P5-02)', async () => {
+    renderAt('/r/c1/enduser')
+    expect(await screen.findByText('Environmental effects')).toBeTruthy()
+    expect(screen.getByText(/transport included/)).toBeTruthy()
+    expect(screen.getByText('What is measured')).toBeTruthy()
+    expect(screen.queryByText('Functional unit')).toBeNull()
+    expect(screen.queryByText(/S-LCA/)).toBeNull()
+    expect(screen.getByText(/Not planned in this study/)).toBeTruthy()
+    expect(screen.getByText('What you can do')).toBeTruthy()
+  })
+
+  it('shows a company asked for data how to fill in the workbook (P2-15)', async () => {
+    renderAt('/r/c1/industry')
+    expect((await screen.findByRole('link', { name: /How to fill it in/ })).getAttribute('href')).toBe('/r/fill-in')
+  })
+
   it('titles the verdict in words; the ILCD badge only for industry and authority', async () => {
     renderAt('/r/c1/community')
     expect(await screen.findByText('An exchange too small to change the wider economy, assessed with average data')).toBeTruthy()
@@ -99,7 +142,18 @@ describe('public report', () => {
   it('tells the authority whether the costing is set up for a public decision', async () => {
     renderAt('/r/c1/authority')
     expect(await screen.findByText('Set up for a public decision (societal LCC)')).toBeTruthy()
-    expect(screen.getByText(/ask the analyst to set the study up for a public objective/)).toBeTruthy()
+    // a case saved before Q10 was required says nothing either way (UX round 6, P4-10)
+    expect(screen.getByText(/Not declared: the study does not say whether a public body/)).toBeTruthy()
+  })
+
+  it('says "not planned" in the badge when the text says no', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({
+      ok: true, status: 200,
+      json: () => Promise.resolve({ ...REPORT, case: { ...REPORT.case, policy_objective: false } }),
+    } as Response)))
+    renderAt('/r/c1/authority')
+    expect(await screen.findByText(/ask the analyst to set the study up for a public objective/)).toBeTruthy()
+    expect(screen.queryByText('not declared')).toBeNull()
   })
 
   it('does not tell the end user there is no claim when they hold a label', async () => {

@@ -75,7 +75,9 @@ export default function FlowsEditor({ flows, onChange }: Props) {
       {flows.length === 0 ? (
         <p className="muted">{t(guided ? 'flows.plainEmpty' : 'flows.emptyHint')}</p>
       ) : (
-        <table className="flows-table">
+        // one card per flow on a phone (CSS, data-label): the 900 px table hid
+        // three columns with nothing to say so (UX round 6, P4-18)
+        <table className="flows-table flows-table-cards">
           <thead>
             <tr>
               <th>{t('flows.headers.id')}</th>
@@ -93,8 +95,8 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                 {/* a row number: the generated id ("fmw27vk3f") meant nothing on
                     screen (Kimi test 2026-11-04, A7-05); it stays on hover for the
                     scenarios' JSON */}
-                <td title={f.id}>{i + 1}</td>
-                <td>
+                <td title={f.id} className="flows-row-number">{i + 1}</td>
+                <td data-label={t('flows.headers.name')}>
                   <input
                     type="text"
                     className="row-input"
@@ -104,7 +106,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     onChange={(e) => updateFlow(f.id, { name: e.target.value })}
                   />
                 </td>
-                <td>
+                <td data-label={header('q5')}>
                   <select
                     className="row-select"
                     aria-label={t('flows.headers.q5')}
@@ -117,12 +119,12 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     <option value="" disabled>{t('flows.q5Unset')}</option>
                     {Q5_KEYS.map((k) => (
                       <option key={k} value={k}>
-                        {t(guided ? `flows.plainOptions.${k}` : `flows.options.${k}`)}
+                        {t(`flows.options.${k}`)}
                       </option>
                     ))}
                   </select>
                 </td>
-                <td>
+                <td data-label={t('flows.headers.sellable')}>
                   <select
                     className="row-select"
                     aria-label={t('flows.headers.sellable')}
@@ -139,7 +141,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     <option value="no">{t('flows.sellable.no')}</option>
                   </select>
                 </td>
-                <td>
+                <td data-label={header('sector')}>
                   <select
                     className="row-select"
                     aria-label={t('flows.headers.sector')}
@@ -159,7 +161,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     ))}
                   </select>
                 </td>
-                <td>
+                <td data-label={header('configuration')}>
                   <select
                     className="row-select"
                     aria-label={t('flows.headers.configuration')}
@@ -177,7 +179,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     ))}
                   </select>
                 </td>
-                <td>
+                <td className="flows-row-remove">
                   <button
                     type="button"
                     className="icon-btn"

@@ -10,6 +10,7 @@
 
 import type { ApplicableRule, Case } from '../types/api'
 import { chapterName } from '../i18n/engineNotes'
+import { reviewOf } from './complianceSignals'
 
 type Translate = (key: string, options?: Record<string, unknown>) => string
 
@@ -64,6 +65,8 @@ export function configurationRows(
     plain(key, options) || t(`result.config.values.${key}`, options)
   const reason = (key: string, options?: Record<string, unknown>): string =>
     plain(`why.${key}`, options) || t(`result.config.why.${key}`, options)
+  // the end user reads the rows in plain words (UX round 6, P5-02, decided by Fable)
+  const forEndUser = opts.audience === 'end-user'
 
   if (kase.study_purpose) {
     rows.push({
@@ -98,8 +101,9 @@ export function configurationRows(
   rows.push({
     key: 'slca',
     label: label('slca'),
-    // residents asked whether they would be heard (UX round 4, B3)
-    value: opts.audience === 'community'
+    // residents asked whether they would be heard (UX round 4, B3); the end
+    // user reads the same words (UX round 6, P5-02)
+    value: opts.audience === 'community' || forEndUser
       ? t(kase.q3?.soc ? 'result.config.values.community.slcaOn' : 'result.config.values.community.slcaOff')
       : kase.q3?.soc && kase.slca_activation_state
         ? plain('slcaOn') || t(`narrative.slca.${kase.slca_activation_state}.short`)
@@ -107,6 +111,25 @@ export function configurationRows(
     why: kase.q3?.soc ? undefined : reason('slcaOff'),
     nodeText: texts((kase.slca ?? {})['boundary']),
   })
+
+  if (forEndUser) {
+    // whether the environment is looked at at all was the end user's first
+    // question, and the view had no row for it (UX round 6, P5-02)
+    rows.push({
+      key: 'environment',
+      label: t('result.config.labels.environment'),
+      // transport is explicit for every exchange (lca_hc_21, D4.1 §13.3.1)
+      value: t(env ? 'result.config.values.endUser.environmentOn' : 'result.config.values.endUser.environmentOff'),
+      nodeText: [],
+    })
+    rows.push({
+      key: 'review',
+      label: t('result.config.labels.review'),
+      // the same words as the Authority view's review signal
+      value: t(`reader.compliance.review.${reviewOf(kase)}`),
+      nodeText: [],
+    })
+  }
 
   if (env || eco) {
     const activated = new Set(kase.activated_nodes ?? [])
@@ -253,8 +276,8 @@ export function configurationRows(
     const kind = goal === 'waste_treatment' ? 'waste_treatment' : goal ? 'dual' : 'function'
     rows.push({
       key: 'fu',
-      label: t('result.config.labels.fuLcc'),
-      value: value(`fuLcc_${kind}`),
+      label: forEndUser ? t('result.config.labels.whatMeasured') : t('result.config.labels.fuLcc'),
+      value: forEndUser ? t(`result.config.values.endUser.fuLcc_${kind}`) : value(`fuLcc_${kind}`),
       why: goal ? reason('fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
         : reason('fuDefault'),
       nodeText: texts(lcc['functional_equivalent']),
@@ -264,8 +287,9 @@ export function configurationRows(
     const goal = kase.comparison_goal
     rows.push({
       key: 'fu',
-      label: label('fu'),
-      value: value(`fu_${goal ?? 'function'}`),
+      label: forEndUser ? t('result.config.labels.whatMeasured') : label('fu'),
+      value: forEndUser ? t(`result.config.values.endUser.fu_${goal ?? 'function'}`)
+        : value(`fu_${goal ?? 'function'}`),
       why: goal ? reason('fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
         : reason('fuDefault'),
       nodeText: texts(lca['functional_unit']),
@@ -377,7 +401,11 @@ export function configurationRows(
     })
   }
 
-  return rows
+  // the audience views never show a question code: the Authority tab read
+  // "EU policy alignment (Q4 = D)" in guided mode (UX round 6, P3-07)
+  return opts.audience
+    ? rows.map((r) => ({ ...r, value: withoutQCodes(r.value).replace(/\s*\(Q\d+[ab]?\s*=\s*[A-E]\)/g, '') }))
+    : rows
 }
 
 export interface ObligationGroup {
@@ -428,7 +456,7 @@ export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end
   community: ['transport', 'regional', 'fieldSpreading', 'slca', 'notCovered'],
   // shared infrastructure is what a public co-funder typically finances
   authority: ['lcc', 'shared', 'reference', 'claim', 'horizon', 'slca'],
-  'end-user': ['fu', 'claim', 'slca'],
+  'end-user': ['environment', 'slca', 'fu', 'claim', 'review'],
 }
 
 /** A reason without its question codes and option letters, for guided mode

@@ -370,6 +370,12 @@ export default function QuestionnairePage() {
     else window.requestAnimationFrame(() =>
       document.getElementById(steps[next].id)?.scrollIntoView({ block: 'start' }))
   }
+  // a "still to answer" link: the step in guided mode, the card otherwise
+  function goToMissing(id: string) {
+    const at = steps.findIndex((st) => st.id === id)
+    if (stepper && at >= 0) goToStep(at)
+    else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
   // the intro banner and the scope note are said once, on the first question
   const firstStep = !stepper || stepIndex === 0
 
@@ -918,23 +924,26 @@ export default function QuestionnairePage() {
         </button>
         {missing.length > 0 ? (
           <span className="muted run-missing">
-            {t('questionnaire.stillRequired')}{' '}
-            {missing.map((m, i) => (
-              <span key={m.id}>
-                {i > 0 ? ' · ' : null}
-                <a
-                  href={`#${m.id}`}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    const at = steps.findIndex((st) => st.id === m.id)
-                    if (stepper && at >= 0) goToStep(at)
-                    else document.getElementById(m.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }}
-                >
-                  {m.label}
-                </a>
-              </span>
-            ))}
+            <span className="run-missing-list">
+              {t('questionnaire.stillRequired')}{' '}
+              {missing.map((m, i) => (
+                <span key={m.id}>
+                  {i > 0 ? ' · ' : null}
+                  <a href={`#${m.id}`} onClick={(e) => { e.preventDefault(); goToMissing(m.id) }}>
+                    {m.label}
+                  </a>
+                </span>
+              ))}
+            </span>
+            {/* phone only (CSS): the list of titles took three lines of a
+                fixed bar and covered the answers (UX round 6, P4-02); a
+                count and one link to the first open question instead */}
+            <span className="run-missing-count">
+              {t('questionnaire.stillRequired')} {missing.length} ·{' '}
+              <a href={`#${missing[0].id}`} onClick={(e) => { e.preventDefault(); goToMissing(missing[0].id) }}>
+                {t('questionnaire.goToFirstMissing')}
+              </a>
+            </span>
           </span>
         ) : (
           <span className="muted run-tip">{t('questionnaire.shortcutTip')}</span>

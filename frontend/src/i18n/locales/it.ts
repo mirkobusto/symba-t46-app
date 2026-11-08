@@ -54,7 +54,8 @@ const it: Locale = {
     menuOpen: 'Apri il menu',
     menuClose: 'Chiudi il menu',
     backToSite: 'Sito del progetto',
-    tool: 'Monitoraggio',
+    tool: 'Strumento di monitoraggio',
+    phoneGroup: 'Sito del progetto SYMBA (in inglese)',
     // Labels of the sections of the project website, which is in English.
     nav: {
       about: 'About',
@@ -98,12 +99,33 @@ const it: Locale = {
     contactHint: "Le aziende rimandano a questo indirizzo anche il Data Collection File compilato: scrivi la persona che esegue lo studio.",
     saveSharing: 'Salva nome e contatto',
     notSharedBody: 'Il report non è pubblico: solo tu puoi aprire questo caso. Attiva la condivisione per avere i link.',
-    sharedBody: 'Il report è pubblico: chiunque abbia uno di questi link può leggerlo, senza le note e le quantità dei flussi.',
+    sharedBody: "Il report è pubblico: chiunque abbia uno di questi link può leggerlo. Mostra gli scambi con i nomi che hai dato e i paesi delle aziende della tua rete; non mostra i nomi delle aziende, né le note e le quantità dei flussi.",
     signInButton: 'Accedi per salvare e condividere',
     saveFirstBodySignedIn: "Per condividere, il caso deve essere salvato sul server. Salvalo prima con \"{{button}}\" nella pagina risultato, poi riapri questa finestra.",
   },
 
   reader: {
+    thisCaseOnly: "Questa pagina vale solo per questo caso; un altro progetto si imposta dalle sue risposte.",
+    whoIsBehind: "Chi c'è dietro SYMBA?",
+    countries: "Dove sono gli impianti: {{countries}}",
+    flowsAsNamed: "Gli scambi, con i nomi dati da chi ha preparato il caso:",
+    whatYouCanDoEndUser: "Questo studio è ancora in preparazione. Per sapere che cosa significa per il prodotto che hai comprato, chiedi a chi ci ha messo questo link; per lo studio, scrivi a chi l'ha preparato: {{contact}}. I risultati, quando saranno caricati, compariranno su questa stessa pagina, allo stesso link.",
+    fillIn: {
+      eyebrow: "Data Collection File",
+      title: "Compilare un Data Collection File",
+      lead: "Hai ricevuto un file Excel da chi esegue uno studio sugli scambi a cui partecipa la tua azienda. Non ti servono un account né uno strumento: tutto si fa nel file.",
+      steps: {
+        cover: "Leggi la copertina: dice a quale caso appartiene il file, che cosa ti si chiede, entro quando e a chi rimandarlo.",
+        rows: "Compila solo le tue righe: i flussi che la tua azienda cede o riceve, nei fogli indicati in copertina, e in quelle righe solo le colonne del tuo lato (origine o destinazione).",
+        grey: "Lascia come sono le colonne grigie e i fogli per chi esegue lo studio. Se un valore che arriva già compilato non è giusto per il tuo flusso, dillo al contatto.",
+        unknown: "Se non conosci un valore, lascia vuota la cella e dillo: una cella vuota è una lacuna nota, un numero indovinato è un errore sconosciuto. Scrivi l'unità accanto a ogni quantità, la valuta e l'anno accanto a ogni costo.",
+        confidential: "Valori riservati: scrivi \"riservato\" nella cella e manda il valore solo al contatto indicato in copertina. Non inoltrare il file agli altri partner: può contenere i loro dati.",
+        send: "Rimanda il file compilato al contatto della copertina entro la data indicata.",
+      },
+      reportLine: "Hai ricevuto anche un link al report? Aprilo: la scheda Industria dice che cosa fa lo studio e quali dati gli servono.",
+      reportLink: "Leggi un report condiviso",
+      howLink: "Come compilarlo",
+    },
     tagline: 'Report pubblico',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -142,15 +164,16 @@ const it: Locale = {
     sectorTag: "Settore: {{sector}}",
     scaleTag: "Interazioni: {{scale}}",
     compliance: {
-      peer: { name: "Revisione indipendente", desc: "Un revisore controlla lo studio secondo la ISO 14044, come per una pubblicazione scientifica." },
+      review: { name: "Revisione indipendente dello studio", panel: "Prevista: un panel di almeno tre esperti indipendenti rivede lo studio prima di qualunque affermazione pubblica (ISO 14044).", journal: "Prevista: lo studio passa la revisione fra pari di una rivista scientifica.", none: "Non prevista in questo studio. Il rapporto tecnico completo resta disponibile se qualcuno chiede una revisione.", badge: { panel: "panel di tre o più esperti", journal: "revisione fra pari di una rivista", none: "non prevista in questo studio" } },
       pef: { name: "Impronta ambientale di prodotto UE (PEF)", desc: "Lo studio segue il metodo UE dell'impronta ambientale, compresa la Circular Footprint Formula.", descC2: "Non applicabile: il rendiconto di una sola azienda usa l'allocazione, non la Circular Footprint Formula (ILCD C2).", descB: 'Eseguita come analisi di sensibilità: la Situazione B si modella in modo conseguenziale.' },
       public: { name: 'Asserzione comparativa divulgata al pubblico', desc: "Dire in pubblico che un prodotto è migliore o equivalente a un altro richiede un panel di revisione ISO." },
       dnsh: { name: "Tassonomia UE, \"non arrecare danno significativo\" (DNSH)", desc: "Una verifica a parte per i finanziamenti legati alla tassonomia UE (art. 17); questo strumento non la esegue." },
-      slcc: { name: 'Impostato per una decisione pubblica (LCC sociale)', yes: 'Sì: il costing include la lettura della società che una decisione pubblica richiede, con tasse e sussidi corretti ed effetti ambientali valorizzati (D4.2 §2.3).', no: 'No: il costing resta a livello di azienda e di filiera. Se su questo caso deve decidere un ente pubblico, chiedi all\'analista di impostare lo studio per un obiettivo pubblico.', c2: 'Non applicabile: il rendiconto di una sola azienda si calcola solo a livello d\'impresa.', off: 'Non valutato: lo studio non ha la dimensione economica.' },
+      slcc: { name: 'Impostato per una decisione pubblica (LCC sociale)', yes: 'Sì: il costing include la lettura della società che una decisione pubblica richiede, con tasse e sussidi corretti ed effetti ambientali valorizzati (D4.2 §2.3).', no: 'No: il costing resta a livello di azienda e di filiera. Se su questo caso deve decidere un ente pubblico, chiedi all\'analista di impostare lo studio per un obiettivo pubblico.', c2: 'Non applicabile: il rendiconto di una sola azienda si calcola solo a livello d\'impresa.', off: 'Non valutato: lo studio non ha la dimensione economica.', undeclared: "Non dichiarato: lo studio non dice se su di esso deve decidere un ente pubblico. Chiedilo all'analista." },
       notPlanned: "non prevista in questo studio",
       notAssessed: "non valutata da questo strumento",
     },
     audience: {
+      choose: "Chi sei? Scegli la tua vista: i fatti sono gli stessi in tutte e quattro.",
       showingFor: 'Vista per: {{name}}',
       industry: { short: '🏭 Industria', name: 'Industria', title: 'Vista operatore', body: 'Quadro tecnico completo della configurazione metodologica per chi gestisce la simbiosi.' },
       community: { short: '🌳 Comunità', name: 'Comunità', title: 'Vista impatto locale', body: 'Come verranno studiati gli effetti sulla zona e sulle persone vicine agli impianti: trasporti, aria, acqua e suolo locali, ciò che si sparge sui campi, se i residenti vengono ascoltati. Non ci sono ancora risultati.' },
@@ -213,13 +236,14 @@ const it: Locale = {
     skip: 'Salta per ora',
     roles: {
       analyst: { name: 'Analista di sostenibilità', desc: 'Practitioner IS, revisore LCA/LCC/S-LCA, metodologo.' },
-      industry: { name: 'Operatore industriale', desc: 'Gestisci un impianto o un sito in una rete IS.' },
+      industry: { name: 'Operatore industriale', desc: "Gestisci un impianto o un sito in una rete di simbiosi industriale." },
       authority: { name: 'Autorità locale', desc: 'Comune, regione, analista di policy per il territorio.' },
       community: { name: 'Rappresentante di comunità', desc: 'Associazione, ONG, gruppo di cittadini del territorio ospitante.' },
       enduser: { name: 'End user / cittadino', desc: 'Usi prodotti o servizi derivati dalla simbiosi.' },
       unknown: { name: 'Non lo so ancora', desc: 'Va bene: ti portiamo sulla pagina di panoramica.' },
     },
     tasks: {
+      fill: { name: "Devo compilare un Data Collection File", desc: "Qualcuno mi ha mandato un file Excel sugli scambi della mia azienda e devo rimandarlo compilato." },
       assess: { name: 'Avvia una nuova valutazione', desc: 'Configura la metodologia per un caso IS con un breve questionario.' },
       read: { name: 'Leggi un report condiviso', desc: 'Apri un caso che qualcuno ha condiviso e leggi il report.' },
       explore: { name: 'Esplora una regione / settore', desc: "Vedi come si distribuiscono i casi salvati fra metodi e settori." },
@@ -239,6 +263,7 @@ const it: Locale = {
       system: 'Sistema',
     },
     nav: {
+      openShared: "Leggi un report condiviso",
       home: 'Home',
       questionnaire: "Questionario",
       cases: 'I miei casi',
@@ -270,10 +295,16 @@ const it: Locale = {
   },
 
   home: {
+    reader: {
+      link: "Hai ricevuto un link o un codice?",
+      open: "Leggi un report condiviso",
+      workbook: "Hai ricevuto un Data Collection File da compilare?",
+      fillIn: "Come compilarlo",
+    },
     intro: {
       what: { title: "Che cosa fa", body: "Ti dice come va impostata la valutazione di uno scambio di simbiosi industriale, secondo le linee guida SYMBA, e quali dati raccogliere dalle aziende coinvolte." },
       not: { title: "Che cosa non fa", body: "Non calcola i risultati: niente emissioni, costi o dati sociali. Li calcola chi esegue lo studio, con i dati che lo strumento chiede." },
-      who: { title: "Per chi è", body: "Analisti di sostenibilità e consulenti qui impostano i loro studi; aziende, enti pubblici e associazioni leggono i report e vedono quali dati verranno chiesti." },
+      who: { title: "Per chi è", body: "Analisti di sostenibilità e consulenti qui impostano i loro studi; aziende, enti pubblici e associazioni leggono i report e vedono quali dati verranno chiesti; i cittadini che hanno ricevuto un link, per esempio da un'etichetta di prodotto, leggono il report pubblico." },
     },
     title: "SYMBA: valutare la simbiosi industriale",
     tagline: "Come impostare la valutazione ambientale, economica e sociale di uno scambio fra aziende, e quali dati raccogliere.",
@@ -516,6 +547,7 @@ const it: Locale = {
     },
     examplesLink: "Vuoi vedere come risponde uno studio vero? Carica un esempio pubblicato",
     stillRequired: "Mancano ancora:",
+    goToFirstMissing: "vai alla prima",
     flowsMissingQ5: "chi paga chi, per ogni flusso",
     shortcutTip: 'Suggerimento: Ctrl/⌘+Enter per eseguire',
 
@@ -622,19 +654,19 @@ const it: Locale = {
     },
 
     q5: {
-      title: 'Q5 — Natura di ogni flusso simbiotico (per flusso)',
+      title: "Q5 — Chi paga chi per ogni flusso",
       help:
         "Aggiungi una riga per ogni flusso simbiotico principale e indica chi paga chi. Obbligatorio quando analizzi uno scambio, una rete o una sola azienda (Q1 = A, B o D); facoltativo altrimenti.",
       details:
-        'Per ogni flusso principale scambiato tra attori (calore, CO₂, scorie, acque reflue, idrogeno…) scegli chi paga chi. ' +
-        'a. A paga B per ritirare il flusso (una tariffa di conferimento: valore di mercato negativo, un RIFIUTO per A, D4.1 §8.3.2). Lo zero-burden vale dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, non al cancello. Pagare non significa inevitabile: D4.2 §6.2 richiede anche il test causale di evitabilità, dichiarato per flusso nel Data Collection File. ' +
-        'b. Flusso scambiato GRATIS (stato ambiguo): il test del valore economico decide se è un rifiuto o un co-prodotto, con un\'analisi di sensibilità. ' +
-        'c. B paga A per il flusso (valore di mercato positivo: un CO-PRODOTTO per A): sostituzione del materiale vergine spiazzato, con un rapporto corretto per qualità. La Circular Footprint Formula del PEF non dipende da Q5: viene da Q4=D. Se nessun terzo pagherebbe per il flusso (test di Freedom-to-Act, D4.1 §8.3.3), il prezzo è amministrativo e il flusso è modellato come rifiuto. ' +
-        'd. Flusso INTERDIPENDENTE: A ha modificato deliberatamente il proprio processo (qualità, quantità, post-trattamento) per fornire B; un co-prodotto qualunque sia il prezzo, mai zero-burden. ' +
-        'e. AGGREGATO / black-box: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §8.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. ' +
-        'Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.',
+        "Per ogni flusso principale scambiato tra attori (calore, CO₂, scorie, acque reflue, idrogeno…) scegli chi paga chi. La risposta fissa come il flusso è modellato in partenza; la sua classe giuridica non si decide qui. " +
+        "a. Chi lo cede paga chi lo riceve perché se lo porti via (una tariffa di conferimento: valore di mercato negativo, D4.1 §8.3.2): modellato come rifiuto, a carico zero dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, non al cancello. Pagare non significa inevitabile: D4.2 §6.2 richiede anche il test causale di evitabilità, dichiarato per flusso nel Data Collection File. " +
+        "b. Nessuno paga, o non è ancora chiaro: il test del valore economico decide fra carico zero e sostituzione, con un'analisi di sensibilità (D4.1 §8.3.2). " +
+        "c. Chi lo riceve paga chi lo cede (valore di mercato positivo, D4.1 §8.3.2): modellato come co-prodotto, sostituzione del materiale vergine spiazzato con un rapporto corretto per qualità. La Circular Footprint Formula del PEF non dipende da Q5: viene da Q4=D. Se nessun terzo pagherebbe per il flusso (test di Freedom-to-Act, D4.1 §8.3.3), il prezzo è amministrativo e il flusso è modellato come rifiuto. " +
+        "d. I due impianti dipendono l'uno dall'altro: chi lo cede ha modificato deliberatamente il proprio processo (qualità, quantità, post-trattamento) per rifornire chi lo riceve; modellato come co-prodotto determinante qualunque sia il prezzo, mai a carico zero (D4.1 §8.3.6, passo 2). " +
+        "e. Solo un dato complessivo per tutta la rete: la fonte non dà dettaglio per flusso (tipico dei lavori aggregati come Sokka 2011). È un limite della fonte, non una scelta di modellazione: D4.1 §8.3.1 vieta una regola unica per tutta la rete, quindi il Data Collection File chiede comunque la classificazione di ogni flusso che puoi nominare. " +
+        "Q5 registra chi paga chi; i test giuridici ed economici (Freedom-to-Act, End-of-Waste, classe di sottoprodotto, evitabilità, punto dello zero-burden) si dichiarano per flusso nella sezione Flow classification del Data Collection File. Per gli studi di policy con Q1=C, Q5 è di solito facoltativa.",
       plain:
-        'Per ogni cosa che si muove fra le aziende (calore, acqua, scorie, CO₂), qui la domanda è soltanto chi paga chi: chi manda il flusso paga per liberarsene, nessuno paga, oppure chi lo riceve lo paga. Se chi manda ha cambiato di proposito il proprio processo per fornirlo, scegli quella voce qualunque cosa dica il denaro. Per quel partner, però: un essiccatoio costruito per vendere il flusso a chiunque non è interdipendenza: scegli «chi lo riceve paga» e dichiaralo fra i beni dedicati. Se la tua fonte dà un unico numero per tutta la rete, scegli l\'ultima opzione: ti verrà comunque chiesto di ogni flusso che sai nominare, perché una regola unica per tutta la rete non è ammessa. Se un flusso sia un rifiuto per la legge si decide dopo, nel file di raccolta dati, non qui.',
+        'Per ogni cosa che si muove fra le aziende (calore, acqua, scorie, CO₂), qui la domanda è soltanto chi paga chi: chi lo cede paga per liberarsene, nessuno paga, oppure chi lo riceve lo paga. Se chi lo cede ha cambiato di proposito il proprio processo per fornirlo, scegli quella voce qualunque cosa dica il denaro. Per quel partner, però: un essiccatoio costruito per vendere il flusso a chiunque non è interdipendenza: scegli «Chi lo riceve paga chi lo cede» e dichiaralo fra i beni dedicati. Se la tua fonte dà un unico numero per tutta la rete, scegli l\'ultima opzione: ti verrà comunque chiesto di ogni flusso che sai nominare, perché una regola unica per tutta la rete non è ammessa. Se un flusso sia un rifiuto per la legge si decide dopo, nel file di raccolta dati, non qui.',
     },
 
     q6a: {
@@ -788,12 +820,12 @@ const it: Locale = {
       details: "La D4.1 Part 2 chiede che l'unità funzionale rifletta la funzione primaria del sistema (§4.3, §6.3, §8.3): un'unità basata sull'input (es. trattamento di 1 tonnellata di rifiuto) quando lo studio confronta modi di gestire un rifiuto o le prestazioni di un impianto o servizio; un'unità basata sull'output (es. 1 kg di prodotto, 1 MJ di energia) quando confronta prodotti con le alternative di mercato o sostiene un'affermazione di sostituzione; un sistema di unità funzionali quando le due funzioni sono co-primarie (Part 1 §5.3.2). La D4.2 §3.1 chiede per l'LCC un'unità doppia (rifiuto trattato + prodotto ottenuto) quando a guidare lo studio è la sostituzione di prodotto: i due deliverable divergono, e il tool segue la Part 2 per l'LCA e segnala la differenza.",
       options: {
         unset: 'Non lo so / non si confronta niente (lo strumento usa un\'unità costruita sul servizio reso)',
-        waste_treatment: "Come si gestisce un rifiuto: vie di gestione, prestazioni di un impianto o servizio (unità basata sull'input)",
+        waste_treatment: "Come si gestisce un residuo: vie di trattamento, prestazioni di un impianto o servizio (unità basata sull'input)",
         product_substitution: "Prodotti contro alternative di mercato: che cosa sostituisce il prodotto recuperato (unità basata sull'output)",
         co_primary: "Entrambe: il servizio di trattamento e i prodotti contano allo stesso modo (sistema di unità funzionali)",
       },
       plain:
-        "Su che cosa verte il confronto? Se la domanda è come trattare al meglio un rifiuto (bruciarlo, digerirlo, compostarlo), il risultato si conta per tonnellata di rifiuto trattato. Se la domanda è se il prodotto recuperato è migliore di quello che sostituisce, si conta per unità di prodotto. Se contano tutte e due, si contano una accanto all'altra.",
+        "Su che cosa verte il confronto? Se la domanda è come trattare al meglio un residuo (bruciarlo, digerirlo, compostarlo), il risultato si conta per tonnellata di residuo trattato. Se la domanda è se il prodotto recuperato è migliore di quello che sostituisce, si conta per unità di prodotto. Se contano tutte e due, si contano una accanto all'altra.",
     },
     q12: {
       title: 'Q12 — La simbiosi usa beni dedicati?',
@@ -834,19 +866,12 @@ const it: Locale = {
       sector: 'Settore di ciò che si scambia (facoltativo)',
       configuration: 'Tipo di riuso (facoltativo)',
     },
-    plainOptions: {
-      a: 'Chi lo cede paga chi lo riceve perché se lo porti via (per chi lo cede è un rifiuto)',
-      b: 'Nessuno paga, o non è ancora chiaro',
-      c: 'Chi lo riceve paga chi lo cede (per chi lo cede è un prodotto)',
-      d: 'I due impianti dipendono l\'uno dall\'altro (uno è stato modificato per rifornire l\'altro)',
-      e: 'Solo un dato complessivo per tutta la rete',
-    },
     q5Note: 'Rispondi con l\'assetto attuale: quello concordato, o quello previsto se lo scambio non è ancora in essere. È un\'ipotesi di partenza, non un risultato: se lo studio cambia chi paga chi, torna qui e cambialo. Scegli «Nessuno paga, o non è ancora chiaro» quando è indeciso, invece di forzare una direzione.',
     emptyHint: 'Nessun flusso. Aggiungine almeno uno per caratterizzare la Q5 per-flusso.',
     headers: { id: 'ID', name: 'Nome', q5: "Chi paga chi (Q5)", sellable: 'Vendibile ad altri?', sector: 'Settore (Parte 2)', configuration: "Configurazione (Parte 2)" },
     q5Unset: "— scegli chi paga chi",
     sellable: { unset: '— senza risposta', yes: 'Sì', no: 'No' },
-    sellableHint: "Se il partner non prendesse questo flusso, chi lo genera potrebbe venderlo a qualcun altro a un prezzo positivo? Sì lo rende un co-prodotto. No non lo rende da solo un rifiuto: un unico acquirente che paga quanto pagherebbe un compratore indipendente (il prezzo del prodotto che il flusso sostituisce, al netto dei suoi costi in più per usarlo) lo rende comunque un co-prodotto; un flusso ceduto gratis, o un pagamento che divide solo i costi, lo rende un rifiuto (D4.1 §8.3.3). Facoltativa: il risultato segnala quando non concorda con Q5.",
+    sellableHint: "Se il partner non prendesse questo flusso, chi lo cede potrebbe venderlo a qualcun altro a un prezzo positivo? Sì indica un flusso modellato come co-prodotto. No da solo non indica un rifiuto: un unico acquirente che paga quanto pagherebbe un compratore indipendente (il prezzo del prodotto che il flusso sostituisce, al netto dei suoi costi in più per usarlo) indica comunque un co-prodotto; un flusso ceduto gratis, o un pagamento che divide solo i costi, indica un flusso modellato come rifiuto (D4.1 §8.3.3). Facoltativa: il risultato segnala quando non concorda con chi paga chi.",
     sectorHint: 'Scegli il capitolo della D4.1 Part 2 di ciò che si scambia, non dell\'azienda: i residui agricoli e agroindustriali vanno in Agroalimentare (§4); i rifiuti urbani o misti, biorifiuti compresi (FORSU, scarti alimentari domestici), in Valorizzazione dei rifiuti (§8); i fanghi e le acque reflue trattate, anche quando riusate come acqua, in Acque reflue (§6); un prodotto o un vettore energetico ottenuto da un flusso (biometano, digestato, elettricità) nel capitolo di quel flusso. Dove §4 e §8 si sovrappongono sui biorifiuti, decide l\'origine (lettura T4.6 della Part 2 §3.3). Facoltativa: il risultato elenca le regole del capitolo. La D4.1 Part 2 ha capitoli solo per questi settori bio-based: per acciaio, cemento, calore, carta o chimica scegli «— nessuno di questi» e vale solo la Part 1. Il legno e i residui forestali (segatura, corteccia, lignina, liscivio nero) non hanno un capitolo della Part 2: scegli «— nessuno di questi».',
     sectorNone: '— nessuno di questi',
     configurationHint: "La configurazione tipica del flusso dentro il suo capitolo della Part 2 (D4.1 Part 2 §4.1-§8.1): il risultato indica il prodotto convenzionale che sostituisce. Scegli prima il settore.",
@@ -883,11 +908,11 @@ const it: Locale = {
     addButton: 'Aggiungi flusso',
     removeAria: 'Rimuovi {{id}}',
     options: {
-      a: "a. Chi cede (A) paga chi riceve (B): rifiuto",
-      b: 'b. Scambio gratuito (ambiguo)',
-      c: "c. Chi riceve (B) paga chi cede (A): co-prodotto",
-      d: 'd. Interdipendente',
-      e: 'e. Aggregato / black-box',
+      a: "a. Chi lo cede paga chi lo riceve perché se lo porti via",
+      b: "b. Nessuno paga, o non è ancora chiaro",
+      c: "c. Chi lo riceve paga chi lo cede",
+      d: "d. I due impianti dipendono l'uno dall'altro (uno è stato modificato per rifornire l'altro)",
+      e: "e. Solo un dato complessivo per tutta la rete",
     },
     plainEmpty: 'Nessuno scambio. Aggiungi ogni cosa che passa fra le aziende (siero, segatura, calore, acqua…).',
     plainNameHint: 'Chi cede e chi riceve si disegna dopo, nell\'editor di rete del Data Collection File; puoi già scriverlo nel nome (es. «Corteccia, segheria → cartiera»).',
@@ -1013,8 +1038,8 @@ const it: Locale = {
     // guided mode: notes in plain words (UX round 4)
     engineNotesPlain: {
       flow_freedom_to_act_settles: {
-        co_product: 'Flusso «{{flow}}»: hai detto che nessuno paga (o non è ancora chiaro), ma che qualcun altro lo comprerebbe: allora non è un rifiuto. Va bene così; sarà l\'analista a decidere come contarlo.',
-        waste: 'Flusso «{{flow}}»: hai detto che nessuno paga e che nessun altro lo comprerebbe: può contare come rifiuto, senza carico da parte tua. Lo verifica l\'analista.',
+        co_product: "Flusso «{{flow}}»: hai detto che nessuno paga (o non è ancora chiaro), ma che qualcun altro lo comprerebbe: allora lo studio non lo modellerà come rifiuto. Va bene così; sarà l'analista a decidere come contarlo.",
+        waste: "Flusso «{{flow}}»: hai detto che nessuno paga e che nessun altro lo comprerebbe: lo studio può modellarlo come rifiuto, senza carico da parte tua. Lo verifica l'analista.",
       },
       // guided wording of the notes on the answers (UX round 6, P2-11, P3-09, P3-10; decided by Fable)
       flow_sellable_but_waste: "Per «{{flow}}» hai detto che chi lo cede paga perché glielo portino via, ma anche che qualcun altro lo comprerebbe. Le due risposte non vanno d'accordo: un flusso che qualcuno comprerebbe non è un rifiuto, e porta con sé una parte dei carichi di chi lo produce. Ricontrolla chi paga chi per questo flusso.",
@@ -1071,7 +1096,10 @@ const it: Locale = {
       lead: 'Che cosa hanno deciso le tue risposte, nei termini dei deliverable. Apri una riga per leggere il testo del motore, in inglese, con la sezione da cui viene.',
       nodeText: 'Testo del motore (inglese)',
       labels: {
-        flows: "Trattamento dei flussi",
+        environment: "Effetti ambientali",
+        review: "Controllo indipendente",
+        whatMeasured: "Che cosa si misura",
+        flows: "Trattamento di ogni flusso nel modello",
         claim: 'Asserzione comparativa',
         purpose: 'Tipo di studio',
         lcc: 'Costi',
@@ -1093,35 +1121,46 @@ const it: Locale = {
         notCovered: 'Che cosa non copre',
       },
       values: {
+        endUser: {
+          environmentOn: "Sì: lo studio conta le emissioni e le risorse usate da tutto lo scambio, trasporti compresi.",
+          environmentOff: "No: in questo studio gli effetti ambientali non sono valutati.",
+          fu_waste_treatment: "Il trattamento del residuo che un'azienda cede, non il prodotto che compri",
+          fu_product_substitution: "I prodotti che lo scambio genera e i prodotti che sostituiscono",
+          fu_co_primary: "Entrambi: il trattamento del residuo e i prodotti che ne derivano",
+          fu_function: "Il servizio che lo scambio offre nel suo insieme",
+          fuLcc_waste_treatment: "Il trattamento del residuo che un'azienda cede, non il prodotto che compri",
+          fuLcc_dual: "Entrambi: il residuo trattato e ciò che lo scambio produce",
+          fuLcc_function: "I servizi che lo scambio offre nel suo insieme",
+        },
         community: {
           slcaOn: 'Sì: gli effetti sociali sono valutati gruppo per gruppo: lavoratori, comunità locale, consumatori. Quali gruppi vengono ascoltati lo decide chi esegue lo studio (D4.3 §5.1, §6.2).',
-          slcaOff: 'No: gli effetti sociali non sono valutati. Se i residenti vogliono essere ascoltati, chiedetelo al contatto di questa pagina.',
+          slcaOff: "No: gli effetti sociali non sono valutati. Se i residenti vogliono essere ascoltati, chiedete a chi esegue lo studio di aggiungerli.",
           regional: 'Gli effetti locali su aria, acqua e suolo (polveri sottili, acidificazione, eccesso di nutrienti, consumo d\'acqua) sono calcolati con dati {{where}}, non con medie mondiali (D4.1 §13.3.3).',
-          where_A: 'del sito',
-          where_B: 'della vostra regione o paese',
+          where_A: "del sito degli impianti",
+          where_B: "della regione o del paese in cui sono gli impianti",
           where_C: 'del territorio di ogni emissione',
-          where_unset: 'del paese',
+          where_unset: "del paese in cui sono gli impianti",
           transport: 'Ogni scambio è studiato con il suo trasporto: camion o condotte, percorsi e distanze reali, carichi e ritorni a vuoto, e la distanza oltre la quale i camion annullano il beneficio (D4.1 §13.3.1).',
           transportLcc: 'Il costo del trasporto di ogni scambio, e la distanza oltre la quale non conviene più (D4.2 §4.3).',
           fieldSpreading: 'Lo studio conta ciò che succede quando digestato, compost o fertilizzante recuperato vengono sparsi sui campi: ammoniaca nell\'aria, nitrati nell\'acqua (D4.1 Part 2 §4.3.3, §6.3.3).',
-          notCovered: 'Odori e rumore non sono categorie d\'impatto di queste linee guida (la Part 2 §9.3 li elenca fra gli effetti di solito lasciati fuori); lo sono aria, acqua e tossicità locali. Ogni effetto locale che lo studio lascia fuori va dichiarato come punto cieco noto (D4.1 §12.3.5).',
+          notCovered: "Odori e rumore non sono categorie d'impatto di queste linee guida (la D4.1 Part 2 §9.3 li elenca fra gli effetti di solito lasciati fuori); lo sono aria, acqua e tossicità locali. Odori e rumore di solito si esaminano quando gli impianti vengono autorizzati, non in questo studio: per questi, chiedete al vostro comune o all'autorità che rilascia l'autorizzazione. Ogni effetto locale che lo studio lascia fuori va dichiarato come punto cieco noto (D4.1 §12.3.5): potete chiedere a chi ha preparato lo studio di nominare questi.",
         },
         flowCost: {
-          a: 'rifiuto: la tariffa di conferimento negoziata; costo zero solo se il residuo è inevitabile (D4.2 §6.3)',
-          b: 'gratuito: prezzo di trasferimento zero; costo zero solo se inevitabile, altrimenti co-prodotto',
-          c: 'co-prodotto: il prezzo negoziato',
-          d: 'interdipendente: un co-prodotto determinante al prezzo di trasferimento negoziato; il costo zero non si applica (D4.1 §8.3.6, passo 2)',
-          e: 'aggregato: dare un prezzo a ogni flusso che si può nominare',
+          a: "tariffa di conferimento: chi lo cede paga la tariffa negoziata; i costi a monte restano fuori (costo zero) solo se il residuo è inevitabile (D4.2 §6.3)",
+          b: "prezzo di trasferimento zero: nessuno paga; i costi a monte restano fuori (costo zero) solo se il residuo è inevitabile, altrimenti il flusso è modellato come co-prodotto",
+          c: "prezzo positivo: chi lo riceve paga il prezzo negoziato, e il flusso è modellato come co-prodotto",
+          d: "prezzo di trasferimento negoziato: un co-prodotto determinante, quindi il costo zero non si applica (D4.1 §8.3.6, passo 2)",
+          e: "aggregato nella fonte: dare un prezzo a ogni flusso che si può nominare",
         },
         noChapter: "Nessun capitolo della D4.1 Part 2 riguarda i flussi dichiarati: vale solo la Part 1",
         flowTreatment: {
-          waste: 'rifiuto: carico zero dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, dopo il test di evitabilità (D4.1 §8.3.6 Passo 4)',
-          evt: 'incerto: test del valore economico, con un\'analisi di sensibilità (D4.1 §8.3.2)',
-          coproduct: 'co-prodotto: niente carico zero; sostituzione del prodotto che rimpiazza, con il fattore di qualità Q (D4.1 §8.3.6 Passo 3)',
-          integrated: 'interdipendente: un co-prodotto determinante, mai a carico zero; un unico sistema multifunzionale espanso (D4.1 §8.3.6 Passo 2); l\'E-LCC segue la stessa ripartizione e valuta il flusso al prezzo di mercato di ciò che sostituisce; il C-LCC usa il prezzo di trasferimento negoziato',
-          integratedLca: 'interdipendente: un co-prodotto determinante, mai a carico zero; un unico sistema multifunzionale espanso (D4.1 §8.3.6 Passo 2)',
+          waste: "carico zero: modellato come rifiuto, senza carico per chi lo riceve dal punto in cui il residuo raggiunge per la prima volta un valore non negativo, dopo il test di evitabilità (D4.1 §8.3.6, passo 4)",
+          evt: "test del valore economico: chi paga chi non è deciso, quindi si riportano entrambe le letture, carico zero e sostituzione, con un'analisi di sensibilità (D4.1 §8.3.2)",
+          coproduct: "sostituzione: modellato come co-prodotto, niente carico zero; sostituisce il prodotto che rimpiazza, corretto con il fattore di qualità Q (D4.1 §8.3.6, passo 3)",
+          integrated: "un unico sistema multifunzionale espanso: modellato come co-prodotto determinante, mai a carico zero (D4.1 §8.3.6, passo 2); l'E-LCC segue la stessa ripartizione e valuta il flusso al prezzo di mercato di ciò che sostituisce; il C-LCC usa il prezzo di trasferimento negoziato",
+          integratedLca: "un unico sistema multifunzionale espanso: modellato come co-prodotto determinante, mai a carico zero (D4.1 §8.3.6, passo 2)",
           allocation: 'allocazione: niente carico zero e niente crediti di sostituzione, il rendiconto di una sola azienda (D4.1 §7.2.3)',
-          aggregated: 'aggregato: classifica ogni flusso che si può nominare, nessuna regola valida per tutta la rete (D4.1 §8.3.1)',
+          aggregated: "aggregato nella fonte: classifica ogni flusso che si può nominare, nessuna regola valida per tutta la rete (D4.1 §8.3.1)",
         },
         claim: 'Asserzione comparativa divulgata al pubblico (superiorità o equivalenza): revisione critica da un panel di almeno tre esperti indipendenti, nessuna pesatura',
         claimNone: 'Nessuna asserzione comparativa divulgata al pubblico',
@@ -1140,7 +1179,7 @@ const it: Locale = {
         reference_modern: 'Un controfattuale moderno: che cosa farebbe oggi ogni azienda senza i collegamenti (scenario di riferimento non simbiotico ipotetico, HNSRS)',
         reference_cnsrs: 'Lo scenario senza la simbiosi, sull\'orizzonte dello studio (scenario di riferimento non simbiotico attuale, CNSRS)',
         market: 'mercato: {{market}}',
-        fu_waste_treatment: 'Basata sull\'input: il trattamento del rifiuto',
+        fu_waste_treatment: "Basata sull'input: il trattamento del residuo in ingresso",
         fu_product_substitution: 'Basata sull\'output: i prodotti e ciò che sostituiscono',
         fu_co_primary: 'Un sistema di unità funzionali: trattamento e prodotti insieme',
         fu_function: 'Orientata alla funzione, attorno al servizio reso',
@@ -1156,8 +1195,8 @@ const it: Locale = {
         multiPefSubstitution: '; ripartita con la Circular Footprint Formula della PEF (Q4 = D)',
         multiPefConsequential: '; CFF della PEF come analisi di sensibilità (Q4 = D)',
         multiPefAllocation: '; la CFF non si applica',
-        fuLcc_waste_treatment: 'Basato sull\'input: il trattamento del rifiuto (D4.2 §3.1)',
-        fuLcc_dual: 'Duplice: il rifiuto trattato e l\'output generato, ciascuno con i suoi costi evitati e ricavi (D4.2 §3.1)',
+        fuLcc_waste_treatment: "Basato sull'input: il trattamento del residuo in ingresso (D4.2 §3.1)",
+        fuLcc_dual: "Duplice: il residuo trattato e l'output generato, ciascuno con i suoi costi evitati e ricavi (D4.2 §3.1)",
         fuLcc_function: 'Il portafoglio di funzioni che la rete svolge, ciascuna con i suoi costi evitati e ricavi (D4.2 §3.1)',
       },
       why: {
@@ -1295,8 +1334,8 @@ const it: Locale = {
       },
       c2_allocation_over_pef: "Il rendiconto rigoroso di una sola azienda (Situazione ILCD C2) usa l'allocazione e nessun credito di sostituzione (D4.1 §7.2.3), quindi la Circular Footprint Formula della PEF chiesta da Q4=D non si applica: la CFF è un metodo di prodotto. Se lo studio è un'impronta di prodotto e non un rendiconto aziendale, rivedi Q9.",
       slca_alone: "Q3 seleziona solo la dimensione sociale. D4.3 §3.1 costruisce l'S-LCA sull'unità funzionale e sui confini di un'LCA o di un LCC; se nessuno dei due è selezionato, documenta l'unità di riferimento e il confine nel charter metodologico.",
-      flow_sellable_but_waste: "Flusso «{{flow}}»: Q5 dice che chi lo genera paga per disfarsene (rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6 Step 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
-      flow_price_without_market: "Flusso «{{flow}}»: Q5 dice che chi riceve paga (co-prodotto), ma nessun terzo lo comprerebbe. Con un solo acquirente decide il prezzo (D4.1 §8.3.3): il flusso è un co-prodotto se chi riceve paga quanto pagherebbe un compratore indipendente, cioè il prezzo del prodotto che il flusso sostituisce al netto dei suoi costi in più per usarlo; se il pagamento divide solo i costi, il flusso è un rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6 Step 4). Confronta il prezzo con questo riferimento.",
+      flow_sellable_but_waste: "Flusso «{{flow}}»: Q5 dice che chi lo cede paga per disfarsene (modellato come rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6, passo 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
+      flow_price_without_market: "Flusso «{{flow}}»: Q5 dice che chi lo riceve paga (modellato come co-prodotto), ma nessun terzo lo comprerebbe. Con un solo acquirente decide il prezzo (D4.1 §8.3.3): il flusso è un co-prodotto se chi lo riceve paga quanto pagherebbe un compratore indipendente, cioè il prezzo del prodotto che il flusso sostituisce al netto dei suoi costi in più per usarlo; se il pagamento divide solo i costi, il flusso è modellato come rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6, passo 4). Confronta il prezzo con questo riferimento.",
       flow_freedom_to_act_settles: {
         co_product: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un co-prodotto (§8.3.2, carico ripartito). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma: non cambiare chi paga chi; registra questa lettura nella Classificazione dei flussi del Data Collection File (Freedom-to-Act e passo dell'albero decisionale), che lo studio documenta.",
         waste: "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma: non cambiare chi paga chi; registra questa lettura nella Classificazione dei flussi del Data Collection File (Freedom-to-Act e passo dell'albero decisionale), che lo studio documenta.",
@@ -1576,6 +1615,8 @@ const it: Locale = {
     },
   },
   stakeholder: {
+    noCaseReader: "Hai ricevuto il link a un report? Aprilo qui sotto, oppure guarda un caso di esempio.",
+    seeExample: "Guarda un esempio",
     audience: {
       industry: {
         whatYouSee:
@@ -1584,6 +1625,7 @@ const it: Locale = {
           'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori ambientali ed economici, per giudicare se lo scambio conviene.',
       },
       community: {
+        whenScoringNoSocial: "Questo strumento non calcola le cifre, e nessuno le calcola automaticamente per il vostro caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati si possono caricare qui: indicatori ambientali. Questo studio non ha indicatori sociali, perché la dimensione sociale non è valutata.",
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali flussi le aziende si scambiano, e se questo studio esamina o no gli effetti sociali.",
         whenScoring:
@@ -1656,12 +1698,6 @@ const it: Locale = {
     cdpFlagsCount_one: '{{count}} punto di decisione che l\'analista deve sciogliere',
     cdpFlagsCount_other: '{{count}} punti di decisione che l\'analista deve sciogliere',
     complianceTitle: 'Segnali di compliance',
-    compliance: {
-      peerReview: 'Revisione indipendente fra pari: {{status}}',
-      pef: 'Allineamento EU PEF (Q4=D): {{status}}',
-      pefC2: "Allineamento EU PEF (Q4=D): non applicato, il rendiconto di un'azienda usa l'allocazione e non la Circular Footprint Formula (Situazione ILCD C2)",
-      publicClaim: 'Asserzione comparativa divulgata al pubblico (Q4=C): {{status}}',
-    },
   },
 
   aggregate: {

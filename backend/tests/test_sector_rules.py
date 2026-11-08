@@ -137,7 +137,8 @@ def test_report_lists_the_sector_rules():
     case = _food()
     text = "\n".join(p.text for p in Document(io.BytesIO(generate_case_report_bytes(case))).paragraphs)
     assert "Sector rules (D4.1 Part 2)" in text
-    assert "§4 Agri-Food and Biorefineries — applies because of: flow Spent grain" in text
+    assert "§4 Agri-Food and Biorefineries" in text
+    assert "Applies because of: the flow “Spent grain”" in text
 
 
 # --- PR 3: typical configuration per flow (§4.1-§8.1) ---------------------

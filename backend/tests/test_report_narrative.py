@@ -87,13 +87,20 @@ def test_obligations_come_from_triggered_rules_not_failed_assertions(wiktor):
 # ---------------------------------------------------------------------------
 
 
-def test_report_opens_with_the_verdict_and_the_next_steps(wiktor):
+def test_report_follows_the_order_a_reader_asks_in(wiktor):
+    """Summary, the answers, the configuration, the decision points, the
+    obligations, then the appendix, numbered from the first section (the
+    numbering started half-way down and the answers came last, P8-05)."""
     text = _text(wiktor)
     assert "Decision support with limited consequences (ILCD Situation A)" in text
     assert "What this configuration means" in text
-    assert "What to do next" in text
-    # front matter comes before the answers
-    assert text.index("What to do next") < text.index("1. The answers")
+    order = ["1. Summary", "2. The answers", "3. Your configuration", "4. Notes on the answers",
+             "5. Decision points", "6. What the study has to document", "Acknowledgements",
+             "Appendix: technical detail for the analyst"]
+    positions = [text.index(h) for h in order]
+    assert positions == sorted(positions)
+    for gone in ("3. Summary", "2. The configuration derived by the tool", "What to do next"):
+        assert gone not in text
 
 
 def test_report_prints_the_deliverable_citation_in_full(wiktor):
@@ -102,20 +109,21 @@ def test_report_prints_the_deliverable_citation_in_full(wiktor):
     assert "D4.1 Part 1 §7.2.1" in text
 
 
-def test_report_says_why_a_rule_applies_and_what_to_document(wiktor):
+def test_report_says_why_a_rule_applies_in_words(wiktor):
     text = _text(wiktor)
-    assert "Why it applies here:" in text
-    assert "What to document:" in text
-    assert "[To document]" in text
+    assert "Why it applies here" in text
+    assert "Q3 dimensions: Environmental (LCA) + Economic (LCC)" in text
+    assert "Q3 = env + eco" not in text
+    # the field paths sit in the appendix only, labelled for the analyst
+    body = text[:text.index("Appendix: technical detail for the analyst")]
+    assert "lca.functional_unit" not in body and "What to document" not in body
+    assert "lca.functional_unit" in text
 
 
-def test_report_has_four_parts_and_no_paper_placeholders(wiktor):
+def test_report_has_no_paper_placeholders(wiktor):
     """The paper-validation sections were empty placeholders for a user's case
     and a third of the document (UX round 2026-11-02)."""
     text = _text(wiktor)
-    for heading in ("1. The answers", "2. The configuration derived by the tool", "3. Summary",
-                    "4. Appendix: activated nodes"):
-        assert heading in text
     for gone in ("Bibliographic reference", "adopted by the authors", "paper configuration vs tool"):
         assert gone not in text
 
@@ -123,7 +131,7 @@ def test_report_has_four_parts_and_no_paper_placeholders(wiktor):
 def test_report_in_italian(wiktor):
     from app.services.reports import generate_case_report_bytes
     text = "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(wiktor, lang="it"))).paragraphs)
-    assert "Verdetto" in text and "Che cosa fare adesso" in text and "1. Le risposte" in text
+    assert "1. Sintesi" in text and "2. Le risposte" in text
     assert "Supporto decisionale con conseguenze limitate (Situazione ILCD A)" in text
     assert "Q2 gli scambi avvengono già: B. Non ancora" in text
 
@@ -156,8 +164,7 @@ def test_the_report_shows_obligations_not_l2_violations():
     doc = Document(BytesIO(generate_case_report_bytes(case)))
     text = "\n".join(p.text for p in doc.paragraphs)
     assert "violation" not in text.lower()
-    assert f"Obligations to document: {len(case.applicable_rules)}" in text
-    assert "Configuration complete" in text
+    assert f"Obligations to document: {len(case.applicable_rules)}." in text
 
 
 # UX round 2026-11-03: the analyst and the reviewer found the document half
@@ -176,7 +183,7 @@ def test_report_carries_the_page_configuration_rows(wiktor):
     text = _text_with(wiktor, "it", rows)
     assert "La tua configurazione" in text
     assert "Orizzonte dello studio" in text and "Perché: anno corrente" in text
-    assert text.index("La tua configurazione") < text.index("Che cosa fare adesso")
+    assert text.index("Le risposte") < text.index("La tua configurazione") < text.index("Punti in cui i metodi")
 
 
 def test_rule_and_cdp_names_follow_the_language(wiktor):
@@ -194,10 +201,14 @@ def test_verdict_detail_is_translated_and_not_repeated(wiktor):
     assert text.count(detail) == 1
 
 
-def test_engine_output_sits_in_the_appendix_as_text(wiktor):
+def test_engine_output_is_left_to_the_case_file(wiktor):
+    """The key-by-key output carried flow ids and dated development notes
+    ("T4.6 divergence kept on 2026-10-04", P3-05): it stays in the .json."""
     text = _text_with(wiktor, "en")
-    assert text.index("Engine output, key by key") > text.index("3. Summary")
-    assert "{'" not in text                     # per-flow dicts are not printed as Python reprs
+    assert "Engine output, key by key" not in text
+    assert "divergence kept on" not in text
+    assert "case file (.json)" in text
+    assert "{'" not in text
 
 
 def test_report_endpoint_takes_a_bare_case_or_case_and_rows():

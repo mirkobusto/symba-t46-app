@@ -13,7 +13,10 @@ Errors: 400 for ValueError (e.g. Q1=None on a partial questionnaire).
 """
 from __future__ import annotations
 
-from typing import Annotated, Any
+import re
+import unicodedata
+from datetime import date
+from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, Response
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -57,14 +60,65 @@ class ReportRow(BaseModel):
     why: str | None = None
 
 
+class ReportMeta(BaseModel):
+    """Who and what the document is about, for its cover (UX round 2026-11-08,
+    P8-01): the share fields of a saved case and the dates, already formatted
+    in the reader's language by the browser."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    case_name: str | None = Field(default=None, max_length=200)
+    case_ref: str | None = Field(default=None, max_length=120)
+    prepared_by: str | None = Field(default=None, max_length=120)
+    contact: str | None = Field(default=None, max_length=200)
+    generated_on: str | None = Field(default=None, max_length=60)
+    saved_on: str | None = Field(default=None, max_length=60)
+    state: Literal["saved", "diverged", "unsaved"] | None = None
+
+
+class ReportSectorRule(BaseModel):
+    strength: str
+    text: str
+    source: str | None = None
+    note: str | None = None
+
+
+class ReportSectorChapter(BaseModel):
+    """A D4.1 Part 2 chapter as the result page words it, in `lang`."""
+
+    chapter: str
+    reason: str | None = None
+    rules: list[ReportSectorRule] = Field(default_factory=list)
+
+
+class ReportScenario(BaseModel):
+    """What a scenario changes in the configuration rows and in its network,
+    worded by the scenario comparison."""
+
+    id: str
+    config: list[str] = Field(default_factory=list)
+    network: list[str] = Field(default_factory=list)
+
+
 class ReportRequest(BaseModel):
-    """The case plus the configuration rows the result page computed, so the
-    document and the screen show the same rows (UX round 2026-11-03)."""
+    """The case plus what the result page has already worded, so the document
+    and the screen say the same thing (UX rounds 2026-11-03 and 2026-11-08)."""
 
     model_config = ConfigDict(extra="forbid")
 
     case: Case
     rows: list[ReportRow] = Field(default_factory=list)
+    meta: ReportMeta | None = None
+    sector: list[ReportSectorChapter] | None = None
+    scenarios: list[ReportScenario] = Field(default_factory=list)
+    guided: bool = False
+
+
+def _report_filename(name: str | None) -> str:
+    """Report_<case>_<date>.docx, as the DCF files are named (P6-19, P7-07)."""
+    stem = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode()
+    stem = re.sub(r"[^A-Za-z0-9]+", "-", stem).strip("-")[:60] or "draft"
+    return f"Report_{stem}_{date.today().isoformat()}.docx"
 
 
 @router.post("/report")
@@ -81,21 +135,29 @@ def generate_report(
     officedocument.wordprocessingml.document` attachment so browsers
     prompt a download.
     """
-    case, rows = (payload.case, payload.rows) if isinstance(payload, ReportRequest) else (payload, [])
+    if isinstance(payload, ReportRequest):
+        case, rows, meta = payload.case, payload.rows, payload.meta
+    else:
+        case, rows, meta = payload, [], None
     try:
         result = pipeline_run(case, schemas)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    body = generate_case_report_bytes(result, lang=lang, rows=[r.model_dump() for r in rows])
+    extras: dict[str, Any] = {}
+    if isinstance(payload, ReportRequest):
+        extras = {
+            "meta": meta.model_dump() if meta else None,
+            "sector": [c.model_dump() for c in payload.sector] if payload.sector else None,
+            "scenarios": [s.model_dump() for s in payload.scenarios],
+            "guided": payload.guided,
+        }
+    body = generate_case_report_bytes(result, lang=lang, rows=[r.model_dump() for r in rows], **extras)
+    filename = _report_filename(meta.case_name if meta else None)
     return Response(
         content=body,
         media_type=DOCX_MIME,
-        headers={
-            "Content-Disposition": (
-                'attachment; filename="symba-case-report.docx"'
-            ),
-        },
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 

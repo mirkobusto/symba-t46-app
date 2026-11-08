@@ -6,6 +6,8 @@ case → 200 with derived state populated; partial questionnaire
 """
 from __future__ import annotations
 
+import re
+
 
 def test_pipeline_run_minimal_case(client):
     """Q1=A, Q2=A, Q3.env=True is the minimum valid payload."""
@@ -99,7 +101,8 @@ def test_pipeline_report_returns_docx(client):
     assert resp.headers["content-type"].startswith(
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
-    assert "symba-case-report.docx" in resp.headers["content-disposition"]
+    # named like the DCF files (UX round 2026-11-08, P6-19)
+    assert re.search(r"Report_draft_\d{4}-\d\d-\d\d\.docx", resp.headers["content-disposition"])
     # .docx is a ZIP container — first two magic bytes PK
     assert resp.content[:2] == b"PK"
     assert len(resp.content) > 2000

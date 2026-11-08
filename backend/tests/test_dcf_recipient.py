@@ -140,6 +140,17 @@ def test_dates_and_counts_read_in_the_language():
     assert "Finanziato dall'Unione Europea" in ui("it", "eu.disclaimer")
 
 
+def test_why_an_item_applies_reads_in_words():
+    """P2-17: "Q12 = yes", "Q3 = env + eco + soc", "Q8b = 20 y" in an Italian file."""
+    from app.services.dcf_terms import worded_because
+
+    text = worded_because("it", "Q3 = env + eco + soc, Q12 = yes, Q8b = 20 y")
+    assert "Ambientale (LCA) + Economica (LCC) + Sociale (S-LCA)" in text
+    assert ": sì" in text and "20 anni" in text and "env" not in text
+    assert worded_because("it", "Q5 = Whey: a") == "Q5 chi paga chi, per flusso: Whey: a"
+    assert worded_because("en", "every study of this kind") == "every study of this kind"
+
+
 def test_a_column_naming_an_actor_offers_the_actors(case, data):
     """P2-05: the linked actor of an asset was free text to copy by hand."""
     wb = _xlsx(case, data)

@@ -662,7 +662,8 @@
    "eu.funding": "This Project has received funding from the European Union's Horizon Research and Innovation Programme under Grant Agreement N. 101135562 — www.symbaproject.eu",
    "eu.disclaimer": "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the European Research Executive Agency can be held responsible for them.",
    "date.months": "January,February,March,April,May,June,July,August,September,October,November,December",
-   "date.format": "{d} {month} {y}"
+   "date.format": "{d} {month} {y}",
+   "unit.years": "years"
   },
   "enum_refs": {
    "Q6a": {
@@ -1372,7 +1373,8 @@
    "eu.funding": "Questo progetto ha ricevuto finanziamenti dal programma di ricerca e innovazione Horizon dell'Unione Europea ai sensi del Grant Agreement N. 101135562 — www.symbaproject.eu",
    "eu.disclaimer": "Finanziato dall'Unione Europea. Le opinioni espresse sono tuttavia quelle dell'autore o degli autori e non riflettono necessariamente quelle dell'Unione Europea. Né l'Unione Europea né l'Agenzia esecutiva europea per la ricerca possono essere ritenute responsabili.",
    "date.months": "gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre",
-   "date.format": "{d} {month} {y}"
+   "date.format": "{d} {month} {y}",
+   "unit.years": "anni"
   },
   "enum_refs": {
    "Q6a": {
@@ -2082,7 +2084,8 @@
    "eu.funding": "Ce projet a reçu un financement du programme de recherche et d'innovation Horizon de l'Union européenne au titre de la convention de subvention N. 101135562 — www.symbaproject.eu",
    "eu.disclaimer": "Financé par l'Union européenne. Les opinions exprimées ne sont toutefois que celles du ou des auteurs et ne reflètent pas nécessairement celles de l'Union européenne. Ni l'Union européenne ni l'Agence exécutive européenne pour la recherche ne peuvent en être tenues responsables.",
    "date.months": "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre",
-   "date.format": "{d} {month} {y}"
+   "date.format": "{d} {month} {y}",
+   "unit.years": "ans"
   },
   "enum_refs": {
    "Q6a": {
@@ -2778,7 +2781,8 @@
    "eu.funding": "Dieses Projekt wird aus dem Forschungs- und Innovationsprogramm Horizon der Europäischen Union im Rahmen der Finanzhilfevereinbarung Nr. 101135562 gefördert — www.symbaproject.eu",
    "eu.disclaimer": "Finanziert von der Europäischen Union. Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autor(inn)en und spiegeln nicht unbedingt die der Europäischen Union wider. Weder die Europäische Union noch die Europäische Exekutivagentur für die Forschung können dafür verantwortlich gemacht werden.",
    "date.months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
-   "date.format": "{d}. {month} {y}"
+   "date.format": "{d}. {month} {y}",
+   "unit.years": "Jahre"
   },
   "enum_refs": {
    "Q6a": {
@@ -3488,7 +3492,8 @@
    "eu.funding": "Este proyecto ha recibido financiación del programa de investigación e innovación Horizon de la Unión Europea en virtud del Acuerdo de Subvención N. 101135562 — www.symbaproject.eu",
    "eu.disclaimer": "Financiado por la Unión Europea. Sin embargo, las opiniones expresadas son las del autor o autores únicamente y no reflejan necesariamente las de la Unión Europea. Ni la Unión Europea ni la Agencia Ejecutiva Europea de Investigación pueden ser consideradas responsables.",
    "date.months": "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre",
-   "date.format": "{d} de {month} de {y}"
+   "date.format": "{d} de {month} de {y}",
+   "unit.years": "años"
   },
   "enum_refs": {
    "Q6a": {

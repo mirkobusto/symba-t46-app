@@ -191,8 +191,7 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
             rule = (_rt_dict(code, "schema", "rule", item.id) or {})
             item.title = rule.get("name") or item.title
             item.statement = rule.get("body") or item.statement
-        if not item.because:
-            item.because = ui_terms.get("because.always")
+        item.because = worded_because(code, item.because) if item.because else ui_terms.get("because.always")
     for item in out.decision_points:
         cdp = _rt_dict(code, "schema", "cdp", item.id) or {}
         item.category_label = ui(code, "cat.decision_points")
@@ -213,6 +212,38 @@ def localize(payload: DcfPayload, lang: str | None) -> DcfPayload:
                    else ui(code, "mc.because_case") for part in (item.because or "").split("; ") if part]
         item.because = ", ".join(reasons) or ui_terms.get("because.always")
     return out
+
+
+_ANSWER = re.compile(r"(Q\d+[a-z]?) = ")
+
+
+def worded_because(lang: str, text: str) -> str:
+    """"Q3 = env + eco + soc, Q12 = yes, Q8b = 20 y" with the questions and the
+    answers in the reader's words: "Q3 dimensioni: Ambientale (LCA) + …,
+    Q12 beni dedicati e condivisi: sì, Q8b periodo di analisi (anni): 20 anni"
+    (UX round 6, P2-17). The letters of who pays whom stay as the file's own
+    column has them; anything not recognised stays as it was."""
+    parts = _ANSWER.split(text)
+    if len(parts) < 3:
+        return text
+    out = []
+    for code, value in zip(parts[1::2], parts[2::2], strict=True):
+        value = value.strip().rstrip(",").strip()
+        key = code.lower()
+        label = _rt(lang, "docx", "q", key) or code
+        options = _rt_dict(lang, "options", key) or {}
+        if key == "q3":
+            shown = " + ".join(options.get(v, v) for v in value.split(" + "))
+        elif key == "q4":
+            shown = ", ".join(options.get(v.strip(), v.strip()) for v in value.split(","))
+        elif value in ("yes", "no"):
+            shown = _rt(lang, "common", value) or value
+        elif re.fullmatch(r"[\d.]+ y", value):
+            shown = f"{value[:-2]} {ui(lang, 'unit.years')}"
+        else:
+            shown = options.get(value, value)
+        out.append(f"{label}: {shown}")
+    return "; ".join(out)
 
 
 def _rt_dict(lang: str, *keys: str) -> dict[str, Any] | None:

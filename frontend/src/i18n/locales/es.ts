@@ -985,7 +985,8 @@ const es: Locale = {
       step1: 'Guarda el caso para encontrarlo de nuevo. Hace falta una cuenta gratuita; sin ella, el caso se queda solo en este navegador.',
       step2: 'Abre el Data Collection File, dibuja las empresas y los intercambios y después descarga el Excel: tu personal rellena las hojas sobre los actores, los flujos, la logística y los costes.',
       step3: 'Entrega el archivo y el informe a quien hará el estudio (un analista, un consultor, una universidad): los puntos técnicos de más abajo son para esa persona.',
-      analystTitle: 'Puntos para el analista ({{count}})',
+      analystTitle: 'Puntos de decisión para el analista ({{count}})',
+      obligationsTitle: 'Obligaciones para el analista ({{count}})',
       step1Saved: '✓ Guardado como «{{name}}»: lo encuentras en Mis casos.',
       step1SignedIn: 'Guarda el caso para encontrarlo de nuevo en Mis casos.',
     },
@@ -1201,7 +1202,7 @@ const es: Locale = {
       moreInfo: 'Más sobre esta configuración',
     },
     next: {
-      obligations: "{{count}} obligaciones por documentar ({{groups}}), activadas por tus respuestas. El Data Collection File las enumera, con lo que activó cada una, junto con las prácticas que el método pide a todo estudio como el tuyo.",
+      obligations: "{{count}} obligaciones por documentar ({{groups}}), activadas por tus respuestas. Se enumeran abajo por familia; el Data Collection File también las enumera, con lo que activó cada una, junto con las prácticas que el método pide a todo estudio como el tuyo.",
       families: {
         IR: '{{count}} sobre la integración de los métodos',
         CIR: '{{count}} activadas por tus respuestas',
@@ -1211,12 +1212,15 @@ const es: Locale = {
       title: 'Qué hacer ahora',
       lead:
         'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
-      countUnit_one: 'elemento',
-      countUnit_other: 'elementos',
+      countDecisions_one: '{{count}} punto de decisión',
+      countDecisions_other: '{{count}} puntos de decisión',
+      countObligations_one: '{{count}} obligación',
+      countObligations_other: '{{count}} obligaciones',
+      familyOther: '{{count}} otras',
       provenance:
         "Los nombres y enunciados de las reglas están traducidos de la tabla inglesa del motor. El código junto a cada elemento — IR-01, CDP-02 — es la referencia que no cambia de un idioma a otro, y el nombre en inglés se mantiene al lado.",
       noTensions:
-        "Para estas respuestas no ha surgido ningún punto de decisión crítico entre los métodos. Las obligaciones de abajo se aplican igualmente.",
+        "Para estas respuestas no ha surgido ningún punto de decisión crítico entre los métodos. Las obligaciones enumeradas abajo se aplican igualmente.",
       allClear:
         'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: abre el Data Collection File.',
       ctaHint: 'El Data Collection File está calibrado en esta configuración: solo pide lo que tu caso necesita.',

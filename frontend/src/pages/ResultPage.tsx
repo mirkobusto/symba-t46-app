@@ -11,7 +11,7 @@ import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { plainVerdict, verdictFor } from './resultNarrative'
 import { usePreferenceStore } from '../store/preferenceStore'
-import { obligationGroups, withoutQCodes } from './configurationRows'
+import { groupByFamily, obligationGroups, withoutQCodes } from './configurationRows'
 import { exportFilename } from './dcfFilename'
 import { reportMeta, reportRows, reportSector, scenarioConfigLines, scenarioNetworkLines } from './reportPayload'
 import ConfigurationSummary from '../components/ConfigurationSummary'
@@ -24,6 +24,7 @@ import { useCaseStore } from '../store/caseStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
+import type { ActionItem } from './resultActions'
 import { chapterName, translateNote } from '../i18n/engineNotes'
 import { sectorNote, sectorStatement } from '../i18n/sectorTerms'
 import { askConfirm, askText } from '../store/dialogStore'
@@ -380,11 +381,12 @@ export default function ResultPage() {
   const blockedBy = result.blocked_by ?? []
 
   const allItems = actionItems(result)
-  // Methodological obligations live in the Data Collection File — that is
-  // where documenting them happens, and 30 cards would bury the two or
-  // three things that actually need a decision here.
+  // Decision points are cards; the obligations, which the Data Collection File
+  // also lists, come folded by family under them: only counted, they sent the
+  // reader to the Word report to learn which they were (UX round 6, P1-07, P6-10).
   const todo = allItems.filter((item) => item.kind !== 'obligation')
-  const obligationCount = allItems.length - todo.length
+  const obligations = allItems.filter((item) => item.kind === 'obligation')
+  const obligationCount = obligations.length
   // the sector chapters are a row of the configuration: the per-flow note would repeat it
   const notes = (result.warnings ?? []).filter((w) => !(blockedBy.length === 0 && w.code === 'flow_part2_chapter'))
   const verdict = verdictFor(result, (key, fallback) =>
@@ -474,10 +476,15 @@ export default function ResultPage() {
           {t('result.next.title')}
           {/* the count read as a stray "11" after the heading (Kimi test
               2026-11-04, A1-07): a screen reader now hears "11 items" */}
-          <span className="dd-pill dd-pill-muted">
-            {todo.length}
-            <span className="visually-hidden"> {t('result.next.countUnit', { count: todo.length })}</span>
-          </span>
+          {/* one figure next to the heading read "0 items" above "7 obligations"
+              (UX round 6, P1-06, P7-11, P3-12): both counts, in words */}
+          {blockedBy.length === 0 ? (
+            <span className="dd-pill dd-pill-muted result-next-counts">
+              {t('result.next.countDecisions', { count: todo.length })}
+              {' · '}
+              {t('result.next.countObligations', { count: obligations.length })}
+            </span>
+          ) : null}
         </h2>
 
         {blockedBy.length > 0 ? (
@@ -526,6 +533,17 @@ export default function ResultPage() {
                 .join(' · '),
             })}
           </p>
+        ) : null}
+
+        {obligationCount > 0 ? (
+          guided ? (
+            <details className="result-next-analyst">
+              <summary>{t('result.guided.obligationsTitle', { count: obligationCount })}</summary>
+              <ObligationList items={obligations} />
+            </details>
+          ) : (
+            <ObligationList items={obligations} />
+          )
         ) : null}
 
         <div className="result-next-cta">
@@ -719,3 +737,27 @@ function SectorRules({ rules }: { rules: SectorRule[] }) {
   )
 }
 
+
+/** The obligations, one folded group per rule family in the order of the
+ * rule table, as the Word report groups them (UX round 6, P1-07, P6-10). */
+function ObligationList({ items }: { items: ActionItem[] }) {
+  const { t } = useTranslation()
+  return (
+    <div className="result-obligations">
+      {groupByFamily(items).map(([family, list]) => (
+        <details key={family} className="result-obligations-family">
+          <summary>
+            {family === 'other'
+              ? t('result.next.familyOther', { count: list.length })
+              : t(`result.next.families.${family}`, { count: list.length })}
+          </summary>
+          <div className="result-next-list">
+            {list.map((item) => (
+              <ActionItemCard key={item.key} item={item} />
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  )
+}

@@ -985,7 +985,8 @@ const de: Locale = {
       step1: 'Speichern Sie den Fall, um ihn wiederzufinden. Dafür braucht es ein kostenloses Konto; ohne Konto bleibt der Fall nur in diesem Browser.',
       step2: 'Öffnen Sie das Data Collection File, zeichnen Sie die Unternehmen und die Austausche und laden Sie dann die Excel-Datei herunter: Ihre Fachleute füllen die Blätter zu Akteuren, Flüssen, Logistik und Kosten aus.',
       step3: 'Geben Sie Datei und Bericht an die Person, die die Studie durchführt (Analyst, Berater, Hochschule): Die technischen Punkte weiter unten sind für sie.',
-      analystTitle: 'Punkte für den Analysten ({{count}})',
+      analystTitle: 'Entscheidungspunkte für den Analysten ({{count}})',
+      obligationsTitle: 'Verpflichtungen für den Analysten ({{count}})',
       step1Saved: '✓ Gespeichert als „{{name}}“: Sie finden ihn unter Meine Fälle.',
       step1SignedIn: 'Speichern Sie den Fall, um ihn unter Meine Fälle wiederzufinden.',
     },
@@ -1201,7 +1202,7 @@ const de: Locale = {
       moreInfo: 'Mehr zu dieser Konfiguration',
     },
     next: {
-      obligations: "{{count}} zu dokumentierende Verpflichtungen ({{groups}}), ausgelöst durch Ihre Antworten. Das Data Collection File listet sie mit ihrem Auslöser auf, zusammen mit den Praktiken, die die Methode von jeder solchen Studie verlangt.",
+      obligations: "{{count}} zu dokumentierende Verpflichtungen ({{groups}}), ausgelöst durch Ihre Antworten. Sie stehen unten, nach Familien geordnet; auch das Data Collection File listet sie mit ihrem Auslöser auf, zusammen mit den Praktiken, die die Methode von jeder solchen Studie verlangt.",
       families: {
         IR: '{{count}} zur Integration der Methoden',
         CIR: '{{count}} durch Ihre Antworten ausgelöst',
@@ -1211,12 +1212,15 @@ const de: Locale = {
       title: 'Was jetzt zu tun ist',
       lead:
         'Methodische Praktiken, die Ihre Antworten verbindlich machen, plus offene Entscheidungen. Jede nennt den Grund für Ihren Fall.',
-      countUnit_one: 'Punkt',
-      countUnit_other: 'Punkte',
+      countDecisions_one: '{{count}} Entscheidungspunkt',
+      countDecisions_other: '{{count}} Entscheidungspunkte',
+      countObligations_one: '{{count}} Verpflichtung',
+      countObligations_other: '{{count}} Verpflichtungen',
+      familyOther: '{{count}} weitere',
       provenance:
         "Die Bezeichnungen der Regeln und Entscheidungspunkte sind aus der englischen Tabelle des Motors übersetzt. Der Code neben jedem Eintrag — IR-01, CDP-02 — ist die Referenz, die in allen Sprachen gleich bleibt, und der englische Name steht daneben.",
       noTensions:
-        "Für diese Antworten wurde kein kritischer Entscheidungspunkt zwischen den Methoden aufgeworfen. Die Verpflichtungen unten gelten trotzdem.",
+        "Für diese Antworten wurde kein kritischer Entscheidungspunkt zwischen den Methoden aufgeworfen. Die unten aufgeführten Verpflichtungen gelten trotzdem.",
       allClear:
         'Für diese Antworten gilt keine methodische Verpflichtung, und es wurde kein kritischer Entscheidungspunkt aufgeworfen. Nächster Schritt: Öffnen Sie das Data Collection File.',
       ctaHint: 'Das Data Collection File ist auf diese Konfiguration kalibriert: es fragt nur ab, was Ihr Fall braucht.',

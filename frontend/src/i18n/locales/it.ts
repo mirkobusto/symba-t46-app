@@ -1011,7 +1011,8 @@ const it: Locale = {
       step1: 'Salva il caso per ritrovarlo. Serve un account gratuito; senza, il caso resta solo in questo browser.',
       step2: 'Apri il Data Collection File, disegna le aziende e gli scambi, poi scarica l\'Excel: i tuoi tecnici compilano i fogli su attori, flussi, logistica e costi.',
       step3: 'Consegna il file e il report a chi farà lo studio (un analista, un consulente, un\'università): i punti tecnici più sotto sono per lui.',
-      analystTitle: 'Punti per l\'analista ({{count}})',
+      analystTitle: 'Punti di decisione per l\'analista ({{count}})',
+      obligationsTitle: 'Obblighi per l\'analista ({{count}})',
       step1Saved: '✓ Salvato come «{{name}}»: lo ritrovi in I miei casi.',
       step1SignedIn: 'Salva il caso per ritrovarlo in I miei casi.',
     },
@@ -1227,7 +1228,7 @@ const it: Locale = {
       moreInfo: 'Approfondisci questa configurazione',
     },
     next: {
-      obligations: "{{count}} obblighi da documentare ({{groups}}), attivati dalle tue risposte. Il Data Collection File li elenca, con quello che ha attivato ciascuno, insieme alle pratiche che il metodo chiede a ogni studio come il tuo.",
+      obligations: "{{count}} obblighi da documentare ({{groups}}), attivati dalle tue risposte. Sono elencati qui sotto per famiglia; li elenca anche il Data Collection File, con quello che ha attivato ciascuno, insieme alle pratiche che il metodo chiede a ogni studio come il tuo.",
       families: {
         IR: '{{count}} sull\'integrazione dei metodi',
         CIR: '{{count}} accesi dalle tue risposte',
@@ -1236,12 +1237,15 @@ const it: Locale = {
       },
       title: 'Cosa fare adesso',
       lead: 'Punti sollevati dal motore sulle tue risposte. Ognuno dice perché riguarda il tuo caso e, dove il motore lo risolve, come.',
-      countUnit_one: 'voce',
-      countUnit_other: 'voci',
+      countDecisions_one: '{{count}} punto di decisione',
+      countDecisions_other: '{{count}} punti di decisione',
+      countObligations_one: '{{count}} obbligo',
+      countObligations_other: '{{count}} obblighi',
+      familyOther: '{{count}} altri',
       provenance:
         "I nomi e gli enunciati delle regole sono tradotti dalla tabella inglese del motore. Il codice accanto a ogni voce (IR-01, CDP-02) è il riferimento che non cambia da una lingua all'altra, e accanto resta il nome inglese.",
       noTensions:
-        "Per queste risposte non è emerso nessun punto di decisione critico fra i metodi. Gli obblighi qui sotto valgono comunque.",
+        "Per queste risposte non è emerso nessun punto di decisione critico fra i metodi. Gli obblighi elencati qui sotto valgono comunque.",
       allClear:
         'Nessun obbligo metodologico si applica a queste risposte e nessun punto di decisione critico è emerso. Prossimo passo: apri il Data Collection File.',
       ctaHint: 'Il Data Collection File è calibrato su questa configurazione: ti chiede solo quello che serve al tuo caso.',

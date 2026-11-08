@@ -380,6 +380,27 @@ export interface ObligationGroup {
  *  the methods (IR), rules switched on by the answers (CIR), functional unit
  *  (FU), boundaries (B). Grouping by method says little: most rules govern the
  *  LCA and the LCC together. */
+const FAMILY_ORDER: ObligationGroup['family'][] = ['IR', 'CIR', 'FU', 'B']
+
+/** The family of a rule code ("CIR-05" → "CIR"); "other" outside the four. */
+export function obligationFamily(code: string): ObligationGroup['family'] | 'other' {
+  const family = code.split('-')[0] as ObligationGroup['family']
+  return FAMILY_ORDER.includes(family) ? family : 'other'
+}
+
+/** Items grouped by rule family, in the order of the rule table, "other" last:
+ *  the result page lists them as the Word report does (UX round 6, P1-07). */
+export function groupByFamily<T extends { code: string }>(items: T[]): [ObligationGroup['family'] | 'other', T[]][] {
+  const groups = new Map<ObligationGroup['family'] | 'other', T[]>()
+  for (const item of items) {
+    const family = obligationFamily(item.code)
+    groups.set(family, [...(groups.get(family) ?? []), item])
+  }
+  return [...FAMILY_ORDER, 'other' as const]
+    .filter((f) => groups.has(f))
+    .map((f) => [f, groups.get(f)!])
+}
+
 export function obligationGroups(rules: ApplicableRule[]): ObligationGroup[] {
   const order: ObligationGroup['family'][] = ['IR', 'CIR', 'FU', 'B']
   const counts = new Map(order.map((f) => [f, 0]))

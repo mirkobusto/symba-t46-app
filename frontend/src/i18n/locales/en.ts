@@ -1033,7 +1033,8 @@ const en = {
       step1: 'Save the case so you can find it again. It needs a free account; without one, the case stays only in this browser.',
       step2: 'Open the Data Collection File, draw the companies and the exchanges, then download the Excel: your staff fill in the sheets on the actors, the flows, logistics and costs.',
       step3: 'Give the file and the report to whoever will carry out the study (an analyst, a consultant, a university): the technical points further down are for them.',
-      analystTitle: 'Points for the analyst ({{count}})',
+      analystTitle: 'Decision points for the analyst ({{count}})',
+      obligationsTitle: 'Obligations for the analyst ({{count}})',
       step1Saved: '✓ Saved as «{{name}}»: you find it in My cases.',
       step1SignedIn: 'Save the case so you can find it again in My cases.',
     },
@@ -1249,7 +1250,7 @@ const en = {
       moreInfo: 'More on this configuration',
     },
     next: {
-      obligations: "{{count}} obligations to document ({{groups}}), triggered by your answers. The Data Collection File lists them, with what triggered each one, together with the practices the method asks of every study like yours.",
+      obligations: "{{count}} obligations to document ({{groups}}), triggered by your answers. They are listed below by family; the Data Collection File lists them too, with what triggered each one, together with the practices the method asks of every study like yours.",
       families: {
         IR: '{{count}} on integrating the methods',
         CIR: '{{count}} switched on by your answers',
@@ -1258,12 +1259,15 @@ const en = {
       },
       title: 'What to do next',
       lead: 'Items the engine raised on your answers. Each one says why it applies to your case and, where the engine settles it, how.',
-      countUnit_one: 'item',
-      countUnit_other: 'items',
+      countDecisions_one: '{{count}} decision point',
+      countDecisions_other: '{{count}} decision points',
+      countObligations_one: '{{count}} obligation',
+      countObligations_other: '{{count}} obligations',
+      familyOther: '{{count}} other',
       provenance:
         "Rule and decision wording is translated from the engine's English table. The code next to each item (IR-01, CDP-02) is the reference that does not change between languages.",
       noTensions:
-        "No critical decision point between the methods was surfaced for these answers. The obligations below still apply.",
+        "No critical decision point between the methods was surfaced for these answers. The obligations listed below still apply.",
       allClear:
         'No methodological obligation applies to these answers, and no critical decision point was surfaced. Next step: open the Data Collection File.',
       ctaHint: 'The Data Collection File is calibrated on this configuration: it only asks for what your case needs.',

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import '../i18n'
 import OpenSharedReportPage from '../pages/reader/OpenSharedReportPage'
-import { sharedReportPath } from '../pages/reader/sharedReportPath'
+import { sharedCaseOf, sharedReportPath } from '../pages/reader/sharedReportPath'
 import { recommendedRouteFor } from '../store/preferenceStore'
 
 // "Read a shared report" landed on "My cases", with no place to paste the
@@ -22,10 +22,17 @@ describe('opening a shared report', () => {
     expect(sharedReportPath('')).toBeNull()
     expect(sharedReportPath('hello world')).toBeNull()
     expect(sharedReportPath('https://example.org/r/about')).toBeNull()
+    // the page for whoever fills in a workbook is no case (UX round 6, P2-15)
+    expect(sharedReportPath('/r/fill-in')).toBeNull()
+    expect(sharedCaseOf('/r/fill-in')).toBeNull()
   })
 
   it('is where the welcome sends a reader', () => {
     expect(recommendedRouteFor('community', 'read')).toBe('/r/open')
+  })
+
+  it('sends a company with a workbook to fill in to the page that says how', () => {
+    expect(recommendedRouteFor('industry', 'fill')).toBe('/r/fill-in')
   })
 
   it('opens the report from what was pasted', () => {

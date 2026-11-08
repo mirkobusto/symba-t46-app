@@ -30,7 +30,7 @@ import ConfigurationSummary from '../../components/ConfigurationSummary'
 import { usePreferenceStore, type UserRole } from '../../store/preferenceStore'
 import ReportNotFound from '../../components/reader/ReportNotFound'
 import { complianceSignals } from '../complianceSignals'
-import { countryName } from './countryName'
+import { countryName, marketRegionName } from './countryName'
 import { VIEWS, viewOf, type View } from './sharedReportPath'
 
 type Audience = View
@@ -100,10 +100,12 @@ export default function PublicReportPage() {
   }))
 
   const flows = c.flows ?? []
-  const market = c.reference_market_region
+  // a country typed by the author reads in the reader's language (P5-16)
+  const region = c.reference_market_region ? marketRegionName(c.reference_market_region, i18n.language) : null
+  const market = region
     ? c.reference_market_scope
-      ? `${c.reference_market_region} (${t(`questionnaire.q7.market.scope.${c.reference_market_scope}`).toLowerCase()})`
-      : c.reference_market_region
+      ? `${region} (${t(`questionnaire.q7.market.scope.${c.reference_market_scope}`).toLowerCase()})`
+      : region
     : null
   // where the plants are, in the reader's language (UX round 6, P4-08, decided by Fable)
   const countries = (report.countries ?? []).map((code) => countryName(code, i18n.language))

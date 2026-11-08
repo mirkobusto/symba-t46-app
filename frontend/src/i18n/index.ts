@@ -19,6 +19,15 @@ import it from './locales/it'
 export const SUPPORTED_LANGUAGES = ['en', 'it', 'fr', 'de', 'es'] as const
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
 
+// Screen readers and hyphenation follow <html lang>; keep it in step with the
+// language switcher. The listener goes on before init: with inline resources
+// init detects the stored language synchronously, so a listener added after it
+// missed the first change and <html lang> stayed "en" (UX round 6, P7-19).
+function syncHtmlLang(lng: string | undefined) {
+  if (lng && typeof document !== 'undefined') document.documentElement.lang = lng
+}
+i18n.on('languageChanged', syncHtmlLang)
+
 void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -43,9 +52,6 @@ void i18n
     returnNull: false,
   })
 
-// Screen readers and hyphenation follow <html lang>; keep it in step with the language switcher.
-i18n.on('languageChanged', (lng) => {
-  document.documentElement.lang = lng
-})
+syncHtmlLang(i18n.resolvedLanguage ?? i18n.language)
 
 export default i18n

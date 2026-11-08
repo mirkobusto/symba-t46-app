@@ -49,6 +49,9 @@ function triggerDownload(blob: Blob, filename: string) {
   URL.revokeObjectURL(url)
 }
 
+/** The network could not be saved before a download (see exportBlob). */
+class NetworkNotSaved extends Error {}
+
 export default function DataCollectionPage() {
   const { t, i18n } = useTranslation()
   const result = useCaseStore((s) => s.result)
@@ -179,7 +182,9 @@ export default function DataCollectionPage() {
     // only the case's network goes in the picture, not a scenario's open in the editor
     const png = tab === 'network' && useDcfDataStore.getState().activeScenario ? null : await captureNetworkPng()
     if (serverCaseId) {
-      if (dcfDirty) await saveDcfData()
+      // a failed save must stop the download: the files come from the server's
+      // copy and would carry the old network (agent 1 note, round 6)
+      if (dcfDirty && !(await saveDcfData())) throw new NetworkNotSaved()
       return kind === 'xlsx'
         ? fetchDcfXlsxForCase(serverCaseId, rows, png, sending)
         : fetchDcfDocxForCase(serverCaseId, rows, png, sending)
@@ -198,9 +203,11 @@ export default function DataCollectionPage() {
       pushToast({
         type: 'error',
         message:
-          e instanceof ApiError
-            ? `${t('dcf.downloadError')} — ${e.detail}`
-            : t('dcf.downloadError'),
+          e instanceof NetworkNotSaved
+            ? t('dcf.saveBeforeDownloadFailed')
+            : e instanceof ApiError
+              ? `${t('dcf.downloadError')} — ${e.detail}`
+              : t('dcf.downloadError'),
         durationMs: 8000,
       })
     } finally {
@@ -217,9 +224,11 @@ export default function DataCollectionPage() {
       pushToast({
         type: 'error',
         message:
-          e instanceof ApiError
-            ? `${t('dcf.downloadError')} — ${e.detail}`
-            : t('dcf.downloadError'),
+          e instanceof NetworkNotSaved
+            ? t('dcf.saveBeforeDownloadFailed')
+            : e instanceof ApiError
+              ? `${t('dcf.downloadError')} — ${e.detail}`
+              : t('dcf.downloadError'),
         durationMs: 8000,
       })
     } finally {

@@ -1641,6 +1641,7 @@ const it: Locale = {
     unsavedCase: 'I file non contengono ancora la rete che hai disegnato: salva il caso (serve un account) per includerla.',
     unsavedNetwork: 'La rete ha modifiche non salvate: salva la rete per includerle nei file.',
     filesNote: 'Excel: il file che compilano le aziende (si apre con Excel o LibreOffice, meglio da computer). Word: il documento che lo accompagna e lo spiega.',
+    saveBeforeDownloadFailed: "Non è stato possibile salvare la rete, quindi i file non sono stati creati: conterrebbero la rete precedente. Apri l'editor della rete, correggi quello che segnala e scarica di nuovo.",
     sending: {
       title: "Prima di inviare i file",
       intro: "Quello che scrivi qui va nella copertina e nelle istruzioni dell'Excel e del Word, così le aziende sanno entro quando e a chi mandare i loro dati.",

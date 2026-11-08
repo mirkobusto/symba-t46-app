@@ -1662,6 +1662,7 @@ const en = {
     unsavedCase: 'The files do not contain the network you drew yet: save the case (an account is needed) to include it.',
     unsavedNetwork: 'The network has unsaved changes: save the network to include them in the files.',
     filesNote: 'Excel: the workbook the companies fill in (open it with Excel or LibreOffice, better on a computer). Word: the companion document that explains it.',
+    saveBeforeDownloadFailed: "The network could not be saved, so the files were not made: they would carry the old network. Open the network editor, fix what it points out and download again.",
     sending: {
       title: "Before you send the files",
       intro: "What you write here goes on the cover and in the instructions of the Excel and the Word, so the companies know by when and to whom to send their data.",

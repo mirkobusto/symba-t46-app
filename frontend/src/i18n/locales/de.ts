@@ -1615,6 +1615,7 @@ const de: Locale = {
     unsavedCase: 'Die Dateien enthalten das gezeichnete Netzwerk noch nicht: Speichern Sie den Fall (ein Konto ist nötig), um es aufzunehmen.',
     unsavedNetwork: 'Das Netzwerk hat ungespeicherte Änderungen: Speichern Sie das Netzwerk, um sie in die Dateien aufzunehmen.',
     filesNote: 'Excel: die Arbeitsmappe, die die Unternehmen ausfüllen (mit Excel oder LibreOffice öffnen, am besten am Computer). Word: das Begleitdokument, das sie erklärt.',
+    saveBeforeDownloadFailed: "Das Netz konnte nicht gespeichert werden, deshalb wurden die Dateien nicht erstellt: Sie enthielten das alte Netz. Öffnen Sie den Netz-Editor, beheben Sie, was er anzeigt, und laden Sie erneut herunter.",
     sending: {
       title: "Bevor Sie die Dateien versenden",
       intro: "Was Sie hier eintragen, steht auf dem Deckblatt und in der Anleitung von Excel und Word, damit die Unternehmen wissen, bis wann und an wen sie ihre Daten senden.",

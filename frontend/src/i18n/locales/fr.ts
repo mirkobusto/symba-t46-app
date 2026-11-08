@@ -1621,6 +1621,7 @@ const fr: Locale = {
     unsavedCase: 'Les fichiers ne contiennent pas encore le réseau que vous avez dessiné : enregistrez le cas (un compte est nécessaire) pour l\'inclure.',
     unsavedNetwork: 'Le réseau a des modifications non enregistrées : enregistrez le réseau pour les inclure dans les fichiers.',
     filesNote: 'Excel : le classeur que remplissent les entreprises (à ouvrir avec Excel ou LibreOffice, plutôt sur un ordinateur). Word : le document qui l\'accompagne et l\'explique.',
+    saveBeforeDownloadFailed: "Le réseau n'a pas pu être enregistré, donc les fichiers n'ont pas été créés : ils contiendraient l'ancien réseau. Ouvrez l'éditeur du réseau, corrigez ce qu'il signale et téléchargez de nouveau.",
     sending: {
       title: "Avant d'envoyer les fichiers",
       intro: "Ce que vous écrivez ici figure sur la couverture et dans les instructions de l'Excel et du Word, pour que les entreprises sachent pour quand et à qui envoyer leurs données.",

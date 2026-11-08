@@ -1615,6 +1615,7 @@ const es: Locale = {
     unsavedCase: 'Los archivos aún no contienen la red que dibujaste: guarda el caso (hace falta una cuenta) para incluirla.',
     unsavedNetwork: 'La red tiene cambios sin guardar: guarda la red para incluirlos en los archivos.',
     filesNote: 'Excel: el libro que rellenan las empresas (se abre con Excel o LibreOffice, mejor en un ordenador). Word: el documento que lo acompaña y lo explica.',
+    saveBeforeDownloadFailed: "No se ha podido guardar la red, así que los archivos no se han creado: contendrían la red anterior. Abre el editor de la red, corrige lo que indica y descarga de nuevo.",
     sending: {
       title: "Antes de enviar los archivos",
       intro: "Lo que escribas aquí va en la portada y en las instrucciones del Excel y del Word, para que las empresas sepan para cuándo y a quién enviar sus datos.",

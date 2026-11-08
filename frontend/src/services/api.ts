@@ -125,13 +125,45 @@ export interface ReportRow {
   why?: string
 }
 
-export async function fetchReportDocx(input: Case, rows: ReportRow[] = []): Promise<Blob> {
+/** The cover of the case report: who and what it is about (UX round 2026-11-08). */
+export interface ReportMeta {
+  case_name?: string | null
+  case_ref?: string | null
+  prepared_by?: string | null
+  contact?: string | null
+  generated_on?: string | null
+  saved_on?: string | null
+  state?: 'saved' | 'diverged' | 'unsaved' | null
+}
+
+export interface ReportSectorChapter {
+  chapter: string
+  reason?: string | null
+  rules: { strength: string; text: string; source?: string | null; note?: string | null }[]
+}
+
+/** What a scenario changes in the configuration rows and in its network. */
+export interface ReportScenario {
+  id: string
+  config: string[]
+  network: string[]
+}
+
+export interface ReportExtras {
+  meta?: ReportMeta
+  sector?: ReportSectorChapter[]
+  scenarios?: ReportScenario[]
+  guided?: boolean
+}
+
+export async function fetchReportDocx(input: Case, rows: ReportRow[] = [], extras: ReportExtras = {}): Promise<Blob> {
   // the case report comes in the interface language (UX round 2026-11-02), with
-  // the result page's "Your configuration" rows (UX round 2026-11-03)
+  // the result page's "Your configuration" rows (UX round 2026-11-03), and the
+  // cover, the sector rules and the scenario changes worded by the page (2026-11-08)
   const res = await fetch(`${API_BASE_URL}/api/pipeline/report${langQuery()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ case: input, rows }),
+    body: JSON.stringify({ case: input, rows, ...extras }),
   })
   if (!res.ok) {
     let detail = res.statusText

@@ -146,6 +146,9 @@ export default function QuestionnairePage() {
   const [advanced, setAdvanced] = useState<Record<string, unknown>>(
     draft.advanced ?? {},
   )
+  // scenarios whose JSON cannot be read: running would use their previous
+  // changes as if they were the new ones (UX round 6, P7-05)
+  const [invalidScenarios, setInvalidScenarios] = useState<string[]>([])
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
@@ -203,6 +206,9 @@ export default function QuestionnairePage() {
     ...(eco && policy === '' ? [{ id: 'q10', label: cardTitle(t('questionnaire.q10.title')) }] : []),
     ...(flowsWithoutQ5 ? [{ id: 'q5', label: t('questionnaire.flowsMissingQ5') }] : []),
     ...(q8Invalid ? [{ id: 'q8', label: `${cardTitle(t('questionnaire.q8.title'))} (${t('questionnaire.q8.invalidShort')})` }] : []),
+    ...(invalidScenarios.length > 0
+      ? [{ id: 'q2d-scenarios', label: t('scenarios.invalidJson', { names: invalidScenarios.join(', ') }) }]
+      : []),
   ]
   const canRun = missing.length === 0 && !loading
 
@@ -799,7 +805,10 @@ export default function QuestionnairePage() {
             title={t('questionnaire.q2dCard.title')}
             help={t('questionnaire.q2dCard.help')}
           >
-            <ScenariosEditor scenarios={scenarios} onChange={setScenarios} baseline={buildPatch()} />
+            <ScenariosEditor
+              scenarios={scenarios} onChange={setScenarios} baseline={buildPatch()}
+              onInvalidChange={setInvalidScenarios}
+            />
           </QuestionCard>
         ) : null}
 

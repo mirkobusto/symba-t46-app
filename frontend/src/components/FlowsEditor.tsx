@@ -117,7 +117,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     <option value="" disabled>{t('flows.q5Unset')}</option>
                     {Q5_KEYS.map((k) => (
                       <option key={k} value={k}>
-                        {t(guided ? `flows.plainOptions.${k}` : `flows.options.${k}`)}
+                        {t(`flows.options.${k}`)}
                       </option>
                     ))}
                   </select>

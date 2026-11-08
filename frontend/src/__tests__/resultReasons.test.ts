@@ -27,9 +27,11 @@ describe('result reasons', () => {
   it("names each flow's treatment", async () => {
     await i18n.changeLanguage('en')
     const flows = rows(CASE).flows
-    expect(flows.value).toContain('Slag to cement: co-product: no zero burden; substitution of the product it replaces with the quality factor Q')
-    expect(flows.value).toContain('Waste heat: undecided: economic value test')
-    expect(flows.value).toContain('Dust: waste: zero burden from the point where the residue first reaches non-negative value')
+    expect(flows.value).toContain('Slag to cement: substitution: modelled as a co-product, no zero burden; it displaces the product it replaces, corrected with the quality factor Q')
+    expect(flows.value).toContain('Waste heat: economic value test: who pays whom is not settled')
+    // what the model does, not a legal verdict on the material (UX round 6, P2-01)
+    expect(flows.value).toContain('Dust: zero burden: modelled as a waste, burden-free for the receiver from the point where the residue first reaches a non-negative value')
+    expect(flows.value).not.toMatch(/: (waste|co-product):/)
     expect(flows.why).toMatch(/Q5/)
   })
 

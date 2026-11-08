@@ -535,7 +535,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'block_Q1A_plus_Q5e': {
         name: '',
-        body: 'Uno scambio specifico fra due aziende non può essere analizzato come aggregato a scatola nera. Specifica la natura di ogni flusso (a/b/c/d) in Q5, oppure cambia Q1 in B/C.',
+        body: 'Uno scambio specifico fra due aziende non può essere analizzato come aggregato a scatola nera. Indica chi paga chi per ogni flusso (a/b/c/d) in Q5, oppure cambia Q1 in B/C.',
       },
     },
   },
@@ -787,7 +787,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'block_Q1A_plus_Q5e': {
         name: '',
-        body: 'Un échange précis entre deux entreprises ne peut pas être analysé comme un agrégat en boîte noire. Précisez la nature de chaque flux (a/b/c/d) en Q5, ou changez Q1 en B/C.',
+        body: 'Un échange précis entre deux entreprises ne peut pas être analysé comme un agrégat en boîte noire. Indiquez qui paie qui pour chaque flux (a/b/c/d) en Q5, ou changez Q1 en B/C.',
       },
     },
   },
@@ -1039,7 +1039,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'block_Q1A_plus_Q5e': {
         name: '',
-        body: 'Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 die Art jedes Flusses an (a/b/c/d) oder ändern Sie Q1 auf B/C.',
+        body: 'Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 für jeden Fluss an, wer wem zahlt (a/b/c/d), oder ändern Sie Q1 auf B/C.',
       },
     },
   },
@@ -1291,7 +1291,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'block_Q1A_plus_Q5e': {
         name: '',
-        body: 'Un intercambio concreto entre dos empresas no puede analizarse como un agregado de caja negra. Especifica la naturaleza de cada flujo (a/b/c/d) en Q5, o cambia Q1 a B/C.',
+        body: 'Un intercambio concreto entre dos empresas no puede analizarse como un agregado de caja negra. Indica quién paga a quién en cada flujo (a/b/c/d) en Q5, o cambia Q1 a B/C.',
       },
     },
   },

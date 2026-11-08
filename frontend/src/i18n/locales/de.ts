@@ -594,19 +594,19 @@ const de: Locale = {
     },
 
     q5: {
-      title: 'Q5 — Art jedes symbiotischen Flusses (pro Fluss)',
+      title: "Q5 — Wer zahlt wem, je Fluss",
       help:
         "Fügen Sie pro symbiotischem Hauptfluss eine Zeile hinzu und geben Sie an, wer wen bezahlt. Pflicht, wenn Sie einen Austausch, ein Netz oder ein einzelnes Unternehmen untersuchen (Q1 = A, B oder D); sonst optional.",
       details:
-        'Wählen Sie für jeden Hauptstrom zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…), wer wen bezahlt: ' +
-        'a — A zahlt B für die Abnahme des Flusses (eine Annahmegebühr: negativer Marktwert, ein ABFALL für A, D4.1 §8.3.2). Zero-Burden gilt ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Fluss im Data Collection File erklärt. ' +
-        'b — der Fluss wird KOSTENLOS abgegeben (unklarer Status): der ökonomische Werttest entscheidet, ob er Abfall oder Koppelprodukt ist, mit Sensitivitätsanalyse. ' +
-        'c — B zahlt A für den Fluss (positiver Marktwert: ein KOPPELPRODUKT für A): Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Fluss zahlen (Freedom-to-Act-Test, D4.1 §8.3.3), ist der Preis administrativ und der Fluss wird als Abfall modelliert. ' +
-        'd — INTERDEPENDENTER Fluss: A hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um B zu beliefern; ein Koppelprodukt unabhängig vom Preis, nie Zero-Burden. ' +
-        'e — AGGREGIERT / Black-Box: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §8.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. ' +
-        'Q5 hält fest, wer wen bezahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Zero-Burden-Punkt) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.',
+        "Wählen Sie für jeden Hauptfluss zwischen Akteuren (Wärme, CO₂, Schlacke, Abwasser, Wasserstoff…), wer wem zahlt. Die Antwort legt fest, wie der Fluss zunächst modelliert wird; seine rechtliche Einstufung wird hier nicht entschieden. " +
+        "a. Wer es abgibt, zahlt dem Empfänger für die Abnahme (eine Annahmegebühr: negativer Marktwert, D4.1 §8.3.2): als Abfall modelliert, lastenfrei ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nicht am Werkstor. Zahlen heißt nicht unvermeidbar: D4.2 §6.2 verlangt zusätzlich den kausalen Vermeidbarkeitstest, je Fluss im Data Collection File erklärt. " +
+        "b. Niemand zahlt, oder es ist noch nicht klar: Der Test des wirtschaftlichen Werts entscheidet zwischen Nulllast und Substitution, mit Sensitivitätsanalyse (D4.1 §8.3.2). " +
+        "c. Der Empfänger zahlt dem Abgebenden (positiver Marktwert, D4.1 §8.3.2): als Koppelprodukt modelliert, Substitution des verdrängten Primärmaterials mit qualitätskorrigiertem Verhältnis. Die PEF-Circular-Footprint-Formel hängt nicht an Q5: Sie kommt aus Q4=D. Würde kein Dritter für den Fluss zahlen (Freedom-to-Act-Test, D4.1 §8.3.3), ist der Preis administrativ und der Fluss wird als Abfall modelliert. " +
+        "d. Die beiden Anlagen hängen voneinander ab: Wer es abgibt, hat seinen Prozess bewusst verändert (Qualität, Menge, Nachbehandlung), um den Empfänger zu beliefern; als bestimmendes Koppelprodukt modelliert, unabhängig vom Preis, nie lastenfrei (D4.1 §8.3.6 Schritt 2). " +
+        "e. Nur eine Gesamtzahl für das ganze Netzwerk: Die Quelle liefert keine Details je Fluss (typisch für aggregierte Arbeiten wie Sokka 2011). Das ist eine Grenze der Quelle, keine Modellierungsentscheidung: D4.1 §8.3.1 verbietet eine einzige netzwerkweite Regel, daher fragt das Data Collection File die Klassifikation jedes benennbaren Flusses trotzdem ab. " +
+        "Q5 hält fest, wer wem zahlt; die rechtlichen und wirtschaftlichen Tests (Freedom-to-Act, End-of-Waste, Nebenproduktklasse, Vermeidbarkeit, Punkt der Nulllast) werden je Fluss im Abschnitt Flow classification des Data Collection File erklärt. Bei Politikstudien mit Q1=C ist Q5 meist optional.",
       plain:
-        'Für jede Sache, die zwischen den Unternehmen bewegt wird — Wärme, Wasser, Schlacke, CO₂ — lautet die Frage hier nur: wer zahlt wem? Der Absender zahlt, um sie loszuwerden, niemand zahlt, oder der Empfänger zahlt dafür. Hat der Absender seinen eigenen Prozess absichtlich geändert, um sie zu liefern, wählen Sie diese Option, was immer das Geld sagt. Allerdings für diesen Partner: Ein Trockner, gebaut, um den Fluss an beliebige Käufer zu verkaufen, ist keine Interdependenz — wählen Sie „der Empfänger zahlt“ und geben Sie ihn bei den eigens errichteten Anlagen an. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option — jeder benennbare Fluss wird trotzdem abgefragt. Ob ein Fluss rechtlich Abfall ist, klärt später das Data Collection File.',
+        "Für jede Sache, die zwischen den Unternehmen bewegt wird (Wärme, Wasser, Schlacke, CO₂), lautet die Frage hier nur: Wer zahlt wem? Wer es abgibt, zahlt, um es loszuwerden; niemand zahlt; oder der Empfänger zahlt dafür. Hat, wer es abgibt, seinen eigenen Prozess absichtlich geändert, um es zu liefern, wählen Sie diese Option, was immer das Geld sagt. Für diesen Partner gilt allerdings: Ein Trockner, gebaut, um den Fluss an beliebige Käufer zu verkaufen, ist keine Interdependenz; wählen Sie „Der Empfänger zahlt dem Abgebenden“ und geben Sie ihn bei den eigens errichteten Anlagen an. Gibt Ihre Quelle nur eine Zahl für das ganze Netz, wählen Sie die letzte Option: Jeder benennbare Fluss wird trotzdem abgefragt. Ob ein Fluss rechtlich Abfall ist, klärt später das Data Collection File.",
     },
 
     q6a: {
@@ -755,12 +755,12 @@ const de: Locale = {
       details: "D4.1 Part 2 verlangt, dass die funktionelle Einheit die Hauptfunktion des Systems widerspiegelt (§4.3, §6.3, §8.3): eine inputbasierte Einheit (z. B. Behandlung von 1 Tonne Abfall), wenn die Studie Entsorgungswege oder die Leistung einer Anlage oder Dienstleistung vergleicht; eine outputbasierte Einheit (z. B. 1 kg Produkt, 1 MJ Energie), wenn sie Produkte mit Marktalternativen vergleicht oder eine Substitutionsaussage stützt; ein System funktioneller Einheiten, wenn beide Funktionen gleichrangig sind (Part 1 §5.3.2). D4.2 §3.1 verlangt für die LCC eine doppelte Einheit (behandelter Abfall + erzeugter Output), wenn die Produktsubstitution die Studie leitet: Die beiden Deliverables weichen ab; das Tool folgt für die LCA der Part 2 und weist auf den Unterschied hin.",
       options: {
         unset: 'Weiß nicht / nichts wird verglichen (das Tool nutzt eine Einheit, die auf der erbrachten Leistung beruht)',
-        waste_treatment: "Wie ein Abfall behandelt wird — Entsorgungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
+        waste_treatment: "Wie ein Reststoff behandelt wird: Behandlungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
         product_substitution: "Produkte gegenüber Marktalternativen — was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
         co_primary: "Beides: Behandlungsleistung und Produkte zählen gleich viel (System funktioneller Einheiten)",
       },
       plain:
-        "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Abfall am besten behandelt wird — verbrennen, vergären, kompostieren —, wird das Ergebnis pro Tonne behandelten Abfalls gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
+        "Worum geht es beim Vergleich wirklich? Lautet die Frage, wie ein Reststoff am besten behandelt wird (verbrennen, vergären, kompostieren), wird das Ergebnis pro Tonne behandelten Reststoffs gezählt. Lautet sie, ob das zurückgewonnene Produkt besser ist als das, was es ersetzt, wird pro Produkteinheit gezählt. Zählt beides gleich viel, werden beide nebeneinander gezählt.",
     },
     q12: {
       title: 'Q12 — Nutzt die Symbiose eigens errichtete Anlagen?',
@@ -801,19 +801,12 @@ const de: Locale = {
       sector: 'Sektor des Ausgetauschten (optional)',
       configuration: 'Art der Wiederverwendung (optional)',
     },
-    plainOptions: {
-      a: 'Wer es abgibt, zahlt dem Empfänger für die Abnahme (für den Abgebenden ein Abfall)',
-      b: 'Niemand zahlt, oder es ist noch nicht klar',
-      c: 'Der Empfänger zahlt dem Abgebenden (für den Abgebenden ein Produkt)',
-      d: 'Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)',
-      e: 'Nur eine Gesamtzahl für das ganze Netzwerk',
-    },
-    q5Note: 'Antworten Sie mit der heutigen Regelung — vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „Niemand zahlt, oder es ist noch nicht klar“, wenn es wirklich offen ist.',
+    q5Note: 'Antworten Sie mit der heutigen Regelung: vereinbart oder vorgesehen, wenn der Austausch noch nicht läuft. Das ist eine Ausgangsannahme, kein Ergebnis: ändert die Studie, wer wen bezahlt, kommen Sie zurück und passen Sie es an. Wählen Sie „Niemand zahlt, oder es ist noch nicht klar“, wenn es wirklich offen ist.',
     emptyHint: 'Keine Flüsse. Fügen Sie mindestens einen hinzu, um Q5 pro Fluss zu charakterisieren.',
-    headers: { id: 'ID', name: 'Name', q5: "Wer zahlt wen (Q5)", sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
+    headers: { id: 'ID', name: 'Name', q5: "Wer zahlt wem (Q5)", sellable: 'An Dritte verkaufbar?', sector: 'Sektor (Teil 2)', configuration: "Konfiguration (Teil 2)" },
     q5Unset: "— wählen, wer wen bezahlt",
     sellable: { unset: '— nicht beantwortet', yes: 'Ja', no: 'Nein' },
-    sellableHint: "Würde der Partner diesen Fluss nicht abnehmen, könnte der Erzeuger ihn an jemand anderen zu einem positiven Preis verkaufen? Ja macht ihn zum Koppelprodukt. Nein macht ihn nicht schon zu Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung), macht ihn trotzdem zum Koppelprodukt; ein kostenlos abgegebener Fluss oder eine Zahlung, die nur Kosten teilt, macht ihn zu Abfall (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht zu Q5 passt.",
+    sellableHint: "Würde der Partner diesen Fluss nicht abnehmen, könnte der Abgebende ihn an jemand anderen zu einem positiven Preis verkaufen? Ja spricht für einen als Koppelprodukt modellierten Fluss. Nein spricht für sich allein noch nicht für Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung), spricht trotzdem für ein Koppelprodukt; ein kostenlos abgegebener Fluss oder eine Zahlung, die nur Kosten teilt, spricht für einen als Abfall modellierten Fluss (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht dazu passt, wer wem zahlt.",
     sectorHint: 'Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe → Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) → Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet → Abwasser (§6); ein aus einem Fluss gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) → das Kapitel dieses Flusses. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels. D4.1 Part 2 hat nur für diese biobasierten Sektoren Kapitel: für Stahl, Zement, Wärme, Papier oder Chemie wählen Sie „— keiner davon“, dann gilt nur Part 1. Holz und Waldreststoffe (Sägemehl, Rinde, Lignin, Schwarzlauge) haben kein Kapitel in Part 2: Wählen Sie „— keiner davon“.',
     sectorNone: '— keiner davon',
     configurationHint: "Die typische Konfiguration des Flusses in seinem Kapitel der Part 2 (D4.1 Part 2 §4.1-§8.1): Das Ergebnis nennt das konventionelle Produkt, das er ersetzt. Wählen Sie zuerst den Sektor.",
@@ -850,11 +843,11 @@ const de: Locale = {
     addButton: 'Fluss hinzufügen',
     removeAria: '{{id}} entfernen',
     options: {
-      a: "a — der Abgeber (A) zahlt den Abnehmer (B): Abfall",
-      b: 'b — Freier Tausch (mehrdeutig)',
-      c: "c — der Abnehmer (B) zahlt den Abgeber (A): Co-Produkt",
-      d: 'd — Interdependent',
-      e: 'e — Aggregiert / Black-box',
+      a: "a. Wer es abgibt, zahlt dem Empfänger für die Abnahme",
+      b: "b. Niemand zahlt, oder es ist noch nicht klar",
+      c: "c. Der Empfänger zahlt dem Abgebenden",
+      d: "d. Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)",
+      e: "e. Nur eine Gesamtzahl für das ganze Netzwerk",
     },
     plainEmpty: 'Noch kein Austausch. Fügen Sie alles hinzu, was zwischen den Unternehmen fließt (Molke, Sägemehl, Wärme, Wasser …).',
     plainSectorHint: 'Optional. Wählen Sie einen Sektor nur, wenn das Ausgetauschte zu einem der aufgeführten biobasierten Sektoren gehört (Agrar/Lebensmittel, Kunststoffe, Abwasser, Textilien, Abfall). Für Holz, Sägemehl, Wald- oder Papierfabrikreststoffe, Stahl, Zement oder Wärme lassen Sie „— keiner davon“. Im Zweifel lassen Sie es: Der Analyst kann es festlegen.',
@@ -974,8 +967,8 @@ const de: Locale = {
     // guided mode: notes in plain words (UX round 4)
     engineNotesPlain: {
       flow_freedom_to_act_settles: {
-        co_product: 'Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann ist er kein Abfall. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.',
-        waste: 'Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Er kann als Abfall zählen, ohne Last auf Ihrer Seite. Der Analyst prüft das.',
+        co_product: "Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann wird die Studie ihn nicht als Abfall modellieren. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.",
+        waste: "Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Die Studie kann ihn als Abfall modellieren, ohne Last auf Ihrer Seite. Der Analyst prüft das.",
       },
     },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
@@ -1017,7 +1010,7 @@ const de: Locale = {
       lead: 'Was Ihre Antworten entschieden haben, in den Begriffen der Deliverables. Öffnen Sie eine Zeile, um den Text der Engine auf Englisch mit seinem Abschnitt zu lesen.',
       nodeText: 'Text der Engine (Englisch)',
       labels: {
-        flows: "Behandlung der Flüsse",
+        flows: "Behandlung jedes Flusses im Modell",
         claim: 'Vergleichende Aussage',
         purpose: 'Art der Studie',
         lcc: 'Kosten',
@@ -1053,21 +1046,21 @@ const de: Locale = {
           notCovered: 'Geruch und Lärm sind keine Wirkungskategorien dieser Leitlinien (Part 2 §9.3 nennt sie unter den meist ausgelassenen Wirkungen); lokale Luft, Wasser und Toxizität sind es. Jede lokale Wirkung, die die Studie auslässt, muss als bekannter blinder Fleck erklärt werden (D4.1 §12.3.5).',
         },
         flowCost: {
-          a: 'Abfall: die ausgehandelte Annahmegebühr; Nullkosten nur, wenn der Rückstand unvermeidbar ist (D4.2 §6.3)',
-          b: 'kostenlos: Verrechnungspreis null; Nullkosten nur, wenn unvermeidbar, sonst Koppelprodukt',
-          c: 'Koppelprodukt: der ausgehandelte Preis',
-          d: 'interdependent: ein bestimmendes Koppelprodukt zum ausgehandelten Verrechnungspreis; Nullkosten gelten nicht (D4.1 §8.3.6, Schritt 2)',
-          e: 'aggregiert: jeden benennbaren Fluss bepreisen',
+          a: "Annahmegebühr: Wer es abgibt, zahlt die ausgehandelte Gebühr; die Vorkettenkosten bleiben nur dann außen vor (Nullkosten), wenn der Reststoff unvermeidbar ist (D4.2 §6.3)",
+          b: "Verrechnungspreis null: Niemand zahlt; die Vorkettenkosten bleiben nur dann außen vor (Nullkosten), wenn der Reststoff unvermeidbar ist, sonst wird der Fluss als Koppelprodukt modelliert",
+          c: "positiver Preis: Der Empfänger zahlt den ausgehandelten Preis, und der Fluss wird als Koppelprodukt modelliert",
+          d: "ausgehandelter Verrechnungspreis: ein bestimmendes Koppelprodukt, daher gelten keine Nullkosten (D4.1 §8.3.6, Schritt 2)",
+          e: "in der Quelle aggregiert: jeden benennbaren Fluss bepreisen",
         },
         noChapter: "Kein Kapitel von D4.1 Part 2 betrifft die angegebenen Flüsse: es gilt nur Part 1",
         flowTreatment: {
-          waste: 'Abfall: Nulllast ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nach dem Vermeidbarkeitstest (D4.1 §8.3.6 Schritt 4)',
-          evt: 'unentschieden: Test des wirtschaftlichen Werts mit Sensitivitätsanalyse (D4.1 §8.3.2)',
-          coproduct: 'Koppelprodukt: keine Nulllast; Substitution des ersetzten Produkts mit dem Qualitätsfaktor Q (D4.1 §8.3.6 Schritt 3)',
-          integrated: 'voneinander abhängig: ein bestimmendes Koppelprodukt, nie Nulllast; ein erweitertes multifunktionales System (D4.1 §8.3.6 Schritt 2); die E-LCC folgt derselben Aufteilung und bewertet den Fluss zum Marktpreis dessen, was er ersetzt; die C-LCC nutzt den ausgehandelten Verrechnungspreis',
-          integratedLca: 'voneinander abhängig: ein bestimmendes Koppelprodukt, nie Nulllast; ein erweitertes multifunktionales System (D4.1 §8.3.6 Schritt 2)',
+          waste: "Nulllast: als Abfall modelliert, für den Empfänger lastenfrei ab dem Punkt, an dem der Reststoff erstmals einen nicht negativen Wert erreicht, nach dem Vermeidbarkeitstest (D4.1 §8.3.6 Schritt 4)",
+          evt: "Test des wirtschaftlichen Werts: Wer wem zahlt, ist nicht geklärt, daher werden beide Lesarten, Nulllast und Substitution, mit einer Sensitivitätsanalyse berichtet (D4.1 §8.3.2)",
+          coproduct: "Substitution: als Koppelprodukt modelliert, keine Nulllast; es verdrängt das Produkt, das es ersetzt, korrigiert mit dem Qualitätsfaktor Q (D4.1 §8.3.6 Schritt 3)",
+          integrated: "ein erweitertes multifunktionales System: als bestimmendes Koppelprodukt modelliert, nie Nulllast (D4.1 §8.3.6 Schritt 2); die E-LCC folgt derselben Aufteilung und bewertet den Fluss zum Marktpreis dessen, was er ersetzt; die C-LCC nutzt den ausgehandelten Verrechnungspreis",
+          integratedLca: "ein erweitertes multifunktionales System: als bestimmendes Koppelprodukt modelliert, nie Nulllast (D4.1 §8.3.6 Schritt 2)",
           allocation: 'Allokation: keine Nulllast und keine Substitutionsgutschriften, die Bilanz eines einzelnen Unternehmens (D4.1 §7.2.3)',
-          aggregated: 'aggregiert: jeden benennbaren Fluss klassifizieren, keine netzwerkweite Regel (D4.1 §8.3.1)',
+          aggregated: "in der Quelle aggregiert: jeden benennbaren Fluss klassifizieren, keine netzwerkweite Regel (D4.1 §8.3.1)",
         },
         claim: 'Zur Veröffentlichung bestimmte vergleichende Aussage (Überlegenheit oder Gleichwertigkeit): kritische Prüfung durch ein Panel aus mindestens drei unabhängigen Fachleuten, keine Gewichtung',
         claimNone: 'Keine zur Veröffentlichung bestimmte vergleichende Aussage',
@@ -1086,7 +1079,7 @@ const de: Locale = {
         reference_modern: 'Ein modernes Kontrafaktum: was jedes Unternehmen heute ohne die Verbindungen täte (hypothetisches nicht-symbiotisches Referenzszenario, HNSRS)',
         reference_cnsrs: 'Das Szenario ohne die Symbiose, über den Studienhorizont (aktuelles nicht-symbiotisches Referenzszenario, CNSRS)',
         market: 'Markt: {{market}}',
-        fu_waste_treatment: 'Inputbasiert: die Behandlung des Abfalls',
+        fu_waste_treatment: "Inputbasiert: die Behandlung des eingehenden Reststoffs",
         fu_product_substitution: 'Outputbasiert: die Produkte und was sie ersetzen',
         fu_co_primary: 'Ein System funktioneller Einheiten: Behandlung und Produkte zusammen',
         fu_function: 'Funktionsorientiert, um die erbrachte Leistung',
@@ -1102,8 +1095,8 @@ const de: Locale = {
         multiPefSubstitution: ' — aufgeteilt mit der Circular Footprint Formula des PEF (Q4 = D)',
         multiPefConsequential: ' — PEF-CFF als Sensitivitätsanalyse (Q4 = D)',
         multiPefAllocation: ' — die CFF wird nicht angewendet',
-        fuLcc_waste_treatment: 'Inputbasiert: die Behandlung des Abfalls (D4.2 §3.1)',
-        fuLcc_dual: 'Doppelt: der behandelte Abfall und das erzeugte Produkt, jeweils mit vermiedenen Kosten und Erlösen (D4.2 §3.1)',
+        fuLcc_waste_treatment: "Inputbasiert: die Behandlung des eingehenden Reststoffs (D4.2 §3.1)",
+        fuLcc_dual: "Doppelt: der behandelte Reststoff und das erzeugte Produkt, jeweils mit vermiedenen Kosten und Erlösen (D4.2 §3.1)",
         fuLcc_function: 'Das Bündel der Funktionen, die das Netzwerk erbringt, jeweils mit vermiedenen Kosten und Erlösen (D4.2 §3.1)',
       },
       why: {
@@ -1169,8 +1162,8 @@ const de: Locale = {
       },
       c2_allocation_over_pef: "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) verwendet Allokation und keine Substitutionsgutschriften (D4.1 §7.2.3); die von Q4=D verlangte Circular Footprint Formula der PEF wird daher nicht angewandt: Die CFF ist eine Produktmethode. Ist die Studie ein Produkt-Fußabdruck und kein Unternehmensbericht, prüfen Sie Q9.",
       slca_alone: "Q3 wählt nur die soziale Dimension. D4.3 §3.1 baut die S-LCA auf der funktionellen Einheit und den Systemgrenzen einer LCA oder LCC auf; ist keine gewählt, dokumentieren Sie Bezugseinheit und Systemgrenze in der methodischen Charta.",
-      flow_sellable_but_waste: "Fluss „{{flow}}“: Laut Q5 zahlt der Erzeuger für die Entsorgung (Abfall), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
-      flow_price_without_market: "Fluss „{{flow}}“: Q5 sagt, der Empfänger zahlt (Koppelprodukt), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, ist der Fluss Abfall, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Step 4). Prüfen Sie den Preis gegen diesen Maßstab.",
+      flow_sellable_but_waste: "Fluss „{{flow}}“: Laut Q5 zahlt, wer es abgibt, für die Abnahme (als Abfall modelliert), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
+      flow_price_without_market: "Fluss „{{flow}}“: Laut Q5 zahlt der Empfänger (als Koppelprodukt modelliert), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, wird der Fluss als Abfall modelliert, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Schritt 4). Prüfen Sie den Preis gegen diesen Maßstab.",
       flow_freedom_to_act_settles: {
         co_product: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",
         waste: "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",

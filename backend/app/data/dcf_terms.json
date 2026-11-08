@@ -2130,7 +2130,7 @@
    },
    "flow_classification": {
     "title": "Klassifizierung der Flüsse (Abfall / Koppelprodukt / Nebenprodukt)",
-    "description": "Eine Zeile pro Fluss, unabhängig von „Wer zahlt wen“: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: „Wer zahlt wen“ hält nur fest, wer wen bezahlt; halten Sie dies mit der „Wer zahlt wen“-Klasse des Flusses in der Flussmatrix stimmig.",
+    "description": "Eine Zeile pro Fluss, unabhängig von „Wer zahlt wem“: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: „Wer zahlt wem“ hält nur fest, wer wen bezahlt; halten Sie dies mit der „Wer zahlt wem“-Klasse des Flusses in der Flussmatrix stimmig.",
     "description_costing_only": "Auch ohne LCA gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine LCA (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen des Analysten."
    },
    "logistics": {
@@ -2207,7 +2207,7 @@
     "description": "Material, Energie, Wasser, Versorgungsleistung, Dienstleistung oder Information. Ob es Abfall oder ein Nebenprodukt ist, sagt die Flussklassifizierung."
    },
    "flow.q5_class": {
-    "label": "Wer zahlt wen",
+    "label": "Wer zahlt wem",
     "description": "Im Fragebogen festgelegt: Ändern Sie es dort und ermitteln Sie die Konfiguration neu. Es hält nur fest, wer wen bezahlt; ob der Fluss rechtlich Abfall ist, sagt die Flussklassifizierung."
    },
    "flow.unit": {
@@ -2261,7 +2261,7 @@
    },
    "classif.independent_market": {
     "label": "Würde ein Dritter dafür zahlen? (Freedom-to-Act)",
-    "description": "D4.1 §8.3.3: Gibt es keinen unabhängigen Käufer, ist der Preis administrativ und der Fluss Abfall, auch wenn „Wer zahlt wen“ sagt, dass der Abnehmer zahlt. Beim Anlegen der Zeile aus der Antwort im Fragebogen übernommen (An Dritte verkaufbar?); danach gehört die Zeile dem Analysten."
+    "description": "D4.1 §8.3.3: Gibt es keinen unabhängigen Käufer, ist der Preis administrativ und der Fluss Abfall, auch wenn „Wer zahlt wem“ sagt, dass der Abnehmer zahlt. Beim Anlegen der Zeile aus der Antwort im Fragebogen übernommen (An Dritte verkaufbar?); danach gehört die Zeile dem Analysten."
    },
    "classif.avoidable": {
     "label": "Kausale Vermeidbarkeit",
@@ -2735,7 +2735,7 @@
    "cover.scenarios": "Szenarien",
    "cover.scenarios_value": "Basisfall und {names}: Die erwarteten Mengen haben je eine Spalte (siehe {instructions}).",
    "ins.grey": "Graue Spalten",
-   "ins.grey_body": "Eine graue Überschrift kennzeichnet eine Spalte, die die Person ausfüllt, die die Studie durchführt: Lassen Sie sie unverändert. „Wer zahlt wen“ ist aus den Antworten der Studie bereits ausgefüllt: Wenn es für Ihren Fluss nicht stimmt, sagen Sie es dem Kontakt.",
+   "ins.grey_body": "Eine graue Überschrift kennzeichnet eine Spalte, die die Person ausfüllt, die die Studie durchführt: Lassen Sie sie unverändert. „Wer zahlt wem“ ist aus den Antworten der Studie bereits ausgefüllt: Wenn es für Ihren Fluss nicht stimmt, sagen Sie es dem Kontakt.",
    "ins.ids": "Zeilennummern",
    "ins.ids_body": "Akteure sind mit A1, A2… nummeriert, Flüsse mit F1, F2… und Anlagen mit I1, I2…: Nennen Sie diese Nummern, wenn Sie dem Kontakt zu einer Zeile schreiben. Für eine neue Zeile schreiben Sie die nächste Nummer.",
    "ins.scenarios": "Szenarien dieses Falls",

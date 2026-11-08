@@ -275,7 +275,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         value: r.row_id,
         label: flowName(r),
         detail: r.values['flow.q5_class']
-          ? t(`flows.plainOptions.${String(r.values['flow.q5_class'])}`)
+          ? t(`flows.options.${String(r.values['flow.q5_class'])}`)
           : undefined,
       })),
     )

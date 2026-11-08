@@ -78,7 +78,8 @@ describe('edgeShifts and flowEdgePath', () => {
       { id: 'f4', source: 'a', target: 'c', label: null, type: null },
     ])
     expect(new Set([shifts.f1, shifts.f2, shifts.f3]).size).toBe(3)
-    expect(shifts.f4).toBe(0)
+    // a → c leaves the same actor as f1 and f2: its own lane too (UX round 6)
+    expect(new Set([shifts.f1, shifts.f2, shifts.f4]).size).toBe(3)
     const ends = { sourceX: 100, sourceY: 50, targetX: 300, targetY: 250, sourcePosition: 'bottom', targetPosition: 'top' } as never
     const [path1, , y1] = flowEdgePath(ends, shifts.f1)
     const [path2, , y2] = flowEdgePath(ends, shifts.f2)
@@ -100,6 +101,39 @@ describe('edgeShifts and flowEdgePath', () => {
     const ends = { sourceX: 100, sourceY: 200, targetX: 500, targetY: 60, sourcePosition: 'bottom', targetPosition: 'top' } as never
     const [, , labelY] = flowEdgePath(ends, 0)
     expect(labelY).toBeGreaterThan(200)
+  })
+
+  it('keeps apart the labels of two flows leaving the same actor (UX round 6, DCF page diagram)', async () => {
+    const { edgeShifts, flowEdgePath } = await import('../components/networkGraph')
+    // the dairy case: the biogas plant sends digestate to the farms and heat to
+    // the greenhouse, both actors to its right
+    const shifts = edgeShifts([
+      { id: 'whey', source: 'dairy', target: 'biogas', label: null, type: null },
+      { id: 'digestate', source: 'biogas', target: 'farms', label: null, type: null },
+      { id: 'heat', source: 'biogas', target: 'greenhouse', label: null, type: null },
+    ])
+    expect(shifts.digestate).not.toBe(shifts.heat)
+    const farms = { sourceX: 340, sourceY: 100, targetX: 640, targetY: 40, sourcePosition: 'bottom', targetPosition: 'top' } as never
+    const greenhouse = { sourceX: 340, sourceY: 100, targetX: 640, targetY: 100, sourcePosition: 'bottom', targetPosition: 'top' } as never
+    const [, , y1] = flowEdgePath(farms, shifts.digestate)
+    const [, , y2] = flowEdgePath(greenhouse, shifts.heat)
+    expect(Math.abs(y1 - y2)).toBeGreaterThanOrEqual(16)
+  })
+
+  it('gives +24 and -24 two label depths, not one', async () => {
+    const { flowEdgePath } = await import('../components/networkGraph')
+    const ends = { sourceX: 100, sourceY: 200, targetX: 500, targetY: 60, sourcePosition: 'bottom', targetPosition: 'top' } as never
+    const ys = [0, 24, -24, 48].map((s) => flowEdgePath(ends, s)[2])
+    expect(new Set(ys).size).toBe(4)
+  })
+
+  it('also separates two flows entering the same actor', async () => {
+    const { edgeShifts } = await import('../components/networkGraph')
+    const shifts = edgeShifts([
+      { id: 'f1', source: 'a', target: 'c', label: null, type: null },
+      { id: 'f2', source: 'b', target: 'c', label: null, type: null },
+    ])
+    expect(shifts.f1).not.toBe(shifts.f2)
   })
 })
 

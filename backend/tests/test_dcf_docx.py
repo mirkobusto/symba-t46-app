@@ -89,20 +89,28 @@ def test_docx_contains_eu_footer(payload_wiktor):
     assert "www.symbaproject.eu" in text or "Horizon" in text
 
 
-def test_docx_lists_mandates_and_triggered_rules(payload_wiktor):
-    blob = generate_dcf_docx_bytes(payload_wiktor)
-    doc = Document(BytesIO(blob))
-    # The mandate table should have a row per activated mandate
-    mandate_table = None
-    for table in doc.tables:
-        head_row = table.rows[0]
-        head_text = " ".join(c.text for c in head_row.cells)
-        if "Origin" in head_text and "Statement" in head_text:
-            mandate_table = table
-            break
-    assert mandate_table is not None
-    # 90 mandates expected (or near-90), plus header
-    assert len(mandate_table.rows) > 25
+def test_docx_points_to_the_checklist_instead_of_repeating_it(payload_wiktor):
+    """The 60-120 rows were repeated in the case report, this annex and the
+    workbook: the workbook's sheet is the one full list (B7, P8-06)."""
+    doc = Document(BytesIO(generate_dcf_docx_bytes(payload_wiktor)))
+    assert not any("Origin" in " ".join(c.text for c in t.rows[0].cells) for t in doc.tables)
+    text = "\n".join(p.text for p in doc.paragraphs)
+    total = len(payload_wiktor.obligations) + len(payload_wiktor.decision_points) + len(payload_wiktor.sector_rules)
+    assert f"({total} items" in text and "“Methodological Choices”" in text
+
+
+def test_docx_is_a4_with_page_numbers_and_ends_with_the_project_data(payload_wiktor):
+    """P8-08, P8-07, P8-01: A4, "page X of Y", the project data and the
+    acknowledgement at the end, a title and an author in the properties."""
+    doc = Document(BytesIO(generate_dcf_docx_bytes(payload_wiktor, "Wiktor", lang="it")))
+    section = doc.sections[0]
+    assert abs(section.page_width.mm - 210) < 1 and abs(section.page_height.mm - 297) < 1
+    assert "NUMPAGES" in section.footer._element.xml and "Wiktor" in section.footer.paragraphs[0].text
+    headings = [p.text for p in doc.paragraphs if p.style.name.startswith("Heading")]
+    assert headings[-2:] == ["Dati del progetto", "Ringraziamenti e avvertenza"]
+    text = "\n".join(p.text for p in doc.paragraphs)
+    assert "Questo progetto ha ricevuto finanziamenti" in text and "This Project has received" not in text
+    assert doc.core_properties.title.endswith("Wiktor") and doc.core_properties.author == "SYMBA T4.6"
 
 
 def test_eu_footer_text_constants():

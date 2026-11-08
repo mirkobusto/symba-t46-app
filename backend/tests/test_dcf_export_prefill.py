@@ -101,12 +101,14 @@ def test_actors_tab_carries_the_stored_rows(payload, drawn_network):
     assert "Biogas Beta" in text
 
 
-def test_the_derived_id_column_is_filled_from_the_row_id(payload, drawn_network):
+def test_the_derived_id_column_is_a_readable_number(payload, drawn_network):
+    """A1, A2… instead of the internal row id ("amw7q2s9h1" read as a typo,
+    UX round 6, P2-18, P8-15)."""
     wb = load_workbook(BytesIO(render_xlsx(payload, drawn_network)))
     ws = wb["Actors"]
     # header row 4, first data row 5; actor.id is column A
-    assert ws.cell(row=5, column=1).value == "a1"
-    assert ws.cell(row=6, column=1).value == "a2"
+    assert ws.cell(row=5, column=1).value == "A1"
+    assert ws.cell(row=6, column=1).value == "A2"
 
 
 def test_blank_rows_remain_for_offline_collection(payload, drawn_network):
@@ -160,7 +162,7 @@ def test_docx_reports_the_drawn_network(payload, drawn_network):
     text = _docx_text(generate_dcf_docx_bytes(payload, "wiktor", drawn_network))
     assert "WWTP Alfa" in text
     assert "Biogas Beta" in text
-    assert "2 actor(s) and 1 connected flow(s)" in text
+    assert "2 actors and 1 connected flow" in text
 
 
 def test_docx_falls_back_to_the_descriptive_prose(payload):

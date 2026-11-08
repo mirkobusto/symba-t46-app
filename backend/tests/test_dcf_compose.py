@@ -589,7 +589,7 @@ def test_methodological_choices_speak_the_reader_language(case_wiktor, dcf_schem
     payload = localize(compose_dcf(case_wiktor, dcf_schema, mandates_census), "it")
     ir01 = next(o for o in payload.obligations if o.id == "IR-01")
     assert ir01.title == "Unità funzionale condivisa" and ir01.origin_label == "Richiesto fra i metodi"
-    assert ir01.category_label == "Regole fra i metodi (quelle contate nella pagina risultato)"
+    assert ir01.category_label == "Regole fra i metodi"
     assert ir01.because and "dims active" not in ir01.because
     assert all(o.category_label and "_" not in o.category_label for o in payload.obligations)
 

@@ -107,16 +107,20 @@
       "method": "LCA",
       "type": "HC",
       "source_section": "D4.1 §5.3.2",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "For a network delivering several distinct functions, a system of functional units covering all jointly delivered services is the robust solution; a single aggregated FU that treats the network as a black box should be avoided (D4.1 §5.3.2; §5.2.2)",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "For a network delivering several distinct functions, a system of functional units covering all jointly delivered services is the robust solution; a single aggregated FU that treats the network as a black box should be avoided (D4.1 §5.3.2; §5.2.2)"
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00738 ('a robust solution is to define a system of functional units'), L00716 ('should be avoided as it treats the entire network as a \"black box\"'). The former 'allowed when actors have distinct outputs' weakened the text and keyed it on actors, not on the network's functions."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §6.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00738 ('a robust solution is to define a system of functional units'), L00716 ('should be avoided as it treats the entire network as a \"black box\"'). The former 'allowed when actors have distinct outputs' weakened the text and keyed it on actors, not on the network's functions. | UX round 6, 2026-11-08 (decided by Fable): dormant in Situation C2: the system of functional units is the network's portfolio of jointly delivered services (D4.1 L00738-L00740); one company's own multifunctionality is allocated (L00899)."
     },
     {
       "id": "lca_hc_05",
@@ -181,11 +185,11 @@
       "field_status": null,
       "default_value": {
         "q4=C": "Critical review by an independent panel of at least three experts, mandatory for a comparative assertion disclosed to the public (D4.1 §15.3.4; also §4, L00555; ISO 14044)",
-        "q4=D": "Panel review of at least three experts recommended for EU policy-aligned studies: T4.6 design choice; mandatory only if the study makes a public comparative assertion (D4.1 §15.3.4)"
+        "q4=D": "Independent panel of at least three experts recommended for EU policy-aligned studies: T4.6 choice; D4.1 makes the panel mandatory only for a comparative assertion disclosed to the public (D4.1 §15.3.4, §4)"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4). | Rewritten on FINAL v2 text, review 2026-10-15: L01636 ('it is mandatory to conduct a critical review by an independent panel of at least three experts'), L00555. No passage asks a panel for EU policy alignment as such: the Q4=D recommendation is a T4.6 choice."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4). | Rewritten on FINAL v2 text, review 2026-10-15: L01636 ('it is mandatory to conduct a critical review by an independent panel of at least three experts'), L00555. No passage asks a panel for EU policy alignment as such: the Q4=D recommendation is a T4.6 choice. | UX round 6, 2026-11-08 (decided by Fable): one verb for Q4 = D, \"recommended\" (D4.1 L00555, L01636); P6-20."
     },
     {
       "id": "lca_hc_09",
@@ -213,16 +217,20 @@
       "method": "LCA",
       "type": "HC",
       "source_section": "D4.1 §8.3.6",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Avoided products documented when system expansion used",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Avoided products documented when system expansion used"
+      },
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.6)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.3.6). | UX round 6, 2026-11-08 (decided by Fable): dormant in Situation C2, which takes no substitution credits (D4.1 §7.2.3 L00899)."
     },
     {
       "id": "lca_hc_11",
@@ -275,11 +283,11 @@
       "field_status": null,
       "default_value": {
         "q4 in {C,D,E}": "Pedigree Matrix mandatory: every flow scored on the five indicators, 1-5 (D4.1 §13.3.2)",
-        "default": "Pedigree Matrix recommended: T4.6 divergence kept on 2026-10-04, since D4.1 §13.3.2 asks to score every flow in every study"
+        "default": "Pedigree Matrix recommended: every flow scored on the five indicators, 1-5 (D4.1 §13.3.2). T4.6 choice: D4.1 asks it of every study; the tool makes it mandatory only with Q4 = C, D or E"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01500 ('Score every flow that enters the model on the five Pedigree indicators'). Divergence of 2026-10-04 declared in the value. CIR-02 (Q2=B since 2026-10-18) writes lca.uncertainty.pedigree only where no node did, so it no longer overwrites this value (R3, 2026-10-18)."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01500 ('Score every flow that enters the model on the five Pedigree indicators'). Divergence of 2026-10-04 declared in the value. CIR-02 (Q2=B since 2026-10-18) writes lca.uncertainty.pedigree only where no node did, so it no longer overwrites this value (R3, 2026-10-18). | UX round 6, 2026-11-08 (decided by Fable): the T4.6 divergence of 2026-10-04 declared without a date in the value (D4.1 L01500, L01502)."
     },
     {
       "id": "lca_hc_14",
@@ -295,10 +303,10 @@
       "trigger_condition": "case.q4 ∩ {'C','D','E'} ≠ ∅ OR case.q6b != 'TRL9'",
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Monte Carlo mandatory if Q4 is C, D or E or the technology is below TRL 9: T4.6 divergence kept on 2026-10-04; D4.1 §13.3.2 asks Monte Carlo by default in every study, with at least 1,000 iterations and a convergence check, and its only TRL threshold is below TRL 7",
+      "default_value": "Monte Carlo mandatory: at least 1,000 iterations with a convergence check, correlated parameters handled, the 95 % interval reported (D4.1 §13.3.2). T4.6 choice: the tool requires it when Q4 is C, D or E or the technology is below TRL 9; D4.1 asks it by default of every study, and its only TRL threshold is TRL 7",
       "override_path": "q4, q6b",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01502 (Monte Carlo 'by default', at least 1 000 iterations with convergence), L01132 (TRL 7). Divergence of 2026-10-04 declared in the value; predicate unchanged."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.1); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §14.3.2). | Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01502 (Monte Carlo 'by default', at least 1 000 iterations with convergence), L01132 (TRL 7). Divergence of 2026-10-04 declared in the value; predicate unchanged. | UX round 6, 2026-11-08 (decided by Fable): the T4.6 divergence of 2026-10-04 declared without a date in the value (D4.1 L01500, L01502)."
     },
     {
       "id": "lca_hc_15",
@@ -347,17 +355,17 @@
       "field": null,
       "field_status": "procedural_mandate",
       "default_value": {
-        "q5=a": "waste: zero burden from the point where the residue first reaches non-negative value, after the avoidability test (D4.1 §8.3.6 Step 4)",
-        "q5=b": "undecided: economic value test with a sensitivity analysis (D4.1 §8.3.2)",
-        "ilcd=C2": "allocation: no zero burden and no substitution credits, one company's accounts (D4.1 §7.2.3)",
-        "q5=c": "co-product: no zero burden; substitution of the product it replaces with the quality factor Q (D4.1 §8.3.6 Step 3)",
-        "q5=d": "interdependent: a determining co-product, never zero burden; one expanded multifunctional system (D4.1 §8.3.6 Step 2)",
-        "q5=e": "aggregated: classify each flow that can be named, no network-wide rule (D4.1 §8.3.1)"
+        "q5=a": "zero burden: modelled as a waste, burden-free for the receiver from the point where the residue first reaches a non-negative value; the pre-treatment up to that point belongs to the generator (D4.1 §8.3.2, §8.3.6 Step 4)",
+        "q5=b": "economic value test: who pays whom is not settled, so both readings, zero burden and substitution, are reported with a sensitivity analysis (D4.1 §8.3.2)",
+        "ilcd=C2": "allocation in place of substitution: no substitution credits, one company's accounts (D4.1 §7.2.3); a waste input keeps its zero-burden point (§8.3.6 Step 4)",
+        "q5=c": "substitution: modelled as a co-product, no zero burden; it displaces the product it replaces, corrected with the quality factor Q (D4.1 §8.3.6 Step 3)",
+        "q5=d": "one expanded multifunctional system: modelled as a determining co-product, never zero burden (D4.1 §8.3.6 Step 2)",
+        "q5=e": "aggregated in the source: classify each flow that can be named, no network-wide rule (D4.1 §8.3.1)"
       },
       "override_path": "q5",
       "lifecycle_layer": "L2",
       "per_flow": true,
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.2.4). | UX round 5, 2026-11-03 (Fable D1): L00899, L01013, L01047"
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §9.2.4). | UX round 5, 2026-11-03 (Fable D1): L00899, L01013, L01047 | UX round 6, 2026-11-08 (decided by Fable): the Q5 words of #250 (the model class, not the legal class: D4.1 L00965, L00979, L01007, L01013); the avoidability test left out of the LCA branch, since it is the E-LCC's test (D4.2 §6.2 L00751-L00759, §6.3 L00775): the LCA zero-burden point is value-based (D4.1 L01013, L01047). The C2 branch is reached for c, d and e flows only (L00899: allocation in place of substitution)."
     },
     {
       "id": "lca_hc_18",
@@ -719,12 +727,12 @@
       "field_status": null,
       "default_value": {
         "ilcd=C2": "allocation",
-        "ilcd=B & q4 includes 'D'": "consequential expansion against the long-term marginal technology (D4.1 Table 1, §7.2.1); with Q4 = D the PEF Circular Footprint Formula is run as a sensitivity for EU comparability, not as the governing rule (D4.1 §7.3.3; D4.2 §2.2, one paradigm)",
+        "ilcd=B & q4 includes 'D'": "consequential expansion against the long-term marginal technology (D4.1 Table 1, §7.2.1); with Q4 = D the PEF Circular Footprint Formula, mandatory for EU policy-aligned studies (D4.1 §7.3.2), is run as a sensitivity, not as the governing rule: T4.6 choice, so that LCA and LCC keep one paradigm (D4.1 §7.3.3; D4.2 §2.2)",
         "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00899 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00945). Same token as lca_mc_12. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): in Situation B with Q4 = D the consequential model governs and the PEF CFF is a sensitivity (D4.1 Table 1, §7.3.3; D4.2 §2.2); branch 'ilcd=B & q4 includes 'D'' before the Q4 = D branch."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-13 and MC-14 BOTH activated by Q4=D (not alternatives — coexist per D4.1 §5.3.2 vs §5.3.3) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00899 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00945). Same token as lca_mc_12. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): in Situation B with Q4 = D the consequential model governs and the PEF CFF is a sensitivity (D4.1 Table 1, §7.3.3; D4.2 §2.2); branch 'ilcd=B & q4 includes 'D'' before the Q4 = D branch. | UX round 6, 2026-11-08 (decided by Fable): Situation B with Q4 = D: one formulation of the CFF as a sensitivity, declared as a T4.6 choice (P6-07; D4.1 L00925, L00945)."
     },
     {
       "id": "lca_mc_14",
@@ -742,12 +750,12 @@
       "field_status": null,
       "default_value": {
         "ilcd=C2": "allocation",
-        "ilcd=B & q4 includes 'D'": "consequential expansion against the long-term marginal technology (D4.1 Table 1, §7.2.1); with Q4 = D the PEF Circular Footprint Formula is run as a sensitivity for EU comparability, not as the governing rule (D4.1 §7.3.3; D4.2 §2.2, one paradigm)",
+        "ilcd=B & q4 includes 'D'": "consequential expansion against the long-term marginal technology (D4.1 Table 1, §7.2.1); with Q4 = D the PEF Circular Footprint Formula, mandatory for EU policy-aligned studies (D4.1 §7.3.2), is run as a sensitivity, not as the governing rule: T4.6 choice, so that LCA and LCC keep one paradigm (D4.1 §7.3.3; D4.2 §2.2)",
         "q4 includes 'D'": "PEF CFF"
       },
       "override_path": "q4, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00899 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00945). Same token as lca_mc_12. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): same Situation B branch as lca_mc_13."
+      "extraction_notes": "v1 §5.2 + v2 §4.2 CIR-05: MC-14 paired with MC-13 (both PEF CFF on Q4=D) | source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §5.3.3); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §8.3.3). | Situation C2 test case, 2026-10-15: in Situation C2 allocation wins over the PEF CFF (Mirko, option a): D4.1 L00899 says 'Do not apply substitution credits' for strict corporate accounting, and the CFF 'partitions burdens and credits' (L00945). Same token as lca_mc_12. | UX round 2026-11-03 (decided by Fable, schema change approved by Mirko): same Situation B branch as lca_mc_13. | UX round 6, 2026-11-08 (decided by Fable): Situation B with Q4 = D: one formulation of the CFF as a sensitivity, declared as a T4.6 choice (P6-07; D4.1 L00925, L00945)."
     },
     {
       "id": "lca_mc_15",
@@ -1158,14 +1166,14 @@
       "field_status": null,
       "default_value": {
         "q4=C": "Independent panel of at least three experts, mandatory for a comparative assertion disclosed to the public (D4.1 §15.3.4)",
-        "q4 includes 'D'": "Independent panel review, as for a public comparative assertion: T4.6 choice for EU policy-aligned studies; D4.1 does not define an EU-compliance review (D4.1 §15.3.4)",
+        "q4 includes 'D'": "Independent panel review recommended, as for a public comparative assertion: T4.6 choice for EU policy-aligned studies, which D4.1 does not cover (D4.1 §15.3.4); mandatory only if the study also makes a comparative assertion disclosed to the public (Q4 = C)",
         "q4=E": "Journal peer review: T4.6 reading; D4.1 §15.3.4 requires the panel whenever a comparative assertion is disclosed to the public",
         "q4=B": "Optional; the confidential technical report is the basis for a potential critical review, and credibility depends on adherence to standards especially when findings are communicated externally (D4.1 §15.3.4, §15.3.3)",
         "q4=A": "None required; the confidential technical report remains the basis for a potential critical review (D4.1 §15.3.4, §15.3.3)"
       },
       "override_path": "q4",
       "lifecycle_layer": "L2",
-      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4). | Rewritten on FINAL v2 text, review 2026-10-15: L01636 (panel mandatory for a public comparative assertion), L01624 (§15.3.3: the confidential report 'serves as the basis for a potential critical review'), L01632. Q4=C now comes before Q4=D, so a public comparative assertion keeps the mandatory panel when D is also selected. 'EU compliance' (Q4=D) and 'peer review' (Q4=E) are not in D4.1: declared T4.6."
+      "extraction_notes": "source_section renumbered to the REVISED D4.1 (the 2026-05-08 extraction cited D4.1 §6.2); audit 2026-10-04; FINAL v2 numbering, review 2026-10-15 (was D4.1 §16.3.4). | Rewritten on FINAL v2 text, review 2026-10-15: L01636 (panel mandatory for a public comparative assertion), L01624 (§15.3.3: the confidential report 'serves as the basis for a potential critical review'), L01632. Q4=C now comes before Q4=D, so a public comparative assertion keeps the mandatory panel when D is also selected. 'EU compliance' (Q4=D) and 'peer review' (Q4=E) are not in D4.1: declared T4.6. | UX round 6, 2026-11-08 (decided by Fable): one verb for Q4 = D, \"recommended\"; q4=C stays first, so C + D is mandatory (P6-20)."
     },
     {
       "id": "lcc_trig_01",
@@ -1303,10 +1311,10 @@
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "Break-even distance modelled explicitly as a sensitivity parameter, never a fixed assumption, and it should be reported in the results as a decision-support output (D4.2 §4.2, §4.3). §4.2 asks it for bulky, low-value or zero-value streams; extending it to every exchange is a T4.6 choice (2026-10-04)",
+      "default_value": "Break-even distance modelled explicitly as a sensitivity parameter, never a fixed assumption, and it should be reported in the results as a decision-support output (D4.2 §4.2, §4.3). §4.2 asks it for bulky, low-value or zero-value streams; extending it to every exchange is a T4.6 choice",
       "override_path": "fixed",
       "lifecycle_layer": "L2",
-      "extraction_notes": "made unconditional (DEFAULT) and a pure mandate: D4.2 §4.3 asks to model the break-even distance as a sensitivity parameter for every exchange; the lcc.transport_costs value is written by lcc_mc_14 alone; audit I-08 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15: L00589 (§4.2, bulky/low-value streams: 'must therefore be modeled explicitly as a sensitivity parameter, not treated as a fixed assumption'), L00617 (§4.3: 'This parameter should be reported explicitly in the results')."
+      "extraction_notes": "made unconditional (DEFAULT) and a pure mandate: D4.2 §4.3 asks to model the break-even distance as a sensitivity parameter for every exchange; the lcc.transport_costs value is written by lcc_mc_14 alone; audit I-08 2026-10-04. | Rewritten on FINAL v2 text, review 2026-10-15: L00589 (§4.2, bulky/low-value streams: 'must therefore be modeled explicitly as a sensitivity parameter, not treated as a fixed assumption'), L00617 (§4.3: 'This parameter should be reported explicitly in the results'). | UX round 6, 2026-11-08 (decided by Fable): date dropped from the value."
     },
     {
       "id": "lcc_hc_07",
@@ -1322,7 +1330,7 @@
       "field": "lcc.capital_goods.included",
       "field_status": null,
       "default_value": {
-        "shared_assets=true": "The new dedicated shared assets (pipelines, plants, storage) are included: their CAPEX and ongoing OPEX in the cost breakdown, allocated among the benefiting partners (D4.2 §4.2); other capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)",
+        "shared_assets=true": "The dedicated shared assets of the symbiosis (pipelines, plants, storage), built for the exchanges now or years ago, are included: their CAPEX and ongoing OPEX in the cost breakdown, allocated among the benefiting partners (D4.2 §4.2, §5.2); other capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)",
         "default": "Capital goods included unless below a significance threshold the analyst sets within 1-5% of total life cycle cost and documents, or identical in the IS and baseline scenarios (D4.2 §4.2-4.3)"
       },
       "override_path": "q12",
@@ -1335,7 +1343,7 @@
           "notes": "Technical lifetime of each asset, no single default (D4.2 §4.2 L00599, §7.3 formula and Table 7.1: buildings and infrastructure 20-30 y, processing equipment 5-8 y); Written from the Q8 asset lifetime when answered (primary asset); per-asset periods in the DCF. The former 20-year default was attributed to D4.2 §4.2, where the 20-30 years is the LCA exclusion rationale D4.2 argues against. Aligned with lca.capital_goods.amortization_period via IR-13/B-06."
         }
       ],
-      "extraction_notes": " | Review 2026-10-18 (Q12, dedicated shared assets): L00591 ('whether the network requires new dedicated shared assets ... CAPEX and ongoing OPEX ... must be included in the CBS and correctly allocated among benefiting partners')."
+      "extraction_notes": " | Review 2026-10-18 (Q12, dedicated shared assets): L00591 ('whether the network requires new dedicated shared assets ... CAPEX and ongoing OPEX ... must be included in the CBS and correctly allocated among benefiting partners'). | UX round 6, 2026-11-08 (decided by Fable): \"new\" dropped: a dedicated asset has no equivalent in the baseline whatever its age (D4.2 L00591, L00599); P6-16."
     },
     {
       "id": "lcc_hc_08",
@@ -1559,16 +1567,21 @@
       "method": "LCC",
       "type": "HC",
       "source_section": "D4.2 §8.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lcc.kpi_suite",
       "field_status": null,
-      "default_value": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, at the network, entity and flow levels (D4.2 §8.3; definitions §8.2)",
-      "override_path": "fixed",
+      "default_value": {
+        "ilcd=C2": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, for the one company and for each of its exchanges; no network level, which a single company's account does not have (C-LCC only, T4.6 choice) (D4.2 §8.3; definitions §8.2)",
+        "default": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, at the network, entity and flow levels (D4.2 §8.3; definitions §8.2)"
+      },
+      "override_path": "ilcd",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01023 (§8.3). Same text as lcc_mc_11, which writes the same field."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L01023 (§8.3). Same text as lcc_mc_11, which writes the same field. | UX round 6, 2026-11-08 (decided by Fable): Situation C2 branch: the KPIs for the one company and its exchanges, no network level (C-LCC only)."
     },
     {
       "id": "lcc_hc_21",
@@ -1692,15 +1705,19 @@
       "source_section": "D4.2 §8.3",
       "category": "DERIVED",
       "trigger_q": [
-        "q3"
+        "lcc_type"
       ],
-      "trigger_logic": "conjunctive",
-      "trigger_condition": "case.q3.env == true AND case.q3.eco == true",
+      "trigger_logic": "discriminative",
+      "trigger_condition": null,
       "field": "lcc.eco_efficiency_metric",
       "field_status": null,
-      "default_value": "Eco-efficiency uses annualized costs not NPV",
-      "override_path": "q3",
-      "lifecycle_layer": "L2"
+      "default_value": {
+        "lcc_type=C+E": "Eco-efficiency indicators (ECOF, IEE) take annualised costs, from the capital recovery factor of D4.2 §7.3, as the economic term, not the discounted NPV (D4.2 §8.3, §11.3)",
+        "lcc_type=C+E+S": "Eco-efficiency indicators (ECOF, IEE) take annualised costs, from the capital recovery factor of D4.2 §7.3, as the economic term, not the discounted NPV (D4.2 §8.3, §11.3)"
+      },
+      "override_path": "lcc_type",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "UX round 6, 2026-11-08 (decided by Fable): only where lcc_mc_18 computes an eco-efficiency indicator: dormant with a C-LCC (D4.2 L01321) and without an LCA (C+N, C+N+S); was \"Q3.ENV and Q3.ECO\"."
     },
     {
       "id": "lcc_hc_29",
@@ -1845,15 +1862,17 @@
       "source_section": "D4.2 §7.1",
       "category": "DERIVED",
       "trigger_q": [
-        "q2"
+        "q2",
+        "q6b"
       ],
-      "trigger_logic": "simple",
-      "trigger_condition": "case.q2 == 'B'",
+      "trigger_logic": "disjunctive",
+      "trigger_condition": "case.q2 == 'B' OR case.q6b IN ['TRL7-8','TRL5-6','TRL<5']",
       "field": "lcc.iterative_update_active",
       "field_status": null,
-      "default_value": "Ex-ante (Q2 = B, the exchanges do not take place yet): trigger conditions for iterative update",
-      "override_path": "q2",
-      "lifecycle_layer": "L2"
+      "default_value": "Ex-ante study (the exchanges do not take place yet, Q2 = B, or the technology is below TRL 9, Q6b): the charter defines the trigger conditions for the iterative update (D4.2 §7.1)",
+      "override_path": "q2, q6b",
+      "lifecycle_layer": "L2",
+      "extraction_notes": "UX round 6, 2026-11-08 (decided by Fable): ex ante is a planned project or a low-TRL technology (D4.2 §7.1 L00823); every ex-ante study sets its trigger conditions (L00853)."
     },
     {
       "id": "lcc_hc_38",
@@ -1935,15 +1954,20 @@
       "method": "LCC",
       "type": "MC",
       "source_section": "D4.2 §2.3",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": null,
       "field_status": "procedural_mandate",
-      "default_value": "All 3 analytical levels mandatory",
+      "default_value": {
+        "ilcd in {A,A-multi,B,C1}": "Three analytical levels, network, entity and flow, mandatory (D4.2 §2.3)"
+      },
       "override_path": "fixed",
-      "lifecycle_layer": "L2"
+      "lifecycle_layer": "L2",
+      "extraction_notes": "UX round 6, 2026-11-08 (decided by Fable): dormant in Situation C2 like lcc_hc_01, which says the same (D4.2 L00487-L00493): one company has no network level."
     },
     {
       "id": "lcc_mc_03",
@@ -2129,16 +2153,21 @@
       "method": "LCC",
       "type": "MC",
       "source_section": "D4.2 §8.2",
-      "category": "DEFAULT",
-      "trigger_q": null,
-      "trigger_logic": null,
+      "category": "DERIVED",
+      "trigger_q": [
+        "ilcd"
+      ],
+      "trigger_logic": "discriminative",
       "trigger_condition": null,
       "field": "lcc.kpi_suite",
       "field_status": null,
-      "default_value": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, at the network, entity and flow levels (D4.2 §8.2; reporting rule §8.3)",
-      "override_path": "advanced",
+      "default_value": {
+        "ilcd=C2": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, for the one company and for each of its exchanges; no network level, which a single company's account does not have (C-LCC only, T4.6 choice) (D4.2 §8.2; reporting rule §8.3)",
+        "default": "NPV as the principal output, with IRR (MIRR where cash flows change sign more than once), discounted payback and LCOE/LCOP where relevant, at the network, entity and flow levels (D4.2 §8.2; reporting rule §8.3)"
+      },
+      "override_path": "ilcd, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00993-L00997 (indicator definitions, under the unnumbered heading that follows §8.1), L01023 ('NPV, IRR (or MIRR where appropriate), DPP, and LCOE/LCOP where relevant — at all three analytical levels')."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15 (step 4b): L00993-L00997 (indicator definitions, under the unnumbered heading that follows §8.1), L01023 ('NPV, IRR (or MIRR where appropriate), DPP, and LCOE/LCOP where relevant — at all three analytical levels'). | UX round 6, 2026-11-08 (decided by Fable): Situation C2 branch: the KPIs for the one company and its exchanges, no network level (C-LCC only)."
     },
     {
       "id": "lcc_mc_12",
@@ -2220,6 +2249,7 @@
       "source_section": "D4.2 §10.3",
       "category": "DERIVED",
       "trigger_q": [
+        "ilcd",
         "q1"
       ],
       "trigger_logic": "discriminative",
@@ -2227,12 +2257,13 @@
       "field": "lcc.counterparty_risk",
       "field_status": null,
       "default_value": {
+        "ilcd=C2": "Counterparty risk for the one company as a discrete risk event, not statistical uncertainty: the scenario in which the exchange partner leaves, with the stranded assets built for the exchange, emergency disposal or procurement costs and the residual value of those assets (D4.2 §10.3); no network percolation analysis, since a single company's account has no network level (C-LCC only, T4.6 choice)",
         "q1=A": "Node-removal scenario for the exchange partner, the critical node of a bilateral exchange: stranded assets, emergency disposal or procurement costs, residual value, presented as a discrete risk event (D4.2 §10.3)",
         "default": "Counterparty risk by structural scenarios, not statistical uncertainty: identify the critical nodes (percolation theory recommended) and model a node-removal scenario for each, with stranded assets, emergency disposal or procurement costs and the network's residual value, as discrete risk events; the NPV of a flexible multi-option design should be compared with that of a single-partner-dependent one (D4.2 §10.3)"
       },
-      "override_path": "q1, advanced",
+      "override_path": "ilcd, q1, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: D4.2 L01271 (scenarios, not statistics; percolation theory is the 'recommended' way to identify critical nodes), L01273 ('For each critical node identified, the LCC must model a node removal scenario'), L01275 (flexible vs rigid design, 'should'). That the partner is the critical node of a bilateral exchange (Q1=A) is an inference, not a sentence of the text. The former values were 'None' for Q1=A and 'Percolation theory' for Q1 B/C, nothing for D/E. CIR-04 writes the same field but is inert (I-17). Fable review 2026-10-15: 'should' restored (L01275)."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: D4.2 L01271 (scenarios, not statistics; percolation theory is the 'recommended' way to identify critical nodes), L01273 ('For each critical node identified, the LCC must model a node removal scenario'), L01275 (flexible vs rigid design, 'should'). That the partner is the critical node of a bilateral exchange (Q1=A) is an inference, not a sentence of the text. The former values were 'None' for Q1=A and 'Percolation theory' for Q1 B/C, nothing for D/E. CIR-04 writes the same field but is inert (I-17). Fable review 2026-10-15: 'should' restored (L01275). | UX round 6, 2026-11-08 (decided by Fable): Situation C2 branch first: the partner leaving, no percolation (D4.2 §10.3 L01271-L01273)."
     },
     {
       "id": "lcc_mc_17",
@@ -2295,12 +2326,12 @@
         "q3.env=false": "None: without a parallel LCA there are no impacts to monetise (T4.6 inference, as for the LCC types C+N and C+N+S) (D4.2 §11.2)",
         "lcc_type=C+E+S": "Mandatory: the LCA midpoint results are monetised with environmental price factors, the CE Delft Environmental Prices Handbook being the European reference (D4.2 §11.2)",
         "lcc_type=C-LCC": "None: a company-level LCC keeps to the firm's own cash flows, taxes and fees being costs, and is not integrated with the LCA results (D4.2 §11.2, §4.1)",
-        "q4 includes 'D'": "CE Delft EU prices: T4.6 choice kept on 2026-10-04, since D4.2 ties monetisation to the S-LCC, not to EU alignment (D4.2 §11.2)",
+        "q4 includes 'D'": "CE Delft EU environmental prices: T4.6 choice; D4.2 ties monetisation to the S-LCC, not to EU alignment (D4.2 §11.2)",
         "default": "Optional outside the S-LCC; taxes already in the cash flows must not be re-entered as monetised externalities (D4.2 §11.2, §2.2)"
       },
       "override_path": "q4, lcc_type, advanced",
       "lifecycle_layer": "L2",
-      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: L01329 (S-LCC 'requires translating the physical environmental impact results of the parallel LCA'), L01331 (CE Delft 'the primary reference framework'), L00469 (§2.2, S-LCC), L00467 (§2.2, no double counting). The former 'optional' default left the S-LCC without monetisation. CIR-05 now writes CE_Delft_EU only when the case has the environmental dimension. Review 2026-10-18 (end-to-end review): C-LCC branch before Q4=D, so a one-company study is not given EU environmental prices."
+      "extraction_notes": "Rewritten on FINAL v2 text, review 2026-10-15: L01329 (S-LCC 'requires translating the physical environmental impact results of the parallel LCA'), L01331 (CE Delft 'the primary reference framework'), L00469 (§2.2, S-LCC), L00467 (§2.2, no double counting). The former 'optional' default left the S-LCC without monetisation. CIR-05 now writes CE_Delft_EU only when the case has the environmental dimension. Review 2026-10-18 (end-to-end review): C-LCC branch before Q4=D, so a one-company study is not given EU environmental prices. | UX round 6, 2026-11-08 (decided by Fable): date dropped from the Q4 = D value."
     },
     {
       "id": "lcc_mc_20",

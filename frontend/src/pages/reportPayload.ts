@@ -16,7 +16,7 @@
 import type { TFunction } from 'i18next'
 
 import { chapterName } from '../i18n/engineNotes'
-import { sectorNote, sectorStatement } from '../i18n/sectorTerms'
+import { sectorCondition, sectorNote, sectorStatement } from '../i18n/sectorTerms'
 import type { ReportMeta, ReportRow, ReportSectorChapter } from '../services/api'
 import type { Case, CaseDetail, SectorRule } from '../types/api'
 import { ACTORS_SECTION, FLOW_MATRIX_SECTION, type DcfData } from '../types/dcfData'
@@ -85,6 +85,9 @@ export function reportSector(rules: SectorRule[], t: TFunction, lang: string): R
       strength: t(`result.sectorRules.strength.${r.strength}`),
       text: sectorStatement(t, lang, r),
       source: r.source,
+      condition: sectorCondition(lang, r)
+        ? t('result.sectorRules.appliesWhen', { condition: sectorCondition(lang, r) })
+        : null,
       note: r.note ? sectorNote(t, lang, r) : null,
     })),
   }))

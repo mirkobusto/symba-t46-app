@@ -159,7 +159,8 @@ def extract() -> dict[str, Any]:
             "engineNotesPlain": tree["result"]["engineNotesPlain"],
             "families": tree["result"]["next"]["families"],
             "sector": {k: tree["result"]["sectorRules"][k]
-                       for k in ("title", "lead", "activatedBy", "byFlow", "byCaseSector", "strength")},
+                       for k in ("title", "lead", "activatedBy", "byFlow", "byCaseSector", "strength",
+                                 "appliesWhen")},
         }
     return out
 

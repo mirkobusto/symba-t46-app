@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import type { CdpFlag } from '../types/api'
 import { schemaTerm } from '../i18n/schemaTerms'
+import { cdpResolution } from '../i18n/cdpResolution'
 
 interface Props {
   activatedNodes: string[]
@@ -156,7 +157,7 @@ export default function ReasoningPanel({
                 </p>
                 <p className="cdp-resolution">
                   <span className="muted">{t('reasoning.resolution')}:</span>{' '}
-                  {termFor(cdp.cdp_id)?.resolution || cdp.resolution_at_l3}
+                  {cdpResolution(t, cdp.cdp_id, cdp.variant, termFor(cdp.cdp_id)?.resolution, cdp.resolution_at_l3)}
                 </p>
                 {cdp.methods.length > 0 ? (
                   <p className="cdp-methods">

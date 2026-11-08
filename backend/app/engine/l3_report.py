@@ -30,6 +30,7 @@ from typing import Any
 
 from app.domain.enums import Q1, IlcdSituation
 from app.domain.models import Case
+from app.engine.activate import needs_future_background
 from app.engine.l2_validate import _get, _q3_dims_active, _q4_intersects
 from app.engine.loader import LoadedSchemas
 
@@ -96,14 +97,33 @@ def _cdp_methods_active(case: Case, methods: list[str]) -> bool:
     return True
 
 
-def _build_cdp_entry(cdp: dict[str, Any]) -> dict[str, Any]:
+# How a decision point is resolved when the branch its schema text describes does
+# not apply to the case: CDP-01 speaks of Situation B, CDP-08 of Q4 = D (P6-08,
+# P7-24; decided by Fable, UX round 6). The schema keeps the full text; page, Word
+# and DCF show the variant (the page and the Word translate it by `variant`).
+_DEFAULT_RESOLUTION: dict[str, tuple[Callable[[Case], bool], str]] = {
+    "CDP-01": (lambda c: c.ilcd_situation != IlcdSituation.SITUATION_B,
+               "Identical reference scenario and quality factor Q in the LCA and in the E-LCC: the same "
+               "displaced products on the same market (IR-07, IR-09; D4.2 §5.1)."),
+    "CDP-08": (lambda c: "D" not in {q.value for q in c.q4},
+               "No weighted or single score in public disclosure (IR-10); internally, three dashboards "
+               "kept apart (IR-04)."),
+}
+
+
+def _build_cdp_entry(cdp: dict[str, Any], case: Case | None = None) -> dict[str, Any]:
+    resolution, variant = cdp.get("resolution_at_l3"), None
+    rule = _DEFAULT_RESOLUTION.get(cdp["id"])
+    if case is not None and rule is not None and rule[0](case):
+        resolution, variant = rule[1], "default"
     return {
         "cdp_id": cdp["id"],
         "name": cdp.get("name"),
         "tension": cdp.get("tension"),
         "severity": cdp.get("severity"),
         "methods": list(cdp.get("methods", [])),
-        "resolution_at_l3": cdp.get("resolution_at_l3"),
+        "resolution_at_l3": resolution,
+        "variant": variant,
     }
 
 
@@ -118,7 +138,13 @@ _NOT_A_DECISION = {"CDP-10"}
 # CDP-01 asks which products are displaced, for the substitution IR-09 aligns:
 # one company in isolation (C2) allocates and takes no substitution credits
 # (D4.1 §7.2.3), so there is nothing to decide (Kimi test 2026-11-04, decided by Fable)
-_NOT_IN_C2 = {"CDP-01"}
+# CDP-05 asks how the E-LCC follows the LCA classification; one company in
+# isolation (C2) has no E-LCC and prices its flows as agreed (D4.2 §5.1, §6.3;
+# UX round 6, decided by Fable)
+_NOT_IN_C2 = {"CDP-01", "CDP-05"}
+# CDP-09 (futurisation asymmetry) arises only with a future background: with a
+# present-day one there is nothing to decide, as for CDP-10 (P7-24, Fable)
+_ONLY_WHEN: dict[str, Callable[[Case], bool]] = {"CDP-09": needs_future_background}
 
 
 def run(case: Case, schemas: LoadedSchemas) -> Case:
@@ -175,7 +201,10 @@ def run(case: Case, schemas: LoadedSchemas) -> Case:
         if (case.ilcd_situation == IlcdSituation.SITUATION_C2
                 and (cdp.get("cdp_id") or cdp.get("id")) in _NOT_IN_C2):
             continue
+        gate = _ONLY_WHEN.get(cdp.get("cdp_id") or cdp.get("id"))
+        if gate is not None and not gate(case):
+            continue
         if _cdp_methods_active(case, cdp.get("methods", [])):
-            case.cdp_flags.append(_build_cdp_entry(cdp))
+            case.cdp_flags.append(_build_cdp_entry(cdp, case))
 
     return case

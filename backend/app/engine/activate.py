@@ -8,18 +8,18 @@ Activation breakdown (per `phase1_nodes.json`, post-round-2 closure):
 
     Total          186 nodes
     By layer       183 L2 + 3 L0  (L0 handled by l0_compute, skipped here)
-    By category    117 DEFAULT (always activate) + 69 DERIVED (conditional)
+    By category    102 DEFAULT (always activate) + 84 DERIVED (conditional)
     By field       95 fielded + 91 procedural_mandate (no field to write)
     Per_flow        11 nodes flagged per_flow=true (iterate case.flows)
 
 DERIVED activation by `trigger_logic`:
 
-    discriminative  43  default_value is dict {branch_key: value, ...}; the
+    discriminative  59  default_value is dict {branch_key: value, ...}; the
                         first branch whose key matches the case wins (grammar in
                         engine/branch_keys.py); "default" key is fallback.
                         No match + no default → node DORMANT.
 
-    simple/conjunctive/disjunctive  26 (13+11+2)  Boolean trigger_condition;
+    simple/conjunctive/disjunctive  25 (12+10+3)  Boolean trigger_condition;
                         evaluated by hand-coded predicates in _PREDICATES
                         (one entry per node_id). The JSON `trigger_condition`
                         strings are documentation; the typed predicates
@@ -270,7 +270,6 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     "lcc_hc_23": needs_future_background,
     # conjunctive
     "lcc_hc_27": lambda c: c.q3.env and c.q3.eco,
-    "lcc_hc_28": lambda c: c.q3.env and c.q3.eco,
     # per_flow simple
     "lcc_hc_34": lambda c, f: f.q5 in {Q5.a, Q5.b, Q5.c, Q5.d},
     # per_flow disjunctive
@@ -278,7 +277,7 @@ _PREDICATES: dict[str, Callable[..., bool]] = {
     # per_flow simple
     "lcc_hc_36": lambda c, f: f.q5 == Q5.d,
     # simple
-    "lcc_hc_37": lambda c: c.q2 == Q2.B,
+    "lcc_hc_37": lambda c: c.q2 == Q2.B or c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5},   # ex ante (D4.2 §7.1)
     # per_flow simple
     "lcc_hc_38": lambda c, f: f.q5 == Q5.b,   # the eco-only branch had no basis (2026-10-15)
     # conjunctive

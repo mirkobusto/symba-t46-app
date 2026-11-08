@@ -41,9 +41,8 @@
    },
    "ruleBodyB07": "Boundary truncations must be declared openly, for each active dimension, among the study's known blind spots (B-07).",
    "cdpCase": {
-    "cdp01NotB": "Same reference scenario and same quality factor Q in the LCA and in the LCC (IR-07, IR-09).",
-    "cdp08NoD": "No weighted or single score in public disclosure (IR-10); internally, three dashboards kept apart (IR-04).",
-    "cdp09Present": "This case uses a present-day background: the point matters only if the study adopts a future one."
+    "cdp01NotB": "Identical reference scenario and quality factor Q in the LCA and in the E-LCC: the same displaced products on the same market (IR-07, IR-09; D4.2 §5.1).",
+    "cdp08NoD": "No weighted or single score in public disclosure (IR-10); internally, three dashboards kept apart (IR-04)."
    },
    "scenario": {
     "lead": "Each scenario gives some answers of the case a different value. For each one: what it changes in the answers, and what changes as a result. The tool computes no results for the scenarios either.",
@@ -192,7 +191,7 @@
    "case_sector_without_flow": "The case sector belongs to D4.1 Part 2 {{chapter}}, but no flow declares that chapter, so its sector rules are not listed. The chapters follow what is exchanged: declare the Part 2 sector of each flow in the flows table.",
    "flow_configuration_unknown": "Flow '{{flow}}': configuration '{{configuration}}' is not one of D4.1 Part 2.",
    "flow_configuration_other_chapter": "Flow '{{flow}}': its configuration belongs to {{chapter}}, not to the declared {{declared}}; the rules of both chapters are listed.",
-   "b_consequential_over_pef": "Situation B asks for consequential modelling against the marginal technology (D4.1 Table 1), while EU policy alignment (Q4 = D) asks for the PEF Circular Footprint Formula, an attributional partition. The consequential model governs; run the CFF as a sensitivity and declare both in the methodological charter (D4.1 §7.3.3; D4.2 §2.2).",
+   "b_consequential_over_pef": "Situation B asks for consequential modelling against the marginal technology (D4.1 Table 1), while EU policy alignment (Q4 = D) asks for the PEF Circular Footprint Formula, an attributional partition that D4.1 §7.3.2 calls mandatory for EU policy-aligned studies. T4.6 choice: the consequential model governs and the CFF is run as a sensitivity; declare both in the methodological charter (D4.1 §7.3.3; D4.2 §2.2).",
    "b_lcc_not_consequential": "Situation B: the LCA substitutes the marginal technology (D4.1 Table 1), while the environmental LCC values displaced products at the average market price of what they replace (D4.2 §6.2): this tool has no consequential costing formulation. D4.2 §2.2 asks one paradigm, identical between LCA and LCC: declare the difference in the methodological charter as a methodological deviation, and price the displaced products at the marginal supplier's price in a sensitivity.",
    "flow_interdependent_but_marketable": "Flow '{{flow}}': Q5 says the sender changed its process for this partner, and the flow would also sell to others. Both can be true for a determining co-product (D4.1 §8.3.6 Step 2). Check which it is: if the change was made to meet this partner's specification, keep d; if it was made to reach any buyer (a dryer that turns the pulp into a tradable feed), the flow is a dependent co-product (Q5 = c, substitution with the quality factor Q) and the equipment is a dedicated asset (Q12). A note never changes Q5."
   },
@@ -384,7 +383,7 @@
     },
     "IR-19": {
      "name": "Comparative Framing",
-     "body": "All IS reports must be framed as comparative outcomes (NOT absolute) per IR-19."
+     "body": "Results are reported relative to the reference scenario: the benefit of the symbiosis is the difference between the symbiotic system and the non-symbiotic reference, never an absolute figure on its own (IR-19; D4.1 §11.1; D4.2 §8.3 Step 4; D4.3 §13.1)."
     },
     "IR-20": {
      "name": "Three-Level Analytical Isomorphism",
@@ -424,7 +423,7 @@
     },
     "CIR-09": {
      "name": "Iterative Update Protocol",
-     "body": "The exchanges do not take place yet and the technology is not yet at TRL 9: the LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data — at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1)."
+     "body": "The study is ex ante: the exchanges do not take place yet (Q2) or the key technology is below TRL 9 (Q6b), so no industrial-scale operating data exists (D4.2 §7.1). The LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data: at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1)."
     },
     "CIR-10": {
      "name": "Real-World Failure Modes",
@@ -556,7 +555,7 @@
     },
     "block_Q1A_plus_Q5e": {
      "name": "",
-     "body": "A specific exchange between two companies cannot be analyzed as black-box aggregated. Specify the nature of each flow (a/b/c/d) in Q5, or change Q1 to B/C."
+     "body": "A specific exchange between two companies cannot be analyzed as black-box aggregated. Say who pays whom for each flow (a/b/c/d) in Q5, or change Q1 to B/C."
     }
    }
   },
@@ -640,7 +639,7 @@
   },
   "sector": {
    "title": "Sector rules (D4.1 Part 2)",
-   "lead": "The rules D4.1 Part 2 gives for the sectors your case touches. The tool does not apply them for you: document in the study how each one was met.",
+   "lead": "The rules D4.1 Part 2 gives for the sectors your case touches. The tool does not apply them for you: document in the study how each one was met. Where a rule names a condition, the study decides whether it holds: the tool lists the rule, it does not check the condition.",
    "activatedBy": "Applies because of: {{reasons}}",
    "byFlow": "the flow “{{name}}”",
    "byCaseSector": "the case sector (Q6a)",
@@ -648,7 +647,8 @@
     "must": "must",
     "should": "should",
     "descriptive": "practice"
-   }
+   },
+   "appliesWhen": "Applies when: {{condition}}"
   }
  },
  "it": {
@@ -693,9 +693,8 @@
    },
    "ruleBodyB07": "I troncamenti dei confini vanno dichiarati apertamente, per ogni dimensione attiva, fra i punti ciechi noti dello studio (B-07).",
    "cdpCase": {
-    "cdp01NotB": "Stesso scenario di riferimento e stesso fattore di qualità Q nell'LCA e nell'LCC (IR-07, IR-09).",
-    "cdp08NoD": "Nessun punteggio pesato o unico nella divulgazione pubblica (IR-10); internamente, tre cruscotti tenuti separati (IR-04).",
-    "cdp09Present": "Questo caso usa un background attuale: il punto conta solo se lo studio ne adotta uno futuro."
+    "cdp01NotB": "Stesso scenario di riferimento e stesso fattore di qualità Q nell'LCA e nell'E-LCC: gli stessi prodotti sostituiti sullo stesso mercato (IR-07, IR-09; D4.2 §5.1).",
+    "cdp08NoD": "Nessun punteggio pesato o unico nella divulgazione pubblica (IR-10); internamente, tre cruscotti tenuti separati (IR-04)."
    },
    "scenario": {
     "lead": "Ogni scenario dà ad alcune risposte del caso un valore diverso. Per ciascuno: che cosa cambia nelle risposte e che cosa cambia di conseguenza. Nemmeno per gli scenari lo strumento calcola risultati.",
@@ -844,7 +843,7 @@
    "case_sector_without_flow": "Il settore del caso appartiene alla D4.1 Part 2 {{chapter}}, ma nessun flusso dichiara quel capitolo, quindi le sue regole di settore non sono elencate. I capitoli seguono ciò che si scambia: dichiara il settore della Part 2 di ogni flusso nella tabella dei flussi.",
    "flow_configuration_unknown": "Flusso «{{flow}}»: la configurazione «{{configuration}}» non è una di quelle della D4.1 Part 2.",
    "flow_configuration_other_chapter": "Flusso «{{flow}}»: la sua configurazione appartiene a {{chapter}}, non al capitolo dichiarato {{declared}}; sono elencate le regole di entrambi i capitoli.",
-   "b_consequential_over_pef": "La Situazione B chiede una modellazione conseguenziale sulla tecnologia marginale (D4.1 Tabella 1), mentre l'allineamento alle politiche UE (Q4 = D) chiede la Circular Footprint Formula della PEF, una ripartizione attribuzionale. Governa il modello conseguenziale; esegui la CFF come analisi di sensibilità e dichiara entrambe nella carta metodologica (D4.1 §7.3.3; D4.2 §2.2).",
+   "b_consequential_over_pef": "La Situazione B chiede una modellazione conseguenziale sulla tecnologia marginale (D4.1 Tabella 1), mentre l'allineamento alle politiche UE (Q4 = D) chiede la Circular Footprint Formula della PEF, una ripartizione attribuzionale che la D4.1 §7.3.2 dice obbligatoria per gli studi allineati alle politiche UE. Scelta T4.6: governa il modello conseguenziale e la CFF si esegue come analisi di sensibilità; dichiara entrambe nella carta metodologica (D4.1 §7.3.3; D4.2 §2.2).",
    "b_lcc_not_consequential": "Situazione B: l'LCA sostituisce la tecnologia marginale (D4.1 Tabella 1), mentre l'LCC ambientale valuta i prodotti spostati al prezzo medio di mercato di ciò che sostituiscono (D4.2 §6.2): questo strumento non ha una formulazione conseguenziale del costing. La D4.2 §2.2 chiede un solo paradigma, identico fra LCA e LCC: dichiara la differenza nella carta metodologica come deviazione metodologica, e valuta i prodotti spostati al prezzo del fornitore marginale in un'analisi di sensibilità.",
    "flow_interdependent_but_marketable": "Flusso «{{flow}}»: Q5 dice che chi lo cede ha cambiato il processo per questo partner, e il flusso si venderebbe anche ad altri. Le due cose possono convivere per un co-prodotto determinante (D4.1 §8.3.6, passo 2). Verifica: se la modifica è stata fatta per le specifiche di questo partner, tieni d; se è stata fatta per raggiungere qualunque acquirente (un essiccatoio che rende la polpa un mangime vendibile), il flusso è un co-prodotto dipendente (Q5 = c, sostituzione con fattore di qualità Q) e l'impianto è un bene dedicato (Q12). La nota non cambia mai Q5."
   },
@@ -1036,7 +1035,7 @@
     },
     "IR-19": {
      "name": "Impostazione comparativa",
-     "body": "Tutti i report di simbiosi industriale vanno presentati come esiti comparativi, non assoluti (IR-19)."
+     "body": "I risultati si riportano rispetto allo scenario di riferimento: il beneficio della simbiosi è la differenza tra il sistema simbiotico e il riferimento senza simbiosi, mai una cifra assoluta presa da sola (IR-19; D4.1 §11.1; D4.2 §8.3 passo 4; D4.3 §13.1)."
     },
     "IR-20": {
      "name": "Isomorfismo analitico su tre livelli",
@@ -1076,7 +1075,7 @@
     },
     "CIR-09": {
      "name": "Protocollo di aggiornamento iterativo",
-     "body": "Gli scambi non avvengono ancora e la tecnologia non è ancora a TRL 9: la carta metodologica dell'LCC fissa all'inizio quando aggiornare il modello con i dati di esercizio: alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1)."
+     "body": "Lo studio è ex ante: gli scambi non avvengono ancora (Q2) o la tecnologia chiave è sotto TRL 9 (Q6b), quindi non esistono dati di esercizio su scala industriale (D4.2 §7.1). La carta metodologica dell'LCC fissa all'inizio quando aggiornare il modello con i dati di esercizio: alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1)."
     },
     "CIR-10": {
      "name": "Modalità di guasto nel mondo reale",
@@ -1292,7 +1291,7 @@
   },
   "sector": {
    "title": "Regole di settore (D4.1 Part 2)",
-   "lead": "Le regole che la D4.1 Part 2 dà per i settori toccati dal tuo caso. Il tool non le applica al posto tuo: documenta nello studio come hai rispettato ciascuna.",
+   "lead": "Le regole che la D4.1 Part 2 dà per i settori toccati dal tuo caso. Il tool non le applica al posto tuo: documenta nello studio come hai rispettato ciascuna. Dove una regola indica una condizione, è lo studio a stabilire se vale: il tool elenca la regola, non verifica la condizione.",
    "activatedBy": "Valgono per: {{reasons}}",
    "byFlow": "il flusso «{{name}}»",
    "byCaseSector": "il settore del caso (Q6a)",
@@ -1300,7 +1299,8 @@
     "must": "obbligo",
     "should": "raccomandato",
     "descriptive": "prassi"
-   }
+   },
+   "appliesWhen": "Vale quando: {{condition}}"
   }
  },
  "fr": {
@@ -1345,9 +1345,8 @@
    },
    "ruleBodyB07": "Les troncatures de frontière doivent être déclarées ouvertement, pour chaque dimension active, parmi les angles morts connus de l'étude (B-07).",
    "cdpCase": {
-    "cdp01NotB": "Même scénario de référence et même facteur de qualité Q dans la LCA et dans la LCC (IR-07, IR-09).",
-    "cdp08NoD": "Aucun score pondéré ou unique dans la divulgation publique (IR-10) ; en interne, trois tableaux de bord séparés (IR-04).",
-    "cdp09Present": "Ce cas utilise un arrière-plan actuel : le point ne compte que si l'étude en adopte un futur."
+    "cdp01NotB": "Même scénario de référence et même facteur de qualité Q dans la LCA et dans l'E-LCC : les mêmes produits remplacés sur le même marché (IR-07, IR-09 ; D4.2 §5.1).",
+    "cdp08NoD": "Aucun score pondéré ou unique dans la divulgation publique (IR-10) ; en interne, trois tableaux de bord séparés (IR-04)."
    },
    "scenario": {
     "lead": "Chaque scénario donne à certaines réponses du cas une autre valeur. Pour chacun : ce qu'il change dans les réponses, et ce qui change en conséquence. L'outil ne calcule pas non plus de résultats pour les scénarios.",
@@ -1496,7 +1495,7 @@
    "case_sector_without_flow": "Le secteur du cas relève de la D4.1 Part 2 {{chapter}}, mais aucun flux ne déclare ce chapitre : ses règles sectorielles ne sont donc pas listées. Les chapitres suivent ce qui est échangé : déclarez le secteur de la Part 2 de chaque flux dans le tableau des flux.",
    "flow_configuration_unknown": "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
    "flow_configuration_other_chapter": "Flux « {{flow}} » : sa configuration relève de {{chapter}}, pas du chapitre déclaré {{declared}} ; les règles des deux chapitres sont listées.",
-   "b_consequential_over_pef": "La Situation B demande une modélisation conséquentielle sur la technologie marginale (D4.1 tableau 1), tandis que l'alignement sur les politiques de l'UE (Q4 = D) demande la Circular Footprint Formula du PEF, une répartition attributionnelle. Le modèle conséquentiel prévaut ; exécutez la CFF comme analyse de sensibilité et déclarez les deux dans la charte méthodologique (D4.1 §7.3.3 ; D4.2 §2.2).",
+   "b_consequential_over_pef": "La situation B demande une modélisation conséquentielle sur la technologie marginale (D4.1 tableau 1), tandis que l'alignement sur les politiques de l'UE (Q4 = D) demande la Circular Footprint Formula du PEF, une répartition attributionnelle que la D4.1 §7.3.2 dit obligatoire pour les études alignées sur les politiques de l'UE. Choix de T4.6 : le modèle conséquentiel prévaut et la CFF est exécutée comme analyse de sensibilité ; déclarez les deux dans la charte méthodologique (D4.1 §7.3.3 ; D4.2 §2.2).",
    "b_lcc_not_consequential": "Situation B : la LCA substitue la technologie marginale (D4.1 tableau 1), tandis que le LCC environnemental valorise les produits déplacés au prix moyen du marché de ce qu'ils remplacent (D4.2 §6.2) : cet outil n'a pas de formulation conséquentielle du calcul des coûts. La D4.2 §2.2 demande un seul paradigme, identique entre LCA et LCC : déclarez la différence dans la charte méthodologique comme écart méthodologique, et valorisez les produits déplacés au prix du fournisseur marginal dans une analyse de sensibilité.",
    "flow_interdependent_but_marketable": "Flux « {{flow}} » : Q5 indique que l'expéditeur a modifié son procédé pour ce partenaire, et le flux se vendrait aussi à d'autres. Les deux peuvent être vrais pour un coproduit déterminant (D4.1 §8.3.6, étape 2). Vérifiez : si la modification visait les spécifications de ce partenaire, gardez d ; si elle visait n'importe quel acheteur (un séchoir qui rend la pulpe commercialisable comme aliment), le flux est un coproduit dépendant (Q5 = c, substitution avec le facteur de qualité Q) et l'équipement est un bien dédié (Q12). Une note ne change jamais Q5."
   },
@@ -1688,7 +1687,7 @@
     },
     "IR-19": {
      "name": "Cadrage comparatif",
-     "body": "Tous les rapports de symbiose industrielle doivent être présentés comme des résultats comparatifs, non absolus (IR-19)."
+     "body": "Les résultats sont présentés par rapport au scénario de référence : le bénéfice de la symbiose est la différence entre le système symbiotique et la référence sans symbiose, jamais un chiffre absolu pris seul (IR-19 ; D4.1 §11.1 ; D4.2 §8.3 étape 4 ; D4.3 §13.1)."
     },
     "IR-20": {
      "name": "Isomorphisme analytique à trois niveaux",
@@ -1728,7 +1727,7 @@
     },
     "CIR-09": {
      "name": "Protocole de mise à jour itérative",
-     "body": "Les échanges n'ont pas encore lieu et la technologie n'est pas encore à TRL 9 : la charte méthodologique du LCC fixe dès le départ quand mettre à jour le modèle avec les données d'exploitation — à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1)."
+     "body": "L'étude est ex ante : les échanges n'ont pas encore lieu (Q2) ou la technologie clé est en dessous de TRL 9 (Q6b), il n'existe donc pas de données d'exploitation à l'échelle industrielle (D4.2 §7.1). La charte méthodologique du LCC fixe dès le départ quand mettre à jour le modèle avec les données d'exploitation : à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1)."
     },
     "CIR-10": {
      "name": "Modes de défaillance en conditions réelles",
@@ -1944,7 +1943,7 @@
   },
   "sector": {
    "title": "Règles sectorielles (D4.1 Part 2)",
-   "lead": "Les règles que la D4.1 Part 2 donne pour les secteurs touchés par votre cas. L'outil ne les applique pas à votre place : documentez dans l'étude comment chacune a été respectée.",
+   "lead": "Les règles que la D4.1 Part 2 donne pour les secteurs touchés par votre cas. L'outil ne les applique pas à votre place : documentez dans l'étude comment chacune a été respectée. Quand une règle nomme une condition, c'est l'étude qui décide si elle est remplie : l'outil liste la règle, il ne vérifie pas la condition.",
    "activatedBy": "S’appliquent en raison de : {{reasons}}",
    "byFlow": "le flux « {{name}} »",
    "byCaseSector": "le secteur du cas (Q6a)",
@@ -1952,7 +1951,8 @@
     "must": "obligatoire",
     "should": "recommandé",
     "descriptive": "pratique"
-   }
+   },
+   "appliesWhen": "S'applique quand : {{condition}}"
   }
  },
  "de": {
@@ -1997,9 +1997,8 @@
    },
    "ruleBodyB07": "Abschneidungen an den Grenzen sind für jede aktive Dimension offen unter den bekannten blinden Flecken der Studie zu erklären (B-07).",
    "cdpCase": {
-    "cdp01NotB": "Gleiches Referenzszenario und gleicher Qualitätsfaktor Q in der LCA und in der LCC (IR-07, IR-09).",
-    "cdp08NoD": "Kein gewichteter oder einzelner Wert in der Veröffentlichung (IR-10); intern drei getrennte Dashboards (IR-04).",
-    "cdp09Present": "Dieser Fall nutzt einen heutigen Hintergrund: Der Punkt zählt nur, wenn die Studie einen zukünftigen verwendet."
+    "cdp01NotB": "Gleiches Referenzszenario und gleicher Qualitätsfaktor Q in der LCA und im E-LCC: dieselben ersetzten Produkte auf demselben Markt (IR-07, IR-09; D4.2 §5.1).",
+    "cdp08NoD": "Kein gewichteter oder einzelner Wert in der Veröffentlichung (IR-10); intern drei getrennte Dashboards (IR-04)."
    },
    "scenario": {
     "lead": "Jedes Szenario gibt einigen Antworten des Falls einen anderen Wert. Für jedes: was es an den Antworten ändert und was sich dadurch ändert. Auch für die Szenarien berechnet das Werkzeug keine Ergebnisse.",
@@ -2148,7 +2147,7 @@
    "case_sector_without_flow": "Der Sektor des Falls gehört zu D4.1 Part 2 {{chapter}}, aber kein Fluss gibt dieses Kapitel an, daher werden seine Sektorregeln nicht aufgeführt. Die Kapitel folgen dem, was ausgetauscht wird: Geben Sie in der Flusstabelle für jeden Fluss den Part-2-Sektor an.",
    "flow_configuration_unknown": "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
    "flow_configuration_other_chapter": "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
-   "b_consequential_over_pef": "Situation B verlangt eine konsequenzielle Modellierung gegen die marginale Technologie (D4.1 Tabelle 1), während die Ausrichtung auf EU-Politiken (Q4 = D) die Circular Footprint Formula des PEF verlangt, eine attributive Aufteilung. Das konsequenzielle Modell hat Vorrang; führen Sie die CFF als Sensitivitätsanalyse durch und erklären Sie beides in der Methodencharta (D4.1 §7.3.3; D4.2 §2.2).",
+   "b_consequential_over_pef": "Situation B verlangt eine konsequenzielle Modellierung gegen die marginale Technologie (D4.1 Tabelle 1), während die Ausrichtung auf EU-Politiken (Q4 = D) die Circular Footprint Formula des PEF verlangt, eine attributive Aufteilung, die D4.1 §7.3.2 für an der EU-Politik ausgerichtete Studien als verpflichtend bezeichnet. Wahl von T4.6: Das konsequenzielle Modell hat Vorrang und die CFF läuft als Sensitivitätsanalyse; erklären Sie beides in der Methodencharta (D4.1 §7.3.3; D4.2 §2.2).",
    "b_lcc_not_consequential": "Situation B: Die LCA substituiert die marginale Technologie (D4.1 Tabelle 1), während die ökologische LCC verdrängte Produkte zum durchschnittlichen Marktpreis dessen bewertet, was sie ersetzen (D4.2 §6.2): Dieses Tool hat keine konsequenzielle Fassung der Kostenrechnung. D4.2 §2.2 verlangt ein Paradigma, identisch zwischen LCA und LCC: Erklären Sie den Unterschied in der Methodencharta als methodische Abweichung und bewerten Sie die verdrängten Produkte in einer Sensitivitätsanalyse zum Preis des marginalen Anbieters.",
    "flow_interdependent_but_marketable": "Fluss „{{flow}}“: Q5 sagt, der Abgebende habe seinen Prozess für diesen Partner geändert, und der Fluss würde sich auch an andere verkaufen. Beides kann bei einem bestimmenden Koppelprodukt zutreffen (D4.1 §8.3.6, Schritt 2). Prüfen Sie: Wurde die Änderung für die Spezifikation dieses Partners vorgenommen, bleibt d; wurde sie für beliebige Käufer vorgenommen (ein Trockner, der die Pülpe zu handelbarem Futter macht), ist der Fluss ein abhängiges Koppelprodukt (Q5 = c, Substitution mit dem Qualitätsfaktor Q) und die Anlage eine eigens errichtete Anlage (Q12). Eine Notiz ändert Q5 nie."
   },
@@ -2340,7 +2339,7 @@
     },
     "IR-19": {
      "name": "Vergleichende Rahmung",
-     "body": "Alle Berichte zur industriellen Symbiose sind als vergleichende Ergebnisse darzustellen, nicht als absolute (IR-19)."
+     "body": "Die Ergebnisse werden relativ zum Referenzszenario berichtet: Der Nutzen der Symbiose ist die Differenz zwischen dem symbiotischen System und der Referenz ohne Symbiose, nie eine absolute Zahl für sich allein (IR-19; D4.1 §11.1; D4.2 §8.3 Schritt 4; D4.3 §13.1)."
     },
     "IR-20": {
      "name": "Analytische Isomorphie auf drei Ebenen",
@@ -2380,7 +2379,7 @@
     },
     "CIR-09": {
      "name": "Protokoll der iterativen Aktualisierung",
-     "body": "Die Austausche finden noch nicht statt, und die Technologie hat TRL 9 noch nicht erreicht: Die methodische Charta der LCC legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird — bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1)."
+     "body": "Die Studie ist ex ante: Die Austausche finden noch nicht statt (Q2) oder die Schlüsseltechnologie liegt unter TRL 9 (Q6b), es gibt also keine Betriebsdaten im industriellen Maßstab (D4.2 §7.1). Die methodische Charta der LCC legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird: bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1)."
     },
     "CIR-10": {
      "name": "Ausfallarten im realen Betrieb",
@@ -2596,7 +2595,7 @@
   },
   "sector": {
    "title": "Sektorregeln (D4.1 Part 2)",
-   "lead": "Die Regeln, die D4.1 Part 2 für die Sektoren Ihres Falls vorgibt. Das Tool wendet sie nicht für Sie an: Dokumentieren Sie in der Studie, wie jede eingehalten wurde.",
+   "lead": "Die Regeln, die D4.1 Part 2 für die Sektoren Ihres Falls vorgibt. Das Tool wendet sie nicht für Sie an: Dokumentieren Sie in der Studie, wie jede eingehalten wurde. Nennt eine Regel eine Bedingung, entscheidet die Studie, ob sie zutrifft: Das Tool listet die Regel, es prüft die Bedingung nicht.",
    "activatedBy": "Gelten wegen: {{reasons}}",
    "byFlow": "den Fluss „{{name}}“",
    "byCaseSector": "den Sektor des Falls (Q6a)",
@@ -2604,7 +2603,8 @@
     "must": "Pflicht",
     "should": "empfohlen",
     "descriptive": "Praxis"
-   }
+   },
+   "appliesWhen": "Gilt, wenn: {{condition}}"
   }
  },
  "es": {
@@ -2649,9 +2649,8 @@
    },
    "ruleBodyB07": "Los truncamientos de los límites deben declararse abiertamente, para cada dimensión activa, entre los puntos ciegos conocidos del estudio (B-07).",
    "cdpCase": {
-    "cdp01NotB": "Mismo escenario de referencia y mismo factor de calidad Q en el LCA y en el LCC (IR-07, IR-09).",
-    "cdp08NoD": "Ninguna puntuación ponderada o única en la divulgación pública (IR-10); internamente, tres paneles separados (IR-04).",
-    "cdp09Present": "Este caso usa un fondo actual: el punto solo importa si el estudio adopta uno futuro."
+    "cdp01NotB": "Mismo escenario de referencia y mismo factor de calidad Q en el LCA y en el E-LCC: los mismos productos sustituidos en el mismo mercado (IR-07, IR-09; D4.2 §5.1).",
+    "cdp08NoD": "Ninguna puntuación ponderada o única en la divulgación pública (IR-10); internamente, tres paneles separados (IR-04)."
    },
    "scenario": {
     "lead": "Cada escenario da a algunas respuestas del caso un valor distinto. Para cada uno: qué cambia en las respuestas y qué cambia como consecuencia. Tampoco para los escenarios la herramienta calcula resultados.",
@@ -2800,7 +2799,7 @@
    "case_sector_without_flow": "El sector del caso pertenece a la D4.1 Part 2 {{chapter}}, pero ningún flujo declara ese capítulo, así que sus reglas sectoriales no se listan. Los capítulos siguen lo que se intercambia: declara el sector de la Part 2 de cada flujo en la tabla de flujos.",
    "flow_configuration_unknown": "Flujo «{{flow}}»: la configuración «{{configuration}}» no es una de la D4.1 Part 2.",
    "flow_configuration_other_chapter": "Flujo «{{flow}}»: su configuración pertenece a {{chapter}}, no al capítulo declarado {{declared}}; se listan las reglas de ambos capítulos.",
-   "b_consequential_over_pef": "La Situación B pide una modelización consecuencial frente a la tecnología marginal (D4.1 tabla 1), mientras que la alineación con las políticas de la UE (Q4 = D) pide la Circular Footprint Formula de la PEF, un reparto atribucional. Prevalece el modelo consecuencial; ejecuta la CFF como análisis de sensibilidad y declara ambos en la carta metodológica (D4.1 §7.3.3; D4.2 §2.2).",
+   "b_consequential_over_pef": "La situación B pide una modelización consecuencial frente a la tecnología marginal (D4.1 tabla 1), mientras que la alineación con las políticas de la UE (Q4 = D) pide la Circular Footprint Formula de la PEF, un reparto atribucional que la D4.1 §7.3.2 declara obligatorio para los estudios alineados con las políticas de la UE. Elección de T4.6: prevalece el modelo consecuencial y la CFF se ejecuta como análisis de sensibilidad; declara ambos en la carta metodológica (D4.1 §7.3.3; D4.2 §2.2).",
    "b_lcc_not_consequential": "Situación B: el LCA sustituye la tecnología marginal (D4.1 tabla 1), mientras que el LCC ambiental valora los productos desplazados al precio medio de mercado de lo que sustituyen (D4.2 §6.2): esta herramienta no tiene una formulación consecuencial del cálculo de costes. La D4.2 §2.2 pide un solo paradigma, idéntico entre LCA y LCC: declara la diferencia en la carta metodológica como desviación metodológica, y valora los productos desplazados al precio del proveedor marginal en un análisis de sensibilidad.",
    "flow_interdependent_but_marketable": "Flujo «{{flow}}»: Q5 dice que quien lo cede cambió su proceso para este socio, y el flujo también se vendería a otros. Ambas cosas pueden darse en un coproducto determinante (D4.1 §8.3.6, paso 2). Comprueba: si el cambio se hizo para las especificaciones de este socio, mantén d; si se hizo para llegar a cualquier comprador (un secadero que convierte la pulpa en un pienso vendible), el flujo es un coproducto dependiente (Q5 = c, sustitución con el factor de calidad Q) y el equipo es un bien dedicado (Q12). Una nota nunca cambia Q5."
   },
@@ -2992,7 +2991,7 @@
     },
     "IR-19": {
      "name": "Encuadre comparativo",
-     "body": "Todos los informes de simbiosis industrial deben presentarse como resultados comparativos, no absolutos (IR-19)."
+     "body": "Los resultados se presentan respecto al escenario de referencia: el beneficio de la simbiosis es la diferencia entre el sistema simbiótico y la referencia sin simbiosis, nunca una cifra absoluta por sí sola (IR-19; D4.1 §11.1; D4.2 §8.3 paso 4; D4.3 §13.1)."
     },
     "IR-20": {
      "name": "Isomorfismo analítico de tres niveles",
@@ -3032,7 +3031,7 @@
     },
     "CIR-09": {
      "name": "Protocolo de actualización iterativa",
-     "body": "Los intercambios aún no tienen lugar y la tecnología aún no está en TRL 9: la carta metodológica del LCC fija desde el inicio cuándo actualizar el modelo con datos de operación — en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1)."
+     "body": "El estudio es ex ante: los intercambios aún no tienen lugar (Q2) o la tecnología clave está por debajo de TRL 9 (Q6b), así que no hay datos de operación a escala industrial (D4.2 §7.1). La carta metodológica del LCC fija desde el inicio cuándo actualizar el modelo con datos de operación: en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1)."
     },
     "CIR-10": {
      "name": "Modos de fallo en condiciones reales",
@@ -3248,7 +3247,7 @@
   },
   "sector": {
    "title": "Reglas sectoriales (D4.1 Part 2)",
-   "lead": "Las reglas que la D4.1 Part 2 da para los sectores que toca tu caso. La herramienta no las aplica por ti: documenta en el estudio cómo se cumplió cada una.",
+   "lead": "Las reglas que la D4.1 Part 2 da para los sectores que toca tu caso. La herramienta no las aplica por ti: documenta en el estudio cómo se cumplió cada una. Cuando una regla indica una condición, el estudio decide si se cumple: la herramienta enumera la regla, no comprueba la condición.",
    "activatedBy": "Se aplican por: {{reasons}}",
    "byFlow": "el flujo «{{name}}»",
    "byCaseSector": "el sector del caso (Q6a)",
@@ -3256,7 +3255,8 @@
     "must": "obligatorio",
     "should": "recomendado",
     "descriptive": "práctica"
-   }
+   },
+   "appliesWhen": "Se aplica cuando: {{condition}}"
   }
  }
 }

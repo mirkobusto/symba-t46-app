@@ -139,7 +139,7 @@ export interface ReportMeta {
 export interface ReportSectorChapter {
   chapter: string
   reason?: string | null
-  rules: { strength: string; text: string; source?: string | null; note?: string | null }[]
+  rules: { strength: string; text: string; source?: string | null; condition?: string | null; note?: string | null }[]
 }
 
 /** What a scenario changes in the configuration rows and in its network. */

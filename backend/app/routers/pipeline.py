@@ -81,6 +81,7 @@ class ReportSectorRule(BaseModel):
     strength: str
     text: str
     source: str | None = None
+    condition: str | None = None   # "Applies when: ...", already worded (P1-13)
     note: str | None = None
 
 

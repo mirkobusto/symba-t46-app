@@ -428,7 +428,7 @@
           ],
           "verbatim": "For policy alignment or where substitution data is complex, standardised formulas such as the PEF Circular Footprint Formula (CFF) (Part 1, Section 7.3.3) should be used",
           "when_key": "ilcd in {A,B,C1}",
-          "note": "Part 1 calls the CFF mandatory for EU policy-aligned studies (L00925) and a valid alternative (L00945); with Q4 = D the engine applies it, except in Situation C2."
+          "note": "Part 1 calls the CFF quality ratio mandatory for EU policy-aligned studies (§7.3.2) and the CFF a valid alternative to substitution (§7.3.3). With Q4 = D the engine applies it as the partition in Situation A and C1, runs it as a sensitivity in Situation B, where the consequential model governs (T4.6 choice), and not in Situation C2 (allocation, §7.2.3)."
         },
         {
           "id": "p2_plastics_09",

@@ -132,9 +132,10 @@ def test_decision_points_drop_the_branch_that_does_not_apply(dairy):
     text = _text(_doc(dairy))
     # a case in Situation A, without Q4 = D and with a present-day background
     assert "in Situation B the LCA substitutes" not in text
-    assert "Same reference scenario and same quality factor Q in the LCA and in the LCC" in text
+    assert "Identical reference scenario and quality factor Q in the LCA and in the E-LCC" in text
     assert "Under EU policy alignment (Q4 = D)" not in text
-    assert "the point matters only if the study adopts a future one" in text
+    # with a present-day background CDP-09 is not listed at all (P7-24, UX round 6)
+    assert "Futurization Asymmetry" not in text and "CDP-09" not in text
 
 
 def test_situation_b_keeps_its_branch():

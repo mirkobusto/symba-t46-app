@@ -50,7 +50,7 @@ def test_all_default_nodes_activate(schemas):
     # minus seven network-level mandates (lca_hc_02, lca_hc_11, lca_mc_31, lca_mc_34,
     # lcc_hc_01, lcc_hc_09, lcc_hc_19), dormant in Situation C2 since UX round 5 (Fable D1);
     # minus lca_mc_15 and lcc_mc_20 (quality factor Q), not applied in Situation C2 (Kimi test 2026-11-04)
-    assert len(default_ids) == 107
+    assert len(default_ids) == 102
 
 
 def test_l0_nodes_skipped(schemas):
@@ -467,7 +467,7 @@ def test_q4_in_set_and_includes(schemas):
     d = _activated(schemas, q4={Q4.D})
     assert d.lca["lcia_method"].startswith("EF 3.1, the PEF reference method")
     a = _activated(schemas, q4={Q4.A})
-    assert a.lca["uncertainty.pedigree"].startswith("Pedigree Matrix recommended: T4.6 divergence")
+    assert a.lca["uncertainty.pedigree"].startswith("Pedigree Matrix recommended: every flow scored")
     # lcc_hc_29: D4.2 §12 asks for the three reporting layers "without
     # exception", so they are mandatory whatever Q4 says (audit item I-12a).
     layers = lambda case: _activated(schemas, q3=Q3(env=True, eco=True), **case).report["layers"]  # noqa: E731
@@ -494,7 +494,7 @@ def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
     assert _activated(schemas, q4={Q4.C, Q4.D}).review["scope"].startswith(mandatory)
     assert _activated(schemas, q4={Q4.B, Q4.C}).review["scope"].startswith(mandatory)
     for q4 in ({Q4.D}, {Q4.A, Q4.D}, {Q4.D, Q4.E}):
-        assert _activated(schemas, q4=q4).review["scope"].startswith("Independent panel review, as for")
+        assert _activated(schemas, q4=q4).review["scope"].startswith("Independent panel review recommended, as for")
     assert _activated(schemas, q4={Q4.E}).review["scope"].startswith("Journal peer review: T4.6 reading")
 
 
@@ -591,9 +591,12 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
     # lcc_mc_16: a node-removal scenario for every critical node, whatever Q1 (D4.2 §10.3, L01273)
     assert _activated(schemas, q1=Q1.A, q3=eco).lcc["counterparty_risk"].startswith(
         "Node-removal scenario for the exchange partner")
-    for q1 in (Q1.B, Q1.C, Q1.D, Q1.E):
+    for q1 in (Q1.B, Q1.C, Q1.E):
         assert _activated(schemas, q1=q1, q3=eco).lcc["counterparty_risk"].startswith(
             "Counterparty risk by structural scenarios")
+    # Q1 = D with Q9 unanswered is Situation C2: the partner leaving, no percolation (UX round 6)
+    assert _activated(schemas, q1=Q1.D, q3=eco).lcc["counterparty_risk"].startswith(
+        "Counterparty risk for the one company")
     # lcc_mc_13 no longer reads Q2: the study horizon decides through CIR-01 (L2)
     assert _activated(schemas, q2=Q2.B, q3=eco).lcc["background_dynamic"].startswith("Static background")
     assert _activated(schemas, q7=Q7.A, q3=eco).lcc["transport_costs"].startswith("Break-even distance for every flow")

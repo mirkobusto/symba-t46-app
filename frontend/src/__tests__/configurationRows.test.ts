@@ -64,8 +64,16 @@ describe('configurationRows edge cases', () => {
     await i18n.changeLanguage('en')
     const rows = configurationRows({ ...BASE, ilcd_situation: 'ILCD Situation C2', lcc_type: 'C-LCC' }, t)
     const reference = rows.find((r) => r.key === 'reference')!
-    expect(reference.value).toMatch(/Not used for credits/)
+    // LCA and costing: no LCA credits, but the costing keeps its avoided costs (P6-04, UX round 6)
+    expect(reference.value).toMatch(/^Not used for LCA credits.*avoided costs/)
     expect(reference.why).toMatch(/allocation, no credit/)
+    const lcaOnly = configurationRows({ ...BASE, q3: { env: true, eco: false, soc: false },
+      ilcd_situation: 'ILCD Situation C2' }, t).find((r) => r.key === 'reference')!
+    expect(lcaOnly.value).toMatch(/^Not used for credits.*only for comparison$/)
+    const costOnly = configurationRows({ ...BASE, q3: { env: false, eco: true, soc: false },
+      ilcd_situation: 'ILCD Situation C2', lcc_type: 'C-LCC' }, t).find((r) => r.key === 'reference')!
+    expect(costOnly.value).toMatch(/^What the company would do without the exchange/)
+    expect(costOnly.why).toMatch(/avoided costs of its own account/)
     expect(rows.find((r) => r.key === 'lcc')!.why).toMatch(/one company/)
   })
 
@@ -73,7 +81,8 @@ describe('configurationRows edge cases', () => {
     await i18n.changeLanguage('en')
     const claim = configurationRows({ ...BASE, q4: ['D'], review: { scope: 'Independent panel review' } }, t)
       .find((r) => r.key === 'claim')!
-    expect(claim.value).toMatch(/EU policy alignment.*panel review/)
+    // one verb for Q4 = D: recommended (P6-20, UX round 6)
+    expect(claim.value).toMatch(/EU policy alignment.*panel of at least three experts is recommended/)
     expect(claim.why).toMatch(/Q4 = D/)
     expect(claim.nodeText).toEqual(['Independent panel review'])
   })
@@ -121,9 +130,11 @@ describe('obligationGroups', () => {
   it('says how multifunctionality is resolved, and where the PEF CFF stands', async () => {
     await i18n.changeLanguage('en')
     const multi = (kase: Case) => configurationRows(kase, t).find((r) => r.key === 'multifunctionality')!.value
-    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation B', q4: ['D'] })).toBe(
-      'Consequential: substitution against the marginal technology; PEF CFF as a sensitivity (Q4 = D)')
-    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation C2', q4: ['D'] })).toMatch(/^Allocation.*CFF is not applied$/)
+    // the T4.6 choice is declared in the row (P6-07, UX round 6)
+    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation B', q4: ['D'] })).toMatch(
+      /^Consequential: substitution against the marginal technology; .*run as a sensitivity: a T4\.6 choice/)
+    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation A', q4: ['D'] })).toMatch(/^PEF Circular Footprint Formula/)
+    expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation C2', q4: ['D'] })).toMatch(/^Allocation.*CFF is not applied: one company's account/)
     expect(multi({ ...BASE, ilcd_situation: 'ILCD Situation A', q4: [] })).toMatch(/^Substitution .*quality factor Q$/)
   })
 })

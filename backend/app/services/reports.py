@@ -460,20 +460,18 @@ def _notes(doc: DocxDocument, sections: _Sections, case: Case, lang: str, guided
         doc.add_paragraph(_note(lang, w, guided), style="List Bullet")
 
 
+_CDP_DEFAULT_KEY = {"CDP-01": "docx.cdpCase.cdp01NotB", "CDP-08": "docx.cdpCase.cdp08NoD"}
+
+
 def _cdp_resolution(case: Case, code: str, text: str, lang: str) -> str:
     """How a decision point is resolved, without the branch that does not
     apply to this case (CDP-01 spoke of Situation B in a case A, CDP-08 of
-    Q4 = D when it was not chosen, CDP-09 of SSP/RCP with a present-day
-    background: P5-04, P6-08, P7-24). The schema's text stays as is."""
-    from app.engine.activate import needs_future_background
-
-    situation = case.ilcd_situation.value if case.ilcd_situation else None
-    if code == "CDP-01" and situation != "ILCD Situation B":
-        return _t(lang, "docx.cdpCase.cdp01NotB")
-    if code == "CDP-08" and Q4.D not in case.q4:
-        return _t(lang, "docx.cdpCase.cdp08NoD")
-    if code == "CDP-09" and not needs_future_background(case):
-        return f"{text} {_t(lang, 'docx.cdpCase.cdp09Present')}".strip()
+    Q4 = D when it was not chosen: P5-04, P6-08). The engine picks the variant
+    (l3_report), so page, Word and Data Collection File agree; CDP-09 is no
+    longer listed with a present-day background (P7-24)."""
+    flag = next((f for f in case.cdp_flags if f.get("cdp_id") == code), {})
+    if flag.get("variant") == "default" and code in _CDP_DEFAULT_KEY:
+        return _t(lang, _CDP_DEFAULT_KEY[code])
     return text
 
 
@@ -555,6 +553,8 @@ def _sector_rules(
             p.add_run(str(rule.get("text", "")))
             if rule.get("source"):
                 _small(p, f" ({rule['source']})")
+            if rule.get("condition"):
+                _small(p, f" {rule['condition']}")
             if rule.get("note"):
                 _small(p, f" {rule['note']}", italic=True)
 
@@ -571,6 +571,8 @@ def _sector_fallback(case: Case, lang: str) -> list[dict[str, Any]]:
         chapters[chapter]["rules"].append({
             "strength": _t(lang, f"sector.strength.{r['strength']}", r["strength"]),
             "text": r["statement"], "source": r.get("source"), "note": r.get("note"),
+            "condition": (_t(lang, "sector.appliesWhen", condition=r["applies_when"])
+                          if r.get("applies_when") else None),
         })
     return list(chapters.values())
 

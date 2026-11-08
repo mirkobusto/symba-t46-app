@@ -134,7 +134,7 @@ def test_cdp_entry_shape(schemas):
     assert len(case.cdp_flags) > 0
     entry = case.cdp_flags[0]
     assert set(entry.keys()) == {
-        "cdp_id", "name", "tension", "severity", "methods", "resolution_at_l3"
+        "cdp_id", "name", "tension", "severity", "methods", "resolution_at_l3", "variant"
     }
     assert isinstance(entry["methods"], list)
     assert entry["severity"] in {"HIGH", "MEDIUM", "LOW"}

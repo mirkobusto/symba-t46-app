@@ -2245,8 +2245,13 @@ kbd {
 /* Tighter between the full desktop menu and the burger breakpoint, so the
    longest label (translated "Monitoring tool") still fits on one line. */
 @media (max-width: 1320px) {
+  /* one line per item: "Herramienta de evaluación" and "Strumento di
+     monitoraggio" (UX round 6, P5-09) broke over two lines at 1201 px */
   .site-nav-list {
-    gap: 4px 20px;
+    gap: 4px 14px;
+  }
+  .site-nav-list a {
+    white-space: nowrap;
   }
   .site-nav-list .site-nav-back a {
     padding: 8px 16px;

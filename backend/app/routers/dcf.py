@@ -45,7 +45,7 @@ from app.db import get_db
 from app.domain.dcf_data import DcfData, DcfDataEnvelope
 from app.domain.models import Case
 from app.engine.dcf_compose import DcfPayload, compose_dcf
-from app.engine.dcf_data_validate import validate_dcf_data
+from app.engine.dcf_data_validate import normalise_values, validate_dcf_data
 from app.engine.dcf_rows import with_case_flows
 from app.engine.loader import LoadedSchemas, load_schemas
 from app.engine.pipeline import run as pipeline_run
@@ -328,6 +328,7 @@ def put_dcf_data(
 
     case_rec, case = _load_case_for(case_id, db, current_user, for_write=True)
     payload = _run_and_compose(case, schemas)
+    normalise_values(data)
     validation = validate_dcf_data(data, payload, _load_dcf_schema(), case)
     if validation.errors:
         raise HTTPException(

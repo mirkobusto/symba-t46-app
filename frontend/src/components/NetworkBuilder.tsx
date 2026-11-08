@@ -44,7 +44,7 @@ import {
 import { askChoice, askConfirm } from '../store/dialogStore'
 import { useAuthStore } from '../store/authStore'
 import { useToastStore } from '../store/toastStore'
-import { edgeShifts } from './networkGraph'
+import { EDGE_COLOR, edgeShifts } from './networkGraph'
 
 interface Props {
   payload: DcfPayload
@@ -227,8 +227,9 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
       // (P5-02); parallel arrows between the same actors must not overlap (P1-03)
       type: 'flow',
       data: { shift: shifts[edge.id] },
-      markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
-      style: { strokeWidth: 2 },
+      markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18, color: EDGE_COLOR },
+      // one colour for every arrow; the selected one is thicker (UX round 6, P8-13)
+      style: { strokeWidth: selection?.rowId === edge.id ? 3.5 : 2, stroke: EDGE_COLOR },
       className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
       selected: selection?.rowId === edge.id,
     }))

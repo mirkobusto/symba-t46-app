@@ -24,9 +24,24 @@ export interface PublicRegionEntry {
   count: number
 }
 
+/** A shared case counted on a country page: `key` opens its public report. */
+export interface PublicRegionCase {
+  key: string
+  name: string
+  shared_at: string | null
+}
+
 export interface PublicRegionResponse {
   region: string
   total: number
   by_ilcd_situation: PublicRegionEntry[]
   by_sector: PublicRegionEntry[]
+  /** the shared cases counted, newest share first (absent from older servers) */
+  cases?: PublicRegionCase[]
+}
+
+/** A country with at least one shared case (/api/public/countries). */
+export interface PublicCountryCount {
+  code: string
+  count: number
 }

@@ -21,7 +21,7 @@ import type {
 } from '../types/auth'
 import type { DcfPayload } from '../types/dcf'
 import type { DcfData, DcfDataEnvelope, DcfSending } from '../types/dcfData'
-import type { PublicRegionResponse, PublicReportResponse } from '../types/reader'
+import type { PublicCountryCount, PublicRegionResponse, PublicReportResponse } from '../types/reader'
 import type { CasesAggregate, ScoringPayload } from '../types/scoring'
 
 /**
@@ -407,6 +407,11 @@ export function fetchPublicRegion(code: string): Promise<PublicRegionResponse> {
   return request<PublicRegionResponse>(
     `/api/public/region/${encodeURIComponent(code)}`,
   )
+}
+
+/** The countries whose page has at least one shared case. */
+export function fetchPublicCountries(): Promise<PublicCountryCount[]> {
+  return request<PublicCountryCount[]>('/api/public/countries')
 }
 
 // ----- Auth (Phase D) -----

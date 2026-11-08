@@ -105,6 +105,25 @@ export interface ScenarioResult {
   result: Case
   /** Why the scenario could not be run (its result is then not a configuration). */
   error?: string | null
+  /** The nodes the scenario adds, removes or words differently against the
+   * case (absent on a failed run and on results stored before 2026-11-08). */
+  node_changes?: NodeChanges | null
+}
+
+export interface NodeChange {
+  id: string
+  method?: string | null
+  source_section?: string | null
+  /** The node's text on the run, English as traced on the deliverables. */
+  text: string
+  /** Changed nodes only: the text on the case. */
+  before?: string | null
+}
+
+export interface NodeChanges {
+  added: NodeChange[]
+  removed: NodeChange[]
+  changed: NodeChange[]
 }
 
 export interface ScenariosResponse {

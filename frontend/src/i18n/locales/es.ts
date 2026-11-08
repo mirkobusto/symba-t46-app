@@ -1483,8 +1483,8 @@ const es: Locale = {
   preset: {
     title: "Cargar un ejemplo publicado",
     help: "Carga en el cuestionario las respuestas de un caso publicado, para ver qué deduce la herramienta de un estudio real.",
-    loadButton: 'Cargar preset',
-    rationaleToggle: '¿Por qué estas respuestas? (rationale de compilación)',
+    loadButton: 'Cargar el ejemplo',
+    rationaleToggle: '¿Por qué estas respuestas?',
     loaded: "Ejemplo cargado: {{name}}",
   },
 

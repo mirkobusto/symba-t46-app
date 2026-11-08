@@ -107,7 +107,7 @@ describe('PresetLoader', () => {
         <DialogHost />
       </MemoryRouter>,
     )
-    fireEvent.click(screen.getByRole('button', { name: /load preset/i }))
+    fireEvent.click(screen.getByRole('button', { name: /load the example/i }))
     // an in-app dialog since 2026-11-03, not window.confirm
     expect(await screen.findByRole('dialog')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))

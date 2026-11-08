@@ -1529,8 +1529,8 @@ const en = {
   preset: {
     title: "Load a published example",
     help: "Loads the answers of a published case into the questionnaire, so you can see what the tool derives from a real study.",
-    loadButton: 'Load preset',
-    rationaleToggle: 'Why these answers? (compilation rationale)',
+    loadButton: 'Load the example',
+    rationaleToggle: 'Why these answers?',
     loaded: "Example loaded: {{name}}",
   },
 

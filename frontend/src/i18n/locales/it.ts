@@ -1508,8 +1508,8 @@ const it: Locale = {
   preset: {
     title: "Carica un esempio pubblicato",
     help: "Carica nel questionario le risposte di un caso pubblicato, così vedi che cosa ricava lo strumento da uno studio vero.",
-    loadButton: 'Carica preset',
-    rationaleToggle: 'Perché queste risposte? (rationale di compilazione)',
+    loadButton: 'Carica l\'esempio',
+    rationaleToggle: 'Perché queste risposte?',
     loaded: "Esempio caricato: {{name}}",
   },
 

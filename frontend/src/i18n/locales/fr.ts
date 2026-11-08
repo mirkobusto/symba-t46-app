@@ -1489,8 +1489,8 @@ const fr: Locale = {
   preset: {
     title: "Charger un exemple publié",
     help: "Charge dans le questionnaire les réponses d'un cas publié, pour voir ce que l'outil tire d'une vraie étude.",
-    loadButton: 'Charger preset',
-    rationaleToggle: 'Pourquoi ces réponses ? (rationale de compilation)',
+    loadButton: 'Charger l\'exemple',
+    rationaleToggle: 'Pourquoi ces réponses ?',
     loaded: "Exemple chargé : {{name}}",
   },
 

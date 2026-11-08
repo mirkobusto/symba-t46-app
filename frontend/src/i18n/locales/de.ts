@@ -1483,8 +1483,8 @@ const de: Locale = {
   preset: {
     title: "Ein veröffentlichtes Beispiel laden",
     help: "Lädt die Antworten eines veröffentlichten Falls in den Fragebogen, damit Sie sehen, was das Tool aus einer echten Studie ableitet.",
-    loadButton: 'Preset laden',
-    rationaleToggle: 'Warum diese Antworten? (Compilation-Rationale)',
+    loadButton: 'Beispiel laden',
+    rationaleToggle: 'Warum diese Antworten?',
     loaded: "Beispiel geladen: {{name}}",
   },
 

@@ -337,3 +337,60 @@ def test_run_scenarios_an_override_the_case_no_longer_accepts_does_not_500(clien
     # the failure is said in a line a user can act on (Fable review of #205)
     assert body["scenarios"][0]["error"] == "transport_sensitive: Extra inputs are not permitted"
     assert body["scenarios"][1]["error"] is None
+
+
+# ---------------------------------------------------------------------------
+# Scenarios that change the decision (UX round of 2026-11-08, P1-01, P6-09)
+# ---------------------------------------------------------------------------
+
+_STRUCTURAL = {
+    "q1": "B", "q2": "B", "q3": {"env": True, "eco": True, "soc": False},
+    "decision_context": "structural", "market_screening_documented": False,
+    "policy_objective": False, "q4": ["C"], "q6b": "TRL7-8",
+}
+
+
+def test_run_scenarios_reaches_situation_b_with_the_screening(client):
+    """Q9 = structural gives B only with the documented screening (#196): a
+    scenario can set that follow-up, and the nodes it rewrites are named."""
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": _STRUCTURAL,
+        "scenarios": [
+            {"id": "alt1", "label": "B", "overrides": {"market_screening_documented": True}},
+            {"id": "alt2", "label": "Same", "overrides": {"decision_context": "structural"}},
+        ],
+    })
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["baseline"]["ilcd_situation"] == "ILCD Situation A"
+    b, same = body["scenarios"]
+    assert b["result"]["ilcd_situation"] == "ILCD Situation B"
+    changed = {n["id"]: n for n in b["node_changes"]["changed"]}
+    assert "lca_mc_01" in changed
+    assert changed["lca_mc_01"]["text"] != changed["lca_mc_01"]["before"]
+    assert b["node_changes"]["added"] == [] and b["node_changes"]["removed"] == []
+    assert same["result"]["ilcd_situation"] == "ILCD Situation A"
+    assert same["node_changes"] == {"added": [], "removed": [], "changed": []}
+
+
+def test_run_scenarios_names_the_practices_removed(client):
+    """A mature technology without a public claim drops the Monte Carlo
+    mandate: the comparison names it with its text, not only a count."""
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": _STRUCTURAL,
+        "scenarios": [{"id": "alt1", "label": "TRL 9", "overrides": {
+            "q6b": "TRL9", "operating_start": "now", "q4": ["A"]}}],
+    })
+    sc = resp.json()["scenarios"][0]
+    removed = {n["id"]: n for n in sc["node_changes"]["removed"]}
+    assert "Monte Carlo" in removed["lca_hc_14"]["text"]
+    assert removed["lca_hc_14"]["source_section"].startswith("D4.1")
+
+
+def test_run_scenarios_failed_run_has_no_node_changes(client):
+    resp = client.post("/api/pipeline/run-scenarios", json={
+        "baseline": _STRUCTURAL,
+        "scenarios": [{"id": "x", "label": "x", "overrides": {"q1": None}}],
+    })
+    sc = resp.json()["scenarios"][0]
+    assert sc["error"] and sc["node_changes"] is None

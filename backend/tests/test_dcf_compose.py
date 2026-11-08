@@ -576,8 +576,9 @@ def test_methodological_choices_resolve_one_branch_per_flow(schemas, dcf_schema,
     stmt = {o.id: o.statement for o in payload.obligations}
     # one sentence per class, the same as the result page (UX round 5, Fable D1/D5)
     assert stmt["lca_hc_17"] == (
-        "Lignin: interdependent: a determining co-product, never zero burden; one expanded "
-        "multifunctional system (D4.1 §8.3.6 Step 2); Steam: undecided: economic value test "
+        "Lignin: one expanded multifunctional system: modelled as a determining co-product, never "
+        "zero burden (D4.1 §8.3.6 Step 2); Steam: economic value test: who pays whom is not settled, "
+        "so both readings, zero burden and substitution, are reported "
         "with a sensitivity analysis (D4.1 §8.3.2)"
     )
     assert not any(" | " in s for s in stmt.values())

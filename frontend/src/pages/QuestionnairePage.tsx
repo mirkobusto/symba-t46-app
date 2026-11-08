@@ -749,7 +749,7 @@ export default function QuestionnairePage() {
           plain={t('questionnaire.q5.plain')}
           details={t('questionnaire.q5.details')}
         >
-          <FlowsEditor flows={flows} onChange={setFlows} />
+          <FlowsEditor flows={flows} onChange={setFlows} lca={env} />
         </QuestionCard>
 
         {/* Q7 */}
@@ -760,6 +760,8 @@ export default function QuestionnairePage() {
           plain={t('questionnaire.q7.plain')}
           details={t('questionnaire.q7.details')}
         >
+          {/* the first part sets the regionalised impact assessment only (P6-13, Fable) */}
+          {!env ? <p className="opt-desc">{t('questionnaire.q7.envOnly')}</p> : null}
           {Q7_KEYS.map((v) => (
             <label key={v} className="opt">
               <input

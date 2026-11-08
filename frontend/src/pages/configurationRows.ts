@@ -143,7 +143,8 @@ export function configurationRows(
         ? reason('horizonYear', { year: kase.operating_start_year })
         : reason('horizonFutureYear'))
     }
-    if (kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5') reasons.push(reason('horizonTrl'))
+    const lowTrlAnswer = kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5'
+    if (lowTrlAnswer) reasons.push(reason('horizonTrl'))
     const period = num(kase.analysis_period_years)
     if (period != null && period > threshold) {
       reasons.push(reason('horizonPeriod', { years: period, threshold }))
@@ -154,6 +155,15 @@ export function configurationRows(
       reasons.push(reason(reasons.length === 0 && !(period != null && period > threshold)
         ? 'horizonLifetimeOnly' : 'horizonLifetime', { years: lifetime, threshold }))
     }
+    // the present-day "why" names only the answers given: it cited a horizon
+    // within the threshold that nobody had answered (P6-16; Fable, UX round 6)
+    const presentReasons = () => [
+      kase.operating_start != null && kase.operating_start !== 'future' ? reason('horizonPresentYear') : null,
+      kase.q6b != null && !lowTrlAnswer ? reason('horizonPresentTrl') : null,
+      period != null ? reason('horizonPresentPeriod', { years: period, threshold }) : null,
+      lifetime != null ? reason('horizonPresentLifetime', { years: lifetime, threshold }) : null,
+      period == null && lifetime == null ? reason('horizonPresentMissing', { threshold }) : null,
+    ].filter(Boolean).join('; ')
     rows.push({
       key: 'horizon',
       label: label('horizon'),
@@ -163,7 +173,7 @@ export function configurationRows(
         : kase.operating_start == null && kase.analysis_period_years == null
           && lifetime == null && kase.q6b == null
           ? reason('horizonUnanswered', { threshold })
-          : reason('horizonPresent', { threshold }),
+          : presentReasons(),
       nodeText: texts(lca['background_futurisation'], lcc['background_dynamic']),
     })
 
@@ -196,8 +206,10 @@ export function configurationRows(
     rows.push({
       key: 'reference',
       label: label('reference'),
-      value: value('reference_c2'),
-      why: reason('referenceC2'),
+      // LCA only, LCA with a costing, costing only: the costing still sets its
+      // avoided costs against what the company would do (D4.2 §5.3; P6-04, Fable)
+      value: value(!eco ? 'reference_c2' : env ? 'reference_c2Lcc' : 'reference_c2LccOnly'),
+      why: reason(env ? 'referenceC2' : 'referenceC2LccOnly'),
       nodeText: texts(lca['reference_scenario.content']),
     })
   } else if ((env || eco) && kase.q2) {
@@ -229,11 +241,16 @@ export function configurationRows(
   if (env && kase.ilcd_situation) {
     const sit = kase.ilcd_situation.replace('ILCD Situation ', '')
     const kind = sit === 'B' ? 'Consequential' : sit === 'C2' ? 'Allocation' : 'Substitution'
-    const pef = (kase.q4 ?? []).includes('D') ? value(`multiPef${kind}`) : ''
+    const policy = (kase.q4 ?? []).includes('D')
+    // in A/C1 the CFF is the partition itself, a middle ground between allocation
+    // and substitution (D4.1 §7.3.3): it replaces the value (P6-07, Fable)
+    const pef = policy && kind !== 'Substitution' ? value(`multiPef${kind}`) : ''
     rows.push({
       key: 'multifunctionality',
       label: label('multifunctionality'),
-      value: `${value(`multi${kind}`)}${pef}`,
+      value: policy && kind === 'Substitution'
+        ? value('multiPefSubstitutionFull')
+        : `${value(`multi${kind}`)}${pef}`,
       why: reason('multifunctionality'),
       nodeText: texts(lca['allocation_method']),
     })
@@ -245,7 +262,10 @@ export function configurationRows(
       const raw = String((perFlow as Record<string, unknown>)[f.id] ?? '')
       const kind = FLOW_TREATMENT.find(([start]) => raw.startsWith(start))?.[1]
       // without a costing the interdependent row spoke of E-LCC and C-LCC (P3-12)
-      const key = kind === 'integrated' && !eco ? 'integratedLca' : kind
+      const key = kind === 'integrated' && !eco ? 'integratedLca'
+        // the E-LCC clause only where there is an E-LCC (D4.2 §6.3; P6-06, Fable)
+        : kind === 'waste' && !(kase.lcc_type === 'C+E' || kase.lcc_type === 'C+E+S') ? 'wasteLca'
+          : kind
       return `${f.name || f.id}: ${key ? value(`flowTreatment.${key}`) : raw || '—'}`
     })
     rows.push({

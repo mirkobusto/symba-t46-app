@@ -151,7 +151,7 @@ def test_schema_has_the_expected_number_of_branch_nodes(schemas):
     # 40 with lcc_hc_02 and lcc_hc_03 on Situation C2 (end-to-end review, 2026-10-18)
     # 47 with seven network mandates dormant in Situation C2 (UX round 5, Fable D1)
     # 49 with the quality factor Q (lca_mc_15, lcc_mc_20) not applied in C2 (Kimi test 2026-11-04)
-    assert len(_branch_nodes(schemas)) == 49
+    assert len(_branch_nodes(schemas)) == 55
 
 
 def test_every_branch_key_in_the_schema_is_interpretable(schemas):
@@ -228,6 +228,8 @@ _OVERLAPPING_NODES = {
     # Situation C2 comes first in these (allocation, no substitution credits, D4.1 §7.2.3)
     "lca_mc_05", "lca_mc_13", "lca_mc_14", "lca_mc_17",
     "lcc_mc_01", "lcc_mc_03", "lcc_mc_18", "lcc_mc_19",
+    # one company's counterparty risk before the bilateral (Q1 = A) one (UX round 6, Fable)
+    "lcc_mc_16",
     # a waste or undecided flow keeps its own rule in C2 too; C2 comes before the
     # co-product and interdependent rules (UX round 5, Fable D1)
     "lca_hc_17",

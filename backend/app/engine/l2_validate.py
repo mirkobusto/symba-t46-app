@@ -136,7 +136,9 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-05": lambda c: _q3_dims_active(c) >= 2,
     # a single company in isolation (C2) has no partners to govern; was Q1 != D (R3, 2026-10-18)
     "IR-06": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
-    "IR-07": lambda c: _q3_dims_active(c) >= 2,
+    # one company's strict accounting (C2) takes no credits: nothing to align
+    # across methods (UX round 6, decided by Fable; D4.1 §7.2.3)
+    "IR-07": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     "IR-08": lambda c: c.q3.env and c.q3.eco,
     # a single company in isolation (C2) allocates and takes no substitution
     # credits (D4.1 §7.2.3): no Q to align (Kimi test 2026-11-04, decided by Fable)
@@ -152,7 +154,9 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "IR-16": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     "IR-17": lambda c: True,
     "IR-18": lambda c: _q4_intersects(c, {"C"}),
-    "IR-19": lambda c: True,
+    # one company's account is absolute (C2, D4.1 §7.2.3); elsewhere the benefit is
+    # the difference with the reference (UX round 6, decided by Fable)
+    "IR-19": lambda c: c.ilcd_situation != IlcdSituation.SITUATION_C2,
     # one company (Situation C2) has no network level to compute or report
     # (UX round 5, Fable review of #209; D4.1 §7.2.3)
     "IR-20": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
@@ -171,8 +175,8 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "CIR-07": lambda c: c.q6b in {Q6b.TRL5_6, Q6b.TRL_LT_5},
     # Q1 in the trigger is left to R3; its action is S-LCA only
     "CIR-08": lambda c: bool(c.dedicated_shared_assets) and c.q3.soc,   # Q1 dropped in R3
-    "CIR-09": lambda c: (c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}
-                         and c.q2 == Q2.B),
+    # ex ante = a planned project or a low-TRL technology (D4.2 §7.1; UX round 6, Fable)
+    "CIR-09": lambda c: (c.q2 == Q2.B or c.q6b in {Q6b.TRL7_8, Q6b.TRL5_6, Q6b.TRL_LT_5}),
     "CIR-10": lambda c: True,
     # --- FU (5) ---
     "FU-01": lambda c: c.q3.env,
@@ -180,7 +184,7 @@ _TRIGGER_FNS: dict[str, Callable[[Case], bool]] = {
     "FU-02": lambda c: c.q3.env and c.comparison_goal == ComparisonGoal.CO_PRIMARY,
     "FU-03": lambda c: c.q3.env and c.q3.eco,
     "FU-04": lambda c: c.q3.soc,
-    "FU-05": lambda c: True,
+    "FU-05": lambda c: _q3_dims_active(c) >= 2 and c.ilcd_situation != IlcdSituation.SITUATION_C2,
     # --- B (7) ---
     "B-01": lambda c: _lcc_includes_e(c) and c.q3.env,
     "B-02": lambda c: _q3_dims_active(c) >= 2,
@@ -530,8 +534,8 @@ def _action_cir_05(c: Case) -> None:
             _write_unless_set(c, "lcc.externality_monetization", "CE_Delft_EU")
             # nor an E-LCC, so no LCC half of CIR-05 (#119; Fable, 2026-11-03): an
             # LCC-only study gets the NTF only from its S-LCC, through lcc_trig_01
-            _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice kept on "
-                              "2026-10-04, since D4.2 ties the NTF to the S-LCC (§2.2)")
+            _write_unless_set(c, "lcc.allocation", "Net Tax Factor for EU policy alignment: T4.6 choice; "
+                              "D4.2 ties the NTF to the S-LCC (§2.2)")
     # the EF method replaces the per-category choice of lca_mc_25, not the
     # regionalised characterisation that follows Q7 (D4.1 §12.3.3; review 2026-10-18)
     _write_unless_set(c, "lca.lcia_method", "EF_3.1; regionalisation: {interaction_scale}")

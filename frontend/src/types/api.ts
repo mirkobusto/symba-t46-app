@@ -222,6 +222,10 @@ export interface CdpFlag {
   severity: 'HIGH' | 'MEDIUM' | 'LOW' | null
   methods: string[]
   resolution_at_l3: string | null
+  /** 'default' when the branch the schema text describes does not apply (CDP-01
+   * outside Situation B, CDP-08 without Q4 = D): the resolution is the engine's
+   * variant (UX round 6). Absent in results saved before. */
+  variant?: string | null
 }
 
 // The full Case object — input AND output of POST /api/pipeline/run.

@@ -111,7 +111,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-19': {
         name: 'Comparative Framing',
-        body: 'All IS reports must be framed as comparative outcomes (NOT absolute) per IR-19.',
+        body: 'Results are reported relative to the reference scenario: the benefit of the symbiosis is the difference between the symbiotic system and the non-symbiotic reference, never an absolute figure on its own (IR-19; D4.1 §11.1; D4.2 §8.3 Step 4; D4.3 §13.1).',
       },
       'IR-20': {
         name: 'Three-Level Analytical Isomorphism',
@@ -151,7 +151,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Iterative Update Protocol',
-        body: 'The exchanges do not take place yet and the technology is not yet at TRL 9: the LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data — at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1).',
+        body: 'The study is ex ante: the exchanges do not take place yet (Q2) or the key technology is below TRL 9 (Q6b), so no industrial-scale operating data exists (D4.2 §7.1). The LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data: at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Real-World Failure Modes',
@@ -283,7 +283,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'block_Q1A_plus_Q5e': {
         name: '',
-        body: 'A specific exchange between two companies cannot be analyzed as black-box aggregated. Specify the nature of each flow (a/b/c/d) in Q5, or change Q1 to B/C.',
+        body: 'A specific exchange between two companies cannot be analyzed as black-box aggregated. Say who pays whom for each flow (a/b/c/d) in Q5, or change Q1 to B/C.',
       },
     },
   },
@@ -363,7 +363,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-19': {
         name: 'Impostazione comparativa',
-        body: 'Tutti i report di simbiosi industriale vanno presentati come esiti comparativi, non assoluti (IR-19).',
+        body: 'I risultati si riportano rispetto allo scenario di riferimento: il beneficio della simbiosi è la differenza tra il sistema simbiotico e il riferimento senza simbiosi, mai una cifra assoluta presa da sola (IR-19; D4.1 §11.1; D4.2 §8.3 passo 4; D4.3 §13.1).',
       },
       'IR-20': {
         name: 'Isomorfismo analitico su tre livelli',
@@ -403,7 +403,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protocollo di aggiornamento iterativo',
-        body: 'Gli scambi non avvengono ancora e la tecnologia non è ancora a TRL 9: la carta metodologica dell\'LCC fissa all\'inizio quando aggiornare il modello con i dati di esercizio: alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1).',
+        body: 'Lo studio è ex ante: gli scambi non avvengono ancora (Q2) o la tecnologia chiave è sotto TRL 9 (Q6b), quindi non esistono dati di esercizio su scala industriale (D4.2 §7.1). La carta metodologica dell\'LCC fissa all\'inizio quando aggiornare il modello con i dati di esercizio: alla messa in esercizio della rete, alla fine del periodo di avviamento e a ogni rinnovo dei contratti principali (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modalità di guasto nel mondo reale',
@@ -615,7 +615,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-19': {
         name: 'Cadrage comparatif',
-        body: 'Tous les rapports de symbiose industrielle doivent être présentés comme des résultats comparatifs, non absolus (IR-19).',
+        body: 'Les résultats sont présentés par rapport au scénario de référence : le bénéfice de la symbiose est la différence entre le système symbiotique et la référence sans symbiose, jamais un chiffre absolu pris seul (IR-19 ; D4.1 §11.1 ; D4.2 §8.3 étape 4 ; D4.3 §13.1).',
       },
       'IR-20': {
         name: 'Isomorphisme analytique à trois niveaux',
@@ -655,7 +655,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protocole de mise à jour itérative',
-        body: 'Les échanges n\'ont pas encore lieu et la technologie n\'est pas encore à TRL 9 : la charte méthodologique du LCC fixe dès le départ quand mettre à jour le modèle avec les données d\'exploitation — à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1).',
+        body: 'L\'étude est ex ante : les échanges n\'ont pas encore lieu (Q2) ou la technologie clé est en dessous de TRL 9 (Q6b), il n\'existe donc pas de données d\'exploitation à l\'échelle industrielle (D4.2 §7.1). La charte méthodologique du LCC fixe dès le départ quand mettre à jour le modèle avec les données d\'exploitation : à la mise en service du réseau, à la fin de la montée en régime et à chaque renouvellement des contrats principaux (CIR-09 ; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modes de défaillance en conditions réelles',
@@ -867,7 +867,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-19': {
         name: 'Vergleichende Rahmung',
-        body: 'Alle Berichte zur industriellen Symbiose sind als vergleichende Ergebnisse darzustellen, nicht als absolute (IR-19).',
+        body: 'Die Ergebnisse werden relativ zum Referenzszenario berichtet: Der Nutzen der Symbiose ist die Differenz zwischen dem symbiotischen System und der Referenz ohne Symbiose, nie eine absolute Zahl für sich allein (IR-19; D4.1 §11.1; D4.2 §8.3 Schritt 4; D4.3 §13.1).',
       },
       'IR-20': {
         name: 'Analytische Isomorphie auf drei Ebenen',
@@ -907,7 +907,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protokoll der iterativen Aktualisierung',
-        body: 'Die Austausche finden noch nicht statt, und die Technologie hat TRL 9 noch nicht erreicht: Die methodische Charta der LCC legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird — bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1).',
+        body: 'Die Studie ist ex ante: Die Austausche finden noch nicht statt (Q2) oder die Schlüsseltechnologie liegt unter TRL 9 (Q6b), es gibt also keine Betriebsdaten im industriellen Maßstab (D4.2 §7.1). Die methodische Charta der LCC legt von Anfang an fest, wann das Modell mit Betriebsdaten aktualisiert wird: bei der Inbetriebnahme des Netzwerks, am Ende der Anlaufphase und bei jeder Erneuerung der wichtigsten Verträge (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Ausfallarten im realen Betrieb',
@@ -1119,7 +1119,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-19': {
         name: 'Encuadre comparativo',
-        body: 'Todos los informes de simbiosis industrial deben presentarse como resultados comparativos, no absolutos (IR-19).',
+        body: 'Los resultados se presentan respecto al escenario de referencia: el beneficio de la simbiosis es la diferencia entre el sistema simbiótico y la referencia sin simbiosis, nunca una cifra absoluta por sí sola (IR-19; D4.1 §11.1; D4.2 §8.3 paso 4; D4.3 §13.1).',
       },
       'IR-20': {
         name: 'Isomorfismo analítico de tres niveles',
@@ -1159,7 +1159,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-09': {
         name: 'Protocolo de actualización iterativa',
-        body: 'Los intercambios aún no tienen lugar y la tecnología aún no está en TRL 9: la carta metodológica del LCC fija desde el inicio cuándo actualizar el modelo con datos de operación — en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1).',
+        body: 'El estudio es ex ante: los intercambios aún no tienen lugar (Q2) o la tecnología clave está por debajo de TRL 9 (Q6b), así que no hay datos de operación a escala industrial (D4.2 §7.1). La carta metodológica del LCC fija desde el inicio cuándo actualizar el modelo con datos de operación: en la puesta en marcha de la red, al final del periodo de arranque y en cada renovación de los contratos principales (CIR-09; D4.2 §7.1).',
       },
       'CIR-10': {
         name: 'Modos de fallo en condiciones reales',

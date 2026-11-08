@@ -11,7 +11,7 @@ import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { plainVerdict, verdictFor } from './resultNarrative'
 import { usePreferenceStore } from '../store/preferenceStore'
-import { groupByFamily, obligationGroups, withoutQCodes } from './configurationRows'
+import { configurationRows, groupByFamily, obligationGroups, withoutQCodes } from './configurationRows'
 import { exportFilename } from './dcfFilename'
 import { reportMeta, reportRows, reportSector, scenarioConfigLines, scenarioNetworkLines } from './reportPayload'
 import ConfigurationSummary from '../components/ConfigurationSummary'
@@ -26,7 +26,7 @@ import { useToastStore } from '../store/toastStore'
 import type { SectorRule } from '../types/api'
 import type { ActionItem } from './resultActions'
 import { chapterName, translateNote } from '../i18n/engineNotes'
-import { sectorNote, sectorStatement } from '../i18n/sectorTerms'
+import { sectorCondition, sectorNote, sectorStatement } from '../i18n/sectorTerms'
 import { askConfirm, askText } from '../store/dialogStore'
 import { handleCaseGone, startNewAssessment } from '../store/signOut'
 
@@ -414,6 +414,12 @@ export default function ResultPage() {
         body={headline?.body}
         // the situation is the first choice of the configuration and had no reason
         subtitle={(() => {
+          // a costing-only study: the costing heads the verdict, so its reason
+          // does, not Q9's situation (P6-13, decided by Fable)
+          const lccWhy = !result.q3?.env && result.lcc_type && result.lcc_type !== 'deactivated'
+            ? configurationRows(result, t, { guided }).find((r) => r.key === 'lcc')?.why
+            : null
+          if (lccWhy) return t('result.verdictWhyLcc', { reason: lccWhy })
           const why = result.decision_context
             ? t('result.verdictWhy', { answer: t(`questionnaire.q9.options.${result.decision_context}`) })
             : t('result.verdictWhyQ1')
@@ -617,7 +623,9 @@ export default function ResultPage() {
 
         <details className="result-raw">
           <summary>{t('result.rawJson')}</summary>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
+          {/* rule_violations is an internal diagnostic (stub assertions): shown here it
+              read as defects of the case (P6-17, confirmed by Fable) */}
+          <pre>{JSON.stringify({ ...result, rule_violations: undefined }, null, 2)}</pre>
         </details>
       </details>
 
@@ -729,7 +737,12 @@ function SectorRules({ rules }: { rules: SectorRule[] }) {
                 </span>{' '}
                 {sectorStatement(t, lang, r)}
                 {' '}
-                <span className="result-sector-source">({r.source}, {r.lines})</span>
+                {/* the section is the reference a reader can follow; the line
+                    numbers stay in the technical JSON (P1-13, Fable) */}
+                <span className="result-sector-source">({r.source})</span>
+                {sectorCondition(lang, r)
+                  ? <div className="result-sector-source">{t('result.sectorRules.appliesWhen', { condition: sectorCondition(lang, r) })}</div>
+                  : null}
                 {r.note ? <div className="result-sector-source">{sectorNote(t, lang, r)}</div> : null}
               </li>
             ))}

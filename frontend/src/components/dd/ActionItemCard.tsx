@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 import type { ActionItem } from '../../pages/resultActions'
 import { schemaTerm, type SchemaTermKind } from '../../i18n/schemaTerms'
+import { cdpResolution } from '../../i18n/cdpResolution'
 
 // The wording of rules, decision points and blocks arrives from the
 // engine in English. `schemaTerms` holds the five-language table; the
@@ -34,6 +35,10 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
 
   const kind = TERM_KIND[item.kind]
   const term = schemaTerm(i18n.language, kind, item.code)
+  // the case's own variant when the schema text speaks of another situation (P6-08)
+  const resolution = item.kind === 'decision'
+    ? cdpResolution(t, item.code, item.variant, term?.resolution, item.resolution)
+    : term?.resolution || item.resolution
   const english = schemaTerm('en', kind, item.code)
   // A block carries no name, only a message: it becomes the heading,
   // which is why the card used to show a bare `block_…` id and nothing
@@ -53,7 +58,7 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         <span className={`dd-pill dd-pill-${TONE[item.kind]}`}>
           {/* "To decide" above "How it is resolved" contradicted itself: the
               engine has settled these, the analyst checks them */}
-          {item.kind === 'decision' && (term?.resolution || item.resolution)
+          {item.kind === 'decision' && resolution
             ? t('result.actionKind.decisionResolved')
             : t(`result.actionKind.${item.kind}`)}
         </span>
@@ -98,11 +103,11 @@ export default function ActionItemCard({ item }: { item: ActionItem }) {
         </div>
       ) : null}
 
-      {term?.resolution || item.resolution ? (
+      {resolution ? (
         <div className="dd-action-todo">
           <span className="dd-action-label">{t('result.action.resolution')}</span>
           <p className="dd-action-resolution">
-            {term?.resolution || item.resolution}
+            {resolution}
           </p>
         </div>
       ) : null}

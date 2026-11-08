@@ -131,8 +131,8 @@ def test_the_dcf_asks_no_substitution_data_and_the_reference_is_optional(case):
 
 
 def test_flow_treatment_in_c2_is_allocation_except_for_waste(case):
-    """lca_hc_17 in C2: allocation for a co-product, a waste keeps zero burden
-    after the avoidability test (UX round 5, Fable D1; #130)."""
+    """lca_hc_17 in C2: allocation for a co-product, a waste keeps its zero-burden
+    point (UX round 5, Fable D1; #130; round 6 wording)."""
     import json
     from pathlib import Path
 
@@ -145,8 +145,8 @@ def test_flow_treatment_in_c2_is_allocation_except_for_waste(case):
         json.loads((root / "coordination/dcf_mandates_census.json").read_text()),
     )
     [stmt] = [o.statement for o in payload.obligations if o.id == "lca_hc_17"]
-    assert "Bagasse to CHP plant: allocation: no zero burden and no substitution credits" in stmt
-    assert "Filter cake taken away for a gate fee: waste: zero burden" in stmt
+    assert "Bagasse to CHP plant: allocation in place of substitution: no substitution credits" in stmt
+    assert "Filter cake taken away for a gate fee: zero burden: modelled as a waste" in stmt
 
 
 def test_no_network_level_rules_for_one_company(case):

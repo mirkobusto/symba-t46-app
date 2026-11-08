@@ -295,7 +295,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a78.3.6",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "Avoided products documented when system expansion used",
         "all_matched_categories": [
@@ -318,7 +320,7 @@
           "ilcd"
         ],
         "trigger_condition": null,
-        "statement": "waste: zero burden from the point where the residue first reaches non-negative value, after the avoidability test (D4.1 \u00a78.3.6 Step 4) | undecided: economic value test with a sensitivity analysis (D4.1 \u00a78.3.2) | allocation: no zero burden and no substitution credits, one company's accounts (D4.1 \u00a77.2.3) | co-product: no zero burden; substitution of the product it replaces with the quality factor Q (D4.1 \u00a78.3.6 Step 3) | interdependent: a determining co-product, never zero burden; one expanded multifunctional system (D4.1 \u00a78.3.6 Step 2) | aggregated: classify each flow that can be named, no network-wide rule (D4.1 \u00a78.3.1)",
+        "statement": "zero burden: modelled as a waste, burden-free for the receiver from the point where the residue first reaches a non-negative value; the pre-treatment up to that point belongs to the generator (D4.1 \u00a78.3.2, \u00a78.3.6 Step 4) | economic value test: who pays whom is not settled, so both readings, zero burden and substitution, are reported with a sensitivity analysis (D4.1 \u00a78.3.2) | allocation in place of substitution: no substitution credits, one company's accounts (D4.1 \u00a77.2.3); a waste input keeps its zero-burden point (\u00a78.3.6 Step 4) | substitution: modelled as a co-product, no zero burden; it displaces the product it replaces, corrected with the quality factor Q (D4.1 \u00a78.3.6 Step 3) | one expanded multifunctional system: modelled as a determining co-product, never zero burden (D4.1 \u00a78.3.6 Step 2) | aggregated in the source: classify each flow that can be named, no network-wide rule (D4.1 \u00a78.3.1)",
         "all_matched_categories": [
           "allocation_substitution"
         ],
@@ -540,7 +542,9 @@
         "type": "HC",
         "lifecycle_layer": "L2",
         "source_section": "D4.1 \u00a75.3.2",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
         "statement": "For a network delivering several distinct functions, a system of functional units covering all jointly delivered services is the robust solution; a single aggregated FU that treats the network as a black box should be avoided (D4.1 \u00a75.3.2; \u00a75.2.2)",
         "all_matched_categories": [
@@ -676,9 +680,11 @@
         "type": "MC",
         "lifecycle_layer": "L2",
         "source_section": "D4.2 \u00a72.3",
-        "trigger_q": null,
+        "trigger_q": [
+          "ilcd"
+        ],
         "trigger_condition": null,
-        "statement": "All 3 analytical levels mandatory",
+        "statement": "Three analytical levels, network, entity and flow, mandatory (D4.2 \u00a72.3)",
         "all_matched_categories": [
           "goal_scope_boundary"
         ],
@@ -1059,7 +1065,7 @@
           "q6b"
         ],
         "trigger_condition": "case.q4 \u2229 {'C','D','E'} \u2260 \u2205 OR case.q6b != 'TRL9'",
-        "statement": "Monte Carlo mandatory if Q4 is C, D or E or the technology is below TRL 9: T4.6 divergence kept on 2026-10-04; D4.1 \u00a713.3.2 asks Monte Carlo by default in every study, with at least 1,000 iterations and a convergence check, and its only TRL threshold is below TRL 7",
+        "statement": "Monte Carlo mandatory: at least 1,000 iterations with a convergence check, correlated parameters handled, the 95 % interval reported (D4.1 \u00a713.3.2). T4.6 choice: the tool requires it when Q4 is C, D or E or the technology is below TRL 9; D4.1 asks it by default of every study, and its only TRL threshold is TRL 7",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],
@@ -1257,7 +1263,7 @@
         "source_section": "D4.2 \u00a74.2",
         "trigger_q": null,
         "trigger_condition": null,
-        "statement": "Break-even distance modelled explicitly as a sensitivity parameter, never a fixed assumption, and it should be reported in the results as a decision-support output (D4.2 \u00a74.2, \u00a74.3). \u00a74.2 asks it for bulky, low-value or zero-value streams; extending it to every exchange is a T4.6 choice (2026-10-04)",
+        "statement": "Break-even distance modelled explicitly as a sensitivity parameter, never a fixed assumption, and it should be reported in the results as a decision-support output (D4.2 \u00a74.2, \u00a74.3). \u00a74.2 asks it for bulky, low-value or zero-value streams; extending it to every exchange is a T4.6 choice",
         "all_matched_categories": [
           "uncertainty_sensitivity"
         ],

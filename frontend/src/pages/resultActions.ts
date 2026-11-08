@@ -39,6 +39,8 @@ export interface ActionItem {
   fields: string[]
   /** How the engine says this one is resolved (CDPs carry it). */
   resolution: string | null
+  /** The engine's variant of the resolution, when the schema text does not fit the case. */
+  variant?: string | null
   severity: 'HIGH' | 'MEDIUM' | 'LOW' | null
 }
 
@@ -183,6 +185,7 @@ function fromCdp(c: CdpFlag, kase: Case): ActionItem {
     // to drop it, so "what to do next" stated a dilemma and hid its
     // answer inside the collapsed technical panel.
     resolution: c.resolution_at_l3,
+    variant: c.variant ?? null,
     severity: c.severity,
   }
 }

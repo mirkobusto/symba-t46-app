@@ -28,7 +28,7 @@ def _rules(case: Case) -> set[str]:
 
 def test_shared_assets_put_capex_and_opex_in_the_cost_breakdown():
     case = _run(dedicated_shared_assets=True)
-    assert case.lcc["capital_goods.included"].startswith("The new dedicated shared assets")
+    assert case.lcc["capital_goods.included"].startswith("The dedicated shared assets of the symbiosis")
     assert "allocated among the benefiting partners" in case.lcc["capital_goods.included"]
     assert "the dedicated assets of this symbiosis" in case.lca["capital_goods.included"]
     for answer in (False, None):

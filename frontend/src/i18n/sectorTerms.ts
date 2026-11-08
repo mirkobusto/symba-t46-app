@@ -13,7 +13,7 @@ import type { TFunction } from 'i18next'
 import type { SectorRule } from '../types/api'
 import terms from './sectorTerms.json'
 
-type Group = 'rules' | 'notes' | 'substitutes'
+type Group = 'rules' | 'notes' | 'substitutes' | 'conditions'
 type Bag = Record<Group, Record<string, string>>
 const TERMS = terms as unknown as Record<string, Bag> & { note_owners: Record<string, string[]> }
 
@@ -36,6 +36,14 @@ export function sectorStatement(t: TFunction, lang: string, r: SectorRule): stri
     })
   }
   return pick(lang, 'rules', r.id) ?? r.statement
+}
+
+/** The condition under which a rule applies ("applies_when"), in the reader's
+ * language; null for a rule without one. The engine never checks it: the study
+ * decides (UX round 6, P1-13, decided by Fable). */
+export function sectorCondition(lang: string, r: SectorRule): string | null {
+  if (!r.applies_when) return null
+  return pick(lang, 'conditions', r.id) ?? r.applies_when
 }
 
 export function sectorNote(t: TFunction, lang: string, r: SectorRule): string {

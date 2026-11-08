@@ -26,7 +26,8 @@
     "Some v2 source_nodes references look semantically off relative to the cited node's content (e.g., IR-02 cites lca_hc_20 'methodological charter' under 'Consistent boundaries'; IR-05 cites lca_hc_13 'Pedigree Matrix' under 'Methodological Autonomy'). Preserved verbatim — validation script (commit 2) surfaces these as warnings rather than silently fixing.",
     "CIR source_nodes derived from v2 §9.2 example for CIR-05 + analogous derivation for CIR-01..04, 06..10 from action descriptions. Not authoritative.",
     "trigger_condition_raw preserves v2 §3-§4 wording; trigger_condition is the formal expression (Python-like with set membership IN, intersection ∩, count_true helper).",
-    "BLOCK triggers use formal expressions referencing case.* fields and lcc_type derived state. lcc_type is computed by lcc_trig_01 (phase1_nodes.json L0 trigger node) before L1 BLOCK evaluation."
+    "BLOCK triggers use formal expressions referencing case.* fields and lcc_type derived state. lcc_type is computed by lcc_trig_01 (phase1_nodes.json L0 trigger node) before L1 BLOCK evaluation.",
+    "UX round 6, 2026-11-08 (decided by Fable): IR-19, IR-07 and FU-05 not in Situation C2 (an absolute account of one company; FU-05 also needs two methods); IR-19 reworded (D4.1 has no general comparative-framing duty: the IS benefit is the difference with the reference, D4.1 §11.1, D4.2 §8.3 Step 4); CIR-09 on Q2 = B or TRL below 9 (D4.2 §7.1 L00823, L00853); block_Q1A_plus_Q5e message in the Q5 words of #250."
   ],
   "blocks": [
     {
@@ -58,7 +59,7 @@
       "lifecycle_layer": "L1",
       "trigger_condition_raw": "Q1=A (specific exchange) AND Q5=e (aggregated/black-box) for all flows",
       "trigger_condition": "case.q1 == 'A' AND all(flow.q5 == 'e' for flow in case.flows)",
-      "user_message": "A specific exchange between two companies cannot be analyzed as black-box aggregated. Specify the nature of each flow (a/b/c/d) in Q5, or change Q1 to B/C.",
+      "user_message": "A specific exchange between two companies cannot be analyzed as black-box aggregated. Say who pays whom for each flow (a/b/c/d) in Q5, or change Q1 to B/C.",
       "action_on_violation": "STOP"
     }
   ],
@@ -172,8 +173,8 @@
       "id": "IR-07",
       "name": "Identical Reference Scenarios",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q3 has ≥2 dims active",
-      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company's strict accounting (ILCD Situation C2)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "lca.reference_scenario.type == lcc.reference_scenario.type == slca.reference_scenario.type",
       "fields": [
         "lca.reference_scenario.type",
@@ -390,8 +391,8 @@
       "id": "IR-19",
       "name": "Comparative Framing",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "All cases (universal IS)",
-      "trigger_condition": "true",
+      "trigger_condition_raw": "All cases except Situation C2 (one company's strict accounting is absolute, D4.1 §7.2.3)",
+      "trigger_condition": "case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "report.framing == 'comparative_outcomes'",
       "fields": [
         "report.framing"
@@ -401,7 +402,7 @@
         "lcc_hc_11",
         "lca_mc_26"
       ],
-      "violation_message": "All IS reports must be framed as comparative outcomes (NOT absolute) per IR-19."
+      "violation_message": "Results are reported relative to the reference scenario: the benefit of the symbiosis is the difference between the symbiotic system and the non-symbiotic reference, never an absolute figure on its own (IR-19; D4.1 §11.1; D4.2 §8.3 Step 4; D4.3 §13.1)."
     },
     {
       "id": "IR-20",
@@ -562,15 +563,15 @@
       "id": "CIR-09",
       "name": "Iterative Update Protocol",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "Q6b below TRL 9 AND Q2 = B (ex-ante)",
-      "trigger_condition": "case.q6b IN ['TRL7-8','TRL5-6','TRL<5'] AND case.q2 == 'B'",
+      "trigger_condition_raw": "Q2 = B (the exchanges do not take place yet) OR Q6b below TRL 9 (ex-ante, D4.2 §7.1)",
+      "trigger_condition": "case.q2 == 'B' OR case.q6b IN ['TRL7-8','TRL5-6','TRL<5']",
       "actions": [
         "case.iterative_update_triggers = ['commissioning', 'ramp_up', 'contract_renewal']"
       ],
       "source_nodes": [
         "lcc_hc_37"
       ],
-      "violation_message": "The exchanges do not take place yet and the technology is not yet at TRL 9: the LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data — at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1)."
+      "violation_message": "The study is ex ante: the exchanges do not take place yet (Q2) or the key technology is below TRL 9 (Q6b), so no industrial-scale operating data exists (D4.2 §7.1). The LCC methodological charter sets at the outset the trigger conditions for updating the model with operational data: at network commissioning, at the end of the ramp-up period and at each major contract renewal (CIR-09; D4.2 §7.1)."
     },
     {
       "id": "CIR-10",
@@ -666,8 +667,8 @@
       "id": "FU-05",
       "name": "Reference Scenario Uniformity",
       "lifecycle_layer": "L2",
-      "trigger_condition_raw": "All cases",
-      "trigger_condition": "true",
+      "trigger_condition_raw": "Q3 has ≥2 dims active AND not one company's strict accounting (ILCD Situation C2)",
+      "trigger_condition": "count_true([case.q3.env, case.q3.eco, case.q3.soc]) >= 2 AND case.ilcd_situation != 'ILCD Situation C2'",
       "assertion": "all three methods use the same reference scenario type for FU benchmarks",
       "fields": [
         "lca.reference_scenario.type",

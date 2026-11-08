@@ -29,6 +29,10 @@ function sellableValue(f: Flow): string {
 interface Props {
   flows: Flow[]
   onChange: (next: Flow[]) => void
+  /** The study has the environmental dimension: the Part 2 sector and
+   * configuration columns list LCA modelling rules only, so they are hidden
+   * without it (stored values kept; P6-13, decided by Fable). */
+  lca?: boolean
 }
 
 /**
@@ -44,7 +48,7 @@ function nextId(existing: Flow[], now = Date.now()): string {
   return id
 }
 
-export default function FlowsEditor({ flows, onChange }: Props) {
+export default function FlowsEditor({ flows, onChange, lca = true }: Props) {
   const { t } = useTranslation()
   // guided mode: who pays whom in words, headers without "Part 2", and a
   // sector hint that says when to leave it empty (UX round 2026-11-03: the
@@ -84,8 +88,8 @@ export default function FlowsEditor({ flows, onChange }: Props) {
               <th>{t('flows.headers.name')}</th>
               <th>{header('q5')}</th>
               <th title={t('flows.sellableHint')}>{t('flows.headers.sellable')}</th>
-              <th title={t('flows.sectorHint')}>{header('sector')}</th>
-              <th title={t('flows.configurationHint')}>{header('configuration')}</th>
+              {lca ? <th title={t('flows.sectorHint')}>{header('sector')}</th> : null}
+              {lca ? <th title={t('flows.configurationHint')}>{header('configuration')}</th> : null}
               <th aria-label={t('common.actions')}></th>
             </tr>
           </thead>
@@ -141,7 +145,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                     <option value="no">{t('flows.sellable.no')}</option>
                   </select>
                 </td>
-                <td data-label={header('sector')}>
+                {lca ? <td data-label={header('sector')}>
                   <select
                     className="row-select"
                     aria-label={t('flows.headers.sector')}
@@ -160,8 +164,8 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                       </option>
                     ))}
                   </select>
-                </td>
-                <td data-label={header('configuration')}>
+                </td> : null}
+                {lca ? <td data-label={header('configuration')}>
                   <select
                     className="row-select"
                     aria-label={t('flows.headers.configuration')}
@@ -178,7 +182,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
                       </option>
                     ))}
                   </select>
-                </td>
+                </td> : null}
                 <td className="flows-row-remove">
                   <button
                     type="button"
@@ -195,7 +199,7 @@ export default function FlowsEditor({ flows, onChange }: Props) {
         </table>
       )}
 
-      {flows.length > 0 ? (
+      {flows.length > 0 && lca ? (
         <p className="flows-q5-note">{t(guided ? 'flows.plainSectorHint' : 'flows.sectorHint')}</p>
       ) : null}
       {/* the table has no "from whom to whom" (UX round 6, P1-12) */}

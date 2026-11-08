@@ -159,6 +159,11 @@ def _properties(doc: Document, case_title: str | None, lang: str) -> None:
     props.modified = now
 
 
+def _colon(lang: str) -> str:
+    """": " after a label; French puts a space before the colon."""
+    return " : " if lang == "fr" else ": "
+
+
 def _table(doc: Document, widths_cm: list[float], header: list[str] | None = None, style: str | None = None):
     table = doc.add_table(rows=1 if header else 0, cols=len(widths_cm))
     if style:
@@ -258,16 +263,16 @@ def _write_instructions_section(
             p = doc.add_paragraph(style="List Bullet")
             p.add_run(label).bold = True
             if lines:
-                p.add_run(": " + "; ".join(lines))
+                p.add_run(_colon(lang) + "; ".join(lines))
 
     return_by = fmt_date(lang, cover.get("return_by"))
     if return_by:
         p = doc.add_paragraph()
-        p.add_run(ui(lang, "ins.return_by") + ": ").bold = True
+        p.add_run(ui(lang, "ins.return_by") + _colon(lang)).bold = True
         p.add_run(return_by)
     if contact:
         p = doc.add_paragraph()
-        p.add_run(ui(lang, "ins.contact") + ": ").bold = True
+        p.add_run(ui(lang, "ins.contact") + _colon(lang)).bold = True
         p.add_run(contact)
 
 
@@ -380,7 +385,7 @@ def _write_field_reference_section(doc: Document, payload: DcfPayload, lang: str
             doc.add_paragraph(title).runs[0].italic = True
         if section.filled_by:
             p = doc.add_paragraph()
-            p.add_run(ui(lang, "h.who") + ": ").bold = True
+            p.add_run(ui(lang, "h.who") + _colon(lang)).bold = True
             p.add_run(ui(lang, f"who.{section.filled_by}"))
         table = _table(doc, [4.3, 8.7, 4.0], [ui(lang, "h.column"), ui(lang, "h.meaning"), ui(lang, "h.values")],
                        "Light List Accent 1")

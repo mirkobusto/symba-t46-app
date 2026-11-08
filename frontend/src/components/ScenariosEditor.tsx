@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useDcfDataStore } from '../store/dcfDataStore'
+import { askConfirm } from '../store/dialogStore'
 import type { AlternativeScenario, Case, Flow } from '../types/api'
 import {
   CHANGES, Q5_KEYS, SPEC, type ChangeSpec, defaultValue, effectiveAnswers, isAsked, withFollowUps,
@@ -96,7 +97,19 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {}, on
     setExpanded({ ...expanded, [id]: true })
   }
 
-  function removeScenario(id: string) {
+  // deleting a scenario asked nothing (UX round 6, P7-21): it asks now when
+  // something would be lost, and says that a network drawn for it stays
+  async function removeScenario(id: string) {
+    const s = scenarios.find((x) => x.id === id)
+    const changes = s ? Object.keys(s.overrides ?? {}).length : 0
+    const network = !!useDcfDataStore.getState().data.networks_by_scenario?.[id]
+    if (s && (changes > 0 || network || s.label.trim() !== '')) {
+      const message = [
+        t('scenarios.removeConfirm', { name: s.label.trim() || s.id, count: changes }),
+        network ? t('scenarios.removeConfirmNetwork') : null,
+      ].filter(Boolean).join(' ')
+      if (!(await askConfirm(message, t('scenarios.removeButton')))) return
+    }
     const errors = { ...parseErrors }
     delete errors[id]
     setParseErrors(errors)
@@ -297,7 +310,7 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {}, on
                   <button
                     type="button"
                     className="icon-btn"
-                    onClick={() => removeScenario(s.id)}
+                    onClick={() => void removeScenario(s.id)}
                     aria-label={t('scenarios.removeAria', { id: s.label || s.id })}
                   >
                     <Trash2 size={16} />

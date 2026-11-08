@@ -198,6 +198,8 @@ export default function FlowsEditor({ flows, onChange }: Props) {
       {flows.length > 0 ? (
         <p className="flows-q5-note">{t(guided ? 'flows.plainSectorHint' : 'flows.sectorHint')}</p>
       ) : null}
+      {/* the table has no "from whom to whom" (UX round 6, P1-12) */}
+      {guided ? <p className="flows-q5-note">{t('flows.plainNameHint')}</p> : null}
 
       <button type="button" className="btn btn-secondary" onClick={addFlow}>
         <Plus size={16} />

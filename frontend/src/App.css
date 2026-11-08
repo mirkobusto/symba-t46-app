@@ -5003,6 +5003,13 @@ kbd {
 .obl-fields { margin: var(--dd-space-2) 0 0; display: flex; gap: var(--dd-space-2); flex-wrap: wrap; }
 .obl-na { margin: var(--dd-space-2) 0 0; font-size: 11px; color: var(--dd-text-muted); font-style: italic; }
 
+/* the obligations, folded by rule family (UX round 6, P1-07) */
+.result-obligations { margin: var(--dd-space-3) 0 0; }
+.result-obligations-family { margin: var(--dd-space-2) 0; }
+.result-obligations-family > summary { cursor: pointer; font-weight: 600; padding: var(--dd-space-1) 0; }
+.result-obligations-family > .result-next-list { margin: var(--dd-space-2) 0 var(--dd-space-3); }
+.result-next-counts { font-weight: 500; }
+
 .result-next-obligations {
   margin: var(--dd-space-4) 0 0;
   padding: var(--dd-space-3) var(--dd-space-4);

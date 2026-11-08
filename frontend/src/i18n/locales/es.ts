@@ -120,7 +120,7 @@ const es: Locale = {
     tagline: 'Informe público',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
-      A: { title: 'Un intercambio local, evaluado con datos medios', body: 'El intercambio es pequeño frente a la economía en su conjunto: el estudio describe lo que sustituye con datos medios de mercado (el mix eléctrico nacional, el material virgen medio). Esto no dice nada sobre lo grandes que son sus efectos en las plantas o en el territorio: eso es lo que medirá el estudio.' },
+      A: { title: 'Un intercambio demasiado pequeño para cambiar la economía en su conjunto, evaluado con datos medios', body: 'El intercambio es pequeño frente a la economía en su conjunto: el estudio describe lo que sustituye con datos medios de mercado (el mix eléctrico nacional, el material virgen medio). Esto no dice nada sobre lo grandes que son sus efectos en las plantas o en el territorio: eso es lo que medirá el estudio.' },
       B: { title: 'Una decisión a gran escala, evaluada con los cambios de mercado que provoca', body: 'La decisión es lo bastante grande como para cambiar lo que la economía construye o cierra: el estudio modela esos cambios en lugar de usar datos medios.' },
       C1: { title: 'Una red existente, descrita tal como funciona', body: 'No se toma ninguna decisión: el estudio documenta lo que la red ya aporta, frente a lo que cada empresa haría sin ella.' },
       C2: { title: 'Las cuentas propias de una sola empresa', body: 'El estudio informa de la parte de las cargas de una sola empresa, sin crédito por lo que sus intercambios ahorran en otra parte.' },
@@ -482,7 +482,7 @@ const es: Locale = {
     technicalTitle: "Detalles técnicos (para especialistas)",
     title: 'Acerca de',
     p1:
-      'SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de un cuestionario sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — las cifras las calcula fuera de la herramienta quien realiza el estudio, y pueden cargarse aquí; nadie las calcula automáticamente.',
+      'SYMBA T4.6 ayuda a quien plantea una evaluación de sostenibilidad del ciclo de vida de una simbiosis industrial: a partir de un cuestionario sobre el caso deduce qué metodología se aplica, qué prácticas hay que documentar y qué datos recoger de los socios de la red. No calcula los resultados — las cifras las calcula fuera de la herramienta quien realiza el estudio, y nadie las calcula automáticamente; esta versión aún no permite cargarlas en un caso.',
     p2:
       'El cuestionario (Q0-Q12; Q9 fija la situación ILCD, Q10 el S-LCC) impulsa la activación de los 186 nodos Phase 1 más 40 reglas cross-method (18 IR + 10 CIR + 5 FU + 7 B). El enforcement L3 en tiempo de reporting (IR-04 + IR-10) más 11 Critical Decision Points hacen aflorar las tensiones cross-method.',
   },
@@ -499,7 +499,7 @@ const es: Locale = {
       exchanges: 'Los intercambios',
       description: 'Descripción del caso',
     },
-    scopeNote: "Esta herramienta no calcula las cifras de LCA/LCC/S-LCA. Deriva la configuración metodológica que tu caso requiere y los datos que debes recoger; la puntuación cuantitativa se produce externamente y aparece aquí cuando llega.",
+    scopeNote: "Esta herramienta no calcula las cifras de LCA/LCC/S-LCA. Deriva la configuración metodológica que tu caso requiere y los datos que debes recoger; las cifras las calcula fuera de la herramienta quien realiza el estudio, y esta versión aún no permite cargarlas en el caso.",
     title: 'Cuestionario',
     guidedBannerTitle: 'Modo guiado activo',
     guidedBannerBody:
@@ -532,7 +532,7 @@ const es: Locale = {
       options: {
         unset: { label: 'Sin respuesta' },
         analysis: { label: 'Análisis', description: 'Evaluar una red existente para entender su desempeño.' },
-        improvement: { label: 'Mejora', description: 'Encontrar los puntos críticos de una red existente para optimizarla.' },
+        improvement: { label: 'Mejora', description: 'Encontrar los puntos débiles (hotspots) de una red existente para optimizarla.' },
         expansion: { label: 'Ampliación', description: 'Evaluar los impactos de añadir un nuevo socio o intercambio.' },
         design: { label: 'Diseño', description: 'Comparar opciones tecnológicas y logísticas para una red nueva, planificada.' },
         restructuring: { label: 'Reestructuración', description: 'Evaluar una reconfiguración importante de una red consolidada.' },
@@ -555,11 +555,11 @@ const es: Locale = {
         A: { label: 'A. Intercambio específico', description: "Un intercambio simbiótico entre dos empresas, estudiado por sí solo, existente o en proyecto." },
         B: { label: 'B. Eco-park / red', description: "Un parque eco-industrial o una red simbiótica multi-actor, o una empresa que suministra a dos o más socios." },
         C: { label: 'C. Política / programa', description: 'Una decisión de política o programa a escala regional o nacional.' },
-        D: { label: 'D. Informe corporativo', description: 'La contribución simbiótica de una sola empresa para reporting ESG/CSRD.' },
+        D: { label: 'D. Informe corporativo', description: 'La contribución simbiótica de una sola empresa para su informe de sostenibilidad (ESG, CSRD).' },
         E: { label: 'E. Monitorización', description: 'Monitorización temporal de una simbiosis ya operativa.' },
       },
       plain:
-        'Di qué estás examinando: un intercambio, un parque, un programa, una empresa, una simbiosis que sigues en el tiempo. La respuesta describe el sistema y su límite; cómo se modela el estudio lo deciden las preguntas siguientes, empezando por para qué sirve el estudio. Si dudas entre dos opciones, quédate con la que describe aquello cuyos efectos quieres medir. Una empresa que suministra a dos o más socios cuenta como red (B).',
+        'Di qué estás examinando: un intercambio, un parque, un programa, una empresa, una simbiosis que sigues en el tiempo. La respuesta describe el sistema y su límite; cómo se modela el estudio lo deciden las preguntas siguientes, empezando por para qué sirve el estudio. Si dudas entre dos opciones, quédate con la que describe aquello cuyos efectos quieres medir. Una empresa que suministra a dos o más socios cuenta como red: elige «Eco-park / red».',
     },
 
     q2: {
@@ -568,7 +568,7 @@ const es: Locale = {
         'Responde sobre los intercambios simbióticos, no sobre las plantas: una planta puede existir mientras el intercambio que estudias es todavía un proyecto. A — sí: los intercambios ocurren hoy y sus flujos se pueden medir (p. ej. Kalundborg; el distrito curtidor de Daddi 2017). La referencia es lo que haría hoy cada empresa si se cortaran los vínculos (HNSRS, D4.1 §11.1). Si la red funciona desde hace muchos años, esa referencia es un contrafactual moderno, no la configuración de las empresas de hace décadas (D4.1 §11.2.2): de eso trata la pregunta de seguimiento. B — todavía no: los intercambios están previstos, diseñados, son hipotéticos o acaban de empezar, aunque sea entre plantas que ya funcionan. La referencia es la situación actual sin ellos, incluidos los intercambios que ya funcionan (CNSRS, D4.1 §11.1). Comparar alternativas (una ampliación, una tecnología nueva) está abierto a todo estudio: añádelas como escenarios abajo (D4.1 §4.3.3). Cuándo opera el sistema se pregunta en Q8.',
       options: {
         A: { label: 'A. Sí, ya tienen lugar', description: 'Los intercambios ocurren hoy: sus flujos se pueden medir.' },
-        B: { label: 'B. Todavía no', description: 'Previstos, diseñados o recién iniciados, incluso entre plantas que ya existen.' },
+        B: { label: 'B. Todavía no', description: 'Previstos, diseñados o recién iniciados, incluso entre plantas que ya existen. También cuando algunos intercambios funcionan y otros están previstos.' },
       },
       longStanding: {
         label: "¿La red funciona desde hace tanto tiempo que las alternativas que sustituyó (p. ej. las calderas que usaría la calefacción urbana) hoy ya no se construirían?",
@@ -577,7 +577,7 @@ const es: Locale = {
         unknown: 'No lo sé — la configuración anterior a la simbiosis sigue admitida si es aún lo que cada empresa haría racionalmente hoy',
       },
       plain:
-        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. ¿Quieres comparar alternativas, como una ampliación o una tecnología nueva? Se añaden como escenarios en modo experto, al final del cuestionario, sea cual sea tu respuesta aquí.',
+        'Piensa en los intercambios, no en las plantas. Si los flujos entre las empresas ya ocurren, puedes medirlos. Si todavía son una idea, aunque sea entre plantas que ya funcionan, solo puedes estimarlos. ¿Quieres comparar alternativas, como una ampliación o una tecnología nueva? Se añaden como escenarios en modo experto, al final del cuestionario, sea cual sea tu respuesta aquí. ¿Algunos intercambios ya funcionan y otros están previstos? Responde «Todavía no»: el estudio mide entonces lo que añaden los nuevos, y los que ya funcionan forman parte de la situación con la que compara.',
     },
 
     q3: {
@@ -613,11 +613,13 @@ const es: Locale = {
           label: 'C. Aseveración comparativa divulgada al público',
           description: 'Afirmación pública de superioridad o equivalencia frente a una alternativa con la misma función, en cualquier forma (artículos incluidos).',
           warn: 'Activa la revisión OBLIGATORIA por panel de 3+ expertos independientes (ISO 14044), no se permite ponderación.',
+          warnPlain: 'Antes de hacer públicos los resultados, un panel de al menos tres expertos independientes debe revisar el estudio, y los resultados no se pueden sumar en una puntuación única.',
         },
         D: {
           label: 'D. Alineamiento con política UE',
-          description: 'Alineamiento con política UE (ESPR, PEF/PEFCR).',
+          description: 'Alineamiento con las reglas de la UE: el reglamento europeo de ecodiseño de productos (ESPR) y el método europeo de la huella ambiental (PEF y sus reglas por categoría, PEFCR).',
           warn: 'Activa la PEF Circular Footprint Formula (CIR-05).',
+          warnPlain: 'Entran en juego las reglas europeas de la huella ambiental para contar los materiales reciclados y recuperados.',
         },
         E: { label: 'E. Publicación académica', description: 'Publicación académica peer-reviewed (añade C si afirma que un sistema supera o iguala a una alternativa competidora).' },
       },
@@ -686,7 +688,7 @@ const es: Locale = {
         TRL9: 'TRL 9 — plenamente operativo',
         'TRL7-8': 'TRL 7-8 — piloto / pre-comercial',
         'TRL5-6': 'TRL 5-6 — prototipo',
-        'TRL<5': 'TRL <5 — I+D temprana',
+        'TRL<5': 'TRL <5: investigación y desarrollo en fase temprana',
       },
       plain:
         "Cuán madura es la tecnología clave: en explotación comercial, primera planta piloto, prototipo, o todavía en laboratorio. Cuanto menos madura, más serán tus cifras estimaciones y no medidas, y más tendrá el resultado que cargar con su propia incertidumbre. Juzga la tecnología en sí, no si es nueva aquí: un proceso probado usado por primera vez en tu región sigue siendo maduro, siempre que trate el mismo tipo de material que en otros lugares.",
@@ -694,7 +696,7 @@ const es: Locale = {
 
     q7: {
       title: 'Q7 — ¿Cuán concentradas están las interacciones clave?',
-      help: 'Fija cómo se regionaliza la evaluación de impactos. El transporte se modela de forma explícita para cada intercambio, sea cual sea la respuesta; la distancia de equilibrio se pide para cada flujo en el Data Collection File. Socios en regiones o países distintos: C; B solo si todos los sitios están en una misma región.',
+      help: 'Fija cómo se regionaliza la evaluación de impactos. El transporte se modela de forma explícita para cada intercambio, sea cual sea la respuesta; la distancia de equilibrio se pide para cada flujo en el Data Collection File. Socios en regiones o países distintos: «Entre regiones»; «Regional» solo si todos los sitios están en una misma región.',
       details:
         'D4.1 §12.2.3: un factor de caracterización medio global o nacional no capta la relevancia de un sistema cuyas interacciones clave son intensamente locales (p. ej. una sinergia de uso compartido del agua en una región árida). A — un emplazamiento o plantas contiguas: factores específicos del lugar para escasez de agua, eutrofización y acidificación, y el desajuste de escala señalado donde se aplican factores regionales a nivel de emplazamiento (§12.3.3). B — dentro de una región: factores regionalizados, p. ej. los factores por país de Seppälä / Posch para un clúster regional (§12.3.3). C — entre regiones o más allá de las fronteras: factores espacialmente explícitos en el lugar de cada emisión. El transporte nunca depende de esta respuesta: cada enlace es un proceso unitario distinto del primer plano con datos primarios, y se recomienda SIG o cálculo de rutas para cada intercambio (§12.3.1). La segunda parte pregunta el mercado del que vienen los productos sustituidos: los mix de fondo y el escenario de referencia se resuelven sobre él, por regla nacional o subnacional, continental solo para bienes comercializados a escala mundial sin mercado subcontinental (§11.3.1).',
       options: {
@@ -715,7 +717,7 @@ const es: Locale = {
         },
       },
       plain:
-        'Cuán cerca ocurren las interacciones clave entre las empresas: en un emplazamiento, dentro de una región, o entre regiones o más allá de las fronteras. Decide a qué escala local se evalúan los impactos ambientales: la contaminación del agua o del aire junto a un emplazamiento no pesa igual que la misma cantidad repartida por un país. El transporte se cuenta en todo caso. Después di de dónde vendrían si no los productos que la simbiosis sustituye: un país, una región o, para bienes comercializados en todo el mundo, un continente. Socios en regiones o países distintos: C; B solo si todos los sitios están en una misma región.',
+        'Cuán cerca ocurren las interacciones clave entre las empresas: en un emplazamiento, dentro de una región, o entre regiones o más allá de las fronteras. Decide a qué escala local se evalúan los impactos ambientales: la contaminación del agua o del aire junto a un emplazamiento no pesa igual que la misma cantidad repartida por un país. El transporte se cuenta en todo caso. Después di de dónde vendrían si no los productos que la simbiosis sustituye: un país, una región o, para bienes comercializados en todo el mundo, un continente. Socios en regiones o países distintos: «Entre regiones»; «Regional» solo si todos los sitios están en una misma región.',
     },
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',
@@ -751,9 +753,13 @@ const es: Locale = {
       details: "La Tabla 1 de D4.1 clasifica el estudio por la decisión que respalda y la escala de sus consecuencias, no por su objeto (D4.1 §4.2.3). Micro (Situación A) es el valor por defecto para decisiones sobre intercambios e instalaciones concretos. Estructural (Situación B) se aplica cuando la decisión cambia la capacidad instalada de un mercado: el ILCD Handbook lo supone cuando la demanda u oferta anual que la decisión añade o retira de un mercado supera la capacidad que ese mercado renueva cada año, contando como máximo el 5 % (p. ej., 10 Mt de plantas con 25 años de vida renuevan 0,4 Mt al año). El diseño de un parque nuevo, una reestructuración regional o un programa requieren este cribado (Mattila et al. 2012); sin él, el estudio sigue siendo A, con B como análisis de sensibilidad. Documentar una red existente, o un informe de empresa que cuenta lo que sus intercambios ahorran en otros lugares, es Situación C1 (sustitución, §7.2.3); el informe de una sola empresa que excluye todo crédito por sus intercambios es C2 (asignación, sin créditos, §7.2.3), con costes solo a nivel de empresa (decisión de diseño de T4.6).",
       examples: {
         micro: "Por ejemplo: quieres saber si compensa dar tu serrín a la planta de pellets vecina, para empezar, mantener o cambiar el intercambio.",
-        structural: "Por ejemplo: un programa regional lo bastante grande como para cambiar cuánto produce el mercado de la región. Un analista debe documentar la comprobación del mercado.",
+        structural: "Por ejemplo: un programa regional lo bastante grande como para cambiar cuánto produce el mercado de la región; el analista debe documentar la comprobación del mercado. Una comunidad autónoma que cofinancia una planta de biogás para tres empresas no es un caso así: sus efectos se quedan en las plantas (la respuesta cuyos efectos se quedan en las plantas), salvo que el analista demuestre que cambia lo que se construye en el mercado del gas.",
         none: "Por ejemplo: quieres describir lo que una red de intercambios existente aporta hoy, para un informe, sin nada que decidir.",
         corporate_report: "Por ejemplo: el informe de sostenibilidad solo de tu empresa (CSRD, la directiva europea sobre información de sostenibilidad): los beneficios que tus intercambios aportan a otros no se cuentan.",
+      },
+      // guided mode: the one plain term for the ILCD market screening (Fable, UX round 6, P3-09, P4-17)
+      optionsPlain: {
+        structural: "Respalda una elección que cambia cuánto produce un mercado o sector, más allá de la capacidad que renueva cada año (la comprobación del mercado debe documentarse)",
       },
       options: {
         micro: 'Explora o respalda una elección, aunque sea hipotética y sin un decisor nombrado, y sus efectos se quedan en las plantas implicadas (Situación A)',
@@ -762,12 +768,13 @@ const es: Locale = {
         corporate_report: "Informe de una sola empresa que excluye todo crédito por lo que sus intercambios evitan en otros lugares, p. ej. contabilidad ESG / CSRD estricta (Situación C2)",
       },
       screening: {
+        labelPlain: '¿Está documentada la comprobación del mercado? Es decir: ¿la cantidad anual que la decisión añade o retira del mercado afectado supera la capacidad que ese mercado renueva cada año (como máximo el 5 %)? Sin respuesta, cuenta como no.',
         label: '¿Está documentado que la cantidad anual que la decisión añade o retira del mercado afectado supera la capacidad que ese mercado renueva cada año (como máximo el 5 %)? Sin respuesta, cuenta como no.',
         yes: 'Sí, está documentado (Situación B)',
         no: 'No (Situación A, con la Situación B como análisis de sensibilidad)',
       },
       plain:
-        "¿Para qué sirve el estudio? Casi siempre explora o respalda una elección cuyos efectos se quedan en las plantas implicadas, aunque nadie tenga que decidir todavía. Solo cuando el cambio supera lo que el mercado renueva cada año, y puedes demostrarlo, el estudio cambia de tipo; diseñar un parque nuevo requiere esa comprobación. Si solo describes una red que ya funciona, o el informe de una empresa sin créditos por sus intercambios, dilo: cada caso se modela de forma distinta.",
+        "¿Para qué sirve el estudio? Casi siempre explora o respalda una elección cuyos efectos se quedan en las plantas implicadas, aunque nadie tenga que decidir todavía. Solo cuando el cambio supera lo que el mercado renueva cada año, y puedes demostrarlo, el estudio cambia de tipo; si diseñas un parque nuevo, pide al analista que haga la comprobación del mercado. Si solo describes una red que ya funciona, o el informe de una empresa sin créditos por sus intercambios, dilo: cada caso se modela de forma distinta.",
     },
     q10: {
       title: 'Q10 — ¿El estudio sirve a un objetivo público o a un decisor público? *',
@@ -871,7 +878,7 @@ const es: Locale = {
       wv_weee_urban_mining: "RAEE y minería urbana",
       wv_plastic_upcycling: "Supraciclaje de residuos plásticos (mecánico/termoquímico)",
     },
-    namePlaceholder: 'ej. calor, CO2',
+    namePlaceholder: 'ej. Corteza, aserradero → papelera',
     addButton: 'Añadir flujo',
     removeAria: 'Eliminar {{id}}',
     options: {
@@ -882,7 +889,8 @@ const es: Locale = {
       e: "e. Solo una cifra total para toda la red",
     },
     plainEmpty: 'Aún no hay intercambios. Añade cada cosa que pasa entre las empresas (suero, serrín, calor, agua…).',
-    plainSectorHint: 'Opcional. Elige un sector solo si lo que se intercambia pertenece a uno de los sectores de base biológica de la lista (agroalimentario, plásticos, aguas residuales, textil, residuos). Para madera, serrín, residuos forestales o papeleros, acero, cemento o calor, deja «— ninguno de estos». Si no estás seguro, déjalo: lo fijará el analista.',
+    plainNameHint: 'Quién cede y quién recibe se dibuja después, en el editor de red del Data Collection File; ya puedes escribirlo en el nombre (ej. «Corteza, aserradero → papelera»).',
+    plainSectorHint: 'Opcional. Elige un sector solo si lo que se intercambia pertenece a uno de los sectores de base biológica de la lista (agroalimentario, plásticos, aguas residuales, textil, residuos). Para madera, serrín, residuos forestales o papeleros, acero, cemento o calor, deja «— ninguno de estos». El biogás, el biometano o el digestato toman el sector de aquello de lo que están hechos: residuos alimentarios domésticos o municipales → «Valorización de residuos»; residuos agrícolas o de la industria alimentaria → «Agricultura / agroalimentario / biorrefinerías»; lodos de depuradora → «Aguas residuales / lodos / biofactories». Si no estás seguro, déjalo: lo fijará el analista.',
   },
 
   scenarios: {
@@ -892,6 +900,11 @@ const es: Locale = {
     labelPlaceholder: 'ej. Expansión futura / TRL9 ramp-up',
     addButton: 'Añadir escenario',
     removeAria: 'Eliminar {{id}}',
+    removeButton: 'Eliminar',
+    removeConfirm_zero: '¿Eliminar el escenario «{{name}}»?',
+    removeConfirm_one: '¿Eliminar el escenario «{{name}}» y su cambio?',
+    removeConfirm_other: '¿Eliminar el escenario «{{name}}» y sus {{count}} cambios?',
+    removeConfirmNetwork: 'La red dibujada para él en el Data Collection File se conserva, pero ya no la usa ningún escenario y no se exporta.',
     addChange: "Añadir un cambio",
     pickQuestion: "Pregunta",
     newAnswer: "Nueva respuesta",
@@ -1002,6 +1015,20 @@ const es: Locale = {
         co_product: "Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces el estudio no lo modelará como residuo. Está bien así; el analista decide cómo contarlo.",
         waste: "Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: el estudio puede modelarlo como residuo, sin carga por tu parte. Lo comprueba el analista.",
       },
+      // guided wording of the notes on the answers (UX round 6, P2-11, P3-09, P3-10; decided by Fable)
+      flow_sellable_but_waste: "Para «{{flow}}» dijiste que quien lo cede paga para que se lo lleven, pero también que otro lo compraría. Las dos respuestas no concuerdan: un flujo que alguien compraría no es un residuo, y lleva una parte de las cargas de producirlo. Revisa quién paga a quién para este flujo.",
+      flow_price_without_market: "Para «{{flow}}» dijiste que quien lo recibe lo paga, pero que nadie más lo compraría. Con un solo comprador decide el precio: si quien lo recibe paga lo que vale el flujo en lugar del producto que sustituye, es un producto; si el pago solo reparte costes, es un residuo. El analista comprueba el precio.",
+      flow_interdependent_but_marketable: "Para «{{flow}}» dijiste que las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra), y también que otro lo compraría. Ambas cosas pueden ser ciertas. Si el cambio se hizo para las necesidades de este socio, mantén tu respuesta; si se hizo para vender el flujo a cualquiera (un secador que convierte la pulpa en un pienso que cualquiera puede comprar), quien lo recibe paga un producto con valor, y el equipo cuenta como construido para los intercambios. Esta nota no cambia tus respuestas.",
+      design_without_screening: "Este estudio diseña, amplía o reorganiza una red. Pide al analista que haga la comprobación del mercado: si la red es lo bastante grande como para cambiar lo que produce el mercado en su conjunto. Mientras no se demuestre, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala.",
+      structural_without_screening: "Dijiste que la decisión cambia lo que produce un mercado, pero la comprobación del mercado no está documentada. Mientras no lo esté, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala.",
+      structural_screening_missing: "Dijiste que la decisión cambia lo que produce un mercado, pero no has dicho si la comprobación del mercado está documentada. Mientras no lo esté, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala. Responde a la pregunta siguiente cuando lo esté.",
+      case_sector_without_flow: "El sector que diste al caso ({{chapter}}) tiene reglas propias, pero ningún flujo de la tabla lleva ese sector, así que no se enumeran. Asígnalo, en la tabla de flujos, a los flujos que le pertenecen (flujos aún sin sector: {{flows}}). El biogás, el biometano o el digestato toman el sector de aquello de lo que están hechos: residuos alimentarios domésticos o municipales → «Valorización de residuos»; residuos agrícolas o de la industria alimentaria → «Agricultura / agroalimentario / biorrefinerías»; lodos de depuradora → «Aguas residuales / lodos / biofactories».",
+      study_purpose_vs_q2: {
+        analysis: "Dijiste que el estudio evalúa cómo funciona una red existente, pero también que los intercambios que mide aún no tienen lugar. Revisa las dos respuestas.",
+        design: "Dijiste que el estudio diseña una red nueva, planificada, pero también que los intercambios que mide ya tienen lugar. Revisa las dos respuestas.",
+      },
+      running_but_future: "Dijiste que los intercambios ya tienen lugar, pero también que el sistema funciona en un año futuro, o que la tecnología clave es todavía un prototipo o está en el laboratorio. Un intercambio que ya funciona se mide hoy: revisa estas respuestas. Mientras tanto, aquello con lo que compara el estudio sigue la primera respuesta, y la electricidad, los combustibles y los materiales futuros siguen las demás.",
+      documentation_vs_ex_ante: "Dijiste que el estudio documenta lo que ya ocurre, sin una decisión que respaldar, pero también que los intercambios aún no tienen lugar. Comprueba que es lo que quieres decir.",
     },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
@@ -1010,7 +1037,8 @@ const es: Locale = {
       step1: 'Guarda el caso para encontrarlo de nuevo. Hace falta una cuenta gratuita; sin ella, el caso se queda solo en este navegador.',
       step2: 'Abre el Data Collection File, dibuja las empresas y los intercambios y después descarga el Excel: tu personal rellena las hojas sobre los actores, los flujos, la logística y los costes.',
       step3: 'Entrega el archivo y el informe a quien hará el estudio (un analista, un consultor, una universidad): los puntos técnicos de más abajo son para esa persona.',
-      analystTitle: 'Puntos para el analista ({{count}})',
+      analystTitle: 'Puntos de decisión para el analista ({{count}})',
+      obligationsTitle: 'Obligaciones para el analista ({{count}})',
       step1Saved: '✓ Guardado como «{{name}}»: lo encuentras en Mis casos.',
       step1SignedIn: 'Guarda el caso para encontrarlo de nuevo en Mis casos.',
     },
@@ -1181,6 +1209,78 @@ const es: Locale = {
       },
     },
     notes: { title: 'Notas sobre tus respuestas' },
+    // guided mode: the configuration rows in plain words (UX round 6, P3-12; decided by Fable)
+    configPlain: {
+      lcc: {
+        'C+E': "Los costes que cada empresa paga y cobra de verdad, y los costes a lo largo de toda la cadena de valor, trazados con el mismo límite que el estudio ambiental.",
+        'C+E+S': "Los costes de cada empresa, de la cadena de valor y de la sociedad en su conjunto: impuestos y subvenciones corregidos, porque solo mueven dinero dentro de la sociedad, y los daños ambientales expresados en euros.",
+        'C-LCC': "Solo los costes propios de la empresa, durante toda la vida de sus instalaciones.",
+        'C+N': "Los costes de cada empresa, sumados después para toda la red; sin costes de la cadena de valor, porque no hay un estudio ambiental sobre el que trazarlos.",
+        'C+N+S': "Los costes de cada empresa y de la red, más los costes para la sociedad en su conjunto (impuestos y subvenciones corregidos, porque solo mueven dinero dentro de la sociedad); sin un estudio ambiental, los daños ambientales no se expresan en euros.",
+      },
+      noChapter: "Ninguna regla de sector se aplica a los flujos declarados: solo las reglas generales",
+      slcaOn: "Sí: los efectos sobre los trabajadores, la comunidad local y otros grupos, cada uno evaluado por separado",
+      horizonFuture: "La electricidad, los combustibles y los materiales tal como se espera que sean en los próximos años, no como son hoy, según escenarios publicados sobre el clima y la economía",
+      horizonPresent: "La electricidad, los combustibles y los materiales tal como son hoy",
+      prospectiveScaleUp: "Cifras de laboratorio o de planta piloto, llevadas al tamaño de una planta real (no simplemente multiplicadas)",
+      prospectivePedigree: "Cada cifra recibe una nota de calidad en cinco puntos: cómo se obtuvo, cuán completa es, cuán reciente, de qué lugar y de qué tecnología",
+      reference_hnsrs: "Lo que haría hoy cada empresa si los intercambios se detuvieran",
+      reference_modern: "Lo que haría hoy cada empresa sin los intercambios, con la tecnología de hoy, no con la organización que tenía antes de que naciera la red",
+      reference_cnsrs: "Cómo seguirían las cosas sin los nuevos intercambios, durante los mismos años que el estudio (los intercambios que ya funcionan forman parte de ello)",
+      reference_c2: "No se usa para créditos: las cifras propias de la empresa, sin crédito por lo que sus intercambios ahorran en otra parte",
+      multiSubstitution: "Cada producto de la simbiosis recibe el crédito del producto medio que sustituye en el mercado, corregido según su calidad",
+      multiConsequential: "Cada producto de la simbiosis recibe el crédito de la producción que desplaza realmente: la que crecería o se reduciría como respuesta",
+      multiAllocation: "Las cargas se reparten entre los productos; ningún crédito por lo que se evita en otra parte",
+      multiPefSubstitution: "; con las reglas europeas de la huella ambiental para los materiales reciclados y recuperados",
+      multiPefConsequential: "; las reglas europeas de la huella ambiental para los materiales reciclados y recuperados también se aplican aparte, para ver cuánto cambian el resultado",
+      multiPefAllocation: "; las reglas europeas de la huella ambiental para los materiales reciclados y recuperados no se aplican",
+      flowTreatment: {
+        waste: "un residuo: sus cargas se quedan con quien lo produjo, hasta el punto en que deshacerse de él ya no cuesta dinero; el analista comprueba también que no se podía evitar producirlo",
+        evt: "aún sin decidir: el analista comprueba si se podría vender, y prueba ambas lecturas",
+        coproduct: "un producto con valor: comparte las cargas de producirlo, y recibe el crédito del producto que sustituye, corregido según su calidad",
+        integrated: "hecho a propósito para el socio: siempre comparte las cargas, y los dos procesos se estudian como uno solo; en los costes, la vista de la cadena de valor lo valora como el producto que sustituye, la vista de la empresa al precio acordado entre los socios",
+        integratedLca: "hecho a propósito para el socio: siempre comparte las cargas, y los dos procesos se estudian como uno solo",
+        allocation: "las cargas se reparten entre los productos de la empresa, sin crédito",
+        aggregated: "la fuente no da detalle: cada flujo que se puede nombrar se clasifica por separado",
+      },
+      flowCost: {
+        a: "un residuo: contado a la tarifa acordada por retirarlo; cuenta como si no costara nada producirlo solo si no se podía evitar producirlo",
+        b: "gratuito: sin precio entre los socios; cuenta como si no costara nada producirlo solo si no se podía evitar producirlo, si no es un producto con valor",
+        c: "un producto con valor: contado al precio acordado",
+        d: "hecho a propósito para el socio: contado al precio acordado; nunca cuenta como si no costara nada producirlo",
+        e: "una sola cifra total: el analista pone precio a cada flujo que se puede nombrar",
+      },
+      fu_waste_treatment: "Por tonelada de residuo tratado",
+      fu_product_substitution: "Por unidad de producto recuperado, comparado con el producto que sustituye",
+      fu_co_primary: "Por tonelada tratada y por unidad de producto, una junto a otra",
+      fu_function: "Por unidad del servicio que presta el intercambio",
+      fuLcc_waste_treatment: "Por tonelada de residuo tratado",
+      fuLcc_dual: "Por tonelada de residuo tratado y por unidad de producto, una junto a otra, cada una con los costes que evita y los ingresos que aporta",
+      fuLcc_function: "Por unidad del servicio que presta la red, cada función con los costes que evita y los ingresos que aporta",
+      regional_A: "Agua, acidificación y exceso de nutrientes evaluados con datos del propio emplazamiento",
+      regional_B: "Agua, acidificación y exceso de nutrientes evaluados con datos de tu región o de tu país",
+      regional_C: "Agua, acidificación y exceso de nutrientes evaluados con datos del territorio de cada emisión",
+      regional_unset: "No indicado: donde las interacciones entre las empresas se concentran en un solo lugar, el estudio usa datos de ese lugar; quien realiza el estudio decide cuán locales deben ser los datos",
+      shared: "Lo que cuesta construirlos y hacerlos funcionar, a cargo de las empresas que se benefician de ellos (todo a una sola empresa si solo ella los usa)",
+      sharedLca: "Lo que hace falta para construirlos y eliminarlos, repartido entre los años que duran",
+      claim: "Sí: antes de hacerlo público, un panel de al menos tres expertos independientes debe revisar el estudio, y los resultados no se pueden sumar en una puntuación única",
+      claimNone: "Ninguna afirmación pública de que un producto sea mejor que otro, o igual de bueno",
+      claimPolicy: "Ninguna afirmación de este tipo; el estudio sigue las reglas europeas de la huella ambiental, así que lo revisa un panel de expertos independientes (una elección de esta herramienta, no una regla europea)",
+      why: {
+        horizonPresent: "el año en curso, una tecnología que ya ha superado la fase de prototipo y un horizonte de {{threshold}} años como máximo",
+        horizonUnanswered: "no se indica año de funcionamiento, duración del estudio, vida de las instalaciones ni madurez de la tecnología, así que se asume el presente; si las instalaciones funcionarán más de {{threshold}} años, responde a la pregunta sobre el horizonte temporal",
+        horizonLifetimeOnly: "las instalaciones duran {{years}} años, más de {{threshold}}: la electricidad, los combustibles y los materiales se proyectan sobre su vida, aunque el estudio describa el año en curso",
+        lccPolicyInferred: "deducido de lo que analizas, porque la pregunta sobre un objetivo público no tiene respuesta",
+        lccNoLca: "sin estudio ambiental: no hay costes de la cadena de valor que trazar sobre él",
+        lccC2: "las cuentas de una sola empresa: solo sus propios costes",
+        referenceNoLca: "los costes se comparan con la situación que usaría un estudio ambiental; el tipo de decisión no prescribe nada más para los costes",
+        referenceC2: "las cuentas de una sola empresa: las cargas se reparten, sin crédito por lo que la simbiosis sustituye en otra parte",
+        noChapter: "las reglas de sector cubren cinco sectores de base biológica, y ningún flujo está declarado en uno de ellos",
+        horizonTrl: "la tecnología clave es todavía un prototipo o está en el laboratorio",
+        multifunctionality: "el tipo de decisión que respalda el estudio y hasta dónde llegan sus efectos",
+        regionalUnset: "no hay respuesta a la pregunta sobre lo cerca que trabajan las empresas",
+      },
+    },
     engineNotes: {
       study_purpose_vs_q2: {
         analysis: "Finalidad del estudio: el estudio evalúa una red existente, pero Q2 dice que los intercambios que mide todavía no tienen lugar. Comprueba las dos respuestas (D4.1 §4.3.2).",
@@ -1240,7 +1340,7 @@ const es: Locale = {
       moreInfo: 'Más sobre esta configuración',
     },
     next: {
-      obligations: "{{count}} obligaciones por documentar ({{groups}}), activadas por tus respuestas. El Data Collection File las enumera, con lo que activó cada una, junto con las prácticas que el método pide a todo estudio como el tuyo.",
+      obligations: "{{count}} obligaciones por documentar ({{groups}}), activadas por tus respuestas. Se enumeran abajo por familia; el Data Collection File también las enumera, con lo que activó cada una, junto con las prácticas que el método pide a todo estudio como el tuyo.",
       families: {
         IR: '{{count}} sobre la integración de los métodos',
         CIR: '{{count}} activadas por tus respuestas',
@@ -1250,12 +1350,15 @@ const es: Locale = {
       title: 'Qué hacer ahora',
       lead:
         'Prácticas metodológicas que tus respuestas hacen obligatorias, más las decisiones aún abiertas. Cada una dice por qué afecta a tu caso.',
-      countUnit_one: 'elemento',
-      countUnit_other: 'elementos',
+      countDecisions_one: '{{count}} punto de decisión',
+      countDecisions_other: '{{count}} puntos de decisión',
+      countObligations_one: '{{count}} obligación',
+      countObligations_other: '{{count}} obligaciones',
+      familyOther: '{{count}} otras',
       provenance:
         "Los nombres y enunciados de las reglas están traducidos de la tabla inglesa del motor. El código junto a cada elemento — IR-01, CDP-02 — es la referencia que no cambia de un idioma a otro, y el nombre en inglés se mantiene al lado.",
       noTensions:
-        "Para estas respuestas no ha surgido ningún punto de decisión crítico entre los métodos. Las obligaciones de abajo se aplican igualmente.",
+        "Para estas respuestas no ha surgido ningún punto de decisión crítico entre los métodos. Las obligaciones enumeradas abajo se aplican igualmente.",
       allClear:
         'Ninguna obligación metodológica se aplica a estas respuestas y no ha surgido ningún punto de decisión crítico. Siguiente paso: abre el Data Collection File.',
       ctaHint: 'El Data Collection File está calibrado en esta configuración: solo pide lo que tu caso necesita.',
@@ -1419,8 +1522,8 @@ const es: Locale = {
   preset: {
     title: "Cargar un ejemplo publicado",
     help: "Carga en el cuestionario las respuestas de un caso publicado, para ver qué deduce la herramienta de un estudio real.",
-    loadButton: 'Cargar preset',
-    rationaleToggle: '¿Por qué estas respuestas? (rationale de compilación)',
+    loadButton: 'Cargar el ejemplo',
+    rationaleToggle: '¿Por qué estas respuestas?',
     loaded: "Ejemplo cargado: {{name}}",
   },
 
@@ -1473,7 +1576,7 @@ const es: Locale = {
   scoringPending: {
     title: "Todavía no hay resultados",
     body:
-      "Esta herramienta no calcula las cifras ambientales, de costes o sociales. Las calcula quien realiza el estudio; si se añaden a este caso, aparecen aquí.",
+      "Esta herramienta no calcula las cifras ambientales, de costes o sociales. Las calcula fuera de la herramienta quien realiza el estudio; esta versión aún no tiene una página para cargarlas en el caso.",
     lastChecked: "Última comprobación: {{date}}",
   },
 
@@ -1493,27 +1596,27 @@ const es: Locale = {
         whatYouSee:
           "Lo que esta página te dice hoy: qué metodología seguirá la evaluación y, por tanto, qué datos se te pedirán. La petición en sí es el Data Collection File.",
         whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Si un analista realiza el estudio con el Data Collection File, sus resultados pueden cargarse aquí: indicadores ambientales y económicos, para juzgar si el intercambio compensa.',
+          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores ambientales y económicos, para juzgar si el intercambio compensa.',
       },
       community: {
-        whenScoringNoSocial: "Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para vuestro caso. Si un analista realiza el estudio con el Data Collection File, sus resultados se pueden cargar aquí: indicadores ambientales. Este estudio no tiene indicadores sociales, porque la dimensión social no se evalúa.",
+        whenScoringNoSocial: "Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para vuestro caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores ambientales. Este estudio no tiene indicadores sociales, porque la dimensión social no se evalúa.",
         whatYouSee:
           "Lo que esta página te dice hoy: qué flujos intercambian las empresas y si este estudio examina o no los efectos sociales.",
         whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Si un analista realiza el estudio con el Data Collection File, sus resultados pueden cargarse aquí: indicadores sociales — trabajadores, comunidad local — y ambientales, cada uno con el grupo al que afecta.',
+          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores sociales — trabajadores, comunidad local — y ambientales, cada uno con el grupo al que afecta.',
       },
       authority: {
         whatYouSee:
           "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y cuán concentradas están las interacciones clave.",
         whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Si un analista realiza el estudio con el Data Collection File, sus resultados pueden cargarse aquí: las cifras ambientales y, cuando el estudio las incluye, los costes para la sociedad.',
+          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: las cifras ambientales y, cuando el estudio las incluye, los costes para la sociedad.',
         scope: "Cuán concentradas están las interacciones clave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Lo que esta página te dice hoy: qué materiales devuelve al uso esta simbiosis y si se examinan los efectos ambientales y sociales.",
         whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Si un analista realiza el estudio con el Data Collection File, sus resultados pueden cargarse aquí: los indicadores ambientales y sociales de la cadena detrás del producto.',
+          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: los indicadores ambientales y sociales de la cadena detrás del producto.',
         productCaveat:
           "Esta evaluación describe el intercambio entre las empresas, no el producto final que compras: la herramienta nunca pregunta cuál es el producto.",
       },
@@ -1542,7 +1645,7 @@ const es: Locale = {
     },
     framing: {
       industry:
-        'Vista técnica completa de la configuración metodológica. Las cifras (emisiones, costes) no se producen aquí: quien realiza el estudio las calcula a partir del Data Collection File, y pueden cargarse en este caso.',
+        'Vista técnica completa de la configuración metodológica. Las cifras (emisiones, costes) no se producen aquí: quien realiza el estudio las calcula a partir del Data Collection File; esta versión de la herramienta aún no permite cargarlas en el caso.',
       community:
         'Cómo se estudiarán los efectos sobre la zona y sobre las personas cercanas a las plantas: transporte, aire, agua y suelo locales, lo que se esparce en los campos, si se escucha a los vecinos. Todavía no hay resultados.',
       authority:
@@ -1560,7 +1663,7 @@ const es: Locale = {
     scoringTitle: 'Resultados',
     scoringPendingTitle: 'Todavía no hay resultados',
     scoringPendingBody:
-      'Esta herramienta no calcula las cifras ambientales, de costes o sociales. Las calcula quien realiza el estudio; si se añaden a este caso, aparecen aquí.',
+      'Esta herramienta no calcula las cifras ambientales, de costes o sociales. Las calcula fuera de la herramienta quien realiza el estudio; esta versión aún no tiene una página para cargarlas en el caso.',
     scoringEmpty: 'No hay indicadores relevantes para este stakeholder.',
     indicatorPending: 'pendiente',
     engineDetailsTitle: 'Lo que el analista documentará para usted',

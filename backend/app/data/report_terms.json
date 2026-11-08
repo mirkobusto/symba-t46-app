@@ -277,7 +277,7 @@
     "TRL9": "TRL 9: fully operational",
     "TRL7-8": "TRL 7-8: pilot / pre-commercial",
     "TRL5-6": "TRL 5-6: prototype",
-    "TRL<5": "TRL <5: early R&D"
+    "TRL<5": "TRL <5: early research and development"
    },
    "q7": {
     "A": "A. One site",
@@ -592,7 +592,7 @@
   "reader": {
    "verdict": {
     "A": {
-     "title": "A local exchange, assessed with average data",
+     "title": "An exchange too small to change the wider economy, assessed with average data",
      "body": "The exchange is small compared with the wider economy, so the study describes what it replaces with average market data (the national electricity mix, the average virgin material). This says nothing about how large its effects are on the plants or the area: those are what the study will measure."
     },
     "B": {
@@ -617,7 +617,20 @@
    "flow_freedom_to_act_settles": {
     "co_product": "Flow '{{flow}}': you said nobody pays (or it is not clear yet), but that someone else would buy it: then the study will not model it as a waste. That is fine; the analyst decides how to count it.",
     "waste": "Flow '{{flow}}': you said nobody pays and nobody else would buy it: the study may model it as a waste, with no burden from your side. The analyst checks it."
-   }
+   },
+   "flow_sellable_but_waste": "For '{{flow}}' you said that whoever gives it pays to have it taken away, but also that someone else would buy it. The two answers do not agree: a flow someone would buy is not a waste, and carries part of the burdens of making it. Check who pays whom for this flow.",
+   "flow_price_without_market": "For '{{flow}}' you said the receiver pays for it, but that nobody else would buy it. With a single buyer the price decides: if the receiver pays what the flow is worth as a stand-in for the product it replaces, it is a product; if the payment only shares costs, it is a waste. The analyst checks the price.",
+   "flow_interdependent_but_marketable": "For '{{flow}}' you said the two plants depend on each other (one was changed to supply the other), and also that someone else would buy it. Both can be true. If the change was made to meet this partner's needs, keep your answer; if it was made to sell the flow to anyone (a dryer that turns the pulp into a feed anyone can buy), the receiver pays for a product with a value, and the equipment counts as built for the exchanges. This note does not change your answers.",
+   "design_without_screening": "This study designs, expands or reshapes a network. Ask the analyst to make the market check: whether it is big enough to change what the wider market produces. Until that is shown, the study treats its effects as staying within the plants involved, and runs the larger-scale reading alongside as a check.",
+   "structural_without_screening": "You said the decision changes what a market produces, but the market check is not documented. Until it is, the study treats the effects as staying within the plants involved, and runs the larger-scale reading alongside as a check.",
+   "structural_screening_missing": "You said the decision changes what a market produces, but you have not said whether the market check is documented. Until it is, the study treats the effects as staying within the plants involved, and runs the larger-scale reading alongside as a check. Answer the follow-up question once it is.",
+   "case_sector_without_flow": "The sector you gave the case ({{chapter}}) has its own rules, but no flow in the table carries that sector, so they are not listed. Give it, in the flows table, to the flows that belong to it (flows with no sector now: {{flows}}). Biogas, biomethane or digestate take the sector of what they are made from: household or municipal food waste → “Waste valorization”; farm or food-factory residues → “Agriculture / agri-food / biorefineries”; sewage sludge → “Wastewater / sludge / biofactories”.",
+   "study_purpose_vs_q2": {
+    "analysis": "You said the study looks at how an existing network performs, but also that the exchanges it measures do not take place yet. Check the two answers.",
+    "design": "You said the study designs a new, planned network, but also that the exchanges it measures already take place. Check the two answers."
+   },
+   "running_but_future": "You said the exchanges already take place, but also that the system runs in a future year, or that the key technology is still a prototype or in the laboratory. An exchange that already runs is measured today: check these answers. Meanwhile what the study compares with follows the first answer, and the future electricity, fuels and materials follow the others.",
+   "documentation_vs_ex_ante": "You said the study documents what already happens, with no decision to support, but also that the exchanges do not take place yet. Check that this is what you mean."
   },
   "families": {
    "IR": "{{count}} on integrating the methods",
@@ -916,7 +929,7 @@
     "TRL9": "TRL 9: pienamente operativo",
     "TRL7-8": "TRL 7-8: pilota / pre-commerciale",
     "TRL5-6": "TRL 5-6: prototipo",
-    "TRL<5": "TRL <5: R&S iniziale"
+    "TRL<5": "TRL <5: ricerca e sviluppo iniziali"
    },
    "q7": {
     "A": "A. Un sito",
@@ -1231,7 +1244,7 @@
   "reader": {
    "verdict": {
     "A": {
-     "title": "Uno scambio locale, valutato con dati medi",
+     "title": "Uno scambio troppo piccolo per cambiare l'economia nel suo insieme, valutato con dati medi",
      "body": "Lo scambio è piccolo rispetto all'economia nel suo insieme: lo studio descrive ciò che sostituisce con dati medi di mercato (il mix elettrico nazionale, il materiale vergine medio). Non dice nulla su quanto siano grandi gli effetti sugli impianti o sul territorio: quelli li misurerà lo studio."
     },
     "B": {
@@ -1256,7 +1269,20 @@
    "flow_freedom_to_act_settles": {
     "co_product": "Flusso «{{flow}}»: hai detto che nessuno paga (o non è ancora chiaro), ma che qualcun altro lo comprerebbe: allora lo studio non lo modellerà come rifiuto. Va bene così; sarà l'analista a decidere come contarlo.",
     "waste": "Flusso «{{flow}}»: hai detto che nessuno paga e che nessun altro lo comprerebbe: lo studio può modellarlo come rifiuto, senza carico da parte tua. Lo verifica l'analista."
-   }
+   },
+   "flow_sellable_but_waste": "Per «{{flow}}» hai detto che chi lo cede paga perché glielo portino via, ma anche che qualcun altro lo comprerebbe. Le due risposte non vanno d'accordo: un flusso che qualcuno comprerebbe non è un rifiuto, e porta con sé una parte dei carichi di chi lo produce. Ricontrolla chi paga chi per questo flusso.",
+   "flow_price_without_market": "Per «{{flow}}» hai detto che chi lo riceve lo paga, ma che nessun altro lo comprerebbe. Con un solo acquirente decide il prezzo: se chi lo riceve paga quanto vale il flusso al posto del prodotto che sostituisce, è un prodotto; se il pagamento divide soltanto dei costi, è un rifiuto. L'analista verifica il prezzo.",
+   "flow_interdependent_but_marketable": "Per «{{flow}}» hai detto che i due impianti dipendono l'uno dall'altro (uno è stato modificato per rifornire l'altro), e anche che qualcun altro lo comprerebbe. Possono essere vere entrambe. Se la modifica è stata fatta per le esigenze di questo partner, tieni la risposta; se è stata fatta per vendere il flusso a chiunque (un essiccatore che fa della polpa un mangime che chiunque può comprare), chi lo riceve paga un prodotto con un valore, e l'impianto conta come costruito per gli scambi. Questa nota non cambia le tue risposte.",
+   "design_without_screening": "Questo studio progetta, allarga o riorganizza una rete. Chiedi all'analista di fare la verifica del mercato: se la rete è abbastanza grande da cambiare quanto produce il mercato nel suo insieme. Finché non è dimostrato, lo studio tratta gli effetti come limitati agli impianti coinvolti, e affianca come verifica la lettura su scala più ampia.",
+   "structural_without_screening": "Hai detto che la decisione cambia quanto produce un mercato, ma la verifica del mercato non è documentata. Finché non lo è, lo studio tratta gli effetti come limitati agli impianti coinvolti, e affianca come verifica la lettura su scala più ampia.",
+   "structural_screening_missing": "Hai detto che la decisione cambia quanto produce un mercato, ma non hai detto se la verifica del mercato è documentata. Finché non lo è, lo studio tratta gli effetti come limitati agli impianti coinvolti, e affianca come verifica la lettura su scala più ampia. Rispondi alla domanda che segue quando lo sarà.",
+   "case_sector_without_flow": "Il settore che hai dato al caso ({{chapter}}) ha regole proprie, ma nessun flusso della tabella porta quel settore, quindi non sono elencate. Assegnalo, nella tabella dei flussi, ai flussi che gli appartengono (flussi ancora senza settore: {{flows}}). Biogas, biometano o digestato prendono il settore di ciò da cui sono fatti: rifiuti alimentari domestici o urbani → «Valorizzazione rifiuti»; residui agricoli o dell'industria alimentare → «Agricoltura / agroalimentare / bioraffinerie»; fanghi di depurazione → «Acque reflue / fanghi / biofactories».",
+   "study_purpose_vs_q2": {
+    "analysis": "Hai detto che lo studio valuta come funziona una rete esistente, ma anche che gli scambi che misura non avvengono ancora. Ricontrolla le due risposte.",
+    "design": "Hai detto che lo studio progetta una rete nuova, pianificata, ma anche che gli scambi che misura avvengono già. Ricontrolla le due risposte."
+   },
+   "running_but_future": "Hai detto che gli scambi avvengono già, ma anche che il sistema funziona in un anno futuro, o che la tecnologia chiave è ancora un prototipo o in laboratorio. Uno scambio che funziona già si misura oggi: ricontrolla queste risposte. Intanto ciò con cui lo studio confronta segue la prima risposta, mentre elettricità, combustibili e materiali futuri seguono le altre.",
+   "documentation_vs_ex_ante": "Hai detto che lo studio documenta ciò che già succede, senza una decisione da sostenere, ma anche che gli scambi non avvengono ancora. Controlla che sia ciò che intendi."
   },
   "families": {
    "IR": "{{count}} sull'integrazione dei metodi",
@@ -1555,7 +1581,7 @@
     "TRL9": "TRL 9 — pleinement opérationnel",
     "TRL7-8": "TRL 7-8 — pilote / pré-commercial",
     "TRL5-6": "TRL 5-6 — prototype",
-    "TRL<5": "TRL <5 — R&D précoce"
+    "TRL<5": "TRL <5 : recherche et développement à un stade précoce"
    },
    "q7": {
     "A": "A. Un site",
@@ -1870,7 +1896,7 @@
   "reader": {
    "verdict": {
     "A": {
-     "title": "Un échange local, évalué avec des données moyennes",
+     "title": "Un échange trop petit pour changer l'économie dans son ensemble, évalué avec des données moyennes",
      "body": "L'échange est petit par rapport à l'économie dans son ensemble : l'étude décrit ce qu'il remplace avec des données moyennes de marché (le mix électrique national, la matière vierge moyenne). Cela ne dit rien de l'ampleur de ses effets sur les installations ou sur le territoire : c'est ce que l'étude mesurera."
     },
     "B": {
@@ -1895,7 +1921,20 @@
    "flow_freedom_to_act_settles": {
     "co_product": "Flux « {{flow}} » : vous avez dit que personne ne paie (ou que ce n'est pas encore clair), mais que quelqu'un d'autre l'achèterait : l'étude ne le modélisera donc pas comme un déchet. C'est correct ; l'analyste décide comment le compter.",
     "waste": "Flux « {{flow}} » : vous avez dit que personne ne paie et que personne d'autre ne l'achèterait : l'étude peut le modéliser comme un déchet, sans charge de votre côté. L'analyste le vérifie."
-   }
+   },
+   "flow_sellable_but_waste": "Pour « {{flow}} », vous avez dit que qui le cède paie pour qu'on l'enlève, mais aussi que quelqu'un d'autre l'achèterait. Les deux réponses ne concordent pas : un flux que quelqu'un achèterait n'est pas un déchet, et porte une part des charges de sa production. Revérifiez qui paie qui pour ce flux.",
+   "flow_price_without_market": "Pour « {{flow}} », vous avez dit que qui le reçoit le paie, mais que personne d'autre ne l'achèterait. Avec un seul acheteur, c'est le prix qui décide : si qui le reçoit paie ce que vaut le flux à la place du produit qu'il remplace, c'est un produit ; si le paiement ne fait que partager des coûts, c'est un déchet. L'analyste vérifie le prix.",
+   "flow_interdependent_but_marketable": "Pour « {{flow}} », vous avez dit que les deux installations dépendent l'une de l'autre (l'une a été modifiée pour alimenter l'autre), et aussi que quelqu'un d'autre l'achèterait. Les deux peuvent être vrais. Si la modification a été faite pour les besoins de ce partenaire, gardez votre réponse ; si elle a été faite pour vendre le flux à n'importe qui (un séchoir qui fait de la pulpe un aliment pour animaux que tout le monde peut acheter), qui le reçoit paie un produit qui a une valeur, et l'équipement compte comme construit pour les échanges. Cette remarque ne change pas vos réponses.",
+   "design_without_screening": "Cette étude conçoit, élargit ou réorganise un réseau. Demandez à l'analyste de faire la vérification du marché : le réseau est-il assez grand pour changer ce que produit le marché dans son ensemble ? Tant que ce n'est pas montré, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle.",
+   "structural_without_screening": "Vous avez dit que la décision change ce que produit un marché, mais la vérification du marché n'est pas documentée. Tant qu'elle ne l'est pas, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle.",
+   "structural_screening_missing": "Vous avez dit que la décision change ce que produit un marché, mais vous n'avez pas dit si la vérification du marché est documentée. Tant qu'elle ne l'est pas, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle. Répondez à la question qui suit quand elle le sera.",
+   "case_sector_without_flow": "Le secteur que vous avez donné au cas ({{chapter}}) a ses propres règles, mais aucun flux du tableau ne porte ce secteur : elles ne sont donc pas listées. Attribuez-le, dans le tableau des flux, aux flux qui en relèvent (flux encore sans secteur : {{flows}}). Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d'épuration → « Eaux usées / boues / biofactories ».",
+   "study_purpose_vs_q2": {
+    "analysis": "Vous avez dit que l'étude évalue le fonctionnement d'un réseau existant, mais aussi que les échanges qu'elle mesure n'ont pas encore lieu. Revérifiez les deux réponses.",
+    "design": "Vous avez dit que l'étude conçoit un réseau nouveau, planifié, mais aussi que les échanges qu'elle mesure ont déjà lieu. Revérifiez les deux réponses."
+   },
+   "running_but_future": "Vous avez dit que les échanges ont déjà lieu, mais aussi que le système fonctionne une année future, ou que la technologie clé est encore un prototype ou au stade du laboratoire. Un échange qui fonctionne déjà se mesure aujourd'hui : revérifiez ces réponses. En attendant, ce à quoi l'étude compare suit la première réponse, et l'électricité, les combustibles et les matériaux futurs suivent les autres.",
+   "documentation_vs_ex_ante": "Vous avez dit que l'étude documente ce qui se passe déjà, sans décision à soutenir, mais aussi que les échanges n'ont pas encore lieu. Vérifiez que c'est bien ce que vous voulez dire."
   },
   "families": {
    "IR": "{{count}} sur l'intégration des méthodes",
@@ -2194,7 +2233,7 @@
     "TRL9": "TRL 9 — vollständig operativ",
     "TRL7-8": "TRL 7-8 — Pilot / vorkommerziell",
     "TRL5-6": "TRL 5-6 — Prototyp",
-    "TRL<5": "TRL <5 — frühe F&E"
+    "TRL<5": "TRL <5: frühe Forschung und Entwicklung"
    },
    "q7": {
     "A": "A. Ein Standort",
@@ -2509,7 +2548,7 @@
   "reader": {
    "verdict": {
     "A": {
-     "title": "Ein lokaler Austausch, bewertet mit Durchschnittsdaten",
+     "title": "Ein Austausch, zu klein, um die Wirtschaft insgesamt zu verändern, bewertet mit Durchschnittsdaten",
      "body": "Der Austausch ist klein im Vergleich zur Wirtschaft insgesamt: Die Studie beschreibt, was er ersetzt, mit durchschnittlichen Marktdaten (dem nationalen Strommix, dem durchschnittlichen Primärmaterial). Das sagt nichts darüber, wie groß seine Wirkungen auf die Anlagen oder die Region sind: Die misst die Studie."
     },
     "B": {
@@ -2534,7 +2573,20 @@
    "flow_freedom_to_act_settles": {
     "co_product": "Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann wird die Studie ihn nicht als Abfall modellieren. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.",
     "waste": "Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Die Studie kann ihn als Abfall modellieren, ohne Last auf Ihrer Seite. Der Analyst prüft das."
-   }
+   },
+   "flow_sellable_but_waste": "Für „{{flow}}“ sagten Sie, dass der Abgebende für die Abnahme zahlt, aber auch, dass jemand anderes ihn kaufen würde. Die beiden Antworten passen nicht zusammen: Ein Fluss, den jemand kaufen würde, ist kein Abfall und trägt einen Teil der Lasten seiner Herstellung. Prüfen Sie für diesen Fluss noch einmal, wer wem zahlt.",
+   "flow_price_without_market": "Für „{{flow}}“ sagten Sie, dass der Empfänger dafür zahlt, aber dass niemand sonst ihn kaufen würde. Bei einem einzigen Käufer entscheidet der Preis: Zahlt der Empfänger, was der Fluss anstelle des ersetzten Produkts wert ist, ist er ein Produkt; teilt die Zahlung nur Kosten, ist er ein Abfall. Der Analyst prüft den Preis.",
+   "flow_interdependent_but_marketable": "Für „{{flow}}“ sagten Sie, dass die beiden Anlagen voneinander abhängen (eine wurde für die Belieferung der anderen umgebaut), und auch, dass jemand anderes ihn kaufen würde. Beides kann stimmen. Wurde der Umbau für die Bedürfnisse dieses Partners gemacht, behalten Sie Ihre Antwort; wurde er gemacht, um den Fluss an jeden zu verkaufen (ein Trockner, der aus dem Trester ein Futter macht, das jeder kaufen kann), zahlt der Empfänger für ein Produkt mit Wert, und die Anlage gilt als für den Austausch gebaut. Dieser Hinweis ändert Ihre Antworten nicht.",
+   "design_without_screening": "Diese Studie plant, erweitert oder baut ein Netz um. Bitten Sie den Analysten um die Marktprüfung: ob das Netz groß genug ist, um zu verändern, was der Markt insgesamt produziert. Solange das nicht gezeigt ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben.",
+   "structural_without_screening": "Sie sagten, die Entscheidung verändert, was ein Markt produziert, aber die Marktprüfung ist nicht dokumentiert. Solange sie es nicht ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben.",
+   "structural_screening_missing": "Sie sagten, die Entscheidung verändert, was ein Markt produziert, haben aber nicht angegeben, ob die Marktprüfung dokumentiert ist. Solange sie es nicht ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben. Beantworten Sie die Folgefrage, sobald sie es ist.",
+   "case_sector_without_flow": "Der Sektor, den Sie dem Fall gegeben haben ({{chapter}}), hat eigene Regeln, aber kein Fluss in der Tabelle trägt diesen Sektor, deshalb werden sie nicht aufgeführt. Geben Sie ihn in der Flusstabelle den Flüssen, die dazugehören (Flüsse noch ohne Sektor: {{flows}}). Biogas, Biomethan oder Gärreste erhalten den Sektor dessen, woraus sie gemacht sind: Lebensmittelabfälle aus Haushalten oder Kommunen → „Abfallvalorisierung“; Reststoffe aus Landwirtschaft oder Lebensmittelindustrie → „Landwirtschaft / Agri-Food / Bioraffinerien“; Klärschlamm → „Abwasser / Schlämme / Biofactories“.",
+   "study_purpose_vs_q2": {
+    "analysis": "Sie sagten, die Studie bewertet, wie ein bestehendes Netz funktioniert, aber auch, dass der Austausch, den sie misst, noch nicht stattfindet. Prüfen Sie die beiden Antworten.",
+    "design": "Sie sagten, die Studie plant ein neues Netz, aber auch, dass der Austausch, den sie misst, schon stattfindet. Prüfen Sie die beiden Antworten."
+   },
+   "running_but_future": "Sie sagten, der Austausch findet schon statt, aber auch, dass das System in einem künftigen Jahr läuft oder dass die Schlüsseltechnik noch ein Prototyp oder im Labor ist. Ein laufender Austausch wird heute gemessen: Prüfen Sie diese Antworten. Bis dahin folgt das, womit die Studie vergleicht, der ersten Antwort, und Strom, Brennstoffe und Materialien der Zukunft folgen den anderen.",
+   "documentation_vs_ex_ante": "Sie sagten, die Studie dokumentiert, was schon geschieht, ohne eine Entscheidung zu unterstützen, aber auch, dass der Austausch noch nicht stattfindet. Prüfen Sie, ob das gemeint ist."
   },
   "families": {
    "IR": "{{count}} zur Integration der Methoden",
@@ -2833,7 +2885,7 @@
     "TRL9": "TRL 9 — plenamente operativo",
     "TRL7-8": "TRL 7-8 — piloto / pre-comercial",
     "TRL5-6": "TRL 5-6 — prototipo",
-    "TRL<5": "TRL <5 — I+D temprana"
+    "TRL<5": "TRL <5: investigación y desarrollo en fase temprana"
    },
    "q7": {
     "A": "A. Un emplazamiento",
@@ -3148,7 +3200,7 @@
   "reader": {
    "verdict": {
     "A": {
-     "title": "Un intercambio local, evaluado con datos medios",
+     "title": "Un intercambio demasiado pequeño para cambiar la economía en su conjunto, evaluado con datos medios",
      "body": "El intercambio es pequeño frente a la economía en su conjunto: el estudio describe lo que sustituye con datos medios de mercado (el mix eléctrico nacional, el material virgen medio). Esto no dice nada sobre lo grandes que son sus efectos en las plantas o en el territorio: eso es lo que medirá el estudio."
     },
     "B": {
@@ -3173,7 +3225,20 @@
    "flow_freedom_to_act_settles": {
     "co_product": "Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces el estudio no lo modelará como residuo. Está bien así; el analista decide cómo contarlo.",
     "waste": "Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: el estudio puede modelarlo como residuo, sin carga por tu parte. Lo comprueba el analista."
-   }
+   },
+   "flow_sellable_but_waste": "Para «{{flow}}» dijiste que quien lo cede paga para que se lo lleven, pero también que otro lo compraría. Las dos respuestas no concuerdan: un flujo que alguien compraría no es un residuo, y lleva una parte de las cargas de producirlo. Revisa quién paga a quién para este flujo.",
+   "flow_price_without_market": "Para «{{flow}}» dijiste que quien lo recibe lo paga, pero que nadie más lo compraría. Con un solo comprador decide el precio: si quien lo recibe paga lo que vale el flujo en lugar del producto que sustituye, es un producto; si el pago solo reparte costes, es un residuo. El analista comprueba el precio.",
+   "flow_interdependent_but_marketable": "Para «{{flow}}» dijiste que las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra), y también que otro lo compraría. Ambas cosas pueden ser ciertas. Si el cambio se hizo para las necesidades de este socio, mantén tu respuesta; si se hizo para vender el flujo a cualquiera (un secador que convierte la pulpa en un pienso que cualquiera puede comprar), quien lo recibe paga un producto con valor, y el equipo cuenta como construido para los intercambios. Esta nota no cambia tus respuestas.",
+   "design_without_screening": "Este estudio diseña, amplía o reorganiza una red. Pide al analista que haga la comprobación del mercado: si la red es lo bastante grande como para cambiar lo que produce el mercado en su conjunto. Mientras no se demuestre, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala.",
+   "structural_without_screening": "Dijiste que la decisión cambia lo que produce un mercado, pero la comprobación del mercado no está documentada. Mientras no lo esté, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala.",
+   "structural_screening_missing": "Dijiste que la decisión cambia lo que produce un mercado, pero no has dicho si la comprobación del mercado está documentada. Mientras no lo esté, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala. Responde a la pregunta siguiente cuando lo esté.",
+   "case_sector_without_flow": "El sector que diste al caso ({{chapter}}) tiene reglas propias, pero ningún flujo de la tabla lleva ese sector, así que no se enumeran. Asígnalo, en la tabla de flujos, a los flujos que le pertenecen (flujos aún sin sector: {{flows}}). El biogás, el biometano o el digestato toman el sector de aquello de lo que están hechos: residuos alimentarios domésticos o municipales → «Valorización de residuos»; residuos agrícolas o de la industria alimentaria → «Agricultura / agroalimentario / biorrefinerías»; lodos de depuradora → «Aguas residuales / lodos / biofactories».",
+   "study_purpose_vs_q2": {
+    "analysis": "Dijiste que el estudio evalúa cómo funciona una red existente, pero también que los intercambios que mide aún no tienen lugar. Revisa las dos respuestas.",
+    "design": "Dijiste que el estudio diseña una red nueva, planificada, pero también que los intercambios que mide ya tienen lugar. Revisa las dos respuestas."
+   },
+   "running_but_future": "Dijiste que los intercambios ya tienen lugar, pero también que el sistema funciona en un año futuro, o que la tecnología clave es todavía un prototipo o está en el laboratorio. Un intercambio que ya funciona se mide hoy: revisa estas respuestas. Mientras tanto, aquello con lo que compara el estudio sigue la primera respuesta, y la electricidad, los combustibles y los materiales futuros siguen las demás.",
+   "documentation_vs_ex_ante": "Dijiste que el estudio documenta lo que ya ocurre, sin una decisión que respaldar, pero también que los intercambios aún no tienen lugar. Comprueba que es lo que quieres decir."
   },
   "families": {
    "IR": "{{count}} sobre la integración de los métodos",

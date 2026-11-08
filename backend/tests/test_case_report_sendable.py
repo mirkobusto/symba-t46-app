@@ -150,7 +150,7 @@ def test_situation_b_keeps_its_branch():
 
 def test_the_guided_register_is_kept(dairy):
     text = _text(_doc(dairy, "fr", guided=True))
-    assert "Un échange local, évalué avec des données moyennes" in text
+    assert "Un échange trop petit pour changer l'économie dans son ensemble, évalué avec des données moyennes" in text
     assert "Ce que cela signifie pour vous" in text
     body = _body(text, "Annexe : détail technique")
     assert not re.search(r"\nQ\d+[a-c]? ", body)        # no Q-codes in front of the questions

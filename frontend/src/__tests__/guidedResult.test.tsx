@@ -41,7 +41,7 @@ describe('result in guided mode', () => {
     render(<MemoryRouter><ResultPage /></MemoryRouter>)
     expect(screen.getByText('What this means for you')).toBeInTheDocument()
     expect(screen.getByText(/It does not calculate whether the exchange pays off/)).toBeInTheDocument()
-    expect(screen.getByText('Points for the analyst (1)')).toBeInTheDocument()
+    expect(screen.getByText('Decision points for the analyst (1)')).toBeInTheDocument()
     expect(screen.getByText('An existing network, described as it runs')).toBeInTheDocument()
   })
 

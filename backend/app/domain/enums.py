@@ -133,7 +133,7 @@ class StudyPurpose(StrEnum):
 
 class ReferenceMarketScope(StrEnum):
     """Spatial scope of the market the reference (displaced) products come from
-    (D4.1 §11.3.1, L01291): national or sub-national as a rule, continental only
+    (D4.1 §11.3.1, L01328): national or sub-national as a rule, continental only
     for globally traded commodities with no sub-continental market."""
 
     NATIONAL = "national"
@@ -152,10 +152,10 @@ class DecisionContext(StrEnum):
 
     D4.1 Table 1 derives the ILCD situation from this, not from the subject
     of the study: MICRO explores or supports a choice, even a hypothetical one,
-    with effects that stay in the plants involved (A, L00624); STRUCTURAL one
-    whose effects change what a market produces (B, proof required, L00632);
+    with effects that stay in the plants involved (A, L00654); STRUCTURAL one
+    whose effects change what a market produces (B, proof required, L00662);
     NONE documents an existing network (C1); CORPORATE_REPORT is the strict
-    reporting of one company in isolation, with no credits (C2, L00868).
+    reporting of one company in isolation, with no credits (C2, L00899).
     """
 
     NONE = "none"
@@ -215,10 +215,10 @@ class LccType(StrEnum):
     C_LCC_PLUS_E_LCC = "C+E"              # Q1∈{A,B,E} AND Q3.ECO=true
     E_LCC_PLUS_S_LCC_PLUS_NTF = "C+E+S"   # Q1=C AND Q3.ECO=true
     C_LCC_ONLY = "C-LCC"                  # Q1=D AND Q3.ECO=true
-    # Q3.ENV=false: no parallel LCA, so no E-LCC (D4.2 §4.1, L00551). The network
-    # level is the Entry-to-Gate consolidation of the C-LCC (L00547, L00601).
+    # Q3.ENV=false: no parallel LCA, so no E-LCC (D4.2 §4.1, L00575). The network
+    # level is the Entry-to-Gate consolidation of the C-LCC (L00571, L00625).
     C_LCC_PLUS_NETWORK = "C+N"
-    C_LCC_PLUS_NETWORK_PLUS_S_LCC = "C+N+S"  # + S-LCC and NTF, no monetised externalities (L01293)
+    C_LCC_PLUS_NETWORK_PLUS_S_LCC = "C+N+S"  # + S-LCC and NTF, no monetised externalities (L01329)
 
 
 class SlcaActivationState(StrEnum):

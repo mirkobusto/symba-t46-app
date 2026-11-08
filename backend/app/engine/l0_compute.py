@@ -66,7 +66,7 @@ def _compute_ilcd_situation(q1: Q1 | None) -> IlcdSituation:
 # Q9 (D4.1 Table 1): the situation follows the decision and its scale, not the
 # subject of the study (owner decision 2026-10-15: Q9 wins over Q1, Q1=D included).
 # Q1 is only the fallback for cases saved without Q9. "A multi-actor" is no longer
-# produced: D4.1 Table 1 has Situations A, B and C only (L00574-576).
+# produced: D4.1 Table 1 has Situations A, B and C only (L00598-602).
 _S = IlcdSituation
 _N, _M, _X, _R = (DecisionContext.NONE, DecisionContext.MICRO, DecisionContext.STRUCTURAL,
                   DecisionContext.CORPORATE_REPORT)
@@ -101,7 +101,7 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, An
     the questionnaire since 2026-10-15; Q1 describes the subject and decides only
     for cases saved before Q9 existed). Q9 answered: D4.1 Table 1 and §7.2.3, plus a note when it contradicts Q1. A
     structural answer needs the market screening (Q9b): without it the study stays
-    Situation A, B being a sensitivity (L00632). In every case a note when
+    Situation A, B being a sensitivity (L00662). In every case a note when
     Situation C meets an ex-ante Q2 (audit I-06).
     """
     base = _compute_ilcd_situation(case.q1)   # raises on an invalid Q1
@@ -144,7 +144,7 @@ def _derive_ilcd_situation(case: Case) -> tuple[IlcdSituation, list[dict[str, An
             notes.append({"code": code, "message": message, "params": {"variant": variant}})
         if case.q1 == Q1.D and decision != _R:
             notes.append({"code": _Q1_D_NOT_CORPORATE[0], "message": _Q1_D_NOT_CORPORATE[1]})
-    # "No decision" presupposes an existing network (D4.1 L00576): Situation C with
+    # "No decision" presupposes an existing network (D4.1 L00602): Situation C with
     # exchanges that do not take place yet is a contradiction worth a note.
     if situation in {_S.SITUATION_C1, _S.SITUATION_C2} and case.q2 == Q2.B:
         notes.append({
@@ -161,7 +161,7 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, Any]]]:
     Strict reporting of one company (Situation C2) keeps the company-level costing,
     "C-LCC only" (declared T4.6 choice: no network level). Otherwise C-LCC per
     partner + E-LCC at network level, plus the S-LCC when the study serves a public
-    policy or planning objective (D4.2 §2.3, L00473). Without the environmental
+    policy or planning objective (D4.2 §2.3, L00497). Without the environmental
     dimension there is no E-LCC: C-LCC per partner + network consolidation (C+N),
     plus the S-LCC on a policy objective (C+N+S). Q10 unanswered: inferred from
     Q1 (yes only for Q1=C), as before Q10 existed, with a note asking for Q10
@@ -192,7 +192,7 @@ def _derive_lcc_type(case: Case) -> tuple[LccType, list[dict[str, Any]]]:
                       "factor, social discount rate) is not added."})
     if not case.q3.env:
         # No parallel LCA: the E-LCC has nothing to stay consistent with (D4.2 §4.1,
-        # L00551); the network level is the C-LCC consolidation (L00547, L00601).
+        # L00575); the network level is the C-LCC consolidation (L00571, L00625).
         notes.append({"code": "lcc_without_lca", "params": {"variant": "policy" if policy else "plain"}, "message": (
             "Q3 has no environmental dimension, so there is no parallel LCA: the costing is the "
             "conventional LCC of each partner, consolidated at network level (D4.2 §4.1), without the "
@@ -235,8 +235,8 @@ def _slca_notes(case: Case) -> list[dict[str, Any]]:
     return []
 
 
-# D4.1 Part 2 sector chapters (FINAL v2 numbering, §3.3 L00349-359). Biobased
-# polymers sit in §5 ("bio-based alternatives", L00353), food production in §4.
+# D4.1 Part 2 sector chapters (FINAL v2 numbering, §3.3 L00377-387). Biobased
+# polymers sit in §5 ("bio-based alternatives", L00381), food production in §4.
 PART2_CHAPTER: dict[Q6a, str] = {
     Q6a.AGRICULTURE_AGRIFOOD_BIOREFINERIES: "§4 Agri-Food and Biorefineries",
     Q6a.FOOD_PRODUCTION: "§4 Agri-Food and Biorefineries",
@@ -251,11 +251,11 @@ PART2_CHAPTER: dict[Q6a, str] = {
 def _flow_notes(case: Case) -> list[dict[str, Any]]:
     """Per-flow notes from the two optional flow answers; unanswered = none.
 
-    Freedom-to-Act (D4.1 §8.3.3, L00990-994): a flow a third party would buy is a
+    Freedom-to-Act (D4.1 §8.3.3, L01021-1025): a flow a third party would buy is a
     co-product, one nobody would buy is a waste whatever the nominal price. The
     test is checked against who pays whom (Q5): a = generator pays, c = recipient
     pays, b = undecided. For Q5 = d the price does not matter (interdependent
-    production is a co-product regardless of price, L00974, L00996), but a flow
+    production is a co-product regardless of price, L01005, L01027), but a flow
     that would also sell to anyone gets a note on specificity to the partner
     (UX round 4, P3-02); Q5 = e aggregates the flow away. A note never changes Q5.
     """

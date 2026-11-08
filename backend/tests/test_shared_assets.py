@@ -1,4 +1,4 @@
-"""Q12 — new dedicated shared assets (2026-10-18). D4.2 §4.2 (L00567): their
+"""Q12 — new dedicated shared assets (2026-10-18). D4.2 §4.2 (L00591): their
 CAPEX and OPEX go in the cost breakdown, allocated among the benefiting
 partners; D4.1 §6.3.3: capital goods unique to the IS scenario are included.
 The answer wires IR-13, B-06 and CIR-08, which read an attribute the case never

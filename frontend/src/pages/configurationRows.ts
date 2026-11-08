@@ -191,7 +191,7 @@ export function configurationRows(
     }
   }
 
-  // the LCC shares the reference scenario of the LCA, done or not (D4.2 L00725)
+  // the LCC shares the reference scenario of the LCA, done or not (D4.2 L00749)
   if ((env || eco) && kase.ilcd_situation === 'ILCD Situation C2') {
     rows.push({
       key: 'reference',

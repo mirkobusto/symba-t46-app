@@ -65,12 +65,12 @@ def test_nodes_rewritten_on_the_final_v2_text_keep_their_lines(schemas):
         # every sentence cites the section; a token such as "aligned_to_lca" cannot
         assert all(n["source_section"] in v for v in values.values() if v and " " in v)
 
-    # D4.1 §10.3.5 L01214-L01222: four categories, iLUC among them, biodiversity not
+    # D4.1 §10.3.5 L01246-L01254: four categories, iLUC among them, biodiversity not
     frontier = nodes["lca_hc_19"]["default_value"]
     for category in ("marine litter", "soil carbon", "iLUC", "fibre shedding"):
         assert category in frontier
     assert "Biodiversity loss is not one of the four" in frontier
-    # D4.1 §15.1 L01539: a single aggregated result is insufficient
+    # D4.1 §15.1 L01576: a single aggregated result is insufficient
     # dormant in Situation C2 since UX round 5: the text is the one branch
     levels = nodes["lca_mc_31"]["default_value"]["ilcd in {A,A-multi,B,C1}"]
     assert "three levels" in levels and "preferred" not in levels

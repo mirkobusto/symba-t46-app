@@ -43,11 +43,11 @@ def test_situation_and_paradigm(case):
 
 
 def test_allocation_and_no_substitution_credits_even_with_q4_d(case):
-    """D4.1 L00868: 'use Allocation (Step 3). Do not apply substitution credits'."""
+    """D4.1 L00899: 'use Allocation (Step 3). Do not apply substitution credits'."""
     assert case.lca["allocation_method"] == "allocation"
     treatment = case.lca["zero_burden_classification"]
     assert treatment["bagasse"].startswith("allocation (Situation C2")   # a co-product: Step 3
-    assert treatment["filter_cake"] == "zero-burden"                     # a waste keeps Step 4 (L01016)
+    assert treatment["filter_cake"] == "zero-burden"                     # a waste keeps Step 4 (L01047)
     assert treatment["lime"] == "EVT+sensitivity"
     assert case.lca["reference_scenario.content"].startswith("Allocation, no substitution credits")
 

@@ -126,7 +126,7 @@ def test_discriminative_no_match_node_dormant(schemas):
 
 @pytest.mark.parametrize("q7", [None, Q7.A, Q7.B, Q7.C])
 def test_gis_or_routing_is_recommended_for_every_exchange(schemas, q7):
-    """lca_mc_29: D4.1 §12.3.1 (L01373) recommends GIS or routing for every exchange;
+    """lca_mc_29: D4.1 §12.3.1 (L01410) recommends GIS or routing for every exchange;
     the T4.6 'mandatory for wide-area networks' left on 2026-10-18."""
     case = _baseline_case(q7=q7)
     run(case, schemas)
@@ -182,7 +182,7 @@ def test_per_flow_discriminative_writes_dict(schemas):
 
 def test_per_flow_predicate_writes_only_matching_flows(schemas):
     """lcc_hc_12 (per_flow simple) fires on every secondary flow, aggregated
-    ones included (D4.2 §6.3, L00751; the Q5 != e exemption is gone). The pillar field
+    ones included (D4.2 §6.3, L00775; the Q5 != e exemption is gone). The pillar field
     `lcc.avoidable_unavoidable_classification` is shared with lcc_hc_13
     (always-default discriminative), so we verify the predicate
     behaviour directly via _PREDICATES + activation flag."""
@@ -235,7 +235,7 @@ def test_procedural_mandate_activates_without_field_write(schemas):
 # 7. future background: one study horizon for LCA and LCC
 # ---------------------------------------------------------------------------
 # Owner decision 2026-10-15: the deliverables require one time horizon for LCA and
-# LCC (D4.2 L01261, L01277; D4.1 L01521). Future background when the system
+# LCC (D4.2 L01297, L01313; D4.1 L01558). Future background when the system
 # operates in a future year (Q8a; unanswered: the year of the study), when the key technology is
 # below TRL 7 (Q6b), or when the study horizon (Q8b analysis period, else Q8c asset
 # lifetime) exceeds 15 years. Lifetime tests use Q2=A, no TRL, Q8a unanswered.
@@ -279,7 +279,7 @@ def test_technology_below_trl7_gives_future_background(schemas, q6b, expected):
 
 
 def test_either_analysis_period_or_asset_lifetime_beyond_threshold(schemas):
-    """D4.2 L01131 names the asset lifetime, the study its analysis period:
+    """D4.2 L01167 names the asset lifetime, the study its analysis period:
     either one beyond 15 years is enough (owner decision 2026-10-15)."""
     assert _future(_horizon_case(schemas, q2=Q2.A, analysis_period_years=20)) == (True, True)
     short = _horizon_case(schemas, q2=Q2.A, analysis_period_years=10, asset_lifetime_years=40)
@@ -339,7 +339,7 @@ def test_threshold_is_one_named_parameter():
      (0, 16, True), (-5, 16, True), ("abc", 15, False), (True, 16, True), (float("inf"), 16, True)],
 )
 def test_threshold_is_the_analysts_to_change(threshold, lifetime, fires):
-    """D4.2 §9.3 L01131 gives 15 years without a source: a default, not a constant."""
+    """D4.2 §9.3 L01167 gives 15 years without a source: a default, not a constant."""
     from app.engine.activate import THRESHOLD_KEY, needs_future_background
     advanced = {} if threshold is None else {THRESHOLD_KEY: threshold}
     case = _baseline_case(q2=Q2.A, q3=Q3(env=True, eco=True), advanced=advanced)
@@ -463,7 +463,7 @@ def test_q4_in_set_and_includes(schemas):
     """lca_hc_13 `q4 in {C,D,E}`, lca_mc_25 `q4 includes 'D'`."""
     c = _activated(schemas, q4={Q4.E})
     assert c.lca["uncertainty.pedigree"].startswith("Pedigree Matrix mandatory")
-    assert c.lca["lcia_method"].startswith("Midpoint methods chosen per impact category")   # D4.1 L01399
+    assert c.lca["lcia_method"].startswith("Midpoint methods chosen per impact category")   # D4.1 L01436
     d = _activated(schemas, q4={Q4.D})
     assert d.lca["lcia_method"].startswith("EF 3.1, the PEF reference method")
     a = _activated(schemas, q4={Q4.A})
@@ -477,7 +477,7 @@ def test_q4_in_set_and_includes(schemas):
 
 def test_gsa_tier_was_dead_and_now_follows_q4(schemas):
     """lca_mc_32 had only unreadable keys and no default: it never activated."""
-    morris_sobol = "Morris screening, then Sobol on the reduced set"     # D4.1 L01471
+    morris_sobol = "Morris screening, then Sobol on the reduced set"     # D4.1 L01508
     assert morris_sobol in _activated(schemas, q4={Q4.A}).lca["gsa_tier"]
     assert "T4.6 tightening" in _activated(schemas, q4={Q4.E}).lca["gsa_tier"]
     assert "lca_mc_32" not in _activated(schemas, q4=set()).activated_nodes
@@ -487,7 +487,7 @@ def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
     """First match wins (branch_keys.py), so the schema lists the strictest Q4
     branch first (PHASE1_NODE_MAPPING_v2 §5.2.3: the more specific Q wins):
     {A,E} gets the full Sobol cascade; for the review a public comparative
-    assertion (C) wins, since D4.1 §15.3.4 makes its panel mandatory (L01599).
+    assertion (C) wins, since D4.1 §15.3.4 makes its panel mandatory (L01636).
     The exhaustive version of this is in test_branch_keys.py."""
     assert "T4.6 tightening" in _activated(schemas, q4={Q4.A, Q4.E}).lca["gsa_tier"]
     mandatory = "Independent panel of at least three experts, mandatory"
@@ -500,7 +500,7 @@ def test_strictest_q4_branch_comes_first_when_branches_overlap(schemas):
 
 def test_q6b_set_and_ordinal_keys(schemas):
     """lca_hc_18 / lca_mc_10: capital goods included and amortised at every TRL
-    (D4.1 §6.3.3, L00798); below TRL 7 the Lang-factor estimate is added (§9.3.5)."""
+    (D4.1 §6.3.3, L00829); below TRL 7 the Lang-factor estimate is added (§9.3.5)."""
     included = "Significant capital goods and infrastructure unique to the IS scenario should be included"
     for q6b in (Q6b.TRL9, Q6b.TRL7_8):
         case = _activated(schemas, q6b=q6b)
@@ -526,20 +526,20 @@ def test_q7_sets_the_regionalised_characterisation_not_the_transport(schemas, q7
 
 
 def test_lca_boundary_is_organizational_and_coverage_a_declared_choice(schemas):
-    """lca_mc_05: the boundary follows the network (D4.1 §6.1, L00734) and the life-cycle
-    coverage is a goal-and-scope choice (§6, L00728), not a cradle-to-gate default."""
+    """lca_mc_05: the boundary follows the network (D4.1 §6.1, L00764) and the life-cycle
+    coverage is a goal-and-scope choice (§6, L00758), not a cradle-to-gate default."""
     assert _activated(schemas, q1=Q1.A).lca["system_boundary"].startswith("exchange-only: the two partners")
     monitoring = _activated(schemas, q1=Q1.E, q3=Q3(env=True, eco=True)).lca["system_boundary"]
     assert monitoring.startswith("network: all participating entities")
     assert "goal-and-scope choice" in monitoring
-    # Q1=D with Q9 unanswered is Situation C2: one partner in isolation (L00868)
+    # Q1=D with Q9 unanswered is Situation C2: one partner in isolation (L00899)
     company = _activated(schemas, q1=Q1.D, q3=Q3(env=True, eco=True)).lca["system_boundary"]
     assert company.startswith("company: the reporting company's own processes")
 
 
 def test_q3_env_plus_eco_and_eco_only_branches(schemas):
-    """lcc_mc_18: ECOF and IEE both need the LCA impact (D4.2 §11.3, L01327, L01333),
-    and a C-LCC cannot be integrated with the LCA (§11.2, L01285)."""
+    """lcc_mc_18: ECOF and IEE both need the LCA impact (D4.2 §11.3, L01363, L01369),
+    and a C-LCC cannot be integrated with the LCA (§11.2, L01321)."""
     ind = lambda q1=Q1.A, **q3: _activated(schemas, q1=q1, q3=Q3(**q3))  # noqa: E731
     assert ind(env=True, eco=True).lcc["eco_efficiency_indicator"].startswith("ECOF and IEE")
     assert ind(env=True, eco=True, soc=True).lcc["eco_efficiency_indicator"].startswith("ECOF and IEE")
@@ -553,7 +553,7 @@ def test_q3_env_plus_eco_and_eco_only_branches(schemas):
     assert c_lcc_alone.lcc_type.value == "C-LCC"
     assert c_lcc_alone.lcc["eco_efficiency_indicator"].startswith("No eco-efficiency indicator: ECOF and IEE")
     assert c_lcc_alone.lcc["functional_equivalent"].startswith("No parallel LCA")
-    # lcc_mc_05: one boundary per LCC type (D4.2 §4.1, L00547-L00555)
+    # lcc_mc_05: one boundary per LCC type (D4.2 §4.1, L00571-L00579)
     boundary = lambda q1, **q3: _activated(schemas, q1=q1, q3=Q3(**q3)).lcc["economic_boundary"]  # noqa: E731
     assert "E-LCC: identical to the LCA boundary" in boundary(Q1.A, env=True, eco=True)
     assert "S-LCC: cradle-to-grave" in boundary(Q1.C, env=True, eco=True)
@@ -588,7 +588,7 @@ def test_no_lca_switches_off_the_e_lcc_rules(schemas):
 def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
     eco = Q3(env=True, eco=True)
     assert _activated(schemas, q1=Q1.A, q3=eco).lcc["discount_rate"].startswith("C-LCC: each partner's WACC")
-    # lcc_mc_16: a node-removal scenario for every critical node, whatever Q1 (D4.2 §10.3, L01237)
+    # lcc_mc_16: a node-removal scenario for every critical node, whatever Q1 (D4.2 §10.3, L01273)
     assert _activated(schemas, q1=Q1.A, q3=eco).lcc["counterparty_risk"].startswith(
         "Node-removal scenario for the exchange partner")
     for q1 in (Q1.B, Q1.C, Q1.D, Q1.E):
@@ -600,7 +600,7 @@ def test_q1_q2_q7_in_set_on_lcc_nodes(schemas):
 
 
 def test_lcc_functional_equivalent_follows_the_lca(schemas):
-    """lcc_mc_03: the LCC takes the LCA's functional unit (D4.2 §3.1, L00493). With an
+    """lcc_mc_03: the LCC takes the LCA's functional unit (D4.2 §3.1, L00517). With an
     E-LCC lcc_hc_04 writes it; lcc_mc_03 covers the C-LCC and the case without an LCA."""
     eco = Q3(env=True, eco=True)
     for q1 in (Q1.A, Q1.B, Q1.C):
@@ -614,7 +614,7 @@ def test_lcc_functional_equivalent_follows_the_lca(schemas):
 
 def test_per_flow_in_set_key(schemas):
     """lcc_hc_13: every secondary flow is classified before any valuation (D4.2 §6.3,
-    L00751); an interdependent flow is a deliberate co-product (L00741); aggregated
+    L00775); an interdependent flow is a deliberate co-product (L00765); aggregated
     flows cannot take zero cost untested (`q5 in {a,b,c}` is an in-set key)."""
     c = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.c, Q5.a, Q5.d, Q5.e))
     classification = c.lcc["avoidable_unavoidable_classification"]
@@ -625,7 +625,7 @@ def test_per_flow_in_set_key(schemas):
 
 
 def test_mfca_only_for_contested_flows_and_monetisation_only_with_an_lca(schemas):
-    """lcc_hc_38: MFCA for Q5=b flows (D4.2 §5.3, L00689), no longer for every eco-only
+    """lcc_hc_38: MFCA for Q5=b flows (D4.2 §5.3, L00713), no longer for every eco-only
     study. lcc_mc_19 and CIR-05: no LCA, nothing to monetise (D4.2 §11.2)."""
     eco_only = _activated(schemas, q3=Q3(eco=True), flows=_flows(Q5.a))
     assert "lcc_hc_38" not in eco_only.activated_nodes
@@ -645,12 +645,12 @@ def test_flow_valuation_names_each_lcc_level(schemas):
     assert set(valuation) == {"f0", "f1", "f3"}
     assert valuation["f0"].startswith("C-LCC: negotiated price paid by the receiver; E-LCC and S-LCC")
     assert valuation["f1"].startswith("C-LCC: actual transfer price, zero")
-    assert "the acquisition cost of the flow follows lcc_mc_08" in valuation["f0"]   # L00513 vs L00759
+    assert "the acquisition cost of the flow follows lcc_mc_08" in valuation["f0"]   # L00537 vs L00783
     cost = c.lcc["secondary_flow_valuation"]
     assert set(cost) == {"f0", "f1", "f3"}
-    assert "zero cost only if the residual is unavoidable" in cost["f1"]   # L00729
-    assert cost["f3"].startswith("Zero cost does not apply")              # L00741
-    assert "if the flow has no independent market" in cost["f0"]          # D4.1 L00994
+    assert "zero cost only if the residual is unavoidable" in cost["f1"]   # L00753
+    assert cost["f3"].startswith("Zero cost does not apply")              # L00765
+    assert "if the flow has no independent market" in cost["f0"]          # D4.1 L01025
     waste = _activated(schemas, q3=Q3(env=True, eco=True), flows=_flows(Q5.a))
     assert waste.lcc["flow_valuation_method"]["f0"].startswith("C-LCC: actual transfer price, here a gate fee")
     assert waste.lcc["secondary_flow_valuation"]["f0"].startswith("C-LCC: the gate fee as negotiated")
@@ -725,10 +725,10 @@ def test_q4_d_ends_on_pef_cff_except_in_situations_c2_and_b(schemas, q1):
     [
         (Q1.A, "Average market consumption mix"),
         (Q1.B, "Average market consumption mix"),   # parks are Situation A since 2026-10-15
-        # D4.1 §11.3.1 L01293: Situation B models the marginal technology, not the average mix
+        # D4.1 §11.3.1 L01330: Situation B models the marginal technology, not the average mix
         (Q1.C, "Marginal technology mix"),
-        (Q1.D, "Allocation, no substitution credits"),   # C2, L00868
-        (Q1.E, "Average market mix in "),   # C1, L00866
+        (Q1.D, "Allocation, no substitution credits"),   # C2, L00899
+        (Q1.E, "Average market mix in "),   # C1, L00897
     ],
 )
 def test_reference_scenario_content_follows_the_situation(schemas, q1, expected):
@@ -761,7 +761,7 @@ def test_scale_up_frameworks_only_below_trl_7(schemas, q6b, active):
     assert ("lca_mc_20" in case.activated_nodes) is active
     # the studied exchanges already take place (Q2=A): the LCC follows TRL alone, as the LCA does
     assert ("lcc_hc_15" in case.activated_nodes) is active
-    # at the planning stage D4.2 §7.3 (L00875) adds the cost-scaling tools at any TRL
+    # at the planning stage D4.2 §7.3 (L00899) adds the cost-scaling tools at any TRL
     planned = _activated(schemas, q6b=q6b, q2=Q2.B, q3=Q3(env=True, eco=True))
     assert "lcc_hc_15" in planned.activated_nodes
 
@@ -820,7 +820,7 @@ def test_lcc_transport_costs_now_has_a_single_writer(schemas):
     pure mandate now, so the value is lcc_mc_14's alone."""
     eco = Q3(env=True, eco=True)
     regional = _activated(schemas, q7=Q7.B, q3=eco).lcc["transport_costs"]
-    assert "bulky, low-value or high-moisture" in regional and "suggested" not in regional   # D4.2 L01135
+    assert "bulky, low-value or high-moisture" in regional and "suggested" not in regional   # D4.2 L01171
     # one value for every Q7 since 2026-10-18 (the T4.6 GIS suggestion left)
     assert _activated(schemas, q7=Q7.C, q3=eco).lcc["transport_costs"] == regional
     assert _activated(schemas, q7=None, q3=eco).lcc["transport_costs"] == regional
@@ -909,7 +909,7 @@ def test_q9_no_decision_on_a_sector_study_is_situation_c1_and_attributional(sche
     case = _q9_case(schemas, Q1.C, "none")
     assert case.lca["modeling_framework"] == "attributional"
     assert case.lca["allocation_method"] == "system expansion"
-    assert case.lca["reference_scenario.content"].startswith("Average market mix in ")  # L00866
+    assert case.lca["reference_scenario.content"].startswith("Average market mix in ")  # L00897
 
 
 @pytest.mark.parametrize(
@@ -1007,7 +1007,7 @@ def test_q10_unanswered_keeps_every_q1_result(schemas):
 # Aissani et al. 2019 / D4.1 §11.1: existing network -> HNSRS, prospective -> CNSRS.
 # Q2 has two answers since 2026-10-18: the exchanges already take place (HNSRS) or
 # not yet (CNSRS). A long-standing network (Q2b) gets the modern counterfactual of
-# D4.1 §11.2.2 (L01250).
+# D4.1 §11.2.2 (L01282).
 
 
 def _reference_type(schemas, q2, long_standing=None):
@@ -1044,7 +1044,7 @@ def test_retired_q2_options_load_as_not_yet():
 
 
 def test_aware_follows_water_flows_and_integration_needs_an_e_lcc(schemas):
-    """lca_mc_30: D4.1 L01401 keys AWARE on water exchanges, so a flow declared in the
+    """lca_mc_30: D4.1 L01438 keys AWARE on water exchanges, so a flow declared in the
     wastewater chapter switches it on whatever the case sector. lca_mc_03 / lcc_mc_17:
     an LCI-based E-LCC (D4.1 §14.3.2) needs an E-LCC, which a C-LCC alone (C2) lacks."""
     water = Flow(id="w", name="Process water", q5=Q5.c, sector=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES)
@@ -1057,8 +1057,8 @@ def test_aware_follows_water_flows_and_integration_needs_an_e_lcc(schemas):
 
 
 def test_lcc_timing_and_transfer_price_sensitivity(schemas):
-    """lcc_hc_14 / lcc_mc_10: ex-post or ex-ante (D4.2 §7.1, L00829), Q2=B included;
-    lcc_hc_34: transfer-price sensitivity for gate fees and free flows too (L00757)."""
+    """lcc_hc_14 / lcc_mc_10: ex-post or ex-ante (D4.2 §7.1, L00853), Q2=B included;
+    lcc_hc_34: transfer-price sensitivity for gate fees and free flows too (L00781)."""
     eco = Q3(env=True, eco=True)
     assert _activated(schemas, q2=Q2.A, q3=eco).lcc["charter.timing"] == "ex-post (D4.2 §7.1)"
     assert _activated(schemas, q2=Q2.B, q3=eco).lcc["charter.timing"].startswith("ex-ante, with the trigger")
@@ -1068,9 +1068,9 @@ def test_lcc_timing_and_transfer_price_sensitivity(schemas):
 
 @pytest.mark.parametrize("goal, start", [
     (None, "Function-oriented FU, defined around the ultimate service"),     # as before Q11
-    ("waste_treatment", "Function-oriented FU on an input basis"),         # D4.1 Part 2 L00419
+    ("waste_treatment", "Function-oriented FU on an input basis"),         # D4.1 Part 2 L00447
     ("product_substitution", "Function-oriented FU on an output basis"),
-    ("co_primary", "Function-oriented system of functional units"),        # L00421
+    ("co_primary", "Function-oriented system of functional units"),        # L00449
 ])
 def test_q11_comparison_goal_sets_the_functional_unit_basis(schemas, goal, start):
     from app.domain.enums import ComparisonGoal

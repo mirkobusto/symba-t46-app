@@ -64,7 +64,7 @@ def test_a_flow_activates_its_chapter_whatever_the_case_sector():
 
 
 def test_substitution_rules_follow_part1_in_situation_c2():
-    """Part 1 L00868: strict accounting of one partner uses allocation, no credits."""
+    """Part 1 L00899: strict accounting of one partner uses allocation, no credits."""
     network = _food()
     report = _food(decision_context=DecisionContext.CORPORATE_REPORT)
     assert "p2_agrifood_06" in _ids(network)
@@ -91,7 +91,7 @@ def test_the_waste_reference_rule_says_which_scenario_part1_asks():
 
 
 def test_background_rules_framed_on_situation_a_are_not_shown_for_situation_b():
-    """Part 1 L01293: Situation B uses long-run marginal technologies."""
+    """Part 1 L01330: Situation B uses long-run marginal technologies."""
     structural = _food(decision_context=DecisionContext.STRUCTURAL,
                        market_screening_documented=True)
     assert structural.ilcd_situation.value == "ILCD Situation B"
@@ -100,7 +100,7 @@ def test_background_rules_framed_on_situation_a_are_not_shown_for_situation_b():
 
 
 def test_scale_up_rules_only_below_trl_7():
-    """Lab or pilot data = below TRL 7 (Part 1 L01100)."""
+    """Lab or pilot data = below TRL 7 (Part 1 L01132)."""
     assert {"p2_agrifood_09", "p2_agrifood_10"} <= _ids(_food(q6b=Q6b.TRL5_6))
     assert not {"p2_agrifood_09", "p2_agrifood_10"} & _ids(_food())
 
@@ -149,7 +149,7 @@ def test_a_configuration_names_the_substituted_product():
                      configuration="agrifood_ad_bioenergy_fertiliser")
     case = _case(flows=[digestate])
     first = case.sector_rules[0]
-    assert first["group"] == "configuration" and first["lines"] == "L00381"
+    assert first["group"] == "configuration" and first["lines"] == "L00409"
     assert "mineral NPK fertilisers" in first["statement"] and first["note"] is None
 
 

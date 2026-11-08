@@ -65,7 +65,7 @@ def test_the_cover_says_which_case_who_and_when(dairy):
     text = _text(doc)
     assert doc.paragraphs[0].text == "Report del caso: Valle del Formaggio"
     for expected in ("Preparato da\nGiulia Rinaldi", "Contatto\ngiulia@example.org", "Generato il\n8 novembre 2026",
-                     "Riferimento del caso\nagri-b-sita-a839e04a", "come salvate il 7 novembre 2026",
+                     "Riferimento del caso\nagri-b-sita-a839e04a", "come salvate (7 novembre 2026)",
                      "non è una certificazione"):
         assert expected in text
     # the funding acknowledgement, in the reader's language (P8-09)

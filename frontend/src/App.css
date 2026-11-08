@@ -5253,6 +5253,7 @@ kbd {
 .dcf-sending h2 { font-size: 1.05rem; margin: 0 0 4px; }
 .dcf-sending-fields { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) minmax(0, 8rem); gap: 12px; margin-top: 8px; }
 .dcf-sending-fields small { font-size: 0.8rem; }
+.dcf-sending-fields input { width: 100%; box-sizing: border-box; }
 .dcf-sending-missing { margin: 8px 0 0; }
 @media (max-width: 640px) {
   .dcf-sending-fields { grid-template-columns: minmax(0, 1fr); }

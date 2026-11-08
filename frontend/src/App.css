@@ -5265,6 +5265,15 @@ kbd {
   .run-tip { display: none; }
 }
 .dcf-files-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; }
+/* deadline, contact and version for the recipients of the files (UX round 6) */
+.dcf-sending { margin: 16px 0 8px; padding: 12px 14px; border: 1px solid var(--dd-border); border-radius: var(--dd-radius); }
+.dcf-sending h2 { font-size: 1.05rem; margin: 0 0 4px; }
+.dcf-sending-fields { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) minmax(0, 8rem); gap: 12px; margin-top: 8px; }
+.dcf-sending-fields small { font-size: 0.8rem; }
+.dcf-sending-missing { margin: 8px 0 0; }
+@media (max-width: 640px) {
+  .dcf-sending-fields { grid-template-columns: minmax(0, 1fr); }
+}
 .dcf-files-note { flex: 1 1 280px; margin: 0; font-size: 0.88rem; color: var(--slate-700); }
 /* the sign-out button was cut at the right edge of a phone (P6-02):
    the user block may shrink, the e-mail gives way first */

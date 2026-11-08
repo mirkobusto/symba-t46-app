@@ -164,4 +164,18 @@ describe('DCF API client', () => {
     expect(init?.method).toBe('POST')
     expect(JSON.parse(String(init?.body))).toEqual({ rows: [{ label: 'Horizon', value: 'today' }] })
   })
+
+  it('sends the deadline, contact and version set on the page (UX round 6, P8-02)', async () => {
+    const mock = vi.fn(() =>
+      Promise.resolve(okBlobResponse('application/vnd.ms-excel')),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    const sending = { return_by: '2026-11-22', contact: 'Giulia — g@example.org', version: '1' }
+    await fetchDcfDocx({ q1: 'B' }, [], null, sending)
+
+    const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
+    const [, init] = calls[0] as [string, RequestInit | undefined]
+    expect(JSON.parse(String(init?.body)).sending).toEqual(sending)
+  })
 })

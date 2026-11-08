@@ -31,6 +31,7 @@ import {
   type DcfDataValidation,
   type DcfNodePosition,
   type DcfRow,
+  type DcfSending,
 } from '../types/dcfData'
 
 const EMPTY_DATA: DcfData = {
@@ -186,6 +187,9 @@ export interface DcfDataState {
   setPosition: (rowId: string, pos: DcfNodePosition) => void
   /** Replace the positions of the actors (automatic layout). */
   setLayout: (positions: Record<string, DcfNodePosition>) => void
+  /** Deadline, contact and version the files give their recipients; saved
+   * with the network (UX round 6, P8-02). */
+  setSending: (patch: DcfSending) => void
   loadExample: (payload: DcfPayload, labels: ExampleLabels) => void
   loadFromServer: (caseId: string) => Promise<boolean>
   saveToServer: () => Promise<boolean>
@@ -555,6 +559,11 @@ export const useDcfDataStore = create<DcfDataState>()(
         const { data: stored, activeScenario } = get()
         const data = networkView(stored, activeScenario)
         set({ data: commitView(stored, activeScenario, { ...data, layout: { ...data.layout, [rowId]: pos } }), dirty: true })
+      },
+
+      setSending(patch) {
+        const data = get().data
+        set({ data: { ...data, sending: { ...(data.sending ?? {}), ...patch } }, dirty: true })
       },
 
       setLayout(positions) {

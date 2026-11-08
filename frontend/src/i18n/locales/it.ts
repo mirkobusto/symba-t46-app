@@ -1517,7 +1517,7 @@ const it: Locale = {
     },
   },
   stakeholder: {
-    noCaseReader: "Qui non è aperto nessun caso. Hai ricevuto il link a un report? Aprilo qui sotto, oppure guarda un caso di esempio.",
+    noCaseReader: "Hai ricevuto il link a un report? Aprilo qui sotto, oppure guarda un caso di esempio.",
     seeExample: "Guarda un esempio",
     audience: {
       industry: {

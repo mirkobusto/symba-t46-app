@@ -1497,7 +1497,7 @@ const fr: Locale = {
     },
   },
   stakeholder: {
-    noCaseReader: "Aucun cas n'est ouvert ici. Vous avez reçu le lien d'un rapport ? Ouvrez-le ci-dessous, ou regardez un cas d'exemple.",
+    noCaseReader: "Vous avez reçu le lien d'un rapport ? Ouvrez-le ci-dessous, ou regardez un cas d'exemple.",
     seeExample: "Voir un exemple",
     audience: {
       industry: {

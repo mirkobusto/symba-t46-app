@@ -1491,7 +1491,7 @@ const es: Locale = {
     },
   },
   stakeholder: {
-    noCaseReader: "Aquí no hay ningún caso abierto. ¿Has recibido el enlace a un informe? Ábrelo abajo, o mira un caso de ejemplo.",
+    noCaseReader: "¿Has recibido el enlace a un informe? Ábrelo abajo, o mira un caso de ejemplo.",
     seeExample: "Ver un ejemplo",
     audience: {
       industry: {

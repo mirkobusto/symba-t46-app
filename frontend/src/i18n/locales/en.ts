@@ -1538,7 +1538,7 @@ const en = {
     },
   },
   stakeholder: {
-    noCaseReader: "No case is open here. Did you receive a link to a report? Open it below, or look at an example case.",
+    noCaseReader: "Did you receive a link to a report? Open it below, or look at an example case.",
     seeExample: "See an example",
     audience: {
       industry: {

@@ -27,6 +27,7 @@ import type { SectorRule } from '../types/api'
 import { chapterName, translateNote } from '../i18n/engineNotes'
 import { sectorNote, sectorStatement } from '../i18n/sectorTerms'
 import { askConfirm, askText } from '../store/dialogStore'
+import { handleCaseGone, startNewAssessment } from '../store/signOut'
 
 function isTextInputTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false
@@ -47,12 +48,12 @@ export default function ResultPage() {
   const location = useLocation() as { state?: { then?: string } }
   const result = useCaseStore((s) => s.result)
   const error = useCaseStore((s) => s.error)
-  const reset = useCaseStore((s) => s.reset)
   const draft = useCaseStore((s) => s.draft)
   const setServerCase = useCaseStore((s) => s.setServerCase)
   const serverCaseName = useCaseStore((s) => s.serverCaseName)
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const savedDiverged = useCaseStore((s) => s.savedDiverged)
+  const deletedCaseName = useCaseStore((s) => s.deletedCaseName)
   const runScenariosFromDraft = useCaseStore((s) => s.runScenariosFromDraft)
   const loading = useCaseStore((s) => s.loading)
   const pushToast = useToastStore((s) => s.push)
@@ -107,6 +108,15 @@ export default function ResultPage() {
     }
   }
 
+  /** The open case was deleted (from My cases, or on another device): a raw
+   * "Case '<uuid>' not found" became a sentence that offers "Save the case…"
+   * (UX round 6, P7-01). True when that was the error. */
+  function caseGone(e: unknown): boolean {
+    if (!handleCaseGone(e)) return false
+    setSavedSlug(null)
+    return true
+  }
+
   async function handleSaveCase() {
     if (needsSignIn()) return
     const previousId = serverCaseId
@@ -130,7 +140,7 @@ export default function ResultPage() {
       } catch {
         copyFailed = true
       }
-      setServerCase(saved.id, saved.name)
+      setServerCase(saved.id, saved.name, result ?? draft)
       if (saved.slug) setSavedSlug(saved.slug)
       if (network && Object.values(network.rows_by_section).some((rows) => rows.length > 0)) {
         const dcf = useDcfDataStore.getState()
@@ -161,6 +171,7 @@ export default function ResultPage() {
       try {
         name = (await getCase(serverCaseId)).name
       } catch (e) {
+        if (caseGone(e)) return
         saveErrorToast(e)
         return
       }
@@ -169,12 +180,12 @@ export default function ResultPage() {
     setSavingCase(true)
     try {
       const saved = await updateCase(serverCaseId, name, result ?? draft)
-      setServerCase(saved.id, saved.name)
+      setServerCase(saved.id, saved.name, result ?? draft)
       pushToast({ type: 'success', message: t('cases.saveChangesSuccess', { name }) })
     } catch (e) {
       if (e instanceof ApiError && e.status === 403) {
         pushToast({ type: 'error', message: t('cases.saveChangesForbidden'), durationMs: 8000 })
-      } else {
+      } else if (!caseGone(e)) {
         saveErrorToast(e)
       }
     } finally {
@@ -250,11 +261,10 @@ export default function ResultPage() {
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
+  // asks only when something would be lost, and says what stays (UX round 6,
+  // P7-21); the network goes too, or it stayed for the next case
   async function handleStartFresh() {
-    if (await askConfirm(t('result.confirmStartFresh'))) {
-      reset()
-      navigate('/')
-    }
+    if (await startNewAssessment()) navigate('/questionnaire')
   }
 
   function handleDownloadJson() {
@@ -405,6 +415,12 @@ export default function ResultPage() {
           return guided ? withoutQCodes(why) : why
         })()}
       />
+
+      {deletedCaseName !== null ? (
+        <p className="nb-warning" role="status">
+          {t('cases.deletedOpen', { name: deletedCaseName, button: t('cases.saveFirstButton') })}
+        </p>
+      ) : null}
 
       {guided && blockedBy.length === 0 ? (
         <section className="result-guided" aria-labelledby="result-guided-title">

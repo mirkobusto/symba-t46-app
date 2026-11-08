@@ -37,7 +37,7 @@ const en = {
   },
 
   share: {
-    buttonLabel: 'Share report',
+    buttonLabel: "Share the public link",
     title: 'Share this report',
     lead: 'Send one of these URLs to a stakeholder. Same case, different framing for each audience; no login is required to open it. For a product label, share the End-user link.',
     close: 'Close',
@@ -46,7 +46,7 @@ const en = {
     copied: 'Copied ✓',
     copyFailed: 'Could not copy. Please copy the URL manually.',
     saveFirstTitle: 'Save the case first',
-    saveFirstBody: 'Sharing needs the case saved on the server, and saving needs an account. Sign in, save the case with "Save as new…", then reopen this dialog.',
+    saveFirstBody: "Sharing needs the case saved on the server, and saving needs an account. Sign in, save the case with “{{button}}”, then reopen this dialog.",
     audience: {
       industry: '🏭 Industry',
       community: '🌳 Community',
@@ -61,6 +61,7 @@ const en = {
     notSharedBody: 'The report is not public: only you can open this case. Turn sharing on to get the links.',
     sharedBody: 'The report is public: anyone with one of these links can read it, without the flow notes and quantities.',
     signInButton: 'Sign in to save and share',
+    saveFirstBodySignedIn: "Sharing needs the case saved on the server. Save it first with “{{button}}” on the result page, then reopen this dialog.",
   },
 
   reader: {
@@ -75,7 +76,7 @@ const en = {
     labelLine: 'Did this link come from a product label? This page describes how the companies\' exchanges will be studied. It says nothing yet about the product you bought.',
     loading: 'Loading the report…',
     notFoundTitle: 'Report not found',
-    notFoundBody: 'No report has this code. Check that you copied the whole link, or ask whoever sent it for it again.',
+    notFoundBody: "This report is not available: the link may be incomplete, or whoever shared it has stopped sharing it. Ask whoever sent it.",
     tryAnother: 'Try another link or code',
     aboutLink: 'Learn about SYMBA',
     open: {
@@ -211,8 +212,6 @@ const en = {
     navLabel: 'Main navigation',
     menuOpen: "Menu",
     menuClose: "Close",
-    searchLabel: 'Search',
-    searchPlaceholder: 'Search cases, partners… (⌘K)',
     footerGa: 'GA',
     footerProgramme: 'Horizon Europe · M22–M36',
     groups: {
@@ -222,7 +221,7 @@ const en = {
     },
     nav: {
       home: 'Home',
-      questionnaire: 'New assessment',
+      questionnaire: "Questionnaire",
       cases: 'My cases',
       recentResult: 'Recent result',
       stakeholder: 'Stakeholder views',
@@ -301,7 +300,7 @@ const en = {
     title: "SYMBA: assessing industrial symbiosis",
     tagline: "How to set up the environmental, cost and social assessment of an exchange between companies, and which data to collect.",
     description: "Answer questions about your case: one company's waste, by-product, heat or water becoming another's input. You get the methodological configuration the study has to follow and a Data Collection File to send to the partners.",
-    startButton: 'Start new assessment',
+    startButton: "Start a new assessment",
     modeLabel: "How you want to answer",
     modeExpert: 'Expert',
     modeGuided: 'Guided',
@@ -527,8 +526,7 @@ const en = {
       'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The answers decide the methodological configuration and the data-collection plan you receive at the end.',
     runButton: 'Work out the configuration',
     runningButton: 'Working it out…',
-    resetButton: 'Reset draft',
-    confirmReset: 'Discard all answers and start over? This cannot be undone.',
+    resetButton: "Start a new assessment",
     stepper: {
       progress: "Question {{n}} of {{total}} · {{part}}",
       back: "← Back",
@@ -738,7 +736,7 @@ const en = {
     q8: {
       title: 'Q8 — Time horizon of the study',
       invalid: "Write the years as a number above 0 (at most {{max}}); the year of operation between 1900 and 2200.",
-      invalidShort: "years above 0",
+      invalidShort: "years: a number above 0, at most 500",
       help: 'Optional. One horizon for LCA and LCC alike.',
       horizonWarning: 'Over {{threshold}} years: the study will have to take a view on how energy and markets change (future background for LCA and LCC).',
       details: 'The deliverables require one time horizon for LCA, LCC and S-LCA (D4.2 §11, D4.1 §14). Future background scenarios (SSP/RCP) are added to both when the system operates in a future year (D4.1 §9.3.5, §12.3.2), when the key technology is below TRL 7 (Q6b), or when the analysis period or the lifetime of the main assets exceeds 15 years (D4.2 §9.3, which gives the figure without a source; it can be changed among the advanced settings). Left unanswered, the operating year counts as the year of the study. The analysis period is the time span the study covers; as a rule it matches the technical lifetime of the main assets (D4.2 §9). The lifetime of the main assets is also the period over which their capital goods are amortised, the same in LCA and LCC (D4.1 §6.3.3, §14.2.2); assets with a different lifetime go in the data collection file.',
@@ -835,8 +833,13 @@ const en = {
       title: 'Advanced overrides (expert mode)',
       activeKeys_one: '{{count}} active key',
       activeKeys_other: '{{count}} active keys',
+      invalid: "Advanced settings (a value is not valid)",
     },
     scopeNotePlain: 'The tool does not do the calculations: it tells you how the study has to be done and which data to collect. An analyst does the calculations afterwards.',
+    editing: {
+      saved: "You are editing the saved case “{{name}}”.",
+      notSaved: "These answers are not saved yet: work out the configuration, then save the case from the result page.",
+    },
   },
 
   flows: {
@@ -936,11 +939,9 @@ const en = {
   },
 
   advanced: {
-    intro:
-      'Expert-mode overrides. A key left empty keeps the default; a value is read as true/false, a number or text.',
+    intro: "Expert-mode overrides: the three settings the engine reads. A setting left empty keeps the default.",
     headers: { key: 'Key', value: 'Value', hint: 'Hint', custom: 'custom' },
     examplePlaceholder: 'e.g. {{example}}',
-    addCustom: 'Add custom key',
     clearAria: 'Clear {{key}}',
     removeAria: 'Remove {{key}}',
     hints: {
@@ -949,6 +950,11 @@ const en = {
       future_background_threshold_years:
         'Years. The study horizon above which LCA and LCC need future background (lca_mc_21, lcc_hc_23, CIR-01). Default 15, the figure D4.2 §9.3 gives without a source; change it and justify it in the methodological charter',
     },
+    invalid: {
+      years: "Years: a number above 0, at most 500.",
+      absolute: "The only value read is “absolute”.",
+    },
+    notRead: "Not read by the engine: remove it.",
   },
 
   narrative: {
@@ -1071,7 +1077,6 @@ const en = {
         regional: 'Local impacts',
         sectors: 'Sector rules',
         shared: 'Dedicated assets',
-        sharedLca: 'Their production and end of life inventoried in the LCA and amortised over each asset\'s technical lifetime (D4.1 §6.3.3)',
         claimPublic: 'Comparisons',
         multifunctionality: 'Multifunctionality',
         flowsLcc: 'Cost of each flow',
@@ -1138,6 +1143,7 @@ const en = {
         regional_C: 'Country- or region-dependent factors for the territory of each emission',
         regional_unset: 'Site-specific factors where the key interactions are intensely local',
         shared: 'Their CAPEX and OPEX in the cost breakdown, charged to the partners that benefit from them (all to one company when only it uses them)',
+        sharedLca: 'Their production and end of life inventoried in the LCA and amortised over each asset\'s technical lifetime (D4.1 §6.3.3)',
         multiSubstitution: 'Substitution (system expansion) against the average market mix, with the quality factor Q',
         multiConsequential: 'Consequential: substitution against the marginal technology',
         multiAllocation: 'Allocation: no substitution credits',
@@ -1304,15 +1310,14 @@ const en = {
     rawJson: 'Raw JSON response',
     actions: {
       adjust: 'Adjust answers',
-      startFresh: 'Start fresh (clear all)',
+      startFresh: "Start a new assessment",
       downloadJson: 'Download case (.json)',
-      downloadReport: 'Download report (.docx)',
+      downloadReport: "Download the Word report (.docx)",
       downloadingReport: 'Generating report…',
       reportError: 'Report generation failed',
       runScenarios: 'Run scenarios',
       runningScenarios: 'Running scenarios…',
     },
-    confirmStartFresh: 'Discard the current case and start a new one? This cannot be undone.',
     noResult: { title: 'No result yet', desc: 'Submit a questionnaire to see the engine output here.', cta: 'Open questionnaire' },
     error: { title: 'Pipeline error', back: 'Back to questionnaire' },
     saveHint: 'To keep the case on the server you need a free account; without one it stays only in this browser.',
@@ -1423,7 +1428,6 @@ const en = {
     help: "Loads the answers of a published case into the questionnaire, so you can see what the tool derives from a real study.",
     loadButton: 'Load preset',
     rationaleToggle: 'Why these answers? (compilation rationale)',
-    replaceConfirm: "Loading this example replaces the answers you are working on. Save your case first if you want to keep it. Load the example?",
     loaded: "Example loaded: {{name}}",
   },
 
@@ -1446,7 +1450,6 @@ const en = {
   },
 
   auth: {
-    logoutUnsaved: "Signing out empties this browser's case and network, so the next person does not find them. Some changes are not saved on the server and will be lost.",
     sessionExpired: "Your session has expired: sign in again. The case stays in this browser.",
     title: 'Sign in',
     subtitle:
@@ -1532,7 +1535,7 @@ const en = {
     title: 'Stakeholder report',
     subtitle:
       'Multi-stakeholder view of the case. Switch tabs to see the information tailored for each audience along the bio-based value chain.',
-    openButton: 'Open stakeholder report',
+    openButton: "See the views by audience",
     backToResult: 'Back to result',
     openDcf: 'Open Data Collection File',
     loadingScoring: 'Loading scoring data…',
@@ -1679,7 +1682,7 @@ const en = {
     changes: 'Since the saved version: {{removed}} choices to document no longer apply, {{added}} added.',
     changesFieldsGone: 'Fields no longer asked: {{fields}}. The values entered are kept but not exported.',
     changesFieldsNew: 'Fields now asked: {{fields}}.',
-    changesNone: 'The Data Collection File asks the same things as the saved version.',
+    changesNone: "The questions to the companies are the same as in the saved version; the methodological choices written in the files still follow the saved version.",
     goSaveChanges: 'Go to the result to save the changes',
   },
 
@@ -1703,8 +1706,7 @@ const en = {
 
   networkBuilder: {
     loadExample: 'Load example',
-    exampleReplaceConfirm:
-      'This replaces the network currently on the canvas with the example. Continue?',
+    exampleReplaceConfirm: "This replaces the network on the canvas with the example. The network saved for this case stays on the server until you press “Save network”: “{{button}}” brings it back. Continue?",
     whyAsked: 'Asked because:',
     hint: {
       step1: 'Add one actor per participant in the symbiosis: a plant, a utility, a municipality.',
@@ -1780,6 +1782,41 @@ const en = {
       regulator: 'regulator',
       intermediary: 'intermediary',
     },
+    exampleReplaceConfirmLocal: "This replaces the network on the canvas with the example. Continue?",
+    discard: "Discard unsaved changes",
+    discardConfirm: "Discard the changes not saved and bring back the network saved for this case?",
+    countryInvalid: "Use the two-letter ISO code of the country, e.g. CZ.",
+    countryBlocksSave: "A country is not a two-letter ISO code ({{actors}}): fix it to save the network.",
+  },
+
+  discard: {
+    savedCase: "The changes to “{{name}}” not saved yet will be lost; the saved copy stays in My cases.",
+    notSaved: "What you are working on is not saved and will be lost: the answers, and the network if you drew one. To keep it, save the case from the result page first.",
+    newAssessment: {
+      lead: "Start a new assessment?",
+      button: "Start a new assessment",
+    },
+    signOut: {
+      lead: "Signing out empties this browser's case and network, so the next person does not find them.",
+      button: "Sign out",
+    },
+    loadCase: {
+      lead: "Opening this case replaces the answers you are working on.",
+      button: "Open the case",
+    },
+    loadExample: {
+      lead: "Loading this example replaces the answers you are working on.",
+      button: "Load the example",
+    },
+  },
+
+  notFound: {
+    title: "Page not found",
+    body: "This page does not exist: the link may be incomplete or out of date.",
+    home: "Go to the Home page",
+    cases: "My cases",
+    report: "Were you sent a shared report?",
+    reportLink: "Open a shared report",
   },
 
   cases: {
@@ -1789,8 +1826,7 @@ const en = {
     navLink: 'My cases',
     title: 'My cases',
     intro: 'Cases saved on the server. "Open" shows the case (its result, once worked out); "Adjust answers" opens its questionnaire, and "Save changes" on the result stores what you change. Delete removes a case permanently.',
-    loadReplaceConfirm: 'Loading this case replaces the answers you are working on, which are not saved. Continue?',
-    empty: 'No saved cases yet. Save one from the questionnaire or result page.',
+    empty: "No saved cases yet. Save one from the result page.",
     columns: {
       name: 'Name',
       situation: 'ILCD situation',
@@ -1799,7 +1835,7 @@ const en = {
     loadButton: 'Open',
     editButton: 'Adjust answers',
     deleteButton: 'Delete',
-    confirmDelete: 'Delete "{{name}}" permanently? This cannot be undone.',
+    confirmDelete: "Delete “{{name}}” from My cases? This cannot be undone.",
     saveButton: 'Save case',
     saveAsButton: 'Save as new…',
     saveTitle: 'Save case',
@@ -1819,6 +1855,9 @@ const en = {
     networkNotCopied: 'The case is saved, but the network could not be copied: open the Data Collection File and save the network.',
     sharedYes: 'Shared: public link on',
     sharedNo: 'Private',
+    confirmDeleteShared: "The public link shared for it will stop working.",
+    confirmDeleteOpen: "It is the case open now: its answers stay in this browser as a case not saved yet.",
+    deletedOpen: "The case “{{name}}” was deleted from My cases. Its answers are still in this browser: save them again with “{{button}}” to keep working on them.",
   },
 }
 

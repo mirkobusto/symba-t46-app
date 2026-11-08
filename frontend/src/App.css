@@ -2524,6 +2524,19 @@ kbd {
   max-width: 720px;
 }
 
+/* Which case the questionnaire is editing (UX round 6, P6-14) */
+.questionnaire-editing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--dd-border);
+  border-radius: var(--dd-radius);
+  background: var(--dd-surface);
+}
+
 /* Guided-mode banner on Questionnaire ----------------------------------- */
 
 .guided-banner {
@@ -2882,47 +2895,9 @@ kbd {
   z-index: 10;
 }
 
-.dd-topbar-search {
-  flex: 1;
-  max-width: 480px;
-  position: relative;
-}
-
-.dd-topbar-search::before {
-  content: "⌕";
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--dd-text-muted);
-  font-size: 14px;
-  pointer-events: none;
-}
-
-.dd-topbar-search input {
-  width: 100%;
-  padding: 7px 12px 7px 32px;
-  border: 1px solid var(--dd-border);
-  border-radius: var(--dd-radius);
-  font-family: inherit;
-  font-size: 13px;
-  background: var(--dd-bg);
-  color: var(--dd-text);
-}
-
-.dd-topbar-search input:focus {
-  outline: none;
-  box-shadow: var(--dd-focus-ring);
-  border-color: var(--dd-brand);
-}
-
-.dd-topbar-search input:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
 .dd-topbar-right {
   display: flex;
+  margin-left: auto;
   align-items: center;
   gap: 12px;
   font-size: 13px;
@@ -5159,13 +5134,6 @@ kbd {
   .dd-sidebar:not(.dd-sidebar-open) .dd-sidebar-brand {
     margin-bottom: 0;
     padding-bottom: 6px;
-  }
-}
-
-@media (max-width: 640px) {
-  /* the search box is disabled anyway; on a phone it only takes a row */
-  .dd-topbar-search {
-    display: none;
   }
 }
 

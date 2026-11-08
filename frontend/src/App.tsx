@@ -8,6 +8,7 @@ import AboutPage from './pages/AboutPage'
 import CasesListPage from './pages/CasesListPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
+import NotFoundPage from './pages/NotFoundPage'
 import QuestionnairePage from './pages/QuestionnairePage'
 import ResultPage from './pages/ResultPage'
 import WelcomePage from './pages/WelcomePage'
@@ -15,6 +16,7 @@ import { usePreferenceStore } from './store/preferenceStore'
 import './App.css'
 import { lazyPage } from './lazyPage'
 import { sharedCaseOf } from './pages/reader/sharedReportPath'
+import ReportNotFound from './components/reader/ReportNotFound'
 
 // Loaded on demand: the network editor (React Flow), the dashboards and the
 // public reader pages are not needed to answer the questionnaire (the bundle
@@ -30,19 +32,25 @@ const PublicAboutPage = lazyPage(() => import('./pages/reader/PublicAboutPage'))
 const PublicRegionPage = lazyPage(() => import('./pages/reader/PublicRegionPage'))
 const PublicReportPage = lazyPage(() => import('./pages/reader/PublicReportPage'))
 
+// The pages of the app shell: the welcome gate applies to these only, so an
+// address the app does not have says so instead of opening the welcome
+// (UX round 6, P5-12).
+const APP_PAGES = new Set([
+  '/', '/questionnaire', '/result', '/data-collection', '/stakeholder-report',
+  '/aggregate', '/scenarios-result', '/cases', '/about',
+])
+
 /**
  * Redirects first-time visitors to /welcome unless they're on a route
  * that must remain publicly reachable regardless of onboarding state:
- * /welcome itself, /login, and (future) `/r/*` reader shell URLs.
+ * /welcome itself, /login, /privacy, the `/r/*` reader shell URLs, and an
+ * address that is no page (its "page not found").
  */
 function WelcomeGate({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation()
   const hasOnboarded = usePreferenceStore((s) => s.hasOnboarded)
-  const bypass =
-    pathname.startsWith('/welcome') ||
-    pathname.startsWith('/login') ||
-    pathname.startsWith('/privacy') ||
-    pathname.startsWith('/r/')
+  const page = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname
+  const bypass = !APP_PAGES.has(page)
   if (!hasOnboarded && !bypass) {
     return <Navigate to="/welcome" replace />
   }
@@ -82,6 +90,7 @@ export default function App() {
               <Route path="/r/region/:code" element={<PublicRegionPage />} />
               <Route path="/r/:caseId/:audience" element={<PublicReportPage />} />
               <Route path="/r/:caseId" element={<PublicReportPage />} />
+              <Route path="/r/*" element={<ReportNotFound />} />
 
               {/* Admin shell (analyst / internal) */}
               <Route path="/" element={<HomePage />} />
@@ -95,7 +104,7 @@ export default function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </WelcomeGate>

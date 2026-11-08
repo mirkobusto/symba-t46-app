@@ -32,6 +32,7 @@ import { useCaseStore } from '../store/caseStore'
 import { usePreferenceStore } from '../store/preferenceStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import { useToastStore } from '../store/toastStore'
+import { handleCaseGone } from '../store/signOut'
 import type { DcfPayload } from '../types/dcf'
 import { dcfChanges, hasChanges, type DcfChanges } from './dcfChanges'
 import { configurationRows } from './configurationRows'
@@ -59,6 +60,7 @@ export default function DataCollectionPage() {
   const serverCaseId = useCaseStore((s) => s.serverCaseId)
   const serverCaseName = useCaseStore((s) => s.serverCaseName)
   const savedDiverged = useCaseStore((s) => s.savedDiverged)
+  const deletedCaseName = useCaseStore((s) => s.deletedCaseName)
   const mode = usePreferenceStore((s) => s.mode)
   const pushToast = useToastStore((s) => s.push)
   const bindDcfData = useDcfDataStore((s) => s.bindTo)
@@ -150,8 +152,10 @@ export default function DataCollectionPage() {
       .then((before) => {
         if (!cancelled) setChanges(dcfChanges(before, payload))
       })
-      .catch(() => {
-        if (!cancelled) setChanges(null)
+      .catch((e: unknown) => {
+        if (cancelled) return
+        handleCaseGone(e)
+        setChanges(null)
       })
     return () => {
       cancelled = true
@@ -200,6 +204,8 @@ export default function DataCollectionPage() {
       const blob = await exportBlob('xlsx')
       triggerDownload(blob, dcfFilename(serverCaseName, 'xlsx'))
     } catch (e) {
+      // deleted meanwhile: said in words, with the way to save it again (P7-01)
+      if (handleCaseGone(e)) return
       pushToast({
         type: 'error',
         message:
@@ -221,6 +227,7 @@ export default function DataCollectionPage() {
       const blob = await exportBlob('docx')
       triggerDownload(blob, dcfFilename(serverCaseName, 'docx'))
     } catch (e) {
+      if (handleCaseGone(e)) return
       pushToast({
         type: 'error',
         message:
@@ -302,6 +309,11 @@ export default function DataCollectionPage() {
             {payload.slca_activation_state === 'active' ? t('common.yes') : t('common.no')}
           </span>
         </div>
+        {deletedCaseName !== null ? (
+          <p className="nb-warning" role="status">
+            {t('cases.deletedOpen', { name: deletedCaseName, button: t('cases.saveFirstButton') })}
+          </p>
+        ) : null}
         {diverged ? (
           <div className="nb-warning dcf-changes" role="status">
             <p>{t('dcf.savedDiverged')}</p>

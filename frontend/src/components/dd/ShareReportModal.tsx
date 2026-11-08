@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { ApiError, getCase, shareCase } from '../../services/api'
 import { useAuthStore } from '../../store/authStore'
+import { handleCaseGone } from '../../store/signOut'
 import { useToastStore } from '../../store/toastStore'
 
 const AUDIENCES = ['industry', 'community', 'authority', 'enduser'] as const
@@ -52,7 +53,11 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
         setContact(d.case_contact ?? '')
         setSlug(d.slug ?? caseSlug ?? null)
       })
-      .catch(() => { /* the toggle still works; the save reports any error */ })
+      .catch((e: unknown) => {
+        // deleted meanwhile: the dialog turns into "save the case first" (P7-01)
+        handleCaseGone(e)
+        /* otherwise the toggle still works; the save reports any error */
+      })
       .finally(() => { if (!cancelled) setLoaded(true) })
     return () => { cancelled = true }
   }, [caseId, caseSlug])
@@ -87,6 +92,7 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
       setSlug(d.slug ?? slug)
     } catch (e) {
       setWantShared(shared)   // the server did not change: show its state again
+      if (handleCaseGone(e)) return
       pushToast({ type: 'error', message: e instanceof ApiError ? e.detail : (e as Error).message })
     } finally {
       setSaving(false)
@@ -104,7 +110,13 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
         {!caseId ? (
           <div className="dd-pending" style={{ marginBottom: 14 }}>
             <div className="dd-pending-head">⚠ {t('share.saveFirstTitle')}</div>
-            <p className="dd-pending-body">{t('share.saveFirstBody')}</p>
+            {/* the message named "Save as new…", a button that is not there
+                before the first save, and asked a signed-in user to sign in
+                (UX round 6, P7-10): the button is named from its own label */}
+            <p className="dd-pending-body">
+              {t(signedIn ? 'share.saveFirstBodySignedIn' : 'share.saveFirstBody',
+                { button: t('cases.saveFirstButton') })}
+            </p>
             {!signedIn ? (
               // three steps to remember became one button (UX round 4, P4-07)
               <button

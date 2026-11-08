@@ -1,21 +1,20 @@
 // AdminShell · Topbar
 //
 // Sticky top strip with:
-//   - global search (⌘K) placeholder — non-functional in Phase 2,
-//     wired to the shortcut skeleton in Phase 5 or later
 //   - live backend health pill
 //   - language switcher (delegated to the existing component)
 //   - user menu (email + role badge + sign out) — or sign-in link
 //
 // Kept minimal on purpose: the sidebar carries navigation, the topbar
-// carries context.
+// carries context. A search box (disabled, with a ⌘K shortcut that did
+// nothing) promised a function that does not exist: removed until it does
+// (UX round 6, P7-08).
 
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { useAuthStore } from '../../store/authStore'
-import { askConfirm } from '../../store/dialogStore'
-import { clearLocalWork, hasUnsavedWork } from '../../store/signOut'
+import { clearLocalWork, confirmDiscard } from '../../store/signOut'
 import HealthCheck from '../HealthCheck'
 import LanguageSwitcher from '../LanguageSwitcher'
 
@@ -28,8 +27,9 @@ export default function Topbar() {
 
   async function handleLogout() {
     // the case and the network go with the account: the next person on this
-    // browser must not find them (Kimi test 2026-11-04, A1-01)
-    if (hasUnsavedWork() && !(await askConfirm(t('auth.logoutUnsaved'), t('auth.logout')))) return
+    // browser must not find them (Kimi test 2026-11-04, A1-01); answers
+    // changed and not worked out again count too (UX round 6, P7-03)
+    if (!(await confirmDiscard('signOut'))) return
     clearSession()
     clearLocalWork()
     navigate('/')
@@ -37,16 +37,6 @@ export default function Topbar() {
 
   return (
     <div className="dd-topbar">
-      <label className="dd-topbar-search">
-        <span className="visually-hidden">{t('adminShell.searchLabel')}</span>
-        <input
-          type="search"
-          placeholder={t('adminShell.searchPlaceholder')}
-          disabled
-          aria-disabled="true"
-        />
-      </label>
-
       <div className="dd-topbar-right">
         <span className="dd-topbar-pill dd-topbar-pill-health">
           <HealthCheck compact />

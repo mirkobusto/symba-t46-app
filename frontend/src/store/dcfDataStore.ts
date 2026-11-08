@@ -41,6 +41,12 @@ const EMPTY_DATA: DcfData = {
   layout: {},
 }
 
+/** Whether the drawn network holds work the server does not have: changes
+ * not saved, or a network drawn for a case not saved yet. */
+export function hasUnsavedNetwork(state: { caseId: string | null; dirty: boolean; data: DcfData }): boolean {
+  return state.dirty || (state.caseId === null && hasDrawing(state.data))
+}
+
 /** Grid slot for the n-th actor, so a fresh node never lands on top of
  * an existing one. */
 function autoPosition(index: number): DcfNodePosition {
@@ -157,6 +163,8 @@ export interface DcfDataState {
   syncing: boolean
   lastSyncedAt: number | null
   error: string | null
+  /** The last failed save, for the page to tell a deleted case from other errors. */
+  saveError: unknown
   /** The scenario whose network the editor shows; null = the case's. Not saved. */
   activeScenario: string | null
 
@@ -192,6 +200,12 @@ export interface DcfDataState {
   setSending: (patch: DcfSending) => void
   loadExample: (payload: DcfPayload, labels: ExampleLabels) => void
   loadFromServer: (caseId: string) => Promise<boolean>
+  /** Put away the changes not saved: the network the server holds for the
+   * bound case comes back (an empty one when none was ever saved). */
+  discardChanges: () => Promise<boolean>
+  /** The bound case was deleted: keep what was drawn as the draft of a case
+   * not saved yet, so saving the case again carries it (UX round 6, P7-01). */
+  detach: () => void
   saveToServer: () => Promise<boolean>
   reset: () => void
 }
@@ -207,6 +221,7 @@ export const useDcfDataStore = create<DcfDataState>()(
       syncing: false,
       lastSyncedAt: null,
       error: null,
+      saveError: null,
       activeScenario: null,
 
       setActiveScenario(scenarioId) {
@@ -699,13 +714,59 @@ export const useDcfDataStore = create<DcfDataState>()(
         }
       },
 
+      async discardChanges() {
+        const caseId = get().caseId
+        if (!caseId) return false
+        set({ syncing: true, error: null })
+        try {
+          const env = await fetchDcfData(caseId)
+          if (get().caseId !== caseId) return false
+          set({
+            data: env.data,
+            validation: env.validation,
+            dirty: false,
+            syncing: false,
+            activeScenario: null,
+            lastSyncedAt: Date.now(),
+          })
+          return true
+        } catch (e) {
+          // nothing stored yet: the saved network is the empty one
+          if (e instanceof ApiError && e.status === 404 && get().caseId === caseId) {
+            set({
+              data: { ...EMPTY_DATA, case_id: caseId },
+              validation: null,
+              dirty: false,
+              syncing: false,
+              activeScenario: null,
+              lastSyncedAt: Date.now(),
+            })
+            return true
+          }
+          set({ syncing: false, error: e instanceof Error ? e.message : 'unknown' })
+          return false
+        }
+      },
+
+      detach() {
+        if (get().caseId === null) return
+        set({
+          caseId: null,
+          data: { ...get().data, case_id: '' },
+          validation: null,
+          dirty: hasDrawing(get().data),
+          error: null,
+          saveError: null,
+        })
+      },
+
       async saveToServer() {
         const { caseId, data } = get()
         if (!caseId) {
           set({ error: 'no-case-id' })
           return false
         }
-        set({ syncing: true, error: null })
+        set({ syncing: true, error: null, saveError: null })
         try {
           const env = await putDcfData(caseId, { ...data, case_id: caseId })
           set({
@@ -720,6 +781,7 @@ export const useDcfDataStore = create<DcfDataState>()(
         } catch (e) {
           set({
             syncing: false,
+            saveError: e,
             error:
               e instanceof ApiError
                 ? `${e.status}: ${e.detail}`
@@ -741,6 +803,7 @@ export const useDcfDataStore = create<DcfDataState>()(
           syncing: false,
           lastSyncedAt: null,
           error: null,
+          saveError: null,
           activeScenario: null,
         })
       },

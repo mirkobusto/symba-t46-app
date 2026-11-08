@@ -26,6 +26,76 @@ const EMPTY_DRAFT: Case = {
   advanced: {},
 }
 
+// The answers that make a case, as the questionnaire writes them: what a
+// saved copy is compared on. Derived output (situation, nodes, rules) and the
+// bookkeeping fields are left out.
+const INPUT_KEYS = [
+  'study_purpose', 'q1', 'q2', 'network_long_standing', 'q3', 'q4', 'flows',
+  'alternative_scenarios', 'q6a', 'q6b', 'q7', 'reference_market_region',
+  'reference_market_scope', 'operating_start', 'operating_start_year',
+  'analysis_period_years', 'asset_lifetime_years', 'decision_context',
+  'market_screening_documented', 'policy_objective', 'comparison_goal',
+  'dedicated_shared_assets', 'advanced', 'sites',
+] as const
+
+/** A value with its empty parts dropped and its keys sorted: an unanswered
+ * question is null in a loaded case, undefined or absent in the
+ * questionnaire's draft, and must compare equal. */
+function normalised(value: unknown): unknown {
+  if (value === null || value === undefined || value === '') return undefined
+  if (Array.isArray(value)) {
+    const items = value.map(normalised).filter((v) => v !== undefined)
+    return items.length ? items : undefined
+  }
+  if (typeof value === 'object') {
+    const out: Record<string, unknown> = {}
+    for (const key of Object.keys(value as object).sort()) {
+      const v = normalised((value as Record<string, unknown>)[key])
+      if (v !== undefined) out[key] = v
+    }
+    return Object.keys(out).length ? out : undefined
+  }
+  return value
+}
+
+/** The answers of a case, as a string that two equal sets of answers share. */
+export function answersFingerprint(kase: Case): string {
+  const picked: Record<string, unknown> = {}
+  for (const key of INPUT_KEYS) picked[key] = (kase as Record<string, unknown>)[key]
+  // Q4 is a set
+  if (Array.isArray(picked.q4)) picked.q4 = [...(picked.q4 as string[])].sort()
+  // the questionnaire opens with "environmental" ticked: that alone is no answer
+  const q3 = kase.q3
+  if (!q3 || (!q3.eco && !q3.soc)) delete picked.q3
+  return JSON.stringify(normalised(picked) ?? {})
+}
+
+const BLANK_FINGERPRINT = answersFingerprint({})
+
+/** Whether a draft holds no answer at all. */
+export function isBlankDraft(kase: Case): boolean {
+  return answersFingerprint(kase) === BLANK_FINGERPRINT
+}
+
+// The questionnaire keeps the answers being typed in its own state and writes
+// them to the draft on run, on leaving the page and on reload. Whoever asks
+// whether work would be lost first asks it to write them (UX round 6, P7-03).
+let draftFlush: (() => void) | null = null
+
+/** Register the function that writes the answers on screen to the draft;
+ * returns the function that unregisters it. */
+export function registerDraftFlush(flush: () => void): () => void {
+  draftFlush = flush
+  return () => {
+    if (draftFlush === flush) draftFlush = null
+  }
+}
+
+/** Write the answers on screen, if any page holds some, to the draft. */
+export function flushDraft(): void {
+  draftFlush?.()
+}
+
 /** An error in words: a failed fetch (server down, no network) said only
  * "Failed to fetch" next to the run button (Kimi test 2026-11-04, A8-02). */
 function errorDetail(e: unknown): string {
@@ -57,12 +127,26 @@ export interface CaseState {
    * case is saved or loaded (UX round 5, D3).
    */
   savedDiverged: boolean
+  /** The answers of the saved copy (answersFingerprint) when the case was
+   * saved or loaded; null while it is not saved. */
+  savedAnswers: string | null
+  /** Name of the saved case that was deleted while open: the pages say so
+   * until the answers are saved again or put away (UX round 6, P7-01). */
+  deletedCaseName: string | null
+  /** Bumped by reset(): a page that wrote answers from before it must not
+   * write them back after it (sign out, new assessment). */
+  generation: number
 
   setDraft: (next: Case) => void
   /** Adopt an already-run case as the current result (loading a saved
    * case, which was stored post-pipeline). */
   setResult: (next: Case | null) => void
-  setServerCase: (id: string | null, name?: string | null) => void
+  /** Bind the draft to a saved case; `saved` is the copy the server holds
+   * (the draft when left out). */
+  setServerCase: (id: string | null, name?: string | null, saved?: Case) => void
+  /** The open case no longer exists on the server: keep the answers in this
+   * browser as a case not saved yet. */
+  detachDeletedCase: () => void
   patchDraft: (patch: Partial<Case>) => void
   runDraft: () => Promise<Case | null>
   runScenariosFromDraft: () => Promise<ScenariosResponse | null>
@@ -107,13 +191,34 @@ export const useCaseStore = create<CaseState>()(
       serverCaseId: null,
       serverCaseName: null,
       savedDiverged: false,
+      savedAnswers: null,
+      deletedCaseName: null,
+      generation: 0,
 
       setDraft: (next) => set({ draft: withCurrentAnswers(next), lastSavedAt: Date.now() }),
 
       setResult: (next) => set({ result: next }),
 
-      setServerCase: (id, name = null) =>
-        set({ serverCaseId: id, serverCaseName: name, savedDiverged: false }),
+      setServerCase: (id, name = null, saved) =>
+        set({
+          serverCaseId: id,
+          serverCaseName: name,
+          savedDiverged: false,
+          savedAnswers: id === null ? null : answersFingerprint(saved ?? get().draft),
+          deletedCaseName: null,
+        }),
+
+      detachDeletedCase: () => {
+        const name = get().serverCaseName
+        if (get().serverCaseId === null) return
+        set({
+          serverCaseId: null,
+          serverCaseName: null,
+          savedDiverged: false,
+          savedAnswers: null,
+          deletedCaseName: name ?? '',
+        })
+      },
 
       patchDraft: (patch) =>
         set({ draft: { ...get().draft, ...patch }, lastSavedAt: Date.now() }),
@@ -182,6 +287,9 @@ export const useCaseStore = create<CaseState>()(
           serverCaseId: null,
           serverCaseName: null,
           savedDiverged: false,
+          savedAnswers: null,
+          deletedCaseName: null,
+          generation: get().generation + 1,
         }),
     }),
     {
@@ -218,6 +326,8 @@ export const useCaseStore = create<CaseState>()(
         serverCaseId: state.serverCaseId,
         serverCaseName: state.serverCaseName,
         savedDiverged: state.savedDiverged,
+        savedAnswers: state.savedAnswers,
+        deletedCaseName: state.deletedCaseName,
       }),
     },
   ),

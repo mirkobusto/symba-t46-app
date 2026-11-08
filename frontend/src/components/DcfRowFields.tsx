@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import type { DcfFieldDescriptor, DcfSection } from '../types/dcf'
 import type { DcfDataIssue, DcfRow } from '../types/dcfData'
 import type { Q5, Q6a, Site } from '../types/api'
+import { COUNTRY_FIELD, countryValueValid, normaliseCountry } from './countryCode'
 
 // Engine enums referenced by `enum_ref` in dcf_schema.json. Mirrored
 // here rather than fetched: they are the same lists the questionnaire
@@ -178,6 +179,18 @@ export default function DcfRowFields({
                   )
                 }
               />
+            ) : field.id === COUNTRY_FIELD ? (
+              // two letters in capitals, checked as typed (UX round 6, P7-09)
+              <input
+                id={inputId}
+                type="text"
+                maxLength={2}
+                autoCapitalize="characters"
+                value={stringValue}
+                aria-invalid={!countryValueValid(stringValue)}
+                aria-describedby={countryValueValid(stringValue) ? undefined : `${inputId}-error`}
+                onChange={(e) => onChange(field.id, normaliseCountry(e.target.value))}
+              />
             ) : (
               <input
                 id={inputId}
@@ -186,6 +199,9 @@ export default function DcfRowFields({
                 onChange={(e) => onChange(field.id, e.target.value)}
               />
             )}
+            {field.id === COUNTRY_FIELD && !countryValueValid(stringValue) ? (
+              <span id={`${inputId}-error`} className="error-text">{t('networkBuilder.countryInvalid')}</span>
+            ) : null}
 
             {field.help || field.description_en ? (
               <span className="nb-field-help">{field.help || field.description_en}</span>

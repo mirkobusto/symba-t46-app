@@ -21,6 +21,7 @@ Three outcomes, deliberately:
 """
 from __future__ import annotations
 
+import re
 from typing import Any
 
 from app.domain.dcf_data import (
@@ -40,6 +41,23 @@ from app.engine.dcf_rows import row_condition_holds
 EDITABLE_ROW_COLLECTIONS = frozenset(
     {"user_added", "pre_seeded_from_case_flows", "auto_from_flow_matrix"}
 )
+
+# The actor's country, read by /api/public/region/{code}: "cz" and "CZE" went
+# in unchecked and a partner with "CZE" was not counted (UX round 6, P7-09).
+COUNTRY_FIELD = "actor.country_iso2"
+_COUNTRY_CODE = re.compile(r"[A-Z]{2}")
+
+
+def normalise_values(data: DcfData) -> None:
+    """Write the values the way they are read: country codes trimmed and in
+    capitals, for the case's network and each scenario's."""
+    networks = [data.rows_by_section, *(v.rows_by_section for v in data.networks_by_scenario.values())]
+    for rows_by_section in networks:
+        for row in rows_by_section.get("actors", []):
+            value = row.values.get(COUNTRY_FIELD)
+            if isinstance(value, str):
+                row.values[COUNTRY_FIELD] = value.strip().upper()
+
 
 # type -> section whose row_ids the value must reference.
 _FK_TARGET_SECTION = {"fk_actor": "actors", "fk_flow": "flow_matrix"}
@@ -234,6 +252,17 @@ def validate_dcf_data(
                     site_ids=site_ids,
                     errors=errors,
                 )
+                if field_id == COUNTRY_FIELD and not _is_empty(value) \
+                        and not _COUNTRY_CODE.fullmatch(str(value).strip().upper()):
+                    errors.append(
+                        DcfDataIssue(
+                            code="invalid_country_code",
+                            section_id=section_id,
+                            row_id=row.row_id,
+                            field_id=field_id,
+                            detail=f"{value!r} is not a two-letter ISO 3166-1 country code",
+                        )
+                    )
 
             for field_id in required_ids:
                 if _is_empty(row.values.get(field_id)):

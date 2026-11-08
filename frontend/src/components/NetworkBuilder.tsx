@@ -44,6 +44,8 @@ import {
 import { askChoice, askConfirm } from '../store/dialogStore'
 import { useAuthStore } from '../store/authStore'
 import { useToastStore } from '../store/toastStore'
+import { handleCaseGone } from '../store/signOut'
+import { actorsWithInvalidCountry } from './countryCode'
 import { edgeShifts } from './networkGraph'
 
 interface Props {
@@ -114,6 +116,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
   const setLayout = useDcfDataStore((s) => s.setLayout)
   const saveToServer = useDcfDataStore((s) => s.saveToServer)
   const loadExample = useDcfDataStore((s) => s.loadExample)
+  const discardChanges = useDcfDataStore((s) => s.discardChanges)
   const hintDismissed = usePreferenceStore((s) => s.dismissedHints[HINT_ID])
   const dismissHint = usePreferenceStore((s) => s.dismissHint)
 
@@ -323,11 +326,26 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     setSelection(null)
   }
 
+  async function handleSave() {
+    // the case was deleted meanwhile: said in words, the drawing kept (P7-01)
+    if (!(await saveToServer())) handleCaseGone(useDcfDataStore.getState().saveError)
+  }
+
+  // After "Load example" the saved network could not be got back: the example
+  // stayed as unsaved changes, also after a reload (UX round 6, P7-02)
+  async function handleDiscard() {
+    if (!(await askConfirm(t('networkBuilder.discardConfirm'), t('networkBuilder.discard')))) return
+    if (await discardChanges()) setSelection(null)
+  }
+
   async function handleLoadExample() {
-    // Replacing a network someone drew would be rude; ask first.
+    // Replacing a network someone drew would be rude; ask first, and say how
+    // to get the saved one back
     if (
       actorRows.length > 0 &&
-      !(await askConfirm(t('networkBuilder.exampleReplaceConfirm')))
+      !(await askConfirm(t(caseId === null
+        ? 'networkBuilder.exampleReplaceConfirmLocal'
+        : 'networkBuilder.exampleReplaceConfirm', { button: t('networkBuilder.discard') })))
     ) {
       return
     }
@@ -398,6 +416,8 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
     return out
   }, [payload, data, caseFlowIds])
   const missingCount = missing.length
+  const badCountries = useMemo(() => actorsWithInvalidCountry(stored), [stored])
+  const countryInvalid = badCountries.length > 0
 
   const drawnFlows = flowRows.filter(
     (r) => r.values['flow.origin_actor_id'] && r.values['flow.dest_actor_id'],
@@ -495,11 +515,17 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
           </button>
         ) : null}
 
+        {caseId !== null && dirty && signedIn ? (
+          <button type="button" className="btn btn-secondary" disabled={syncing} onClick={() => void handleDiscard()}>
+            {t('networkBuilder.discard')}
+          </button>
+        ) : null}
+
         <button
           type="button"
           className="btn btn-secondary"
-          disabled={caseId === null || syncing || !dirty || !signedIn}
-          onClick={() => void saveToServer()}
+          disabled={caseId === null || syncing || !dirty || !signedIn || countryInvalid}
+          onClick={() => void handleSave()}
         >
           {syncing ? t('networkBuilder.saving') : t('networkBuilder.save')}
         </button>
@@ -535,6 +561,7 @@ export default function NetworkBuilder({ payload, sourceCase, caseId }: Props) {
         </p>
       ) : null}
       {error ? <p className="error-text nb-error">{error}</p> : null}
+      {countryInvalid ? <p className="error-text nb-error">{t('networkBuilder.countryBlocksSave', { actors: badCountries.join(', ') })}</p> : null}
 
       <div className="nb-canvas">
         {actorRows.length === 0 ? (

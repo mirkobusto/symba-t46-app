@@ -76,12 +76,12 @@ const es: Locale = {
   },
 
   share: {
-    buttonLabel: 'Compartir informe', title: 'Compartir este informe',
+    buttonLabel: "Compartir el enlace público", title: 'Compartir este informe',
     lead: 'Envía una de estas URLs a un stakeholder. Mismo caso, encuadre diferente para cada audiencia. Para la etiqueta de un producto, comparte el enlace End user.',
     close: 'Cerrar', done: 'Hecho', copy: 'Copiar', copied: 'Copiado ✓',
     copyFailed: 'No se pudo copiar — copia la URL manualmente.',
     saveFirstTitle: 'Guarda primero el caso',
-    saveFirstBody: 'Para compartir, el caso tiene que estar guardado en el servidor, y para guardarlo hace falta una cuenta. Inicia sesión, guarda el caso con «Guardar como nuevo…» y vuelve a abrir esta ventana.',
+    saveFirstBody: "Para compartir, el caso tiene que estar guardado en el servidor, y para guardarlo hace falta una cuenta. Inicia sesión, guarda el caso con «{{button}}» y vuelve a abrir esta ventana.",
     audience: { industry: '🏭 Industria', community: '🌳 Comunidad', authority: '🏛 Autoridad local', enduser: '👤 Usuario' },
     publicToggle: 'Hacer que este informe lo pueda leer cualquiera que tenga el enlace',
     preparedByLabel: 'Preparado por (aparece en el informe)',
@@ -90,6 +90,7 @@ const es: Locale = {
     notSharedBody: 'El informe no es público: solo tú puedes abrir este caso. Activa el uso compartido para obtener los enlaces.',
     sharedBody: 'El informe es público: cualquiera que tenga uno de estos enlaces puede leerlo, sin las notas ni las cantidades de los flujos.',
     signInButton: 'Inicia sesión para guardar y compartir',
+    saveFirstBodySignedIn: "Para compartir, el caso tiene que estar guardado en el servidor. Guárdalo primero con «{{button}}» en la página de resultados y vuelve a abrir esta ventana.",
   },
 
   reader: {
@@ -104,7 +105,7 @@ const es: Locale = {
     labelLine: '¿Este enlace viene de la etiqueta de un producto? Esta página describe cómo se estudiarán los intercambios entre las empresas. Todavía no dice nada sobre el producto que has comprado.',
     loading: 'Cargando el informe…',
     notFoundTitle: 'Informe no encontrado',
-    notFoundBody: 'No hay ningún informe con este código. Comprueba que has copiado el enlace completo, o pídeselo de nuevo a quien te lo envió.',
+    notFoundBody: "Este informe no está disponible: puede que el enlace esté incompleto o que quien lo compartió haya dejado de compartirlo. Pregunta a quien te lo envió.",
     tryAnother: 'Probar otro enlace o código',
     aboutLink: 'Conocer SYMBA',
     open: {
@@ -204,8 +205,6 @@ const es: Locale = {
     navLabel: 'Navegación principal',
     menuOpen: "Menú",
     menuClose: "Cerrar",
-    searchLabel: 'Buscar',
-    searchPlaceholder: 'Buscar casos, socios… (⌘K)',
     footerGa: 'GA',
     footerProgramme: 'Horizon Europe · M22–M36',
     groups: {
@@ -215,7 +214,7 @@ const es: Locale = {
     },
     nav: {
       home: 'Inicio',
-      questionnaire: 'Nueva evaluación',
+      questionnaire: "Cuestionario",
       cases: 'Mis casos',
       recentResult: 'Último resultado',
       stakeholder: 'Informes stakeholder',
@@ -253,7 +252,7 @@ const es: Locale = {
     title: "SYMBA — evaluar la simbiosis industrial",
     tagline: "Cómo plantear la evaluación ambiental, económica y social de un intercambio entre empresas, y qué datos recoger.",
     description: "Responde a preguntas sobre tu caso: el residuo, el subproducto, el calor o el agua de una empresa que se convierten en materia prima de otra. Obtienes la configuración metodológica que debe seguir el estudio y un Data Collection File para enviar a los socios.",
-    startButton: 'Iniciar nueva evaluación',
+    startButton: "Iniciar una nueva evaluación",
     modeLabel: "Cómo quieres responder",
     modeExpert: 'Experto',
     modeGuided: 'Guiado',
@@ -478,8 +477,7 @@ const es: Locale = {
     introPlain: "Preguntas sobre tu intercambio entre empresas, en tres partes. Las marcadas con * son obligatorias; las demás hacen el resultado más preciso. Bajo cada pregunta encontrarás una breve explicación en palabras sencillas.",
     runButton: 'Calcular la configuración',
     runningButton: 'Calculando…',
-    resetButton: 'Reiniciar borrador',
-    confirmReset: '¿Descartar todas las respuestas y empezar de nuevo? No se puede deshacer.',
+    resetButton: "Iniciar una nueva evaluación",
     stepper: {
       progress: "Pregunta {{n}} de {{total}} · {{part}}",
       back: "← Atrás",
@@ -689,7 +687,7 @@ const es: Locale = {
     q8: {
       title: 'Q8 — Horizonte temporal del estudio',
       invalid: "Escribe los años como un número mayor que 0 (como máximo {{max}}); el año de funcionamiento entre 1900 y 2200.",
-      invalidShort: "años mayores que 0",
+      invalidShort: "años: un número mayor que 0, como máximo 500",
       help: 'Opcional. Un solo horizonte para el LCA y el LCC.',
       horizonWarning: 'Más de {{threshold}} años: el estudio tendrá que prever cómo cambian la energía y los mercados (fondo futuro para el LCA y el LCC).',
       details: 'Los entregables exigen un solo horizonte temporal para el LCA, el LCC y el S-LCA (D4.2 §11, D4.1 §14). Los escenarios de fondo futuros (SSP/RCP) se añaden a ambos cuando el sistema funciona en un año futuro (D4.1 §9.3.5, §12.3.2), cuando la tecnología clave está por debajo de TRL 7 (Q6b) o cuando el periodo de análisis o la vida útil de los activos principales supera 15 años (D4.2 §9.3, que da la cifra sin fuente; se puede cambiar en los ajustes avanzados). Sin respuesta, el año de funcionamiento es el del estudio. El periodo de análisis es el lapso que cubre el estudio; por norma coincide con la vida útil técnica de los activos principales (D4.2 §9). La vida útil de los activos principales es también el periodo de amortización de sus bienes de capital, el mismo en LCA y LCC (D4.1 §6.3.3, §14.2.2); los activos con otra vida útil van en el archivo de recogida de datos.',
@@ -786,8 +784,13 @@ const es: Locale = {
       title: 'Overrides avanzados (modo experto)',
       activeKeys_one: '{{count}} clave activa',
       activeKeys_other: '{{count}} claves activas',
+      invalid: "Ajustes avanzados (un valor no es válido)",
     },
     scopeNotePlain: 'La herramienta no hace los cálculos: te dice cómo debe hacerse el estudio y qué datos recoger. Los cálculos los hace después un analista.',
+    editing: {
+      saved: "Estás modificando el caso guardado «{{name}}».",
+      notSaved: "Estas respuestas todavía no están guardadas: obtén la configuración y luego guarda el caso desde la página de resultados.",
+    },
   },
 
   flows: {
@@ -887,11 +890,9 @@ const es: Locale = {
   },
 
   advanced: {
-    intro:
-      'Ajustes del modo experto. Una clave vacía mantiene el valor por defecto; un valor se lee como true/false, número o texto.',
+    intro: "Ajustes del modo experto: los tres que lee el motor. Un ajuste vacío conserva el valor predeterminado.",
     headers: { key: 'Clave', value: 'Valor', hint: 'Pista', custom: 'custom' },
     examplePlaceholder: 'p. ej. {{example}}',
-    addCustom: 'Añadir clave custom',
     clearAria: 'Limpiar {{key}}',
     removeAria: 'Eliminar {{key}}',
     hints: {
@@ -900,6 +901,11 @@ const es: Locale = {
       future_background_threshold_years:
         'Años. El horizonte de estudio a partir del cual el LCA y el LCC requieren fondo futuro (lca_mc_21, lcc_hc_23, CIR-01). Por defecto 15, la cifra que el D4.2 §9.3 da sin fuente; si la cambias, justifícala en la carta metodológica',
     },
+    invalid: {
+      years: "Años: un número mayor que 0, como máximo 500.",
+      absolute: "El único valor que se lee es «absolute».",
+    },
+    notRead: "El motor no lo lee: elimínalo.",
   },
 
   narrative: {
@@ -1022,7 +1028,6 @@ const es: Locale = {
         regional: 'Impactos locales',
         sectors: 'Reglas sectoriales',
         shared: 'Bienes dedicados',
-        sharedLca: 'Su producción y su fin de vida se inventarían en el LCA y se amortizan a lo largo de la vida técnica de cada bien (D4.1 §6.3.3)',
         claimPublic: 'Comparaciones',
         multifunctionality: 'Multifuncionalidad',
         flowsLcc: 'Coste de cada flujo',
@@ -1089,6 +1094,7 @@ const es: Locale = {
         regional_C: 'Factores por país o región para el territorio de cada emisión',
         regional_unset: 'Factores específicos del lugar donde las interacciones clave son intensamente locales',
         shared: 'Su CAPEX y OPEX en el desglose de costes, imputados a los socios que se benefician de ellos (todo a una sola empresa si solo ella los usa)',
+        sharedLca: 'Su producción y su fin de vida se inventarían en el LCA y se amortizan a lo largo de la vida técnica de cada bien (D4.1 §6.3.3)',
         multiSubstitution: 'Sustitución (expansión del sistema) frente al mix medio del mercado, con el factor de calidad Q',
         multiConsequential: 'Consecuencial: sustitución frente a la tecnología marginal',
         multiAllocation: 'Asignación: sin créditos de sustitución',
@@ -1256,15 +1262,14 @@ const es: Locale = {
     rawJson: 'Respuesta JSON cruda',
     actions: {
       adjust: 'Ajustar respuestas',
-      startFresh: 'Empezar de cero (limpiar todo)',
+      startFresh: "Iniciar una nueva evaluación",
       downloadJson: 'Descargar caso (.json)',
-      downloadReport: 'Descargar informe (.docx)',
+      downloadReport: "Descargar el informe Word (.docx)",
       downloadingReport: 'Generando informe…',
       reportError: 'Generación del informe fallida',
       runScenarios: 'Ejecutar escenarios',
       runningScenarios: 'Ejecutando escenarios…',
     },
-    confirmStartFresh: '¿Descartar el caso actual y empezar uno nuevo? No se puede deshacer.',
     noResult: { title: 'Aún sin resultado', desc: 'Envía un cuestionario para ver la salida del motor aquí.', cta: 'Abrir cuestionario' },
     error: { title: 'Error de pipeline', back: 'Volver al cuestionario' },
     saveHint: 'Para conservar el caso en el servidor hace falta una cuenta gratuita; sin ella, se queda solo en este navegador.',
@@ -1376,7 +1381,6 @@ const es: Locale = {
     help: "Carga en el cuestionario las respuestas de un caso publicado, para ver qué deduce la herramienta de un estudio real.",
     loadButton: 'Cargar preset',
     rationaleToggle: '¿Por qué estas respuestas? (rationale de compilación)',
-    replaceConfirm: "Cargar este ejemplo sustituye las respuestas en las que estás trabajando. Guarda primero tu caso si quieres conservarlo. ¿Cargar el ejemplo?",
     loaded: "Ejemplo cargado: {{name}}",
   },
 
@@ -1399,7 +1403,6 @@ const es: Locale = {
   },
 
   auth: {
-    logoutUnsaved: "Al cerrar sesión, el caso y la red de este navegador se vacían, para que la siguiente persona no los encuentre. Algunos cambios no están guardados en el servidor y se perderán.",
     sessionExpired: "Tu sesión ha caducado: vuelve a iniciar sesión. El caso se queda en este navegador.",
     title: 'Iniciar sesión',
     subtitle: 'Hace falta una cuenta para guardar casos en el servidor y para compartirlos. Un caso guardado solo lo lee quien tiene su enlace, y solo después de que lo compartas.',
@@ -1484,7 +1487,7 @@ const es: Locale = {
     title: 'Informe stakeholder',
     subtitle:
       'Vista multi-stakeholder del caso. Cambia de pestaña para ver la información adaptada a cada audiencia a lo largo de la cadena de valor biobasada.',
-    openButton: 'Abrir informe stakeholder',
+    openButton: "Ver las vistas por público",
     backToResult: 'Volver al resultado',
     openDcf: 'Abrir Data Collection File',
     loadingScoring: 'Cargando datos de scoring…',
@@ -1618,7 +1621,7 @@ const es: Locale = {
     changes: 'Respecto a la versión guardada: {{removed}} decisiones que documentar ya no se aplican, {{added}} añadidas.',
     changesFieldsGone: 'Campos que ya no se piden: {{fields}} — los valores introducidos se conservan pero no se exportan.',
     changesFieldsNew: 'Campos que ahora se piden: {{fields}}.',
-    changesNone: 'El Data Collection File pide lo mismo que la versión guardada.',
+    changesNone: "Las preguntas a las empresas son las mismas que en la versión guardada; las elecciones metodológicas escritas en los archivos siguen la versión guardada.",
     goSaveChanges: 'Ir al resultado para guardar los cambios',
   },
 
@@ -1642,8 +1645,7 @@ const es: Locale = {
 
   networkBuilder: {
     loadExample: 'Cargar ejemplo',
-    exampleReplaceConfirm:
-      'Esto sustituye la red que hay ahora en el lienzo por el ejemplo. ¿Continuar?',
+    exampleReplaceConfirm: "El ejemplo sustituye la red del lienzo. La red guardada para este caso se queda en el servidor hasta que pulses «Guardar red»: «{{button}}» la recupera. ¿Continuar?",
     whyAsked: 'Se pide porque:',
     hint: {
       step1: 'Añade un actor por cada participante en la simbiosis — una planta, una utility, un ayuntamiento.',
@@ -1719,6 +1721,41 @@ const es: Locale = {
       regulator: 'regulador',
       intermediary: 'intermediario',
     },
+    exampleReplaceConfirmLocal: "El ejemplo sustituye la red del lienzo. ¿Continuar?",
+    discard: "Descartar los cambios sin guardar",
+    discardConfirm: "¿Descartar los cambios sin guardar y recuperar la red guardada para este caso?",
+    countryInvalid: "Usa el código ISO del país de dos letras, por ejemplo CZ.",
+    countryBlocksSave: "Un país no es un código ISO de dos letras ({{actors}}): corrígelo para guardar la red.",
+  },
+
+  discard: {
+    savedCase: "Los cambios en «{{name}}» todavía sin guardar se perderán; la copia guardada se queda en Mis casos.",
+    notSaved: "Aquello en lo que trabajas no está guardado y se perderá: las respuestas, y la red si la dibujaste. Para conservarlo, guarda antes el caso desde la página de resultados.",
+    newAssessment: {
+      lead: "¿Iniciar una nueva evaluación?",
+      button: "Iniciar una nueva evaluación",
+    },
+    signOut: {
+      lead: "Al cerrar sesión se vacían el caso y la red de este navegador, para que la próxima persona no los encuentre.",
+      button: "Cerrar sesión",
+    },
+    loadCase: {
+      lead: "Abrir este caso sustituye las respuestas en las que estás trabajando.",
+      button: "Abrir el caso",
+    },
+    loadExample: {
+      lead: "Cargar este ejemplo sustituye las respuestas en las que estás trabajando.",
+      button: "Cargar el ejemplo",
+    },
+  },
+
+  notFound: {
+    title: "Página no encontrada",
+    body: "Esta página no existe: puede que el enlace esté incompleto o caducado.",
+    home: "Ir al inicio",
+    cases: "Mis casos",
+    report: "¿Te han enviado un informe compartido?",
+    reportLink: "Abrir un informe compartido",
   },
 
   cases: {
@@ -1728,8 +1765,7 @@ const es: Locale = {
     navLink: 'Mis casos',
     title: 'Mis casos',
     intro: 'Casos guardados en el servidor. «Abrir» muestra el caso (su resultado, si ya está calculado); «Ajustar respuestas» abre su cuestionario, y «Guardar cambios» en el resultado guarda lo que cambie. Eliminar borra un caso para siempre.',
-    loadReplaceConfirm: 'Cargar este caso sustituye las respuestas en las que estás trabajando, que no están guardadas. ¿Continuar?',
-    empty: 'Sin casos guardados aún. Guarda uno desde el cuestionario o la página de resultado.',
+    empty: "Todavía no hay casos guardados. Guarda uno desde la página de resultados.",
     columns: {
       name: 'Nombre',
       situation: 'Situación ILCD',
@@ -1738,7 +1774,7 @@ const es: Locale = {
     loadButton: 'Abrir',
     editButton: 'Ajustar respuestas',
     deleteButton: 'Eliminar',
-    confirmDelete: '¿Eliminar "{{name}}" permanentemente? No se puede deshacer.',
+    confirmDelete: "¿Eliminar «{{name}}» de Mis casos? No se puede deshacer.",
     saveButton: 'Guardar caso',
     saveAsButton: 'Guardar como nuevo…',
     saveTitle: 'Guardar caso',
@@ -1758,6 +1794,9 @@ const es: Locale = {
     networkNotCopied: 'El caso está guardado, pero la red no se pudo copiar: abre el Data Collection File y guarda la red.',
     sharedYes: 'Compartido: enlace público activo',
     sharedNo: 'Privado',
+    confirmDeleteShared: "El enlace público compartido para este caso dejará de funcionar.",
+    confirmDeleteOpen: "Es el caso abierto ahora: sus respuestas se quedan en este navegador como un caso todavía sin guardar.",
+    deletedOpen: "El caso «{{name}}» se ha eliminado de Mis casos. Sus respuestas siguen en este navegador: guárdalas de nuevo con «{{button}}» para seguir trabajando en ellas.",
   },
 }
 

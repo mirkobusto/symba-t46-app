@@ -76,7 +76,7 @@ const it: Locale = {
   },
 
   share: {
-    buttonLabel: 'Condividi report',
+    buttonLabel: "Condividi il link pubblico",
     title: 'Condividi questo report',
     lead: 'Manda uno di questi URL a uno stakeholder. Stesso caso, cornice diversa per ogni audience; per aprirli non serve il login. Per un\'etichetta di prodotto, condividi il link End user.',
     close: 'Chiudi',
@@ -85,7 +85,7 @@ const it: Locale = {
     copied: 'Copiato ✓',
     copyFailed: 'Copia fallita: copia l\'URL manualmente.',
     saveFirstTitle: 'Salva prima il caso',
-    saveFirstBody: 'Per condividere, il caso deve essere salvato sul server, e per salvarlo serve un account. Accedi, salva il caso con "Salva come nuovo…", poi riapri questa finestra.',
+    saveFirstBody: "Per condividere, il caso deve essere salvato sul server, e per salvarlo serve un account. Accedi, salva il caso con \"{{button}}\", poi riapri questa finestra.",
     audience: {
       industry: '🏭 Industria',
       community: '🌳 Comunità',
@@ -99,6 +99,7 @@ const it: Locale = {
     notSharedBody: 'Il report non è pubblico: solo tu puoi aprire questo caso. Attiva la condivisione per avere i link.',
     sharedBody: 'Il report è pubblico: chiunque abbia uno di questi link può leggerlo, senza le note e le quantità dei flussi.',
     signInButton: 'Accedi per salvare e condividere',
+    saveFirstBodySignedIn: "Per condividere, il caso deve essere salvato sul server. Salvalo prima con \"{{button}}\" nella pagina risultato, poi riapri questa finestra.",
   },
 
   reader: {
@@ -113,7 +114,7 @@ const it: Locale = {
     labelLine: 'Il link viene da un\'etichetta di prodotto? Questa pagina descrive come verranno studiati gli scambi fra le aziende. Non dice ancora nulla sul prodotto che hai comprato.',
     loading: 'Caricamento del report…',
     notFoundTitle: 'Report non trovato',
-    notFoundBody: 'Nessun report con questo codice. Controlla di aver copiato tutto il link, oppure chiedilo di nuovo a chi te l\'ha mandato.',
+    notFoundBody: "Questo report non è disponibile: il link può essere incompleto, oppure chi l'ha condiviso ha smesso di condividerlo. Chiedi a chi te l'ha mandato.",
     tryAnother: 'Prova un altro link o codice',
     aboutLink: 'Scopri SYMBA',
     open: {
@@ -229,8 +230,6 @@ const it: Locale = {
     navLabel: 'Navigazione principale',
     menuOpen: "Menu",
     menuClose: "Chiudi",
-    searchLabel: 'Cerca',
-    searchPlaceholder: 'Cerca casi, partner… (⌘K)',
     footerGa: 'GA',
     footerProgramme: 'Horizon Europe · M22–M36',
     groups: {
@@ -240,7 +239,7 @@ const it: Locale = {
     },
     nav: {
       home: 'Home',
-      questionnaire: 'Nuova valutazione',
+      questionnaire: "Questionario",
       cases: 'I miei casi',
       recentResult: 'Ultimo risultato',
       stakeholder: 'Report stakeholder',
@@ -278,7 +277,7 @@ const it: Locale = {
     title: "SYMBA: valutare la simbiosi industriale",
     tagline: "Come impostare la valutazione ambientale, economica e sociale di uno scambio fra aziende, e quali dati raccogliere.",
     description: "Rispondi a domande sul tuo caso: lo scarto, il sottoprodotto, il calore o l'acqua di un'azienda che diventano materia prima per un'altra. Ottieni la configurazione metodologica che lo studio deve seguire e un Data Collection File da mandare ai partner.",
-    startButton: 'Avvia nuova valutazione',
+    startButton: "Avvia una nuova valutazione",
     modeLabel: "Come vuoi rispondere",
     modeExpert: 'Esperto',
     modeGuided: 'Guidato',
@@ -504,8 +503,7 @@ const it: Locale = {
     introPlain: "Domande sul tuo scambio fra aziende, in tre parti. Quelle con * sono obbligatorie; le altre rendono il risultato più preciso. Sotto ogni domanda trovi una spiegazione breve, in parole semplici.",
     runButton: 'Calcola la configurazione',
     runningButton: 'Sto calcolando…',
-    resetButton: 'Reset bozza',
-    confirmReset: 'Scartare tutte le risposte e ricominciare? Operazione non reversibile.',
+    resetButton: "Avvia una nuova valutazione",
     stepper: {
       progress: "Domanda {{n}} di {{total}} · {{part}}",
       back: "← Indietro",
@@ -715,7 +713,7 @@ const it: Locale = {
     q8: {
       title: 'Q8 — Orizzonte temporale dello studio',
       invalid: "Scrivi gli anni come numero maggiore di 0 (al massimo {{max}}); l'anno di esercizio tra 1900 e 2200.",
-      invalidShort: "anni maggiori di 0",
+      invalidShort: "anni: un numero maggiore di 0, al massimo 500",
       help: 'Facoltativa. Un solo orizzonte per LCA e LCC.',
       horizonWarning: 'Oltre {{threshold}} anni: lo studio dovrà prevedere come cambiano energia e mercati (background futuro per LCA e LCC).',
       details: 'I deliverable chiedono un solo orizzonte temporale per LCA, LCC e S-LCA (D4.2 §11, D4.1 §14). Gli scenari di background futuri (SSP/RCP) si aggiungono a entrambe quando il sistema opera in un anno futuro (D4.1 §9.3.5, §12.3.2), quando la tecnologia chiave è sotto TRL 7 (Q6b) o quando il periodo di analisi o la vita degli asset principali supera 15 anni (D4.2 §9.3, che dà la cifra senza fonte; si può cambiare fra le impostazioni avanzate). Senza risposta, l\'anno di esercizio è quello dello studio. Il periodo di analisi è l\'arco di tempo coperto dallo studio; di norma coincide con la vita tecnica degli asset principali (D4.2 §9). La vita degli asset principali è anche il periodo su cui si ammortizzano i loro beni capitali, lo stesso in LCA e LCC (D4.1 §6.3.3, §14.2.2); gli asset con una vita diversa vanno nel file di raccolta dati.',
@@ -812,8 +810,13 @@ const it: Locale = {
       title: 'Override avanzati (modalità esperto)',
       activeKeys_one: '{{count}} chiave attiva',
       activeKeys_other: '{{count}} chiavi attive',
+      invalid: "Impostazioni avanzate (un valore non è valido)",
     },
     scopeNotePlain: 'Lo strumento non fa i calcoli: ti dice come va fatto lo studio e quali dati raccogliere. I calcoli li fa poi un analista.',
+    editing: {
+      saved: "Stai modificando il caso salvato \"{{name}}\".",
+      notSaved: "Queste risposte non sono ancora salvate: elabora la configurazione, poi salva il caso dalla pagina risultato.",
+    },
   },
 
   flows: {
@@ -913,11 +916,9 @@ const it: Locale = {
   },
 
   advanced: {
-    intro:
-      'Override in modalità esperto. Una chiave lasciata vuota tiene il valore predefinito; un valore si legge come true/false, numero o testo.',
+    intro: "Override in modalità esperto: le tre impostazioni che il motore legge. Un'impostazione lasciata vuota tiene il valore predefinito.",
     headers: { key: 'Chiave', value: 'Valore', hint: 'Suggerimento', custom: 'custom' },
     examplePlaceholder: 'es. {{example}}',
-    addCustom: 'Aggiungi chiave custom',
     clearAria: 'Pulisci {{key}}',
     removeAria: 'Rimuovi {{key}}',
     hints: {
@@ -926,6 +927,11 @@ const it: Locale = {
       future_background_threshold_years:
         'Anni. L\'orizzonte di studio oltre il quale LCA e LCC richiedono il background futuro (lca_mc_21, lcc_hc_23, CIR-01). Default 15, la cifra che il D4.2 §9.3 dà senza fonte; se la cambi, giustificala nella carta metodologica',
     },
+    invalid: {
+      years: "Anni: un numero maggiore di 0, al massimo 500.",
+      absolute: "L'unico valore letto è \"absolute\".",
+    },
+    notRead: "Il motore non la legge: rimuovila.",
   },
 
   narrative: {
@@ -1048,7 +1054,6 @@ const it: Locale = {
         regional: 'Impatti locali',
         sectors: 'Regole di settore',
         shared: 'Beni dedicati',
-        sharedLca: 'La loro produzione e il fine vita inventariati nell\'LCA e ammortizzati sulla vita tecnica di ciascun bene (D4.1 §6.3.3)',
         claimPublic: 'Confronti',
         multifunctionality: 'Multifunzionalità',
         flowsLcc: 'Costo di ogni flusso',
@@ -1115,6 +1120,7 @@ const it: Locale = {
         regional_C: 'Fattori per paese o regione per il territorio di ogni emissione',
         regional_unset: 'Fattori specifici per il luogo dove le interazioni chiave sono intensamente locali',
         shared: 'CAPEX e OPEX nel prospetto dei costi, a carico dei partner che ne beneficiano (tutto a una sola azienda se li usa solo lei)',
+        sharedLca: 'La loro produzione e il fine vita inventariati nell\'LCA e ammortizzati sulla vita tecnica di ciascun bene (D4.1 §6.3.3)',
         multiSubstitution: 'Sostituzione (espansione del sistema) sul mix medio di mercato, con il fattore di qualità Q',
         multiConsequential: 'Conseguenziale: sostituzione sulla tecnologia marginale',
         multiAllocation: 'Allocazione: nessun credito di sostituzione',
@@ -1281,15 +1287,14 @@ const it: Locale = {
     rawJson: 'Risposta JSON grezza',
     actions: {
       adjust: 'Modifica risposte',
-      startFresh: 'Ricomincia (cancella tutto)',
+      startFresh: "Avvia una nuova valutazione",
       downloadJson: 'Scarica caso (.json)',
-      downloadReport: 'Scarica report (.docx)',
+      downloadReport: "Scarica il report Word (.docx)",
       downloadingReport: 'Generazione report…',
       reportError: 'Generazione report fallita',
       runScenarios: 'Esegui scenari',
       runningScenarios: 'Esecuzione scenari…',
     },
-    confirmStartFresh: 'Scartare il caso corrente e ricominciare? Operazione non reversibile.',
     noResult: { title: 'Nessun risultato', desc: 'Invia un questionario per vedere l\'output del motore qui.', cta: 'Apri questionario' },
     error: { title: 'Errore della pipeline', back: 'Torna al questionario' },
     saveHint: 'Per conservare il caso sul server serve un account gratuito; senza, resta solo in questo browser.',
@@ -1401,7 +1406,6 @@ const it: Locale = {
     help: "Carica nel questionario le risposte di un caso pubblicato, così vedi che cosa ricava lo strumento da uno studio vero.",
     loadButton: 'Carica preset',
     rationaleToggle: 'Perché queste risposte? (rationale di compilazione)',
-    replaceConfirm: "Caricare questo esempio sostituisce le risposte su cui stai lavorando. Se vuoi tenerle, salva prima il caso. Caricare l'esempio?",
     loaded: "Esempio caricato: {{name}}",
   },
 
@@ -1424,7 +1428,6 @@ const it: Locale = {
   },
 
   auth: {
-    logoutUnsaved: "Uscendo, il caso e la rete di questo browser vengono svuotati, così chi accede dopo non li trova. Alcune modifiche non sono salvate sul server e andranno perse.",
     sessionExpired: "La sessione è scaduta: accedi di nuovo. Il caso resta in questo browser.",
     title: 'Accedi',
     subtitle:
@@ -1510,7 +1513,7 @@ const it: Locale = {
     title: 'Report stakeholder',
     subtitle:
       'Vista multi-stakeholder del caso. Cambia tab per vedere le informazioni adattate per ogni audience lungo la value chain bio-based.',
-    openButton: 'Apri report stakeholder',
+    openButton: "Vedi le viste per pubblico",
     backToResult: 'Torna al risultato',
     openDcf: 'Apri Data Collection File',
     loadingScoring: 'Caricamento dati di scoring…',
@@ -1644,7 +1647,7 @@ const it: Locale = {
     changes: 'Rispetto alla versione salvata: {{removed}} scelte da documentare non valgono più, {{added}} aggiunte.',
     changesFieldsGone: 'Campi non più chiesti: {{fields}}. I valori inseriti restano conservati ma non vanno nei file.',
     changesFieldsNew: 'Campi ora chiesti: {{fields}}.',
-    changesNone: 'Il Data Collection File chiede le stesse cose della versione salvata.',
+    changesNone: "Le domande alle aziende sono le stesse della versione salvata; le scelte metodologiche scritte nei file seguono ancora la versione salvata.",
     goSaveChanges: 'Vai al risultato per salvare le modifiche',
   },
 
@@ -1668,8 +1671,7 @@ const it: Locale = {
 
   networkBuilder: {
     loadExample: 'Carica esempio',
-    exampleReplaceConfirm:
-      'Questo sostituisce la rete attualmente sul canvas con l\'esempio. Procedo?',
+    exampleReplaceConfirm: "L'esempio sostituisce la rete sulla tela. La rete salvata per questo caso resta sul server finché non premi \"Salva rete\": \"{{button}}\" la riporta indietro. Continuare?",
     whyAsked: 'Richiesto perché:',
     hint: {
       step1: 'Aggiungi un attore per ogni partecipante alla simbiosi: un impianto, una utility, un comune.',
@@ -1745,6 +1747,41 @@ const it: Locale = {
       regulator: 'regolatore',
       intermediary: 'intermediario',
     },
+    exampleReplaceConfirmLocal: "L'esempio sostituisce la rete sulla tela. Continuare?",
+    discard: "Annulla le modifiche non salvate",
+    discardConfirm: "Annullare le modifiche non salvate e riportare la rete salvata per questo caso?",
+    countryInvalid: "Usa il codice ISO del paese di due lettere, ad esempio CZ.",
+    countryBlocksSave: "Un paese non è un codice ISO di due lettere ({{actors}}): correggilo per salvare la rete.",
+  },
+
+  discard: {
+    savedCase: "Le modifiche a \"{{name}}\" non ancora salvate andranno perse; la copia salvata resta in I miei casi.",
+    notSaved: "Quello su cui stai lavorando non è salvato e andrà perso: le risposte, e la rete se l'hai disegnata. Per tenerlo, salva prima il caso dalla pagina risultato.",
+    newAssessment: {
+      lead: "Avviare una nuova valutazione?",
+      button: "Avvia una nuova valutazione",
+    },
+    signOut: {
+      lead: "Uscendo, il caso e la rete di questo browser vengono svuotati, così la prossima persona non li trova.",
+      button: "Esci",
+    },
+    loadCase: {
+      lead: "Aprire questo caso sostituisce le risposte su cui stai lavorando.",
+      button: "Apri il caso",
+    },
+    loadExample: {
+      lead: "Caricare questo esempio sostituisce le risposte su cui stai lavorando.",
+      button: "Carica l'esempio",
+    },
+  },
+
+  notFound: {
+    title: "Pagina non trovata",
+    body: "Questa pagina non esiste: il link può essere incompleto o non più valido.",
+    home: "Vai alla Home",
+    cases: "I miei casi",
+    report: "Ti hanno mandato un report condiviso?",
+    reportLink: "Apri un report condiviso",
   },
 
   cases: {
@@ -1754,8 +1791,7 @@ const it: Locale = {
     navLink: 'I miei casi',
     title: 'I miei casi',
     intro: 'Casi salvati sul server. «Apri» mostra il caso (il suo risultato, se è già calcolato); «Modifica risposte» apre il suo questionario, e «Salva modifiche» nel risultato registra ciò che cambi. Elimina toglie un caso per sempre.',
-    loadReplaceConfirm: 'Caricare questo caso sostituisce le risposte su cui stai lavorando, che non sono salvate. Continuare?',
-    empty: 'Nessun caso salvato. Salva un caso dal questionario o dalla result page.',
+    empty: "Nessun caso salvato. Salvane uno dalla pagina risultato.",
     columns: {
       name: 'Nome',
       situation: 'Situazione ILCD',
@@ -1764,7 +1800,7 @@ const it: Locale = {
     loadButton: 'Apri',
     editButton: 'Modifica risposte',
     deleteButton: 'Elimina',
-    confirmDelete: 'Eliminare "{{name}}" definitivamente? Operazione non reversibile.',
+    confirmDelete: "Eliminare \"{{name}}\" da I miei casi? L'operazione non si può annullare.",
     saveButton: 'Salva caso',
     saveAsButton: 'Salva come nuovo…',
     saveTitle: 'Salva caso',
@@ -1784,6 +1820,9 @@ const it: Locale = {
     networkNotCopied: 'Il caso è salvato, ma la rete non è stata copiata: apri il Data Collection File e salva la rete.',
     sharedYes: 'Condiviso: link pubblico attivo',
     sharedNo: 'Privato',
+    confirmDeleteShared: "Il link pubblico condiviso per questo caso smetterà di funzionare.",
+    confirmDeleteOpen: "È il caso aperto ora: le sue risposte restano in questo browser come caso non ancora salvato.",
+    deletedOpen: "Il caso \"{{name}}\" è stato eliminato da I miei casi. Le sue risposte sono ancora in questo browser: salvale di nuovo con \"{{button}}\" per continuare a lavorarci.",
   },
 }
 

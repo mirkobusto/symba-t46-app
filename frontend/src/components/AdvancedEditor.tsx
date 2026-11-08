@@ -1,19 +1,15 @@
 // Advanced overrides editor — i18n.
+//
+// The three keys the engine reads (advancedKeys.ts), each checked as typed: a
+// value it cannot read is said, and the questionnaire does not run until it
+// is fixed or cleared. "Add custom key" made a key with no name and no effect,
+// since the engine reads no other key (UX round 6, P7-13): it is gone. Keys of
+// that kind in a case saved earlier are listed, to be removed.
 
-import { Plus, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-// Only the keys the engine actually reads from `case.advanced`:
-// `asset_lifetime` and `future_background_threshold_years`
-// (engine/activate.py) and `slca_framework_override` (engine/l1_blocks.py).
-// The other keys once listed here never reached a rule (I-17): since R3
-// (2026-10-18) is_specific_capital_goods is Q12, FU-02 follows Q11, and
-// CIR-03 / CIR-04 / CIR-06 are retired because nodes cover them for every case.
-const KNOWN_KEYS = [
-  { key: 'slca_framework_override', example: 'absolute' },
-  { key: 'asset_lifetime', example: '20' },
-  { key: 'future_background_threshold_years', example: '15' },
-] as const
+import { KNOWN_KEYS, validAdvancedValue } from './advancedKeys'
 
 interface Props {
   advanced: Record<string, unknown>
@@ -23,12 +19,12 @@ interface Props {
 export default function AdvancedEditor({ advanced, onChange }: Props) {
   const { t } = useTranslation()
   const entries = Object.entries(advanced)
-  const customEntries = entries.filter(
+  const otherEntries = entries.filter(
     ([k]) => !KNOWN_KEYS.some((kk) => kk.key === k),
   )
 
   function setKey(key: string, raw: string) {
-    if (raw === '') {
+    if (raw.trim() === '') {
       const next = { ...advanced }
       delete next[key]
       onChange(next)
@@ -41,13 +37,6 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
     const next = { ...advanced }
     delete next[key]
     onChange(next)
-  }
-
-  function addCustom() {
-    const base = 'custom_'
-    let i = 1
-    while (advanced[`${base}${i}`] !== undefined) i += 1
-    onChange({ ...advanced, [`${base}${i}`]: '' })
   }
 
   function valueOf(key: string): string {
@@ -71,52 +60,56 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
           </tr>
         </thead>
         <tbody>
-          {KNOWN_KEYS.map((k) => (
-            <tr key={k.key}>
-              <td>
-                <code>{k.key}</code>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  className="row-input"
-                  value={valueOf(k.key)}
-                  aria-label={`${t('advanced.headers.value')}: ${k.key}`}
-                  placeholder={t('advanced.examplePlaceholder', { example: k.example })}
-                  onChange={(e) => setKey(k.key, e.target.value)}
-                />
-              </td>
-              <td className="muted">{t(`advanced.hints.${k.key}`)}</td>
-              <td>
-                {advanced[k.key] !== undefined ? (
-                  <button
-                    type="button"
-                    className="icon-btn"
-                    onClick={() => removeKey(k.key)}
-                    aria-label={t('advanced.clearAria', { key: k.key })}
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                ) : null}
-              </td>
-            </tr>
-          ))}
+          {KNOWN_KEYS.map((k) => {
+            const value = valueOf(k.key)
+            const invalid = value.trim() !== '' && !validAdvancedValue(k.kind, advanced[k.key])
+            const errorId = `advanced-${k.key}-error`
+            return (
+              <tr key={k.key}>
+                <td>
+                  <code>{k.key}</code>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    className="row-input"
+                    value={value}
+                    aria-label={`${t('advanced.headers.value')}: ${k.key}`}
+                    aria-invalid={invalid}
+                    aria-describedby={invalid ? errorId : undefined}
+                    placeholder={t('advanced.examplePlaceholder', { example: k.example })}
+                    onChange={(e) => setKey(k.key, e.target.value)}
+                  />
+                  {invalid ? (
+                    <div id={errorId} className="error-text">{t(`advanced.invalid.${k.kind}`)}</div>
+                  ) : null}
+                </td>
+                <td className="muted">{t(`advanced.hints.${k.key}`)}</td>
+                <td>
+                  {advanced[k.key] !== undefined ? (
+                    <button
+                      type="button"
+                      className="icon-btn"
+                      onClick={() => removeKey(k.key)}
+                      aria-label={t('advanced.clearAria', { key: k.key })}
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  ) : null}
+                </td>
+              </tr>
+            )
+          })}
 
-          {customEntries.map(([k]) => (
+          {otherEntries.map(([k]) => (
             <tr key={k}>
               <td>
                 <code>{k}</code>
               </td>
               <td>
-                <input
-                  type="text"
-                  className="row-input"
-                  value={valueOf(k)}
-                  aria-label={`${t('advanced.headers.value')}: ${k}`}
-                  onChange={(e) => setKey(k, e.target.value)}
-                />
+                <span className="muted">{valueOf(k) || '—'}</span>
               </td>
-              <td className="muted">{t('advanced.headers.custom')}</td>
+              <td className="muted">{t('advanced.notRead')}</td>
               <td>
                 <button
                   type="button"
@@ -131,11 +124,6 @@ export default function AdvancedEditor({ advanced, onChange }: Props) {
           ))}
         </tbody>
       </table>
-
-      <button type="button" className="btn btn-secondary" onClick={addCustom}>
-        <Plus size={16} />
-        {t('advanced.addCustom')}
-      </button>
     </div>
   )
 }

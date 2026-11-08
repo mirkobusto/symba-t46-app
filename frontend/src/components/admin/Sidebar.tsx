@@ -5,7 +5,10 @@
 // visual-identity notes.
 //
 // Groups:
-//   - Workspace  → Home overview / New assessment / My cases / Recent results
+//   - Workspace  → Home overview / Questionnaire / My cases / Recent results
+//     ("New assessment" reopened the current answers without saying so: the
+//     item is named for what it opens, and a new assessment starts from the
+//     questionnaire or Home, asking first; UX round 6, P6-14)
 //   - Reports    → Stakeholder views / Regional dashboard
 //   - System     → About / Change role (Scoring queue will land in a later phase)
 //

@@ -9,24 +9,23 @@ import { useNavigate } from 'react-router-dom'
 import { PRESETS } from '../presets/papers'
 import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
-import { askConfirm } from '../store/dialogStore'
+import { clearLocalWork, confirmDiscard } from '../store/signOut'
 
 export default function PresetLoader() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const setDraft = useCaseStore((s) => s.setDraft)
-  const draft = useCaseStore((s) => s.draft)
   const [presetId, setPresetId] = useState<string>(PRESETS[0]?.id ?? '')
 
   async function handleLoad() {
     const preset = PRESETS.find((p) => p.id === presetId)
     if (!preset) return
     // loading replaced a case being built, silently (UX round 2026-11-02)
-    const hasWork = !!draft.q1 || !!draft.decision_context || (draft.flows?.length ?? 0) > 0
-    if (hasWork && !(await askConfirm(t('preset.replaceConfirm')))) return
+    if (!(await confirmDiscard('loadExample'))) return
     // an example is a different study: it must not be saved over the case
-    // that was open ("Save changes" overwrites, UX round 5)
-    useCaseStore.getState().setServerCase(null)
+    // that was open ("Save changes" overwrites, UX round 5), nor carry the
+    // network drawn for it
+    clearLocalWork()
     setDraft({
       q3: { env: false, eco: false, soc: false },
       q4: [],

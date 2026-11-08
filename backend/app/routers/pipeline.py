@@ -24,6 +24,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas, load_schemas
 from app.engine.pipeline import run as pipeline_run
+from app.engine.scenario_diff import node_changes
 from app.services.reports import generate_case_report_bytes
 
 router = APIRouter(tags=["pipeline"])
@@ -186,6 +187,22 @@ class ScenariosRequest(BaseModel):
     scenarios: list[ScenarioInput] = []
 
 
+class NodeChange(BaseModel):
+    id: str
+    method: str | None = None
+    source_section: str | None = None
+    # the node's text on the run, English as traced on the deliverables
+    text: str = ""
+    # changed nodes only: the text on the case
+    before: str | None = None
+
+
+class NodeChanges(BaseModel):
+    added: list[NodeChange] = []
+    removed: list[NodeChange] = []
+    changed: list[NodeChange] = []
+
+
 class ScenarioResult(BaseModel):
     id: str
     label: str
@@ -193,6 +210,9 @@ class ScenarioResult(BaseModel):
     # why the scenario could not be run; the result is then the bare answers,
     # not a configuration to compare (UX round 5, P7-11)
     error: str | None = None
+    # the practices the scenario adds, removes or words differently: the
+    # comparison only gave their count (UX round 6, P6-09). None on a failed run.
+    node_changes: NodeChanges | None = None
 
 
 class ScenariosResponse(BaseModel):
@@ -271,9 +291,11 @@ def run_scenarios(
     scenario_results: list[ScenarioResult] = []
     for scenario in payload.scenarios:
         error = None
+        changes = None
         try:
             sc_case = _apply_overrides(payload.baseline, scenario.overrides)
             sc_result = pipeline_run(sc_case, schemas)
+            changes = NodeChanges(**node_changes(baseline_result, sc_result, schemas))
         except ValueError as exc:
             error = _scenario_error(exc)
             # On scenario failure, return an empty Case shell so the
@@ -285,7 +307,8 @@ def run_scenarios(
             except ValueError:
                 sc_result = _apply_overrides(payload.baseline, {})
         scenario_results.append(
-            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result, error=error)
+            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result, error=error,
+                           node_changes=changes)
         )
 
     return ScenariosResponse(

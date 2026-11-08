@@ -630,19 +630,19 @@ const fr: Locale = {
     },
 
     q5: {
-      title: 'Q5 — Nature de chaque flux symbiotique (par flux)',
+      title: "Q5 — Qui paie qui pour chaque flux",
       help:
         "Ajoutez une ligne par flux symbiotique principal et indiquez qui paie qui. Obligatoire quand vous analysez un échange, un réseau ou une seule entreprise (Q1 = A, B ou D) ; facultatif sinon.",
       details:
-        'Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), indiquez qui paie qui : ' +
-        'a — A paie B pour reprendre le flux (un tarif de prise en charge : valeur de marché négative, un DÉCHET pour A, D4.1 §8.3.2). Le zéro-charge s\'applique à partir du point où le résidu atteint pour la première fois une valeur non négative, pas à la porte. Payer ne veut pas dire inévitable : D4.2 §6.2 exige aussi le test causal d\'évitabilité, déclaré par flux dans le Data Collection File. ' +
-        "b — flux échangé GRATUITEMENT (statut ambigu) : le test de valeur économique décide s'il s'agit d'un déchet ou d'un coproduit, avec une analyse de sensibilité. " +
-        'c — B paie A pour le flux (valeur de marché positive : un CO-PRODUIT pour A) : substitution de la matière vierge déplacée, avec un ratio corrigé de la qualité. La Circular Footprint Formula du PEF n\'est pas liée à Q5 : elle vient de Q4=D. Si aucun tiers ne paierait pour le flux (test de Freedom-to-Act, D4.1 §8.3.3), le prix est administratif et le flux est modélisé comme un déchet. ' +
-        'd — flux INTERDÉPENDANT : A a délibérément modifié son procédé (qualité, quantité, post-traitement) pour fournir B ; un co-produit quel que soit le prix, jamais zéro-charge. ' +
-        'e — AGRÉGÉ / boîte noire : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C\'est une limite de la source, pas un choix de modélisation : D4.1 §8.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. ' +
-        'Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de zéro-charge) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.',
+        "Pour chaque flux principal échangé entre acteurs (chaleur, CO₂, laitier, eaux usées, hydrogène…), indiquez qui paie qui. La réponse fixe la façon dont le flux est modélisé au départ ; sa classe juridique ne se décide pas ici. " +
+        "a. Qui le cède paie qui le reçoit pour s'en débarrasser (un tarif de prise en charge : valeur de marché négative, D4.1 §8.3.2) : modélisé comme un déchet, à charge nulle à partir du point où le résidu atteint pour la première fois une valeur non négative, pas à la porte. Payer ne veut pas dire inévitable : D4.2 §6.2 exige aussi le test causal d'évitabilité, déclaré par flux dans le Data Collection File. " +
+        "b. Personne ne paie, ou ce n'est pas encore clair : le test de valeur économique tranche entre charge nulle et substitution, avec une analyse de sensibilité (D4.1 §8.3.2). " +
+        "c. Qui le reçoit paie qui le cède (valeur de marché positive, D4.1 §8.3.2) : modélisé comme un coproduit, substitution de la matière vierge déplacée avec un ratio corrigé de la qualité. La Circular Footprint Formula du PEF n'est pas liée à Q5 : elle vient de Q4=D. Si aucun tiers ne voulait payer le flux (test de Freedom-to-Act, D4.1 §8.3.3), le prix est administratif et le flux est modélisé comme un déchet. " +
+        "d. Les deux installations dépendent l'une de l'autre : celui qui le cède a délibérément modifié son procédé (qualité, quantité, post-traitement) pour fournir celui qui le reçoit ; modélisé comme un coproduit déterminant quel que soit le prix, jamais à charge nulle (D4.1 §8.3.6 étape 2). " +
+        "e. Un seul chiffre total pour tout le réseau : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C'est une limite de la source, pas un choix de modélisation : D4.1 §8.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. " +
+        "Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de charge nulle) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.",
       plain:
-        'Pour chaque chose qui circule entre les entreprises — chaleur, eau, scories, CO₂ — la question ici est seulement qui paie qui : l\'expéditeur paie pour s\'en débarrasser, personne ne paie, ou le destinataire paie pour l\'obtenir. Si l\'expéditeur a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l\'argent. Pour ce partenaire, toutefois : un séchoir construit pour vendre le flux à n\'importe qui n\'est pas de l\'interdépendance — choisissez « le destinataire paie » et déclarez-le parmi les biens dédiés. Si votre source ne donne qu\'un chiffre pour tout le réseau, choisissez la dernière option ; on vous demandera quand même chaque flux que vous savez nommer. Le statut juridique de déchet se décide plus tard, dans le fichier de collecte.',
+        "Pour chaque chose qui circule entre les entreprises (chaleur, eau, scories, CO₂), la question ici est seulement qui paie qui : celui qui le cède paie pour s'en débarrasser, personne ne paie, ou celui qui le reçoit le paie. Si celui qui le cède a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l'argent. Pour ce partenaire, toutefois, un séchoir construit pour vendre le flux à n'importe qui n'est pas de l'interdépendance : choisissez « Qui le reçoit paie qui le cède » et déclarez-le parmi les biens dédiés. Si votre source ne donne qu'un chiffre pour tout le réseau, choisissez la dernière option ; on vous demandera quand même chaque flux que vous savez nommer. Le statut juridique de déchet se décide plus tard, dans le fichier de collecte.",
     },
 
     q6a: {
@@ -791,12 +791,12 @@ const fr: Locale = {
       details: "La D4.1 Part 2 demande que l'unité fonctionnelle reflète la fonction principale du système (§4.3, §6.3, §8.3) : une unité basée sur l'intrant (p. ex. traitement d'une tonne de déchet) lorsque l'étude compare des filières de gestion d'un déchet ou la performance d'une installation ou d'un service ; une unité basée sur l'extrant (p. ex. 1 kg de produit, 1 MJ d'énergie) lorsqu'elle compare des produits à leurs alternatives de marché ou étaye une allégation de substitution ; un système d'unités fonctionnelles lorsque les deux fonctions sont co-principales (Part 1 §5.3.2). La D4.2 §3.1 demande pour la LCC une unité double (déchet traité + produit obtenu) lorsque la substitution de produit guide l'étude : les deux livrables divergent, l'outil suit la Part 2 pour la LCA et signale l'écart.",
       options: {
         unset: 'Je ne sais pas / rien n\'est comparé (l\'outil utilise une unité fondée sur le service rendu)',
-        waste_treatment: "La gestion d'un déchet — filières, performance d'une installation ou d'un service (unité basée sur l'intrant)",
+        waste_treatment: "La gestion d'un résidu : filières de traitement, performance d'une installation ou d'un service (unité basée sur l'intrant)",
         product_substitution: "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
         co_primary: "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)",
       },
       plain:
-        "Sur quoi porte vraiment la comparaison ? Si la question est de savoir comment traiter au mieux un déchet — le brûler, le méthaniser, le composter —, le résultat se compte par tonne de déchet traité. Si la question est de savoir si le produit récupéré vaut mieux que celui qu'il remplace, il se compte par unité de produit. Si les deux comptent autant, on les compte côte à côte.",
+        "Sur quoi porte vraiment la comparaison ? Si la question est de savoir comment traiter au mieux un résidu (le brûler, le méthaniser, le composter), le résultat se compte par tonne de résidu traité. Si la question est de savoir si le produit récupéré vaut mieux que celui qu'il remplace, il se compte par unité de produit. Si les deux comptent autant, on les compte côte à côte.",
     },
     q12: {
       title: 'Q12 — La symbiose utilise-t-elle des biens dédiés ?',
@@ -837,19 +837,12 @@ const fr: Locale = {
       sector: 'Secteur de ce qui est échangé (facultatif)',
       configuration: 'Type de réemploi (facultatif)',
     },
-    plainOptions: {
-      a: 'Qui le cède paie qui le reçoit pour s\'en débarrasser (un déchet pour qui le cède)',
-      b: 'Personne ne paie, ou ce n\'est pas encore clair',
-      c: 'Qui le reçoit paie qui le cède (un produit pour qui le cède)',
-      d: 'Les deux installations dépendent l\'une de l\'autre (l\'une a été modifiée pour alimenter l\'autre)',
-      e: 'Un seul chiffre total pour tout le réseau',
-    },
-    q5Note: 'Répondez selon l\'arrangement actuel — convenu, ou prévu si l\'échange n\'existe pas encore. C\'est une hypothèse de départ, pas un résultat : si l\'étude change qui paie qui, revenez le modifier. Choisissez « Personne ne paie, ou ce n\'est pas encore clair » quand c\'est réellement indécis.',
+    q5Note: 'Répondez selon l\'arrangement actuel : convenu, ou prévu si l\'échange n\'existe pas encore. C\'est une hypothèse de départ, pas un résultat : si l\'étude change qui paie qui, revenez le modifier. Choisissez « Personne ne paie, ou ce n\'est pas encore clair » quand c\'est réellement indécis.',
     emptyHint: 'Aucun flux. Ajoutez-en au moins un pour caractériser la Q5 par-flux.',
     headers: { id: 'ID', name: 'Nom', q5: "Qui paie qui (Q5)", sellable: 'Vendable à d\'autres ?', sector: 'Secteur (Partie 2)', configuration: "Configuration (Partie 2)" },
     q5Unset: "— choisir qui paie qui",
     sellable: { unset: '— sans réponse', yes: 'Oui', no: 'Non' },
-    sellableHint: "Si le partenaire ne prenait pas ce flux, le générateur pourrait-il le vendre à quelqu'un d'autre à un prix positif ? Oui en fait un co-produit. Non n'en fait pas à lui seul un déchet : un preneur unique qui paie ce que paierait un acheteur indépendant (le prix du produit que le flux remplace, net de ses coûts supplémentaires pour l'utiliser) en fait quand même un co-produit ; un flux cédé gratuitement, ou un paiement qui ne fait que partager les coûts, en fait un déchet (D4.1 §8.3.3). Facultatif : le résultat signale quand il ne concorde pas avec Q5.",
+    sellableHint: "Si le partenaire ne prenait pas ce flux, celui qui le cède pourrait-il le vendre à quelqu'un d'autre à un prix positif ? Oui indique un flux modélisé comme un coproduit. Non n'indique pas à lui seul un déchet : un preneur unique qui paie ce que paierait un acheteur indépendant (le prix du produit que le flux remplace, net de ses coûts supplémentaires pour l'utiliser) indique quand même un coproduit ; un flux cédé gratuitement, ou un paiement qui ne fait que partager les coûts, indique un flux modélisé comme un déchet (D4.1 §8.3.3). Facultatif : le résultat signale quand il ne concorde pas avec qui paie qui.",
     sectorHint: 'Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l\'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d\'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l\'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n\'a de chapitres que pour ces secteurs biosourcés : pour l\'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s\'applique. Le bois et les résidus forestiers (sciure, écorce, lignine, liqueur noire) n\'ont pas de chapitre dans la Part 2 : choisissez « — aucun de ceux-ci ».',
     sectorNone: '— aucun de ceux-ci',
     configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur.",
@@ -886,11 +879,11 @@ const fr: Locale = {
     addButton: 'Ajouter un flux',
     removeAria: 'Supprimer {{id}}',
     options: {
-      a: "a — le fournisseur (A) paie le receveur (B) : déchet",
-      b: 'b — Échange gratuit (ambigu)',
-      c: "c — le receveur (B) paie le fournisseur (A) : co-produit",
-      d: 'd — Interdépendant',
-      e: 'e — Agrégé / black-box',
+      a: "a. Qui le cède paie qui le reçoit pour s'en débarrasser",
+      b: "b. Personne ne paie, ou ce n'est pas encore clair",
+      c: "c. Qui le reçoit paie qui le cède",
+      d: "d. Les deux installations dépendent l'une de l'autre (l'une a été modifiée pour alimenter l'autre)",
+      e: "e. Un seul chiffre total pour tout le réseau",
     },
     plainEmpty: 'Aucun échange. Ajoutez chaque chose qui passe entre les entreprises (lactosérum, sciure, chaleur, eau…).',
     plainSectorHint: 'Facultatif. Choisissez un secteur seulement si ce qui est échangé relève d\'un des secteurs biosourcés listés (agroalimentaire, plastiques, eaux usées, textile, déchets). Pour le bois, la sciure, les résidus forestiers ou papetiers, l\'acier, le ciment ou la chaleur, laissez « — aucun de ceux-ci ». En cas de doute, laissez : l\'analyste le fixera.',
@@ -1010,8 +1003,8 @@ const fr: Locale = {
     // guided mode: notes in plain words (UX round 4)
     engineNotesPlain: {
       flow_freedom_to_act_settles: {
-        co_product: 'Flux « {{flow}} » : vous avez dit que personne ne paie (ou que ce n\'est pas encore clair), mais que quelqu\'un d\'autre l\'achèterait : ce n\'est donc pas un déchet. C\'est correct ; l\'analyste décide comment le compter.',
-        waste: 'Flux « {{flow}} » : vous avez dit que personne ne paie et que personne d\'autre ne l\'achèterait : il peut compter comme déchet, sans charge de votre côté. L\'analyste le vérifie.',
+        co_product: "Flux « {{flow}} » : vous avez dit que personne ne paie (ou que ce n'est pas encore clair), mais que quelqu'un d'autre l'achèterait : l'étude ne le modélisera donc pas comme un déchet. C'est correct ; l'analyste décide comment le compter.",
+        waste: "Flux « {{flow}} » : vous avez dit que personne ne paie et que personne d'autre ne l'achèterait : l'étude peut le modéliser comme un déchet, sans charge de votre côté. L'analyste le vérifie.",
       },
     },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
@@ -1056,7 +1049,7 @@ const fr: Locale = {
         environment: "Effets environnementaux",
         review: "Contrôle indépendant",
         whatMeasured: "Ce qui est mesuré",
-        flows: "Traitement de chaque flux",
+        flows: "Traitement de chaque flux dans le modèle",
         claim: 'Affirmation comparative',
         purpose: 'Type d\'étude',
         lcc: 'Coûts',
@@ -1103,21 +1096,21 @@ const fr: Locale = {
           notCovered: "Les odeurs et le bruit ne sont pas des catégories d'impact de ces lignes directrices (la D4.1 Part 2 §9.3 les cite parmi les effets habituellement laissés de côté) ; l'air, l'eau et la toxicité locaux le sont. Les odeurs et le bruit sont en général examinés lors de l'autorisation des installations, pas dans cette étude : pour eux, adressez-vous à votre commune ou à l'autorité qui délivre l'autorisation. Tout effet local que l'étude laisse de côté doit être déclaré comme angle mort connu (D4.1 §12.3.5) : vous pouvez demander à la personne qui a préparé l'étude de les nommer.",
         },
         flowCost: {
-          a: 'déchet : la redevance négociée ; coût nul seulement si le résidu est inévitable (D4.2 §6.3)',
-          b: 'gratuit : prix de cession nul ; coût nul seulement si inévitable, sinon coproduit',
-          c: 'coproduit : le prix négocié',
-          d: 'interdépendant : un coproduit déterminant au prix de cession négocié ; le coût nul ne s\'applique pas (D4.1 §8.3.6, étape 2)',
-          e: 'agrégé : donner un prix à chaque flux que l\'on peut nommer',
+          a: "tarif de prise en charge : celui qui le cède paie le tarif négocié ; les coûts amont restent hors du calcul (coût nul) seulement si le résidu est inévitable (D4.2 §6.3)",
+          b: "prix de cession nul : personne ne paie ; les coûts amont restent hors du calcul (coût nul) seulement si le résidu est inévitable, sinon le flux est modélisé comme un coproduit",
+          c: "prix positif : celui qui le reçoit paie le prix négocié, et le flux est modélisé comme un coproduit",
+          d: "prix de cession négocié : un coproduit déterminant, donc le coût nul ne s'applique pas (D4.1 §8.3.6, étape 2)",
+          e: "agrégé dans la source : donner un prix à chaque flux que l'on peut nommer",
         },
         noChapter: "Aucun chapitre de la D4.1 Part 2 ne concerne les flux déclarés : seule la Part 1 s'applique",
         flowTreatment: {
-          waste: 'déchet : charge nulle à partir du point où le résidu atteint pour la première fois une valeur non négative, après le test d\'évitabilité (D4.1 §8.3.6 étape 4)',
-          evt: 'indécis : test de valeur économique avec une analyse de sensibilité (D4.1 §8.3.2)',
-          coproduct: 'coproduit : pas de charge nulle ; substitution du produit qu\'il remplace, avec le facteur de qualité Q (D4.1 §8.3.6 étape 3)',
-          integrated: 'interdépendant : un coproduit déterminant, jamais à charge nulle ; un seul système multifonctionnel étendu (D4.1 §8.3.6 étape 2) ; l\'E-LCC suit la même répartition et valorise le flux au prix de marché de ce qu\'il remplace ; le C-LCC utilise le prix de cession négocié',
-          integratedLca: 'interdépendant : un coproduit déterminant, jamais à charge nulle ; un seul système multifonctionnel étendu (D4.1 §8.3.6 étape 2)',
+          waste: "charge nulle : modélisé comme un déchet, sans charge pour celui qui le reçoit à partir du point où le résidu atteint pour la première fois une valeur non négative, après le test d'évitabilité (D4.1 §8.3.6 étape 4)",
+          evt: "test de valeur économique : qui paie qui n'est pas fixé, donc les deux lectures, charge nulle et substitution, sont présentées avec une analyse de sensibilité (D4.1 §8.3.2)",
+          coproduct: "substitution : modélisé comme un coproduit, pas de charge nulle ; il déplace le produit qu'il remplace, corrigé par le facteur de qualité Q (D4.1 §8.3.6 étape 3)",
+          integrated: "un seul système multifonctionnel étendu : modélisé comme un coproduit déterminant, jamais à charge nulle (D4.1 §8.3.6 étape 2) ; l'E-LCC suit la même répartition et valorise le flux au prix de marché de ce qu'il remplace ; le C-LCC utilise le prix de cession négocié",
+          integratedLca: "un seul système multifonctionnel étendu : modélisé comme un coproduit déterminant, jamais à charge nulle (D4.1 §8.3.6 étape 2)",
           allocation: 'allocation : pas de charge nulle ni de crédits de substitution, la comptabilité d\'une seule entreprise (D4.1 §7.2.3)',
-          aggregated: 'agrégé : classer chaque flux qui peut être nommé, pas de règle pour tout le réseau (D4.1 §8.3.1)',
+          aggregated: "agrégé dans la source : classer chaque flux qui peut être nommé, pas de règle pour tout le réseau (D4.1 §8.3.1)",
         },
         claim: 'Affirmation comparative divulguée au public (supériorité ou équivalence) : revue critique par un panel d\'au moins trois experts indépendants, pas de pondération',
         claimNone: 'Pas d\'affirmation comparative divulguée au public',
@@ -1136,7 +1129,7 @@ const fr: Locale = {
         reference_modern: 'Un contrefactuel moderne : ce que ferait aujourd\'hui chaque entreprise sans les liens (scénario de référence non symbiotique hypothétique, HNSRS)',
         reference_cnsrs: 'Le scénario sans la symbiose, sur l\'horizon de l\'étude (scénario de référence non symbiotique actuel, CNSRS)',
         market: 'marché : {{market}}',
-        fu_waste_treatment: 'Fondée sur l\'entrée : le traitement du déchet',
+        fu_waste_treatment: "Fondée sur l'entrée : le traitement du résidu entrant",
         fu_product_substitution: 'Fondée sur la sortie : les produits et ce qu\'ils remplacent',
         fu_co_primary: 'Un système d\'unités fonctionnelles : traitement et produits ensemble',
         fu_function: 'Orientée fonction, autour du service rendu',
@@ -1152,8 +1145,8 @@ const fr: Locale = {
         multiPefSubstitution: ' — répartie avec la Circular Footprint Formula du PEF (Q4 = D)',
         multiPefConsequential: ' — CFF du PEF comme analyse de sensibilité (Q4 = D)',
         multiPefAllocation: ' — la CFF ne s\'applique pas',
-        fuLcc_waste_treatment: 'Fondé sur l\'entrée : le traitement du déchet (D4.2 §3.1)',
-        fuLcc_dual: 'Double : le déchet traité et le produit généré, chacun avec ses coûts évités et ses recettes (D4.2 §3.1)',
+        fuLcc_waste_treatment: "Fondé sur l'entrée : le traitement du résidu entrant (D4.2 §3.1)",
+        fuLcc_dual: "Double : le résidu traité et le produit généré, chacun avec ses coûts évités et ses recettes (D4.2 §3.1)",
         fuLcc_function: 'Le portefeuille de fonctions que le réseau assure, chacune avec ses coûts évités et ses recettes (D4.2 §3.1)',
       },
       why: {
@@ -1219,8 +1212,8 @@ const fr: Locale = {
       },
       c2_allocation_over_pef: "Le reporting strict d'une seule entreprise (Situation ILCD C2) utilise l'allocation sans crédits de substitution (D4.1 §7.2.3) ; la Circular Footprint Formula de la PEF demandée par Q4=D ne s'applique donc pas : la CFF est une méthode produit. Si l'étude est une empreinte de produit et non un rapport d'entreprise, revoyez Q9.",
       slca_alone: "Q3 ne sélectionne que la dimension sociale. La D4.3 §3.1 construit la S-LCA sur l'unité fonctionnelle et les frontières d'une LCA ou d'une LCC ; si aucune n'est sélectionnée, documentez l'unité de référence et la frontière dans la charte méthodologique.",
-      flow_sellable_but_waste: "Flux « {{flow}} » : Q5 indique que le producteur paie pour s'en débarrasser (déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
-      flow_price_without_market: "Flux « {{flow}} » : Q5 indique que le receveur paie (co-produit), mais aucun tiers ne l'achèterait. Avec un preneur unique, c'est le prix qui décide (D4.1 §8.3.3) : le flux est un co-produit si le receveur paie ce que paierait un acheteur indépendant, soit le prix du produit que le flux remplace net de ses coûts supplémentaires pour l'utiliser ; si le paiement ne fait que partager les coûts, le flux est un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 Step 4). Comparez le prix à cette référence.",
+      flow_sellable_but_waste: "Flux « {{flow}} » : Q5 indique que celui qui le cède paie pour s'en débarrasser (modélisé comme un déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
+      flow_price_without_market: "Flux « {{flow}} » : Q5 indique que celui qui le reçoit paie (modélisé comme un coproduit), mais aucun tiers ne l'achèterait. Avec un preneur unique, c'est le prix qui décide (D4.1 §8.3.3) : le flux est un coproduit si celui qui le reçoit paie ce que paierait un acheteur indépendant, soit le prix du produit que le flux remplace net de ses coûts supplémentaires pour l'utiliser ; si le paiement ne fait que partager les coûts, le flux est modélisé comme un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 étape 4). Comparez le prix à cette référence.",
       flow_freedom_to_act_settles: {
         co_product: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un coproduit (§8.3.2, charge partagée). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente.",
         waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente.",

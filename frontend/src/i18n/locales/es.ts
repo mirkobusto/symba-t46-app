@@ -624,19 +624,19 @@ const es: Locale = {
     },
 
     q5: {
-      title: 'Q5 — Naturaleza de cada flujo simbiótico (por flujo)',
+      title: "Q5 — Quién paga a quién en cada flujo",
       help:
         "Añade una fila por cada flujo simbiótico principal e indica quién paga a quién. Obligatorio cuando analizas un intercambio, una red o una sola empresa (Q1 = A, B o D); opcional en otro caso.",
       details:
-        'Para cada flujo principal intercambiado entre actores (calor, CO₂, escoria, aguas residuales, hidrógeno…) indica quién paga a quién: ' +
-        'a — A paga a B por llevarse el flujo (una tarifa de admisión: valor de mercado negativo, un RESIDUO para A, D4.1 §8.3.2). El cero-carga se aplica desde el punto en que el residuo alcanza por primera vez un valor no negativo, no en la puerta. Pagar no significa inevitable: D4.2 §6.2 exige además la prueba causal de evitabilidad, declarada por flujo en el Data Collection File. ' +
-        'b — flujo intercambiado GRATIS (estado ambiguo): la prueba del valor económico decide si es un residuo o un coproducto, con un análisis de sensibilidad. ' +
-        'c — B paga a A por el flujo (valor de mercado positivo: un COPRODUCTO para A): sustitución del material virgen desplazado, con una razón corregida por calidad. La Circular Footprint Formula del PEF no depende de Q5: viene de Q4=D. Si ningún tercero pagaría por el flujo (prueba de Freedom-to-Act, D4.1 §8.3.3), el precio es administrativo y el flujo se modela como residuo. ' +
-        'd — flujo INTERDEPENDIENTE: A modificó deliberadamente su proceso (calidad, cantidad, postratamiento) para abastecer a B; un coproducto sea cual sea el precio, nunca cero-carga. ' +
-        'e — AGREGADO / caja negra: la fuente no da detalle por flujo (típico de trabajos agregados como Sokka 2011). Es una limitación de la fuente, no una decisión de modelado: D4.1 §8.3.1 prohíbe una regla única para toda la red, así que el Data Collection File pide igualmente la clasificación de cada flujo que puedas nombrar. ' +
-        'Q5 registra quién paga a quién; las pruebas jurídicas y económicas (Freedom-to-Act, End-of-Waste, clase de subproducto, evitabilidad, punto de cero-carga) se declaran por flujo en la sección Flow classification del Data Collection File. En estudios de política con Q1=C, Q5 suele ser opcional.',
+        "Para cada flujo principal intercambiado entre actores (calor, CO₂, escoria, aguas residuales, hidrógeno…) indica quién paga a quién. La respuesta fija cómo se modela el flujo al principio; su clase jurídica no se decide aquí. " +
+        "a. Quien lo cede paga a quien lo recibe para que se lo lleve (una tarifa de admisión: valor de mercado negativo, D4.1 §8.3.2): modelado como residuo, con carga cero desde el punto en que el residuo alcanza por primera vez un valor no negativo, no en la puerta. Pagar no significa inevitable: D4.2 §6.2 exige además la prueba causal de evitabilidad, declarada por flujo en el Data Collection File. " +
+        "b. Nadie paga, o aún no está claro: la prueba del valor económico decide entre carga cero y sustitución, con un análisis de sensibilidad (D4.1 §8.3.2). " +
+        "c. Quien lo recibe paga a quien lo cede (valor de mercado positivo, D4.1 §8.3.2): modelado como coproducto, sustitución del material virgen desplazado con una razón corregida por calidad. La Circular Footprint Formula del PEF no depende de Q5: viene de Q4=D. Si ningún tercero pagara por el flujo (prueba de Freedom-to-Act, D4.1 §8.3.3), el precio es administrativo y el flujo se modela como residuo. " +
+        "d. Las dos plantas dependen la una de la otra: quien lo cede modificó deliberadamente su proceso (calidad, cantidad, postratamiento) para abastecer a quien lo recibe; modelado como coproducto determinante sea cual sea el precio, nunca con carga cero (D4.1 §8.3.6 paso 2). " +
+        "e. Solo una cifra total para toda la red: la fuente no da detalle por flujo (típico de trabajos agregados como Sokka 2011). Es una limitación de la fuente, no una decisión de modelado: D4.1 §8.3.1 prohíbe una regla única para toda la red, así que el Data Collection File pide igualmente la clasificación de cada flujo que puedas nombrar. " +
+        "Q5 registra quién paga a quién; las pruebas jurídicas y económicas (Freedom-to-Act, End-of-Waste, clase de subproducto, evitabilidad, punto de carga cero) se declaran por flujo en la sección Flow classification del Data Collection File. En estudios de política con Q1=C, Q5 suele ser opcional.",
       plain:
-        'Para cada cosa que se mueve entre las empresas — calor, agua, escorias, CO₂ — aquí la pregunta es solo quién paga a quién: quien lo envía paga por deshacerse de ello, nadie paga, o quien lo recibe lo paga. Si quien lo envía cambió a propósito su propio proceso para suministrarlo, elige esa opción diga lo que diga el dinero. Eso sí, para ese socio: un secadero construido para vender el flujo a cualquiera no es interdependencia: elige «quien lo recibe paga» y decláralo entre los bienes dedicados. Si tu fuente da una sola cifra para toda la red, elige la última opción: se te preguntará igualmente por cada flujo que sepas nombrar, porque no se admite una regla única para toda la red. Si un flujo es residuo a efectos legales se decide después, en el archivo de recogida de datos, no aquí.',
+        "Para cada cosa que se mueve entre las empresas (calor, agua, escorias, CO₂), aquí la pregunta es solo quién paga a quién: quien lo cede paga por deshacerse de ello, nadie paga, o quien lo recibe lo paga. Si quien lo cede cambió a propósito su propio proceso para suministrarlo, elige esa opción diga lo que diga el dinero. Pero un secadero construido para vender el flujo a cualquiera no es interdependencia: elige «Quien lo recibe paga a quien lo cede» y decláralo entre los bienes dedicados. Si tu fuente da una sola cifra para toda la red, elige la última opción: se te preguntará igualmente por cada flujo que sepas nombrar, porque no se admite una regla única para toda la red. Si un flujo es residuo a efectos legales se decide después, en el archivo de recogida de datos, no aquí.",
     },
 
     q6a: {
@@ -785,12 +785,12 @@ const es: Locale = {
       details: "La D4.1 Part 2 pide que la unidad funcional refleje la función principal del sistema (§4.3, §6.3, §8.3): una unidad basada en la entrada (p. ej. tratamiento de 1 tonelada de residuo) cuando el estudio compara vías de gestión de un residuo o el desempeño de una planta o servicio; una unidad basada en la salida (p. ej. 1 kg de producto, 1 MJ de energía) cuando compara productos con alternativas de mercado o respalda una afirmación de sustitución; un sistema de unidades funcionales cuando ambas funciones son coprincipales (Part 1 §5.3.2). La D4.2 §3.1 pide para el LCC una unidad doble (residuo tratado + producto obtenido) cuando la sustitución de producto guía el estudio: los dos entregables difieren; la herramienta sigue la Part 2 para el LCA e indica la diferencia.",
       options: {
         unset: 'No lo sé / no se compara nada (la herramienta usa una unidad basada en el servicio prestado)',
-        waste_treatment: "Cómo se gestiona un residuo — vías de gestión, desempeño de una planta o servicio (unidad basada en la entrada)",
+        waste_treatment: "Cómo se gestiona un flujo residual: vías de tratamiento, desempeño de una planta o servicio (unidad basada en la entrada)",
         product_substitution: "Productos frente a alternativas de mercado — qué sustituye el producto recuperado (unidad basada en la salida)",
         co_primary: "Ambas: el servicio de tratamiento y los productos cuentan por igual (sistema de unidades funcionales)",
       },
       plain:
-        "¿Sobre qué trata realmente la comparación? Si la pregunta es cómo tratar mejor un residuo — quemarlo, digerirlo, compostarlo —, el resultado se cuenta por tonelada de residuo tratado. Si la pregunta es si el producto recuperado es mejor que el que sustituye, se cuenta por unidad de producto. Si ambas cuentan por igual, se cuentan una al lado de la otra.",
+        "¿Sobre qué trata realmente la comparación? Si la pregunta es cómo tratar mejor un flujo residual (quemarlo, digerirlo, compostarlo), el resultado se cuenta por tonelada de flujo residual tratado. Si la pregunta es si el producto recuperado es mejor que el que sustituye, se cuenta por unidad de producto. Si ambas cuentan por igual, se cuentan una al lado de la otra.",
     },
     q12: {
       title: 'Q12 — ¿La simbiosis usa bienes dedicados?',
@@ -831,19 +831,12 @@ const es: Locale = {
       sector: 'Sector de lo que se intercambia (opcional)',
       configuration: 'Tipo de reutilización (opcional)',
     },
-    plainOptions: {
-      a: 'Quien lo cede paga a quien lo recibe para que se lo lleve (un residuo para quien lo cede)',
-      b: 'Nadie paga, o aún no está claro',
-      c: 'Quien lo recibe paga a quien lo cede (un producto para quien lo cede)',
-      d: 'Las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)',
-      e: 'Solo una cifra total para toda la red',
-    },
-    q5Note: 'Responde con el acuerdo tal como está hoy — pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «Nadie paga, o aún no está claro» cuando esté realmente sin decidir.',
+    q5Note: 'Responde con el acuerdo tal como está hoy: pactado, o previsto si el intercambio aún no existe. Es una hipótesis de partida, no un resultado: si el estudio cambia quién paga a quién, vuelve y cámbialo. Elige «Nadie paga, o aún no está claro» cuando esté realmente sin decidir.',
     emptyHint: 'Sin flujos. Añade al menos uno para caracterizar la Q5 por flujo.',
     headers: { id: 'ID', name: 'Nombre', q5: "Quién paga a quién (Q5)", sellable: '¿Vendible a otros?', sector: 'Sector (Parte 2)', configuration: "Configuración (Parte 2)" },
     q5Unset: "— elige quién paga a quién",
     sellable: { unset: '— sin respuesta', yes: 'Sí', no: 'No' },
-    sellableHint: "Si el socio no tomara este flujo, ¿podría el generador venderlo a otro a un precio positivo? Sí lo convierte en coproducto. No, por sí solo, no lo convierte en residuo: un único comprador que paga lo que pagaría un comprador independiente (el precio del producto que el flujo sustituye, descontados sus costes adicionales para usarlo) lo sigue convirtiendo en coproducto; un flujo cedido gratis, o un pago que solo reparte costes, lo convierte en residuo (D4.1 §8.3.3). Opcional: el resultado señala cuando no coincide con Q5.",
+    sellableHint: "Si el socio no tomara este flujo, ¿podría quien lo cede venderlo a otro a un precio positivo? Sí apunta a un flujo modelado como coproducto. No, por sí solo, no apunta a un residuo: un único comprador que paga lo que pagaría un comprador independiente (el precio del producto que el flujo sustituye, descontados sus costes adicionales para usarlo) sigue apuntando a un coproducto; un flujo cedido gratis, o un pago que solo reparte costes, apunta a un flujo modelado como residuo (D4.1 §8.3.3). Opcional: el resultado señala cuando no coincide con quién paga a quién.",
     sectorHint: 'Elige el capítulo de la D4.1 Part 2 de lo que se intercambia, no de la empresa: residuos agrícolas y agroindustriales → Agroalimentario (§4); residuos municipales o mezclados, biorresiduos incluidos (fracción orgánica de los RSU, restos de comida domésticos) → Valorización de residuos (§8); lodos y aguas residuales tratadas, también cuando se reutilizan como agua → Aguas residuales (§6); un producto o vector energético obtenido de un flujo (biometano, digestato, electricidad) → el capítulo de ese flujo. Donde §4 y §8 se solapan en los biorresiduos, decide el origen (lectura T4.6 de la Part 2 §3.3). Opcional: el resultado lista las reglas del capítulo. La D4.1 Part 2 solo tiene capítulos para estos sectores de base biológica: para acero, cemento, calor, papel o química elige «— ninguno de estos» y solo se aplica la Part 1. La madera y los residuos forestales (serrín, corteza, lignina, licor negro) no tienen capítulo en la Part 2: elige «— ninguno de estos».',
     sectorNone: '— ninguno de estos',
     configurationHint: "La configuración típica del flujo dentro de su capítulo de la Part 2 (D4.1 Part 2 §4.1-§8.1): el resultado indica el producto convencional que sustituye. Elige primero el sector.",
@@ -880,11 +873,11 @@ const es: Locale = {
     addButton: 'Añadir flujo',
     removeAria: 'Eliminar {{id}}',
     options: {
-      a: "a — quien cede (A) paga a quien recibe (B): residuo",
-      b: 'b — Intercambio gratuito (ambiguo)',
-      c: "c — quien recibe (B) paga a quien cede (A): co-producto",
-      d: 'd — Interdependiente',
-      e: 'e — Agregado / black-box',
+      a: "a. Quien lo cede paga a quien lo recibe para que se lo lleve",
+      b: "b. Nadie paga, o aún no está claro",
+      c: "c. Quien lo recibe paga a quien lo cede",
+      d: "d. Las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)",
+      e: "e. Solo una cifra total para toda la red",
     },
     plainEmpty: 'Aún no hay intercambios. Añade cada cosa que pasa entre las empresas (suero, serrín, calor, agua…).',
     plainSectorHint: 'Opcional. Elige un sector solo si lo que se intercambia pertenece a uno de los sectores de base biológica de la lista (agroalimentario, plásticos, aguas residuales, textil, residuos). Para madera, serrín, residuos forestales o papeleros, acero, cemento o calor, deja «— ninguno de estos». Si no estás seguro, déjalo: lo fijará el analista.',
@@ -1004,8 +997,8 @@ const es: Locale = {
     // guided mode: notes in plain words (UX round 4)
     engineNotesPlain: {
       flow_freedom_to_act_settles: {
-        co_product: 'Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces no es un residuo. Está bien así; el analista decide cómo contarlo.',
-        waste: 'Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: puede contar como residuo, sin carga por tu parte. Lo comprueba el analista.',
+        co_product: "Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces el estudio no lo modelará como residuo. Está bien así; el analista decide cómo contarlo.",
+        waste: "Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: el estudio puede modelarlo como residuo, sin carga por tu parte. Lo comprueba el analista.",
       },
     },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
@@ -1050,7 +1043,7 @@ const es: Locale = {
         environment: "Efectos ambientales",
         review: "Control independiente",
         whatMeasured: "Qué se mide",
-        flows: "Tratamiento de cada flujo",
+        flows: "Tratamiento de cada flujo en el modelo",
         claim: 'Aseveración comparativa',
         purpose: 'Tipo de estudio',
         lcc: 'Costes',
@@ -1097,21 +1090,21 @@ const es: Locale = {
           notCovered: "Los olores y el ruido no son categorías de impacto de estas directrices (la D4.1 Part 2 §9.3 los incluye entre los efectos que suelen quedar fuera); el aire, el agua y la toxicidad locales sí lo son. Los olores y el ruido se suelen examinar al autorizar las plantas, no en este estudio: para ellos, dirigíos a vuestro ayuntamiento o a la autoridad que concede la autorización. Todo efecto local que el estudio deje fuera debe declararse como punto ciego conocido (D4.1 §12.3.5): podéis pedir a quien preparó el estudio que los nombre.",
         },
         flowCost: {
-          a: 'residuo: la tarifa negociada; coste cero solo si el residuo es inevitable (D4.2 §6.3)',
-          b: 'gratuito: precio de transferencia cero; coste cero solo si es inevitable, si no, coproducto',
-          c: 'coproducto: el precio negociado',
-          d: 'interdependiente: un coproducto determinante al precio de transferencia negociado; el coste cero no se aplica (D4.1 §8.3.6, paso 2)',
-          e: 'agregado: poner precio a cada flujo que se pueda nombrar',
+          a: "tarifa de admisión: quien lo cede paga la tarifa negociada; los costes aguas arriba quedan fuera (coste cero) solo si el residuo es inevitable (D4.2 §6.3)",
+          b: "precio de transferencia cero: nadie paga; los costes aguas arriba quedan fuera (coste cero) solo si el residuo es inevitable, si no, el flujo se modela como coproducto",
+          c: "precio positivo: quien lo recibe paga el precio negociado, y el flujo se modela como coproducto",
+          d: "precio de transferencia negociado: un coproducto determinante, así que el coste cero no se aplica (D4.1 §8.3.6, paso 2)",
+          e: "agregado en la fuente: poner precio a cada flujo que se pueda nombrar",
         },
         noChapter: "Ningún capítulo de la D4.1 Part 2 cubre los flujos declarados: solo se aplica la Part 1",
         flowTreatment: {
-          waste: 'residuo: carga cero desde el punto en que el residuo alcanza por primera vez un valor no negativo, tras la prueba de evitabilidad (D4.1 §8.3.6 paso 4)',
-          evt: 'indeciso: prueba del valor económico con un análisis de sensibilidad (D4.1 §8.3.2)',
-          coproduct: 'coproducto: sin carga cero; sustitución del producto que reemplaza, con el factor de calidad Q (D4.1 §8.3.6 paso 3)',
-          integrated: 'interdependiente: un coproducto determinante, nunca con carga cero; un único sistema multifuncional ampliado (D4.1 §8.3.6 paso 2); el E-LCC sigue el mismo reparto y valora el flujo al precio de mercado de lo que sustituye; el C-LCC usa el precio de transferencia negociado',
-          integratedLca: 'interdependiente: un coproducto determinante, nunca con carga cero; un único sistema multifuncional ampliado (D4.1 §8.3.6 paso 2)',
+          waste: "carga cero: modelado como residuo, sin carga para quien lo recibe desde el punto en que el residuo alcanza por primera vez un valor no negativo, tras la prueba de evitabilidad (D4.1 §8.3.6 paso 4)",
+          evt: "prueba del valor económico: quién paga a quién no está decidido, así que se presentan las dos lecturas, carga cero y sustitución, con un análisis de sensibilidad (D4.1 §8.3.2)",
+          coproduct: "sustitución: modelado como coproducto, sin carga cero; desplaza el producto que reemplaza, corregido con el factor de calidad Q (D4.1 §8.3.6 paso 3)",
+          integrated: "un único sistema multifuncional ampliado: modelado como coproducto determinante, nunca con carga cero (D4.1 §8.3.6 paso 2); el E-LCC sigue el mismo reparto y valora el flujo al precio de mercado de lo que sustituye; el C-LCC usa el precio de transferencia negociado",
+          integratedLca: "un único sistema multifuncional ampliado: modelado como coproducto determinante, nunca con carga cero (D4.1 §8.3.6 paso 2)",
           allocation: 'asignación: sin carga cero ni créditos de sustitución, la contabilidad de una sola empresa (D4.1 §7.2.3)',
-          aggregated: 'agregado: clasifica cada flujo que se pueda nombrar, sin una regla para toda la red (D4.1 §8.3.1)',
+          aggregated: "agregado en la fuente: clasifica cada flujo que se pueda nombrar, sin una regla para toda la red (D4.1 §8.3.1)",
         },
         claim: 'Aseveración comparativa divulgada al público (superioridad o equivalencia): revisión crítica por un panel de al menos tres expertos independientes, sin ponderación',
         claimNone: 'Ninguna aseveración comparativa divulgada al público',
@@ -1130,7 +1123,7 @@ const es: Locale = {
         reference_modern: 'Un contrafactual moderno: lo que haría hoy cada empresa sin los vínculos (escenario de referencia no simbiótico hipotético, HNSRS)',
         reference_cnsrs: 'El escenario sin la simbiosis, sobre el horizonte del estudio (escenario de referencia no simbiótico actual, CNSRS)',
         market: 'mercado: {{market}}',
-        fu_waste_treatment: 'Basada en la entrada: el tratamiento del residuo',
+        fu_waste_treatment: "Basada en la entrada: el tratamiento del flujo residual entrante",
         fu_product_substitution: 'Basada en la salida: los productos y lo que sustituyen',
         fu_co_primary: 'Un sistema de unidades funcionales: tratamiento y productos juntos',
         fu_function: 'Orientada a la función, en torno al servicio prestado',
@@ -1146,8 +1139,8 @@ const es: Locale = {
         multiPefSubstitution: ' — repartida con la Circular Footprint Formula de la PEF (Q4 = D)',
         multiPefConsequential: ' — CFF de la PEF como análisis de sensibilidad (Q4 = D)',
         multiPefAllocation: ' — la CFF no se aplica',
-        fuLcc_waste_treatment: 'Basado en la entrada: el tratamiento del residuo (D4.2 §3.1)',
-        fuLcc_dual: 'Doble: el residuo tratado y el producto generado, cada uno con sus costes evitados e ingresos (D4.2 §3.1)',
+        fuLcc_waste_treatment: "Basado en la entrada: el tratamiento del flujo residual entrante (D4.2 §3.1)",
+        fuLcc_dual: "Doble: el flujo residual tratado y el producto generado, cada uno con sus costes evitados e ingresos (D4.2 §3.1)",
         fuLcc_function: 'El conjunto de funciones que presta la red, cada una con sus costes evitados e ingresos (D4.2 §3.1)',
       },
       why: {
@@ -1213,8 +1206,8 @@ const es: Locale = {
       },
       c2_allocation_over_pef: "El reporte estricto de una sola empresa (Situación ILCD C2) usa asignación y ningún crédito de sustitución (D4.1 §7.2.3), así que la Circular Footprint Formula de la PEF que pide Q4=D no se aplica: la CFF es un método de producto. Si el estudio es una huella de producto y no un informe corporativo, revisa Q9.",
       slca_alone: "Q3 selecciona solo la dimensión social. La D4.3 §3.1 construye el S-LCA sobre la unidad funcional y los límites de un LCA o un LCC; si no se selecciona ninguno, documenta la unidad de referencia y el límite en la carta metodológica.",
-      flow_sellable_but_waste: "Flujo «{{flow}}»: Q5 dice que el generador paga por deshacerse de él (residuo), pero un tercero pagaría por él. D4.1 §8.3.3 y §8.3.6 paso 1: un flujo con un valor de mercado positivo e independiente es un coproducto, y su carga aguas arriba se reparte (sustitución o asignación), no se corta. Revisa Q5 para este flujo.",
-      flow_price_without_market: "Flujo «{{flow}}»: Q5 dice que el receptor paga (coproducto), pero ningún tercero lo compraría. Con un único comprador decide el precio (D4.1 §8.3.3): el flujo es un coproducto si el receptor paga lo que pagaría un comprador independiente, es decir, el precio del producto que el flujo sustituye descontados sus costes adicionales para usarlo; si el pago solo reparte costes, el flujo es un residuo, con carga cero desde donde alcanza por primera vez un valor no negativo (§8.3.6 Step 4). Compara el precio con esa referencia.",
+      flow_sellable_but_waste: "Flujo «{{flow}}»: Q5 dice que quien lo cede paga por deshacerse de él (modelado como residuo), pero un tercero pagaría por él. D4.1 §8.3.3 y §8.3.6 paso 1: un flujo con un valor de mercado positivo e independiente es un coproducto, y su carga aguas arriba se reparte (sustitución o asignación), no se corta. Revisa Q5 para este flujo.",
+      flow_price_without_market: "Flujo «{{flow}}»: Q5 dice que quien lo recibe paga (modelado como coproducto), pero ningún tercero lo compraría. Con un único comprador decide el precio (D4.1 §8.3.3): el flujo es un coproducto si quien lo recibe paga lo que pagaría un comprador independiente, es decir, el precio del producto que el flujo sustituye descontados sus costes adicionales para usarlo; si el pago solo reparte costes, el flujo se modela como residuo, con carga cero desde donde alcanza por primera vez un valor no negativo (§8.3.6 paso 4). Compara el precio con esa referencia.",
       flow_freedom_to_act_settles: {
         co_product: "Flujo «{{flow}}»: Q5 deja abierto quién paga a quién, y la respuesta Freedom-to-Act (D4.1 §8.3.3) apunta a un coproducto (§8.3.2, carga repartida). La configuración mantiene la prueba del valor económico con análisis de sensibilidad hasta que el estudio lo confirme: no cambies quién paga a quién; registra esta lectura en la clasificación de flujos del Data Collection File (Freedom-to-Act y paso del árbol de decisión), que el estudio documenta.",
         waste: "Flujo «{{flow}}»: Q5 deja abierto quién paga a quién, y la respuesta Freedom-to-Act (D4.1 §8.3.3) apunta a un residuo (carga cero desde el punto en que alcanza por primera vez un valor no negativo, §8.3.6 paso 4). La configuración mantiene la prueba del valor económico con análisis de sensibilidad hasta que el estudio lo confirme: no cambies quién paga a quién; registra esta lectura en la clasificación de flujos del Data Collection File (Freedom-to-Act y paso del árbol de decisión), que el estudio documenta.",

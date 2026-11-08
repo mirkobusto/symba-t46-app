@@ -11,18 +11,11 @@ import KpiCard from '../../components/dd/KpiCard'
 import { ApiError, fetchPublicRegion } from '../../services/api'
 import type { PublicRegionResponse } from '../../types/reader'
 import { useAxisLabel } from '../aggregateLabels'
+import { isCountryCode } from '../../components/countryCode'
 
-/** Whether `code` names a country: a typo'd link ("XX") showed an empty but
- * normal-looking dashboard, as if the country had no activity (Kimi test
- * 2026-11-04, A6-02). */
-function isCountryCode(code: string): boolean {
-  if (!/^[A-Za-z]{2}$/.test(code)) return false
-  try {
-    return new Intl.DisplayNames(['en'], { type: 'region', fallback: 'none' }).of(code.toUpperCase()) !== undefined
-  } catch {
-    return true   // no Intl support: let the server answer
-  }
-}
+// Whether `code` names a country: a typo'd link ("XX") showed an empty but
+// normal-looking dashboard, as if the country had no activity (Kimi test
+// 2026-11-04, A6-02). Shared with the network editor (UX round 6, P7-09).
 
 export default function PublicRegionPage() {
   const { t } = useTranslation()

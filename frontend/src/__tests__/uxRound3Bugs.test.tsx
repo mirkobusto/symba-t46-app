@@ -40,7 +40,8 @@ describe('UX round 3 bugs', () => {
         <Routes><Route path="/r/:caseId" element={<PublicReportPage />} /></Routes>
       </MemoryRouter>,
     )
-    expect(await screen.findByText(/Nessun report con questo codice/)).toBeInTheDocument()
+    // a link no longer shared reads the same: not "you copied it wrong" (UX round 6, P1-18)
+    expect(await screen.findByText(/Questo report non è disponibile.*ha smesso di condividerlo/)).toBeInTheDocument()
     expect(screen.queryByText(/not found/)).not.toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Prova un altro link o codice/ })).toHaveAttribute('href', '/r/open')
   })

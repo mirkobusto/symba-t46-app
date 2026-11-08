@@ -76,12 +76,12 @@ const de: Locale = {
   },
 
   share: {
-    buttonLabel: 'Bericht teilen', title: 'Diesen Bericht teilen',
+    buttonLabel: "Öffentlichen Link teilen", title: 'Diesen Bericht teilen',
     lead: 'Senden Sie eine dieser URLs an einen Stakeholder. Gleicher Fall, unterschiedliche Rahmung pro Zielgruppe. Für ein Produktetikett teilen Sie den End-user-Link.',
     close: 'Schließen', done: 'Fertig', copy: 'Kopieren', copied: 'Kopiert ✓',
     copyFailed: 'Kopieren nicht möglich — bitte manuell kopieren.',
     saveFirstTitle: 'Fall zuerst speichern',
-    saveFirstBody: 'Zum Teilen muss der Fall auf dem Server gespeichert sein, und zum Speichern braucht es ein Konto. Melden Sie sich an, speichern Sie den Fall mit „Als neu speichern…“ und öffnen Sie dieses Fenster erneut.',
+    saveFirstBody: "Zum Teilen muss der Fall auf dem Server gespeichert sein, und zum Speichern braucht es ein Konto. Melden Sie sich an, speichern Sie den Fall mit „{{button}}“ und öffnen Sie dieses Fenster erneut.",
     audience: { industry: '🏭 Industrie', community: '🌳 Gemeinschaft', authority: '🏛 Lokale Behörde', enduser: '👤 Endnutzer' },
     publicToggle: 'Diesen Bericht für alle mit dem Link lesbar machen',
     preparedByLabel: 'Erstellt von (im Bericht angezeigt)',
@@ -90,6 +90,7 @@ const de: Locale = {
     notSharedBody: 'Der Bericht ist nicht öffentlich: Nur Sie können diesen Fall öffnen. Schalten Sie das Teilen ein, um die Links zu erhalten.',
     sharedBody: 'Der Bericht ist öffentlich: Wer einen dieser Links hat, kann ihn lesen, ohne die Notizen und Mengen der Flüsse.',
     signInButton: 'Anmelden, um zu speichern und zu teilen',
+    saveFirstBodySignedIn: "Zum Teilen muss der Fall auf dem Server gespeichert sein. Speichern Sie ihn zuerst mit „{{button}}“ auf der Ergebnisseite und öffnen Sie dieses Fenster dann erneut.",
   },
 
   reader: {
@@ -104,7 +105,7 @@ const de: Locale = {
     labelLine: 'Kommt dieser Link von einem Produktetikett? Diese Seite beschreibt, wie der Austausch zwischen den Unternehmen untersucht wird. Über das Produkt, das Sie gekauft haben, sagt sie noch nichts.',
     loading: 'Lade Bericht…',
     notFoundTitle: 'Bericht nicht gefunden',
-    notFoundBody: 'Zu diesem Code gibt es keinen Bericht. Prüfen Sie, ob Sie den ganzen Link kopiert haben, oder bitten Sie die Person, die ihn geschickt hat, erneut darum.',
+    notFoundBody: "Dieser Bericht ist nicht verfügbar: Der Link ist vielleicht unvollständig, oder wer ihn geteilt hat, teilt ihn nicht mehr. Fragen Sie die Person, die ihn geschickt hat.",
     tryAnother: 'Anderen Link oder Code versuchen',
     aboutLink: 'SYMBA kennenlernen',
     open: {
@@ -204,8 +205,6 @@ const de: Locale = {
     navLabel: 'Hauptnavigation',
     menuOpen: "Menü",
     menuClose: "Schließen",
-    searchLabel: 'Suchen',
-    searchPlaceholder: 'Fälle, Partner suchen… (⌘K)',
     footerGa: 'GA',
     footerProgramme: 'Horizon Europe · M22–M36',
     groups: {
@@ -215,7 +214,7 @@ const de: Locale = {
     },
     nav: {
       home: 'Startseite',
-      questionnaire: 'Neue Bewertung',
+      questionnaire: "Fragebogen",
       cases: 'Meine Fälle',
       recentResult: 'Letztes Ergebnis',
       stakeholder: 'Stakeholder-Berichte',
@@ -253,7 +252,7 @@ const de: Locale = {
     title: "SYMBA — industrielle Symbiose bewerten",
     tagline: "Wie man die ökologische, ökonomische und soziale Bewertung eines Austauschs zwischen Unternehmen anlegt, und welche Daten zu erheben sind.",
     description: "Beantworten Sie Fragen zu Ihrem Fall: Abfall, Nebenprodukt, Wärme oder Wasser eines Unternehmens werden zum Rohstoff eines anderen. Sie erhalten die methodische Konfiguration, der die Studie folgen muss, und ein Data Collection File für die Partner.",
-    startButton: 'Neue Bewertung starten',
+    startButton: "Neue Bewertung starten",
     modeLabel: "Wie Sie antworten möchten",
     modeExpert: 'Experte',
     modeGuided: 'Geführt',
@@ -442,8 +441,7 @@ const de: Locale = {
     introPlain: "Fragen zu Ihrem Austausch zwischen Unternehmen, in drei Teilen. Die mit * sind Pflicht; die anderen machen das Ergebnis genauer. Unter jeder Frage finden Sie eine kurze Erklärung in einfachen Worten.",
     runButton: 'Konfiguration ermitteln',
     runningButton: 'Wird berechnet…',
-    resetButton: 'Entwurf zurücksetzen',
-    confirmReset: 'Alle Antworten verwerfen und neu beginnen? Dies kann nicht rückgängig gemacht werden.',
+    resetButton: "Neue Bewertung starten",
     stepper: {
       progress: "Frage {{n}} von {{total}} · {{part}}",
       back: "← Zurück",
@@ -653,7 +651,7 @@ const de: Locale = {
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
       invalid: "Geben Sie die Jahre als Zahl über 0 an (höchstens {{max}}); das Betriebsjahr zwischen 1900 und 2200.",
-      invalidShort: "Jahre über 0",
+      invalidShort: "Jahre: eine Zahl über 0, höchstens 500",
       help: 'Optional. Ein Horizont für LCA und LCC gleichermaßen.',
       horizonWarning: 'Über {{threshold}} Jahre: Die Studie muss abschätzen, wie sich Energie und Märkte verändern (zukünftiger Hintergrund für LCA und LCC).',
       details: 'Die Deliverables verlangen einen Zeithorizont für LCA, LCC und S-LCA (D4.2 §11, D4.1 §14). Zukünftige Hintergrundszenarien (SSP/RCP) kommen in beiden hinzu, wenn das System in einem zukünftigen Jahr betrieben wird (D4.1 §9.3.5, §12.3.2), wenn die Schlüsseltechnologie unter TRL 7 liegt (Q6b) oder wenn der Analysezeitraum oder die Lebensdauer der Hauptanlagen 15 Jahre übersteigt (D4.2 §9.3, das den Wert ohne Quelle angibt; er lässt sich in den erweiterten Einstellungen ändern). Ohne Antwort gilt als Betriebsjahr das Jahr der Studie. Der Analysezeitraum ist die von der Studie abgedeckte Zeitspanne; in der Regel entspricht er der technischen Lebensdauer der Hauptanlagen (D4.2 §9). Die Lebensdauer der Hauptanlagen ist zugleich der Abschreibungszeitraum ihrer Investitionsgüter, gleich in LCA und LCC (D4.1 §6.3.3, §14.2.2); Anlagen mit anderer Lebensdauer gehören in die Datenerhebungsdatei.',
@@ -750,8 +748,13 @@ const de: Locale = {
       title: 'Erweiterte Overrides (Expertenmodus)',
       activeKeys_one: '{{count}} aktiver Schlüssel',
       activeKeys_other: '{{count}} aktive Schlüssel',
+      invalid: "Erweiterte Einstellungen (ein Wert ist ungültig)",
     },
     scopeNotePlain: 'Das Tool rechnet nicht: Es sagt Ihnen, wie die Studie zu machen ist und welche Daten zu sammeln sind. Die Berechnungen macht danach ein Analyst.',
+    editing: {
+      saved: "Sie bearbeiten den gespeicherten Fall „{{name}}“.",
+      notSaved: "Diese Antworten sind noch nicht gespeichert: Ermitteln Sie die Konfiguration und speichern Sie den Fall dann auf der Ergebnisseite.",
+    },
   },
 
   flows: {
@@ -841,11 +844,9 @@ const de: Locale = {
   },
 
   advanced: {
-    intro:
-      'Einstellungen für den Expertenmodus. Ein leer gelassener Schlüssel behält den Standardwert; ein Wert wird als true/false, Zahl oder Text gelesen.',
+    intro: "Einstellungen im Expertenmodus: die drei, die die Engine liest. Eine leer gelassene Einstellung behält den Standardwert.",
     headers: { key: 'Schlüssel', value: 'Wert', hint: 'Hinweis', custom: 'custom' },
     examplePlaceholder: 'z. B. {{example}}',
-    addCustom: 'Custom-Schlüssel hinzufügen',
     clearAria: '{{key}} löschen',
     removeAria: '{{key}} entfernen',
     hints: {
@@ -854,6 +855,11 @@ const de: Locale = {
       future_background_threshold_years:
         'Jahre. Der Studienhorizont, ab dem LCA und LCC einen zukünftigen Hintergrund brauchen (lca_mc_21, lcc_hc_23, CIR-01). Standard 15, der Wert, den D4.2 §9.3 ohne Quelle angibt; wenn Sie ihn ändern, begründen Sie es in der methodischen Charta',
     },
+    invalid: {
+      years: "Jahre: eine Zahl über 0, höchstens 500.",
+      absolute: "Gelesen wird nur der Wert „absolute“.",
+    },
+    notRead: "Die Engine liest ihn nicht: entfernen Sie ihn.",
   },
 
   narrative: {
@@ -1210,15 +1216,14 @@ const de: Locale = {
     rawJson: 'Rohe JSON-Antwort',
     actions: {
       adjust: 'Antworten anpassen',
-      startFresh: 'Neu starten (alles löschen)',
+      startFresh: "Neue Bewertung starten",
       downloadJson: 'Fall herunterladen (.json)',
-      downloadReport: 'Bericht herunterladen (.docx)',
+      downloadReport: "Word-Bericht herunterladen (.docx)",
       downloadingReport: 'Bericht wird generiert…',
       reportError: 'Berichtserstellung fehlgeschlagen',
       runScenarios: 'Szenarien ausführen',
       runningScenarios: 'Szenarien werden ausgeführt…',
     },
-    confirmStartFresh: 'Aktuellen Fall verwerfen und einen neuen starten? Dies kann nicht rückgängig gemacht werden.',
     noResult: { title: 'Noch kein Ergebnis', desc: 'Senden Sie einen Fragebogen ab, um die Engine-Ausgabe hier zu sehen.', cta: 'Fragebogen öffnen' },
     error: { title: 'Pipeline-Fehler', back: 'Zurück zum Fragebogen' },
     saveHint: 'Um den Fall auf dem Server zu behalten, braucht es ein kostenloses Konto; ohne Konto bleibt er nur in diesem Browser.',
@@ -1305,7 +1310,6 @@ const de: Locale = {
     help: "Lädt die Antworten eines veröffentlichten Falls in den Fragebogen, damit Sie sehen, was das Tool aus einer echten Studie ableitet.",
     loadButton: 'Preset laden',
     rationaleToggle: 'Warum diese Antworten? (Compilation-Rationale)',
-    replaceConfirm: "Das Laden dieses Beispiels ersetzt die Antworten, an denen Sie arbeiten. Speichern Sie Ihren Fall zuerst, wenn Sie ihn behalten möchten. Beispiel laden?",
     loaded: "Beispiel geladen: {{name}}",
   },
 
@@ -1328,7 +1332,6 @@ const de: Locale = {
   },
 
   auth: {
-    logoutUnsaved: "Beim Abmelden werden Fall und Netzwerk in diesem Browser geleert, damit die nächste Person sie nicht vorfindet. Einige Änderungen sind nicht auf dem Server gespeichert und gehen verloren.",
     sessionExpired: "Ihre Sitzung ist abgelaufen: Melden Sie sich erneut an. Der Fall bleibt in diesem Browser.",
     title: 'Anmelden',
     subtitle: 'Zum Speichern von Fällen auf dem Server und zum Teilen braucht es ein Konto. Einen gespeicherten Fall liest nur, wer seinen Link hat, und erst nachdem Sie ihn geteilt haben.',
@@ -1413,7 +1416,7 @@ const de: Locale = {
     title: 'Stakeholder-Bericht',
     subtitle:
       'Multi-Stakeholder-Ansicht des Falls. Wechseln Sie die Registerkarten, um Informationen zu sehen, die auf jede Zielgruppe entlang der biobasierten Wertschöpfungskette zugeschnitten sind.',
-    openButton: 'Stakeholder-Bericht öffnen',
+    openButton: "Ansichten nach Zielgruppe",
     backToResult: 'Zurück zum Ergebnis',
     openDcf: 'Data Collection File öffnen',
     loadingScoring: 'Scoring-Daten werden geladen…',
@@ -1547,7 +1550,7 @@ const de: Locale = {
     changes: 'Gegenüber der gespeicherten Version: {{removed}} zu dokumentierende Entscheidungen entfallen, {{added}} kommen hinzu.',
     changesFieldsGone: 'Nicht mehr abgefragte Felder: {{fields}} — die eingegebenen Werte bleiben erhalten, werden aber nicht exportiert.',
     changesFieldsNew: 'Jetzt abgefragte Felder: {{fields}}.',
-    changesNone: 'Das Data Collection File fragt dasselbe ab wie die gespeicherte Version.',
+    changesNone: "Die Fragen an die Unternehmen sind dieselben wie in der gespeicherten Version; die methodischen Entscheidungen in den Dateien folgen aber noch der gespeicherten Version.",
     goSaveChanges: 'Zum Ergebnis, um die Änderungen zu speichern',
   },
 
@@ -1571,8 +1574,7 @@ const de: Locale = {
 
   networkBuilder: {
     loadExample: 'Beispiel laden',
-    exampleReplaceConfirm:
-      'Dies ersetzt das aktuell gezeichnete Netzwerk durch das Beispiel. Fortfahren?',
+    exampleReplaceConfirm: "Das Beispiel ersetzt das Netzwerk auf der Arbeitsfläche. Das für diesen Fall gespeicherte Netzwerk bleibt auf dem Server, bis Sie „Netzwerk speichern“ drücken: „{{button}}“ holt es zurück. Fortfahren?",
     whyAsked: 'Abgefragt, weil:',
     hint: {
       step1: 'Fügen Sie je einen Akteur pro Teilnehmer der Symbiose hinzu — ein Werk, einen Versorger, eine Kommune.',
@@ -1649,6 +1651,41 @@ const de: Locale = {
       regulator: 'Behörde',
       intermediary: 'Zwischenhändler',
     },
+    exampleReplaceConfirmLocal: "Das Beispiel ersetzt das Netzwerk auf der Arbeitsfläche. Fortfahren?",
+    discard: "Ungespeicherte Änderungen verwerfen",
+    discardConfirm: "Die ungespeicherten Änderungen verwerfen und das für diesen Fall gespeicherte Netzwerk zurückholen?",
+    countryInvalid: "Verwenden Sie den zweistelligen ISO-Code des Landes, z. B. CZ.",
+    countryBlocksSave: "Ein Land ist kein zweistelliger ISO-Code ({{actors}}): Korrigieren Sie es, um das Netzwerk zu speichern.",
+  },
+
+  discard: {
+    savedCase: "Die noch nicht gespeicherten Änderungen an „{{name}}“ gehen verloren; die gespeicherte Kopie bleibt in Meine Fälle.",
+    notSaved: "Woran Sie arbeiten, ist nicht gespeichert und geht verloren: die Antworten und, falls gezeichnet, das Netzwerk. Um es zu behalten, speichern Sie den Fall zuerst auf der Ergebnisseite.",
+    newAssessment: {
+      lead: "Eine neue Bewertung starten?",
+      button: "Neue Bewertung starten",
+    },
+    signOut: {
+      lead: "Beim Abmelden werden Fall und Netzwerk in diesem Browser geleert, damit die nächste Person sie nicht vorfindet.",
+      button: "Abmelden",
+    },
+    loadCase: {
+      lead: "Das Öffnen dieses Falls ersetzt die Antworten, an denen Sie arbeiten.",
+      button: "Fall öffnen",
+    },
+    loadExample: {
+      lead: "Das Laden dieses Beispiels ersetzt die Antworten, an denen Sie arbeiten.",
+      button: "Beispiel laden",
+    },
+  },
+
+  notFound: {
+    title: "Seite nicht gefunden",
+    body: "Diese Seite gibt es nicht: Der Link ist vielleicht unvollständig oder veraltet.",
+    home: "Zur Startseite",
+    cases: "Meine Fälle",
+    report: "Hat man Ihnen einen geteilten Bericht geschickt?",
+    reportLink: "Geteilten Bericht öffnen",
   },
 
   cases: {
@@ -1658,8 +1695,7 @@ const de: Locale = {
     navLink: 'Meine Fälle',
     title: 'Meine Fälle',
     intro: 'Auf dem Server gespeicherte Fälle. „Öffnen“ zeigt den Fall (sein Ergebnis, wenn es schon ermittelt ist); „Antworten anpassen“ öffnet seinen Fragebogen, und „Änderungen speichern“ im Ergebnis sichert, was Sie ändern. Löschen entfernt einen Fall endgültig.',
-    loadReplaceConfirm: 'Das Laden dieses Falls ersetzt die Antworten, an denen Sie arbeiten und die nicht gespeichert sind. Fortfahren?',
-    empty: 'Noch keine gespeicherten Fälle. Speichern Sie einen Fall aus dem Fragebogen oder der Ergebnisseite.',
+    empty: "Noch keine gespeicherten Fälle. Speichern Sie einen auf der Ergebnisseite.",
     columns: {
       name: 'Name',
       situation: 'ILCD-Situation',
@@ -1668,7 +1704,7 @@ const de: Locale = {
     loadButton: 'Öffnen',
     editButton: 'Antworten anpassen',
     deleteButton: 'Löschen',
-    confirmDelete: '"{{name}}" endgültig löschen? Dies kann nicht rückgängig gemacht werden.',
+    confirmDelete: "„{{name}}“ aus Meine Fälle löschen? Das lässt sich nicht rückgängig machen.",
     saveButton: 'Fall speichern',
     saveAsButton: 'Als neu speichern…',
     saveTitle: 'Fall speichern',
@@ -1688,6 +1724,9 @@ const de: Locale = {
     networkNotCopied: 'Der Fall ist gespeichert, aber das Netzwerk konnte nicht kopiert werden: Öffnen Sie das Data Collection File und speichern Sie das Netzwerk.',
     sharedYes: 'Geteilt: öffentlicher Link aktiv',
     sharedNo: 'Privat',
+    confirmDeleteShared: "Der dafür geteilte öffentliche Link funktioniert dann nicht mehr.",
+    confirmDeleteOpen: "Es ist der gerade geöffnete Fall: Seine Antworten bleiben in diesem Browser als noch nicht gespeicherter Fall.",
+    deletedOpen: "Der Fall „{{name}}“ wurde aus Meine Fälle gelöscht. Seine Antworten sind noch in diesem Browser: Speichern Sie sie mit „{{button}}“ erneut, um weiter daran zu arbeiten.",
   },
 }
 

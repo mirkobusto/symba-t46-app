@@ -12,8 +12,8 @@ import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import PresetLoader from '../components/PresetLoader'
-import { useCaseStore } from '../store/caseStore'
 import { usePreferenceStore } from '../store/preferenceStore'
+import { startNewAssessment } from '../store/signOut'
 
 const INTRO = ['what', 'not', 'who'] as const
 
@@ -25,13 +25,12 @@ export default function HomePage() {
   useEffect(() => {
     if (hash === '#presets') document.getElementById('presets')?.scrollIntoView()
   }, [hash])
-  const reset = useCaseStore((s) => s.reset)
   const mode = usePreferenceStore((s) => s.mode)
   const setMode = usePreferenceStore((s) => s.setMode)
 
-  function handleStart() {
-    reset()
-    navigate('/questionnaire')
+  // it emptied the answers being worked on without asking (UX round 6, P1-09, P7-04)
+  async function handleStart() {
+    if (await startNewAssessment()) navigate('/questionnaire')
   }
 
   return (
@@ -61,7 +60,7 @@ export default function HomePage() {
             <button
               type="button"
               className="dd-btn dd-btn-primary"
-              onClick={handleStart}
+              onClick={() => void handleStart()}
             >
               {t('home.startButton')} <ArrowRight size={16} />
             </button>

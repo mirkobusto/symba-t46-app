@@ -14,6 +14,7 @@ import { useCaseStore } from '../store/caseStore'
 import { useToastStore } from '../store/toastStore'
 import type { CaseSummary } from '../types/api'
 import { askConfirm } from '../store/dialogStore'
+import { caseWasDeleted, confirmDiscard } from '../store/signOut'
 import { useAxisLabel } from './aggregateLabels'
 
 export default function CasesListPage() {
@@ -52,19 +53,17 @@ export default function CasesListPage() {
   // "Open" lands on the saved verdict, "Edit answers" on the questionnaire
   // (round 4 leftover: Load always opened the result)
   async function handleLoad(id: string, target: 'result' | 'questionnaire' = 'result') {
-    // loading replaced unsaved answers without a word (UX round 5, P7-09)
-    const st = useCaseStore.getState()
-    const hasWork = !!st.draft.q1 || (st.draft.flows?.length ?? 0) > 0
-    const unsaved = st.serverCaseId === null || st.savedDiverged
-    // also when it is the open case itself, worked out again and not saved:
-    // loading it back would drop exactly that work (Fable review of #205)
-    if (hasWork && unsaved && !(await askConfirm(t('cases.loadReplaceConfirm')))) return
+    // loading replaced unsaved answers without a word (UX round 5, P7-09),
+    // also when it is the open case itself, changed and not saved: loading it
+    // back would drop exactly that work (Fable review of #205). The same rule
+    // as signing out and starting a new assessment (UX round 6, P7-03)
+    if (!(await confirmDiscard('loadCase'))) return
     try {
       const detail = await getCase(id)
       setDraft(detail.case)
       // Remember which server case this draft mirrors, so the Network
       // Builder syncs its DCF content to the right one.
-      setServerCase(detail.id, detail.name)
+      setServerCase(detail.id, detail.name, detail.case)
       // A saved case was stored after the pipeline ran, so it already
       // carries its verdict: land on the result rather than making the
       // user re-run the questionnaire to see what they just opened.
@@ -86,9 +85,18 @@ export default function CasesListPage() {
   }
 
   async function handleDelete(item: CaseSummary) {
-    if (!(await askConfirm(t('cases.confirmDelete', { name: item.name })))) return
+    // say what goes with it: the public link, and that the open case stays
+    // here as a case not saved (UX round 6, P7-21, P7-01)
+    const open = useCaseStore.getState().serverCaseId === item.id
+    const message = [
+      t('cases.confirmDelete', { name: item.name }),
+      item.shared_at ? t('cases.confirmDeleteShared') : null,
+      open ? t('cases.confirmDeleteOpen') : null,
+    ].filter(Boolean).join(' ')
+    if (!(await askConfirm(message, t('cases.deleteButton')))) return
     try {
       await deleteCase(item.id)
+      if (open) caseWasDeleted()
       await refresh()
     } catch (e) {
       const msg = e instanceof ApiError ? e.detail : (e as Error).message

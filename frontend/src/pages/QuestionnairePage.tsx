@@ -5,12 +5,14 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
 import AdvancedEditor from '../components/AdvancedEditor'
+import { activeAdvancedCount, invalidAdvancedKeys } from '../components/advancedKeys'
 import FlowsEditor from '../components/FlowsEditor'
 import LoadingOverlay from '../components/LoadingOverlay'
 import QuestionCard from '../components/QuestionCard'
 import { QuestionStepContext } from '../components/questionStep'
 import ScenariosEditor from '../components/ScenariosEditor'
-import { useCaseStore } from '../store/caseStore'
+import { isBlankDraft, registerDraftFlush, useCaseStore } from '../store/caseStore'
+import { startNewAssessment } from '../store/signOut'
 import { usePreferenceStore } from '../store/preferenceStore'
 import type {
   AlternativeScenario,
@@ -27,7 +29,6 @@ import type {
   ReferenceMarketScope,
   StudyPurpose,
 } from '../types/api'
-import { askConfirm } from '../store/dialogStore'
 
 const Q1_KEYS: Q1[] = ['A', 'B', 'C', 'D', 'E']
 const Q2_KEYS: Q2[] = ['A', 'B']
@@ -92,7 +93,9 @@ export default function QuestionnairePage() {
   const draft = useCaseStore((s) => s.draft)
   const patchDraft = useCaseStore((s) => s.patchDraft)
   const runDraft = useCaseStore((s) => s.runDraft)
-  const reset = useCaseStore((s) => s.reset)
+  const serverCaseName = useCaseStore((s) => s.serverCaseName)
+  const serverCaseId = useCaseStore((s) => s.serverCaseId)
+  const deletedCaseName = useCaseStore((s) => s.deletedCaseName)
   const loading = useCaseStore((s) => s.loading)
   const error = useCaseStore((s) => s.error)
 
@@ -147,8 +150,13 @@ export default function QuestionnairePage() {
     draft.advanced ?? {},
   )
 
+  // the reset the answers on screen come after (see the flush below): set in
+  // the same render as the answers, so the two never disagree
+  const [shownGeneration, setShownGeneration] = useState(() => useCaseStore.getState().generation)
+
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
+    setShownGeneration(useCaseStore.getState().generation)
     setQ1(draft.q1 ?? undefined)
     setPurpose(draft.study_purpose ?? '')
     setQ2(draft.q2 ?? undefined)
@@ -196,6 +204,7 @@ export default function QuestionnairePage() {
   // what still blocks the run, in page order, named by the card title (the
   // step number on screen is a CSS counter, the Q code alone meant nothing to
   // a newcomer, and "Q1 is required" stayed silent about Q9 and Q10)
+  const mode = usePreferenceStore((s) => s.mode)
   const missing: { id: string; label: string }[] = [
     ...(!q1 ? [{ id: 'q1', label: cardTitle(t('questionnaire.q1.title')) }] : []),
     ...(q3Empty ? [{ id: 'q3', label: cardTitle(t('questionnaire.q3.title')) }] : []),
@@ -203,6 +212,9 @@ export default function QuestionnairePage() {
     ...(eco && policy === '' ? [{ id: 'q10', label: cardTitle(t('questionnaire.q10.title')) }] : []),
     ...(flowsWithoutQ5 ? [{ id: 'q5', label: t('questionnaire.flowsMissingQ5') }] : []),
     ...(q8Invalid ? [{ id: 'q8', label: `${cardTitle(t('questionnaire.q8.title'))} (${t('questionnaire.q8.invalidShort')})` }] : []),
+    // a value the engine cannot read was dropped in silence (UX round 6, P7-13)
+    ...(mode !== 'guided' && invalidAdvancedKeys(advanced).length > 0
+      ? [{ id: 'advanced', label: t('questionnaire.advancedCard.invalid') }] : []),
   ]
   const canRun = missing.length === 0 && !loading
 
@@ -247,13 +259,24 @@ export default function QuestionnairePage() {
     }
   }
   const buildPatchRef = useRef(buildPatch)
+  const generationRef = useRef(shownGeneration)
   useEffect(() => {
     buildPatchRef.current = buildPatch
+    generationRef.current = shownGeneration
   })
+  // Whoever asks whether work would be lost (sign out, new assessment) first
+  // has the answers on screen written to the draft (UX round 6, P7-03). After
+  // a reset the answers on screen are from before it: leaving the page must
+  // not write them back, or a signed-out user's case came back (A1-01).
   useEffect(() => {
-    const save = () => patchDraft(buildPatchRef.current())
+    const save = () => {
+      if (useCaseStore.getState().generation !== generationRef.current) return
+      patchDraft(buildPatchRef.current())
+    }
+    const unregister = registerDraftFlush(save)
     window.addEventListener('beforeunload', save)
     return () => {
+      unregister()
       window.removeEventListener('beforeunload', save)
       save()
     }
@@ -276,9 +299,10 @@ export default function QuestionnairePage() {
     if (result) navigate('/result')
   }
 
+  // the same action as "Start a new assessment" everywhere: it asks only when
+  // something would be lost, and says what stays (UX round 6, P7-21)
   async function handleReset() {
-    if (await askConfirm(t('questionnaire.confirmReset'))) {
-      reset()
+    if (await startNewAssessment()) {
       setPurpose('')
       setQ1(undefined); setQ2(undefined); setLongStanding('')
       setEnv(true); setEco(false); setSoc(false)
@@ -296,7 +320,6 @@ export default function QuestionnairePage() {
     }
   }
 
-  const mode = usePreferenceStore((s) => s.mode)
 
   // Guided mode runs one question at a time (UX round 2026-11-02: a single
   // page of ~8,300 px wore out the plant manager). The steps are read off the
@@ -361,6 +384,21 @@ export default function QuestionnairePage() {
           </p>
         </div>
       </div>
+
+      {/* which case these answers are: "New assessment" in the menu reopened
+          the previous case without saying so (UX round 6, P6-14) */}
+      {serverCaseId || deletedCaseName !== null || !isBlankDraft({ ...draft, ...buildPatch() }) ? (
+        <p className="questionnaire-editing" role="status">
+          {serverCaseId
+            ? t('questionnaire.editing.saved', { name: serverCaseName ?? '' })
+            : deletedCaseName !== null
+              ? t('cases.deletedOpen', { name: deletedCaseName, button: t('cases.saveFirstButton') })
+              : t('questionnaire.editing.notSaved')}{' '}
+          <button type="button" className="btn btn-secondary" onClick={() => void handleReset()}>
+            {t('questionnaire.resetButton')}
+          </button>
+        </p>
+      ) : null}
 
       {mode === 'guided' && firstStep ? (
         <div className="guided-banner" role="note">
@@ -805,12 +843,12 @@ export default function QuestionnairePage() {
 
         {/* Advanced */}
         {mode !== 'guided' ? (
-          <details className="advanced-card">
+          <details className="advanced-card" id="advanced">
             <summary>
               <strong>{t('questionnaire.advancedCard.title')}</strong>
               <span className="muted">
                 {' · '}
-                {t('questionnaire.advancedCard.activeKeys', { count: Object.keys(advanced).length })}
+                {t('questionnaire.advancedCard.activeKeys', { count: activeAdvancedCount(advanced) })}
               </span>
             </summary>
             <div className="advanced-card-body">
@@ -861,9 +899,6 @@ export default function QuestionnairePage() {
           disabled={!canRun}
         >
           {loading ? t('questionnaire.runningButton') : t('questionnaire.runButton')}
-        </button>
-        <button type="button" className="btn btn-secondary" onClick={handleReset}>
-          {t('questionnaire.resetButton')}
         </button>
         {missing.length > 0 ? (
           <span className="muted run-missing">

@@ -16,7 +16,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ComplianceChecklist from '../../components/dd/ComplianceChecklist'
 import PendingScoringPlaceholder from '../../components/dd/PendingScoringPlaceholder'
@@ -28,10 +28,10 @@ import { plainVerdict, verdictFor } from '../resultNarrative'
 import { AUDIENCE_ROWS } from '../configurationRows'
 import ConfigurationSummary from '../../components/ConfigurationSummary'
 import { usePreferenceStore, type UserRole } from '../../store/preferenceStore'
+import ReportNotFound from '../../components/reader/ReportNotFound'
+import { VIEWS, viewOf, type View } from './sharedReportPath'
 
-type Audience = 'industry' | 'community' | 'authority' | 'enduser'
-
-const AUDIENCE_SET: Audience[] = ['industry', 'community', 'authority', 'enduser']
+type Audience = View
 
 // a link without a view opens on the reader's own role, when they gave one
 const ROLE_AUDIENCE: Partial<Record<UserRole, Audience>> = {
@@ -43,17 +43,25 @@ export default function PublicReportPage() {
   const role = usePreferenceStore((s) => s.role)
   const params = useParams<{ caseId: string; audience: string }>()
   const caseId = params.caseId ?? ''
+  // a code copied in capitals from a label (UX round 6, P5-11); slugs are lower case
+  const caseKey = caseId.toLowerCase()
+  // a view the link names, also as "end-user" or in capitals; an unknown one
+  // opened the Community view in silence (P5-01): it now goes to the bare link
+  const named = viewOf(params.audience)
   // without a view and a role the reader came from a bare link, most likely a
   // product label: the end-user view (UX round 2026-11-03, decided by Fable)
-  const audience = params.audience ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'enduser'
+  const audience: Audience = named ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'enduser'
+  const canonical = named ? `/r/${caseKey}/${named}` : `/r/${caseKey}`
+  const needsRedirect = canonical !== `/r/${caseId}${params.audience !== undefined ? `/${params.audience}` : ''}`
 
   const [report, setReport] = useState<PublicReportResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (needsRedirect) return
     let cancelled = false
-    fetchPublicReport(caseId)
+    fetchPublicReport(caseKey)
       .then((r) => { if (!cancelled) { setReport(r); setLoading(false) } })
       .catch((e: unknown) => {
         if (cancelled) return
@@ -64,30 +72,15 @@ export default function PublicReportPage() {
         setLoading(false)
       })
     return () => { cancelled = true }
-  }, [caseId])
+  }, [caseKey, needsRedirect])
 
-  const validAudience: Audience = AUDIENCE_SET.includes(audience as Audience)
-    ? (audience as Audience)
-    : 'community'
+  const validAudience: Audience = audience
+
+  if (needsRedirect) return <Navigate to={canonical} replace />
 
   if (loading) return <p className="dd-muted">{t('reader.loading')}</p>
 
-  if (error !== null || !report) {
-    return (
-      <div>
-        <h1>{t('reader.notFoundTitle')}</h1>
-        <p className="dd-soft">{error || t('reader.notFoundBody')}</p>
-        <div className="dd-page-actions">
-          <Link to="/r/open" className="dd-btn dd-btn-primary">
-            ← {t('reader.tryAnother')}
-          </Link>
-          <Link to="/r/about" className="dd-btn dd-btn-secondary">
-            {t('reader.aboutLink')} →
-          </Link>
-        </div>
-      </div>
-    )
-  }
+  if (error !== null || !report) return <ReportNotFound detail={error ?? undefined} />
 
   const { case: c, scoring } = report
   const tr = (key: string, fallback?: string) => t(key, { defaultValue: fallback ?? '' })
@@ -171,10 +164,10 @@ export default function PublicReportPage() {
       {/* Audience selector — anyone can flip the framing without needing
           to know the URL structure. */}
       <div className="dd-reader-audience" role="tablist">
-        {AUDIENCE_SET.map((a) => (
+        {VIEWS.map((a) => (
           <Link
             key={a}
-            to={`/r/${caseId}/${a}`}
+            to={`/r/${caseKey}/${a}`}
             role="tab"
             aria-selected={a === validAudience}
             className={`dd-tab ${a === validAudience ? 'dd-tab-active' : ''}`}

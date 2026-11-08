@@ -451,7 +451,7 @@ const de: Locale = {
     technicalTitle: "Technische Details (für Fachleute)",
     title: 'Über',
     p1:
-      'SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die Zahlen berechnet außerhalb des Werkzeugs, wer die Studie durchführt, und sie können hier geladen werden; niemand berechnet sie automatisch.',
+      'SYMBA T4.6 unterstützt alle, die eine Lebenszyklus-Nachhaltigkeitsbewertung einer industriellen Symbiose aufsetzen: aus einem Fragebogen zum Fall leitet es ab, welche Methodik gilt, welche Praktiken zu dokumentieren sind und welche Daten bei den Netzwerkpartnern zu erheben sind. Es berechnet die Ergebnisse nicht — die Zahlen berechnet außerhalb des Werkzeugs, wer die Studie durchführt, und niemand berechnet sie automatisch; diese Version kann sie noch nicht in einen Fall laden.',
     p2:
       'Der Fragebogen (Q0-Q12; Q9 bestimmt die ILCD-Situation, Q10 die gesellschaftliche LCC) steuert die Aktivierung der 186 Phase-1-Knoten plus 40 Cross-Method-Validierungsregeln (18 IR + 10 CIR + 5 FU + 7 B). Die L3-Durchsetzung zur Reporting-Zeit (IR-04 + IR-10) plus 11 Critical Decision Points machen Cross-Method-Spannungen sichtbar.',
   },
@@ -468,7 +468,7 @@ const de: Locale = {
       exchanges: 'Die Austausche',
       description: 'Beschreibung des Falls',
     },
-    scopeNote: "Dieses Werkzeug berechnet keine LCA-/LCC-/S-LCA-Zahlen. Es leitet die methodische Konfiguration Ihres Falls und die zu erhebenden Daten ab; das quantitative Scoring entsteht extern und erscheint hier, sobald es vorliegt.",
+    scopeNote: "Dieses Werkzeug berechnet keine LCA-/LCC-/S-LCA-Zahlen. Es leitet die methodische Konfiguration Ihres Falls und die zu erhebenden Daten ab; die Zahlen berechnet außerhalb des Tools, wer die Studie durchführt, und diese Version kann sie noch nicht in den Fall laden.",
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
@@ -1443,7 +1443,7 @@ const de: Locale = {
   scoringPending: {
     title: "Noch keine Ergebnisse",
     body:
-      "Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie; werden sie diesem Fall hinzugefügt, erscheinen sie hier.",
+      "Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie außerhalb des Tools; diese Version hat noch keine Seite, um sie in den Fall zu laden.",
     lastChecked: "Zuletzt geprüft: {{date}}",
   },
 
@@ -1461,26 +1461,26 @@ const de: Locale = {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welcher Methodik die Bewertung folgt und welche Daten deshalb von Ihnen verlangt werden. Die Abfrage selbst ist das Data Collection File.",
         whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: Umwelt- und Wirtschaftsindikatoren, um zu beurteilen, ob sich der Austausch lohnt.',
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: Umwelt- und Wirtschaftsindikatoren, um zu beurteilen, ob sich der Austausch lohnt.',
       },
       community: {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Flüsse die Unternehmen austauschen, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
         whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: soziale Indikatoren — Beschäftigte, lokale Gemeinschaft — und Umweltindikatoren, jeweils mit der Gruppe, die sie betreffen.',
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: soziale Indikatoren — Beschäftigte, lokale Gemeinschaft — und Umweltindikatoren, jeweils mit der Gruppe, die sie betreffen.',
       },
       authority: {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und wie konzentriert die wichtigsten Wechselwirkungen sind.",
         whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: die Umweltzahlen und, wo die Studie sie enthält, die gesellschaftlichen Kosten.',
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: die Umweltzahlen und, wo die Studie sie enthält, die gesellschaftlichen Kosten.',
         scope: "Wie konzentriert die wichtigsten Wechselwirkungen sind: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Materialien diese Symbiose wieder in Umlauf bringt und ob ökologische und soziale Wirkungen untersucht werden.",
         whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wenn ein Analyst die Studie mit dem Data Collection File durchführt, können seine Ergebnisse hier geladen werden: die Umwelt- und Sozialindikatoren der Kette hinter dem Produkt.',
+          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: die Umwelt- und Sozialindikatoren der Kette hinter dem Produkt.',
         productCaveat:
           "Diese Bewertung beschreibt den Austausch zwischen den Unternehmen, nicht das Endprodukt, das Sie kaufen: das Werkzeug fragt nie, welches Produkt es ist.",
       },
@@ -1509,7 +1509,7 @@ const de: Locale = {
     },
     framing: {
       industry:
-        'Vollständige technische Sicht auf die methodische Konfiguration. Die Zahlen (Emissionen, Kosten) entstehen nicht hier: Wer die Studie durchführt, berechnet sie aus dem Data Collection File, und sie können in diesen Fall geladen werden.',
+        'Vollständige technische Sicht auf die methodische Konfiguration. Die Zahlen (Emissionen, Kosten) entstehen nicht hier: Wer die Studie durchführt, berechnet sie aus dem Data Collection File; diese Version des Tools kann sie noch nicht in den Fall laden.',
       community:
         'Wie die Wirkungen auf die Gegend und auf die Menschen in der Nähe der Anlagen untersucht werden: Transporte, lokale Luft, Wasser und Boden, was auf Felder ausgebracht wird, ob Anwohner gehört werden. Es gibt noch keine Ergebnisse.',
       authority:
@@ -1527,7 +1527,7 @@ const de: Locale = {
     scoringTitle: 'Ergebnisse',
     scoringPendingTitle: 'Noch keine Ergebnisse',
     scoringPendingBody:
-      'Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie; werden sie diesem Fall hinzugefügt, erscheinen sie hier.',
+      'Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie außerhalb des Tools; diese Version hat noch keine Seite, um sie in den Fall zu laden.',
     scoringEmpty: 'Keine für diesen Stakeholder relevanten Indikatoren.',
     indicatorPending: 'ausstehend',
     engineDetailsTitle: 'Was die Analyse für Sie dokumentiert',

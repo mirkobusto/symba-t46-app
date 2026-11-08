@@ -499,7 +499,7 @@ const en = {
     technicalTitle: "Technical details (for specialists)",
     title: 'About',
     p1:
-      'SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results: whoever carries out the study calculates the figures outside the tool and can load them here; nobody calculates them automatically.',
+      'SYMBA T4.6 helps whoever sets up a life-cycle sustainability assessment of an industrial symbiosis: it derives, from a questionnaire about the case, which methodology applies, which practices have to be documented, and which data to collect from the partners of the network. It does not compute the results: whoever carries out the study calculates the figures outside the tool, and nobody calculates them automatically; this version cannot load them into a case yet.',
     p2:
       'The questionnaire (Q0-Q12; Q9 sets the ILCD situation, Q10 the societal LCC) drives the activation of 186 Phase 1 nodes plus 40 cross-method validation rules (18 IR + 10 CIR + 5 FU + 7 B). Reporting-time L3 enforcement (IR-04 + IR-10) plus 11 Critical Decision Points surface cross-method tensions to the user.',
   },
@@ -516,7 +516,7 @@ const en = {
       exchanges: 'The exchanges',
       description: 'Description of the case',
     },
-    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological configuration your case requires and the data you have to collect; the quantitative scoring is produced externally and shown here once delivered.",
+    scopeNote: "This tool does not compute LCA/LCC/S-LCA numbers. It derives the methodological configuration your case requires and the data you have to collect; the figures are calculated outside the tool by whoever carries out the study, and this version cannot load them into the case yet.",
     title: 'Questionnaire',
     intro:
       'Questions about your industrial-symbiosis case, in three parts: the study, the exchanges, and a description of the case. Required: the dimensions (Q3), the decision and its scale (Q9), the subject (Q1) and, with the economic dimension, the public objective (Q10); the rest is optional and sharpens the configuration.',
@@ -1490,7 +1490,7 @@ const en = {
   scoringPending: {
     title: "No results yet",
     body:
-      "This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them; if they are added to this case, they appear here.",
+      "This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them outside the tool; this version has no page to load them into the case yet.",
     lastChecked: "Last checked: {{date}}",
   },
 
@@ -1508,26 +1508,26 @@ const en = {
         whatYouSee:
           "What this page tells you today: which methodology the assessment will follow, and therefore which data you will be asked for. The data request itself is the Data Collection File.",
         whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental and economic indicators, to judge whether the exchange pays off.',
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
         whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: social indicators (workers, local community) and environmental ones, each with the group it concerns.',
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: social indicators (workers, local community) and environmental ones, each with the group it concerns.',
       },
       authority: {
         whatYouSee:
           "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and how concentrated the key interactions are.",
         whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: the environmental figures and, where the study includes them, the societal costs.',
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: the environmental figures and, where the study includes them, the societal costs.',
         scope: "How concentrated the key interactions are: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "What this page tells you today: which materials this symbiosis puts back into use, and whether environmental and social effects are examined.",
         whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: the environmental and social indicators of the chain behind the product.',
+          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: the environmental and social indicators of the chain behind the product.',
         productCaveat:
           "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
       },
@@ -1556,7 +1556,7 @@ const en = {
     },
     framing: {
       industry:
-        'Full technical view of the methodological configuration. The figures (emissions, costs) are not produced here: whoever carries out the study calculates them from the Data Collection File, and they can be loaded into this case.',
+        'Full technical view of the methodological configuration. The figures (emissions, costs) are not produced here: whoever carries out the study calculates them from the Data Collection File; this version of the tool cannot load them into the case yet.',
       community:
         'How the effects on the area and on the people near the plants will be studied: transport, local air, water and soil, what is spread on fields, whether residents are heard. There are no results yet.',
       authority:
@@ -1574,7 +1574,7 @@ const en = {
     scoringTitle: 'Results',
     scoringPendingTitle: 'No results yet',
     scoringPendingBody:
-      'This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them; if they are added to this case, they appear here.',
+      'This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them outside the tool; this version has no page to load them into the case yet.',
     scoringEmpty: 'No indicators relevant for this stakeholder.',
     indicatorPending: 'pending',
     engineDetailsTitle: 'What the analyst will document for you',

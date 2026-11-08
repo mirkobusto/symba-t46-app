@@ -477,7 +477,7 @@ const it: Locale = {
     technicalTitle: "Dettagli tecnici (per specialisti)",
     title: 'Informazioni',
     p1:
-      'SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da un questionario sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati: i numeri li calcola fuori dallo strumento chi esegue lo studio, e si possono caricare qui; nessuno li calcola in automatico.',
+      'SYMBA T4.6 aiuta chi imposta una valutazione di sostenibilità del ciclo di vita di una simbiosi industriale: da un questionario sul caso deriva quale metodologia si applica, quali pratiche vanno documentate e quali dati raccogliere dai partner della rete. Non calcola i risultati: i numeri li calcola fuori dallo strumento chi esegue lo studio, e nessuno li calcola in automatico; questa versione non permette ancora di caricarli in un caso.',
     p2:
       'Il questionario (Q0-Q12; Q9 fissa la situazione ILCD, Q10 l\'LCC sociale) attiva i 186 nodi Phase 1 più 40 regole cross-method (18 IR + 10 CIR + 5 FU + 7 B). L\'enforcement L3 in fase di reporting (IR-04 + IR-10) più 11 Critical Decision Points emergono per evidenziare tensioni cross-method.',
   },
@@ -494,7 +494,7 @@ const it: Locale = {
       exchanges: 'Gli scambi',
       description: 'Descrizione del caso',
     },
-    scopeNote: "Questo strumento non calcola i numeri di LCA/LCC/S-LCA. Deriva la configurazione metodologica che il tuo caso richiede e i dati che devi raccogliere; lo scoring quantitativo è prodotto esternamente e compare qui quando arriva.",
+    scopeNote: "Questo strumento non calcola i numeri di LCA/LCC/S-LCA. Deriva la configurazione metodologica che il tuo caso richiede e i dati che devi raccogliere; i numeri li calcola fuori dallo strumento chi esegue lo studio, e questa versione non permette ancora di caricarli nel caso.",
     title: 'Questionario',
     guidedBannerTitle: 'Modalità guidata attiva',
     guidedBannerBody:
@@ -1469,7 +1469,7 @@ const it: Locale = {
   scoringPending: {
     title: "Ancora nessun risultato",
     body:
-      "Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola chi esegue lo studio; se vengono aggiunti a questo caso, compaiono qui.",
+      "Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola fuori dallo strumento chi esegue lo studio; questa versione non ha ancora una pagina per caricarli nel caso.",
     lastChecked: "Ultimo controllo: {{date}}",
   },
 
@@ -1487,26 +1487,26 @@ const it: Locale = {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quale metodologia seguirà la valutazione, e quindi quali dati ti verranno chiesti. La richiesta dei dati è il Data Collection File.",
         whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: indicatori ambientali ed economici, per giudicare se lo scambio conviene.',
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori ambientali ed economici, per giudicare se lo scambio conviene.',
       },
       community: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali flussi le aziende si scambiano, e se questo studio esamina o no gli effetti sociali.",
         whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: indicatori sociali (lavoratori, comunità locale) e ambientali, ciascuno con il gruppo che riguarda.',
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori sociali (lavoratori, comunità locale) e ambientali, ciascuno con il gruppo che riguarda.',
       },
       authority: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e quanto sono concentrate le interazioni chiave.",
         whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: i numeri ambientali e, dove lo studio li include, i costi per la società.',
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: i numeri ambientali e, dove lo studio li include, i costi per la società.',
         scope: "Quanto sono concentrate le interazioni chiave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali materiali questa simbiosi rimette in uso, e se gli effetti ambientali e sociali sono esaminati.",
         whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Se un analista esegue lo studio con il Data Collection File, i suoi risultati possono essere caricati qui: gli indicatori ambientali e sociali della filiera dietro il prodotto.',
+          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: gli indicatori ambientali e sociali della filiera dietro il prodotto.',
         productCaveat:
           "Questa valutazione descrive lo scambio tra le aziende, non il prodotto finale che compri: lo strumento non chiede quale sia il prodotto.",
       },
@@ -1535,7 +1535,7 @@ const it: Locale = {
     },
     framing: {
       industry:
-        'Vista tecnica completa della configurazione metodologica. I numeri (emissioni, costi) non si producono qui: li calcola chi esegue lo studio a partire dal Data Collection File, e possono essere caricati in questo caso.',
+        'Vista tecnica completa della configurazione metodologica. I numeri (emissioni, costi) non si producono qui: li calcola chi esegue lo studio a partire dal Data Collection File; questa versione dello strumento non permette ancora di caricarli nel caso.',
       community:
         'Come verranno studiati gli effetti sulla zona e sulle persone vicine agli impianti: trasporti, aria, acqua e suolo locali, ciò che si sparge sui campi, se i residenti vengono ascoltati. Non ci sono ancora risultati.',
       authority:
@@ -1553,7 +1553,7 @@ const it: Locale = {
     scoringTitle: 'Risultati',
     scoringPendingTitle: 'Ancora nessun risultato',
     scoringPendingBody:
-      'Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola chi esegue lo studio; se vengono aggiunti a questo caso, compaiono qui.',
+      'Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola fuori dallo strumento chi esegue lo studio; questa versione non ha ancora una pagina per caricarli nel caso.',
     scoringEmpty: 'Nessun indicatore rilevante per questo stakeholder.',
     indicatorPending: 'in attesa',
     engineDetailsTitle: 'Che cosa documenterà l\'analista per te',

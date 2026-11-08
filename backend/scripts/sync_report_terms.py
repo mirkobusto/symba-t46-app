@@ -148,7 +148,18 @@ def extract() -> dict[str, Any]:
                      "why": tree["result"]["config"]["why"]["label"],
                      "resolution": tree["result"]["action"]["resolution"],
                      "situationBadge": tree["result"]["situationBadge"],
-                     "lccBadge": tree["result"]["lccBadge"]},
+                     "lccBadge": tree["result"]["lccBadge"],
+                     "lccTitle": tree["result"]["lccTitle"]},
+            # UX round 2026-11-08 (case report made sendable): the funding
+            # acknowledgement, the guided register, the obligation families and
+            # the sector-rule labels, as the app words them
+            "eu": {k: tree["eu"][k] for k in ("fundingStatement", "disclaimer")},
+            "reader": {"verdict": tree["reader"]["verdict"]},
+            "guided": {k: tree["result"]["guided"][k] for k in ("title", "lead")},
+            "engineNotesPlain": tree["result"]["engineNotesPlain"],
+            "families": tree["result"]["next"]["families"],
+            "sector": {k: tree["result"]["sectorRules"][k]
+                       for k in ("title", "lead", "activatedBy", "byFlow", "byCaseSector", "strength")},
         }
     return out
 

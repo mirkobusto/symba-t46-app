@@ -92,14 +92,16 @@ def _docx_text(case) -> str:
     return "\n".join(p.text for p in Document(BytesIO(generate_case_report_bytes(case))).paragraphs)
 
 
-def test_report_lists_q8_q9_q10_and_the_notes_only_when_answered():
+def test_report_lists_q8_q9_q10_and_the_notes():
     from app.domain.enums import Q1, Q2, DecisionContext
     from app.domain.models import Q3, Case
 
     base = dict(q1=Q1.E, q2=Q2.A, q3=Q3(env=True, eco=True))
     plain = _docx_text(Case(**base))
-    assert "Q8" not in plain and "Q9 decision" not in plain
-    assert "Q10 public objective" not in plain
+    # unanswered questions are listed as such, not left out (UX round 2026-11-08, P7-07)
+    assert "Q8b analysis period (years): (not answered)" in plain
+    assert "Q9 decision and scale: (not answered)" in plain
+    assert "Q10 public objective: (not answered)" in plain
     # unanswered Q9 / Q10 are read off Q1, and the notes say so (2026-10-18)
     assert "Notes on the answers" in plain and "Q9 is not answered" in plain
 

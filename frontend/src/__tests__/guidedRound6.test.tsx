@@ -67,7 +67,8 @@ describe('guided notes on the answers', () => {
     }, true, { flows: 'Biomethane' })
     expect(text).toMatch(/flows with no sector now: Biomethane/)
     expect(text).toMatch(/Biogas, biomethane or digestate/)
-    expect(text).not.toMatch(/\{\{/)
+    expect(text).not.toMatch(/\{\{|§/)
+    expect(text).toMatch(/\(Waste Valorisation\)/)
   })
 
   it('speaks of who pays whom, not of Q5', () => {

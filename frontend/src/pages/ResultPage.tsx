@@ -390,7 +390,8 @@ export default function ResultPage() {
   // the sector chapters are a row of the configuration: the per-flow note would repeat it
   const notes = (result.warnings ?? []).filter((w) => !(blockedBy.length === 0 && w.code === 'flow_part2_chapter'))
   // the guided note on the case sector names the flows still without one (P3-10)
-  const flowsWithoutSector = (result.flows ?? []).filter((f) => !f.sector).map((f) => f.name || f.id).join(', ') || '—'
+  const flowsWithoutSector = (result.flows ?? []).filter((f) => !f.sector).map((f) => f.name || f.id).join(', ')
+    || t('scenarios.noneChosen')
   const verdict = verdictFor(result, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )

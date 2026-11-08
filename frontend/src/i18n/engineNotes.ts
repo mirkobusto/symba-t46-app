@@ -34,7 +34,9 @@ export function translateNote(
   // P2-11), with every parameter (the chapter of the case sector was missing)
   if (plain) {
     const plainKey = key.replace('result.engineNotes.', 'result.engineNotesPlain.')
-    const text = t(plainKey, { ...params, defaultValue: '' })
+    // no "§8" in the guided register: the chapter by its name only
+    const chapter = params.chapter?.replace(/^§\d+\s*/, '')
+    const text = t(plainKey, { ...params, chapter, defaultValue: '' })
     if (text) return text
   }
   return t(key, { ...params, defaultValue: w.message })

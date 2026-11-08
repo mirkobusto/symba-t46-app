@@ -116,3 +116,34 @@ def test_the_public_report_says_where_the_plants_are_without_naming_them(client)
     report = client.get(f"/api/public/report/{saved['slug']}").json()
     assert report["countries"] == ["ES", "IT"]
     assert "Dairy" not in str(report)
+
+
+def test_the_country_page_lists_its_shared_cases(client):
+    # UX round 6, P3-08 / P7-23: "Cases 1" with no way to reach the case
+    owner = _auth(client, "owner@example.eu")
+    shared, unshared = _save(client, owner), _save(client, owner)
+    for saved in (shared, unshared):
+        _network_in(client, owner, saved["id"], "IT")
+    client.post(f"/api/cases/{shared['id']}/share", json={"shared": True}, headers=owner)
+    body = client.get("/api/public/region/IT").json()
+    assert [(c["key"], c["name"]) for c in body["cases"]] == [(shared["slug"], "Valley")]
+    assert body["cases"][0]["shared_at"]
+    assert body["by_sector"] == [{"key": "agriculture_agrifood_biorefineries", "count": 1}]
+
+
+def test_the_countries_with_a_page_are_listed(client):
+    # the way from the dashboard to the country pages (P3-08): only shared
+    # cases, one count per country however many companies are there
+    owner = _auth(client, "owner@example.eu")
+    it_es, it_only, unshared, no_network = (_save(client, owner) for _ in range(4))
+    r = client.put(f"/api/dcf/{it_es['id']}/data", headers=owner, json={
+        "case_id": it_es["id"], "rows_by_section": {"actors": [
+            {"row_id": f"a{i}", "values": {"actor.name": n, "actor.role": "partner", "actor.country_iso2": c}}
+            for i, (n, c) in enumerate([("Dairy", "IT"), ("Farm", "it"), ("Biogas", "ES")])]}})
+    assert r.status_code == 200, r.text
+    _network_in(client, owner, it_only["id"], "IT")
+    _network_in(client, owner, unshared["id"], "FR")
+    for saved in (it_es, it_only, no_network):
+        client.post(f"/api/cases/{saved['id']}/share", json={"shared": True}, headers=owner)
+    assert client.get("/api/public/countries").json() == [
+        {"code": "IT", "count": 2}, {"code": "ES", "count": 1}]

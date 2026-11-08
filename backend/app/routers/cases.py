@@ -144,6 +144,17 @@ def shown_ilcd(case: Case) -> str | None:
     return case.ilcd_situation.value
 
 
+def case_sectors(case: Case) -> list[str]:
+    """The sectors a case touches, as the dashboards count them: the case
+    sector (Q6a, optional and only descriptive) and the sector declared on each
+    flow, which is what decides the D4.1 Part 2 chapters. Counting Q6a alone
+    made "not answered" the most common sector (UX round 6, P7-23). A case
+    counts once per sector, so the counts can add up to more than the cases."""
+    found = {case.q6a.value} if case.q6a else set()
+    found |= {f.sector.value for f in case.flows if f.sector}
+    return sorted(found)
+
+
 def _populate_record(rec: CaseRecord, name: str, case: Case) -> None:
     rec.name = name
     rec.case_json = case.model_dump_json()
@@ -206,8 +217,8 @@ def _sorted_counter(counter: Counter[str | None]) -> list[AggregateBreakdownEntr
 # a case_id value (FastAPI uses FIFO route ordering).
 @router.get("/aggregate/breakdown", response_model=CasesAggregate)
 def aggregate_breakdown(db: OrmSession = Depends(get_db)) -> CasesAggregate:
-    """Breakdown of all saved cases by Q6a sector / Q7 scope / ILCD
-    situation / LCC type.
+    """Breakdown of all saved cases by sector touched (Q6a and the flows) /
+    Q7 scope / ILCD situation / LCC type.
 
     Reads case_records row-by-row and parses the JSON blob — fine for
     MVP volumes (low hundreds of rows). For larger datasets, denormalise
@@ -228,7 +239,8 @@ def aggregate_breakdown(db: OrmSession = Depends(get_db)) -> CasesAggregate:
             ilcd_counter[None] += 1
             lcc_counter[None] += 1
             continue
-        sector_counter[case.q6a.value if case.q6a else None] += 1
+        for sector in case_sectors(case) or [None]:
+            sector_counter[sector] += 1
         scope_counter[case.q7.value if case.q7 else None] += 1
         ilcd_counter[shown_ilcd(case)] += 1
         lcc_counter[case.lcc_type.value if case.lcc_type else None] += 1

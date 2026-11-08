@@ -89,3 +89,25 @@ def test_aggregate_route_does_not_shadow_get_case(client):
     r_case = client.get(f"/api/cases/{case_id}")
     assert r_case.status_code == 200
     assert r_case.json()["id"] == case_id
+
+
+def test_a_case_counts_under_the_sectors_of_its_flows(client):
+    # UX round 6, P7-23: Q6a is optional and only describes the case, so
+    # counting it alone made "not answered" the most common sector; the
+    # sector declared on a flow decides the D4.1 Part 2 chapter
+    _save_post_pipeline(client, "flows only", {
+        "q1": "B", "q2": "A", "q3": {"env": True}, "decision_context": "micro",
+        "flows": [{"id": "f1", "name": "whey", "q5": "a", "sector": "agriculture_agrifood_biorefineries"},
+                  {"id": "f2", "name": "sludge", "q5": "a", "sector": "wastewater_sludge_biofactories"}],
+    })
+    _save_post_pipeline(client, "both", {**CASE_A, "flows": [
+        {"id": "f1", "name": "f1", "q5": "a", "sector": "wastewater_sludge_biofactories"}]})
+    _save_post_pipeline(client, "none", {
+        "q1": "B", "q2": "A", "q3": {"env": True}, "decision_context": "micro",
+        "flows": [{"id": "f1", "name": "f1", "q5": "a"}],
+    })
+    sectors = {e["key"]: e["count"]
+               for e in client.get("/api/cases/aggregate/breakdown").json()["by_q6a_sector"]}
+    # once per case even when Q6a and a flow name the same sector
+    assert sectors == {"wastewater_sludge_biofactories": 2, "agriculture_agrifood_biorefineries": 1,
+                       "(none)": 1}

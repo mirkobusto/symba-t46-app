@@ -30,7 +30,10 @@ export default function ConfigurationSummary({
   const { t } = useTranslation()
   // guided mode never shows the Q-codes, so "(Q9)" in a reason pointed nowhere (UX round 4)
   const guided = usePreferenceStore((s) => s.mode) === 'guided'
-  const all = configurationRows(kase, (key, options) => t(key, options ?? {}) as string, { audience })
+  // the result page speaks plainly in guided mode (UX round 6, P3-12); the
+  // audience views keep their own rows
+  const all = configurationRows(kase, (key, options) => t(key, options ?? {}) as string,
+    { audience, guided: guided && !only })
   const rows = only ? only.map((k) => all.find((r) => r.key === k)).filter((r) => r !== undefined) : all
   if (rows.length === 0) return null
   const Heading = headingLevel

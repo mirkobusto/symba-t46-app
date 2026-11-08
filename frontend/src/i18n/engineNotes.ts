@@ -17,21 +17,25 @@ export function chapterName(t: TFunction, chapter?: string): string | undefined 
   return t(`result.sectorChapters.${number}`, { defaultValue: chapter })
 }
 
-export function translateNote(t: TFunction, w: CaseWarning, plain = false): string {
+export function translateNote(
+  t: TFunction, w: CaseWarning, plain = false, extra: Record<string, string> = {},
+): string {
   const p = w.params ?? {}
   const key = p.variant ? `result.engineNotes.${w.code}.${p.variant}` : `result.engineNotes.${w.code}`
-  // guided mode: a plain wording where one exists (UX round 4, P7-02)
-  if (plain) {
-    const plainKey = key.replace('result.engineNotes.', 'result.engineNotesPlain.')
-    const text = t(plainKey, { flow: p.flow, defaultValue: '' })
-    if (text) return text
-  }
-  return t(key, {
+  const params = {
     flow: p.flow,
     configuration: p.configuration,
     situation: p.situation,
     chapter: chapterName(t, p.chapter),
     declared: chapterName(t, p.declared),
-    defaultValue: w.message,
-  })
+    ...extra,
+  }
+  // guided mode: a plain wording where one exists (UX round 4, P7-02; round 6,
+  // P2-11), with every parameter (the chapter of the case sector was missing)
+  if (plain) {
+    const plainKey = key.replace('result.engineNotes.', 'result.engineNotesPlain.')
+    const text = t(plainKey, { ...params, defaultValue: '' })
+    if (text) return text
+  }
+  return t(key, { ...params, defaultValue: w.message })
 }

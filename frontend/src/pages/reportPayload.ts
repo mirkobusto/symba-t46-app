@@ -55,7 +55,7 @@ export function reportMeta(opts: {
 
 /** The configuration rows of the page; guided mode never shows the Q-codes. */
 export function reportRows(result: Case, t: Translate, guided: boolean): ReportRow[] {
-  return configurationRows(result, t).map(({ label, value, why }) => ({
+  return configurationRows(result, t, { guided }).map(({ label, value, why }) => ({
     label,
     value,
     why: why && guided ? withoutQCodes(why) : why,

@@ -292,6 +292,12 @@ export default function QuestionnairePage() {
   // guided mode, where the examples say the same in words (UX round 5, P4-13)
   // Only the code goes: "(Situation B; the screening must be documented)" keeps
   // the obligation (Fable review of #212)
+  // the option letters ("B. Regional") pointed nowhere in guided mode, where the
+  // texts name the options in words (UX round 6, P4-17)
+  const optionLabel = (key: string) => {
+    const text = t(key)
+    return mode === 'guided' ? text.replace(/^[A-E]\.\s+/, '') : text
+  }
   const plainSituation = (text: string) => {
     if (mode !== 'guided') return text
     return text
@@ -460,7 +466,7 @@ export default function QuestionnairePage() {
                 checked={q1 === v} onChange={() => setQ1(v)}
                 aria-required="true" aria-invalid={!q1}
               />
-              <span className="opt-label">{t(`questionnaire.q1.options.${v}.label`)}</span>
+              <span className="opt-label">{optionLabel(`questionnaire.q1.options.${v}.label`)}</span>
               <span className="opt-desc">{t(`questionnaire.q1.options.${v}.description`)}</span>
             </label>
           ))}
@@ -518,7 +524,8 @@ export default function QuestionnairePage() {
                 aria-required="true"
                 onChange={() => setDecisionContext(k)}
               />
-              <span className="opt-label">{plainSituation(t(`questionnaire.q9.options.${k}`))}</span>
+              <span className="opt-label">{(mode === 'guided' && t(`questionnaire.q9.optionsPlain.${k}`, { defaultValue: '' }))
+                || plainSituation(t(`questionnaire.q9.options.${k}`))}</span>
               {/* Q9 is where newcomers gave up: an example per answer */}
               {mode === 'guided' ? (
                 <span className="opt-desc">{t(`questionnaire.q9.examples.${k}`)}</span>
@@ -527,7 +534,7 @@ export default function QuestionnairePage() {
           ))}
           {decisionContext === 'structural' && (
             <>
-              <p className="opt-label">{t('questionnaire.q9.screening.label')}</p>
+              <p className="opt-label">{t(mode === 'guided' ? 'questionnaire.q9.screening.labelPlain' : 'questionnaire.q9.screening.label')}</p>
               {(['yes', 'no'] as const).map((k) => (
                 <label key={k} className="opt opt-single">
                   <input
@@ -555,7 +562,7 @@ export default function QuestionnairePage() {
                 type="radio" name="q2" value={v}
                 checked={q2 === v} onChange={() => setQ2(v)}
               />
-              <span className="opt-label">{t(`questionnaire.q2.options.${v}.label`)}</span>
+              <span className="opt-label">{optionLabel(`questionnaire.q2.options.${v}.label`)}</span>
               <span className="opt-desc">{t(`questionnaire.q2.options.${v}.description`)}</span>
             </label>
           ))}
@@ -694,10 +701,10 @@ export default function QuestionnairePage() {
                   type="checkbox" checked={q4.has(v)}
                   onChange={() => toggleQ4(v)}
                 />
-                <span className="opt-label">{t(`questionnaire.q4.options.${v}.label`)}</span>
+                <span className="opt-label">{optionLabel(`questionnaire.q4.options.${v}.label`)}</span>
                 <span className="opt-desc">{t(`questionnaire.q4.options.${v}.description`)}</span>
                 {warnKey && q4.has(v) ? (
-                  <span className="opt-warn">⚠ {t(warnKey)}</span>
+                  <span className="opt-warn">⚠ {t(mode === 'guided' ? `${warnKey}Plain` : warnKey)}</span>
                 ) : null}
               </label>
             )
@@ -753,7 +760,7 @@ export default function QuestionnairePage() {
                 type="radio" name="q7" value={v}
                 checked={q7 === v} onChange={() => setQ7(v)}
               />
-              <span className="opt-label">{t(`questionnaire.q7.options.${v}.label`)}</span>
+              <span className="opt-label">{optionLabel(`questionnaire.q7.options.${v}.label`)}</span>
               <span className="opt-desc">{t(`questionnaire.q7.options.${v}.description`)}</span>
             </label>
           ))}

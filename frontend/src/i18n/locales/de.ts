@@ -98,7 +98,7 @@ const de: Locale = {
     tagline: 'Öffentlicher Bericht',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
-      A: { title: 'Ein lokaler Austausch, bewertet mit Durchschnittsdaten', body: 'Der Austausch ist klein im Vergleich zur Wirtschaft insgesamt: Die Studie beschreibt, was er ersetzt, mit durchschnittlichen Marktdaten (dem nationalen Strommix, dem durchschnittlichen Primärmaterial). Das sagt nichts darüber, wie groß seine Wirkungen auf die Anlagen oder die Region sind: Die misst die Studie.' },
+      A: { title: 'Ein Austausch, zu klein, um die Wirtschaft insgesamt zu verändern, bewertet mit Durchschnittsdaten', body: 'Der Austausch ist klein im Vergleich zur Wirtschaft insgesamt: Die Studie beschreibt, was er ersetzt, mit durchschnittlichen Marktdaten (dem nationalen Strommix, dem durchschnittlichen Primärmaterial). Das sagt nichts darüber, wie groß seine Wirkungen auf die Anlagen oder die Region sind: Die misst die Studie.' },
       B: { title: 'Eine Entscheidung im großen Maßstab, bewertet mit den Marktveränderungen, die sie auslöst', body: 'Die Entscheidung ist groß genug, um zu verändern, was die Wirtschaft baut oder stilllegt: Die Studie modelliert diese Veränderungen statt Durchschnittsdaten zu verwenden.' },
       C1: { title: 'Ein bestehendes Netzwerk, beschrieben, wie es läuft', body: 'Es wird keine Entscheidung getroffen: Die Studie dokumentiert, was das Netzwerk bereits leistet, verglichen mit dem, was jedes Unternehmen ohne es täte.' },
       C2: { title: 'Die eigene Bilanz eines Unternehmens', body: 'Die Studie berichtet den Lastenanteil eines einzelnen Unternehmens, ohne Gutschrift für das, was sein Austausch anderswo einspart.' },
@@ -500,7 +500,7 @@ const de: Locale = {
       options: {
         unset: { label: 'Keine Antwort' },
         analysis: { label: 'Analyse', description: 'Ein bestehendes Netzwerk bewerten, um seine Leistung zu verstehen.' },
-        improvement: { label: 'Verbesserung', description: 'Die Hotspots eines bestehenden Netzwerks finden, um es zu optimieren.' },
+        improvement: { label: 'Verbesserung', description: 'Die Schwachstellen (Hotspots) eines bestehenden Netzwerks finden, um es zu optimieren.' },
         expansion: { label: 'Erweiterung', description: 'Die Wirkungen eines neuen Partners oder Austauschs bewerten.' },
         design: { label: 'Planung', description: 'Technische und logistische Optionen für ein neues, geplantes Netzwerk vergleichen.' },
         restructuring: { label: 'Umstrukturierung', description: 'Eine größere Neuordnung eines etablierten Netzwerks bewerten.' },
@@ -523,11 +523,11 @@ const de: Locale = {
         A: { label: 'A. Spezifischer Austausch', description: "Ein symbiotischer Austausch zwischen zwei Unternehmen, für sich betrachtet, bestehend oder geplant." },
         B: { label: 'B. Eco-park / Netzwerk', description: "Ein Öko-Industriepark oder ein symbiotisches Multi-Akteurs-Netzwerk, oder ein Unternehmen, das zwei oder mehr Partner beliefert." },
         C: { label: 'C. Politik / Programm', description: 'Eine Politik- oder Programmentscheidung auf regionaler oder nationaler Ebene.' },
-        D: { label: 'D. Unternehmensbericht', description: 'Der symbiotische Beitrag eines einzelnen Unternehmens für ESG/CSRD-Reporting.' },
+        D: { label: 'D. Unternehmensbericht', description: 'Der symbiotische Beitrag eines einzelnen Unternehmens für seine Nachhaltigkeitsberichterstattung (ESG, CSRD).' },
         E: { label: 'E. Monitoring', description: 'Zeitliches Monitoring einer bereits operativen Symbiose.' },
       },
       plain:
-        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie. Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen. Ein Unternehmen, das zwei oder mehr Partner beliefert, zählt als Netzwerk (B).',
+        'Sagen Sie, was Sie untersuchen: einen Austausch, einen Park, ein Programm, ein Unternehmen, eine Symbiose, die Sie über die Zeit verfolgen. Die Antwort beschreibt das System und seine Grenze; wie die Studie modelliert wird, entscheiden die folgenden Fragen, beginnend mit dem Zweck der Studie. Wenn Sie zwischen zwei Optionen schwanken, nehmen Sie diejenige, die beschreibt, wessen Wirkungen Sie messen wollen. Ein Unternehmen, das zwei oder mehr Partner beliefert, zählt als Netzwerk: Wählen Sie „Eco-park / Netzwerk“.',
     },
 
     q2: {
@@ -536,7 +536,7 @@ const de: Locale = {
         'Antworten Sie zu den symbiotischen Austauschen, nicht zu den Anlagen: Eine Anlage kann existieren, während der untersuchte Austausch noch ein Plan ist. A — ja: Die Austausche finden heute statt und ihre Flüsse lassen sich messen (z. B. Kalundborg; das Gerbereicluster von Daddi 2017). Die Referenz ist, was jedes Unternehmen heute täte, wenn die Verbindungen getrennt würden (HNSRS, D4.1 §11.1). Läuft das Netzwerk seit vielen Jahren, ist diese Referenz ein modernes Kontrafaktum, nicht die Konfiguration der Unternehmen vor Jahrzehnten (D4.1 §11.2.2): Danach fragt die Folgefrage. B — noch nicht: Die Austausche sind geplant, entworfen, hypothetisch oder beginnen gerade erst, auch zwischen bereits laufenden Anlagen. Die Referenz ist die heutige Situation ohne sie, einschließlich bereits laufender Austausche (CNSRS, D4.1 §11.1). Alternativen zu vergleichen (eine Erweiterung, eine neue Technologie) steht jeder Studie offen: Fügen Sie sie unten als Szenarien hinzu (D4.1 §4.3.3). Wann das System betrieben wird, fragt Q8.',
       options: {
         A: { label: 'A. Ja, sie finden bereits statt', description: 'Die Austausche laufen heute: Ihre Flüsse lassen sich messen.' },
-        B: { label: 'B. Noch nicht', description: 'Geplant, entworfen oder gerade erst beginnend, auch zwischen bereits bestehenden Anlagen.' },
+        B: { label: 'B. Noch nicht', description: 'Geplant, entworfen oder gerade erst beginnend, auch zwischen bereits bestehenden Anlagen. Auch wenn ein Teil des Austauschs läuft und ein anderer geplant ist.' },
       },
       longStanding: {
         label: "Läuft das Netz schon so lange, dass die Alternativen, die es ersetzt hat (z. B. die Kessel, die die Fernwärme sonst nutzen würde), heute nicht mehr gebaut würden?",
@@ -545,7 +545,7 @@ const de: Locale = {
         unknown: 'Weiß nicht — die Situation vor der Symbiose bleibt zulässig, wenn sie heute noch das wäre, was jedes Unternehmen vernünftigerweise täte',
       },
       plain:
-        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen bereits laufenden Anlagen, können Sie sie nur schätzen. Sie möchten Alternativen vergleichen, etwa eine Erweiterung oder eine neue Technologie? Sie werden im Expertenmodus als Szenarien am Ende des Fragebogens hinzugefügt, unabhängig von Ihrer Antwort hier.',
+        'Denken Sie an die Austausche, nicht an die Anlagen. Finden die Flüsse zwischen den Unternehmen bereits statt, können Sie sie messen. Sind sie noch eine Idee, auch zwischen bereits laufenden Anlagen, können Sie sie nur schätzen. Sie möchten Alternativen vergleichen, etwa eine Erweiterung oder eine neue Technologie? Sie werden im Expertenmodus als Szenarien am Ende des Fragebogens hinzugefügt, unabhängig von Ihrer Antwort hier. Ein Teil des Austauschs läuft schon, ein anderer ist geplant? Antworten Sie „Noch nicht“: Die Studie misst dann, was der neue Austausch hinzufügt, und der laufende gehört zu der Lage, mit der sie vergleicht.',
     },
 
     q3: {
@@ -581,11 +581,13 @@ const de: Locale = {
           label: 'C. Zur Veröffentlichung bestimmte vergleichende Aussage',
           description: 'Öffentliche Aussage der Überlegenheit oder Gleichwertigkeit gegenüber einer Alternative mit derselben Funktion, in jeder Form (auch Artikel).',
           warn: 'Aktiviert die OBLIGATORISCHE Panel-Review von 3+ unabhängigen Experten (ISO 14044), keine Gewichtung erlaubt.',
+          warnPlain: 'Bevor die Ergebnisse veröffentlicht werden, muss ein Gremium aus mindestens drei unabhängigen Fachleuten die Studie prüfen, und die Ergebnisse dürfen nicht zu einer einzigen Note zusammengezählt werden.',
         },
         D: {
           label: 'D. EU-Politik-Alignment',
-          description: 'EU-Politik-Alignment (ESPR, PEF/PEFCR).',
+          description: 'Ausrichtung an EU-Regeln: der EU-Ökodesign-Verordnung für Produkte (ESPR) und der EU-Methode zum Umweltfußabdruck (PEF und ihre Kategorieregeln, PEFCR).',
           warn: 'Aktiviert die PEF Circular Footprint Formula (CIR-05).',
+          warnPlain: 'Es gelten die EU-Regeln zum Umweltfußabdruck, nach denen recycelte und zurückgewonnene Materialien gezählt werden.',
         },
         E: { label: 'E. Akademische Publikation', description: 'Akademische peer-reviewte Publikation (zusätzlich C, wenn sie ein System über eine konkurrierende Alternative stellt oder ihr gleichstellt).' },
       },
@@ -654,7 +656,7 @@ const de: Locale = {
         TRL9: 'TRL 9 — vollständig operativ',
         'TRL7-8': 'TRL 7-8 — Pilot / vorkommerziell',
         'TRL5-6': 'TRL 5-6 — Prototyp',
-        'TRL<5': 'TRL <5 — frühe F&E',
+        'TRL<5': 'TRL <5: frühe Forschung und Entwicklung',
       },
       plain:
         "Wie ausgereift die Schlüsseltechnologie ist: im kommerziellen Betrieb, erste Pilotanlage, Prototyp, oder noch im Labor. Je weniger ausgereift, desto mehr sind Ihre Zahlen Schätzungen statt Messungen, und desto mehr muss das Ergebnis seine eigene Unsicherheit mittragen. Beurteilen Sie die Technologie selbst, nicht ob sie hier neu ist: ein erprobtes Verfahren, das in Ihrer Region erstmals eingesetzt wird, bleibt ausgereift, sofern es dieselbe Art von Material wie anderswo behandelt.",
@@ -662,7 +664,7 @@ const de: Locale = {
 
     q7: {
       title: 'Q7 — Wie konzentriert sind die wichtigsten Wechselwirkungen?',
-      help: 'Sie bestimmt, wie die Wirkungsabschätzung regionalisiert wird. Der Transport wird für jeden Austausch explizit modelliert, unabhängig von der Antwort; die Break-even-Distanz wird im Data Collection File für jeden Fluss abgefragt. Partner in verschiedenen Regionen oder Ländern: C; B nur, wenn alle Standorte in einer Region liegen.',
+      help: 'Sie bestimmt, wie die Wirkungsabschätzung regionalisiert wird. Der Transport wird für jeden Austausch explizit modelliert, unabhängig von der Antwort; die Break-even-Distanz wird im Data Collection File für jeden Fluss abgefragt. Partner in verschiedenen Regionen oder Ländern: „Überregional“; „Regional“ nur, wenn alle Standorte in einer Region liegen.',
       details:
         'D4.1 §12.2.3: Ein globaler oder nationaler Durchschnitts-Charakterisierungsfaktor erfasst die Bedeutung eines Systems nicht, dessen wichtigste Wechselwirkungen stark lokal sind (z. B. eine Wasserteilungs-Synergie in einer trockenen Region). A — ein Standort oder benachbarte Anlagen: standortspezifische Faktoren für Wasserknappheit, Eutrophierung und Versauerung, und die Maßstabsabweichung wird angezeigt, wo regionale Faktoren auf Standortebene angewandt werden (§12.3.3). B — innerhalb einer Region: regionalisierte Faktoren, z. B. die länderspezifischen Faktoren nach Seppälä / Posch für ein regionales Cluster (§12.3.3). C — über Regionen oder Grenzen hinweg: räumlich explizite Faktoren am Ort jeder Emission. Der Transport hängt nie von dieser Antwort ab: Jede Verbindung ist ein eigener Prozess im Vordergrundsystem mit Primärdaten, und GIS oder Routenplanung wird für jeden Austausch empfohlen (§12.3.1). Der zweite Teil fragt nach dem Markt, aus dem die ersetzten Produkte stammen: Hintergrund-Mixe und Referenzszenario werden darauf bezogen, in der Regel national oder subnational, kontinental nur für weltweit gehandelte Güter ohne subkontinentalen Markt (§11.3.1).',
       options: {
@@ -683,7 +685,7 @@ const de: Locale = {
         },
       },
       plain:
-        'Wie nah die wichtigsten Wechselwirkungen zwischen den Unternehmen beieinander liegen: an einem Standort, innerhalb einer Region oder über Regionen oder Grenzen hinweg. Das entscheidet, wie lokal die Umweltwirkungen bewertet werden: Wasser- oder Luftverschmutzung neben einem Standort zählt anders als dieselbe Menge über ein Land verteilt. Der Transport wird in jedem Fall gezählt. Sagen Sie dann, woher die Produkte, die die Symbiose ersetzt, sonst kämen: aus einem Land, einer Region oder, bei weltweit gehandelten Gütern, einem Kontinent. Partner in verschiedenen Regionen oder Ländern: C; B nur, wenn alle Standorte in einer Region liegen.',
+        'Wie nah die wichtigsten Wechselwirkungen zwischen den Unternehmen beieinander liegen: an einem Standort, innerhalb einer Region oder über Regionen oder Grenzen hinweg. Das entscheidet, wie lokal die Umweltwirkungen bewertet werden: Wasser- oder Luftverschmutzung neben einem Standort zählt anders als dieselbe Menge über ein Land verteilt. Der Transport wird in jedem Fall gezählt. Sagen Sie dann, woher die Produkte, die die Symbiose ersetzt, sonst kämen: aus einem Land, einer Region oder, bei weltweit gehandelten Gütern, einem Kontinent. Partner in verschiedenen Regionen oder Ländern: „Überregional“; „Regional“ nur, wenn alle Standorte in einer Region liegen.',
     },
     q8: {
       title: 'Q8 — Zeithorizont der Studie',
@@ -719,9 +721,13 @@ const de: Locale = {
       details: "Tabelle 1 in D4.1 klassifiziert die Studie nach der unterstützten Entscheidung und der Größenordnung ihrer Folgen, nicht nach ihrem Gegenstand (D4.1 §4.2.3). Mikro (Situation A) ist der Standard für Entscheidungen über einzelne Austausche und Anlagen. Strukturell (Situation B) gilt, wenn die Entscheidung die installierte Kapazität eines Marktes verändert: Das ILCD Handbook nimmt das an, wenn die jährliche Nachfrage oder das jährliche Angebot, das die Entscheidung einem Markt hinzufügt oder entzieht, die Kapazität übersteigt, die dieser Markt jedes Jahr erneuert, gerechnet mit höchstens 5 % (z. B. erneuern 10 Mt Anlagen mit 25 Jahren Lebensdauer 0,4 Mt pro Jahr). Die Planung eines neuen Parks, eine regionale Umstrukturierung oder ein Programm brauchen dieses Screening (Mattila et al. 2012); ohne es bleibt die Studie A, mit B als Sensitivitätsanalyse. Ein bestehendes Netzwerk zu dokumentieren, oder ein Unternehmensbericht, der anrechnet, was seine Austausche anderswo einsparen, ist Situation C1 (Substitution, §7.2.3); der Bericht eines einzelnen Unternehmens, der jede Gutschrift für seine Austausche ausschließt, ist C2 (Allokation, keine Gutschriften, §7.2.3), mit Kosten nur auf Unternehmensebene (Entwurfsentscheidung von T4.6).",
       examples: {
         micro: "Zum Beispiel: Sie möchten wissen, ob es sich lohnt, Ihr Sägemehl an das benachbarte Pelletwerk abzugeben, um den Austausch zu beginnen, fortzuführen oder zu ändern.",
-        structural: "Zum Beispiel: ein regionales Programm, groß genug, um zu ändern, wie viel der Markt der Region produziert. Ein Analyst muss die Marktprüfung dokumentieren.",
+        structural: "Zum Beispiel: ein regionales Programm, groß genug, um zu ändern, wie viel der Markt der Region produziert; der Analyst muss die Marktprüfung dokumentieren. Eine Region, die eine Biogasanlage für drei Unternehmen mitfinanziert, ist kein solcher Fall: Ihre Wirkungen bleiben in den Anlagen (die Antwort, deren Wirkungen in den Anlagen bleiben), es sei denn, der Analyst zeigt, dass sie verändert, was auf dem Gasmarkt gebaut wird.",
         none: "Zum Beispiel: Sie möchten beschreiben, was ein bestehendes Austauschnetz heute leistet, für einen Bericht, ohne etwas zu entscheiden.",
         corporate_report: "Zum Beispiel: der Nachhaltigkeitsbericht nur Ihres Unternehmens (CSRD, die EU-Richtlinie zur Nachhaltigkeitsberichterstattung): der Nutzen Ihrer Austausche für andere wird nicht gezählt.",
+      },
+      // guided mode: the one plain term for the ILCD market screening (Fable, UX round 6, P3-09, P4-17)
+      optionsPlain: {
+        structural: "Sie unterstützt eine Wahl, die verändert, wie viel ein Markt oder Sektor produziert, über die jährlich erneuerte Kapazität hinaus (die Marktprüfung muss dokumentiert sein)",
       },
       options: {
         micro: 'Sie untersucht oder unterstützt eine Wahl, auch eine hypothetische ohne benannten Entscheider, und ihre Wirkungen bleiben in den beteiligten Anlagen (Situation A)',
@@ -730,12 +736,13 @@ const de: Locale = {
         corporate_report: "Bericht eines einzelnen Unternehmens, der jede Gutschrift für das ausschließt, was seine Austausche anderswo vermeiden, z. B. strikte ESG-/CSRD-Bilanzierung (Situation C2)",
       },
       screening: {
+        labelPlain: 'Ist die Marktprüfung dokumentiert? Das heißt: Übersteigt die jährliche Menge, die die Entscheidung dem betroffenen Markt hinzufügt oder entzieht, die Kapazität, die dieser Markt jedes Jahr erneuert (höchstens 5 %)? Ohne Antwort gilt sie als Nein.',
         label: 'Ist dokumentiert, dass die jährliche Menge, die die Entscheidung dem betroffenen Markt hinzufügt oder entzieht, die Kapazität übersteigt, die dieser Markt jedes Jahr erneuert (höchstens 5 %)? Ohne Antwort gilt sie als Nein.',
         yes: 'Ja, es ist dokumentiert (Situation B)',
         no: 'Nein (Situation A, mit Situation B als Sensitivitätsanalyse)',
       },
       plain:
-        "Wozu dient die Studie? Meistens untersucht oder stützt sie eine Wahl, deren Wirkungen in den beteiligten Anlagen bleiben, auch wenn noch niemand entscheiden muss. Erst wenn die Änderung größer ist als das, was der Markt jedes Jahr erneuert, und Sie das zeigen können, ändert sich die Art der Studie; die Planung eines neuen Parks braucht diese Prüfung. Wenn Sie nur ein bereits laufendes Netzwerk beschreiben oder die Zahlen eines Unternehmens ohne Gutschrift für seine Austausche berichten, sagen Sie es: Jeder Fall wird anders modelliert.",
+        "Wozu dient die Studie? Meistens untersucht oder stützt sie eine Wahl, deren Wirkungen in den beteiligten Anlagen bleiben, auch wenn noch niemand entscheiden muss. Erst wenn die Änderung größer ist als das, was der Markt jedes Jahr erneuert, und Sie das zeigen können, ändert sich die Art der Studie; wenn Sie einen neuen Park planen, bitten Sie den Analysten um die Marktprüfung. Wenn Sie nur ein bereits laufendes Netzwerk beschreiben oder die Zahlen eines Unternehmens ohne Gutschrift für seine Austausche berichten, sagen Sie es: Jeder Fall wird anders modelliert.",
     },
     q10: {
       title: 'Q10 — Dient die Studie einem öffentlichen Ziel oder einem öffentlichen Entscheidungsträger? *',
@@ -846,7 +853,7 @@ const de: Locale = {
       wv_weee_urban_mining: "Elektroaltgeräte und Urban Mining",
       wv_plastic_upcycling: "Upcycling von Kunststoffabfällen (mechanisch/thermochemisch)",
     },
-    namePlaceholder: 'z. B. Wärme, CO2',
+    namePlaceholder: 'z. B. Rinde, Sägewerk → Papierfabrik',
     addButton: 'Fluss hinzufügen',
     removeAria: '{{id}} entfernen',
     options: {
@@ -857,7 +864,8 @@ const de: Locale = {
       e: 'e — Aggregiert / Black-box',
     },
     plainEmpty: 'Noch kein Austausch. Fügen Sie alles hinzu, was zwischen den Unternehmen fließt (Molke, Sägemehl, Wärme, Wasser …).',
-    plainSectorHint: 'Optional. Wählen Sie einen Sektor nur, wenn das Ausgetauschte zu einem der aufgeführten biobasierten Sektoren gehört (Agrar/Lebensmittel, Kunststoffe, Abwasser, Textilien, Abfall). Für Holz, Sägemehl, Wald- oder Papierfabrikreststoffe, Stahl, Zement oder Wärme lassen Sie „— keiner davon“. Im Zweifel lassen Sie es: Der Analyst kann es festlegen.',
+    plainNameHint: 'Wer abgibt und wer empfängt, wird später im Netzeditor des Data Collection File gezeichnet; Sie können es schon in den Namen schreiben (z. B. „Rinde, Sägewerk → Papierfabrik“).',
+    plainSectorHint: 'Optional. Wählen Sie einen Sektor nur, wenn das Ausgetauschte zu einem der aufgeführten biobasierten Sektoren gehört (Agrar/Lebensmittel, Kunststoffe, Abwasser, Textilien, Abfall). Für Holz, Sägemehl, Wald- oder Papierfabrikreststoffe, Stahl, Zement oder Wärme lassen Sie „— keiner davon“. Biogas, Biomethan oder Gärreste erhalten den Sektor dessen, woraus sie gemacht sind: Lebensmittelabfälle aus Haushalten oder Kommunen → „Abfallvalorisierung“; Reststoffe aus Landwirtschaft oder Lebensmittelindustrie → „Landwirtschaft / Agri-Food / Bioraffinerien“; Klärschlamm → „Abwasser / Schlämme / Biofactories“. Im Zweifel lassen Sie es: Der Analyst kann es festlegen.',
   },
 
   scenarios: {
@@ -982,6 +990,20 @@ const de: Locale = {
         co_product: 'Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann ist er kein Abfall. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.',
         waste: 'Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Er kann als Abfall zählen, ohne Last auf Ihrer Seite. Der Analyst prüft das.',
       },
+      // guided wording of the notes on the answers (UX round 6, P2-11, P3-09, P3-10; decided by Fable)
+      flow_sellable_but_waste: "Für „{{flow}}“ sagten Sie, dass der Abgebende für die Abnahme zahlt, aber auch, dass jemand anderes ihn kaufen würde. Die beiden Antworten passen nicht zusammen: Ein Fluss, den jemand kaufen würde, ist kein Abfall und trägt einen Teil der Lasten seiner Herstellung. Prüfen Sie für diesen Fluss noch einmal, wer wem zahlt.",
+      flow_price_without_market: "Für „{{flow}}“ sagten Sie, dass der Empfänger dafür zahlt, aber dass niemand sonst ihn kaufen würde. Bei einem einzigen Käufer entscheidet der Preis: Zahlt der Empfänger, was der Fluss anstelle des ersetzten Produkts wert ist, ist er ein Produkt; teilt die Zahlung nur Kosten, ist er ein Abfall. Der Analyst prüft den Preis.",
+      flow_interdependent_but_marketable: "Für „{{flow}}“ sagten Sie, dass die beiden Anlagen voneinander abhängen (eine wurde für die Belieferung der anderen umgebaut), und auch, dass jemand anderes ihn kaufen würde. Beides kann stimmen. Wurde der Umbau für die Bedürfnisse dieses Partners gemacht, behalten Sie Ihre Antwort; wurde er gemacht, um den Fluss an jeden zu verkaufen (ein Trockner, der aus dem Trester ein Futter macht, das jeder kaufen kann), zahlt der Empfänger für ein Produkt mit Wert, und die Anlage gilt als für den Austausch gebaut. Dieser Hinweis ändert Ihre Antworten nicht.",
+      design_without_screening: "Diese Studie plant, erweitert oder baut ein Netz um. Bitten Sie den Analysten um die Marktprüfung: ob das Netz groß genug ist, um zu verändern, was der Markt insgesamt produziert. Solange das nicht gezeigt ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben.",
+      structural_without_screening: "Sie sagten, die Entscheidung verändert, was ein Markt produziert, aber die Marktprüfung ist nicht dokumentiert. Solange sie es nicht ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben.",
+      structural_screening_missing: "Sie sagten, die Entscheidung verändert, was ein Markt produziert, haben aber nicht angegeben, ob die Marktprüfung dokumentiert ist. Solange sie es nicht ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben. Beantworten Sie die Folgefrage, sobald sie es ist.",
+      case_sector_without_flow: "Der Sektor, den Sie dem Fall gegeben haben ({{chapter}}), hat eigene Regeln, aber kein Fluss in der Tabelle trägt diesen Sektor, deshalb werden sie nicht aufgeführt. Geben Sie ihn in der Flusstabelle den Flüssen, die dazugehören (Flüsse noch ohne Sektor: {{flows}}). Biogas, Biomethan oder Gärreste erhalten den Sektor dessen, woraus sie gemacht sind: Lebensmittelabfälle aus Haushalten oder Kommunen → „Abfallvalorisierung“; Reststoffe aus Landwirtschaft oder Lebensmittelindustrie → „Landwirtschaft / Agri-Food / Bioraffinerien“; Klärschlamm → „Abwasser / Schlämme / Biofactories“.",
+      study_purpose_vs_q2: {
+        analysis: "Sie sagten, die Studie bewertet, wie ein bestehendes Netz funktioniert, aber auch, dass der Austausch, den sie misst, noch nicht stattfindet. Prüfen Sie die beiden Antworten.",
+        design: "Sie sagten, die Studie plant ein neues Netz, aber auch, dass der Austausch, den sie misst, schon stattfindet. Prüfen Sie die beiden Antworten.",
+      },
+      running_but_future: "Sie sagten, der Austausch findet schon statt, aber auch, dass das System in einem künftigen Jahr läuft oder dass die Schlüsseltechnik noch ein Prototyp oder im Labor ist. Ein laufender Austausch wird heute gemessen: Prüfen Sie diese Antworten. Bis dahin folgt das, womit die Studie vergleicht, der ersten Antwort, und Strom, Brennstoffe und Materialien der Zukunft folgen den anderen.",
+      documentation_vs_ex_ante: "Sie sagten, die Studie dokumentiert, was schon geschieht, ohne eine Entscheidung zu unterstützen, aber auch, dass der Austausch noch nicht stattfindet. Prüfen Sie, ob das gemeint ist.",
     },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
     guided: {
@@ -1148,6 +1170,78 @@ const de: Locale = {
       },
     },
     notes: { title: 'Hinweise zu Ihren Antworten' },
+    // guided mode: the configuration rows in plain words (UX round 6, P3-12; decided by Fable)
+    configPlain: {
+      lcc: {
+        'C+E': "Die Kosten, die jedes Unternehmen tatsächlich zahlt und einnimmt, und die Kosten entlang der ganzen Wertschöpfungskette, mit derselben Grenze wie die Umweltstudie.",
+        'C+E+S': "Die Kosten jedes Unternehmens, der Wertschöpfungskette und der Gesellschaft als Ganzes: Steuern und Subventionen bereinigt, weil sie nur Geld innerhalb der Gesellschaft verschieben, und die Umweltschäden in Euro beziffert.",
+        'C-LCC': "Nur die eigenen Kosten des Unternehmens, über die ganze Lebensdauer seiner Anlagen.",
+        'C+N': "Die Kosten jedes Unternehmens, dann für das ganze Netz zusammengezählt; keine Kosten der Wertschöpfungskette, weil keine Umweltstudie da ist, auf der sie sich aufbauen ließen.",
+        'C+N+S': "Die Kosten jedes Unternehmens und des Netzes, dazu die Kosten für die Gesellschaft als Ganzes (Steuern und Subventionen bereinigt, weil sie nur Geld innerhalb der Gesellschaft verschieben); ohne Umweltstudie werden die Umweltschäden nicht in Euro beziffert.",
+      },
+      noChapter: "Für die angegebenen Flüsse gelten keine Sektorregeln: nur die allgemeinen Regeln",
+      slcaOn: "Ja: die Wirkungen auf Beschäftigte, die Gemeinde vor Ort und andere Gruppen, jede für sich bewertet",
+      horizonFuture: "Strom, Brennstoffe und Materialien so, wie sie in den kommenden Jahren erwartet werden, nicht wie sie heute sind, nach veröffentlichten Szenarien zu Klima und Wirtschaft",
+      horizonPresent: "Strom, Brennstoffe und Materialien so, wie sie heute sind",
+      prospectiveScaleUp: "Zahlen aus dem Labor oder einer Pilotanlage, auf die Größe einer echten Anlage umgerechnet (nicht einfach multipliziert)",
+      prospectivePedigree: "Jede Zahl erhält eine Qualitätsnote in fünf Punkten: wie sie gewonnen wurde, wie vollständig, wie aktuell, für welchen Ort und für welche Technik sie gilt",
+      reference_hnsrs: "Was jedes Unternehmen heute täte, wenn der Austausch aufhörte",
+      reference_modern: "Was jedes Unternehmen heute ohne den Austausch täte, mit der Technik von heute, nicht mit der Aufstellung, die es vor dem Netz hatte",
+      reference_cnsrs: "Wie es ohne den neuen Austausch weiterginge, über dieselben Jahre wie die Studie (der Austausch, der schon läuft, gehört dazu)",
+      reference_c2: "Nicht für Gutschriften genutzt: die eigenen Zahlen des Unternehmens, ohne Gutschrift für das, was sein Austausch anderswo einspart",
+      multiSubstitution: "Jedes Produkt der Symbiose erhält die Gutschrift des durchschnittlichen Produkts, das es auf dem Markt ersetzt, nach seiner Qualität bereinigt",
+      multiConsequential: "Jedes Produkt der Symbiose erhält die Gutschrift der Produktion, die es tatsächlich verdrängt: der, die als Folge wachsen oder schrumpfen würde",
+      multiAllocation: "Die Lasten werden auf die Produkte aufgeteilt; keine Gutschrift für das, was anderswo vermieden wird",
+      multiPefSubstitution: "; mit den EU-Regeln zum Umweltfußabdruck für recycelte und zurückgewonnene Materialien",
+      multiPefConsequential: "; die EU-Regeln zum Umweltfußabdruck für recycelte und zurückgewonnene Materialien werden zusätzlich gerechnet, um zu sehen, wie stark sie das Ergebnis ändern",
+      multiPefAllocation: "; die EU-Regeln zum Umweltfußabdruck für recycelte und zurückgewonnene Materialien werden nicht angewandt",
+      flowTreatment: {
+        waste: "ein Abfall: seine Lasten bleiben bei dem, der ihn erzeugt hat, bis zu dem Punkt, ab dem seine Entsorgung kein Geld mehr kostet; der Analyst prüft auch, dass er nicht vermeidbar war",
+        evt: "noch nicht entschieden: es wird geprüft, ob er sich verkaufen ließe, und beide Lesarten werden getestet",
+        coproduct: "ein Produkt mit Wert: es trägt einen Teil der Lasten seiner Herstellung und erhält die Gutschrift des Produkts, das es ersetzt, nach seiner Qualität bereinigt",
+        integrated: "eigens für den Partner hergestellt: es trägt immer einen Teil der Lasten, und die beiden Prozesse werden als einer untersucht; bei den Kosten bewertet die Sicht der Wertschöpfungskette es wie das ersetzte Produkt, die Sicht des Unternehmens zum vereinbarten Preis",
+        integratedLca: "eigens für den Partner hergestellt: es trägt immer einen Teil der Lasten, und die beiden Prozesse werden als einer untersucht",
+        allocation: "die Lasten werden auf die Produkte des Unternehmens aufgeteilt, keine Gutschrift",
+        aggregated: "die Quelle nennt keine Einzelheiten: jeder Fluss, der sich benennen lässt, wird einzeln eingeordnet",
+      },
+      flowCost: {
+        a: "ein Abfall: zur vereinbarten Gebühr für die Abholung gerechnet; er gilt nur dann als kostenlos erzeugt, wenn er nicht vermeidbar war",
+        b: "kostenlos: kein Preis zwischen den Partnern; er gilt nur dann als kostenlos erzeugt, wenn er nicht vermeidbar war, sonst ist er ein Produkt mit Wert",
+        c: "ein Produkt mit Wert: zum vereinbarten Preis gerechnet",
+        d: "eigens für den Partner hergestellt: zum vereinbarten Preis gerechnet; er gilt nie als kostenlos erzeugt",
+        e: "nur eine Gesamtzahl: jeder Fluss, der sich benennen lässt, erhält einen eigenen Preis",
+      },
+      fu_waste_treatment: "Pro Tonne behandelten Abfalls",
+      fu_product_substitution: "Pro Einheit zurückgewonnenen Produkts, verglichen mit dem Produkt, das es ersetzt",
+      fu_co_primary: "Pro behandelte Tonne und pro Produkteinheit, nebeneinander",
+      fu_function: "Pro Einheit der Leistung, die der Austausch erbringt",
+      fuLcc_waste_treatment: "Pro Tonne behandelten Abfalls",
+      fuLcc_dual: "Pro Tonne behandelten Abfalls und pro Produkteinheit, nebeneinander, jeweils mit den vermiedenen Kosten und den Erlösen",
+      fuLcc_function: "Pro Einheit der Leistung, die das Netz erbringt, jede Funktion mit den vermiedenen Kosten und den Erlösen",
+      regional_A: "Wasser, Versauerung und Nährstoffüberschuss mit Daten des Standorts selbst bewertet",
+      regional_B: "Wasser, Versauerung und Nährstoffüberschuss mit Daten Ihrer Region oder Ihres Landes bewertet",
+      regional_C: "Wasser, Versauerung und Nährstoffüberschuss mit Daten des Gebiets jeder Emission bewertet",
+      regional_unset: "Nicht angegeben: Wo sich das Zusammenspiel der Unternehmen an einem Ort ballt, nutzt die Studie Daten dieses Orts; wer die Studie durchführt, entscheidet, wie örtlich die Daten sein müssen",
+      shared: "Was ihr Bau und ihr Betrieb kosten, getragen von den Unternehmen, die davon profitieren (alles von einem Unternehmen, wenn nur es sie nutzt)",
+      sharedLca: "Was ihr Bau und ihre Entsorgung erfordern, verteilt auf die Jahre, die sie halten",
+      claim: "Ja: Bevor sie veröffentlicht wird, muss ein Gremium aus mindestens drei unabhängigen Fachleuten die Studie prüfen, und die Ergebnisse dürfen nicht zu einer einzigen Note zusammengezählt werden",
+      claimNone: "Keine öffentliche Aussage, dass ein Produkt besser als ein anderes oder gleich gut ist",
+      claimPolicy: "Keine solche Aussage; die Studie folgt den EU-Regeln zum Umweltfußabdruck, deshalb prüft sie ein Gremium unabhängiger Fachleute (eine Entscheidung dieses Tools, keine EU-Vorschrift)",
+      why: {
+        horizonPresent: "das laufende Jahr, eine Technik, die über den Prototyp hinaus ist, und ein Horizont von höchstens {{threshold}} Jahren",
+        horizonUnanswered: "kein Betriebsjahr, keine Studiendauer, keine Lebensdauer der Anlagen und kein Reifegrad der Technik angegeben, daher wird die Gegenwart angenommen; laufen die Anlagen länger als {{threshold}} Jahre, beantworten Sie die Frage zum Zeithorizont",
+        horizonLifetimeOnly: "die Anlagen halten {{years}} Jahre, mehr als {{threshold}}: Strom, Brennstoffe und Materialien werden über ihre Lebensdauer fortgeschrieben, obwohl die Studie das laufende Jahr beschreibt",
+        lccPolicyInferred: "abgeleitet aus dem, was Sie untersuchen, weil die Frage nach einem öffentlichen Ziel nicht beantwortet ist",
+        lccNoLca: "keine Umweltstudie: keine Kosten der Wertschöpfungskette, die sich darauf aufbauen ließen",
+        lccC2: "die eigene Bilanz eines einzigen Unternehmens: nur seine eigenen Kosten",
+        referenceNoLca: "die Kosten werden mit der Lage verglichen, die eine Umweltstudie verwenden würde; die Art der Entscheidung schreibt für die Kosten nichts weiter vor",
+        referenceC2: "die eigene Bilanz eines einzigen Unternehmens: die Lasten werden aufgeteilt, ohne Gutschrift für das, was die Symbiose anderswo ersetzt",
+        noChapter: "die Sektorregeln decken fünf biobasierte Sektoren ab, und kein Fluss ist einem davon zugeordnet",
+        horizonTrl: "die Schlüsseltechnik ist noch ein Prototyp oder im Labor",
+        multifunctionality: "die Art der Entscheidung, die die Studie unterstützt, und wie weit ihre Folgen reichen",
+        regionalUnset: "die Frage, wie nah die Unternehmen beieinander arbeiten, ist nicht beantwortet",
+      },
+    },
     engineNotes: {
       study_purpose_vs_q2: {
         analysis: "Zweck der Studie: die Studie bewertet ein bestehendes Netzwerk, aber Q2 sagt, dass die gemessenen Austausche noch nicht stattfinden. Prüfen Sie die beiden Antworten (D4.1 §4.3.2).",

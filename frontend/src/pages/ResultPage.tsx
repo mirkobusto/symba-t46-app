@@ -389,6 +389,8 @@ export default function ResultPage() {
   const obligationCount = obligations.length
   // the sector chapters are a row of the configuration: the per-flow note would repeat it
   const notes = (result.warnings ?? []).filter((w) => !(blockedBy.length === 0 && w.code === 'flow_part2_chapter'))
+  // the guided note on the case sector names the flows still without one (P3-10)
+  const flowsWithoutSector = (result.flows ?? []).filter((f) => !f.sector).map((f) => f.name || f.id).join(', ') || '—'
   const verdict = verdictFor(result, (key, fallback) =>
     t(key, { defaultValue: fallback ?? '' }),
   )
@@ -465,7 +467,7 @@ export default function ResultPage() {
           </h2>
           <ul>
             {notes.map((w, i) => (
-              <li key={`${w.code}-${i}`}>{translateNote(t, w, guided)}</li>
+              <li key={`${w.code}-${i}`}>{translateNote(t, w, guided, { flows: flowsWithoutSector })}</li>
             ))}
           </ul>
         </section>

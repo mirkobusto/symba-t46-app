@@ -46,7 +46,7 @@ function texts(...values: unknown[]): string[] {
 }
 
 export function configurationRows(
-  kase: Case, t: Translate, opts: { audience?: string } = {},
+  kase: Case, t: Translate, opts: { audience?: string; guided?: boolean } = {},
 ): ConfigRow[] {
   const rows: ConfigRow[] = []
   const env = !!kase.q3?.env
@@ -54,6 +54,16 @@ export function configurationRows(
   const lca = kase.lca ?? {}
   const lcc = kase.lcc ?? {}
   const label = (key: string) => t(`result.config.labels.${key}`)
+  // guided mode reads the rows in plain words: in the analyst's terms (NTF,
+  // SSP/RCP, Pedigree, CNSRS, CAPEX) they meant nothing to a local authority
+  // (UX round 6, P3-12; wording decided by Fable). A key without a plain
+  // version keeps the analyst's text.
+  const plain = (key: string, options?: Record<string, unknown>): string =>
+    opts.guided ? t(`result.configPlain.${key}`, { ...options, defaultValue: '' }) : ''
+  const value = (key: string, options?: Record<string, unknown>): string =>
+    plain(key, options) || t(`result.config.values.${key}`, options)
+  const reason = (key: string, options?: Record<string, unknown>): string =>
+    plain(`why.${key}`, options) || t(`result.config.why.${key}`, options)
 
   if (kase.study_purpose) {
     rows.push({
@@ -68,18 +78,18 @@ export function configurationRows(
     const type = kase.lcc_type
     const reasons: string[] = []
     if (type === 'C-LCC') {
-      reasons.push(t('result.config.why.lccC2'))
+      reasons.push(reason('lccC2'))
     } else {
-      if (!env) reasons.push(t('result.config.why.lccNoLca'))
-      reasons.push(t(kase.policy_objective == null ? 'result.config.why.lccPolicyInferred'
-        : type.includes('S') ? 'result.config.why.lccPolicy'
-          : env ? 'result.config.why.lccNoPolicy' : 'result.config.why.lccNoPolicyNoLca'))
+      if (!env) reasons.push(reason('lccNoLca'))
+      reasons.push(reason(kase.policy_objective == null ? 'lccPolicyInferred'
+        : type.includes('S') ? 'lccPolicy'
+          : env ? 'lccNoPolicy' : 'lccNoPolicyNoLca'))
     }
     const why = reasons.join('; ')
     rows.push({
       key: 'lcc',
       label: label('lcc'),
-      value: t(`narrative.lcc.${type}.short`),
+      value: plain(`lcc.${type}`) || t(`narrative.lcc.${type}.short`),
       why,
       nodeText: texts(lcc['lcc_type'], lcc['discount_rate']),
     })
@@ -92,9 +102,9 @@ export function configurationRows(
     value: opts.audience === 'community'
       ? t(kase.q3?.soc ? 'result.config.values.community.slcaOn' : 'result.config.values.community.slcaOff')
       : kase.q3?.soc && kase.slca_activation_state
-        ? t(`narrative.slca.${kase.slca_activation_state}.short`)
+        ? plain('slcaOn') || t(`narrative.slca.${kase.slca_activation_state}.short`)
         : t('result.config.values.slcaOff'),
-    why: kase.q3?.soc ? undefined : t('result.config.why.slcaOff'),
+    why: kase.q3?.soc ? undefined : reason('slcaOff'),
     nodeText: texts((kase.slca ?? {})['boundary']),
   })
 
@@ -107,30 +117,30 @@ export function configurationRows(
     const reasons: string[] = []
     if (kase.operating_start === 'future') {
       reasons.push(kase.operating_start_year
-        ? t('result.config.why.horizonYear', { year: kase.operating_start_year })
-        : t('result.config.why.horizonFutureYear'))
+        ? reason('horizonYear', { year: kase.operating_start_year })
+        : reason('horizonFutureYear'))
     }
-    if (kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5') reasons.push(t('result.config.why.horizonTrl'))
+    if (kase.q6b === 'TRL5-6' || kase.q6b === 'TRL<5') reasons.push(reason('horizonTrl'))
     const period = num(kase.analysis_period_years)
     if (period != null && period > threshold) {
-      reasons.push(t('result.config.why.horizonPeriod', { years: period, threshold }))
+      reasons.push(reason('horizonPeriod', { years: period, threshold }))
     }
     if (lifetime != null && lifetime > threshold) {
       // alone, the asset lifetime puts a "future" next to a study of the present
       // year: say so (P1-04, P3-02, UX round 2026-11-03)
-      reasons.push(t(reasons.length === 0 && !(period != null && period > threshold)
-        ? 'result.config.why.horizonLifetimeOnly' : 'result.config.why.horizonLifetime', { years: lifetime, threshold }))
+      reasons.push(reason(reasons.length === 0 && !(period != null && period > threshold)
+        ? 'horizonLifetimeOnly' : 'horizonLifetime', { years: lifetime, threshold }))
     }
     rows.push({
       key: 'horizon',
       label: label('horizon'),
-      value: t(future ? 'result.config.values.horizonFuture' : 'result.config.values.horizonPresent'),
-      why: future ? (reasons.join('; ') || t('result.config.why.horizonFutureGeneric'))
+      value: value(future ? 'horizonFuture' : 'horizonPresent'),
+      why: future ? (reasons.join('; ') || reason('horizonFutureGeneric'))
         // "mature technology" was asserted for a case that never answered Q8 or Q6b
         : kase.operating_start == null && kase.analysis_period_years == null
           && lifetime == null && kase.q6b == null
-          ? t('result.config.why.horizonUnanswered', { threshold })
-          : t('result.config.why.horizonPresent', { threshold }),
+          ? reason('horizonUnanswered', { threshold })
+          : reason('horizonPresent', { threshold }),
       nodeText: texts(lca['background_futurisation'], lcc['background_dynamic']),
     })
 
@@ -145,12 +155,12 @@ export function configurationRows(
         key: 'prospective',
         label: label('prospective'),
         value: [
-          ...(scaleUp ? [t('result.config.values.prospectiveScaleUp')] : []),
-          ...(pedigree ? [t('result.config.values.prospectivePedigree')] : []),
+          ...(scaleUp ? [value('prospectiveScaleUp')] : []),
+          ...(pedigree ? [value('prospectivePedigree')] : []),
         ].join('; '),
         why: [
-          ...(scaleUp ? [t('result.config.why.horizonTrl')] : []),
-          ...(pedigree ? [t('result.config.why.referenceNotYet')] : []),
+          ...(scaleUp ? [reason('horizonTrl')] : []),
+          ...(pedigree ? [reason('referenceNotYet')] : []),
         ].join('; '),
         nodeText: texts(lca['scale_up_framework'], lcc['scale_up_framework'],
           lca['uncertainty.pedigree'], lcc['uncertainty.pedigree']),
@@ -163,8 +173,8 @@ export function configurationRows(
     rows.push({
       key: 'reference',
       label: label('reference'),
-      value: t('result.config.values.reference_c2'),
-      why: t('result.config.why.referenceC2'),
+      value: value('reference_c2'),
+      why: reason('referenceC2'),
       nodeText: texts(lca['reference_scenario.content']),
     })
   } else if ((env || eco) && kase.q2) {
@@ -174,17 +184,17 @@ export function configurationRows(
       : null
     const market = [kase.reference_market_region?.trim(), scope ? `(${scope})` : null]
       .filter(Boolean).join(' ')
-    const value = t(`result.config.values.reference_${kind}`)
+    const reference = value(`reference_${kind}`)
     rows.push({
       key: 'reference',
       label: label('reference'),
-      value: market ? `${value} — ${t('result.config.values.market', { market })}` : value,
-      why: [t(kase.q2 === 'B' ? 'result.config.why.referenceNotYet'
-        : kase.network_long_standing ? 'result.config.why.referenceLongStanding'
-          : 'result.config.why.referenceRunning'),
+      value: market ? `${reference} — ${t('result.config.values.market', { market })}` : reference,
+      why: [reason(kase.q2 === 'B' ? 'referenceNotYet'
+        : kase.network_long_standing ? 'referenceLongStanding'
+          : 'referenceRunning'),
       // without LCA the situation prescribes no costing model, only the reference (P2-08)
       !env && kase.ilcd_situation
-        ? t('result.config.why.referenceNoLca', { situation: kase.ilcd_situation.replace('ILCD Situation ', '') })
+        ? reason('referenceNoLca', { situation: kase.ilcd_situation.replace('ILCD Situation ', '') })
         : null].filter(Boolean).join('; '),
       nodeText: texts(lca['reference_scenario.type'], lca['reference_scenario.content']),
     })
@@ -196,12 +206,12 @@ export function configurationRows(
   if (env && kase.ilcd_situation) {
     const sit = kase.ilcd_situation.replace('ILCD Situation ', '')
     const kind = sit === 'B' ? 'Consequential' : sit === 'C2' ? 'Allocation' : 'Substitution'
-    const pef = (kase.q4 ?? []).includes('D') ? t(`result.config.values.multiPef${kind}`) : ''
+    const pef = (kase.q4 ?? []).includes('D') ? value(`multiPef${kind}`) : ''
     rows.push({
       key: 'multifunctionality',
       label: label('multifunctionality'),
-      value: `${t(`result.config.values.multi${kind}`)}${pef}`,
-      why: t('result.config.why.multifunctionality'),
+      value: `${value(`multi${kind}`)}${pef}`,
+      why: reason('multifunctionality'),
       nodeText: texts(lca['allocation_method']),
     })
   }
@@ -213,13 +223,13 @@ export function configurationRows(
       const kind = FLOW_TREATMENT.find(([start]) => raw.startsWith(start))?.[1]
       // without a costing the interdependent row spoke of E-LCC and C-LCC (P3-12)
       const key = kind === 'integrated' && !eco ? 'integratedLca' : kind
-      return `${f.name || f.id}: ${key ? t(`result.config.values.flowTreatment.${key}`) : raw || '—'}`
+      return `${f.name || f.id}: ${key ? value(`flowTreatment.${key}`) : raw || '—'}`
     })
     rows.push({
       key: 'flows',
       label: label('flows'),
       value: treatments.join('; '),
-      why: t('result.config.why.flows'),
+      why: reason('flows'),
       // per flow, by name: the JSON of flow ids was no citation (UX round 4, P2-06)
       nodeText: (kase.flows ?? []).map((f) =>
         `${f.name || f.id}: ${String((perFlow as Record<string, unknown>)[f.id] ?? '—')}`),
@@ -231,8 +241,8 @@ export function configurationRows(
       key: 'flows',
       label: t('result.config.labels.flowsLcc'),
       value: (kase.flows ?? []).map((f) =>
-        `${f.name || f.id}: ${f.q5 ? t(`result.config.values.flowCost.${f.q5}`) : '—'}`).join('; '),
-      why: t('result.config.why.flows'),
+        `${f.name || f.id}: ${f.q5 ? value(`flowCost.${f.q5}`) : '—'}`).join('; '),
+      why: reason('flows'),
       nodeText: texts(lcc['secondary_flow_valuation']),
     })
   }
@@ -244,9 +254,9 @@ export function configurationRows(
     rows.push({
       key: 'fu',
       label: t('result.config.labels.fuLcc'),
-      value: t(`result.config.values.fuLcc_${kind}`),
-      why: goal ? t('result.config.why.fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
-        : t('result.config.why.fuDefault'),
+      value: value(`fuLcc_${kind}`),
+      why: goal ? reason('fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
+        : reason('fuDefault'),
       nodeText: texts(lcc['functional_equivalent']),
     })
   }
@@ -255,9 +265,9 @@ export function configurationRows(
     rows.push({
       key: 'fu',
       label: label('fu'),
-      value: t(`result.config.values.fu_${goal ?? 'function'}`),
-      why: goal ? t('result.config.why.fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
-        : t('result.config.why.fuDefault'),
+      value: value(`fu_${goal ?? 'function'}`),
+      why: goal ? reason('fuGoal', { goal: t(`questionnaire.q11.options.${goal}`) })
+        : reason('fuDefault'),
       nodeText: texts(lca['functional_unit']),
     })
     const community = opts.audience === 'community'
@@ -268,8 +278,8 @@ export function configurationRows(
         ? t('result.config.values.community.regional', {
           where: t(`result.config.values.community.where_${kase.q7 ?? 'unset'}`),
         })
-        : t(`result.config.values.regional_${kase.q7 ?? 'unset'}`),
-      why: kase.q7 ? `${t(`questionnaire.q7.options.${kase.q7}.label`)} (Q7)` : t('result.config.why.regionalUnset'),
+        : value(`regional_${kase.q7 ?? 'unset'}`),
+      why: kase.q7 ? `${t(`questionnaire.q7.options.${kase.q7}.label`)} (Q7)` : reason('regionalUnset'),
       nodeText: texts(lca['lcia_method']),
     })
   }
@@ -318,9 +328,8 @@ export function configurationRows(
       label: endUser ? t('result.config.labels.claimPublic') : label('claim'),
       value: endUser
         ? t(`result.config.values.claimPublic.${claim ? 'claim' : policy ? 'policy' : 'none'}`)
-        : t(claim ? 'result.config.values.claim'
-          : policy ? 'result.config.values.claimPolicy' : 'result.config.values.claimNone'),
-      why: claim ? t('result.config.why.claim') : policy ? t('result.config.why.claimPolicy') : undefined,
+        : value(claim ? 'claim' : policy ? 'claimPolicy' : 'claimNone'),
+      why: claim ? reason('claim') : policy ? reason('claimPolicy') : undefined,
       nodeText: claim ? texts((kase.review ?? {})['scope'], lca['weighting_policy'])
         : policy ? texts((kase.review ?? {})['scope']) : [],
     })
@@ -340,8 +349,8 @@ export function configurationRows(
     rows.push({
       key: 'sectors',
       label: label('sectors'),
-      value: t('result.config.values.noChapter'),
-      why: t('result.config.why.noChapter'),
+      value: value('noChapter'),
+      why: reason('noChapter'),
       nodeText: [],
     })
   } else if (chapters.size > 0) {
@@ -351,7 +360,7 @@ export function configurationRows(
       value: [...chapters.entries()]
         .map(([chapter, flows]) => `${chapterName(t as never, chapter) ?? chapter}${flows.size ? ` (${[...flows].join(', ')})` : ''}`)
         .join(' · '),
-      why: t('result.config.why.sectors'),
+      why: reason('sectors'),
       nodeText: [],
     })
   }
@@ -362,8 +371,8 @@ export function configurationRows(
       label: label('shared'),
       // CAPEX and OPEX are costing words: an LCA alone inventories the assets
       // over their technical lifetime (D4.1 §6.3.3; UX round 5, P3-12)
-      value: t(eco ? 'result.config.values.shared' : 'result.config.values.sharedLca'),
-      why: t('result.config.why.shared'),
+      value: value(eco ? 'shared' : 'sharedLca'),
+      why: reason('shared'),
       nodeText: texts(lcc['capital_goods.included'], lca['capital_goods.included']),
     })
   }
@@ -422,8 +431,13 @@ export const AUDIENCE_ROWS: Record<'industry' | 'community' | 'authority' | 'end
   'end-user': ['fu', 'claim', 'slca'],
 }
 
-/** A reason without its question codes, for guided mode and public views:
- *  "you answered X (Q9)" → "you answered X"; "B. Regional (Q7)" → "B. Regional". */
+/** A reason without its question codes and option letters, for guided mode
+ *  and public views: "you answered X (Q9)" → "you answered X"; "B. Regional
+ *  (Q7)" → "Regional"; "(Q4 = C)" goes too (UX round 6, P3-12, P4-19). */
 export function withoutQCodes(text: string): string {
-  return text.replace(/\s*\((?:Q\d+[ab]?(?:\s*[,/]\s*)?)+\)/g, '').replace(/\s+([;:,.])/g, '$1')
+  return text
+    .replace(/\s*\((?:Q\d+[ab]?(?:\s*[,/]\s*)?)+\)/g, '')
+    .replace(/\s*\(Q\d+[ab]?\s*=\s*[^)]*\)/g, '')
+    .replace(/(^|[;:]\s+)[A-E]\.\s+(?=\p{Lu})/gu, '$1')
+    .replace(/\s+([;:,.])/g, '$1')
 }

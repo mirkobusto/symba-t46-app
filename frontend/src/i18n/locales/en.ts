@@ -59,12 +59,33 @@ const en = {
     contactHint: "The companies also send the filled-in Data Collection File back to this address: write the person who carries out the study.",
     saveSharing: 'Save name and contact',
     notSharedBody: 'The report is not public: only you can open this case. Turn sharing on to get the links.',
-    sharedBody: 'The report is public: anyone with one of these links can read it, without the flow notes and quantities.',
+    sharedBody: "The report is public: anyone with one of these links can read it. It shows the exchanges as you named them and the countries of the companies in your network; it does not show company names, flow notes or quantities.",
     signInButton: 'Sign in to save and share',
     saveFirstBodySignedIn: "Sharing needs the case saved on the server. Save it first with “{{button}}” on the result page, then reopen this dialog.",
   },
 
   reader: {
+    thisCaseOnly: "This page applies to this case only; another project is set up from its own answers.",
+    whoIsBehind: "Who is behind SYMBA?",
+    countries: "Where the plants are: {{countries}}",
+    flowsAsNamed: "The exchanges, as named by whoever prepared the case:",
+    whatYouCanDoEndUser: "This study is still being set up. For what it means for the product you bought, ask whoever put this link on it; for the study itself, write to whoever prepared it: {{contact}}. Results, once loaded, appear on this same page at this same link.",
+    fillIn: {
+      eyebrow: "Data Collection File",
+      title: "Filling in a Data Collection File",
+      lead: "You received an Excel workbook from whoever carries out a study of the exchanges your company takes part in. You need no account and no tool: everything happens in the workbook.",
+      steps: {
+        cover: "Read the cover: it says which case the file belongs to, what is asked of you, by when, and whom to send it back to.",
+        rows: "Fill in only your rows: the flows your company gives or receives, in the sheets the cover names, and in them only the columns of your side (origin or destination).",
+        grey: "Leave the grey columns and the sheets for whoever carries out the study as they are. If a value that arrives already filled in is wrong for your flow, tell the contact.",
+        unknown: "If you do not know a value, leave the cell empty and say so: an empty cell is a known gap, a guessed number is an unknown error. Write the unit next to every quantity and the currency and year next to every cost.",
+        confidential: "Confidential values: write \"confidential\" in the cell and send the value only to the contact on the cover. Do not forward the workbook to other partners: it may carry their data.",
+        send: "Send the filled-in file back to the contact on the cover by the date it gives.",
+      },
+      reportLine: "Did you also receive a link to the report? Open it: its Industry tab says what the study does and which data it needs.",
+      reportLink: "Read a shared report",
+      howLink: "How to fill it in",
+    },
     tagline: 'Public report',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -103,15 +124,16 @@ const en = {
     sectorTag: "Sector: {{sector}}",
     scaleTag: "Interactions: {{scale}}",
     compliance: {
-      peer: { name: "Independent peer review", desc: "A reviewer checks the study against ISO 14044, as for a scientific publication." },
+      review: { name: "Independent review of the study", panel: "Planned: a panel of at least three independent experts reviews the study before anything is claimed in public (ISO 14044).", journal: "Planned: the study is peer-reviewed for a scientific journal.", none: "Not planned in this study. The full technical report stays available should a review be asked for.", badge: { panel: "panel of three or more experts", journal: "journal peer review", none: "not planned in this study" } },
       pef: { name: "EU Product Environmental Footprint (PEF)", desc: "The study follows the EU footprint method, including its Circular Footprint Formula.", descC2: "Not applicable: one company's accounts use allocation, not the Circular Footprint Formula (ILCD C2).", descB: 'Run as a sensitivity: Situation B is modelled consequentially.' },
       public: { name: 'Comparative assertion disclosed to the public', desc: "A public claim that a product is better than, or equivalent to, an alternative needs an ISO review panel." },
       dnsh: { name: "EU Taxonomy \"Do No Significant Harm\" (DNSH)", desc: "A separate screening for EU-taxonomy funding (art. 17); this tool does not perform it." },
-      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs, with taxes and subsidies corrected and environmental effects priced (D4.2 §2.3).', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective.', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.' },
+      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs, with taxes and subsidies corrected and environmental effects priced (D4.2 §2.3).', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective.', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.', undeclared: "Not declared: the study does not say whether a public body is to decide on it. Ask the analyst." },
       notPlanned: "not planned in this study",
       notAssessed: "not assessed by this tool",
     },
     audience: {
+      choose: "Who are you reading as? Pick your view: the facts are the same in all four.",
       showingFor: 'Showing for: {{name}}',
       industry: {
         short: '🏭 Industry',
@@ -194,13 +216,14 @@ const en = {
     skip: 'Skip for now',
     roles: {
       analyst: { name: 'Sustainability analyst', desc: 'IS practitioner, LCA/LCC/S-LCA reviewer, methodologist.' },
-      industry: { name: 'Industrial operator', desc: 'You run a plant or a site inside an IS network.' },
+      industry: { name: 'Industrial operator', desc: "You run a plant or a site inside an industrial-symbiosis network." },
       authority: { name: 'Local authority', desc: 'Municipality, region, policy analyst overseeing the territory.' },
       community: { name: 'Community representative', desc: 'Association, NGO, host-territory citizens\' group.' },
       enduser: { name: 'End user / citizen', desc: 'You use products or services derived from the symbiosis.' },
       unknown: { name: 'Not sure yet', desc: 'That\'s fine: we start you on the overview page.' },
     },
     tasks: {
+      fill: { name: "I have to fill in a Data Collection File", desc: "Someone sent me an Excel workbook about my company's exchanges and I have to send it back filled in." },
       assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore a region / sector', desc: "See how the saved cases are spread across methods and sectors." },
@@ -220,6 +243,7 @@ const en = {
       system: 'System',
     },
     nav: {
+      openShared: "Read a shared report",
       home: 'Home',
       questionnaire: "Questionnaire",
       cases: 'My cases',
@@ -294,10 +318,16 @@ const en = {
   },
 
   home: {
+    reader: {
+      link: "Did you receive a link or a code?",
+      open: "Read a shared report",
+      workbook: "Did you receive a Data Collection File to fill in?",
+      fillIn: "How to fill it in",
+    },
     intro: {
       what: { title: "What it does", body: "Tells you how the assessment of an industrial-symbiosis exchange has to be set up, following the SYMBA guidelines, and which data to collect from the companies involved." },
       not: { title: "What it does not do", body: "It does not compute the results: no emissions, costs or social figures. Whoever carries out the study calculates them with the data the tool asks for." },
-      who: { title: "Who it is for", body: "Sustainability analysts and consultants set up their studies here; companies, public bodies and associations read the reports and see which data they will be asked for." },
+      who: { title: "Who it is for", body: "Sustainability analysts and consultants set up their studies here; companies, public bodies and associations read the reports and see which data they will be asked for; citizens who received a link, for example from a product label, read the public report." },
     },
     title: "SYMBA: assessing industrial symbiosis",
     tagline: "How to set up the environmental, cost and social assessment of an exchange between companies, and which data to collect.",
@@ -646,19 +676,19 @@ const en = {
     },
 
     q5: {
-      title: 'Q5 — Nature of each symbiotic flow (per flow)',
+      title: "Q5 — Who pays whom for each flow",
       help:
         "Add one row per main symbiotic flow and say who pays whom. Required when you analyse an exchange, a network or one company (Q1 = A, B or D); optional otherwise.",
       details:
-        'For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick who pays whom. ' +
-        'a. A pays B to take the flow (a gate fee: negative market value, a WASTE for A, D4.1 §8.3.2). Zero-burden applies from the point where the residue first reaches non-negative value, not at the gate. Paying is not the same as unavoidable: D4.2 §6.2 also requires the causal avoidability test, declared per flow in the Data Collection File. ' +
-        'b. Flow exchanged for FREE (ambiguous status): the economic value test decides whether it is a waste or a co-product, with a sensitivity analysis. ' +
-        'c. B pays A for the flow (positive market value: a CO-PRODUCT for A): substitution against the displaced virgin material, with a quality-corrected ratio. The PEF Circular Footprint Formula is not tied to Q5: it comes from Q4=D. If no third party would pay for the flow (Freedom-to-Act test, D4.1 §8.3.3), the price is administrative and the flow is modeled as waste. ' +
-        'd. INTERDEPENDENT flow: A deliberately altered its process (quality, quantity, post-treatment) to supply B; a co-product whatever the price, never zero-burden. ' +
-        'e. AGGREGATED / black-box: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modeling choice: D4.1 §8.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. ' +
-        'Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.',
+        "For each main flow exchanged between actors (heat, CO₂, slag, wastewater, hydrogen…) pick who pays whom. The answer sets how the flow is modelled to start with; its legal class is not decided here. " +
+        "a. Whoever gives it pays the receiver to take it away (a gate fee: negative market value, D4.1 §8.3.2): modelled as a waste, with zero burden from the point where the residue first reaches non-negative value, not at the gate. Paying is not the same as unavoidable: D4.2 §6.2 also requires the causal avoidability test, declared per flow in the Data Collection File. " +
+        "b. Nobody pays, or it is not clear yet: the economic value test decides between zero burden and substitution, with a sensitivity analysis (D4.1 §8.3.2). " +
+        "c. The receiver pays whoever gives it (positive market value, D4.1 §8.3.2): modelled as a co-product, substitution against the displaced virgin material with a quality-corrected ratio. The PEF Circular Footprint Formula is not tied to Q5: it comes from Q4=D. If no third party would pay for the flow (Freedom-to-Act test, D4.1 §8.3.3), the price is administrative and the flow is modelled as a waste. " +
+        "d. The two plants depend on each other: whoever gives it deliberately altered its process (quality, quantity, post-treatment) to supply the receiver; modelled as a determining co-product whatever the price, never zero burden (D4.1 §8.3.6 Step 2). " +
+        "e. Only one total figure for the whole network: the source gives no per-flow detail (typical of aggregate IES papers like Sokka 2011). That is a limitation of the source, not a modelling choice: D4.1 §8.3.1 forbids one network-wide rule, so the Data Collection File still asks for the classification of every flow you can name. " +
+        "Q5 records who pays whom; the legal and economic tests (Freedom-to-Act, End-of-Waste, by-product class, avoidability, zero-burden point) are declared per flow in the Flow classification section of the Data Collection File. For policy-level Q1=C studies, Q5 is usually optional.",
       plain:
-        'For each thing that moves between the companies (heat, water, slag, CO₂), the question here is only who pays whom: the sender pays to be rid of it, nobody pays, or the receiver pays for it. If the sender deliberately changed its own process in order to supply it, pick that whatever the money says. For that partner, though, a dryer built to sell the flow to anyone is not interdependence: pick \'the receiver pays\' and declare the dryer under dedicated assets. If your source gives one figure for the whole network, pick the last option; you will still be asked about every flow you can name, because one rule for the whole network is not allowed. Whether a flow counts as waste in law is settled later, in the data collection file, not here.',
+        'For each thing that moves between the companies (heat, water, slag, CO₂), the question here is only who pays whom: whoever gives it pays to be rid of it, nobody pays, or the receiver pays for it. If whoever gives it deliberately changed its own process in order to supply it, pick that whatever the money says. For that partner, though, a dryer built to sell the flow to anyone is not interdependence: pick “The receiver pays whoever gives it” and declare the dryer under dedicated assets. If your source gives one figure for the whole network, pick the last option; you will still be asked about every flow you can name, because one rule for the whole network is not allowed. Whether a flow counts as waste in law is settled later, in the data collection file, not here.',
     },
 
     q6a: {
@@ -807,12 +837,12 @@ const en = {
       details: "D4.1 Part 2 asks the functional unit to reflect the primary function of the system (§4.3, §6.3, §8.3): an input-based unit (e.g. treatment of 1 tonne of waste) when the study compares waste management routes or the performance of a plant or service; an output-based unit (e.g. 1 kg of product, 1 MJ of energy) when it compares products against market alternatives or supports a substitution claim; a system of functional units when both functions are co-primary (Part 1 §5.3.2). D4.2 §3.1 asks a dual unit (waste treated + output generated) for the LCC when product substitution drives the study: the two deliverables differ, and the tool follows Part 2 for the LCA and reports the difference.",
       options: {
         unset: 'I don\'t know / nothing is compared (the tool uses a unit built on the service delivered)',
-        waste_treatment: "How a waste is managed: waste routes, plant or service performance (input-based unit)",
+        waste_treatment: "How a residue is managed: treatment routes, plant or service performance (input-based unit)",
         product_substitution: "Products against market alternatives: what the recovered output replaces (output-based unit)",
         co_primary: "Both: the treatment service and the products matter equally (system of functional units)",
       },
       plain:
-        "What is the comparison about? If the question is how best to deal with a waste (burn it, digest it, compost it), the result is counted per tonne of waste treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
+        "What is the comparison about? If the question is how best to deal with a residue (burn it, digest it, compost it), the result is counted per tonne of residue treated. If the question is whether the recovered product is better than the one it replaces, it is counted per unit of product. If both matter equally, both are counted side by side.",
     },
     q12: {
       title: 'Q12 — Does the symbiosis use dedicated assets?',
@@ -853,19 +883,12 @@ const en = {
       sector: 'Sector of what is exchanged (optional)',
       configuration: 'Type of reuse (optional)',
     },
-    plainOptions: {
-      a: 'Whoever gives it pays the receiver to take it away (a waste for the giver)',
-      b: 'Nobody pays, or it is not clear yet',
-      c: 'The receiver pays whoever gives it (a product for the giver)',
-      d: 'The two plants depend on each other (one was changed to supply the other)',
-      e: 'Only one total figure for the whole network',
-    },
     q5Note: 'Answer with the arrangement as it stands today, agreed or intended if the exchange is not running yet. It is a starting assumption, not a finding: if the study changes who pays whom, come back and change it. Pick “Nobody pays, or it is not clear yet” when it is undecided rather than forcing a direction.',
     emptyHint: 'No flows yet. Add at least one to characterise per-flow Q5.',
     headers: { id: 'ID', name: 'Name', q5: "Who pays whom (Q5)", sellable: 'Sellable to others?', sector: 'Sector (Part 2)', configuration: "Configuration (Part 2)" },
     q5Unset: "— choose who pays whom",
     sellable: { unset: '— not answered', yes: 'Yes', no: 'No' },
-    sellableHint: "If the partner did not take this flow, could the generator sell it to someone else at a positive price? Yes makes it a co-product. No does not make it a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still makes it a co-product; a free flow, or a payment that only shares costs, makes it a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with Q5.",
+    sellableHint: "If the partner did not take this flow, could whoever gives it sell it to someone else at a positive price? Yes points to a flow modelled as a co-product. No does not point to a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still points to a co-product; a free flow, or a payment that only shares costs, points to a flow modelled as a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with who pays whom.",
     sectorHint: 'Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues go to Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste), to Waste valorisation (§8); sludge and treated wastewater, also when reused as water, to Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) to the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter. D4.1 Part 2 has chapters only for these bio-based sectors: for steel, cement, heat, pulp and paper or chemicals pick "— none of these", and only Part 1 applies. Wood and forest residues (sawdust, bark, lignin, black liquor) have no Part 2 chapter: pick "— none of these".',
     sectorNone: '— none of these',
     configurationHint: "The typical configuration of the flow within its Part 2 chapter (D4.1 Part 2 §4.1-§8.1): the result names the conventional product it substitutes. Pick the sector first.",
@@ -902,11 +925,11 @@ const en = {
     addButton: 'Add flow',
     removeAria: 'Remove {{id}}',
     options: {
-      a: "a. The supplier (A) pays the receiver (B): waste",
-      b: 'b. Free (ambiguous)',
-      c: "c. The receiver (B) pays the supplier (A): co-product",
-      d: 'd. Interdependent',
-      e: 'e. Aggregated / black-box',
+      a: "a. Whoever gives it pays the receiver to take it away",
+      b: "b. Nobody pays, or it is not clear yet",
+      c: "c. The receiver pays whoever gives it",
+      d: "d. The two plants depend on each other (one was changed to supply the other)",
+      e: "e. Only one total figure for the whole network",
     },
     plainEmpty: 'No exchanges yet. Add each thing that moves between the companies (whey, sawdust, heat, water…).',
     plainSectorHint: 'Optional. Pick a sector only if what is exchanged belongs to one of the listed bio-based sectors (agri-food, plastics, wastewater, textiles, waste). For wood, sawdust, forest or paper-mill residues, steel, cement or heat, leave “— none of these”. If you are not sure, leave it: the analyst can set it.',
@@ -1026,8 +1049,8 @@ const en = {
     // guided mode: notes in plain words (UX round 4)
     engineNotesPlain: {
       flow_freedom_to_act_settles: {
-        co_product: 'Flow \'{{flow}}\': you said nobody pays (or it is not clear yet), but that someone else would buy it: then it is not a waste. That is fine; the analyst decides how to count it.',
-        waste: 'Flow \'{{flow}}\': you said nobody pays and nobody else would buy it: it may count as a waste, with no burden from your side. The analyst checks it.',
+        co_product: "Flow '{{flow}}': you said nobody pays (or it is not clear yet), but that someone else would buy it: then the study will not model it as a waste. That is fine; the analyst decides how to count it.",
+        waste: "Flow '{{flow}}': you said nobody pays and nobody else would buy it: the study may model it as a waste, with no burden from your side. The analyst checks it.",
       },
     },
     // guided mode: what the result means for a non-analyst (UX round 2026-11-03)
@@ -1069,7 +1092,10 @@ const en = {
       lead: 'What your answers decided, in the terms of the deliverables. Open a row to read the engine\'s text, in English, with the section it comes from.',
       nodeText: 'Engine text (English)',
       labels: {
-        flows: "Treatment of each flow",
+        environment: "Environmental effects",
+        review: "Independent check",
+        whatMeasured: "What is measured",
+        flows: "Treatment of each flow in the model",
         claim: 'Comparative assertion',
         purpose: 'Kind of study',
         lcc: 'Costing',
@@ -1091,35 +1117,46 @@ const en = {
         notCovered: 'Not covered',
       },
       values: {
+        endUser: {
+          environmentOn: "Yes: the study counts the emissions and the resources used by the whole exchange, transport included.",
+          environmentOff: "No: environmental effects are not assessed in this study.",
+          fu_waste_treatment: "The treatment of the residue one company hands over, not the product you buy",
+          fu_product_substitution: "The products the exchange makes and the products they replace",
+          fu_co_primary: "Both: the treatment of the residue and the products it yields",
+          fu_function: "The service the exchange delivers as a whole",
+          fuLcc_waste_treatment: "The treatment of the residue one company hands over, not the product you buy",
+          fuLcc_dual: "Both: the residue treated and what the exchange produces",
+          fuLcc_function: "The services the exchange delivers as a whole",
+        },
         community: {
           slcaOn: 'Yes: social effects are assessed group by group (workers, the local community, consumers). Which groups are interviewed is decided by whoever carries out the study (D4.3 §5.1, §6.2).',
-          slcaOff: 'No: social effects are not assessed. If residents want to be heard, ask the contact on this page to add them.',
+          slcaOff: "No: social effects are not assessed. If residents want to be heard, ask whoever carries out the study to add them.",
           regional: 'Local air, water and soil effects (fine particles, acidification, excess nutrients, water use) are assessed with data for {{where}}, not world averages (D4.1 §13.3.3).',
-          where_A: 'this site',
-          where_B: 'your region or country',
+          where_A: "the site of the plants",
+          where_B: "the region or country where the plants are",
           where_C: 'the territory of each emission',
-          where_unset: 'the country',
+          where_unset: "the country where the plants are",
           transport: 'Every exchange is studied with its own transport: lorries or pipelines, real routes and distances, loads and empty return trips, and the distance beyond which trucking cancels the benefit (D4.1 §13.3.1).',
           transportLcc: 'The cost of transporting every exchange, and the distance beyond which it no longer pays (D4.2 §4.3).',
           fieldSpreading: 'The study counts what happens when digestate, compost or recovered fertiliser is spread on fields: ammonia to the air, nitrates to water (D4.1 Part 2 §4.3.3, §6.3.3).',
-          notCovered: 'Odour and noise are not impact categories of these guidelines (D4.1 Part 2 §9.3 lists them among the effects usually left out); local air, water and toxicity are. Any local effect the study leaves out must be declared as a known blind spot (D4.1 §12.3.5).',
+          notCovered: "Odour and noise are not impact categories of these guidelines (D4.1 Part 2 §9.3 lists them among the effects usually left out); local air, water and toxicity are. Odour and noise are usually dealt with when the plants are permitted, not in this study: for them, ask your municipality or the authority that issues the permit. Any local effect the study leaves out must be declared as a known blind spot (D4.1 §12.3.5): you can ask whoever prepared the study to name these ones.",
         },
         flowCost: {
-          a: 'waste: the gate fee as negotiated; zero cost only if the residual is unavoidable (D4.2 §6.3)',
-          b: 'free: zero transfer price; zero cost only if unavoidable, otherwise a co-product',
-          c: 'co-product: the negotiated price',
-          d: 'interdependent: a determining co-product at the negotiated transfer price; zero cost does not apply (D4.1 §8.3.6 Step 2)',
-          e: 'aggregated: price each flow that can be named',
+          a: "gate fee: whoever gives it pays the negotiated fee; upstream costs are left out (zero cost) only if the residue is unavoidable (D4.2 §6.3)",
+          b: "zero transfer price: nobody pays; upstream costs are left out (zero cost) only if the residue is unavoidable, otherwise the flow is modelled as a co-product",
+          c: "positive price: the receiver pays the negotiated price, and the flow is modelled as a co-product",
+          d: "negotiated transfer price: a determining co-product, so zero cost does not apply (D4.1 §8.3.6 Step 2)",
+          e: "aggregated in the source: price each flow that can be named",
         },
         noChapter: "No chapter of D4.1 Part 2 covers the declared flows: only Part 1 applies",
         flowTreatment: {
-          waste: 'waste: zero burden from the point where the residue first reaches non-negative value, after the avoidability test (D4.1 §8.3.6 Step 4)',
-          evt: 'undecided: economic value test with a sensitivity analysis (D4.1 §8.3.2)',
-          coproduct: 'co-product: no zero burden; substitution of the product it replaces with the quality factor Q (D4.1 §8.3.6 Step 3)',
-          integrated: 'interdependent: a determining co-product, never zero burden; one expanded multifunctional system (D4.1 §8.3.6 Step 2); the E-LCC follows the same partition, valuing the flow at the market price of what it replaces; the C-LCC uses the negotiated transfer price',
-          integratedLca: 'interdependent: a determining co-product, never zero burden; one expanded multifunctional system (D4.1 §8.3.6 Step 2)',
+          waste: "zero burden: modelled as a waste, burden-free for the receiver from the point where the residue first reaches a non-negative value, after the avoidability test (D4.1 §8.3.6 Step 4)",
+          evt: "economic value test: who pays whom is not settled, so both readings, zero burden and substitution, are reported with a sensitivity analysis (D4.1 §8.3.2)",
+          coproduct: "substitution: modelled as a co-product, no zero burden; it displaces the product it replaces, corrected with the quality factor Q (D4.1 §8.3.6 Step 3)",
+          integrated: "one expanded multifunctional system: modelled as a determining co-product, never zero burden (D4.1 §8.3.6 Step 2); the E-LCC follows the same partition, valuing the flow at the market price of what it replaces; the C-LCC uses the negotiated transfer price",
+          integratedLca: "one expanded multifunctional system: modelled as a determining co-product, never zero burden (D4.1 §8.3.6 Step 2)",
           allocation: 'allocation: no zero burden and no substitution credits, one company\'s accounts (D4.1 §7.2.3)',
-          aggregated: 'aggregated: classify each flow that can be named, no network-wide rule (D4.1 §8.3.1)',
+          aggregated: "aggregated in the source: classify each flow that can be named, no network-wide rule (D4.1 §8.3.1)",
         },
         claim: 'Comparative assertion disclosed to the public (superiority or equivalence): critical review by a panel of at least three independent experts, no weighting',
         claimNone: 'No comparative assertion disclosed to the public',
@@ -1138,7 +1175,7 @@ const en = {
         reference_modern: 'A modern counterfactual: what each firm would do today without the links (Hypothetical Non-Symbiotic Reference Scenario, HNSRS)',
         reference_cnsrs: 'Business as usual without the symbiosis, over the study\'s time horizon (Current Non-Symbiotic Reference Scenario, CNSRS)',
         market: 'market: {{market}}',
-        fu_waste_treatment: 'Input-based: the treatment of the waste',
+        fu_waste_treatment: "Input-based: the treatment of the incoming residue",
         fu_product_substitution: 'Output-based: the products and what they replace',
         fu_co_primary: 'A system of functional units: treatment and products together',
         fu_function: 'Function-oriented, around the service delivered',
@@ -1154,8 +1191,8 @@ const en = {
         multiPefSubstitution: '; partitioned with the PEF Circular Footprint Formula (Q4 = D)',
         multiPefConsequential: '; PEF CFF as a sensitivity (Q4 = D)',
         multiPefAllocation: '; the CFF is not applied',
-        fuLcc_waste_treatment: 'Input-based: the treatment of the waste (D4.2 §3.1)',
-        fuLcc_dual: 'Dual: the waste treated and the output generated, each with its avoided costs and revenues (D4.2 §3.1)',
+        fuLcc_waste_treatment: "Input-based: the treatment of the incoming residue (D4.2 §3.1)",
+        fuLcc_dual: "Dual: the residue treated and the output generated, each with its avoided costs and revenues (D4.2 §3.1)",
         fuLcc_function: 'The portfolio of functions the network delivers, each with its avoided costs and revenues (D4.2 §3.1)',
       },
       why: {
@@ -1221,8 +1258,8 @@ const en = {
       },
       c2_allocation_over_pef: "Strict reporting of one company (ILCD Situation C2) uses allocation and no substitution credits (D4.1 §7.2.3), so the PEF Circular Footprint Formula asked by Q4=D is not applied: the CFF is a product method. If the study is a product footprint rather than a corporate report, review Q9.",
       slca_alone: "Q3 selects the social dimension only. D4.3 §3.1 builds the S-LCA on the functional unit and the boundaries of an LCA or LCC; with none selected, document the reference unit and the boundary in the methodological charter.",
-      flow_sellable_but_waste: "Flow '{{flow}}': Q5 says the generator pays to get rid of it (waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
-      flow_price_without_market: "Flow '{{flow}}': Q5 says the recipient pays for it (co-product), but no third party would. With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the recipient pays what an independent buyer would pay, the price of the product the flow replaces net of its extra costs to use it; if the payment only shares costs, the flow is a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). Check the price against that benchmark.",
+      flow_sellable_but_waste: "Flow '{{flow}}': Q5 says whoever gives it pays to get rid of it (modelled as a waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
+      flow_price_without_market: "Flow '{{flow}}': Q5 says the receiver pays for it (modelled as a co-product), but no third party would. With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the receiver pays what an independent buyer would pay, the price of the product the flow replaces net of its extra costs to use it; if the payment only shares costs, the flow is modelled as a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). Check the price against that benchmark.",
       flow_freedom_to_act_settles: {
         co_product: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a co-product (§8.3.2, burden shared). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it: do not change who pays whom; record this reading in the flow classification of the Data Collection File (Freedom-to-Act and the step of the decision tree), which the study documents.",
         waste: "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it: do not change who pays whom; record this reading in the flow classification of the Data Collection File (Freedom-to-Act and the step of the decision tree), which the study documents.",
@@ -1498,6 +1535,8 @@ const en = {
     },
   },
   stakeholder: {
+    noCaseReader: "Did you receive a link to a report? Open it below, or look at an example case.",
+    seeExample: "See an example",
     audience: {
       industry: {
         whatYouSee:
@@ -1506,6 +1545,7 @@ const en = {
           'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
+        whenScoringNoSocial: "This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental indicators. This study has no social indicators, because the social dimension is not assessed.",
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
         whenScoring:
@@ -1578,12 +1618,6 @@ const en = {
     cdpFlagsCount_one: '{{count}} decision point the analyst must settle',
     cdpFlagsCount_other: '{{count}} decision points the analyst must settle',
     complianceTitle: 'Compliance signals',
-    compliance: {
-      peerReview: 'Independent peer review: {{status}}',
-      pef: 'EU PEF alignment (Q4=D): {{status}}',
-      pefC2: "EU PEF alignment (Q4=D): not applied, one company's accounts use allocation instead of the Circular Footprint Formula (ILCD Situation C2)",
-      publicClaim: 'Comparative assertion disclosed to the public (Q4=C): {{status}}',
-    },
   },
 
   aggregate: {

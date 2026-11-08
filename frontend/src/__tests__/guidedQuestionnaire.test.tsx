@@ -16,14 +16,27 @@ describe('guided questionnaire', () => {
   it('asks who pays whom in words', () => {
     usePreferenceStore.setState({ mode: 'guided' })
     render(<FlowsEditor flows={[{ id: 'f1', name: 'sawdust' }]} onChange={() => {}} />)
-    expect(screen.getByRole('option', { name: /Nobody pays, or it is not clear yet/ })).toBeInTheDocument()
-    expect(screen.queryByRole('option', { name: /^b\. / })).toBeNull()
+    expect(screen.getByRole('option', { name: 'b. Nobody pays, or it is not clear yet' })).toBeInTheDocument()
     expect(screen.getByText(/For wood, sawdust, forest or paper-mill residues/)).toBeInTheDocument()
   })
 
-  it('keeps the analyst labels in expert mode', () => {
-    render(<FlowsEditor flows={[{ id: 'f1', name: 'sawdust' }]} onChange={() => {}} />)
-    expect(screen.getByRole('option', { name: /^b\. / })).toBeInTheDocument()
+  // UX round 6 (P1-02, P6-11, P7-06): one set of labels in both registers,
+  // the one of the DCF and the Word, and no "waste" / "co-product" verdict
+  it('names the answers as the files do, in both registers', () => {
+    for (const mode of ['expert', 'guided'] as const) {
+      usePreferenceStore.setState({ mode })
+      const { unmount } = render(<FlowsEditor flows={[{ id: 'f1', name: 'sawdust' }]} onChange={() => {}} />)
+      const labels = screen.getAllByRole('option').map((o) => o.textContent ?? '').filter((l) => /^[a-e]\. /.test(l))
+      expect(labels).toEqual([
+        'a. Whoever gives it pays the receiver to take it away',
+        'b. Nobody pays, or it is not clear yet',
+        'c. The receiver pays whoever gives it',
+        'd. The two plants depend on each other (one was changed to supply the other)',
+        'e. Only one total figure for the whole network',
+      ])
+      expect(labels.join(' ')).not.toMatch(/waste|co-product|\(A\)|\(B\)/)
+      unmount()
+    }
   })
 
   it('hides the Q-code of a question in guided mode', () => {

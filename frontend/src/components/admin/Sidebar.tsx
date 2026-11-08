@@ -9,7 +9,7 @@
 //     ("New assessment" reopened the current answers without saying so: the
 //     item is named for what it opens, and a new assessment starts from the
 //     questionnaire or Home, asking first; UX round 6, P6-14)
-//   - Reports    → Stakeholder views / Regional dashboard
+//   - Reports    → Stakeholder views / Regional dashboard / DCF / Read a shared report
 //   - System     → About / Change role (Scoring queue will land in a later phase)
 //
 // The sidebar footer surfaces the mandatory EU / GA reference so it is
@@ -58,6 +58,8 @@ export default function Sidebar() {
         { to: '/stakeholder-report', label: t('adminShell.nav.stakeholder'), glyph: '⊞' },
         { to: '/aggregate', label: t('adminShell.nav.aggregate'), glyph: '⊠' },
         { to: '/data-collection', label: t('adminShell.nav.dcf'), glyph: '↓' },
+        // a reader who received a link had no way back to it from the menu (UX round 6, P5-05, P4-16)
+        { to: '/r/open', label: t('adminShell.nav.openShared'), glyph: '↗' },
       ],
     },
     {

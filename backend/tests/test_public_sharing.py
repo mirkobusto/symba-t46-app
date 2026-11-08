@@ -95,3 +95,24 @@ def test_the_public_region_counts_cases_with_a_partner_there(client):
         client.post(f"/api/cases/{saved['id']}/share", json={"shared": True}, headers=owner)
     assert client.get("/api/public/region/IT").json()["total"] == 1
     assert client.get("/api/public/region/DE").json()["total"] == 0
+
+
+def test_the_public_report_says_where_the_plants_are_without_naming_them(client):
+    # UX round 6, P4-08 (decided by Fable): the distinct countries of the base
+    # network, never the company names, never a scenario network's actors
+    owner = _auth(client, "owner@example.eu")
+    saved = _save(client, owner)
+    client.post(f"/api/cases/{saved['id']}/share", json={"shared": True}, headers=owner)
+    assert client.get(f"/api/public/report/{saved['slug']}").json()["countries"] == []
+    actors = [{"row_id": f"a{i}", "values": {"actor.name": name, "actor.role": "partner",
+                                             "actor.country_iso2": code}}
+              for i, (name, code) in enumerate([("Dairy", "it"), ("Biogas", "IT "), ("Farm", "ES")])]
+    r = client.put(f"/api/dcf/{saved['id']}/data", headers=owner, json={
+        "case_id": saved["id"], "rows_by_section": {"actors": actors},
+        "networks_by_scenario": {"s1": {"rows_by_section": {"actors": [
+            {"row_id": "a9", "values": {"actor.name": "Elsewhere", "actor.role": "partner",
+                                        "actor.country_iso2": "DE"}}]}}}})
+    assert r.status_code == 200, r.text
+    report = client.get(f"/api/public/report/{saved['slug']}").json()
+    assert report["countries"] == ["ES", "IT"]
+    assert "Dairy" not in str(report)

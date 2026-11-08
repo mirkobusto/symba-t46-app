@@ -180,8 +180,8 @@
    },
    "c2_allocation_over_pef": "Strict reporting of one company (ILCD Situation C2) uses allocation and no substitution credits (D4.1 §7.2.3), so the PEF Circular Footprint Formula asked by Q4=D is not applied: the CFF is a product method. If the study is a product footprint rather than a corporate report, review Q9.",
    "slca_alone": "Q3 selects the social dimension only. D4.3 §3.1 builds the S-LCA on the functional unit and the boundaries of an LCA or LCC; with none selected, document the reference unit and the boundary in the methodological charter.",
-   "flow_sellable_but_waste": "Flow '{{flow}}': Q5 says the generator pays to get rid of it (waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
-   "flow_price_without_market": "Flow '{{flow}}': Q5 says the recipient pays for it (co-product), but no third party would. With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the recipient pays what an independent buyer would pay, the price of the product the flow replaces net of its extra costs to use it; if the payment only shares costs, the flow is a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). Check the price against that benchmark.",
+   "flow_sellable_but_waste": "Flow '{{flow}}': Q5 says whoever gives it pays to get rid of it (modelled as a waste), but a third party would pay for it. D4.1 §8.3.3 and §8.3.6 Step 1: a flow with an independent positive market value is a co-product, and its upstream burden is shared (substitution or allocation), not cut off. Check Q5 for this flow.",
+   "flow_price_without_market": "Flow '{{flow}}': Q5 says the receiver pays for it (modelled as a co-product), but no third party would. With a single taker the price decides (D4.1 §8.3.3): the flow is a co-product if the receiver pays what an independent buyer would pay, the price of the product the flow replaces net of its extra costs to use it; if the payment only shares costs, the flow is modelled as a waste, with zero burden from where it first reaches a non-negative value (§8.3.6 Step 4). Check the price against that benchmark.",
    "flow_freedom_to_act_settles": {
     "co_product": "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a co-product (§8.3.2, burden shared). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it: do not change who pays whom; record this reading in the flow classification of the Data Collection File (Freedom-to-Act and the step of the decision tree), which the study documents.",
     "waste": "Flow '{{flow}}': Q5 leaves who pays whom open, and the Freedom-to-Act answer (D4.1 §8.3.3) points to a waste (zero burden from where it first reaches a non-negative value, §8.3.6 Step 4). The configuration keeps the economic value test with a sensitivity analysis until the study confirms it: do not change who pays whom; record this reading in the flow classification of the Data Collection File (Freedom-to-Act and the step of the decision tree), which the study documents."
@@ -246,11 +246,11 @@
     "soc": "Social (S-LCA)"
    },
    "q5": {
-    "a": "a. The supplier (A) pays the receiver (B): waste",
-    "b": "b. Free (ambiguous)",
-    "c": "c. The receiver (B) pays the supplier (A): co-product",
-    "d": "d. Interdependent",
-    "e": "e. Aggregated / black-box"
+    "a": "a. Whoever gives it pays the receiver to take it away",
+    "b": "b. Nobody pays, or it is not clear yet",
+    "c": "c. The receiver pays whoever gives it",
+    "d": "d. The two plants depend on each other (one was changed to supply the other)",
+    "e": "e. Only one total figure for the whole network"
    },
    "q6a": {
     "none": "(none)",
@@ -297,7 +297,7 @@
    },
    "q11": {
     "unset": "I don't know / nothing is compared (the tool uses a unit built on the service delivered)",
-    "waste_treatment": "How a waste is managed: waste routes, plant or service performance (input-based unit)",
+    "waste_treatment": "How a residue is managed: treatment routes, plant or service performance (input-based unit)",
     "product_substitution": "Products against market alternatives: what the recovered output replaces (output-based unit)",
     "co_primary": "Both: the treatment service and the products matter equally (system of functional units)"
    },
@@ -615,8 +615,8 @@
   },
   "engineNotesPlain": {
    "flow_freedom_to_act_settles": {
-    "co_product": "Flow '{{flow}}': you said nobody pays (or it is not clear yet), but that someone else would buy it: then it is not a waste. That is fine; the analyst decides how to count it.",
-    "waste": "Flow '{{flow}}': you said nobody pays and nobody else would buy it: it may count as a waste, with no burden from your side. The analyst checks it."
+    "co_product": "Flow '{{flow}}': you said nobody pays (or it is not clear yet), but that someone else would buy it: then the study will not model it as a waste. That is fine; the analyst decides how to count it.",
+    "waste": "Flow '{{flow}}': you said nobody pays and nobody else would buy it: the study may model it as a waste, with no burden from your side. The analyst checks it."
    }
   },
   "families": {
@@ -819,8 +819,8 @@
    },
    "c2_allocation_over_pef": "Il rendiconto rigoroso di una sola azienda (Situazione ILCD C2) usa l'allocazione e nessun credito di sostituzione (D4.1 §7.2.3), quindi la Circular Footprint Formula della PEF chiesta da Q4=D non si applica: la CFF è un metodo di prodotto. Se lo studio è un'impronta di prodotto e non un rendiconto aziendale, rivedi Q9.",
    "slca_alone": "Q3 seleziona solo la dimensione sociale. D4.3 §3.1 costruisce l'S-LCA sull'unità funzionale e sui confini di un'LCA o di un LCC; se nessuno dei due è selezionato, documenta l'unità di riferimento e il confine nel charter metodologico.",
-   "flow_sellable_but_waste": "Flusso «{{flow}}»: Q5 dice che chi lo genera paga per disfarsene (rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6 Step 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
-   "flow_price_without_market": "Flusso «{{flow}}»: Q5 dice che chi riceve paga (co-prodotto), ma nessun terzo lo comprerebbe. Con un solo acquirente decide il prezzo (D4.1 §8.3.3): il flusso è un co-prodotto se chi riceve paga quanto pagherebbe un compratore indipendente, cioè il prezzo del prodotto che il flusso sostituisce al netto dei suoi costi in più per usarlo; se il pagamento divide solo i costi, il flusso è un rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6 Step 4). Confronta il prezzo con questo riferimento.",
+   "flow_sellable_but_waste": "Flusso «{{flow}}»: Q5 dice che chi lo cede paga per disfarsene (modellato come rifiuto), ma un terzo lo pagherebbe. D4.1 §8.3.3 e §8.3.6, passo 1: un flusso con un valore di mercato positivo e indipendente è un co-prodotto, e il suo carico a monte si ripartisce (sostituzione o allocazione), non si taglia. Controlla Q5 per questo flusso.",
+   "flow_price_without_market": "Flusso «{{flow}}»: Q5 dice che chi lo riceve paga (modellato come co-prodotto), ma nessun terzo lo comprerebbe. Con un solo acquirente decide il prezzo (D4.1 §8.3.3): il flusso è un co-prodotto se chi lo riceve paga quanto pagherebbe un compratore indipendente, cioè il prezzo del prodotto che il flusso sostituisce al netto dei suoi costi in più per usarlo; se il pagamento divide solo i costi, il flusso è modellato come rifiuto, a carico zero dal punto in cui raggiunge per la prima volta un valore non negativo (§8.3.6, passo 4). Confronta il prezzo con questo riferimento.",
    "flow_freedom_to_act_settles": {
     "co_product": "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un co-prodotto (§8.3.2, carico ripartito). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma: non cambiare chi paga chi; registra questa lettura nella Classificazione dei flussi del Data Collection File (Freedom-to-Act e passo dell'albero decisionale), che lo studio documenta.",
     "waste": "Flusso «{{flow}}»: Q5 lascia aperto chi paga chi, e la risposta Freedom-to-Act (D4.1 §8.3.3) indica un rifiuto (carico zero dal punto in cui raggiunge per la prima volta un valore non negativo, §8.3.6 Step 4). La configurazione tiene il test del valore economico con analisi di sensibilità finché lo studio non lo conferma: non cambiare chi paga chi; registra questa lettura nella Classificazione dei flussi del Data Collection File (Freedom-to-Act e passo dell'albero decisionale), che lo studio documenta."
@@ -885,11 +885,11 @@
     "soc": "Sociale (S-LCA)"
    },
    "q5": {
-    "a": "a. Chi cede (A) paga chi riceve (B): rifiuto",
-    "b": "b. Scambio gratuito (ambiguo)",
-    "c": "c. Chi riceve (B) paga chi cede (A): co-prodotto",
-    "d": "d. Interdipendente",
-    "e": "e. Aggregato / black-box"
+    "a": "a. Chi lo cede paga chi lo riceve perché se lo porti via",
+    "b": "b. Nessuno paga, o non è ancora chiaro",
+    "c": "c. Chi lo riceve paga chi lo cede",
+    "d": "d. I due impianti dipendono l'uno dall'altro (uno è stato modificato per rifornire l'altro)",
+    "e": "e. Solo un dato complessivo per tutta la rete"
    },
    "q6a": {
     "none": "(nessuno)",
@@ -936,7 +936,7 @@
    },
    "q11": {
     "unset": "Non lo so / non si confronta niente (lo strumento usa un'unità costruita sul servizio reso)",
-    "waste_treatment": "Come si gestisce un rifiuto: vie di gestione, prestazioni di un impianto o servizio (unità basata sull'input)",
+    "waste_treatment": "Come si gestisce un residuo: vie di trattamento, prestazioni di un impianto o servizio (unità basata sull'input)",
     "product_substitution": "Prodotti contro alternative di mercato: che cosa sostituisce il prodotto recuperato (unità basata sull'output)",
     "co_primary": "Entrambe: il servizio di trattamento e i prodotti contano allo stesso modo (sistema di unità funzionali)"
    },
@@ -1195,7 +1195,7 @@
     },
     "block_Q1A_plus_Q5e": {
      "name": "",
-     "body": "Uno scambio specifico fra due aziende non può essere analizzato come aggregato a scatola nera. Specifica la natura di ogni flusso (a/b/c/d) in Q5, oppure cambia Q1 in B/C."
+     "body": "Uno scambio specifico fra due aziende non può essere analizzato come aggregato a scatola nera. Indica chi paga chi per ogni flusso (a/b/c/d) in Q5, oppure cambia Q1 in B/C."
     }
    }
   },
@@ -1254,8 +1254,8 @@
   },
   "engineNotesPlain": {
    "flow_freedom_to_act_settles": {
-    "co_product": "Flusso «{{flow}}»: hai detto che nessuno paga (o non è ancora chiaro), ma che qualcun altro lo comprerebbe: allora non è un rifiuto. Va bene così; sarà l'analista a decidere come contarlo.",
-    "waste": "Flusso «{{flow}}»: hai detto che nessuno paga e che nessun altro lo comprerebbe: può contare come rifiuto, senza carico da parte tua. Lo verifica l'analista."
+    "co_product": "Flusso «{{flow}}»: hai detto che nessuno paga (o non è ancora chiaro), ma che qualcun altro lo comprerebbe: allora lo studio non lo modellerà come rifiuto. Va bene così; sarà l'analista a decidere come contarlo.",
+    "waste": "Flusso «{{flow}}»: hai detto che nessuno paga e che nessun altro lo comprerebbe: lo studio può modellarlo come rifiuto, senza carico da parte tua. Lo verifica l'analista."
    }
   },
   "families": {
@@ -1458,8 +1458,8 @@
    },
    "c2_allocation_over_pef": "Le reporting strict d'une seule entreprise (Situation ILCD C2) utilise l'allocation sans crédits de substitution (D4.1 §7.2.3) ; la Circular Footprint Formula de la PEF demandée par Q4=D ne s'applique donc pas : la CFF est une méthode produit. Si l'étude est une empreinte de produit et non un rapport d'entreprise, revoyez Q9.",
    "slca_alone": "Q3 ne sélectionne que la dimension sociale. La D4.3 §3.1 construit la S-LCA sur l'unité fonctionnelle et les frontières d'une LCA ou d'une LCC ; si aucune n'est sélectionnée, documentez l'unité de référence et la frontière dans la charte méthodologique.",
-   "flow_sellable_but_waste": "Flux « {{flow}} » : Q5 indique que le producteur paie pour s'en débarrasser (déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
-   "flow_price_without_market": "Flux « {{flow}} » : Q5 indique que le receveur paie (co-produit), mais aucun tiers ne l'achèterait. Avec un preneur unique, c'est le prix qui décide (D4.1 §8.3.3) : le flux est un co-produit si le receveur paie ce que paierait un acheteur indépendant, soit le prix du produit que le flux remplace net de ses coûts supplémentaires pour l'utiliser ; si le paiement ne fait que partager les coûts, le flux est un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 Step 4). Comparez le prix à cette référence.",
+   "flow_sellable_but_waste": "Flux « {{flow}} » : Q5 indique que celui qui le cède paie pour s'en débarrasser (modélisé comme un déchet), mais un tiers le paierait. D4.1 §8.3.3 et §8.3.6 étape 1 : un flux ayant une valeur de marché positive et indépendante est un coproduit, et sa charge amont est partagée (substitution ou allocation), pas coupée. Vérifiez Q5 pour ce flux.",
+   "flow_price_without_market": "Flux « {{flow}} » : Q5 indique que celui qui le reçoit paie (modélisé comme un coproduit), mais aucun tiers ne l'achèterait. Avec un preneur unique, c'est le prix qui décide (D4.1 §8.3.3) : le flux est un coproduit si celui qui le reçoit paie ce que paierait un acheteur indépendant, soit le prix du produit que le flux remplace net de ses coûts supplémentaires pour l'utiliser ; si le paiement ne fait que partager les coûts, le flux est modélisé comme un déchet, à charge nulle à partir du point où il atteint pour la première fois une valeur non négative (§8.3.6 étape 4). Comparez le prix à cette référence.",
    "flow_freedom_to_act_settles": {
     "co_product": "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un coproduit (§8.3.2, charge partagée). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente.",
     "waste": "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente."
@@ -1524,11 +1524,11 @@
     "soc": "Sociale (S-LCA)"
    },
    "q5": {
-    "a": "a — le fournisseur (A) paie le receveur (B) : déchet",
-    "b": "b — Échange gratuit (ambigu)",
-    "c": "c — le receveur (B) paie le fournisseur (A) : co-produit",
-    "d": "d — Interdépendant",
-    "e": "e — Agrégé / black-box"
+    "a": "a. Qui le cède paie qui le reçoit pour s'en débarrasser",
+    "b": "b. Personne ne paie, ou ce n'est pas encore clair",
+    "c": "c. Qui le reçoit paie qui le cède",
+    "d": "d. Les deux installations dépendent l'une de l'autre (l'une a été modifiée pour alimenter l'autre)",
+    "e": "e. Un seul chiffre total pour tout le réseau"
    },
    "q6a": {
     "none": "(aucun)",
@@ -1575,7 +1575,7 @@
    },
    "q11": {
     "unset": "Je ne sais pas / rien n'est comparé (l'outil utilise une unité fondée sur le service rendu)",
-    "waste_treatment": "La gestion d'un déchet — filières, performance d'une installation ou d'un service (unité basée sur l'intrant)",
+    "waste_treatment": "La gestion d'un résidu : filières de traitement, performance d'une installation ou d'un service (unité basée sur l'intrant)",
     "product_substitution": "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
     "co_primary": "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)"
    },
@@ -1834,7 +1834,7 @@
     },
     "block_Q1A_plus_Q5e": {
      "name": "",
-     "body": "Un échange précis entre deux entreprises ne peut pas être analysé comme un agrégat en boîte noire. Précisez la nature de chaque flux (a/b/c/d) en Q5, ou changez Q1 en B/C."
+     "body": "Un échange précis entre deux entreprises ne peut pas être analysé comme un agrégat en boîte noire. Indiquez qui paie qui pour chaque flux (a/b/c/d) en Q5, ou changez Q1 en B/C."
     }
    }
   },
@@ -1893,8 +1893,8 @@
   },
   "engineNotesPlain": {
    "flow_freedom_to_act_settles": {
-    "co_product": "Flux « {{flow}} » : vous avez dit que personne ne paie (ou que ce n'est pas encore clair), mais que quelqu'un d'autre l'achèterait : ce n'est donc pas un déchet. C'est correct ; l'analyste décide comment le compter.",
-    "waste": "Flux « {{flow}} » : vous avez dit que personne ne paie et que personne d'autre ne l'achèterait : il peut compter comme déchet, sans charge de votre côté. L'analyste le vérifie."
+    "co_product": "Flux « {{flow}} » : vous avez dit que personne ne paie (ou que ce n'est pas encore clair), mais que quelqu'un d'autre l'achèterait : l'étude ne le modélisera donc pas comme un déchet. C'est correct ; l'analyste décide comment le compter.",
+    "waste": "Flux « {{flow}} » : vous avez dit que personne ne paie et que personne d'autre ne l'achèterait : l'étude peut le modéliser comme un déchet, sans charge de votre côté. L'analyste le vérifie."
    }
   },
   "families": {
@@ -2097,8 +2097,8 @@
    },
    "c2_allocation_over_pef": "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) verwendet Allokation und keine Substitutionsgutschriften (D4.1 §7.2.3); die von Q4=D verlangte Circular Footprint Formula der PEF wird daher nicht angewandt: Die CFF ist eine Produktmethode. Ist die Studie ein Produkt-Fußabdruck und kein Unternehmensbericht, prüfen Sie Q9.",
    "slca_alone": "Q3 wählt nur die soziale Dimension. D4.3 §3.1 baut die S-LCA auf der funktionellen Einheit und den Systemgrenzen einer LCA oder LCC auf; ist keine gewählt, dokumentieren Sie Bezugseinheit und Systemgrenze in der methodischen Charta.",
-   "flow_sellable_but_waste": "Fluss „{{flow}}“: Laut Q5 zahlt der Erzeuger für die Entsorgung (Abfall), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
-   "flow_price_without_market": "Fluss „{{flow}}“: Q5 sagt, der Empfänger zahlt (Koppelprodukt), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, ist der Fluss Abfall, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Step 4). Prüfen Sie den Preis gegen diesen Maßstab.",
+   "flow_sellable_but_waste": "Fluss „{{flow}}“: Laut Q5 zahlt, wer es abgibt, für die Abnahme (als Abfall modelliert), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
+   "flow_price_without_market": "Fluss „{{flow}}“: Laut Q5 zahlt der Empfänger (als Koppelprodukt modelliert), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, wird der Fluss als Abfall modelliert, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Schritt 4). Prüfen Sie den Preis gegen diesen Maßstab.",
    "flow_freedom_to_act_settles": {
     "co_product": "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",
     "waste": "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert."
@@ -2163,11 +2163,11 @@
     "soc": "Sozial (S-LCA)"
    },
    "q5": {
-    "a": "a — der Abgeber (A) zahlt den Abnehmer (B): Abfall",
-    "b": "b — Freier Tausch (mehrdeutig)",
-    "c": "c — der Abnehmer (B) zahlt den Abgeber (A): Co-Produkt",
-    "d": "d — Interdependent",
-    "e": "e — Aggregiert / Black-box"
+    "a": "a. Wer es abgibt, zahlt dem Empfänger für die Abnahme",
+    "b": "b. Niemand zahlt, oder es ist noch nicht klar",
+    "c": "c. Der Empfänger zahlt dem Abgebenden",
+    "d": "d. Die beiden Anlagen hängen voneinander ab (eine wurde für die Belieferung der anderen umgebaut)",
+    "e": "e. Nur eine Gesamtzahl für das ganze Netzwerk"
    },
    "q6a": {
     "none": "(keiner)",
@@ -2214,7 +2214,7 @@
    },
    "q11": {
     "unset": "Weiß nicht / nichts wird verglichen (das Tool nutzt eine Einheit, die auf der erbrachten Leistung beruht)",
-    "waste_treatment": "Wie ein Abfall behandelt wird — Entsorgungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
+    "waste_treatment": "Wie ein Reststoff behandelt wird: Behandlungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
     "product_substitution": "Produkte gegenüber Marktalternativen — was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
     "co_primary": "Beides: Behandlungsleistung und Produkte zählen gleich viel (System funktioneller Einheiten)"
    },
@@ -2473,7 +2473,7 @@
     },
     "block_Q1A_plus_Q5e": {
      "name": "",
-     "body": "Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 die Art jedes Flusses an (a/b/c/d) oder ändern Sie Q1 auf B/C."
+     "body": "Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 für jeden Fluss an, wer wem zahlt (a/b/c/d), oder ändern Sie Q1 auf B/C."
     }
    }
   },
@@ -2532,8 +2532,8 @@
   },
   "engineNotesPlain": {
    "flow_freedom_to_act_settles": {
-    "co_product": "Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann ist er kein Abfall. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.",
-    "waste": "Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Er kann als Abfall zählen, ohne Last auf Ihrer Seite. Der Analyst prüft das."
+    "co_product": "Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann wird die Studie ihn nicht als Abfall modellieren. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.",
+    "waste": "Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Die Studie kann ihn als Abfall modellieren, ohne Last auf Ihrer Seite. Der Analyst prüft das."
    }
   },
   "families": {
@@ -2736,8 +2736,8 @@
    },
    "c2_allocation_over_pef": "El reporte estricto de una sola empresa (Situación ILCD C2) usa asignación y ningún crédito de sustitución (D4.1 §7.2.3), así que la Circular Footprint Formula de la PEF que pide Q4=D no se aplica: la CFF es un método de producto. Si el estudio es una huella de producto y no un informe corporativo, revisa Q9.",
    "slca_alone": "Q3 selecciona solo la dimensión social. La D4.3 §3.1 construye el S-LCA sobre la unidad funcional y los límites de un LCA o un LCC; si no se selecciona ninguno, documenta la unidad de referencia y el límite en la carta metodológica.",
-   "flow_sellable_but_waste": "Flujo «{{flow}}»: Q5 dice que el generador paga por deshacerse de él (residuo), pero un tercero pagaría por él. D4.1 §8.3.3 y §8.3.6 paso 1: un flujo con un valor de mercado positivo e independiente es un coproducto, y su carga aguas arriba se reparte (sustitución o asignación), no se corta. Revisa Q5 para este flujo.",
-   "flow_price_without_market": "Flujo «{{flow}}»: Q5 dice que el receptor paga (coproducto), pero ningún tercero lo compraría. Con un único comprador decide el precio (D4.1 §8.3.3): el flujo es un coproducto si el receptor paga lo que pagaría un comprador independiente, es decir, el precio del producto que el flujo sustituye descontados sus costes adicionales para usarlo; si el pago solo reparte costes, el flujo es un residuo, con carga cero desde donde alcanza por primera vez un valor no negativo (§8.3.6 Step 4). Compara el precio con esa referencia.",
+   "flow_sellable_but_waste": "Flujo «{{flow}}»: Q5 dice que quien lo cede paga por deshacerse de él (modelado como residuo), pero un tercero pagaría por él. D4.1 §8.3.3 y §8.3.6 paso 1: un flujo con un valor de mercado positivo e independiente es un coproducto, y su carga aguas arriba se reparte (sustitución o asignación), no se corta. Revisa Q5 para este flujo.",
+   "flow_price_without_market": "Flujo «{{flow}}»: Q5 dice que quien lo recibe paga (modelado como coproducto), pero ningún tercero lo compraría. Con un único comprador decide el precio (D4.1 §8.3.3): el flujo es un coproducto si quien lo recibe paga lo que pagaría un comprador independiente, es decir, el precio del producto que el flujo sustituye descontados sus costes adicionales para usarlo; si el pago solo reparte costes, el flujo se modela como residuo, con carga cero desde donde alcanza por primera vez un valor no negativo (§8.3.6 paso 4). Compara el precio con esa referencia.",
    "flow_freedom_to_act_settles": {
     "co_product": "Flujo «{{flow}}»: Q5 deja abierto quién paga a quién, y la respuesta Freedom-to-Act (D4.1 §8.3.3) apunta a un coproducto (§8.3.2, carga repartida). La configuración mantiene la prueba del valor económico con análisis de sensibilidad hasta que el estudio lo confirme: no cambies quién paga a quién; registra esta lectura en la clasificación de flujos del Data Collection File (Freedom-to-Act y paso del árbol de decisión), que el estudio documenta.",
     "waste": "Flujo «{{flow}}»: Q5 deja abierto quién paga a quién, y la respuesta Freedom-to-Act (D4.1 §8.3.3) apunta a un residuo (carga cero desde el punto en que alcanza por primera vez un valor no negativo, §8.3.6 paso 4). La configuración mantiene la prueba del valor económico con análisis de sensibilidad hasta que el estudio lo confirme: no cambies quién paga a quién; registra esta lectura en la clasificación de flujos del Data Collection File (Freedom-to-Act y paso del árbol de decisión), que el estudio documenta."
@@ -2802,11 +2802,11 @@
     "soc": "Social (S-LCA)"
    },
    "q5": {
-    "a": "a — quien cede (A) paga a quien recibe (B): residuo",
-    "b": "b — Intercambio gratuito (ambiguo)",
-    "c": "c — quien recibe (B) paga a quien cede (A): co-producto",
-    "d": "d — Interdependiente",
-    "e": "e — Agregado / black-box"
+    "a": "a. Quien lo cede paga a quien lo recibe para que se lo lleve",
+    "b": "b. Nadie paga, o aún no está claro",
+    "c": "c. Quien lo recibe paga a quien lo cede",
+    "d": "d. Las dos plantas dependen la una de la otra (una se modificó para abastecer a la otra)",
+    "e": "e. Solo una cifra total para toda la red"
    },
    "q6a": {
     "none": "(ninguno)",
@@ -2853,7 +2853,7 @@
    },
    "q11": {
     "unset": "No lo sé / no se compara nada (la herramienta usa una unidad basada en el servicio prestado)",
-    "waste_treatment": "Cómo se gestiona un residuo — vías de gestión, desempeño de una planta o servicio (unidad basada en la entrada)",
+    "waste_treatment": "Cómo se gestiona un flujo residual: vías de tratamiento, desempeño de una planta o servicio (unidad basada en la entrada)",
     "product_substitution": "Productos frente a alternativas de mercado — qué sustituye el producto recuperado (unidad basada en la salida)",
     "co_primary": "Ambas: el servicio de tratamiento y los productos cuentan por igual (sistema de unidades funcionales)"
    },
@@ -3112,7 +3112,7 @@
     },
     "block_Q1A_plus_Q5e": {
      "name": "",
-     "body": "Un intercambio concreto entre dos empresas no puede analizarse como un agregado de caja negra. Especifica la naturaleza de cada flujo (a/b/c/d) en Q5, o cambia Q1 a B/C."
+     "body": "Un intercambio concreto entre dos empresas no puede analizarse como un agregado de caja negra. Indica quién paga a quién en cada flujo (a/b/c/d) en Q5, o cambia Q1 a B/C."
     }
    }
   },
@@ -3171,8 +3171,8 @@
   },
   "engineNotesPlain": {
    "flow_freedom_to_act_settles": {
-    "co_product": "Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces no es un residuo. Está bien así; el analista decide cómo contarlo.",
-    "waste": "Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: puede contar como residuo, sin carga por tu parte. Lo comprueba el analista."
+    "co_product": "Flujo «{{flow}}»: dijiste que nadie paga (o que aún no está claro), pero que otra persona lo compraría: entonces el estudio no lo modelará como residuo. Está bien así; el analista decide cómo contarlo.",
+    "waste": "Flujo «{{flow}}»: dijiste que nadie paga y que nadie más lo compraría: el estudio puede modelarlo como residuo, sin carga por tu parte. Lo comprueba el analista."
    }
   },
   "families": {

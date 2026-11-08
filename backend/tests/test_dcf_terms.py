@@ -4,7 +4,6 @@ English inside an Italian app, with developer notes and raw predicates."""
 from __future__ import annotations
 
 import json
-import re
 from io import BytesIO
 from pathlib import Path
 
@@ -63,15 +62,12 @@ def test_the_questionnaire_vocabularies_match_the_app_locale():
     for lang in LANGUAGES:
         ts = (ROOT / f"frontend/src/i18n/locales/{lang}.ts").read_text()
         refs = _terms()[lang]["enum_refs"]
-        # Q5: the guided questionnaire's wording, after the letter; "a waste" /
-        # "a product" left to the classification (UX round 5, D5)
-        start = ts.index("    plainOptions: {")
-        block = ts[start:ts.index("\n    },", start)].replace("\\'", "'")
+        # Q5: one label per answer, letter included, the same in the
+        # questionnaire (expert and guided) as in the files; "a waste" / "a
+        # product" left to the classification (UX round 5, D5; round 6, theme D)
         for value, label in refs["Q5"].items():
-            prefix, _, body = label.partition(". ")
+            prefix, _, _ = label.partition(". ")
             assert prefix == value, (lang, value)
-            assert re.search(rf"\n      {value}: '{re.escape(body)}", block) or \
-                re.search(rf"\n      {value}: '{re.escape(body[0].lower() + body[1:])}", block), (lang, value, body)
         assert refs["Q6a"]["steel_metals"] in ts
 
 

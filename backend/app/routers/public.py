@@ -19,7 +19,7 @@ from datetime import datetime
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session as OrmSession
 
@@ -47,6 +47,9 @@ class PublicReport(BaseModel):
     shared_at: datetime | None = None
     prepared_by: str | None = None
     case_contact: str | None = None
+    # where the plants are: the distinct countries of the companies in the
+    # case's drawn network, never their names (UX round 6, P4-08, decided by Fable)
+    countries: list[str] = Field(default_factory=list)
     case: Case
     scoring: ScoringPayload | None = None
 
@@ -67,6 +70,25 @@ def _public_case(case: Case) -> Case:
         "flows": [f.model_copy(update={"notes": None, "physical_quantity": None, "physical_unit": None})
                   for f in case.flows],
     })
+
+
+def _network_countries(db: OrmSession, case_id: str) -> list[str]:
+    """Distinct ISO2 codes of the actors of the base network, sorted. The
+    scenario networks are left out: scenarios are not in the public payload
+    and may add companies elsewhere."""
+    from app.domain.dcf_data import DcfData
+    from app.engine.dcf_rows import rows_for
+
+    stored = db.get(CaseDcfData, case_id)
+    if stored is None:
+        return []
+    try:
+        data = DcfData.model_validate_json(stored.data_json)
+    except Exception:
+        return []
+    codes = {str(row.values.get("actor.country_iso2") or "").strip().upper()
+             for row in rows_for(data, "actors")}
+    return sorted(c for c in codes if c)
 
 
 def _find_case(db: OrmSession, key: str) -> CaseRecord | None:
@@ -105,6 +127,7 @@ def public_report(
         shared_at=rec.shared_at,
         prepared_by=rec.prepared_by,
         case_contact=rec.case_contact,
+        countries=_network_countries(db, rec.id),
         case=_public_case(Case.model_validate_json(rec.case_json)),
         scoring=scoring,
     )

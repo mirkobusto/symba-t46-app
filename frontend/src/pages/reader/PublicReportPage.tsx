@@ -16,7 +16,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 
 import ComplianceChecklist from '../../components/dd/ComplianceChecklist'
 import PendingScoringPlaceholder from '../../components/dd/PendingScoringPlaceholder'
@@ -29,6 +29,8 @@ import { AUDIENCE_ROWS } from '../configurationRows'
 import ConfigurationSummary from '../../components/ConfigurationSummary'
 import { usePreferenceStore, type UserRole } from '../../store/preferenceStore'
 import ReportNotFound from '../../components/reader/ReportNotFound'
+import { complianceSignals } from '../complianceSignals'
+import { countryName } from './countryName'
 import { VIEWS, viewOf, type View } from './sharedReportPath'
 
 type Audience = View
@@ -41,6 +43,7 @@ const ROLE_AUDIENCE: Partial<Record<UserRole, Audience>> = {
 export default function PublicReportPage() {
   const { t, i18n } = useTranslation()
   const role = usePreferenceStore((s) => s.role)
+  const location = useLocation()
   const params = useParams<{ caseId: string; audience: string }>()
   const caseId = params.caseId ?? ''
   // a code copied in capitals from a label (UX round 6, P5-11); slugs are lower case
@@ -48,8 +51,11 @@ export default function PublicReportPage() {
   // a view the link names, also as "end-user" or in capitals; an unknown one
   // opened the Community view in silence (P5-01): it now goes to the bare link
   const named = viewOf(params.audience)
-  // without a view and a role the reader came from a bare link, most likely a
-  // product label: the end-user view (UX round 2026-11-03, decided by Fable)
+  // without a view and a role the link's origin is unknown (the share dialog
+  // hands out one link per view, the End-user one for labels): the End-user
+  // view claims the least and carries the product caveat, so a wrong guess
+  // costs least; the four tabs sit right under "What this page is" (UX round 6,
+  // P4-04, P2-13, decided by Fable)
   const audience: Audience = named ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'enduser'
   const canonical = named ? `/r/${caseKey}/${named}` : `/r/${caseKey}`
   const needsRedirect = canonical !== `/r/${caseId}${params.audience !== undefined ? `/${params.audience}` : ''}`
@@ -99,6 +105,15 @@ export default function PublicReportPage() {
       ? `${c.reference_market_region} (${t(`questionnaire.q7.market.scope.${c.reference_market_scope}`).toLowerCase()})`
       : c.reference_market_region
     : null
+  // where the plants are, in the reader's language (UX round 6, P4-08, decided by Fable)
+  const countries = (report.countries ?? []).map((code) => countryName(code, i18n.language))
+  const contactLink = report.case_contact ? (
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(report.case_contact.trim()) ? (
+      <a href={`mailto:${report.case_contact.trim()}?subject=${encodeURIComponent(report.name)}`}>
+        {report.case_contact}
+      </a>
+    ) : report.case_contact
+  ) : null
 
   return (
     <article className="dd-reader-article">
@@ -110,28 +125,62 @@ export default function PublicReportPage() {
         <strong>{t('reader.whatTitle')}</strong>
         <p>{t('reader.whatBody')}</p>
         <p>{t('reader.labelLine')}</p>
+        <p>{t('reader.thisCaseOnly')}</p>
+        {/* the page saying the tool belongs to none of the companies was reachable
+            only from the logo (UX round 6, P4-13) */}
+        <p>
+          <Link to="/r/about" state={{ from: location.pathname }}>{t('reader.whoIsBehind')} →</Link>
+        </p>
+      </div>
+
+      {/* Audience selector, right under what the page is: the tabs sat about
+          1.5 phone screens down, and a citizen sent the bare link never knew
+          there was a view for the community (UX round 6, P4-04, P2-13) */}
+      <p className="dd-reader-audience-lead" id="reader-audience-lead">{t('reader.audience.choose')}</p>
+      <div className="dd-reader-audience" role="tablist" aria-labelledby="reader-audience-lead">
+        {VIEWS.map((a) => (
+          <Link
+            key={a}
+            to={`/r/${caseKey}/${a}`}
+            role="tab"
+            aria-selected={a === validAudience}
+            className={`dd-tab ${a === validAudience ? 'dd-tab-active' : ''}`}
+          >
+            {t(`reader.audience.${a}.short`)}
+          </Link>
+        ))}
       </div>
 
       <section className="dd-reader-case">
         <h2 className="dd-section-title">{t('reader.caseTitle')}</h2>
+        {countries.length > 0 ? (
+          <p>{t('reader.countries', { countries: countries.join(', ') })}</p>
+        ) : null}
         {flows.length > 0 ? (
-          <ul>
-            {flows.map((f) => <li key={f.id}>{f.name}</li>)}
-          </ul>
+          <>
+            {/* the names are the author's, in the author's language (UX round 6, P5-03) */}
+            <p>{t('reader.flowsAsNamed')}</p>
+            <ul>
+              {flows.map((f) => (
+                <li key={f.id}>
+                  {f.name}
+                  {f.sector && f.sector !== 'none'
+                    ? ` (${t(`questionnaire.q6a.options.${f.sector}`)})`
+                    : null}
+                </li>
+              ))}
+            </ul>
+          </>
         ) : null}
         {c.q2 ? <p>{t(c.q2 === 'A' ? 'reader.running.yes' : 'reader.running.no')}</p> : null}
         {market ? <p>{t('reader.market', { market })}</p> : null}
         {/* who prepared the case and whom to ask: written by the owner when sharing
             (UX round 2026-11-03, decided by Fable) */}
         {report.prepared_by ? <p>{t('reader.preparedBy', { name: report.prepared_by })}</p> : null}
-        <p>{report.case_contact ? (
+        <p>{contactLink ? (
           <>
             {t('reader.contact', { contact: '' })}
-            {/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(report.case_contact.trim()) ? (
-              <a href={`mailto:${report.case_contact.trim()}?subject=${encodeURIComponent(report.name)}`}>
-                {report.case_contact}
-              </a>
-            ) : report.case_contact}
+            {contactLink}
           </>
         ) : t('reader.noContact')}</p>
         <p className="dd-soft">
@@ -160,22 +209,6 @@ export default function PublicReportPage() {
             : undefined,
         ].filter(Boolean)}
       />
-
-      {/* Audience selector — anyone can flip the framing without needing
-          to know the URL structure. */}
-      <div className="dd-reader-audience" role="tablist">
-        {VIEWS.map((a) => (
-          <Link
-            key={a}
-            to={`/r/${caseKey}/${a}`}
-            role="tab"
-            aria-selected={a === validAudience}
-            className={`dd-tab ${a === validAudience ? 'dd-tab-active' : ''}`}
-          >
-            {t(`reader.audience.${a}.short`)}
-          </Link>
-        ))}
-      </div>
 
       <div className="dd-framing">
         <div className="dd-framing-label">
@@ -211,18 +244,23 @@ export default function PublicReportPage() {
           <p>{report.case_contact
             ? t('reader.dataRequest', { contact: report.case_contact })
             : t('reader.dataRequestNoContact')}</p>
+          <p><Link to="/r/fill-in">{t('reader.fillIn.howLink')} →</Link></p>
         </section>
       ) : null}
-      {validAudience === 'community' ? (
-        // residents asked what they could do next (UX round 4, B3, decided by Fable)
+      {validAudience === 'community' || validAudience === 'enduser' ? (
+        // residents asked what they could do next (UX round 4, B3, decided by Fable);
+        // the end user had no such box (UX round 6, P5-02)
         <section className="dd-reader-todo">
           <h2 className="dd-section-title">{t('reader.whatYouCanDoTitle')}</h2>
           <p>{report.case_contact
-            ? t('reader.whatYouCanDo', { contact: report.case_contact })
+            ? t(validAudience === 'community' ? 'reader.whatYouCanDo' : 'reader.whatYouCanDoEndUser',
+              { contact: report.case_contact })
             : t('reader.noContact')}</p>
         </section>
       ) : null}
-      {!c.q3?.env ? <p className="dd-soft">{t('stakeholder.notAssessed.environmental')}</p> : null}
+      {/* the end user reads it in its own row (UX round 6, P5-02) */}
+      {!c.q3?.env && validAudience !== 'enduser'
+        ? <p className="dd-soft">{t('stakeholder.notAssessed.environmental')}</p> : null}
       {!c.q3?.eco ? <p className="dd-soft">{t('stakeholder.notAssessed.economic')}</p> : null}
 
       <section>
@@ -240,53 +278,8 @@ export default function PublicReportPage() {
         <section>
           <h2 className="dd-section-title">{t('reader.complianceTitle')}</h2>
           <div className="dd-card" style={{ marginTop: 8 }}>
-            <ComplianceChecklist items={[
-              {
-                key: 'peer',
-                name: t('reader.compliance.peer.name'),
-                desc: t('reader.compliance.peer.desc'),
-                status: c.q4?.includes('E') ? 'ok' : 'no',
-                label: c.q4?.includes('E') ? undefined : t('reader.compliance.notPlanned'),
-              },
-              {
-                key: 'pef',
-                name: t('reader.compliance.pef.name'),
-                // one company's accounts (C2) use allocation, not the CFF (D4.1 §7.2.3)
-                // in B the CFF is a sensitivity of the consequential model (decided 2026-11-03)
-                desc: t(c.q4?.includes('D') && c.ilcd_situation === 'ILCD Situation C2'
-                  ? 'reader.compliance.pef.descC2'
-                  : c.q4?.includes('D') && c.ilcd_situation === 'ILCD Situation B'
-                    ? 'reader.compliance.pef.descB' : 'reader.compliance.pef.desc'),
-                status: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2' ? 'ok' : 'no',
-                label: c.q4?.includes('D') && c.ilcd_situation !== 'ILCD Situation C2'
-                  ? undefined : t('reader.compliance.notPlanned'),
-              },
-              {
-                key: 'public',
-                name: t('reader.compliance.public.name'),
-                desc: t('reader.compliance.public.desc'),
-                status: c.q4?.includes('C') ? 'ok' : 'no',
-                label: c.q4?.includes('C') ? undefined : t('reader.compliance.notPlanned'),
-              },
-              {
-                // whether the costing takes society's view a public decision needs (D4.2 §2.3)
-                key: 'slcc',
-                name: t('reader.compliance.slcc.name'),
-                desc: t(`reader.compliance.slcc.${!c.q3?.eco ? 'off'
-                  : c.ilcd_situation === 'ILCD Situation C2' ? 'c2'
-                    : (c.lcc_type ?? '').includes('S') ? 'yes' : 'no'}`),
-                status: c.q3?.eco && (c.lcc_type ?? '').includes('S') ? 'ok'
-                  : !c.q3?.eco || c.ilcd_situation === 'ILCD Situation C2' ? 'na' : 'no',
-              },
-              {
-                key: 'dnsh',
-                name: t('reader.compliance.dnsh.name'),
-                desc: t('reader.compliance.dnsh.desc'),
-                // the tool screens nothing for DNSH: "pending" promised a check
-                status: 'na',
-                label: t('reader.compliance.notAssessed'),
-              },
-            ]} />
+            {/* one source with the in-app Authority tab (UX round 6, P3-07) */}
+            <ComplianceChecklist items={complianceSignals(c, (key, options) => t(key, options ?? {}) as string)} />
           </div>
         </section>
       ) : null}

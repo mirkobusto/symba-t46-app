@@ -29,6 +29,7 @@ export type UserTask =
   | 'read'            // read a shared report
   | 'explore'         // explore my region / sector
   | 'browse'          // just look around
+  | 'fill'            // fill in a Data Collection File I received (UX round 6, P2-15)
 
 interface PreferenceState {
   mode: UxMode
@@ -87,6 +88,8 @@ export const usePreferenceStore = create<PreferenceState>()(
 export function recommendedRouteFor(role: UserRole, task: UserTask): string {
   // a reader holds a link, not a saved case: "My cases" had no place to paste it
   if (task === 'read') return '/r/open'
+  // a company sent the workbook needs no account and no tool (decided by Fable)
+  if (task === 'fill') return '/r/fill-in'
   if (task === 'explore') return '/aggregate'
   if (task === 'browse') return '/'
   // task === 'assess'

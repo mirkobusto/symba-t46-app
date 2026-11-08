@@ -8,9 +8,12 @@
 // deliverables, is attached so the page can show it on demand (owner
 // decision: translated rows, node text in English when a row is opened).
 
+import i18next from 'i18next'
+
 import type { ApplicableRule, Case } from '../types/api'
 import { chapterName } from '../i18n/engineNotes'
 import { reviewOf } from './complianceSignals'
+import { marketRegionName } from './reader/countryName'
 
 type Translate = (key: string, options?: Record<string, unknown>) => string
 
@@ -217,13 +220,16 @@ export function configurationRows(
     const scope = kase.reference_market_scope
       ? t(`result.config.values.scope_${kase.reference_market_scope}`)
       : null
-    const market = [kase.reference_market_region?.trim(), scope ? `(${scope})` : null]
+    const region = kase.reference_market_region?.trim()
+      ? marketRegionName(kase.reference_market_region, i18next.language ?? 'en')
+      : null
+    const market = [region, scope ? `(${scope})` : null]
       .filter(Boolean).join(' ')
     const reference = value(`reference_${kind}`)
     rows.push({
       key: 'reference',
       label: label('reference'),
-      value: market ? `${reference} — ${t('result.config.values.market', { market })}` : reference,
+      value: market ? `${reference}; ${t('result.config.values.market', { market })}` : reference,
       why: [reason(kase.q2 === 'B' ? 'referenceNotYet'
         : kase.network_long_standing ? 'referenceLongStanding'
           : 'referenceRunning'),

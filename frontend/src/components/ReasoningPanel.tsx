@@ -156,7 +156,7 @@ export default function ReasoningPanel({
                   {termFor(cdp.cdp_id)?.body || cdp.tension}
                 </p>
                 <p className="cdp-resolution">
-                  <span className="muted">{t('reasoning.resolution')}:</span>{' '}
+                  <span className="muted">{t('reasoning.resolution')}{i18n.language?.startsWith('fr') ? '\u00a0:' : ':'}</span>{' '}
                   {cdpResolution(t, cdp.cdp_id, cdp.variant, termFor(cdp.cdp_id)?.resolution, cdp.resolution_at_l3)}
                 </p>
                 {cdp.methods.length > 0 ? (

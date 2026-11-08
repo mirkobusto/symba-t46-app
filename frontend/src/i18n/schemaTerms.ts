@@ -651,7 +651,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Indicateurs parties prenantes sur CAPEX partagé',
-        body: 'Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l\'amortissement partagés par la LCA et le LCC (D4.1 §6.3.3 ; D4.2 §4.2), la S-LCA indique par groupe de parties prenantes qui porte l\'investissement et qui bénéficie de l\'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes (CIR-08).',
+        body: 'Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l\'amortissement partagés par la LCA et le LCC (D4.1 §6.3.3 ; D4.2 §4.2), la S-LCA indique par groupe de parties prenantes qui porte l\'investissement et qui bénéficie de l\'infrastructure partagée (une lecture de T4.6) ; la D4.3 §5.1 définit les groupes (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocole de mise à jour itérative',
@@ -659,7 +659,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Modes de défaillance en conditions réelles',
-        body: 'L\'interprétation du LCC discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d\'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières — comme partie de l\'évaluation et non dans une annexe sur les risques, avec les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu\'une LCA ou une S-LCA est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau — une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13).',
+        body: 'L\'interprétation du LCC discute, comme partie de l\'évaluation et non dans une annexe sur les risques, les modes de défaillance documentés des symbioses réelles : sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d\'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières. Elle applique les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu\'une LCA ou une S-LCA est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau. C\'est une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unité fonctionnelle orientée fonction',
@@ -718,7 +718,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CDP-02': {
         name: 'Désaccord sur l\'actualisation',
-        body: 'L\'LCA additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d\'actualisation » de la D4.1 §14.2.2',
+        body: 'La LCA additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d\'actualisation » de la D4.1 §14.2.2',
         resolution: 'Chacun garde sa convention (IR-05) : impacts non actualisés en série temporelle, coûts actualisés à un taux déclaré avec analyse de sensibilité ; tout ratio étiqueté « coût actualisé par impact non actualisé » (D4.1 §14.2.2)',
       },
       'CDP-03': {
@@ -851,7 +851,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'IR-15': {
         name: 'Hierarchie der Nullbewertung',
-        body: 'Die vierstufige Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC müssen je Fluss zur selben Einstufung führen (IR-15).',
+        body: 'Die vierstufige Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC müssen je Stoffstrom zur selben Einstufung führen (IR-15).',
       },
       'IR-16': {
         name: 'Berechnung nach Entitäten',
@@ -879,7 +879,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-02': {
         name: 'Pedigree-Matrix LCA+LCC',
-        body: 'Die Austausche finden noch nicht statt: Jeder Fluss im Modell der LCA wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die LCC dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
+        body: 'Die Austausche finden noch nicht statt: Jeder Stoffstrom im Modell der LCA wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die LCC dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1).',
       },
       'CIR-03': {
         name: 'GIS-gekoppelte räumliche Modellierung',
@@ -903,7 +903,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Stakeholder-Indikatoren für gemeinsames CAPEX',
-        body: 'Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die LCA und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1 (CIR-08).',
+        body: 'Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die LCA und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert (eine Lesart von T4.6); die Gruppen definiert D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protokoll der iterativen Aktualisierung',
@@ -911,7 +911,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Ausfallarten im realen Betrieb',
-        body: 'Die Interpretation der LCC erörtert die dokumentierten Versagensarten realer Symbiosen — Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen — als Teil der Bewertung und nicht in einem Risikoanhang, mit den Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine LCA oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen — eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13).',
+        body: 'Die Interpretation der LCC erörtert als Teil der Bewertung, nicht in einem Risikoanhang, die dokumentierten Versagensarten realer Symbiosen: Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen. Dazu gehören die Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine LCA oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen. Das ist eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Funktionsorientierte funktionelle Einheit',
@@ -986,7 +986,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       'CDP-05': {
         name: 'Zero-Burden gegen Vermeidbarkeitstest',
         body: 'Die Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC können auseinandergehen',
-        resolution: 'Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Fluss, wobei die E-LCC der Klassifizierung der LCA folgt (D4.2 §6.3); ein interdependenter Fluss ist in beiden ein Koppelprodukt (IR-15)',
+        resolution: 'Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Stoffstrom, wobei die E-LCC der Klassifizierung der LCA folgt (D4.2 §6.3); ein interdependenter Stoffstrom ist in beiden ein Koppelprodukt (IR-15)',
       },
       'CDP-06': {
         name: 'Funktionelle Einheit in den drei Methoden verschieden',
@@ -1039,7 +1039,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'block_Q1A_plus_Q5e': {
         name: '',
-        body: 'Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 für jeden Fluss an, wer wem zahlt (a/b/c/d), oder ändern Sie Q1 auf B/C.',
+        body: 'Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 für jeden Stoffstrom an, wer wem zahlt (a/b/c/d), oder ändern Sie Q1 auf B/C.',
       },
     },
   },
@@ -1155,7 +1155,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-08': {
         name: 'Indicadores de partes interesadas sobre CAPEX compartido',
-        body: 'Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten LCA y LCC (D4.1 §6.3.3; D4.2 §4.2), el S-LCA indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1 (CIR-08).',
+        body: 'Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten LCA y LCC (D4.1 §6.3.3; D4.2 §4.2), el S-LCA indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida (una lectura de T4.6); los grupos los define la D4.3 §5.1 (CIR-08).',
       },
       'CIR-09': {
         name: 'Protocolo de actualización iterativa',
@@ -1163,7 +1163,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'CIR-10': {
         name: 'Modos de fallo en condiciones reales',
-        body: 'La interpretación del LCC discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas — como parte de la evaluación y no en un anexo de riesgos, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un LCA o un S-LCA se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red — una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13).',
+        body: 'La interpretación del LCC discute, como parte de la evaluación y no en un anexo de riesgos, los modos de fallo documentados de las simbiosis reales: subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas. Incluye las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un LCA o un S-LCA se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red. Es una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13).',
       },
       'FU-01': {
         name: 'Unidad funcional orientada a la función',

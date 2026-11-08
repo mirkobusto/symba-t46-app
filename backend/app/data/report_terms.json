@@ -1390,7 +1390,7 @@
     "q8b": "Q8b période d'analyse (années)",
     "q8c": "Q8c durée de vie des actifs (années)",
     "q9": "Q9 décision et échelle",
-    "q9b": "Q9b screening de marché documenté",
+    "q9b": "Q9b analyse de marché documentée",
     "q10": "Q10 objectif public",
     "q11": "Q11 ce que compare l'étude",
     "q12": "Q12 biens dédiés et partagés"
@@ -1410,7 +1410,7 @@
     },
     "ILCD Situation C1": {
      "title": "Documenter un réseau existant (situation ILCD C1)",
-     "short": "Comptabilité avec interactions — documenter ce qu'un réseau existant apporte à l'économie au sens large. Substitution sur le mix de marché moyen, comme en Situation A.",
+     "short": "Comptabilité avec interactions : documenter ce qu'un réseau existant apporte à l'économie au sens large. Substitution sur le mix de marché moyen, comme en Situation A.",
      "detail": "Vous documentez un réseau qui existe au lieu d'appuyer une décision : l'étude est donc descriptive. Mais comme il s'agit de montrer ce que le réseau apporte à l'économie au sens large, la multifonctionnalité se résout quand même par substitution au mix moyen du marché, soit en pratique la même règle que la Situation A."
     },
     "ILCD Situation C2": {
@@ -1421,7 +1421,7 @@
    },
    "lcc": {
     "deactivated": {
-     "short": "Pas d'analyse économique — la dimension économique est désactivée en Q3.",
+     "short": "Pas d'analyse économique : la dimension économique est désactivée en Q3.",
      "detail": "Aucune dimension économique n'est sélectionnée en Q3 : l'outil ne configure donc aucun calcul de coûts. Si le cas a besoin d'un business case, ce qui est généralement le cas pour une symbiose que plusieurs entreprises doivent signer, revenez à Q3 et activez la dimension économique."
     },
     "C+E": {
@@ -1433,7 +1433,7 @@
      "detail": "Aux vues de l'entreprise et de la chaîne de valeur s'ajoute la vue du bien-être collectif. Les taxes et les subventions sont des transferts au sein de la société et non des coûts réels pour elle : elles sont exclues ou converties en prix fictifs au moyen du Net Tax Factor, et les impacts environnementaux de la LCA parallèle sont monétisés. C'est la configuration qu'exige une décision publique, et c'est pourquoi un objectif public ou politique l'introduit."
     },
     "C-LCC": {
-     "short": "LCC conventionnel uniquement — la perspective de l'entreprise, équivalente à une analyse du coût total de possession.",
+     "short": "LCC conventionnel uniquement : la perspective de l'entreprise, équivalente à une analyse du coût total de possession.",
      "detail": "Seule la perspective de l'entreprise. Chaque instrument de politique est un flux de trésorerie réel : taxes et redevances sont des coûts, les subventions réduisent le capex ou l'opex. C'est le bon cadre pour le reporting d'entreprise, et il ne dit volontairement rien des effets sur la chaîne de valeur ou sur la société : les revendiquer dépasserait ce qu'un compte à acteur unique peut soutenir."
     },
     "C+N": {
@@ -1451,7 +1451,7 @@
      "detail": "La dimension sociale est active. Chaque groupe de parties prenantes (travailleurs, consommateurs, communautés locales, acteurs de la chaîne de valeur) est relié aux processus qui le concernent, puis aux sous-catégories d'impact et aux indicateurs. Ce rattachement ne vaut que par la concertation qui le sous-tend : parler avec les groupes concernés fait partie de la collecte des données, ce n'est pas un supplément facultatif."
     },
     "deactivated": {
-     "short": "S-LCA non activée — la dimension sociale est désactivée en Q3.",
+     "short": "S-LCA non activée : la dimension sociale est désactivée en Q3.",
      "detail": "Aucune dimension sociale n'est sélectionnée en Q3 : ni cartographie des parties prenantes ni indicateur social ne sont configurés. Activez-la en Q3 si le cas doit dire quelque chose des travailleurs ou des communautés locales, ce qui est généralement le cas quand une symbiose est présentée à une commune ou à une communauté."
     }
    }
@@ -1490,7 +1490,7 @@
     "waste": "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente."
    },
    "running_but_future": "Q2 indique que les échanges ont déjà lieu, mais Q8 place l'exploitation dans une année future ou Q6b met la technologie clé sous TRL 7. Un échange en cours se mesure aujourd'hui : vérifiez Q2, Q8 et Q6b. En attendant, le scénario de référence et le calendrier de l'évaluation des coûts suivent Q2, l'arrière-plan futur suit Q8 et Q6b.",
-   "design_without_screening": "L'étude conçoit, étend ou restructure un réseau et elle est modélisée en Situation A. D4.1 §4.2.3 : ces études demandent le screening de marché ILCD (Mattila et al. 2012) ; sans lui, l'étude reste A, avec la Situation B en analyse de sensibilité. Documentez le screening, ou faites B en sensibilité.",
+   "design_without_screening": "L'étude conçoit, étend ou restructure un réseau et elle est modélisée en Situation A. D4.1 §4.2.3 : ces études demandent l'analyse de marché ILCD (Mattila et al. 2012) ; sans elle, l'étude reste A, avec la Situation B en analyse de sensibilité. Documentez cette analyse, ou faites B en sensibilité.",
    "flow_part2_chapter": "Flux « {{flow}} » : les règles sectorielles de la D4.1 Part 2 {{chapter}} s'y appliquent ; elles figurent sous Règles sectorielles.",
    "case_sector_without_flow": "Le secteur du cas relève de la D4.1 Part 2 {{chapter}}, mais aucun flux ne déclare ce chapitre : ses règles sectorielles ne sont donc pas listées. Les chapitres suivent ce qui est échangé : déclarez le secteur de la Part 2 de chaque flux dans le tableau des flux.",
    "flow_configuration_unknown": "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
@@ -1503,7 +1503,7 @@
    "block": "Bloquant",
    "obligation": "À documenter",
    "decision": "À décider",
-   "decisionResolved": "Convention proposée par l'outil — confirmez-la ou justifiez un autre choix"
+   "decisionResolved": "Convention proposée par l'outil : confirmez-la ou justifiez un autre choix"
   },
   "chapters": {
    "§4": "§4 Agroalimentaire et bioraffineries",
@@ -1527,7 +1527,7 @@
    },
    "q1": {
     "A": "A. Échange spécifique",
-    "B": "B. Eco-park / réseau",
+    "B": "B. Parc éco-industriel / réseau",
     "C": "C. Politique / programme",
     "D": "D. Rapport entreprise",
     "E": "E. Suivi"
@@ -1564,22 +1564,22 @@
     "chemicals_fertilizers": "Chimie / engrais",
     "cement_construction": "Ciment / construction",
     "steel_metals": "Acier et métaux",
-    "energy_utilities": "Énergie / utilities",
-    "wastewater_sludge_biofactories": "Eaux usées / boues / biofactories",
+    "energy_utilities": "Énergie / services publics",
+    "wastewater_sludge_biofactories": "Eaux usées / boues / bio-usines",
     "textile_leather": "Textile / cuir",
     "waste_valorization": "Valorisation des déchets",
     "food_production": "Production alimentaire",
     "multi_tenant_urban_building": "Bâtiment urbain multi-locataires",
     "multi_sector": "Multi-secteur",
     "other": "Autre",
-    "wastewater_biofactories": "Eaux usées / boues / biofactories (legacy)",
+    "wastewater_biofactories": "Eaux usées / boues / bio-usines (legacy)",
     "agri_food": "Agroalimentaire / bioraffineries (legacy)",
     "process_industry": "Industrie de process (legacy)"
    },
    "q6b": {
-    "TRL9": "TRL 9 — pleinement opérationnel",
-    "TRL7-8": "TRL 7-8 — pilote / pré-commercial",
-    "TRL5-6": "TRL 5-6 — prototype",
+    "TRL9": "TRL 9 : pleinement opérationnel",
+    "TRL7-8": "TRL 7-8 : pilote / pré-commercial",
+    "TRL5-6": "TRL 5-6 : prototype",
     "TRL<5": "TRL <5 : recherche et développement à un stade précoce"
    },
    "q7": {
@@ -1601,7 +1601,7 @@
    "q11": {
     "unset": "Je ne sais pas / rien n'est comparé (l'outil utilise une unité fondée sur le service rendu)",
     "waste_treatment": "La gestion d'un résidu : filières de traitement, performance d'une installation ou d'un service (unité basée sur l'intrant)",
-    "product_substitution": "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
+    "product_substitution": "Des produits face aux alternatives du marché : ce que remplace le produit récupéré (unité basée sur l'extrant)",
     "co_primary": "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)"
    },
    "scope": {
@@ -1723,7 +1723,7 @@
     },
     "CIR-08": {
      "name": "Indicateurs parties prenantes sur CAPEX partagé",
-     "body": "Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l'amortissement partagés par la LCA et le LCC (D4.1 §6.3.3 ; D4.2 §4.2), la S-LCA indique par groupe de parties prenantes qui porte l'investissement et qui bénéficie de l'infrastructure partagée — une lecture de T4.6 ; la D4.3 §5.1 définit les groupes (CIR-08)."
+     "body": "Biens partagés dédiés et évaluation sociale : à côté du CAPEX et de l'amortissement partagés par la LCA et le LCC (D4.1 §6.3.3 ; D4.2 §4.2), la S-LCA indique par groupe de parties prenantes qui porte l'investissement et qui bénéficie de l'infrastructure partagée (une lecture de T4.6) ; la D4.3 §5.1 définit les groupes (CIR-08)."
     },
     "CIR-09": {
      "name": "Protocole de mise à jour itérative",
@@ -1731,7 +1731,7 @@
     },
     "CIR-10": {
      "name": "Modes de défaillance en conditions réelles",
-     "body": "L'interprétation du LCC discute les modes de défaillance documentés des symbioses réelles — sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières — comme partie de l'évaluation et non dans une annexe sur les risques, avec les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu'une LCA ou une S-LCA est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau — une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13)."
+     "body": "L'interprétation du LCC discute, comme partie de l'évaluation et non dans une annexe sur les risques, les modes de défaillance documentés des symbioses réelles : sous-estimation des coûts de fin de vie des infrastructures partagées, défaillances d'approvisionnement et de logistique, variabilité biologique (pertes de production de 5 à 66 %), discontinuités des prix des matières premières. Elle applique les tests de résistance demandés par la D4.2 : pertes de production de 20 %, 50 % et 66 %, coûts de fin de vie de deux à cinq fois le cas de base. Lorsqu'une LCA ou une S-LCA est menée en parallèle, les mêmes scénarios de défaillance entrent dans leur interprétation, pour que les méthodes éprouvent un seul réseau. C'est une lecture de T4.6, car la D4.1 et la D4.3 ne nomment pas ces modes de défaillance (CIR-10 ; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Unité fonctionnelle orientée fonction",
@@ -1790,7 +1790,7 @@
     },
     "CDP-02": {
      "name": "Désaccord sur l'actualisation",
-     "body": "L'LCA additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d'actualisation » de la D4.1 §14.2.2",
+     "body": "La LCA additionne les impacts dans le temps sans les actualiser (pas de consensus sur leur actualisation) ; le LCC actualise les flux monétaires : le « pare-feu d'actualisation » de la D4.1 §14.2.2",
      "resolution": "Chacun garde sa convention (IR-05) : impacts non actualisés en série temporelle, coûts actualisés à un taux déclaré avec analyse de sensibilité ; tout ratio étiqueté « coût actualisé par impact non actualisé » (D4.1 §14.2.2)"
     },
     "CDP-03": {
@@ -1927,7 +1927,7 @@
    "design_without_screening": "Cette étude conçoit, élargit ou réorganise un réseau. Demandez à l'analyste de faire la vérification du marché : le réseau est-il assez grand pour changer ce que produit le marché dans son ensemble ? Tant que ce n'est pas montré, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle.",
    "structural_without_screening": "Vous avez dit que la décision change ce que produit un marché, mais la vérification du marché n'est pas documentée. Tant qu'elle ne l'est pas, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle.",
    "structural_screening_missing": "Vous avez dit que la décision change ce que produit un marché, mais vous n'avez pas dit si la vérification du marché est documentée. Tant qu'elle ne l'est pas, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle. Répondez à la question qui suit quand elle le sera.",
-   "case_sector_without_flow": "Le secteur que vous avez donné au cas ({{chapter}}) a ses propres règles, mais aucun flux du tableau ne porte ce secteur : elles ne sont donc pas listées. Attribuez-le, dans le tableau des flux, aux flux qui en relèvent (flux encore sans secteur : {{flows}}). Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d'épuration → « Eaux usées / boues / biofactories ».",
+   "case_sector_without_flow": "Le secteur que vous avez donné au cas ({{chapter}}) a ses propres règles, mais aucun flux du tableau ne porte ce secteur : elles ne sont donc pas listées. Attribuez-le, dans le tableau des flux, aux flux qui en relèvent (flux encore sans secteur : {{flows}}). Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d'épuration → « Eaux usées / boues / bio-usines ».",
    "study_purpose_vs_q2": {
     "analysis": "Vous avez dit que l'étude évalue le fonctionnement d'un réseau existant, mais aussi que les échanges qu'elle mesure n'ont pas encore lieu. Revérifiez les deux réponses.",
     "design": "Vous avez dit que l'étude conçoit un réseau nouveau, planifié, mais aussi que les échanges qu'elle mesure ont déjà lieu. Revérifiez les deux réponses."
@@ -2032,8 +2032,8 @@
     "q2b": "Q2b langjähriges Netz",
     "q3": "Q3 Dimensionen",
     "q4": "Q4 Nutzung der Ergebnisse",
-    "q5": "Q5 wer wen bezahlt, je Fluss",
-    "q5extra": "Je Fluss: an Dritte verkaufbar / Sektor Part 2",
+    "q5": "Q5 wer wen bezahlt, je Stoffstrom",
+    "q5extra": "Je Stoffstrom: an Dritte verkaufbar / Sektor Part 2",
     "q6a": "Q6a Sektor",
     "q6b": "Q6b Technologiereife",
     "q7": "Q7 Konzentration der Schlüsselinteraktionen",
@@ -2042,7 +2042,7 @@
     "q8b": "Q8b Analysezeitraum (Jahre)",
     "q8c": "Q8c Lebensdauer der Anlagen (Jahre)",
     "q9": "Q9 Entscheidung und Ausmaß",
-    "q9b": "Q9b Marktscreening dokumentiert",
+    "q9b": "Q9b Marktanalyse dokumentiert",
     "q10": "Q10 öffentliches Ziel",
     "q11": "Q11 was die Studie vergleicht",
     "q12": "Q12 eigens gebaute, gemeinsame Anlagen"
@@ -2062,7 +2062,7 @@
     },
     "ILCD Situation C1": {
      "title": "Dokumentation eines bestehenden Netzwerks (ILCD-Situation C1)",
-     "short": "Bilanzierung mit Wechselwirkungen — dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.",
+     "short": "Bilanzierung mit Wechselwirkungen: dokumentiert, was ein bestehendes Netzwerk der Wirtschaft insgesamt bringt. Substitution am durchschnittlichen Marktmix, wie in Situation A.",
      "detail": "Sie dokumentieren ein bestehendes Netzwerk, statt eine Entscheidung zu unterstützen; die Studie ist also beschreibend. Da sie aber zeigen soll, was das Netzwerk der Wirtschaft insgesamt bringt, wird die Multifunktionalität trotzdem durch Substitution mit dem durchschnittlichen Marktmix aufgelöst, praktisch dieselbe Regel wie in Situation A."
     },
     "ILCD Situation C2": {
@@ -2073,7 +2073,7 @@
    },
    "lcc": {
     "deactivated": {
-     "short": "Keine ökonomische Analyse — die ökonomische Dimension ist in Q3 deaktiviert.",
+     "short": "Keine ökonomische Analyse: Die ökonomische Dimension ist in Q3 deaktiviert.",
      "detail": "In Q3 ist keine ökonomische Dimension gewählt, daher konfiguriert das Tool keine Kostenrechnung. Braucht der Fall einen Business Case, was bei einer Symbiose, die mehrere Unternehmen unterschreiben müssen, meist zutrifft, gehen Sie zurück zu Q3 und aktivieren Sie die ökonomische Dimension."
     },
     "C+E": {
@@ -2085,7 +2085,7 @@
      "detail": "Zu Unternehmens- und Wertschöpfungskettensicht kommt die Wohlfahrtssicht. Steuern und Subventionen sind Transfers innerhalb der Gesellschaft und keine realen Kosten für sie; sie werden daher ausgeschlossen oder über den Net Tax Factor in Schattenpreise umgerechnet, und die Umweltwirkungen aus der parallelen LCA werden monetarisiert. Das ist die Konfiguration, die eine öffentliche Entscheidung braucht, und deshalb bringt ein öffentliches oder politisches Ziel sie mit."
     },
     "C-LCC": {
-     "short": "Nur konventionelle LCC — die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.",
+     "short": "Nur konventionelle LCC: die Unternehmensperspektive, entspricht einer Total-Cost-of-Ownership-Analyse.",
      "detail": "Nur die Sicht des Unternehmens. Jedes Politikinstrument ist ein realer Zahlungsstrom: Steuern und Gebühren sind Kosten, Subventionen senken Capex oder Opex. Das ist der richtige Rahmen für die Unternehmensberichterstattung, und er sagt bewusst nichts über Wirkungen in der Wertschöpfungskette oder in der Gesellschaft: Sie zu behaupten, ginge über das hinaus, was eine Rechnung für einen einzelnen Akteur tragen kann."
     },
     "C+N": {
@@ -2103,7 +2103,7 @@
      "detail": "Die soziale Dimension ist aktiv. Jede Stakeholdergruppe (Beschäftigte, Verbraucher, lokale Gemeinschaften, Akteure der Wertschöpfungskette) wird den Prozessen zugeordnet, die sie betreffen, und von dort den Wirkungsunterkategorien und Indikatoren. Diese Zuordnung ist nur so gut wie die Beteiligung dahinter: Mit den betroffenen Gruppen zu sprechen gehört zur Datenerhebung und ist kein optionaler Zusatz."
     },
     "deactivated": {
-     "short": "S-LCA nicht aktiviert — die soziale Dimension ist in Q3 deaktiviert.",
+     "short": "S-LCA nicht aktiviert: Die soziale Dimension ist in Q3 deaktiviert.",
      "detail": "In Q3 ist keine soziale Dimension gewählt, daher sind weder eine Stakeholder-Zuordnung noch soziale Indikatoren konfiguriert. Aktivieren Sie sie in Q3, wenn der Fall etwas über Beschäftigte oder lokale Gemeinschaften sagen muss, was meist zutrifft, wenn eine Symbiose einer Gemeinde oder einer Gemeinschaft vorgestellt wird."
     }
    }
@@ -2135,27 +2135,27 @@
    },
    "c2_allocation_over_pef": "Die strikte Berichterstattung eines einzelnen Unternehmens (ILCD-Situation C2) verwendet Allokation und keine Substitutionsgutschriften (D4.1 §7.2.3); die von Q4=D verlangte Circular Footprint Formula der PEF wird daher nicht angewandt: Die CFF ist eine Produktmethode. Ist die Studie ein Produkt-Fußabdruck und kein Unternehmensbericht, prüfen Sie Q9.",
    "slca_alone": "Q3 wählt nur die soziale Dimension. D4.3 §3.1 baut die S-LCA auf der funktionellen Einheit und den Systemgrenzen einer LCA oder LCC auf; ist keine gewählt, dokumentieren Sie Bezugseinheit und Systemgrenze in der methodischen Charta.",
-   "flow_sellable_but_waste": "Fluss „{{flow}}“: Laut Q5 zahlt, wer es abgibt, für die Abnahme (als Abfall modelliert), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Fluss mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Fluss.",
-   "flow_price_without_market": "Fluss „{{flow}}“: Laut Q5 zahlt der Empfänger (als Koppelprodukt modelliert), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Fluss ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Fluss ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, wird der Fluss als Abfall modelliert, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Schritt 4). Prüfen Sie den Preis gegen diesen Maßstab.",
+   "flow_sellable_but_waste": "Stoffstrom „{{flow}}“: Laut Q5 zahlt, wer es abgibt, für die Abnahme (als Abfall modelliert), aber ein Dritter würde dafür bezahlen. D4.1 §8.3.3 und §8.3.6 Schritt 1: Ein Stoffstrom mit unabhängigem positivem Marktwert ist ein Koppelprodukt, und seine Vorkettenlast wird geteilt (Substitution oder Allokation), nicht abgeschnitten. Prüfen Sie Q5 für diesen Stoffstrom.",
+   "flow_price_without_market": "Stoffstrom „{{flow}}“: Laut Q5 zahlt der Empfänger (als Koppelprodukt modelliert), aber kein Dritter würde ihn kaufen. Bei einem einzigen Abnehmer entscheidet der Preis (D4.1 §8.3.3): Der Stoffstrom ist ein Koppelprodukt, wenn der Empfänger zahlt, was ein unabhängiger Käufer zahlen würde, also den Preis des Produkts, das der Stoffstrom ersetzt, abzüglich seiner Mehrkosten für die Nutzung; teilt die Zahlung nur Kosten, wird der Stoffstrom als Abfall modelliert, lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht (§8.3.6 Schritt 4). Prüfen Sie den Preis gegen diesen Maßstab.",
    "flow_freedom_to_act_settles": {
-    "co_product": "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",
-    "waste": "Fluss „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Flussklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert."
+    "co_product": "Stoffstrom „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf ein Koppelprodukt (§8.3.2, Last geteilt). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Stoffstromklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert.",
+    "waste": "Stoffstrom „{{flow}}“: Q5 lässt offen, wer wen bezahlt, und die Freedom-to-Act-Antwort (D4.1 §8.3.3) deutet auf Abfall (lastenfrei ab dem Punkt, an dem er erstmals einen nicht negativen Wert erreicht, §8.3.6 Schritt 4). Die Konfiguration behält den ökonomischen Werttest mit Sensitivitätsanalyse, bis die Studie es bestätigt: Ändern Sie nicht, wer wen bezahlt; halten Sie diese Lesart in der Stoffstromklassifizierung des Data Collection File fest (Freedom-to-Act und Schritt des Entscheidungsbaums), die die Studie dokumentiert."
    },
    "running_but_future": "Q2 sagt, dass die Austausche bereits stattfinden, aber Q8 legt den Betrieb in ein künftiges Jahr oder Q6b stuft die Schlüsseltechnologie unter TRL 7 ein. Ein laufender Austausch wird heute gemessen: prüfen Sie Q2, Q8 und Q6b. Bis dahin folgen das Referenzszenario und der Zeitpunkt der Kostenbewertung Q2, der künftige Hintergrund Q8 und Q6b.",
    "design_without_screening": "Die Studie plant, erweitert oder restrukturiert ein Netz und wird als Situation A modelliert. D4.1 §4.2.3: solche Studien brauchen das ILCD-Marktscreening (Mattila et al. 2012); ohne es bleibt die Studie A, mit Situation B als Sensitivitätsanalyse. Dokumentieren Sie das Screening oder rechnen Sie B als Sensitivität.",
-   "flow_part2_chapter": "Fluss „{{flow}}“: Für ihn gelten die Sektorregeln von D4.1 Part 2 {{chapter}}; sie stehen unter Sektorregeln.",
-   "case_sector_without_flow": "Der Sektor des Falls gehört zu D4.1 Part 2 {{chapter}}, aber kein Fluss gibt dieses Kapitel an, daher werden seine Sektorregeln nicht aufgeführt. Die Kapitel folgen dem, was ausgetauscht wird: Geben Sie in der Flusstabelle für jeden Fluss den Part-2-Sektor an.",
-   "flow_configuration_unknown": "Fluss „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
-   "flow_configuration_other_chapter": "Fluss „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
+   "flow_part2_chapter": "Stoffstrom „{{flow}}“: Für ihn gelten die Sektorregeln von D4.1 Part 2 {{chapter}}; sie stehen unter Sektorregeln.",
+   "case_sector_without_flow": "Der Sektor des Falls gehört zu D4.1 Part 2 {{chapter}}, aber kein Stoffstrom gibt dieses Kapitel an, daher werden seine Sektorregeln nicht aufgeführt. Die Kapitel folgen dem, was ausgetauscht wird: Geben Sie in der Stoffstromtabelle für jeden Stoffstrom den Part-2-Sektor an.",
+   "flow_configuration_unknown": "Stoffstrom „{{flow}}“: Die Konfiguration „{{configuration}}“ gehört nicht zu D4.1 Part 2.",
+   "flow_configuration_other_chapter": "Stoffstrom „{{flow}}“: Seine Konfiguration gehört zu {{chapter}}, nicht zum angegebenen {{declared}}; die Regeln beider Kapitel werden aufgeführt.",
    "b_consequential_over_pef": "Situation B verlangt eine konsequenzielle Modellierung gegen die marginale Technologie (D4.1 Tabelle 1), während die Ausrichtung auf EU-Politiken (Q4 = D) die Circular Footprint Formula des PEF verlangt, eine attributive Aufteilung, die D4.1 §7.3.2 für an der EU-Politik ausgerichtete Studien als verpflichtend bezeichnet. Wahl von T4.6: Das konsequenzielle Modell hat Vorrang und die CFF läuft als Sensitivitätsanalyse; erklären Sie beides in der Methodencharta (D4.1 §7.3.3; D4.2 §2.2).",
    "b_lcc_not_consequential": "Situation B: Die LCA substituiert die marginale Technologie (D4.1 Tabelle 1), während die ökologische LCC verdrängte Produkte zum durchschnittlichen Marktpreis dessen bewertet, was sie ersetzen (D4.2 §6.2): Dieses Tool hat keine konsequenzielle Fassung der Kostenrechnung. D4.2 §2.2 verlangt ein Paradigma, identisch zwischen LCA und LCC: Erklären Sie den Unterschied in der Methodencharta als methodische Abweichung und bewerten Sie die verdrängten Produkte in einer Sensitivitätsanalyse zum Preis des marginalen Anbieters.",
-   "flow_interdependent_but_marketable": "Fluss „{{flow}}“: Q5 sagt, der Abgebende habe seinen Prozess für diesen Partner geändert, und der Fluss würde sich auch an andere verkaufen. Beides kann bei einem bestimmenden Koppelprodukt zutreffen (D4.1 §8.3.6, Schritt 2). Prüfen Sie: Wurde die Änderung für die Spezifikation dieses Partners vorgenommen, bleibt d; wurde sie für beliebige Käufer vorgenommen (ein Trockner, der die Pülpe zu handelbarem Futter macht), ist der Fluss ein abhängiges Koppelprodukt (Q5 = c, Substitution mit dem Qualitätsfaktor Q) und die Anlage eine eigens errichtete Anlage (Q12). Eine Notiz ändert Q5 nie."
+   "flow_interdependent_but_marketable": "Stoffstrom „{{flow}}“: Q5 sagt, der Abgebende habe seinen Prozess für diesen Partner geändert, und der Stoffstrom würde sich auch an andere verkaufen. Beides kann bei einem bestimmenden Koppelprodukt zutreffen (D4.1 §8.3.6, Schritt 2). Prüfen Sie: Wurde die Änderung für die Spezifikation dieses Partners vorgenommen, bleibt d; wurde sie für beliebige Käufer vorgenommen (ein Trockner, der die Pülpe zu handelbarem Futter macht), ist der Stoffstrom ein abhängiges Koppelprodukt (Q5 = c, Substitution mit dem Qualitätsfaktor Q) und die Anlage eine eigens errichtete Anlage (Q12). Eine Notiz ändert Q5 nie."
   },
   "actionKind": {
    "block": "Blockierend",
    "obligation": "Zu dokumentieren",
    "decision": "Zu entscheiden",
-   "decisionResolved": "Vom Tool vorgeschlagene Konvention — bestätigen Sie sie oder begründen Sie eine andere Wahl"
+   "decisionResolved": "Vom Tool vorgeschlagene Konvention: Bestätigen Sie sie oder begründen Sie eine andere Wahl"
   },
   "chapters": {
    "§4": "§4 Agrar, Lebensmittel und Bioraffinerien",
@@ -2179,7 +2179,7 @@
    },
    "q1": {
     "A": "A. Spezifischer Austausch",
-    "B": "B. Eco-park / Netzwerk",
+    "B": "B. Öko-Industriepark / Netzwerk",
     "C": "C. Politik / Programm",
     "D": "D. Unternehmensbericht",
     "E": "E. Monitoring"
@@ -2217,21 +2217,21 @@
     "cement_construction": "Zement / Bau",
     "steel_metals": "Stahl und Metalle",
     "energy_utilities": "Energie / Versorgung",
-    "wastewater_sludge_biofactories": "Abwasser / Schlämme / Biofactories",
+    "wastewater_sludge_biofactories": "Abwasser / Schlämme / Biofabriken",
     "textile_leather": "Textil / Leder",
     "waste_valorization": "Abfallvalorisierung",
     "food_production": "Lebensmittelproduktion",
     "multi_tenant_urban_building": "Mehrmieter-Stadtgebäude",
     "multi_sector": "Multi-Sektor",
     "other": "Sonstige",
-    "wastewater_biofactories": "Abwasser / Schlämme / Biofactories (legacy)",
+    "wastewater_biofactories": "Abwasser / Schlämme / Biofabriken (legacy)",
     "agri_food": "Agri-Food / Bioraffinerien (legacy)",
     "process_industry": "Prozessindustrie (legacy)"
    },
    "q6b": {
-    "TRL9": "TRL 9 — vollständig operativ",
-    "TRL7-8": "TRL 7-8 — Pilot / vorkommerziell",
-    "TRL5-6": "TRL 5-6 — Prototyp",
+    "TRL9": "TRL 9: voll in Betrieb",
+    "TRL7-8": "TRL 7-8: Pilot / vorkommerziell",
+    "TRL5-6": "TRL 5-6: Prototyp",
     "TRL<5": "TRL <5: frühe Forschung und Entwicklung"
    },
    "q7": {
@@ -2253,7 +2253,7 @@
    "q11": {
     "unset": "Weiß nicht / nichts wird verglichen (das Tool nutzt eine Einheit, die auf der erbrachten Leistung beruht)",
     "waste_treatment": "Wie ein Reststoff behandelt wird: Behandlungswege, Leistung einer Anlage oder Dienstleistung (inputbasierte Einheit)",
-    "product_substitution": "Produkte gegenüber Marktalternativen — was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
+    "product_substitution": "Produkte gegenüber Marktalternativen: was das zurückgewonnene Produkt ersetzt (outputbasierte Einheit)",
     "co_primary": "Beides: Behandlungsleistung und Produkte zählen gleich viel (System funktioneller Einheiten)"
    },
    "scope": {
@@ -2323,7 +2323,7 @@
     },
     "IR-15": {
      "name": "Hierarchie der Nullbewertung",
-     "body": "Die vierstufige Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC müssen je Fluss zur selben Einstufung führen (IR-15)."
+     "body": "Die vierstufige Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC müssen je Stoffstrom zur selben Einstufung führen (IR-15)."
     },
     "IR-16": {
      "name": "Berechnung nach Entitäten",
@@ -2351,7 +2351,7 @@
     },
     "CIR-02": {
      "name": "Pedigree-Matrix LCA+LCC",
-     "body": "Die Austausche finden noch nicht statt: Jeder Fluss im Modell der LCA wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die LCC dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1)."
+     "body": "Die Austausche finden noch nicht statt: Jeder Stoffstrom im Modell der LCA wird auf den fünf Indikatoren der Pedigree-Matrix bewertet, und die LCC dokumentiert die Quellenstufe jedes wichtigen Inventarparameters und bewertet dessen Unsicherheit auf denselben fünf Indikatoren, damit beide Methoden dieselbe Unsicherheit der Datenqualität fortpflanzen (CIR-02; D4.1 §9.3.5, §13.3.2; D4.2 §7.1)."
     },
     "CIR-03": {
      "name": "GIS-gekoppelte räumliche Modellierung",
@@ -2375,7 +2375,7 @@
     },
     "CIR-08": {
      "name": "Stakeholder-Indikatoren für gemeinsames CAPEX",
-     "body": "Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die LCA und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert — eine Lesart von T4.6; die Gruppen definiert D4.3 §5.1 (CIR-08)."
+     "body": "Neue gemeinsam genutzte Anlagen und eine soziale Bewertung: Neben CAPEX und Abschreibung, die LCA und Kostenrechnung teilen (D4.1 §6.3.3; D4.2 §4.2), berichtet die S-LCA je Stakeholdergruppe, wer die Investition trägt und wer von der gemeinsamen Infrastruktur profitiert (eine Lesart von T4.6); die Gruppen definiert D4.3 §5.1 (CIR-08)."
     },
     "CIR-09": {
      "name": "Protokoll der iterativen Aktualisierung",
@@ -2383,7 +2383,7 @@
     },
     "CIR-10": {
      "name": "Ausfallarten im realen Betrieb",
-     "body": "Die Interpretation der LCC erörtert die dokumentierten Versagensarten realer Symbiosen — Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen — als Teil der Bewertung und nicht in einem Risikoanhang, mit den Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine LCA oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen — eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13)."
+     "body": "Die Interpretation der LCC erörtert als Teil der Bewertung, nicht in einem Risikoanhang, die dokumentierten Versagensarten realer Symbiosen: Unterschätzung der Rückbaukosten gemeinsamer Infrastruktur, Ausfälle in Lieferkette und Logistik, biologische Variabilität (Produktionsverluste von 5-66 %), Brüche bei Rohstoffpreisen. Dazu gehören die Stresstests, die D4.2 verlangt: Produktionsverluste von 20 %, 50 % und 66 %, Rückbaukosten vom Zwei- bis Fünffachen des Basisfalls. Läuft parallel eine LCA oder eine S-LCA, gehen dieselben Ausfallszenarien in deren Interpretation ein, damit die Methoden ein und dasselbe Netzwerk auf die Probe stellen. Das ist eine Lesart von T4.6, da D4.1 und D4.3 diese Versagensarten nicht nennen (CIR-10; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Funktionsorientierte funktionelle Einheit",
@@ -2458,7 +2458,7 @@
     "CDP-05": {
      "name": "Zero-Burden gegen Vermeidbarkeitstest",
      "body": "Die Zero-Burden-Hierarchie der LCA und der Vermeidbarkeitstest der LCC können auseinandergehen",
-     "resolution": "Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Fluss, wobei die E-LCC der Klassifizierung der LCA folgt (D4.2 §6.3); ein interdependenter Fluss ist in beiden ein Koppelprodukt (IR-15)"
+     "resolution": "Vierstufiger Entscheidungsbaum der D4.1 §8.3.6 für jeden Stoffstrom, wobei die E-LCC der Klassifizierung der LCA folgt (D4.2 §6.3); ein interdependenter Stoffstrom ist in beiden ein Koppelprodukt (IR-15)"
     },
     "CDP-06": {
      "name": "Funktionelle Einheit in den drei Methoden verschieden",
@@ -2511,7 +2511,7 @@
     },
     "block_Q1A_plus_Q5e": {
      "name": "",
-     "body": "Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 für jeden Fluss an, wer wem zahlt (a/b/c/d), oder ändern Sie Q1 auf B/C."
+     "body": "Ein konkreter Austausch zwischen zwei Unternehmen lässt sich nicht als aggregierte Black Box analysieren. Geben Sie in Q5 für jeden Stoffstrom an, wer wem zahlt (a/b/c/d), oder ändern Sie Q1 auf B/C."
     }
    }
   },
@@ -2570,16 +2570,16 @@
   },
   "engineNotesPlain": {
    "flow_freedom_to_act_settles": {
-    "co_product": "Fluss „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann wird die Studie ihn nicht als Abfall modellieren. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.",
-    "waste": "Fluss „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Die Studie kann ihn als Abfall modellieren, ohne Last auf Ihrer Seite. Der Analyst prüft das."
+    "co_product": "Stoffstrom „{{flow}}“: Sie sagten, niemand zahlt (oder es ist noch unklar), aber jemand anderes würde ihn kaufen: Dann wird die Studie ihn nicht als Abfall modellieren. Das ist in Ordnung; der Analyst entscheidet, wie er gezählt wird.",
+    "waste": "Stoffstrom „{{flow}}“: Sie sagten, niemand zahlt und niemand sonst würde ihn kaufen: Die Studie kann ihn als Abfall modellieren, ohne Last auf Ihrer Seite. Der Analyst prüft das."
    },
-   "flow_sellable_but_waste": "Für „{{flow}}“ sagten Sie, dass der Abgebende für die Abnahme zahlt, aber auch, dass jemand anderes ihn kaufen würde. Die beiden Antworten passen nicht zusammen: Ein Fluss, den jemand kaufen würde, ist kein Abfall und trägt einen Teil der Lasten seiner Herstellung. Prüfen Sie für diesen Fluss noch einmal, wer wem zahlt.",
-   "flow_price_without_market": "Für „{{flow}}“ sagten Sie, dass der Empfänger dafür zahlt, aber dass niemand sonst ihn kaufen würde. Bei einem einzigen Käufer entscheidet der Preis: Zahlt der Empfänger, was der Fluss anstelle des ersetzten Produkts wert ist, ist er ein Produkt; teilt die Zahlung nur Kosten, ist er ein Abfall. Der Analyst prüft den Preis.",
-   "flow_interdependent_but_marketable": "Für „{{flow}}“ sagten Sie, dass die beiden Anlagen voneinander abhängen (eine wurde für die Belieferung der anderen umgebaut), und auch, dass jemand anderes ihn kaufen würde. Beides kann stimmen. Wurde der Umbau für die Bedürfnisse dieses Partners gemacht, behalten Sie Ihre Antwort; wurde er gemacht, um den Fluss an jeden zu verkaufen (ein Trockner, der aus dem Trester ein Futter macht, das jeder kaufen kann), zahlt der Empfänger für ein Produkt mit Wert, und die Anlage gilt als für den Austausch gebaut. Dieser Hinweis ändert Ihre Antworten nicht.",
+   "flow_sellable_but_waste": "Für „{{flow}}“ sagten Sie, dass der Abgebende für die Abnahme zahlt, aber auch, dass jemand anderes ihn kaufen würde. Die beiden Antworten passen nicht zusammen: Ein Stoffstrom, den jemand kaufen würde, ist kein Abfall und trägt einen Teil der Lasten seiner Herstellung. Prüfen Sie für diesen Stoffstrom noch einmal, wer wem zahlt.",
+   "flow_price_without_market": "Für „{{flow}}“ sagten Sie, dass der Empfänger dafür zahlt, aber dass niemand sonst ihn kaufen würde. Bei einem einzigen Käufer entscheidet der Preis: Zahlt der Empfänger, was der Stoffstrom anstelle des ersetzten Produkts wert ist, ist er ein Produkt; teilt die Zahlung nur Kosten, ist er ein Abfall. Der Analyst prüft den Preis.",
+   "flow_interdependent_but_marketable": "Für „{{flow}}“ sagten Sie, dass die beiden Anlagen voneinander abhängen (eine wurde für die Belieferung der anderen umgebaut), und auch, dass jemand anderes ihn kaufen würde. Beides kann stimmen. Wurde der Umbau für die Bedürfnisse dieses Partners gemacht, behalten Sie Ihre Antwort; wurde er gemacht, um den Stoffstrom an jeden zu verkaufen (ein Trockner, der aus dem Trester ein Futter macht, das jeder kaufen kann), zahlt der Empfänger für ein Produkt mit Wert, und die Anlage gilt als für den Austausch gebaut. Dieser Hinweis ändert Ihre Antworten nicht.",
    "design_without_screening": "Diese Studie plant, erweitert oder baut ein Netz um. Bitten Sie den Analysten um die Marktprüfung: ob das Netz groß genug ist, um zu verändern, was der Markt insgesamt produziert. Solange das nicht gezeigt ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben.",
    "structural_without_screening": "Sie sagten, die Entscheidung verändert, was ein Markt produziert, aber die Marktprüfung ist nicht dokumentiert. Solange sie es nicht ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben.",
    "structural_screening_missing": "Sie sagten, die Entscheidung verändert, was ein Markt produziert, haben aber nicht angegeben, ob die Marktprüfung dokumentiert ist. Solange sie es nicht ist, behandelt die Studie die Wirkungen als auf die beteiligten Anlagen beschränkt und rechnet die Lesart im größeren Maßstab zur Kontrolle daneben. Beantworten Sie die Folgefrage, sobald sie es ist.",
-   "case_sector_without_flow": "Der Sektor, den Sie dem Fall gegeben haben ({{chapter}}), hat eigene Regeln, aber kein Fluss in der Tabelle trägt diesen Sektor, deshalb werden sie nicht aufgeführt. Geben Sie ihn in der Flusstabelle den Flüssen, die dazugehören (Flüsse noch ohne Sektor: {{flows}}). Biogas, Biomethan oder Gärreste erhalten den Sektor dessen, woraus sie gemacht sind: Lebensmittelabfälle aus Haushalten oder Kommunen → „Abfallvalorisierung“; Reststoffe aus Landwirtschaft oder Lebensmittelindustrie → „Landwirtschaft / Agri-Food / Bioraffinerien“; Klärschlamm → „Abwasser / Schlämme / Biofactories“.",
+   "case_sector_without_flow": "Der Sektor, den Sie dem Fall gegeben haben ({{chapter}}), hat eigene Regeln, aber kein Stoffstrom in der Tabelle trägt diesen Sektor, deshalb werden sie nicht aufgeführt. Geben Sie ihn in der Stoffstromtabelle den Stoffströmen, die dazugehören (Stoffströme noch ohne Sektor: {{flows}}). Biogas, Biomethan oder Gärreste erhalten den Sektor dessen, woraus sie gemacht sind: Lebensmittelabfälle aus Haushalten oder Kommunen → „Abfallvalorisierung“; Reststoffe aus Landwirtschaft oder Lebensmittelindustrie → „Landwirtschaft / Agri-Food / Bioraffinerien“; Klärschlamm → „Abwasser / Schlämme / Biofabriken“.",
    "study_purpose_vs_q2": {
     "analysis": "Sie sagten, die Studie bewertet, wie ein bestehendes Netz funktioniert, aber auch, dass der Austausch, den sie misst, noch nicht stattfindet. Prüfen Sie die beiden Antworten.",
     "design": "Sie sagten, die Studie plant ein neues Netz, aber auch, dass der Austausch, den sie misst, schon stattfindet. Prüfen Sie die beiden Antworten."
@@ -2597,7 +2597,7 @@
    "title": "Sektorregeln (D4.1 Part 2)",
    "lead": "Die Regeln, die D4.1 Part 2 für die Sektoren Ihres Falls vorgibt. Das Tool wendet sie nicht für Sie an: Dokumentieren Sie in der Studie, wie jede eingehalten wurde. Nennt eine Regel eine Bedingung, entscheidet die Studie, ob sie zutrifft: Das Tool listet die Regel, es prüft die Bedingung nicht.",
    "activatedBy": "Gelten wegen: {{reasons}}",
-   "byFlow": "den Fluss „{{name}}“",
+   "byFlow": "den Stoffstrom „{{name}}“",
    "byCaseSector": "den Sektor des Falls (Q6a)",
    "strength": {
     "must": "Pflicht",
@@ -2714,7 +2714,7 @@
     },
     "ILCD Situation C1": {
      "title": "Documentar una red existente (situación ILCD C1)",
-     "short": "Contabilidad con interacciones — documentar lo que una red existente aporta a la economía en general. Sustitución sobre el mix de mercado medio, como en la Situation A.",
+     "short": "Contabilidad con interacciones: documentar lo que una red existente aporta a la economía en general. Sustitución sobre el mix de mercado medio, como en la Situación A.",
      "detail": "Estás documentando una red que existe en lugar de apoyar una decisión, así que el estudio es descriptivo. Pero como se trata de mostrar lo que la red aporta a la economía en general, la multifuncionalidad se resuelve igualmente por sustitución con el mix medio del mercado, en la práctica la misma regla que la Situación A."
     },
     "ILCD Situation C2": {
@@ -2725,7 +2725,7 @@
    },
    "lcc": {
     "deactivated": {
-     "short": "Sin análisis económico — la dimensión económica está desactivada en Q3.",
+     "short": "Sin análisis económico: la dimensión económica está desactivada en Q3.",
      "detail": "En Q3 no está seleccionada la dimensión económica, así que la herramienta no configura ningún cálculo de costes. Si el caso necesita un business case, como suele ocurrir con una simbiosis que deben firmar varias empresas, vuelve a Q3 y activa la dimensión económica."
     },
     "C+E": {
@@ -2737,7 +2737,7 @@
      "detail": "A las vistas de la empresa y de la cadena de valor se suma la del bienestar social. Impuestos y subvenciones son transferencias dentro de la sociedad y no costes reales para ella, así que se excluyen o se convierten en precios sombra mediante el Net Tax Factor, y los impactos ambientales del LCA paralelo se monetizan. Es la configuración que necesita una decisión pública, y por eso la introduce un objetivo público o de política."
     },
     "C-LCC": {
-     "short": "Solo LCC convencional — la perspectiva de la empresa, equivalente a un análisis de coste total de propiedad.",
+     "short": "Solo LCC convencional: la perspectiva de la empresa, equivalente a un análisis de coste total de propiedad.",
      "detail": "Solo la perspectiva de la empresa. Cada instrumento de política es un flujo de caja real: impuestos y tasas son costes, las subvenciones reducen el capex o el opex. Es el marco adecuado para el informe corporativo, y no dice nada a propósito sobre los efectos en la cadena de valor o en la sociedad: afirmarlos iría más allá de lo que puede sostener la cuenta de un solo actor."
     },
     "C+N": {
@@ -2755,7 +2755,7 @@
      "detail": "La dimensión social está activa. Cada grupo de partes interesadas (trabajadores, consumidores, comunidades locales, actores de la cadena de valor) se vincula a los procesos que le afectan y, desde ahí, a las subcategorías de impacto y los indicadores. Ese vínculo vale lo que vale la participación que lo respalda: hablar con los grupos implicados forma parte de la recogida de datos, no es un extra opcional."
     },
     "deactivated": {
-     "short": "S-LCA no activada — la dimensión social está desactivada en Q3.",
+     "short": "S-LCA no activada: la dimensión social está desactivada en Q3.",
      "detail": "En Q3 no está seleccionada la dimensión social, así que no se configura ni un mapa de partes interesadas ni ningún indicador social. Actívala en Q3 si el caso tiene que decir algo sobre trabajadores o comunidades locales, lo que suele ocurrir cuando una simbiosis se presenta a un municipio o a una comunidad."
     }
    }
@@ -2807,7 +2807,7 @@
    "block": "Bloqueante",
    "obligation": "Por documentar",
    "decision": "Por decidir",
-   "decisionResolved": "Convención propuesta por la herramienta — confírmala o justifica otra elección"
+   "decisionResolved": "Convención propuesta por la herramienta: confírmala o justifica otra elección"
   },
   "chapters": {
    "§4": "§4 Agroalimentario y biorrefinerías",
@@ -2831,7 +2831,7 @@
    },
    "q1": {
     "A": "A. Intercambio específico",
-    "B": "B. Eco-park / red",
+    "B": "B. Parque ecoindustrial / red",
     "C": "C. Política / programa",
     "D": "D. Informe corporativo",
     "E": "E. Monitorización"
@@ -2868,22 +2868,22 @@
     "chemicals_fertilizers": "Química / fertilizantes",
     "cement_construction": "Cemento / construcción",
     "steel_metals": "Acero y metales",
-    "energy_utilities": "Energía / utilities",
-    "wastewater_sludge_biofactories": "Aguas residuales / lodos / biofactories",
+    "energy_utilities": "Energía / servicios públicos",
+    "wastewater_sludge_biofactories": "Aguas residuales / lodos / biofactorías",
     "textile_leather": "Textil / cuero",
     "waste_valorization": "Valorización de residuos",
     "food_production": "Producción alimentaria",
     "multi_tenant_urban_building": "Edificio urbano multi-tenant",
     "multi_sector": "Multi-sector",
     "other": "Otro",
-    "wastewater_biofactories": "Aguas residuales / lodos / biofactories (legacy)",
+    "wastewater_biofactories": "Aguas residuales / lodos / biofactorías (legacy)",
     "agri_food": "Agroalimentario / biorrefinerías (legacy)",
     "process_industry": "Industria de proceso (legacy)"
    },
    "q6b": {
-    "TRL9": "TRL 9 — plenamente operativo",
-    "TRL7-8": "TRL 7-8 — piloto / pre-comercial",
-    "TRL5-6": "TRL 5-6 — prototipo",
+    "TRL9": "TRL 9: plenamente operativo",
+    "TRL7-8": "TRL 7-8: piloto / precomercial",
+    "TRL5-6": "TRL 5-6: prototipo",
     "TRL<5": "TRL <5: investigación y desarrollo en fase temprana"
    },
    "q7": {
@@ -2905,7 +2905,7 @@
    "q11": {
     "unset": "No lo sé / no se compara nada (la herramienta usa una unidad basada en el servicio prestado)",
     "waste_treatment": "Cómo se gestiona un flujo residual: vías de tratamiento, desempeño de una planta o servicio (unidad basada en la entrada)",
-    "product_substitution": "Productos frente a alternativas de mercado — qué sustituye el producto recuperado (unidad basada en la salida)",
+    "product_substitution": "Productos frente a alternativas de mercado: qué sustituye el producto recuperado (unidad basada en la salida)",
     "co_primary": "Ambas: el servicio de tratamiento y los productos cuentan por igual (sistema de unidades funcionales)"
    },
    "scope": {
@@ -3027,7 +3027,7 @@
     },
     "CIR-08": {
      "name": "Indicadores de partes interesadas sobre CAPEX compartido",
-     "body": "Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten LCA y LCC (D4.1 §6.3.3; D4.2 §4.2), el S-LCA indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida — una lectura de T4.6; los grupos los define la D4.3 §5.1 (CIR-08)."
+     "body": "Activos compartidos dedicados y evaluación social: junto al CAPEX y la amortización que comparten LCA y LCC (D4.1 §6.3.3; D4.2 §4.2), el S-LCA indica por grupo de partes interesadas quién soporta la inversión y quién se beneficia de la infraestructura compartida (una lectura de T4.6); los grupos los define la D4.3 §5.1 (CIR-08)."
     },
     "CIR-09": {
      "name": "Protocolo de actualización iterativa",
@@ -3035,7 +3035,7 @@
     },
     "CIR-10": {
      "name": "Modos de fallo en condiciones reales",
-     "body": "La interpretación del LCC discute los modos de fallo documentados de las simbiosis reales — subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas — como parte de la evaluación y no en un anexo de riesgos, con las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un LCA o un S-LCA se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red — una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13)."
+     "body": "La interpretación del LCC discute, como parte de la evaluación y no en un anexo de riesgos, los modos de fallo documentados de las simbiosis reales: subestimación de los costes de fin de vida de las infraestructuras compartidas, fallos de suministro y logística, variabilidad biológica (pérdidas de producción del 5-66 %), discontinuidades en los precios de las materias primas. Incluye las pruebas de estrés que pide la D4.2: pérdidas de producción del 20 %, 50 % y 66 %, costes de fin de vida de dos a cinco veces el caso base. Cuando un LCA o un S-LCA se realiza en paralelo, los mismos escenarios de fallo entran en su interpretación, para que los métodos pongan a prueba una sola red. Es una lectura de T4.6, ya que la D4.1 y la D4.3 no nombran estos modos de fallo (CIR-10; D4.2 §12.3, §13)."
     },
     "FU-01": {
      "name": "Unidad funcional orientada a la función",
@@ -3231,7 +3231,7 @@
    "design_without_screening": "Este estudio diseña, amplía o reorganiza una red. Pide al analista que haga la comprobación del mercado: si la red es lo bastante grande como para cambiar lo que produce el mercado en su conjunto. Mientras no se demuestre, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala.",
    "structural_without_screening": "Dijiste que la decisión cambia lo que produce un mercado, pero la comprobación del mercado no está documentada. Mientras no lo esté, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala.",
    "structural_screening_missing": "Dijiste que la decisión cambia lo que produce un mercado, pero no has dicho si la comprobación del mercado está documentada. Mientras no lo esté, el estudio trata los efectos como limitados a las plantas implicadas, y hace en paralelo, como control, la lectura a mayor escala. Responde a la pregunta siguiente cuando lo esté.",
-   "case_sector_without_flow": "El sector que diste al caso ({{chapter}}) tiene reglas propias, pero ningún flujo de la tabla lleva ese sector, así que no se enumeran. Asígnalo, en la tabla de flujos, a los flujos que le pertenecen (flujos aún sin sector: {{flows}}). El biogás, el biometano o el digestato toman el sector de aquello de lo que están hechos: residuos alimentarios domésticos o municipales → «Valorización de residuos»; residuos agrícolas o de la industria alimentaria → «Agricultura / agroalimentario / biorrefinerías»; lodos de depuradora → «Aguas residuales / lodos / biofactories».",
+   "case_sector_without_flow": "El sector que diste al caso ({{chapter}}) tiene reglas propias, pero ningún flujo de la tabla lleva ese sector, así que no se enumeran. Asígnalo, en la tabla de flujos, a los flujos que le pertenecen (flujos aún sin sector: {{flows}}). El biogás, el biometano o el digestato toman el sector de aquello de lo que están hechos: residuos alimentarios domésticos o municipales → «Valorización de residuos»; residuos agrícolas o de la industria alimentaria → «Agricultura / agroalimentario / biorrefinerías»; lodos de depuradora → «Aguas residuales / lodos / biofactorías».",
    "study_purpose_vs_q2": {
     "analysis": "Dijiste que el estudio evalúa cómo funciona una red existente, pero también que los intercambios que mide aún no tienen lugar. Revisa las dos respuestas.",
     "design": "Dijiste que el estudio diseña una red nueva, planificada, pero también que los intercambios que mide ya tienen lugar. Revisa las dos respuestas."

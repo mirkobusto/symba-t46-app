@@ -1611,6 +1611,21 @@ const en = {
     loadButton: 'Load the example',
     rationaleToggle: 'Why these answers?',
     loaded: "Example loaded: {{name}}",
+    examples: {
+      sokka_2011: { label: "1. Sokka 2011, Kymenlaakso (FI, pulp & paper)", description: "Six-actor IES, ENV-only LCA, RS3 improvement scenario." },
+      hashimoto_2010: { label: "2. Hashimoto 2010, Kawasaki (JP, cement)", description: "Eco-park network with current + future scenarios." },
+      daddi_2017: { label: "3. Daddi 2017, Santa Croce tannery (IT)", description: "Cluster of 6 municipalities + WWT, S3a/S3b water reuse." },
+      paulu_2022: { label: "4. Paulu 2022, Czech industry-wide (CZ, policy)", description: "National policy assessment, EU PEF + academic publication." },
+      arce_bastias_2023: { label: "5. Arce Bastias 2023, Mendoza (AR, plastics)", description: "3-entity network, ex-post, three allocation methods tested." },
+      wiktor_2018: { label: "6. Wiktor 2018, VA Syd Malmö (SE, wastewater)", description: "13 scenarios (1 baseline + 12 design alternatives)." },
+      leiva_2025_escombreras: { label: "7a. Leiva 2025 Escombreras, KNO3 optimisation (ES)", description: "Single-site exchange QSr + neighbours, ECO-only." },
+      leiva_2025_frovi: { label: "7b. Leiva 2025 Frövi, paper mill + greenhouse (SE)", description: "Multi-actor eco-park with WA3RM facilitator, CCU at TRL 7-8." },
+      danielsson_2018: { label: "8. Danielsson 2018, Kalundborg (DK, 8-member)", description: "Iconic IS network, public report (Q4 = B)." },
+      kerdlap_2024: { label: "9. Kerdlap 2022, fictional urban agri-food", description: "Demonstrative 5-entity network in design phase (doi:10.1007/s11367-022-02024-1)." },
+      subramanian_2021: { label: "10. Subramanian 2021, The Plant Chicago (USA)", description: "Multi-tenant building, full LCSA (ENV+ECO+SOC)." },
+      zhu_2013: { label: "11. Zhu 2013, generic 2-firm exchange (NL)", description: "Design-phase, 19 scenarios." },
+      briassoulis_2023: { label: "12. Briassoulis 2023, bio-polymers framework (EU)", description: "Industry-wide propositional framework, full LCSA + TEA." },
+    },
   },
 
   toast: {

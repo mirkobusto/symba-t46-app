@@ -163,7 +163,7 @@ const es: Locale = {
       notAssessed: "no evaluada por esta herramienta",
     },
     audience: {
-      choose: "¿Desde qué papel lees? Elige tu vista: los hechos son los mismos en las cuatro.",
+      choose: "¿Quién eres? Elige tu vista: los hechos son los mismos en las cuatro.",
       showingFor: 'Vista para — {{name}}',
       industry: { short: '🏭 Industria', name: 'Industria', title: 'Vista operador', body: 'Vista técnica completa.' },
       community: { short: '🌳 Comunidad', name: 'Comunidad', title: 'Impacto local', body: 'Cómo se estudiarán los efectos sobre la zona y sobre las personas cercanas a las plantas: transporte, aire, agua y suelo locales, lo que se esparce en los campos, si se escucha a los vecinos. Todavía no hay resultados.' },

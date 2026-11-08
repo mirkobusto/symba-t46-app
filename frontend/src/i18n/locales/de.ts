@@ -163,7 +163,7 @@ const de: Locale = {
       notAssessed: "von diesem Tool nicht bewertet",
     },
     audience: {
-      choose: "Als wer lesen Sie? Wählen Sie Ihre Ansicht: Die Fakten sind in allen vier gleich.",
+      choose: "Wer sind Sie? Wählen Sie Ihre Ansicht: Die Fakten sind in allen vier gleich.",
       showingFor: 'Ansicht für — {{name}}',
       industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Betreiberansicht', body: 'Vollständige technische Übersicht.' },
       community: { short: '🌳 Gemeinschaft', name: 'Gemeinschaft', title: 'Lokale Auswirkungen', body: 'Wie die Wirkungen auf die Gegend und auf die Menschen in der Nähe der Anlagen untersucht werden: Transporte, lokale Luft, Wasser und Boden, was auf Felder ausgebracht wird, ob Anwohner gehört werden. Es gibt noch keine Ergebnisse.' },

@@ -172,7 +172,7 @@ const it: Locale = {
       notAssessed: "non valutata da questo strumento",
     },
     audience: {
-      choose: "Con quali occhi leggi? Scegli la tua vista: i fatti sono gli stessi in tutte e quattro.",
+      choose: "Chi sei? Scegli la tua vista: i fatti sono gli stessi in tutte e quattro.",
       showingFor: 'Vista per: {{name}}',
       industry: { short: '🏭 Industria', name: 'Industria', title: 'Vista operatore', body: 'Quadro tecnico completo della configurazione metodologica per chi gestisce la simbiosi.' },
       community: { short: '🌳 Comunità', name: 'Comunità', title: 'Vista impatto locale', body: 'Come verranno studiati gli effetti sulla zona e sulle persone vicine agli impianti: trasporti, aria, acqua e suolo locali, ciò che si sparge sui campi, se i residenti vengono ascoltati. Non ci sono ancora risultati.' },

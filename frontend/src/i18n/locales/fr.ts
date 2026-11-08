@@ -163,7 +163,7 @@ const fr: Locale = {
       notAssessed: "non évaluée par cet outil",
     },
     audience: {
-      choose: "Vous lisez en tant que qui ? Choisissez votre vue : les faits sont les mêmes dans les quatre.",
+      choose: "Qui êtes-vous ? Choisissez votre vue : les faits sont les mêmes dans les quatre.",
       showingFor: 'Vue pour — {{name}}',
       industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Vue opérateur', body: 'Vue technique complète pour les opérateurs.' },
       community: { short: '🌳 Communauté', name: 'Communauté', title: 'Vue impact local', body: 'Comment seront étudiés les effets sur la zone et sur les personnes proches des installations : transports, air, eau et sol locaux, ce qui est épandu sur les champs, si les habitants sont entendus. Il n\'y a pas encore de résultats.' },

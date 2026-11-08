@@ -1,5 +1,8 @@
 // Turns what a reader pasted into the path of a shared report (/r/open).
 
+/** Reader pages that sit where a case code would (/r/<page>). */
+const RESERVED = ['open', 'about', 'region', 'fill-in']
+
 export const VIEWS = ['industry', 'community', 'authority', 'enduser'] as const
 export type View = (typeof VIEWS)[number]
 
@@ -33,7 +36,7 @@ export function sharedReportPath(input: string): string | null {
   const rest = (marker >= 0 ? text.slice(marker + 3) : text).split(/[?#]/)[0]
   const [rawKey, rawView] = rest.split('/').filter(Boolean)
   const key = rawKey?.toLowerCase()
-  if (!key || !/^[a-z0-9-]+$/.test(key) || key === 'open' || key === 'about' || key === 'region') return null
+  if (!key || !/^[a-z0-9-]+$/.test(key) || RESERVED.includes(key)) return null
   const view = viewOf(rawView)
   return view ? `/r/${key}/${view}` : `/r/${key}`
 }
@@ -43,5 +46,5 @@ export function sharedReportPath(input: string): string | null {
 // (UX round 2026-11-03).
 export function sharedCaseOf(pathname: string): string | null {
   const m = /^\/r\/([^/]+)(?:\/[^/]+)?\/?$/.exec(pathname)
-  return m && !['about', 'open', 'region'].includes(m[1]) ? m[1] : null
+  return m && !RESERVED.includes(m[1]) ? m[1] : null
 }

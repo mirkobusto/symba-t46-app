@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import '../i18n'
 import StakeholderView from '../components/StakeholderView'
+import { usePreferenceStore } from '../store/preferenceStore'
 import type { Case } from '../types/api'
 
 // R6 (2026-10-18): each audience sees its rows of the configuration, without the
@@ -16,8 +17,34 @@ const ECO_ONLY: Case = {
 describe('StakeholderView rows', () => {
   it('tells the end user that the environment is not assessed instead of an empty block', () => {
     render(<StakeholderView stakeholderType="end-user" caseData={ECO_ONLY} scoring={null} />)
-    expect(screen.getByText(/does not assess environmental impacts/)).toBeTruthy()
+    // in its own row, in words, and not twice (UX round 6, P5-02)
+    expect(screen.getByText('Environmental effects')).toBeTruthy()
+    expect(screen.getByText('No: environmental effects are not assessed in this study.')).toBeTruthy()
+    expect(screen.queryByText(/does not assess environmental impacts/)).toBeNull()
+    expect(screen.queryByText('Functional unit')).toBeNull()
+    expect(screen.getByText('What is measured')).toBeTruthy()
+    expect(screen.getByText('Independent check')).toBeTruthy()
+    expect(screen.queryByText(/S-LCA/)).toBeNull()
     expect(screen.queryByText(/Why:/)).toBeNull()
+  })
+
+  it('gives the in-app Authority tab the five signals of the public view, without Q codes', () => {
+    // UX round 6, P3-07: three bare signals with "(Q4=D)", the public page five explained ones
+    usePreferenceStore.setState({ mode: 'guided' })
+    render(<StakeholderView stakeholderType="authority" caseData={{ ...ECO_ONLY, q4: ['D'] }} scoring={null} />)
+    expect(screen.getByText('Independent review of the study')).toBeTruthy()
+    expect(screen.getByText('panel of three or more experts')).toBeTruthy()
+    expect(screen.getByText('Set up for a public decision (societal LCC)')).toBeTruthy()
+    expect(screen.getByText(/Do No Significant Harm/)).toBeTruthy()
+    expect(screen.queryByText(/Q4\s*=/)).toBeNull()
+    usePreferenceStore.setState({ mode: 'expert' })
+  })
+
+  it('does not promise the community social indicators when the study has none', () => {
+    render(<StakeholderView stakeholderType="community" caseData={ECO_ONLY} scoring={null} />)
+    expect(screen.getByText(/This study has no social indicators/)).toBeTruthy()
+    expect(screen.getByText(/ask whoever carries out the study to add them/)).toBeTruthy()
+    expect(screen.queryByText(/contact on this page/)).toBeNull()
   })
 
   it('shows the industry its costing row without the reason', () => {

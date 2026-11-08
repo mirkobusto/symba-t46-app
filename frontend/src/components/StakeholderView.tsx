@@ -25,7 +25,9 @@
 
 import { useTranslation } from 'react-i18next'
 
+import ComplianceChecklist from './dd/ComplianceChecklist'
 import ConfigurationSummary from './ConfigurationSummary'
+import { complianceSignals } from '../pages/complianceSignals'
 import { AUDIENCE_ROWS } from '../pages/configurationRows'
 import { plainVerdict, verdictFor, type VerdictDetail } from '../pages/resultNarrative'
 import type { Case } from '../types/api'
@@ -95,7 +97,8 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
   // the slca row says it where the audience has it; the paragraph is for the others
   const socialOff = axes.includes('slca') && caseData.slca_activation_state === 'deactivated'
     && !AUDIENCE_ROWS[stakeholderType].includes('slca')
-  const environmentalOff = !caseData.q3?.env
+  // the end user has a row for the environment (UX round 6, P5-02)
+  const environmentalOff = !caseData.q3?.env && !AUDIENCE_ROWS[stakeholderType].includes('environment')
   const economicOff =
     axes.includes('lcc') && caseData.lcc_type === 'deactivated'
 
@@ -194,7 +197,10 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
         {scoring === null ? (
           <div className="stakeholder-scoring-placeholder">
             <strong>{t('stakeholder.scoringPendingTitle')}</strong>
-            <p>{t(`stakeholder.audience.${stakeholderType}.whenScoring`)}</p>
+            {/* no social indicators to promise when the study has none (UX round 6, P4-03) */}
+            <p>{t(stakeholderType === 'community' && !caseData.q3?.soc
+              ? 'stakeholder.audience.community.whenScoringNoSocial'
+              : `stakeholder.audience.${stakeholderType}.whenScoring`)}</p>
           </div>
         ) : filteredIndicators.length === 0 ? (
           <p className="muted">{t('stakeholder.scoringEmpty')}</p>
@@ -230,37 +236,13 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
       ) : null}
 
       {stakeholderType === 'authority' ? (
+        // the same five signals as the public Authority view, in words: the
+        // tab showed three bare ones with Q codes (UX round 6, P3-07)
         <section className="stakeholder-section">
           <h3>{t('stakeholder.complianceTitle')}</h3>
-          <ul className="stakeholder-ul">
-            <li>
-              {t('stakeholder.compliance.peerReview', {
-                status:
-                  caseData.q4?.includes('E')
-                    ? t('common.yes')
-                    : t('common.no'),
-              })}
-            </li>
-            <li>
-              {/* one company's accounts (C2) use allocation, not the CFF (D4.1 §7.2.3) */}
-              {caseData.q4?.includes('D') && caseData.ilcd_situation === 'ILCD Situation C2'
-                ? t('stakeholder.compliance.pefC2')
-                : t('stakeholder.compliance.pef', {
-                  status:
-                    caseData.q4?.includes('D')
-                      ? t('common.yes')
-                      : t('common.no'),
-                })}
-            </li>
-            <li>
-              {t('stakeholder.compliance.publicClaim', {
-                status:
-                  caseData.q4?.includes('C')
-                    ? t('common.yes')
-                    : t('common.no'),
-              })}
-            </li>
-          </ul>
+          <ComplianceChecklist
+            items={complianceSignals(caseData, (key, options) => t(key, options ?? {}) as string)}
+          />
         </section>
       ) : null}
     </div>

@@ -21,6 +21,7 @@ import StakeholderView, {
 import { ApiError, fetchScoring } from '../services/api'
 import { useCaseStore } from '../store/caseStore'
 import { usePreferenceStore } from '../store/preferenceStore'
+import { verdictFor } from './resultNarrative'
 import type { ScoringPayload } from '../types/scoring'
 import { tabForRole } from './stakeholderTab'
 
@@ -36,6 +37,10 @@ export default function StakeholderReportPage() {
   const result = useCaseStore((s) => s.result)
   const draft = useCaseStore((s) => s.draft)
   const sourceCase = result ?? draft
+  // without a configured case there is no result to go back to and no file to
+  // open: a reader who came for a report they received was offered both
+  // (UX round 6, P4-16)
+  const hasCase = verdictFor(sourceCase, (key, fallback) => t(key, { defaultValue: fallback ?? '' })) !== null
 
   // The wizard asks who you are and then nothing used the answer: this
   // page always opened on Industry, a tab that declares itself "for the
@@ -124,14 +129,28 @@ export default function StakeholderReportPage() {
         />
       )}
 
-      <div className="dd-page-actions">
-        <Link to="/result" className="dd-btn dd-btn-secondary">
-          {t('stakeholder.backToResult')}
-        </Link>
-        <Link to="/data-collection" className="dd-btn dd-btn-secondary">
-          {t('stakeholder.openDcf')}
-        </Link>
-      </div>
+      {hasCase ? (
+        <div className="dd-page-actions">
+          {result ? (
+            <Link to="/result" className="dd-btn dd-btn-secondary">
+              {t('stakeholder.backToResult')}
+            </Link>
+          ) : null}
+          <Link to="/data-collection" className="dd-btn dd-btn-secondary">
+            {t('stakeholder.openDcf')}
+          </Link>
+        </div>
+      ) : (
+        <div className="dd-page-actions">
+          <p className="dd-muted" style={{ flexBasis: '100%', margin: 0 }}>{t('stakeholder.noCaseReader')}</p>
+          <Link to="/r/open" className="dd-btn dd-btn-primary">
+            {t('adminShell.nav.openShared')}
+          </Link>
+          <Link to="/#presets" className="dd-btn dd-btn-secondary">
+            {t('stakeholder.seeExample')}
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

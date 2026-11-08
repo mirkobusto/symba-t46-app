@@ -13,6 +13,8 @@ export interface PublicReportResponse {
   shared_at?: string | null
   prepared_by?: string | null
   case_contact?: string | null
+  /** ISO2 codes of the companies of the drawn network, never their names */
+  countries?: string[]
   case: Case
   scoring: ScoringPayload | null
 }

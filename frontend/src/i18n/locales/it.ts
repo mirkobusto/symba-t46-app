@@ -310,9 +310,6 @@ const it: Locale = {
       diverged: "con modifiche non ancora salvate (ultimo salvataggio il {{date}})",
       divergedNoDate: "con modifiche non ancora salvate",
       unsaved: "non salvate nello strumento: la bozza aperta nel browser",
-      register: "Scritto per",
-      guided: "chi si avvicina al metodo (modalità guidata)",
-      expert: "l'analista (modalità esperta)",
     },
     sections: {
       summary: "Sintesi",

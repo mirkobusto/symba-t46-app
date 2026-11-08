@@ -332,9 +332,6 @@ const en = {
       diverged: "with changes not yet saved (last saved on {{date}})",
       divergedNoDate: "with changes not yet saved",
       unsaved: "not saved in the tool: the draft open in the browser",
-      register: "Written for",
-      guided: "readers new to the method (guided mode)",
-      expert: "the analyst (expert mode)",
     },
     sections: {
       summary: "Summary",

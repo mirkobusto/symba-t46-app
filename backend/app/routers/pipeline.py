@@ -67,7 +67,7 @@ class ReportMeta(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    case_name: str | None = Field(default=None, max_length=200)
+    case_name: str | None = Field(default=None, max_length=256)
     case_ref: str | None = Field(default=None, max_length=120)
     prepared_by: str | None = Field(default=None, max_length=120)
     contact: str | None = Field(default=None, max_length=200)

@@ -290,9 +290,6 @@ const fr: Locale = {
       diverged: "avec des modifications pas encore enregistrées (dernier enregistrement le {{date}})",
       divergedNoDate: "avec des modifications pas encore enregistrées",
       unsaved: "non enregistrées dans l'outil : le brouillon ouvert dans le navigateur",
-      register: "Rédigé pour",
-      guided: "les personnes qui découvrent la méthode (mode guidé)",
-      expert: "l'analyste (mode expert)",
     },
     sections: {
       summary: "Synthèse",

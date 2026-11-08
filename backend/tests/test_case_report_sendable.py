@@ -182,6 +182,16 @@ def test_without_the_page_the_sector_rules_drop_the_line_numbers(dairy):
     assert not re.search(r"\bL0\d{4}\b", rules.split("Read as")[0].split("Part 1")[0])
 
 
+def test_a_blocked_case_says_what_blocks_it_and_skips_the_configuration():
+    case = run(Case(q1=Q1.A, q2=Q2.A, q3=Q3(env=True), q4={Q4.A}, decision_context=DecisionContext.MICRO,
+                    flows=[Flow(id="f1", name="mixed residues", q5=Q5.e)]))
+    assert case.blocked_by
+    text = _text(_doc(case, meta=META))
+    assert "Blocked: the answers trigger the blocks listed below" in text
+    assert "Your configuration" not in text
+    assert "2. The answers" in text and "Acknowledgements" in text
+
+
 def test_the_endpoint_names_the_file_after_the_case():
     from app.main import app
     client = TestClient(app)

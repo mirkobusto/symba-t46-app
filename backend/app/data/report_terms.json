@@ -15,10 +15,7 @@
     "savedNoDate": "as saved in the tool",
     "diverged": "with changes not yet saved (last saved on {{date}})",
     "divergedNoDate": "with changes not yet saved",
-    "unsaved": "not saved in the tool: the draft open in the browser",
-    "register": "Written for",
-    "guided": "readers new to the method (guided mode)",
-    "expert": "the analyst (expert mode)"
+    "unsaved": "not saved in the tool: the draft open in the browser"
    },
    "sections": {
     "summary": "Summary",
@@ -657,10 +654,7 @@
     "savedNoDate": "come salvate nello strumento",
     "diverged": "con modifiche non ancora salvate (ultimo salvataggio il {{date}})",
     "divergedNoDate": "con modifiche non ancora salvate",
-    "unsaved": "non salvate nello strumento: la bozza aperta nel browser",
-    "register": "Scritto per",
-    "guided": "chi si avvicina al metodo (modalità guidata)",
-    "expert": "l'analista (modalità esperta)"
+    "unsaved": "non salvate nello strumento: la bozza aperta nel browser"
    },
    "sections": {
     "summary": "Sintesi",
@@ -1299,10 +1293,7 @@
     "savedNoDate": "telles qu'enregistrées dans l'outil",
     "diverged": "avec des modifications pas encore enregistrées (dernier enregistrement le {{date}})",
     "divergedNoDate": "avec des modifications pas encore enregistrées",
-    "unsaved": "non enregistrées dans l'outil : le brouillon ouvert dans le navigateur",
-    "register": "Rédigé pour",
-    "guided": "les personnes qui découvrent la méthode (mode guidé)",
-    "expert": "l'analyste (mode expert)"
+    "unsaved": "non enregistrées dans l'outil : le brouillon ouvert dans le navigateur"
    },
    "sections": {
     "summary": "Synthèse",
@@ -1941,10 +1932,7 @@
     "savedNoDate": "wie im Werkzeug gespeichert",
     "diverged": "mit noch nicht gespeicherten Änderungen (zuletzt gespeichert am {{date}})",
     "divergedNoDate": "mit noch nicht gespeicherten Änderungen",
-    "unsaved": "nicht im Werkzeug gespeichert: der im Browser geöffnete Entwurf",
-    "register": "Geschrieben für",
-    "guided": "Leserinnen und Leser, die die Methode nicht kennen (geführter Modus)",
-    "expert": "die Analyse (Expertenmodus)"
+    "unsaved": "nicht im Werkzeug gespeichert: der im Browser geöffnete Entwurf"
    },
    "sections": {
     "summary": "Zusammenfassung",
@@ -2583,10 +2571,7 @@
     "savedNoDate": "tal como se guardaron en la herramienta",
     "diverged": "con cambios aún no guardados (último guardado el {{date}})",
     "divergedNoDate": "con cambios aún no guardados",
-    "unsaved": "no guardadas en la herramienta: el borrador abierto en el navegador",
-    "register": "Escrito para",
-    "guided": "quien se acerca al método por primera vez (modo guiado)",
-    "expert": "el analista (modo experto)"
+    "unsaved": "no guardadas en la herramienta: el borrador abierto en el navegador"
    },
    "sections": {
     "summary": "Resumen",

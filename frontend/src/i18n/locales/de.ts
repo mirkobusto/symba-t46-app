@@ -284,9 +284,6 @@ const de: Locale = {
       diverged: "mit noch nicht gespeicherten Änderungen (zuletzt gespeichert am {{date}})",
       divergedNoDate: "mit noch nicht gespeicherten Änderungen",
       unsaved: "nicht im Werkzeug gespeichert: der im Browser geöffnete Entwurf",
-      register: "Geschrieben für",
-      guided: "Leserinnen und Leser, die die Methode nicht kennen (geführter Modus)",
-      expert: "die Analyse (Expertenmodus)",
     },
     sections: {
       summary: "Zusammenfassung",

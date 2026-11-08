@@ -284,9 +284,6 @@ const es: Locale = {
       diverged: "con cambios aún no guardados (último guardado el {{date}})",
       divergedNoDate: "con cambios aún no guardados",
       unsaved: "no guardadas en la herramienta: el borrador abierto en el navegador",
-      register: "Escrito para",
-      guided: "quien se acerca al método por primera vez (modo guiado)",
-      expert: "el analista (modo experto)",
     },
     sections: {
       summary: "Resumen",

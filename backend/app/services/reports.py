@@ -298,7 +298,7 @@ def _properties(doc: DocxDocument, lang: str, title: str, author: str | None) ->
 # ---------------------------------------------------------------------------
 
 
-def _cover(doc: DocxDocument, case: Case, lang: str, title: str, meta: dict[str, Any], guided: bool) -> None:
+def _cover(doc: DocxDocument, lang: str, title: str, meta: dict[str, Any]) -> None:
     heading = doc.add_heading(title, level=0)
     heading.runs[0].font.size = Pt(22)
     rows: list[list[str]] = []
@@ -317,7 +317,6 @@ def _cover(doc: DocxDocument, case: Case, lang: str, title: str, meta: dict[str,
     if state in ("saved", "diverged", "unsaved"):
         key = state if state == "unsaved" or saved_on else f"{state}NoDate"
         rows.append([_t(lang, "docx.cover.answers"), _t(lang, f"docx.cover.{key}", date=saved_on)])
-    rows.append([_t(lang, "docx.cover.register"), _t(lang, "docx.cover.guided" if guided else "docx.cover.expert")])
     _table(doc, [0.3, 0.7], rows, bold_first=True)
     about = doc.add_paragraph()
     about.paragraph_format.space_before = Pt(8)
@@ -726,7 +725,7 @@ def generate_case_report_bytes(
     _page_setup(doc, lang, case_name)
     _properties(doc, lang, doc_title, (meta.get("prepared_by") or "").strip() or None)
 
-    _cover(doc, case, lang, doc_title, meta, guided)
+    _cover(doc, lang, doc_title, meta)
     sections = _Sections(doc)
     quotes: list[tuple[str, str]] = []
     items = action_items(case)

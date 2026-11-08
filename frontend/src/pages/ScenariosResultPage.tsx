@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { answerChanges, changedAnswers, inertAnswerHints } from '../components/scenarioChanges'
+import { SPEC, answerChanges, changedAnswers, inertAnswerHints } from '../components/scenarioChanges'
 import { translateNote } from '../i18n/engineNotes'
 import { schemaTerm } from '../i18n/schemaTerms'
 import { fetchDcfData } from '../services/api'
@@ -210,6 +210,9 @@ export default function ScenariosResultPage() {
   // the same words as the result page: no raw 'ILCD Situation', 'C+E' or 'alt1' (UX round 4)
   const label = useAxisLabel()
   const sr = useCaseStore((s) => s.scenariosResult)
+  // the changes set as JSON outside the form (advanced settings and the like)
+  // cannot be read off the two runs: they are named from the scenario itself
+  const draftScenarios = useCaseStore((s) => s.draft.alternative_scenarios)
   const network = useCaseNetwork()
   // guided mode: no question codes and no engine notes written for analysts
   const guided = usePreferenceStore((s) => s.mode) === 'guided'
@@ -310,6 +313,8 @@ export default function ScenariosResultPage() {
         const d = diffAgainst(sr.baseline, sc.result, tt, i18n.language, label as Axis)
         const changed = changedAnswers(sr.baseline, sc.result)
         const answers = answerChanges(changed, sr.baseline, tt)
+        const ownKeys = Object.keys(draftScenarios?.find((x) => x.id === sc.id)?.overrides ?? {})
+        answers.otherKeys.push(...ownKeys.filter((k) => !(k in SPEC)))
         const hints = inertAnswerHints(changed, sr.baseline, tt, guided)
         const notes = guided ? [] : newNotes(sr.baseline, sc.result).filter((w) => !SAID_BY_HINTS.has(w.code))
         const nothing = d.rows.length === 0 && d.added.length === 0 && d.removed.length === 0
@@ -321,7 +326,8 @@ export default function ScenariosResultPage() {
             {/* the answers first: "Nothing changes" alone hid what the scenario tried (P1-01) */}
             <p><strong>{t('scenariosResult.answersTitle')}</strong></p>
             {answers.changes.length === 0 && answers.otherKeys.length === 0 ? (
-              <p className="muted">{t('scenariosResult.sameAnswers')}</p>
+              // never "same answers" next to a configuration that differs
+              nothing ? <p className="muted">{t('scenariosResult.sameAnswers')}</p> : null
             ) : (
               <ul>
                 {answers.changes.map((c) => (

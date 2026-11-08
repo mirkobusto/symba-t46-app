@@ -148,6 +148,16 @@ describe('Scenario comparison says why', () => {
     expect(screen.queryByText(/These answers do not change/)).toBeNull()
   })
 
+  it('names the changes set as JSON outside the form', () => {
+    useCaseStore.setState({
+      draft: { ...BASE, alternative_scenarios: [{ id: 'alt1', label: 'Expert', overrides: { advanced: { x: 1 } } }] },
+      scenariosResult: { baseline: BASE, scenarios: [{ id: 'alt1', label: 'Expert', result: BASE }] },
+    } as never)
+    render(<MemoryRouter><ScenariosResultPage /></MemoryRouter>)
+    expect(screen.getByText('1 other change set as JSON')).toBeTruthy()
+    expect(screen.queryByText('Same answers as the case.')).toBeNull()
+  })
+
   it('a result stored before node changes existed still renders', () => {
     useCaseStore.setState({
       scenariosResult: { baseline: BASE, scenarios: [{ id: 'alt1', label: 'Old', result: { ...BASE, q7: 'B' } }] },

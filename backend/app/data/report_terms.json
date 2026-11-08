@@ -650,9 +650,9 @@
     "contact": "Contatto",
     "generatedOn": "Generato il",
     "answers": "Risposte",
-    "saved": "come salvate il {{date}}",
+    "saved": "come salvate ({{date}})",
     "savedNoDate": "come salvate nello strumento",
-    "diverged": "con modifiche non ancora salvate (ultimo salvataggio il {{date}})",
+    "diverged": "con modifiche non ancora salvate (ultimo salvataggio: {{date}})",
     "divergedNoDate": "con modifiche non ancora salvate",
     "unsaved": "non salvate nello strumento: la bozza aperta nel browser"
    },

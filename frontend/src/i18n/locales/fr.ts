@@ -37,7 +37,7 @@ const fr: Locale = {
   footer: {
     logoAlt: 'Symba Project',
     logoTitle: 'Aller au site du projet SYMBA',
-    toolLine: 'Monitoring & Reporting System · Tâche T4.6',
+    toolLine: 'Système de suivi et de reporting · Tâche T4.6',
     followUs: 'Suivez-nous',
     projectInfo: 'Informations sur le projet',
     projectWebsite: 'Site du projet',
@@ -70,18 +70,18 @@ const fr: Locale = {
   layout: {
     skipToMain: 'Aller au contenu principal',
     brand: 'SYMBA T4.6',
-    brandTag: 'Système de Suivi et de Reporting pour la Symbiose Industrielle',
+    brandTag: 'Système de suivi et de reporting pour la symbiose industrielle',
     about: 'À propos',
-    footer: 'SYMBA T4.6 — IS Assessment Tool · MVP',
+    footer: 'SYMBA T4.6 · Système de suivi et de reporting · MVP',
     shortcutsHint: 'Appuyez sur {{key}} pour les raccourcis',
   },
 
   share: {
     buttonLabel: "Partager le lien public", title: 'Partager ce rapport',
-    lead: 'Envoyez l\'un de ces URLs à une partie prenante. Même cas, cadrage différent pour chaque audience. Pour une étiquette de produit, partagez le lien End user.',
+    lead: 'Envoyez l\'une de ces adresses à une partie prenante. Même cas, présenté différemment pour chaque public ; aucune connexion n\'est nécessaire pour l\'ouvrir. Pour une étiquette de produit, partagez le lien Utilisateur final.',
     close: 'Fermer', done: 'Terminé', copy: 'Copier', copied: 'Copié ✓',
-    copyFailed: 'Copie impossible — copiez l\'URL manuellement.',
-    saveFirstTitle: 'Sauvegardez d\'abord le cas',
+    copyFailed: 'Copie impossible : copiez l\'adresse manuellement.',
+    saveFirstTitle: 'Enregistrez d\'abord le cas',
     saveFirstBody: "Pour partager, le cas doit être enregistré sur le serveur, et l'enregistrement demande un compte. Connectez-vous, enregistrez le cas avec « {{button}} », puis rouvrez cette fenêtre.",
     audience: { industry: '🏭 Industrie', community: '🌳 Communauté', authority: '🏛 Autorité locale', enduser: '👤 Utilisateur' },
     publicToggle: 'Rendre ce rapport lisible par toute personne qui a le lien',
@@ -159,14 +159,14 @@ const fr: Locale = {
       pef: { name: "Empreinte environnementale de produit UE (PEF)", desc: "L'étude suit la méthode européenne d'empreinte, y compris la Circular Footprint Formula.", descC2: "Non applicable : les comptes d'une seule entreprise utilisent l'allocation, pas la Circular Footprint Formula (ILCD C2).", descB: 'Exécutée comme analyse de sensibilité : la Situation B est modélisée de façon conséquentielle.' },
       public: { name: 'Affirmation comparative divulguée au public', desc: "Affirmer publiquement qu'un produit est meilleur ou équivalent à un autre exige un panel de revue ISO." },
       dnsh: { name: "Taxonomie UE « ne pas causer de préjudice important » (DNSH)", desc: "Un contrôle distinct pour les financements liés à la taxonomie (art. 17) ; cet outil ne le réalise pas." },
-      slcc: { name: 'Conçu pour une décision publique (LCC sociétal)', yes: 'Oui : le calcul des coûts inclut la lecture de la société qu\'exige une décision publique (taxes et subventions corrigées, effets environnementaux valorisés) — D4.2 §2.3.', no: 'Non : le calcul des coûts reste au niveau de l\'entreprise et de la chaîne de valeur. Si un organisme public doit décider de ce cas, demandez à l\'analyste de configurer l\'étude pour un objectif public.', c2: 'Sans objet : les comptes d\'une seule entreprise sont calculés au niveau de l\'entreprise seulement.', off: 'Non évalué : l\'étude n\'a pas de dimension économique.', undeclared: "Non déclaré : l'étude ne dit pas si un organisme public doit décider sur elle. Demandez à l'analyste." },
+      slcc: { name: 'Conçu pour une décision publique (LCC sociétal)', yes: 'Oui : le calcul des coûts inclut la lecture de la société qu\'exige une décision publique (taxes et subventions corrigées, effets environnementaux valorisés ; D4.2 §2.3).', no: 'Non : le calcul des coûts reste au niveau de l\'entreprise et de la chaîne de valeur. Si un organisme public doit décider de ce cas, demandez à l\'analyste de configurer l\'étude pour un objectif public.', c2: 'Sans objet : les comptes d\'une seule entreprise sont calculés au niveau de l\'entreprise seulement.', off: 'Non évalué : l\'étude n\'a pas de dimension économique.', undeclared: "Non déclaré : l'étude ne dit pas si un organisme public doit décider sur elle. Demandez à l'analyste." },
       notPlanned: "non prévue dans cette étude",
       notAssessed: "non évaluée par cet outil",
     },
     audience: {
       choose: "Qui êtes-vous ? Choisissez votre vue : les faits sont les mêmes dans les quatre.",
-      showingFor: 'Vue pour — {{name}}',
-      industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Vue opérateur', body: 'Vue technique complète pour les opérateurs.' },
+      showingFor: 'Vue pour : {{name}}',
+      industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Vue opérateur', body: 'Vue technique de la configuration méthodologique, pour les entreprises qui font fonctionner la symbiose.' },
       community: { short: '🌳 Communauté', name: 'Communauté', title: 'Vue impact local', body: 'Comment seront étudiés les effets sur la zone et sur les personnes proches des installations : transports, air, eau et sol locaux, ce qui est épandu sur les champs, si les habitants sont entendus. Il n\'y a pas encore de résultats.' },
       authority: { short: '🏛 Autorité', name: 'Autorité locale', title: 'Vue réglementaire', body: "Comment l'évaluation est cadrée : coûts, biens partagés, scénario de référence, affirmations publiques, horizon, effets sociaux." },
       enduser: { short: '👤 Utilisateur', name: 'Utilisateur final', title: 'Résumé', body: "De quoi parle ce cas et ce qui sera évalué. Il n'y a pas encore de résultats." },
@@ -196,7 +196,7 @@ const fr: Locale = {
       bySituationTitle: 'Par situation ILCD', bySectorTitle: 'Par secteur', tableKey: 'Valeur', tableCount: 'Nombre',
       errorTitle: 'Région indisponible', errorBody: 'Impossible de charger les données.',
     },
-    preparedBy: 'Préparé par {{name}} — réponses saisies par l\'auteur du cas, non vérifiées par SYMBA.',
+    preparedBy: 'Préparé par {{name}}. Réponses saisies par l\'auteur du cas, non vérifiées par SYMBA.',
     contact: 'Pour les questions sur ce cas : {{contact}}',
     noContact: 'Pour les questions sur ce cas, adressez-vous à la personne qui vous a envoyé le lien. SYMBA a construit l\'outil ; il ne réalise pas cette étude.',
     whatYouCanDo: 'Cette étude est encore en préparation. Si vous voulez que les habitants soient entendus (entretiens, questionnaires), ou si le trafic, les odeurs ou ce qui est épandu sur les champs vous inquiètent, écrivez à la personne qui l\'a préparée : {{contact}}. Les résultats, une fois chargés, apparaîtront sur cette même page, au même lien.',
@@ -208,7 +208,7 @@ const fr: Locale = {
 
   welcome: {
     title: "Bienvenue dans SYMBA",
-    lead: "Cet outil détermine quelle méthodologie votre cas de symbiose industrielle exige et quelles données vous devez collecter. Il ne calcule pas les résultats environnementaux, économiques ou sociaux. Deux questions rapides et nous vous emmenons au bon endroit — vous pourrez les modifier plus tard, depuis le menu à l'intérieur de l'outil.",
+    lead: "Cet outil détermine quelle méthodologie votre cas de symbiose industrielle exige et quelles données vous devez collecter. Il ne calcule pas les résultats environnementaux, économiques ou sociaux. Deux questions rapides et nous vous emmenons au bon endroit ; vous pourrez les modifier plus tard, depuis le menu à l'intérieur de l'outil.",
     step1: { title: 'Qui êtes-vous ?' },
     step2: { title: 'Que souhaitez-vous faire ?' },
     back: 'Retour',
@@ -216,19 +216,19 @@ const fr: Locale = {
     finish: 'C\'est parti',
     skip: 'Passer pour l\'instant',
     roles: {
-      analyst: { name: 'Analyste de durabilité', desc: 'Praticien IS, relecteur LCA/LCC/S-LCA, méthodologue.' },
+      analyst: { name: 'Analyste de durabilité', desc: 'Spécialiste de la symbiose industrielle, relecteur LCA/LCC/S-LCA, méthodologue.' },
       industry: { name: 'Opérateur industriel', desc: "Vous gérez une usine ou un site dans un réseau de symbiose industrielle." },
       authority: { name: 'Autorité locale', desc: 'Municipalité, région, analyste politique du territoire.' },
       community: { name: 'Représentant de communauté', desc: 'Association, ONG, groupe de citoyens du territoire hôte.' },
       enduser: { name: 'Utilisateur / citoyen', desc: 'Vous utilisez des produits ou services issus de la symbiose.' },
-      unknown: { name: 'Pas sûr encore', desc: 'C\'est bien — nous vous emmenons sur la page de vue d\'ensemble.' },
+      unknown: { name: 'Pas sûr encore', desc: 'Pas de problème : nous vous emmenons sur la page de vue d\'ensemble.' },
     },
     tasks: {
       fill: { name: "Je dois remplir un Data Collection File", desc: "On m'a envoyé un classeur Excel sur les échanges de mon entreprise et je dois le renvoyer rempli." },
-      assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie pour un cas IS par un court questionnaire.' },
+      assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie d\'un cas de symbiose industrielle par un court questionnaire.' },
       read: { name: 'Lire un rapport partagé', desc: 'Ouvrir un cas partagé avec moi et voir le rapport.' },
       explore: { name: 'Explorer une région / secteur', desc: "Voir comment les cas enregistrés se répartissent entre méthodes et secteurs." },
-      browse: { name: 'Juste regarder', desc: 'Pas d\'objectif précis — je veux voir ce que fait l\'outil.' },
+      browse: { name: 'Juste regarder', desc: 'Pas d\'objectif précis : je veux voir ce que fait l\'outil.' },
     },
   },
 
@@ -287,7 +287,7 @@ const fr: Locale = {
       not: { title: "Ce qu'il ne fait pas", body: "Il ne calcule pas les résultats : ni émissions, ni coûts, ni données sociales. Qui réalise l'étude les calcule avec les données que l'outil demande." },
       who: { title: "Pour qui", body: "Les analystes de durabilité et les consultants y organisent leurs études ; entreprises, organismes publics et associations lisent les rapports et voient quelles données leur seront demandées ; les citoyens qui ont reçu un lien, par exemple sur l'étiquette d'un produit, lisent le rapport public." },
     },
-    title: "SYMBA — évaluer la symbiose industrielle",
+    title: "SYMBA : évaluer la symbiose industrielle",
     tagline: "Comment organiser l'évaluation environnementale, économique et sociale d'un échange entre entreprises, et quelles données collecter.",
     description: "Répondez à des questions sur votre cas : le déchet, le sous-produit, la chaleur ou l'eau d'une entreprise qui deviennent la matière première d'une autre. Vous obtenez la configuration méthodologique que l'étude doit suivre et un Data Collection File à envoyer aux partenaires.",
     startButton: "Démarrer une nouvelle évaluation",
@@ -295,10 +295,10 @@ const fr: Locale = {
     modeExpert: 'Expert',
     modeGuided: 'Guidé',
     modeHint: {
-      expert: "Questionnaire rapide pour les analystes IS et relecteurs familiers avec la terminologie ILCD / LCSA.",
+      expert: "Questionnaire rapide pour les analystes de la symbiose industrielle et les relecteurs familiers de la terminologie ILCD / LCSA.",
       guided: "Mode pas-à-pas pour les industriels, représentants de communautés et décideurs. Chaque question est accompagnée d'une explication en mots simples ; la note méthodologique complète reste à un clic.",
     },
-    hero: { title: 'Démarrer une nouvelle évaluation IS' },
+    hero: { title: 'Démarrer une nouvelle évaluation de symbiose industrielle' },
     openCasesLink: 'Ou ouvrir un cas sauvegardé',
     presetsTitle: "Exemples publiés",
     presetsMeta: "13 cas tirés d'articles scientifiques évalués par les pairs",
@@ -391,7 +391,7 @@ const fr: Locale = {
       q8b: "Q8b période d'analyse (années)",
       q8c: "Q8c durée de vie des actifs (années)",
       q9: "Q9 décision et échelle",
-      q9b: "Q9b screening de marché documenté",
+      q9b: "Q9b analyse de marché documentée",
       q10: "Q10 objectif public",
       q11: "Q11 ce que compare l'étude",
       q12: "Q12 biens dédiés et partagés",
@@ -399,14 +399,14 @@ const fr: Locale = {
   },
   privacy: {
     "title": "Privacy and data storage",
-    "draft": "DRAFT for legal review — not yet the privacy notice of record. Items in [square brackets] are for the controller of this deployment to complete.",
+    "draft": "DRAFT for legal review, not yet the privacy notice of record. Items in [square brackets] are for the controller of this deployment to complete.",
     "updated": "Version: draft 2, 2026-11-03.",
     "sections": [
       {
         "id": "controller",
         "title": "1. Who is responsible",
         "paragraphs": [
-          "[PLACEHOLDER — the SYMBA partner that operates this subdomain: name, address, contact. To be completed by the owner.]",
+          "[PLACEHOLDER: the SYMBA partner that operates this subdomain: name, address, contact. To be completed by the owner.]",
           "The project website https://www.symbaproject.eu/ has its own privacy policy, which covers the website. This page covers this tool."
         ],
         "items": []
@@ -426,7 +426,7 @@ const fr: Locale = {
         "items": [
           "Your account: email address, a bcrypt hash of your password (never the password itself), your role and the creation date. The email also sits inside the sign-in token (valid 12 hours) that your browser keeps. Registration is open to anyone unless the operator has closed it; only the operator's address becomes administrator.",
           "The cases you save: name, questionnaire answers, flows, optional sites (coordinates, country), the content of the data collection file (actor names, contact roles, costs), scoring data, the owner, and a public link name if you share a report.",
-          "Technical logs: the server's access log records the visitor's IP address, the time, the path and the status of each request; it goes to the container log of the host, rotated at 5 files of 10 MB. [PLACEHOLDER — logs of the reverse proxy or TLS terminator in front of the tool.]",
+          "Technical logs: the server's access log records the visitor's IP address, the time, the path and the status of each request; it goes to the container log of the host, rotated at 5 files of 10 MB. [PLACEHOLDER: logs of the reverse proxy or TLS terminator in front of the tool.]",
           "In your browser (local storage, not cookies): symba-auth (sign-in), symba-case-draft and symba-dcf-draft (unsaved work), symba-preferences and symba-language. The tool sets no cookies and loads its fonts from its own server, with no request to third parties."
         ]
       },
@@ -434,7 +434,7 @@ const fr: Locale = {
         "id": "purposes",
         "title": "4. Why, and on what legal basis",
         "paragraphs": [
-          "[PLACEHOLDER — purposes and legal basis, to be completed by the controller: operating the tool and its accounts for the SYMBA project (GA 101135562), security of the service.]"
+          "[PLACEHOLDER: purposes and legal basis, to be completed by the controller: operating the tool and its accounts for the SYMBA project (GA 101135562), security of the service.]"
         ],
         "items": []
       },
@@ -450,7 +450,7 @@ const fr: Locale = {
         "id": "storage",
         "title": "6. How long, and how to delete",
         "paragraphs": [
-          "Nothing is deleted automatically. You can delete your cases and the data collection content of a case from the tool. Deleting your account is not self-service yet: write to [PLACEHOLDER — contact]. Backups: [PLACEHOLDER — frequency and retention]."
+          "Nothing is deleted automatically. You can delete your cases and the data collection content of a case from the tool. Deleting your account is not self-service yet: write to [PLACEHOLDER: contact]. Backups: [PLACEHOLDER: frequency and retention]."
         ],
         "items": []
       },
@@ -458,7 +458,7 @@ const fr: Locale = {
         "id": "rights",
         "title": "7. Your rights",
         "paragraphs": [
-          "Under the GDPR (articles 15 to 22) you can ask for access, rectification, erasure, restriction, portability and object to processing: [PLACEHOLDER — contact]. You can complain to the supervisory authority: [PLACEHOLDER — authority]."
+          "Under the GDPR (articles 15 to 22) you can ask for access, rectification, erasure, restriction, portability and object to processing: [PLACEHOLDER: contact]. You can complain to the supervisory authority: [PLACEHOLDER: authority]."
         ],
         "items": []
       }
@@ -487,7 +487,7 @@ const fr: Locale = {
     technicalTitle: "Détails techniques (pour spécialistes)",
     title: 'À propos',
     p1:
-      'SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d\'une symbiose industrielle : à partir d\'un questionnaire sur le cas, il déduit quelle méthodologie s\'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats — les chiffres sont calculés hors de l\'outil par la personne qui réalise l\'étude, et personne ne les calcule automatiquement ; cette version ne permet pas encore de les charger dans un cas.',
+      'SYMBA T4.6 aide celui qui met en place une évaluation de durabilité du cycle de vie d\'une symbiose industrielle : à partir d\'un questionnaire sur le cas, il déduit quelle méthodologie s\'applique, quelles pratiques documenter et quelles données collecter auprès des partenaires du réseau. Il ne calcule pas les résultats : les chiffres sont calculés hors de l\'outil par la personne qui réalise l\'étude, et personne ne les calcule automatiquement ; cette version ne permet pas encore de les charger dans un cas.',
     p2:
       "Le questionnaire (Q0-Q12 ; Q9 fixe la situation ILCD, Q10 le S-LCC) déclenche l'activation des 186 nœuds Phase 1 plus 40 règles cross-method (18 IR + 10 CIR + 5 FU + 7 B). L'enforcement L3 au moment du reporting (IR-04 + IR-10) plus 11 Critical Decision Points font émerger les tensions cross-method.",
   },
@@ -551,35 +551,35 @@ const fr: Locale = {
       help:
         'Choisissez la correspondance la plus proche : ce qui compte est le sujet de l\'étude, pas son commanditaire. Elle décrit le système et sa frontière ; la modélisation de l\'étude découle de Q9 et des questions suivantes. (Obligatoire.)',
       details:
-        "A — échange bilatéral (ex. chaleur fatale de l'Usine X vers l'Usine Y, ou gypse co-produit d'une centrale thermique vers une cimenterie). Le sujet est le FLUX PARTAGÉ entre deux entreprises. " +
-        'B — parc éco-industriel ou réseau symbiotique avec 3+ acteurs (ex. Kalundborg, cluster NISP, masterplan de parc industriel). Le sujet est le RÉSEAU comme système. ' +
-        "C — décision de politique ou programme public à l'échelle régionale/nationale (ex. schéma de subvention IS, cadre réglementaire, stratégie industrielle UE). Le sujet est la DÉCISION/PROGRAMME, pas une usine spécifique. " +
-        'D — entreprise unique quantifiant sa contribution symbiotique pour reporting ESG / CSRD / durabilité (ex. « nous avons vendu 12 kt de laitier aux cimentiers, voici notre crédit »). Le sujet est UNE SEULE ENTREPRISE. ' +
-        "E — suivi périodique d'une symbiose déjà opérationnelle (mises à jour KPI annuelles, surveillance post-implémentation). Le sujet est la SÉRIE TEMPORELLE, pas une étude ponctuelle.",
+        "A. Échange bilatéral (ex. chaleur fatale de l'Usine X vers l'Usine Y, ou gypse co-produit d'une centrale thermique vers une cimenterie). Le sujet est le FLUX PARTAGÉ entre deux entreprises. " +
+        'B. Parc éco-industriel ou réseau symbiotique avec 3+ acteurs (ex. Kalundborg, cluster NISP, plan directeur de parc industriel). Le sujet est le RÉSEAU comme système. ' +
+        "C. Décision de politique ou programme public à l'échelle régionale/nationale (ex. programme d'aides à la symbiose industrielle, cadre réglementaire, stratégie industrielle UE). Le sujet est la DÉCISION/PROGRAMME, pas une usine spécifique. " +
+        'D. Entreprise unique quantifiant sa contribution symbiotique pour un reporting ESG / CSRD / durabilité (ex. « nous avons vendu 12 kt de laitier aux cimentiers, voici notre crédit »). Le sujet est UNE SEULE ENTREPRISE. ' +
+        "E. Suivi périodique d'une symbiose déjà opérationnelle (mises à jour annuelles des indicateurs, surveillance après la mise en œuvre). Le sujet est la SÉRIE TEMPORELLE, pas une étude ponctuelle.",
       options: {
         A: { label: 'A. Échange spécifique', description: "Un échange symbiotique entre deux entreprises, étudié seul, existant ou en projet." },
-        B: { label: 'B. Eco-park / réseau', description: "Un parc éco-industriel ou un réseau symbiotique multi-acteurs, ou une entreprise qui fournit deux partenaires ou plus." },
+        B: { label: 'B. Parc éco-industriel / réseau', description: "Un parc éco-industriel ou un réseau symbiotique multi-acteurs, ou une entreprise qui fournit deux partenaires ou plus." },
         C: { label: 'C. Politique / programme', description: "Une décision de politique ou programme à l'échelle régionale ou nationale." },
         D: { label: 'D. Rapport entreprise', description: "La contribution symbiotique d'une seule entreprise pour son rapport de durabilité (ESG, CSRD)." },
         E: { label: 'E. Suivi', description: "Suivi temporel d'une symbiose déjà opérationnelle." },
       },
       plain:
-        'Dites ce que vous examinez : un échange, un parc, un programme, une entreprise, une symbiose suivie dans le temps. La réponse décrit le système et sa frontière ; la manière de modéliser l\'étude est décidée par les questions suivantes, à commencer par la finalité de l\'étude. Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets. Une entreprise qui fournit deux partenaires ou plus compte comme un réseau : choisissez « Eco-park / réseau ».',
+        'Dites ce que vous examinez : un échange, un parc, un programme, une entreprise, une symbiose suivie dans le temps. La réponse décrit le système et sa frontière ; la manière de modéliser l\'étude est décidée par les questions suivantes, à commencer par la finalité de l\'étude. Si vous hésitez entre deux options, gardez celle qui décrit la chose dont vous voulez mesurer les effets. Une entreprise qui fournit deux partenaires ou plus compte comme un réseau : choisissez « Parc éco-industriel / réseau ».',
     },
 
     q2: {
       title: 'Q2 — Les échanges mesurés par l\'étude ont-ils déjà lieu ?',
       details:
-        'Répondez sur les échanges symbiotiques, pas sur les installations : une installation peut exister alors que l\'échange étudié n\'est encore qu\'un projet. A — oui : les échanges ont lieu aujourd\'hui et leurs flux peuvent être mesurés (ex. Kalundborg ; le district des tanneries de Daddi 2017). La référence est ce que chaque entreprise ferait aujourd\'hui si les liens étaient rompus (HNSRS, D4.1 §11.1). Si le réseau fonctionne depuis de nombreuses années, cette référence est un contrefactuel moderne, pas la configuration des entreprises d\'il y a des décennies (D4.1 §11.2.2) : la question de suivi le demande. B — pas encore : les échanges sont prévus, conçus, hypothétiques ou tout juste démarrés, même entre des installations qui fonctionnent déjà. La référence est la situation actuelle sans eux, y compris les échanges qui fonctionnent déjà (CNSRS, D4.1 §11.1). Comparer des alternatives (une extension, une nouvelle technologie) est ouvert à toute étude : ajoutez-les comme scénarios ci-dessous (D4.1 §4.3.3). Le moment où le système fonctionne est demandé en Q8.',
+        'Répondez sur les échanges symbiotiques, pas sur les installations : une installation peut exister alors que l\'échange étudié n\'est encore qu\'un projet. A. Oui : les échanges ont lieu aujourd\'hui et leurs flux peuvent être mesurés (ex. Kalundborg ; le district des tanneries de Daddi 2017). La référence est ce que chaque entreprise ferait aujourd\'hui si les liens étaient rompus (HNSRS, D4.1 §11.1). Si le réseau fonctionne depuis de nombreuses années, cette référence est un contrefactuel moderne, pas la configuration des entreprises d\'il y a des décennies (D4.1 §11.2.2) : la question de suivi le demande. B. Pas encore : les échanges sont prévus, conçus, hypothétiques ou tout juste démarrés, même entre des installations qui fonctionnent déjà. La référence est la situation actuelle sans eux, y compris les échanges qui fonctionnent déjà (CNSRS, D4.1 §11.1). Comparer des alternatives (une extension, une nouvelle technologie) est ouvert à toute étude : ajoutez-les comme scénarios ci-dessous (D4.1 §4.3.3). Le moment où le système fonctionne est demandé en Q8.',
       options: {
         A: { label: 'A. Oui, ils ont déjà lieu', description: 'Les échanges ont lieu aujourd\'hui : leurs flux peuvent être mesurés.' },
         B: { label: 'B. Pas encore', description: 'Prévus, conçus ou tout juste démarrés, même entre des installations qui existent déjà. Aussi quand certains échanges fonctionnent et d\'autres sont prévus.' },
       },
       longStanding: {
         label: "Le réseau fonctionne-t-il depuis si longtemps que les alternatives qu'il a remplacées (par ex. les chaudières que le chauffage urbain utiliserait) ne seraient plus construites aujourd'hui ?",
-        yes: 'Oui — la référence est un contrefactuel moderne : la configuration d\'avant la symbiose est exclue (D4.1 §11.2.2)',
-        no: 'Non — le réseau est récent',
-        unknown: 'Je ne sais pas — la configuration d\'avant la symbiose reste admise si c\'est encore ce que chaque entreprise ferait rationnellement aujourd\'hui',
+        yes: 'Oui : la référence est un contrefactuel moderne, et la configuration d\'avant la symbiose est exclue (D4.1 §11.2.2)',
+        no: 'Non, le réseau est récent',
+        unknown: 'Je ne sais pas : la configuration d\'avant la symbiose reste admise si c\'est encore ce que chaque entreprise ferait rationnellement aujourd\'hui',
       },
       plain:
         'Pensez aux échanges, pas aux installations. Si les flux entre les entreprises ont déjà lieu, vous pouvez les mesurer. S\'ils ne sont encore qu\'une idée, même entre des installations qui fonctionnent déjà, vous pouvez seulement les estimer. Vous voulez comparer des alternatives, comme une extension ou une nouvelle technologie ? Elles s\'ajoutent comme scénarios en mode expert, en bas du questionnaire, quelle que soit votre réponse ici. Certains échanges ont déjà lieu et d\'autres sont prévus ? Répondez « Pas encore » : l\'étude mesure alors ce qu\'apportent les nouveaux, et ceux qui fonctionnent déjà font partie de la situation à laquelle elle compare.',
@@ -589,28 +589,28 @@ const fr: Locale = {
       title: 'Q3 — Quelles dimensions de durabilité inclure ? *',
       help: "Au moins une est requise. Environnementale et économique sont l'appariement habituel.",
       details:
-        "ENV — analyse du cycle de vie environnementale (LCA ; en français souvent ACV) : impacts climat, écosystèmes, ressources. Presque toujours sélectionnée. " +
-        "ECO — dimension économique, évaluée par le coût du cycle de vie (Life Cycle Costing, LCC, D4.2). La MFCA (Material Flow Cost Accounting, ISO 14051) est une technique utilisée dans le LCC, pas une alternative ; l'ACB et la TEA ne sont pas proposées par cet outil. " +
-        "SOC — analyse sociale du cycle de vie (S-LCA). La sélectionner ajoute les règles sociales (catégories de parties prenantes : travailleurs, communauté locale, chaîne de valeur). " +
-        "La plupart des papiers IS publiés font ENV uniquement (ex. Sokka, Daddi) ; quelques-uns couplent ENV+ECO (Hashimoto, Wiktor) ; rares sont ceux qui ajoutent SOC.",
+        "ENV : analyse du cycle de vie environnementale (LCA ; en français souvent ACV) : impacts climat, écosystèmes, ressources. Presque toujours sélectionnée. " +
+        "ECO : dimension économique, évaluée par le coût du cycle de vie (Life Cycle Costing, LCC, D4.2). La MFCA (Material Flow Cost Accounting, ISO 14051) est une technique utilisée dans le LCC, pas une alternative ; l'ACB et la TEA ne sont pas proposées par cet outil. " +
+        "SOC : analyse sociale du cycle de vie (S-LCA). La sélectionner ajoute les règles sociales (catégories de parties prenantes : travailleurs, communauté locale, chaîne de valeur). " +
+        "La plupart des articles publiés sur la symbiose industrielle ne traitent que ENV (ex. Sokka, Daddi) ; quelques-uns couplent ENV+ECO (Hashimoto, Wiktor) ; rares sont ceux qui ajoutent SOC.",
       warning: 'Sélectionnez au moins une dimension pour continuer.',
       env: 'Environnementale (LCA)',
       eco: 'Économique (LCC)',
       soc: 'Sociale (S-LCA)',
       plain:
-        "Trois évaluations distinctes, chacune avec sa méthode et ses données : environnementale, économique — les coûts sur tout le cycle de vie, pas une analyse coûts-bénéfices — et sociale. Choisissez celles que vous comptez livrer. La plupart des études publiées ne font que l'environnementale, et ajouter l'économique est l'étape suivante habituelle ; la sociale demande bien plus d'informations auprès des personnes concernées, prévoyez donc d'aller les recueillir.",
+        "Trois évaluations distinctes, chacune avec sa méthode et ses données : environnementale, économique (les coûts sur tout le cycle de vie, pas une analyse coûts-bénéfices) et sociale. Choisissez celles que vous comptez livrer. La plupart des études publiées ne font que l'environnementale, et ajouter l'économique est l'étape suivante habituelle ; la sociale demande bien plus d'informations auprès des personnes concernées, prévoyez donc d'aller les recueillir.",
     },
 
     q4: {
       title: "Q4 — Comment utiliserez-vous et communiquerez-vous les résultats ?",
       help: 'Multi-sélection. Certains usages se combinent (ex. D + E pour un papier EU PEF).',
       details:
-        "A — usage interne : dashboards de management, screening R&D, décisions au niveau usine. Peu de contraintes méthodologiques. " +
-        "B — communication externe SANS claim comparatif (rapports de durabilité, brochures marketing sans phrase « meilleur que X »). " +
-        "C — CLAIM public que le système est meilleur qu'une alternative de même fonction, ou équivalent à elle (ex. « ce ciment est plus vert que l'OPC »), rendu public sous quelque forme que ce soit : rapport, site ou article scientifique (comparative assertion, ISO 14040 §3.6 ; D4.1 §15.3.4). Active la critical review obligatoire ISO 14044 par 3+ experts indépendants et désactive la pondération. À utiliser avec précaution. " +
-        "D — alignement avec les instruments de politique UE (digital product passport ESPR, règles de catégorie PEFCR). Force la PEF Circular Footprint Formula via CIR-05. Le rapport strict d'une seule entreprise (CSRD, ESG) se déclare en Q9, pas ici : il utilise l'allocation, pas la CFF. " +
-        "E — publication académique peer-reviewed. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. Si l'article affirme qu'un système est meilleur qu'une alternative concurrente ou équivalent à elle, cochez aussi C ; une comparaison qui ne désigne pas de gagnant reste E (lecture T4.6). " +
-        "Multi-sélection possible : un papier PEF typique choisit D + E.",
+        "A. Usage interne : tableaux de bord de gestion, présélection en R&D, décisions au niveau de l'usine. Peu de contraintes méthodologiques. " +
+        "B. Communication externe SANS affirmation comparative (rapports de durabilité, brochures marketing sans phrase « meilleur que X »). " +
+        "C. AFFIRMATION publique que le système est meilleur qu'une alternative de même fonction, ou équivalent à elle (ex. « ce ciment est plus vert que l'OPC »), rendu public sous quelque forme que ce soit : rapport, site ou article scientifique (affirmation comparative, ISO 14040 §3.6 ; D4.1 §15.3.4). Active la revue critique obligatoire ISO 14044 par 3+ experts indépendants et désactive la pondération. À utiliser avec précaution. " +
+        "D. Alignement avec les instruments de politique de l'UE (passeport numérique des produits de l'ESPR, règles de catégorie PEFCR). Force la PEF Circular Footprint Formula via CIR-05. Le rapport strict d'une seule entreprise (CSRD, ESG) se déclare en Q9, pas ici : il utilise l'allocation, pas la CFF. " +
+        "E. Publication académique évaluée par les pairs. Exige une transparence totale (sources de données, choix d'allocation, sensibilité). Souvent combinée avec B ou D. Si l'article affirme qu'un système est meilleur qu'une alternative concurrente ou équivalent à elle, cochez aussi C ; une comparaison qui ne désigne pas de gagnant reste E (lecture T4.6). " +
+        "Multi-sélection possible : un article PEF typique choisit D + E.",
       options: {
         A: { label: 'A. Interne', description: 'Usage interne (managérial, R&D, planification).' },
         B: { label: 'B. Externe (sans comparaison avec d\'autres produits)', description: 'Communication externe sans affirmations comparatives.' },
@@ -626,7 +626,7 @@ const fr: Locale = {
           warn: 'Active la PEF Circular Footprint Formula (CIR-05).',
           warnPlain: 'Les règles européennes de l\'empreinte environnementale pour compter les matériaux recyclés et valorisés entrent en jeu.',
         },
-        E: { label: 'E. Publication académique', description: 'Publication académique peer-reviewed (ajoutez C si elle affirme qu\'un système l\'emporte sur une alternative concurrente ou l\'égale).' },
+        E: { label: 'E. Publication académique', description: 'Publication académique évaluée par les pairs (ajoutez C si elle affirme qu\'un système l\'emporte sur une alternative concurrente ou l\'égale).' },
       },
       plain:
         "Qui lira le résultat, et ce qu'il en fera, détermine la sévérité de la méthode. Une note interne est le cas le plus léger. S'aligner sur les instruments de l'UE (passeport produit, PEF) impose la manière européenne de compter la matière recyclée et récupérée. Affirmer publiquement que votre produit est meilleur qu'un autre est le cas le plus lourd : cela exige une revue indépendante par des experts extérieurs. Cela vaut où que vous le disiez, y compris dans un article scientifique. Vous pouvez en choisir plusieurs.",
@@ -645,7 +645,7 @@ const fr: Locale = {
         "e. Un seul chiffre total pour tout le réseau : la source ne donne pas de détail par flux (typique des travaux agrégés comme Sokka 2011). C'est une limite de la source, pas un choix de modélisation : D4.1 §8.3.1 interdit une règle unique pour tout le réseau, le Data Collection File demande donc quand même la classification de chaque flux que vous pouvez nommer. " +
         "Q5 enregistre qui paie qui ; les tests juridiques et économiques (Freedom-to-Act, End-of-Waste, classe de sous-produit, évitabilité, point de charge nulle) se déclarent par flux dans la section Flow classification du Data Collection File. Pour les études de politique Q1=C, Q5 est généralement facultative.",
       plain:
-        "Pour chaque chose qui circule entre les entreprises (chaleur, eau, scories, CO₂), la question ici est seulement qui paie qui : celui qui le cède paie pour s'en débarrasser, personne ne paie, ou celui qui le reçoit le paie. Si celui qui le cède a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l'argent. Pour ce partenaire, toutefois, un séchoir construit pour vendre le flux à n'importe qui n'est pas de l'interdépendance : choisissez « Qui le reçoit paie qui le cède » et déclarez-le parmi les biens dédiés. Si votre source ne donne qu'un chiffre pour tout le réseau, choisissez la dernière option ; on vous demandera quand même chaque flux que vous savez nommer. Le statut juridique de déchet se décide plus tard, dans le fichier de collecte.",
+        "Pour chaque chose qui circule entre les entreprises (chaleur, eau, scories, CO₂), la question ici est seulement qui paie qui : celui qui le cède paie pour s'en débarrasser, personne ne paie, ou celui qui le reçoit le paie. Si celui qui le cède a délibérément modifié son propre procédé pour le fournir, choisissez cette option quoi que dise l'argent. Attention toutefois, un séchoir construit pour vendre le flux à n'importe qui n'est pas une interdépendance : choisissez alors « Qui le reçoit paie qui le cède » et déclarez le séchoir parmi les biens dédiés. Si votre source ne donne qu'un chiffre pour tout le réseau, choisissez la dernière option ; on vous demandera quand même chaque flux que vous savez nommer. Le statut juridique de déchet se décide plus tard, dans le fichier de collecte.",
     },
 
     q6a: {
@@ -653,7 +653,7 @@ const fr: Locale = {
       help: 'Le secteur principal du cas, à titre descriptif. Les règles sectorielles de la D4.1 Part 2 suivent le secteur de chaque flux échangé, déclaré dans le tableau des flux.',
       details:
         'Le secteur décrit le cas et ouvre quelques champs spécifiques dans le Data Collection File ; les règles sectorielles de la D4.1 Part 2 suivent le secteur déclaré pour chaque flux, car les chapitres suivent ce qui est échangé. Choisissez la correspondance la plus proche du secteur dominant du cas (l\'acteur qui contribue le plus en masse/énergie/valeur). ' +
-        'Exemples : Pâte et papier pour Sokka 2011 (UPM Kymi) ; Ciment / construction pour Hashimoto 2010 (Kawasaki) ; Textile / cuir pour Daddi 2017 (district de tannerie) ; Eaux usées / boues / biofactories pour Wiktor 2018 ; Chimie / engrais pour Leiva 2025 Escombreras ; Polymères biosourcés pour Briassoulis. ' +
+        'Exemples : Pâte et papier pour Sokka 2011 (UPM Kymi) ; Ciment / construction pour Hashimoto 2010 (Kawasaki) ; Textile / cuir pour Daddi 2017 (district de tannerie) ; Eaux usées / boues / bio-usines pour Wiktor 2018 ; Chimie / engrais pour Leiva 2025 Escombreras ; Polymères biosourcés pour Briassoulis. ' +
         'Pour les cas mixtes, utilisez Multi-secteur.',
       options: {
         none: '(aucun)',
@@ -664,15 +664,15 @@ const fr: Locale = {
         chemicals_fertilizers: 'Chimie / engrais',
         cement_construction: 'Ciment / construction',
         steel_metals: 'Acier et métaux',
-        energy_utilities: 'Énergie / utilities',
-        wastewater_sludge_biofactories: 'Eaux usées / boues / biofactories',
+        energy_utilities: 'Énergie / services publics',
+        wastewater_sludge_biofactories: 'Eaux usées / boues / bio-usines',
         textile_leather: 'Textile / cuir',
         waste_valorization: 'Valorisation des déchets',
         food_production: 'Production alimentaire',
         multi_tenant_urban_building: 'Bâtiment urbain multi-locataires',
         multi_sector: 'Multi-secteur',
         other: "Autre",
-        wastewater_biofactories: 'Eaux usées / boues / biofactories (legacy)',
+        wastewater_biofactories: 'Eaux usées / boues / bio-usines (legacy)',
         agri_food: 'Agroalimentaire / bioraffineries (legacy)',
         process_industry: 'Industrie de process (legacy)',
       },
@@ -683,16 +683,16 @@ const fr: Locale = {
     q6b: {
       title: 'Q6b — Maturité de la technologie (TRL)',
       details:
-        "TRL de la technologie dominante ou critique du réseau symbiotique. Détermine le choix de la qualité des données d'inventaire (mesurées vs littérature vs estimation d'ingénierie) et le budget d'incertitude downstream. " +
+        "TRL de la technologie dominante ou critique du réseau symbiotique. Détermine le choix de la qualité des données d'inventaire (mesurées vs littérature vs estimation d'ingénierie) et le budget d'incertitude en aval. " +
         "C'est le TRL de la technologie clé elle-même, non de son adoption : une technologie mature qui traite le même type d'intrant à la même échelle qu'ailleurs, utilisée pour la première fois dans ce réseau ou cette région, reste TRL 9, et la nouveauté se voit dans la qualité des données (lecture T4.6) ; un procédé mature appliqué à un intrant jamais traité à l'échelle est un échange à faible TRL (D4.1 §9.3.5). " +
         "TRL 9 = pleine exploitation commerciale (Kalundborg, Sokka). " +
-        "TRL 7-8 = pilote first-of-a-kind / unité pré-commerciale. " +
+        "TRL 7-8 = premier pilote de son genre / unité pré-commerciale. " +
         "TRL 5-6 = prototype validé en laboratoire, démo à l'échelle pertinente. " +
-        "TRL <5 = R&D précoce, paillasse uniquement — grande incertitude, scénarios recommandés.",
+        "TRL <5 = R&D précoce, paillasse uniquement ; grande incertitude, scénarios recommandés.",
       options: {
-        TRL9: 'TRL 9 — pleinement opérationnel',
-        'TRL7-8': 'TRL 7-8 — pilote / pré-commercial',
-        'TRL5-6': 'TRL 5-6 — prototype',
+        TRL9: 'TRL 9 : pleinement opérationnel',
+        'TRL7-8': 'TRL 7-8 : pilote / pré-commercial',
+        'TRL5-6': 'TRL 5-6 : prototype',
         'TRL<5': 'TRL <5 : recherche et développement à un stade précoce',
       },
       plain:
@@ -704,7 +704,7 @@ const fr: Locale = {
       help: 'Elle fixe la régionalisation de l\'évaluation des impacts. Le transport est modélisé explicitement pour chaque échange, quelle que soit la réponse ; la distance d\'équilibre est demandée pour chaque flux dans le Data Collection File. Partenaires dans des régions ou des pays différents : « Entre régions » ; « Régional » seulement si tous les sites sont dans une même région.',
       envOnly: "Seulement avec la dimension environnementale : la première partie fixe la régionalisation de l'évaluation des impacts ; le marché de référence ci-dessous sert aussi à l'évaluation des coûts.",
       details:
-        'D4.1 §12.2.3 : un facteur de caractérisation moyen mondial ou national ne saisit pas la portée d\'un système dont les interactions clés sont intensément locales (ex. une synergie de partage d\'eau dans une région aride). A — un site ou des installations adjacentes : facteurs spécifiques au lieu pour la rareté de l\'eau, l\'eutrophisation et l\'acidification, et le décalage d\'échelle signalé là où des facteurs régionaux sont appliqués au niveau du site (§12.3.3). B — au sein d\'une région : facteurs régionalisés, ex. les facteurs par pays de Seppälä / Posch pour un cluster régional (§12.3.3). C — entre régions ou par-delà les frontières : facteurs spatialement explicites au lieu de chaque émission. Le transport ne dépend jamais de cette réponse : chaque liaison est un processus unitaire distinct du premier plan avec des données primaires, et un SIG ou un outil de calcul d\'itinéraires est recommandé pour chaque échange (§12.3.1). La seconde partie demande le marché d\'où viennent les produits remplacés : les mix d\'arrière-plan et le scénario de référence s\'y rapportent, national ou infranational en règle générale, continental seulement pour les produits échangés à l\'échelle mondiale sans marché infra-continental (§11.3.1).',
+        'D4.1 §12.2.3 : un facteur de caractérisation moyen mondial ou national ne saisit pas la portée d\'un système dont les interactions clés sont intensément locales (ex. une synergie de partage d\'eau dans une région aride). A. Un site ou des installations adjacentes : facteurs spécifiques au lieu pour la rareté de l\'eau, l\'eutrophisation et l\'acidification, et le décalage d\'échelle signalé là où des facteurs régionaux sont appliqués au niveau du site (§12.3.3). B. Au sein d\'une région : facteurs régionalisés, ex. les facteurs par pays de Seppälä / Posch pour un cluster régional (§12.3.3). C. Entre régions ou par-delà les frontières : facteurs spatialement explicites au lieu de chaque émission. Le transport ne dépend jamais de cette réponse : chaque liaison est un processus unitaire distinct du premier plan avec des données primaires, et un SIG ou un outil de calcul d\'itinéraires est recommandé pour chaque échange (§12.3.1). La seconde partie demande le marché d\'où viennent les produits remplacés : les mix d\'arrière-plan et le scénario de référence s\'y rapportent, national ou infranational en règle générale, continental seulement pour les produits échangés à l\'échelle mondiale sans marché infra-continental (§11.3.1).',
       options: {
         A: { label: 'A. Un site', description: 'Un site ou des installations adjacentes : les interactions sont intensément locales.' },
         B: { label: 'B. Régional', description: 'Plusieurs sites au sein d\'une région.' },
@@ -787,11 +787,11 @@ const fr: Locale = {
       help: 'Obligatoire quand la dimension économique est active : elle décide si le S-LCC est ajouté.',
       details: 'La D4.2 §2.3 ajoute un LCC sociétal (net tax factor, externalités monétisées, taux d\'actualisation social) quand l\'étude sert un objectif de politique publique ou d\'aménagement du territoire, et le §2.2 lie le choix du type de LCC à la perspective du décideur. Qui décide : l\'organisme qui commande ou utilisera l\'étude. Un partenaire public au sein du réseau (une régie municipale de chauffage urbain, une station d\'épuration publique) ne rend pas à lui seul l\'objectif public : son coût public du capital entre au niveau de l\'entité (D4.2 §9.2) dans un calcul de coûts au niveau de l\'entreprise. Répondez oui quand c\'est cet organisme public qui décide du cas, ou quand un plan ou une politique publique utilisera l\'étude. Une commune qui planifie un éco-parc ou un service public qui dimensionne un raccordement de chauffage urbain répondent oui. Le reporting strict d\'une seule entreprise (Q9 : rapport d\'entreprise, Situation C2) garde le calcul de coûts au niveau de l\'entreprise (choix de conception T4.6), et l\'outil vous le dit.',
       options: {
-        yes: 'Oui — un objectif de politique publique ou d\'aménagement, ou un décideur public (ajoute le S-LCC)',
-        no: 'Non — une décision privée ou le compte d\'une entreprise, même avec un organisme public parmi les partenaires',
+        yes: 'Oui : un objectif de politique publique ou d\'aménagement, ou un décideur public (ajoute le S-LCC)',
+        no: 'Non : une décision privée ou le compte d\'une entreprise, même avec un organisme public parmi les partenaires',
       },
       plain:
-        'Répondez oui si l\'étude doit alimenter une décision publique, ou si un organisme public la commande : une municipalité, une région, un service public, un régulateur, un plan. Une seconde lecture économique s\'ajoute alors, du point de vue de la société : les taxes comptées autrement, et les effets que personne ne paie en argent. Pour le compte propre d\'une entreprise, la lecture économique reste au niveau de l\'entreprise. Ce qui compte, c\'est qui commande ou utilisera l\'étude, pas la présence d\'un organisme public dans le réseau. Exemple : une aciérie étudie la vente de chaleur au réseau municipal — non ; la commune décide de se raccorder — oui.',
+        'Répondez oui si l\'étude doit alimenter une décision publique, ou si un organisme public la commande : une municipalité, une région, un service public, un régulateur, un plan. Une seconde lecture économique s\'ajoute alors, du point de vue de la société : les taxes comptées autrement, et les effets que personne ne paie en argent. Pour le compte propre d\'une entreprise, la lecture économique reste au niveau de l\'entreprise. Ce qui compte, c\'est qui commande ou utilisera l\'étude, pas la présence d\'un organisme public dans le réseau. Exemple : une aciérie étudie la vente de chaleur au réseau municipal, répondez non ; la commune décide de se raccorder, répondez oui.',
     },
 
     q11: {
@@ -801,7 +801,7 @@ const fr: Locale = {
       options: {
         unset: 'Je ne sais pas / rien n\'est comparé (l\'outil utilise une unité fondée sur le service rendu)',
         waste_treatment: "La gestion d'un résidu : filières de traitement, performance d'une installation ou d'un service (unité basée sur l'intrant)",
-        product_substitution: "Des produits face aux alternatives du marché — ce que remplace le produit récupéré (unité basée sur l'extrant)",
+        product_substitution: "Des produits face aux alternatives du marché : ce que remplace le produit récupéré (unité basée sur l'extrant)",
         co_primary: "Les deux : le service de traitement et les produits comptent autant (système d'unités fonctionnelles)",
       },
       plain:
@@ -813,8 +813,8 @@ const fr: Locale = {
       details: 'La D4.2 §4.2 demande si le réseau nécessite de nouveaux actifs dédiés et partagés : dans ce cas, leur CAPEX et leur OPEX courant doivent figurer dans la décomposition des coûts et être répartis entre les partenaires qui en bénéficient. La D4.1 §6.3.3 inclut les biens d\'équipement et infrastructures propres au scénario de symbiose, amortis sur la durée de vie technique de chaque actif (Q8). Avec la LCA et le LCC actives, un oui active aussi les règles qui alignent les biens d\'équipement entre les deux (IR-13, B-06) ; pour les parcs et programmes avec la dimension sociale, les indicateurs S-LCA pour l\'investissement partagé (CIR-08). Le partenaire bénéficiaire peut être une seule entreprise.',
       options: {
         unset: 'Sans réponse',
-        yes: 'Oui — quelque chose a été construit pour les échanges (une canalisation, une installation, un séchoir, une cuve), même si une seule entreprise l\'utilise',
-        no: 'Non — les échanges n\'utilisent que des biens qui existeraient de toute façon',
+        yes: 'Oui : quelque chose a été construit pour les échanges (une canalisation, une installation, un séchoir, une cuve), même si une seule entreprise l\'utilise',
+        no: 'Non : les échanges n\'utilisent que des biens qui existeraient de toute façon',
       },
       plain:
         'Répondez oui si quelque chose a été construit, ou doit l\'être, pour que les échanges aient lieu : une canalisation, une installation de traitement, une cuve, un séchoir, même construit il y a des années. Son coût et son empreinte entrent alors dans l\'étude et sont imputés à qui en bénéficie : tout à une seule entreprise si elle seule l\'utilise, partagés si plusieurs l\'utilisent.',
@@ -852,7 +852,7 @@ const fr: Locale = {
     q5Unset: "— choisir qui paie qui",
     sellable: { unset: '— sans réponse', yes: 'Oui', no: 'Non' },
     sellableHint: "Si le partenaire ne prenait pas ce flux, celui qui le cède pourrait-il le vendre à quelqu'un d'autre à un prix positif ? Oui indique un flux modélisé comme un coproduit. Non n'indique pas à lui seul un déchet : un preneur unique qui paie ce que paierait un acheteur indépendant (le prix du produit que le flux remplace, net de ses coûts supplémentaires pour l'utiliser) indique quand même un coproduit ; un flux cédé gratuitement, ou un paiement qui ne fait que partager les coûts, indique un flux modélisé comme un déchet (D4.1 §8.3.3). Facultatif : le résultat signale quand il ne concorde pas avec qui paie qui.",
-    sectorHint: 'Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l\'entreprise : résidus agricoles et agro-industriels → Agroalimentaire (§4) ; déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers) → Valorisation des déchets (§8) ; boues et eaux usées traitées, même réutilisées comme eau → Eaux usées (§6) ; un produit ou vecteur énergétique tiré d\'un flux (biométhane, digestat, électricité) → le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l\'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n\'a de chapitres que pour ces secteurs biosourcés : pour l\'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s\'applique. Le bois et les résidus forestiers (sciure, écorce, lignine, liqueur noire) n\'ont pas de chapitre dans la Part 2 : choisissez « — aucun de ceux-ci ».',
+    sectorHint: 'Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l\'entreprise : les résidus agricoles et agro-industriels vont en Agroalimentaire (§4) ; les déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers), en Valorisation des déchets (§8) ; les boues et eaux usées traitées, même réutilisées comme eau, en Eaux usées (§6) ; un produit ou vecteur énergétique tiré d\'un flux (biométhane, digestat, électricité), dans le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l\'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n\'a de chapitres que pour ces secteurs biosourcés : pour l\'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s\'applique. Le bois et les résidus forestiers (sciure, écorce, lignine, liqueur noire) n\'ont pas de chapitre dans la Part 2 : choisissez « — aucun de ceux-ci ».',
     sectorNone: '— aucun de ceux-ci',
     configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur.",
     configurationNone: "— pas de réponse",
@@ -896,7 +896,7 @@ const fr: Locale = {
     },
     plainEmpty: 'Aucun échange. Ajoutez chaque chose qui passe entre les entreprises (lactosérum, sciure, chaleur, eau…).',
     plainNameHint: 'Qui cède et qui reçoit se dessine plus tard, dans l\'éditeur de réseau du Data Collection File ; vous pouvez déjà l\'écrire dans le nom (ex. « Écorce, scierie → papeterie »).',
-    plainSectorHint: 'Facultatif. Choisissez un secteur seulement si ce qui est échangé relève d\'un des secteurs biosourcés listés (agroalimentaire, plastiques, eaux usées, textile, déchets). Pour le bois, la sciure, les résidus forestiers ou papetiers, l\'acier, le ciment ou la chaleur, laissez « — aucun de ceux-ci ». Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d\'épuration → « Eaux usées / boues / biofactories ». En cas de doute, laissez : l\'analyste le fixera.',
+    plainSectorHint: 'Facultatif. Choisissez un secteur seulement si ce qui est échangé relève d\'un des secteurs biosourcés listés (agroalimentaire, plastiques, eaux usées, textile, déchets). Pour le bois, la sciure, les résidus forestiers ou papetiers, l\'acier, le ciment ou la chaleur, laissez « — aucun de ceux-ci ». Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d\'épuration → « Eaux usées / boues / bio-usines ». En cas de doute, laissez : l\'analyste le fixera.',
   },
 
   scenarios: {
@@ -967,7 +967,7 @@ const fr: Locale = {
       },
       'ILCD Situation C1': {
         title: 'Documenter un réseau existant (situation ILCD C1)',
-        short: 'Comptabilité avec interactions — documenter ce qu\'un réseau existant apporte à l\'économie au sens large. Substitution sur le mix de marché moyen, comme en Situation A.',
+        short: 'Comptabilité avec interactions : documenter ce qu\'un réseau existant apporte à l\'économie au sens large. Substitution sur le mix de marché moyen, comme en Situation A.',
         detail: 'Vous documentez un réseau qui existe au lieu d\'appuyer une décision : l\'étude est donc descriptive. Mais comme il s\'agit de montrer ce que le réseau apporte à l\'économie au sens large, la multifonctionnalité se résout quand même par substitution au mix moyen du marché, soit en pratique la même règle que la Situation A.',
       },
       'ILCD Situation C2': {
@@ -978,7 +978,7 @@ const fr: Locale = {
     },
     lcc: {
       'deactivated': {
-        short: 'Pas d\'analyse économique — la dimension économique est désactivée en Q3.',
+        short: 'Pas d\'analyse économique : la dimension économique est désactivée en Q3.',
         detail: 'Aucune dimension économique n\'est sélectionnée en Q3 : l\'outil ne configure donc aucun calcul de coûts. Si le cas a besoin d\'un business case, ce qui est généralement le cas pour une symbiose que plusieurs entreprises doivent signer, revenez à Q3 et activez la dimension économique.',
       },
       'C+E': {
@@ -990,7 +990,7 @@ const fr: Locale = {
         detail: 'Aux vues de l\'entreprise et de la chaîne de valeur s\'ajoute la vue du bien-être collectif. Les taxes et les subventions sont des transferts au sein de la société et non des coûts réels pour elle : elles sont exclues ou converties en prix fictifs au moyen du Net Tax Factor, et les impacts environnementaux de la LCA parallèle sont monétisés. C\'est la configuration qu\'exige une décision publique, et c\'est pourquoi un objectif public ou politique l\'introduit.',
       },
       'C-LCC': {
-        short: 'LCC conventionnel uniquement — la perspective de l\'entreprise, équivalente à une analyse du coût total de possession.',
+        short: 'LCC conventionnel uniquement : la perspective de l\'entreprise, équivalente à une analyse du coût total de possession.',
         detail: 'Seule la perspective de l\'entreprise. Chaque instrument de politique est un flux de trésorerie réel : taxes et redevances sont des coûts, les subventions réduisent le capex ou l\'opex. C\'est le bon cadre pour le reporting d\'entreprise, et il ne dit volontairement rien des effets sur la chaîne de valeur ou sur la société : les revendiquer dépasserait ce qu\'un compte à acteur unique peut soutenir.',
       },
       'C+N': {
@@ -1008,7 +1008,7 @@ const fr: Locale = {
         detail: 'La dimension sociale est active. Chaque groupe de parties prenantes (travailleurs, consommateurs, communautés locales, acteurs de la chaîne de valeur) est relié aux processus qui le concernent, puis aux sous-catégories d\'impact et aux indicateurs. Ce rattachement ne vaut que par la concertation qui le sous-tend : parler avec les groupes concernés fait partie de la collecte des données, ce n\'est pas un supplément facultatif.',
       },
       'deactivated': {
-        short: 'S-LCA non activée — la dimension sociale est désactivée en Q3.',
+        short: 'S-LCA non activée : la dimension sociale est désactivée en Q3.',
         detail: 'Aucune dimension sociale n\'est sélectionnée en Q3 : ni cartographie des parties prenantes ni indicateur social ne sont configurés. Activez-la en Q3 si le cas doit dire quelque chose des travailleurs ou des communautés locales, ce qui est généralement le cas quand une symbiose est présentée à une commune ou à une communauté.',
       },
     },
@@ -1028,7 +1028,7 @@ const fr: Locale = {
       design_without_screening: "Cette étude conçoit, élargit ou réorganise un réseau. Demandez à l'analyste de faire la vérification du marché : le réseau est-il assez grand pour changer ce que produit le marché dans son ensemble ? Tant que ce n'est pas montré, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle.",
       structural_without_screening: "Vous avez dit que la décision change ce que produit un marché, mais la vérification du marché n'est pas documentée. Tant qu'elle ne l'est pas, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle.",
       structural_screening_missing: "Vous avez dit que la décision change ce que produit un marché, mais vous n'avez pas dit si la vérification du marché est documentée. Tant qu'elle ne l'est pas, l'étude traite les effets comme limités aux installations concernées, et mène à côté, comme contrôle, la lecture à plus grande échelle. Répondez à la question qui suit quand elle le sera.",
-      case_sector_without_flow: "Le secteur que vous avez donné au cas ({{chapter}}) a ses propres règles, mais aucun flux du tableau ne porte ce secteur : elles ne sont donc pas listées. Attribuez-le, dans le tableau des flux, aux flux qui en relèvent (flux encore sans secteur : {{flows}}). Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d'épuration → « Eaux usées / boues / biofactories ».",
+      case_sector_without_flow: "Le secteur que vous avez donné au cas ({{chapter}}) a ses propres règles, mais aucun flux du tableau ne porte ce secteur : elles ne sont donc pas listées. Attribuez-le, dans le tableau des flux, aux flux qui en relèvent (flux encore sans secteur : {{flows}}). Le biogaz, le biométhane ou le digestat prennent le secteur de ce dont ils sont faits : déchets alimentaires ménagers ou municipaux → « Valorisation des déchets » ; résidus agricoles ou agroalimentaires → « Agriculture / agroalimentaire / bioraffineries » ; boues d'épuration → « Eaux usées / boues / bio-usines ».",
       study_purpose_vs_q2: {
         analysis: "Vous avez dit que l'étude évalue le fonctionnement d'un réseau existant, mais aussi que les échanges qu'elle mesure n'ont pas encore lieu. Revérifiez les deux réponses.",
         design: "Vous avez dit que l'étude conçoit un réseau nouveau, planifié, mais aussi que les échanges qu'elle mesure ont déjà lieu. Revérifiez les deux réponses.",
@@ -1338,7 +1338,7 @@ const fr: Locale = {
         waste: "Flux « {{flow}} » : Q5 laisse ouvert qui paie qui, et la réponse Freedom-to-Act (D4.1 §8.3.3) indique un déchet (charge nulle à partir du point où il atteint pour la première fois une valeur non négative, §8.3.6 étape 4). La configuration garde le test de valeur économique avec analyse de sensibilité tant que l'étude ne l'a pas confirmé : ne changez pas qui paie qui ; consignez cette lecture dans la classification des flux du Data Collection File (Freedom-to-Act et étape de l'arbre de décision), que l'étude documente.",
       },
       running_but_future: "Q2 indique que les échanges ont déjà lieu, mais Q8 place l'exploitation dans une année future ou Q6b met la technologie clé sous TRL 7. Un échange en cours se mesure aujourd'hui : vérifiez Q2, Q8 et Q6b. En attendant, le scénario de référence et le calendrier de l'évaluation des coûts suivent Q2, l'arrière-plan futur suit Q8 et Q6b.",
-      design_without_screening: "L'étude conçoit, étend ou restructure un réseau et elle est modélisée en Situation A. D4.1 §4.2.3 : ces études demandent le screening de marché ILCD (Mattila et al. 2012) ; sans lui, l'étude reste A, avec la Situation B en analyse de sensibilité. Documentez le screening, ou faites B en sensibilité.",
+      design_without_screening: "L'étude conçoit, étend ou restructure un réseau et elle est modélisée en Situation A. D4.1 §4.2.3 : ces études demandent l'analyse de marché ILCD (Mattila et al. 2012) ; sans elle, l'étude reste A, avec la Situation B en analyse de sensibilité. Documentez cette analyse, ou faites B en sensibilité.",
       flow_part2_chapter: "Flux « {{flow}} » : les règles sectorielles de la D4.1 Part 2 {{chapter}} s'y appliquent ; elles figurent sous Règles sectorielles.",
       case_sector_without_flow: "Le secteur du cas relève de la D4.1 Part 2 {{chapter}}, mais aucun flux ne déclare ce chapitre : ses règles sectorielles ne sont donc pas listées. Les chapitres suivent ce qui est échangé : déclarez le secteur de la Part 2 de chaque flux dans le tableau des flux.",
       flow_configuration_unknown: "Flux « {{flow}} » : la configuration « {{configuration}} » ne fait pas partie de la D4.1 Part 2.",
@@ -1355,7 +1355,7 @@ const fr: Locale = {
       activatedBy: 'S’appliquent en raison de : {{reasons}}',
       byFlow: 'le flux « {{name}} »',
       byCaseSector: 'le secteur du cas (Q6a)',
-      configurationLine: "Flux « {{flow}} » — {{configuration}} : le produit conventionnel qu'il remplace est {{substitutes}}.",
+      configurationLine: "Flux « {{flow}} » ({{configuration}}) : le produit conventionnel qu'il remplace est {{substitutes}}.",
       c2NoCredit: "Situation C2 : aucun crédit de substitution n'est appliqué (D4.1 §7.2.3) ; le produit ne fait que décrire la configuration.",
       count: '{{count}} règles',
       strength: { must: 'obligatoire', should: 'recommandé', descriptive: 'pratique' },
@@ -1380,7 +1380,7 @@ const fr: Locale = {
       countObligations_other: '{{count}} obligations',
       familyOther: '{{count}} autres',
       provenance:
-        "Les intitulés des règles et des points de décision sont traduits depuis la table anglaise du moteur. Le code à côté de chaque élément — IR-01, CDP-02 — est la référence qui ne change pas d'une langue à l'autre, et le nom anglais reste à côté.",
+        "Les intitulés des règles et des points de décision sont traduits depuis la table anglaise du moteur. Le code à côté de chaque élément (IR-01, CDP-02) est la référence qui ne change pas d'une langue à l'autre, et le nom anglais reste à côté.",
       noTensions:
         "Aucun point de décision critique entre les méthodes n'est apparu pour ces réponses. Les obligations listées ci-dessous s'appliquent quand même.",
       allClear:
@@ -1392,7 +1392,7 @@ const fr: Locale = {
       block: 'Bloquant',
       obligation: 'À documenter',
       decision: 'À décider',
-      decisionResolved: 'Convention proposée par l\'outil — confirmez-la ou justifiez un autre choix',
+      decisionResolved: 'Convention proposée par l\'outil : confirmez-la ou justifiez un autre choix',
     },
     severity: {
       HIGH: 'Élevée',
@@ -1547,17 +1547,32 @@ const fr: Locale = {
     title: "Charger un exemple publié",
     help: "Charge dans le questionnaire les réponses d'un cas publié, pour voir ce que l'outil tire d'une vraie étude.",
     loadButton: 'Charger l\'exemple',
-    rationaleToggle: 'Pourquoi ces réponses ?',
+    rationaleToggle: 'Pourquoi ces réponses ? (en anglais)',
     loaded: "Exemple chargé : {{name}}",
+    examples: {
+      sokka_2011: { label: "1. Sokka 2011, Kymenlaakso (FI, pâte et papier)", description: "Six acteurs industriels, LCA environnementale seule, scénario d'amélioration RS3." },
+      hashimoto_2010: { label: "2. Hashimoto 2010, Kawasaki (JP, ciment)", description: "Réseau d'un parc éco-industriel, avec le scénario actuel et des scénarios futurs." },
+      daddi_2017: { label: "3. Daddi 2017, tanneries de Santa Croce (IT)", description: "District de 6 communes avec la station d'épuration, réutilisation de l'eau S3a/S3b." },
+      paulu_2022: { label: "4. Paulu 2022, ensemble de l'industrie tchèque (CZ, politique)", description: "Évaluation d'une politique nationale, PEF de l'UE et publication académique." },
+      arce_bastias_2023: { label: "5. Arce Bastias 2023, Mendoza (AR, plastiques)", description: "Réseau de 3 acteurs, ex post, trois méthodes d'allocation comparées." },
+      wiktor_2018: { label: "6. Wiktor 2018, VA Syd Malmö (SE, eaux usées)", description: "13 scénarios (1 de base et 12 variantes de conception)." },
+      leiva_2025_escombreras: { label: "7a. Leiva 2025 Escombreras, optimisation du KNO3 (ES)", description: "Échange sur un seul site entre QSr et ses voisins, dimension économique seule." },
+      leiva_2025_frovi: { label: "7b. Leiva 2025 Frövi, papeterie et serre (SE)", description: "Parc éco-industriel à plusieurs acteurs avec WA3RM comme facilitateur, CCU au TRL 7-8." },
+      danielsson_2018: { label: "8. Danielsson 2018, Kalundborg (DK, 8 membres)", description: "Le réseau de symbiose industrielle le plus connu, rapport public (Q4 = B)." },
+      kerdlap_2024: { label: "9. Kerdlap 2022, agroalimentaire urbain fictif", description: "Réseau de démonstration à 5 acteurs, en phase de conception (doi:10.1007/s11367-022-02024-1)." },
+      subramanian_2021: { label: "10. Subramanian 2021, The Plant Chicago (USA)", description: "Bâtiment partagé par plusieurs entreprises, LCSA complète (ENV+ECO+SOC)." },
+      zhu_2013: { label: "11. Zhu 2013, échange générique entre 2 entreprises (NL)", description: "Phase de conception, 19 scénarios." },
+      briassoulis_2023: { label: "12. Briassoulis 2023, cadre pour les biopolymères (UE)", description: "Cadre de propositions pour tout un secteur, LCSA complète et TEA." },
+    },
   },
 
   toast: {
     region: 'Notifications',
     dismiss: 'Fermer la notification',
     pipelineCompleted: "Configuration prête",
-    pipelineError: 'Erreur pipeline — {{detail}}',
+    pipelineError: 'Erreur du moteur : {{detail}}',
     scenariosCompleted: '{{n}} scénarios exécutés',
-    scenariosError: 'Exécution des scénarios échouée — {{detail}}',
+    scenariosError: 'Échec de l\'exécution des scénarios : {{detail}}',
   },
 
   language: {
@@ -1627,7 +1642,7 @@ const fr: Locale = {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels flux les entreprises échangent, et si cette étude examine ou non les effets sociaux.",
         whenScoring:
-          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : indicateurs sociaux — travailleurs, communauté locale — et environnementaux, chacun avec le groupe qu\'il concerne.',
+          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : des indicateurs sociaux (travailleurs, communauté locale) et environnementaux, chacun avec le groupe qu\'il concerne.',
       },
       authority: {
         whatYouSee:
@@ -1669,7 +1684,7 @@ const fr: Locale = {
     },
     framing: {
       industry:
-        'Vue technique complète de la configuration méthodologique. Les chiffres (émissions, coûts) ne sont pas produits ici : la personne qui réalise l\'étude les calcule à partir du Data Collection File ; cette version de l\'outil ne permet pas encore de les charger dans le cas.',
+        'Vue technique de la configuration méthodologique. Les chiffres (émissions, coûts) ne sont pas produits ici : la personne qui réalise l\'étude les calcule à partir du Data Collection File ; cette version de l\'outil ne permet pas encore de les charger dans le cas.',
       community:
         'Comment seront étudiés les effets sur la zone et sur les personnes proches des installations : transports, air, eau et sol locaux, ce qui est épandu sur les champs, si les habitants sont entendus. Il n\'y a pas encore de résultats.',
       authority:
@@ -1728,7 +1743,7 @@ const fr: Locale = {
     lead:
       "{{total}} éléments à documenter pour ce cas : les {{rules}} obligations déclenchées par vos réponses (celles comptées sur la page de résultat) et {{mandates}} pratiques que la méthode demande à toute étude comme celle-ci. Chacun est un engagement à documenter dans le rapport LCSA.",
     because: "S'applique parce que :",
-    notApplicable: "Ne s'applique pas ici : {{fields}} — cette méthode est désactivée en Q3.",
+    notApplicable: "Ne s'applique pas ici, car cette méthode est désactivée en Q3 : {{fields}}.",
     origin: {
       mandate: 'Exigé par la méthode',
       rule: 'Exigé entre les méthodes',
@@ -1796,7 +1811,7 @@ const fr: Locale = {
     },
     savedDiverged: 'Ces fichiers suivent la version enregistrée du cas. Enregistrez vos modifications depuis la page du résultat pour télécharger des fichiers conformes à cette page.',
     changes: 'Par rapport à la version enregistrée : {{removed}} choix à documenter ne s\'appliquent plus, {{added}} ajoutés.',
-    changesFieldsGone: 'Champs qui ne sont plus demandés : {{fields}} — les valeurs saisies sont conservées mais ne sont pas exportées.',
+    changesFieldsGone: 'Champs qui ne sont plus demandés : {{fields}}. Les valeurs saisies sont conservées mais ne sont pas exportées.',
     changesFieldsNew: 'Champs désormais demandés : {{fields}}.',
     changesNone: "Les questions aux entreprises sont les mêmes que dans la version enregistrée ; les choix méthodologiques écrits dans les fichiers suivent encore la version enregistrée.",
     goSaveChanges: 'Aller au résultat pour enregistrer les modifications',
@@ -1817,7 +1832,7 @@ const fr: Locale = {
     flows_other: '{{count}} flux',
     inactive: 'Le diagramme du réseau ne fait pas partie de la configuration de ce cas.',
     placeholder:
-      "Aperçu seulement — ceci est un substitut construit à partir des flux déclarés dans le questionnaire. Dessinez le vrai réseau dans l'onglet Éditeur de réseau et il apparaîtra ici, dans l'Excel et dans le rapport.",
+      "Aperçu seulement : ceci est un substitut construit à partir des flux déclarés dans le questionnaire. Dessinez le vrai réseau dans l'onglet Éditeur de réseau et il apparaîtra ici, dans l'Excel et dans le rapport.",
   },
 
   networkBuilder: {
@@ -1825,7 +1840,7 @@ const fr: Locale = {
     exampleReplaceConfirm: "L'exemple remplace le réseau affiché. Le réseau enregistré pour ce cas reste sur le serveur tant que vous n'appuyez pas sur « Enregistrer le réseau » : « {{button}} » le fait revenir. Continuer ?",
     whyAsked: 'Demandé parce que :',
     hint: {
-      step1: "Ajoutez un acteur par participant à la symbiose — une usine, un service public, une commune.",
+      step1: "Ajoutez un acteur par participant à la symbiose : une usine, un service public, une commune.",
       step2: 'Cliquez sur un flux dans la liste sous le dessin, puis tirez depuis le point du bas de l\'acteur qui le cède vers le point du haut de l\'acteur qui le reçoit : cette flèche est une ligne de la Matrice des flux. Pour déplacer une flèche déjà dessinée, cliquez dessus et changez l\'acteur d\'origine ou de destination dans le panneau latéral.',
       step3: 'Sélectionnez un nœud ou une flèche et remplissez ses champs dans le panneau latéral. Seuls les champs utiles à votre configuration sont affichés.',
       dismiss: "J'ai compris",
@@ -1850,7 +1865,7 @@ const fr: Locale = {
     saving: 'Enregistrement…',
     synced: 'Enregistré sur le serveur',
     unsavedChanges: 'Modifications non enregistrées',
-    unsavedCase: 'Brouillon local — enregistrez le cas pour synchroniser',
+    unsavedCase: 'Brouillon local : enregistrez le cas pour synchroniser',
     saveCaseFirst:
       "Ce cas n'est pas encore enregistré sur le serveur. Vous pouvez dessiner le réseau maintenant ; enregistrez le cas depuis la page de résultat pour le conserver.",
     missingRequired_one: '{{count}} champ obligatoire encore vide',
@@ -1952,16 +1967,16 @@ const fr: Locale = {
     editButton: 'Modifier les réponses',
     deleteButton: 'Supprimer',
     confirmDelete: "Supprimer « {{name}} » de Mes cas ? Cette action est irréversible.",
-    saveButton: 'Sauvegarder',
-    saveAsButton: 'Sauvegarder comme nouveau…',
-    saveTitle: 'Sauvegarder le cas',
+    saveButton: 'Enregistrer',
+    saveAsButton: 'Enregistrer comme nouveau…',
+    saveTitle: 'Enregistrer le cas',
     namePlaceholder: 'Nom de mon cas',
-    saveDialog: 'Sauvegarder le cas actuel sur le serveur. Choisissez un nom pour l\'identifier plus tard.',
-    saving: 'Sauvegarde…',
-    saveError: 'Échec de la sauvegarde — {{detail}}',
-    saveSuccess: 'Sauvegardé sous "{{name}}"',
-    loadError: 'Échec du chargement — {{detail}}',
-    deleteError: 'Échec de la suppression — {{detail}}',
+    saveDialog: 'Enregistrer le cas actuel sur le serveur. Choisissez un nom pour l\'identifier plus tard.',
+    saving: 'Enregistrement…',
+    saveError: 'Échec de l\'enregistrement : {{detail}}',
+    saveSuccess: 'Enregistré sous « {{name}} »',
+    loadError: 'Échec du chargement : {{detail}}',
+    deleteError: 'Échec de la suppression : {{detail}}',
     saveFirstButton: 'Enregistrer le cas…',
     saveChanges: 'Enregistrer les modifications',
     saveChangesConfirm: 'Remplacer le cas enregistré « {{name}} » par cette configuration ? Le réseau dessiné est conservé.',

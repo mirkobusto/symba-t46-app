@@ -1,5 +1,7 @@
-// Preset loader — load one of the 13 paper fixtures into the case
-// draft and jump to the questionnaire.
+// Preset loader: load one of the 13 paper fixtures into the case
+// draft and jump to the questionnaire. Label and description are shown in
+// the page language (preset.examples.<id>); the reasoning behind the answers
+// stays in English (UX round 6, P4-19, P7-19).
 
 import { FileText } from 'lucide-react'
 import { useState } from 'react'
@@ -56,7 +58,7 @@ export default function PresetLoader() {
         >
           {PRESETS.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.label}
+              {t(`preset.examples.${p.id}.label`, { defaultValue: p.label })}
             </option>
           ))}
         </select>
@@ -72,7 +74,8 @@ export default function PresetLoader() {
       {selected ? (
         <div className="preset-details">
           <p className="preset-desc muted">
-            <em>{selected.citation}</em> — {selected.description}
+            <em>{selected.citation}</em>.{' '}
+            {t(`preset.examples.${selected.id}.description`, { defaultValue: selected.description })}
           </p>
           <details className="preset-rationale">
             <summary>{t('preset.rationaleToggle')}</summary>

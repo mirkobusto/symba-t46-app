@@ -13,7 +13,10 @@ Errors: 400 for ValueError (e.g. Q1=None on a partial questionnaire).
 """
 from __future__ import annotations
 
-from typing import Annotated, Any
+import re
+import unicodedata
+from datetime import date
+from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, Response
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -21,6 +24,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from app.domain.models import Case
 from app.engine.loader import LoadedSchemas, load_schemas
 from app.engine.pipeline import run as pipeline_run
+from app.engine.scenario_diff import node_changes
 from app.services.reports import generate_case_report_bytes
 
 router = APIRouter(tags=["pipeline"])
@@ -57,14 +61,65 @@ class ReportRow(BaseModel):
     why: str | None = None
 
 
+class ReportMeta(BaseModel):
+    """Who and what the document is about, for its cover (UX round 2026-11-08,
+    P8-01): the share fields of a saved case and the dates, already formatted
+    in the reader's language by the browser."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    case_name: str | None = Field(default=None, max_length=256)
+    case_ref: str | None = Field(default=None, max_length=120)
+    prepared_by: str | None = Field(default=None, max_length=120)
+    contact: str | None = Field(default=None, max_length=200)
+    generated_on: str | None = Field(default=None, max_length=60)
+    saved_on: str | None = Field(default=None, max_length=60)
+    state: Literal["saved", "diverged", "unsaved"] | None = None
+
+
+class ReportSectorRule(BaseModel):
+    strength: str
+    text: str
+    source: str | None = None
+    note: str | None = None
+
+
+class ReportSectorChapter(BaseModel):
+    """A D4.1 Part 2 chapter as the result page words it, in `lang`."""
+
+    chapter: str
+    reason: str | None = None
+    rules: list[ReportSectorRule] = Field(default_factory=list)
+
+
+class ReportScenario(BaseModel):
+    """What a scenario changes in the configuration rows and in its network,
+    worded by the scenario comparison."""
+
+    id: str
+    config: list[str] = Field(default_factory=list)
+    network: list[str] = Field(default_factory=list)
+
+
 class ReportRequest(BaseModel):
-    """The case plus the configuration rows the result page computed, so the
-    document and the screen show the same rows (UX round 2026-11-03)."""
+    """The case plus what the result page has already worded, so the document
+    and the screen say the same thing (UX rounds 2026-11-03 and 2026-11-08)."""
 
     model_config = ConfigDict(extra="forbid")
 
     case: Case
     rows: list[ReportRow] = Field(default_factory=list)
+    meta: ReportMeta | None = None
+    sector: list[ReportSectorChapter] | None = None
+    scenarios: list[ReportScenario] = Field(default_factory=list)
+    guided: bool = False
+
+
+def _report_filename(name: str | None) -> str:
+    """Report_<case>_<date>.docx, as the DCF files are named (P6-19, P7-07)."""
+    stem = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode()
+    stem = re.sub(r"[^A-Za-z0-9]+", "-", stem).strip("-")[:60] or "draft"
+    return f"Report_{stem}_{date.today().isoformat()}.docx"
 
 
 @router.post("/report")
@@ -81,21 +136,29 @@ def generate_report(
     officedocument.wordprocessingml.document` attachment so browsers
     prompt a download.
     """
-    case, rows = (payload.case, payload.rows) if isinstance(payload, ReportRequest) else (payload, [])
+    if isinstance(payload, ReportRequest):
+        case, rows, meta = payload.case, payload.rows, payload.meta
+    else:
+        case, rows, meta = payload, [], None
     try:
         result = pipeline_run(case, schemas)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    body = generate_case_report_bytes(result, lang=lang, rows=[r.model_dump() for r in rows])
+    extras: dict[str, Any] = {}
+    if isinstance(payload, ReportRequest):
+        extras = {
+            "meta": meta.model_dump() if meta else None,
+            "sector": [c.model_dump() for c in payload.sector] if payload.sector else None,
+            "scenarios": [s.model_dump() for s in payload.scenarios],
+            "guided": payload.guided,
+        }
+    body = generate_case_report_bytes(result, lang=lang, rows=[r.model_dump() for r in rows], **extras)
+    filename = _report_filename(meta.case_name if meta else None)
     return Response(
         content=body,
         media_type=DOCX_MIME,
-        headers={
-            "Content-Disposition": (
-                'attachment; filename="symba-case-report.docx"'
-            ),
-        },
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 
@@ -124,6 +187,22 @@ class ScenariosRequest(BaseModel):
     scenarios: list[ScenarioInput] = []
 
 
+class NodeChange(BaseModel):
+    id: str
+    method: str | None = None
+    source_section: str | None = None
+    # the node's text on the run, English as traced on the deliverables
+    text: str = ""
+    # changed nodes only: the text on the case
+    before: str | None = None
+
+
+class NodeChanges(BaseModel):
+    added: list[NodeChange] = []
+    removed: list[NodeChange] = []
+    changed: list[NodeChange] = []
+
+
 class ScenarioResult(BaseModel):
     id: str
     label: str
@@ -131,6 +210,9 @@ class ScenarioResult(BaseModel):
     # why the scenario could not be run; the result is then the bare answers,
     # not a configuration to compare (UX round 5, P7-11)
     error: str | None = None
+    # the practices the scenario adds, removes or words differently: the
+    # comparison only gave their count (UX round 6, P6-09). None on a failed run.
+    node_changes: NodeChanges | None = None
 
 
 class ScenariosResponse(BaseModel):
@@ -209,9 +291,11 @@ def run_scenarios(
     scenario_results: list[ScenarioResult] = []
     for scenario in payload.scenarios:
         error = None
+        changes = None
         try:
             sc_case = _apply_overrides(payload.baseline, scenario.overrides)
             sc_result = pipeline_run(sc_case, schemas)
+            changes = NodeChanges(**node_changes(baseline_result, sc_result, schemas))
         except ValueError as exc:
             error = _scenario_error(exc)
             # On scenario failure, return an empty Case shell so the
@@ -223,7 +307,8 @@ def run_scenarios(
             except ValueError:
                 sc_result = _apply_overrides(payload.baseline, {})
         scenario_results.append(
-            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result, error=error)
+            ScenarioResult(id=scenario.id, label=scenario.label, result=sc_result, error=error,
+                           node_changes=changes)
         )
 
     return ScenariosResponse(

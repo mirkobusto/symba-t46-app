@@ -149,6 +149,9 @@ export default function QuestionnairePage() {
   const [advanced, setAdvanced] = useState<Record<string, unknown>>(
     draft.advanced ?? {},
   )
+  // scenarios whose JSON cannot be read: running would use their previous
+  // changes as if they were the new ones (UX round 6, P7-05)
+  const [invalidScenarios, setInvalidScenarios] = useState<string[]>([])
 
   // the reset the answers on screen come after (see the flush below): set in
   // the same render as the answers, so the two never disagree
@@ -215,6 +218,9 @@ export default function QuestionnairePage() {
     // a value the engine cannot read was dropped in silence (UX round 6, P7-13)
     ...(mode !== 'guided' && invalidAdvancedKeys(advanced).length > 0
       ? [{ id: 'advanced', label: t('questionnaire.advancedCard.invalid') }] : []),
+    ...(invalidScenarios.length > 0
+      ? [{ id: 'q2d-scenarios', label: t('scenarios.invalidJson', { names: invalidScenarios.join(', ') }) }]
+      : []),
   ]
   const canRun = missing.length === 0 && !loading
 
@@ -837,7 +843,10 @@ export default function QuestionnairePage() {
             title={t('questionnaire.q2dCard.title')}
             help={t('questionnaire.q2dCard.help')}
           >
-            <ScenariosEditor scenarios={scenarios} onChange={setScenarios} baseline={buildPatch()} />
+            <ScenariosEditor
+              scenarios={scenarios} onChange={setScenarios} baseline={buildPatch()}
+              onInvalidChange={setInvalidScenarios}
+            />
           </QuestionCard>
         ) : null}
 

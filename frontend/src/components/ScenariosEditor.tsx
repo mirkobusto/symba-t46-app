@@ -8,11 +8,14 @@
 // for keys the form does not cover.
 
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useDcfDataStore } from '../store/dcfDataStore'
 import type { AlternativeScenario, Case, Flow } from '../types/api'
+import {
+  CHANGES, Q5_KEYS, SPEC, type ChangeSpec, defaultValue, effectiveAnswers, isAsked, withFollowUps,
+} from './scenarioChanges'
 
 interface Props {
   scenarios: AlternativeScenario[]
@@ -20,74 +23,10 @@ interface Props {
   /** The answers of the case: a new change starts from them, and the flows
    * give the per-flow "who pays whom" change its rows. */
   baseline?: Partial<Case>
-}
-
-type Translate = (key: string, options?: Record<string, unknown>) => string
-
-interface ChangeSpec {
-  /** Case field the override sets. */
-  key: string
-  title: (t: Translate) => string
-  kind: 'choice' | 'multi' | 'dims' | 'number' | 'flowQ5'
-  options?: { value: unknown; label: (t: Translate) => string }[]
-}
-
-// "Q9 — Which decision…? *" → "Which decision…?"
-function cardTitle(title: string): string {
-  return title.replace(/^Q\d+[ab]?\s+—\s+/, '').replace(/\s*\*$/, '')
-}
-
-const q = (key: string) => (t: Translate) => cardTitle(t(`questionnaire.${key}.title`))
-const choice = (values: string[], label: (v: string) => string) =>
-  values.map((v) => ({ value: v, label: (t: Translate) => t(label(v)) }))
-const yesNo = (base: string) => [
-  { value: true, label: (t: Translate) => t(`${base}.yes`) },
-  { value: false, label: (t: Translate) => t(`${base}.no`) },
-]
-
-const CHANGES: ChangeSpec[] = [
-  { key: 'q3', title: q('q3'), kind: 'dims' },
-  { key: 'decision_context', title: q('q9'), kind: 'choice',
-    options: choice(['micro', 'structural', 'none', 'corporate_report'], (v) => `questionnaire.q9.options.${v}`) },
-  { key: 'q2', title: q('q2'), kind: 'choice',
-    options: choice(['A', 'B'], (v) => `questionnaire.q2.options.${v}.label`) },
-  { key: 'operating_start', title: (t) => t('questionnaire.q8.start.label'), kind: 'choice',
-    options: choice(['now', 'future'], (v) => `questionnaire.q8.start.options.${v}`) },
-  { key: 'analysis_period_years', title: (t) => t('questionnaire.q8.period.label'), kind: 'number' },
-  { key: 'asset_lifetime_years', title: (t) => t('questionnaire.q8.lifetime.label'), kind: 'number' },
-  { key: 'q6b', title: q('q6b'), kind: 'choice',
-    options: choice(['TRL9', 'TRL7-8', 'TRL5-6', 'TRL<5'], (v) => `questionnaire.q6b.options.${v}`) },
-  { key: 'policy_objective', title: q('q10'), kind: 'choice', options: yesNo('questionnaire.q10.options') },
-  { key: 'q4', title: q('q4'), kind: 'multi',
-    options: choice(['A', 'B', 'C', 'D', 'E'], (v) => `questionnaire.q4.options.${v}.label`) },
-  { key: 'comparison_goal', title: q('q11'), kind: 'choice',
-    options: choice(['waste_treatment', 'product_substitution', 'co_primary'], (v) => `questionnaire.q11.options.${v}`) },
-  { key: 'q7', title: q('q7'), kind: 'choice',
-    options: choice(['A', 'B', 'C'], (v) => `questionnaire.q7.options.${v}.label`) },
-  { key: 'dedicated_shared_assets', title: q('q12'), kind: 'choice', options: yesNo('questionnaire.q12.options') },
-  // Q5 per flow (lcc_mc_04/08 are per flow, D4.2 §3.2, §6.2): sent as
-  // {flow id: class}, applied by the runner to the case's own flows
-  { key: 'flow_q5', title: (t) => t('scenarios.flowQ5Title'), kind: 'flowQ5' },
-]
-const Q5_KEYS = ['a', 'b', 'c', 'd', 'e'] as const
-const SPEC = Object.fromEntries(CHANGES.map((c) => [c.key, c]))
-
-// a new change starts from the case's own answer, not from a fixed value
-// (round 4 leftover: the form did not start from the case)
-function defaultValue(spec: ChangeSpec, baseline: Partial<Case> = {}): unknown {
-  if (spec.kind === 'flowQ5') {
-    return Object.fromEntries((baseline.flows ?? []).filter((f) => f.q5).map((f) => [f.id, f.q5]))
-  }
-  const current = (baseline as Record<string, unknown>)[spec.key]
-  if (current !== undefined && current !== null && current !== '') {
-    if (Array.isArray(current)) return [...current]
-    if (typeof current === 'object') return { ...(current as object) }
-    return current
-  }
-  if (spec.kind === 'dims') return { env: true, eco: true, soc: false }
-  if (spec.kind === 'multi') return []
-  if (spec.kind === 'number') return 20
-  return spec.options?.[0]?.value
+  /** The names of the scenarios whose JSON cannot be read: the questionnaire
+   * does not run while there is one, since the scenario would run with its
+   * previous changes as if they were the new ones (UX round 6, P7-05). */
+  onInvalidChange?: (names: string[]) => void
 }
 
 function nextId(existing: AlternativeScenario[]): string {
@@ -109,16 +48,47 @@ const NOT_OVERRIDABLE = new Set([
   'governance', 'methodological_charter', 'review', 'system',
 ])
 
-export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: Props) {
+
+/** The changes in the order they are shown: a follow-up question right under
+ * the question it follows, as in the questionnaire. */
+function shownOrder(keys: string[]): string[] {
+  const present = new Set(keys)
+  const followsShown = (k: string) => !!SPEC[k]?.parent && present.has(SPEC[k].parent!)
+  const out: string[] = []
+  for (const key of keys) {
+    if (followsShown(key)) continue
+    out.push(key)
+    for (const child of keys) if (SPEC[child]?.parent === key) out.push(child)
+  }
+  return out
+}
+
+export default function ScenariosEditor({ scenarios, onChange, baseline = {}, onInvalidChange }: Props) {
   const { t } = useTranslation()
   const flows: Flow[] = baseline.flows ?? []
-  // the per-flow change needs flows to change
-  const changes = CHANGES.filter((c) => c.kind !== 'flowQ5' || flows.length > 0)
   // raw JSON per scenario while it is being edited, so a half-typed object
   // is not lost; cleared whenever the form changes the overrides
   const [rawOverrides, setRawOverrides] = useState<Record<string, string>>({})
   const [parseErrors, setParseErrors] = useState<Record<string, boolean | 'notOverridable'>>({})
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+
+  // the questions a scenario can change: the per-flow change needs flows, and a
+  // follow-up is offered only where the questionnaire would ask it on the
+  // scenario's own answers
+  function changesFor(s: AlternativeScenario): ChangeSpec[] {
+    const answers = effectiveAnswers(baseline, s.overrides)
+    return CHANGES.filter((c) => (c.kind !== 'flowQ5' || flows.length > 0) && isAsked(c, answers))
+  }
+
+  const invalidNames = scenarios.filter((s) => parseErrors[s.id]).map((s) => s.label || s.id)
+  const invalidKey = invalidNames.join('\u0000')
+  useEffect(() => {
+    onInvalidChange?.(invalidKey ? invalidKey.split('\u0000') : [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invalidKey])
+  // the half-typed JSON lives here: once the editor is gone, nothing is pending
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => onInvalidChange?.([]), [])
 
   function addScenario() {
     const id = nextId(scenarios)
@@ -127,6 +97,9 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
   }
 
   function removeScenario(id: string) {
+    const errors = { ...parseErrors }
+    delete errors[id]
+    setParseErrors(errors)
     onChange(scenarios.filter((s) => s.id !== id))
   }
 
@@ -134,16 +107,18 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
     onChange(scenarios.map((s) => (s.id === id ? { ...s, ...patch } : s)))
   }
 
-  function setOverrides(s: AlternativeScenario, overrides: Record<string, unknown>) {
+  function setOverrides(s: AlternativeScenario, overrides: Record<string, unknown>, changedKey?: string) {
     const raw = { ...rawOverrides }
     delete raw[s.id]
     setRawOverrides(raw)
-    updateScenario(s.id, { overrides })
+    // the form rewrites the JSON: a pending JSON error is gone with it
+    if (parseErrors[s.id]) setParseErrors({ ...parseErrors, [s.id]: false })
+    updateScenario(s.id, { overrides: withFollowUps(overrides, baseline, changedKey) })
   }
 
   function addChange(s: AlternativeScenario) {
-    const spec = changes.find((c) => !(c.key in s.overrides))
-    if (spec) setOverrides(s, { ...s.overrides, [spec.key]: defaultValue(spec, baseline) })
+    const spec = changesFor(s).find((c) => !(c.key in s.overrides))
+    if (spec) setOverrides(s, { ...s.overrides, [spec.key]: defaultValue(spec, baseline) }, spec.key)
   }
 
   function replaceChange(s: AlternativeScenario, oldKey: string, newKey: string) {
@@ -152,13 +127,13 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
       if (k === oldKey) next[newKey] = defaultValue(SPEC[newKey], baseline)
       else next[k] = v
     }
-    setOverrides(s, next)
+    setOverrides(s, next, newKey)
   }
 
   function removeChange(s: AlternativeScenario, key: string) {
     const next = { ...s.overrides }
     delete next[key]
-    setOverrides(s, next)
+    setOverrides(s, next, key)
   }
 
   function getRaw(s: AlternativeScenario): string {
@@ -194,7 +169,7 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
 
   function renderAnswer(s: AlternativeScenario, spec: ChangeSpec) {
     const value = s.overrides[spec.key]
-    const set = (v: unknown) => setOverrides(s, { ...s.overrides, [spec.key]: v })
+    const set = (v: unknown) => setOverrides(s, { ...s.overrides, [spec.key]: v }, spec.key)
     if (spec.kind === 'flowQ5') {
       const byFlow = (value ?? {}) as Record<string, string>
       return (
@@ -217,10 +192,22 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
     if (spec.kind === 'number') {
       return (
         <input
-          type="number" min={0} className="row-input scenario-change-number"
+          type="number" min={spec.min ?? 0} max={spec.max} className="row-input scenario-change-number"
           aria-label={t('scenarios.newAnswer')}
+          placeholder={spec.key === 'operating_start_year' ? t('questionnaire.q8.start.yearPlaceholder') : undefined}
           value={typeof value === 'number' ? value : ''}
           onChange={(e) => set(e.target.value === '' ? null : Number(e.target.value))}
+        />
+      )
+    }
+    if (spec.kind === 'text') {
+      return (
+        <input
+          type="text" className="row-input" maxLength={120}
+          aria-label={t('scenarios.newAnswer')}
+          placeholder={t('questionnaire.q7.market.regionPlaceholder')}
+          value={typeof value === 'string' ? value : ''}
+          onChange={(e) => set(e.target.value)}
         />
       )
     }
@@ -258,7 +245,7 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
         </span>
       )
     }
-    const index = spec.options!.findIndex((o) => o.value === value)
+    const index = spec.options!.findIndex((o) => o.value === (value ?? null))
     return (
       <select
         className="row-select" aria-label={t('scenarios.newAnswer')}
@@ -281,7 +268,8 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
           {scenarios.map((s) => {
             const isOpen = expanded[s.id] ?? false
             const hasError = parseErrors[s.id] ?? false
-            const formKeys = Object.keys(s.overrides).filter((k) => k in SPEC)
+            const offered = changesFor(s)
+            const formKeys = shownOrder(Object.keys(s.overrides).filter((k) => k in SPEC))
             const otherKeys = Object.keys(s.overrides).filter((k) => !(k in SPEC))
             return (
               <div key={s.id} className="scenario-row">
@@ -322,13 +310,13 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
                     ) : (
                       <ul className="scenario-changes">
                         {formKeys.map((key) => (
-                          <li key={key} className="scenario-change">
+                          <li key={key} className={`scenario-change${SPEC[key].parent ? ' scenario-change-followup' : ''}`}>
                             <select
                               className="row-select" aria-label={t('scenarios.pickQuestion')}
                               value={key}
                               onChange={(e) => replaceChange(s, key, e.target.value)}
                             >
-                              {changes.filter((c) => c.key === key || !(c.key in s.overrides)).map((c) => (
+                              {[SPEC[key], ...offered.filter((c) => c.key !== key && !(c.key in s.overrides))].map((c) => (
                                 <option key={c.key} value={c.key}>{c.title(t)}</option>
                               ))}
                             </select>
@@ -345,7 +333,7 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
                         ))}
                       </ul>
                     )}
-                    {formKeys.length < changes.length ? (
+                    {offered.some((c) => !(c.key in s.overrides)) ? (
                       <button type="button" className="btn btn-secondary" onClick={() => addChange(s)}>
                         <Plus size={14} /> {t('scenarios.addChange')}
                       </button>
@@ -362,6 +350,7 @@ export default function ScenariosEditor({ scenarios, onChange, baseline = {} }: 
                         onChange={(e) => handleOverridesChange(s.id, e.target.value)}
                         rows={4}
                         spellCheck={false}
+                        aria-invalid={hasError ? true : undefined}
                       />
                       {hasError ? (
                         <p className="opt-warn">

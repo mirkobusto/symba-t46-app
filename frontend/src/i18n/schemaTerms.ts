@@ -455,7 +455,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-07': {
         name: 'Documentazione dei troncamenti di confine',
-        body: 'I troncamenti dei confini vanno dichiarati in modo trasparente in blind_spots per ogni dimensione attiva (B-07).',
+        body: 'I troncamenti dei confini vanno dichiarati apertamente, per ogni dimensione attiva, fra i punti ciechi noti dello studio (B-07).',
       },
     },
     cdp: {
@@ -470,7 +470,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         resolution: 'Ognuno tiene la sua convenzione (IR-05): impatti non attualizzati come serie temporale, costi attualizzati a un tasso dichiarato con analisi di sensibilità; ogni rapporto etichettato \'costo attualizzato per impatto non attualizzato\' (D4.1 §14.2.2)',
       },
       'CDP-03': {
-        name: 'Punteggio unico contro NPV',
+        name: 'Punteggio unico contro VAN',
         body: 'La D4.3 presenta i risultati sociali per gruppo di stakeholder e sconsiglia un punteggio sociale unico (§9.3); l\'LCC produce un solo VAN',
         resolution: 'Interpretazione parallela (IR-04): il VAN è il risultato economico, i risultati sociali restano per gruppo e indicatore; nessuna somma fra i due',
       },
@@ -707,7 +707,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-07': {
         name: 'Documentation des troncatures de frontière',
-        body: 'Les troncatures de frontière doivent être déclarées de façon transparente dans blind_spots pour chaque dimension active (B-07).',
+        body: 'Les troncatures de frontière doivent être déclarées ouvertement, pour chaque dimension active, parmi les angles morts connus de l\'étude (B-07).',
       },
     },
     cdp: {
@@ -722,7 +722,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         resolution: 'Chacun garde sa convention (IR-05) : impacts non actualisés en série temporelle, coûts actualisés à un taux déclaré avec analyse de sensibilité ; tout ratio étiqueté « coût actualisé par impact non actualisé » (D4.1 §14.2.2)',
       },
       'CDP-03': {
-        name: 'Score unique contre NPV',
+        name: 'Score unique contre VAN',
         body: 'La D4.3 présente les résultats sociaux par groupe de parties prenantes et déconseille un score social unique (§9.3) ; le LCC produit une seule VAN',
         resolution: 'Interprétation parallèle (IR-04) : la VAN est le résultat économique, les résultats sociaux restent par groupe et par indicateur ; aucune somme entre les deux',
       },
@@ -959,7 +959,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-07': {
         name: 'Dokumentation abgeschnittener Grenzen',
-        body: 'Abschneidungen an den Grenzen sind für jede aktive Dimension transparent in blind_spots zu erklären (B-07).',
+        body: 'Abschneidungen an den Grenzen sind für jede aktive Dimension offen unter den bekannten blinden Flecken der Studie zu erklären (B-07).',
       },
     },
     cdp: {
@@ -974,7 +974,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         resolution: 'Jede behält ihre Konvention (IR-05): Wirkungen undiskontiert als Zeitreihe, Kosten zu einem angegebenen Satz diskontiert mit Sensitivitätsanalyse; jedes Verhältnis als „diskontierte Kosten je undiskontierter Wirkung“ gekennzeichnet (D4.1 §14.2.2)',
       },
       'CDP-03': {
-        name: 'Einzelwert gegen NPV',
+        name: 'Einzelwert gegen Kapitalwert',
         body: 'D4.3 stellt soziale Ergebnisse nach Stakeholdergruppe dar und rät von einem einzigen sozialen Wert ab (§9.3); die LCC liefert einen Kapitalwert',
         resolution: 'Parallele Interpretation (IR-04): Der Kapitalwert ist das ökonomische Ergebnis, die sozialen Ergebnisse bleiben nach Gruppe und Indikator; keine Summe aus beiden',
       },
@@ -1211,7 +1211,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
       },
       'B-07': {
         name: 'Documentación de los truncamientos de límite',
-        body: 'Los truncamientos de los límites deben declararse de forma transparente en blind_spots para cada dimensión activa (B-07).',
+        body: 'Los truncamientos de los límites deben declararse abiertamente, para cada dimensión activa, entre los puntos ciegos conocidos del estudio (B-07).',
       },
     },
     cdp: {
@@ -1226,7 +1226,7 @@ export const SCHEMA_TERMS: Record<string, SchemaTerms> = {
         resolution: 'Cada uno mantiene su convención (IR-05): impactos sin descontar como serie temporal, costes descontados a una tasa declarada con análisis de sensibilidad; toda razón etiquetada «coste descontado por impacto sin descontar» (D4.1 §14.2.2)',
       },
       'CDP-03': {
-        name: 'Puntuación única frente a NPV',
+        name: 'Puntuación única frente a VAN',
         body: 'La D4.3 presenta los resultados sociales por grupo de partes interesadas y desaconseja una puntuación social única (§9.3); el LCC produce un único VAN',
         resolution: 'Interpretación paralela (IR-04): el VAN es el resultado económico, los resultados sociales se quedan por grupo e indicador; ninguna suma entre ambos',
       },

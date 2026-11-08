@@ -119,7 +119,7 @@ describe('Scenario comparison', () => {
       scenariosResult: { baseline: base, scenarios: [{ id: 'alt1', label: 'Sold', overrides: { flow_q5: { f1: 'c' } }, result: sold }] },
     } as never)
     render(<MemoryRouter><ScenariosResultPage /></MemoryRouter>)
-    expect(screen.getByText('Who pays whom: Slag')).toBeTruthy()
+    expect(screen.getByText(/Who pays whom: Slag/)).toBeTruthy()
   })
 
   it('reports a scenario that could not run, without a row of dashes (Fable review of #205)', () => {

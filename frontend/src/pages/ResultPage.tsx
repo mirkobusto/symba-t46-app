@@ -11,10 +11,14 @@ import ReasoningPanel from '../components/ReasoningPanel'
 import { actionItems } from './resultActions'
 import { plainVerdict, verdictFor } from './resultNarrative'
 import { usePreferenceStore } from '../store/preferenceStore'
-import { configurationRows, obligationGroups, withoutQCodes } from './configurationRows'
+import { obligationGroups, withoutQCodes } from './configurationRows'
+import { exportFilename } from './dcfFilename'
+import { reportMeta, reportRows, reportSector, scenarioConfigLines, scenarioNetworkLines } from './reportPayload'
 import ConfigurationSummary from '../components/ConfigurationSummary'
 import { useHealth } from '../hooks/useHealth'
-import { ApiError, createCase, fetchDcfData, fetchReportDocx, getCase, updateCase } from '../services/api'
+import {
+  ApiError, createCase, fetchDcfData, fetchReportDocx, getCase, runScenarios, updateCase, type ReportScenario,
+} from '../services/api'
 import { useAuthStore } from '../store/authStore'
 import { useCaseStore } from '../store/caseStore'
 import { useDcfDataStore } from '../store/dcfDataStore'
@@ -271,19 +275,56 @@ export default function ResultPage() {
     const blob = new Blob([JSON.stringify(payload, null, 2)], {
       type: 'application/json',
     })
-    triggerDownload(blob, 'symba-case.json')
+    // named after the case and the day, like the DCF files (UX round 2026-11-08, P7-07)
+    triggerDownload(blob, exportFilename('Case', serverCaseName, 'json'))
+  }
+
+  /** The network the scenario comparison reads: the editor's when it is this
+   * case's, otherwise the saved one; none when it cannot be read. */
+  async function reportNetwork() {
+    const dcf = useDcfDataStore.getState()
+    if (dcf.caseId === serverCaseId) return dcf.data
+    return serverCaseId ? networkOf(serverCaseId).catch(() => null) : null
   }
 
   async function handleDownloadReport() {
     setDownloadingReport(true)
     try {
+      const tr = (key: string, options?: Record<string, unknown>) => t(key, options ?? {}) as string
+      // a report downloaded in guided mode keeps the guided register (P3-04)
+      const guided = mode === 'guided'
       // the rows the page shows, so the document carries the same configuration
-      const rows = result
-        ? configurationRows(result, (key, options) => t(key, options ?? {}) as string)
-            .map(({ label, value, why }) => ({ label, value, why }))
-        : []
-      const blob = await fetchReportDocx(draft, rows)
-      triggerDownload(blob, 'symba-case-report.docx')
+      const rows = result ? reportRows(result, tr, guided) : []
+      // the cover names the case and who prepared it (UX round 2026-11-08, P8-01)
+      const detail = serverCaseId ? await getCase(serverCaseId).catch(() => null) : null
+      const meta = reportMeta({
+        caseName: serverCaseName, detail, saved: serverCaseId !== null, diverged: savedDiverged, lang: i18n.language,
+      })
+      // what each scenario changes, as the scenario comparison says it (P1-08)
+      const defined = draft.alternative_scenarios ?? []
+      let scenarios: ReportScenario[] = []
+      if (defined.length > 0) {
+        try {
+          const sr = await runScenarios(draft, defined.map((s) => ({ id: s.id, label: s.label, overrides: s.overrides ?? {} })))
+          const network = await reportNetwork()
+          scenarios = sr.scenarios
+            .filter((s) => !s.error)
+            .map((s) => ({
+              id: s.id,
+              config: scenarioConfigLines(sr.baseline, s.result, tr),
+              network: scenarioNetworkLines(network, s.id, tr),
+            }))
+        } catch {
+          // the server still says what each scenario changes in the answers
+        }
+      }
+      const blob = await fetchReportDocx(draft, rows, {
+        meta,
+        sector: result?.sector_rules?.length ? reportSector(result.sector_rules, t, i18n.language) : undefined,
+        scenarios,
+        guided,
+      })
+      triggerDownload(blob, exportFilename('Report', serverCaseName, 'docx'))
     } catch (e) {
       const detail =
         e instanceof ApiError

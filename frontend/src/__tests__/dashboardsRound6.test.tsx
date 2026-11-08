@@ -93,6 +93,9 @@ describe('cases dashboard', () => {
     const sectorCard = screen.getAllByText('By sector')[0].closest('.dd-kpi') as HTMLElement
     expect(within(sectorCard).getByText('Pulp & paper')).toBeInTheDocument()
     expect(within(sectorCard).queryByText('no sector stated')).toBeNull()
+    expect(within(sectorCard).getByText('Most common, cases without a value left out')).toBeInTheDocument()
+    const ilcdCard = screen.getAllByText('By ILCD situation')[0].closest('.dd-kpi') as HTMLElement
+    expect(within(ilcdCard).getByText('Most common')).toBeInTheDocument()
     const scopeCard = screen.getAllByText('By concentration of the interactions')[0].closest('.dd-kpi') as HTMLElement
     expect(within(scopeCard).getByText('—')).toBeInTheDocument()
     expect(within(scopeCard).getByText('No case states one')).toBeInTheDocument()

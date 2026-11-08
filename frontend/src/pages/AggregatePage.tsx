@@ -107,8 +107,11 @@ export default function AggregatePage() {
     const { given } = splitNone(entries)
     return given.length > 0 ? label(axis, given[0].key) : '—'
   }
-  const topDetail = (entries: AggregateBreakdownEntry[]) =>
-    splitNone(entries).given.length > 0 ? t('aggregate.mostCommon') : t('aggregate.noneTop')
+  const topDetail = (entries: AggregateBreakdownEntry[]) => {
+    const { given, none } = splitNone(entries)
+    if (given.length === 0) return t('aggregate.noneTop')
+    return none > 0 ? t('aggregate.mostCommonGiven') : t('aggregate.mostCommon')
+  }
   const [data, setData] = useState<CasesAggregate | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)

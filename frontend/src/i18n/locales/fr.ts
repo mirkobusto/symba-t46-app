@@ -411,7 +411,7 @@ const fr: Locale = {
     "title": "Privacy and data storage",
     "draft": "DRAFT for legal review — not yet the privacy notice of record. Items in [square brackets] are for the controller of this deployment to complete.",
     "updated": "Version: draft 2, 2026-11-03.",
-    "languageNote": "Projet en cours de relecture juridique, sans valeur définitive. Cette page n'existe pour l'instant qu'en anglais.",
+    "languageNote": "Version provisoire en cours de relecture juridique, sans valeur définitive. Cette page n'existe pour l'instant qu'en anglais.",
     "sections": [
       {
         "id": "controller",
@@ -1742,7 +1742,8 @@ const fr: Locale = {
       byScope: 'Par concentration des interactions',
       byIlcd: 'Par situation ILCD',
     },
-    mostCommon: "Le plus fréquent, sans les cas qui n'indiquent rien",
+    mostCommon: 'Le plus fréquent',
+    mostCommonGiven: "Le plus fréquent, sans les cas qui n'indiquent rien",
     noneTop: "Aucun cas ne l'indique",
     noneKey: "sans réponse",
     noCosting: "aucun calcul des coûts",

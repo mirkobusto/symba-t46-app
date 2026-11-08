@@ -1648,7 +1648,7 @@ const en = {
           'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
-        whenScoringNoSocial: "This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental indicators. This study has no social indicators, because the social dimension is not assessed.",
+        whenScoringNoSocial: "This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental indicators. This study has no social indicators, because the social dimension is not assessed.",
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
         whenScoring:

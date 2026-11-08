@@ -1605,7 +1605,7 @@ const fr: Locale = {
           'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : indicateurs environnementaux et économiques, pour juger si l\'échange est rentable.',
       },
       community: {
-        whenScoringNoSocial: "Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l'étude avec le Data Collection File, ses résultats peuvent être chargés ici : des indicateurs environnementaux. Cette étude n'a pas d'indicateurs sociaux, car la dimension sociale n'est pas évaluée.",
+        whenScoringNoSocial: "Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l'outil n'a pas encore de page pour les charger dans le cas. L'étude donnerait : des indicateurs environnementaux. Cette étude n'a pas d'indicateurs sociaux, car la dimension sociale n'est pas évaluée.",
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels flux les entreprises échangent, et si cette étude examine ou non les effets sociaux.",
         whenScoring:

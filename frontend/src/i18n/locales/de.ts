@@ -1599,7 +1599,7 @@ const de: Locale = {
           'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: Umwelt- und Wirtschaftsindikatoren, um zu beurteilen, ob sich der Austausch lohnt.',
       },
       community: {
-        whenScoringNoSocial: "Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Führt ein Analyst die Studie mit dem Data Collection File durch, können seine Ergebnisse hier geladen werden: Umweltindikatoren. Diese Studie hat keine sozialen Indikatoren, weil die soziale Dimension nicht bewertet wird.",
+        whenScoringNoSocial: "Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: Umweltindikatoren. Diese Studie hat keine sozialen Indikatoren, weil die soziale Dimension nicht bewertet wird.",
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Flüsse die Unternehmen austauschen, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
         whenScoring:

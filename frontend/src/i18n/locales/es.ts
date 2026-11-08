@@ -1599,7 +1599,7 @@ const es: Locale = {
           'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores ambientales y económicos, para juzgar si el intercambio compensa.',
       },
       community: {
-        whenScoringNoSocial: "Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para vuestro caso. Si un analista realiza el estudio con el Data Collection File, sus resultados se pueden cargar aquí: indicadores ambientales. Este estudio no tiene indicadores sociales, porque la dimensión social no se evalúa.",
+        whenScoringNoSocial: "Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para vuestro caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores ambientales. Este estudio no tiene indicadores sociales, porque la dimensión social no se evalúa.",
         whatYouSee:
           "Lo que esta página te dice hoy: qué flujos intercambian las empresas y si este estudio examina o no los efectos sociales.",
         whenScoring:

@@ -4129,7 +4129,9 @@ kbd {
   line-height: 1.55;
 }
 
-.dd-reader-article a {
+/* text links only: on a button the brand blue sat on the dark button
+   background at 2.7:1 (/r/about, UX round 6, P5-10) */
+.dd-reader-article a:not(.dd-btn) {
   color: var(--dd-brand);
   text-underline-offset: 3px;
 }
@@ -4140,6 +4142,13 @@ kbd {
   color: var(--dd-accent);
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+/* the line that tells a reader from a bare link to pick who they are (UX round 6, P4-04) */
+.dd-reader-audience-lead {
+  margin: 0;
+  font-weight: 600;
+  color: var(--dd-text);
 }
 
 .dd-reader-audience {
@@ -5084,6 +5093,33 @@ kbd {
 
 .home-intro-card p {
   margin: 0;
+}
+
+/* the way to a report received by link, for readers (UX round 6, P5-05) */
+.home-reader {
+  margin: 0 0 16px;
+  text-align: left;
+  border-left: 4px solid var(--dd-brand);
+}
+
+.home-reader p {
+  margin: 0;
+}
+
+.home-reader p + p {
+  margin-top: 6px;
+}
+
+/* the steps of /r/fill-in (UX round 6, P2-15) */
+.dd-reader-steps {
+  text-align: left;
+  padding-left: 22px;
+  line-height: 1.55;
+  color: var(--dd-text-soft);
+}
+
+.dd-reader-steps li + li {
+  margin-top: 8px;
 }
 
 .about {

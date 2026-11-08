@@ -89,12 +89,33 @@ const fr: Locale = {
     contactHint: "Les entreprises renvoient aussi le Data Collection File rempli à cette adresse : indiquez la personne qui réalise l'étude.",
     saveSharing: 'Enregistrer le nom et le contact',
     notSharedBody: 'Le rapport n\'est pas public : vous seul pouvez ouvrir ce cas. Activez le partage pour obtenir les liens.',
-    sharedBody: 'Le rapport est public : toute personne qui a l\'un de ces liens peut le lire, sans les notes et les quantités des flux.',
+    sharedBody: "Le rapport est public : toute personne qui a l'un de ces liens peut le lire. Il montre les échanges avec les noms que vous leur avez donnés et les pays des entreprises de votre réseau ; il ne montre ni les noms des entreprises, ni les notes et les quantités des flux.",
     signInButton: 'Se connecter pour enregistrer et partager',
     saveFirstBodySignedIn: "Pour partager, le cas doit être enregistré sur le serveur. Enregistrez-le d'abord avec « {{button}} » sur la page de résultat, puis rouvrez cette fenêtre.",
   },
 
   reader: {
+    thisCaseOnly: "Cette page ne vaut que pour ce cas ; un autre projet se configure à partir de ses propres réponses.",
+    whoIsBehind: "Qui est derrière SYMBA ?",
+    countries: "Où sont les installations : {{countries}}",
+    flowsAsNamed: "Les échanges, avec les noms donnés par la personne qui a préparé le cas :",
+    whatYouCanDoEndUser: "Cette étude est encore en préparation. Pour savoir ce qu'elle signifie pour le produit que vous avez acheté, demandez à qui a mis ce lien dessus ; pour l'étude elle-même, écrivez à la personne qui l'a préparée : {{contact}}. Les résultats, une fois chargés, apparaîtront sur cette même page, au même lien.",
+    fillIn: {
+      eyebrow: "Data Collection File",
+      title: "Remplir un Data Collection File",
+      lead: "Vous avez reçu un classeur Excel de la personne qui réalise une étude des échanges auxquels participe votre entreprise. Vous n'avez besoin ni d'un compte ni d'un outil : tout se passe dans le classeur.",
+      steps: {
+        cover: "Lisez la page de garde : elle indique à quel cas appartient le fichier, ce qui vous est demandé, pour quand, et à qui le renvoyer.",
+        rows: "Remplissez seulement vos lignes : les flux que votre entreprise cède ou reçoit, dans les feuilles indiquées sur la page de garde, et dans ces lignes seulement les colonnes de votre côté (origine ou destination).",
+        grey: "Laissez telles quelles les colonnes grises et les feuilles destinées à la personne qui réalise l'étude. Si une valeur déjà remplie est fausse pour votre flux, signalez-le au contact.",
+        unknown: "Si vous ne connaissez pas une valeur, laissez la cellule vide et dites-le : une cellule vide est une lacune connue, un chiffre deviné est une erreur inconnue. Indiquez l'unité à côté de chaque quantité, la devise et l'année à côté de chaque coût.",
+        confidential: "Valeurs confidentielles : écrivez « confidentiel » dans la cellule et envoyez la valeur uniquement au contact de la page de garde. Ne transférez pas le classeur aux autres partenaires : il peut contenir leurs données.",
+        send: "Renvoyez le fichier rempli au contact de la page de garde avant la date indiquée.",
+      },
+      reportLine: "Vous avez aussi reçu un lien vers le rapport ? Ouvrez-le : son onglet Industrie dit ce que fait l'étude et de quelles données elle a besoin.",
+      reportLink: "Lire un rapport partagé",
+      howLink: "Comment le remplir",
+    },
     tagline: 'Rapport public',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -133,15 +154,16 @@ const fr: Locale = {
     sectorTag: "Secteur : {{sector}}",
     scaleTag: "Interactions : {{scale}}",
     compliance: {
-      peer: { name: "Revue indépendante", desc: "Un relecteur vérifie l'étude selon l'ISO 14044, comme pour une publication scientifique." },
+      review: { name: "Revue indépendante de l'étude", panel: "Prévue : un panel d'au moins trois experts indépendants revoit l'étude avant toute affirmation publique (ISO 14044).", journal: "Prévue : l'étude passe la relecture par les pairs d'une revue scientifique.", none: "Non prévue dans cette étude. Le rapport technique complet reste disponible si une revue est demandée.", badge: { panel: "panel de trois experts ou plus", journal: "relecture par les pairs d'une revue", none: "non prévue dans cette étude" } },
       pef: { name: "Empreinte environnementale de produit UE (PEF)", desc: "L'étude suit la méthode européenne d'empreinte, y compris la Circular Footprint Formula.", descC2: "Non applicable : les comptes d'une seule entreprise utilisent l'allocation, pas la Circular Footprint Formula (ILCD C2).", descB: 'Exécutée comme analyse de sensibilité : la Situation B est modélisée de façon conséquentielle.' },
       public: { name: 'Affirmation comparative divulguée au public', desc: "Affirmer publiquement qu'un produit est meilleur ou équivalent à un autre exige un panel de revue ISO." },
       dnsh: { name: "Taxonomie UE « ne pas causer de préjudice important » (DNSH)", desc: "Un contrôle distinct pour les financements liés à la taxonomie (art. 17) ; cet outil ne le réalise pas." },
-      slcc: { name: 'Conçu pour une décision publique (LCC sociétal)', yes: 'Oui : le calcul des coûts inclut la lecture de la société qu\'exige une décision publique (taxes et subventions corrigées, effets environnementaux valorisés) — D4.2 §2.3.', no: 'Non : le calcul des coûts reste au niveau de l\'entreprise et de la chaîne de valeur. Si un organisme public doit décider de ce cas, demandez à l\'analyste de configurer l\'étude pour un objectif public.', c2: 'Sans objet : les comptes d\'une seule entreprise sont calculés au niveau de l\'entreprise seulement.', off: 'Non évalué : l\'étude n\'a pas de dimension économique.' },
+      slcc: { name: 'Conçu pour une décision publique (LCC sociétal)', yes: 'Oui : le calcul des coûts inclut la lecture de la société qu\'exige une décision publique (taxes et subventions corrigées, effets environnementaux valorisés) — D4.2 §2.3.', no: 'Non : le calcul des coûts reste au niveau de l\'entreprise et de la chaîne de valeur. Si un organisme public doit décider de ce cas, demandez à l\'analyste de configurer l\'étude pour un objectif public.', c2: 'Sans objet : les comptes d\'une seule entreprise sont calculés au niveau de l\'entreprise seulement.', off: 'Non évalué : l\'étude n\'a pas de dimension économique.', undeclared: "Non déclaré : l'étude ne dit pas si un organisme public doit décider sur elle. Demandez à l'analyste." },
       notPlanned: "non prévue dans cette étude",
       notAssessed: "non évaluée par cet outil",
     },
     audience: {
+      choose: "Vous lisez en tant que qui ? Choisissez votre vue : les faits sont les mêmes dans les quatre.",
       showingFor: 'Vue pour — {{name}}',
       industry: { short: '🏭 Industrie', name: 'Industrie', title: 'Vue opérateur', body: 'Vue technique complète pour les opérateurs.' },
       community: { short: '🌳 Communauté', name: 'Communauté', title: 'Vue impact local', body: 'Comment seront étudiés les effets sur la zone et sur les personnes proches des installations : transports, air, eau et sol locaux, ce qui est épandu sur les champs, si les habitants sont entendus. Il n\'y a pas encore de résultats.' },
@@ -194,13 +216,14 @@ const fr: Locale = {
     skip: 'Passer pour l\'instant',
     roles: {
       analyst: { name: 'Analyste de durabilité', desc: 'Praticien IS, relecteur LCA/LCC/S-LCA, méthodologue.' },
-      industry: { name: 'Opérateur industriel', desc: 'Vous gérez une usine ou un site dans un réseau IS.' },
+      industry: { name: 'Opérateur industriel', desc: "Vous gérez une usine ou un site dans un réseau de symbiose industrielle." },
       authority: { name: 'Autorité locale', desc: 'Municipalité, région, analyste politique du territoire.' },
       community: { name: 'Représentant de communauté', desc: 'Association, ONG, groupe de citoyens du territoire hôte.' },
       enduser: { name: 'Utilisateur / citoyen', desc: 'Vous utilisez des produits ou services issus de la symbiose.' },
       unknown: { name: 'Pas sûr encore', desc: 'C\'est bien — nous vous emmenons sur la page de vue d\'ensemble.' },
     },
     tasks: {
+      fill: { name: "Je dois remplir un Data Collection File", desc: "On m'a envoyé un classeur Excel sur les échanges de mon entreprise et je dois le renvoyer rempli." },
       assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie pour un cas IS par un court questionnaire.' },
       read: { name: 'Lire un rapport partagé', desc: 'Ouvrir un cas partagé avec moi et voir le rapport.' },
       explore: { name: 'Explorer une région / secteur', desc: "Voir comment les cas enregistrés se répartissent entre méthodes et secteurs." },
@@ -220,6 +243,7 @@ const fr: Locale = {
       system: 'Système',
     },
     nav: {
+      openShared: "Lire un rapport partagé",
       home: 'Accueil',
       questionnaire: "Questionnaire",
       cases: 'Mes cas',
@@ -251,10 +275,16 @@ const fr: Locale = {
   },
 
   home: {
+    reader: {
+      link: "Vous avez reçu un lien ou un code ?",
+      open: "Lire un rapport partagé",
+      workbook: "Vous avez reçu un Data Collection File à remplir ?",
+      fillIn: "Comment le remplir",
+    },
     intro: {
       what: { title: "Ce qu'il fait", body: "Il vous dit comment organiser l'évaluation d'un échange de symbiose industrielle, selon les lignes directrices SYMBA, et quelles données collecter auprès des entreprises concernées." },
       not: { title: "Ce qu'il ne fait pas", body: "Il ne calcule pas les résultats : ni émissions, ni coûts, ni données sociales. Qui réalise l'étude les calcule avec les données que l'outil demande." },
-      who: { title: "Pour qui", body: "Les analystes de durabilité et les consultants y organisent leurs études ; entreprises, organismes publics et associations lisent les rapports et voient quelles données leur seront demandées." },
+      who: { title: "Pour qui", body: "Les analystes de durabilité et les consultants y organisent leurs études ; entreprises, organismes publics et associations lisent les rapports et voient quelles données leur seront demandées ; les citoyens qui ont reçu un lien, par exemple sur l'étiquette d'un produit, lisent le rapport public." },
     },
     title: "SYMBA — évaluer la symbiose industrielle",
     tagline: "Comment organiser l'évaluation environnementale, économique et sociale d'un échange entre entreprises, et quelles données collecter.",
@@ -1023,6 +1053,9 @@ const fr: Locale = {
       lead: 'Ce que vos réponses ont décidé, dans les termes des livrables. Ouvrez une ligne pour lire le texte du moteur, en anglais, avec la section dont il provient.',
       nodeText: 'Texte du moteur (anglais)',
       labels: {
+        environment: "Effets environnementaux",
+        review: "Contrôle indépendant",
+        whatMeasured: "Ce qui est mesuré",
         flows: "Traitement de chaque flux",
         claim: 'Affirmation comparative',
         purpose: 'Type d\'étude',
@@ -1045,18 +1078,29 @@ const fr: Locale = {
         notCovered: 'Ce qui n\'est pas couvert',
       },
       values: {
+        endUser: {
+          environmentOn: "Oui : l'étude compte les émissions et les ressources utilisées par tout l'échange, transport compris.",
+          environmentOff: "Non : les effets environnementaux ne sont pas évalués dans cette étude.",
+          fu_waste_treatment: "Le traitement du résidu qu'une entreprise cède, pas le produit que vous achetez",
+          fu_product_substitution: "Les produits que l'échange fabrique et les produits qu'ils remplacent",
+          fu_co_primary: "Les deux : le traitement du résidu et les produits qui en sont tirés",
+          fu_function: "Le service que l'échange rend dans son ensemble",
+          fuLcc_waste_treatment: "Le traitement du résidu qu'une entreprise cède, pas le produit que vous achetez",
+          fuLcc_dual: "Les deux : le résidu traité et ce que l'échange produit",
+          fuLcc_function: "Les services que l'échange rend dans son ensemble",
+        },
         community: {
           slcaOn: 'Oui : les effets sociaux sont évalués groupe par groupe : travailleurs, communauté locale, consommateurs. Les groupes interrogés sont choisis par la personne qui réalise l\'étude (D4.3 §5.1, §6.2).',
-          slcaOff: 'Non : les effets sociaux ne sont pas évalués. Si les habitants veulent être entendus, demandez-le au contact de cette page.',
+          slcaOff: "Non : les effets sociaux ne sont pas évalués. Si les habitants veulent être entendus, demandez à la personne qui réalise l'étude de les ajouter.",
           regional: 'Les effets locaux sur l\'air, l\'eau et le sol (particules fines, acidification, excès de nutriments, consommation d\'eau) sont évalués avec des données {{where}}, pas des moyennes mondiales (D4.1 §13.3.3).',
-          where_A: 'du site',
-          where_B: 'de votre région ou de votre pays',
+          where_A: "du site des installations",
+          where_B: "de la région ou du pays des installations",
           where_C: 'du territoire de chaque émission',
-          where_unset: 'du pays',
+          where_unset: "du pays des installations",
           transport: 'Chaque échange est étudié avec son transport : camions ou canalisations, itinéraires et distances réels, chargements et retours à vide, et la distance au-delà de laquelle le camionnage annule le bénéfice (D4.1 §13.3.1).',
           transportLcc: 'Le coût du transport de chaque échange, et la distance au-delà de laquelle il n\'est plus rentable (D4.2 §4.3).',
           fieldSpreading: 'L\'étude compte ce qui se passe quand le digestat, le compost ou l\'engrais récupéré sont épandus sur les champs : ammoniac dans l\'air, nitrates dans l\'eau (D4.1 Part 2 §4.3.3, §6.3.3).',
-          notCovered: 'Les odeurs et le bruit ne sont pas des catégories d\'impact de ces lignes directrices (la Part 2 §9.3 les cite parmi les effets habituellement laissés de côté) ; l\'air, l\'eau et la toxicité locaux le sont. Tout effet local que l\'étude laisse de côté doit être déclaré comme angle mort connu (D4.1 §12.3.5).',
+          notCovered: "Les odeurs et le bruit ne sont pas des catégories d'impact de ces lignes directrices (la D4.1 Part 2 §9.3 les cite parmi les effets habituellement laissés de côté) ; l'air, l'eau et la toxicité locaux le sont. Les odeurs et le bruit sont en général examinés lors de l'autorisation des installations, pas dans cette étude : pour eux, adressez-vous à votre commune ou à l'autorité qui délivre l'autorisation. Tout effet local que l'étude laisse de côté doit être déclaré comme angle mort connu (D4.1 §12.3.5) : vous pouvez demander à la personne qui a préparé l'étude de les nommer.",
         },
         flowCost: {
           a: 'déchet : la redevance négociée ; coût nul seulement si le résidu est inévitable (D4.2 §6.3)',
@@ -1453,6 +1497,8 @@ const fr: Locale = {
     },
   },
   stakeholder: {
+    noCaseReader: "Aucun cas n'est ouvert ici. Vous avez reçu le lien d'un rapport ? Ouvrez-le ci-dessous, ou regardez un cas d'exemple.",
+    seeExample: "Voir un exemple",
     audience: {
       industry: {
         whatYouSee:
@@ -1461,6 +1507,7 @@ const fr: Locale = {
           'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l\'étude avec le Data Collection File, ses résultats peuvent être chargés ici : indicateurs environnementaux et économiques, pour juger si l\'échange est rentable.',
       },
       community: {
+        whenScoringNoSocial: "Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Si un analyste réalise l'étude avec le Data Collection File, ses résultats peuvent être chargés ici : des indicateurs environnementaux. Cette étude n'a pas d'indicateurs sociaux, car la dimension sociale n'est pas évaluée.",
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels flux les entreprises échangent, et si cette étude examine ou non les effets sociaux.",
         whenScoring:
@@ -1533,12 +1580,6 @@ const fr: Locale = {
     cdpFlagsCount_one: '{{count}} point de décision que l\'analyste doit trancher',
     cdpFlagsCount_other: '{{count}} points de décision que l\'analyste doit trancher',
     complianceTitle: 'Signaux de conformité',
-    compliance: {
-      peerReview: 'Relecture indépendante par les pairs : {{status}}',
-      pef: 'Alignement EU PEF (Q4=D) : {{status}}',
-      pefC2: "Alignement EU PEF (Q4=D) : non appliqué, le rapport d'une entreprise utilise l'allocation et non la Circular Footprint Formula (Situation ILCD C2)",
-      publicClaim: 'Affirmation comparative divulguée au public (Q4=C) : {{status}}',
-    },
   },
 
   aggregate: {

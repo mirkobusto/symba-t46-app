@@ -21,7 +21,7 @@ import 'reactflow/dist/style.css'
 import FlowControls from './FlowControls'
 import { FLOW_EDGE_TYPES } from './flowEdgeTypes'
 
-import { MIN_ZOOM, actorNodes, edgeShifts, flowEdges, nodeClassName } from './networkGraph'
+import { EDGE_COLOR, MIN_ZOOM, actorNodes, edgeShifts, flowEdges, nodeClassName } from './networkGraph'
 import { useDcfDataStore } from '../store/dcfDataStore'
 import type { Flow } from '../types/api'
 import type { DcfPayload } from '../types/dcf'
@@ -76,8 +76,8 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
       label: edge.label ?? undefined,
       type: 'flow',
       data: { shift: shifts[edge.id] },
-      markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
-      style: { strokeWidth: 2 },
+      markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18, color: EDGE_COLOR },
+      style: { strokeWidth: 2, stroke: EDGE_COLOR },
       className: `nb-edge nb-edge-${edge.type ?? 'unset'}`,
     }))
     return { nodes, edges }
@@ -123,8 +123,8 @@ export default function NetworkDiagram({ payload, caseFlows }: Props) {
         target: destId,
         label: flow.name,
         animated: false,
-        markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
-        style: { strokeWidth: 2 },
+        markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18, color: EDGE_COLOR },
+        style: { strokeWidth: 2, stroke: EDGE_COLOR },
       })
     })
 

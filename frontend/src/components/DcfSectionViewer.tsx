@@ -115,9 +115,15 @@ export default function DcfSectionViewer({ section, mandatesByCategory }: Props)
         </thead>
         <tbody>
           {section.fields.map((f) => {
-            const values = f.enum_labels
-              ? Object.values(f.enum_labels)
-              : f.enum_values ?? null
+            // only what the files offer: enum_labels also carries the labels of
+            // retired values (waste, by-product, producer, consumer, two price
+            // bases), to show a stored one, and the page listed them as allowed
+            // while the Excel refused them (UX round 6, P1-05, P6-15, P7-18)
+            const values = f.enum_values && f.enum_values.length > 0
+              ? f.enum_values.map((v) => f.enum_labels?.[v] ?? v)
+              : f.enum_labels
+                ? Object.values(f.enum_labels)
+                : null
             return (
               <tr key={f.id}>
                 <td>

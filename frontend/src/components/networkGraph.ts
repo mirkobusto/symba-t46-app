@@ -209,22 +209,42 @@ export function edgeShifts(edges: GraphEdge[], step = 24): Record<string, number
   return out
 }
 
-/** The path of a flow arrow with its middle segment moved by `shift` (see FlowEdge). */
-export function flowEdgePath(p: Pick<EdgeProps, 'sourceX' | 'sourceY' | 'targetX' | 'targetY' | 'sourcePosition' | 'targetPosition'>, shift: number) {
-  const { sourceX, sourceY, targetX, targetY } = p
+/** The path of a flow arrow moved by `shift` (see FlowEdge), and where its
+ * label goes. */
+export function flowEdgePath(
+  p: Pick<EdgeProps, 'sourceX' | 'sourceY' | 'targetX' | 'targetY' | 'sourcePosition' | 'targetPosition'>,
+  shift: number,
+): [string, number, number, number, number] {
+  const { sourceY, targetY } = p
+  // a parallel arrow also leaves and enters at its own point: with one actor
+  // right above the other the middle segment has no length, and moving it alone
+  // drew two flows as one line through both labels (UX round 6, P8-13)
+  const sourceX = p.sourceX + shift
+  const targetX = p.targetX + shift
+  const offset = 20 + Math.abs(shift) / 2
   // arrows leave from the bottom and enter from the top: the middle segment is
   // horizontal when the target is below, vertical otherwise
   const below = targetY > sourceY
-  return getSmoothStepPath({
+  const [path, labelX, labelY, offsetX, offsetY] = getSmoothStepPath({
     ...p,
+    sourceX,
+    targetX,
     borderRadius: 10,
-    offset: 20,
+    offset,
     centerY: below ? (sourceY + targetY) / 2 + shift : undefined,
     centerX: below ? undefined : (sourceX + targetX) / 2 + shift,
   })
+  if (below) return [path, labelX, labelY, offsetX, offsetY]
+  // side by side, the middle of the path lies between the two boxes, which
+  // hid a long label (P2-12): it goes on the segment under the source instead
+  return [path, (sourceX + targetX) / 2 + shift, sourceY + offset, offsetX, offsetY]
 }
 
 /** Lowest zoom of the editor and the preview. React Flow stops at 0.5, where a
  * large or arranged network no longer fits the canvas, and fit-view stops
  * with it (Kimi test 2026-11-04, A7-09, A8-10). */
 export const MIN_ZOOM = 0.1
+
+/** One colour for every arrow and its head, in the editor, the preview and the
+ * picture in the files: two greys read as two kinds of flow (UX round 6, P8-13). */
+export const EDGE_COLOR = "#4a5568"

@@ -50,6 +50,9 @@ function triggerDownload(blob: Blob, filename: string) {
   URL.revokeObjectURL(url)
 }
 
+/** The network could not be saved before a download (see exportBlob). */
+class NetworkNotSaved extends Error {}
+
 export default function DataCollectionPage() {
   const { t, i18n } = useTranslation()
   const result = useCaseStore((s) => s.result)
@@ -68,6 +71,10 @@ export default function DataCollectionPage() {
   // a load from the server that lands after the sync replaces the rows: sync
   // again then, or names and Q5 stay stale (Fable review of #203)
   const dcfLastSynced = useDcfDataStore((s) => s.lastSyncedAt)
+  // deadline, contact and version for the recipients (UX round 6, P8-02)
+  const sending = useDcfDataStore((s) => s.data.sending) ?? null
+  const setSending = useDcfDataStore((s) => s.setSending)
+  const [shareContact, setShareContact] = useState<string | null>(null)
 
   const [payload, setPayload] = useState<DcfPayload | null>(null)
   const [loading, setLoading] = useState(true)
@@ -121,6 +128,19 @@ export default function DataCollectionPage() {
     if (serverCaseId) void loadDcfData(serverCaseId)
   }, [serverCaseId, bindDcfData, loadDcfData])
 
+  // the contact of the shared report: the files use it when none is written
+  // here, and the page says so (the first download carried a placeholder, P8-02)
+  useEffect(() => {
+    if (!serverCaseId) return
+    let cancelled = false
+    getCase(serverCaseId)
+      .then((d) => {
+        if (!cancelled) setShareContact([d.prepared_by, d.case_contact].filter(Boolean).join(' — ') || null)
+      })
+      .catch(() => { /* the field still works without it */ })
+    return () => { cancelled = true }
+  }, [serverCaseId])
+
   // After the answers were worked out again, say what that changed in the
   // file against the saved version (UX round 5, D3 / P7-06).
   const diverged = serverCaseId !== null && savedDiverged
@@ -166,12 +186,16 @@ export default function DataCollectionPage() {
     // only the case's network goes in the picture, not a scenario's open in the editor
     const png = tab === 'network' && useDcfDataStore.getState().activeScenario ? null : await captureNetworkPng()
     if (serverCaseId) {
-      if (dcfDirty) await saveDcfData()
+      // a failed save must stop the download: the files come from the server's
+      // copy and would carry the old network (agent 1 note, round 6)
+      if (dcfDirty && !(await saveDcfData())) throw new NetworkNotSaved()
       return kind === 'xlsx'
-        ? fetchDcfXlsxForCase(serverCaseId, rows, png)
-        : fetchDcfDocxForCase(serverCaseId, rows, png)
+        ? fetchDcfXlsxForCase(serverCaseId, rows, png, sending)
+        : fetchDcfDocxForCase(serverCaseId, rows, png, sending)
     }
-    return kind === 'xlsx' ? fetchDcfXlsx(sourceCase, rows, png) : fetchDcfDocx(sourceCase, rows, png)
+    return kind === 'xlsx'
+      ? fetchDcfXlsx(sourceCase, rows, png, sending)
+      : fetchDcfDocx(sourceCase, rows, png, sending)
   }
 
   async function handleDownloadXlsx() {
@@ -185,9 +209,11 @@ export default function DataCollectionPage() {
       pushToast({
         type: 'error',
         message:
-          e instanceof ApiError
-            ? `${t('dcf.downloadError')} — ${e.detail}`
-            : t('dcf.downloadError'),
+          e instanceof NetworkNotSaved
+            ? t('dcf.saveBeforeDownloadFailed')
+            : e instanceof ApiError
+              ? `${t('dcf.downloadError')} — ${e.detail}`
+              : t('dcf.downloadError'),
         durationMs: 8000,
       })
     } finally {
@@ -205,9 +231,11 @@ export default function DataCollectionPage() {
       pushToast({
         type: 'error',
         message:
-          e instanceof ApiError
-            ? `${t('dcf.downloadError')} — ${e.detail}`
-            : t('dcf.downloadError'),
+          e instanceof NetworkNotSaved
+            ? t('dcf.saveBeforeDownloadFailed')
+            : e instanceof ApiError
+              ? `${t('dcf.downloadError')} — ${e.detail}`
+              : t('dcf.downloadError'),
         durationMs: 8000,
       })
     } finally {
@@ -311,6 +339,57 @@ export default function DataCollectionPage() {
           <p className="dd-soft" style={{ marginTop: 10 }}>{t('dcf.socialDeferred')}</p>
         ) : null}
       </div>
+
+      {/* what the files tell the companies, written before sending them: the
+          deadline could not be set anywhere and the contact only from "Share
+          report" (UX round 6, P8-02, P2-19, P3-16) */}
+      <section className="dcf-sending" aria-labelledby="dcf-sending-title">
+        <h2 id="dcf-sending-title">{t('dcf.sending.title')}</h2>
+        <p className="dd-soft">{t('dcf.sending.intro')}</p>
+        <div className="dcf-sending-fields">
+          <label className="dd-share-field">
+            <span>{t('dcf.sending.returnBy')}</span>
+            <input
+              type="date"
+              value={sending?.return_by ?? ''}
+              onChange={(e) => setSending({ return_by: e.target.value || null })}
+            />
+          </label>
+          <label className="dd-share-field dcf-sending-contact">
+            <span>{t('dcf.sending.contact')}</span>
+            <input
+              type="text"
+              maxLength={300}
+              value={sending?.contact ?? ''}
+              placeholder={shareContact ?? t('dcf.sending.contactPlaceholder')}
+              onChange={(e) => setSending({ contact: e.target.value || null })}
+            />
+            <small className="dd-soft">
+              {sending?.contact || !shareContact
+                ? t('dcf.sending.contactHint')
+                : t('dcf.sending.contactFallback', { contact: shareContact })}
+            </small>
+          </label>
+          <label className="dd-share-field">
+            <span>{t('dcf.sending.version')}</span>
+            <input
+              type="text"
+              maxLength={40}
+              value={sending?.version ?? ''}
+              placeholder="1"
+              onChange={(e) => setSending({ version: e.target.value || null })}
+            />
+          </label>
+        </div>
+        {!sending?.return_by || !(sending?.contact || shareContact) ? (
+          <p className="dd-soft dcf-sending-missing">
+            {[
+              !sending?.return_by ? t('dcf.sending.noDate') : null,
+              !(sending?.contact || shareContact) ? t('dcf.sending.noContact') : null,
+            ].filter(Boolean).join(' ')}
+          </p>
+        ) : null}
+      </section>
 
       {/* the download buttons were twenty screens down on a phone (P6-03) */}
       <div className="dcf-files-top">

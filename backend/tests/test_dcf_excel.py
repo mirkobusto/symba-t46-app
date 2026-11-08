@@ -79,9 +79,11 @@ def test_render_returns_bytes(payload_wiktor):
 def test_workbook_has_expected_tabs(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
-    expected = ["Cover", "Instructions", "Actors", "Flow Matrix", "Flow Classification", "Reference Scenario",
-                "Logistics", "Costs & Revenues", "Infrastructure",
-                "Methodological Choices", "Network Diagram"]
+    # one order with the Word document: the network after the instructions,
+    # the companies' sheets, then the analyst's (UX round 6, P2-09, P8-07)
+    expected = ["Cover", "Instructions", "Network Diagram", "Actors", "Flow Matrix", "Reference Scenario",
+                "Logistics", "Costs & Revenues", "Infrastructure", "Flow Classification",
+                "Methodological Choices"]
     # plus the hidden sheet that holds the dropdown labels
     assert wb.sheetnames == [*expected, "_lists"]
     assert wb["_lists"].sheet_state == "hidden"
@@ -93,11 +95,11 @@ def test_cover_tab_carries_case_metadata(payload_wiktor):
     cover = wb["Cover"]
     assert cover["A1"].value == "SYMBA T4.6: Data Collection File"
 
-    # Read the label/value pairs from rows 3+
-    labels = {cover.cell(row=r, column=1).value for r in range(3, 11)}
-    assert "Case ID" in labels
-    assert "ILCD situation" in labels
-    assert "LCC type" in labels
+    # Read the label/value pairs from rows 3+: written for the recipient
+    labels = {cover.cell(row=r, column=1).value for r in range(3, 14)}
+    assert "Case reference" in labels
+    assert "What we ask you" in labels and "Confidential" in labels
+    assert "ILCD situation" not in labels and "LCC type" not in labels
 
 
 def test_cover_has_no_pathway_row(payload_wiktor):
@@ -175,7 +177,9 @@ def test_instructions_tab_tells_the_recipient_what_to_do(payload_wiktor):
     )
     assert "Case: Wiktor" in text
     assert "Confidentiality" in text
-    assert "Return by" in text
+    assert "Grey columns" in text and "A1, A2" in text
+    # no placeholder when no date was set (P8-02, P2-19)
+    assert "agree a date" not in text
 
 
 def test_flow_matrix_tab_has_marginal_market_when_q1c(
@@ -218,25 +222,52 @@ def test_inactive_tab_shows_placeholder(payload_arce):
 # ---------------------------------------------------------------------------
 
 
+def _checklist_header(ws) -> int:
+    return next(r for r in range(1, 60) if ws.cell(row=r, column=1).value == "Category")
+
+
 def test_mandates_tab_lists_mandates_and_triggered_rules(payload_wiktor):
     blob = render_xlsx(payload_wiktor)
     wb = load_workbook(BytesIO(blob))
     ws = wb["Methodological Choices"]
-    # Header row at 4
-    headers = [ws.cell(row=4, column=c).value for c in range(1, 10)]
+    # the configuration of the study first, then the checklist (P8-02)
+    assert ws["A4"].value == "Configuration of the study"
+    header = _checklist_header(ws)
+    headers = [ws.cell(row=header, column=c).value for c in range(1, 10)]
     assert headers == [
         "Category", "Origin", "ID", "Method", "Statement (deliverable text, English)", "Applies because",
         "Deliverable target", "Assignee", "Status",
     ]
-    # Enough mandate rows for the fixture's active dimensions (ENV+ECO)
     row_count = 0
-    for r in range(5, 200):
+    for r in range(header + 1, 300):
         if ws.cell(row=r, column=3).value:  # id column
             row_count += 1
     assert row_count >= 25
-    # both origins share the tab
-    origins = {ws.cell(row=r, column=2).value for r in range(5, 5 + row_count)}
-    assert origins == {"mandate", "rule"}
+    origins = {ws.cell(row=r, column=2).value for r in range(header + 1, header + 1 + row_count)}
+    # mandates and rules, then the decision points of the case (P1-22, P6-10)
+    assert {"mandate", "rule", "decision_point"} <= origins
+    methods = {ws.cell(row=r, column=4).value for r in range(header + 1, header + 1 + row_count)}
+    assert "SLCA" not in methods
+
+
+def test_sector_rules_join_the_checklist(schemas, dcf_schema, mandates_census):
+    """The D4.1 Part 2 rules of the chapters a flow touches, with strength and
+    section but without the line numbers (P1-22, P8-09)."""
+    case = Case(
+        q1=Q1.B, q2=Q2.B, q3=Q3(env=True, eco=True), q4={Q4.E},
+        q6a=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES, q6b=Q6b.TRL7_8, q7=Q7.B,
+        flows=[Flow(id="f1", name="sludge", q5=Q5.a, sector=Q6a.WASTEWATER_SLUDGE_BIOFACTORIES)],
+    )
+    pipeline_run(case, schemas)
+    from app.services.dcf_terms import localize
+    payload = localize(compose_dcf(case, dcf_schema, mandates_census), "it")
+    ws = load_workbook(BytesIO(render_xlsx(payload, lang="it")))["Scelte metodologiche"]
+    rows = [[c.value for c in r] for r in ws.iter_rows(min_row=5)]
+    sector = [r for r in rows if r[1] == "Regola di settore"]
+    assert sector and all(r[0] == "Regole di settore (D4.1 Parte 2)" for r in sector)
+    assert sector[0][4].startswith("§6 ") and "obbligatoria" in sector[0][4]
+    assert all("L0" not in str(r[4]) for r in sector)
+    assert sector[0][5] == "flusso sludge"
 
 
 # ---------------------------------------------------------------------------
@@ -265,26 +296,26 @@ def test_eu_footer_text_is_canonical(payload_wiktor):
     assert "101135562" in EU_FOOTER
     assert "www.symbaproject.eu" in EU_FOOTER
     assert "Horizon" in EU_FOOTER
-    # check each tab has the footer in column A somewhere
+    # every sheet prints it in the footer, A4, one page wide; the data sheets
+    # no longer carry it inside the input area (P8-14, P1-21, P8-08)
     for sheet_name in wb.sheetnames:
         if sheet_name == "_lists":
             continue  # hidden, holds the dropdown labels
         ws = wb[sheet_name]
-        found = False
-        # max_row is variable; cap at 200
-        for r in range(1, min(ws.max_row + 1, 200)):
-            v = ws.cell(row=r, column=1).value
-            if v and "101135562" in str(v):
-                found = True
-                break
-        assert found, f"EU footer missing in tab {sheet_name!r}"
+        assert "101135562" in (ws.oddFooter.left.text or ""), sheet_name
+        assert str(ws.page_setup.paperSize) == ws.PAPERSIZE_A4, sheet_name
+        assert ws.sheet_properties.pageSetUpPr.fitToPage, sheet_name
+    actors = wb["Actors"]
+    assert not any("101135562" in str(c.value) for row in actors.iter_rows() for c in row if c.value)
+    assert actors.print_title_rows and actors.page_setup.orientation == "landscape"
 
 
 def test_cover_values_are_worded_in_the_reader_language(payload_wiktor):
     # UX round 2026-11-03: "ILCD Situation C1", "deactivated" and "Analysis" stood
     # under Italian labels on the cover
     wb = load_workbook(BytesIO(render_xlsx(payload_wiktor, lang="it")))
-    values = {wb.worksheets[0].cell(row=r, column=2).value for r in range(3, 14)}
+    # the configuration now heads the analyst's checklist (P8-02)
+    values = {wb["Scelte metodologiche"].cell(row=r, column=2).value for r in range(5, 12)}
     assert any(str(v).startswith("Situazione ILCD") for v in values)
     assert "deactivated" not in values and "active" not in values
     assert not any(str(v).startswith("ILCD Situation") for v in values)

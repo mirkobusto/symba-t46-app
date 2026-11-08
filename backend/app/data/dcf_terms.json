@@ -11,7 +11,7 @@
    },
    "flow_classification": {
     "title": "Flow classification (waste / co-product / by-product)",
-    "description": "One row per flow, whatever Q5 says: the legal and economic tests that decide how a flow is treated (D4.1 §8.3, D4.2 §6.2). They are the analyst's judgements: Q5 only records who pays whom, so keep this consistent with the Q5 class of the flow in the Flow Matrix.",
+    "description": "One row per flow, whatever “Who pays whom” says: the legal and economic tests that decide how a flow is treated (D4.1 §8.3, D4.2 §6.2). They are the analyst's judgements: “Who pays whom” only records who pays whom, so keep this consistent with the “Who pays whom” class of the flow in the Flow Matrix.",
     "description_costing_only": "Asked without an LCA: the costing uses the same reference scenario an LCA would (D4.2 §6.2) and needs every flow classified as avoidable or unavoidable before any cost or zero-cost assumption (D4.2 §6.3). The analyst's judgements."
    },
    "logistics": {
@@ -105,7 +105,8 @@
    },
    "flow.quantity_projected": {
     "label": "Projected quantity (per scenario, per year)",
-    "description": "Filled in by the origin actor (the one that gives the flow)."
+    "description": "Filled in by the origin actor (the one that gives the flow).",
+    "label_base": "Projected quantity (per year)"
    },
    "flow.quality.purity_pct": {
     "label": "Purity (%)",
@@ -141,7 +142,7 @@
    },
    "classif.independent_market": {
     "label": "Would a third party pay for it? (Freedom-to-Act)",
-    "description": "D4.1 §8.3.3: if no independent buyer exists the price is administrative and the flow is a waste, even when Q5 says the receiver pays. Seeded from the flow's answer in the questionnaire (Sellable to others?) the first time the row is created; from then on this row is the analyst's."
+    "description": "D4.1 §8.3.3: if no independent buyer exists the price is administrative and the flow is a waste, even when “Who pays whom” says the receiver pays. Seeded from the flow's answer in the questionnaire (Sellable to others?) the first time the row is created; from then on this row is the analyst's."
    },
    "classif.avoidable": {
     "label": "Causal avoidability",
@@ -188,11 +189,12 @@
    },
    "route.measured_volume_year": {
     "label": "Measured volume (per year)",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by whoever organises the transport. The same as the measured quantity of the Flow Matrix, unless part of it is lost in transport."
    },
    "route.projected_volume_year": {
     "label": "Projected volume per scenario (per year)",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by whoever organises the transport.",
+    "label_base": "Projected volume (per year)"
    },
    "route.backhaul_strategy": {
     "label": "Return trip (backhaul)",
@@ -203,7 +205,7 @@
    },
    "route.transport_cost_per_unit": {
     "label": "Transport cost (per unit)",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by whoever organises the transport. In currency per unit of the flow (e.g. EUR/t), the unit written in the Flow Matrix."
    },
    "route.transport_sensitivity": {
     "label": "What makes this flow sensitive to distance",
@@ -222,7 +224,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Current disposal / management cost (avoided)",
-    "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids. Filled in by the origin actor (the one that gives the flow)."
+    "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids. Filled in by the origin actor (the one that gives the flow). If the exchange already takes place, write what the origin actor would pay without it (disposal, or the destination of the reference scenario), not the fee it pays the partner today: that goes in the price column."
    },
    "cost.disposal_cost_unit": {
     "label": "Unit of the two avoided costs (e.g. EUR/t, EUR/year)",
@@ -238,7 +240,7 @@
    },
    "cost.opex_delta_year": {
     "label": "Change in the origin actor's yearly operating cost (excluding transport)",
-    "description": "What the exchange adds or saves each year for the actor that gives the flow; transport goes in Logistics."
+    "description": "What the exchange adds or saves each year for the actor that gives the flow; transport goes in Logistics. Positive for a cost more, negative for a saving, in currency per year."
    },
    "cost.currency_year": {
     "label": "Currency and reference year",
@@ -290,7 +292,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Amortisation period (years): technical lifetime of this asset",
-    "description": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2)."
+    "description": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2). Not the tax depreciation rate: the years the asset is expected to work."
    },
    "infra.discount_rate_pct": {
     "label": "Discount rate (%)"
@@ -339,7 +341,7 @@
    },
    "cost.opex_delta_dest_year": {
     "label": "Change in the destination actor's yearly operating cost (excluding transport)",
-    "description": "What the exchange adds or saves each year for the actor that receives the flow (D4.2 §5.3: each firm's actual cost structure)."
+    "description": "What the exchange adds or saves each year for the actor that receives the flow (D4.2 §5.3: each firm's actual cost structure). Positive for a cost more, negative for a saving, in currency per year."
    },
    "cost.avoided_procurement_cost": {
     "label": "What the destination actor pays today for what this flow replaces (avoided purchase)",
@@ -484,19 +486,17 @@
    "sheet.methodological_choices": "Methodological Choices",
    "sheet.network_diagram": "Network Diagram",
    "title": "SYMBA T4.6: Data Collection File",
-   "cover.case_id": "Case ID",
    "cover.ilcd": "ILCD situation",
    "cover.lcc": "LCC type",
    "cover.slca": "Social assessment (S-LCA)",
    "cover.purpose": "Kind of study",
    "cover.market": "Reference market",
-   "cover.schema": "Schema version",
    "cover.generated": "Generated on",
    "not_active": "This section is not active for this case.",
    "ins.title": "How to fill in this Data Collection File",
    "ins.case": "Case: {name}",
    "ins.what": "What this file is",
-   "ins.what_body": "A data collection worksheet for one industrial-symbiosis case: the actors, the exchanged flows and their classification, each actor's reference without the exchanges, logistics, costs and assets. It is not a process inventory: the inputs, outputs and emissions of each plant are collected separately, with the LCA and costing software templates. Social data (stakeholder groups, indicators, interviews) are not collected here: they follow the S-LCA guidelines (D4.3) with their own instruments; this file records only each actor's size and ownership.",
+   "ins.what_body": "A data collection worksheet for one industrial-symbiosis case: the actors, the exchanged flows and their classification, each actor's reference without the exchanges, logistics, costs and assets. It is not a process inventory: the inputs, outputs and emissions of each plant are collected separately, with the LCA and costing software templates. Social data (stakeholder groups, indicators, interviews) are not collected here: they follow the S-LCA guidelines (D4.3) with their own instruments; for that assessment this file records at most each actor's size and ownership, when the study asks for them.",
    "ins.how": "How to fill it in",
    "ins.how_body": "One row per item. Columns marked * are required. Where a column header has a note (a small red corner), hover it for the definition, the allowed values and the reason the field is asked. Cells with a dropdown only accept the listed values: do not overwrite them with free text.",
    "ins.unknown": "If you do not know a value",
@@ -508,11 +508,7 @@
    "ins.return": "Who to return it to",
    "ins.return_body": "Whoever carries out the study (an analyst or a consultant). If you are one of the companies, fill in only the rows of the flows your company takes part in and, in them, only the columns of your side (origin or destination); the analyst merges the files. If you carry out the study yourself, fill in the Flow classification and the Reference scenario and send the workbook to each company.",
    "ins.return_by": "Return by",
-   "ins.return_by_hint": "(agree a date with whoever carries out the study)",
    "ins.contact": "Contact",
-   "ins.contact_hint": "(name and e-mail of whoever carries out the study)",
-   "note.field_id": "Field id",
-   "note.type": "Type",
    "note.allowed": "Allowed",
    "note.because": "Asked because",
    "note.only_when": "Only for rows with",
@@ -551,7 +547,7 @@
    "h.type": "Type",
    "h.quantity": "Quantity",
    "h.unit": "Unit",
-   "dx.intro": "This document accompanies the Excel workbook: §1 says who fills in what and how, §2 shows the network, §3 explains every column. Annex A is for whoever carries out the study.",
+   "dx.intro": "This document accompanies the Excel workbook. The cover says what we ask you and by when; §1 says who fills in what and how, §2 shows the network, §3 explains every column in the order of the sheets. Annex A is for whoever carries out the study; the project data close the document.",
    "dx.meta": "Project metadata",
    "dx.project": "Project",
    "dx.project_title": "Project title",
@@ -560,13 +556,10 @@
    "dx.task": "Task",
    "dx.deliverable": "Deliverable",
    "dx.cover": "Data Collection File cover",
-   "dx.s1": "§1. Methodological choices to document",
-   "dx.s1_none": "Nothing to document for this case.",
-   "dx.s1_intro": "{total} items to document for this case: the {rules} obligations triggered by the answers and {mandates} practices the method asks of every study like this one. Each is a commitment to document in the LCSA report or its annexes; 'Applies because' records what made it apply here, and 'Status' tracks completion. The statements are the deliverables' text, in English.",
    "dx.s2": "§2. Network diagram",
    "dx.s2_off": "The network diagram is not active for this case.",
    "dx.s2_static": "The network diagram is drawn interactively on the Data Collection File page of the SYMBA T4.6 web app, from the Actors and Flow Matrix sheets of the companion .xlsx: actors as nodes, flows as directed edges.",
-   "dx.s2_drawn": "The network drawn in the SYMBA T4.6 web app counts {actors} actor(s) and {flows} connected flow(s). The tables below are its textual form; the companion .xlsx carries the same content in the Actors and Flow Matrix sheets.",
+   "dx.s2_drawn": "The network drawn in the SYMBA T4.6 web app counts {actors} and {flows}. The tables below are its textual form; the workbook carries the same content in the sheets {sheet_actors} and {sheet_flows}.",
    "dx.actors": "Actors",
    "dx.flows": "Flows",
    "h.actor": "Actor",
@@ -576,8 +569,6 @@
    "h.to": "To",
    "dx.s3": "§3. The columns, sheet by sheet",
    "dx.s3_body": "For each sheet of the workbook: what each column asks, the values it accepts and who fills it in. The same text appears as a comment on the column header in Excel.",
-   "dx.active": "Active sections",
-   "h.section": "Section",
    "h.gives": "Gives",
    "h.receives": "Receives",
    "cover.noIlcd": "None: a costing-only study (no LCA). The costing uses the reference scenario an LCA would use (D4.2 §4.1).",
@@ -593,10 +584,8 @@
    "h.column": "Column",
    "h.meaning": "What it asks",
    "h.values": "Allowed values",
-   "dx.annex": "Annex A. For whoever carries out the study: methodological choices to document",
-   "dx.annex_intro": "Not for the data providers. The statements are the deliverables' text, in English.",
-   "h.active": "Active for this case",
-   "h.fields": "Active fields",
+   "dx.annex": "Annex A. For whoever carries out the study",
+   "dx.annex_intro": "Not for the data providers.",
    "yes": "yes",
    "no": "no",
    "dx.ack": "Acknowledgements & disclaimer",
@@ -610,12 +599,71 @@
    "cat.reporting_disclosure": "Reporting and disclosure",
    "cat.lcc_method_specific": "Life cycle costing",
    "cat.lcsa_integration": "Integration of the methods",
-   "cat.Cross-method consistency": "Rules between the methods (the ones counted on the result page)",
+   "cat.Cross-method consistency": "Rules between the methods",
    "origin.mandate": "Required by the method",
    "origin.rule": "Required between the methods",
    "because.always": "every study of this kind",
    "reason.costing_only": "the costing needs it even without an LCA (D4.2 §6.2)",
-   "note.computed": "Computed from the arrows drawn in the app: do not type in it."
+   "note.computed": "Computed from the arrows drawn in the app: do not type in it.",
+   "cover.case": "Case",
+   "cover.ref": "Case reference",
+   "cover.version": "Version",
+   "cover.version_value": "{version} of {date}",
+   "cover.conf": "Confidential",
+   "cover.conf_value": "This file may hold the data of several partners: keep it within the study team and do not forward it to other companies.",
+   "cover.ask": "What we ask you",
+   "cover.ask_value": "Fill in the rows of the flows your company takes part in, in the sheets {sheets}. Leave the grey columns and the sheets for whoever carries out the study as they are. The sheet {instructions} says how.",
+   "cover.scenarios": "Scenarios",
+   "cover.scenarios_value": "Base case and {names}: the projected quantities have one column for each (see {instructions}).",
+   "ins.grey": "Grey columns",
+   "ins.grey_body": "A grey header marks a column filled in by whoever carries out the study: leave it as it is. “Who pays whom” arrives already filled in from the study's answers: if it is wrong for your flow, tell the contact.",
+   "ins.ids": "Row references",
+   "ins.ids_body": "Actors are numbered A1, A2…, flows F1, F2… and assets I1, I2…: use these numbers to point to a row when you write to the contact. For a new row, write the next number.",
+   "ins.scenarios": "Scenarios of this case",
+   "ins.scenarios_body": "Besides the base case, the study looks at {n}. The projected quantities have one column for the base case and one for each scenario: fill in the ones you can estimate.",
+   "n.scenarios_one": "one alternative scenario",
+   "n.scenarios_other": "{n} alternative scenarios",
+   "ins.conf_values_nocontact": "Confidential values: write \"confidential\" in the cell and send the value only to whoever sent you this file; do not forward the workbook to other partners.",
+   "ins.contact_note": "send the filled-in file back here",
+   "sheet.grey_note": "Grey columns: for whoever carries out the study, leave them as they are.",
+   "note.id": "A number for pointing to this row (A1, F1, I1…). For a new row, write the next number.",
+   "note.converted": "Converted: “{old}” is no longer offered and reads as “{new}”. Check it.",
+   "note.per_scenario": "One column for the base case and one for each scenario of the case (see {instructions}).",
+   "note.q5_company": "Already filled in by whoever carries out the study, from the study's answers: if it is wrong for this flow, tell the contact. It records only who pays whom; whether the flow is legally a waste is decided in the Flow classification.",
+   "col.base_case": "base case",
+   "actors.only_scenario": "Only in the scenario “{label}”",
+   "mc.config": "Configuration of the study",
+   "mc.checklist": "What to document",
+   "cat.decision_points": "Decision points to resolve",
+   "cat.sector_rules": "Sector rules (D4.1 Part 2)",
+   "origin.decision_point": "Decision point",
+   "origin.sector_rule": "Sector rule",
+   "strength.must": "required",
+   "strength.should": "recommended",
+   "strength.descriptive": "descriptive",
+   "mc.cdp_statement": "{name}: {body}. Convention to confirm, or justify another choice: {resolution}",
+   "mc.cdp_because": "the study has {methods}",
+   "mc.because_flow": "flow {name}",
+   "mc.because_case": "the sector of the case",
+   "mc.and": "and",
+   "method.cross": "between the methods",
+   "dx.title": "Data Collection File: guide to filling it in",
+   "dx.annex_pointer": "What this study has to document ({total} items: rules between the methods, practices of each method, decision points and sector rules) is the checklist in the sheet {sheet} of the workbook, with columns for assignee and status. The case report explains each item.",
+   "dx.fig": "Figure 1. The network of the case: {actors}, {flows}. Each arrow goes from whoever gives the flow to whoever receives it.",
+   "n.actors_one": "1 actor",
+   "n.actors_other": "{n} actors",
+   "n.flows_one": "1 flow",
+   "n.flows_other": "{n} flows",
+   "n.cflows_one": "1 connected flow",
+   "n.cflows_other": "{n} connected flows",
+   "dx.footer_page": "page",
+   "dx.footer_of": "of",
+   "dx.csa": "CSA (Coordination and Support Action)",
+   "eu.funding": "This Project has received funding from the European Union's Horizon Research and Innovation Programme under Grant Agreement N. 101135562 — www.symbaproject.eu",
+   "eu.disclaimer": "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the European Research Executive Agency can be held responsible for them.",
+   "date.months": "January,February,March,April,May,June,July,August,September,October,November,December",
+   "date.format": "{d} {month} {y}",
+   "unit.years": "years"
   },
   "enum_refs": {
    "Q6a": {
@@ -660,7 +708,7 @@
    },
    "flow_classification": {
     "title": "Classificazione dei flussi (rifiuto / co-prodotto / sottoprodotto)",
-    "description": "Una riga per flusso, qualunque cosa dica Q5: le verifiche giuridiche ed economiche che decidono come si tratta un flusso (D4.1 §8.3, D4.2 §6.2). Sono giudizi dell'analista: Q5 registra solo chi paga chi, quindi tienili coerenti con la classe Q5 del flusso nella Matrice dei flussi.",
+    "description": "Una riga per flusso, qualunque cosa dica «Chi paga chi»: le verifiche giuridiche ed economiche che decidono come si tratta un flusso (D4.1 §8.3, D4.2 §6.2). Sono giudizi dell'analista: «Chi paga chi» registra solo chi paga chi, quindi tienili coerenti con la classe «Chi paga chi» del flusso nella Matrice dei flussi.",
     "description_costing_only": "Chiesta anche senza LCA: il costing usa lo stesso scenario di riferimento che userebbe un'LCA (D4.2 §6.2) e ogni flusso va classificato evitabile o inevitabile prima di qualunque ipotesi di costo o di costo zero (D4.2 §6.3). Giudizi dell'analista."
    },
    "logistics": {
@@ -754,7 +802,8 @@
    },
    "flow.quantity_projected": {
     "label": "Quantità prevista (per scenario, all'anno)",
-    "description": "Lo compila l'attore di origine (chi cede il flusso)."
+    "description": "Lo compila l'attore di origine (chi cede il flusso).",
+    "label_base": "Quantità prevista (all'anno)"
    },
    "flow.quality.purity_pct": {
     "label": "Purezza (%)",
@@ -766,7 +815,12 @@
    },
    "flow.quality.reliability_of_supply": {
     "label": "Affidabilità della fornitura",
-    "description": "Lo compila l'attore di origine (chi cede il flusso)."
+    "description": "Lo compila l'attore di origine (chi cede il flusso).",
+    "values": {
+     "low": "bassa",
+     "med": "media",
+     "high": "alta"
+    }
    },
    "flow.uncertainty.type": {
     "label": "Come si esprime l'incertezza",
@@ -790,7 +844,7 @@
    },
    "classif.independent_market": {
     "label": "Un terzo lo pagherebbe? (Freedom-to-Act)",
-    "description": "D4.1 §8.3.3: se non esiste un acquirente indipendente il prezzo è amministrativo e il flusso è un rifiuto, anche quando Q5 dice che paga chi riceve. Inizializzato dalla risposta data nel questionario (Vendibile ad altri?) quando la riga viene creata; da lì in poi la riga è dell'analista."
+    "description": "D4.1 §8.3.3: se non esiste un acquirente indipendente il prezzo è amministrativo e il flusso è un rifiuto, anche quando «Chi paga chi» dice che paga chi riceve. Inizializzato dalla risposta data nel questionario (Vendibile ad altri?) quando la riga viene creata; da lì in poi la riga è dell'analista."
    },
    "classif.avoidable": {
     "label": "Evitabilità causale",
@@ -833,15 +887,19 @@
    },
    "route.frequency": {
     "label": "Frequenza",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila chi organizza il trasporto.",
+    "values": {
+     "continuous": "continua"
+    }
    },
    "route.measured_volume_year": {
     "label": "Volume misurato (all'anno)",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila chi organizza il trasporto. La stessa quantità misurata della Matrice dei flussi, salvo perdite durante il trasporto."
    },
    "route.projected_volume_year": {
     "label": "Volume previsto per scenario (all'anno)",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila chi organizza il trasporto.",
+    "label_base": "Volume previsto (all'anno)"
    },
    "route.backhaul_strategy": {
     "label": "Viaggio di ritorno (carico al ritorno)",
@@ -852,7 +910,7 @@
    },
    "route.transport_cost_per_unit": {
     "label": "Costo del trasporto (per unità)",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila chi organizza il trasporto. In valuta per unità del flusso (es. EUR/t), l'unità scritta nella Matrice dei flussi."
    },
    "route.transport_sensitivity": {
     "label": "Che cosa rende questo flusso sensibile alla distanza",
@@ -871,7 +929,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Costo attuale di smaltimento / gestione (evitato)",
-    "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita. Lo compila l'attore di origine (chi cede il flusso)."
+    "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita. Lo compila l'attore di origine (chi cede il flusso). Se lo scambio avviene già, scrivi quanto pagherebbe l'attore di origine senza lo scambio (smaltimento, o la destinazione dello scenario di riferimento), non la tariffa che paga oggi al partner: quella va nella colonna del prezzo."
    },
    "cost.disposal_cost_unit": {
     "label": "Unità dei due costi evitati (es. EUR/t, EUR/anno)",
@@ -887,7 +945,7 @@
    },
    "cost.opex_delta_year": {
     "label": "Variazione annua dei costi operativi dell'attore di origine (trasporto escluso)",
-    "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi cede il flusso; il trasporto va in Logistica."
+    "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi cede il flusso; il trasporto va in Logistica. Positivo per un costo in più, negativo per un risparmio, in valuta all'anno."
    },
    "cost.currency_year": {
     "label": "Valuta e anno di riferimento",
@@ -899,7 +957,13 @@
    },
    "cost.price_volatility": {
     "label": "Volatilità del prezzo",
-    "description": "Un solo valore, concordato dai due partner."
+    "description": "Un solo valore, concordato dai due partner.",
+    "values": {
+     "low": "bassa",
+     "med": "media",
+     "high": "alta",
+     "unknown": "non nota"
+    }
    },
    "cost.externality_monetized": {
     "label": "Esternalità monetizzate per questo flusso",
@@ -939,7 +1003,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Periodo di ammortamento (anni): vita tecnica di questo bene",
-    "description": "Nessun valore unico: la vita tecnica di ogni bene (D4.2 §4.2, §7.3). Vite di riferimento nella Tabella 7.1 della D4.2: edifici e infrastrutture generali 20-30 anni, impianti e macchinari di processo 5-8 anni. Usa lo stesso periodo nell'LCA (D4.1 §14.2.2)."
+    "description": "Nessun valore unico: la vita tecnica di ogni bene (D4.2 §4.2, §7.3). Vite di riferimento nella Tabella 7.1 della D4.2: edifici e infrastrutture generali 20-30 anni, impianti e macchinari di processo 5-8 anni. Usa lo stesso periodo nell'LCA (D4.1 §14.2.2). Non il coefficiente di ammortamento fiscale: gli anni in cui il bene dovrebbe funzionare."
    },
    "infra.discount_rate_pct": {
     "label": "Tasso di sconto (%)"
@@ -988,7 +1052,7 @@
    },
    "cost.opex_delta_dest_year": {
     "label": "Variazione annua dei costi operativi dell'attore di destinazione (trasporto escluso)",
-    "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi riceve il flusso (D4.2 §5.3: la struttura di costo reale di ciascuna impresa)."
+    "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi riceve il flusso (D4.2 §5.3: la struttura di costo reale di ciascuna impresa). Positivo per un costo in più, negativo per un risparmio, in valuta all'anno."
    },
    "cost.avoided_procurement_cost": {
     "label": "Quanto paga oggi l'attore di destinazione per ciò che il flusso sostituisce (acquisto evitato)",
@@ -1133,19 +1197,17 @@
    "sheet.methodological_choices": "Scelte metodologiche",
    "sheet.network_diagram": "Diagramma della rete",
    "title": "SYMBA T4.6: Data Collection File",
-   "cover.case_id": "ID del caso",
    "cover.ilcd": "Situazione ILCD",
    "cover.lcc": "Tipo di LCC",
    "cover.slca": "Valutazione sociale (S-LCA)",
    "cover.purpose": "Tipo di studio",
    "cover.market": "Mercato di riferimento",
-   "cover.schema": "Versione dello schema",
    "cover.generated": "Generato il",
    "not_active": "Questa sezione non è attiva per questo caso.",
    "ins.title": "Come compilare questo Data Collection File",
    "ins.case": "Caso: {name}",
    "ins.what": "Che cos'è questo file",
-   "ins.what_body": "Un foglio di raccolta dati per un caso di simbiosi industriale: gli attori, i flussi scambiati e la loro classificazione, il riferimento di ogni attore senza gli scambi, la logistica, i costi e i beni. Non è un inventario di processo: input, output ed emissioni di ogni impianto si raccolgono a parte, con i modelli dei software di LCA e di costing. I dati sociali (gruppi di stakeholder, indicatori, interviste) non si raccolgono qui: seguono le linee guida S-LCA (D4.3) con i loro strumenti; questo file registra solo la dimensione e la proprietà di ogni attore.",
+   "ins.what_body": "Un foglio di raccolta dati per un caso di simbiosi industriale: gli attori, i flussi scambiati e la loro classificazione, il riferimento di ogni attore senza gli scambi, la logistica, i costi e i beni. Non è un inventario di processo: input, output ed emissioni di ogni impianto si raccolgono a parte, con i modelli dei software di LCA e di costing. I dati sociali (gruppi di stakeholder, indicatori, interviste) non si raccolgono qui: seguono le linee guida S-LCA (D4.3) con i loro strumenti; per quella valutazione questo file registra al più la dimensione e la proprietà di ogni attore, quando lo studio le chiede.",
    "ins.how": "Come compilarlo",
    "ins.how_body": "Una riga per voce. Le colonne con * sono obbligatorie. Dove l'intestazione di una colonna ha una nota (un piccolo angolo rosso), passaci sopra per leggere la definizione, i valori ammessi e il motivo per cui il campo è chiesto. Le celle con un menu accettano solo i valori elencati: non sovrascriverle con testo libero.",
    "ins.unknown": "Se non conosci un valore",
@@ -1157,11 +1219,7 @@
    "ins.return": "A chi riconsegnarlo",
    "ins.return_body": "A chi esegue lo studio (un analista o un consulente). Se sei una delle aziende, compila solo le righe dei flussi a cui la tua azienda partecipa e, in quelle, solo le colonne del tuo lato (origine o destinazione); i file li unisce l'analista. Se lo studio lo esegui tu, compila Classificazione e Scenario di riferimento e manda il file a ogni azienda.",
    "ins.return_by": "Da riconsegnare entro",
-   "ins.return_by_hint": "(concorda una data con chi esegue lo studio)",
    "ins.contact": "Contatto",
-   "ins.contact_hint": "(nome ed e-mail di chi esegue lo studio)",
-   "note.field_id": "Codice del campo",
-   "note.type": "Tipo",
    "note.allowed": "Valori ammessi",
    "note.because": "Chiesto perché",
    "note.only_when": "Solo per le righe con",
@@ -1200,22 +1258,19 @@
    "h.type": "Tipo",
    "h.quantity": "Quantità",
    "h.unit": "Unità",
-   "dx.intro": "Questo documento accompagna il file Excel: il §1 dice chi compila che cosa e come, il §2 mostra la rete, il §3 spiega ogni colonna. L'allegato A è per chi esegue lo studio.",
+   "dx.intro": "Questo documento accompagna il file Excel. La copertina dice che cosa ti chiediamo ed entro quando; il §1 dice chi compila che cosa e come, il §2 mostra la rete, il §3 spiega ogni colonna nell'ordine dei fogli. L'allegato A è per chi esegue lo studio; i dati del progetto chiudono il documento.",
    "dx.meta": "Dati del progetto",
    "dx.project": "Progetto",
    "dx.project_title": "Titolo del progetto",
-   "dx.topic": "Topic",
+   "dx.topic": "Tema del bando",
    "dx.instrument": "Strumento",
    "dx.task": "Task",
    "dx.deliverable": "Deliverable",
    "dx.cover": "Copertina del Data Collection File",
-   "dx.s1": "§1. Scelte metodologiche da documentare",
-   "dx.s1_none": "Niente da documentare per questo caso.",
-   "dx.s1_intro": "{total} voci da documentare per questo caso: i {rules} obblighi attivati dalle risposte e {mandates} pratiche che il metodo chiede a ogni studio come questo. Ognuna è un impegno da documentare nel report LCSA o nei suoi allegati; «Si applica perché» dice che cosa l'ha attivata, «Stato» serve a seguirne il completamento. Gli enunciati sono il testo dei deliverable, in inglese.",
    "dx.s2": "§2. Diagramma della rete",
    "dx.s2_off": "Il diagramma della rete non è attivo per questo caso.",
    "dx.s2_static": "Il diagramma della rete si disegna in modo interattivo nella pagina Data Collection File dell'app web SYMBA T4.6, dai fogli Attori e Matrice dei flussi del file .xlsx: gli attori come nodi, i flussi come frecce.",
-   "dx.s2_drawn": "La rete disegnata nell'app web SYMBA T4.6 conta {actors} attori e {flows} flussi collegati. Le tabelle qui sotto ne sono la forma testuale; il file .xlsx riporta lo stesso contenuto nei fogli Attori e Matrice dei flussi.",
+   "dx.s2_drawn": "La rete disegnata nell'app web SYMBA T4.6 conta {actors} e {flows}. Le tabelle qui sotto ne sono la forma testuale; il file Excel riporta lo stesso contenuto nei fogli {sheet_actors} e {sheet_flows}.",
    "dx.actors": "Attori",
    "dx.flows": "Flussi",
    "h.actor": "Attore",
@@ -1225,8 +1280,6 @@
    "h.to": "A",
    "dx.s3": "§3. Le colonne, foglio per foglio",
    "dx.s3_body": "Per ogni foglio del file: che cosa chiede ogni colonna, quali valori accetta e chi la compila. Lo stesso testo è il commento all'intestazione della colonna in Excel.",
-   "dx.active": "Sezioni attive",
-   "h.section": "Sezione",
    "h.gives": "Cede",
    "h.receives": "Riceve",
    "cover.noIlcd": "Nessuna: uno studio solo economico (senza LCA). Il costing usa lo scenario di riferimento che userebbe un'LCA (D4.2 §4.1).",
@@ -1242,10 +1295,8 @@
    "h.column": "Colonna",
    "h.meaning": "Che cosa chiede",
    "h.values": "Valori ammessi",
-   "dx.annex": "Allegato A. Per chi esegue lo studio: scelte metodologiche da documentare",
-   "dx.annex_intro": "Non per chi fornisce i dati. Gli enunciati sono il testo dei deliverable, in inglese.",
-   "h.active": "Attiva per questo caso",
-   "h.fields": "Campi attivi",
+   "dx.annex": "Allegato A. Per chi esegue lo studio",
+   "dx.annex_intro": "Non per chi fornisce i dati.",
    "yes": "sì",
    "no": "no",
    "dx.ack": "Ringraziamenti e avvertenza",
@@ -1259,12 +1310,71 @@
    "cat.reporting_disclosure": "Reportistica e divulgazione",
    "cat.lcc_method_specific": "Life cycle costing",
    "cat.lcsa_integration": "Integrazione dei metodi",
-   "cat.Cross-method consistency": "Regole fra i metodi (quelle contate nella pagina risultato)",
+   "cat.Cross-method consistency": "Regole fra i metodi",
    "origin.mandate": "Richiesto dal metodo",
    "origin.rule": "Richiesto fra i metodi",
    "because.always": "ogni studio di questo tipo",
    "reason.costing_only": "il costing ne ha bisogno anche senza LCA (D4.2 §6.2)",
-   "note.computed": "Calcolata dalle frecce disegnate nell'app: non va compilata."
+   "note.computed": "Calcolata dalle frecce disegnate nell'app: non va compilata.",
+   "cover.case": "Caso",
+   "cover.ref": "Riferimento del caso",
+   "cover.version": "Versione",
+   "cover.version_value": "{version}, {date}",
+   "cover.conf": "Riservato",
+   "cover.conf_value": "Il file può contenere i dati di più partner: tienilo nel gruppo di studio e non inoltrarlo ad altre aziende.",
+   "cover.ask": "Che cosa ti chiediamo",
+   "cover.ask_value": "Compila le righe dei flussi a cui partecipa la tua azienda, nei fogli {sheets}. Lascia come sono le colonne grigie e i fogli per chi esegue lo studio. Il foglio {instructions} spiega come.",
+   "cover.scenarios": "Scenari",
+   "cover.scenarios_value": "Caso base e {names}: le quantità previste hanno una colonna per ciascuno (vedi {instructions}).",
+   "ins.grey": "Colonne grigie",
+   "ins.grey_body": "Un'intestazione grigia indica una colonna che compila chi esegue lo studio: lasciala com'è. «Chi paga chi» arriva già compilata dalle risposte dello studio: se per il tuo flusso non è giusta, dillo al contatto.",
+   "ins.ids": "Riferimenti delle righe",
+   "ins.ids_body": "Gli attori sono numerati A1, A2…, i flussi F1, F2… e i beni I1, I2…: usa questi numeri per indicare una riga quando scrivi al contatto. Per una riga nuova scrivi il numero successivo.",
+   "ins.scenarios": "Scenari di questo caso",
+   "ins.scenarios_body": "Oltre al caso base, lo studio considera {n}. Le quantità previste hanno una colonna per il caso base e una per ogni scenario: compila quelle che sai stimare.",
+   "n.scenarios_one": "uno scenario alternativo",
+   "n.scenarios_other": "{n} scenari alternativi",
+   "ins.conf_values_nocontact": "Valori riservati: scrivi «riservato» nella cella e manda il valore solo a chi ti ha inviato il file; non inoltrare il file agli altri partner.",
+   "ins.contact_note": "riconsegna qui il file compilato",
+   "sheet.grey_note": "Colonne grigie: per chi esegue lo studio, lasciale come sono.",
+   "note.id": "Un numero per indicare questa riga (A1, F1, I1…). Per una riga nuova scrivi il numero successivo.",
+   "note.converted": "Convertito: «{old}» non è più fra i valori ammessi e si legge come «{new}». Controllalo.",
+   "note.per_scenario": "Una colonna per il caso base e una per ogni scenario del caso (vedi {instructions}).",
+   "note.q5_company": "Già compilata da chi esegue lo studio, dalle risposte dello studio: se per questo flusso non è giusta, dillo al contatto. Registra solo chi paga chi; se il flusso sia giuridicamente un rifiuto si decide nella Classificazione dei flussi.",
+   "col.base_case": "caso base",
+   "actors.only_scenario": "Solo nello scenario «{label}»",
+   "mc.config": "Configurazione dello studio",
+   "mc.checklist": "Che cosa documentare",
+   "cat.decision_points": "Punti di decisione da risolvere",
+   "cat.sector_rules": "Regole di settore (D4.1 Parte 2)",
+   "origin.decision_point": "Punto di decisione",
+   "origin.sector_rule": "Regola di settore",
+   "strength.must": "obbligatoria",
+   "strength.should": "raccomandata",
+   "strength.descriptive": "descrittiva",
+   "mc.cdp_statement": "{name}: {body}. Convenzione da confermare, oppure giustifica un'altra scelta: {resolution}",
+   "mc.cdp_because": "lo studio comprende {methods}",
+   "mc.because_flow": "flusso {name}",
+   "mc.because_case": "il settore del caso",
+   "mc.and": "e",
+   "method.cross": "fra i metodi",
+   "dx.title": "Data Collection File: guida alla compilazione",
+   "dx.annex_pointer": "Ciò che lo studio deve documentare ({total} voci: regole fra i metodi, pratiche di ciascun metodo, punti di decisione e regole di settore) è la lista di controllo nel foglio {sheet} del file Excel, con le colonne per responsabile e stato. Il report del caso spiega ogni voce.",
+   "dx.fig": "Figura 1. La rete del caso: {actors}, {flows}. Ogni freccia va da chi cede il flusso a chi lo riceve.",
+   "n.actors_one": "1 attore",
+   "n.actors_other": "{n} attori",
+   "n.flows_one": "1 flusso",
+   "n.flows_other": "{n} flussi",
+   "n.cflows_one": "1 flusso collegato",
+   "n.cflows_other": "{n} flussi collegati",
+   "dx.footer_page": "pagina",
+   "dx.footer_of": "di",
+   "dx.csa": "CSA (azione di coordinamento e sostegno)",
+   "eu.funding": "Questo progetto ha ricevuto finanziamenti dal programma di ricerca e innovazione Horizon dell'Unione Europea ai sensi del Grant Agreement N. 101135562 — www.symbaproject.eu",
+   "eu.disclaimer": "Finanziato dall'Unione Europea. Le opinioni espresse sono tuttavia quelle dell'autore o degli autori e non riflettono necessariamente quelle dell'Unione Europea. Né l'Unione Europea né l'Agenzia esecutiva europea per la ricerca possono essere ritenute responsabili.",
+   "date.months": "gennaio,febbraio,marzo,aprile,maggio,giugno,luglio,agosto,settembre,ottobre,novembre,dicembre",
+   "date.format": "{d} {month} {y}",
+   "unit.years": "anni"
   },
   "enum_refs": {
    "Q6a": {
@@ -1309,7 +1419,7 @@
    },
    "flow_classification": {
     "title": "Classification des flux (déchet / coproduit / sous-produit)",
-    "description": "Une ligne par flux, quoi que dise Q5 : les tests juridiques et économiques qui décident du traitement d'un flux (D4.1 §8.3, D4.2 §6.2). Ce sont des jugements de l'analyste : Q5 n'enregistre que qui paie qui, gardez-les cohérents avec la classe Q5 du flux dans la Matrice des flux.",
+    "description": "Une ligne par flux, quoi que dise « Qui paie qui » : les tests juridiques et économiques qui décident du traitement d'un flux (D4.1 §8.3, D4.2 §6.2). Ce sont des jugements de l'analyste : « Qui paie qui » n'enregistre que qui paie qui, gardez-les cohérents avec la classe « Qui paie qui » du flux dans la Matrice des flux.",
     "description_costing_only": "Demandée même sans LCA : le calcul des coûts utilise le même scénario de référence qu'une LCA (D4.2 §6.2) et chaque flux doit être classé évitable ou inévitable avant toute hypothèse de coût ou de coût nul (D4.2 §6.3). Jugements de l'analyste."
    },
    "logistics": {
@@ -1403,7 +1513,8 @@
    },
    "flow.quantity_projected": {
     "label": "Quantité prévue (par scénario, par an)",
-    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux).",
+    "label_base": "Quantité prévue (par an)"
    },
    "flow.quality.purity_pct": {
     "label": "Pureté (%)",
@@ -1415,7 +1526,12 @@
    },
    "flow.quality.reliability_of_supply": {
     "label": "Fiabilité de l'approvisionnement",
-    "description": "Rempli par l'acteur d'origine (celui qui cède le flux)."
+    "description": "Rempli par l'acteur d'origine (celui qui cède le flux).",
+    "values": {
+     "low": "faible",
+     "med": "moyenne",
+     "high": "élevée"
+    }
    },
    "flow.uncertainty.type": {
     "label": "Comment l'incertitude est exprimée",
@@ -1439,7 +1555,7 @@
    },
    "classif.independent_market": {
     "label": "Un tiers le paierait-il ? (Freedom-to-Act)",
-    "description": "D4.1 §8.3.3 : s'il n'existe aucun acheteur indépendant, le prix est administratif et le flux est un déchet, même quand Q5 dit que le receveur paie. Initialisé par la réponse du questionnaire (Vendable à d'autres ?) à la création de la ligne ; ensuite la ligne appartient à l'analyste."
+    "description": "D4.1 §8.3.3 : s'il n'existe aucun acheteur indépendant, le prix est administratif et le flux est un déchet, même quand « Qui paie qui » dit que le receveur paie. Initialisé par la réponse du questionnaire (Vendable à d'autres ?) à la création de la ligne ; ensuite la ligne appartient à l'analyste."
    },
    "classif.avoidable": {
     "label": "Évitabilité causale",
@@ -1482,15 +1598,19 @@
    },
    "route.frequency": {
     "label": "Fréquence",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par celui qui organise le transport.",
+    "values": {
+     "continuous": "continue"
+    }
    },
    "route.measured_volume_year": {
     "label": "Volume mesuré (par an)",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par celui qui organise le transport. La même que la quantité mesurée de la Matrice des flux, sauf pertes pendant le transport."
    },
    "route.projected_volume_year": {
     "label": "Volume prévu par scénario (par an)",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par celui qui organise le transport.",
+    "label_base": "Volume prévu (par an)"
    },
    "route.backhaul_strategy": {
     "label": "Trajet retour (chargement au retour)",
@@ -1501,7 +1621,7 @@
    },
    "route.transport_cost_per_unit": {
     "label": "Coût du transport (par unité)",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par celui qui organise le transport. En devise par unité du flux (p. ex. EUR/t), l'unité indiquée dans la Matrice des flux."
    },
    "route.transport_sensitivity": {
     "label": "Ce qui rend ce flux sensible à la distance",
@@ -1520,7 +1640,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Coût actuel d'élimination / de gestion (évité)",
-    "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite. Rempli par l'acteur d'origine (celui qui cède le flux)."
+    "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite. Rempli par l'acteur d'origine (celui qui cède le flux). Si l'échange a déjà lieu, indiquez ce que l'acteur d'origine paierait sans lui (élimination, ou la destination du scénario de référence), et non le tarif qu'il paie aujourd'hui au partenaire : celui-ci va dans la colonne du prix."
    },
    "cost.disposal_cost_unit": {
     "label": "Unité des deux coûts évités (p. ex. EUR/t, EUR/an)",
@@ -1536,7 +1656,7 @@
    },
    "cost.opex_delta_year": {
     "label": "Variation annuelle des coûts d'exploitation de l'acteur d'origine (hors transport)",
-    "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui cède le flux ; le transport va dans Logistique."
+    "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui cède le flux ; le transport va dans Logistique. Positif pour un coût en plus, négatif pour une économie, en devise par an."
    },
    "cost.currency_year": {
     "label": "Devise et année de référence",
@@ -1548,7 +1668,13 @@
    },
    "cost.price_volatility": {
     "label": "Volatilité du prix",
-    "description": "Une seule valeur, convenue par les deux partenaires."
+    "description": "Une seule valeur, convenue par les deux partenaires.",
+    "values": {
+     "low": "faible",
+     "med": "moyenne",
+     "high": "élevée",
+     "unknown": "inconnue"
+    }
    },
    "cost.externality_monetized": {
     "label": "Externalités monétisées pour ce flux",
@@ -1588,7 +1714,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Durée d'amortissement (années) : durée de vie technique de ce bien",
-    "description": "Pas de valeur unique : la durée de vie technique de chaque bien (D4.2 §4.2, §7.3). Durées de référence du tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans. Utilisez la même durée dans la LCA (D4.1 §14.2.2)."
+    "description": "Pas de valeur unique : la durée de vie technique de chaque bien (D4.2 §4.2, §7.3). Durées de référence du tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans. Utilisez la même durée dans la LCA (D4.1 §14.2.2). Pas le taux d'amortissement fiscal : les années pendant lesquelles le bien devrait fonctionner."
    },
    "infra.discount_rate_pct": {
     "label": "Taux d'actualisation (%)"
@@ -1637,7 +1763,7 @@
    },
    "cost.opex_delta_dest_year": {
     "label": "Variation annuelle des coûts d'exploitation de l'acteur de destination (hors transport)",
-    "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui reçoit le flux (D4.2 §5.3 : la structure de coûts réelle de chaque entreprise)."
+    "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui reçoit le flux (D4.2 §5.3 : la structure de coûts réelle de chaque entreprise). Positif pour un coût en plus, négatif pour une économie, en devise par an."
    },
    "cost.avoided_procurement_cost": {
     "label": "Ce que l'acteur de destination paie aujourd'hui pour ce que le flux remplace (achat évité)",
@@ -1782,19 +1908,17 @@
    "sheet.methodological_choices": "Choix méthodologiques",
    "sheet.network_diagram": "Diagramme du réseau",
    "title": "SYMBA T4.6 — Data Collection File",
-   "cover.case_id": "ID du cas",
    "cover.ilcd": "Situation ILCD",
    "cover.lcc": "Type de LCC",
    "cover.slca": "Évaluation sociale (S-LCA)",
    "cover.purpose": "Type d'étude",
    "cover.market": "Marché de référence",
-   "cover.schema": "Version du schéma",
    "cover.generated": "Généré le",
    "not_active": "Cette section n'est pas active pour ce cas.",
    "ins.title": "Comment remplir ce Data Collection File",
    "ins.case": "Cas : {name}",
    "ins.what": "Ce qu'est ce fichier",
-   "ins.what_body": "Une feuille de collecte de données pour un cas de symbiose industrielle : les acteurs, les flux échangés et leur classification, la référence de chaque acteur sans les échanges, la logistique, les coûts et les biens. Ce n'est pas un inventaire de procédés : les entrées, sorties et émissions de chaque installation se collectent à part, avec les modèles des logiciels de LCA et de calcul des coûts. Les données sociales (groupes de parties prenantes, indicateurs, entretiens) ne sont pas collectées ici : elles suivent les lignes directrices S-LCA (D4.3) avec leurs propres instruments ; ce fichier n'enregistre que la taille et la propriété de chaque acteur.",
+   "ins.what_body": "Une feuille de collecte de données pour un cas de symbiose industrielle : les acteurs, les flux échangés et leur classification, la référence de chaque acteur sans les échanges, la logistique, les coûts et les biens. Ce n'est pas un inventaire de procédés : les entrées, sorties et émissions de chaque installation se collectent à part, avec les modèles des logiciels de LCA et de calcul des coûts. Les données sociales (groupes de parties prenantes, indicateurs, entretiens) ne sont pas collectées ici : elles suivent les lignes directrices S-LCA (D4.3) avec leurs propres instruments ; pour cette évaluation, ce fichier enregistre au plus la taille et la propriété de chaque acteur, quand l'étude les demande.",
    "ins.how": "Comment le remplir",
    "ins.how_body": "Une ligne par élément. Les colonnes marquées * sont obligatoires. Quand l'en-tête d'une colonne porte une note (un petit coin rouge), survolez-le pour lire la définition, les valeurs admises et la raison de la question. Les cellules à liste n'acceptent que les valeurs proposées : ne les écrasez pas avec du texte libre.",
    "ins.unknown": "Si vous ne connaissez pas une valeur",
@@ -1806,11 +1930,7 @@
    "ins.return": "À qui le renvoyer",
    "ins.return_body": "À la personne qui réalise l'étude (un analyste ou un consultant). Si vous êtes l'une des entreprises, remplissez seulement les lignes des flux auxquels votre entreprise participe et, dans celles-ci, seulement les colonnes de votre côté (origine ou destination) ; l'analyste fusionne les fichiers. Si vous réalisez l'étude vous-même, remplissez la Classification des flux et le Scénario de référence et envoyez le classeur à chaque entreprise.",
    "ins.return_by": "À renvoyer avant le",
-   "ins.return_by_hint": "(convenez d'une date avec qui réalise l'étude)",
    "ins.contact": "Contact",
-   "ins.contact_hint": "(nom et e-mail de qui réalise l'étude)",
-   "note.field_id": "Code du champ",
-   "note.type": "Type",
    "note.allowed": "Valeurs admises",
    "note.because": "Demandé parce que",
    "note.only_when": "Seulement pour les lignes avec",
@@ -1849,22 +1969,19 @@
    "h.type": "Type",
    "h.quantity": "Quantité",
    "h.unit": "Unité",
-   "dx.intro": "Ce document accompagne le classeur Excel : le §1 dit qui remplit quoi et comment, le §2 montre le réseau, le §3 explique chaque colonne. L'annexe A est pour la personne qui réalise l'étude.",
+   "dx.intro": "Ce document accompagne le classeur Excel. La couverture dit ce que nous vous demandons et pour quand ; le §1 dit qui remplit quoi et comment, le §2 montre le réseau, le §3 explique chaque colonne dans l'ordre des feuilles. L'annexe A est destinée à la personne qui réalise l'étude ; les données du projet terminent le document.",
    "dx.meta": "Données du projet",
    "dx.project": "Projet",
    "dx.project_title": "Titre du projet",
-   "dx.topic": "Topic",
+   "dx.topic": "Thème",
    "dx.instrument": "Instrument",
    "dx.task": "Tâche",
    "dx.deliverable": "Livrable",
    "dx.cover": "Couverture du Data Collection File",
-   "dx.s1": "§1. Choix méthodologiques à documenter",
-   "dx.s1_none": "Rien à documenter pour ce cas.",
-   "dx.s1_intro": "{total} éléments à documenter pour ce cas : les {rules} obligations déclenchées par les réponses et {mandates} pratiques que la méthode demande à toute étude de ce type. Chacun est un engagement à documenter dans le rapport LCSA ou ses annexes ; « S'applique parce que » dit ce qui l'a déclenché, « Statut » sert à suivre l'avancement. Les énoncés sont le texte des livrables, en anglais.",
    "dx.s2": "§2. Diagramme du réseau",
    "dx.s2_off": "Le diagramme du réseau n'est pas actif pour ce cas.",
    "dx.s2_static": "Le diagramme du réseau se dessine de façon interactive sur la page Data Collection File de l'application web SYMBA T4.6, à partir des feuilles Acteurs et Matrice des flux du fichier .xlsx : les acteurs comme nœuds, les flux comme flèches.",
-   "dx.s2_drawn": "Le réseau dessiné dans l'application web SYMBA T4.6 compte {actors} acteur(s) et {flows} flux relié(s). Les tableaux ci-dessous en sont la forme textuelle ; le fichier .xlsx porte le même contenu dans les feuilles Acteurs et Matrice des flux.",
+   "dx.s2_drawn": "Le réseau dessiné dans l'application web SYMBA T4.6 compte {actors} et {flows}. Les tableaux ci-dessous en sont la forme textuelle ; le classeur porte le même contenu dans les feuilles {sheet_actors} et {sheet_flows}.",
    "dx.actors": "Acteurs",
    "dx.flows": "Flux",
    "h.actor": "Acteur",
@@ -1874,8 +1991,6 @@
    "h.to": "À",
    "dx.s3": "§3. Les colonnes, feuille par feuille",
    "dx.s3_body": "Pour chaque feuille du classeur : ce que demande chaque colonne, les valeurs acceptées et qui la remplit. Le même texte figure en commentaire sur l'en-tête de colonne dans Excel.",
-   "dx.active": "Sections actives",
-   "h.section": "Section",
    "h.gives": "Cède",
    "h.receives": "Reçoit",
    "cover.noIlcd": "Aucune : une étude uniquement économique (sans LCA). Le calcul des coûts utilise le scénario de référence qu'utiliserait une LCA (D4.2 §4.1).",
@@ -1891,10 +2006,8 @@
    "h.column": "Colonne",
    "h.meaning": "Ce qu'elle demande",
    "h.values": "Valeurs admises",
-   "dx.annex": "Annexe A — Pour la personne qui réalise l'étude : choix méthodologiques à documenter",
-   "dx.annex_intro": "Pas pour les fournisseurs de données. Les énoncés sont le texte des livrables, en anglais.",
-   "h.active": "Active pour ce cas",
-   "h.fields": "Champs actifs",
+   "dx.annex": "Annexe A. Pour la personne qui réalise l'étude",
+   "dx.annex_intro": "Pas pour les fournisseurs de données.",
    "yes": "oui",
    "no": "non",
    "dx.ack": "Remerciements et avertissement",
@@ -1908,12 +2021,71 @@
    "cat.reporting_disclosure": "Rapport et divulgation",
    "cat.lcc_method_specific": "Coût du cycle de vie",
    "cat.lcsa_integration": "Intégration des méthodes",
-   "cat.Cross-method consistency": "Règles entre les méthodes (celles comptées sur la page de résultat)",
+   "cat.Cross-method consistency": "Règles entre les méthodes",
    "origin.mandate": "Exigé par la méthode",
    "origin.rule": "Exigé entre les méthodes",
    "because.always": "toute étude de ce type",
    "reason.costing_only": "le calcul des coûts en a besoin même sans LCA (D4.2 §6.2)",
-   "note.computed": "Calculée à partir des flèches dessinées dans l'application : ne pas la remplir."
+   "note.computed": "Calculée à partir des flèches dessinées dans l'application : ne pas la remplir.",
+   "cover.case": "Cas",
+   "cover.ref": "Référence du cas",
+   "cover.version": "Version",
+   "cover.version_value": "{version} du {date}",
+   "cover.conf": "Confidentiel",
+   "cover.conf_value": "Ce fichier peut contenir les données de plusieurs partenaires : gardez-le au sein de l'équipe d'étude et ne le transférez pas à d'autres entreprises.",
+   "cover.ask": "Ce que nous vous demandons",
+   "cover.ask_value": "Remplissez les lignes des flux auxquels votre entreprise participe, dans les feuilles {sheets}. Laissez telles quelles les colonnes grises et les feuilles destinées à la personne qui réalise l'étude. La feuille {instructions} explique comment.",
+   "cover.scenarios": "Scénarios",
+   "cover.scenarios_value": "Cas de base et {names} : les quantités prévues ont une colonne pour chacun (voir {instructions}).",
+   "ins.grey": "Colonnes grises",
+   "ins.grey_body": "Un en-tête gris signale une colonne remplie par la personne qui réalise l'étude : laissez-la telle quelle. « Qui paie qui » arrive déjà rempli à partir des réponses de l'étude : s'il est faux pour votre flux, signalez-le au contact.",
+   "ins.ids": "Références des lignes",
+   "ins.ids_body": "Les acteurs sont numérotés A1, A2…, les flux F1, F2… et les biens I1, I2… : utilisez ces numéros pour désigner une ligne quand vous écrivez au contact. Pour une nouvelle ligne, écrivez le numéro suivant.",
+   "ins.scenarios": "Scénarios de ce cas",
+   "ins.scenarios_body": "Outre le cas de base, l'étude examine {n}. Les quantités prévues ont une colonne pour le cas de base et une pour chaque scénario : remplissez celles que vous pouvez estimer.",
+   "n.scenarios_one": "un scénario alternatif",
+   "n.scenarios_other": "{n} scénarios alternatifs",
+   "ins.conf_values_nocontact": "Valeurs confidentielles : écrivez « confidentiel » dans la cellule et envoyez la valeur uniquement à la personne qui vous a envoyé ce fichier ; ne transférez pas le classeur aux autres partenaires.",
+   "ins.contact_note": "renvoyez ici le fichier rempli",
+   "sheet.grey_note": "Colonnes grises : pour la personne qui réalise l'étude, laissez-les telles quelles.",
+   "note.id": "Un numéro pour désigner cette ligne (A1, F1, I1…). Pour une nouvelle ligne, écrivez le numéro suivant.",
+   "note.converted": "Converti : « {old} » n'est plus proposé et se lit comme « {new} ». Vérifiez-le.",
+   "note.per_scenario": "Une colonne pour le cas de base et une pour chaque scénario du cas (voir {instructions}).",
+   "note.q5_company": "Déjà rempli par la personne qui réalise l'étude, à partir des réponses de l'étude : s'il est faux pour ce flux, signalez-le au contact. Il indique seulement qui paie qui ; si le flux est juridiquement un déchet, c'est la Classification des flux qui le décide.",
+   "col.base_case": "cas de base",
+   "actors.only_scenario": "Seulement dans le scénario « {label} »",
+   "mc.config": "Configuration de l'étude",
+   "mc.checklist": "Ce qu'il faut documenter",
+   "cat.decision_points": "Points de décision à trancher",
+   "cat.sector_rules": "Règles sectorielles (D4.1 partie 2)",
+   "origin.decision_point": "Point de décision",
+   "origin.sector_rule": "Règle sectorielle",
+   "strength.must": "obligatoire",
+   "strength.should": "recommandée",
+   "strength.descriptive": "descriptive",
+   "mc.cdp_statement": "{name} : {body}. Convention à confirmer, ou justifiez un autre choix : {resolution}",
+   "mc.cdp_because": "l'étude comprend {methods}",
+   "mc.because_flow": "flux {name}",
+   "mc.because_case": "le secteur du cas",
+   "mc.and": "et",
+   "method.cross": "entre les méthodes",
+   "dx.title": "Data Collection File : guide de remplissage",
+   "dx.annex_pointer": "Ce que l'étude doit documenter ({total} éléments : règles entre les méthodes, pratiques de chaque méthode, points de décision et règles sectorielles) figure dans la liste de contrôle de la feuille {sheet} du classeur, avec des colonnes pour le responsable et le statut. Le rapport du cas explique chaque élément.",
+   "dx.fig": "Figure 1. Le réseau du cas : {actors}, {flows}. Chaque flèche va de qui cède le flux à qui le reçoit.",
+   "n.actors_one": "1 acteur",
+   "n.actors_other": "{n} acteurs",
+   "n.flows_one": "1 flux",
+   "n.flows_other": "{n} flux",
+   "n.cflows_one": "1 flux relié",
+   "n.cflows_other": "{n} flux reliés",
+   "dx.footer_page": "page",
+   "dx.footer_of": "sur",
+   "dx.csa": "CSA (action de coordination et de soutien)",
+   "eu.funding": "Ce projet a reçu un financement du programme de recherche et d'innovation Horizon de l'Union européenne au titre de la convention de subvention N. 101135562 — www.symbaproject.eu",
+   "eu.disclaimer": "Financé par l'Union européenne. Les opinions exprimées ne sont toutefois que celles du ou des auteurs et ne reflètent pas nécessairement celles de l'Union européenne. Ni l'Union européenne ni l'Agence exécutive européenne pour la recherche ne peuvent en être tenues responsables.",
+   "date.months": "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre",
+   "date.format": "{d} {month} {y}",
+   "unit.years": "ans"
   },
   "enum_refs": {
    "Q6a": {
@@ -1958,7 +2130,7 @@
    },
    "flow_classification": {
     "title": "Klassifizierung der Flüsse (Abfall / Koppelprodukt / Nebenprodukt)",
-    "description": "Eine Zeile pro Fluss, unabhängig von Q5: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: Q5 hält nur fest, wer wen bezahlt; halten Sie dies mit der Q5-Klasse des Flusses in der Flussmatrix stimmig.",
+    "description": "Eine Zeile pro Fluss, unabhängig von „Wer zahlt wen“: die rechtlichen und wirtschaftlichen Prüfungen, die entscheiden, wie ein Fluss behandelt wird (D4.1 §8.3, D4.2 §6.2). Es sind Einschätzungen des Analysten: „Wer zahlt wen“ hält nur fest, wer wen bezahlt; halten Sie dies mit der „Wer zahlt wen“-Klasse des Flusses in der Flussmatrix stimmig.",
     "description_costing_only": "Auch ohne LCA gefragt: Die Kostenrechnung nutzt dasselbe Referenzszenario wie eine LCA (D4.2 §6.2) und jeder Fluss muss als vermeidbar oder unvermeidbar eingestuft sein, bevor Kosten oder Nullkosten angenommen werden (D4.2 §6.3). Einschätzungen des Analysten."
    },
    "logistics": {
@@ -2052,7 +2224,8 @@
    },
    "flow.quantity_projected": {
     "label": "Erwartete Menge (pro Szenario, pro Jahr)",
-    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
+    "description": "Vom Herkunftsakteur auszufüllen (der den Fluss abgibt).",
+    "label_base": "Erwartete Menge (pro Jahr)"
    },
    "flow.quality.purity_pct": {
     "label": "Reinheit (%)",
@@ -2088,7 +2261,7 @@
    },
    "classif.independent_market": {
     "label": "Würde ein Dritter dafür zahlen? (Freedom-to-Act)",
-    "description": "D4.1 §8.3.3: Gibt es keinen unabhängigen Käufer, ist der Preis administrativ und der Fluss Abfall, auch wenn Q5 sagt, dass der Abnehmer zahlt. Beim Anlegen der Zeile aus der Antwort im Fragebogen übernommen (An Dritte verkaufbar?); danach gehört die Zeile dem Analysten."
+    "description": "D4.1 §8.3.3: Gibt es keinen unabhängigen Käufer, ist der Preis administrativ und der Fluss Abfall, auch wenn „Wer zahlt wen“ sagt, dass der Abnehmer zahlt. Beim Anlegen der Zeile aus der Antwort im Fragebogen übernommen (An Dritte verkaufbar?); danach gehört die Zeile dem Analysten."
    },
    "classif.avoidable": {
     "label": "Kausale Vermeidbarkeit",
@@ -2135,11 +2308,12 @@
    },
    "route.measured_volume_year": {
     "label": "Gemessenes Volumen (pro Jahr)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Von der Seite auszufüllen, die den Transport organisiert. Dieselbe wie die gemessene Menge der Flussmatrix, außer bei Verlusten während des Transports."
    },
    "route.projected_volume_year": {
     "label": "Erwartetes Volumen pro Szenario (pro Jahr)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Von der Seite auszufüllen, die den Transport organisiert.",
+    "label_base": "Erwartetes Volumen (pro Jahr)"
    },
    "route.backhaul_strategy": {
     "label": "Rückfahrt (Rückladung)",
@@ -2150,7 +2324,7 @@
    },
    "route.transport_cost_per_unit": {
     "label": "Transportkosten (pro Einheit)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Von der Seite auszufüllen, die den Transport organisiert. In Währung pro Einheit des Flusses (z. B. EUR/t), der in der Flussmatrix angegebenen Einheit."
    },
    "route.transport_sensitivity": {
     "label": "Was diesen Fluss entfernungsabhängig macht",
@@ -2169,7 +2343,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Heutige Entsorgungs- / Behandlungskosten (vermieden)",
-    "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt)."
+    "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt). Findet der Austausch bereits statt, tragen Sie ein, was der Ursprungsakteur ohne ihn zahlen würde (Entsorgung oder das Ziel des Referenzszenarios), nicht die Gebühr, die er heute dem Partner zahlt: Diese gehört in die Preisspalte."
    },
    "cost.disposal_cost_unit": {
     "label": "Einheit der beiden vermiedenen Kosten (z. B. EUR/t, EUR/Jahr)",
@@ -2185,7 +2359,7 @@
    },
    "cost.opex_delta_year": {
     "label": "Jährliche Änderung der Betriebskosten des Herkunftsakteurs (ohne Transport)",
-    "description": "Was der Austausch jedes Jahr für den abgebenden Akteur hinzufügt oder einspart; der Transport gehört in Logistik."
+    "description": "Was der Austausch jedes Jahr für den abgebenden Akteur hinzufügt oder einspart; der Transport gehört in Logistik. Positiv für Mehrkosten, negativ für eine Einsparung, in Währung pro Jahr."
    },
    "cost.currency_year": {
     "label": "Währung und Bezugsjahr",
@@ -2237,7 +2411,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Abschreibungsdauer (Jahre): technische Lebensdauer dieser Anlage",
-    "description": "Kein einheitlicher Wert: die technische Lebensdauer jeder Anlage (D4.2 §4.2, §7.3). Referenzwerte in Tabelle 7.1 der D4.2: Gebäude und allgemeine Infrastruktur 20-30 Jahre, Prozessanlagen und Maschinen 5-8 Jahre. Verwenden Sie in der LCA denselben Zeitraum (D4.1 §14.2.2)."
+    "description": "Kein einheitlicher Wert: die technische Lebensdauer jeder Anlage (D4.2 §4.2, §7.3). Referenzwerte in Tabelle 7.1 der D4.2: Gebäude und allgemeine Infrastruktur 20-30 Jahre, Prozessanlagen und Maschinen 5-8 Jahre. Verwenden Sie in der LCA denselben Zeitraum (D4.1 §14.2.2). Nicht der steuerliche Abschreibungssatz: die Jahre, die die Anlage voraussichtlich arbeitet."
    },
    "infra.discount_rate_pct": {
     "label": "Diskontsatz (%)"
@@ -2286,7 +2460,7 @@
    },
    "cost.opex_delta_dest_year": {
     "label": "Jährliche Änderung der Betriebskosten des Zielakteurs (ohne Transport)",
-    "description": "Was der Austausch jedes Jahr für den aufnehmenden Akteur hinzufügt oder einspart (D4.2 §5.3: die tatsächliche Kostenstruktur jedes Unternehmens)."
+    "description": "Was der Austausch jedes Jahr für den aufnehmenden Akteur hinzufügt oder einspart (D4.2 §5.3: die tatsächliche Kostenstruktur jedes Unternehmens). Positiv für Mehrkosten, negativ für eine Einsparung, in Währung pro Jahr."
    },
    "cost.avoided_procurement_cost": {
     "label": "Was der Zielakteur heute für das bezahlt, was dieser Fluss ersetzt (vermiedener Einkauf)",
@@ -2431,19 +2605,17 @@
    "sheet.methodological_choices": "Methodische Entscheidungen",
    "sheet.network_diagram": "Netzdiagramm",
    "title": "SYMBA T4.6 — Data Collection File",
-   "cover.case_id": "Fall-ID",
    "cover.ilcd": "ILCD-Situation",
    "cover.lcc": "LCC-Typ",
    "cover.slca": "Soziale Bewertung (S-LCA)",
    "cover.purpose": "Art der Studie",
    "cover.market": "Referenzmarkt",
-   "cover.schema": "Schemaversion",
    "cover.generated": "Erstellt am",
    "not_active": "Dieser Abschnitt ist für diesen Fall nicht aktiv.",
    "ins.title": "So füllen Sie dieses Data Collection File aus",
    "ins.case": "Fall: {name}",
    "ins.what": "Was diese Datei ist",
-   "ins.what_body": "Ein Datenerhebungsblatt für einen Fall industrieller Symbiose: die Akteure, die ausgetauschten Flüsse und ihre Klassifizierung, die Referenz jedes Akteurs ohne den Austausch, Logistik, Kosten und Anlagen. Es ist kein Prozessinventar: Inputs, Outputs und Emissionen jeder Anlage werden getrennt erhoben, mit den Vorlagen der LCA- und Kostensoftware. Soziale Daten (Stakeholdergruppen, Indikatoren, Interviews) werden hier nicht erhoben: Sie folgen den S-LCA-Leitlinien (D4.3) mit eigenen Instrumenten; diese Datei erfasst nur Größe und Eigentum jedes Akteurs.",
+   "ins.what_body": "Ein Datenerhebungsblatt für einen Fall industrieller Symbiose: die Akteure, die ausgetauschten Flüsse und ihre Klassifizierung, die Referenz jedes Akteurs ohne den Austausch, Logistik, Kosten und Anlagen. Es ist kein Prozessinventar: Inputs, Outputs und Emissionen jeder Anlage werden getrennt erhoben, mit den Vorlagen der LCA- und Kostensoftware. Soziale Daten (Stakeholdergruppen, Indikatoren, Interviews) werden hier nicht erhoben: Sie folgen den S-LCA-Leitlinien (D4.3) mit eigenen Instrumenten; für diese Bewertung erfasst diese Datei höchstens Größe und Eigentum jedes Akteurs, wenn die Studie danach fragt.",
    "ins.how": "So füllen Sie es aus",
    "ins.how_body": "Eine Zeile pro Eintrag. Mit * markierte Spalten sind Pflicht. Wo eine Spaltenüberschrift eine Notiz hat (eine kleine rote Ecke), fahren Sie darüber, um Definition, zulässige Werte und den Grund der Frage zu sehen. Zellen mit Auswahlliste akzeptieren nur die angebotenen Werte: überschreiben Sie sie nicht mit freiem Text.",
    "ins.unknown": "Wenn Sie einen Wert nicht kennen",
@@ -2455,11 +2627,7 @@
    "ins.return": "An wen zurückgeben",
    "ins.return_body": "An die Person, die die Studie durchführt (eine Analystin, ein Analyst oder ein Beratungsbüro). Wenn Sie eines der Unternehmen sind, füllen Sie nur die Zeilen der Flüsse aus, an denen Ihr Unternehmen beteiligt ist, und darin nur die Spalten Ihrer Seite (Herkunft oder Ziel); die Dateien führt die Person zusammen, die die Studie durchführt. Wenn Sie die Studie selbst durchführen, füllen Sie die Flussklassifizierung und das Referenzszenario aus und senden Sie die Arbeitsmappe an jedes Unternehmen.",
    "ins.return_by": "Zurück bis",
-   "ins.return_by_hint": "(Termin mit der Person vereinbaren, die die Studie durchführt)",
    "ins.contact": "Kontakt",
-   "ins.contact_hint": "(Name und E-Mail der Person, die die Studie durchführt)",
-   "note.field_id": "Feldcode",
-   "note.type": "Typ",
    "note.allowed": "Zulässige Werte",
    "note.because": "Gefragt, weil",
    "note.only_when": "Nur für Zeilen mit",
@@ -2498,22 +2666,19 @@
    "h.type": "Art",
    "h.quantity": "Menge",
    "h.unit": "Einheit",
-   "dx.intro": "Dieses Dokument begleitet die Excel-Arbeitsmappe: §1 sagt, wer was wie ausfüllt, §2 zeigt das Netzwerk, §3 erklärt jede Spalte. Anhang A ist für die Person, die die Studie durchführt.",
+   "dx.intro": "Dieses Dokument begleitet die Excel-Arbeitsmappe. Das Deckblatt sagt, worum wir Sie bitten und bis wann; §1 sagt, wer was wie ausfüllt, §2 zeigt das Netz, §3 erklärt jede Spalte in der Reihenfolge der Blätter. Anhang A richtet sich an die Person, die die Studie durchführt; die Projektdaten schließen das Dokument ab.",
    "dx.meta": "Projektdaten",
    "dx.project": "Projekt",
    "dx.project_title": "Projekttitel",
-   "dx.topic": "Topic",
+   "dx.topic": "Thema",
    "dx.instrument": "Instrument",
-   "dx.task": "Task",
+   "dx.task": "Aufgabe",
    "dx.deliverable": "Deliverable",
    "dx.cover": "Deckblatt des Data Collection File",
-   "dx.s1": "§1. Zu dokumentierende methodische Entscheidungen",
-   "dx.s1_none": "Für diesen Fall ist nichts zu dokumentieren.",
-   "dx.s1_intro": "{total} zu dokumentierende Punkte für diesen Fall: die {rules} durch die Antworten ausgelösten Verpflichtungen und {mandates} Praktiken, die die Methode von jeder solchen Studie verlangt. Jeder ist eine Verpflichtung, im LCSA-Bericht oder seinen Anhängen dokumentiert zu werden; „Gilt, weil“ nennt den Auslöser, „Status“ verfolgt den Fortschritt. Die Aussagen sind der Text der Deliverables, auf Englisch.",
    "dx.s2": "§2. Netzdiagramm",
    "dx.s2_off": "Das Netzdiagramm ist für diesen Fall nicht aktiv.",
    "dx.s2_static": "Das Netzdiagramm wird interaktiv auf der Seite Data Collection File der Web-App SYMBA T4.6 gezeichnet, aus den Blättern Akteure und Flussmatrix der .xlsx-Datei: Akteure als Knoten, Flüsse als Pfeile.",
-   "dx.s2_drawn": "Das in der Web-App SYMBA T4.6 gezeichnete Netz umfasst {actors} Akteur(e) und {flows} verbundene(n) Fluss/Flüsse. Die Tabellen unten sind seine Textform; die .xlsx-Datei enthält denselben Inhalt in den Blättern Akteure und Flussmatrix.",
+   "dx.s2_drawn": "Das in der Web-App SYMBA T4.6 gezeichnete Netz umfasst {actors} und {flows}. Die Tabellen unten sind seine Textform; die Arbeitsmappe enthält denselben Inhalt in den Blättern {sheet_actors} und {sheet_flows}.",
    "dx.actors": "Akteure",
    "dx.flows": "Flüsse",
    "h.actor": "Akteur",
@@ -2523,8 +2688,6 @@
    "h.to": "Nach",
    "dx.s3": "§3. Die Spalten, Blatt für Blatt",
    "dx.s3_body": "Für jedes Blatt der Arbeitsmappe: was jede Spalte fragt, welche Werte sie annimmt und wer sie ausfüllt. Derselbe Text steht als Kommentar an der Spaltenüberschrift in Excel.",
-   "dx.active": "Aktive Abschnitte",
-   "h.section": "Abschnitt",
    "h.gives": "Gibt ab",
    "h.receives": "Nimmt auf",
    "cover.noIlcd": "Keine: eine reine Kostenstudie (ohne LCA). Die Kostenrechnung verwendet das Referenzszenario, das eine LCA verwenden würde (D4.2 §4.1).",
@@ -2540,10 +2703,8 @@
    "h.column": "Spalte",
    "h.meaning": "Was sie fragt",
    "h.values": "Zulässige Werte",
-   "dx.annex": "Anhang A — Für die Person, die die Studie durchführt: zu dokumentierende methodische Entscheidungen",
-   "dx.annex_intro": "Nicht für die Datenlieferanten. Die Aussagen sind der Text der Deliverables, auf Englisch.",
-   "h.active": "Aktiv für diesen Fall",
-   "h.fields": "Aktive Felder",
+   "dx.annex": "Anhang A. Für die Person, die die Studie durchführt",
+   "dx.annex_intro": "Nicht für die Datenlieferanten.",
    "yes": "ja",
    "no": "nein",
    "dx.ack": "Danksagung und Haftungsausschluss",
@@ -2557,12 +2718,71 @@
    "cat.reporting_disclosure": "Berichterstattung und Offenlegung",
    "cat.lcc_method_specific": "Lebenszykluskosten",
    "cat.lcsa_integration": "Integration der Methoden",
-   "cat.Cross-method consistency": "Regeln zwischen den Methoden (die auf der Ergebnisseite gezählten)",
+   "cat.Cross-method consistency": "Regeln zwischen den Methoden",
    "origin.mandate": "Von der Methode verlangt",
    "origin.rule": "Zwischen den Methoden verlangt",
    "because.always": "jede Studie dieser Art",
    "reason.costing_only": "die Kostenrechnung braucht es auch ohne LCA (D4.2 §6.2)",
-   "note.computed": "Aus den in der App gezeichneten Pfeilen berechnet: nicht ausfüllen."
+   "note.computed": "Aus den in der App gezeichneten Pfeilen berechnet: nicht ausfüllen.",
+   "cover.case": "Fall",
+   "cover.ref": "Fallreferenz",
+   "cover.version": "Version",
+   "cover.version_value": "{version} vom {date}",
+   "cover.conf": "Vertraulich",
+   "cover.conf_value": "Diese Datei kann Daten mehrerer Partner enthalten: Behalten Sie sie im Studienteam und leiten Sie sie nicht an andere Unternehmen weiter.",
+   "cover.ask": "Worum wir Sie bitten",
+   "cover.ask_value": "Füllen Sie in den Blättern {sheets} die Zeilen der Flüsse aus, an denen Ihr Unternehmen beteiligt ist. Lassen Sie die grauen Spalten und die Blätter für die Person, die die Studie durchführt, unverändert. Das Blatt {instructions} erklärt, wie.",
+   "cover.scenarios": "Szenarien",
+   "cover.scenarios_value": "Basisfall und {names}: Die erwarteten Mengen haben je eine Spalte (siehe {instructions}).",
+   "ins.grey": "Graue Spalten",
+   "ins.grey_body": "Eine graue Überschrift kennzeichnet eine Spalte, die die Person ausfüllt, die die Studie durchführt: Lassen Sie sie unverändert. „Wer zahlt wen“ ist aus den Antworten der Studie bereits ausgefüllt: Wenn es für Ihren Fluss nicht stimmt, sagen Sie es dem Kontakt.",
+   "ins.ids": "Zeilennummern",
+   "ins.ids_body": "Akteure sind mit A1, A2… nummeriert, Flüsse mit F1, F2… und Anlagen mit I1, I2…: Nennen Sie diese Nummern, wenn Sie dem Kontakt zu einer Zeile schreiben. Für eine neue Zeile schreiben Sie die nächste Nummer.",
+   "ins.scenarios": "Szenarien dieses Falls",
+   "ins.scenarios_body": "Neben dem Basisfall betrachtet die Studie {n}. Die erwarteten Mengen haben eine Spalte für den Basisfall und eine für jedes Szenario: Füllen Sie die aus, die Sie schätzen können.",
+   "n.scenarios_one": "ein alternatives Szenario",
+   "n.scenarios_other": "{n} alternative Szenarien",
+   "ins.conf_values_nocontact": "Vertrauliche Werte: Schreiben Sie »vertraulich« in die Zelle und senden Sie den Wert nur an die Person, die Ihnen diese Datei geschickt hat; leiten Sie die Arbeitsmappe nicht an andere Partner weiter.",
+   "ins.contact_note": "senden Sie die ausgefüllte Datei hierher zurück",
+   "sheet.grey_note": "Graue Spalten: für die Person, die die Studie durchführt; lassen Sie sie unverändert.",
+   "note.id": "Eine Nummer, um auf diese Zeile zu verweisen (A1, F1, I1…). Für eine neue Zeile schreiben Sie die nächste Nummer.",
+   "note.converted": "Umgewandelt: „{old}“ wird nicht mehr angeboten und gilt als „{new}“. Bitte prüfen.",
+   "note.per_scenario": "Eine Spalte für den Basisfall und eine für jedes Szenario des Falls (siehe {instructions}).",
+   "note.q5_company": "Bereits von der Person ausgefüllt, die die Studie durchführt, aus den Antworten der Studie: Wenn es für diesen Fluss nicht stimmt, sagen Sie es dem Kontakt. Es hält nur fest, wer wen bezahlt; ob der Fluss rechtlich Abfall ist, entscheidet die Flussklassifizierung.",
+   "col.base_case": "Basisfall",
+   "actors.only_scenario": "Nur im Szenario „{label}“",
+   "mc.config": "Konfiguration der Studie",
+   "mc.checklist": "Was zu dokumentieren ist",
+   "cat.decision_points": "Zu klärende Entscheidungspunkte",
+   "cat.sector_rules": "Sektorregeln (D4.1 Teil 2)",
+   "origin.decision_point": "Entscheidungspunkt",
+   "origin.sector_rule": "Sektorregel",
+   "strength.must": "verpflichtend",
+   "strength.should": "empfohlen",
+   "strength.descriptive": "beschreibend",
+   "mc.cdp_statement": "{name}: {body}. Zu bestätigende Konvention, oder begründen Sie eine andere Wahl: {resolution}",
+   "mc.cdp_because": "die Studie umfasst {methods}",
+   "mc.because_flow": "Fluss {name}",
+   "mc.because_case": "der Sektor des Falls",
+   "mc.and": "und",
+   "method.cross": "methodenübergreifend",
+   "dx.title": "Data Collection File: Ausfüllhilfe",
+   "dx.annex_pointer": "Was die Studie dokumentieren muss ({total} Punkte: Regeln zwischen den Methoden, Praktiken jeder Methode, Entscheidungspunkte und Sektorregeln), steht als Checkliste im Blatt {sheet} der Arbeitsmappe, mit Spalten für Zuständigkeit und Status. Der Fallbericht erklärt jeden Punkt.",
+   "dx.fig": "Abbildung 1. Das Netz des Falls: {actors}, {flows}. Jeder Pfeil geht von dem, der den Fluss abgibt, zu dem, der ihn erhält.",
+   "n.actors_one": "1 Akteur",
+   "n.actors_other": "{n} Akteure",
+   "n.flows_one": "1 Fluss",
+   "n.flows_other": "{n} Flüsse",
+   "n.cflows_one": "1 verbundener Fluss",
+   "n.cflows_other": "{n} verbundene Flüsse",
+   "dx.footer_page": "Seite",
+   "dx.footer_of": "von",
+   "dx.csa": "CSA (Koordinierungs- und Unterstützungsmaßnahme)",
+   "eu.funding": "Dieses Projekt wird aus dem Forschungs- und Innovationsprogramm Horizon der Europäischen Union im Rahmen der Finanzhilfevereinbarung Nr. 101135562 gefördert — www.symbaproject.eu",
+   "eu.disclaimer": "Finanziert von der Europäischen Union. Die geäußerten Ansichten und Meinungen sind jedoch ausschließlich die der Autor(inn)en und spiegeln nicht unbedingt die der Europäischen Union wider. Weder die Europäische Union noch die Europäische Exekutivagentur für die Forschung können dafür verantwortlich gemacht werden.",
+   "date.months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
+   "date.format": "{d}. {month} {y}",
+   "unit.years": "Jahre"
   },
   "enum_refs": {
    "Q6a": {
@@ -2607,7 +2827,7 @@
    },
    "flow_classification": {
     "title": "Clasificación de los flujos (residuo / coproducto / subproducto)",
-    "description": "Una fila por flujo, diga lo que diga Q5: las pruebas jurídicas y económicas que deciden cómo se trata un flujo (D4.1 §8.3, D4.2 §6.2). Son juicios del analista: Q5 solo registra quién paga a quién, así que mantenlos coherentes con la clase Q5 del flujo en la Matriz de flujos.",
+    "description": "Una fila por flujo, diga lo que diga «Quién paga a quién»: las pruebas jurídicas y económicas que deciden cómo se trata un flujo (D4.1 §8.3, D4.2 §6.2). Son juicios del analista: «Quién paga a quién» solo registra quién paga a quién, así que mantenlos coherentes con la clase «Quién paga a quién» del flujo en la Matriz de flujos.",
     "description_costing_only": "Se pide también sin LCA: el cálculo de costes usa el mismo escenario de referencia que un LCA (D4.2 §6.2) y cada flujo debe clasificarse como evitable o inevitable antes de cualquier hipótesis de coste o de coste cero (D4.2 §6.3). Juicios del analista."
    },
    "logistics": {
@@ -2701,7 +2921,8 @@
    },
    "flow.quantity_projected": {
     "label": "Cantidad prevista (por escenario, al año)",
-    "description": "Lo rellena el actor de origen (quien cede el flujo)."
+    "description": "Lo rellena el actor de origen (quien cede el flujo).",
+    "label_base": "Cantidad prevista (al año)"
    },
    "flow.quality.purity_pct": {
     "label": "Pureza (%)",
@@ -2713,7 +2934,12 @@
    },
    "flow.quality.reliability_of_supply": {
     "label": "Fiabilidad del suministro",
-    "description": "Lo rellena el actor de origen (quien cede el flujo)."
+    "description": "Lo rellena el actor de origen (quien cede el flujo).",
+    "values": {
+     "low": "baja",
+     "med": "media",
+     "high": "alta"
+    }
    },
    "flow.uncertainty.type": {
     "label": "Cómo se expresa la incertidumbre",
@@ -2737,7 +2963,7 @@
    },
    "classif.independent_market": {
     "label": "¿Lo pagaría un tercero? (Freedom-to-Act)",
-    "description": "D4.1 §8.3.3: si no existe un comprador independiente, el precio es administrativo y el flujo es un residuo, aunque Q5 diga que paga quien recibe. Se inicializa con la respuesta del cuestionario (¿Vendible a otros?) al crear la fila; a partir de ahí la fila es del analista."
+    "description": "D4.1 §8.3.3: si no existe un comprador independiente, el precio es administrativo y el flujo es un residuo, aunque «Quién paga a quién» diga que paga quien recibe. Se inicializa con la respuesta del cuestionario (¿Vendible a otros?) al crear la fila; a partir de ahí la fila es del analista."
    },
    "classif.avoidable": {
     "label": "Evitabilidad causal",
@@ -2780,15 +3006,19 @@
    },
    "route.frequency": {
     "label": "Frecuencia",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena quien organiza el transporte.",
+    "values": {
+     "continuous": "continua"
+    }
    },
    "route.measured_volume_year": {
     "label": "Volumen medido (al año)",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena quien organiza el transporte. La misma que la cantidad medida de la Matriz de flujos, salvo pérdidas durante el transporte."
    },
    "route.projected_volume_year": {
     "label": "Volumen previsto por escenario (al año)",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena quien organiza el transporte.",
+    "label_base": "Volumen previsto (al año)"
    },
    "route.backhaul_strategy": {
     "label": "Viaje de vuelta (carga de retorno)",
@@ -2799,7 +3029,7 @@
    },
    "route.transport_cost_per_unit": {
     "label": "Coste del transporte (por unidad)",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena quien organiza el transporte. En moneda por unidad del flujo (p. ej. EUR/t), la unidad indicada en la Matriz de flujos."
    },
    "route.transport_sensitivity": {
     "label": "Qué hace a este flujo sensible a la distancia",
@@ -2818,7 +3048,7 @@
    },
    "cost.current_disposal_cost": {
     "label": "Coste actual de eliminación / gestión (evitado)",
-    "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita. Lo rellena el actor de origen (quien cede el flujo)."
+    "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita. Lo rellena el actor de origen (quien cede el flujo). Si el intercambio ya tiene lugar, escribe lo que pagaría el actor de origen sin él (eliminación, o el destino del escenario de referencia), no la tarifa que paga hoy al socio: esa va en la columna del precio."
    },
    "cost.disposal_cost_unit": {
     "label": "Unidad de los dos costes evitados (p. ej. EUR/t, EUR/año)",
@@ -2834,7 +3064,7 @@
    },
    "cost.opex_delta_year": {
     "label": "Variación anual de los costes de explotación del actor de origen (sin transporte)",
-    "description": "Lo que el intercambio añade o ahorra cada año a quien cede el flujo; el transporte va en Logística."
+    "description": "Lo que el intercambio añade o ahorra cada año a quien cede el flujo; el transporte va en Logística. Positivo para un coste adicional, negativo para un ahorro, en moneda al año."
    },
    "cost.currency_year": {
     "label": "Moneda y año de referencia",
@@ -2846,7 +3076,13 @@
    },
    "cost.price_volatility": {
     "label": "Volatilidad del precio",
-    "description": "Un solo valor, acordado por los dos socios."
+    "description": "Un solo valor, acordado por los dos socios.",
+    "values": {
+     "low": "baja",
+     "med": "media",
+     "high": "alta",
+     "unknown": "desconocida"
+    }
    },
    "cost.externality_monetized": {
     "label": "Externalidades monetizadas para este flujo",
@@ -2886,7 +3122,7 @@
    },
    "infra.amortization_period_y": {
     "label": "Periodo de amortización (años): vida técnica de este bien",
-    "description": "Sin valor único: la vida técnica de cada bien (D4.2 §4.2, §7.3). Vidas de referencia en la Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años. Usa el mismo periodo en el LCA (D4.1 §14.2.2)."
+    "description": "Sin valor único: la vida técnica de cada bien (D4.2 §4.2, §7.3). Vidas de referencia en la Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años. Usa el mismo periodo en el LCA (D4.1 §14.2.2). No el coeficiente de amortización fiscal: los años que se espera que funcione el bien."
    },
    "infra.discount_rate_pct": {
     "label": "Tasa de descuento (%)"
@@ -2935,7 +3171,7 @@
    },
    "cost.opex_delta_dest_year": {
     "label": "Variación anual de los costes de explotación del actor de destino (sin transporte)",
-    "description": "Lo que el intercambio añade o ahorra cada año a quien recibe el flujo (D4.2 §5.3: la estructura de costes real de cada empresa)."
+    "description": "Lo que el intercambio añade o ahorra cada año a quien recibe el flujo (D4.2 §5.3: la estructura de costes real de cada empresa). Positivo para un coste adicional, negativo para un ahorro, en moneda al año."
    },
    "cost.avoided_procurement_cost": {
     "label": "Lo que paga hoy el actor de destino por lo que este flujo sustituye (compra evitada)",
@@ -3080,19 +3316,17 @@
    "sheet.methodological_choices": "Decisiones metodológicas",
    "sheet.network_diagram": "Diagrama de la red",
    "title": "SYMBA T4.6 — Data Collection File",
-   "cover.case_id": "ID del caso",
    "cover.ilcd": "Situación ILCD",
    "cover.lcc": "Tipo de LCC",
    "cover.slca": "Evaluación social (S-LCA)",
    "cover.purpose": "Tipo de estudio",
    "cover.market": "Mercado de referencia",
-   "cover.schema": "Versión del esquema",
    "cover.generated": "Generado el",
    "not_active": "Esta sección no está activa para este caso.",
    "ins.title": "Cómo rellenar este Data Collection File",
    "ins.case": "Caso: {name}",
    "ins.what": "Qué es este archivo",
-   "ins.what_body": "Una hoja de recogida de datos para un caso de simbiosis industrial: los actores, los flujos intercambiados y su clasificación, la referencia de cada actor sin los intercambios, la logística, los costes y los bienes. No es un inventario de procesos: las entradas, salidas y emisiones de cada planta se recogen aparte, con las plantillas del software de LCA y de costes. Los datos sociales (grupos de partes interesadas, indicadores, entrevistas) no se recogen aquí: siguen las directrices de S-LCA (D4.3) con sus propios instrumentos; este archivo solo registra el tamaño y la propiedad de cada actor.",
+   "ins.what_body": "Una hoja de recogida de datos para un caso de simbiosis industrial: los actores, los flujos intercambiados y su clasificación, la referencia de cada actor sin los intercambios, la logística, los costes y los bienes. No es un inventario de procesos: las entradas, salidas y emisiones de cada planta se recogen aparte, con las plantillas del software de LCA y de costes. Los datos sociales (grupos de partes interesadas, indicadores, entrevistas) no se recogen aquí: siguen las directrices de S-LCA (D4.3) con sus propios instrumentos; para esa evaluación este archivo registra como mucho el tamaño y la propiedad de cada actor, cuando el estudio los pide.",
    "ins.how": "Cómo rellenarlo",
    "ins.how_body": "Una fila por elemento. Las columnas con * son obligatorias. Donde el encabezado de una columna tiene una nota (una pequeña esquina roja), pasa sobre él para ver la definición, los valores admitidos y por qué se pide el campo. Las celdas con lista solo aceptan los valores propuestos: no las sobrescribas con texto libre.",
    "ins.unknown": "Si no conoces un valor",
@@ -3104,11 +3338,7 @@
    "ins.return": "A quién devolverlo",
    "ins.return_body": "A quien realiza el estudio (un analista o un consultor). Si eres una de las empresas, rellena solo las filas de los flujos en los que participa tu empresa y, en ellas, solo las columnas de tu lado (origen o destino); los archivos los une el analista. Si el estudio lo realizas tú, rellena la Clasificación de flujos y el Escenario de referencia y envía el libro a cada empresa.",
    "ins.return_by": "Devolver antes del",
-   "ins.return_by_hint": "(acuerda una fecha con quien realiza el estudio)",
    "ins.contact": "Contacto",
-   "ins.contact_hint": "(nombre y correo de quien realiza el estudio)",
-   "note.field_id": "Código del campo",
-   "note.type": "Tipo",
    "note.allowed": "Valores admitidos",
    "note.because": "Se pide porque",
    "note.only_when": "Solo para las filas con",
@@ -3147,22 +3377,19 @@
    "h.type": "Tipo",
    "h.quantity": "Cantidad",
    "h.unit": "Unidad",
-   "dx.intro": "Este documento acompaña al libro Excel: el §1 dice quién rellena qué y cómo, el §2 muestra la red, el §3 explica cada columna. El anexo A es para quien realiza el estudio.",
+   "dx.intro": "Este documento acompaña al libro de Excel. La portada dice qué te pedimos y para cuándo; el §1 dice quién rellena qué y cómo, el §2 muestra la red, el §3 explica cada columna en el orden de las hojas. El anexo A es para quien realiza el estudio; los datos del proyecto cierran el documento.",
    "dx.meta": "Datos del proyecto",
    "dx.project": "Proyecto",
    "dx.project_title": "Título del proyecto",
-   "dx.topic": "Topic",
+   "dx.topic": "Tema",
    "dx.instrument": "Instrumento",
    "dx.task": "Tarea",
    "dx.deliverable": "Entregable",
    "dx.cover": "Portada del Data Collection File",
-   "dx.s1": "§1. Decisiones metodológicas que documentar",
-   "dx.s1_none": "Nada que documentar para este caso.",
-   "dx.s1_intro": "{total} elementos que documentar en este caso: las {rules} obligaciones activadas por las respuestas y {mandates} prácticas que el método pide a todo estudio como este. Cada uno es un compromiso que documentar en el informe LCSA o sus anexos; «Se aplica porque» dice qué lo activó y «Estado» sirve para seguir su avance. Los enunciados son el texto de los entregables, en inglés.",
    "dx.s2": "§2. Diagrama de la red",
    "dx.s2_off": "El diagrama de la red no está activo para este caso.",
    "dx.s2_static": "El diagrama de la red se dibuja de forma interactiva en la página Data Collection File de la aplicación web SYMBA T4.6, a partir de las hojas Actores y Matriz de flujos del archivo .xlsx: los actores como nodos, los flujos como flechas.",
-   "dx.s2_drawn": "La red dibujada en la aplicación web SYMBA T4.6 cuenta con {actors} actor(es) y {flows} flujo(s) conectado(s). Las tablas siguientes son su forma textual; el archivo .xlsx contiene lo mismo en las hojas Actores y Matriz de flujos.",
+   "dx.s2_drawn": "La red dibujada en la aplicación web SYMBA T4.6 cuenta con {actors} y {flows}. Las tablas siguientes son su forma textual; el libro contiene lo mismo en las hojas {sheet_actors} y {sheet_flows}.",
    "dx.actors": "Actores",
    "dx.flows": "Flujos",
    "h.actor": "Actor",
@@ -3172,8 +3399,6 @@
    "h.to": "A",
    "dx.s3": "§3. Las columnas, hoja por hoja",
    "dx.s3_body": "Para cada hoja del libro: qué pide cada columna, qué valores acepta y quién la rellena. El mismo texto aparece como comentario en el encabezado de la columna en Excel.",
-   "dx.active": "Secciones activas",
-   "h.section": "Sección",
    "h.gives": "Cede",
    "h.receives": "Recibe",
    "cover.noIlcd": "Ninguna: un estudio solo económico (sin LCA). El cálculo de costes usa el escenario de referencia que usaría un LCA (D4.2 §4.1).",
@@ -3189,10 +3414,8 @@
    "h.column": "Columna",
    "h.meaning": "Qué pide",
    "h.values": "Valores admitidos",
-   "dx.annex": "Anexo A — Para quien realiza el estudio: decisiones metodológicas que documentar",
-   "dx.annex_intro": "No es para quienes aportan datos. Los enunciados son el texto de los entregables, en inglés.",
-   "h.active": "Activa para este caso",
-   "h.fields": "Campos activos",
+   "dx.annex": "Anexo A. Para quien realiza el estudio",
+   "dx.annex_intro": "No es para quienes aportan datos.",
    "yes": "sí",
    "no": "no",
    "dx.ack": "Agradecimientos y aviso",
@@ -3206,12 +3429,71 @@
    "cat.reporting_disclosure": "Informe y divulgación",
    "cat.lcc_method_specific": "Coste del ciclo de vida",
    "cat.lcsa_integration": "Integración de los métodos",
-   "cat.Cross-method consistency": "Reglas entre los métodos (las que se cuentan en la página de resultados)",
+   "cat.Cross-method consistency": "Reglas entre los métodos",
    "origin.mandate": "Exigido por el método",
    "origin.rule": "Exigido entre los métodos",
    "because.always": "todo estudio de este tipo",
    "reason.costing_only": "el cálculo de costes lo necesita también sin LCA (D4.2 §6.2)",
-   "note.computed": "Calculada a partir de las flechas dibujadas en la aplicación: no se rellena."
+   "note.computed": "Calculada a partir de las flechas dibujadas en la aplicación: no se rellena.",
+   "cover.case": "Caso",
+   "cover.ref": "Referencia del caso",
+   "cover.version": "Versión",
+   "cover.version_value": "{version} del {date}",
+   "cover.conf": "Confidencial",
+   "cover.conf_value": "Este archivo puede contener datos de varios socios: mantenlo dentro del equipo del estudio y no lo reenvíes a otras empresas.",
+   "cover.ask": "Qué te pedimos",
+   "cover.ask_value": "Rellena las filas de los flujos en los que participa tu empresa, en las hojas {sheets}. Deja como están las columnas grises y las hojas para quien realiza el estudio. La hoja {instructions} explica cómo.",
+   "cover.scenarios": "Escenarios",
+   "cover.scenarios_value": "Caso base y {names}: las cantidades previstas tienen una columna para cada uno (ver {instructions}).",
+   "ins.grey": "Columnas grises",
+   "ins.grey_body": "Un encabezado gris indica una columna que rellena quien realiza el estudio: déjala como está. «Quién paga a quién» llega ya rellenada con las respuestas del estudio: si no es correcta para tu flujo, díselo al contacto.",
+   "ins.ids": "Referencias de las filas",
+   "ins.ids_body": "Los actores van numerados A1, A2…, los flujos F1, F2… y los bienes I1, I2…: usa estos números para señalar una fila cuando escribas al contacto. Para una fila nueva, escribe el número siguiente.",
+   "ins.scenarios": "Escenarios de este caso",
+   "ins.scenarios_body": "Además del caso base, el estudio considera {n}. Las cantidades previstas tienen una columna para el caso base y otra para cada escenario: rellena las que puedas estimar.",
+   "n.scenarios_one": "un escenario alternativo",
+   "n.scenarios_other": "{n} escenarios alternativos",
+   "ins.conf_values_nocontact": "Valores confidenciales: escribe «confidencial» en la celda y envía el valor solo a quien te ha enviado este archivo; no reenvíes el libro a los demás socios.",
+   "ins.contact_note": "devuelve aquí el archivo rellenado",
+   "sheet.grey_note": "Columnas grises: para quien realiza el estudio, déjalas como están.",
+   "note.id": "Un número para señalar esta fila (A1, F1, I1…). Para una fila nueva, escribe el número siguiente.",
+   "note.converted": "Convertido: «{old}» ya no se ofrece y se lee como «{new}». Compruébalo.",
+   "note.per_scenario": "Una columna para el caso base y otra para cada escenario del caso (ver {instructions}).",
+   "note.q5_company": "Ya rellenada por quien realiza el estudio, con las respuestas del estudio: si no es correcta para este flujo, díselo al contacto. Solo indica quién paga a quién; si el flujo es jurídicamente un residuo se decide en la Clasificación de flujos.",
+   "col.base_case": "caso base",
+   "actors.only_scenario": "Solo en el escenario «{label}»",
+   "mc.config": "Configuración del estudio",
+   "mc.checklist": "Qué documentar",
+   "cat.decision_points": "Puntos de decisión por resolver",
+   "cat.sector_rules": "Reglas sectoriales (D4.1 parte 2)",
+   "origin.decision_point": "Punto de decisión",
+   "origin.sector_rule": "Regla sectorial",
+   "strength.must": "obligatoria",
+   "strength.should": "recomendada",
+   "strength.descriptive": "descriptiva",
+   "mc.cdp_statement": "{name}: {body}. Convención por confirmar, o justifica otra elección: {resolution}",
+   "mc.cdp_because": "el estudio incluye {methods}",
+   "mc.because_flow": "flujo {name}",
+   "mc.because_case": "el sector del caso",
+   "mc.and": "y",
+   "method.cross": "entre los métodos",
+   "dx.title": "Data Collection File: guía para rellenarlo",
+   "dx.annex_pointer": "Lo que el estudio debe documentar ({total} elementos: reglas entre los métodos, prácticas de cada método, puntos de decisión y reglas sectoriales) es la lista de control de la hoja {sheet} del libro, con columnas para responsable y estado. El informe del caso explica cada elemento.",
+   "dx.fig": "Figura 1. La red del caso: {actors}, {flows}. Cada flecha va de quien cede el flujo a quien lo recibe.",
+   "n.actors_one": "1 actor",
+   "n.actors_other": "{n} actores",
+   "n.flows_one": "1 flujo",
+   "n.flows_other": "{n} flujos",
+   "n.cflows_one": "1 flujo conectado",
+   "n.cflows_other": "{n} flujos conectados",
+   "dx.footer_page": "página",
+   "dx.footer_of": "de",
+   "dx.csa": "CSA (acción de coordinación y apoyo)",
+   "eu.funding": "Este proyecto ha recibido financiación del programa de investigación e innovación Horizon de la Unión Europea en virtud del Acuerdo de Subvención N. 101135562 — www.symbaproject.eu",
+   "eu.disclaimer": "Financiado por la Unión Europea. Sin embargo, las opiniones expresadas son las del autor o autores únicamente y no reflejan necesariamente las de la Unión Europea. Ni la Unión Europea ni la Agencia Ejecutiva Europea de Investigación pueden ser consideradas responsables.",
+   "date.months": "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre",
+   "date.format": "{d} de {month} de {y}",
+   "unit.years": "años"
   },
   "enum_refs": {
    "Q6a": {

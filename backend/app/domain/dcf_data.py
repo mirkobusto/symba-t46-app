@@ -24,7 +24,7 @@ than re-running an auto-layout.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -76,10 +76,26 @@ class DcfNetworkVariant(BaseModel):
     layout: dict[str, DcfNodePosition] = Field(default_factory=dict)
 
 
+class DcfSending(BaseModel):
+    """What the files say to whoever receives them, set on the DCF page
+    before sending (UX round 6, P8-02, P2-19): the date to return the file
+    by, whom to return it to, and a version. Not schema content: the cover
+    and the instructions of the files carry it."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    return_by: date | None = None
+    contact: str | None = Field(default=None, max_length=300)
+    version: str | None = Field(default=None, max_length=40)
+
+
 class DcfData(BaseModel):
     """Everything the analyst has entered for one case's DCF."""
 
     model_config = ConfigDict(extra="forbid")
+
+    # deadline, contact and version for the recipients (additive, 2026-11-08)
+    sending: DcfSending | None = None
 
     schema_version: str = DCF_DATA_SCHEMA_VERSION
     case_id: str

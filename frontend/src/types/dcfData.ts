@@ -25,9 +25,19 @@ export interface DcfNetworkVariant {
   layout: Record<string, DcfNodePosition>
 }
 
+/** What the files say to whoever receives them, set on the DCF page before
+ * sending (UX round 6, P8-02): return-by date (YYYY-MM-DD), contact, version. */
+export interface DcfSending {
+  return_by?: string | null
+  contact?: string | null
+  version?: string | null
+}
+
 export interface DcfData {
   schema_version: string
   case_id: string
+  /** Absent in content saved before 2026-11-08. */
+  sending?: DcfSending | null
   rows_by_section: Record<string, DcfRow[]>
   layout: Record<string, DcfNodePosition>
   /** Keyed by AlternativeScenario.id; absent in content saved before 1.1. */

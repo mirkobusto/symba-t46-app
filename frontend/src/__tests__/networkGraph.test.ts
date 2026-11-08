@@ -85,6 +85,22 @@ describe('edgeShifts and flowEdgePath', () => {
     expect(path1).not.toBe(path2)
     expect(y1).not.toBe(y2)
   })
+
+  it('keeps two flows apart when one actor is right above the other (UX round 6, P8-13)', async () => {
+    const { flowEdgePath } = await import('../components/networkGraph')
+    const ends = { sourceX: 100, sourceY: 50, targetX: 100, targetY: 250, sourcePosition: 'bottom', targetPosition: 'top' } as never
+    const [, x1] = flowEdgePath(ends, 0)
+    const [path2, x2] = flowEdgePath(ends, 24)
+    expect(x2 - x1).toBe(24)
+    expect(path2).toContain('124')
+  })
+
+  it('puts the label of two actors side by side under the source, not between the boxes (P2-12)', async () => {
+    const { flowEdgePath } = await import('../components/networkGraph')
+    const ends = { sourceX: 100, sourceY: 200, targetX: 500, targetY: 60, sourcePosition: 'bottom', targetPosition: 'top' } as never
+    const [, , labelY] = flowEdgePath(ends, 0)
+    expect(labelY).toBeGreaterThan(200)
+  })
 })
 
 describe('layeredLayout', () => {

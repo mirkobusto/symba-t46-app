@@ -149,6 +149,9 @@ export default function ShareReportModal({ caseId, caseSlug, onClose }: Props) {
             <label className="dd-share-field">
               <span>{t('share.contactLabel')}</span>
               <input value={contact} maxLength={200} onChange={(e) => setContact(e.target.value)} />
+              {/* the Data Collection File uses it too: a Region's officer got
+                  the companies' cost data (UX round 6, P3-16) */}
+              <small className="dd-soft">{t('share.contactHint')}</small>
             </label>
             <button
               type="button"

@@ -29,4 +29,19 @@ describe('DcfSectionViewer', () => {
     expect(screen.queryByText(/first-class concept/)).toBeNull()
     expect(screen.queryByText('q3.eco or q3.soc')).toBeNull()
   })
+
+  it('lists only the values the files offer, not the retired ones (UX round 6, P1-05)', () => {
+    const section: DcfSection = {
+      ...SECTION,
+      fields: [{
+        id: 'actor.role', label_en: 'Role', label: 'Ruolo', type: 'enum', required: true,
+        activation_predicate: 'always', enum_values: ['partner', 'facilitator'],
+        // the labels of retired values ride along, to show a stored one
+        enum_labels: { partner: 'partner', facilitator: 'facilitatore', producer: 'produttore', consumer: 'utilizzatore' },
+      }],
+    }
+    render(<DcfSectionViewer section={section} />)
+    expect(screen.getByText('partner; facilitatore')).toBeTruthy()
+    expect(screen.queryByText(/produttore/)).toBeNull()
+  })
 })

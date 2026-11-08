@@ -98,15 +98,16 @@ def test_the_italian_workbook_reads_in_italian_with_names_not_ids(payload):
                                                      "flow.dest_actor_id": "a2", "flow.type": "waste"})],
     })
     wb = load_workbook(BytesIO(render_xlsx(localize(payload, "it"), data, "Caso", lang="it")))
-    assert wb.sheetnames[:3] == ["Copertina", "Istruzioni", "Attori"]
+    assert wb.sheetnames[:4] == ["Copertina", "Istruzioni", "Diagramma della rete", "Attori"]
     actors = wb["Attori"]
     assert actors["A1"].value == "Attori"
     values = {c.value for row in actors.iter_rows(min_row=5, max_row=6) for c in row}
-    assert "produttore" in values and "utilizzatore" in values
+    # retired roles read as "partner", flagged for a check (UX round 6, P2-02)
+    assert "partner" in values and "produttore" not in values
     flows = wb["Matrice dei flussi"]
     row = [c.value for c in flows[5]]
-    assert "Depuratore Alfa" in row and "Biogas Beta" in row and "rifiuto" in row
-    assert "a1" not in row
+    assert "Depuratore Alfa" in row and "Biogas Beta" in row and "materiale" in row and "rifiuto" not in row
+    assert "a1" not in row and "F1" in row
     assert any("_lists" in dv.formula1 for dv in flows.data_validations.dataValidation)
 
 

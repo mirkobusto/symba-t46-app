@@ -30,6 +30,7 @@ import base64
 import binascii
 import json
 import re
+import unicodedata
 from datetime import UTC, datetime
 from functools import lru_cache
 from pathlib import Path
@@ -42,7 +43,7 @@ from sqlalchemy.orm import Session as OrmSession
 from app.auth.deps import get_current_user_optional
 from app.auth.ownership import can_modify, can_view
 from app.db import get_db
-from app.domain.dcf_data import DcfData, DcfDataEnvelope
+from app.domain.dcf_data import DcfData, DcfDataEnvelope, DcfSending
 from app.domain.models import Case
 from app.engine.dcf_compose import DcfPayload, compose_dcf
 from app.engine.dcf_data_validate import normalise_values, validate_dcf_data
@@ -132,6 +133,9 @@ class DcfExportRequest(BaseModel):
     # the network as the browser draws it, base64 PNG (owner decision 2026-11-03:
     # a faithful image in both files); ~6 MB of base64 at most
     network_png: str | None = Field(default=None, max_length=8_000_000)
+    # deadline, contact and version set on the DCF page (UX round 6, P8-02);
+    # for a saved case the stored ones apply when absent
+    sending: DcfSending | None = None
 
 
 _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
@@ -157,22 +161,38 @@ def _today() -> str:
     return datetime.now(UTC).date().isoformat()
 
 
-def _filename(ref: str | None, ext: str) -> str:
-    """DCF_<case>_<date>: the files of two cases, or of two weeks, no longer
-    share the name dcf_<8 hex> (UX round 5, P7-07)."""
-    safe = re.sub(r"[^A-Za-z0-9_-]+", "-", ref or "draft").strip("-") or "draft"
+def _filename(name: str | None, ext: str) -> str:
+    """DCF_<case name>_<date>, as the page names the download: the files of
+    two cases, or of two weeks, no longer share the name dcf_<8 hex> (UX round
+    5, P7-07), and the slug ("agri-b-sita-…") read as an ILCD situation
+    (UX round 6, P6-18)."""
+    plain = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode()
+    safe = re.sub(r"[^A-Za-z0-9]+", "-", plain).strip("-")[:60] or "draft"
     return f"DCF_{safe}_{_today()}.{ext}"
 
 
+def _case_ref(case_id: str) -> str:
+    """The reference the files give the case: the first block of its id. The
+    slug carries sector, Q7 and ILCD situation ("case-b-sita-…", read as
+    "Situation B / A", P6-18); it stays the link's, unchanged."""
+    return case_id.split("-")[0][:8]
+
+
 def _cover(rows: list[CoverRow], case_ref: str | None, network_png: bytes | None = None,
-           case: Case | None = None) -> dict[str, Any]:
+           case: Case | None = None, sending: DcfSending | None = None,
+           fallback_contact: str | None = None) -> dict[str, Any]:
+    sending = sending or DcfSending()
     return {
         "rows": [r.model_dump() for r in rows],
         "case_ref": case_ref,
         "generated_on": _today(),
         "network_png": network_png,
-        # (id, label) of the case's scenarios, for their own networks
+        # (id, label) of the case's scenarios, for their own networks and the
+        # per-scenario columns
         "scenarios": [(s.id, s.label or s.id) for s in case.alternative_scenarios] if case else [],
+        "return_by": sending.return_by.isoformat() if sending.return_by else None,
+        "contact": (sending.contact or "").strip() or fallback_contact,
+        "version": (sending.version or "").strip() or None,
     }
 
 
@@ -193,12 +213,12 @@ def preview(
     return localize(_run_and_compose(case, schemas), lang)
 
 
-def _draft_request(body: DcfExportRequest | Case) -> tuple[Case, list[CoverRow]]:
+def _draft_request(body: DcfExportRequest | Case) -> tuple[Case, list[CoverRow], DcfSending | None]:
     if isinstance(body, Case):
-        return body, []
+        return body, [], None
     if body.case is None:
         raise HTTPException(status_code=422, detail="case is required for a draft export")
-    return body.case, body.rows
+    return body.case, body.rows, body.sending
 
 
 @router.post("/export/xlsx")
@@ -208,10 +228,11 @@ def export_xlsx(
     lang: str = Query("en"),
 ) -> Response:
     """Render the DCF of a draft that was never saved as an Excel workbook."""
-    case, rows = _draft_request(body)
+    case, rows, sending = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=_cover(rows, None, _network_png(body), case))
+    cover = _cover(rows, _case_ref(payload.case_id), _network_png(body), case, sending)
+    blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=cover)
     filename = _filename(None, "xlsx")
     return Response(
         content=blob,
@@ -227,10 +248,11 @@ def export_docx(
     lang: str = Query("en"),
 ) -> Response:
     """The companion document of a draft that was never saved."""
-    case, rows = _draft_request(body)
+    case, rows, sending = _draft_request(body)
     payload = _run_and_compose(case, schemas)
     data = with_case_flows(None, case, payload.case_id)
-    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=_cover(rows, None, _network_png(body), case))
+    cover = _cover(rows, _case_ref(payload.case_id), _network_png(body), case, sending)
+    blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=cover)
     filename = _filename(None, "docx")
     return Response(
         content=blob,
@@ -381,23 +403,28 @@ def _stored_data(db: OrmSession, case_id: str) -> DcfData | None:
 def _saved_export(
     kind: str, case_id: str, rows: list[CoverRow], db: OrmSession,
     user: User | None, schemas: LoadedSchemas, lang: str, network_png: bytes | None = None,
+    sending: DcfSending | None = None,
 ) -> Response:
     """Files of a saved case, pre-filled with what the Network Builder stored
-    and the questionnaire flows; the cover carries the configuration rows."""
+    and the questionnaire flows; the configuration rows head the analyst's
+    checklist. Deadline, contact and version: the ones sent with the
+    download, else the stored ones; the contact falls back to the "Prepared
+    by" and contact of the shared case (the workbook left a placeholder
+    although the case had them, P2-13)."""
     rec, case = _load_case_for(case_id, db, user, for_write=False)
     payload = _run_and_compose(case, schemas)
-    data = with_case_flows(_stored_data(db, case_id), case, case_id)
-    cover = _cover(rows, rec.slug or case_id[:8], network_png, case)
-    # whom to send it back to: the "Prepared by" and contact of the shared case
-    # (the workbook left a placeholder although the case had them, P2-13)
-    cover["contact"] = " — ".join(x for x in (rec.prepared_by, rec.case_contact) if x) or None
+    stored = _stored_data(db, case_id)
+    data = with_case_flows(stored, case, case_id)
+    fallback = " — ".join(x for x in (rec.prepared_by, rec.case_contact) if x) or None
+    cover = _cover(rows, _case_ref(case_id), network_png, case,
+                   sending or (stored.sending if stored else None), fallback)
     if kind == "xlsx":
         blob = render_xlsx(localize(payload, lang), data, rec.name, lang=lang, cover=cover)
         mime = XLSX_MIME
     else:
         blob = generate_dcf_docx_bytes(localize(payload, lang), rec.name, data, lang=lang, cover=cover)
         mime = DOCX_MIME
-    filename = _filename(rec.slug or case_id[:8], kind)
+    filename = _filename(rec.name, kind)
     return Response(
         content=blob,
         media_type=mime,
@@ -428,7 +455,8 @@ def export_xlsx_for_case_with_cover(
     lang: str = Query("en"),
 ) -> Response:
     """As the GET, with the result page's configuration rows on the cover."""
-    return _saved_export("xlsx", case_id, body.rows, db, current_user, schemas, lang, _network_png(body))
+    return _saved_export("xlsx", case_id, body.rows, db, current_user, schemas, lang, _network_png(body),
+                         body.sending)
 
 
 @router.get("/{case_id}/export/docx")
@@ -453,4 +481,5 @@ def export_docx_for_case_with_cover(
     lang: str = Query("en"),
 ) -> Response:
     """As the GET, with the result page's configuration rows on the cover."""
-    return _saved_export("docx", case_id, body.rows, db, current_user, schemas, lang, _network_png(body))
+    return _saved_export("docx", case_id, body.rows, db, current_user, schemas, lang, _network_png(body),
+                         body.sending)

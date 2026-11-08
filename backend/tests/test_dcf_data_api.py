@@ -486,31 +486,77 @@ def _cover_cells(content: bytes) -> dict:
     return {r[0].value: r[1].value for r in ws.iter_rows(min_row=3) if r[0].value}
 
 
-def test_cover_carries_the_result_rows_the_case_id_and_the_date(client):
-    """The cover says what the result page says, names the case by its readable
-    id and the day (UX round 5, D7 / P7-07)."""
-    from datetime import UTC, datetime
+def _sheet_cells(content: bytes, sheet: str) -> dict:
+    from io import BytesIO
 
+    import openpyxl
+
+    ws = openpyxl.load_workbook(BytesIO(content))[sheet]
+    out = {}
+    for r in ws.iter_rows(min_row=3):
+        if r[0].value in ("What to document",):
+            break  # the checklist below the configuration
+        if r[0].value:
+            out[r[0].value] = r[1].value
+    return out
+
+
+def test_cover_speaks_to_the_recipient_and_the_configuration_goes_to_the_analyst(client):
+    """UX round 6 (P8-02, P2-09, P6-18): the cover names the case, a neutral
+    reference, the date, what we ask and that it is confidential; the result
+    rows and the ILCD situation head the analyst's checklist instead. The
+    file is named after the case, not after the slug."""
     case_id = _create_case(client)
-    slug = client.get(f"/api/cases/{case_id}").json()["slug"]
     rows = [{"label": "Reference scenario", "value": "What each firm would do today without the links (HNSRS)"}]
     r = client.post(f"/api/dcf/{case_id}/export/xlsx", json={"rows": rows})
     assert r.status_code == 200, r.text
     cover = _cover_cells(r.content)
-    assert cover["Case ID"] == slug
-    assert cover["Generated on"] == datetime.now(UTC).date().isoformat()
-    assert cover["Reference scenario"].endswith("(HNSRS)")
-    # the situation heads the result page, not its rows: the cover names it
-    assert cover["ILCD situation"].startswith("ILCD Situation")
-    assert "Schema version" not in cover
-    assert f'DCF_{slug}_' in r.headers["content-disposition"]
+    assert cover["Case"] == "wiktor"
+    assert cover["Case reference"] == case_id.split("-")[0]
+    assert cover["Generated on"].endswith(str(__import__("datetime").date.today().year))
+    assert "What we ask you" in cover and "Confidential" in cover
+    assert "ILCD situation" not in cover and "Reference scenario" not in cover
+    analyst = _sheet_cells(r.content, "Methodological Choices")
+    assert analyst["Reference scenario"].endswith("(HNSRS)")
+    assert analyst["ILCD situation"].startswith("ILCD Situation")
+    assert "DCF_wiktor_" in r.headers["content-disposition"]
+
+
+def test_deadline_contact_and_version_reach_both_files_and_are_stored(client):
+    """P8-02, P2-19: set on the DCF page, sent with the download and saved
+    with the network; without them the files carry no placeholder."""
+    from io import BytesIO
+
+    from docx import Document
+
+    case_id = _create_case(client)
+    bare = _cover_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content)
+    assert "Return by" not in bare and "Contact" not in bare
+    instructions = _sheet_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content, "Instructions")
+    assert not any("(agree a date" in str(v) or "(name and e-mail" in str(v) for v in instructions.values())
+
+    sending = {"return_by": "2026-11-22", "contact": "Giulia — g@example.org", "version": "2"}
+    r = client.post(f"/api/dcf/{case_id}/export/xlsx", json={"sending": sending})
+    cover = _cover_cells(r.content)
+    assert cover["Return by"] == "22 November 2026"
+    assert cover["Contact"].startswith("Giulia — g@example.org")
+    assert cover["Version"].startswith("2 of ")
+    doc = Document(BytesIO(client.post(f"/api/dcf/{case_id}/export/docx", json={"sending": sending}).content))
+    cells = [c.text for t in doc.tables for row in t.rows for c in row.cells]
+    assert "22 November 2026" in cells
+
+    data = {"case_id": case_id, "rows_by_section": {}, "sending": sending}
+    assert client.put(f"/api/dcf/{case_id}/data", json=data).status_code == 200
+    assert client.get(f"/api/dcf/{case_id}/data").json()["data"]["sending"]["return_by"] == "2026-11-22"
+    stored = _cover_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content)
+    assert stored["Return by"] == "22 November 2026"
 
 
 def test_a_costing_only_cover_has_no_ilcd_situation(client):
     body = {**WIKTOR_BODY, "q3": {"env": False, "eco": True, "soc": False}}
     case_id = client.post("/api/cases", json={"name": "costing", "case": body}).json()["id"]
-    cover = _cover_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content)
-    assert cover["ILCD situation"].startswith("None: a costing-only study")
+    analyst = _sheet_cells(client.get(f"/api/dcf/{case_id}/export/xlsx").content, "Methodological Choices")
+    assert analyst["ILCD situation"].startswith("None: a costing-only study")
 
 
 def test_a_draft_export_accepts_the_rows_too(client):
@@ -589,7 +635,7 @@ def test_each_sheet_says_who_fills_it_and_has_a_row_per_flow(client):
     assert client.put(f"/api/dcf/{case_id}/data", json=_two_actors_one_flow(case_id)).status_code == 200
     wb = openpyxl.load_workbook(BytesIO(client.get(f"/api/dcf/{case_id}/export/xlsx").content))
     logistics = wb["Logistics"]
-    assert logistics["A3"].value == "Filled in by: the companies' staff"
+    assert logistics["A3"].value.startswith("Filled in by: the companies' staff")
     assert logistics["A5"].value == "sludge (WWTP Alfa → Biogas plant Beta)"
     assert logistics.auto_filter.ref.startswith("A4:")
     classif = wb["Flow Classification"]
@@ -597,7 +643,8 @@ def test_each_sheet_says_who_fills_it_and_has_a_row_per_flow(client):
     matrix = wb["Flow Matrix"]
     fills = {matrix.cell(row=4, column=c).value: matrix.cell(row=4, column=c).fill.fgColor.rgb
              for c in range(1, matrix.max_column + 1)}
-    assert fills["Who pays whom *"].endswith("8A93A3")
+    # grey, and no star: the analyst fills it in (P2-10)
+    assert fills["Who pays whom"].endswith("8A93A3")
 
 
 def test_a_case_never_drawn_gets_a_row_per_questionnaire_flow(client):
@@ -650,7 +697,11 @@ def test_files_do_not_offer_retired_values_but_show_stored_ones(client):
     actors = wb["Actors"]
     role_col = next(c for c in range(1, actors.max_column + 1) if str(actors.cell(row=4, column=c).value).startswith("Role"))
     assert "producer" not in actors.cell(row=4, column=role_col).comment.text
-    assert actors.cell(row=5, column=role_col).value == "producer"   # the stored value, shown
+    # the stored value reads as the one that replaced it, flagged (UX round 6,
+    # P2-02, P8-10): the dropdown refused "producer"
+    cell = actors.cell(row=5, column=role_col)
+    assert cell.value == "partner" and "producer" in cell.comment.text
+    assert wb["Flow Matrix"]["E5"].value == "material"
     lists = {str(c.value) for row in wb["_lists"].iter_rows() for c in row if c.value}
     assert "partner" in lists and "producer" not in lists and "gate fee paid" not in lists
 

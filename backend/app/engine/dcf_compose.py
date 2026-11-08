@@ -19,6 +19,7 @@ The compose step:
 """
 from __future__ import annotations
 
+import re
 from typing import Any
 from uuid import UUID
 
@@ -71,6 +72,9 @@ class DcfFieldDescriptor(BaseModel):
     help: str | None = None
     reason: str | None = None
     enum_labels: dict[str, str] | None = None
+    # the label without "per scenario", for the base-case and scenario columns
+    # of a float_per_scenario field (UX round 6, P2-06, P8-03)
+    label_base: str | None = None
 
 
 class DcfSection(BaseModel):
@@ -147,6 +151,10 @@ class DcfObligation(BaseModel):
     category_label: str | None = None
     origin_label: str | None = None
     because: str | None = None
+    # a decision point: the convention to confirm or justify; a sector rule:
+    # its strength (must / should / descriptive) (UX round 6, P1-22, P6-10)
+    resolution: str | None = None
+    strength: str | None = None
 
 
 class DcfPayload(BaseModel):
@@ -175,6 +183,12 @@ class DcfPayload(BaseModel):
     sections: list[DcfSection] = Field(default_factory=list)
     mandates_by_category: dict[str, list[DcfMandate]] = Field(default_factory=dict)
     obligations: list[DcfObligation] = Field(default_factory=list)
+    # for the analyst's checklist only, after the obligations: the decision
+    # points of the case and the D4.1 Part 2 sector rules of the chapters it
+    # touches. Kept apart so the obligation count stays the result page's
+    # (UX round 6, P1-22, P6-10)
+    decision_points: list[DcfObligation] = Field(default_factory=list)
+    sector_rules: list[DcfObligation] = Field(default_factory=list)
     network_render_spec: dict[str, Any] | None = None
 
 
@@ -202,6 +216,15 @@ _RETIRED_ENUM_VALUES: dict[str, set[str]] = {
     "cost.price_basis": {"gate_fee_paid", "gate_fee_received"},
     # the arrows say who gives and who receives; the role says the rest (D6)
     "actor.role": {"producer", "consumer"},
+}
+
+# What a stored retired value reads as in the files: the value the decision
+# that retired it points to (D4, D5, D6 of UX round 5). The Excel dropdown
+# refused the old value the exporter wrote (UX round 6, P2-02, P8-10).
+RETIRED_VALUE_MAP: dict[str, dict[str, str]] = {
+    "flow.type": {"waste": "material", "by_product": "material"},
+    "cost.price_basis": {"gate_fee_paid": "gate_fee", "gate_fee_received": "gate_fee"},
+    "actor.role": {"producer": "partner", "consumer": "partner"},
 }
 
 
@@ -306,6 +329,8 @@ def compose_dcf(
         sections=sections_out,
         mandates_by_category=mandates_by_category,
         obligations=_compose_obligations(case, mandates_by_category),
+        decision_points=_compose_decision_points(case),
+        sector_rules=_compose_sector_rules(case),
         network_render_spec=network_render_spec,
     )
 
@@ -509,6 +534,49 @@ def _compose_obligations(
         )
         for rule in case.applicable_rules
     )
+    return out
+
+
+def _compose_decision_points(case: Case) -> list[DcfObligation]:
+    """The decision points the case has to resolve (CDP), with the
+    convention to confirm; English here, worded by dcf_terms.localize."""
+    return [
+        DcfObligation(
+            id=str(cdp.get("cdp_id") or cdp.get("id") or ""),
+            origin="decision_point",
+            title=cdp.get("name"),
+            statement=str(cdp.get("tension") or ""),
+            resolution=cdp.get("resolution_at_l3"),
+            method=" + ".join(cdp.get("methods") or []) or "cross-method",
+            category="decision_points",
+        )
+        for cdp in case.cdp_flags
+    ]
+
+
+def _compose_sector_rules(case: Case) -> list[DcfObligation]:
+    """The D4.1 Part 2 rules of the chapters the case touches: modelling
+    rules of the LCA (engine/sector_rules). The source keeps the section,
+    not the line numbers: the files go to clients (UX round 6, P8-09).
+    `because` lists what touched the chapter: "flow:<name>" or "case_sector",
+    worded by dcf_terms.localize."""
+    out = []
+    for rule in case.sector_rules:
+        note = rule.get("note")
+        text = f"{rule.get('statement', '')}{f' {note}' if note else ''}"
+        out.append(DcfObligation(
+            id=str(rule.get("id", "")),
+            origin="sector_rule",
+            title=rule.get("chapter"),
+            statement=re.sub(r",?\s*L\d{5}(?:\s*[-–]\s*L\d{5})?", "", text).replace("()", ""),
+            method="LCA",
+            category="sector_rules",
+            source_section=rule.get("source"),
+            strength=rule.get("strength"),
+            because="; ".join(
+                f"flow:{a.get('name')}" if a.get("kind") == "flow" else "case_sector"
+                for a in rule.get("activated_by") or []) or None,
+        ))
     return out
 
 

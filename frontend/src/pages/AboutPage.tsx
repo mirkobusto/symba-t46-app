@@ -4,7 +4,9 @@
 // place where a regional officer or a reviewer looks to decide how much to
 // trust the tool (UX round 2026-11-02).
 
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link, useLocation } from 'react-router-dom'
 
 import { PUBLIC_DELIVERABLES_URL, SITE_URL } from '../components/brand/siteLinks'
 
@@ -12,6 +14,12 @@ const DIVERGENCES = ['situation', 'c2', 'uncertainty', 'policy', 'assets', 'inte
 
 export default function AboutPage() {
   const { t } = useTranslation()
+  const { hash } = useLocation()
+  // the dashboard links to the guidance for funders ("/about#funders");
+  // the router does not scroll to anchors
+  useEffect(() => {
+    if (hash === '#funders') document.getElementById('funders')?.scrollIntoView?.()
+  }, [hash])
   return (
     <div className="about">
       <h1>{t('about.title')}</h1>
@@ -39,6 +47,25 @@ export default function AboutPage() {
           {DIVERGENCES.map((k) => <li key={k}>{t(`about.divergences.${k}`)}</li>)}
         </ul>
       </details>
+
+      {/* a region that wants applicants to use the tool found no word on what to
+          ask them for, or how long the tool stays online (UX round 6, P3-15) */}
+      <section id="funders" aria-labelledby="funders-title">
+        <h2 id="funders-title">{t('about.funders.title')}</h2>
+        <p>{t('about.funders.lead')}</p>
+        <ul>
+          <li>{t('about.funders.askLink')}</li>
+          <li>{t('about.funders.askWord')}</li>
+          <li>{t('about.funders.askDcf')}</li>
+        </ul>
+        <h3>{t('about.funders.notTitle')}</h3>
+        <p>{t('about.funders.notBody')}</p>
+        <p>
+          {t('about.funders.accountBody')} <Link to="/privacy">{t('about.funders.privacyLink')}</Link>
+        </p>
+        <h3>{t('about.funders.onlineTitle')}</h3>
+        <p>{t('about.funders.onlineBody')}</p>
+      </section>
 
       <h2>{t('about.contactTitle')}</h2>
       <p>

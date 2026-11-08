@@ -12,6 +12,7 @@ material: flow notes and quantities, sites, scenarios, raw diagnostics.
 Endpoints:
     GET /api/public/report/{case_id_or_slug}   -> PublicReport
     GET /api/public/region/{region_code}       -> RegionAggregate
+    GET /api/public/countries                  -> list[CountryCount]
 """
 from __future__ import annotations
 
@@ -133,11 +134,75 @@ def public_report(
     )
 
 
+class RegionCase(BaseModel):
+    """A shared case listed on a country page: the key of its public report
+    (slug, or id for a case saved before slugs), its name, when it was shared."""
+
+    key: str
+    name: str
+    shared_at: datetime | None = None
+
+
 class RegionAggregate(BaseModel):
     region: str
     total: int
     by_ilcd_situation: list[dict[str, Any]]
     by_sector: list[dict[str, Any]]
+    # the shared cases counted, newest share first (UX round 6, P3-08, P7-23)
+    cases: list[RegionCase] = Field(default_factory=list)
+
+
+class CountryCount(BaseModel):
+    code: str
+    count: int
+
+
+def _shared_with_countries(db: OrmSession) -> list[tuple[CaseRecord, set[str]]]:
+    """Every shared case with the countries of the companies in its drawn
+    network (`actor.country_iso2`, the only per-case geography filled in).
+    A case without a drawn network, or without a country on any company, has
+    an empty set. Q7b is the reference market, not where the partners are,
+    so it is not used."""
+    from app.domain.dcf_data import DcfData
+    from app.engine.dcf_rows import rows_for
+
+    # only shared cases count on a public page (UX round 2026-11-03)
+    shared = db.execute(
+        select(CaseRecord).where(CaseRecord.shared_at.is_not(None)).order_by(CaseRecord.shared_at.desc())
+    ).scalars().all()
+    stored = {
+        d.case_id: d.data_json
+        for d in db.execute(
+            select(CaseDcfData).where(CaseDcfData.case_id.in_([r.id for r in shared]))
+        ).scalars()
+    }
+
+    def _countries(case_id: str) -> set[str]:
+        raw = stored.get(case_id)
+        if raw is None:
+            return set()
+        try:
+            data = DcfData.model_validate_json(raw)
+        except Exception:
+            return set()
+        codes = {str(row.values.get("actor.country_iso2") or "").strip().upper()
+                 for row in rows_for(data, "actors")}
+        return {c for c in codes if c}
+
+    return [(r, _countries(r.id)) for r in shared]
+
+
+@router.get("/countries", response_model=list[CountryCount])
+def public_countries(db: OrmSession = Depends(get_db)) -> list[CountryCount]:
+    """The countries that have a page with at least one case, with the number
+    of shared cases there, most cases first: the way from the dashboard to the
+    country pages (UX round 6, P3-08)."""
+    from collections import Counter
+
+    counter: Counter[str] = Counter()
+    for _, countries in _shared_with_countries(db):
+        counter.update(countries)
+    return [CountryCount(code=c, count=n) for c, n in sorted(counter.items(), key=lambda x: (-x[1], x[0]))]
 
 
 @router.get("/region/{region_code}", response_model=RegionAggregate)
@@ -147,39 +212,17 @@ def public_region_aggregate(
 ) -> RegionAggregate:
     """Shared cases with at least one partner in the country `region_code`
     (ISO 3166-1 alpha-2), read from the actors of the network the case
-    stores (`actor.country_iso2`, the only per-case geography filled in).
-    A case without a drawn network does not count. Q7b is the reference
-    market, not where the partners are, so it is not used."""
+    stores. A case without a drawn network does not count. The path keeps
+    the word "region" so that links already sent keep working; the page
+    calls it a country."""
     from collections import Counter
 
-    from app.domain.dcf_data import DcfData
-    from app.engine.dcf_rows import rows_for
+    from app.routers.cases import case_sectors, shown_ilcd
 
     code = region_code.strip().upper()
-    # only shared cases count on a public page (UX round 2026-11-03)
-    shared = db.execute(select(CaseRecord).where(CaseRecord.shared_at.is_not(None))).scalars().all()
-    stored = {
-        d.case_id: d.data_json
-        for d in db.execute(
-            select(CaseDcfData).where(CaseDcfData.case_id.in_([r.id for r in shared]))
-        ).scalars()
-    }
-
-    def _in_region(case_id: str) -> bool:
-        raw = stored.get(case_id)
-        if raw is None:
-            return False
-        try:
-            data = DcfData.model_validate_json(raw)
-        except Exception:
-            return False
-        return any(str(row.values.get("actor.country_iso2") or "").strip().upper() == code
-                   for row in rows_for(data, "actors"))
-
-    rows = [r for r in shared if _in_region(r.id)]
+    rows = [r for r, countries in _shared_with_countries(db) if code in countries]
     ilcd_counter: Counter[str | None] = Counter()
     sector_counter: Counter[str | None] = Counter()
-    from app.routers.cases import shown_ilcd
 
     for r in rows:
         try:
@@ -190,7 +233,8 @@ def public_region_aggregate(
             continue
         # from the case, as the private dashboard counts it (Fable review of #206)
         ilcd_counter[shown_ilcd(case)] += 1
-        sector_counter[case.q6a.value if case.q6a else None] += 1
+        for sector in case_sectors(case) or [None]:
+            sector_counter[sector] += 1
 
     def _fmt(counter: Counter[str | None]) -> list[dict[str, Any]]:
         items = sorted(counter.items(), key=lambda x: (-x[1], x[0] or ""))
@@ -204,4 +248,5 @@ def public_region_aggregate(
         total=len(rows),
         by_ilcd_situation=_fmt(ilcd_counter),
         by_sector=_fmt(sector_counter),
+        cases=[RegionCase(key=r.slug or r.id, name=r.name, shared_at=r.shared_at) for r in rows],
     )

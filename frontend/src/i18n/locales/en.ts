@@ -59,12 +59,33 @@ const en = {
     contactHint: "The companies also send the filled-in Data Collection File back to this address: write the person who carries out the study.",
     saveSharing: 'Save name and contact',
     notSharedBody: 'The report is not public: only you can open this case. Turn sharing on to get the links.',
-    sharedBody: 'The report is public: anyone with one of these links can read it, without the flow notes and quantities.',
+    sharedBody: "The report is public: anyone with one of these links can read it. It shows the exchanges as you named them and the countries of the companies in your network; it does not show company names, flow notes or quantities.",
     signInButton: 'Sign in to save and share',
     saveFirstBodySignedIn: "Sharing needs the case saved on the server. Save it first with “{{button}}” on the result page, then reopen this dialog.",
   },
 
   reader: {
+    thisCaseOnly: "This page applies to this case only; another project is set up from its own answers.",
+    whoIsBehind: "Who is behind SYMBA?",
+    countries: "Where the plants are: {{countries}}",
+    flowsAsNamed: "The exchanges, as named by whoever prepared the case:",
+    whatYouCanDoEndUser: "This study is still being set up. For what it means for the product you bought, ask whoever put this link on it; for the study itself, write to whoever prepared it: {{contact}}. Results, once loaded, appear on this same page at this same link.",
+    fillIn: {
+      eyebrow: "Data Collection File",
+      title: "Filling in a Data Collection File",
+      lead: "You received an Excel workbook from whoever carries out a study of the exchanges your company takes part in. You need no account and no tool: everything happens in the workbook.",
+      steps: {
+        cover: "Read the cover: it says which case the file belongs to, what is asked of you, by when, and whom to send it back to.",
+        rows: "Fill in only your rows: the flows your company gives or receives, in the sheets the cover names, and in them only the columns of your side (origin or destination).",
+        grey: "Leave the grey columns and the sheets for whoever carries out the study as they are. If a value that arrives already filled in is wrong for your flow, tell the contact.",
+        unknown: "If you do not know a value, leave the cell empty and say so: an empty cell is a known gap, a guessed number is an unknown error. Write the unit next to every quantity and the currency and year next to every cost.",
+        confidential: "Confidential values: write \"confidential\" in the cell and send the value only to the contact on the cover. Do not forward the workbook to other partners: it may carry their data.",
+        send: "Send the filled-in file back to the contact on the cover by the date it gives.",
+      },
+      reportLine: "Did you also receive a link to the report? Open it: its Industry tab says what the study does and which data it needs.",
+      reportLink: "Read a shared report",
+      howLink: "How to fill it in",
+    },
     tagline: 'Public report',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -103,15 +124,16 @@ const en = {
     sectorTag: "Sector: {{sector}}",
     scaleTag: "Interactions: {{scale}}",
     compliance: {
-      peer: { name: "Independent peer review", desc: "A reviewer checks the study against ISO 14044, as for a scientific publication." },
+      review: { name: "Independent review of the study", panel: "Planned: a panel of at least three independent experts reviews the study before anything is claimed in public (ISO 14044).", journal: "Planned: the study is peer-reviewed for a scientific journal.", none: "Not planned in this study. The full technical report stays available should a review be asked for.", badge: { panel: "panel of three or more experts", journal: "journal peer review", none: "not planned in this study" } },
       pef: { name: "EU Product Environmental Footprint (PEF)", desc: "The study follows the EU footprint method, including its Circular Footprint Formula.", descC2: "Not applicable: one company's accounts use allocation, not the Circular Footprint Formula (ILCD C2).", descB: 'Run as a sensitivity: Situation B is modelled consequentially.' },
       public: { name: 'Comparative assertion disclosed to the public', desc: "A public claim that a product is better than, or equivalent to, an alternative needs an ISO review panel." },
       dnsh: { name: "EU Taxonomy \"Do No Significant Harm\" (DNSH)", desc: "A separate screening for EU-taxonomy funding (art. 17); this tool does not perform it." },
-      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs, with taxes and subsidies corrected and environmental effects priced (D4.2 §2.3).', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective.', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.' },
+      slcc: { name: 'Set up for a public decision (societal LCC)', yes: 'Yes: the costing includes the societal view a public policy or planning decision needs, with taxes and subsidies corrected and environmental effects priced (D4.2 §2.3).', no: 'No: the costing stays at company and value-chain level. If a public body is to decide on this case, ask the analyst to set the study up for a public objective.', c2: 'Not applicable: one company\'s own accounts are costed at company level only.', off: 'Not assessed: the study has no economic dimension.', undeclared: "Not declared: the study does not say whether a public body is to decide on it. Ask the analyst." },
       notPlanned: "not planned in this study",
       notAssessed: "not assessed by this tool",
     },
     audience: {
+      choose: "Who are you reading as? Pick your view: the facts are the same in all four.",
       showingFor: 'Showing for: {{name}}',
       industry: {
         short: '🏭 Industry',
@@ -194,13 +216,14 @@ const en = {
     skip: 'Skip for now',
     roles: {
       analyst: { name: 'Sustainability analyst', desc: 'IS practitioner, LCA/LCC/S-LCA reviewer, methodologist.' },
-      industry: { name: 'Industrial operator', desc: 'You run a plant or a site inside an IS network.' },
+      industry: { name: 'Industrial operator', desc: "You run a plant or a site inside an industrial-symbiosis network." },
       authority: { name: 'Local authority', desc: 'Municipality, region, policy analyst overseeing the territory.' },
       community: { name: 'Community representative', desc: 'Association, NGO, host-territory citizens\' group.' },
       enduser: { name: 'End user / citizen', desc: 'You use products or services derived from the symbiosis.' },
       unknown: { name: 'Not sure yet', desc: 'That\'s fine: we start you on the overview page.' },
     },
     tasks: {
+      fill: { name: "I have to fill in a Data Collection File", desc: "Someone sent me an Excel workbook about my company's exchanges and I have to send it back filled in." },
       assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore a region / sector', desc: "See how the saved cases are spread across methods and sectors." },
@@ -220,6 +243,7 @@ const en = {
       system: 'System',
     },
     nav: {
+      openShared: "Read a shared report",
       home: 'Home',
       questionnaire: "Questionnaire",
       cases: 'My cases',
@@ -292,10 +316,16 @@ const en = {
   },
 
   home: {
+    reader: {
+      link: "Did you receive a link or a code?",
+      open: "Read a shared report",
+      workbook: "Did you receive a Data Collection File to fill in?",
+      fillIn: "How to fill it in",
+    },
     intro: {
       what: { title: "What it does", body: "Tells you how the assessment of an industrial-symbiosis exchange has to be set up, following the SYMBA guidelines, and which data to collect from the companies involved." },
       not: { title: "What it does not do", body: "It does not compute the results: no emissions, costs or social figures. Whoever carries out the study calculates them with the data the tool asks for." },
-      who: { title: "Who it is for", body: "Sustainability analysts and consultants set up their studies here; companies, public bodies and associations read the reports and see which data they will be asked for." },
+      who: { title: "Who it is for", body: "Sustainability analysts and consultants set up their studies here; companies, public bodies and associations read the reports and see which data they will be asked for; citizens who received a link, for example from a product label, read the public report." },
     },
     title: "SYMBA: assessing industrial symbiosis",
     tagline: "How to set up the environmental, cost and social assessment of an exchange between companies, and which data to collect.",
@@ -1058,6 +1088,9 @@ const en = {
       lead: 'What your answers decided, in the terms of the deliverables. Open a row to read the engine\'s text, in English, with the section it comes from.',
       nodeText: 'Engine text (English)',
       labels: {
+        environment: "Environmental effects",
+        review: "Independent check",
+        whatMeasured: "What is measured",
         flows: "Treatment of each flow in the model",
         claim: 'Comparative assertion',
         purpose: 'Kind of study',
@@ -1080,18 +1113,29 @@ const en = {
         notCovered: 'Not covered',
       },
       values: {
+        endUser: {
+          environmentOn: "Yes: the study counts the emissions and the resources used by the whole exchange, transport included.",
+          environmentOff: "No: environmental effects are not assessed in this study.",
+          fu_waste_treatment: "The treatment of the residue one company hands over, not the product you buy",
+          fu_product_substitution: "The products the exchange makes and the products they replace",
+          fu_co_primary: "Both: the treatment of the residue and the products it yields",
+          fu_function: "The service the exchange delivers as a whole",
+          fuLcc_waste_treatment: "The treatment of the residue one company hands over, not the product you buy",
+          fuLcc_dual: "Both: the residue treated and what the exchange produces",
+          fuLcc_function: "The services the exchange delivers as a whole",
+        },
         community: {
           slcaOn: 'Yes: social effects are assessed group by group (workers, the local community, consumers). Which groups are interviewed is decided by whoever carries out the study (D4.3 §5.1, §6.2).',
-          slcaOff: 'No: social effects are not assessed. If residents want to be heard, ask the contact on this page to add them.',
+          slcaOff: "No: social effects are not assessed. If residents want to be heard, ask whoever carries out the study to add them.",
           regional: 'Local air, water and soil effects (fine particles, acidification, excess nutrients, water use) are assessed with data for {{where}}, not world averages (D4.1 §13.3.3).',
-          where_A: 'this site',
-          where_B: 'your region or country',
+          where_A: "the site of the plants",
+          where_B: "the region or country where the plants are",
           where_C: 'the territory of each emission',
-          where_unset: 'the country',
+          where_unset: "the country where the plants are",
           transport: 'Every exchange is studied with its own transport: lorries or pipelines, real routes and distances, loads and empty return trips, and the distance beyond which trucking cancels the benefit (D4.1 §13.3.1).',
           transportLcc: 'The cost of transporting every exchange, and the distance beyond which it no longer pays (D4.2 §4.3).',
           fieldSpreading: 'The study counts what happens when digestate, compost or recovered fertiliser is spread on fields: ammonia to the air, nitrates to water (D4.1 Part 2 §4.3.3, §6.3.3).',
-          notCovered: 'Odour and noise are not impact categories of these guidelines (D4.1 Part 2 §9.3 lists them among the effects usually left out); local air, water and toxicity are. Any local effect the study leaves out must be declared as a known blind spot (D4.1 §12.3.5).',
+          notCovered: "Odour and noise are not impact categories of these guidelines (D4.1 Part 2 §9.3 lists them among the effects usually left out); local air, water and toxicity are. Odour and noise are usually dealt with when the plants are permitted, not in this study: for them, ask your municipality or the authority that issues the permit. Any local effect the study leaves out must be declared as a known blind spot (D4.1 §12.3.5): you can ask whoever prepared the study to name these ones.",
         },
         flowCost: {
           a: "gate fee: whoever gives it pays the negotiated fee; upstream costs are left out (zero cost) only if the residue is unavoidable (D4.2 §6.3)",
@@ -1487,6 +1531,8 @@ const en = {
     },
   },
   stakeholder: {
+    noCaseReader: "Did you receive a link to a report? Open it below, or look at an example case.",
+    seeExample: "See an example",
     audience: {
       industry: {
         whatYouSee:
@@ -1495,6 +1541,7 @@ const en = {
           'This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
+        whenScoringNoSocial: "This tool does not calculate the figures, and nobody calculates them automatically for your case. If an analyst carries out the study with the Data Collection File, their results can be loaded here: environmental indicators. This study has no social indicators, because the social dimension is not assessed.",
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
         whenScoring:
@@ -1567,12 +1614,6 @@ const en = {
     cdpFlagsCount_one: '{{count}} decision point the analyst must settle',
     cdpFlagsCount_other: '{{count}} decision points the analyst must settle',
     complianceTitle: 'Compliance signals',
-    compliance: {
-      peerReview: 'Independent peer review: {{status}}',
-      pef: 'EU PEF alignment (Q4=D): {{status}}',
-      pefC2: "EU PEF alignment (Q4=D): not applied, one company's accounts use allocation instead of the Circular Footprint Formula (ILCD Situation C2)",
-      publicClaim: 'Comparative assertion disclosed to the public (Q4=C): {{status}}',
-    },
   },
 
   aggregate: {

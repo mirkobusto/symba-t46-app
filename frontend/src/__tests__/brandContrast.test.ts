@@ -116,4 +116,11 @@ describe('SYMBA website palette — WCAG AA', () => {
     // be revisited.
     expect(contrast('--dd-accent-vivid', '--dd-surface')).toBeLessThan(3)
   })
+
+  it('does not paint the reader link colour on buttons', () => {
+    // "Enter the tool" on /r/about took the brand blue of the text links on
+    // the dark button background: 2.7:1 (UX round 6, P5-10)
+    expect(css).not.toMatch(/\.dd-reader-article a\s*\{/)
+    expect(css).toContain('.dd-reader-article a:not(.dd-btn)')
+  })
 })

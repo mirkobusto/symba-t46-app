@@ -1239,6 +1239,11 @@ html {
   color: var(--slate-500);
 }
 
+/* the count of open questions replaces their list on a phone (below) */
+.run-missing-count {
+  display: none;
+}
+
 /* ---- Mobile / narrow-screen responsiveness (UX polish) --------------- */
 
 @media (max-width: 640px) {
@@ -1283,6 +1288,13 @@ html {
     flex-basis: 100%;
     font-size: 12px;
   }
+  /* one line, not the list of titles (UX round 6, P4-02) */
+  .run-bar .run-missing-list {
+    display: none;
+  }
+  .run-bar .run-missing-count {
+    display: inline;
+  }
   .run-bar .run-tip {
     display: none;
   }
@@ -1318,6 +1330,54 @@ html {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+  }
+  /* The questionnaire's flows: one card per flow, every field under its
+     label. The table was 902 px wide in a 320 px box and three columns
+     stayed out of sight with no sign they existed (UX round 6, P4-18). */
+  .flows-table-cards,
+  .flows-table-cards tbody,
+  .flows-table-cards tr,
+  .flows-table-cards td {
+    display: block;
+    white-space: normal;
+  }
+  .flows-table-cards {
+    overflow-x: visible;
+  }
+  .flows-table-cards thead {
+    display: none;
+  }
+  .flows-table-cards tr {
+    position: relative;
+    padding: 10px 0 12px;
+    border-bottom: 1px solid var(--slate-200);
+  }
+  .flows-table-cards tbody td {
+    border-bottom: none;
+    padding: 4px 0;
+  }
+  .flows-table-cards td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--slate-600);
+    margin-bottom: 2px;
+  }
+  .flows-table-cards .row-input,
+  .flows-table-cards .row-select {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .flows-table-cards td.flows-row-number {
+    font-weight: 700;
+    padding-right: 48px;
+  }
+  .flows-table-cards td.flows-row-remove {
+    position: absolute;
+    top: 6px;
+    right: 0;
   }
   .result-actions {
     flex-direction: column;
@@ -1746,6 +1806,7 @@ kbd {
   padding: 8px 10px;
   text-align: left;
   vertical-align: top;
+  overflow-wrap: anywhere;
 }
 
 .dcf-table thead th {
@@ -2000,7 +2061,8 @@ kbd {
 
 .aggregate-breakdowns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  /* min(): a 380 px track is wider than a phone (UX round 6, P4-20) */
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -2183,8 +2245,13 @@ kbd {
 /* Tighter between the full desktop menu and the burger breakpoint, so the
    longest label (translated "Monitoring tool") still fits on one line. */
 @media (max-width: 1320px) {
+  /* one line per item: "Herramienta de evaluación" and "Strumento di
+     monitoraggio" (UX round 6, P5-09) broke over two lines at 1201 px */
   .site-nav-list {
-    gap: 4px 20px;
+    gap: 4px 14px;
+  }
+  .site-nav-list a {
+    white-space: nowrap;
   }
   .site-nav-list .site-nav-back a {
     padding: 8px 16px;
@@ -3165,6 +3232,17 @@ kbd {
   color: var(--dd-brand);
 }
 
+/* a sentence at 44 px took six lines, a whole phone screen, before the
+   audience tabs (UX round 6, P5-06) */
+@media (max-width: 640px) {
+  .dd-verdict-title,
+  .dd-verdict-title-prose {
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+  }
+}
+
 .dd-verdict-ext {
   color: #fbbf24;
   font-style: italic;
@@ -3424,7 +3502,9 @@ kbd {
 
 .dd-check-item {
   display: grid;
-  grid-template-columns: 1fr auto;
+  /* minmax(0, 1fr): a long word in the name must not push the badge off a
+     phone screen (UX round 6, authority view at 390 px) */
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--dd-border);
@@ -3432,6 +3512,13 @@ kbd {
 }
 
 .dd-check-item:last-child { border-bottom: none; }
+
+.dd-check-info { min-width: 0; overflow-wrap: anywhere; }
+
+/* a long status ("not stated") wraps inside its badge on a phone */
+@media (max-width: 640px) {
+  .dd-check-item .dd-badge { white-space: normal; max-width: 40vw; }
+}
 
 .dd-check-name {
   font-weight: 600;
@@ -4362,6 +4449,9 @@ kbd {
 
 .dd-tabs {
   display: flex;
+  /* four audience tabs did not fit a phone and pushed the whole page 56 px
+     sideways (UX round 6, P4-01, P5-07): they wrap like the reader's tabs */
+  flex-wrap: wrap;
   gap: var(--dd-space-1);
   border-bottom: 1px solid var(--dd-border);
   margin: var(--dd-space-6) 0 var(--dd-space-4);
@@ -5146,6 +5236,12 @@ kbd {
   display: none;
 }
 
+/* The phone menu's account and website block: absent on wide screens, where
+   the topbar and the site header carry the same things (shown below 900 px). */
+.dd-sidebar-phone {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .dd-sidebar-brand {
     justify-content: space-between;
@@ -5170,6 +5266,54 @@ kbd {
   .dd-sidebar:not(.dd-sidebar-open) .dd-sidebar-brand {
     margin-bottom: 0;
     padding-bottom: 6px;
+  }
+  /* One logo, one menu, two bars on a phone (UX round 6, P4-06, P5-08;
+     decided by Fable): the site header keeps its logo but not its burger,
+     the dark bar keeps its name and "Menu" but not its second logo, and the
+     topbar row (language, sign in) moves into that menu. */
+  .dd-shell .site-header-burger,
+  .dd-sidebar-brand-icon,
+  .dd-topbar {
+    display: none;
+  }
+  .dd-sidebar-phone {
+    display: block;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--dd-sidebar-border);
+  }
+  .dd-sidebar-account {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0 12px;
+  }
+  .dd-sidebar-account .dd-topbar-user-email {
+    color: var(--dd-sidebar-text-strong);
+  }
+  .dd-sidebar-account .dd-topbar-user-role {
+    color: var(--dd-sidebar-muted);
+  }
+  .dd-sidebar-account .dd-topbar-logout {
+    color: var(--dd-sidebar-text);
+    border-color: var(--dd-sidebar-border);
+    min-height: 40px;
+  }
+  .dd-sidebar-account .dd-topbar-signin {
+    background: #fff;
+    color: var(--dd-ink);
+    padding: 10px 18px;
+  }
+  .dd-sidebar-account .lang-switcher select {
+    min-height: 40px;
+  }
+}
+
+/* the reader's sub-bar keeps its name and language, not a second logo */
+@media (max-width: 900px) {
+  .dd-reader-brand-icon {
+    display: none;
   }
 }
 

@@ -40,7 +40,10 @@ describe('Questionnaire — flows have no preset Q5', () => {
   const runButton = () => screen.getByRole('button', { name: /work out the configuration/i })
 
   it('names every missing required answer, Q9 included, not only Q1', () => {
-    expect(screen.getByText(/Still to answer:/)).toBeTruthy()
+    // the full list (wide screens) and the count with a link to the first one
+    // (phone, UX round 6, P4-02): CSS shows one or the other
+    expect(document.querySelector('.run-missing-list')?.textContent).toMatch(/^Still to answer:/)
+    expect(document.querySelector('.run-missing-count')?.textContent).toMatch(/^Still to answer: 3 · go to the first$/)
     expect(screen.getByRole('link', { name: /What are you analyzing\?/ })).toBeTruthy()
     expect(screen.getByRole('link', { name: /Which decision does the study support/ })).toBeTruthy()
     // every link points at a card that exists

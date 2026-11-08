@@ -192,19 +192,50 @@ export function nodeClassName(node: GraphNode, extra = ''): string {
     .join(' ')
 }
 
+/** Distance between two neighbouring arrows (see edgeShifts). */
+export const SHIFT_STEP = 24
+/** Distance between two neighbouring labels under the same actor. */
+const LABEL_LANE = 16
+
+/** The n-th lane as a shift: 0, +step, -step, +2·step, -2·step… */
+function laneShift(n: number, step: number): number {
+  return n === 0 ? 0 : (n % 2 === 1 ? 1 : -1) * Math.ceil(n / 2) * step
+}
+
+/** Back from a shift to its lane number (0, 1, 2…), the inverse of laneShift. */
+function shiftLane(shift: number, step = SHIFT_STEP): number {
+  const k = Math.round(Math.abs(shift) / step)
+  return shift === 0 ? 0 : shift > 0 ? 2 * k - 1 : 2 * k
+}
+
 /**
- * How far each arrow's middle segment is moved, so arrows between the same two
- * actors (in either direction) are drawn apart instead of one on top of the
- * other: 0 for the first, then +24, -24, +48… (UX round 5, P1-03).
+ * How far each arrow's middle segment (and its label) is moved, so arrows are
+ * drawn apart instead of one on top of the other: 0 for the first, then +24,
+ * -24, +48… Two arrows get different lanes when they join the same two actors
+ * in either direction (UX round 5, P1-03), and also when they leave the same
+ * actor or enter the same actor: two flows out of one actor drew their labels
+ * one over the other, "Surplus heat to greenhouse" over "Digestate to local
+ * farms" (UX round 6). Each arrow takes the first lane none of those
+ * neighbours already holds.
  */
-export function edgeShifts(edges: GraphEdge[], step = 24): Record<string, number> {
-  const seen = new Map<string, number>()
+export function edgeShifts(edges: GraphEdge[], step = SHIFT_STEP): Record<string, number> {
+  const used = new Map<string, Set<number>>()
+  const lanes = (key: string) => {
+    let set = used.get(key)
+    if (!set) used.set(key, (set = new Set()))
+    return set
+  }
   const out: Record<string, number> = {}
   for (const edge of edges) {
-    const key = [edge.source, edge.target].sort().join('|')
-    const n = seen.get(key) ?? 0
-    seen.set(key, n + 1)
-    out[edge.id] = n === 0 ? 0 : (n % 2 === 1 ? 1 : -1) * Math.ceil(n / 2) * step
+    const groups = [
+      lanes(`pair:${[edge.source, edge.target].sort().join('|')}`),
+      lanes(`out:${edge.source}`),
+      lanes(`in:${edge.target}`),
+    ]
+    let n = 0
+    while (groups.some((g) => g.has(n))) n += 1
+    for (const g of groups) g.add(n)
+    out[edge.id] = laneShift(n, step)
   }
   return out
 }
@@ -221,7 +252,10 @@ export function flowEdgePath(
   // drew two flows as one line through both labels (UX round 6, P8-13)
   const sourceX = p.sourceX + shift
   const targetX = p.targetX + shift
-  const offset = 20 + Math.abs(shift) / 2
+  // each lane leaves the source by its own depth, so the labels set under the
+  // source (side by side, below) sit one under the other: +24 and -24 shared
+  // one depth and drew two labels on one line (UX round 6)
+  const offset = 20 + shiftLane(shift) * LABEL_LANE
   // arrows leave from the bottom and enter from the top: the middle segment is
   // horizontal when the target is below, vertical otherwise
   const below = targetY > sourceY
@@ -236,8 +270,11 @@ export function flowEdgePath(
   })
   if (below) return [path, labelX, labelY, offsetX, offsetY]
   // side by side, the middle of the path lies between the two boxes, which
-  // hid a long label (P2-12): it goes on the segment under the source instead
-  return [path, (sourceX + targetX) / 2 + shift, sourceY + offset, offsetX, offsetY]
+  // hid a long label (P2-12): it goes on the segment under the source instead,
+  // halfway between the source and the arrow's riser, not on the riser, where
+  // the riser of the next lane crossed it (UX round 6)
+  const riserX = (sourceX + targetX) / 2 + shift
+  return [path, (sourceX + riserX) / 2, sourceY + offset, offsetX, offsetY]
 }
 
 /** Lowest zoom of the editor and the preview. React Flow stops at 0.5, where a

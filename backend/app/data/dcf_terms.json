@@ -24,7 +24,7 @@
    },
    "infrastructure": {
     "title": "Infrastructure",
-    "description": "The assets involved in the network, one row per asset: production line, treatment plant, pipeline, storage, conversion unit, supporting facility."
+    "description": "The assets that exist because of the exchanges, one row per asset: storage, pre-treatment, pipelines, loading and metering, conversion units built or enlarged for them, and any production step changed for a partner. Not the main production line that would run the same without the exchange: it is the same in the symbiosis and in the reference and cancels out (D4.1 §6.3.3; D4.2 §4.2). Filled in by the actor that owns or operates the asset."
    },
    "methodological_choices": {
     "title": "Methodological choices to document",
@@ -146,7 +146,7 @@
    },
    "classif.avoidable": {
     "label": "Causal avoidability",
-    "description": "D4.2 §6.2: a zero-cost treatment needs the residue to be unavoidable and without positive market value; the causal avoidability test is declared per flow."
+    "description": "D4.2 §6.2: a zero-cost treatment needs the residue to be unavoidable and without positive market value; the causal avoidability test is declared per flow. In a company-level costing (C-LCC) the flow is booked at the negotiated price (D4.2 §6.3); the test still flags avoidable residues, for which a prevention scenario is reported."
    },
    "classif.legal_class": {
     "label": "Legal classification",
@@ -162,7 +162,7 @@
    },
    "classif.tree_step_reached": {
     "label": "Decision-tree step reached",
-    "description": "D4.1 §8.3.6: the step of the decision tree at which the treatment of this flow was settled."
+    "description": "D4.1 §8.3.6: the step of the decision tree at which the treatment of this flow was settled. In Situation C2 a co-product is allocated, not substituted (D4.1 §7.2.3); a waste keeps its zero-burden point (Step 4)."
    },
    "classif.edge_case": {
     "label": "Edge case",
@@ -177,39 +177,39 @@
    },
    "route.distance_km": {
     "label": "Distance (km)",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by the actor named under “Transport organised by”."
    },
    "route.transport_mode": {
     "label": "Transport mode",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by the actor named under “Transport organised by”."
    },
    "route.frequency": {
     "label": "Frequency",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by the actor named under “Transport organised by”."
    },
    "route.measured_volume_year": {
     "label": "Measured volume (per year)",
-    "description": "Filled in by whoever organises the transport. The same as the measured quantity of the Flow Matrix, unless part of it is lost in transport."
+    "description": "Filled in by the actor named under “Transport organised by”. The same as the measured quantity of the Flow Matrix, unless part of it is lost in transport."
    },
    "route.projected_volume_year": {
     "label": "Projected volume per scenario (per year)",
-    "description": "Filled in by whoever organises the transport.",
+    "description": "Filled in by the actor named under “Transport organised by”.",
     "label_base": "Projected volume (per year)"
    },
    "route.backhaul_strategy": {
     "label": "Return trip (backhaul)",
-    "description": "Filled in by whoever organises the transport."
+    "description": "Filled in by the actor named under “Transport organised by”."
    },
    "route.transport_lci_dataset": {
     "label": "Transport LCI dataset reference"
    },
    "route.transport_cost_per_unit": {
-    "label": "Transport cost (per unit)",
-    "description": "Filled in by whoever organises the transport. In currency per unit of the flow (e.g. EUR/t), the unit written in the Flow Matrix."
+    "label": "Transport cost (number)",
+    "description": "As billed: per unit of the flow, per trip or per year; write the unit in the next column. Filled in by the actor named under “Transport organised by”. The analyst turns it into a cost per unit of the flow and per km for the break-even distance (D4.2 §4.3)."
    },
    "route.transport_sensitivity": {
     "label": "What makes this flow sensitive to distance",
-    "description": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity. Filled in by whoever organises the transport."
+    "description": "The break-even distance depends on the flow type (D4.2 §4.2): bulky or low-value, wet, heat/steam/water in pipes, or a high-value commodity. Filled in by the actor named under “Transport organised by”."
    },
    "route.break_even_distance_km": {
     "label": "Break-even distance (km)",
@@ -227,8 +227,8 @@
     "description": "What the origin actor pays today to get rid of this flow: the economic reference, which the symbiosis avoids. Filled in by the origin actor (the one that gives the flow). If the exchange already takes place, write what the origin actor would pay without it (disposal, or the destination of the reference scenario), not the fee it pays the partner today: that goes in the price column."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unit of the two avoided costs (e.g. EUR/t, EUR/year)",
-    "description": "e.g. EUR/t, EUR/year."
+    "label": "Unit of the avoided disposal cost (e.g. EUR/t of the flow, EUR/year)",
+    "description": "Filled in by the origin actor. Per unit of the flow, in the unit of the Flow Matrix, or per year: say which."
    },
    "cost.exchange_price": {
     "label": "Price the destination actor pays the origin actor (per unit)",
@@ -239,7 +239,7 @@
     "description": "One value, agreed by the two partners."
    },
    "cost.opex_delta_year": {
-    "label": "Change in the origin actor's yearly operating cost (excluding transport)",
+    "label": "Change in the origin actor's yearly operating cost, excluding transport (+ cost, − saving)",
     "description": "What the exchange adds or saves each year for the actor that gives the flow; transport goes in Logistics. Positive for a cost more, negative for a saving, in currency per year."
    },
    "cost.currency_year": {
@@ -291,8 +291,8 @@
     "label": "Investment currency and reference year (e.g. EUR2024)"
    },
    "infra.amortization_period_y": {
-    "label": "Amortisation period (years): technical lifetime of this asset",
-    "description": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2). Not the tax depreciation rate: the years the asset is expected to work."
+    "label": "Technical lifetime (years)",
+    "description": "How many years the asset is expected to work: the period over which its cost is annualised in the LCC and its production and end of life are amortised in the LCA (D4.2 §4.2, §7.3; D4.1 §6.3.3). Not the tax depreciation period. Reference values, D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years, boilers 6, specific biorefineries 15."
    },
    "infra.discount_rate_pct": {
     "label": "Discount rate (%)"
@@ -340,7 +340,7 @@
     "description": "Background dataset that models the substituted product, with database and version."
    },
    "cost.opex_delta_dest_year": {
-    "label": "Change in the destination actor's yearly operating cost (excluding transport)",
+    "label": "Change in the destination actor's yearly operating cost, excluding transport (+ cost, − saving)",
     "description": "What the exchange adds or saves each year for the actor that receives the flow (D4.2 §5.3: each firm's actual cost structure). Positive for a cost more, negative for a saving, in currency per year."
    },
    "cost.avoided_procurement_cost": {
@@ -354,6 +354,55 @@
    "ref.side": {
     "label": "Side of the flow",
     "description": "Origin: the actor gives this flow. Destination: the actor receives it."
+   },
+   "cost.avoided_procurement_unit": {
+    "label": "Unit of the avoided purchase (e.g. EUR/t of what is replaced, EUR/year)",
+    "description": "Filled in by the destination actor. If the figure is per unit of the product replaced, name that product and how much of it one unit of the flow replaces (the Flow classification names the replaced product); otherwise per unit of the flow or per year. The analyst brings the two avoided costs to one basis."
+   },
+   "route.organised_by": {
+    "label": "Transport organised by",
+    "description": "Who arranges and pays for the transport of this flow: the actor that gives it, the actor that receives it, or a third party (a joint logistics service, a facilitator). One value, agreed by the two partners. The actor named here fills in this row; with a third party, the partner that contracts it does. Every transport cost is traced to one partner (D4.2 §4.3)."
+   },
+   "route.transport_cost_unit": {
+    "label": "Unit of the transport cost (e.g. EUR/t of the flow, EUR/trip, EUR/year)",
+    "description": "In the currency of the Costs & Revenues sheet. If per trip, add the trips per year (e.g. “EUR/trip, 250 trips/year”)."
+   },
+   "infra.description": {
+    "label": "Asset (what it is)",
+    "description": "Name and size in a few words, e.g. “whey storage tank, 200 m³” or “steam pipeline, 1.2 km”."
+   },
+   "infra.flow_id": {
+    "label": "Flow served",
+    "description": "The flow this asset exists for. Leave blank if it serves the whole network or several flows."
+   },
+   "classif.cff_a": {
+    "label": "CFF: A factor (0-1)",
+    "description": "Allocation of burdens and credits between the supplier and the user of the recycled material. The PEFCR value where one exists, otherwise the PEF method default (D4.1 §7.3.3)."
+   },
+   "classif.cff_b": {
+    "label": "CFF: B factor (0-1)",
+    "description": "Allocation of energy recovery between the current and the subsequent system; 0 in the PEF method unless a PEFCR says otherwise."
+   },
+   "classif.cff_r1": {
+    "label": "CFF: R1, recycled or recovered content (0-1)",
+    "description": "Share of the input to the receiving process that is this recovered flow."
+   },
+   "classif.cff_r2": {
+    "label": "CFF: R2, recycling rate at end of life (0-1)"
+   },
+   "classif.cff_r3": {
+    "label": "CFF: R3, energy recovery at end of life (0-1)"
+   },
+   "classif.cff_qsin_qp": {
+    "label": "CFF: Qsin/Qp, quality of the flow over the virgin material it replaces",
+    "description": "In Situation A and C1 with Q4 = D this is the quality factor Q of this row. In Situation B the CFF is a sensitivity next to the consequential model (T4.6 choice), so it may differ from the Q of the substitution."
+   },
+   "classif.cff_qsout_qp": {
+    "label": "CFF: Qsout/Qp, quality of the material recycled at end of life"
+   },
+   "classif.cff_source": {
+    "label": "Source of the CFF parameters",
+    "description": "Where an applicable PEFCR exists, its prescribed A and R values; otherwise the defaults published with the PEF method (D4.1 §7.3.3). The E-LCC applies the same A, Qs/Qp and R1/R2/R3 to the corresponding costs (D4.2 §5.1)."
    }
   },
   "enums": {
@@ -437,12 +486,12 @@
    "market_price": "market price",
    "free": "free",
    "negotiated": "negotiated",
-   "production": "production",
-   "treatment": "treatment",
-   "transport": "transport",
+   "production": "production step changed for the exchange",
+   "treatment": "treatment or pre-treatment",
+   "transport": "transport (pipeline, conveyor, loading)",
    "storage": "storage",
-   "conversion": "conversion",
-   "supporting": "supporting",
+   "conversion": "conversion (digester, boiler, dryer, recovery unit)",
+   "supporting": "supporting (metering, control, utilities)",
    "existing": "existing",
    "new": "new",
    "replaced": "replaced",
@@ -454,7 +503,10 @@
    "gate_fee": "gate fee",
    "partner": "partner",
    "origin": "origin (gives the flow)",
-   "destination": "destination (receives the flow)"
+   "destination": "destination (receives the flow)",
+   "pefcr": "PEFCR of the product category",
+   "pef_annex_c_default": "PEF method defaults (Annex C)",
+   "study_specific": "study-specific, justified under Evidence"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "the study credits substitution (not the strict accounting of one company, Situation C2)",
@@ -472,7 +524,9 @@
    "q3.env": "the study has the environmental dimension (Q3)",
    "q3.env and ilcd_situation == \"ILCD Situation B\"": "environmental dimension in ILCD Situation B (consequential)",
    "q3.env or q3.eco": "the study has the environmental or the economic dimension (Q3)",
-   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "the study has the social dimension or the societal LCC"
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "the study has the social dimension or the societal LCC",
+   "False": "retired: the quantity of the flow is asked in the Flow Matrix",
+   "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"": "the study follows the PEF Circular Footprint Formula (Q4 = D), outside the strict accounting of one company (Situation C2)"
   },
   "ui": {
    "sheet.cover": "Cover",
@@ -721,7 +775,7 @@
    },
    "infrastructure": {
     "title": "Infrastrutture",
-    "description": "I beni coinvolti nella rete, una riga per bene: linea di produzione, impianto di trattamento, condotta, stoccaggio, unità di conversione, impianto di supporto."
+    "description": "I beni che esistono per gli scambi, una riga per bene: stoccaggi, pretrattamenti, condotte, carico e misura, unità di conversione costruite o ampliate per gli scambi, e ogni fase di produzione modificata per un partner. Non la linea di produzione principale, che funzionerebbe allo stesso modo senza lo scambio: è uguale nella simbiosi e nello scenario di riferimento, e si elide (D4.1 §6.3.3; D4.2 §4.2). Lo compila l'attore che possiede o gestisce il bene."
    },
    "methodological_choices": {
     "title": "Scelte metodologiche da documentare",
@@ -848,7 +902,7 @@
    },
    "classif.avoidable": {
     "label": "Evitabilità causale",
-    "description": "D4.2 §6.2: un trattamento a costo zero richiede che il residuo sia inevitabile e senza valore di mercato positivo; la verifica di evitabilità causale si dichiara per flusso."
+    "description": "D4.2 §6.2: un trattamento a costo zero richiede che il residuo sia inevitabile e senza valore di mercato positivo; la verifica di evitabilità causale si dichiara per flusso. In una valutazione dei costi di una sola azienda (C-LCC) il flusso si contabilizza al prezzo negoziato (D4.2 §6.3); la verifica segnala comunque i residui evitabili, per i quali si riporta uno scenario di prevenzione."
    },
    "classif.legal_class": {
     "label": "Classificazione giuridica",
@@ -864,7 +918,7 @@
    },
    "classif.tree_step_reached": {
     "label": "Passo dell'albero decisionale raggiunto",
-    "description": "D4.1 §8.3.6: il passo dell'albero decisionale in cui si è deciso il trattamento di questo flusso."
+    "description": "D4.1 §8.3.6: il passo dell'albero decisionale in cui si è deciso il trattamento di questo flusso. Nella Situazione C2 un co-prodotto si alloca, non si sostituisce (D4.1 §7.2.3); un rifiuto conserva il suo punto di carico zero (passo 4)."
    },
    "classif.edge_case": {
     "label": "Caso limite",
@@ -879,42 +933,42 @@
    },
    "route.distance_km": {
     "label": "Distanza (km)",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila l'attore indicato in «Trasporto organizzato da»."
    },
    "route.transport_mode": {
     "label": "Mezzo di trasporto",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila l'attore indicato in «Trasporto organizzato da»."
    },
    "route.frequency": {
     "label": "Frequenza",
-    "description": "Lo compila chi organizza il trasporto.",
+    "description": "Lo compila l'attore indicato in «Trasporto organizzato da».",
     "values": {
      "continuous": "continua"
     }
    },
    "route.measured_volume_year": {
     "label": "Volume misurato (all'anno)",
-    "description": "Lo compila chi organizza il trasporto. La stessa quantità misurata della Matrice dei flussi, salvo perdite durante il trasporto."
+    "description": "Lo compila l'attore indicato in «Trasporto organizzato da». La stessa quantità misurata della Matrice dei flussi, salvo perdite durante il trasporto."
    },
    "route.projected_volume_year": {
     "label": "Volume previsto per scenario (all'anno)",
-    "description": "Lo compila chi organizza il trasporto.",
+    "description": "Lo compila l'attore indicato in «Trasporto organizzato da».",
     "label_base": "Volume previsto (all'anno)"
    },
    "route.backhaul_strategy": {
     "label": "Viaggio di ritorno (carico al ritorno)",
-    "description": "Lo compila chi organizza il trasporto."
+    "description": "Lo compila l'attore indicato in «Trasporto organizzato da»."
    },
    "route.transport_lci_dataset": {
     "label": "Riferimento del dataset LCI del trasporto"
    },
    "route.transport_cost_per_unit": {
-    "label": "Costo del trasporto (per unità)",
-    "description": "Lo compila chi organizza il trasporto. In valuta per unità del flusso (es. EUR/t), l'unità scritta nella Matrice dei flussi."
+    "label": "Costo del trasporto (numero)",
+    "description": "Come fatturato: per unità del flusso, per viaggio o all'anno; scrivi l'unità nella colonna seguente. Lo compila l'attore indicato in «Trasporto organizzato da». L'analista lo converte in costo per unità del flusso e per km per la distanza di pareggio (D4.2 §4.3)."
    },
    "route.transport_sensitivity": {
     "label": "Che cosa rende questo flusso sensibile alla distanza",
-    "description": "La distanza di pareggio dipende dal tipo di flusso (D4.2 §4.2): voluminoso o di poco valore, umido, calore/vapore/acqua in condotta, o merce di alto valore. Lo compila chi organizza il trasporto."
+    "description": "La distanza di pareggio dipende dal tipo di flusso (D4.2 §4.2): voluminoso o di poco valore, umido, calore/vapore/acqua in condotta, o merce di alto valore. Lo compila l'attore indicato in «Trasporto organizzato da»."
    },
    "route.break_even_distance_km": {
     "label": "Distanza di pareggio (km)",
@@ -932,8 +986,8 @@
     "description": "Quanto paga oggi l'attore di origine per disfarsi di questo flusso: il riferimento economico, che la simbiosi evita. Lo compila l'attore di origine (chi cede il flusso). Se lo scambio avviene già, scrivi quanto pagherebbe l'attore di origine senza lo scambio (smaltimento, o la destinazione dello scenario di riferimento), non la tariffa che paga oggi al partner: quella va nella colonna del prezzo."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unità dei due costi evitati (es. EUR/t, EUR/anno)",
-    "description": "es. EUR/t, EUR/anno."
+    "label": "Unità del costo di smaltimento evitato (es. EUR/t del flusso, EUR/anno)",
+    "description": "Lo compila l'attore di origine. Per unità del flusso, nell'unità della Matrice dei flussi, oppure all'anno: indica quale."
    },
    "cost.exchange_price": {
     "label": "Prezzo che l'attore di destinazione paga all'attore di origine (per unità)",
@@ -944,7 +998,7 @@
     "description": "Un solo valore, concordato dai due partner."
    },
    "cost.opex_delta_year": {
-    "label": "Variazione annua dei costi operativi dell'attore di origine (trasporto escluso)",
+    "label": "Variazione annua dei costi operativi dell'attore di origine, trasporto escluso (+ costo, − risparmio)",
     "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi cede il flusso; il trasporto va in Logistica. Positivo per un costo in più, negativo per un risparmio, in valuta all'anno."
    },
    "cost.currency_year": {
@@ -1002,8 +1056,8 @@
     "label": "Valuta e anno di riferimento dell'investimento (es. EUR2024)"
    },
    "infra.amortization_period_y": {
-    "label": "Periodo di ammortamento (anni): vita tecnica di questo bene",
-    "description": "Nessun valore unico: la vita tecnica di ogni bene (D4.2 §4.2, §7.3). Vite di riferimento nella Tabella 7.1 della D4.2: edifici e infrastrutture generali 20-30 anni, impianti e macchinari di processo 5-8 anni. Usa lo stesso periodo nell'LCA (D4.1 §14.2.2). Non il coefficiente di ammortamento fiscale: gli anni in cui il bene dovrebbe funzionare."
+    "label": "Vita tecnica (anni)",
+    "description": "Per quanti anni il bene dovrebbe funzionare: il periodo su cui il suo costo si annualizza nell'LCC e la sua produzione e fine vita si ammortizzano nell'LCA (D4.2 §4.2, §7.3; D4.1 §6.3.3). Non il periodo di ammortamento fiscale. Valori di riferimento, Tabella 7.1 della D4.2: edifici e infrastrutture generali 20-30 anni, impianti e macchinari di processo 5-8 anni, caldaie 6, bioraffinerie specifiche 15."
    },
    "infra.discount_rate_pct": {
     "label": "Tasso di sconto (%)"
@@ -1051,7 +1105,7 @@
     "description": "Il dataset di background che modella il prodotto sostituito, con banca dati e versione."
    },
    "cost.opex_delta_dest_year": {
-    "label": "Variazione annua dei costi operativi dell'attore di destinazione (trasporto escluso)",
+    "label": "Variazione annua dei costi operativi dell'attore di destinazione, trasporto escluso (+ costo, − risparmio)",
     "description": "Che cosa aggiunge o fa risparmiare lo scambio ogni anno a chi riceve il flusso (D4.2 §5.3: la struttura di costo reale di ciascuna impresa). Positivo per un costo in più, negativo per un risparmio, in valuta all'anno."
    },
    "cost.avoided_procurement_cost": {
@@ -1065,6 +1119,55 @@
    "ref.side": {
     "label": "Lato del flusso",
     "description": "Origine: l'attore cede questo flusso. Destinazione: l'attore lo riceve."
+   },
+   "cost.avoided_procurement_unit": {
+    "label": "Unità dell'acquisto evitato (es. EUR/t di ciò che viene sostituito, EUR/anno)",
+    "description": "Lo compila l'attore di destinazione. Se la cifra è per unità del prodotto sostituito, indica quel prodotto e quanto ne sostituisce un'unità del flusso (la Classificazione dei flussi nomina il prodotto sostituito); altrimenti per unità del flusso o all'anno. L'analista riporta i due costi evitati alla stessa base."
+   },
+   "route.organised_by": {
+    "label": "Trasporto organizzato da",
+    "description": "Chi organizza e paga il trasporto di questo flusso: l'attore che lo cede, quello che lo riceve, oppure un terzo (un servizio logistico comune, un facilitatore). Un solo valore, concordato tra i due partner. Questa riga la compila l'attore indicato qui; con un terzo, il partner che lo incarica. Ogni costo di trasporto si attribuisce a un partner (D4.2 §4.3)."
+   },
+   "route.transport_cost_unit": {
+    "label": "Unità del costo del trasporto (es. EUR/t del flusso, EUR/viaggio, EUR/anno)",
+    "description": "Nella valuta del foglio Costi e ricavi. Se per viaggio, aggiungi i viaggi all'anno (es. «EUR/viaggio, 250 viaggi/anno»)."
+   },
+   "infra.description": {
+    "label": "Bene (che cosa è)",
+    "description": "Nome e dimensione in poche parole, es. «serbatoio del siero, 200 m³» o «condotta del vapore, 1,2 km»."
+   },
+   "infra.flow_id": {
+    "label": "Flusso servito",
+    "description": "Il flusso per cui esiste questo bene. Lascia vuoto se serve tutta la rete o più flussi."
+   },
+   "classif.cff_a": {
+    "label": "CFF: fattore A (0-1)",
+    "description": "Ripartizione di oneri e crediti tra chi fornisce e chi usa il materiale riciclato. Il valore della PEFCR, se esiste, altrimenti il valore predefinito del metodo PEF (D4.1 §7.3.3)."
+   },
+   "classif.cff_b": {
+    "label": "CFF: fattore B (0-1)",
+    "description": "Ripartizione del recupero energetico tra il sistema attuale e quello successivo; 0 nel metodo PEF, salvo diversa indicazione di una PEFCR."
+   },
+   "classif.cff_r1": {
+    "label": "CFF: R1, contenuto riciclato o recuperato (0-1)",
+    "description": "Quota dell'input del processo che riceve costituita da questo flusso recuperato."
+   },
+   "classif.cff_r2": {
+    "label": "CFF: R2, tasso di riciclo a fine vita (0-1)"
+   },
+   "classif.cff_r3": {
+    "label": "CFF: R3, recupero energetico a fine vita (0-1)"
+   },
+   "classif.cff_qsin_qp": {
+    "label": "CFF: Qsin/Qp, qualità del flusso rispetto al materiale vergine che sostituisce",
+    "description": "Nelle Situazioni A e C1 con Q4 = D è il fattore di qualità Q di questa riga. Nella Situazione B la CFF è una sensibilità accanto al modello conseguenziale (scelta T4.6), quindi può differire dal Q della sostituzione."
+   },
+   "classif.cff_qsout_qp": {
+    "label": "CFF: Qsout/Qp, qualità del materiale riciclato a fine vita"
+   },
+   "classif.cff_source": {
+    "label": "Fonte dei parametri della CFF",
+    "description": "Se esiste una PEFCR applicabile, i valori di A e R che prescrive; altrimenti i valori predefiniti pubblicati con il metodo PEF (D4.1 §7.3.3). L'E-LCC applica gli stessi A, Qs/Qp e R1/R2/R3 ai costi corrispondenti (D4.2 §5.1)."
    }
   },
   "enums": {
@@ -1148,12 +1251,12 @@
    "market_price": "prezzo di mercato",
    "free": "gratuito",
    "negotiated": "negoziato",
-   "production": "produzione",
-   "treatment": "trattamento",
-   "transport": "trasporto",
+   "production": "fase di produzione modificata per lo scambio",
+   "treatment": "trattamento o pretrattamento",
+   "transport": "trasporto (condotta, nastro, carico)",
    "storage": "stoccaggio",
-   "conversion": "conversione",
-   "supporting": "supporto",
+   "conversion": "conversione (digestore, caldaia, essiccatore, unità di recupero)",
+   "supporting": "supporto (misura, controllo, servizi)",
    "existing": "esistente",
    "new": "nuovo",
    "replaced": "sostituito",
@@ -1165,7 +1268,10 @@
    "gate_fee": "tariffa di conferimento",
    "partner": "partner",
    "origin": "origine (cede il flusso)",
-   "destination": "destinazione (riceve il flusso)"
+   "destination": "destinazione (riceve il flusso)",
+   "pefcr": "PEFCR della categoria di prodotto",
+   "pef_annex_c_default": "valori predefiniti del metodo PEF (Allegato C)",
+   "study_specific": "propri dello studio, giustificati in Evidenze"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "lo studio riconosce crediti di sostituzione (non è il rendiconto di una sola azienda, Situazione C2)",
@@ -1183,7 +1289,9 @@
    "q3.env": "lo studio ha la dimensione ambientale (Q3)",
    "q3.env and ilcd_situation == \"ILCD Situation B\"": "dimensione ambientale in Situazione ILCD B (consequenziale)",
    "q3.env or q3.eco": "lo studio ha la dimensione ambientale o quella economica (Q3)",
-   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "lo studio ha la dimensione sociale o l'LCC sociale"
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "lo studio ha la dimensione sociale o l'LCC sociale",
+   "False": "non più chiesto: la quantità del flusso si scrive nella Matrice dei flussi",
+   "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"": "lo studio segue la Circular Footprint Formula della PEF (Q4 = D), fuori dal rendiconto di una sola azienda (Situazione C2)"
   },
   "ui": {
    "sheet.cover": "Copertina",
@@ -1432,7 +1540,7 @@
    },
    "infrastructure": {
     "title": "Infrastructures",
-    "description": "Les biens impliqués dans le réseau, une ligne par bien : ligne de production, station de traitement, conduite, stockage, unité de conversion, installation de support."
+    "description": "Les biens qui existent du fait des échanges, une ligne par bien : stockages, prétraitements, conduites, chargement et comptage, unités de conversion construites ou agrandies pour les échanges, et toute étape de production modifiée pour un partenaire. Pas la ligne de production principale, qui fonctionnerait de la même façon sans l'échange : elle est identique dans la symbiose et dans le scénario de référence, et s'annule (D4.1 §6.3.3 ; D4.2 §4.2). Rempli par l'acteur qui possède ou exploite le bien."
    },
    "methodological_choices": {
     "title": "Choix méthodologiques à documenter",
@@ -1559,7 +1667,7 @@
    },
    "classif.avoidable": {
     "label": "Évitabilité causale",
-    "description": "D4.2 §6.2 : un traitement à coût nul exige que le résidu soit inévitable et sans valeur marchande positive ; le test d'évitabilité causale se déclare par flux."
+    "description": "D4.2 §6.2 : un traitement à coût nul exige que le résidu soit inévitable et sans valeur marchande positive ; le test d'évitabilité causale se déclare par flux. Dans une évaluation des coûts au niveau de l'entreprise (C-LCC), le flux est comptabilisé au prix négocié (D4.2 §6.3) ; le test signale quand même les résidus évitables, pour lesquels un scénario de prévention est présenté."
    },
    "classif.legal_class": {
     "label": "Classification juridique",
@@ -1575,7 +1683,7 @@
    },
    "classif.tree_step_reached": {
     "label": "Étape de l'arbre de décision atteinte",
-    "description": "D4.1 §8.3.6 : l'étape de l'arbre de décision où le traitement de ce flux a été tranché."
+    "description": "D4.1 §8.3.6 : l'étape de l'arbre de décision où le traitement de ce flux a été tranché. En situation C2, un coproduit est alloué, pas substitué (D4.1 §7.2.3) ; un déchet garde son point de charge nulle (étape 4)."
    },
    "classif.edge_case": {
     "label": "Cas limite",
@@ -1590,42 +1698,42 @@
    },
    "route.distance_km": {
     "label": "Distance (km)",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par l'acteur indiqué sous « Transport organisé par »."
    },
    "route.transport_mode": {
     "label": "Mode de transport",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par l'acteur indiqué sous « Transport organisé par »."
    },
    "route.frequency": {
     "label": "Fréquence",
-    "description": "Rempli par celui qui organise le transport.",
+    "description": "Rempli par l'acteur indiqué sous « Transport organisé par ».",
     "values": {
      "continuous": "continue"
     }
    },
    "route.measured_volume_year": {
     "label": "Volume mesuré (par an)",
-    "description": "Rempli par celui qui organise le transport. La même que la quantité mesurée de la Matrice des flux, sauf pertes pendant le transport."
+    "description": "Rempli par l'acteur indiqué sous « Transport organisé par ». La même que la quantité mesurée de la Matrice des flux, sauf pertes pendant le transport."
    },
    "route.projected_volume_year": {
     "label": "Volume prévu par scénario (par an)",
-    "description": "Rempli par celui qui organise le transport.",
+    "description": "Rempli par l'acteur indiqué sous « Transport organisé par ».",
     "label_base": "Volume prévu (par an)"
    },
    "route.backhaul_strategy": {
     "label": "Trajet retour (chargement au retour)",
-    "description": "Rempli par celui qui organise le transport."
+    "description": "Rempli par l'acteur indiqué sous « Transport organisé par »."
    },
    "route.transport_lci_dataset": {
     "label": "Référence du jeu de données ICV du transport"
    },
    "route.transport_cost_per_unit": {
-    "label": "Coût du transport (par unité)",
-    "description": "Rempli par celui qui organise le transport. En devise par unité du flux (p. ex. EUR/t), l'unité indiquée dans la Matrice des flux."
+    "label": "Coût du transport (nombre)",
+    "description": "Tel que facturé : par unité du flux, par trajet ou par an ; écrivez l'unité dans la colonne suivante. Rempli par l'acteur indiqué sous « Transport organisé par ». L'analyste le convertit en coût par unité du flux et par km pour la distance d'équilibre (D4.2 §4.3)."
    },
    "route.transport_sensitivity": {
     "label": "Ce qui rend ce flux sensible à la distance",
-    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur. Rempli par celui qui organise le transport."
+    "description": "La distance d'équilibre dépend du type de flux (D4.2 §4.2) : volumineux ou de faible valeur, humide, chaleur/vapeur/eau en conduite, ou marchandise de forte valeur. Rempli par l'acteur indiqué sous « Transport organisé par »."
    },
    "route.break_even_distance_km": {
     "label": "Distance d'équilibre (km)",
@@ -1643,8 +1751,8 @@
     "description": "Ce que l'acteur d'origine paie aujourd'hui pour se défaire de ce flux : la référence économique, que la symbiose évite. Rempli par l'acteur d'origine (celui qui cède le flux). Si l'échange a déjà lieu, indiquez ce que l'acteur d'origine paierait sans lui (élimination, ou la destination du scénario de référence), et non le tarif qu'il paie aujourd'hui au partenaire : celui-ci va dans la colonne du prix."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unité des deux coûts évités (p. ex. EUR/t, EUR/an)",
-    "description": "ex. EUR/t, EUR/an."
+    "label": "Unité du coût d'élimination évité (p. ex. EUR/t du flux, EUR/an)",
+    "description": "Rempli par l'acteur d'origine. Par unité du flux, dans l'unité de la Matrice des flux, ou par an : indiquez laquelle."
    },
    "cost.exchange_price": {
     "label": "Prix que l'acteur de destination paie à l'acteur d'origine (par unité)",
@@ -1655,7 +1763,7 @@
     "description": "Une seule valeur, convenue par les deux partenaires."
    },
    "cost.opex_delta_year": {
-    "label": "Variation annuelle des coûts d'exploitation de l'acteur d'origine (hors transport)",
+    "label": "Variation annuelle des coûts d'exploitation de l'acteur d'origine, hors transport (+ coût, − économie)",
     "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui cède le flux ; le transport va dans Logistique. Positif pour un coût en plus, négatif pour une économie, en devise par an."
    },
    "cost.currency_year": {
@@ -1713,8 +1821,8 @@
     "label": "Devise et année de référence de l'investissement (ex. EUR2024)"
    },
    "infra.amortization_period_y": {
-    "label": "Durée d'amortissement (années) : durée de vie technique de ce bien",
-    "description": "Pas de valeur unique : la durée de vie technique de chaque bien (D4.2 §4.2, §7.3). Durées de référence du tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans. Utilisez la même durée dans la LCA (D4.1 §14.2.2). Pas le taux d'amortissement fiscal : les années pendant lesquelles le bien devrait fonctionner."
+    "label": "Durée de vie technique (années)",
+    "description": "Combien d'années le bien devrait fonctionner : la période sur laquelle son coût est annualisé dans le LCC et sa production et sa fin de vie sont amorties dans la LCA (D4.2 §4.2, §7.3 ; D4.1 §6.3.3). Pas la durée d'amortissement fiscal. Valeurs de référence, tableau 7.1 de la D4.2 : bâtiments et infrastructures générales 20-30 ans, équipements et machines de procédé 5-8 ans, chaudières 6, bioraffineries spécifiques 15."
    },
    "infra.discount_rate_pct": {
     "label": "Taux d'actualisation (%)"
@@ -1762,7 +1870,7 @@
     "description": "Le jeu de données d'arrière-plan qui modélise le produit substitué, avec base et version."
    },
    "cost.opex_delta_dest_year": {
-    "label": "Variation annuelle des coûts d'exploitation de l'acteur de destination (hors transport)",
+    "label": "Variation annuelle des coûts d'exploitation de l'acteur de destination, hors transport (+ coût, − économie)",
     "description": "Ce que l'échange ajoute ou économise chaque année pour l'acteur qui reçoit le flux (D4.2 §5.3 : la structure de coûts réelle de chaque entreprise). Positif pour un coût en plus, négatif pour une économie, en devise par an."
    },
    "cost.avoided_procurement_cost": {
@@ -1776,6 +1884,55 @@
    "ref.side": {
     "label": "Côté du flux",
     "description": "Origine : l'acteur cède ce flux. Destination : l'acteur le reçoit."
+   },
+   "cost.avoided_procurement_unit": {
+    "label": "Unité de l'achat évité (p. ex. EUR/t de ce qui est remplacé, EUR/an)",
+    "description": "Rempli par l'acteur de destination. Si le montant est par unité du produit remplacé, nommez ce produit et la quantité qu'en remplace une unité du flux (la Classification des flux nomme le produit remplacé) ; sinon par unité du flux ou par an. L'analyste ramène les deux coûts évités à la même base."
+   },
+   "route.organised_by": {
+    "label": "Transport organisé par",
+    "description": "Qui organise et paie le transport de ce flux : l'acteur qui le cède, celui qui le reçoit, ou un tiers (un service logistique commun, un facilitateur). Une seule valeur, convenue entre les deux partenaires. L'acteur indiqué ici remplit cette ligne ; avec un tiers, le partenaire qui le mandate. Chaque coût de transport est rattaché à un partenaire (D4.2 §4.3)."
+   },
+   "route.transport_cost_unit": {
+    "label": "Unité du coût du transport (p. ex. EUR/t du flux, EUR/trajet, EUR/an)",
+    "description": "Dans la devise de la feuille Coûts et recettes. Si par trajet, ajoutez le nombre de trajets par an (p. ex. « EUR/trajet, 250 trajets/an »)."
+   },
+   "infra.description": {
+    "label": "Bien (ce que c'est)",
+    "description": "Nom et taille en quelques mots, p. ex. « cuve de lactosérum, 200 m³ » ou « conduite de vapeur, 1,2 km »."
+   },
+   "infra.flow_id": {
+    "label": "Flux desservi",
+    "description": "Le flux pour lequel ce bien existe. Laissez vide s'il sert tout le réseau ou plusieurs flux."
+   },
+   "classif.cff_a": {
+    "label": "CFF : facteur A (0-1)",
+    "description": "Répartition des charges et des crédits entre le fournisseur et l'utilisateur de la matière recyclée. La valeur de la PEFCR s'il en existe une, sinon la valeur par défaut de la méthode PEF (D4.1 §7.3.3)."
+   },
+   "classif.cff_b": {
+    "label": "CFF : facteur B (0-1)",
+    "description": "Répartition de la valorisation énergétique entre le système actuel et le système suivant ; 0 dans la méthode PEF, sauf indication contraire d'une PEFCR."
+   },
+   "classif.cff_r1": {
+    "label": "CFF : R1, contenu recyclé ou valorisé (0-1)",
+    "description": "Part de l'intrant du procédé récepteur constituée par ce flux valorisé."
+   },
+   "classif.cff_r2": {
+    "label": "CFF : R2, taux de recyclage en fin de vie (0-1)"
+   },
+   "classif.cff_r3": {
+    "label": "CFF : R3, valorisation énergétique en fin de vie (0-1)"
+   },
+   "classif.cff_qsin_qp": {
+    "label": "CFF : Qsin/Qp, qualité du flux par rapport à la matière vierge remplacée",
+    "description": "En situations A et C1 avec Q4 = D, c'est le facteur de qualité Q de cette ligne. En situation B, la CFF est une sensibilité à côté du modèle conséquentiel (choix T4.6) : elle peut donc différer du Q de la substitution."
+   },
+   "classif.cff_qsout_qp": {
+    "label": "CFF : Qsout/Qp, qualité de la matière recyclée en fin de vie"
+   },
+   "classif.cff_source": {
+    "label": "Source des paramètres de la CFF",
+    "description": "S'il existe une PEFCR applicable, les valeurs de A et R qu'elle prescrit ; sinon les valeurs par défaut publiées avec la méthode PEF (D4.1 §7.3.3). L'E-LCC applique les mêmes A, Qs/Qp et R1/R2/R3 aux coûts correspondants (D4.2 §5.1)."
    }
   },
   "enums": {
@@ -1859,12 +2016,12 @@
    "market_price": "prix de marché",
    "free": "gratuit",
    "negotiated": "négocié",
-   "production": "production",
-   "treatment": "traitement",
-   "transport": "transport",
+   "production": "étape de production modifiée pour l'échange",
+   "treatment": "traitement ou prétraitement",
+   "transport": "transport (conduite, convoyeur, chargement)",
    "storage": "stockage",
-   "conversion": "conversion",
-   "supporting": "support",
+   "conversion": "conversion (digesteur, chaudière, séchoir, unité de récupération)",
+   "supporting": "support (comptage, contrôle, utilités)",
    "existing": "existant",
    "new": "nouveau",
    "replaced": "remplacé",
@@ -1876,7 +2033,10 @@
    "gate_fee": "redevance de prise en charge",
    "partner": "partenaire",
    "origin": "origine (cède le flux)",
-   "destination": "destination (reçoit le flux)"
+   "destination": "destination (reçoit le flux)",
+   "pefcr": "PEFCR de la catégorie de produit",
+   "pef_annex_c_default": "valeurs par défaut de la méthode PEF (annexe C)",
+   "study_specific": "propres à l'étude, justifiées dans Justificatifs"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "l'étude crédite la substitution (ce n'est pas la comptabilité d'une seule entreprise, situation C2)",
@@ -1894,7 +2054,9 @@
    "q3.env": "l'étude a la dimension environnementale (Q3)",
    "q3.env and ilcd_situation == \"ILCD Situation B\"": "dimension environnementale en Situation ILCD B (conséquentielle)",
    "q3.env or q3.eco": "l'étude a la dimension environnementale ou économique (Q3)",
-   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "l'étude a la dimension sociale ou le LCC sociétal"
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "l'étude a la dimension sociale ou le LCC sociétal",
+   "False": "retiré : la quantité du flux se note dans la Matrice des flux",
+   "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"": "l'étude suit la Circular Footprint Formula de la PEF (Q4 = D), hors de la comptabilité d'une seule entreprise (situation C2)"
   },
   "ui": {
    "sheet.cover": "Couverture",
@@ -2143,7 +2305,7 @@
    },
    "infrastructure": {
     "title": "Infrastruktur",
-    "description": "Die am Netz beteiligten Anlagen, eine Zeile pro Anlage: Produktionslinie, Behandlungsanlage, Leitung, Speicher, Umwandlungseinheit, Hilfseinrichtung."
+    "description": "Die Anlagen, die wegen der Austausche bestehen, eine Zeile pro Anlage: Lager, Vorbehandlung, Leitungen, Verladung und Messung, für die Austausche gebaute oder erweiterte Umwandlungseinheiten und jeder für einen Partner geänderte Produktionsschritt. Nicht die Hauptproduktionslinie, die ohne den Austausch genauso liefe: Sie ist in der Symbiose und im Referenzszenario gleich und hebt sich auf (D4.1 §6.3.3; D4.2 §4.2). Auszufüllen vom Akteur, dem die Anlage gehört oder der sie betreibt."
    },
    "methodological_choices": {
     "title": "Zu dokumentierende methodische Entscheidungen",
@@ -2265,7 +2427,7 @@
    },
    "classif.avoidable": {
     "label": "Kausale Vermeidbarkeit",
-    "description": "D4.2 §6.2: Eine kostenlose Behandlung setzt voraus, dass der Reststoff unvermeidbar ist und keinen positiven Marktwert hat; die Prüfung der kausalen Vermeidbarkeit wird pro Fluss angegeben."
+    "description": "D4.2 §6.2: Eine kostenlose Behandlung setzt voraus, dass der Reststoff unvermeidbar ist und keinen positiven Marktwert hat; die Prüfung der kausalen Vermeidbarkeit wird pro Fluss angegeben. In einer Kostenbewertung auf Unternehmensebene (C-LCC) wird der Fluss zum ausgehandelten Preis verbucht (D4.2 §6.3); die Prüfung kennzeichnet dennoch vermeidbare Reststoffe, für die ein Vermeidungsszenario berichtet wird."
    },
    "classif.legal_class": {
     "label": "Rechtliche Einstufung",
@@ -2281,7 +2443,7 @@
    },
    "classif.tree_step_reached": {
     "label": "Erreichter Schritt des Entscheidungsbaums",
-    "description": "D4.1 §8.3.6: der Schritt des Entscheidungsbaums, in dem die Behandlung dieses Flusses entschieden wurde."
+    "description": "D4.1 §8.3.6: der Schritt des Entscheidungsbaums, in dem die Behandlung dieses Flusses entschieden wurde. In Situation C2 wird ein Koppelprodukt alloziert, nicht substituiert (D4.1 §7.2.3); ein Abfall behält seinen Nulllastpunkt (Schritt 4)."
    },
    "classif.edge_case": {
     "label": "Grenzfall",
@@ -2296,39 +2458,39 @@
    },
    "route.distance_km": {
     "label": "Entfernung (km)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Vom unter „Transport organisiert von“ genannten Akteur auszufüllen."
    },
    "route.transport_mode": {
     "label": "Verkehrsmittel",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Vom unter „Transport organisiert von“ genannten Akteur auszufüllen."
    },
    "route.frequency": {
     "label": "Häufigkeit",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Vom unter „Transport organisiert von“ genannten Akteur auszufüllen."
    },
    "route.measured_volume_year": {
     "label": "Gemessenes Volumen (pro Jahr)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert. Dieselbe wie die gemessene Menge der Flussmatrix, außer bei Verlusten während des Transports."
+    "description": "Vom unter „Transport organisiert von“ genannten Akteur auszufüllen. Dieselbe wie die gemessene Menge der Flussmatrix, außer bei Verlusten während des Transports."
    },
    "route.projected_volume_year": {
     "label": "Erwartetes Volumen pro Szenario (pro Jahr)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert.",
+    "description": "Vom unter „Transport organisiert von“ genannten Akteur auszufüllen.",
     "label_base": "Erwartetes Volumen (pro Jahr)"
    },
    "route.backhaul_strategy": {
     "label": "Rückfahrt (Rückladung)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Vom unter „Transport organisiert von“ genannten Akteur auszufüllen."
    },
    "route.transport_lci_dataset": {
     "label": "Referenz des Transport-Sachbilanzdatensatzes"
    },
    "route.transport_cost_per_unit": {
-    "label": "Transportkosten (pro Einheit)",
-    "description": "Von der Seite auszufüllen, die den Transport organisiert. In Währung pro Einheit des Flusses (z. B. EUR/t), der in der Flussmatrix angegebenen Einheit."
+    "label": "Transportkosten (Zahl)",
+    "description": "Wie abgerechnet: pro Einheit des Flusses, pro Fahrt oder pro Jahr; die Einheit gehört in die nächste Spalte. Vom unter „Transport organisiert von“ genannten Akteur auszufüllen. Die Analyse rechnet sie in Kosten pro Einheit des Flusses und pro km für die Break-even-Entfernung um (D4.2 §4.3)."
    },
    "route.transport_sensitivity": {
     "label": "Was diesen Fluss entfernungsabhängig macht",
-    "description": "Die Break-even-Distanz hängt von der Art des Flusses ab (D4.2 §4.2): sperrig oder geringwertig, feucht, Wärme/Dampf/Wasser in Leitungen oder hochwertige Ware. Von der Seite auszufüllen, die den Transport organisiert."
+    "description": "Die Break-even-Distanz hängt von der Art des Flusses ab (D4.2 §4.2): sperrig oder geringwertig, feucht, Wärme/Dampf/Wasser in Leitungen oder hochwertige Ware. Vom unter „Transport organisiert von“ genannten Akteur auszufüllen."
    },
    "route.break_even_distance_km": {
     "label": "Break-even-Distanz (km)",
@@ -2346,8 +2508,8 @@
     "description": "Was der Herkunftsakteur heute zahlt, um diesen Fluss loszuwerden: die ökonomische Referenz, die die Symbiose vermeidet. Vom Herkunftsakteur auszufüllen (der den Fluss abgibt). Findet der Austausch bereits statt, tragen Sie ein, was der Ursprungsakteur ohne ihn zahlen würde (Entsorgung oder das Ziel des Referenzszenarios), nicht die Gebühr, die er heute dem Partner zahlt: Diese gehört in die Preisspalte."
    },
    "cost.disposal_cost_unit": {
-    "label": "Einheit der beiden vermiedenen Kosten (z. B. EUR/t, EUR/Jahr)",
-    "description": "z. B. EUR/t, EUR/Jahr."
+    "label": "Einheit der vermiedenen Entsorgungskosten (z. B. EUR/t des Flusses, EUR/Jahr)",
+    "description": "Vom Herkunftsakteur auszufüllen. Pro Einheit des Flusses, in der Einheit der Flussmatrix, oder pro Jahr: geben Sie an, welche."
    },
    "cost.exchange_price": {
     "label": "Preis, den der Zielakteur dem Herkunftsakteur zahlt (pro Einheit)",
@@ -2358,7 +2520,7 @@
     "description": "Ein Wert, von beiden Partnern vereinbart."
    },
    "cost.opex_delta_year": {
-    "label": "Jährliche Änderung der Betriebskosten des Herkunftsakteurs (ohne Transport)",
+    "label": "Jährliche Änderung der Betriebskosten des Herkunftsakteurs, ohne Transport (+ Kosten, − Einsparung)",
     "description": "Was der Austausch jedes Jahr für den abgebenden Akteur hinzufügt oder einspart; der Transport gehört in Logistik. Positiv für Mehrkosten, negativ für eine Einsparung, in Währung pro Jahr."
    },
    "cost.currency_year": {
@@ -2410,8 +2572,8 @@
     "label": "Währung und Bezugsjahr der Investition (z. B. EUR2024)"
    },
    "infra.amortization_period_y": {
-    "label": "Abschreibungsdauer (Jahre): technische Lebensdauer dieser Anlage",
-    "description": "Kein einheitlicher Wert: die technische Lebensdauer jeder Anlage (D4.2 §4.2, §7.3). Referenzwerte in Tabelle 7.1 der D4.2: Gebäude und allgemeine Infrastruktur 20-30 Jahre, Prozessanlagen und Maschinen 5-8 Jahre. Verwenden Sie in der LCA denselben Zeitraum (D4.1 §14.2.2). Nicht der steuerliche Abschreibungssatz: die Jahre, die die Anlage voraussichtlich arbeitet."
+    "label": "Technische Lebensdauer (Jahre)",
+    "description": "Wie viele Jahre die Anlage voraussichtlich arbeitet: der Zeitraum, über den ihre Kosten im LCC annualisiert und ihre Herstellung und ihr Lebensende in der LCA abgeschrieben werden (D4.2 §4.2, §7.3; D4.1 §6.3.3). Nicht die steuerliche Abschreibungsdauer. Referenzwerte, Tabelle 7.1 der D4.2: Gebäude und allgemeine Infrastruktur 20-30 Jahre, Prozessanlagen und Maschinen 5-8 Jahre, Kessel 6, spezifische Bioraffinerien 15."
    },
    "infra.discount_rate_pct": {
     "label": "Diskontsatz (%)"
@@ -2459,7 +2621,7 @@
     "description": "Der Hintergrunddatensatz, der das ersetzte Produkt modelliert, mit Datenbank und Version."
    },
    "cost.opex_delta_dest_year": {
-    "label": "Jährliche Änderung der Betriebskosten des Zielakteurs (ohne Transport)",
+    "label": "Jährliche Änderung der Betriebskosten des Zielakteurs, ohne Transport (+ Kosten, − Einsparung)",
     "description": "Was der Austausch jedes Jahr für den aufnehmenden Akteur hinzufügt oder einspart (D4.2 §5.3: die tatsächliche Kostenstruktur jedes Unternehmens). Positiv für Mehrkosten, negativ für eine Einsparung, in Währung pro Jahr."
    },
    "cost.avoided_procurement_cost": {
@@ -2473,6 +2635,55 @@
    "ref.side": {
     "label": "Seite des Flusses",
     "description": "Herkunft: der Akteur gibt diesen Fluss ab. Ziel: der Akteur nimmt ihn auf."
+   },
+   "cost.avoided_procurement_unit": {
+    "label": "Einheit des vermiedenen Einkaufs (z. B. EUR/t des Ersetzten, EUR/Jahr)",
+    "description": "Vom Zielakteur auszufüllen. Gilt der Betrag pro Einheit des ersetzten Produkts, nennen Sie dieses Produkt und wie viel davon eine Einheit des Flusses ersetzt (die Flussklassifizierung nennt das ersetzte Produkt); sonst pro Einheit des Flusses oder pro Jahr. Die Analystin oder der Analyst bringt die beiden vermiedenen Kosten auf dieselbe Basis."
+   },
+   "route.organised_by": {
+    "label": "Transport organisiert von",
+    "description": "Wer den Transport dieses Flusses organisiert und bezahlt: der abgebende Akteur, der aufnehmende Akteur oder ein Dritter (ein gemeinsamer Logistikdienst, ein Moderator). Ein Wert, von den beiden Partnern vereinbart. Diese Zeile füllt der hier genannte Akteur aus; bei einem Dritten der Partner, der ihn beauftragt. Jede Transportkostenposition wird einem Partner zugeordnet (D4.2 §4.3)."
+   },
+   "route.transport_cost_unit": {
+    "label": "Einheit der Transportkosten (z. B. EUR/t des Flusses, EUR/Fahrt, EUR/Jahr)",
+    "description": "In der Währung des Blatts Kosten und Erlöse. Bei Kosten pro Fahrt die Fahrten pro Jahr ergänzen (z. B. „EUR/Fahrt, 250 Fahrten/Jahr“)."
+   },
+   "infra.description": {
+    "label": "Anlage (was sie ist)",
+    "description": "Name und Größe in wenigen Worten, z. B. „Molketank, 200 m³“ oder „Dampfleitung, 1,2 km“."
+   },
+   "infra.flow_id": {
+    "label": "Bedienter Fluss",
+    "description": "Der Fluss, für den diese Anlage besteht. Leer lassen, wenn sie dem ganzen Netz oder mehreren Flüssen dient."
+   },
+   "classif.cff_a": {
+    "label": "CFF: Faktor A (0-1)",
+    "description": "Aufteilung von Lasten und Gutschriften zwischen Lieferant und Nutzer des recycelten Materials. Der Wert der PEFCR, falls es eine gibt, sonst der Standardwert der PEF-Methode (D4.1 §7.3.3)."
+   },
+   "classif.cff_b": {
+    "label": "CFF: Faktor B (0-1)",
+    "description": "Aufteilung der energetischen Verwertung zwischen dem jetzigen und dem folgenden System; 0 in der PEF-Methode, sofern eine PEFCR nichts anderes vorsieht."
+   },
+   "classif.cff_r1": {
+    "label": "CFF: R1, Rezyklat- oder Rückgewinnungsanteil (0-1)",
+    "description": "Anteil des Inputs des aufnehmenden Prozesses, der aus diesem zurückgewonnenen Fluss besteht."
+   },
+   "classif.cff_r2": {
+    "label": "CFF: R2, Recyclingquote am Lebensende (0-1)"
+   },
+   "classif.cff_r3": {
+    "label": "CFF: R3, energetische Verwertung am Lebensende (0-1)"
+   },
+   "classif.cff_qsin_qp": {
+    "label": "CFF: Qsin/Qp, Qualität des Flusses gegenüber dem ersetzten Primärmaterial",
+    "description": "In den Situationen A und C1 mit Q4 = D ist dies der Qualitätsfaktor Q dieser Zeile. In Situation B ist die CFF eine Sensitivität neben dem konsequenziellen Modell (Entscheidung von T4.6) und kann daher vom Q der Substitution abweichen."
+   },
+   "classif.cff_qsout_qp": {
+    "label": "CFF: Qsout/Qp, Qualität des am Lebensende recycelten Materials"
+   },
+   "classif.cff_source": {
+    "label": "Quelle der CFF-Parameter",
+    "description": "Gibt es eine anwendbare PEFCR, deren vorgeschriebene Werte für A und R; sonst die mit der PEF-Methode veröffentlichten Standardwerte (D4.1 §7.3.3). Das E-LCC wendet dieselben A, Qs/Qp und R1/R2/R3 auf die entsprechenden Kosten an (D4.2 §5.1)."
    }
   },
   "enums": {
@@ -2556,12 +2767,12 @@
    "market_price": "Marktpreis",
    "free": "kostenlos",
    "negotiated": "verhandelt",
-   "production": "Produktion",
-   "treatment": "Behandlung",
-   "transport": "Transport",
+   "production": "für den Austausch geänderter Produktionsschritt",
+   "treatment": "Behandlung oder Vorbehandlung",
+   "transport": "Transport (Leitung, Förderband, Verladung)",
    "storage": "Lagerung",
-   "conversion": "Umwandlung",
-   "supporting": "Hilfsfunktion",
+   "conversion": "Umwandlung (Faulbehälter, Kessel, Trockner, Rückgewinnungsanlage)",
+   "supporting": "Hilfsfunktion (Messung, Steuerung, Versorgung)",
    "existing": "bestehend",
    "new": "neu",
    "replaced": "ersetzt",
@@ -2573,7 +2784,10 @@
    "gate_fee": "Annahmegebühr",
    "partner": "Partner",
    "origin": "Herkunft (gibt den Fluss ab)",
-   "destination": "Ziel (nimmt den Fluss auf)"
+   "destination": "Ziel (nimmt den Fluss auf)",
+   "pefcr": "PEFCR der Produktkategorie",
+   "pef_annex_c_default": "Standardwerte der PEF-Methode (Anhang C)",
+   "study_specific": "studienspezifisch, unter Nachweise begründet"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "die Studie rechnet Substitution an (keine Bilanz eines einzelnen Unternehmens, Situation C2)",
@@ -2591,7 +2805,9 @@
    "q3.env": "die Studie hat die ökologische Dimension (Q3)",
    "q3.env and ilcd_situation == \"ILCD Situation B\"": "ökologische Dimension in ILCD-Situation B (konsequenziell)",
    "q3.env or q3.eco": "die Studie hat die ökologische oder die ökonomische Dimension (Q3)",
-   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "die Studie hat die soziale Dimension oder das gesellschaftliche LCC"
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "die Studie hat die soziale Dimension oder das gesellschaftliche LCC",
+   "False": "nicht mehr abgefragt: die Menge des Flusses steht in der Flussmatrix",
+   "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"": "die Studie folgt der Circular Footprint Formula der PEF (Q4 = D), außerhalb der Bilanz eines einzelnen Unternehmens (Situation C2)"
   },
   "ui": {
    "sheet.cover": "Deckblatt",
@@ -2840,7 +3056,7 @@
    },
    "infrastructure": {
     "title": "Infraestructuras",
-    "description": "Los bienes implicados en la red, una fila por bien: línea de producción, planta de tratamiento, tubería, almacén, unidad de conversión, instalación auxiliar."
+    "description": "Los bienes que existen por los intercambios, una fila por bien: almacenes, pretratamientos, tuberías, carga y medición, unidades de conversión construidas o ampliadas para los intercambios, y cualquier fase de producción modificada para un socio. No la línea de producción principal, que funcionaría igual sin el intercambio: es la misma en la simbiosis y en el escenario de referencia, y se anula (D4.1 §6.3.3; D4.2 §4.2). Lo rellena el actor que posee o explota el bien."
    },
    "methodological_choices": {
     "title": "Decisiones metodológicas que documentar",
@@ -2967,7 +3183,7 @@
    },
    "classif.avoidable": {
     "label": "Evitabilidad causal",
-    "description": "D4.2 §6.2: un tratamiento a coste cero exige que el residuo sea inevitable y sin valor de mercado positivo; la prueba de evitabilidad causal se declara por flujo."
+    "description": "D4.2 §6.2: un tratamiento a coste cero exige que el residuo sea inevitable y sin valor de mercado positivo; la prueba de evitabilidad causal se declara por flujo. En una evaluación de costes de una empresa (C-LCC) el flujo se contabiliza al precio negociado (D4.2 §6.3); la prueba señala igualmente los residuos evitables, para los que se presenta un escenario de prevención."
    },
    "classif.legal_class": {
     "label": "Clasificación jurídica",
@@ -2983,7 +3199,7 @@
    },
    "classif.tree_step_reached": {
     "label": "Paso del árbol de decisión alcanzado",
-    "description": "D4.1 §8.3.6: el paso del árbol de decisión en el que se decidió el tratamiento de este flujo."
+    "description": "D4.1 §8.3.6: el paso del árbol de decisión en el que se decidió el tratamiento de este flujo. En la situación C2 un coproducto se asigna, no se sustituye (D4.1 §7.2.3); un residuo conserva su punto de carga cero (paso 4)."
    },
    "classif.edge_case": {
     "label": "Caso límite",
@@ -2998,42 +3214,42 @@
    },
    "route.distance_km": {
     "label": "Distancia (km)",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena el actor indicado en «Transporte organizado por»."
    },
    "route.transport_mode": {
     "label": "Modo de transporte",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena el actor indicado en «Transporte organizado por»."
    },
    "route.frequency": {
     "label": "Frecuencia",
-    "description": "Lo rellena quien organiza el transporte.",
+    "description": "Lo rellena el actor indicado en «Transporte organizado por».",
     "values": {
      "continuous": "continua"
     }
    },
    "route.measured_volume_year": {
     "label": "Volumen medido (al año)",
-    "description": "Lo rellena quien organiza el transporte. La misma que la cantidad medida de la Matriz de flujos, salvo pérdidas durante el transporte."
+    "description": "Lo rellena el actor indicado en «Transporte organizado por». La misma que la cantidad medida de la Matriz de flujos, salvo pérdidas durante el transporte."
    },
    "route.projected_volume_year": {
     "label": "Volumen previsto por escenario (al año)",
-    "description": "Lo rellena quien organiza el transporte.",
+    "description": "Lo rellena el actor indicado en «Transporte organizado por».",
     "label_base": "Volumen previsto (al año)"
    },
    "route.backhaul_strategy": {
     "label": "Viaje de vuelta (carga de retorno)",
-    "description": "Lo rellena quien organiza el transporte."
+    "description": "Lo rellena el actor indicado en «Transporte organizado por»."
    },
    "route.transport_lci_dataset": {
     "label": "Referencia del conjunto de datos ICV del transporte"
    },
    "route.transport_cost_per_unit": {
-    "label": "Coste del transporte (por unidad)",
-    "description": "Lo rellena quien organiza el transporte. En moneda por unidad del flujo (p. ej. EUR/t), la unidad indicada en la Matriz de flujos."
+    "label": "Coste del transporte (número)",
+    "description": "Tal como se factura: por unidad del flujo, por viaje o al año; escribe la unidad en la columna siguiente. Lo rellena el actor indicado en «Transporte organizado por». El analista lo convierte en coste por unidad del flujo y por km para la distancia de equilibrio (D4.2 §4.3)."
    },
    "route.transport_sensitivity": {
     "label": "Qué hace a este flujo sensible a la distancia",
-    "description": "La distancia de equilibrio depende del tipo de flujo (D4.2 §4.2): voluminoso o de poco valor, húmedo, calor/vapor/agua por tubería o mercancía de alto valor. Lo rellena quien organiza el transporte."
+    "description": "La distancia de equilibrio depende del tipo de flujo (D4.2 §4.2): voluminoso o de poco valor, húmedo, calor/vapor/agua por tubería o mercancía de alto valor. Lo rellena el actor indicado en «Transporte organizado por»."
    },
    "route.break_even_distance_km": {
     "label": "Distancia de equilibrio (km)",
@@ -3051,8 +3267,8 @@
     "description": "Lo que paga hoy el actor de origen por deshacerse de este flujo: la referencia económica, que la simbiosis evita. Lo rellena el actor de origen (quien cede el flujo). Si el intercambio ya tiene lugar, escribe lo que pagaría el actor de origen sin él (eliminación, o el destino del escenario de referencia), no la tarifa que paga hoy al socio: esa va en la columna del precio."
    },
    "cost.disposal_cost_unit": {
-    "label": "Unidad de los dos costes evitados (p. ej. EUR/t, EUR/año)",
-    "description": "p. ej. EUR/t, EUR/año."
+    "label": "Unidad del coste de eliminación evitado (p. ej. EUR/t del flujo, EUR/año)",
+    "description": "Lo rellena el actor de origen. Por unidad del flujo, en la unidad de la Matriz de flujos, o al año: indica cuál."
    },
    "cost.exchange_price": {
     "label": "Precio que el actor de destino paga al actor de origen (por unidad)",
@@ -3063,7 +3279,7 @@
     "description": "Un solo valor, acordado por los dos socios."
    },
    "cost.opex_delta_year": {
-    "label": "Variación anual de los costes de explotación del actor de origen (sin transporte)",
+    "label": "Variación anual de los costes de explotación del actor de origen, sin transporte (+ coste, − ahorro)",
     "description": "Lo que el intercambio añade o ahorra cada año a quien cede el flujo; el transporte va en Logística. Positivo para un coste adicional, negativo para un ahorro, en moneda al año."
    },
    "cost.currency_year": {
@@ -3121,8 +3337,8 @@
     "label": "Moneda y año de referencia de la inversión (p. ej. EUR2024)"
    },
    "infra.amortization_period_y": {
-    "label": "Periodo de amortización (años): vida técnica de este bien",
-    "description": "Sin valor único: la vida técnica de cada bien (D4.2 §4.2, §7.3). Vidas de referencia en la Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años. Usa el mismo periodo en el LCA (D4.1 §14.2.2). No el coeficiente de amortización fiscal: los años que se espera que funcione el bien."
+    "label": "Vida técnica (años)",
+    "description": "Cuántos años se espera que funcione el bien: el periodo en el que su coste se anualiza en el LCC y su producción y fin de vida se amortizan en el LCA (D4.2 §4.2, §7.3; D4.1 §6.3.3). No el periodo de amortización fiscal. Valores de referencia, Tabla 7.1 de la D4.2: edificios e infraestructura general 20-30 años, equipos y maquinaria de proceso 5-8 años, calderas 6, biorrefinerías específicas 15."
    },
    "infra.discount_rate_pct": {
     "label": "Tasa de descuento (%)"
@@ -3170,7 +3386,7 @@
     "description": "El conjunto de datos de fondo que modela el producto sustituido, con base de datos y versión."
    },
    "cost.opex_delta_dest_year": {
-    "label": "Variación anual de los costes de explotación del actor de destino (sin transporte)",
+    "label": "Variación anual de los costes de explotación del actor de destino, sin transporte (+ coste, − ahorro)",
     "description": "Lo que el intercambio añade o ahorra cada año a quien recibe el flujo (D4.2 §5.3: la estructura de costes real de cada empresa). Positivo para un coste adicional, negativo para un ahorro, en moneda al año."
    },
    "cost.avoided_procurement_cost": {
@@ -3184,6 +3400,55 @@
    "ref.side": {
     "label": "Lado del flujo",
     "description": "Origen: el actor cede este flujo. Destino: el actor lo recibe."
+   },
+   "cost.avoided_procurement_unit": {
+    "label": "Unidad de la compra evitada (p. ej. EUR/t de lo que se sustituye, EUR/año)",
+    "description": "Lo rellena el actor de destino. Si la cifra es por unidad del producto sustituido, indica ese producto y cuánto de él sustituye una unidad del flujo (la Clasificación de flujos nombra el producto sustituido); si no, por unidad del flujo o al año. El analista lleva los dos costes evitados a la misma base."
+   },
+   "route.organised_by": {
+    "label": "Transporte organizado por",
+    "description": "Quién organiza y paga el transporte de este flujo: el actor que lo cede, el que lo recibe, o un tercero (un servicio logístico común, un facilitador). Un solo valor, acordado entre los dos socios. Esta fila la rellena el actor indicado aquí; con un tercero, el socio que lo contrata. Cada coste de transporte se atribuye a un socio (D4.2 §4.3)."
+   },
+   "route.transport_cost_unit": {
+    "label": "Unidad del coste del transporte (p. ej. EUR/t del flujo, EUR/viaje, EUR/año)",
+    "description": "En la moneda de la hoja Costes e ingresos. Si es por viaje, añade los viajes al año (p. ej. «EUR/viaje, 250 viajes/año»)."
+   },
+   "infra.description": {
+    "label": "Bien (qué es)",
+    "description": "Nombre y tamaño en pocas palabras, p. ej. «depósito de suero, 200 m³» o «tubería de vapor, 1,2 km»."
+   },
+   "infra.flow_id": {
+    "label": "Flujo servido",
+    "description": "El flujo para el que existe este bien. Déjalo vacío si sirve a toda la red o a varios flujos."
+   },
+   "classif.cff_a": {
+    "label": "CFF: factor A (0-1)",
+    "description": "Reparto de cargas y créditos entre el proveedor y el usuario del material reciclado. El valor de la PEFCR si existe, si no el valor por defecto del método PEF (D4.1 §7.3.3)."
+   },
+   "classif.cff_b": {
+    "label": "CFF: factor B (0-1)",
+    "description": "Reparto de la recuperación energética entre el sistema actual y el siguiente; 0 en el método PEF, salvo que una PEFCR diga otra cosa."
+   },
+   "classif.cff_r1": {
+    "label": "CFF: R1, contenido reciclado o recuperado (0-1)",
+    "description": "Parte de la entrada del proceso receptor que es este flujo recuperado."
+   },
+   "classif.cff_r2": {
+    "label": "CFF: R2, tasa de reciclaje al final de la vida útil (0-1)"
+   },
+   "classif.cff_r3": {
+    "label": "CFF: R3, recuperación energética al final de la vida útil (0-1)"
+   },
+   "classif.cff_qsin_qp": {
+    "label": "CFF: Qsin/Qp, calidad del flujo respecto al material virgen que sustituye",
+    "description": "En las situaciones A y C1 con Q4 = D es el factor de calidad Q de esta fila. En la situación B la CFF es una sensibilidad junto al modelo consecuencial (elección de T4.6), así que puede diferir del Q de la sustitución."
+   },
+   "classif.cff_qsout_qp": {
+    "label": "CFF: Qsout/Qp, calidad del material reciclado al final de la vida útil"
+   },
+   "classif.cff_source": {
+    "label": "Fuente de los parámetros de la CFF",
+    "description": "Si existe una PEFCR aplicable, los valores de A y R que prescribe; si no, los valores por defecto publicados con el método PEF (D4.1 §7.3.3). El E-LCC aplica los mismos A, Qs/Qp y R1/R2/R3 a los costes correspondientes (D4.2 §5.1)."
    }
   },
   "enums": {
@@ -3267,12 +3532,12 @@
    "market_price": "precio de mercado",
    "free": "gratuito",
    "negotiated": "negociado",
-   "production": "producción",
-   "treatment": "tratamiento",
-   "transport": "transporte",
+   "production": "fase de producción modificada para el intercambio",
+   "treatment": "tratamiento o pretratamiento",
+   "transport": "transporte (tubería, cinta, carga)",
    "storage": "almacenamiento",
-   "conversion": "conversión",
-   "supporting": "auxiliar",
+   "conversion": "conversión (digestor, caldera, secador, unidad de recuperación)",
+   "supporting": "auxiliar (medición, control, suministros)",
    "existing": "existente",
    "new": "nuevo",
    "replaced": "sustituido",
@@ -3284,7 +3549,10 @@
    "gate_fee": "tasa de recepción",
    "partner": "socio",
    "origin": "origen (cede el flujo)",
-   "destination": "destino (recibe el flujo)"
+   "destination": "destino (recibe el flujo)",
+   "pefcr": "PEFCR de la categoría de producto",
+   "pef_annex_c_default": "valores por defecto del método PEF (Anexo C)",
+   "study_specific": "propios del estudio, justificados en Evidencias"
   },
   "reasons": {
    "q3.env and ilcd_situation != \"ILCD Situation C2\"": "el estudio acredita la sustitución (no es la contabilidad de una sola empresa, situación C2)",
@@ -3302,7 +3570,9 @@
    "q3.env": "el estudio tiene la dimensión ambiental (Q3)",
    "q3.env and ilcd_situation == \"ILCD Situation B\"": "dimensión ambiental en la Situación ILCD B (consecuencial)",
    "q3.env or q3.eco": "el estudio tiene la dimensión ambiental o la económica (Q3)",
-   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "el estudio tiene la dimensión social o el LCC social"
+   "q3.soc or lcc_type in [\"C+E+S\", \"C+N+S\"]": "el estudio tiene la dimensión social o el LCC social",
+   "False": "retirado: la cantidad del flujo se escribe en la Matriz de flujos",
+   "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"": "el estudio sigue la Circular Footprint Formula de la PEF (Q4 = D), fuera de la contabilidad de una sola empresa (situación C2)"
   },
   "ui": {
    "sheet.cover": "Portada",

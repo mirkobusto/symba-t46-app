@@ -5,7 +5,7 @@
     "generated": "2026-05-22",
     "spec_reference": "docs/implementation/DATA_COLLECTION_FILE_v1.md",
     "predicate_dsl_version": "v1",
-    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state, has_scenarios (the case defines alternative scenarios), dedicated_shared_assets (Q12: True / False / None), future_background (the study needs a future background: Q8 or TRL below 7). Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]).",
+    "predicate_dsl_note": "activation_predicate is a string. Phase 2 implements the evaluator (spec §11 D1: mini-DSL ad-hoc). Allowed identifiers: q1, q2, q3.env, q3.eco, q3.soc, q4 (set), q5 (per-flow), q6a, q6b, q7, ilcd_situation, lcc_type, slca_activation_state, has_scenarios (the case defines alternative scenarios), dedicated_shared_assets (Q12: True / False / None), future_background (the study needs a future background: Q8 or TRL below 7). Allowed operators: ==, !=, in, not in, and, or, not, parentheses. Special token: 'always' = always True. Enum values are bare strings (e.g. q1 == \"B\", q6a in [\"waste_valorization\", \"energy_utilities\"]). The literal 'False' marks a retired field: never active, its stored values stay dormant and are not exported (UX round 6, 2026-11-08).",
     "namespace": "dcf",
     "non_authoritative_until_approved": true
   },
@@ -322,7 +322,7 @@
           ],
           "required": false,
           "activation_predicate": "q3.eco",
-          "description_en": "D4.2 §6.2: a zero-cost treatment needs the residue to be unavoidable and without positive market value; the causal avoidability test is declared per flow."
+          "description_en": "D4.2 §6.2: a zero-cost treatment needs the residue to be unavoidable and without positive market value; the causal avoidability test is declared per flow. In a company-level costing (C-LCC) the flow is booked at the negotiated price (D4.2 §6.3); the test still flags avoidable residues, for which a prevention scenario is reported."
         },
         {
           "id": "classif.legal_class",
@@ -379,7 +379,7 @@
           ],
           "required": false,
           "activation_predicate": "q3.env",
-          "description_en": "D4.1 §8.3.6: the step of the decision tree at which the treatment of this flow was settled."
+          "description_en": "D4.1 §8.3.6: the step of the decision tree at which the treatment of this flow was settled. In Situation C2 a co-product is allocated, not substituted (D4.1 §7.2.3); a waste keeps its zero-burden point (Step 4)."
         },
         {
           "id": "classif.edge_case",
@@ -428,6 +428,92 @@
           "required": false,
           "activation_predicate": "q3.env and ilcd_situation != \"ILCD Situation C2\"",
           "description_en": "Background dataset that models the substituted product, with database and version."
+        },
+        {
+          "id": "classif.cff_a",
+          "label_en": "CFF: A factor (0-1)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0,
+          "max": 1,
+          "description_en": "Allocation of burdens and credits between the supplier and the user of the recycled material. The PEFCR value where one exists, otherwise the PEF method default (D4.1 §7.3.3)."
+        },
+        {
+          "id": "classif.cff_b",
+          "label_en": "CFF: B factor (0-1)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0,
+          "max": 1,
+          "description_en": "Allocation of energy recovery between the current and the subsequent system; 0 in the PEF method unless a PEFCR says otherwise."
+        },
+        {
+          "id": "classif.cff_r1",
+          "label_en": "CFF: R1, recycled or recovered content (0-1)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0,
+          "max": 1,
+          "description_en": "Share of the input to the receiving process that is this recovered flow."
+        },
+        {
+          "id": "classif.cff_r2",
+          "label_en": "CFF: R2, recycling rate at end of life (0-1)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0,
+          "max": 1
+        },
+        {
+          "id": "classif.cff_r3",
+          "label_en": "CFF: R3, energy recovery at end of life (0-1)",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0,
+          "max": 1
+        },
+        {
+          "id": "classif.cff_qsin_qp",
+          "label_en": "CFF: Qsin/Qp, quality of the flow over the virgin material it replaces",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0,
+          "description_en": "In Situation A and C1 with Q4 = D this is the quality factor Q of this row. In Situation B the CFF is a sensitivity next to the consequential model (T4.6 choice), so it may differ from the Q of the substitution."
+        },
+        {
+          "id": "classif.cff_qsout_qp",
+          "label_en": "CFF: Qsout/Qp, quality of the material recycled at end of life",
+          "type": "float",
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "min": 0
+        },
+        {
+          "id": "classif.cff_source",
+          "label_en": "Source of the CFF parameters",
+          "type": "enum",
+          "enum_values": [
+            "pefcr",
+            "pef_annex_c_default",
+            "study_specific"
+          ],
+          "required": false,
+          "activation_predicate": "q3.env and \"D\" in q4 and ilcd_situation != \"ILCD Situation C2\"",
+          "filled_by": "analyst",
+          "description_en": "Where an applicable PEFCR exists, its prescribed A and R values; otherwise the defaults published with the PEF method (D4.1 §7.3.3). The E-LCC applies the same A, Qs/Qp and R1/R2/R3 to the corresponding costs (D4.2 §5.1)."
         },
         {
           "id": "classif.evidence",
@@ -506,6 +592,19 @@
           "activation_predicate": "always"
         },
         {
+          "id": "route.organised_by",
+          "label_en": "Transport organised by",
+          "type": "enum",
+          "enum_values": [
+            "origin",
+            "destination",
+            "third_party"
+          ],
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Who arranges and pays for the transport of this flow: the actor that gives it, the actor that receives it, or a third party (a joint logistics service, a facilitator). One value, agreed by the two partners. Every transport cost is traced to one partner (D4.2 §4.3)."
+        },
+        {
           "id": "route.distance_km",
           "label_en": "Distance (km)",
           "type": "float",
@@ -547,14 +646,16 @@
           "label_en": "Measured volume (per year)",
           "type": "float",
           "required": false,
-          "activation_predicate": "q2 == \"A\""
+          "activation_predicate": "False",
+          "description_en": "Retired: the quantity of the flow is the one written in the Flow Matrix. Stored values are kept and not exported."
         },
         {
           "id": "route.projected_volume_year",
           "label_en": "Projected volume per scenario (per year)",
           "type": "float_per_scenario",
           "required": false,
-          "activation_predicate": "q2 == \"B\" or has_scenarios"
+          "activation_predicate": "False",
+          "description_en": "Retired: the quantity of the flow is the one written in the Flow Matrix. Stored values are kept and not exported."
         },
         {
           "id": "route.backhaul_strategy",
@@ -578,10 +679,19 @@
         },
         {
           "id": "route.transport_cost_per_unit",
-          "label_en": "Transport cost (per unit)",
+          "label_en": "Transport cost (number)",
           "type": "float",
           "required": false,
-          "activation_predicate": "q3.eco"
+          "activation_predicate": "q3.eco",
+          "description_en": "As billed: per unit of the flow, per trip or per year; write the unit in the next column. The analyst turns it into a cost per unit of the flow and per km for the break-even distance (D4.2 §4.3)."
+        },
+        {
+          "id": "route.transport_cost_unit",
+          "label_en": "Unit of the transport cost (e.g. EUR/t of the flow, EUR/trip, EUR/year)",
+          "type": "string",
+          "required": false,
+          "activation_predicate": "q3.eco",
+          "description_en": "In the currency of the Costs & Revenues sheet. If per trip, add the trips per year (e.g. \"EUR/trip, 250 trips/year\")."
         },
         {
           "id": "route.transport_sensitivity",
@@ -652,6 +762,14 @@
           "description_en": "What the origin actor pays today to get rid of this flow. The economic counterfactual (CNSRS): the symbiosis avoids it."
         },
         {
+          "id": "cost.disposal_cost_unit",
+          "label_en": "Unit of the avoided disposal cost (e.g. EUR/t of the flow, EUR/year)",
+          "type": "string",
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "Filled in by the origin actor. Per unit of the flow, in the unit of the Flow Matrix, or per year: say which."
+        },
+        {
           "id": "cost.avoided_procurement_cost",
           "label_en": "What the destination actor pays today for what this flow replaces (avoided purchase)",
           "type": "float",
@@ -660,12 +778,12 @@
           "description_en": "The recipient's avoided cost: what it would buy without the exchange (D4.2 §6.2 L00769)."
         },
         {
-          "id": "cost.disposal_cost_unit",
-          "label_en": "Unit of the two avoided costs (e.g. EUR/t, EUR/year)",
+          "id": "cost.avoided_procurement_unit",
+          "label_en": "Unit of the avoided purchase (e.g. EUR/t of what is replaced, EUR/year)",
           "type": "string",
           "required": false,
           "activation_predicate": "always",
-          "description_en": "e.g. EUR/t, EUR/year."
+          "description_en": "Filled in by the destination actor. If the figure is per unit of the product replaced, name that product and how much of it one unit of the flow replaces (the Flow classification names the replaced product); otherwise per unit of the flow or per year. The analyst brings the two avoided costs to one basis (D4.2 §5.3)."
         },
         {
           "id": "cost.exchange_price",
@@ -692,7 +810,7 @@
         },
         {
           "id": "cost.opex_delta_year",
-          "label_en": "Change in the origin actor's yearly operating cost (excluding transport)",
+          "label_en": "Change in the origin actor's yearly operating cost, excluding transport (+ cost, − saving)",
           "type": "float",
           "required": false,
           "activation_predicate": "always",
@@ -700,7 +818,7 @@
         },
         {
           "id": "cost.opex_delta_dest_year",
-          "label_en": "Change in the destination actor's yearly operating cost (excluding transport)",
+          "label_en": "Change in the destination actor's yearly operating cost, excluding transport (+ cost, − saving)",
           "type": "float",
           "required": false,
           "activation_predicate": "always",
@@ -749,7 +867,7 @@
     {
       "id": "infrastructure",
       "title_en": "Infrastructure",
-      "description_en": "Assets involved in the IS network. One row per asset (production line, treatment plant, pipeline, storage, conversion unit, supporting facility).",
+      "description_en": "The assets that exist because of the exchanges, one row per asset: storage, pre-treatment, pipelines, loading and metering, conversion units built or enlarged for them, and any production step changed for a partner. Not the main production line that would run the same without the exchange: it is the same in the symbiosis and in the reference and cancels out (D4.1 §6.3.3; D4.2 §4.2).",
       "applies_when": "always",
       "row_collection": "user_added",
       "filled_by": "company",
@@ -763,11 +881,27 @@
           "filled_by": "engine"
         },
         {
+          "id": "infra.description",
+          "label_en": "Asset (what it is)",
+          "type": "string",
+          "required": true,
+          "activation_predicate": "always",
+          "description_en": "Name and size in a few words, e.g. \"whey storage tank, 200 m³\" or \"steam pipeline, 1.2 km\"."
+        },
+        {
           "id": "infra.linked_actor_id",
           "label_en": "Linked actor (FK)",
           "type": "fk_actor",
           "required": true,
           "activation_predicate": "always"
+        },
+        {
+          "id": "infra.flow_id",
+          "label_en": "Flow served",
+          "type": "fk_flow",
+          "required": false,
+          "activation_predicate": "always",
+          "description_en": "The flow this asset exists for. Leave blank if it serves the whole network or several flows."
         },
         {
           "id": "infra.purpose",
@@ -846,9 +980,9 @@
         },
         {
           "id": "infra.amortization_period_y",
-          "label_en": "Amortization period (years): technical lifetime of this asset",
+          "label_en": "Technical lifetime (years)",
           "type": "int",
-          "description_en": "No single default: the technical lifetime of each asset (D4.2 §4.2, §7.3). Reference lifetimes in D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years. Use the same period in the LCA (D4.1 §14.2.2).",
+          "description_en": "How many years the asset is expected to work: the period over which its cost is annualised in the LCC and its production and end of life are amortised in the LCA (D4.2 §4.2, §7.3; D4.1 §6.3.3). Not the tax depreciation period. Reference values, D4.2 Table 7.1: buildings and general infrastructure 20-30 years, processing equipment and machinery 5-8 years, boilers 6, specific biorefineries 15.",
           "required": false,
           "activation_predicate": "q2 == \"B\" or has_scenarios or dedicated_shared_assets == True",
           "row_condition": "infra.status == \"new\"",

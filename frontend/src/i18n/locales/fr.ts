@@ -1475,7 +1475,6 @@ const fr: Locale = {
     },
   },
 
-
   reasoning: {
     activatedNodes: 'Nœuds activés ({{count}})',
     pillarConfigs: 'Configurations par pillar',
@@ -1576,13 +1575,6 @@ const fr: Locale = {
     },
   },
 
-  scoringPending: {
-    title: "Pas encore de résultats",
-    body:
-      "Cet outil ne calcule pas les chiffres environnementaux, économiques ou sociaux. La personne qui réalise l'étude les calcule hors de l'outil ; cette version n'a pas encore de page pour les charger dans le cas.",
-    lastChecked: "Dernière vérification : {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "oui",
@@ -1598,28 +1590,19 @@ const fr: Locale = {
       industry: {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quelle méthodologie l'évaluation suivra, et donc quelles données vous seront demandées. La demande elle-même, c'est le Data Collection File.",
-        whenScoring:
-          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : indicateurs environnementaux et économiques, pour juger si l\'échange est rentable.',
       },
       community: {
-        whenScoringNoSocial: "Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l'outil n'a pas encore de page pour les charger dans le cas. L'étude donnerait : des indicateurs environnementaux. Cette étude n'a pas d'indicateurs sociaux, car la dimension sociale n'est pas évaluée.",
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels flux les entreprises échangent, et si cette étude examine ou non les effets sociaux.",
-        whenScoring:
-          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : des indicateurs sociaux (travailleurs, communauté locale) et environnementaux, chacun avec le groupe qu\'il concerne.',
       },
       authority: {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : comment l'évaluation est cadrée, quels signaux de conformité le cas déclare, et à quel point les interactions clés sont concentrées.",
-        whenScoring:
-          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : les chiffres environnementaux et, quand l\'étude les inclut, les coûts pour la société.',
         scope: "Concentration des interactions clés : {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Ce que cette page vous dit aujourd'hui : quels matériaux cette symbiose remet en usage, et si les effets environnementaux et sociaux sont examinés.",
-        whenScoring:
-          'Cet outil ne calcule pas les chiffres, et personne ne les calcule automatiquement pour votre cas. Un analyste qui réalise l\'étude avec le Data Collection File les calcule avec ses propres outils ; cette version de l\'outil n\'a pas encore de page pour les charger dans le cas. L\'étude donnerait : les indicateurs environnementaux et sociaux de la chaîne derrière le produit.',
         productCaveat:
           "Cette évaluation décrit l'échange entre les entreprises, pas le produit final que vous achetez : l'outil ne demande jamais quel est le produit.",
       },
@@ -1664,7 +1647,6 @@ const fr: Locale = {
       slca: 'Activation S-LCA',
     },
     scoringTitle: 'Résultats',
-    scoringPendingTitle: 'Pas encore de résultats',
     scoringPendingBody:
       'Cet outil ne calcule pas les chiffres environnementaux, économiques ou sociaux. La personne qui réalise l\'étude les calcule hors de l\'outil ; cette version n\'a pas encore de page pour les charger dans le cas.',
     scoringEmpty: 'Aucun indicateur pertinent pour cette partie prenante.',

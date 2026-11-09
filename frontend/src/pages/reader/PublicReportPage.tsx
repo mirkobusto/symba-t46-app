@@ -19,7 +19,6 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 
 import ComplianceChecklist from '../../components/dd/ComplianceChecklist'
-import PendingScoringPlaceholder from '../../components/dd/PendingScoringPlaceholder'
 import ScoringIndicatorGrid from '../../components/dd/ScoringIndicatorGrid'
 import VerdictCard from '../../components/dd/VerdictCard'
 import { ApiError, fetchPublicReport } from '../../services/api'
@@ -257,16 +256,14 @@ export default function PublicReportPage() {
         ? <p className="dd-soft">{t('stakeholder.notAssessed.environmental')}</p> : null}
       {!c.q3?.eco ? <p className="dd-soft">{t('stakeholder.notAssessed.economic')}</p> : null}
 
-      <section>
-        <h2 className="dd-section-title">{t('reader.scoringTitle')}</h2>
-        <div className="dd-card" style={{ marginTop: 8 }}>
-          {scoring ? (
+      {scoring ? (
+        <section>
+          <h2 className="dd-section-title">{t('reader.scoringTitle')}</h2>
+          <div className="dd-card" style={{ marginTop: 8 }}>
             <ScoringIndicatorGrid indicators={scoringIndicators} />
-          ) : (
-            <PendingScoringPlaceholder caseId={report.id} />
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      ) : null}
 
       {validAudience === 'authority' ? (
         <section>

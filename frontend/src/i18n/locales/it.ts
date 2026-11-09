@@ -1489,7 +1489,6 @@ const it: Locale = {
     },
   },
 
-
   reasoning: {
     activatedNodes: 'Nodi attivati ({{count}})',
     pillarConfigs: 'Configurazioni per pillar',
@@ -1591,13 +1590,6 @@ const it: Locale = {
     },
   },
 
-  scoringPending: {
-    title: "Ancora nessun risultato",
-    body:
-      "Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola fuori dallo strumento chi esegue lo studio; questa versione non ha ancora una pagina per caricarli nel caso.",
-    lastChecked: "Ultimo controllo: {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "sì",
@@ -1613,28 +1605,19 @@ const it: Locale = {
       industry: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quale metodologia seguirà la valutazione, e quindi quali dati ti verranno chiesti. La richiesta dei dati è il Data Collection File.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori ambientali ed economici, per giudicare se lo scambio conviene.',
       },
       community: {
-        whenScoringNoSocial: "Questo strumento non calcola le cifre, e nessuno le calcola automaticamente per il vostro caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori ambientali. Questo studio non ha indicatori sociali, perché la dimensione sociale non è valutata.",
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali flussi le aziende si scambiano, e se questo studio esamina o no gli effetti sociali.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori sociali (lavoratori, comunità locale) e ambientali, ciascuno con il gruppo che riguarda.',
       },
       authority: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e quanto sono concentrate le interazioni chiave.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: i numeri ambientali e, dove lo studio li include, i costi per la società.',
         scope: "Quanto sono concentrate le interazioni chiave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali materiali questa simbiosi rimette in uso, e se gli effetti ambientali e sociali sono esaminati.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: gli indicatori ambientali e sociali della filiera dietro il prodotto.',
         productCaveat:
           "Questa valutazione descrive lo scambio tra le aziende, non il prodotto finale che compri: lo strumento non chiede quale sia il prodotto.",
       },
@@ -1679,7 +1662,6 @@ const it: Locale = {
       slca: 'Attivazione S-LCA',
     },
     scoringTitle: 'Risultati',
-    scoringPendingTitle: 'Ancora nessun risultato',
     scoringPendingBody:
       'Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola fuori dallo strumento chi esegue lo studio; questa versione non ha ancora una pagina per caricarli nel caso.',
     scoringEmpty: 'Nessun indicatore rilevante per questo stakeholder.',

@@ -1469,7 +1469,6 @@ const es: Locale = {
     },
   },
 
-
   reasoning: {
     activatedNodes: 'Nodos activados ({{count}})',
     pillarConfigs: 'Configuraciones por pillar',
@@ -1570,13 +1569,6 @@ const es: Locale = {
     },
   },
 
-  scoringPending: {
-    title: "Todavía no hay resultados",
-    body:
-      "Esta herramienta no calcula las cifras ambientales, de costes o sociales. Las calcula fuera de la herramienta quien realiza el estudio; esta versión aún no tiene una página para cargarlas en el caso.",
-    lastChecked: "Última comprobación: {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "sí",
@@ -1592,28 +1584,19 @@ const es: Locale = {
       industry: {
         whatYouSee:
           "Lo que esta página te dice hoy: qué metodología seguirá la evaluación y, por tanto, qué datos se te pedirán. La petición en sí es el Data Collection File.",
-        whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores ambientales y económicos, para juzgar si el intercambio compensa.',
       },
       community: {
-        whenScoringNoSocial: "Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores ambientales. Este estudio no tiene indicadores sociales, porque la dimensión social no se evalúa.",
         whatYouSee:
           "Lo que esta página te dice hoy: qué flujos intercambian las empresas y si este estudio examina o no los efectos sociales.",
-        whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: indicadores sociales (trabajadores, comunidad local) y ambientales, cada uno con el grupo al que afecta.',
       },
       authority: {
         whatYouSee:
           "Lo que esta página te dice hoy: cómo está planteada la evaluación, qué señales de conformidad declara el caso y cuán concentradas están las interacciones clave.",
-        whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: las cifras ambientales y, cuando el estudio las incluye, los costes para la sociedad.',
         scope: "Cuán concentradas están las interacciones clave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Lo que esta página te dice hoy: qué materiales devuelve al uso esta simbiosis y si se examinan los efectos ambientales y sociales.",
-        whenScoring:
-          'Esta herramienta no calcula las cifras, y nadie las calcula automáticamente para tu caso. Un analista que realiza el estudio con el Data Collection File las calcula con sus propias herramientas; esta versión de la herramienta aún no tiene una página para cargarlas en el caso. El estudio daría: los indicadores ambientales y sociales de la cadena detrás del producto.',
         productCaveat:
           "Esta evaluación describe el intercambio entre las empresas, no el producto final que compras: la herramienta nunca pregunta cuál es el producto.",
       },
@@ -1658,7 +1641,6 @@ const es: Locale = {
       slca: 'Activación S-LCA',
     },
     scoringTitle: 'Resultados',
-    scoringPendingTitle: 'Todavía no hay resultados',
     scoringPendingBody:
       'Esta herramienta no calcula las cifras ambientales, de costes o sociales. Las calcula fuera de la herramienta quien realiza el estudio; esta versión aún no tiene una página para cargarlas en el caso.',
     scoringEmpty: 'No hay indicadores relevantes para este público.',

@@ -1614,13 +1614,6 @@ const en = {
     },
   },
 
-  scoringPending: {
-    title: "No results yet",
-    body:
-      "This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them outside the tool; this version has no page to load them into the case yet.",
-    lastChecked: "Last checked: {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "yes",
@@ -1636,28 +1629,19 @@ const en = {
       industry: {
         whatYouSee:
           "What this page tells you today: which methodology the assessment will follow, and therefore which data you will be asked for. The data request itself is the Data Collection File.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
-        whenScoringNoSocial: "This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental indicators. This study has no social indicators, because the social dimension is not assessed.",
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: social indicators (workers, local community) and environmental ones, each with the group it concerns.',
       },
       authority: {
         whatYouSee:
           "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and how concentrated the key interactions are.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: the environmental figures and, where the study includes them, the societal costs.',
         scope: "How concentrated the key interactions are: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "What this page tells you today: which materials this symbiosis puts back into use, and whether environmental and social effects are examined.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: the environmental and social indicators of the chain behind the product.',
         productCaveat:
           "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
       },
@@ -1702,7 +1686,6 @@ const en = {
       slca: 'S-LCA activation',
     },
     scoringTitle: 'Results',
-    scoringPendingTitle: 'No results yet',
     scoringPendingBody:
       'This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them outside the tool; this version has no page to load them into the case yet.',
     scoringEmpty: 'No indicators relevant for this stakeholder.',

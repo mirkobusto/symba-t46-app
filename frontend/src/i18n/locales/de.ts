@@ -1469,7 +1469,6 @@ const de: Locale = {
     },
   },
 
-
   reasoning: {
     activatedNodes: 'Aktivierte Knoten ({{count}})',
     pillarConfigs: 'Pillar-Konfigurationen',
@@ -1570,13 +1569,6 @@ const de: Locale = {
     },
   },
 
-  scoringPending: {
-    title: "Noch keine Ergebnisse",
-    body:
-      "Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie außerhalb des Tools; diese Version hat noch keine Seite, um sie in den Fall zu laden.",
-    lastChecked: "Zuletzt geprüft: {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "ja",
@@ -1592,28 +1584,19 @@ const de: Locale = {
       industry: {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welcher Methodik die Bewertung folgt und welche Daten deshalb von Ihnen verlangt werden. Die Abfrage selbst ist das Data Collection File.",
-        whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: Umwelt- und Wirtschaftsindikatoren, um zu beurteilen, ob sich der Austausch lohnt.',
       },
       community: {
-        whenScoringNoSocial: "Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: Umweltindikatoren. Diese Studie hat keine sozialen Indikatoren, weil die soziale Dimension nicht bewertet wird.",
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Stoffströme die Unternehmen austauschen, und ob diese Studie soziale Wirkungen überhaupt untersucht.",
-        whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: soziale Indikatoren (Beschäftigte, lokale Gemeinschaft) und Umweltindikatoren, jeweils mit der Gruppe, die sie betreffen.',
       },
       authority: {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: wie die Bewertung angelegt ist, welche Compliance-Signale der Fall angibt und wie konzentriert die wichtigsten Wechselwirkungen sind.",
-        whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: die Umweltzahlen und, wo die Studie sie enthält, die gesellschaftlichen Kosten.',
         scope: "Wie konzentriert die wichtigsten Wechselwirkungen sind: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Was diese Seite Ihnen heute sagt: welche Materialien diese Symbiose wieder in Umlauf bringt und ob ökologische und soziale Wirkungen untersucht werden.",
-        whenScoring:
-          'Dieses Tool berechnet die Zahlen nicht, und niemand berechnet sie automatisch für Ihren Fall. Wer die Studie mit dem Data Collection File durchführt, berechnet sie mit eigener Software; diese Version des Tools hat noch keine Seite, um sie in den Fall zu laden. Die Studie würde liefern: die Umwelt- und Sozialindikatoren der Kette hinter dem Produkt.',
         productCaveat:
           "Diese Bewertung beschreibt den Austausch zwischen den Unternehmen, nicht das Endprodukt, das Sie kaufen: das Werkzeug fragt nie, welches Produkt es ist.",
       },
@@ -1658,7 +1641,6 @@ const de: Locale = {
       slca: 'S-LCA-Aktivierung',
     },
     scoringTitle: 'Ergebnisse',
-    scoringPendingTitle: 'Noch keine Ergebnisse',
     scoringPendingBody:
       'Dieses Tool berechnet keine Umwelt-, Kosten- oder Sozialkennzahlen. Wer die Studie durchführt, berechnet sie außerhalb des Tools; diese Version hat noch keine Seite, um sie in den Fall zu laden.',
     scoringEmpty: 'Keine für diesen Stakeholder relevanten Indikatoren.',

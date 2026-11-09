@@ -1950,24 +1950,6 @@ kbd {
   margin: 0;
 }
 
-.stakeholder-scoring-placeholder {
-  padding: 14px 16px;
-  background: #fef3c7;
-  border-left: 3px solid #f59e0b;
-  border-radius: 4px;
-}
-
-.stakeholder-scoring-placeholder strong {
-  display: block;
-  margin-bottom: 4px;
-  color: #78350f;
-}
-
-.stakeholder-scoring-placeholder p {
-  margin: 0;
-  color: #78350f;
-  font-size: 0.9rem;
-}
 
 .stakeholder-indicators-grid {
   display: grid;
@@ -3416,7 +3398,7 @@ kbd {
   margin-top: 6px;
 }
 
-/* ---- PendingScoringPlaceholder ------------------------------------------ */
+/* ---- dd-pending: a notice box (Share dialog) ----------------------------- */
 
 .dd-pending {
   background: var(--dd-amber-bg);
@@ -3441,15 +3423,7 @@ kbd {
   margin: 6px 0 0;
 }
 
-.dd-pending-meta {
-  font-size: 11px;
-  color: var(--dd-text-muted);
-  margin-top: 8px;
-}
 
-.dd-pending-extra {
-  margin-top: 10px;
-}
 
 /* ---- ScoringIndicatorGrid ---------------------------------------------- */
 

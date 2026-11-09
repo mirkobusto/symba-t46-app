@@ -246,7 +246,6 @@ export default function PublicReportPage() {
           <p>{report.case_contact
             ? t('reader.dataRequest', { contact: report.case_contact })
             : t('reader.dataRequestNoContact')}</p>
-          <p><Link to="/r/fill-in">{t('reader.fillIn.howLink')} →</Link></p>
         </section>
       ) : null}
       {validAudience === 'community' || validAudience === 'enduser' ? (

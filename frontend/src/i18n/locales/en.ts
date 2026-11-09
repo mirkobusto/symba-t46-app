@@ -71,22 +71,6 @@ const en = {
     countries: "Where the plants are: {{countries}}",
     flowsAsNamed: "The exchanges, as named by whoever prepared the case:",
     whatYouCanDoEndUser: "This study is still being set up. For what it means for the product you bought, ask whoever put this link on it; for the study itself, write to whoever prepared it: {{contact}}. Results, once loaded, appear on this same page at this same link.",
-    fillIn: {
-      eyebrow: "Data Collection File",
-      title: "Filling in a Data Collection File",
-      lead: "You received an Excel workbook from whoever carries out a study of the exchanges your company takes part in. You need no account and no tool: everything happens in the workbook.",
-      steps: {
-        cover: "Read the cover: it says which case the file belongs to, what is asked of you, by when, and whom to send it back to.",
-        rows: "Fill in only your rows: the flows your company gives or receives, in the sheets the cover names, and in them only the columns of your side (origin or destination).",
-        grey: "Leave the grey columns and the sheets for whoever carries out the study as they are. If a value that arrives already filled in is wrong for your flow, tell the contact.",
-        unknown: "If you do not know a value, leave the cell empty and say so: an empty cell is a known gap, a guessed number is an unknown error. Write the unit next to every quantity and the currency and year next to every cost.",
-        confidential: "Confidential values: write \"confidential\" in the cell and send the value only to the contact on the cover. Do not forward the workbook to other partners: it may carry their data.",
-        send: "Send the filled-in file back to the contact on the cover by the date it gives.",
-      },
-      reportLine: "Did you also receive a link to the report? Open it: its Industry tab says what the study does and which data it needs.",
-      reportLink: "Read a shared report",
-      howLink: "How to fill it in",
-    },
     tagline: 'Public report',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -229,7 +213,6 @@ const en = {
       unknown: { name: 'Not sure yet', desc: 'That\'s fine: we start you on the overview page.' },
     },
     tasks: {
-      fill: { name: "I have to fill in a Data Collection File", desc: "Someone sent me an Excel workbook about my company's exchanges and I have to send it back filled in." },
       assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
       read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore the cases by sector or country', desc: "See how the saved cases are spread across methods and sectors, and the public page of each country." },
@@ -327,8 +310,6 @@ const en = {
     reader: {
       link: "Did you receive a link or a code?",
       open: "Read a shared report",
-      workbook: "Did you receive a Data Collection File to fill in?",
-      fillIn: "How to fill it in",
     },
     intro: {
       what: { title: "What it does", body: "Tells you how the assessment of an industrial-symbiosis exchange has to be set up, following the SYMBA guidelines, and which data to collect from the companies involved." },

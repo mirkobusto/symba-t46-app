@@ -1,6 +1,6 @@
 // UX round 6, public pages (G6, J4): a citizen or a company that received a
-// link or a workbook finds the way to it from the app, and the welcome page
-// has a task for whoever has to fill in a Data Collection File.
+// link finds the way to it from the app. The page on filling in a workbook was
+// removed on 2026-11-09 (the workbook carries its own cover and instructions).
 
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
@@ -12,7 +12,6 @@ import i18n from '../i18n'
 import HomePage from '../pages/HomePage'
 import StakeholderReportPage from '../pages/StakeholderReportPage'
 import WelcomePage from '../pages/WelcomePage'
-import FillInDcfPage from '../pages/reader/FillInDcfPage'
 import { usePreferenceStore } from '../store/preferenceStore'
 
 function renderIn(node: React.ReactNode, url = '/') {
@@ -33,11 +32,11 @@ describe('the way to a report received by link', () => {
     expect(screen.getByRole('link', { name: /Read a shared report/ })).toHaveAttribute('href', '/r/open')
   })
 
-  it('is at the top of Home for a reader, with the workbook for a company (P5-05)', () => {
+  it('is at the top of Home for a reader, and a company gets no workbook page (P5-05)', () => {
     usePreferenceStore.setState({ role: 'industry' })
     renderIn(<HomePage />)
     expect(screen.getByText('Did you receive a link or a code?')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /How to fill it in/ })).toHaveAttribute('href', '/r/fill-in')
+    expect(screen.queryByText(/Data Collection File to fill in/)).toBeNull()
   })
 
   it('is not pushed on an analyst', () => {
@@ -55,21 +54,19 @@ describe('the way to a report received by link', () => {
   })
 })
 
-describe('filling in a Data Collection File (P2-15)', () => {
-  it('is a task on the welcome page, and the industry role is said in words', () => {
+describe('the welcome page for a company', () => {
+  it('offers no workbook task, and the industry role is said in words', () => {
     usePreferenceStore.setState({ role: 'industry' })
     renderIn(<WelcomePage />, '/welcome')
-    expect(screen.getByText('I have to fill in a Data Collection File')).toBeInTheDocument()
+    expect(screen.queryByText(/fill in a Data Collection File/)).toBeNull()
     fireEvent.click(screen.getByText(/Back/))
     expect(screen.getByText(/inside an industrial-symbiosis network/)).toBeInTheDocument()
     expect(screen.queryByText(/IS network/)).toBeNull()
   })
 
-  it('has a page that says what to do with the workbook, without an account', () => {
-    renderIn(<FillInDcfPage />, '/r/fill-in')
-    expect(screen.getByRole('heading', { name: 'Filling in a Data Collection File' })).toBeInTheDocument()
-    expect(screen.getByText(/You need no account and no tool/)).toBeInTheDocument()
-    expect(screen.getAllByRole('listitem')).toHaveLength(6)
-    expect(screen.getByRole('link', { name: /Read a shared report/ })).toHaveAttribute('href', '/r/open')
+  it('starts unselected when the stored task is the retired workbook one', () => {
+    usePreferenceStore.setState({ role: 'industry', task: 'fill' as never })
+    renderIn(<WelcomePage />, '/welcome')
+    expect(screen.getAllByRole('radio').every((r) => r.getAttribute('aria-checked') === 'false')).toBe(true)
   })
 })

@@ -51,12 +51,6 @@ export default function HomePage() {
             {t('home.reader.link')}{' '}
             <Link to="/r/open">{t('home.reader.open')} →</Link>
           </p>
-          {role === 'industry' ? (
-            <p>
-              {t('home.reader.workbook')}{' '}
-              <Link to="/r/fill-in">{t('home.reader.fillIn')} →</Link>
-            </p>
-          ) : null}
         </div>
       ) : null}
 

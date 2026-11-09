@@ -127,9 +127,10 @@ describe('public report', () => {
     expect(screen.getByText('What you can do')).toBeTruthy()
   })
 
-  it('shows a company asked for data how to fill in the workbook (P2-15)', async () => {
+  it('tells a company asked for data about the workbook, with no page on filling it in', async () => {
     renderAt('/r/c1/industry')
-    expect((await screen.findByRole('link', { name: /How to fill it in/ })).getAttribute('href')).toBe('/r/fill-in')
+    expect(await screen.findByText('If you are asked for data')).toBeTruthy()
+    expect(screen.queryByRole('link', { name: /How to fill it in/ })).toBeNull()
   })
 
   it('titles the verdict in words; the ILCD badge only for industry and authority', async () => {

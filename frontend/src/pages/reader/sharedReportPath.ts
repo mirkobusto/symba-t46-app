@@ -1,7 +1,7 @@
 // Turns what a reader pasted into the path of a shared report (/r/open).
 
 /** Reader pages that sit where a case code would (/r/<page>). */
-const RESERVED = ['open', 'about', 'region', 'fill-in']
+const RESERVED = ['open', 'about', 'region']
 
 export const VIEWS = ['industry', 'community', 'authority', 'enduser'] as const
 export type View = (typeof VIEWS)[number]

@@ -102,22 +102,6 @@ const de: Locale = {
     countries: "Standort der Anlagen: {{countries}}",
     flowsAsNamed: "Die Austausche, so benannt von der Person, die den Fall angelegt hat:",
     whatYouCanDoEndUser: "Diese Studie wird noch vorbereitet. Was sie für das Produkt bedeutet, das Sie gekauft haben, fragen Sie diejenigen, die diesen Link darauf gesetzt haben; zur Studie selbst schreiben Sie an die Person, die sie vorbereitet hat: {{contact}}. Die Ergebnisse erscheinen, sobald sie geladen sind, auf dieser Seite unter demselben Link.",
-    fillIn: {
-      eyebrow: "Data Collection File",
-      title: "Ein Data Collection File ausfüllen",
-      lead: "Sie haben eine Excel-Arbeitsmappe von der Person erhalten, die eine Studie über die Austausche durchführt, an denen Ihr Unternehmen beteiligt ist. Sie brauchen weder ein Konto noch ein Tool: Alles geschieht in der Arbeitsmappe.",
-      steps: {
-        cover: "Lesen Sie das Deckblatt: Es sagt, zu welchem Fall die Datei gehört, was von Ihnen verlangt wird, bis wann und an wen Sie sie zurückschicken.",
-        rows: "Füllen Sie nur Ihre Zeilen aus: die Stoffströme, die Ihr Unternehmen abgibt oder erhält, in den Blättern, die das Deckblatt nennt, und darin nur die Spalten Ihrer Seite (Herkunft oder Ziel).",
-        grey: "Lassen Sie die grauen Spalten und die Blätter für die Person, die die Studie durchführt, unverändert. Wenn ein bereits ausgefüllter Wert für Ihren Stoffstrom nicht stimmt, sagen Sie es dem Kontakt.",
-        unknown: "Wenn Sie einen Wert nicht kennen, lassen Sie die Zelle leer und sagen Sie es: Eine leere Zelle ist eine bekannte Lücke, eine geschätzte Zahl ein unbekannter Fehler. Schreiben Sie die Einheit neben jede Menge, Währung und Jahr neben jeden Kostenbetrag.",
-        confidential: "Vertrauliche Werte: Schreiben Sie „vertraulich“ in die Zelle und senden Sie den Wert nur an den Kontakt auf dem Deckblatt. Leiten Sie die Arbeitsmappe nicht an andere Partner weiter: Sie kann deren Daten enthalten.",
-        send: "Schicken Sie die ausgefüllte Datei bis zum angegebenen Datum an den Kontakt auf dem Deckblatt zurück.",
-      },
-      reportLine: "Haben Sie auch einen Link zum Bericht erhalten? Öffnen Sie ihn: Der Reiter Industrie sagt, was die Studie macht und welche Daten sie braucht.",
-      reportLink: "Geteilten Bericht lesen",
-      howLink: "So füllen Sie es aus",
-    },
     tagline: 'Öffentlicher Bericht',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -228,7 +212,6 @@ const de: Locale = {
       unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem: Wir bringen Sie auf die Übersichtsseite.' },
     },
     tasks: {
-      fill: { name: "Ich muss ein Data Collection File ausfüllen", desc: "Man hat mir eine Excel-Arbeitsmappe über die Austausche meines Unternehmens geschickt, und ich muss sie ausgefüllt zurücksenden." },
       assess: { name: 'Neue Bewertung starten', desc: 'Die Methodik für einen Fall industrieller Symbiose mit einem kurzen Fragebogen festlegen.' },
       read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
       explore: { name: "Fälle nach Sektor oder Land erkunden", desc: "Sehen Sie, wie sich die gespeicherten Fälle auf Methoden und Sektoren verteilen, und die öffentliche Seite jedes Landes." },
@@ -283,8 +266,6 @@ const de: Locale = {
     reader: {
       link: "Haben Sie einen Link oder einen Code bekommen?",
       open: "Geteilten Bericht lesen",
-      workbook: "Haben Sie ein Data Collection File zum Ausfüllen bekommen?",
-      fillIn: "So füllen Sie es aus",
     },
     intro: {
       what: { title: "Was es tut", body: "Es sagt Ihnen, wie die Bewertung eines Austauschs industrieller Symbiose nach den SYMBA-Leitlinien anzulegen ist und welche Daten bei den beteiligten Unternehmen zu erheben sind." },

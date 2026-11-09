@@ -36,7 +36,6 @@ const ROLES: { key: UserRole; emoji: string }[] = [
 const TASKS: { key: UserTask; emoji: string }[] = [
   { key: 'assess', emoji: '📝' },
   { key: 'read', emoji: '📄' },
-  { key: 'fill', emoji: '📊' },
   { key: 'explore', emoji: '🗺' },
   { key: 'browse', emoji: '👀' },
 ]
@@ -54,7 +53,10 @@ export default function WelcomePage() {
     searchParams.get('step') === '1' || !storedRole ? 1 : 2,
   )
   const [role, setRole] = useState<UserRole | null>(storedRole)
-  const [task, setTask] = useState<UserTask | null>(storedTask)
+  // a task the page no longer offers (the old "fill in a workbook") starts unselected
+  const [task, setTask] = useState<UserTask | null>(
+    TASKS.some((x) => x.key === storedTask) ? storedTask : null,
+  )
 
   // each step opens at its top: on a phone the second step otherwise showed
   // only a disabled button, with the question scrolled out of sight

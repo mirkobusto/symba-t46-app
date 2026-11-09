@@ -102,22 +102,6 @@ const es: Locale = {
     countries: "Dónde están las plantas: {{countries}}",
     flowsAsNamed: "Los intercambios, con los nombres que les dio quien preparó el caso:",
     whatYouCanDoEndUser: "Este estudio todavía se está preparando. Para saber qué significa para el producto que has comprado, pregunta a quien puso este enlace en él; sobre el estudio, escribe a quien lo preparó: {{contact}}. Los resultados, cuando se carguen, aparecerán en esta misma página, en el mismo enlace.",
-    fillIn: {
-      eyebrow: "Data Collection File",
-      title: "Rellenar un Data Collection File",
-      lead: "Has recibido un libro de Excel de quien realiza un estudio de los intercambios en los que participa tu empresa. No necesitas ninguna cuenta ni herramienta: todo se hace en el libro.",
-      steps: {
-        cover: "Lee la portada: dice a qué caso pertenece el archivo, qué se te pide, para cuándo y a quién devolverlo.",
-        rows: "Rellena solo tus filas: los flujos que tu empresa cede o recibe, en las hojas que indica la portada, y en ellas solo las columnas de tu lado (origen o destino).",
-        grey: "Deja como están las columnas grises y las hojas para quien realiza el estudio. Si un valor que llega ya rellenado no es correcto para tu flujo, díselo al contacto.",
-        unknown: "Si no conoces un valor, deja la celda vacía y dilo: una celda vacía es una laguna conocida, un número adivinado es un error desconocido. Escribe la unidad junto a cada cantidad, y la moneda y el año junto a cada coste.",
-        confidential: "Valores confidenciales: escribe «confidencial» en la celda y envía el valor solo al contacto de la portada. No reenvíes el libro a los demás socios: puede contener sus datos.",
-        send: "Devuelve el archivo rellenado al contacto de la portada antes de la fecha que indica.",
-      },
-      reportLine: "¿También has recibido un enlace al informe? Ábrelo: su pestaña Industria dice qué hace el estudio y qué datos necesita.",
-      reportLink: "Leer un informe compartido",
-      howLink: "Cómo rellenarlo",
-    },
     tagline: 'Informe público',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -228,7 +212,6 @@ const es: Locale = {
       unknown: { name: 'Aún no lo sé', desc: 'No pasa nada: te llevamos a la página de presentación general.' },
     },
     tasks: {
-      fill: { name: "Tengo que rellenar un Data Collection File", desc: "Me han enviado un libro de Excel sobre los intercambios de mi empresa y tengo que devolverlo rellenado." },
       assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología de un caso de simbiosis industrial con un breve cuestionario.' },
       read: { name: 'Leer un informe compartido', desc: 'Abre un caso compartido y ve el informe.' },
       explore: { name: "Explorar los casos por sector o país", desc: "Mira cómo se reparten los casos guardados entre métodos y sectores, y la página pública de cada país." },
@@ -283,8 +266,6 @@ const es: Locale = {
     reader: {
       link: "¿Has recibido un enlace o un código?",
       open: "Leer un informe compartido",
-      workbook: "¿Has recibido un Data Collection File para rellenar?",
-      fillIn: "Cómo rellenarlo",
     },
     intro: {
       what: { title: "Qué hace", body: "Te dice cómo debe plantearse la evaluación de un intercambio de simbiosis industrial, según las directrices SYMBA, y qué datos recoger de las empresas implicadas." },

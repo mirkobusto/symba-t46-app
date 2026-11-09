@@ -102,22 +102,6 @@ const fr: Locale = {
     countries: "Où sont les installations : {{countries}}",
     flowsAsNamed: "Les échanges, avec les noms donnés par la personne qui a préparé le cas :",
     whatYouCanDoEndUser: "Cette étude est encore en préparation. Pour savoir ce qu'elle signifie pour le produit que vous avez acheté, demandez à qui a mis ce lien dessus ; pour l'étude elle-même, écrivez à la personne qui l'a préparée : {{contact}}. Les résultats, une fois chargés, apparaîtront sur cette même page, au même lien.",
-    fillIn: {
-      eyebrow: "Data Collection File",
-      title: "Remplir un Data Collection File",
-      lead: "Vous avez reçu un classeur Excel de la personne qui réalise une étude des échanges auxquels participe votre entreprise. Vous n'avez besoin ni d'un compte ni d'un outil : tout se passe dans le classeur.",
-      steps: {
-        cover: "Lisez la page de garde : elle indique à quel cas appartient le fichier, ce qui vous est demandé, pour quand, et à qui le renvoyer.",
-        rows: "Remplissez seulement vos lignes : les flux que votre entreprise cède ou reçoit, dans les feuilles indiquées sur la page de garde, et dans ces lignes seulement les colonnes de votre côté (origine ou destination).",
-        grey: "Laissez telles quelles les colonnes grises et les feuilles destinées à la personne qui réalise l'étude. Si une valeur déjà remplie est fausse pour votre flux, signalez-le au contact.",
-        unknown: "Si vous ne connaissez pas une valeur, laissez la cellule vide et dites-le : une cellule vide est une lacune connue, un chiffre deviné est une erreur inconnue. Indiquez l'unité à côté de chaque quantité, la devise et l'année à côté de chaque coût.",
-        confidential: "Valeurs confidentielles : écrivez « confidentiel » dans la cellule et envoyez la valeur uniquement au contact de la page de garde. Ne transférez pas le classeur aux autres partenaires : il peut contenir leurs données.",
-        send: "Renvoyez le fichier rempli au contact de la page de garde avant la date indiquée.",
-      },
-      reportLine: "Vous avez aussi reçu un lien vers le rapport ? Ouvrez-le : son onglet Industrie dit ce que fait l'étude et de quelles données elle a besoin.",
-      reportLink: "Lire un rapport partagé",
-      howLink: "Comment le remplir",
-    },
     tagline: 'Rapport public',
     // plain titles for the public views (decided by Fable, UX round 2026-11-03)
     verdict: {
@@ -234,7 +218,6 @@ const fr: Locale = {
       unknown: { name: 'Pas sûr encore', desc: 'Pas de problème : nous vous emmenons sur la page de vue d\'ensemble.' },
     },
     tasks: {
-      fill: { name: "Je dois remplir un Data Collection File", desc: "On m'a envoyé un classeur Excel sur les échanges de mon entreprise et je dois le renvoyer rempli." },
       assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie d\'un cas de symbiose industrielle par un court questionnaire.' },
       read: { name: 'Lire un rapport partagé', desc: 'Ouvrir un cas partagé avec moi et voir le rapport.' },
       explore: { name: "Explorer les cas par secteur ou par pays", desc: "Voir comment les cas enregistrés se répartissent entre méthodes et secteurs, et la page publique de chaque pays." },
@@ -289,8 +272,6 @@ const fr: Locale = {
     reader: {
       link: "Vous avez reçu un lien ou un code ?",
       open: "Lire un rapport partagé",
-      workbook: "Vous avez reçu un Data Collection File à remplir ?",
-      fillIn: "Comment le remplir",
     },
     intro: {
       what: { title: "Ce qu'il fait", body: "Il vous dit comment organiser l'évaluation d'un échange de symbiose industrielle, selon les lignes directrices SYMBA, et quelles données collecter auprès des entreprises concernées." },

@@ -447,19 +447,6 @@ const it: Locale = {
       interdependent: 'Per un flusso interdipendente (Q5 = d) la D4.2 §6.2 indica una chiave di allocazione nell\'E-LCC, mentre la D4.1 §8.3.6 parte dalla sostituzione; lo strumento chiede all\'E-LCC di seguire l\'LCA (D4.2 §6.3) e segnala la differenza.',
       lccB: 'In Situazione B l\'LCA è conseguenziale e la Circular Footprint Formula della PEF, quando richiesta (Q4 = D), si esegue come analisi di sensibilità; nessun nodo del costing ha ancora una formulazione conseguenziale, quindi l\'LCC segue il suo tipo (la D4.2 §2.2 chiede un solo paradigma per studio).',
     },
-    funders: {
-      title: "Per gli enti finanziatori",
-      lead: "Una regione o un altro finanziatore può chiedere ai candidati di un bando di impostare il loro caso con questo strumento. Che cosa chiedere di presentare:",
-      askLink: "il link del report condiviso, nella vista Autorità locale: il candidato attiva la condivisione dalla pagina del risultato, e il link resta leggibile finché non la disattiva. Mostra sempre il caso come è stato salvato l'ultima volta;",
-      askWord: "il report Word (.docx), scaricato dalla pagina del risultato: registra le risposte e la configurazione com'erano il giorno in cui è stato scaricato;",
-      askDcf: "se il progetto raccoglie dati dalle aziende partner, il Data Collection File che invia loro.",
-      notTitle: "Che cosa lo strumento non certifica",
-      notBody: "Le risposte sono inserite dal candidato e nessuno in SYMBA le controlla. Lo strumento non calcola risultati ambientali, economici o sociali e non certifica che un progetto rispetti una norma (per esempio una valutazione \"non arrecare un danno significativo\", o un'autorizzazione): dice come va impostato lo studio secondo le linee guida di SYMBA. Il giudizio sullo studio e sui suoi risultati resta al finanziatore e ai suoi valutatori.",
-      accountBody: "Per salvare e condividere un caso serve un account. L'informativa sulla privacy dello strumento è ancora una bozza in revisione legale: conviene leggerla prima di chiedere ai candidati di registrarsi.",
-      privacyLink: "Informativa sulla privacy",
-      onlineTitle: "Per quanto tempo resta online",
-      onlineBody: "Lo strumento è un risultato di SYMBA, un progetto finanziato dal programma Horizon Europe dell'Unione europea (Grant Agreement 101135562). Prima di adottarlo in un bando, conviene chiedere al progetto, dalla pagina dei contatti qui sotto, per quanto tempo resterà online e chi lo gestirà.",
-    },
     contactTitle: "Contatti",
     contactBody: "Per domande sullo strumento o sul progetto, scrivi dalla pagina contatti del sito SYMBA:",
     technicalTitle: "Dettagli tecnici (per specialisti)",
@@ -1489,7 +1476,6 @@ const it: Locale = {
     },
   },
 
-
   reasoning: {
     activatedNodes: 'Nodi attivati ({{count}})',
     pillarConfigs: 'Configurazioni per pillar',
@@ -1591,13 +1577,6 @@ const it: Locale = {
     },
   },
 
-  scoringPending: {
-    title: "Ancora nessun risultato",
-    body:
-      "Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola fuori dallo strumento chi esegue lo studio; questa versione non ha ancora una pagina per caricarli nel caso.",
-    lastChecked: "Ultimo controllo: {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "sì",
@@ -1613,28 +1592,19 @@ const it: Locale = {
       industry: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quale metodologia seguirà la valutazione, e quindi quali dati ti verranno chiesti. La richiesta dei dati è il Data Collection File.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori ambientali ed economici, per giudicare se lo scambio conviene.',
       },
       community: {
-        whenScoringNoSocial: "Questo strumento non calcola le cifre, e nessuno le calcola automaticamente per il vostro caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori ambientali. Questo studio non ha indicatori sociali, perché la dimensione sociale non è valutata.",
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali flussi le aziende si scambiano, e se questo studio esamina o no gli effetti sociali.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: indicatori sociali (lavoratori, comunità locale) e ambientali, ciascuno con il gruppo che riguarda.',
       },
       authority: {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: come è impostata la valutazione, quali segnali di conformità il caso dichiara, e quanto sono concentrate le interazioni chiave.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: i numeri ambientali e, dove lo studio li include, i costi per la società.',
         scope: "Quanto sono concentrate le interazioni chiave: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "Cosa ti dice questa pagina oggi: quali materiali questa simbiosi rimette in uso, e se gli effetti ambientali e sociali sono esaminati.",
-        whenScoring:
-          'Questo strumento non calcola i numeri e nessuno li calcola in automatico per il tuo caso. Un analista che esegue lo studio con il Data Collection File li calcola con i propri strumenti; questa versione dello strumento non ha ancora una pagina per caricarli nel caso. Lo studio darebbe: gli indicatori ambientali e sociali della filiera dietro il prodotto.',
         productCaveat:
           "Questa valutazione descrive lo scambio tra le aziende, non il prodotto finale che compri: lo strumento non chiede quale sia il prodotto.",
       },
@@ -1679,7 +1649,6 @@ const it: Locale = {
       slca: 'Attivazione S-LCA',
     },
     scoringTitle: 'Risultati',
-    scoringPendingTitle: 'Ancora nessun risultato',
     scoringPendingBody:
       'Questo strumento non calcola i numeri ambientali, economici o sociali. Li calcola fuori dallo strumento chi esegue lo studio; questa versione non ha ancora una pagina per caricarli nel caso.',
     scoringEmpty: 'Nessun indicatore rilevante per questo stakeholder.',
@@ -1733,9 +1702,6 @@ const it: Locale = {
       link_one: "{{country}}: {{count}} caso",
       link_other: "{{country}}: {{count}} casi",
     },
-    fundersTitle: "Finanziate un bando?",
-    fundersBody: "Che cosa chiedere ai candidati e che cosa questo strumento non certifica:",
-    fundersLink: "indicazioni per gli enti finanziatori",
   },
 
   obligations: {
@@ -1769,7 +1735,7 @@ const it: Locale = {
       forAnalyst: 'per l\'analista',
     },
     diagram: { whoGives: "Chi lo cede?\n({{flow}})", whoReceives: "Chi lo riceve?\n({{flow}})" },
-    noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario', received: 'Avete ricevuto il file da un analista? Allora qui non c\'è niente da fare: compilate il file Excel e rimandateglielo.' },
+    noCase: { title: 'Nessun caso', desc: 'Il Data Collection File si costruisce dalla tua valutazione: compila prima il questionario (o apri un caso salvato) e poi torna qui.', cta: 'Apri il questionario' },
     derivedField: "compilato dal motore",
     obligationsTitle: "Scelte metodologiche da documentare",
     navLink: 'Raccolta dati',

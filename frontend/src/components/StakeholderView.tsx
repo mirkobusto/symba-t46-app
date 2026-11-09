@@ -192,26 +192,22 @@ export default function StakeholderView({ stakeholderType, caseData, scoring }: 
         ) : null}
       </section>
 
-      <section className="stakeholder-section">
-        <h3>{t('stakeholder.scoringTitle')}</h3>
-        {scoring === null ? (
-          <div className="stakeholder-scoring-placeholder">
-            <strong>{t('stakeholder.scoringPendingTitle')}</strong>
-            {/* no social indicators to promise when the study has none (UX round 6, P4-03) */}
-            <p>{t(stakeholderType === 'community' && !caseData.q3?.soc
-              ? 'stakeholder.audience.community.whenScoringNoSocial'
-              : `stakeholder.audience.${stakeholderType}.whenScoring`)}</p>
-          </div>
-        ) : filteredIndicators.length === 0 ? (
-          <p className="muted">{t('stakeholder.scoringEmpty')}</p>
-        ) : (
-          <div className="stakeholder-indicators-grid">
-            {filteredIndicators.map((ind) => (
-              <IndicatorCard key={ind.id} indicator={ind} />
-            ))}
-          </div>
-        )}
-      </section>
+      {/* only once results are loaded: a box saying there are none, and that the
+          tool has no page to load them, was removed on 2026-11-09 (owner) */}
+      {scoring !== null ? (
+        <section className="stakeholder-section">
+          <h3>{t('stakeholder.scoringTitle')}</h3>
+          {filteredIndicators.length === 0 ? (
+            <p className="muted">{t('stakeholder.scoringEmpty')}</p>
+          ) : (
+            <div className="stakeholder-indicators-grid">
+              {filteredIndicators.map((ind) => (
+                <IndicatorCard key={ind.id} indicator={ind} />
+              ))}
+            </div>
+          )}
+        </section>
+      ) : null}
 
       {stakeholderType === 'industry' ? (
         <section className="stakeholder-section">

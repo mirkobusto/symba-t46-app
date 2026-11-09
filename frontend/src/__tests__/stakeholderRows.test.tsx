@@ -42,8 +42,11 @@ describe('StakeholderView rows', () => {
 
   it('does not promise the community social indicators when the study has none', () => {
     render(<StakeholderView stakeholderType="community" caseData={ECO_ONLY} scoring={null} />)
-    expect(screen.getByText(/This study has no social indicators/)).toBeTruthy()
+    expect(screen.getByText(/social effects are not assessed/)).toBeTruthy()
     expect(screen.getByText(/ask whoever carries out the study to add them/)).toBeTruthy()
+    // no "Results" box before any result is loaded (removed 2026-11-09)
+    expect(screen.queryByText('No results yet')).toBeNull()
+    expect(screen.queryByRole('heading', { name: 'Results' })).toBeNull()
     expect(screen.queryByText(/contact on this page/)).toBeNull()
   })
 

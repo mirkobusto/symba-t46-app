@@ -248,9 +248,6 @@ export default function DataCollectionPage() {
       <div className="dd-page dcf-page">
         <h1 className="dd-page-title">{t('dcf.noCase.title')}</h1>
         <p className="muted">{t('dcf.noCase.desc')}</p>
-        {/* a company that received the workbook landed here and was sent to the
-            questionnaire (UX round 5, P2-11) */}
-        <p className="muted">{t('dcf.noCase.received')}</p>
         <Link to="/questionnaire" className="btn btn-primary">
           {t('dcf.noCase.cta')}
         </Link>

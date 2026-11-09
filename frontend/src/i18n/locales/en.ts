@@ -470,19 +470,6 @@ const en = {
       interdependent: 'For an interdependent flow (Q5 = d) D4.2 §6.2 names an allocation key in the E-LCC, while D4.1 §8.3.6 defaults to substitution; the tool asks the E-LCC to follow the LCA (D4.2 §6.3) and reports the difference.',
       lccB: 'In Situation B the LCA is consequential and the PEF Circular Footprint Formula, when asked (Q4 = D), runs as a sensitivity; no costing node has a consequential formulation yet, so the LCC follows its type (D4.2 §2.2 asks one paradigm per study).',
     },
-    funders: {
-      title: "For funding bodies",
-      lead: "A region or another funder can ask the applicants of a call to set up their case with this tool. What to ask them to submit:",
-      askLink: "the link to the shared report, in the Local authority view: the applicant turns sharing on from the result page, and the link stays readable until the applicant turns it off. It always shows the case as last saved;",
-      askWord: "the Word report (.docx), downloaded from the result page: it records the answers and the configuration as they were on the day it was downloaded;",
-      askDcf: "if the project collects data from partner companies, the Data Collection File it sends them.",
-      notTitle: "What the tool does not certify",
-      notBody: "The answers are entered by the applicant and nobody at SYMBA checks them. The tool computes no environmental, cost or social results, and it does not certify that a project complies with any rule (for example a \"do no significant harm\" assessment, or a permit): it says how the study has to be set up according to the SYMBA guidelines. Judging the study and its results remains with the funder and its evaluators.",
-      accountBody: "Saving and sharing a case needs an account. The privacy notice of the tool is still a draft under legal review: read it before asking applicants to register.",
-      privacyLink: "Privacy notice",
-      onlineTitle: "How long it stays online",
-      onlineBody: "The tool is a result of SYMBA, a project funded by the European Union's Horizon Europe programme (Grant Agreement 101135562). Before relying on it for a call, ask the project through the contact page below how long it will stay online and who will run it.",
-    },
     contactTitle: "Contact",
     contactBody: "For questions about the tool or the project, write through the contact page of the SYMBA website:",
     technicalTitle: "Technical details (for specialists)",
@@ -1614,13 +1601,6 @@ const en = {
     },
   },
 
-  scoringPending: {
-    title: "No results yet",
-    body:
-      "This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them outside the tool; this version has no page to load them into the case yet.",
-    lastChecked: "Last checked: {{date}}",
-  },
-
   compliance: {
     status: {
       ok: "yes",
@@ -1636,28 +1616,19 @@ const en = {
       industry: {
         whatYouSee:
           "What this page tells you today: which methodology the assessment will follow, and therefore which data you will be asked for. The data request itself is the Data Collection File.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental and economic indicators, to judge whether the exchange pays off.',
       },
       community: {
-        whenScoringNoSocial: "This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: environmental indicators. This study has no social indicators, because the social dimension is not assessed.",
         whatYouSee:
           "What this page tells you today: which flows the companies exchange, and whether this study examines social effects at all.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: social indicators (workers, local community) and environmental ones, each with the group it concerns.',
       },
       authority: {
         whatYouSee:
           "What this page tells you today: how the assessment is framed, which compliance signals the case declares, and how concentrated the key interactions are.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: the environmental figures and, where the study includes them, the societal costs.',
         scope: "How concentrated the key interactions are: {{scope}}",
       },
       'end-user': {
         whatYouSee:
           "What this page tells you today: which materials this symbiosis puts back into use, and whether environmental and social effects are examined.",
-        whenScoring:
-          'This tool does not calculate the figures, and nobody calculates them automatically for your case. An analyst who carries out the study with the Data Collection File calculates them with their own software; this version of the tool has no page to load them into the case yet. The study would give: the environmental and social indicators of the chain behind the product.',
         productCaveat:
           "This assessment describes the exchange between the companies, not the final product you buy: the tool does not ask what the product is.",
       },
@@ -1702,7 +1673,6 @@ const en = {
       slca: 'S-LCA activation',
     },
     scoringTitle: 'Results',
-    scoringPendingTitle: 'No results yet',
     scoringPendingBody:
       'This tool does not calculate the environmental, cost or social figures. Whoever carries out the study calculates them outside the tool; this version has no page to load them into the case yet.',
     scoringEmpty: 'No indicators relevant for this stakeholder.',
@@ -1757,9 +1727,6 @@ const en = {
       link_one: '{{country}}: {{count}} case',
       link_other: '{{country}}: {{count}} cases',
     },
-    fundersTitle: 'Funding a call?',
-    fundersBody: 'What to ask applicants to submit, and what this tool does not certify:',
-    fundersLink: 'guidance for funding bodies',
   },
 
   obligations: {
@@ -1793,7 +1760,7 @@ const en = {
       forAnalyst: 'for the analyst',
     },
     diagram: { whoGives: "Who gives it?\n({{flow}})", whoReceives: "Who receives it?\n({{flow}})" },
-    noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire', received: 'Did you receive the workbook from an analyst? Then there is nothing to do here: fill in the Excel file and send it back to them.' },
+    noCase: { title: 'No case yet', desc: 'The Data Collection File is built from your assessment: answer the questionnaire first (or open a saved case), then come back here.', cta: 'Open questionnaire' },
     derivedField: "engine-filled",
     obligationsTitle: "Methodological choices to document",
     navLink: 'Data Collection',

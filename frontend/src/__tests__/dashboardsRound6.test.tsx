@@ -7,7 +7,6 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import i18n from '../i18n'
-import AboutPage from '../pages/AboutPage'
 import AggregatePage from '../pages/AggregatePage'
 import LoginPage from '../pages/LoginPage'
 import PrivacyPage from '../pages/PrivacyPage'
@@ -102,7 +101,7 @@ describe('cases dashboard', () => {
     expect(screen.getByText('7 cases not counted above: no sector stated.')).toBeInTheDocument()
   })
 
-  it('says what it counts and leads to the country pages and to the guidance for funders', async () => {
+  it('says what it counts and leads to the country pages', async () => {
     stubFetch({
       '/api/cases/aggregate/breakdown': AGGREGATE,
       '/api/public/countries': [{ code: 'IT', count: 2 }, { code: 'FR', count: 1 }],
@@ -112,23 +111,7 @@ describe('cases dashboard', () => {
     expect(screen.getByRole('link', { name: 'France (FR): 1 case' })).toHaveAttribute('href', '/r/region/FR')
     expect(screen.getByText(/shared or not, from every country/)).toBeInTheDocument()
     expect(screen.queryByText(/filter by region/)).toBeNull()
-    expect(screen.getByRole('link', { name: 'guidance for funding bodies' })).toHaveAttribute('href', '/about#funders')
-  })
-})
-
-describe('guidance for funding bodies', () => {
-  it('says what to ask applicants, what is not certified, and whom to ask about the future', () => {
-    render(<MemoryRouter><AboutPage /></MemoryRouter>)
-    const section = document.getElementById('funders') as HTMLElement
-    expect(section).toBeInTheDocument()
-    const text = section.textContent ?? ''
-    for (const fact of ['Local authority view', 'Word report (.docx)', 'Data Collection File',
-      'nobody at SYMBA checks them', 'Grant Agreement 101135562', 'contact page']) {
-      expect(text).toContain(fact)
-    }
-    // no end date is promised
-    expect(text).not.toMatch(/until 20\d\d|M36/)
-    expect(within(section).getByRole('link', { name: 'Privacy notice' })).toHaveAttribute('href', '/privacy')
+    expect(screen.queryByRole('link', { name: 'guidance for funding bodies' })).toBeNull()
   })
 })
 

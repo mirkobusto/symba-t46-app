@@ -222,13 +222,6 @@ export default function AggregatePage() {
 
       <div className="aggregate-breakdowns">
         <CountryPages />
-        {/* where an authority lands from the welcome ("explore"): the way to the guidance for funders (P3-15) */}
-        <section className="aggregate-breakdown aggregate-funders">
-          <h3>{t('aggregate.fundersTitle')}</h3>
-          <p className="muted aggregate-hint">
-            {t('aggregate.fundersBody')} <Link to="/about#funders">{t('aggregate.fundersLink')}</Link>
-          </p>
-        </section>
       </div>
 
       <div className="aggregate-actions">

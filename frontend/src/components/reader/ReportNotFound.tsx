@@ -14,9 +14,6 @@ export default function ReportNotFound({ detail }: { detail?: string }) {
       <h1>{t('reader.notFoundTitle')}</h1>
       <p className="dd-soft">{detail || t('reader.notFoundBody')}</p>
       <div className="dd-page-actions">
-        <Link to="/r/open" className="dd-btn dd-btn-primary">
-          ← {t('reader.tryAnother')}
-        </Link>
         <Link to="/r/about" className="dd-btn dd-btn-secondary">
           {t('reader.aboutLink')} →
         </Link>

@@ -5215,19 +5215,6 @@ kbd {
 }
 
 /* the way to a report received by link, for readers (UX round 6, P5-05) */
-.home-reader {
-  margin: 0 0 16px;
-  text-align: left;
-  border-left: 4px solid var(--dd-brand);
-}
-
-.home-reader p {
-  margin: 0;
-}
-
-.home-reader p + p {
-  margin-top: 6px;
-}
 
 .about {
   text-align: left;

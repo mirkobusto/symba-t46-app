@@ -32,7 +32,7 @@ describe('UX round 3 bugs', () => {
     expect(screen.queryByText(/value_error/)).not.toBeInTheDocument()
   })
 
-  it('answers an unknown report code in the reader language, with a way back to /r/open', async () => {
+  it('answers an unknown report code in the reader language, with a way to what SYMBA is', async () => {
     await i18n.changeLanguage('it')
     answerWith(404, { detail: "Case 'valle-del-formaggio' not found" })
     render(
@@ -43,7 +43,7 @@ describe('UX round 3 bugs', () => {
     // a link no longer shared reads the same: not "you copied it wrong" (UX round 6, P1-18)
     expect(await screen.findByText(/Questo report non è disponibile.*ha smesso di condividerlo/)).toBeInTheDocument()
     expect(screen.queryByText(/not found/)).not.toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Prova un altro link o codice/ })).toHaveAttribute('href', '/r/open')
+    expect(screen.getByRole('link', { name: /SYMBA/ })).toHaveAttribute('href', '/r/about')
   })
 
   it('offers no share link for a case that is not saved on the server', () => {
@@ -73,7 +73,7 @@ describe('scroll on the audience tabs of a public report', () => {
     const { sharedCaseOf } = await import('../pages/reader/sharedReportPath')
     expect(sharedCaseOf('/r/agri-b-sita-19a8')).toBe('agri-b-sita-19a8')
     expect(sharedCaseOf('/r/agri-b-sita-19a8/industry')).toBe('agri-b-sita-19a8')
-    expect(sharedCaseOf('/r/open')).toBeNull()
+    expect(sharedCaseOf('/r/about')).toBeNull()
     expect(sharedCaseOf('/r/region/IT')).toBeNull()
     expect(sharedCaseOf('/result')).toBeNull()
   })

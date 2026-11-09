@@ -26,7 +26,6 @@ export type UserRole =
 
 export type UserTask =
   | 'assess'          // start a new IS assessment
-  | 'read'            // read a shared report
   | 'explore'         // explore my region / sector
   | 'browse'          // just look around
 
@@ -85,8 +84,6 @@ export const usePreferenceStore = create<PreferenceState>()(
 
 // Route recommended after onboarding completes.
 export function recommendedRouteFor(role: UserRole, task: UserTask): string {
-  // a reader holds a link, not a saved case: "My cases" had no place to paste it
-  if (task === 'read') return '/r/open'
   if (task === 'explore') return '/aggregate'
   if (task === 'browse') return '/'
   // task === 'assess'

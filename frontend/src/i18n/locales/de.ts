@@ -114,18 +114,7 @@ const de: Locale = {
     loading: 'Lade Bericht…',
     notFoundTitle: 'Bericht nicht gefunden',
     notFoundBody: "Dieser Bericht ist nicht verfügbar: Der Link ist vielleicht unvollständig, oder wer ihn geteilt hat, teilt ihn nicht mehr. Fragen Sie die Person, die ihn geschickt hat.",
-    tryAnother: 'Anderen Link oder Code versuchen',
     aboutLink: 'SYMBA kennenlernen',
-    open: {
-      eyebrow: "Geteilter Bericht",
-      title: "Einen erhaltenen Bericht öffnen",
-      lead: 'Fügen Sie den Link ein, den Sie bekommen haben, oder nur den Fallcode an seinem Ende (ein Code wie agri-b-sita-1a2b3c4d).',
-      label: "Link oder Fallcode",
-      placeholder: "https://…/r/…",
-      invalid: "Das sieht nicht wie ein Berichtslink aus. Fügen Sie den ganzen Link ein oder den Code nach /r/.",
-      submit: "Bericht öffnen",
-      noLink: "Kein Link? Fragen Sie, wer Ihnen von dem Fall erzählt hat. Was SYMBA ist:",
-    },
     eyebrow: 'Geteilter Bericht · {{name}}',
     summaryTitle: "Wie die Bewertung durchgeführt wird",
     scoringTitle: "Ergebnisse",
@@ -213,7 +202,6 @@ const de: Locale = {
     },
     tasks: {
       assess: { name: 'Neue Bewertung starten', desc: 'Die Methodik für einen Fall industrieller Symbiose mit einem kurzen Fragebogen festlegen.' },
-      read: { name: 'Geteilten Bericht lesen', desc: 'Einen mit mir geteilten Fall öffnen und den Bericht sehen.' },
       explore: { name: "Fälle nach Sektor oder Land erkunden", desc: "Sehen Sie, wie sich die gespeicherten Fälle auf Methoden und Sektoren verteilen, und die öffentliche Seite jedes Landes." },
       browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel: Ich möchte sehen, was das Tool tut.' },
     },
@@ -231,7 +219,6 @@ const de: Locale = {
       system: 'System',
     },
     nav: {
-      openShared: "Geteilten Bericht lesen",
       home: 'Startseite',
       questionnaire: "Fragebogen",
       cases: 'Meine Fälle',
@@ -263,10 +250,6 @@ const de: Locale = {
   },
 
   home: {
-    reader: {
-      link: "Haben Sie einen Link oder einen Code bekommen?",
-      open: "Geteilten Bericht lesen",
-    },
     intro: {
       what: { title: "Was es tut", body: "Es sagt Ihnen, wie die Bewertung eines Austauschs industrieller Symbiose nach den SYMBA-Leitlinien anzulegen ist und welche Daten bei den beteiligten Unternehmen zu erheben sind." },
       not: { title: "Was es nicht tut", body: "Es berechnet keine Ergebnisse: keine Emissionen, Kosten oder sozialen Kennzahlen. Diese berechnet, wer die Studie durchführt, mit den Daten, die das Tool erfragt." },
@@ -1628,7 +1611,7 @@ const de: Locale = {
     },
   },
   stakeholder: {
-    noCaseReader: "Haben Sie einen Link zu einem Bericht bekommen? Öffnen Sie ihn unten, oder sehen Sie sich einen Beispielfall an.",
+    noCaseReader: "Kein Fall ist geöffnet: Sehen Sie sich einen Beispielfall an, um zu sehen, was diese Ansichten zeigen.",
     seeExample: "Ein Beispiel ansehen",
     audience: {
       industry: {
@@ -1968,8 +1951,6 @@ const de: Locale = {
     body: "Diese Seite gibt es nicht: Der Link ist vielleicht unvollständig oder veraltet.",
     home: "Zur Startseite",
     cases: "Meine Fälle",
-    report: "Hat man Ihnen einen geteilten Bericht geschickt?",
-    reportLink: "Geteilten Bericht öffnen",
   },
 
   cases: {

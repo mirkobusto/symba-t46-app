@@ -114,18 +114,7 @@ const es: Locale = {
     loading: 'Cargando el informe…',
     notFoundTitle: 'Informe no encontrado',
     notFoundBody: "Este informe no está disponible: puede que el enlace esté incompleto o que quien lo compartió haya dejado de compartirlo. Pregunta a quien te lo envió.",
-    tryAnother: 'Probar otro enlace o código',
     aboutLink: 'Conocer SYMBA',
-    open: {
-      eyebrow: "Informe compartido",
-      title: "Abrir un informe que has recibido",
-      lead: 'Pega el enlace que te enviaron, o solo el código del caso al final (un código como agri-b-sita-1a2b3c4d).',
-      label: "Enlace o código del caso",
-      placeholder: "https://…/r/…",
-      invalid: "No parece el enlace de un informe. Pega el enlace completo que recibiste, o el código después de /r/.",
-      submit: "Abrir el informe",
-      noLink: "¿No tienes enlace? Pídeselo a quien te habló del caso. Para saber qué es SYMBA:",
-    },
     eyebrow: 'Informe compartido · {{name}}',
     summaryTitle: "Cómo se hará la evaluación",
     scoringTitle: "Resultados",
@@ -213,7 +202,6 @@ const es: Locale = {
     },
     tasks: {
       assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología de un caso de simbiosis industrial con un breve cuestionario.' },
-      read: { name: 'Leer un informe compartido', desc: 'Abre un caso compartido y ve el informe.' },
       explore: { name: "Explorar los casos por sector o país", desc: "Mira cómo se reparten los casos guardados entre métodos y sectores, y la página pública de cada país." },
       browse: { name: 'Solo mirar', desc: 'Sin objetivo concreto: quiero ver qué hace la herramienta.' },
     },
@@ -231,7 +219,6 @@ const es: Locale = {
       system: 'Sistema',
     },
     nav: {
-      openShared: "Leer un informe compartido",
       home: 'Inicio',
       questionnaire: "Cuestionario",
       cases: 'Mis casos',
@@ -263,10 +250,6 @@ const es: Locale = {
   },
 
   home: {
-    reader: {
-      link: "¿Has recibido un enlace o un código?",
-      open: "Leer un informe compartido",
-    },
     intro: {
       what: { title: "Qué hace", body: "Te dice cómo debe plantearse la evaluación de un intercambio de simbiosis industrial, según las directrices SYMBA, y qué datos recoger de las empresas implicadas." },
       not: { title: "Qué no hace", body: "No calcula los resultados: ni emisiones, ni costes, ni datos sociales. Los calcula quien realiza el estudio, con los datos que pide la herramienta." },
@@ -1628,7 +1611,7 @@ const es: Locale = {
     },
   },
   stakeholder: {
-    noCaseReader: "¿Has recibido el enlace a un informe? Ábrelo abajo, o mira un caso de ejemplo.",
+    noCaseReader: "No hay ningún caso abierto: mira un caso de ejemplo para ver qué muestran estas vistas.",
     seeExample: "Ver un ejemplo",
     audience: {
       industry: {
@@ -1967,8 +1950,6 @@ const es: Locale = {
     body: "Esta página no existe: puede que el enlace esté incompleto o caducado.",
     home: "Ir al inicio",
     cases: "Mis casos",
-    report: "¿Te han enviado un informe compartido?",
-    reportLink: "Abrir un informe compartido",
   },
 
   cases: {

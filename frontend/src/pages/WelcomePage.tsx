@@ -35,7 +35,6 @@ const ROLES: { key: UserRole; emoji: string }[] = [
 
 const TASKS: { key: UserTask; emoji: string }[] = [
   { key: 'assess', emoji: '📝' },
-  { key: 'read', emoji: '📄' },
   { key: 'explore', emoji: '🗺' },
   { key: 'browse', emoji: '👀' },
 ]

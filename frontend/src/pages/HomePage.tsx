@@ -27,7 +27,6 @@ export default function HomePage() {
   }, [hash])
   const mode = usePreferenceStore((s) => s.mode)
   const setMode = usePreferenceStore((s) => s.setMode)
-  const role = usePreferenceStore((s) => s.role)
 
   // it emptied the answers being worked on without asking (UX round 6, P1-09, P7-04)
   async function handleStart() {
@@ -42,17 +41,6 @@ export default function HomePage() {
           <p className="dd-page-sub">{t('home.tagline')}</p>
         </div>
       </div>
-
-      {/* a citizen who picked "end user" found an analyst's questionnaire and no
-          way to the report they had received (UX round 6, P5-05) */}
-      {role && role !== 'analyst' ? (
-        <div className="dd-card home-reader">
-          <p>
-            {t('home.reader.link')}{' '}
-            <Link to="/r/open">{t('home.reader.open')} →</Link>
-          </p>
-        </div>
-      ) : null}
 
       <div className="home-intro">
         {INTRO.map((k) => (

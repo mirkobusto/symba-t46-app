@@ -62,7 +62,7 @@ describe('Sidebar', () => {
 
 describe('WelcomePage with a role already saved', () => {
   beforeEach(() => {
-    usePreferenceStore.setState({ role: 'industry', task: 'read', hasOnboarded: true })
+    usePreferenceStore.setState({ role: 'industry', task: 'assess', hasOnboarded: true })
   })
 
   it('opens on the task question by default', () => {

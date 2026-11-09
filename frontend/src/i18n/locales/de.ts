@@ -1714,7 +1714,7 @@ const de: Locale = {
       forAnalyst: 'für die Person, die die Studie durchführt',
     },
     diagram: { whoGives: "Wer gibt es ab?\n({{flow}})", whoReceives: "Wer nimmt es an?\n({{flow}})" },
-    noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen', received: 'Haben Sie die Arbeitsmappe von einer Analystin oder einem Analysten erhalten? Dann gibt es hier nichts zu tun: Füllen Sie die Excel-Datei aus und schicken Sie sie zurück.' },
+    noCase: { title: 'Noch kein Fall', desc: 'Das Data Collection File wird aus Ihrer Bewertung erstellt: Füllen Sie zuerst den Fragebogen aus (oder öffnen Sie einen gespeicherten Fall) und kommen Sie dann hierher zurück.', cta: 'Fragebogen öffnen' },
     derivedField: "von der Engine gefüllt",
     obligationsTitle: "Zu dokumentierende methodische Entscheidungen",
     navLink: 'Datenerhebung',

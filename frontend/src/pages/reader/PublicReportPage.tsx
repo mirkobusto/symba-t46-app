@@ -27,7 +27,6 @@ import type { PublicReportResponse } from '../../types/reader'
 import { plainVerdict, verdictFor } from '../resultNarrative'
 import { AUDIENCE_ROWS } from '../configurationRows'
 import ConfigurationSummary from '../../components/ConfigurationSummary'
-import { usePreferenceStore, type UserRole } from '../../store/preferenceStore'
 import ReportNotFound from '../../components/reader/ReportNotFound'
 import { complianceSignals } from '../complianceSignals'
 import { countryName, marketRegionName } from './countryName'
@@ -35,14 +34,8 @@ import { VIEWS, viewOf, type View } from './sharedReportPath'
 
 type Audience = View
 
-// a link without a view opens on the reader's own role, when they gave one
-const ROLE_AUDIENCE: Partial<Record<UserRole, Audience>> = {
-  industry: 'industry', community: 'community', authority: 'authority', enduser: 'enduser',
-}
-
 export default function PublicReportPage() {
   const { t, i18n } = useTranslation()
-  const role = usePreferenceStore((s) => s.role)
   const location = useLocation()
   const params = useParams<{ caseId: string; audience: string }>()
   const caseId = params.caseId ?? ''
@@ -51,12 +44,12 @@ export default function PublicReportPage() {
   // a view the link names, also as "end-user" or in capitals; an unknown one
   // opened the Community view in silence (P5-01): it now goes to the bare link
   const named = viewOf(params.audience)
-  // without a view and a role the link's origin is unknown (the share dialog
+  // without a view the link's origin is unknown (the share dialog
   // hands out one link per view, the End-user one for labels): the End-user
   // view claims the least and carries the product caveat, so a wrong guess
   // costs least; the four tabs sit right under "What this page is" (UX round 6,
   // P4-04, P2-13, decided by Fable)
-  const audience: Audience = named ?? (role ? ROLE_AUDIENCE[role] : undefined) ?? 'enduser'
+  const audience: Audience = named ?? 'enduser'
   const canonical = named ? `/r/${caseKey}/${named}` : `/r/${caseKey}`
   const needsRedirect = canonical !== `/r/${caseId}${params.audience !== undefined ? `/${params.audience}` : ''}`
 

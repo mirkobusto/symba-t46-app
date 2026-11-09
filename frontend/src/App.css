@@ -163,7 +163,7 @@ html {
 /* Website typography: Noto Sans for headings, navigation and buttons.
    :where() keeps the specificity at zero so every component rule (and
    its colour) still wins. Colour is deliberately not set here. */
-:where(.dd-app, .dd-reader, .dd-welcome, .layout) :where(h1, h2, h3, h4, h5, h6),
+:where(.dd-app, .dd-reader, .layout) :where(h1, h2, h3, h4, h5, h6),
 :where(.dd-sidebar, .dd-topbar) {
   font-family: var(--dd-font-ui);
 }
@@ -171,7 +171,7 @@ html {
 /* The root line-height is a % that computes to a fixed length (26px) and
    is inherited as such, which squeezes wrapped headings; give them a
    proportional one. */
-:where(.dd-app, .dd-reader, .dd-welcome, .layout) :where(h1, h2, h3, h4, h5, h6) {
+:where(.dd-app, .dd-reader, .layout) :where(h1, h2, h3, h4, h5, h6) {
   line-height: 1.25;
 }
 
@@ -3571,7 +3571,7 @@ kbd {
 .dd-badge-na      { background: var(--dd-bg); color: var(--dd-text-muted); border: 1px solid var(--dd-border); }
 
 /* ==========================================================================
- * dd/* button primitives (Phase 4 · used by Welcome and later pages)
+ * dd/* button primitives (Phase 4)
  * ========================================================================== */
 
 .dd-btn {
@@ -3637,165 +3637,6 @@ kbd {
   background: var(--dd-ink);
   color: #fff;
 }
-
-/* ==========================================================================
- * WelcomePage (Phase 4)
- * ========================================================================== */
-
-.dd-welcome {
-  min-height: 100svh;
-  background: var(--dd-bg);
-  display: grid;
-  /* minmax(0, 1fr): the track must not grow to the card's min-content, or
-     the card overflows the padding on a phone. */
-  grid-template-columns: minmax(0, 1fr);
-  place-items: center;
-  padding: 32px 20px;
-  position: relative;
-}
-
-/* The landing renders outside the admin shell, so it carries its own
-   SiteHeader (with the language switcher in its actions slot) and footer. */
-.dd-welcome-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100svh;
-  background: var(--dd-bg);
-}
-
-.dd-welcome-page > .dd-welcome {
-  flex: 1 0 auto;
-  min-height: 0;
-}
-
-.dd-welcome-card {
-  box-sizing: border-box; /* width:100% + padding overflowed phones by ~3px */
-  width: 100%;
-  max-width: 862px; /* the 780px content width + padding it always had */
-  background: var(--dd-surface);
-  border: 1px solid var(--dd-border);
-  border-radius: var(--dd-radius-lg);
-  padding: 36px 40px 32px;
-  box-shadow: var(--dd-shadow-lg);
-}
-
-@media (max-width: 640px) {
-  .dd-welcome-card { padding: 24px 22px; }
-}
-
-.dd-welcome-progress {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 18px;
-}
-
-.dd-welcome-progress span {
-  flex: 1;
-  height: 5px;
-  border-radius: 999px;
-  background: var(--dd-border);
-}
-
-.dd-welcome-progress .active { background: var(--dd-brand); }
-.dd-welcome-progress .done   { background: var(--dd-accent); }
-
-.dd-welcome-title {
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: -0.6px;
-  color: var(--dd-text);
-  margin: 0 0 6px;
-}
-
-.dd-welcome-lead {
-  font-size: 15px;
-  color: var(--dd-text-soft);
-  margin: 0 0 24px;
-  line-height: 1.5;
-}
-
-.dd-welcome-step {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--dd-text);
-  margin: 0 0 12px;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-.dd-welcome-step-num {
-  font-family: var(--dd-font-mono);
-  font-size: 11px;
-  color: var(--dd-text-muted);
-  letter-spacing: 1px;
-}
-
-.dd-welcome-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.dd-welcome-grid-2col { grid-template-columns: repeat(2, 1fr); }
-
-@media (max-width: 640px) {
-  .dd-welcome-grid,
-  .dd-welcome-grid-2col { grid-template-columns: 1fr; }
-}
-
-.dd-welcome-tile {
-  background: var(--dd-surface-muted);
-  border: 2px solid var(--dd-border);
-  border-radius: var(--dd-radius);
-  padding: 16px 14px;
-  cursor: pointer;
-  text-align: left;
-  font-family: inherit;
-  transition: border-color 0.1s, background 0.1s;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.dd-welcome-tile:hover {
-  border-color: var(--dd-brand-soft);
-  background: var(--dd-surface);
-}
-
-.dd-welcome-tile.selected {
-  border-color: var(--dd-brand);
-  background: var(--dd-brand-bg);
-}
-
-.dd-welcome-emoji {
-  font-size: 26px;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-
-.dd-welcome-tile-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--dd-text);
-}
-
-.dd-welcome-tile-desc {
-  font-size: 12px;
-  color: var(--dd-text-soft);
-  line-height: 1.45;
-}
-
-.dd-welcome-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.dd-welcome-actions .dd-btn-ghost { margin-left: auto; }
 
 /* ==========================================================================
  * dd Page primitives (Phase 5 · used by every refactored admin page)

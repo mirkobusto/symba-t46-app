@@ -183,30 +183,6 @@ const de: Locale = {
     dataRequestNoContact: 'Wer die Studie durchführt, schickt jedem Unternehmen eine Excel-Arbeitsmappe, das Data Collection File: Ihre Zeilen sind die Stoffströme, die Ihr Unternehmen abgibt oder aufnimmt (Mengen, Transport, Kosten, beteiligte Anlagen). Füllen Sie sie aus und senden Sie sie an die Person zurück, die sie Ihnen geschickt hat. Nur wer die Studie durchführt, erstellt und ändert sie; sie wird nicht auf dieser Seite ausgefüllt.',
   },
 
-  welcome: {
-    title: "Willkommen bei SYMBA",
-    lead: "Dieses Werkzeug ermittelt, welche Methodik Ihr Fall industrieller Symbiose verlangt und welche Daten Sie erheben müssen. Es berechnet keine ökologischen, ökonomischen oder sozialen Ergebnisse. Zwei kurze Fragen, dann bringen wir Sie an die richtige Stelle; beides lässt sich später im Menü des Werkzeugs ändern.",
-    step1: { title: 'Wer sind Sie?' },
-    step2: { title: 'Was möchten Sie tun?' },
-    back: 'Zurück',
-    next: 'Weiter',
-    finish: 'Los geht\'s',
-    skip: 'Vorerst überspringen',
-    roles: {
-      analyst: { name: 'Nachhaltigkeitsanalyst', desc: 'Fachleute für industrielle Symbiose, LCA/LCC/S-LCA-Prüfer, Methodiker.' },
-      industry: { name: 'Industrieller Betreiber', desc: "Sie leiten eine Anlage oder einen Standort in einem Netzwerk industrieller Symbiose." },
-      authority: { name: 'Lokale Behörde', desc: 'Gemeinde, Region, politischer Analyst für das Gebiet.' },
-      community: { name: 'Gemeinschaftsvertreter', desc: 'Verein, NGO, Bürgerinitiative vor Ort.' },
-      enduser: { name: 'Endnutzer / Bürger', desc: 'Sie nutzen Produkte oder Dienste aus der Symbiose.' },
-      unknown: { name: 'Noch nicht sicher', desc: 'Kein Problem: Wir bringen Sie auf die Übersichtsseite.' },
-    },
-    tasks: {
-      assess: { name: 'Neue Bewertung starten', desc: 'Die Methodik für einen Fall industrieller Symbiose mit einem kurzen Fragebogen festlegen.' },
-      explore: { name: "Fälle nach Sektor oder Land erkunden", desc: "Sehen Sie, wie sich die gespeicherten Fälle auf Methoden und Sektoren verteilen, und die öffentliche Seite jedes Landes." },
-      browse: { name: 'Nur umschauen', desc: 'Kein bestimmtes Ziel: Ich möchte sehen, was das Tool tut.' },
-    },
-  },
-
   adminShell: {
     navLabel: 'Hauptnavigation',
     menuOpen: "Menü",
@@ -227,7 +203,6 @@ const de: Locale = {
       aggregate: "Fall-Dashboard",
       dcf: 'Data Collection File',
       about: 'Über',
-      changeRole: 'Rolle ändern',
     },
   },
 

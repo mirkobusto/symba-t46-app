@@ -203,31 +203,6 @@ const it: Locale = {
     dataRequestNoContact: 'Chi esegue lo studio manda a ogni azienda un file Excel, il Data Collection File: le vostre righe sono i flussi che la vostra azienda cede o riceve (quantità, trasporti, costi, impianti coinvolti). Compilatelo e rimandatelo a chi ve l\'ha inviato. Il file lo crea e lo modifica solo chi esegue lo studio; non si compila da questa pagina.',
   },
 
-  welcome: {
-    title: "Benvenuto in SYMBA",
-    lead:
-      "Questo strumento capisce quale metodologia richiede il tuo caso di simbiosi industriale e quali dati devi raccogliere. Non calcola i risultati ambientali, economici o sociali. Due domande veloci e ti portiamo dove serve; puoi cambiarle dopo, dal menu dentro lo strumento.",
-    step1: { title: 'Chi sei?' },
-    step2: { title: 'Cosa vuoi fare?' },
-    back: 'Indietro',
-    next: 'Continua',
-    finish: 'Portami dentro',
-    skip: 'Salta per ora',
-    roles: {
-      analyst: { name: 'Analista di sostenibilità', desc: 'Practitioner IS, revisore LCA/LCC/S-LCA, metodologo.' },
-      industry: { name: 'Operatore industriale', desc: "Gestisci un impianto o un sito in una rete di simbiosi industriale." },
-      authority: { name: 'Autorità locale', desc: 'Comune, regione, analista di policy per il territorio.' },
-      community: { name: 'Rappresentante di comunità', desc: 'Associazione, ONG, gruppo di cittadini del territorio ospitante.' },
-      enduser: { name: 'End user / cittadino', desc: 'Usi prodotti o servizi derivati dalla simbiosi.' },
-      unknown: { name: 'Non lo so ancora', desc: 'Va bene: ti portiamo sulla pagina di panoramica.' },
-    },
-    tasks: {
-      assess: { name: 'Avvia una nuova valutazione', desc: 'Configura la metodologia per un caso IS con un breve questionario.' },
-      explore: { name: "Esplora i casi per settore o paese", desc: "Vedi come si distribuiscono i casi salvati fra metodi e settori, e la pagina pubblica di ogni paese." },
-      browse: { name: 'Solo dare un\'occhiata', desc: 'Nessun obiettivo specifico: voglio vedere cosa fa il tool.' },
-    },
-  },
-
   adminShell: {
     navLabel: 'Navigazione principale',
     menuOpen: "Menu",
@@ -248,7 +223,6 @@ const it: Locale = {
       aggregate: "Dashboard dei casi",
       dcf: 'Data Collection File',
       about: 'Info',
-      changeRole: 'Cambia ruolo',
     },
   },
 

@@ -189,30 +189,6 @@ const fr: Locale = {
     dataRequestNoContact: 'La personne qui réalise l\'étude envoie à chaque entreprise un classeur Excel, le Data Collection File : vos lignes sont les flux que votre entreprise cède ou reçoit (quantités, transport, coûts, équipements concernés). Remplissez-le et renvoyez-le à qui vous l\'a envoyé. Seule la personne qui réalise l\'étude le crée et le modifie ; il ne se remplit pas sur cette page.',
   },
 
-  welcome: {
-    title: "Bienvenue dans SYMBA",
-    lead: "Cet outil détermine quelle méthodologie votre cas de symbiose industrielle exige et quelles données vous devez collecter. Il ne calcule pas les résultats environnementaux, économiques ou sociaux. Deux questions rapides et nous vous emmenons au bon endroit ; vous pourrez les modifier plus tard, depuis le menu à l'intérieur de l'outil.",
-    step1: { title: 'Qui êtes-vous ?' },
-    step2: { title: 'Que souhaitez-vous faire ?' },
-    back: 'Retour',
-    next: 'Continuer',
-    finish: 'C\'est parti',
-    skip: 'Passer pour l\'instant',
-    roles: {
-      analyst: { name: 'Analyste de durabilité', desc: 'Spécialiste de la symbiose industrielle, relecteur LCA/LCC/S-LCA, méthodologue.' },
-      industry: { name: 'Opérateur industriel', desc: "Vous gérez une usine ou un site dans un réseau de symbiose industrielle." },
-      authority: { name: 'Autorité locale', desc: 'Municipalité, région, analyste politique du territoire.' },
-      community: { name: 'Représentant de communauté', desc: 'Association, ONG, groupe de citoyens du territoire hôte.' },
-      enduser: { name: 'Utilisateur / citoyen', desc: 'Vous utilisez des produits ou services issus de la symbiose.' },
-      unknown: { name: 'Pas sûr encore', desc: 'Pas de problème : nous vous emmenons sur la page de vue d\'ensemble.' },
-    },
-    tasks: {
-      assess: { name: 'Démarrer une nouvelle évaluation', desc: 'Configurer la méthodologie d\'un cas de symbiose industrielle par un court questionnaire.' },
-      explore: { name: "Explorer les cas par secteur ou par pays", desc: "Voir comment les cas enregistrés se répartissent entre méthodes et secteurs, et la page publique de chaque pays." },
-      browse: { name: 'Juste regarder', desc: 'Pas d\'objectif précis : je veux voir ce que fait l\'outil.' },
-    },
-  },
-
   adminShell: {
     navLabel: 'Navigation principale',
     menuOpen: "Menu",
@@ -233,7 +209,6 @@ const fr: Locale = {
       aggregate: "Tableau de bord des cas",
       dcf: 'Data Collection File',
       about: 'À propos',
-      changeRole: 'Changer de rôle',
     },
   },
 

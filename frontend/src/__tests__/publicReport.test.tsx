@@ -4,7 +4,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import '../i18n'
 import PublicReportPage from '../pages/reader/PublicReportPage'
-import { usePreferenceStore } from '../store/preferenceStore'
 
 // UX round 2026-11-02: readers arrive from a link without the welcome page, so
 // the report says what it is, names the exchanges and speaks in words.
@@ -46,7 +45,6 @@ describe('public report', () => {
   })
   afterEach(() => {
     vi.unstubAllGlobals()
-    usePreferenceStore.getState().resetOnboarding()
   })
 
   it('says it is a plan with no results, and names the exchanges', async () => {
@@ -74,12 +72,6 @@ describe('public report', () => {
     renderAt('/r/c1/authority')
     expect(await screen.findByText('not assessed by this tool')).toBeTruthy()
     expect(screen.queryByText(/Q4 = /)).toBeNull()
-  })
-
-  it("opens a link without a view on the reader's own role", async () => {
-    usePreferenceStore.setState({ role: 'authority' })
-    renderAt('/r/c1')
-    expect(await screen.findByText('Showing for: Local authority')).toBeTruthy()
   })
 
   // decided by Fable on the UX round of 2026-11-03

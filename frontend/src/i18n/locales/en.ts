@@ -183,31 +183,6 @@ const en = {
     dataRequestNoContact: 'Whoever carries out the study sends each company an Excel workbook, the Data Collection File: your rows are the flows your company gives or receives (quantities, transport, costs, the equipment involved). Fill it in and send it back to whoever sent it to you. Only whoever carries out the study creates and changes it; it is not filled in on this page.',
   },
 
-  welcome: {
-    title: "Welcome to SYMBA",
-    lead:
-      "This tool works out which methodology your industrial-symbiosis case requires and which data you have to collect. It does not compute the environmental, cost or social results. Two quick questions and we take you to the right place; you can change both later, from the menu inside the tool.",
-    step1: { title: 'Who are you?' },
-    step2: { title: 'What would you like to do?' },
-    back: 'Back',
-    next: 'Continue',
-    finish: 'Take me in',
-    skip: 'Skip for now',
-    roles: {
-      analyst: { name: 'Sustainability analyst', desc: 'IS practitioner, LCA/LCC/S-LCA reviewer, methodologist.' },
-      industry: { name: 'Industrial operator', desc: "You run a plant or a site inside an industrial-symbiosis network." },
-      authority: { name: 'Local authority', desc: 'Municipality, region, policy analyst overseeing the territory.' },
-      community: { name: 'Community representative', desc: 'Association, NGO, host-territory citizens\' group.' },
-      enduser: { name: 'End user / citizen', desc: 'You use products or services derived from the symbiosis.' },
-      unknown: { name: 'Not sure yet', desc: 'That\'s fine: we start you on the overview page.' },
-    },
-    tasks: {
-      assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
-      explore: { name: 'Explore the cases by sector or country', desc: "See how the saved cases are spread across methods and sectors, and the public page of each country." },
-      browse: { name: 'Just look around', desc: 'No specific goal: I want to see what the tool does.' },
-    },
-  },
-
   adminShell: {
     navLabel: 'Main navigation',
     menuOpen: "Menu",
@@ -228,7 +203,6 @@ const en = {
       aggregate: 'Cases dashboard',
       dcf: 'Data Collection File',
       about: 'About',
-      changeRole: 'Change role',
     },
   },
 

@@ -178,9 +178,9 @@ We ran the tool on **eight real cases** from the literature corpus.
 - The Part 2 chapter of each flow matches in **37 of 53** flows.
 - The code carries **826 backend and 187 frontend** automated tests.
 
-Status: the tool is online at biobasedisadvisor.symbaproject.eu, still under construction with a team
-preview. Open points: the input-output specification of the CIRCE scoring, the public opening, and the
-alignment with D4.1 and D4.2 as their revision completes.
+Status: the tool is online and open to the public at biobasedisadvisor.symbaproject.eu since
+9 November 2026. Open points: the input-output specification of the CIRCE scoring, the legal review of
+the privacy notice, and the alignment with D4.1 and D4.2 as their revision completes.
 
 Thank you. I am happy to take questions.
 
@@ -206,4 +206,4 @@ Thank you. I am happy to take questions.
 | Tests | 826 backend + 187 frontend |
 | Audience views | 4 (industry, community, authority, end user) |
 | Languages | 5 (EN, IT, FR, DE, ES) |
-| Deployment | biobasedisadvisor.symbaproject.eu (under construction, team preview) |
+| Deployment | biobasedisadvisor.symbaproject.eu (public since 2026-11-09) |

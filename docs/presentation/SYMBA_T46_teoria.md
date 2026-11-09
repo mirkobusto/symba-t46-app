@@ -215,12 +215,10 @@ Otto casi reali del corpus bibliografico, confrontati con quello che il tool con
 
 ## 10. Stato e punti aperti
 
-- **Deploy**: `biobasedisadvisor.symbaproject.eu`, oggi "in costruzione" (pagina di cortesia, accesso del
-  team in anteprima).
+- **Deploy**: `biobasedisadvisor.symbaproject.eu`, aperto al pubblico dal 9 novembre 2026.
 - **Specifica I/O dello scoring CIRCE**: da definire; finché manca, la pagina admin per la coda di
   scoring resta ferma.
-- **Apertura al pubblico**: da decidere; richiede prima la registrazione dell'account admin.
-  L'informativa privacy è una bozza che attende revisione legale.
+- **Informativa privacy**: è una bozza che attende revisione legale.
 - **Revisione di D4.1/D4.2** in corso: i testi dei nodi seguono la numerazione FINAL v2 e andranno
   riallineati alla versione finale.
 

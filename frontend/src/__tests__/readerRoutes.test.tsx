@@ -1,9 +1,10 @@
 // UX round 6, public pages (G6, J4). On 2026-11-09 the owner removed the page on
-// filling in a workbook (the workbook carries its own cover and instructions) and
-// the page for pasting a report link (a link received opens the report itself).
+// filling in a workbook (the workbook carries its own cover and instructions),
+// the page for pasting a report link (a link received opens the report itself)
+// and the welcome wizard.
 
 import '@testing-library/jest-dom'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
@@ -11,7 +12,6 @@ import Sidebar from '../components/admin/Sidebar'
 import i18n from '../i18n'
 import HomePage from '../pages/HomePage'
 import StakeholderReportPage from '../pages/StakeholderReportPage'
-import WelcomePage from '../pages/WelcomePage'
 import { usePreferenceStore } from '../store/preferenceStore'
 
 function renderIn(node: React.ReactNode, url = '/') {
@@ -23,14 +23,13 @@ beforeEach(async () => {
 })
 
 afterEach(() => {
-  usePreferenceStore.setState({ role: null, task: null, hasOnboarded: false })
+  usePreferenceStore.setState({ mode: 'expert' })
 })
 
 describe('no page to paste a report link into', () => {
   it('is in the app menu or on Home', () => {
     renderIn(<Sidebar />)
     expect(screen.queryByRole('link', { name: /Read a shared report/ })).toBeNull()
-    usePreferenceStore.setState({ role: 'community' })
     renderIn(<HomePage />)
     expect(screen.queryByText('Did you receive a link or a code?')).toBeNull()
   })
@@ -41,23 +40,5 @@ describe('no page to paste a report link into', () => {
     expect(screen.queryByRole('link', { name: 'Open Data Collection File' })).toBeNull()
     expect(screen.queryByRole('link', { name: 'Read a shared report' })).toBeNull()
     expect(screen.getByRole('link', { name: 'See an example' })).toHaveAttribute('href', '/#presets')
-  })
-})
-
-describe('the welcome page for a company', () => {
-  it('offers no workbook task, and the industry role is said in words', () => {
-    usePreferenceStore.setState({ role: 'industry' })
-    renderIn(<WelcomePage />, '/welcome')
-    expect(screen.queryByText(/fill in a Data Collection File/)).toBeNull()
-    expect(screen.queryByText('Read a shared report')).toBeNull()
-    fireEvent.click(screen.getByText(/Back/))
-    expect(screen.getByText(/inside an industrial-symbiosis network/)).toBeInTheDocument()
-    expect(screen.queryByText(/IS network/)).toBeNull()
-  })
-
-  it('starts unselected when the stored task is the retired workbook one', () => {
-    usePreferenceStore.setState({ role: 'industry', task: 'fill' as never })
-    renderIn(<WelcomePage />, '/welcome')
-    expect(screen.getAllByRole('radio').every((r) => r.getAttribute('aria-checked') === 'false')).toBe(true)
   })
 })

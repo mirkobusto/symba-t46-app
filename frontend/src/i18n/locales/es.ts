@@ -183,30 +183,6 @@ const es: Locale = {
     dataRequestNoContact: 'Quien realiza el estudio envía a cada empresa un libro Excel, el Data Collection File: tus filas son los flujos que tu empresa cede o recibe (cantidades, transporte, costes, instalaciones implicadas). Rellénalo y devuélvelo a quien te lo envió. Solo quien realiza el estudio lo crea y lo modifica; no se rellena en esta página.',
   },
 
-  welcome: {
-    title: "Bienvenido a SYMBA",
-    lead: "Esta herramienta determina qué metodología exige tu caso de simbiosis industrial y qué datos debes recoger. No calcula los resultados ambientales, económicos ni sociales. Dos preguntas rápidas y te llevamos al sitio adecuado; puedes cambiarlas después, desde el menú dentro de la herramienta.",
-    step1: { title: '¿Quién eres?' },
-    step2: { title: '¿Qué te gustaría hacer?' },
-    back: 'Atrás',
-    next: 'Continuar',
-    finish: 'Entrar',
-    skip: 'Omitir por ahora',
-    roles: {
-      analyst: { name: 'Analista de sostenibilidad', desc: 'Profesional de la simbiosis industrial, revisor LCA/LCC/S-LCA, metodólogo.' },
-      industry: { name: 'Operador industrial', desc: "Diriges una planta o un sitio en una red de simbiosis industrial." },
-      authority: { name: 'Autoridad local', desc: 'Municipio, región, analista de políticas del territorio.' },
-      community: { name: 'Representante de comunidad', desc: 'Asociación, ONG, grupo de ciudadanos del territorio anfitrión.' },
-      enduser: { name: 'Usuario final / ciudadano', desc: 'Usas productos o servicios derivados de la simbiosis.' },
-      unknown: { name: 'Aún no lo sé', desc: 'No pasa nada: te llevamos a la página de presentación general.' },
-    },
-    tasks: {
-      assess: { name: 'Iniciar una nueva evaluación', desc: 'Configura la metodología de un caso de simbiosis industrial con un breve cuestionario.' },
-      explore: { name: "Explorar los casos por sector o país", desc: "Mira cómo se reparten los casos guardados entre métodos y sectores, y la página pública de cada país." },
-      browse: { name: 'Solo mirar', desc: 'Sin objetivo concreto: quiero ver qué hace la herramienta.' },
-    },
-  },
-
   adminShell: {
     navLabel: 'Navegación principal',
     menuOpen: "Menú",
@@ -227,7 +203,6 @@ const es: Locale = {
       aggregate: "Panel de casos",
       dcf: 'Data Collection File',
       about: 'Acerca de',
-      changeRole: 'Cambiar de rol',
     },
   },
 

@@ -12,7 +12,6 @@ import ReportNotFound from '../components/reader/ReportNotFound'
 import i18n from '../i18n'
 import PublicReportPage from '../pages/reader/PublicReportPage'
 import { useAuthStore } from '../store/authStore'
-import { usePreferenceStore } from '../store/preferenceStore'
 
 const REPORT = {
   id: 'c1', name: 'Dairy valley', ilcd_situation: 'ILCD Situation A',
@@ -45,7 +44,6 @@ beforeEach(async () => {
 
 afterEach(() => {
   vi.unstubAllGlobals()
-  usePreferenceStore.getState().resetOnboarding()
   useAuthStore.setState({ token: null, user: null } as never)
 })
 
@@ -91,7 +89,7 @@ describe('an address the app does not have (P5-12, P7-14)', () => {
     } as Response)))
   })
 
-  it('says so, also before the welcome', async () => {
+  it('says so', async () => {
     window.history.pushState({}, '', '/esto-no-existe')
     render(<App />)
     expect(await screen.findByRole('heading', { name: 'Page not found' })).toBeInTheDocument()

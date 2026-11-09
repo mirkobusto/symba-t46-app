@@ -10,7 +10,7 @@
 //     item is named for what it opens, and a new assessment starts from the
 //     questionnaire or Home, asking first; UX round 6, P6-14)
 //   - Reports    → Stakeholder views / Regional dashboard / DCF / Read a shared report
-//   - System     → About / Change role (Scoring queue will land in a later phase)
+//   - System     → About
 //
 // The sidebar footer surfaces the mandatory EU / GA reference so it is
 // visible without scrolling to the very bottom of the page.
@@ -64,9 +64,6 @@ export default function Sidebar() {
       title: t('adminShell.groups.system'),
       items: [
         { to: '/about', label: t('adminShell.nav.about'), glyph: 'ⓘ' },
-        // The wizard sits outside the shell, so this link never shows as active. `step=1` opens it on
-        // the role question: with a role already saved it would start on the task question.
-        { to: '/welcome?step=1', label: t('adminShell.nav.changeRole'), glyph: '⇄' },
       ],
     },
   ]

@@ -83,18 +83,7 @@ const en = {
     loading: 'Loading the report…',
     notFoundTitle: 'Report not found',
     notFoundBody: "This report is not available: the link may be incomplete, or whoever shared it has stopped sharing it. Ask whoever sent it.",
-    tryAnother: 'Try another link or code',
     aboutLink: 'Learn about SYMBA',
-    open: {
-      eyebrow: "Shared report",
-      title: "Open a report you received",
-      lead: 'Paste the link someone sent you, or just the case code at its end (a code like agri-b-sita-1a2b3c4d).',
-      label: "Link or case code",
-      placeholder: "https://…/r/…",
-      invalid: "That does not look like a report link. Paste the whole link you received, or the code after /r/.",
-      submit: "Open the report",
-      noLink: "No link? Ask whoever told you about the case. To find out what SYMBA is:",
-    },
     eyebrow: 'Shared report · {{name}}',
     summaryTitle: "How the assessment will be done",
     scoringTitle: "Results",
@@ -214,7 +203,6 @@ const en = {
     },
     tasks: {
       assess: { name: 'Start a new assessment', desc: 'Configure the methodology for an IS case through a short questionnaire.' },
-      read: { name: 'Read a shared report', desc: 'Open a case someone shared with me and see the report.' },
       explore: { name: 'Explore the cases by sector or country', desc: "See how the saved cases are spread across methods and sectors, and the public page of each country." },
       browse: { name: 'Just look around', desc: 'No specific goal: I want to see what the tool does.' },
     },
@@ -232,7 +220,6 @@ const en = {
       system: 'System',
     },
     nav: {
-      openShared: "Read a shared report",
       home: 'Home',
       questionnaire: "Questionnaire",
       cases: 'My cases',
@@ -307,10 +294,6 @@ const en = {
   },
 
   home: {
-    reader: {
-      link: "Did you receive a link or a code?",
-      open: "Read a shared report",
-    },
     intro: {
       what: { title: "What it does", body: "Tells you how the assessment of an industrial-symbiosis exchange has to be set up, following the SYMBA guidelines, and which data to collect from the companies involved." },
       not: { title: "What it does not do", body: "It does not compute the results: no emissions, costs or social figures. Whoever carries out the study calculates them with the data the tool asks for." },
@@ -1673,7 +1656,7 @@ const en = {
     },
   },
   stakeholder: {
-    noCaseReader: "Did you receive a link to a report? Open it below, or look at an example case.",
+    noCaseReader: "No case is open: look at an example case to see what these views show.",
     seeExample: "See an example",
     audience: {
       industry: {
@@ -2013,8 +1996,6 @@ const en = {
     body: "This page does not exist: the link may be incomplete or out of date.",
     home: "Go to the Home page",
     cases: "My cases",
-    report: "Were you sent a shared report?",
-    reportLink: "Open a shared report",
   },
 
   cases: {

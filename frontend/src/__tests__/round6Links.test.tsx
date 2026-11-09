@@ -11,7 +11,6 @@ import ShareReportModal from '../components/dd/ShareReportModal'
 import ReportNotFound from '../components/reader/ReportNotFound'
 import i18n from '../i18n'
 import PublicReportPage from '../pages/reader/PublicReportPage'
-import { sharedReportPath } from '../pages/reader/sharedReportPath'
 import { useAuthStore } from '../store/authStore'
 import { usePreferenceStore } from '../store/preferenceStore'
 
@@ -78,11 +77,6 @@ describe('links to a shared report (UX round 6, P5-01, P5-11)', () => {
     expect(asked.some((u) => u.endsWith('/api/public/report/agri-b-sita-a839e04a'))).toBe(true)
   })
 
-  it('/r/open reads a pasted code in capitals and the end-user alias', () => {
-    expect(sharedReportPath('  AGRI-B-SITA-A839E04A ')).toBe('/r/agri-b-sita-a839e04a')
-    expect(sharedReportPath('https://x.eu/R/Agri-b-sita-a839e04a/end-user')).toBe('/r/agri-b-sita-a839e04a/enduser')
-  })
-
   it('a longer address under /r/ is a report not found, not the Home page (P7-14)', () => {
     renderReport('/r/nonexistent/foo/bar')
     expect(screen.getByText('Report not found')).toBeInTheDocument()
@@ -97,11 +91,11 @@ describe('an address the app does not have (P5-12, P7-14)', () => {
     } as Response)))
   })
 
-  it('says so, also before the welcome, with a way to a shared report', async () => {
+  it('says so, also before the welcome', async () => {
     window.history.pushState({}, '', '/esto-no-existe')
     render(<App />)
     expect(await screen.findByRole('heading', { name: 'Page not found' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Open a shared report' })).toHaveAttribute('href', '/r/open')
+    expect(screen.queryByRole('link', { name: 'Open a shared report' })).toBeNull()
     window.history.pushState({}, '', '/')
   })
 })

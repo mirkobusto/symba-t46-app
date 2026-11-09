@@ -18,9 +18,6 @@ export default function NotFoundPage() {
         <Link to="/" className="btn btn-primary">{t('notFound.home')}</Link>
         <Link to="/cases" className="btn btn-secondary">{t('notFound.cases')}</Link>
       </div>
-      <p className="dd-soft">
-        {t('notFound.report')} <Link to="/r/open">{t('notFound.reportLink')}</Link>
-      </p>
     </div>
   )
 }

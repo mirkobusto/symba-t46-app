@@ -1,6 +1,6 @@
-// UX round 6, public pages (G6, J4): a citizen or a company that received a
-// link finds the way to it from the app. The page on filling in a workbook was
-// removed on 2026-11-09 (the workbook carries its own cover and instructions).
+// UX round 6, public pages (G6, J4). On 2026-11-09 the owner removed the page on
+// filling in a workbook (the workbook carries its own cover and instructions) and
+// the page for pasting a report link (a link received opens the report itself).
 
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
@@ -26,21 +26,11 @@ afterEach(() => {
   usePreferenceStore.setState({ role: null, task: null, hasOnboarded: false })
 })
 
-describe('the way to a report received by link', () => {
-  it('is in the app menu (P5-05, P4-16)', () => {
+describe('no page to paste a report link into', () => {
+  it('is in the app menu or on Home', () => {
     renderIn(<Sidebar />)
-    expect(screen.getByRole('link', { name: /Read a shared report/ })).toHaveAttribute('href', '/r/open')
-  })
-
-  it('is at the top of Home for a reader, and a company gets no workbook page (P5-05)', () => {
-    usePreferenceStore.setState({ role: 'industry' })
-    renderIn(<HomePage />)
-    expect(screen.getByText('Did you receive a link or a code?')).toBeInTheDocument()
-    expect(screen.queryByText(/Data Collection File to fill in/)).toBeNull()
-  })
-
-  it('is not pushed on an analyst', () => {
-    usePreferenceStore.setState({ role: 'analyst' })
+    expect(screen.queryByRole('link', { name: /Read a shared report/ })).toBeNull()
+    usePreferenceStore.setState({ role: 'community' })
     renderIn(<HomePage />)
     expect(screen.queryByText('Did you receive a link or a code?')).toBeNull()
   })
@@ -49,7 +39,7 @@ describe('the way to a report received by link', () => {
     renderIn(<StakeholderReportPage />, '/stakeholder-report')
     expect(screen.queryByRole('link', { name: 'Back to result' })).toBeNull()
     expect(screen.queryByRole('link', { name: 'Open Data Collection File' })).toBeNull()
-    expect(screen.getByRole('link', { name: 'Read a shared report' })).toHaveAttribute('href', '/r/open')
+    expect(screen.queryByRole('link', { name: 'Read a shared report' })).toBeNull()
     expect(screen.getByRole('link', { name: 'See an example' })).toHaveAttribute('href', '/#presets')
   })
 })
@@ -59,6 +49,7 @@ describe('the welcome page for a company', () => {
     usePreferenceStore.setState({ role: 'industry' })
     renderIn(<WelcomePage />, '/welcome')
     expect(screen.queryByText(/fill in a Data Collection File/)).toBeNull()
+    expect(screen.queryByText('Read a shared report')).toBeNull()
     fireEvent.click(screen.getByText(/Back/))
     expect(screen.getByText(/inside an industrial-symbiosis network/)).toBeInTheDocument()
     expect(screen.queryByText(/IS network/)).toBeNull()

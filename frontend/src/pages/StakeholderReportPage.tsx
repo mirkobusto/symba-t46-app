@@ -143,10 +143,7 @@ export default function StakeholderReportPage() {
       ) : (
         <div className="dd-page-actions">
           <p className="dd-muted" style={{ flexBasis: '100%', margin: 0 }}>{t('stakeholder.noCaseReader')}</p>
-          <Link to="/r/open" className="dd-btn dd-btn-primary">
-            {t('adminShell.nav.openShared')}
-          </Link>
-          <Link to="/#presets" className="dd-btn dd-btn-secondary">
+          <Link to="/#presets" className="dd-btn dd-btn-primary">
             {t('stakeholder.seeExample')}
           </Link>
         </div>

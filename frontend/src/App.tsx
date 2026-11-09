@@ -27,7 +27,6 @@ const DataCollectionPage = lazyPage(() => import('./pages/DataCollectionPage'))
 const ScenariosResultPage = lazyPage(() => import('./pages/ScenariosResultPage'))
 const StakeholderReportPage = lazyPage(() => import('./pages/StakeholderReportPage'))
 const PrivacyPage = lazyPage(() => import('./pages/PrivacyPage'))
-const OpenSharedReportPage = lazyPage(() => import('./pages/reader/OpenSharedReportPage'))
 const PublicAboutPage = lazyPage(() => import('./pages/reader/PublicAboutPage'))
 const PublicRegionPage = lazyPage(() => import('./pages/reader/PublicRegionPage'))
 const PublicReportPage = lazyPage(() => import('./pages/reader/PublicReportPage'))
@@ -86,7 +85,6 @@ export default function App() {
             <Route element={<Layout />}>
               {/* Reader shell (public share URLs, no auth) */}
               <Route path="/r/about" element={<PublicAboutPage />} />
-              <Route path="/r/open" element={<OpenSharedReportPage />} />
               <Route path="/r/region/:code" element={<PublicRegionPage />} />
               <Route path="/r/:caseId/:audience" element={<PublicReportPage />} />
               <Route path="/r/:caseId" element={<PublicReportPage />} />

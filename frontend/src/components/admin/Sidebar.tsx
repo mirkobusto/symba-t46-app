@@ -58,8 +58,6 @@ export default function Sidebar() {
         { to: '/stakeholder-report', label: t('adminShell.nav.stakeholder'), glyph: '⊞' },
         { to: '/aggregate', label: t('adminShell.nav.aggregate'), glyph: '⊠' },
         { to: '/data-collection', label: t('adminShell.nav.dcf'), glyph: '↓' },
-        // a reader who received a link had no way back to it from the menu (UX round 6, P5-05, P4-16)
-        { to: '/r/open', label: t('adminShell.nav.openShared'), glyph: '↗' },
       ],
     },
     {

@@ -269,6 +269,14 @@ export interface CoverRow {
   why?: string
 }
 
+/** The issues of a refused network ({detail: [{code, detail, …}]}, as PUT
+ * /data answers) in words, one after the other; null for any other shape. */
+function issuesText(detail: unknown): string | null {
+  if (!Array.isArray(detail) || detail.length === 0) return null
+  const lines = detail.map((d) => (d && typeof (d as { detail?: unknown }).detail === 'string' ? (d as { detail: string }).detail : null))
+  return lines.every((l) => l !== null) ? lines.join('; ') : null
+}
+
 async function fetchDcfBlob(path: string, body: unknown): Promise<Blob> {
   const res = await fetch(`${API_BASE_URL}${path}${langQuery()}`, {
     method: 'POST',
@@ -282,7 +290,7 @@ async function fetchDcfBlob(path: string, body: unknown): Promise<Blob> {
       try {
         const parsed = JSON.parse(text) as { detail?: unknown }
         if (parsed && typeof parsed.detail === 'string') detail = parsed.detail
-        else detail = text
+        else detail = issuesText(parsed?.detail) ?? text
       } catch {
         detail = text
       }
@@ -316,18 +324,23 @@ export function fetchDcfDocxForCase(
     { rows, network_png: networkPng ?? undefined, sending: sending ?? undefined })
 }
 
+// Drafts (a case never saved): the server has no copy of the network, so the
+// browser's Network Builder draft goes along as `data` and is checked there as
+// a stored network is; without it the files carry only the questionnaire's flows.
 export function fetchDcfXlsx(
   input: Case, rows: CoverRow[] = [], networkPng: string | null = null, sending: DcfSending | null = null,
+  data: DcfData | null = null,
 ): Promise<Blob> {
   return fetchDcfBlob('/api/dcf/export/xlsx',
-    { case: input, rows, network_png: networkPng ?? undefined, sending: sending ?? undefined })
+    { case: input, rows, network_png: networkPng ?? undefined, sending: sending ?? undefined, data: data ?? undefined })
 }
 
 export function fetchDcfDocx(
   input: Case, rows: CoverRow[] = [], networkPng: string | null = null, sending: DcfSending | null = null,
+  data: DcfData | null = null,
 ): Promise<Blob> {
   return fetchDcfBlob('/api/dcf/export/docx',
-    { case: input, rows, network_png: networkPng ?? undefined, sending: sending ?? undefined })
+    { case: input, rows, network_png: networkPng ?? undefined, sending: sending ?? undefined, data: data ?? undefined })
 }
 
 // ----- Stored DCF content (Network Builder) -----

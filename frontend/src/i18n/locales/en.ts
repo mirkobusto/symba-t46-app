@@ -1784,7 +1784,7 @@ const en = {
     tabNetworkBuilder: 'Network builder',
     socialDeferred: 'Social inventory is not collected in this file: it follows D4.3 with its own instruments (questionnaires, interviews per stakeholder group).',
     guidedIntro: 'Here you see the questions the Excel file will ask the companies. You do not have to fill them in now: download the file and pass it on.',
-    unsavedCase: 'The files do not contain the network you drew yet: save the case (an account is needed) to include it.',
+    unsavedCase: 'The network you draw goes into the files, but for now it is kept only in this browser: save the case (an account is needed) to keep it on the server.',
     unsavedNetwork: 'The network has unsaved changes: save the network to include them in the files.',
     filesNote: 'Excel: the workbook the companies fill in (open it with Excel or LibreOffice, better on a computer). Word: the companion document that explains it.',
     saveBeforeDownloadFailed: "The network could not be saved, so the files were not made: they would carry the old network. Open the network editor, fix what it points out and download again.",
@@ -1858,7 +1858,7 @@ const en = {
     unsavedChanges: 'Unsaved changes',
     unsavedCase: 'Local draft: save the case to sync',
     saveCaseFirst:
-      'This case is not saved on the server yet. You can draw the network now; save the case from the result page to store it.',
+      'This case is not saved on the server yet: the network you draw is kept only in this browser, and the files you download carry it. Save the case from the result page (an account is needed) to keep it on the server.',
     missingRequired_one: '{{count}} required field still empty',
     missingRequired_other: '{{count}} required fields still empty',
     whichFlow: 'Which flow is this arrow?',

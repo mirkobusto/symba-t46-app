@@ -1738,7 +1738,7 @@ const es: Locale = {
     tabNetworkBuilder: 'Editor de red',
     socialDeferred: 'El inventario social no se recoge en este archivo: sigue la D4.3 con sus propios instrumentos (cuestionarios, entrevistas por grupo de partes interesadas).',
     guidedIntro: 'Aquí ves las preguntas que el archivo Excel hará a las empresas. No tienes que rellenarlas ahora: descarga el archivo y pásalo a quien deba rellenarlo.',
-    unsavedCase: 'Los archivos aún no contienen la red que dibujaste: guarda el caso (hace falta una cuenta) para incluirla.',
+    unsavedCase: 'La red que dibujas entra en los archivos, pero por ahora solo se conserva en este navegador: guarda el caso (hace falta una cuenta) para conservarla en el servidor.',
     unsavedNetwork: 'La red tiene cambios sin guardar: guarda la red para incluirlos en los archivos.',
     filesNote: 'Excel: el libro que rellenan las empresas (se abre con Excel o LibreOffice, mejor en un ordenador). Word: el documento que lo acompaña y lo explica.',
     saveBeforeDownloadFailed: "No se ha podido guardar la red, así que los archivos no se han creado: contendrían la red anterior. Abre el editor de la red, corrige lo que indica y descarga de nuevo.",
@@ -1812,7 +1812,7 @@ const es: Locale = {
     unsavedChanges: 'Cambios sin guardar',
     unsavedCase: 'Borrador local: guarda el caso para sincronizarlo',
     saveCaseFirst:
-      'Este caso todavía no está guardado en el servidor. Puedes dibujar la red ahora; guarda el caso desde la página de resultado para conservarla.',
+      'Este caso todavía no está guardado en el servidor: la red que dibujas solo se conserva en este navegador y los archivos que descargas la incluyen. Guarda el caso desde la página de resultado (hace falta una cuenta) para conservarla en el servidor.',
     missingRequired_one: '{{count}} campo obligatorio aún vacío',
     missingRequired_other: '{{count}} campos obligatorios aún vacíos',
     whichFlow: '¿Qué flujo es esta flecha?',

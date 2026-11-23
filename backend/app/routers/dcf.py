@@ -3,8 +3,8 @@
 Composition endpoints sit on top of `engine.dcf_compose.compose_dcf`:
 
   POST   /api/dcf/preview          -> Case in, DcfPayload JSON out (UI preview)
-  POST   /api/dcf/export/xlsx      -> Case in, .xlsx out (download)
-  POST   /api/dcf/export/docx      -> Case in, .docx out (download)
+  POST   /api/dcf/export/xlsx      -> Case (+ drawn network) in, .xlsx out (download)
+  POST   /api/dcf/export/docx      -> Case (+ drawn network) in, .docx out (download)
   GET    /api/dcf/{case_id}/export/xlsx -> .xlsx of a saved case, pre-filled
   GET    /api/dcf/{case_id}/export/docx -> .docx of a saved case, pre-filled
   GET    /api/dcf/{case_id}/data   -> stored DCF content + validation report
@@ -37,13 +37,13 @@ from pathlib import Path
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, Response, status
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from sqlalchemy.orm import Session as OrmSession
 
 from app.auth.deps import get_current_user_optional
 from app.auth.ownership import can_modify, can_view
 from app.db import get_db
-from app.domain.dcf_data import DcfData, DcfDataEnvelope, DcfSending
+from app.domain.dcf_data import DcfData, DcfDataEnvelope, DcfDataValidation, DcfSending
 from app.domain.models import Case
 from app.engine.dcf_compose import DcfPayload, compose_dcf
 from app.engine.dcf_data_validate import normalise_values, validate_dcf_data
@@ -121,10 +121,16 @@ class CoverRow(BaseModel):
     why: str | None = None
 
 
+# A drawn network is dozens of rows. This bounds what a draft export accepts
+# (rows of every section, of the scenarios' networks, canvas positions), on top
+# of the 20 MB the proxy lets through.
+MAX_DRAFT_DATA_ROWS = 5_000
+
+
 class DcfExportRequest(BaseModel):
     """What the browser sends with a download: the configuration rows the
     result page shows, so the cover of the files says the same (UX round 5, D7).
-    `case` is needed only for a draft that was never saved."""
+    `case` and `data` are needed only for a draft that was never saved."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -136,6 +142,22 @@ class DcfExportRequest(BaseModel):
     # deadline, contact and version set on the DCF page (UX round 6, P8-02);
     # for a saved case the stored ones apply when absent
     sending: DcfSending | None = None
+    # what the Network Builder holds for a case never saved: the same content
+    # PUT /{case_id}/data stores, checked the same way. Only the draft endpoints
+    # read it; a saved case's files come from what the server holds.
+    data: DcfData | None = None
+
+    @field_validator("data")
+    @classmethod
+    def _bounded_data(cls, data: DcfData | None) -> DcfData | None:
+        if data is None:
+            return None
+        networks = [data.rows_by_section, *(v.rows_by_section for v in data.networks_by_scenario.values())]
+        size = sum(len(rows) for by_section in networks for rows in by_section.values())
+        size += len(data.layout) + sum(len(v.layout) for v in data.networks_by_scenario.values())
+        if size > MAX_DRAFT_DATA_ROWS:
+            raise ValueError(f"data holds more than {MAX_DRAFT_DATA_ROWS} rows and positions")
+        return data
 
 
 _PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
@@ -218,7 +240,37 @@ def _draft_request(body: DcfExportRequest | Case) -> tuple[Case, list[CoverRow],
         return body, [], None
     if body.case is None:
         raise HTTPException(status_code=422, detail="case is required for a draft export")
-    return body.case, body.rows, body.sending
+    # as for a saved case: the deadline sent with the download, else the one
+    # that came with the network
+    return body.case, body.rows, body.sending or (body.data.sending if body.data else None)
+
+
+def _checked_data(data: DcfData, payload: DcfPayload, case: Case) -> DcfDataValidation:
+    """Write the values the way they are read and validate `data` against the
+    descriptor of `case`; 422 with the issues when it is structurally wrong.
+    Dormant values and empty required fields do not block (see
+    `engine.dcf_data_validate`). Shared by PUT /{case_id}/data and the draft
+    exports, so a network drawn before saving is judged as the saved one is."""
+    normalise_values(data)
+    validation = validate_dcf_data(data, payload, _load_dcf_schema(), case)
+    if validation.errors:
+        raise HTTPException(
+            status_code=422,
+            detail=[issue.model_dump() for issue in validation.errors],
+        )
+    return validation
+
+
+def _draft_data(body: DcfExportRequest | Case, case: Case, payload: DcfPayload) -> DcfData:
+    """The content of a draft's files: the network the browser sent (checked as
+    a stored one, its case id being the one the draft composes to: an unsaved
+    case has none of its own), plus a row for every questionnaire flow."""
+    sent = body.data if isinstance(body, DcfExportRequest) else None
+    if sent is None:
+        return with_case_flows(None, case, payload.case_id)
+    sent = sent.model_copy(update={"case_id": payload.case_id})
+    _checked_data(sent, payload, case)
+    return with_case_flows(sent, case, payload.case_id)
 
 
 @router.post("/export/xlsx")
@@ -227,10 +279,11 @@ def export_xlsx(
     schemas: LoadedSchemas = Depends(_get_schemas),
     lang: str = Query("en"),
 ) -> Response:
-    """Render the DCF of a draft that was never saved as an Excel workbook."""
+    """Render the DCF of a draft that was never saved as an Excel workbook,
+    with the network the browser sends in `data` (the Network Builder's draft)."""
     case, rows, sending = _draft_request(body)
     payload = _run_and_compose(case, schemas)
-    data = with_case_flows(None, case, payload.case_id)
+    data = _draft_data(body, case, payload)
     cover = _cover(rows, _case_ref(payload.case_id), _network_png(body), case, sending)
     blob = render_xlsx(localize(payload, lang), data, lang=lang, cover=cover)
     filename = _filename(None, "xlsx")
@@ -250,7 +303,7 @@ def export_docx(
     """The companion document of a draft that was never saved."""
     case, rows, sending = _draft_request(body)
     payload = _run_and_compose(case, schemas)
-    data = with_case_flows(None, case, payload.case_id)
+    data = _draft_data(body, case, payload)
     cover = _cover(rows, _case_ref(payload.case_id), _network_png(body), case, sending)
     blob = generate_dcf_docx_bytes(localize(payload, lang), data=data, lang=lang, cover=cover)
     filename = _filename(None, "docx")
@@ -350,13 +403,7 @@ def put_dcf_data(
 
     case_rec, case = _load_case_for(case_id, db, current_user, for_write=True)
     payload = _run_and_compose(case, schemas)
-    normalise_values(data)
-    validation = validate_dcf_data(data, payload, _load_dcf_schema(), case)
-    if validation.errors:
-        raise HTTPException(
-            status_code=422,
-            detail=[issue.model_dump() for issue in validation.errors],
-        )
+    validation = _checked_data(data, payload, case)
 
     data.updated_at = datetime.now(UTC)
     rec = db.get(CaseDcfData, case_id)

@@ -178,4 +178,67 @@ describe('DCF API client', () => {
     const [, init] = calls[0] as [string, RequestInit | undefined]
     expect(JSON.parse(String(init?.body)).sending).toEqual(sending)
   })
+
+  it.each([
+    ['fetchDcfXlsx', fetchDcfXlsx, '/api/dcf/export/xlsx'],
+    ['fetchDcfDocx', fetchDcfDocx, '/api/dcf/export/docx'],
+  ] as const)('%s sends the network drawn for a case never saved as `data`', async (_name, fetchFile, path) => {
+    const mock = vi.fn(() =>
+      Promise.resolve(okBlobResponse('application/vnd.ms-excel')),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    const drawn = {
+      schema_version: '1.1',
+      case_id: '',
+      rows_by_section: {
+        actors: [{ row_id: 'a1', values: { 'actor.name': 'WWTP Alfa' } }],
+        flow_matrix: [{ row_id: 'f1', values: { 'flow.origin_actor_id': 'a1', 'flow.dest_actor_id': 'a2' } }],
+      },
+      layout: { a1: { x: 0, y: 0 } },
+    }
+    await fetchFile({ q1: 'B' }, [], null, null, drawn)
+
+    const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
+    const [url, init] = calls[0] as [string, RequestInit]
+    expect(String(url)).toContain(path)
+    expect(JSON.parse(String(init.body)).data).toEqual(drawn)
+  })
+
+  it('leaves `data` out of the request when there is no network to send', async () => {
+    const mock = vi.fn(() =>
+      Promise.resolve(okBlobResponse('application/vnd.ms-excel')),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    await fetchDcfXlsx({ q1: 'B' })
+
+    const calls = (mock as unknown as { mock: { calls: unknown[][] } }).mock.calls
+    const [, init] = calls[0] as [string, RequestInit]
+    expect(JSON.parse(String(init.body))).not.toHaveProperty('data')
+  })
+
+  it('reads the issues of a refused network in words, not as raw JSON', async () => {
+    const mock = vi.fn(() =>
+      Promise.resolve({
+        ok: false,
+        status: 422,
+        statusText: 'Unprocessable Entity',
+        text: () => Promise.resolve(JSON.stringify({
+          detail: [
+            { code: 'broken_reference', section_id: 'flow_matrix', detail: "'a-gone' does not match any row in section 'actors'" },
+            { code: 'invalid_country_code', section_id: 'actors', detail: "'CZE' is not a two-letter ISO 3166-1 country code" },
+          ],
+        })),
+      } as Response),
+    ) as unknown as typeof fetch
+    vi.stubGlobal('fetch', mock)
+
+    await expect(fetchDcfXlsx({ q1: 'B' }, [], null, null, {
+      schema_version: '1.1', case_id: '', rows_by_section: {}, layout: {},
+    })).rejects.toMatchObject({
+      status: 422,
+      detail: "'a-gone' does not match any row in section 'actors'; 'CZE' is not a two-letter ISO 3166-1 country code",
+    })
+  })
 })

@@ -1744,7 +1744,7 @@ const fr: Locale = {
     tabNetworkBuilder: 'Éditeur de réseau',
     socialDeferred: 'L\'inventaire social n\'est pas collecté dans ce fichier : il suit la D4.3 avec ses propres instruments (questionnaires, entretiens par groupe de parties prenantes).',
     guidedIntro: 'Vous voyez ici les questions que le fichier Excel posera aux entreprises. Vous n\'avez pas à les remplir maintenant : téléchargez le fichier et transmettez-le.',
-    unsavedCase: 'Les fichiers ne contiennent pas encore le réseau que vous avez dessiné : enregistrez le cas (un compte est nécessaire) pour l\'inclure.',
+    unsavedCase: 'Le réseau que vous dessinez figure dans les fichiers, mais pour l\'instant il reste uniquement dans ce navigateur : enregistrez le cas (un compte est nécessaire) pour le conserver sur le serveur.',
     unsavedNetwork: 'Le réseau a des modifications non enregistrées : enregistrez le réseau pour les inclure dans les fichiers.',
     filesNote: 'Excel : le classeur que remplissent les entreprises (à ouvrir avec Excel ou LibreOffice, plutôt sur un ordinateur). Word : le document qui l\'accompagne et l\'explique.',
     saveBeforeDownloadFailed: "Le réseau n'a pas pu être enregistré, donc les fichiers n'ont pas été créés : ils contiendraient l'ancien réseau. Ouvrez l'éditeur du réseau, corrigez ce qu'il signale et téléchargez de nouveau.",
@@ -1818,7 +1818,7 @@ const fr: Locale = {
     unsavedChanges: 'Modifications non enregistrées',
     unsavedCase: 'Brouillon local : enregistrez le cas pour synchroniser',
     saveCaseFirst:
-      "Ce cas n'est pas encore enregistré sur le serveur. Vous pouvez dessiner le réseau maintenant ; enregistrez le cas depuis la page de résultat pour le conserver.",
+      "Ce cas n'est pas encore enregistré sur le serveur : le réseau que vous dessinez reste uniquement dans ce navigateur, et les fichiers que vous téléchargez le contiennent. Enregistrez le cas depuis la page de résultat (un compte est nécessaire) pour le conserver sur le serveur.",
     missingRequired_one: '{{count}} champ obligatoire encore vide',
     missingRequired_other: '{{count}} champs obligatoires encore vides',
     whichFlow: 'Quel flux représente cette flèche ?',

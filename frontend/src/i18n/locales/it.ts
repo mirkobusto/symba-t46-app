@@ -1759,7 +1759,7 @@ const it: Locale = {
     tabNetworkBuilder: 'Editor di rete',
     socialDeferred: 'L\'inventario sociale non si raccoglie in questo file: segue la D4.3 con i suoi strumenti (questionari, interviste per gruppo di stakeholder).',
     guidedIntro: 'Qui vedi le domande che il file Excel farà alle aziende. Non devi compilarle tu adesso: scarica il file e passalo a chi deve compilarlo.',
-    unsavedCase: 'I file non contengono ancora la rete che hai disegnato: salva il caso (serve un account) per includerla.',
+    unsavedCase: 'La rete che disegni entra nei file, ma per ora resta solo in questo browser: salva il caso (serve un account) per conservarla sul server.',
     unsavedNetwork: 'La rete ha modifiche non salvate: salva la rete per includerle nei file.',
     filesNote: 'Excel: il file che compilano le aziende (si apre con Excel o LibreOffice, meglio da computer). Word: il documento che lo accompagna e lo spiega.',
     saveBeforeDownloadFailed: "Non è stato possibile salvare la rete, quindi i file non sono stati creati: conterrebbero la rete precedente. Apri l'editor della rete, correggi quello che segnala e scarica di nuovo.",
@@ -1833,7 +1833,7 @@ const it: Locale = {
     unsavedChanges: 'Modifiche non salvate',
     unsavedCase: 'Bozza locale: salva il caso per sincronizzare',
     saveCaseFirst:
-      'Questo caso non è ancora salvato sul server. Puoi disegnare la rete adesso; salva il caso dalla pagina del risultato per conservarla.',
+      'Questo caso non è ancora salvato sul server: la rete che disegni resta solo in questo browser e i file che scarichi la contengono. Salva il caso dalla pagina del risultato (serve un account) per conservarla sul server.',
     missingRequired_one: '{{count}} campo obbligatorio ancora vuoto',
     missingRequired_other: '{{count}} campi obbligatori ancora vuoti',
     whichFlow: 'Quale flusso è questa freccia?',

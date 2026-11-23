@@ -173,7 +173,8 @@ export default function DataCollectionPage() {
    * A saved case exports through the case-scoped endpoint, so the file
    * carries the network drawn in the builder. Unsaved changes are pushed
    * first — downloading a file that does not match what is on screen
-   * would be worse than a moment's wait.
+   * would be worse than a moment's wait. A case never saved has no server
+   * copy: its draft network is sent with the request instead.
    */
   async function exportBlob(kind: 'xlsx' | 'docx'): Promise<Blob> {
     // the cover states the configuration with the result page's own rows
@@ -193,9 +194,12 @@ export default function DataCollectionPage() {
         ? fetchDcfXlsxForCase(serverCaseId, rows, png, sending)
         : fetchDcfDocxForCase(serverCaseId, rows, png, sending)
     }
+    // a case never saved: the server holds no network for it, so the draft of the
+    // Network Builder (kept in this browser) goes with the request
+    const draftNetwork = useDcfDataStore.getState().data
     return kind === 'xlsx'
-      ? fetchDcfXlsx(sourceCase, rows, png, sending)
-      : fetchDcfDocx(sourceCase, rows, png, sending)
+      ? fetchDcfXlsx(sourceCase, rows, png, sending, draftNetwork)
+      : fetchDcfDocx(sourceCase, rows, png, sending, draftNetwork)
   }
 
   async function handleDownloadXlsx() {

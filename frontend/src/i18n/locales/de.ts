@@ -1738,7 +1738,7 @@ const de: Locale = {
     tabNetworkBuilder: 'Netzwerk-Editor',
     socialDeferred: 'Das soziale Inventar wird nicht in dieser Datei erhoben: Es folgt D4.3 mit eigenen Instrumenten (Fragebögen, Interviews je Stakeholdergruppe).',
     guidedIntro: 'Hier sehen Sie die Fragen, die die Excel-Datei den Unternehmen stellt. Sie müssen sie jetzt nicht ausfüllen: Laden Sie die Datei herunter und geben Sie sie weiter.',
-    unsavedCase: 'Die Dateien enthalten das gezeichnete Netzwerk noch nicht: Speichern Sie den Fall (ein Konto ist nötig), um es aufzunehmen.',
+    unsavedCase: 'Das Netzwerk, das Sie zeichnen, kommt in die Dateien, bleibt aber vorerst nur in diesem Browser: Speichern Sie den Fall (ein Konto ist nötig), um es auf dem Server zu behalten.',
     unsavedNetwork: 'Das Netzwerk hat ungespeicherte Änderungen: Speichern Sie das Netzwerk, um sie in die Dateien aufzunehmen.',
     filesNote: 'Excel: die Arbeitsmappe, die die Unternehmen ausfüllen (mit Excel oder LibreOffice öffnen, am besten am Computer). Word: das Begleitdokument, das sie erklärt.',
     saveBeforeDownloadFailed: "Das Netz konnte nicht gespeichert werden, deshalb wurden die Dateien nicht erstellt: Sie enthielten das alte Netz. Öffnen Sie den Netz-Editor, beheben Sie, was er anzeigt, und laden Sie erneut herunter.",
@@ -1812,7 +1812,7 @@ const de: Locale = {
     unsavedChanges: 'Nicht gespeicherte Änderungen',
     unsavedCase: 'Lokaler Entwurf: Speichern Sie den Fall, um ihn zu synchronisieren',
     saveCaseFirst:
-      'Dieser Fall ist noch nicht auf dem Server gespeichert. Sie können das Netzwerk jetzt zeichnen; speichern Sie den Fall auf der Ergebnisseite, um es zu sichern.',
+      'Dieser Fall ist noch nicht auf dem Server gespeichert: Das Netzwerk, das Sie zeichnen, bleibt nur in diesem Browser, und die heruntergeladenen Dateien enthalten es. Speichern Sie den Fall auf der Ergebnisseite (ein Konto ist nötig), um es auf dem Server zu behalten.',
     missingRequired_one: '{{count}} Pflichtfeld noch leer',
     missingRequired_other: '{{count}} Pflichtfelder noch leer',
     whichFlow: 'Welcher Stoffstrom ist dieser Pfeil?',

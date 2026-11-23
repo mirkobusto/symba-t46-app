@@ -452,10 +452,12 @@ const es: Locale = {
     title: 'Cuestionario',
     guidedBannerTitle: 'Modo guiado activo',
     guidedBannerBody:
-      "Cada pregunta empieza con una explicación breve, en palabras sencillas. La nota metodológica completa, con la redacción de los entregables del proyecto, queda a un clic debajo de cada pregunta. Las respuestas determinan la configuración metodológica y el plan de recolección de datos que recibirás al final.",
+      "Cada pregunta empieza con una explicación breve, en palabras sencillas. La nota metodológica completa, con la redacción de los entregables del proyecto, queda a un clic debajo de cada pregunta.",
     intro:
       'Preguntas sobre tu caso de simbiosis industrial, en tres partes: el estudio, los intercambios y una descripción del caso. Obligatorias: las dimensiones (Q3), la decisión y su escala (Q9), el sujeto (Q1) y, con la dimensión económica, el objetivo público (Q10); el resto es opcional y afina la configuración.',
     introPlain: "Preguntas sobre tu intercambio entre empresas, en tres partes. Las marcadas con * son obligatorias; las demás hacen el resultado más preciso. Bajo cada pregunta encontrarás una breve explicación en palabras sencillas.",
+    lead: "Las preguntas tratan de cómo se plantea el estudio, no de los datos técnicos de las empresas: responde quien coordina el estudio, que puede recoger antes la opinión de sus colegas (por eso puedes imprimir las preguntas). El resultado es la configuración de los estudios que elijas (ambiental LCA, económico LCC, social S-LCA) según las directrices de SYMBA, y un archivo de recogida de datos (Excel o Word) con las preguntas técnicas que hay que pasar a las empresas. La herramienta no calcula los resultados del estudio (impactos, costes, indicadores sociales). Tus respuestas se quedan en este navegador; con una cuenta gratuita puedes guardar el caso desde la página del resultado y retomarlo desde «Mis casos».",
+    leadPlain: "Las preguntas tratan de cómo plantear el estudio, no de los datos técnicos de las empresas: responde quien coordina el estudio, que puede consultar antes a sus colegas (por eso puedes imprimir las preguntas). Al final recibes cómo hay que plantear el estudio que elijas (ambiental, económico o social), según las directrices de SYMBA, y un archivo (Excel o Word) con las preguntas técnicas que hay que pasar a las empresas. La herramienta no hace los cálculos: los hace después un analista. Tus respuestas se quedan en este navegador; con una cuenta gratuita puedes guardar el caso y retomarlo cuando quieras.",
     runButton: 'Calcular la configuración',
     runningButton: 'Calculando…',
     resetButton: "Iniciar una nueva evaluación",
@@ -469,6 +471,9 @@ const es: Locale = {
       totalChanges: 'El número de preguntas cambia con tus respuestas.',
     },
     examplesLink: "¿Quieres ver cómo responde un estudio real? Carga un ejemplo publicado",
+    printButton: "Imprimir las preguntas",
+    printPick: "Elige una respuesta:",
+    printPickPerFlow: "Elige una respuesta por flujo:",
     stillRequired: "Falta responder:",
     goToFirstMissing: "ir a la primera",
     flowsMissingQ5: "quién paga a quién, para cada flujo",
@@ -679,7 +684,7 @@ const es: Locale = {
       start: {
         label: '¿En qué año funciona el sistema, o se supone que funciona?',
         options: {
-          unset: 'Sin respuesta (el año del estudio)',
+          unset: 'Sin respuesta',
           now: 'Ahora: el año del estudio',
           future: 'Un año futuro',
         },
@@ -798,8 +803,9 @@ const es: Locale = {
     sellableHint: "Si el socio no tomara este flujo, ¿podría quien lo cede venderlo a otro a un precio positivo? Sí apunta a un flujo modelado como coproducto. No, por sí solo, no apunta a un residuo: un único comprador que paga lo que pagaría un comprador independiente (el precio del producto que el flujo sustituye, descontados sus costes adicionales para usarlo) sigue apuntando a un coproducto; un flujo cedido gratis, o un pago que solo reparte costes, apunta a un flujo modelado como residuo (D4.1 §8.3.3). Opcional: el resultado señala cuando no coincide con quién paga a quién.",
     sectorHint: 'Elige el capítulo de la D4.1 Part 2 de lo que se intercambia, no de la empresa: los residuos agrícolas y agroindustriales van a Agroalimentario (§4); los residuos municipales o mezclados, biorresiduos incluidos (fracción orgánica de los RSU, restos de comida domésticos), a Valorización de residuos (§8); los lodos y aguas residuales tratadas, también cuando se reutilizan como agua, a Aguas residuales (§6); un producto o vector energético obtenido de un flujo (biometano, digestato, electricidad), al capítulo de ese flujo. Donde §4 y §8 se solapan en los biorresiduos, decide el origen (lectura T4.6 de la Part 2 §3.3). Opcional: el resultado lista las reglas del capítulo. La D4.1 Part 2 solo tiene capítulos para estos sectores de base biológica: para acero, cemento, calor, papel o química elige «— ninguno de estos» y solo se aplica la Part 1. La madera y los residuos forestales (serrín, corteza, lignina, licor negro) no tienen capítulo en la Part 2: elige «— ninguno de estos».',
     sectorNone: '— ninguno de estos',
-    configurationHint: "La configuración típica del flujo dentro de su capítulo de la Part 2 (D4.1 Part 2 §4.1-§8.1): el resultado indica el producto convencional que sustituye. Elige primero el sector.",
-    configurationNone: "— sin respuesta",
+    configurationHint: "La configuración típica del flujo dentro de su capítulo de la Part 2 (D4.1 Part 2 §4.1-§8.1): el resultado indica el producto convencional que sustituye. Elige primero el sector. Si ninguna configuración corresponde a tu flujo (por ejemplo, biorresiduos transformados en materiales o bioplásticos, que la Part 2 solo describe para residuos agroindustriales, §4.1), deja «ninguna de estas / sin respuesta»: una vez elegido el sector, las reglas de su capítulo se aplican igualmente.",
+    configurationNone: "— ninguna de estas / sin respuesta",
+    plainConfigurationHint: "«Tipo de reutilización» es opcional. Si ninguno de los tipos de la lista corresponde a tu intercambio (por ejemplo, biorresiduos transformados en materiales o bioplásticos), deja «ninguna de estas / sin respuesta»: las reglas del sector que elegiste se aplican igualmente.",
     configurations: {
       agrifood_ad_bioenergy_fertiliser: "Residuos orgánicos a bioenergía y fertilizante (digestión/compostaje)",
       agrifood_feed_bioconversion: "Subproductos agroalimentarios a pienso (bioconversión)",

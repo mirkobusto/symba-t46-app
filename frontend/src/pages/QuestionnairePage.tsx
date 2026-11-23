@@ -1,6 +1,8 @@
 // Questionnaire page — i18n.
 
+import { Printer } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -81,6 +83,20 @@ function parseYear(raw: string): number | null {
 }
 
 const START_KEYS = ['', 'now', 'future'] as const
+const Q5_KEYS = ['a', 'b', 'c', 'd', 'e'] as const
+
+/** The choices of a question answered in a drop-down. A drop-down does not print
+ * its list, so the paper gets the list (hidden on screen, see App.css). */
+function PrintOptions({ label, options }: { label: string; options: string[] }) {
+  return (
+    <div className="print-only print-options">
+      <p>{label}</p>
+      <ul>
+        {options.map((o) => <li key={o}>{o}</li>)}
+      </ul>
+    </div>
+  )
+}
 
 // "Q9 — What is the study for…? *" → "What is the study for…?"
 function cardTitle(title: string): string {
@@ -339,7 +355,11 @@ export default function QuestionnairePage() {
   // answer (Q10 with costs, Q12 with LCA or LCC) join the sequence by
   // themselves.
   const [allOnOnePage, setAllOnOnePage] = useState(false)
-  const stepper = mode === 'guided' && !allOnOnePage
+  // Printing puts every question on the page, also in the step-by-step view and
+  // the ones that only appear on an answer (Q10), so the paper copy is complete
+  // for the colleagues who answer their part of it.
+  const [printing, setPrinting] = useState(false)
+  const stepper = mode === 'guided' && !allOnOnePage && !printing
   const pageRef = useRef<HTMLDivElement>(null)
   const [steps, setSteps] = useState<{ id: string; part: string }[]>([])
   const [stepIndex, setStepIndex] = useState(0)
@@ -379,6 +399,13 @@ export default function QuestionnairePage() {
   // the intro banner and the scope note are said once, on the first question
   const firstStep = !stepper || stepIndex === 0
 
+  function printQuestions() {
+    // flushSync: the browser prints the page as it is when print() is called
+    flushSync(() => setPrinting(true))
+    window.addEventListener('afterprint', () => setPrinting(false), { once: true })
+    window.print()
+  }
+
   // warn while typing, as the engine decides (activate.horizon_exceeds_threshold, D4.2 §9.3)
   const horizonThreshold = Number(advanced['future_background_threshold_years']) || 15
   const horizonOver = [analysisPeriod, assetLifetime]
@@ -392,14 +419,26 @@ export default function QuestionnairePage() {
       <div className="dd-page-head">
         <div>
           <h1 className="dd-page-title">{t('questionnaire.title')}</h1>
+          {/* what the questions are for, who answers, what comes out and where the
+              answers are kept: a partner company did not know the answers are
+              kept, nor who should fill the questionnaire in (partner feedback
+              2026-11). Said once, on the first question, like the banner below */}
+          {firstStep ? (
+            <p className="dd-page-sub questionnaire-lead">
+              {mode === 'guided' ? t('questionnaire.leadPlain') : t('questionnaire.lead')}
+            </p>
+          ) : null}
           <p className="dd-page-sub">
             {mode === 'guided' ? t('questionnaire.introPlain') : t('questionnaire.intro')}
           </p>
-          {/* the published examples sat only on Home, which the reviewer
-              found by chance (UX round 2026-11-02) */}
-          <p className="dd-page-sub">
+          <div className="questionnaire-head-actions">
+            {/* the published examples sat only on Home, which the reviewer
+                found by chance (UX round 2026-11-02) */}
             <Link to="/#presets">{t('questionnaire.examplesLink')}</Link>
-          </p>
+            <button type="button" className="btn btn-secondary" onClick={printQuestions}>
+              <Printer size={16} aria-hidden="true" /> {t('questionnaire.printButton')}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -666,10 +705,14 @@ export default function QuestionnairePage() {
               </option>
             ))}
           </select>
+          <PrintOptions
+            label={t('questionnaire.printPick')}
+            options={Q6B_KEYS.map((k) => t(`questionnaire.q6b.options.${k}`))}
+          />
         </QuestionCard>
 
         {/* Q10 — required with the economic dimension: it decides the societal LCC (D4.2 §2.3) */}
-        {eco ? (
+        {eco || printing ? (
           <QuestionCard
             id="q10"
             title={t('questionnaire.q10.title')}
@@ -750,6 +793,10 @@ export default function QuestionnairePage() {
           details={t('questionnaire.q5.details')}
         >
           <FlowsEditor flows={flows} onChange={setFlows} lca={env} />
+          <PrintOptions
+            label={t('questionnaire.printPickPerFlow')}
+            options={Q5_KEYS.map((k) => t(`flows.options.${k}`))}
+          />
         </QuestionCard>
 
         {/* Q7 */}
@@ -803,7 +850,7 @@ export default function QuestionnairePage() {
         </QuestionCard>
 
         {/* Q12 — optional, with LCA or LCC: new dedicated shared assets (D4.2 §4.2, D4.1 §6.3.3) */}
-        {env || eco ? (
+        {env || eco || printing ? (
           <QuestionCard
             id="q12"
             title={t('questionnaire.q12.title')}
@@ -848,6 +895,10 @@ export default function QuestionnairePage() {
               </option>
             ))}
           </select>
+          <PrintOptions
+            label={t('questionnaire.printPick')}
+            options={Q6A_KEYS.map((k) => t(`questionnaire.q6a.options.${k}`))}
+          />
         </QuestionCard>
 
         {/* Alternative scenarios (D4.1 §4.3.3) and the expert overrides are

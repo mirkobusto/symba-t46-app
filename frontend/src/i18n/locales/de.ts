@@ -452,10 +452,12 @@ const de: Locale = {
     title: 'Fragebogen',
     guidedBannerTitle: 'Geführter Modus aktiv',
     guidedBannerBody:
-      "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt. Die Antworten bestimmen die methodische Konfiguration und den Datenerhebungsplan, den Sie am Ende erhalten.",
+      "Jede Frage beginnt mit einer kurzen Erklärung in einfachen Worten. Die vollständige methodische Anmerkung, im Wortlaut der Projekt-Deliverables, bleibt unter jeder Frage einen Klick entfernt.",
     intro:
       'Fragen zu Ihrem Fall industrieller Symbiose, in drei Teilen: die Studie, die Austausche und eine Beschreibung des Falls. Pflicht: die Dimensionen (Q3), die Entscheidung und ihr Ausmaß (Q9), der Gegenstand (Q1) und, mit der ökonomischen Dimension, das öffentliche Ziel (Q10); der Rest ist optional und schärft die Konfiguration.',
     introPlain: "Fragen zu Ihrem Austausch zwischen Unternehmen, in drei Teilen. Die mit * sind Pflicht; die anderen machen das Ergebnis genauer. Unter jeder Frage finden Sie eine kurze Erklärung in einfachen Worten.",
+    lead: "Die Fragen betreffen, wie die Studie aufgesetzt wird, nicht die technischen Daten der Unternehmen: Es antwortet, wer die Studie koordiniert, gegebenenfalls nach Rücksprache mit Kolleginnen und Kollegen (deshalb können Sie die Fragen ausdrucken). Das Ergebnis ist die Konfiguration der Studien, die Sie wählen (ökologisch LCA, ökonomisch LCC, sozial S-LCA), nach den SYMBA-Leitlinien und eine Datenerhebungsdatei (Excel oder Word) mit den technischen Fragen, die Sie an die Unternehmen weitergeben. Das Tool berechnet die Ergebnisse der Studie nicht (Wirkungen, Kosten, soziale Indikatoren). Ihre Antworten bleiben in diesem Browser; mit einem kostenlosen Konto können Sie den Fall auf der Ergebnisseite speichern und unter „Meine Fälle“ wieder aufnehmen.",
+    leadPlain: "Die Fragen betreffen, wie die Studie aufgesetzt wird, nicht die technischen Daten der Unternehmen: Es antwortet, wer die Studie koordiniert, und kann vorher Kolleginnen und Kollegen fragen (deshalb können Sie die Fragen ausdrucken). Am Ende erfahren Sie, wie die Studie, die Sie wählen (ökologisch, ökonomisch oder sozial), nach den SYMBA-Leitlinien aufzusetzen ist, und erhalten eine Datei (Excel oder Word) mit den technischen Fragen, die Sie an die Unternehmen weitergeben. Das Tool rechnet nicht: Das macht danach eine Analystin oder ein Analyst. Ihre Antworten bleiben in diesem Browser; mit einem kostenlosen Konto können Sie den Fall speichern und jederzeit wieder aufnehmen.",
     runButton: 'Konfiguration ermitteln',
     runningButton: 'Wird berechnet…',
     resetButton: "Neue Bewertung starten",
@@ -469,6 +471,9 @@ const de: Locale = {
       totalChanges: 'Die Zahl der Fragen ändert sich mit Ihren Antworten.',
     },
     examplesLink: "Wie antwortet eine echte Studie? Ein veröffentlichtes Beispiel laden",
+    printButton: "Fragen drucken",
+    printPick: "Eine Antwort wählen:",
+    printPickPerFlow: "Je Stoffstrom eine Antwort wählen:",
     stillRequired: "Noch offen:",
     goToFirstMissing: "zur ersten",
     flowsMissingQ5: "wer wen bezahlt, für jeden Stoffstrom",
@@ -679,7 +684,7 @@ const de: Locale = {
       start: {
         label: 'In welchem Jahr wird das System betrieben, oder in welchem Jahr soll es betrieben werden?',
         options: {
-          unset: 'Keine Antwort (das Jahr der Studie)',
+          unset: 'Keine Antwort',
           now: 'Jetzt: das Jahr der Studie',
           future: 'Ein zukünftiges Jahr',
         },
@@ -798,8 +803,9 @@ const de: Locale = {
     sellableHint: "Würde der Partner diesen Stoffstrom nicht abnehmen, könnte der Abgebende ihn an jemand anderen zu einem positiven Preis verkaufen? Ja spricht für einen als Koppelprodukt modellierten Stoffstrom. Nein spricht für sich allein noch nicht für Abfall: Ein einziger Abnehmer, der zahlt, was ein unabhängiger Käufer zahlen würde (der Preis des Produkts, das der Stoffstrom ersetzt, abzüglich seiner Mehrkosten für die Nutzung), spricht trotzdem für ein Koppelprodukt; ein kostenlos abgegebener Stoffstrom oder eine Zahlung, die nur Kosten teilt, spricht für einen als Abfall modellierten Stoffstrom (D4.1 §8.3.3). Optional: Das Ergebnis vermerkt, wenn die Antwort nicht dazu passt, wer wem zahlt.",
     sectorHint: 'Wählen Sie das Kapitel von D4.1 Part 2 nach dem, was ausgetauscht wird, nicht nach dem Unternehmen: landwirtschaftliche und agroindustrielle Reststoffe gehören zu Agrar/Lebensmittel (§4); Siedlungs- oder gemischte Abfälle einschließlich Bioabfall (organische Fraktion des Restmülls, Lebensmittelabfälle aus Haushalten) zu Abfallverwertung (§8); Klärschlamm und behandeltes Abwasser, auch als Wasser wiederverwendet, zu Abwasser (§6); ein aus einem Stoffstrom gewonnenes Produkt oder ein Energieträger (Biomethan, Gärrest, Strom) zum Kapitel dieses Stoffstroms. Wo sich §4 und §8 beim Bioabfall überschneiden, entscheidet die Herkunft (Lesart T4.6 von Part 2 §3.3). Optional: Das Ergebnis listet die Regeln des Kapitels. D4.1 Part 2 hat nur für diese biobasierten Sektoren Kapitel: für Stahl, Zement, Wärme, Papier oder Chemie wählen Sie „— keiner davon“, dann gilt nur Part 1. Holz und Waldreststoffe (Sägemehl, Rinde, Lignin, Schwarzlauge) haben kein Kapitel in Part 2: Wählen Sie „— keiner davon“.',
     sectorNone: '— keiner davon',
-    configurationHint: "Die typische Konfiguration des Stoffstroms in seinem Kapitel der Part 2 (D4.1 Part 2 §4.1-§8.1): Das Ergebnis nennt das konventionelle Produkt, das er ersetzt. Wählen Sie zuerst den Sektor.",
-    configurationNone: "— nicht beantwortet",
+    configurationHint: "Die typische Konfiguration des Stoffstroms in seinem Kapitel der Part 2 (D4.1 Part 2 §4.1-§8.1): Das Ergebnis nennt das konventionelle Produkt, das er ersetzt. Wählen Sie zuerst den Sektor. Passt keine Konfiguration zu Ihrem Stoffstrom (zum Beispiel Bioabfälle, die zu Materialien oder Biokunststoffen verarbeitet werden, was Part 2 nur für agroindustrielle Reststoffe beschreibt, §4.1), lassen Sie „keine davon / nicht beantwortet“: Sobald der Sektor gewählt ist, gelten die Regeln seines Kapitels trotzdem.",
+    configurationNone: "— keine davon / nicht beantwortet",
+    plainConfigurationHint: "„Art der Wiederverwendung“ ist optional. Passt keine der aufgeführten Arten zu Ihrem Austausch (zum Beispiel Bioabfälle, die zu Materialien oder Biokunststoffen verarbeitet werden), lassen Sie „keine davon / nicht beantwortet“: Die Regeln des gewählten Sektors gelten trotzdem.",
     configurations: {
       agrifood_ad_bioenergy_fertiliser: "Organische Abfälle zu Bioenergie und Dünger (Vergärung/Kompostierung)",
       agrifood_feed_bioconversion: "Agrar- und Lebensmittelnebenprodukte zu Futtermitteln (Biokonversion)",

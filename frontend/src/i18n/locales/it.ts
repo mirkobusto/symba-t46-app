@@ -473,10 +473,12 @@ const it: Locale = {
     title: 'Questionario',
     guidedBannerTitle: 'Modalità guidata attiva',
     guidedBannerBody:
-      "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda. Le risposte determinano la configurazione metodologica e il piano di raccolta dati che riceverai al termine.",
+      "Ogni domanda si apre con una spiegazione breve, in parole semplici. La nota metodologica completa, nella formulazione dei deliverable di progetto, resta a un click sotto ogni domanda.",
     intro:
       'Domande sul tuo caso di simbiosi industriale, in tre parti: lo studio, gli scambi e una descrizione del caso. Obbligatorie: le dimensioni (Q3), la decisione e la sua scala (Q9), il soggetto (Q1) e, con la dimensione economica, l\'obiettivo pubblico (Q10); il resto è facoltativo e rende più precisa la configurazione.',
     introPlain: "Domande sul tuo scambio fra aziende, in tre parti. Quelle con * sono obbligatorie; le altre rendono il risultato più preciso. Sotto ogni domanda trovi una spiegazione breve, in parole semplici.",
+    lead: "Le domande riguardano come è impostato lo studio, non i dati tecnici delle aziende: risponde chi lo coordina, anche raccogliendo il parere dei colleghi (per questo puoi stampare le domande). Ne escono la configurazione degli studi che scegli (ambientale LCA, economico LCC, sociale S-LCA) secondo le linee guida SYMBA e un file di raccolta dati (Excel o Word) con le domande tecniche da passare alle aziende. Lo strumento non calcola i risultati dello studio (impatti, costi, indicatori sociali). Le risposte restano in questo browser; con un account gratuito puoi salvare il caso dalla pagina del risultato e riprenderlo da «I miei casi».",
+    leadPlain: "Le domande riguardano come impostare lo studio, non i dati tecnici delle aziende: risponde chi lo coordina, e può prima sentire i colleghi (per questo puoi stampare le domande). Alla fine ricevi come va impostato lo studio che scegli (ambientale, economico o sociale), secondo le linee guida SYMBA, e un file (Excel o Word) con le domande tecniche da passare alle aziende. Lo strumento non fa i calcoli: li fa poi un analista. Le risposte restano in questo browser; con un account gratuito puoi salvare il caso e riprenderlo quando vuoi.",
     runButton: 'Calcola la configurazione',
     runningButton: 'Sto calcolando…',
     resetButton: "Avvia una nuova valutazione",
@@ -490,6 +492,9 @@ const it: Locale = {
       totalChanges: 'Il numero di domande cambia con le tue risposte.',
     },
     examplesLink: "Vuoi vedere come risponde uno studio vero? Carica un esempio pubblicato",
+    printButton: "Stampa le domande",
+    printPick: "Scegli una voce:",
+    printPickPerFlow: "Scegli una voce per ogni flusso:",
     stillRequired: "Mancano ancora:",
     goToFirstMissing: "vai alla prima",
     flowsMissingQ5: "chi paga chi, per ogni flusso",
@@ -700,7 +705,7 @@ const it: Locale = {
       start: {
         label: 'In quale anno opera il sistema, o si assume che operi?',
         options: {
-          unset: 'Non risposta (l\'anno dello studio)',
+          unset: 'Non risposta',
           now: 'Adesso: l\'anno dello studio',
           future: 'Un anno futuro',
         },
@@ -819,8 +824,9 @@ const it: Locale = {
     sellableHint: "Se il partner non prendesse questo flusso, chi lo cede potrebbe venderlo a qualcun altro a un prezzo positivo? Sì indica un flusso modellato come co-prodotto. No da solo non indica un rifiuto: un unico acquirente che paga quanto pagherebbe un compratore indipendente (il prezzo del prodotto che il flusso sostituisce, al netto dei suoi costi in più per usarlo) indica comunque un co-prodotto; un flusso ceduto gratis, o un pagamento che divide solo i costi, indica un flusso modellato come rifiuto (D4.1 §8.3.3). Facoltativa: il risultato segnala quando non concorda con chi paga chi.",
     sectorHint: 'Scegli il capitolo della D4.1 Part 2 di ciò che si scambia, non dell\'azienda: i residui agricoli e agroindustriali vanno in Agroalimentare (§4); i rifiuti urbani o misti, biorifiuti compresi (FORSU, scarti alimentari domestici), in Valorizzazione dei rifiuti (§8); i fanghi e le acque reflue trattate, anche quando riusate come acqua, in Acque reflue (§6); un prodotto o un vettore energetico ottenuto da un flusso (biometano, digestato, elettricità) nel capitolo di quel flusso. Dove §4 e §8 si sovrappongono sui biorifiuti, decide l\'origine (lettura T4.6 della Part 2 §3.3). Facoltativa: il risultato elenca le regole del capitolo. La D4.1 Part 2 ha capitoli solo per questi settori bio-based: per acciaio, cemento, calore, carta o chimica scegli «— nessuno di questi» e vale solo la Part 1. Il legno e i residui forestali (segatura, corteccia, lignina, liscivio nero) non hanno un capitolo della Part 2: scegli «— nessuno di questi».',
     sectorNone: '— nessuno di questi',
-    configurationHint: "La configurazione tipica del flusso dentro il suo capitolo della Part 2 (D4.1 Part 2 §4.1-§8.1): il risultato indica il prodotto convenzionale che sostituisce. Scegli prima il settore.",
-    configurationNone: "— non risposta",
+    configurationHint: "La configurazione tipica del flusso dentro il suo capitolo della Part 2 (D4.1 Part 2 §4.1-§8.1): il risultato indica il prodotto convenzionale che sostituisce. Scegli prima il settore. Se nessuna configurazione corrisponde al tuo flusso (per esempio biorifiuti trasformati in materiali o bioplastiche, che la Part 2 descrive solo per i residui agroindustriali, §4.1), lascia «nessuna di queste / non risposta»: una volta scelto il settore, le regole del suo capitolo valgono comunque.",
+    configurationNone: "— nessuna di queste / non risposta",
+    plainConfigurationHint: "«Tipo di riuso» è facoltativo. Se nessuno dei tipi elencati corrisponde al tuo scambio (per esempio biorifiuti trasformati in materiali o bioplastiche), lascia «nessuna di queste / non risposta»: le regole del settore che hai scelto valgono comunque.",
     configurations: {
       agrifood_ad_bioenergy_fertiliser: "Rifiuto organico a bioenergia e fertilizzante (digestione/compostaggio)",
       agrifood_feed_bioconversion: "Sottoprodotti agroalimentari a mangime (bioconversione)",

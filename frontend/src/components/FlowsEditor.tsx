@@ -200,7 +200,15 @@ export default function FlowsEditor({ flows, onChange, lca = true }: Props) {
       )}
 
       {flows.length > 0 && lca ? (
-        <p className="flows-q5-note">{t(guided ? 'flows.plainSectorHint' : 'flows.sectorHint')}</p>
+        <>
+          <p className="flows-q5-note">{t(guided ? 'flows.plainSectorHint' : 'flows.sectorHint')}</p>
+          {/* the same text sat only in the header's tooltip: a partner company
+              looked for "biowaste to materials", found none and did not know
+              that leaving the column empty is allowed (partner feedback 2026-11) */}
+          <p className="flows-q5-note">
+            {t(guided ? 'flows.plainConfigurationHint' : 'flows.configurationHint')}
+          </p>
+        </>
       ) : null}
       {/* the table has no "from whom to whom" (UX round 6, P1-12) */}
       {guided ? <p className="flows-q5-note">{t('flows.plainNameHint')}</p> : null}

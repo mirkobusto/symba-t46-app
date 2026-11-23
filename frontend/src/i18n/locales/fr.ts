@@ -458,10 +458,12 @@ const fr: Locale = {
     title: 'Questionnaire',
     guidedBannerTitle: 'Mode guidé actif',
     guidedBannerBody:
-      "Chaque question s'ouvre sur une explication courte, en mots simples. La note méthodologique complète, dans la formulation des livrables du projet, reste à un clic sous chaque question. Les réponses déterminent la configuration méthodologique et le plan de collecte de données que vous recevrez à la fin.",
+      "Chaque question s'ouvre sur une explication courte, en mots simples. La note méthodologique complète, dans la formulation des livrables du projet, reste à un clic sous chaque question.",
     intro:
       'Des questions sur votre cas de symbiose industrielle, en trois parties : l\'étude, les échanges et une description du cas. Obligatoires : les dimensions (Q3), la décision et son ampleur (Q9), le sujet (Q1) et, avec la dimension économique, l\'objectif public (Q10) ; le reste est facultatif et précise la configuration.',
     introPlain: "Des questions sur votre échange entre entreprises, en trois parties. Celles marquées * sont obligatoires ; les autres rendent le résultat plus précis. Sous chaque question, une courte explication en mots simples.",
+    lead: "Les questions portent sur la manière dont l'étude est conçue, pas sur les données techniques des entreprises : répond la personne qui coordonne l'étude, qui peut recueillir l'avis de ses collègues (c'est pourquoi vous pouvez imprimer les questions). Vous obtenez la configuration des études que vous choisissez (environnementale LCA, économique LCC, sociale S-LCA) selon les lignes directrices SYMBA, et un fichier de collecte de données (Excel ou Word) avec les questions techniques à transmettre aux entreprises. L'outil ne calcule pas les résultats de l'étude (impacts, coûts, indicateurs sociaux). Vos réponses restent dans ce navigateur ; avec un compte gratuit, vous pouvez enregistrer le cas depuis la page du résultat et le reprendre depuis « Mes cas ».",
+    leadPlain: "Les questions portent sur la manière de concevoir l'étude, pas sur les données techniques des entreprises : répond la personne qui coordonne l'étude, qui peut d'abord demander l'avis de ses collègues (c'est pourquoi vous pouvez imprimer les questions). À la fin, vous recevez la façon de concevoir l'étude que vous choisissez (environnementale, économique ou sociale), selon les lignes directrices SYMBA, et un fichier (Excel ou Word) avec les questions techniques à transmettre aux entreprises. L'outil ne fait pas les calculs : un analyste les fait ensuite. Vos réponses restent dans ce navigateur ; avec un compte gratuit, vous pouvez enregistrer le cas et le reprendre quand vous voulez.",
     runButton: 'Calculer la configuration',
     runningButton: 'Calcul en cours…',
     resetButton: "Démarrer une nouvelle évaluation",
@@ -475,6 +477,9 @@ const fr: Locale = {
       totalChanges: 'Le nombre de questions change selon vos réponses.',
     },
     examplesLink: "Voir comment répond une vraie étude ? Chargez un exemple publié",
+    printButton: "Imprimer les questions",
+    printPick: "Choisissez une réponse :",
+    printPickPerFlow: "Choisissez une réponse par flux :",
     stillRequired: "Il reste à répondre :",
     goToFirstMissing: "aller à la première",
     flowsMissingQ5: "qui paie qui, pour chaque flux",
@@ -685,7 +690,7 @@ const fr: Locale = {
       start: {
         label: 'En quelle année le système fonctionne-t-il, ou est-il censé fonctionner ?',
         options: {
-          unset: 'Sans réponse (l\'année de l\'étude)',
+          unset: 'Sans réponse',
           now: 'Maintenant : l\'année de l\'étude',
           future: 'Une année future',
         },
@@ -804,8 +809,9 @@ const fr: Locale = {
     sellableHint: "Si le partenaire ne prenait pas ce flux, celui qui le cède pourrait-il le vendre à quelqu'un d'autre à un prix positif ? Oui indique un flux modélisé comme un coproduit. Non n'indique pas à lui seul un déchet : un preneur unique qui paie ce que paierait un acheteur indépendant (le prix du produit que le flux remplace, net de ses coûts supplémentaires pour l'utiliser) indique quand même un coproduit ; un flux cédé gratuitement, ou un paiement qui ne fait que partager les coûts, indique un flux modélisé comme un déchet (D4.1 §8.3.3). Facultatif : le résultat signale quand il ne concorde pas avec qui paie qui.",
     sectorHint: 'Choisissez le chapitre de la D4.1 Part 2 de ce qui est échangé, pas de l\'entreprise : les résidus agricoles et agro-industriels vont en Agroalimentaire (§4) ; les déchets municipaux ou mélangés, biodéchets compris (fraction organique des OMR, déchets alimentaires ménagers), en Valorisation des déchets (§8) ; les boues et eaux usées traitées, même réutilisées comme eau, en Eaux usées (§6) ; un produit ou vecteur énergétique tiré d\'un flux (biométhane, digestat, électricité), dans le chapitre de ce flux. Là où §4 et §8 se recoupent pour les biodéchets, l\'origine décide (lecture T4.6 de la Part 2 §3.3). Facultatif : le résultat liste les règles du chapitre. La D4.1 Part 2 n\'a de chapitres que pour ces secteurs biosourcés : pour l\'acier, le ciment, la chaleur, le papier ou la chimie, choisissez « — aucun de ceux-ci » et seule la Part 1 s\'applique. Le bois et les résidus forestiers (sciure, écorce, lignine, liqueur noire) n\'ont pas de chapitre dans la Part 2 : choisissez « — aucun de ceux-ci ».',
     sectorNone: '— aucun de ceux-ci',
-    configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur.",
-    configurationNone: "— pas de réponse",
+    configurationHint: "La configuration type du flux dans son chapitre de la Part 2 (D4.1 Part 2 §4.1-§8.1) : le résultat indique le produit conventionnel qu'il remplace. Choisissez d'abord le secteur. Si aucune configuration ne correspond à votre flux (par exemple des biodéchets transformés en matériaux ou en bioplastiques, que la Part 2 ne décrit que pour les résidus agro-industriels, §4.1), laissez « aucune de celles-ci / pas de réponse » : une fois le secteur choisi, les règles de son chapitre s'appliquent quand même.",
+    configurationNone: "— aucune de celles-ci / pas de réponse",
+    plainConfigurationHint: "« Type de réemploi » est facultatif. Si aucun des types listés ne correspond à votre échange (par exemple des biodéchets transformés en matériaux ou en bioplastiques), laissez « aucune de celles-ci / pas de réponse » : les règles du secteur choisi s'appliquent quand même.",
     configurations: {
       agrifood_ad_bioenergy_fertiliser: "Déchets organiques en bioénergie et engrais (méthanisation/compostage)",
       agrifood_feed_bioconversion: "Coproduits agroalimentaires en alimentation animale (bioconversion)",

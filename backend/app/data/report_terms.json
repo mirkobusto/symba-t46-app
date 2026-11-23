@@ -284,7 +284,7 @@
     "C": "C. Across regions"
    },
    "q8start": {
-    "unset": "Not answered (the year of the study)",
+    "unset": "Not answered",
     "now": "Now: the year of the study",
     "future": "A future year"
    },
@@ -936,7 +936,7 @@
     "C": "C. Fra regioni"
    },
    "q8start": {
-    "unset": "Non risposta (l'anno dello studio)",
+    "unset": "Non risposta",
     "now": "Adesso: l'anno dello studio",
     "future": "Un anno futuro"
    },
@@ -1588,7 +1588,7 @@
     "C": "C. Entre régions"
    },
    "q8start": {
-    "unset": "Sans réponse (l'année de l'étude)",
+    "unset": "Sans réponse",
     "now": "Maintenant : l'année de l'étude",
     "future": "Une année future"
    },
@@ -2240,7 +2240,7 @@
     "C": "C. Überregional"
    },
    "q8start": {
-    "unset": "Keine Antwort (das Jahr der Studie)",
+    "unset": "Keine Antwort",
     "now": "Jetzt: das Jahr der Studie",
     "future": "Ein zukünftiges Jahr"
    },
@@ -2892,7 +2892,7 @@
     "C": "C. Entre regiones"
    },
    "q8start": {
-    "unset": "Sin respuesta (el año del estudio)",
+    "unset": "Sin respuesta",
     "now": "Ahora: el año del estudio",
     "future": "Un año futuro"
    },

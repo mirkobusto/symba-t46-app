@@ -5010,6 +5010,96 @@ kbd {
   text-align: center;
 }
 
+/* ---- Questionnaire head and paper copy (partner feedback 2026-11) -------- */
+
+.questionnaire-lead {
+  margin-bottom: 10px;
+}
+
+.questionnaire-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 12px;
+}
+
+.questionnaire-head-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* lists that exist for the paper copy only: a drop-down does not print its options */
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block;
+  }
+  .print-options p {
+    margin: 6px 0 2px;
+    font-weight: 600;
+  }
+  .print-options ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+  }
+  .print-options li {
+    break-inside: avoid;
+    margin: 0 0 2px;
+  }
+  .print-options li::before {
+    content: "\2610\00a0";
+  }
+
+  /* the app around the page: the menu, the top bar, what only works on screen */
+  .dd-sidebar,
+  .dd-topbar,
+  .skip-link,
+  .questionnaire-head-actions,
+  .stepper-nav,
+  .stepper-toggle,
+  .questionnaire-editing,
+  .guided-banner,
+  .questionnaire-scope-note,
+  /* Chrome prints a closed <details> as its label alone: the label without the text is noise */
+  .questionnaire .qcard-details,
+  .flows-editor .btn,
+  .flows-editor .icon-btn,
+  #q2d-scenarios,
+  .advanced-card,
+  #q6a select,
+  #q6b select {
+    display: none !important;
+  }
+  .dd-app {
+    display: block;
+  }
+
+  /* Ctrl+P in the guided step-by-step view: every question, not the one on screen */
+  .questionnaire .qcard[hidden] {
+    display: block !important;
+  }
+  .questionnaire-stepper .qpart-title {
+    display: block !important;
+  }
+  .questionnaire-stepper .qcard-step {
+    display: inline !important;
+  }
+  .qpart-title {
+    break-after: avoid;
+  }
+  /* the red ring on required, unanswered radios is a screen cue: on paper every box is empty */
+  .questionnaire input[aria-invalid="true"] {
+    outline: none;
+  }
+}
+
 /* ---- Home intro and About (UX round 2026-11-02) ---------------------- */
 
 .home-intro {

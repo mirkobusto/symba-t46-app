@@ -497,9 +497,11 @@ const en = {
     intro:
       'Questions about your industrial-symbiosis case, in three parts: the study, the exchanges, and a description of the case. Required: the dimensions (Q3), the decision and its scale (Q9), the subject (Q1) and, with the economic dimension, the public objective (Q10); the rest is optional and sharpens the configuration.',
     introPlain: "Questions about your exchange between companies, in three parts. Those marked * are required; the others make the result more precise. Under each question you find a short explanation in plain words.",
+    lead: "The questions are about how the study is set up, not about the companies' technical data: whoever coordinates the study answers, gathering colleagues' views where needed (that is why you can print the questions). The outcome is the configuration of the studies you choose (environmental LCA, economic LCC, social S-LCA) following the SYMBA guidelines, and a data-collection file (Excel or Word) with the technical questions to pass to the companies. The tool does not compute the results of the study (impacts, costs, social indicators). Your answers stay in this browser; with a free account you can save the case from the result page and pick it up again from “My cases”.",
+    leadPlain: "These questions are about how the study is set up, not about the companies' technical data: whoever coordinates the study answers, and can ask colleagues first (that is why you can print the questions). At the end you get how the study you choose (environmental, economic or social) has to be set up, following the SYMBA guidelines, and a file (Excel or Word) with the technical questions to pass to the companies. The tool does not do the calculations: an analyst does them afterwards. Your answers stay in this browser; with a free account you can save the case and pick it up again whenever you like.",
     guidedBannerTitle: 'Guided mode active',
     guidedBannerBody:
-      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question. The answers decide the methodological configuration and the data-collection plan you receive at the end.',
+      'Each question opens with a short explanation in plain words. The full methodological note, in the wording of the project deliverables, stays one click away under each question.',
     runButton: 'Work out the configuration',
     runningButton: 'Working it out…',
     resetButton: "Start a new assessment",
@@ -513,6 +515,9 @@ const en = {
       totalChanges: 'The number of questions changes with your answers.',
     },
     examplesLink: "Want to see how a real study answers? Load a published example",
+    printButton: "Print the questions",
+    printPick: "Pick one:",
+    printPickPerFlow: "Pick one for each flow:",
     stillRequired: "Still to answer:",
     // phone: the count replaces the list of titles in the fixed bar (UX round 6, P4-02)
     goToFirstMissing: "go to the first",
@@ -724,7 +729,7 @@ const en = {
       start: {
         label: 'In which year does the system operate, or is it assumed to operate?',
         options: {
-          unset: 'Not answered (the year of the study)',
+          unset: 'Not answered',
           now: 'Now: the year of the study',
           future: 'A future year',
         },
@@ -843,8 +848,9 @@ const en = {
     sellableHint: "If the partner did not take this flow, could whoever gives it sell it to someone else at a positive price? Yes points to a flow modelled as a co-product. No does not point to a waste by itself: a single taker that pays what an independent buyer would pay (the price of the product the flow replaces, net of its extra costs to use it) still points to a co-product; a free flow, or a payment that only shares costs, points to a flow modelled as a waste (D4.1 §8.3.3). Optional: the result notes when it disagrees with who pays whom.",
     sectorHint: 'Pick the D4.1 Part 2 chapter of what is exchanged, not of the company: agricultural and agro-industrial residues go to Agri-food (§4); municipal or mixed waste, biowaste included (organic fraction of MSW, household food waste), to Waste valorisation (§8); sludge and treated wastewater, also when reused as water, to Wastewater (§6); a product or energy carrier made from a flow (biomethane, digestate, electricity) to the chapter of that flow. Where §4 and §8 overlap on biowaste, the origin decides (T4.6 reading of Part 2 §3.3). Optional: the result lists the rules of the chapter. D4.1 Part 2 has chapters only for these bio-based sectors: for steel, cement, heat, pulp and paper or chemicals pick "— none of these", and only Part 1 applies. Wood and forest residues (sawdust, bark, lignin, black liquor) have no Part 2 chapter: pick "— none of these".',
     sectorNone: '— none of these',
-    configurationHint: "The typical configuration of the flow within its Part 2 chapter (D4.1 Part 2 §4.1-§8.1): the result names the conventional product it substitutes. Pick the sector first.",
-    configurationNone: "— not answered",
+    configurationHint: "The typical configuration of the flow within its Part 2 chapter (D4.1 Part 2 §4.1-§8.1): the result names the conventional product it substitutes. Pick the sector first. If none of the configurations fits your flow (for example biowaste turned into materials or bioplastics, which Part 2 describes only for agro-industrial residues, §4.1), leave “none of these / not answered”: once the sector is picked, the rules of its chapter apply anyway.",
+    configurationNone: "— none of these / not answered",
+    plainConfigurationHint: "“Type of reuse” is optional. If none of the listed types fits your exchange (for example biowaste turned into materials or bioplastics), leave “none of these / not answered”: the rules for the sector you picked still apply.",
     configurations: {
       agrifood_ad_bioenergy_fertiliser: "Organic waste to bioenergy & fertiliser (AD/composting)",
       agrifood_feed_bioconversion: "Food/agri by-products to animal feed (bioconversion)",
